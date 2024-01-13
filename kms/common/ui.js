@@ -75,7 +75,7 @@ let config = {
     { 
        id: "moveAmount", 
        isA: ['preposition'],
-       implicit: true,
+       convolution: true,
        level: 0, 
        bridge: "{ ...before[0], postModifiers: ['steps'], steps: after[0] }",
     },

@@ -16,7 +16,7 @@ let config = {
     { 
       id: "counting", 
       level: 0, 
-      implicit: true, 
+      convolution: true, 
       before: ['verby'],
       bridge: "{ ...after, quantity: before[0] }" 
     },

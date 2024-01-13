@@ -152,7 +152,7 @@ let config = {
     { 
        id: "propertyCondition", 
        before: ['adjective', 'articlePOS', 'the'],
-       implicit: true,
+       convolution: true,
        level: 0, 
        bridge: "{ ...next(after[0]), condition: before[0], modifiers: ['condition'] }",
     },
