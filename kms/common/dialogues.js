@@ -1,5 +1,6 @@
 const { Config, knowledgeModule, where } = require('./runtime').theprogrammablemind
 const meta = require('./meta.js')
+const gdefaults = require('./gdefaults.js')
 const _ = require('lodash')
 const { isMany } = require('./helpers')
 const dialogues_tests = require('./dialogues.test.json')
@@ -676,43 +677,6 @@ let config = {
       match: ({context}) => context.evaluateToWord && context.word,
       apply: ({context}) => context.word,
     },
-
-    // defaults
-    {
-      notes: 'show the input word',
-      where: where(),
-      match: ({context}) => context.paraphrase && context.word,
-      apply: ({context}) => `${context.word}` 
-    },
-
-    [
-      ({context}) => context.verbatim,
-      ({context}) => context.verbatim
-    ],
-
-    [
-      ({context}) => context.evalue,
-      ({context, g}) => g(context.evalue)
-    ],
-
-    [
-      ({context}) => context.evalue,
-      ({context}) => `the ${context.word}` 
-    ],
-
-    {
-      notes: 'show word',
-      where: where(),
-      match: ({context}) => context.word,
-      apply: ({context}) => context.word,
-    },
-
-    {
-      notes: 'show json',
-      where: where(),
-      match: () => true,
-      apply: ({context}) => JSON.stringify(context)
-    }
   ],
 
   semantics: [
@@ -899,6 +863,7 @@ let config = {
 
 config = new Config(config, module)
 config.api = api
+config.add(gdefaults)
 config.add(meta)
 
 config.initializer( ({objects, config, api, isModule}) => {
