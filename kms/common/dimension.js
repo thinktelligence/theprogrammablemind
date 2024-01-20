@@ -2,7 +2,7 @@ const { Config, knowledgeModule, where, Digraph } = require('./runtime').theprog
 const gdefaults = require('./gdefaults.js')
 const numbers = require('./numbers.js')
 const testing = require('./testing.js')
-const temperature_tests = require('./temperature.test.json')
+const dimension_tests = require('./dimension.test.json')
 
 /*
   x celcius equals x*9/5 + 32 fahrenheit
@@ -74,7 +74,7 @@ class API {
 const api = new API()
 
 let config = {
-  name: 'temperature',
+  name: 'dimension',
   operators: [
     "([dimension])",
     "([unit])",
@@ -176,7 +176,7 @@ knowledgeModule({
   description: 'Used to define numeric temperature such as currency, temperature or weight',
   config,
   test: {
-    name: './temperature.test.json',
-    contents: temperature_tests
+    name: './dimension.test.json',
+    contents: dimension_tests
   },
 })

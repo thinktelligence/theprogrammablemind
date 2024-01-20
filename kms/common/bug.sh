@@ -401,4 +401,5 @@
 # export DEBUG_OPERATOR="([dimension])"
 # node tester -m temperature -do "([dimension])" -q 'hi' -d -g
 # node testing -q 'testingEvaluate testingValue' -g -d
-node tester -m temperature -tva -tmn temperature -g
+# node tester -m temperature -tva -tmn temperature -g
+node tester -m dimension -tva -tmn dimension -g

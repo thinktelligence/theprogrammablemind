@@ -22,7 +22,7 @@ node ordering -tva -g
 node people -tva -g
 node scorekeeper -tva -g
 node tell -tva -g
-node temperature -tva -g
+node dimension -tva -g
 node time -tva -g
 node ui -tva -g
 node testing -tva -g

@@ -20,7 +20,7 @@ node tester -m ordering -tva -tmn ordering -g
 node tester -m people -tva -tmn people -g
 node tester -m scorekeeper -tva -tmn scorekeeper -g
 node tester -m tell -tva -tmn tell -g
-node tester -m temperature -tva -tmn temperature -g
+node tester -m dimension -tva -tmn dimension -g
 node tester -m time -tva -tmn time -g
 node tester -m testing -tva -tmn testing -g
 # -g
