@@ -393,5 +393,12 @@
 # node comparable -q 'lowest comparable' -g -d
 # node pipboy -q 'highest damage pistol' -g -d
 # node pipboy -q 'equip the highest damage pistol' -g -d -s
-node pipboy -q 'drink a cola' -g -d -s
+# node pipboy -q 'drink a cola' -g -d -s
 # node pipboyTemplate -q "damage luck hp rads value ap charisma range accuracy are properties" -g -d
+# node temperature -q '10 degrees celcius in fahrenheit' -g -s
+# node temperature -q 'testingEvaluate 10 degrees celcius in fahrenheit' -g -d
+# node tester -m testing -q 'testingEvaluate testingValue' -d -g
+# export DEBUG_OPERATOR="([dimension])"
+# node tester -m temperature -do "([dimension])" -q 'hi' -d -g
+# node testing -q 'testingEvaluate testingValue' -g -d
+node tester -m temperature -tva -tmn temperature -g

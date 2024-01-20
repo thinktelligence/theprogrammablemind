@@ -1,6 +1,12 @@
 const { Config, knowledgeModule, where } = require('./runtime').theprogrammablemind
 const numbers_tests = require('./numbers.test.json')
 
+/*
+  TODO 
+    10 microns
+    10 million 300 hundred and fifty
+*/
+
 let config = {
   name: 'numbers',
   operators: [

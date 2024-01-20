@@ -1,14 +1,40 @@
 const { Config, knowledgeModule, where, Digraph } = require('./runtime').theprogrammablemind
+const gdefaults = require('./gdefaults.js')
 const numbers = require('./numbers.js')
+const testing = require('./testing.js')
 const temperature_tests = require('./temperature.test.json')
 
 /*
-  x celcius equals x*9/5 + 32 farenheight
-  x farenheight equals (x-32)*5/9 + 32 farenheight
+  x celcius equals x*9/5 + 32 fahrenheit
+  x fahrenheit equals (x-32)*5/9 + 32 fahrenheit
+  10 celcius + 5
+
+  10 C
 */
 class API {
 
   initialize() {
+  }
+
+  setup( {dimension, units} ) {
+    const config = this.config()
+
+    // for example, setup temperature concept
+    config.addOperator(`([${dimension}])`)
+    config.addBridge({ 
+      id: dimension,
+      isA: ['dimension'],
+      generatorp: ({context, g}) => context.amount ? `${g(context.amount)} ${g(context.unit)}` : context.word,
+    })
+
+    // for example, celcius and fahrenheit
+    for (let unit of units) {
+      config.addOperator(`([${unit}])`)
+      config.addBridge({ 
+        id: unit,
+        isA: ['unit'],
+      })
+    }
   }
 
   getDimension() {
@@ -50,62 +76,104 @@ const api = new API()
 let config = {
   name: 'temperature',
   operators: [
-    "([temperature])",
     "([dimension])",
+    "([unit])",
+    "((amount/1 || number/1) [amountOfDimension|] ([unit]))",
+    "(([amount]) [unit])",
+    "((dimension/1) [convertToUnits|in] (unit/1))",
+
     "(([number]) [degree])",
-    "(([amount]) [amountOfDimension|] ([dimension]))",
-    "(([amount]) [dimension])",
-    "([celcuis])",
-    // "((temperature/1) [in] (temperature/0))",
+    // "([temperature])",
+    // "([celcius])",
+    // "([fahrenheit])",
     // TODO 20 dollars in euros and yen
+  ],
+  priorities: [
+    // TODO this should have been calculated
+    [['convertToUnits', 0], ['amountOfDimension', 0]],
+  ],
+  hierarchy: [
+    { child: 'convertToUnits', parent: 'testingValue', development: true },
   ],
   bridges: [
     { 
-      id: "temperature", 
-      level: 0, 
-      generatorp: ({context, g}) => context.amount ? `${g(context.amount)} ${g(context.dimension)}` : context.word,
-      bridge: "{ ...next(operator) }" 
+      id: "dimension", 
+      generatorp: ({context, g}) => context.amount ? `${g(context.amount)} ${g(context.unit)}` : context.word,
     },
-    { 
-      id: "amount", 
-      level: 0, 
-      bridge: "{ ...next(operator) }" 
-    },
+    { id: "amount", },
     { 
       id: "degree", 
       words: [{ word: 'degrees', number: 'many' }],
-      level: 0, 
       isA: ['amount'],
       generatorp: ({context, g}) => (context.amount) ? `${g(context.amount)} ${context.word}` : context.word,
       bridge: "{ ...next(operator), amount: before[0] }" 
     },
     { 
       id: "amountOfDimension", 
-      level: 0, convolution: true, 
-      bridge: "{ marker: operator('temperature'), dimension: after[0], amount: before[0] }" 
+      convolution: true, 
+      bridge: "{ marker: operator('dimension'), unit: after[0], amount: before[0] }" 
     },
     { 
-      id: "dimension", 
-      level: 0, 
-      bridge: "{ ...next(operator) }" 
+      id: "convertToUnits", 
+      bridge: "{ ...next(operator), from: before[0], to: after[0] }",
+      generatorp: ({context, g}) => `${g(context.from)} ${context.word} ${g(context.to)}`,
+      evaluator: ({context}) => {
+        const from = context.from;
+        const to = context.to;
+        // from => to => formula
+        const conversion = {
+          "celcius": {
+            "fahrenheit": (celcius) => celcius*9/5 + 32,
+          },
+          "fahrenheit": {
+            "celcius": (fahrenheit) => (fahrenheit-32)*5/9,
+          },
+        }
+
+        const value = conversion[from.unit.marker][to.marker](from.amount.amount.value)
+        console.log('value', value)
+        context.evalue = value
+      },
     },
+    { id: "unit", },
+
+    /*
     { 
-      id: "celcuis", 
-      level: 0, 
+      id: "temperature", 
       isA: ['dimension'],
-      generatorp: ({context}) => context.word,
-      bridge: "{ ...next(operator) }" 
+      generatorp: ({context, g}) => context.amount ? `${g(context.amount)} ${g(context.unit)}` : context.word,
     },
+    */
+   
+    /* 
+    { 
+      id: "fahrenheit", 
+      isA: ['unit'],
+    },
+    { 
+      id: "celcius", 
+      isA: ['unit'],
+    },
+    */
   ]
 };
 
 config = new Config(config, module)
-config.add(numbers)
+config.add(gdefaults).add(numbers).add(testing)
 config.api = api
+config.initializer( ({config, api, isAfterApi, isModule}) => {
+  if (!isModule && isAfterApi) {
+    api.setup({ 
+      dimension: 'temperature',
+      units: ['celcius', 'fahrenheit', 'kelvin'],
+    })
+  }
+}, { initAfterApi: true });
+
 
 knowledgeModule({ 
   module,
-  description: 'Used to define numberic temperature such as currency, temperature or weight',
+  description: 'Used to define numeric temperature such as currency, temperature or weight',
   config,
   test: {
     name: './temperature.test.json',
