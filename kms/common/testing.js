@@ -15,13 +15,14 @@ let config = {
       semantic: ({context, e}) => {
         debugger
         context.evalue = e(context.value)
+        context.isResponse = true
       },
       bridge: "{ ...next(operator), value: after[0] }",
     },
     { 
       id: 'testingValue',
       evaluator: ({context}) => {
-        context.evalue = 'testingValue evaluation'
+        context.evalue = 'evaluated testingValue'
       }
     },
   ],
