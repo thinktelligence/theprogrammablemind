@@ -10,6 +10,7 @@ let config = {
   ],
   bridges: [
     {
+      where: where(),
       id: 'testingEvaluate',
       generatorp: ({context, g}) => `${context.word} ${g(context.value)}`,
       semantic: ({context, e}) => {
@@ -20,6 +21,7 @@ let config = {
       bridge: "{ ...next(operator), value: after[0] }",
     },
     { 
+      where: where(),
       id: 'testingValue',
       evaluator: ({context}) => {
         context.evalue = 'evaluated testingValue'

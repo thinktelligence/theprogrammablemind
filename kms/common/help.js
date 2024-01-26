@@ -34,6 +34,7 @@ let config = {
       bridge: "{ ...next(operator) }" 
     },
     { 
+      where: where(),
       id: "help", 
       level: 0, 
       generatorp: () => 'help',

@@ -178,7 +178,10 @@ let config = {
     // call this report report1
   ],
   bridges: [
-    { id: "move", level: 0, 
+    { 
+        where: where(),
+        id: "move", 
+        level: 0, 
         bridge: "{ ...next(operator), on: { marker: 'report', pullFromContext: true }, from: after[0], to: after[1] }",
         directionBridge: "{ ...next(operator), on: { marker: 'report', pullFromContext: true }, directionBridge: true, from: after[0], to: after[1] }",
 
@@ -206,7 +209,9 @@ let config = {
           kms.events.api.happens({ marker: "changes", changeable: report })
         }
     },
-    { id: "remove", level: 0, 
+    { 
+        where: where(),
+        id: "remove", level: 0, 
         bridge: "{ ...next(operator), on: { marker: 'report', pullFromContext: true }, removee: after[0] }",
         generatorp: ({context, gp}) => `remove ${gp(context.removee)}`,
         semantic: ({context, e, kms, objects}) => {
@@ -218,7 +223,9 @@ let config = {
           kms.events.api.happens({ marker: "changes", changeable: report })
         }
     },
-    { id: "column", level: 0, 
+    { 
+        where: where(),
+        id: "column", level: 0, 
         bridge: "{ ...next(operator), index: after[0] }",
         generatorp: ({context, gp}) => `column ${gp(context.index)}`,
     },
@@ -226,26 +233,28 @@ let config = {
     { id: "direction", level: 0, bridge: "{ ...next(operator) }" },
     { id: "left", isA: ['direction'], level: 0, bridge: "{ ...next(operator) }" },
     { id: "right", isA: ['direction'], level: 0, bridge: "{ ...next(operator) }" },
-    { id: "report", level: 0, 
-            isA: ['theAble'], 
-            words: [{word: "reports", number: "many"}], 
-            bridge: "{ ...next(operator) }",
-            generators: [
-              {
-                where: where(),
-                match: ({context}) => context.marker == 'report' && context.describe,
-                apply: ({context, apis, gp, gs, objects}) => {
-                  const listings = objects.listings[context.value]
-                  // {"type":"tables","columns":["name"],"ordering":[]}
-                  return `for ${listings.api}, showing the ${wordNumber('property', listings.columns.length > 1)} ${gs(listings.columns, ' ', ' and ')} as ${listings.type}`
-                }
-              },
-              {
-                where: where(),
-                match: ({context}) => context.marker == 'report' && context.evalue,
-                apply: ({context}) => context.evalue.value
-              }
-            ],
+    { 
+        where: where(),
+        id: "report", level: 0, 
+        isA: ['theAble'], 
+        words: [{word: "reports", number: "many"}], 
+        bridge: "{ ...next(operator) }",
+        generators: [
+          {
+            where: where(),
+            match: ({context}) => context.marker == 'report' && context.describe,
+            apply: ({context, apis, gp, gs, objects}) => {
+              const listings = objects.listings[context.value]
+              // {"type":"tables","columns":["name"],"ordering":[]}
+              return `for ${listings.api}, showing the ${wordNumber('property', listings.columns.length > 1)} ${gs(listings.columns, ' ', ' and ')} as ${listings.type}`
+            }
+          },
+          {
+            where: where(),
+            match: ({context}) => context.marker == 'report' && context.evalue,
+            apply: ({context}) => context.evalue.value
+          }
+        ],
     },
 
     { id: "ascending", level: 0, bridge: "{ ...before[0], ordering: 'ascending' }" },
@@ -278,6 +287,7 @@ let config = {
     },
 
     {
+      where: where(),
       id: "describe",
       level: 0,
       isA: ['verby'],
@@ -308,6 +318,7 @@ let config = {
     },
 
     { 
+      where: where(),
       id: "call", 
       level: 0, 
       bridge: "{ ...next(operator), namee: after[0], name: after[1] }",

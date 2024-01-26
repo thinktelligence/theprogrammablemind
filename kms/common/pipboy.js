@@ -143,6 +143,7 @@ let config = {
   ],
   bridges: [
     {
+       where: where(),
        id: "put", 
        isA: ['verby'],
        level: 0, 
@@ -150,6 +151,7 @@ let config = {
        generatorp: ({context, g}) => `put on`,
     },
     { 
+       where: where(),
        id: "propertyCondition", 
        before: ['adjective', 'articlePOS', 'the'],
        convolution: true,
@@ -157,6 +159,7 @@ let config = {
        bridge: "{ ...next(after[0]), condition: before[0], modifiers: ['condition'] }",
     },
     { 
+       where: where(),
        id: "on", 
        isA: ['preposition'],
        level: 0, 
@@ -167,6 +170,7 @@ let config = {
        }
     },
     { 
+       where: where(),
        id: "change", 
        isA: ['verby'],
        level: 0, 
@@ -178,6 +182,7 @@ let config = {
        }
     },
     { 
+       where: where(),
        id: "disarm", 
        isA: ['verby'],
        level: 0, 
@@ -188,6 +193,7 @@ let config = {
        }
     },
     { 
+       where: where(),
        id: "strip", 
        isA: ['verby'],
        level: 0, 
@@ -198,6 +204,7 @@ let config = {
        }
     },
     { 
+       where: where(),
        id: "call", 
        isA: ['verby'],
        level: 0, 
@@ -208,6 +215,7 @@ let config = {
        }
     },
     { 
+       where: where(),
        id: "putOn", 
        isA: ['verby'],
        level: 0, 
@@ -222,6 +230,7 @@ let config = {
        }
     },
     { 
+       where: where(),
        id: "wear", 
        isA: ['verby'],
        words: ['where'], // the speech recognizer hears 'where' not 'wear'
@@ -237,6 +246,7 @@ let config = {
        }
     },
     { 
+       where: where(),
        id: "equip", 
        isA: ['verby'],
        level: 0, 
@@ -253,6 +263,7 @@ let config = {
        }
     },
     { 
+       where: where(),
        id: "toDrink", 
        isA: ['verby'],
        level: 0, 
@@ -264,6 +275,7 @@ let config = {
        }
     },
     { 
+       where: where(),
        id: "eat", 
        isA: ['verby'],
        level: 0, 
@@ -275,6 +287,7 @@ let config = {
        }
     },
     { 
+       where: where(),
        id: "take", 
        isA: ['verby'],
        level: 0, 
@@ -286,6 +299,7 @@ let config = {
        }
     },
     { 
+       where: where(),
        id: "nameable", 
        isA: ['theAble'],
        children: ['thisitthat'],

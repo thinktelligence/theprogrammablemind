@@ -55,6 +55,7 @@ let config = {
   ],
   bridges: [
     { 
+       where: where(),
        id: "select", 
        isA: ['verby'],
        level: 0, 
@@ -64,6 +65,7 @@ let config = {
        }
     },
     { 
+       where: where(),
        id: "unselect", 
        isA: ['verby'],
        level: 0, 
@@ -73,6 +75,7 @@ let config = {
        }
     },
     { 
+       where: where(),
        id: "moveAmount", 
        isA: ['preposition'],
        convolution: true,
@@ -80,6 +83,7 @@ let config = {
        bridge: "{ ...before[0], postModifiers: ['steps'], steps: after[0] }",
     },
     { 
+       where: where(),
        id: "cancel", 
        isA: ['verby'],
        level: 0, 
@@ -90,6 +94,7 @@ let config = {
        }
     },
     { 
+       where: where(),
        id: "stop", 
        isA: ['verby'],
        level: 0, 
@@ -101,6 +106,7 @@ let config = {
        }
     },
     { 
+       where: where(),
        id: "move", 
        isA: ['verby'],
        level: 0, 

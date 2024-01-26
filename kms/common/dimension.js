@@ -97,16 +97,18 @@ let config = {
   ],
   bridges: [
     { 
+      where: where(),
       id: "dimension", 
       generatorp: ({context, g}) => context.amount ? `${g(context.amount)} ${g(context.unit)}` : context.word,
     },
     { id: "amount", },
     { 
+      where: where(),
       id: "degree", 
       words: [{ word: 'degrees', number: 'many' }],
       isA: ['amount'],
       generatorp: ({context, g}) => (context.amount) ? `${g(context.amount)} ${context.word}` : context.word,
-      bridge: "{ ...next(operator), amount: before[0] }" 
+      bridge: "{ ...next(operator), amount: before[0] }",
     },
     { 
       id: "amountOfDimension", 
@@ -114,6 +116,7 @@ let config = {
       bridge: "{ marker: operator('dimension'), unit: after[0], amount: before[0] }" 
     },
     { 
+      where: where(),
       id: "convertToUnits", 
       bridge: "{ ...next(operator), from: before[0], to: after[0] }",
       generatorp: ({context, g}) => `${g(context.from)} ${context.word} ${g(context.to)}`,
