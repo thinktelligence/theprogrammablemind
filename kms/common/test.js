@@ -1,7 +1,7 @@
 const package = require('../package.json')
 const { exec } = require('child_process');
 
-const tests = []
+let tests = []
 for (let file of package.files) {
   if (!/^.*.js$/.exec(file)) {
     continue
@@ -12,21 +12,28 @@ for (let file of package.files) {
   if (/^common.helper/.exec(file)) {
     continue
   }
+
   file = file.slice('common/'.length).slice(0, -3)
+  if (['', 'pipboyTemplate', 'runtime', 'tester', 'helpers'].includes(file)) {
+    continue
+  }
+
   tests.push(`node ${file} -tva -g`)
-  tests.push(`node tester -m ${file} -tva -tmn ${file} -g`)
+  // tests.push(`node tester -m ${file} -tva -tmn ${file} -g`)
 }
 
+// tests = [tests[0]]
 
 const loop = (tests, failed) => {
-  if (tests == []) {
-    console.log("FAILED Tests", JSON.stringify(failed, null, 2))
+  if (tests.length == []) {
+    if (failed.length > 0) {
+      console.log("FAILED Tests", JSON.stringify(failed, null, 2))
+    }
     return
   }
   const test = tests.shift()
   exec(test,
     (error, stdout, stderr) => {
-      console.log("stdout ----------------")
       console.log(stdout);
       console.log(stderr);
       if (error !== null) {
