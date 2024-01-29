@@ -36,39 +36,6 @@ class API {
       })
     }
   }
-
-  getDimension() {
-    return 'temperature'
-  }
-
-  // map temperature word to the unit that will be put in the context
-  getUnits() {
-    return {
-      'dollars': 'dollar', 
-      'dollar': 'dollar',
-      'pounds': 'pound',
-      'pound': 'pound',
-      'euros': 'euro', 
-      'euro': 'euro',
-    } 
-  }
-
-  getUnitWords() {
-    return [
-      { temperature: 'dollar', one: 'dollar', many: 'dollars' },
-      { temperature: 'pound', one: 'pound', many: 'pounds' },
-      { temperature: 'euro', one: 'euro', many: 'euros' },
-    ]
-  }
-
-  convertTo(amount, fromUnits, toUnits) {
-    const conversion = {
-    "dollar": { "euro": 0.82, "pound": 0.71, },
-    "euro": { "dollar": 1.22, "pound": 0.82, },
-    "pound": { "dollar": 1.42, "euro": 1.16, },
-    }
-    return conversion[fromUnits][toUnits] * amount
-  }
 }
 
 const api = new API()
@@ -83,10 +50,6 @@ let config = {
     "((dimension/1) [convertToUnits|in] (unit/1))",
 
     "(([number]) [degree])",
-    // "([temperature])",
-    // "([celcius])",
-    // "([fahrenheit])",
-    // TODO 20 dollars in euros and yen
   ],
   priorities: [
     // TODO this should have been calculated
@@ -139,25 +102,6 @@ let config = {
       },
     },
     { id: "unit", },
-
-    /*
-    { 
-      id: "temperature", 
-      isA: ['dimension'],
-      generatorp: ({context, g}) => context.amount ? `${g(context.amount)} ${g(context.unit)}` : context.word,
-    },
-    */
-   
-    /* 
-    { 
-      id: "fahrenheit", 
-      isA: ['unit'],
-    },
-    { 
-      id: "celcius", 
-      isA: ['unit'],
-    },
-    */
   ]
 };
 

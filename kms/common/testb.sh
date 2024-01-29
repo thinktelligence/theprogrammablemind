@@ -5,6 +5,7 @@ node tester -m avatar -tva -tmn avatar -g
 node tester -m characters -tva -tmn characters -g
 node tester -m currency -tva -tmn currency -g
 node tester -m dialogues -tva -tmn dialogues -g
+node tester -m dimension -tva -tmn dimension -g
 node tester -m emotions -tva -tmn emotions -g
 node tester -m events -tva -tmn events -g
 node tester -m foods -tva -tmn foods -g
