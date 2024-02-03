@@ -408,4 +408,5 @@
 # node math -d -q '4 + x' -g -s
 # node inspect math -d -q 'x * y + z' -g
 # node formulas -d -q 'y equals 4 x = y + z calculate x' -g
-node formulas -d -q 'solve x = y for x' -g
+# node formulas -d -q 'solve x = y for x' -g
+node formulas -d -q 'solve x = y + 1 for x' -g -s

@@ -7,6 +7,7 @@ const comparable = require('./common/comparable');
 const currency = require('./common/currency');
 const dialogues = require('./common/dialogues');
 const dimension = require('./common/dimension');
+const formulas = require('./common/formulas');
 const help = require('./common/help');
 const hierarchy = require('./common/hierarchy');
 const javascript = require('./common/javascript');
@@ -39,6 +40,7 @@ module.exports = {
   currency,
   dialogues,
   dimension,
+  formulas,
   help,
   hierarchy,
   javascript,

@@ -97,11 +97,11 @@ let config = {
   ],
   bridges: [
     {
+      where: where(),
       id: 'solve', 
       bridge: "{ ...next(operator), equality: after[0], variable: after[2] }",
-      generatorp: ({context, g}) => `${context.word} ${g(context.equality)} for ${g(context.variable)}`,
+      generatorp: ({context, gp}) => `${context.word} ${gp(context.equality)} for ${gp(context.variable)}`,
       semantic: ({context}) => {
-        debugger
         context.response = solveFor(context.equality, context.variable)
         context.isResponse = true
         if (!context.response) {
@@ -122,6 +122,7 @@ let config = {
       children: ['mathematicalExpression', 'number'],
     },
     {
+      where: where(),
       id: 'calculate',
       bridge: "{ ...next(operator), expression: after[0] }",
       generatorp: ({context, g}) => `${context.word} ${g(context.expression)}`,
@@ -132,12 +133,13 @@ let config = {
       } 
     },
     {
+      where: where(),
       id: 'equals',
       bridge: "{ ...next(operator), left: before[0], right: after[0] }",
       words: ['='],
       // TODO have this be per argument then 'is' can map to equals where this only applied to before[0] and not after[0]
       localHierarchy: [ ['unknown', 'expression'] ],
-      generatorp: ({context, g}) => `${g(context.left)} ${context.word} ${g(context.right)}`,
+      generatorp: ({context, gp}) => `${gp(context.left)} ${context.word} ${gp(context.right)}`,
       semantic: ({context, api}) => {
         // TODO make sure left is a single name
         // TODO calculate invertable formulas?

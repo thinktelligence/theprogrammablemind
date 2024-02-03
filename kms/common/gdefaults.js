@@ -31,6 +31,12 @@ let config = {
 
     {
       where: where(),
+      match: ({context}) => context.isResponse && context.response,
+      apply: ({context, gp}) => gp(context.response),
+    },
+
+    {
+      where: where(),
       match: ({context}) => context.word,
       apply: ({context}) => context.word,
     },
