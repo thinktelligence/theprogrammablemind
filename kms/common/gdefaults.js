@@ -6,36 +6,36 @@ let config = {
   generators: [
     // defaults
     {
-      notes: 'show the input word',
       where: where(),
       match: ({context}) => context.paraphrase && context.word,
       apply: ({context}) => `${context.word}` 
     },
 
-    [
-      ({context}) => context.verbatim,
-      ({context}) => context.verbatim
-    ],
-
-    [
-      ({context}) => context.evalue,
-      ({context, g}) => g(context.evalue)
-    ],
-
-    [
-      ({context}) => context.evalue,
-      ({context}) => `the ${context.word}` 
-    ],
+    {
+      where: where(),
+      match: ({context}) => context.verbatim,
+      apply: ({context}) => context.verbatim
+    },
 
     {
-      notes: 'show word',
+      where: where(),
+      match: ({context}) => context.evalue,
+      apply: ({context, g}) => g(context.evalue)
+    },
+
+    {
+      where: where(),
+      match: ({context}) => context.evalue,
+      apply: ({context}) => `the ${context.word}` 
+    },
+
+    {
       where: where(),
       match: ({context}) => context.word,
       apply: ({context}) => context.word,
     },
 
     {
-      notes: 'show json',
       where: where(),
       match: () => true,
       apply: ({context}) => JSON.stringify(context)

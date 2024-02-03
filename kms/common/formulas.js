@@ -1,6 +1,7 @@
 const { Config, knowledgeModule, where, Digraph } = require('./runtime').theprogrammablemind
 const gdefaults = require('./gdefaults.js')
 const math = require('./math.js')
+const { getVariables, solveFor } = require('./helpers/formulas.js')
 const formulas_tests = require('./formulas.test.json')
 
 const template = {
@@ -79,7 +80,9 @@ class API {
 let config = {
   name: 'formulas',
   operators: [
+    // TODO notations like (([arg1:]) [op] ([arg2:nameOfArg2}|word1])) -> just make the bridge + operators. put this in the bridge def / also calculate generators
     "([formula])",
+    "([solve] ([equals]) ([forVariable|for]) (variable))",
     "([calculate] ([expression]))",
     "(([expression]) [equals] ([expression]))",
   ],
@@ -93,6 +96,24 @@ let config = {
     },
   ],
   bridges: [
+    {
+      id: 'solve', 
+      bridge: "{ ...next(operator), equality: after[0], variable: after[2] }",
+      generatorp: ({context, g}) => `${context.word} ${g(context.equality)} for ${g(context.variable)}`,
+      semantic: ({context}) => {
+        debugger
+        context.response = solveFor(context.equality, context.variable)
+        context.isResponse = true
+        if (!context.response) {
+          // TODO some KM for talking to the user wrt brief+avatar
+          context.verbatim = `Solving failed`
+        }
+        debugger
+      }
+    },
+    { 
+      id: 'forVariable',
+    },
     { 
       id: 'formula',
     },
