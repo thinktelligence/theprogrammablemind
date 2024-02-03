@@ -36,7 +36,7 @@ const compareValue = (property, v1, v2) => {
 const newReport = ({km, objects}) => {
   objects.tempReportId += 1
   const reportId = `tempReport${objects.tempReportId}`
-  km('dialogues').api.mentioned({ marker: "report", text: reportId, types: [ "report" ], value: reportId, word: reportId })
+  km('stm').api.mentioned({ marker: "report", text: reportId, types: [ "report" ], value: reportId, word: reportId })
   // name to listing
   objects.listings[reportId] = {
       columns: ['name', 'supplier'],
@@ -330,7 +330,7 @@ let config = {
         const name = context.name.text
         objects.listings[name] = {...listing}
         config.addWord(` ${name}`,  { id: 'report', initial: `{ value: "${name}" }` })
-        km('dialogues').api.mentioned({
+        km('stm').api.mentioned({
                   marker: "report",
                   text: name,
                   types: [ "report" ],
@@ -445,8 +445,8 @@ let config = {
         const columns = objects.listings[context.id].columns
         if (false) {
           debugger;
-          kms.dialogues.api.setVariable('price', { marker: 'price', value: 23 })
-          kms.dialogues.api.setVariable('quantity', { marker: 'quantity', value: 3 })
+          kms.stm.api.setVariable('price', { marker: 'price', value: 23 })
+          kms.stm.api.setVariable('quantity', { marker: 'quantity', value: 3 })
           const c1 = { marker: 'worth', value: 'worth' }
           r1 = toEValue(e(c1));
           r2 = e({ marker: 'supplier', value: 'supplier' })
@@ -455,7 +455,7 @@ let config = {
         const data = products.map( (product) => {
           const row = []
           for (let p of Object.keys(product)) {
-            kms.dialogues.api.setVariable(p, { marker: p, value: product[p] })
+            kms.stm.api.setVariable(p, { marker: p, value: product[p] })
           }
           for (let property of columns) {
             const value = toEValue(e({ marker: property, value: property }));
@@ -492,7 +492,6 @@ let config = {
             if (!value.value || value.pullFromContext) {
               value = e(value)
             }
-            // JSON.stringify(config.config.objects.namespaced.dialogues29.mentioned[0])
             let id = value.value
             if (value.evalue) {
               id = value.evalue.value
@@ -539,7 +538,6 @@ let config = {
       match: ({context}) => context.marker == 'listAction', 
       apply: ({context, e, objects, apis, km, config}) => {
         //const name = '***current***'
-        //km('dialogues').api.mentioned({ marker: "report", text: name, types: [ "report" ], value: name, word: name })
         if (context.api) {
           // id = newReport({km, objects})
           const report = e({ marker: 'report', pullFromContext: true })

@@ -266,12 +266,12 @@ let config = {
           return
         } else if (kms.dialogues) {
           if (context.to.value) {
-            kms.dialogues.api.setVariable(context.from.value, context.to.value)
+            kms.stm.api.setVariable(context.from.value, context.to.value)
           } else {
             // config.addWord(context.from.word, 
             kms.dialogues.api.makeObject({ context: context.from, types: context.to.types || [], config });
             // const r = e(context.to)
-            kms.dialogues.api.setVariable(context.from.value, context.to)
+            kms.stm.api.setVariable(context.from.value, context.to)
           }
         }
       }

@@ -1,6 +1,7 @@
 const { Config, knowledgeModule, where } = require('./runtime').theprogrammablemind
 const meta = require('./meta.js')
 const gdefaults = require('./gdefaults.js')
+const stm = require('./stm.js')
 const _ = require('lodash')
 const { isMany } = require('./helpers')
 const dialogues_tests = require('./dialogues.test.json')
@@ -9,9 +10,6 @@ const pluralize = require('pluralize')
 
 class API {
   initialize() {
-    this.isAs = [
-      (child, parent) => child == parent
-    ]
   }
 
   //
@@ -32,72 +30,6 @@ class API {
 
   getBrief() {
     return this.objects.brief
-  }
-
-  addIsA(isA) {
-    if (!this.isAs.find( (f) => f == isA )) {
-      this.isAs.push(isA)
-    }
-  }
-
-  isA(child, parent) {
-    for (let isA of this.isAs) {
-      if (isA(child, parent)) {
-        return true
-      }
-    }
-    return false
-  }
-
-  mentioned(concept, value = undefined) {
-    if (value) {
-      concept = { ...concept }
-      if (concept.marker == 'unknown') {
-        if (concept.value) {
-          concept.marker = concept.value
-        }
-      }
-      concept.value = value
-    }
-    this.objects.mentioned.unshift(concept)
-  }
-
-  mentions(context) {
-    for (let m of this.objects.mentioned) {
-      if (this.isA(m.marker, context.marker)) {
-        return m
-      }
-      // if (context.types && context.types.includes(m.marker)) {
-      if (context.types) {
-        for (let parent of context.types) {
-          if (this.isA(m.marker, parent)) {
-            return m
-          }
-        }
-      }
-    }
-    if (context.types && context.types.length == 1) {
-      for (let m of this.objects.mentioned) {
-        if (context.unknown) {
-          return m
-        }
-      }
-    }
-  }
-
-  getVariable(name) {
-    if (!name) {
-      return
-    }
-    let valueNew = this.mentions({ marker: name }) || name
-    if (valueNew && valueNew.value) {
-      valueNew = valueNew.value
-    }
-    return valueNew
-  }
-
-  setVariable(name, value) {
-    this.mentioned({ marker: name }, value)
   }
 
   evaluateToWord(value, g) {
@@ -702,8 +634,8 @@ let config = {
       where: where(),
       // match: ({context}) => context.marker == 'it' && context.pullFromContext, // && context.value,
       match: ({context}) => context.pullFromContext && !context.same, // && context.value,
-      apply: ({context, s, api, e, log, retry}) => {
-        context.value = api.mentions(context)
+      apply: ({context, s, kms, e, log, retry}) => {
+        context.value = kms.stm.api.mentions(context)
         if (!context.value) {
           // retry()
           context.value = { marker: 'answerNotKnown' }
@@ -741,7 +673,7 @@ let config = {
         value = JSON.parse(JSON.stringify(value))
         let instance = e(value)
         if (instance.evalue) {
-          km('dialogues').api.mentioned(value)
+          km('stm').api.mentioned(value)
         }
         if (instance.verbatim) {
           context.evalue = { verbatim: instance.verbatim }
@@ -786,7 +718,7 @@ let config = {
       where: where(),
       notes: 'x is y',
       match: ({context}) => context.marker == 'is' && !context.query && context.one && context.two,
-      apply: ({context, s, log, api, config}) => {
+      apply: ({context, s, log, api, kms, config}) => {
         const one = context.one;
         const two = context.two;
         one.same = two;
@@ -815,8 +747,8 @@ let config = {
         }
         if (!onePrime.sameWasProcessed && !twoPrime.sameWasProcessed) {
 					api.makeObject({ context: one, config, types: context.two.types || [] })
-					api.setVariable(one.value, two)
-					api.mentioned(one, two)
+					kms.stm.api.setVariable(one.value, two)
+					kms.stm.api.mentioned(one, two)
         }
       }
     },
@@ -824,19 +756,11 @@ let config = {
       notes: 'default handle evaluate',
       where: where(),
       match: ({context}) => context.evaluate,
-      apply: ({context, api, e}) => {
-        // greg101
-        if (true) {
-          context.value = api.getVariable(context.value)
-          if (!context.value && context.marker !== 'unknown') {
-            context.value = api.getVariable(context.marker)
-          }
-        } else {
-          let value = api.getVariable(context.value || context.marker)
-          if (value.marker == context.marker && value.value == context.value && value.evalue == context.evalue) {
-            return
-          }
-          context.value = value
+      apply: ({context, kms, e}) => {
+        const api = kms.stm.api
+        context.value = api.getVariable(context.value)
+        if (!context.value && context.marker !== 'unknown') {
+          context.value = api.getVariable(context.marker)
         }
         if (context.value && context.value.marker) {
           context.evalue = e(context.value)
@@ -863,8 +787,7 @@ let config = {
 
 config = new Config(config, module)
 config.api = api
-config.add(gdefaults)
-config.add(meta)
+config.add(gdefaults).add(stm).add(meta)
 
 config.initializer( ({objects, config, api, isModule}) => {
   objects.mentioned = []
@@ -886,15 +809,4 @@ knowledgeModule( {
     name: './dialogues.test.json',
     contents: dialogues_tests
   },
-  /*
-  module: () => {
-    config.initializer( ({objects, api, uuid}) => {
-      objects.dialog = {
-          current: []
-      }
-    })
-
-    module.exports = config
-  }
-  */
 })

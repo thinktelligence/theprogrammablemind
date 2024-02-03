@@ -56,7 +56,7 @@ let config = {
       where: where(),
       match: ({context, listable}) => context.marker == 'self',
       apply: ({context, km}) => {
-        km("dialogues").api.setVariable('self', context.same.value)
+        km("stm").api.setVariable('self', context.same.value)
         context.sameWasProcessed = true
       }
     },

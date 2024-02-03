@@ -266,7 +266,7 @@ config = new Config(config, module)
 config.add(properties)
 config.initializer( ({isAfterApi, kms, hierarchy}) => {
   if (isAfterApi) {
-    kms.dialogues.api.addIsA( (child, parent) => {
+    kms.stm.api.addIsA( (child, parent) => {
       return hierarchy.isA(child, parent) 
     })
   }

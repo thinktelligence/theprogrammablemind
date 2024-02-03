@@ -45,7 +45,7 @@ const setNextPlayer = (km, objects) => {
         whose: objects.players[objects.nextPlayer] || "nobody's",
         word: "turn"
       }
-  const api = km('dialogues').api
+  const api = km('stm').api
   api.mentioned(turn)
 }
 

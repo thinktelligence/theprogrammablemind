@@ -623,14 +623,14 @@ let config = {
                       !context.evaluate.toConcept, // && !context.value,
                       // greghere
       // match: ({context, hierarchy}) => hierarchy.isA(context.marker, 'property') && context.evaluate,
-      apply: ({context, api, km, objects, g, s, log}) => {
+      apply: ({context, api, kms, objects, g, s, log}) => {
         const toDo = [ ...context.objects ]
 
         const toValue = (objectContext) => {
           if (!objectContext.value) {
             return objectContext;
           }
-          let objectValue = km("dialogues").api.getVariable(objectContext.value);
+          let objectValue = kms.stm.api.getVariable(objectContext.value);
           if (!api.knownObject(objectValue)) {
             context.verbatim = `There is no object named "${g({...objectContext, paraphrase: true})}"`
             return
@@ -639,7 +639,6 @@ let config = {
         }
 
         let currentContext = toDo.pop()
-        debugger;
         let currentValue = toValue(currentContext)
         while (toDo.length > 0) {
           const nextContext = toDo.pop()

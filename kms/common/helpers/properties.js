@@ -797,7 +797,7 @@ class API {
     if (!context) {
       return;
     }
-    return this.config().km("dialogues").api.getVariable(context.value);
+    return this.config().km("stm").api.getVariable(context.value);
     // return context.value
   }
 
