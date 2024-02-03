@@ -417,10 +417,11 @@ let config = {
     /*
      * modifiers = <list of properties>
      */
-    [
+    {
+      where: where(),
       //({context}) => context.paraphrase && context.modifiers,
-      ({context}) => context.paraphrase && (context.modifiers || context.postModifiers),
-      ({context, g}) => {
+      match: ({context}) => context.paraphrase && (context.modifiers || context.postModifiers),
+      apply: ({context, g}) => {
         const text = []
         for (modifier of (context.modifiers || [])) {
           text.push(g(context[modifier]))
@@ -431,7 +432,7 @@ let config = {
         }
         return text.join(' ')
       }
-    ],
+    },
 
     {
       notes: 'handle lists with yes no',
@@ -490,58 +491,69 @@ let config = {
         return result
       }
     },
-    [
-      ({context, hierarchy}) => hierarchy.isA(context.marker, 'queryable') && !context.isQuery && context.isSelf && context.subject == 'my',
-      ({context}) => `your ${context.word}`
-    ],
-    [ 
-      ({context, hierarchy}) => ['it', 'what'].includes(context.marker) && context.paraphrase, 
-      ({g, context}) => `${context.marker}`
-    ],
-    [
-      ({context, hierarchy}) => hierarchy.isA(context.marker, 'queryable') && !context.isQuery && context.isSelf && context.subject == 'your',
-      ({context}) => `my ${context.word}`
-    ],
-    [ 
-      ({context, hierarchy}) => ['my', 'your'].includes(context.subject) && hierarchy.isA(context.marker, 'queryable') && context.paraphrase, 
-      ({g, context}) => `${context.subject} ${context.marker}`
-    ],
-    [ 
-      ({context, hierarchy}) => hierarchy.isA(context.marker, 'theAble') && context.paraphrase && context.wantsValue && !context.pullFromContext, 
-      ({g, context}) => `a ${context.word}`
-    ],
-    [
-      ({context, hierarchy}) => hierarchy.isA(context.marker, 'queryable') && !context.isQuery && context.subject,
-      ({context}) => `${context.subject} ${context.word}`
-    ],
-    [ 
-      ({context}) => context.marker == 'unknown', 
-      ({context}) => {
-        if (typeof context.marker === 'string') {
+    {
+      where: where(),
+      match: ({context, hierarchy}) => hierarchy.isA(context.marker, 'queryable') && !context.isQuery && context.isSelf && context.subject == 'my',
+      apply: ({context}) => `your ${context.word}`
+    },
+    { 
+      where: where(),
+      match: ({context, hierarchy}) => ['it', 'what'].includes(context.marker) && context.paraphrase, 
+      apply: ({g, context}) => `${context.marker}`
+    },
+    {
+      where: where(),
+      match: ({context, hierarchy}) => hierarchy.isA(context.marker, 'queryable') && !context.isQuery && context.isSelf && context.subject == 'your',
+      apply: ({context}) => `my ${context.word}`
+    },
+    { 
+      where: where(),
+      match: ({context, hierarchy}) => ['my', 'your'].includes(context.subject) && hierarchy.isA(context.marker, 'queryable') && context.paraphrase, 
+      apply: ({g, context}) => `${context.subject} ${context.marker}`
+    },
+    { 
+      where: where(),
+      match: ({context, hierarchy}) => hierarchy.isA(context.marker, 'theAble') && context.paraphrase && context.wantsValue && !context.pullFromContext, 
+      apply: ({g, context}) => `a ${context.word}`
+    },
+    {
+      where: where(),
+      match: ({context, hierarchy}) => hierarchy.isA(context.marker, 'queryable') && !context.isQuery && context.subject,
+      apply: ({context}) => `${context.subject} ${context.word}`
+    },
+    { 
+      where: where(),
+      match: ({context}) => context.marker == 'unknown', 
+      apply: ({context}) => {
+        if (typeof context.marker === 'string' && context.value) {
           return context.value
         } else if (context.value) {
-          JSON.stringify(context.value)
+          return JSON.stringify(context.value)
         } else {
           return context.word
         }
       }
-    ],
-    [ 
-      ({context}) => context.marker == 'what' && (context.evalue || context.paraphrase), 
-      ({context}) => `what` 
-    ],
-    [ 
-      ({context}) => context.marker == 'it' && !context.isQuery && !context.instance, 
-      ({context}) => `it` 
-    ],
-    [ 
-      ({context}) => context.marker == 'it' && !context.isQuery && context.instance, 
-      ({context}) => context.value
-    ],
-    [ 
-      ({context}) => context.marker == 'name' && !context.isQuery && context.subject, 
-      ({context}) => `${context.subject} ${context.word}` 
-    ],
+    },
+    { 
+      where: where(),
+      match: ({context}) => context.marker == 'what' && (context.evalue || context.paraphrase), 
+      apply: ({context}) => `what` 
+    },
+    { 
+      where: where(),
+      match: ({context}) => context.marker == 'it' && !context.isQuery && !context.instance, 
+      apply: ({context}) => `it` 
+    },
+    { 
+      where: where(),
+      match: ({context}) => context.marker == 'it' && !context.isQuery && context.instance, 
+      apply: ({context}) => context.value
+    },
+    { 
+      where: where(),
+      match: ({context}) => context.marker == 'name' && !context.isQuery && context.subject, 
+      apply: ({context}) => `${context.subject} ${context.word}` 
+    },
     {
       where: where(),
       match: ({context}) => context.evalue && context.evalue.verbatim && !context.paraphrase,

@@ -405,5 +405,6 @@
 # node tester -m dimension -tva -tmn dimension -g
 # node formulas -q 'y equals 4 x = y + 10 calculate x' -g -s
 # node formulas -q 'x = 4 calculate x' -g -s
-node formulas -d -q 'y equals 4 x = y + z calculate x' -g
 # node math -d -q '4 + x' -g -s
+node inspect math -d -q 'x * y + z' -g
+# node formulas -d -q 'y equals 4 x = y + z calculate x' -g

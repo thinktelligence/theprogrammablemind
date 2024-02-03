@@ -1,7 +1,6 @@
 const { Config, knowledgeModule, where, Digraph } = require('./runtime').theprogrammablemind
 const gdefaults = require('./gdefaults.js')
 const math = require('./math.js')
-const testing = require('./testing.js')
 const formulas_tests = require('./formulas.test.json')
 
 const template = {
@@ -129,7 +128,7 @@ let config = {
 
 const api = new API()
 config = new Config(config, module)
-config.add(gdefaults).add(math).add(testing)
+config.add(gdefaults).add(math)
 config.api = api
 
 knowledgeModule({ 
