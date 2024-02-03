@@ -74,8 +74,10 @@ class API {
   }
 
   initialize({km, objects}) {
-    this.propertiesAPI = km('properties').api
-    this.objects = objects
+    if (km('properties')) {
+      this.propertiesAPI = km('properties').api
+      this.objects = objects
+    }
   }
 
 }

@@ -39,7 +39,6 @@ config.add(hierarchy)
 config.initializer(({config, km}) => {
   const oapi = km('ordering').api
   oapi.createOrdering({ name: 'preference', categories: [ ['love', 'like'], ['hate', 'dislike'] ], ordering: [ ['love', 'like'], ['like', 'dislike'], ['dislike', 'hate'] ] })
-
   const papi = km('properties').api
   // want is xfx between wanter and wantee
   // papi.createBinaryRelation(config, 'want', ['want', 'wants'], 'wanter', 'wantee')

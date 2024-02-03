@@ -43,9 +43,15 @@ let config = {
         localHierarchy: [ ['unknown', 'number'] ],
         levelSpecificHierarchy: [[1, 'mathematicalExpression']],
         words: ['+'],
-        generatorp: ({gp, context}) => `${gp(context.x)} plus ${gp(context.y)}`,
+        generatorp: ({gp, context}) => `${gp(context.x)} ${context.word} ${gp(context.y)}`,
         evaluator: ({e, context}) => {
-          context.evalue = toValue(e(context.x)) + toValue(e(context.y))
+          const x = toValue(e(context.x)) 
+          const y = toValue(e(context.y))
+          if (!x || !y) {
+            context.evalue = { ...context, paraphrase: true, x: { ...context.x, value: x }, y: { ...context.y, value: y } }
+          } else {
+            context.evalue = x + y
+          }
         }
     },
     {   
@@ -55,9 +61,15 @@ let config = {
         isA: ['queryable', 'number'],
         localHierarchy: [ ['unknown', 'number'] ],
         words: ['-'],
-        generatorp: ({gp, context}) => `${gp(context.x)} minus ${gp(context.y)}`,
+        generatorp: ({gp, context}) => `${gp(context.x)} ${context.word} ${gp(context.y)}`,
         evaluator: ({e, context}) => {
-          context.evalue = toValue(e(context.x)) - toValue(e(context.y))
+          const x = toValue(e(context.x)) 
+          const y = toValue(e(context.y))
+          if (!x || !y) {
+            context.evalue = { ...context, paraphrase: true, x: { ...context.x, value: x }, y: { ...context.y, value: y } }
+          } else {
+            context.evalue = x - y
+          }
         }
     },
     {   
@@ -69,9 +81,15 @@ let config = {
         before: [['plus', 0], ['minus', 0]],
         localHierarchy: [ ['unknown', 'number'] ],
         words: ['*'],
-        generatorp: ({gp, context}) => `${gp(context.x)} times ${gp(context.y)}`,
+        generatorp: ({gp, context}) => `${gp(context.x)} ${context.word} ${gp(context.y)}`,
         evaluator: ({e, context}) => {
-          context.evalue = toValue(e(context.x)) * toValue(e(context.y))
+          const x = toValue(e(context.x)) 
+          const y = toValue(e(context.y))
+          if (!x || !y) {
+            context.evalue = { ...context, paraphrase: true, x: { ...context.x, value: x }, y: { ...context.y, value: y } }
+          } else {
+            context.evalue = x * y
+          }
         }
     },
     {   
@@ -86,7 +104,13 @@ let config = {
         generatorp: ({gp, context}) => `${gp(context.x)} ${context.word} ${gp(context.y)}`,
         evaluator: ({e, context}) => {
           // TODO handle divided by zero
-          context.evalue = toValue(e(context.x)) / toValue(e(context.y))
+          const x = toValue(e(context.x)) 
+          const y = toValue(e(context.y))
+          if (!x || !y) {
+            context.evalue = { ...context, paraphrase: true, x: { ...context.x, value: x }, y: { ...context.y, value: y } }
+          } else {
+            context.evalue = x / y
+          }
         }
     },
   ],
