@@ -409,4 +409,10 @@
 # node inspect math -d -q 'x * y + z' -g
 # node formulas -d -q 'y equals 4 x = y + z calculate x' -g
 # node formulas -d -q 'solve x = y for x' -g
-node formulas -d -q 'solve x = y + 1 for x' -g -s
+# node formulas -d -q 'solve x = y + 1 for x' -g -s
+# TODO say x is a y twice
+# node dimension -d -q 'dimension is a concept\nlength is a dimension\n unit of length' -g
+# node dimension -d -q 'length is a dimension\n meter is a unit of length' -g
+# node dimension -d -q 'a unit of length' -g
+# node dimension -d -dic -q 'meter is a unit of length' -g
+node dimension -d -dic -q 'meter is a unit of length' -g

@@ -1,6 +1,6 @@
 const { Config, knowledgeModule, where, Digraph } = require('./runtime').theprogrammablemind
-const gdefaults = require('./gdefaults.js')
-const numbers = require('./numbers.js')
+const base = require('./dimensionTemplate.js')
+const formulas = require('./formulas.js')
 const testing = require('./testing.js')
 const dimension_tests = require('./dimension.test.json')
 
@@ -45,11 +45,13 @@ let config = {
   operators: [
     "([dimension])",
     "([unit])",
+    "(([unit]) [kindOfDimension|of] ([dimension]))",
     "((amount/1 || number/1) [amountOfDimension|] ([unit]))",
     "(([amount]) [unit])",
     "((dimension/1) [convertToUnits|in] (unit/1))",
 
     "(([number]) [degree])",
+    { pattern: "([length])", development: true },
   ],
   priorities: [
     // TODO this should have been calculated
@@ -62,9 +64,16 @@ let config = {
     { 
       where: where(),
       id: "dimension", 
+      isA: [],
       generatorp: ({context, g}) => context.amount ? `${g(context.amount)} ${g(context.unit)}` : context.word,
     },
+    { id: "length", isA: ['dimension'], development: true },
     { id: "amount", },
+    { 
+      id: "kindOfDimension", 
+      bridge: "{ ...next(operator), subclass: before[0], class: after[0] }",
+      generatorp: ({context, gp}) => `${gp(context.subclass)} ${context.word} ${gp(context.class)}`,
+    },
     { 
       where: where(),
       id: "degree", 
@@ -106,7 +115,7 @@ let config = {
 };
 
 config = new Config(config, module)
-config.add(gdefaults).add(numbers).add(testing)
+config.add(base).add(formulas).add(testing)
 config.api = api
 config.initializer( ({config, api, isAfterApi, isModule}) => {
   if (!isModule && isAfterApi) {

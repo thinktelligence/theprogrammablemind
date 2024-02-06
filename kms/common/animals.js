@@ -3,8 +3,8 @@ const hierarchy = require('./hierarchy')
 const animals_tests = require('./animals.test.json')
 const animals_instance = require('./animals.instance.json')
 
-const template ={
-  "queries": [
+const template = {
+  queries: [
     "birds and mammals are animals",
     "mammals have ears",
     "mammals have hair",

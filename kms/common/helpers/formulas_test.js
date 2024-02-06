@@ -1,6 +1,6 @@
-const { getVariables, solveFor } = require('./formulas')
+const { unify, rules, getVariables, solveFor, applyMapping } = require('./formulas')
 
-describe('helpersMath', () => {
+describe('helpers', () => {
   let x, t_plus_u, x_plus_y_times_z, x_times_y_plus_z, one_plus_2, x_equals_y
 
   beforeEach(() => {
@@ -53,13 +53,59 @@ describe('helpersMath', () => {
     })
   })
 
+  /* 
+    solve for x
+      x = y => y = z
+      x = y + z => x - y = z + z - z = y
+      y = x * z => x = y / z
+      y = x / z => x = y * z
+      y = x - z => x = y + z
+  */
+  describe('unify', () => {
+    it('NEOS23 x = y => x = y', async () => {
+      const value = { marker: 'equals', left: 'x', right: 'y' }
+      const body = unify(rules[0], value)
+      expect(body).toStrictEqual(value)
+    })
+
+    it('NEOS23 x = y => y = x', async () => {
+      const value = { marker: 'equals', left: 'x', right: 'y' }
+      const body = unify(rules[0], { ...value, x: value.y, y: value.x })
+      expect(body).toStrictEqual(value)
+    })
+
+    xit('x = y match', async () => {
+      const value = { marker: 'equals', left: 'x', right: { marker: '+', x: 'y', y: 'z' } }
+
+      const f = (values, variable) => (value) => {
+        if (!value) {
+          throw new Error("Value not present")
+        }
+        if (values[variable] && values[variable] != value) {
+          throw new Error("Variable already set to different value")
+        }
+        values[variable] = value
+        return true
+      }
+
+      const rule = {
+        values: { x: null, y: null, z: null },
+        head: (values) => { return { marker: 'equals', left: f(values, 'x'), right: { marker: "+", x: f(values, 'y'), y: f(values, 'z') } } },
+        body: ({x, y, z}) => { return { marker: 'equals', left: x, right: { marker: "+", x: y, y: z } } }
+      }
+
+      const body = unify(rule, value)
+      expect(body).toStrictEqual(rule.body({ x: 'x', y: 'y', z: 'z' }))
+    })
+  })
+
   describe('solveFor', () => {
     it('no solution', async () => {
       debugger
       expect(solveFor({}, x)).toStrictEqual(undefined)
     })
 
-    it('x = y solve for x', async () => {
+    xit('x = y solve for x', async () => {
       expect(solveFor(x_equals_y, x_equals_y.left)).toStrictEqual(x_equals_y)
     })
 

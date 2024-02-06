@@ -1,6 +1,7 @@
 const { Config, knowledgeModule, where } = require('./runtime').theprogrammablemind
 const meta = require('./meta.js')
 const gdefaults = require('./gdefaults.js')
+const pos = require('./pos.js')
 const stm = require('./stm.js')
 const _ = require('lodash')
 const { isMany } = require('./helpers')
@@ -148,8 +149,6 @@ let config = {
     "([unknown])",
     "([not] ([notAble|]))",
 
-    "([preposition])",
-
     "([be] ([briefOrWordy|]))",
 
     "([([canBeQuestion])])",
@@ -165,15 +164,11 @@ let config = {
     //greg is a first name
     "(([theAble|]) [list|and] ([theAble|]))",
     "([yesno|])",
-    "([articlePOS|])",
     "(([isEdee])^ <isEdAble|> ([by] ([isEder])?))",
     "([isEdee|])",
     "([isEder|])",
     { pattern: "([debug23])" },
 
-    "([verby])",
-    "([pronoun])",
-    "([adjective])",
     "([to] ([toAble|]))",
   ],
   associations: {
@@ -195,13 +190,8 @@ let config = {
     ]
   },
   bridges: [
-    { id: "preposition", level: 0, bridge: "{ ...next(operator) }" },
-    { id: "adjective", level: 0, bridge: "{ ...next(operator) }" },
     { id: "by", level: 0, bridge: "{ ...next(operator), object: after[0] }", optional: { 'isEder': "{ marker: 'unknown', implicit: true, concept: true }", }, },
 
-    { id: "pronoun", level: 0, bridge: "{ ...next(operator) }" },
-    { id: "verby", level: 0, bridge: "{ ...next(operator) }" },
-    { id: "articlePOS", level: 0, bridge: "{ ...next(operator) }" },
     { id: "debug23", level: 0, bridge: "{ ...next(operator) }" },
     // { id: "what", level: 0, bridge: "{ ...next(operator), ...after[0], query: ['what'], determined: true }" },
     { id: "what", level: 0, optional: "{ ...next(operator), query: ['what'], determined: true }", bridge: "{ ...after, query: ['what'], modifiers: ['what'], what: operator }" },
@@ -328,10 +318,6 @@ let config = {
     [['isEdAble', 0], ['articlePOS', 0]],
     [['is', 0], ['isEdAble', 0]],
     [['is', 1], ['isEdAble', 0]],
-    [['verby', 0], ['pronoun', 0]],
-    [['verby', 0], ['preposition', 0]],
-    [['verby', 0], ['adjective', 0]],
-    [['verby', 0], ['articlePOS', 0]],
   ],
   hierarchy: [
     ['it', 'pronoun'],
@@ -799,7 +785,7 @@ let config = {
 
 config = new Config(config, module)
 config.api = api
-config.add(gdefaults).add(stm).add(meta)
+config.add(gdefaults).add(pos).add(stm).add(meta)
 
 config.initializer( ({objects, config, api, isModule}) => {
   objects.mentioned = []
