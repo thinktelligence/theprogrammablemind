@@ -26,7 +26,7 @@ const reports = require('./common/reports');
 const scorekeeper = require('./common/scorekeeper');
 const spock = require('./common/spock');
 const stgame = require('./common/stgame');
-const stmgame = require('./common/stmgame');
+const stm = require('./common/stm');
 const tell = require('./common/tell');
 const time = require('./common/time');
 const ui = require('./common/ui');
@@ -59,7 +59,7 @@ module.exports = {
   scorekeeper,
   spock,
   stgame,
-  stmgame,
+  stm,
   tell,
   time,
   ui,
