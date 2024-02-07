@@ -95,6 +95,7 @@ let config = {
       where: where(),
       id: "convertToUnits", 
       bridge: "{ ...next(operator), from: before[0], to: after[0] }",
+      isA: ['expression'],
       generatorp: ({context, g}) => `${g(context.from)} ${context.word} ${g(context.to)}`,
       evaluator: ({context}) => {
         const from = context.from;

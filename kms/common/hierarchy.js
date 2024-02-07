@@ -279,6 +279,7 @@ knowledgeModule( {
   test: {
     name: './hierarchy.test.json',
     contents: hierarchy_tests,
+    check: ['children', 'concept', 'parents', 'properties'],
     includes: {
       words: true,
     }

@@ -120,10 +120,12 @@ let config = {
     {
       id: 'expression',
       children: ['mathematicalExpression', 'number'],
+      before: ['verby'],
     },
     {
       where: where(),
       id: 'calculate',
+      isA: ['verby'],
       bridge: "{ ...next(operator), expression: after[0] }",
       generatorp: ({context, g}) => `${context.word} ${g(context.expression)}`,
       localHierarchy: [ ['unknown', 'expression'] ],

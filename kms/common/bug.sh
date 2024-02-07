@@ -416,5 +416,7 @@
 # node dimension -d -q 'a unit of length' -g
 # node dimension -d -dic -q 'meter is a unit of length' -g
 # node dimension -d -q 'meter is a unit of length' -g
-node dimension -d -q 'unit of length' -g
+# node dimension -d -q 'unit of length' -g
 # node dimension -d -q 'meter is a unit of length\n what are the units of length' -g
+# node length -q 'calculate 10 meters in inches' -g -d
+node numbers -q '2.56' -g

@@ -118,6 +118,7 @@ knowledgeModule( {
     config,
     test: {
             name: './ordering.test.json',
+            heck: ['children', 'concept', 'parents', 'properties'],
             contents: ordering_tests
           },
     template: {
