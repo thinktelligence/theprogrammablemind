@@ -19,7 +19,9 @@ let config = {
   version: '3',
   words: {
     // start with a space for regular expressions
-    " ([0-9]+)": [{"id": "number", "initial": "{ value: int(group[0]) }" }],
+    " ([0-9]+$)": [{"id": "number", "initial": "{ value: int(group[0]) }" }],
+    " ([0-9]+.[0-9]+$)": [{"id": "number", "initial": "{ value: float(group[0]) }" }],
+    " (.[0-9]+$)": [{"id": "number", "initial": "{ value: float(group[0]) }" }],
     "one": [{"id": "number", "initial": "{ value: 1 }" }],
     "two": [{"id": "number", "initial": "{ value: 2 }" }],
     "three": [{"id": "number", "initial": "{ value: 3 }" }],
