@@ -45,7 +45,7 @@ let config = {
   operators: [
     "([dimension])",
     "([unit])",
-    "(([unit]) [kindOfDimension|of] ([dimension]))",
+    // "(([unit]) [kindOfDimension|of] ([dimension]))",
     "((amount/1 || number/1) [amountOfDimension|] ([unit]))",
     "(([amount]) [unit])",
     "((dimension/1) [convertToUnits|in] (unit/1))",
@@ -69,11 +69,15 @@ let config = {
     },
     { id: "length", isA: ['dimension'], development: true },
     { id: "amount", },
+    /*
     { 
       id: "kindOfDimension", 
-      bridge: "{ ...next(operator), subclass: before[0], class: after[0] }",
+      bridge: "{ ...next(operator), subclass: before[0], class: after[0], value: concat(before[0].marker.id, after[0].marker.id) }",
+      // bridge: "{ ...next(operator), subclass: before[0], class: after[0], value: concat(before[0].marker, after[0].marker) }",
+      isA: ['preposition'],
       generatorp: ({context, gp}) => `${gp(context.subclass)} ${context.word} ${gp(context.class)}`,
     },
+    */
     { 
       where: where(),
       id: "degree", 

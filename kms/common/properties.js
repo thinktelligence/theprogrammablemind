@@ -364,7 +364,8 @@ let config = {
     {
       notes: 'the property of object',
       where: where(),
-      match: ({context}) => context.paraphrase && context.modifiers && context.object, 
+      // match: ({context}) => context.paraphrase && context.modifiers && context.object, 
+      match: ({context}) => context.paraphrase && !context.possession && context.object, 
       apply: ({context, g, gs}) => {
                const base = { ...context }
                base.object = undefined;

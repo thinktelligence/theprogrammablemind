@@ -415,4 +415,6 @@
 # node dimension -d -q 'length is a dimension\n meter is a unit of length' -g
 # node dimension -d -q 'a unit of length' -g
 # node dimension -d -dic -q 'meter is a unit of length' -g
-node dimension -d -dic -q 'meter is a unit of length' -g
+# node dimension -d -q 'meter is a unit of length' -g
+node dimension -d -q 'unit of length' -g
+# node dimension -d -q 'meter is a unit of length\n what are the units of length' -g

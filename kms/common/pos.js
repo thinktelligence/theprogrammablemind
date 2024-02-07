@@ -9,6 +9,7 @@ let config = {
     "([preposition])",
     "([pronoun])",
     "([verby])",
+    "([punctuation])",
   ],
   bridges: [
     { "id": "adjective" },
@@ -16,12 +17,14 @@ let config = {
     { "id": "preposition" },
     { "id": "pronoun" },
     { "id": "verby" },
+    { "id": "punctuation" },
   ],
   priorities: [
     [['verby', 0], ['pronoun', 0]],
     [['verby', 0], ['preposition', 0]],
     [['verby', 0], ['adjective', 0]],
     [['verby', 0], ['articlePOS', 0]],
+    [['verby', 0], ['punctuation', 0]],
   ],
 
 };
