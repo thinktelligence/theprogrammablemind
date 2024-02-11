@@ -2,6 +2,7 @@ const package = require('../package.json')
 const { exec } = require('child_process');
 
 let tests = []
+let retrains = []
 for (let file of package.files) {
   if (!/^.*.js$/.exec(file)) {
     continue
@@ -18,8 +19,9 @@ for (let file of package.files) {
     continue
   }
 
+  retrains.push(`node ${file} -rt -g`)
   tests.push(`node ${file} -tva -g`)
-  // tests.push(`node tester -m ${file} -tva -tmn ${file} -g`)
+  tests.push(`node tester -m ${file} -tva -tmn ${file} -g`)
 }
 
 // tests = [tests[0]]
@@ -44,4 +46,4 @@ const loop = (tests, failed) => {
     });
 }
 
-loop(tests, [])
+loop(retrains.concat(tests), [])

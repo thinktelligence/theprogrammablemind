@@ -92,6 +92,21 @@ class API {
 
   initialize() {
     this.digraph = new Digraph()
+
+    const toJSON = (h) => {
+      if (h.child && h.parent) {
+        return h
+      } else {
+        return { child: h[0], parent: h[1] }
+      }
+    }
+    for (const tuple of [...this.config().config.hierarchy]) {
+      const h = toJSON(tuple);
+      // TODO should this notice development flag?
+      if (this.isOperator(h.child) && this.isOperator(h.parent)) {
+        this.rememberIsA(h.child, h.parent)
+      }
+    }
   }
 
   createBinaryRelation (config, operator, words, before, after) {
@@ -278,9 +293,11 @@ class API {
       config.addFragments([
           whoIsWhatVerbedBy, 
           {
+            /*
             hierarchy: [
               ['owneevar', 'ownee']
             ],
+            */
             query: thisIsVerbedByThat
           },
       ])
@@ -728,7 +745,6 @@ class API {
     return value
   }
 
-  // relation_get(context, before.concat(after).map( (arg) => arg.tag ) ) {
   relation_get(context, args) {
     const andTheAnswerIs = []
     for (let relation of this.objects.relations) {
@@ -981,6 +997,7 @@ class API {
       this.objects.children[parent] = []
     }
     if (!this.objects.children[parent].includes(child)) {
+      debugger
       this.objects.children[parent].push(child)
     }
 
@@ -1081,6 +1098,7 @@ class API {
 
   set config(config) {
     this._config = config
+    /*
     const toJSON = (h) => {
       if (h.child && h.parent) {
         return h
@@ -1095,6 +1113,7 @@ class API {
         this.rememberIsA(h.child, h.parent)
       }
     }
+    */
   }
 
   get config() {

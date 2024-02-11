@@ -1,6 +1,7 @@
 const { Config, knowledgeModule, where } = require('./runtime').theprogrammablemind
 const dialogues = require('./dialogues')
 const numbers = require('./numbers')
+const mathTemplate = require('./mathTemplate')
 const math_tests = require('./math.test.json')
 
 // TODO 10 dollars times 20
@@ -78,7 +79,7 @@ let config = {
         where: where(),
         id: "times", level: 0, 
         // bridge: "{ ...next(operator), types: lub(append(type(before[0]), type(after[0]))), x: before[0], y: after[0], number: 'one' }" ,
-        bridge: "{ ...next(operator), types: append(operator.types, before[0].types, after[0].types), x: before[0], y: after[0], value: null, number: 'one', isResponse: true, evaluate: true }" ,
+        bridge: "{ ...next(operator), types: lub(append(operator.types, before[0].types, after[0].types)), x: before[0], y: after[0], value: null, number: 'one', isResponse: true, evaluate: true }" ,
         isA: ['queryable', 'number', 'mathematicalOperator'],
         before: [['plus', 0], ['minus', 0]],
         localHierarchy: [ ['unknown', 'number'] ],
@@ -121,6 +122,7 @@ let config = {
 config = new Config(config, module)
 config.add(numbers);
 config.add(dialogues);
+config.add(mathTemplate);
 knowledgeModule( { 
   module,
   config,

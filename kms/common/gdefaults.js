@@ -25,6 +25,12 @@ let config = {
 
     {
       where: where(),
+      match: ({context}) => context.value,
+      apply: ({context, g}) => g(context.value)
+    },
+
+    {
+      where: where(),
       match: ({context}) => context.evalue,
       apply: ({context}) => `the ${context.word}` 
     },

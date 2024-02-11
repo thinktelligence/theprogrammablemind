@@ -201,7 +201,7 @@ let config = {
               to = from + 1
             }
           } else {
-            to = context.to.object.index.value;
+            to = context.to.toObject.index.value;
           }
           const old = listing.columns[from-1]
           listing.columns[from-1] = listing.columns[to-1]

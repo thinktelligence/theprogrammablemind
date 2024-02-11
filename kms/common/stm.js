@@ -79,7 +79,7 @@ class API {
 
 const api = new API()
 
-config = new Config({ name: 'stm' }, module)
+let config = new Config({ name: 'stm' }, module)
 config.api = api
 
 config.initializer( ({objects, config, api, isModule}) => {

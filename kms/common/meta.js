@@ -270,6 +270,7 @@ let config = {
           } else {
             // config.addWord(context.from.word, 
             kms.dialogues.api.makeObject({ context: context.from, types: context.to.types || [], config });
+            // kms.dialogues.api.makeObject({ context: context.from, types: [], config });
             // const r = e(context.to)
             kms.stm.api.setVariable(context.from.value, context.to)
           }

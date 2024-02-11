@@ -28,6 +28,7 @@ let config = {
   ],
 
 };
+
 config = new Config(config, module)
 knowledgeModule( { 
   module,

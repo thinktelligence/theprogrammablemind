@@ -52,8 +52,8 @@
           "canBeQuestion"
         ],
         [
-          "isEd",
-          "isEd"
+          "is",
+          "verby"
         ],
         [
           "it",
@@ -104,12 +104,16 @@
           "unknown"
         ],
         [
+          "punctuation",
+          "punctuation"
+        ],
+        [
           "queryable",
           "queryable"
         ],
         [
           "questionMark",
-          "isEd"
+          "punctuation"
         ],
         [
           "readonly",
@@ -176,6 +180,10 @@
           "theAble"
         ],
         [
+          "verby",
+          "verby"
+        ],
+        [
           "what",
           "object"
         ],
@@ -199,8 +207,8 @@
       "logs": [
         "Undefined word 'chicken'",
         "Undefined word 'strips'",
-        "Op choices were: [(('unknown', 0), [('modifies', 0), ('unknown', 0)]), (('unknown', 0), [('modifies', 0), ('unknown', 0), ('unknown', 1)]), (('modifies', 0), [('modifies', 0), ('unknown', 1)])]",
-        "Contexts used for choosing operators (if the wrong choices were made update the priories array. Put the expected choice at the end of the list): \n  Context for choosing the operator unknown/0 was [['modifies', 0], ['unknown', 0]]\n  Context for choosing the operator unknown/0 was [['modifies', 0], ['unknown', 0], ['unknown', 1]]\n  Context for choosing the operator modifies/0 was [['modifies', 0], ['unknown', 1]]",
+        "Op choices were: [(('unknown', 0), [('modifies', 0), ('unknown', 0)], 1), (('unknown', 0), [('modifies', 0), ('unknown', 0), ('unknown', 1)], 2), (('modifies', 0), [('modifies', 0), ('unknown', 1)], 3)]",
+        "Contexts used for choosing operators (if the wrong choices were made update the priorities array. Put the expected choice at the end of the list. you can check for loops in the priorities by adding the -cl flag and running a query): \n  Context for choosing the operator unknown/0 was [['modifies', 0], ['unknown', 0]]. Counter 1\n  Context for choosing the operator unknown/0 was [['modifies', 0], ['unknown', 0], ['unknown', 1]]. Counter 2\n  Context for choosing the operator modifies/0 was [['modifies', 0], ['unknown', 1]]. Counter 3",
         ""
       ],
       "metadata": {
@@ -219,7 +227,8 @@
                 "unknown",
                 0
               ]
-            ]
+            ],
+            "counter": 1
           },
           {
             "op": [
@@ -239,7 +248,8 @@
                 "unknown",
                 1
               ]
-            ]
+            ],
+            "counter": 2
           },
           {
             "op": [
@@ -255,7 +265,8 @@
                 "unknown",
                 1
               ]
-            ]
+            ],
+            "counter": 3
           }
         ]
       },
@@ -344,7 +355,7 @@
           ]
         ]
       ],
-      "version": "7.5.0-beta.5",
+      "version": "7.5.5",
       "query": "chicken modifies strips",
       "key": {
         "query": "chicken modifies strips"
@@ -457,8 +468,8 @@
           "canBeQuestion"
         ],
         [
-          "isEd",
-          "isEd"
+          "is",
+          "verby"
         ],
         [
           "isEdee",
@@ -517,12 +528,16 @@
           "unknown"
         ],
         [
+          "punctuation",
+          "punctuation"
+        ],
+        [
           "queryable",
           "queryable"
         ],
         [
           "questionMark",
-          "isEd"
+          "punctuation"
         ],
         [
           "readonly",
@@ -621,6 +636,10 @@
           "theAble"
         ],
         [
+          "verby",
+          "verby"
+        ],
+        [
           "what",
           "object"
         ],
@@ -643,8 +662,8 @@
       ],
       "logs": [
         "Undefined word 'food'",
-        "Op choices were: [(('unknown', 0), [('chicken', 0), ('is', 0), ('strip', 0), ('unknown', 0)]), (('strip', 0), [('chicken', 0), ('is', 0), ('strip', 0), ('unknown', 1)]), (('chicken', 0), [('chicken', 0), ('is', 0), ('unknown', 1)]), (('chicken_strip', 0), [('chicken_strip', 0), ('is', 0), ('unknown', 1)]), (('is', 0), [('is', 0), ('unknown', 1)]), (('is', 1), [('is', 1)])]",
-        "Contexts used for choosing operators (if the wrong choices were made update the priories array. Put the expected choice at the end of the list): \n  Context for choosing the operator unknown/0 was [['chicken', 0], ['is', 0], ['strip', 0], ['unknown', 0]]\n  Context for choosing the operator strip/0 was [['chicken', 0], ['is', 0], ['strip', 0], ['unknown', 1]]\n  Context for choosing the operator chicken/0 was [['chicken', 0], ['is', 0], ['unknown', 1]]\n  Context for choosing the operator chicken_strip/0 was [['chicken_strip', 0], ['is', 0], ['unknown', 1]]\n  Context for choosing the operator is/0 was [['is', 0], ['unknown', 1]]\n  Context for choosing the operator is/1 was [['is', 1]]",
+        "Op choices were: [(('unknown', 0), [('chicken', 0), ('is', 0), ('strip', 0), ('unknown', 0)], 1), (('strip', 0), [('chicken', 0), ('is', 0), ('strip', 0), ('unknown', 1)], 2), (('chicken', 0), [('chicken', 0), ('is', 0), ('unknown', 1)], 3), (('chicken_strip', 0), [('chicken_strip', 0), ('is', 0), ('unknown', 1)], 4), (('is', 0), [('is', 0), ('unknown', 1)], 5), (('is', 1), [('is', 1)], 6)]",
+        "Contexts used for choosing operators (if the wrong choices were made update the priorities array. Put the expected choice at the end of the list. you can check for loops in the priorities by adding the -cl flag and running a query): \n  Context for choosing the operator unknown/0 was [['chicken', 0], ['is', 0], ['strip', 0], ['unknown', 0]]. Counter 1\n  Context for choosing the operator strip/0 was [['chicken', 0], ['is', 0], ['strip', 0], ['unknown', 1]]. Counter 2\n  Context for choosing the operator chicken/0 was [['chicken', 0], ['is', 0], ['unknown', 1]]. Counter 3\n  Context for choosing the operator chicken_strip/0 was [['chicken_strip', 0], ['is', 0], ['unknown', 1]]. Counter 4\n  Context for choosing the operator is/0 was [['is', 0], ['unknown', 1]]. Counter 5\n  Context for choosing the operator is/1 was [['is', 1]]. Counter 6",
         "Associations made with probabilities (each group is a choice point. if the wrong choices were made update the associations list): "
       ],
       "metadata": {
@@ -671,7 +690,8 @@
                 "unknown",
                 0
               ]
-            ]
+            ],
+            "counter": 1
           },
           {
             "op": [
@@ -695,7 +715,8 @@
                 "unknown",
                 1
               ]
-            ]
+            ],
+            "counter": 2
           },
           {
             "op": [
@@ -715,7 +736,8 @@
                 "unknown",
                 1
               ]
-            ]
+            ],
+            "counter": 3
           },
           {
             "op": [
@@ -735,7 +757,8 @@
                 "unknown",
                 1
               ]
-            ]
+            ],
+            "counter": 4
           },
           {
             "op": [
@@ -751,7 +774,8 @@
                 "unknown",
                 1
               ]
-            ]
+            ],
+            "counter": 5
           },
           {
             "op": [
@@ -763,7 +787,8 @@
                 "is",
                 1
               ]
-            ]
+            ],
+            "counter": 6
           }
         ]
       },
@@ -923,7 +948,7 @@
           ]
         ]
       ],
-      "version": "7.5.0-beta.5",
+      "version": "7.5.5",
       "query": "chicken strips are food",
       "key": {
         "query": "chicken strips are food"
@@ -1068,8 +1093,8 @@
           "canBeQuestion"
         ],
         [
-          "isEd",
-          "isEd"
+          "is",
+          "verby"
         ],
         [
           "isEdee",
@@ -1128,12 +1153,16 @@
           "unknown"
         ],
         [
+          "punctuation",
+          "punctuation"
+        ],
+        [
           "queryable",
           "queryable"
         ],
         [
           "questionMark",
-          "isEd"
+          "punctuation"
         ],
         [
           "readonly",
@@ -1232,6 +1261,10 @@
           "theAble"
         ],
         [
+          "verby",
+          "verby"
+        ],
+        [
           "what",
           "object"
         ],
@@ -1254,9 +1287,11 @@
       ],
       "logs": [
         "Undefined word 'sushi'",
-        "Op choices were: [(('unknown', 0), [('food', 0), ('is', 0), ('unknown', 0)]), (('food', 0), [('food', 0), ('is', 0), ('unknown', 1)]), (('is', 0), [('is', 0), ('unknown', 1)]), (('is', 1), [('is', 1)])]",
-        "Contexts used for choosing operators (if the wrong choices were made update the priories array. Put the expected choice at the end of the list): \n  Context for choosing the operator unknown/0 was [['food', 0], ['is', 0], ['unknown', 0]]\n  Context for choosing the operator food/0 was [['food', 0], ['is', 0], ['unknown', 1]]\n  Context for choosing the operator is/0 was [['is', 0], ['unknown', 1]]\n  Context for choosing the operator is/1 was [['is', 1]]",
-        "Associations made with probabilities (each group is a choice point. if the wrong choices were made update the associations list): \n  Group 0\n    0.6666666666666666 - [['unknown', 0], \">>>>1 ['isEd', 0] <<<<1\", ['food', 0]]\n      (('unknown', 0), ('isEd', 0))\n      (('isEd', 0), ('food', 0))\n    1.0 - [['unknown', 0], \">>>>1 ['is', 0] <<<<1\", ['food', 0]]\n      (('unknown', 0), ('is', 0), ('food', 0))\n  Group 1\n    1.0 - [['unknown', 0], \">>>>1 ['is', 0] <<<<1\", ['food', 0]]\n      (('unknown', 1), ('is', 0), ('food', 0))\n    0.6666666666666666 - [['unknown', 0], \">>>>1 ['isEd', 0] <<<<1\", ['food', 0]]\n      (('unknown', 1), ('isEd', 0))\n      (('isEd', 0), ('food', 0))\n  Group 2\n    1.0 - [['unknown', 0], \">>>>1 ['is', 0] <<<<1\", ['food', 0]]\n      (('unknown', 1), ('is', 0), ('food', 0))\n    0.6666666666666666 - [['unknown', 0], \">>>>1 ['isEd', 0] <<<<1\", ['food', 0]]\n      (('unknown', 1), ('isEd', 0))\n      (('isEd', 0), ('food', 0))"
+        "Op choices were: [(('unknown', 0), [('food', 0), ('is', 0), ('unknown', 0)], 1), (('food', 0), [('food', 0), ('is', 0), ('unknown', 1)], 2), (('is', 0), [('is', 0), ('unknown', 1)], 3), (('is', 1), [('is', 1)], 4)]",
+        "Contexts used for choosing operators (if the wrong choices were made update the priorities array. Put the expected choice at the end of the list. you can check for loops in the priorities by adding the -cl flag and running a query): \n  Context for choosing the operator unknown/0 was [['food', 0], ['is', 0], ['unknown', 0]]. Counter 1\n  Context for choosing the operator food/0 was [['food', 0], ['is', 0], ['unknown', 1]]. Counter 2\n  Context for choosing the operator is/0 was [['is', 0], ['unknown', 1]]. Counter 3\n  Context for choosing the operator is/1 was [['is', 1]]. Counter 4",
+        "Associations made with probabilities (each group is a choice point. if the wrong choices were made update the associations list): \n  Group 0\n    0.6666666666666666 - [['unknown', 0], \">>>>1 ['isEd', 0] <<<<1\", ['food', 0]]\n      (('unknown', 0), ('isEd', 0))\n      (('isEd', 0), ('food', 0))\n    1.0 - [['unknown', 0], \">>>>1 ['is', 0] <<<<1\", ['food', 0]]\n      (('unknown', 0), ('is', 0), ('food', 0))\n  Group 1\n    1.0 - [['unknown', 0], \">>>>1 ['is', 0] <<<<1\", ['food', 0]]\n      (('unknown', 1), ('is', 0), ('food', 0))\n    0.6666666666666666 - [['unknown', 0], \">>>>1 ['isEd', 0] <<<<1\", ['food', 0]]\n      (('unknown', 1), ('isEd', 0))\n      (('isEd', 0), ('food', 0))\n  Group 2\n    1.0 - [['unknown', 0], \">>>>1 ['is', 0] <<<<1\", ['food', 0]]\n      (('unknown', 1), ('is', 0), ('food', 0))\n    0.6666666666666666 - [['unknown', 0], \">>>>1 ['isEd', 0] <<<<1\", ['food', 0]]\n      (('unknown', 1), ('isEd', 0))\n      (('isEd', 0), ('food', 0))",
+        "    WARNING from Dialogues KM: For the \"X is Y\" type phrase implement a same handler.\n    The semantic would be\n      match: ({context}) => context.marker == 'unknown' && context.same && <other conditions as you like>\n      apply: ({context}) => <do stuff... context.same is the other value>; context.sameWasProcessed = true\n    The input context would be:\n      {\n        \"number\": \"one\",\n        \"marker\": \"unknown\",\n        \"range\": {\n          \"start\": 0,\n          \"end\": 12\n        },\n        \"word\": \"sushi\",\n        \"text\": \"sushi\",\n        \"value\": \"sushi\",\n        \"unknown\": true,\n        \"types\": [\n          \"unknown\"\n        ],\n        \"same\": {\n          \"value\": \"food\",\n          \"number\": \"one\",\n          \"text\": \"food\",\n          \"marker\": \"food\",\n          \"word\": \"food\",\n          \"range\": {\n            \"start\": 9,\n            \"end\": 12\n          },\n          \"types\": [\n            \"food\"\n          ]\n        }\n      }\n    ",
+        "    WARNING from Dialogues KM: For the \"X is Y\" type phrase implement a same handler.\n    The semantic would be\n      match: ({context}) => context.marker == 'food' && context.same && <other conditions as you like>\n      apply: ({context}) => <do stuff... context.same is the other value>; context.sameWasProcessed = true\n    The input context would be:\n      {\n        \"value\": \"food\",\n        \"number\": \"one\",\n        \"text\": \"food\",\n        \"marker\": \"food\",\n        \"word\": \"food\",\n        \"range\": {\n          \"start\": 9,\n          \"end\": 12\n        },\n        \"types\": [\n          \"food\"\n        ],\n        \"same\": {\n          \"number\": \"one\",\n          \"marker\": \"unknown\",\n          \"range\": {\n            \"start\": 0,\n            \"end\": 12\n          },\n          \"word\": \"sushi\",\n          \"text\": \"sushi\",\n          \"value\": \"sushi\",\n          \"unknown\": true,\n          \"types\": [\n            \"unknown\"\n          ]\n        }\n      }\n    "
       ],
       "metadata": {
         "opChoices": [
@@ -1278,7 +1313,8 @@
                 "unknown",
                 0
               ]
-            ]
+            ],
+            "counter": 1
           },
           {
             "op": [
@@ -1298,7 +1334,8 @@
                 "unknown",
                 1
               ]
-            ]
+            ],
+            "counter": 2
           },
           {
             "op": [
@@ -1314,7 +1351,8 @@
                 "unknown",
                 1
               ]
-            ]
+            ],
+            "counter": 3
           },
           {
             "op": [
@@ -1326,7 +1364,8 @@
                 "is",
                 1
               ]
-            ]
+            ],
+            "counter": 4
           }
         ]
       },
@@ -1368,8 +1407,7 @@
             },
             "types": [
               "food"
-            ],
-            "concept": true
+            ]
           },
           "topLevel": true,
           "touchedBy": [
@@ -1426,7 +1464,7 @@
           ]
         ]
       ],
-      "version": "7.5.0-beta.5",
+      "version": "7.5.5",
       "query": "sushi is food",
       "key": {
         "query": "sushi is food"

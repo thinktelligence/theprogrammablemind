@@ -50,6 +50,7 @@ let config = {
   semantics: [
   ],
 };
+
 config = new Config(config, module)
 knowledgeModule( { 
   module,

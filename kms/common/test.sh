@@ -17,7 +17,7 @@ node meta -tva -g
 node numbers -tva -g
 node math -tva -g
 node properties -tva -g
-node reports -tva -g
+# node reports -tva -g
 node ordering -tva -g
 node people -tva -g
 node scorekeeper -tva -g
@@ -34,7 +34,7 @@ node spock -tva -g
 node stgame -tva -g
 #
 node pokemon -tva -g
-# node pipboy -tva -g
+node pipboy -tva -g
 # node tester -m pipboy -tmn pipboy -tva TODO broken -> fix
 #
 node kid -tva -g

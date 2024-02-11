@@ -201,15 +201,22 @@ let config = {
       // match: ({context, listable}) => listable(context, 'unknown') && context.same,
       where: where(),
       match: ({context, listable, hierarchy}) => {
-        /*
-        if (context.marker == 'list') {
-          listable(context, 'unknown')
+        if (!context.same) {
+          return
         }
-        */
-        // TODO some generalizaton for this? maybe canInstanceOfClass + canBeClass
-        // greg
-        //if ((context.marker === 'property') || ((context.same||{}).marker === 'readonly')) {
-        //if ((hierarchy.isA(context.marker, 'property') && context.wantsValue && context.same)|| ((context.same||{}).marker === 'readonly')) {
+
+        if (context.same.determiner == 'a') {
+          context.same.concept = true;
+        } else if (context.same.evaluate) {
+          return // some kind of instance
+        } else if (context.same.word && pluralize.isPlural(context.same.word)) {
+          context.same.concept = true;
+        } else if (context.number == 'many') {
+          context.same.concept = true;
+        } else {
+          return
+        }
+
         if ((hierarchy.isA(context.marker, 'property') && context.same && context.objects)|| ((context.same||{}).marker === 'readonly')) {
           return;
         }
@@ -217,8 +224,9 @@ let config = {
         if (context.same && context.same.word && pluralize.isPlural(context.same.word)) {
           context.same.concept = true;
         }
-        
-        if (context.same && context.same.word && pluralize.isSingular(context.same.word)) {
+       
+        // getting 20 and allowing it to be a class name  like "priority is a 20"
+        if (false && context.same && context.same.word && pluralize.isSingular(context.same.word)) {
           context.same.concept = true;
         }
        
@@ -279,6 +287,7 @@ knowledgeModule( {
   test: {
     name: './hierarchy.test.json',
     contents: hierarchy_tests,
+    // TODO doesnt this need the KM
     check: ['children', 'concept', 'parents', 'properties'],
     includes: {
       words: true,

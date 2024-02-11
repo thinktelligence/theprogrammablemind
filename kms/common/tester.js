@@ -11,7 +11,7 @@ const [args, unknown] = parser.parse_known_args()
 
 process.argv = [process.argv[0], process.argv[1], ...unknown]
 
-config = new Config({ name: 'tester' })
+let config = new Config({ name: 'tester' })
 global.theprogrammablemind = {
   loadForTesting: {}
 }

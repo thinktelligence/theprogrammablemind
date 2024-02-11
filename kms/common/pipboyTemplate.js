@@ -2,8 +2,8 @@ const { Config, knowledgeModule, where, Digraph } = require('./runtime').theprog
 const base_km = require('./hierarchy')
 const countable = require('./countable')
 const comparable = require('./comparable')
-const pipboyTemplate_tests = require('./pipboyTemplate.test.json')
-const pipboyTemplate_instance = require('./pipboyTemplate.instance.json')
+const tests = require('./pipboyTemplate.test.json')
+const instance = require('./pipboyTemplate.instance.json')
 
 const template = {
   queries: [
@@ -18,6 +18,7 @@ const template = {
     "a weapon is equipable",
     "clothes are wearable",
     // "weapons are countable",  TODO fix this
+    "edible is a concept",
     "food is edible",
     "drinks are drinkable",
     "meat is food",
@@ -29,23 +30,15 @@ const template = {
   ] 
 }
 
-let config = {
-  name: 'pipboyTemplate',
-};
-
-config = new Config(config, module)
-config.add(base_km).add(countable).add(comparable)
+const config = new Config({ name: 'pipboyTemplate' }, module).add(base_km).add(countable).add(comparable)
 
 knowledgeModule({ 
   module,
   description: 'Template for pipboy with speech',
   config,
-  template: {
-    template,
-    instance: pipboyTemplate_instance
-  },
+  template: { template, instance },
   test: {
     name: './pipboyTemplate.test.json',
-    contents: pipboyTemplate_tests
+    contents: tests
   },
 })

@@ -65,7 +65,15 @@ class API {
 		if (config.exists(concept)) {
 			return concept
 		}
-    config.addOperator({ pattern: `([${concept}])`, allowDups: true })
+
+    // TODO handle the general case
+    const fixUps = (concept) => {
+      if (concept == '*') {
+        return '\\*'
+      }
+      return concept
+    }
+    config.addOperator({ pattern: `([${fixUps(concept)}])`, allowDups: true })
     config.addBridge({ id: concept, level: 0, bridge: "{ ...next(operator) }" , allowDups: true })
     const addConcept = (word, number) => {
       config.addWord(word, { id: concept, initial: `{ value: "${concept}", number: "${number}" }` } )
@@ -200,10 +208,13 @@ let config = {
     {id: "list", level: 0, selector: {match: "same", left: [ { variable: 'type' } ], right: [ { variable: 'type' } ], passthrough: true}, bridge: "{ ...next(operator), value: append(before, after) }"},
     {id: "list", level: 1, selector: {match: "same", left: [ { variable: 'type' } ], passthrough: true}, bridge: "{ ...operator, value: append(before, operator.value) }"},
 
-    { id: "to", level: 0, 
-        bridge: "{ ...next(operator), object: after[0] }",
+    {   
+        where: where(),
+        id: "to", 
+        level: 0, 
+        bridge: "{ ...next(operator), toObject: after[0] }",
         generatorp: ({context, gp}) => {
-          return `to ${gp(context.object)}`
+          return `to ${gp(context.toObject)}`
         },
     },
     { id: "toAble", level: 0, bridge: "{ ...next(operator) }" },
@@ -332,8 +343,8 @@ let config = {
   version: '3',
   generators: [
     {
-      notes: "handle making responses brief",
       where: where(),
+      notes: "handle making responses brief",
       match: ({context, objects}) => (context.topLevel || context.isResponse) && objects.brief && !context.briefWasRun,
       apply: ({context, g}) => {
         const focussed = focus(context)
@@ -343,20 +354,20 @@ let config = {
       priority: -2,
     },
     {
-      notes: "unknown ",
       where: where(),
+      notes: "unknown ",
       match: ({context}) => context.marker == 'unknown' && context.implicit,
       apply: ({context}) => '',
     },
     {
-      notes: "unknown answer default response",
       where: where(),
+      notes: "unknown answer default response",
       match: ({context}) => context.marker == 'answerNotKnown',
       apply: ({context}) => `that is not known`,
     },
     {
-      notes: "be brief or wordy",
       where: where(),
+      notes: "be brief or wordy",
       match: ({context}) => context.marker == 'be',
       apply: ({context}) => `be ${context.type.word}`,
     },
@@ -408,10 +419,10 @@ let config = {
     },
 
     {
+      where: where(),
       notes: 'handle lists with yes no',
       // ({context, hierarchy}) => context.marker == 'list' && context.paraphrase && context.value,
       // ({context, hierarchy}) => context.marker == 'list' && context.value,
-      where: where(),
       match: ({context, hierarchy}) => context.marker == 'list' && context.paraphrase && context.value && context.value.length > 0 && context.value[0].marker == 'yesno',
       apply: ({context, g, gs}) => {
         return `${g(context.value[0])} ${gs(context.value.slice(1), ', ', ' and ')}`
@@ -419,10 +430,10 @@ let config = {
     },
 
     {
+      where: where(),
       notes: 'handle lists',
       // ({context, hierarchy}) => context.marker == 'list' && context.paraphrase && context.value,
       // ({context, hierarchy}) => context.marker == 'list' && context.value,
-      where: where(),
       match: ({context, hierarchy}) => context.marker == 'list' && context.value,
       apply: ({context, gs}) => {
         if (context.newLinesOnly) {
@@ -434,8 +445,8 @@ let config = {
     },
 
     {
-      notes: 'paraphrase a negation',
       where: where(),
+      notes: 'paraphrase a negation',
       match: ({context, hierarchy}) => hierarchy.isA(context.marker, 'notAble') && context.negated, // && !context.isQuery && !context.paraphrase && context.value,
       apply: ({context, g}) => {
         context.negated = false
@@ -446,16 +457,16 @@ let config = {
     },
 
     {
-      notes: 'paraphrase a queryable response',
       where: where(),
+      notes: 'paraphrase a queryable response',
       match: ({context, hierarchy}) => hierarchy.isA(context.marker, 'queryable') && !context.isQuery && context.evalue && !context.paraphrase,
       apply: ({context, g}) => {
         return g(context.evalue)
       }
     },
     {
-      notes: 'paraphrase a queryable',
       where: where(),
+      notes: 'paraphrase a queryable',
       match: ({context, hierarchy}) => hierarchy.isA(context.marker, 'queryable') && !context.isQuery && !context.paraphrase && context.evalue,
       apply: ({context, g}) => {
         const oldValue = context.evalue.paraphrase
@@ -547,16 +558,16 @@ let config = {
       priority: -1,
     },
     { 
-      notes: "x is y",
       where: where(),
+      notes: "x is y",
       match: ({context, hierarchy}) => { return hierarchy.isA(context.marker, 'is') && context.paraphrase },
       apply: ({context, g, gp}) => {
         return `${g({ ...context.one, paraphrase: true })} ${context.word} ${gp(context.two)}` 
       }
     },
     { 
-      notes: 'is with a response defined',
       where: where(),
+      notes: 'is with a response defined',
       match: ({context, hierarchy}) => hierarchy.isA(context.marker, 'is') && context.evalue,
       apply: ({context, g}) => {
         const response = context.evalue;
@@ -572,8 +583,8 @@ let config = {
       }
     },
     { 
-      notes: 'x is y (not a response)',
       where: where(),
+      notes: 'x is y (not a response)',
       match: ({context, hierarchy}) => hierarchy.isA(context.marker, 'is') && !context.evalue,
       apply: ({context, g}) => {
         if ((context.two.evalue || {}).marker == 'answerNotKnown') {
@@ -589,8 +600,8 @@ let config = {
     },
 
     {
-      priority: -3,
       where: where(),
+      priority: -3,
       match: ({context}) => context.evaluateToWord && context.word,
       apply: ({context}) => context.word,
     },
@@ -598,8 +609,8 @@ let config = {
 
   semantics: [
     {
-      todo: 'debug23',
       where: where(),
+      todo: 'debug23',
       match: ({context}) => context.marker == 'debug23',
       apply: ({context, hierarchy}) => {
         debugger
@@ -607,16 +618,16 @@ let config = {
       },
     },
     { 
-      todo: 'be brief or wordy',
       where: where(),
+      todo: 'be brief or wordy',
       match: ({context}) => context.marker == 'be',
       apply: ({context, api}) => {
         api.setBrief( context.type.value == 'brief' )
       },
     },
     { 
-      notes: 'pull from context',
       where: where(),
+      notes: 'pull from context',
       // match: ({context}) => context.marker == 'it' && context.pullFromContext, // && context.value,
       match: ({context}) => context.pullFromContext && !context.same, // && context.value,
       apply: ({context, s, kms, e, log, retry}) => {
@@ -633,8 +644,8 @@ let config = {
       },
     },
     { 
-      notes: 'what x is y?',
       where: where(),
+      notes: 'what x is y?',
       /*
         what type is object (what type is pikachu)   (the type is typeValue)
         what property is object (what color are greg's eyes)
@@ -686,8 +697,8 @@ let config = {
       }
     },
     { 
-      notes: 'x is y?',
       where: where(),
+      notes: 'x is y?',
       match: ({context, hierarchy}) => hierarchy.isA(context.marker, 'is') && context.query,
       apply: ({context, log}) => {
         warningIsANotImplemented(log, context)
@@ -700,10 +711,24 @@ let config = {
 
     // statement
     { 
+      /*
+         a car is a vehicle           isA
+         cars are vehicles            isA
+         the ford is a car            isA
+         a name is car                isA (reverse)
+         the formula is x + 5         not isA
+         x is 5                       not isA
+         worth is price * quantity    not isA
+         the name is cars             not isA
+
+      */
       where: where(),
-      notes: 'x is y',
+      notes: 'x is y. handles x is a kind of y or x = y in the stm',
       match: ({context}) => context.marker == 'is' && !context.query && context.one && context.two,
       apply: ({context, s, log, api, kms, config}) => {
+        // const oneZero = { ...context.one }
+        // const twoZero = { ...context.two }
+
         const one = context.one;
         const two = context.two;
         one.same = two;
@@ -730,16 +755,50 @@ let config = {
           }
           two.same = undefined
         }
+
+        // if not isA add to stm
         if (!onePrime.sameWasProcessed && !twoPrime.sameWasProcessed) {
 					api.makeObject({ context: one, config, types: context.two.types || [] })
 					kms.stm.api.setVariable(one.value, two)
 					kms.stm.api.mentioned(one, two)
+        } else{
+          /*
+          if (oneZero.determiner == 'a' && twoZero.determiner == 'a') {
+            if (!onePrime.sameWasProcessed && !twoPrime.sameWasProcessed) {
+              debugger
+            }
+          } else if (twoZero.determiner == 'a') {
+            if (!onePrime.sameWasProcessed && !twoPrime.sameWasProcessed) {
+              debugger
+            }
+          } else if (pluralize.isPlural(twoZero.word)) {
+            if (!onePrime.sameWasProcessed && !twoPrime.sameWasProcessed) {
+              debugger
+            }
+          } else {
+            debugger
+          }
+          */
         }
       }
     },
+    /*
     {
-      notes: 'default handle evaluate',
       where: where(),
+      notes: 'x = y in the stm',
+      match: ({context}) => context.marker == 'is' && !context.query && context.one && context.two,
+      apply: ({context, s, log, api, kms, config}) => {
+        const one = context.one;
+        const two = context.two;
+        api.makeObject({ context: one, config, types: context.two.types || [] })
+        kms.stm.api.setVariable(one.value, two)
+        kms.stm.api.mentioned(one, two)
+      }
+    },
+    */
+    {
+      where: where(),
+      notes: 'default handle evaluate',
       match: ({context}) => context.evaluate,
       apply: ({context, kms, e}) => {
         const api = kms.stm.api

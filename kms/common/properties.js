@@ -355,12 +355,13 @@ let config = {
         }
       },
     },
-    [
-      ({context, hierarchy}) => hierarchy.isA(context.marker, 'canBeDoQuestion') && context.paraphrase && !context.query,
-      ({context, g}) => {
+    {
+      where: where(),
+      match: ({context, hierarchy}) => hierarchy.isA(context.marker, 'canBeDoQuestion') && context.paraphrase && !context.query,
+      apply: ({context, g}) => {
         return `${g(context.object)} ${context.word} ${g(context.property)}`
       }
-    ],
+    },
     {
       notes: 'the property of object',
       where: where(),
@@ -381,14 +382,15 @@ let config = {
                }
              },
     },
-    [
+    {
       // ({context, hierarchy}) => hierarchy.isA(context.marker, 'property') && context.object && !context.value && !context.evaluate,
-      ({context, hierarchy}) => hierarchy.isA(context.marker, 'property') && context.object && !context.possession && !context.evaluate && !context.object.marker == 'objectPrefix',
-      ({context, g}) => {
+      where: where(),
+      match: ({context, hierarchy}) => hierarchy.isA(context.marker, 'property') && context.object && !context.possession && !context.evaluate && !context.object.marker == 'objectPrefix',
+      apply: ({context, g}) => {
         const property = Object.assign({}, context, { object: undefined })
         return `${g(property)} of ${g({ ...context.object, paraphrase: true })}`
       }
-    ],
+    },
     {
       notes: "object's property",
       where: where(),
@@ -695,7 +697,12 @@ knowledgeModule( {
   test: {
     name: './properties.test.json',
     contents: properties_tests,
-    check: ['children', 'concept', 'parents', 'properties'],
+    check: [
+      'children', 
+      'concept', 
+      'parents', 
+      'properties'
+    ],
     include: {
       words: true,
       operators: true,

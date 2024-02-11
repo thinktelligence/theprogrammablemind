@@ -104,6 +104,7 @@ let config = {
       semantic: ({context}) => {
         context.response = solveFor(context.equality, context.variable)
         context.isResponse = true
+        context.value = null
         if (!context.response) {
           // TODO some KM for talking to the user wrt brief+avatar
           context.verbatim = `Solving failed`
