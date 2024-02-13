@@ -11,12 +11,14 @@ const math_tests = require('./math.test.json')
     10 dollars * quantity
 */
 
+
+// TODO need to deal with value vs evalue
 const toValue = (context) => {
   while( true ) { 
     if (typeof context == 'number' || !context) {
       return context
     }
-    context = context.evalue
+    context = context.evalue || context.value
   }
 }
 
@@ -41,7 +43,7 @@ let config = {
         where: where(),
         id: "plus", level: 0, 
         // bridge: "{ ...next(operator), types: append(type(before[0]), type(after[0])), x: before[0], y: after[0], number: 'one' }" ,
-        bridge: "{ ...next(operator), x: before[0], y: after[0], number: 'one', isResponse: true, evaluate: true }" ,
+        bridge: "{ ...next(operator), types: lub(append(operator.types, before[0].types, after[0].types)), x: before[0], y: after[0], number: 'one', isResponse: true, evaluate: true }" ,
         isA: ['queryable', 'number', 'mathematicalOperator'],
         localHierarchy: [ ['unknown', 'number'] ],
         levelSpecificHierarchy: [[1, 'mathematicalExpression']],
@@ -60,7 +62,7 @@ let config = {
     {   
         where: where(),
         id: "minus", level: 0, 
-        bridge: "{ ...next(operator), x: before[0], y: after[0], number: 'one', isResponse: true, evaluate: true }" ,
+        bridge: "{ ...next(operator), types: lub(append(operator.types, before[0].types, after[0].types)), x: before[0], y: after[0], number: 'one', isResponse: true, evaluate: true }" ,
         isA: ['queryable', 'number', 'mathematicalOperator'],
         localHierarchy: [ ['unknown', 'number'] ],
         words: ['-'],
@@ -85,7 +87,8 @@ let config = {
         localHierarchy: [ ['unknown', 'number'] ],
         words: ['*'],
         generatorp: ({gp, context}) => `${gp(context.x)} ${context.word} ${gp(context.y)}`,
-        evaluator: ({e, context}) => {
+        evaluator: ({e, context, theDebugger}) => {
+          // theDebugger.breakOnSemantics(true)
           const x = toValue(e(context.x)) 
           const y = toValue(e(context.y))
           if (!x || !y) {
@@ -99,7 +102,7 @@ let config = {
         where: where(),
         id: "divideBy", level: 0, 
         // bridge: "{ ...next(operator), types: lub(append(type(before[0]), type(after[0]))), x: before[0], y: after[0], number: 'one' }" ,
-        bridge: "{ ...next(operator), types: append(operator.types, before[0].types, after[0].types), x: before[0], y: after[0], value: null, number: 'one', isResponse: true, evaluate: true }" ,
+        bridge: "{ ...next(operator), types: lub(append(operator.types, before[0].types, after[0].types)), x: before[0], y: after[0], value: null, number: 'one', isResponse: true, evaluate: true }" ,
         isA: ['queryable', 'number', 'mathematicalOperator'],
         before: [['plus', 0], ['minus', 0]],
         localHierarchy: [ ['unknown', 'number'] ],

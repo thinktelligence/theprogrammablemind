@@ -392,10 +392,10 @@
 # node pipboy -q 'show all the weapons' -g -d
 # node comparable -q 'lowest comparable' -g -d
 # node pipboy -q 'highest damage pistol' -g -d
-# node pipboy -q 'equip the highest damage pistol' -g -d -s
-# node pipboy -q 'drink a cola' -g -d -s
+# node pipboy -q 'equip the highest damage pistol' -g -d
+# node pipboy -q 'drink a cola' -g -d
 # node pipboyTemplate -q "damage luck hp rads value ap charisma range accuracy are properties" -g -d
-# node temperature -q '10 degrees celcius in fahrenheit' -g -s
+# node temperature -q '10 degrees celcius in fahrenheit' -g
 # node temperature -q 'testingEvaluate 10 degrees celcius in fahrenheit' -g -d
 # node tester -m testing -q 'testingEvaluate testingValue' -d -g
 # export DEBUG_OPERATOR="([dimension])"
@@ -403,14 +403,13 @@
 # node testing -q 'testingEvaluate testingValue' -g -d
 # node tester -m temperature -tva -tmn temperature -g
 # node tester -m dimension -tva -tmn dimension -g
-# node formulas -q 'y equals 4 x = y + 10 calculate x' -g -s
-# node formulas -q 'x = 4 calculate x' -g -s
-# node math -d -q '4 + x' -g -s
+# node formulas -q 'y equals 4 x = y + 10 calculate x' -g
+# node formulas -q 'x = 4 calculate x' -g
+# node math -d -q '4 + x' -g
 # node inspect math -d -q 'x * y + z' -g
 # node formulas -d -q 'y equals 4 x = y + z calculate x' -g
 # node formulas -d -q 'solve x = y for x' -g
-# node formulas -d -q 'solve x = y + 1 for x' -g -s
-# TODO say x is a y twice or say the opposite
+# node formulas -d -q 'solve x = y + 1 for x' -g
 # node dimension -d -q 'dimension is a concept\nlength is a dimension\n unit of length' -g
 # node dimension -d -q 'length is a dimension\n meter is a unit of length' -g
 # node dimension -d -q 'a unit of length' -g
@@ -418,17 +417,11 @@
 # node dimension -d -q 'meter is a unit of length' -g
 # node dimension -d -q 'unit of length' -g
 # node dimension -d -q 'meter is a unit of length\n what are the units of length' -g
-# TODO node length -q 'calculate 10 meters in inches' -g -d
 # node numbers -q '2.56' -g
 # node length -q '1 meter 1 meter' -g -d
-# TODO node math -q 'price is 20 quantity is 30 what is price times quantity' -g -d
-# TODO node math -q 'price is 20 dollars quantity is 30 what is price times quantity' -g -d
-# TODO node math -q 'price is 20 what is the price' -g -d
-# TODO node math -q 'the price is 20 what is the price' -g -d
-# TODO node math -q '20 is the price what is the price' -g -d
-# TODO node math -q 'price is 20 dollars what is the price' -g -d
+# node math -q 'price is 20 quantity is 30 what is price times quantity' -g -d
+# node math -q 'price is 20 what is the price' -g -d
 # node inspect math -q 'price is 20' -g -d
-# TODO node math -q 'price is 20 quantity is 30 what is the price times the quantity' -g -d
 # node inspect math -q 'price is 20 quantity is 30 worth is price times quantity what is the worth' -g -d
 # node math -q 'price is 20 quantity is 30 worth is price times quantity what is worth' -g -d
 # node math -q 'worth is price times quantity' -g -d
@@ -440,4 +433,15 @@
 # node inspect reports -q 'move column 2 to column 1' -g -d
 # node reports -q "worthtest is price times quantity\\nshow the worthtest list the models" -g
 # node inspect reports -q "worthtest is price times quantity" -g -d -dl
-node tester -m properties -tva -tmn properties -g
+#  node tester -m properties -tva -tmn properties -g
+# node inspect math -q 'price is 20 quantity is 30 what is the price times the quantity' -g -d
+# node math -q 'price is 20 quantity is 30 what is price times quantity' -g -d
+# true case
+# node math -q 'price is 20 quantity is 30 worth is price times quantity what is the worth' -g -d
+# false case
+# node math -q 'the price is 20 what is the price' -g -d 
+# TODO say x is a y twice or say the opposite
+# TODO node math -q '20 is the price what is the price' -g -d
+# TODO node length -q 'calculate 10 meters in inches' -g -d
+# TODO node math -q 'price is 20 dollars quantity is 30 what is price times quantity' -g -d
+# TODO node math -q 'price is 20 dollars what is the price' -g -d

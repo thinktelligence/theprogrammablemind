@@ -260,7 +260,6 @@ let config = {
     { id: "doesAble", level: 1, bridge: "{ ...next(operator), before: before[0] }" },
     { id: "does", level: 0, bridge: "{ query: true, what: operator.marker, ...context, number: operator.number, object.number: operator.number }*" },
 
-    // { id: "the", level: 0, bridge: "{ ...after[0], pullFromContext: true }" },
     { 
       id: 'the', 
       level: 0, 
@@ -630,16 +629,92 @@ let config = {
       notes: 'pull from context',
       // match: ({context}) => context.marker == 'it' && context.pullFromContext, // && context.value,
       match: ({context}) => context.pullFromContext && !context.same, // && context.value,
-      apply: ({context, s, kms, e, log, retry}) => {
-        context.value = kms.stm.api.mentions(context)
-        if (!context.value) {
-          // retry()
-          context.value = { marker: 'answerNotKnown' }
-          return
-        }
-        const instance = e(context.value)
-        if (instance.evalue && !instance.edefault) {
-          context.value = instance.evalue
+      apply: ({context, s, kms, e, log, retry, callId}) => {
+        if (true) {
+          /*
+                   {
+                      "marker": "unknown",
+                      "range": {
+                        "start": 65,
+                        "end": 73
+                      },
+                      "word": "worth",
+                      "text": "the worth",
+                      "value": "worth",
+                      "unknown": true,
+                      "types": [
+                        "unknown"
+                      ],
+                      "pullFromContext": true,
+                      "concept": true,
+                      "wantsValue": true,
+                      "determiner": "the",
+                      "modifiers": [
+                        "determiner"
+                      ],
+                      "evaluate": true
+                    }
+
+          */
+          context.value = kms.stm.api.mentions(context)
+          if (!context.value) {
+            // retry()
+            context.value = { marker: 'answerNotKnown' }
+            return
+          }
+          
+          const instance = e(context.value)
+          if (instance.evalue && !instance.edefault) {
+            context.value = instance.evalue
+          }
+          if (context.evaluate) {
+            context.evalue = context.value
+          }
+        } else {
+          /*
+                    {
+                      "marker": "unknown",
+                      "range": {
+                        "start": 24,
+                        "end": 32
+                      },
+                      "word": "price",
+                      "text": "the price",
+                      "value": "price",
+                      "unknown": true,
+                      "types": [
+                        "unknown"
+                      ],
+                      "pullFromContext": true,
+                      "concept": true,
+                      "wantsValue": true,
+                      "determiner": "the",
+                      "modifiers": [
+                        "determiner"
+                      ],
+                      "evaluate": true
+                    }
+
+          */
+          context.value = kms.stm.api.mentions(context)
+          // debugger;
+          if (!context.value) {
+            // retry()
+            context.value = { marker: 'answerNotKnown' }
+            return
+          }
+          // avoid loops
+          if (context.marker != 'unknown') {
+            if (context.value.marker != context.marker) {
+              const instance = e(context.value)
+              if (instance.evalue && !instance.edefault) {
+                context.value = instance.evalue
+              }
+            }
+          }
+          if (context.evaluate) {
+            context.evalue = context.value
+          }
         }
       },
     },
@@ -725,7 +800,7 @@ let config = {
       where: where(),
       notes: 'x is y. handles x is a kind of y or x = y in the stm',
       match: ({context}) => context.marker == 'is' && !context.query && context.one && context.two,
-      apply: ({context, s, log, api, kms, config}) => {
+      apply: ({context, s, log, api, kms, config, callId}) => {
         // const oneZero = { ...context.one }
         // const twoZero = { ...context.two }
 
@@ -745,7 +820,13 @@ let config = {
         let twoPrime;
         if (!onePrime.sameWasProcessed) {
           two.same = one
+          if (callId == 'call22') {
+            debugger
+          }
           twoPrime = s(two)
+          if (callId == 'call22') {
+            debugger
+          }
           if (!twoPrime.sameWasProcessed) {
             warningSameNotEvaluated(log, two)
           } else {
@@ -761,24 +842,6 @@ let config = {
 					api.makeObject({ context: one, config, types: context.two.types || [] })
 					kms.stm.api.setVariable(one.value, two)
 					kms.stm.api.mentioned(one, two)
-        } else{
-          /*
-          if (oneZero.determiner == 'a' && twoZero.determiner == 'a') {
-            if (!onePrime.sameWasProcessed && !twoPrime.sameWasProcessed) {
-              debugger
-            }
-          } else if (twoZero.determiner == 'a') {
-            if (!onePrime.sameWasProcessed && !twoPrime.sameWasProcessed) {
-              debugger
-            }
-          } else if (pluralize.isPlural(twoZero.word)) {
-            if (!onePrime.sameWasProcessed && !twoPrime.sameWasProcessed) {
-              debugger
-            }
-          } else {
-            debugger
-          }
-          */
         }
       }
     },

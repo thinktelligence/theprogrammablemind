@@ -997,7 +997,6 @@ class API {
       this.objects.children[parent] = []
     }
     if (!this.objects.children[parent].includes(child)) {
-      debugger
       this.objects.children[parent].push(child)
     }
 
