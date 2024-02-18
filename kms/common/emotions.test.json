@@ -43,6 +43,16 @@
         [
           "propertyOf",
           0
+        ]
+      ],
+      [
+        [
+          "is",
+          0
+        ],
+        [
+          "propertyOf",
+          0
         ],
         [
           "the",
@@ -99,6 +109,10 @@
         [
           "unknown",
           1
+        ],
+        [
+          "what",
+          0
         ]
       ],
       [
@@ -108,10 +122,6 @@
         ],
         [
           "propertyOf",
-          0
-        ],
-        [
-          "the",
           0
         ],
         [
@@ -135,6 +145,10 @@
         [
           "unknown",
           1
+        ],
+        [
+          "what",
+          0
         ]
       ],
       [
@@ -144,10 +158,20 @@
         ],
         [
           "propertyOf",
-          1
+          0
         ],
         [
-          "unknown",
+          "what",
+          0
+        ]
+      ],
+      [
+        [
+          "is",
+          0
+        ],
+        [
+          "propertyOf",
           1
         ]
       ],
@@ -167,16 +191,6 @@
         [
           "what",
           0
-        ]
-      ],
-      [
-        [
-          "is",
-          0
-        ],
-        [
-          "unknown",
-          1
         ]
       ]
     ],
@@ -186,12 +200,18 @@
       {
         "do": {
           "left": "sentientBeing",
-          "right": "emotion",
-          "text": "greg feels angry"
+          "range": {
+            "end": 15,
+            "start": 0
+          },
+          "right": "emotion"
         },
         "emotion": {
           "marker": "emotion",
-          "response": null,
+          "range": {
+            "end": 15,
+            "start": 11
+          },
           "text": "angry",
           "types": [
             "emotion",
@@ -207,8 +227,16 @@
         ],
         "marker": "feel",
         "number": "one",
+        "range": {
+          "end": 15,
+          "start": 0
+        },
         "sentientBeing": {
           "marker": "sentientBeing",
+          "range": {
+            "end": 3,
+            "start": 0
+          },
           "text": "greg",
           "types": [
             "sentientBeing",
@@ -231,27 +259,7 @@
         "word": "feels"
       },
       {
-        "marker": "is",
-        "number": "one",
-        "one": {
-          "default": true,
-          "determined": true,
-          "marker": "what",
-          "number": "one",
-          "query": [
-            "what"
-          ],
-          "response": true,
-          "text": "what is the emotion of greg",
-          "types": [
-            "what"
-          ],
-          "word": "what"
-        },
-        "query": [
-          "what"
-        ],
-        "response": {
+        "evalue": {
           "default": true,
           "focusable": [
             "two",
@@ -267,6 +275,10 @@
             ],
             "object": {
               "marker": "unknown",
+              "range": {
+                "end": 43,
+                "start": 40
+              },
               "text": "greg",
               "types": [
                 "unknown"
@@ -284,6 +296,10 @@
                   "determiner"
                 ],
                 "pullFromContext": true,
+                "range": {
+                  "end": 35,
+                  "start": 25
+                },
                 "text": "the emotion",
                 "types": [
                   "property",
@@ -296,6 +312,10 @@
               },
               {
                 "marker": "unknown",
+                "range": {
+                  "end": 43,
+                  "start": 40
+                },
                 "text": "greg",
                 "types": [
                   "unknown"
@@ -306,6 +326,10 @@
               }
             ],
             "pullFromContext": true,
+            "range": {
+              "end": 43,
+              "start": 25
+            },
             "text": "the emotion of greg",
             "types": [
               "property",
@@ -319,12 +343,25 @@
           "two": {
             "concept": true,
             "determiner": "the",
-            "evaluateWasProcessed": true,
+            "evalue": {
+              "marker": "emotion",
+              "range": {
+                "end": 15,
+                "start": 11
+              },
+              "text": "angry",
+              "types": [
+                "emotion",
+                "unknown"
+              ],
+              "unknown": true,
+              "value": "angry",
+              "word": "angry"
+            },
             "focus": true,
             "focusable": [
               "object[0]"
             ],
-            "greg": "greg44",
             "instance": true,
             "marker": "property",
             "modifiers": [
@@ -339,6 +376,10 @@
                   "determiner"
                 ],
                 "pullFromContext": true,
+                "range": {
+                  "end": 35,
+                  "start": 25
+                },
                 "text": "the emotion",
                 "types": [
                   "property",
@@ -351,6 +392,10 @@
               },
               {
                 "marker": "unknown",
+                "range": {
+                  "end": 43,
+                  "start": 40
+                },
                 "text": "greg",
                 "types": [
                   "unknown"
@@ -361,6 +406,10 @@
               }
             ],
             "pullFromContext": true,
+            "range": {
+              "end": 43,
+              "start": 25
+            },
             "text": "the emotion of greg",
             "touchedBy": [
               "call13"
@@ -370,22 +419,40 @@
               "unknown"
             ],
             "unknown": true,
-            "value": {
-              "marker": "emotion",
-              "response": null,
-              "text": "angry",
-              "types": [
-                "emotion",
-                "unknown"
-              ],
-              "unknown": true,
-              "value": "angry",
-              "word": "angry"
-            },
+            "value": "emotion",
             "wantsValue": true,
             "word": "emotion"
           },
           "word": "is"
+        },
+        "isResponse": true,
+        "marker": "is",
+        "number": "one",
+        "one": {
+          "default": true,
+          "determined": true,
+          "marker": "what",
+          "number": "one",
+          "query": [
+            "what"
+          ],
+          "range": {
+            "end": 43,
+            "start": 17
+          },
+          "text": "what",
+          "types": [
+            "what"
+          ],
+          "value": "what",
+          "word": "what"
+        },
+        "query": [
+          "what"
+        ],
+        "range": {
+          "end": 43,
+          "start": 17
         },
         "text": "what is the emotion of greg",
         "topLevel": true,
@@ -401,6 +468,10 @@
           ],
           "object": {
             "marker": "unknown",
+            "range": {
+              "end": 43,
+              "start": 40
+            },
             "text": "greg",
             "types": [
               "unknown"
@@ -418,6 +489,10 @@
                 "determiner"
               ],
               "pullFromContext": true,
+              "range": {
+                "end": 35,
+                "start": 25
+              },
               "text": "the emotion",
               "types": [
                 "property",
@@ -430,6 +505,10 @@
             },
             {
               "marker": "unknown",
+              "range": {
+                "end": 43,
+                "start": 40
+              },
               "text": "greg",
               "types": [
                 "unknown"
@@ -440,7 +519,10 @@
             }
           ],
           "pullFromContext": true,
-          "response": true,
+          "range": {
+            "end": 43,
+            "start": 25
+          },
           "text": "the emotion of greg",
           "types": [
             "property",
@@ -457,6 +539,7 @@
     "metadata": {
       "opChoices": [
         {
+          "counter": 1,
           "op": [
             "unknown",
             0
@@ -489,42 +572,7 @@
           ]
         },
         {
-          "op": [
-            "unknown",
-            0
-          ],
-          "ops": [
-            [
-              "feel",
-              0
-            ],
-            [
-              "is",
-              0
-            ],
-            [
-              "propertyOf",
-              0
-            ],
-            [
-              "the",
-              0
-            ],
-            [
-              "unknown",
-              0
-            ],
-            [
-              "unknown",
-              1
-            ],
-            [
-              "what",
-              0
-            ]
-          ]
-        },
-        {
+          "counter": 2,
           "op": [
             "unknown",
             0
@@ -561,6 +609,7 @@
           ]
         },
         {
+          "counter": 3,
           "op": [
             "unknown",
             0
@@ -597,8 +646,9 @@
           ]
         },
         {
+          "counter": 4,
           "op": [
-            "what",
+            "unknown",
             0
           ],
           "ops": [
@@ -620,6 +670,10 @@
             ],
             [
               "unknown",
+              0
+            ],
+            [
+              "unknown",
               1
             ],
             [
@@ -629,6 +683,7 @@
           ]
         },
         {
+          "counter": 5,
           "op": [
             "the",
             0
@@ -653,12 +708,17 @@
             [
               "unknown",
               1
+            ],
+            [
+              "what",
+              0
             ]
           ]
         },
         {
+          "counter": 6,
           "op": [
-            "propertyOf",
+            "feel",
             0
           ],
           "ops": [
@@ -677,18 +737,23 @@
             [
               "unknown",
               1
+            ],
+            [
+              "what",
+              0
             ]
           ]
         },
         {
+          "counter": 7,
           "op": [
-            "propertyOf",
+            "unknown",
             1
           ],
           "ops": [
             [
               "feel",
-              0
+              1
             ],
             [
               "is",
@@ -696,107 +761,142 @@
             ],
             [
               "propertyOf",
-              1
+              0
             ],
             [
               "unknown",
+              1
+            ],
+            [
+              "what",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 8,
+          "op": [
+            "unknown",
+            1
+          ],
+          "ops": [
+            [
+              "feel",
+              1
+            ],
+            [
+              "is",
+              0
+            ],
+            [
+              "propertyOf",
+              0
+            ],
+            [
+              "unknown",
+              1
+            ],
+            [
+              "what",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 9,
+          "op": [
+            "what",
+            0
+          ],
+          "ops": [
+            [
+              "feel",
+              1
+            ],
+            [
+              "is",
+              0
+            ],
+            [
+              "propertyOf",
+              0
+            ],
+            [
+              "what",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 10,
+          "op": [
+            "feel",
+            1
+          ],
+          "ops": [
+            [
+              "feel",
+              1
+            ],
+            [
+              "is",
+              0
+            ],
+            [
+              "propertyOf",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 11,
+          "op": [
+            "propertyOf",
+            0
+          ],
+          "ops": [
+            [
+              "is",
+              0
+            ],
+            [
+              "propertyOf",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 12,
+          "op": [
+            "propertyOf",
+            1
+          ],
+          "ops": [
+            [
+              "is",
+              0
+            ],
+            [
+              "propertyOf",
               1
             ]
           ]
         },
         {
+          "counter": 13,
           "op": [
             "is",
             0
           ],
           "ops": [
             [
-              "feel",
-              0
-            ],
-            [
               "is",
               0
-            ],
-            [
-              "unknown",
-              1
             ]
           ]
         },
         {
-          "op": [
-            "unknown",
-            1
-          ],
-          "ops": [
-            [
-              "feel",
-              0
-            ],
-            [
-              "is",
-              1
-            ],
-            [
-              "unknown",
-              1
-            ]
-          ]
-        },
-        {
-          "op": [
-            "unknown",
-            1
-          ],
-          "ops": [
-            [
-              "feel",
-              0
-            ],
-            [
-              "is",
-              1
-            ],
-            [
-              "unknown",
-              1
-            ]
-          ]
-        },
-        {
-          "op": [
-            "feel",
-            0
-          ],
-          "ops": [
-            [
-              "feel",
-              0
-            ],
-            [
-              "is",
-              1
-            ]
-          ]
-        },
-        {
-          "op": [
-            "feel",
-            1
-          ],
-          "ops": [
-            [
-              "feel",
-              1
-            ],
-            [
-              "is",
-              1
-            ]
-          ]
-        },
-        {
+          "counter": 14,
           "op": [
             "is",
             1
@@ -818,19 +918,192 @@
         },
         "2": {
           "children": {
+            "articlePOS": [
+              "a",
+              "the"
+            ],
+            "canBeDoQuestion": [
+              "have"
+            ],
+            "canBeQuestion": [
+              "have",
+              "is"
+            ],
             "emotion": [
               "angry"
+            ],
+            "hierarchyAble": [
+              "unknown"
+            ],
+            "ifAble": [
+              "orAble"
+            ],
+            "notAble": [
+              "unknown"
+            ],
+            "object": [
+              "unknown",
+              "what",
+              "whose"
+            ],
+            "pronoun": [
+              "it",
+              "this"
+            ],
+            "punctuation": [
+              "questionMark"
+            ],
+            "queryable": [
+              "concept",
+              "hierarchyAble",
+              "readonly",
+              "property",
+              "object",
+              "xfx",
+              "unknown",
+              "it",
+              "what",
+              "whatAble",
+              "this",
+              "thisitthat"
+            ],
+            "theAble": [
+              "concept",
+              "property",
+              "object",
+              "unknown"
+            ],
+            "thisitthat": [
+              "it",
+              "this",
+              "that"
+            ],
+            "toAble": [
+              "it"
+            ],
+            "unknown": [
+              "property"
+            ],
+            "verby": [
+              "is"
             ]
           },
           "concepts": [
             "properties",
+            "concept",
+            "theAble",
+            "queryable",
+            "unknown",
+            "hierarchyAble",
+            "object",
+            "what",
+            "readonly",
+            "property",
+            "xfx",
+            "whose",
+            "have",
+            "canBeDoQuestion",
+            "canBeQuestion",
+            "it",
+            "pronoun",
+            "this",
+            "questionMark",
+            "punctuation",
+            "a",
+            "articlePOS",
+            "the",
+            "notAble",
+            "whatAble",
+            "is",
+            "toAble",
+            "verby",
+            "thisitthat",
+            "that",
+            "orAble",
+            "ifAble",
             "angry",
             "emotion",
             "greg"
           ],
           "parents": {
+            "a": [
+              "articlePOS"
+            ],
             "angry": [
               "emotion"
+            ],
+            "concept": [
+              "theAble",
+              "queryable"
+            ],
+            "have": [
+              "canBeDoQuestion",
+              "canBeQuestion"
+            ],
+            "hierarchyAble": [
+              "queryable"
+            ],
+            "is": [
+              "canBeQuestion",
+              "verby"
+            ],
+            "it": [
+              "pronoun",
+              "queryable",
+              "toAble",
+              "thisitthat"
+            ],
+            "object": [
+              "queryable",
+              "theAble"
+            ],
+            "orAble": [
+              "ifAble"
+            ],
+            "property": [
+              "queryable",
+              "theAble",
+              "unknown"
+            ],
+            "questionMark": [
+              "punctuation"
+            ],
+            "readonly": [
+              "queryable"
+            ],
+            "that": [
+              "thisitthat"
+            ],
+            "the": [
+              "articlePOS"
+            ],
+            "this": [
+              "pronoun",
+              "queryable",
+              "thisitthat"
+            ],
+            "thisitthat": [
+              "queryable"
+            ],
+            "unknown": [
+              "hierarchyAble",
+              "object",
+              "notAble",
+              "theAble",
+              "queryable"
+            ],
+            "what": [
+              "object",
+              "queryable"
+            ],
+            "whatAble": [
+              "queryable"
+            ],
+            "whose": [
+              "object"
+            ],
+            "xfx": [
+              "queryable"
             ]
           },
           "properties": {
@@ -839,7 +1112,17 @@
             "initHandlers": [
             ],
             "root": {
+              "a": {
+              },
               "angry": {
+              },
+              "articlePOS": {
+              },
+              "canBeDoQuestion": {
+              },
+              "canBeQuestion": {
+              },
+              "concept": {
               },
               "emotion": {
               },
@@ -848,7 +1131,10 @@
                   "has": true,
                   "value": {
                     "marker": "emotion",
-                    "response": null,
+                    "range": {
+                      "end": 15,
+                      "start": 11
+                    },
                     "text": "angry",
                     "types": [
                       "emotion",
@@ -859,6 +1145,58 @@
                     "word": "angry"
                   }
                 }
+              },
+              "have": {
+              },
+              "hierarchyAble": {
+              },
+              "ifAble": {
+              },
+              "is": {
+              },
+              "it": {
+              },
+              "notAble": {
+              },
+              "object": {
+              },
+              "orAble": {
+              },
+              "pronoun": {
+              },
+              "property": {
+              },
+              "punctuation": {
+              },
+              "queryable": {
+              },
+              "questionMark": {
+              },
+              "readonly": {
+              },
+              "that": {
+              },
+              "the": {
+              },
+              "theAble": {
+              },
+              "this": {
+              },
+              "thisitthat": {
+              },
+              "toAble": {
+              },
+              "unknown": {
+              },
+              "verby": {
+              },
+              "what": {
+              },
+              "whatAble": {
+              },
+              "whose": {
+              },
+              "xfx": {
               }
             }
           },
@@ -866,7 +1204,10 @@
             "emotion": [
               {
                 "marker": "emotion",
-                "response": null,
+                "range": {
+                  "end": 15,
+                  "start": 11
+                },
                 "text": "angry",
                 "types": [
                   "emotion",
@@ -885,193 +1226,17 @@
         },
         "3": {
           "mentioned": [
-            {
-              "default": true,
-              "determined": true,
-              "marker": "what",
-              "number": "one",
-              "query": [
-                "what"
-              ],
-              "response": true,
-              "text": "what is the emotion of greg",
-              "types": [
-                "what"
-              ],
-              "word": "what"
-            }
           ],
           "variables": {
           }
         },
         "4": {
-        }
-      },
-      "processed": [
-        {
-          "context": {
-            "marker": "is",
-            "number": "one",
-            "one": {
-              "default": true,
-              "determined": true,
-              "marker": "what",
-              "number": "one",
-              "query": [
-                "what"
-              ],
-              "response": true,
-              "text": "what is the emotion of greg",
-              "types": [
-                "what"
-              ],
-              "word": "what"
-            },
-            "query": [
-              "what"
-            ],
-            "response": {
-              "default": true,
-              "focusable": [
-                "two",
-                "one"
-              ],
-              "marker": "is",
-              "one": {
-                "concept": true,
-                "determiner": "the",
-                "marker": "property",
-                "modifiers": [
-                  "determiner"
-                ],
-                "object": {
-                  "marker": "unknown",
-                  "text": "greg",
-                  "types": [
-                    "unknown"
-                  ],
-                  "unknown": true,
-                  "value": "greg",
-                  "word": "greg"
-                },
-                "objects": [
-                  {
-                    "concept": true,
-                    "determiner": "the",
-                    "marker": "property",
-                    "modifiers": [
-                      "determiner"
-                    ],
-                    "pullFromContext": true,
-                    "text": "the emotion",
-                    "types": [
-                      "property",
-                      "unknown"
-                    ],
-                    "unknown": true,
-                    "value": "emotion",
-                    "wantsValue": true,
-                    "word": "emotion"
-                  },
-                  {
-                    "marker": "unknown",
-                    "text": "greg",
-                    "types": [
-                      "unknown"
-                    ],
-                    "unknown": true,
-                    "value": "greg",
-                    "word": "greg"
-                  }
-                ],
-                "pullFromContext": true,
-                "text": "the emotion of greg",
-                "types": [
-                  "property",
-                  "unknown"
-                ],
-                "unknown": true,
-                "value": "emotion",
-                "wantsValue": true,
-                "word": "emotion"
-              },
-              "two": {
-                "concept": true,
-                "determiner": "the",
-                "evaluateWasProcessed": true,
-                "focus": true,
-                "focusable": [
-                  "object[0]"
-                ],
-                "greg": "greg44",
-                "instance": true,
-                "marker": "property",
-                "modifiers": [
-                  "determiner"
-                ],
-                "objects": [
-                  {
-                    "concept": true,
-                    "determiner": "the",
-                    "marker": "property",
-                    "modifiers": [
-                      "determiner"
-                    ],
-                    "pullFromContext": true,
-                    "text": "the emotion",
-                    "types": [
-                      "property",
-                      "unknown"
-                    ],
-                    "unknown": true,
-                    "value": "emotion",
-                    "wantsValue": true,
-                    "word": "emotion"
-                  },
-                  {
-                    "marker": "unknown",
-                    "text": "greg",
-                    "types": [
-                      "unknown"
-                    ],
-                    "unknown": true,
-                    "value": "greg",
-                    "word": "greg"
-                  }
-                ],
-                "pullFromContext": true,
-                "text": "the emotion of greg",
-                "touchedBy": [
-                  "call13"
-                ],
-                "types": [
-                  "property",
-                  "unknown"
-                ],
-                "unknown": true,
-                "value": {
-                  "marker": "emotion",
-                  "response": null,
-                  "text": "angry",
-                  "types": [
-                    "emotion",
-                    "unknown"
-                  ],
-                  "unknown": true,
-                  "value": "angry",
-                  "word": "angry"
-                },
-                "wantsValue": true,
-                "word": "emotion"
-              },
-              "word": "is"
-            },
-            "text": "what is the emotion of greg",
-            "topLevel": true,
-            "touchedBy": [
-              "call12"
-            ],
-            "two": {
+        },
+        "5": {
+        },
+        "6": {
+          "mentioned": [
+            {
               "concept": true,
               "determiner": "the",
               "marker": "property",
@@ -1080,6 +1245,10 @@
               ],
               "object": {
                 "marker": "unknown",
+                "range": {
+                  "end": 43,
+                  "start": 40
+                },
                 "text": "greg",
                 "types": [
                   "unknown"
@@ -1097,6 +1266,10 @@
                     "determiner"
                   ],
                   "pullFromContext": true,
+                  "range": {
+                    "end": 35,
+                    "start": 25
+                  },
                   "text": "the emotion",
                   "types": [
                     "property",
@@ -1109,6 +1282,294 @@
                 },
                 {
                   "marker": "unknown",
+                  "range": {
+                    "end": 43,
+                    "start": 40
+                  },
+                  "text": "greg",
+                  "types": [
+                    "unknown"
+                  ],
+                  "unknown": true,
+                  "value": "greg",
+                  "word": "greg"
+                }
+              ],
+              "pullFromContext": false,
+              "range": {
+                "end": 43,
+                "start": 25
+              },
+              "text": "the emotion of greg",
+              "types": [
+                "property",
+                "unknown"
+              ],
+              "unknown": true,
+              "value": "emotion",
+              "wantsValue": true,
+              "word": "emotion"
+            }
+          ],
+          "variables": {
+          }
+        },
+        "7": {
+        }
+      },
+      "processed": [
+        {
+          "context": {
+            "evalue": {
+              "default": true,
+              "focusable": [
+                "two",
+                "one"
+              ],
+              "marker": "is",
+              "one": {
+                "concept": true,
+                "determiner": "the",
+                "marker": "property",
+                "modifiers": [
+                  "determiner"
+                ],
+                "object": {
+                  "marker": "unknown",
+                  "range": {
+                    "end": 43,
+                    "start": 40
+                  },
+                  "text": "greg",
+                  "types": [
+                    "unknown"
+                  ],
+                  "unknown": true,
+                  "value": "greg",
+                  "word": "greg"
+                },
+                "objects": [
+                  {
+                    "concept": true,
+                    "determiner": "the",
+                    "marker": "property",
+                    "modifiers": [
+                      "determiner"
+                    ],
+                    "pullFromContext": true,
+                    "range": {
+                      "end": 35,
+                      "start": 25
+                    },
+                    "text": "the emotion",
+                    "types": [
+                      "property",
+                      "unknown"
+                    ],
+                    "unknown": true,
+                    "value": "emotion",
+                    "wantsValue": true,
+                    "word": "emotion"
+                  },
+                  {
+                    "marker": "unknown",
+                    "range": {
+                      "end": 43,
+                      "start": 40
+                    },
+                    "text": "greg",
+                    "types": [
+                      "unknown"
+                    ],
+                    "unknown": true,
+                    "value": "greg",
+                    "word": "greg"
+                  }
+                ],
+                "pullFromContext": true,
+                "range": {
+                  "end": 43,
+                  "start": 25
+                },
+                "text": "the emotion of greg",
+                "types": [
+                  "property",
+                  "unknown"
+                ],
+                "unknown": true,
+                "value": "emotion",
+                "wantsValue": true,
+                "word": "emotion"
+              },
+              "two": {
+                "concept": true,
+                "determiner": "the",
+                "evalue": {
+                  "marker": "emotion",
+                  "range": {
+                    "end": 15,
+                    "start": 11
+                  },
+                  "text": "angry",
+                  "types": [
+                    "emotion",
+                    "unknown"
+                  ],
+                  "unknown": true,
+                  "value": "angry",
+                  "word": "angry"
+                },
+                "focus": true,
+                "focusable": [
+                  "object[0]"
+                ],
+                "instance": true,
+                "marker": "property",
+                "modifiers": [
+                  "determiner"
+                ],
+                "objects": [
+                  {
+                    "concept": true,
+                    "determiner": "the",
+                    "marker": "property",
+                    "modifiers": [
+                      "determiner"
+                    ],
+                    "pullFromContext": true,
+                    "range": {
+                      "end": 35,
+                      "start": 25
+                    },
+                    "text": "the emotion",
+                    "types": [
+                      "property",
+                      "unknown"
+                    ],
+                    "unknown": true,
+                    "value": "emotion",
+                    "wantsValue": true,
+                    "word": "emotion"
+                  },
+                  {
+                    "marker": "unknown",
+                    "range": {
+                      "end": 43,
+                      "start": 40
+                    },
+                    "text": "greg",
+                    "types": [
+                      "unknown"
+                    ],
+                    "unknown": true,
+                    "value": "greg",
+                    "word": "greg"
+                  }
+                ],
+                "pullFromContext": true,
+                "range": {
+                  "end": 43,
+                  "start": 25
+                },
+                "text": "the emotion of greg",
+                "touchedBy": [
+                  "call13"
+                ],
+                "types": [
+                  "property",
+                  "unknown"
+                ],
+                "unknown": true,
+                "value": "emotion",
+                "wantsValue": true,
+                "word": "emotion"
+              },
+              "word": "is"
+            },
+            "isResponse": true,
+            "marker": "is",
+            "number": "one",
+            "one": {
+              "default": true,
+              "determined": true,
+              "marker": "what",
+              "number": "one",
+              "query": [
+                "what"
+              ],
+              "range": {
+                "end": 43,
+                "start": 17
+              },
+              "text": "what",
+              "types": [
+                "what"
+              ],
+              "value": "what",
+              "word": "what"
+            },
+            "query": [
+              "what"
+            ],
+            "range": {
+              "end": 43,
+              "start": 17
+            },
+            "text": "what is the emotion of greg",
+            "topLevel": true,
+            "touchedBy": [
+              "call12"
+            ],
+            "two": {
+              "concept": true,
+              "determiner": "the",
+              "marker": "property",
+              "modifiers": [
+                "determiner"
+              ],
+              "object": {
+                "marker": "unknown",
+                "range": {
+                  "end": 43,
+                  "start": 40
+                },
+                "text": "greg",
+                "types": [
+                  "unknown"
+                ],
+                "unknown": true,
+                "value": "greg",
+                "word": "greg"
+              },
+              "objects": [
+                {
+                  "concept": true,
+                  "determiner": "the",
+                  "marker": "property",
+                  "modifiers": [
+                    "determiner"
+                  ],
+                  "pullFromContext": true,
+                  "range": {
+                    "end": 35,
+                    "start": 25
+                  },
+                  "text": "the emotion",
+                  "types": [
+                    "property",
+                    "unknown"
+                  ],
+                  "unknown": true,
+                  "value": "emotion",
+                  "wantsValue": true,
+                  "word": "emotion"
+                },
+                {
+                  "marker": "unknown",
+                  "range": {
+                    "end": 43,
+                    "start": 40
+                  },
                   "text": "greg",
                   "types": [
                     "unknown"
@@ -1119,7 +1580,10 @@
                 }
               ],
               "pullFromContext": true,
-              "response": true,
+              "range": {
+                "end": 43,
+                "start": 25
+              },
               "text": "the emotion of greg",
               "types": [
                 "property",
@@ -1142,12 +1606,18 @@
           "context": {
             "do": {
               "left": "sentientBeing",
-              "right": "emotion",
-              "text": "greg feels angry"
+              "range": {
+                "end": 15,
+                "start": 0
+              },
+              "right": "emotion"
             },
             "emotion": {
               "marker": "emotion",
-              "response": null,
+              "range": {
+                "end": 15,
+                "start": 11
+              },
               "text": "angry",
               "types": [
                 "emotion",
@@ -1163,8 +1633,16 @@
             ],
             "marker": "feel",
             "number": "one",
+            "range": {
+              "end": 15,
+              "start": 0
+            },
             "sentientBeing": {
               "marker": "sentientBeing",
+              "range": {
+                "end": 3,
+                "start": 0
+              },
               "text": "greg",
               "types": [
                 "sentientBeing",
@@ -1194,16 +1672,22 @@
         },
         {
           "context": {
-            "calls": "Context#2: call2",
             "default": true,
             "from": {
               "do": {
                 "left": "sentientBeing",
-                "right": "emotion",
-                "text": "sentientbeing1 feels emotion1"
+                "range": {
+                  "end": 28,
+                  "start": 0
+                },
+                "right": "emotion"
               },
               "emotion": {
                 "marker": "emotion",
+                "range": {
+                  "end": 28,
+                  "start": 21
+                },
                 "text": "emotion1",
                 "types": [
                   "emotion",
@@ -1219,8 +1703,16 @@
               ],
               "marker": "feel",
               "number": "one",
+              "range": {
+                "end": 28,
+                "start": 0
+              },
               "sentientBeing": {
                 "marker": "sentientBeing",
+                "range": {
+                  "end": 13,
+                  "start": 0
+                },
                 "text": "sentientbeing1",
                 "types": [
                   "sentientBeing",
@@ -1239,7 +1731,11 @@
               "word": "feels"
             },
             "marker": "means",
-            "metaInfo": "The mapping from from the expression being defined \"sentientbeing1 feels emotion1\" to the definition phrase \"the emotion of sentientbeing1 is emotion1\" is [{\"from\":[\"emotion\"],\"to\":[\"two\"]},{\"from\":[\"sentientBeing\"],\"to\":[\"one\",\"object\"]},{\"from\":[\"number\"],\"to\":[\"number\"]}]",
+            "metaInfo": "The mapping from from the expression being defined \"undefined feels undefined\" to the definition phrase \"the emotion of sentientbeing1 is emotion1\" is [{\"from\":[\"sentientBeing\"],\"to\":[\"one\",\"object\"]},{\"from\":[\"emotion\"],\"to\":[\"two\"]},{\"from\":[\"number\"],\"to\":[\"number\"]}]",
+            "range": {
+              "end": 76,
+              "start": 0
+            },
             "text": "sentientbeing1 feels emotion1 means the emotion of sentientbeing1 is emotion1",
             "to": {
               "marker": "is",
@@ -1254,6 +1750,10 @@
                 "number": "one",
                 "object": {
                   "marker": "unknown",
+                  "range": {
+                    "end": 64,
+                    "start": 51
+                  },
                   "text": "sentientbeing1",
                   "types": [
                     "unknown"
@@ -1271,6 +1771,10 @@
                       "determiner"
                     ],
                     "pullFromContext": true,
+                    "range": {
+                      "end": 46,
+                      "start": 36
+                    },
                     "text": "the emotion",
                     "types": [
                       "property",
@@ -1283,6 +1787,10 @@
                   },
                   {
                     "marker": "unknown",
+                    "range": {
+                      "end": 64,
+                      "start": 51
+                    },
                     "text": "sentientbeing1",
                     "types": [
                       "unknown"
@@ -1293,8 +1801,11 @@
                   }
                 ],
                 "pullFromContext": true,
-                "response": true,
-                "text": "the emotion of sentientbeing1 is emotion1",
+                "range": {
+                  "end": 76,
+                  "start": 36
+                },
+                "text": "the emotion of sentientbeing1",
                 "types": [
                   "property",
                   "unknown"
@@ -1304,10 +1815,17 @@
                 "wantsValue": true,
                 "word": "emotion"
               },
+              "range": {
+                "end": 76,
+                "start": 36
+              },
               "text": "the emotion of sentientbeing1 is emotion1",
               "two": {
                 "marker": "unknown",
-                "response": true,
+                "range": {
+                  "end": 76,
+                  "start": 69
+                },
                 "text": "emotion1",
                 "types": [
                   "unknown"
@@ -1322,9 +1840,10 @@
             "touchedBy": [
               "call2"
             ],
+            "value": "means",
             "word": "means"
           },
-          "paraphrases": "sentientbeing1 feels emotion1 means the emotion of sentientbeing1 is emotion1",
+          "paraphrases": "undefined feels undefined means the emotion of sentientbeing1 is emotion1",
           "responses": [
             ""
           ]

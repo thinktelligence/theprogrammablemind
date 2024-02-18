@@ -54,6 +54,16 @@
         ],
         [
           "want",
+          0
+        ]
+      ],
+      [
+        [
+          "does",
+          0
+        ],
+        [
+          "want",
           1
         ]
       ],
@@ -98,8 +108,11 @@
       {
         "do": {
           "left": "lover",
-          "right": "lovee",
-          "text": "wendy loves bananas"
+          "range": {
+            "end": 18,
+            "start": 0
+          },
+          "right": "lovee"
         },
         "focusable": [
           "lover",
@@ -107,6 +120,10 @@
         ],
         "lovee": {
           "marker": "unknown",
+          "range": {
+            "end": 18,
+            "start": 12
+          },
           "text": "bananas",
           "types": [
             "unknown"
@@ -117,6 +134,10 @@
         },
         "lover": {
           "marker": "unknown",
+          "range": {
+            "end": 4,
+            "start": 0
+          },
           "text": "wendy",
           "types": [
             "unknown"
@@ -128,6 +149,10 @@
         "marker": "love",
         "number": "one",
         "ordering": "preference",
+        "range": {
+          "end": 18,
+          "start": 0
+        },
         "text": "wendy loves bananas",
         "topLevel": true,
         "touchedBy": [
@@ -144,29 +169,24 @@
         "dead": false,
         "do": {
           "left": "wanter",
-          "right": "wantee",
-          "text": "wendy want bananas"
+          "range": {
+            "end": 42,
+            "start": 25
+          },
+          "right": "wantee"
         },
-        "focusable": [
-          "wanter",
-          "wantee"
-        ],
-        "is_compound": true,
-        "marker": "want",
-        "number": "one",
-        "object": {
-          "number": "one"
-        },
-        "query": true,
-        "response": {
+        "evalue": {
           "marker": "list",
           "truthValue": true,
           "value": [
             {
               "do": {
                 "left": "wanter",
-                "right": "wantee",
-                "text": "x wants y"
+                "range": {
+                  "end": 39,
+                  "start": 31
+                },
+                "right": "wantee"
               },
               "focusable": [
                 "wanter",
@@ -174,6 +194,10 @@
               ],
               "marker": "want",
               "paraphrase": true,
+              "range": {
+                "end": 39,
+                "start": 31
+              },
               "text": "x wants y",
               "types": [
                 "want"
@@ -186,6 +210,10 @@
               "wantee": {
                 "marker": "unknown",
                 "paraphrase": true,
+                "range": {
+                  "end": 18,
+                  "start": 12
+                },
                 "text": "bananas",
                 "types": [
                   "unknown"
@@ -197,6 +225,10 @@
               "wanter": {
                 "marker": "unknown",
                 "paraphrase": true,
+                "range": {
+                  "end": 4,
+                  "start": 0
+                },
                 "text": "wendy",
                 "types": [
                   "unknown"
@@ -208,6 +240,22 @@
               "word": "wants"
             }
           ]
+        },
+        "focusable": [
+          "wanter",
+          "wantee"
+        ],
+        "isResponse": true,
+        "is_compound": true,
+        "marker": "want",
+        "number": "one",
+        "object": {
+          "number": "one"
+        },
+        "query": true,
+        "range": {
+          "end": 42,
+          "start": 25
         },
         "text": "wendy want bananas",
         "topLevel": true,
@@ -221,6 +269,10 @@
         "value": "want",
         "wantee": {
           "marker": "unknown",
+          "range": {
+            "end": 42,
+            "start": 36
+          },
           "text": "bananas",
           "types": [
             "unknown"
@@ -231,6 +283,10 @@
         },
         "wanter": {
           "marker": "unknown",
+          "range": {
+            "end": 29,
+            "start": 25
+          },
           "text": "wendy",
           "types": [
             "unknown"
@@ -246,6 +302,7 @@
     "metadata": {
       "opChoices": [
         {
+          "counter": 1,
           "op": [
             "unknown",
             0
@@ -270,34 +327,7 @@
           ]
         },
         {
-          "op": [
-            "unknown",
-            0
-          ],
-          "ops": [
-            [
-              "does",
-              0
-            ],
-            [
-              "love",
-              0
-            ],
-            [
-              "unknown",
-              0
-            ],
-            [
-              "unknown",
-              1
-            ],
-            [
-              "want",
-              0
-            ]
-          ]
-        },
-        {
+          "counter": 2,
           "op": [
             "unknown",
             0
@@ -326,6 +356,7 @@
           ]
         },
         {
+          "counter": 3,
           "op": [
             "unknown",
             0
@@ -354,8 +385,9 @@
           ]
         },
         {
+          "counter": 4,
           "op": [
-            "want",
+            "unknown",
             0
           ],
           "ops": [
@@ -369,6 +401,10 @@
             ],
             [
               "unknown",
+              0
+            ],
+            [
+              "unknown",
               1
             ],
             [
@@ -378,6 +414,7 @@
           ]
         },
         {
+          "counter": 5,
           "op": [
             "love",
             0
@@ -397,11 +434,83 @@
             ],
             [
               "want",
-              1
+              0
             ]
           ]
         },
         {
+          "counter": 6,
+          "op": [
+            "unknown",
+            1
+          ],
+          "ops": [
+            [
+              "does",
+              0
+            ],
+            [
+              "love",
+              1
+            ],
+            [
+              "unknown",
+              1
+            ],
+            [
+              "want",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 7,
+          "op": [
+            "unknown",
+            1
+          ],
+          "ops": [
+            [
+              "does",
+              0
+            ],
+            [
+              "love",
+              1
+            ],
+            [
+              "unknown",
+              1
+            ],
+            [
+              "want",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 8,
+          "op": [
+            "want",
+            0
+          ],
+          "ops": [
+            [
+              "does",
+              0
+            ],
+            [
+              "love",
+              1
+            ],
+            [
+              "want",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 9,
           "op": [
             "does",
             0
@@ -422,8 +531,9 @@
           ]
         },
         {
+          "counter": 10,
           "op": [
-            "want",
+            "love",
             1
           ],
           "ops": [
@@ -438,13 +548,14 @@
           ]
         },
         {
+          "counter": 11,
           "op": [
-            "love",
+            "want",
             1
           ],
           "ops": [
             [
-              "love",
+              "want",
               1
             ]
           ]
@@ -489,11 +600,184 @@
         },
         "2": {
           "children": {
+            "articlePOS": [
+              "a",
+              "the"
+            ],
+            "canBeDoQuestion": [
+              "have"
+            ],
+            "canBeQuestion": [
+              "have",
+              "is"
+            ],
+            "hierarchyAble": [
+              "unknown"
+            ],
+            "ifAble": [
+              "orAble"
+            ],
+            "notAble": [
+              "unknown"
+            ],
+            "object": [
+              "unknown",
+              "what",
+              "whose"
+            ],
+            "pronoun": [
+              "it",
+              "this"
+            ],
+            "punctuation": [
+              "questionMark"
+            ],
+            "queryable": [
+              "concept",
+              "hierarchyAble",
+              "readonly",
+              "property",
+              "object",
+              "xfx",
+              "unknown",
+              "it",
+              "what",
+              "whatAble",
+              "this",
+              "thisitthat"
+            ],
+            "theAble": [
+              "concept",
+              "property",
+              "object",
+              "unknown"
+            ],
+            "thisitthat": [
+              "it",
+              "this",
+              "that"
+            ],
+            "toAble": [
+              "it"
+            ],
+            "unknown": [
+              "property"
+            ],
+            "verby": [
+              "is"
+            ]
           },
           "concepts": [
-            "properties"
+            "properties",
+            "concept",
+            "theAble",
+            "queryable",
+            "unknown",
+            "hierarchyAble",
+            "object",
+            "what",
+            "readonly",
+            "property",
+            "xfx",
+            "whose",
+            "have",
+            "canBeDoQuestion",
+            "canBeQuestion",
+            "it",
+            "pronoun",
+            "this",
+            "questionMark",
+            "punctuation",
+            "a",
+            "articlePOS",
+            "the",
+            "notAble",
+            "whatAble",
+            "is",
+            "toAble",
+            "verby",
+            "thisitthat",
+            "that",
+            "orAble",
+            "ifAble"
           ],
           "parents": {
+            "a": [
+              "articlePOS"
+            ],
+            "concept": [
+              "theAble",
+              "queryable"
+            ],
+            "have": [
+              "canBeDoQuestion",
+              "canBeQuestion"
+            ],
+            "hierarchyAble": [
+              "queryable"
+            ],
+            "is": [
+              "canBeQuestion",
+              "verby"
+            ],
+            "it": [
+              "pronoun",
+              "queryable",
+              "toAble",
+              "thisitthat"
+            ],
+            "object": [
+              "queryable",
+              "theAble"
+            ],
+            "orAble": [
+              "ifAble"
+            ],
+            "property": [
+              "queryable",
+              "theAble",
+              "unknown"
+            ],
+            "questionMark": [
+              "punctuation"
+            ],
+            "readonly": [
+              "queryable"
+            ],
+            "that": [
+              "thisitthat"
+            ],
+            "the": [
+              "articlePOS"
+            ],
+            "this": [
+              "pronoun",
+              "queryable",
+              "thisitthat"
+            ],
+            "thisitthat": [
+              "queryable"
+            ],
+            "unknown": [
+              "hierarchyAble",
+              "object",
+              "notAble",
+              "theAble",
+              "queryable"
+            ],
+            "what": [
+              "object",
+              "queryable"
+            ],
+            "whatAble": [
+              "queryable"
+            ],
+            "whose": [
+              "object"
+            ],
+            "xfx": [
+              "queryable"
+            ]
           },
           "properties": {
             "handlers": {
@@ -501,6 +785,68 @@
             "initHandlers": [
             ],
             "root": {
+              "a": {
+              },
+              "articlePOS": {
+              },
+              "canBeDoQuestion": {
+              },
+              "canBeQuestion": {
+              },
+              "concept": {
+              },
+              "have": {
+              },
+              "hierarchyAble": {
+              },
+              "ifAble": {
+              },
+              "is": {
+              },
+              "it": {
+              },
+              "notAble": {
+              },
+              "object": {
+              },
+              "orAble": {
+              },
+              "pronoun": {
+              },
+              "property": {
+              },
+              "punctuation": {
+              },
+              "queryable": {
+              },
+              "questionMark": {
+              },
+              "readonly": {
+              },
+              "that": {
+              },
+              "the": {
+              },
+              "theAble": {
+              },
+              "this": {
+              },
+              "thisitthat": {
+              },
+              "toAble": {
+              },
+              "unknown": {
+              },
+              "verby": {
+              },
+              "what": {
+              },
+              "whatAble": {
+              },
+              "whose": {
+              },
+              "xfx": {
+              }
             }
           },
           "property": {
@@ -509,8 +855,11 @@
             {
               "do": {
                 "left": "lover",
-                "right": "lovee",
-                "text": "wendy loves bananas"
+                "range": {
+                  "end": 18,
+                  "start": 0
+                },
+                "right": "lovee"
               },
               "focusable": [
                 "lover",
@@ -519,6 +868,10 @@
               "lovee": {
                 "marker": "unknown",
                 "paraphrase": true,
+                "range": {
+                  "end": 18,
+                  "start": 12
+                },
                 "text": "bananas",
                 "types": [
                   "unknown"
@@ -530,6 +883,10 @@
               "lover": {
                 "marker": "unknown",
                 "paraphrase": true,
+                "range": {
+                  "end": 4,
+                  "start": 0
+                },
                 "text": "wendy",
                 "types": [
                   "unknown"
@@ -542,6 +899,10 @@
               "number": "one",
               "ordering": "preference",
               "paraphrase": true,
+              "range": {
+                "end": 18,
+                "start": 0
+              },
               "text": "wendy loves bananas",
               "topLevel": true,
               "unflatten": [
@@ -562,6 +923,126 @@
           }
         },
         "4": {
+        },
+        "5": {
+        },
+        "6": {
+          "mentioned": [
+            {
+              "concept": true,
+              "marker": "wants",
+              "number": "one",
+              "pullFromContext": false,
+              "range": {
+                "end": 37,
+                "start": 0
+              },
+              "text": "wants",
+              "types": [
+                "unknown"
+              ],
+              "unknown": true,
+              "value": {
+                "arguments": {
+                  "marker": "list",
+                  "range": {
+                    "end": 37,
+                    "start": 21
+                  },
+                  "value": [
+                    {
+                      "marker": "unknown",
+                      "range": {
+                        "end": 26,
+                        "start": 21
+                      },
+                      "text": "wanter",
+                      "unknown": true,
+                      "value": "wanter",
+                      "word": "wanter"
+                    },
+                    {
+                      "marker": "unknown",
+                      "range": {
+                        "end": 37,
+                        "start": 32
+                      },
+                      "text": "wantee",
+                      "unknown": true,
+                      "value": "wantee",
+                      "word": "wantee"
+                    }
+                  ]
+                },
+                "default": true,
+                "marker": "xfx",
+                "range": {
+                  "end": 37,
+                  "start": 9
+                },
+                "text": "xfx between",
+                "types": [
+                  "xfx"
+                ],
+                "value": "xfx",
+                "word": "xfx"
+              },
+              "word": "wants"
+            },
+            {
+              "marker": "wants",
+              "pullFromContext": false,
+              "value": {
+                "arguments": {
+                  "marker": "list",
+                  "range": {
+                    "end": 37,
+                    "start": 21
+                  },
+                  "value": [
+                    {
+                      "marker": "unknown",
+                      "range": {
+                        "end": 26,
+                        "start": 21
+                      },
+                      "text": "wanter",
+                      "unknown": true,
+                      "value": "wanter",
+                      "word": "wanter"
+                    },
+                    {
+                      "marker": "unknown",
+                      "range": {
+                        "end": 37,
+                        "start": 32
+                      },
+                      "text": "wantee",
+                      "unknown": true,
+                      "value": "wantee",
+                      "word": "wantee"
+                    }
+                  ]
+                },
+                "default": true,
+                "marker": "xfx",
+                "range": {
+                  "end": 37,
+                  "start": 9
+                },
+                "text": "xfx between",
+                "types": [
+                  "xfx"
+                ],
+                "value": "xfx",
+                "word": "xfx"
+              }
+            }
+          ],
+          "variables": {
+          }
+        },
+        "7": {
         }
       },
       "processed": [
@@ -570,29 +1051,24 @@
             "dead": false,
             "do": {
               "left": "wanter",
-              "right": "wantee",
-              "text": "wendy want bananas"
+              "range": {
+                "end": 42,
+                "start": 25
+              },
+              "right": "wantee"
             },
-            "focusable": [
-              "wanter",
-              "wantee"
-            ],
-            "is_compound": true,
-            "marker": "want",
-            "number": "one",
-            "object": {
-              "number": "one"
-            },
-            "query": true,
-            "response": {
+            "evalue": {
               "marker": "list",
               "truthValue": true,
               "value": [
                 {
                   "do": {
                     "left": "wanter",
-                    "right": "wantee",
-                    "text": "x wants y"
+                    "range": {
+                      "end": 39,
+                      "start": 31
+                    },
+                    "right": "wantee"
                   },
                   "focusable": [
                     "wanter",
@@ -600,6 +1076,10 @@
                   ],
                   "marker": "want",
                   "paraphrase": true,
+                  "range": {
+                    "end": 39,
+                    "start": 31
+                  },
                   "text": "x wants y",
                   "types": [
                     "want"
@@ -612,6 +1092,10 @@
                   "wantee": {
                     "marker": "unknown",
                     "paraphrase": true,
+                    "range": {
+                      "end": 18,
+                      "start": 12
+                    },
                     "text": "bananas",
                     "types": [
                       "unknown"
@@ -623,6 +1107,10 @@
                   "wanter": {
                     "marker": "unknown",
                     "paraphrase": true,
+                    "range": {
+                      "end": 4,
+                      "start": 0
+                    },
                     "text": "wendy",
                     "types": [
                       "unknown"
@@ -634,6 +1122,22 @@
                   "word": "wants"
                 }
               ]
+            },
+            "focusable": [
+              "wanter",
+              "wantee"
+            ],
+            "isResponse": true,
+            "is_compound": true,
+            "marker": "want",
+            "number": "one",
+            "object": {
+              "number": "one"
+            },
+            "query": true,
+            "range": {
+              "end": 42,
+              "start": 25
             },
             "text": "wendy want bananas",
             "topLevel": true,
@@ -647,6 +1151,10 @@
             "value": "want",
             "wantee": {
               "marker": "unknown",
+              "range": {
+                "end": 42,
+                "start": 36
+              },
               "text": "bananas",
               "types": [
                 "unknown"
@@ -657,6 +1165,10 @@
             },
             "wanter": {
               "marker": "unknown",
+              "range": {
+                "end": 29,
+                "start": 25
+              },
               "text": "wendy",
               "types": [
                 "unknown"
@@ -678,8 +1190,11 @@
           "context": {
             "do": {
               "left": "lover",
-              "right": "lovee",
-              "text": "wendy loves bananas"
+              "range": {
+                "end": 18,
+                "start": 0
+              },
+              "right": "lovee"
             },
             "focusable": [
               "lover",
@@ -687,6 +1202,10 @@
             ],
             "lovee": {
               "marker": "unknown",
+              "range": {
+                "end": 18,
+                "start": 12
+              },
               "text": "bananas",
               "types": [
                 "unknown"
@@ -697,6 +1216,10 @@
             },
             "lover": {
               "marker": "unknown",
+              "range": {
+                "end": 4,
+                "start": 0
+              },
               "text": "wendy",
               "types": [
                 "unknown"
@@ -708,6 +1231,10 @@
             "marker": "love",
             "number": "one",
             "ordering": "preference",
+            "range": {
+              "end": 18,
+              "start": 0
+            },
             "text": "wendy loves bananas",
             "topLevel": true,
             "touchedBy": [
@@ -732,6 +1259,10 @@
               "dead": true,
               "default": true,
               "marker": "orList",
+              "range": {
+                "end": 24,
+                "start": 3
+              },
               "text": "x likes y or x loves y",
               "types": [
                 "like",
@@ -741,8 +1272,11 @@
                 {
                   "do": {
                     "left": "liker",
-                    "right": "likee",
-                    "text": "x likes y"
+                    "range": {
+                      "end": 11,
+                      "start": 3
+                    },
+                    "right": "likee"
                   },
                   "focusable": [
                     "liker",
@@ -750,6 +1284,10 @@
                   ],
                   "likee": {
                     "marker": "unknown",
+                    "range": {
+                      "end": 11,
+                      "start": 11
+                    },
                     "text": "y",
                     "types": [
                       "unknown"
@@ -760,6 +1298,10 @@
                   },
                   "liker": {
                     "marker": "unknown",
+                    "range": {
+                      "end": 3,
+                      "start": 3
+                    },
                     "text": "x",
                     "types": [
                       "unknown"
@@ -770,6 +1312,10 @@
                   },
                   "marker": "like",
                   "number": "one",
+                  "range": {
+                    "end": 11,
+                    "start": 3
+                  },
                   "text": "x likes y",
                   "types": [
                     "like"
@@ -784,8 +1330,11 @@
                 {
                   "do": {
                     "left": "lover",
-                    "right": "lovee",
-                    "text": "x loves y"
+                    "range": {
+                      "end": 24,
+                      "start": 16
+                    },
+                    "right": "lovee"
                   },
                   "focusable": [
                     "lover",
@@ -793,6 +1342,10 @@
                   ],
                   "lovee": {
                     "marker": "unknown",
+                    "range": {
+                      "end": 24,
+                      "start": 24
+                    },
                     "text": "y",
                     "types": [
                       "unknown"
@@ -803,6 +1356,10 @@
                   },
                   "lover": {
                     "marker": "unknown",
+                    "range": {
+                      "end": 16,
+                      "start": 16
+                    },
                     "text": "x",
                     "types": [
                       "unknown"
@@ -813,6 +1370,10 @@
                   },
                   "marker": "love",
                   "number": "one",
+                  "range": {
+                    "end": 24,
+                    "start": 16
+                  },
                   "text": "x loves y",
                   "types": [
                     "love"
@@ -827,18 +1388,24 @@
               ],
               "word": "or"
             },
-            "calls": "Context#5: call17",
             "consequence": {
               "do": {
                 "left": "wanter",
-                "right": "wantee",
-                "text": "x wants y"
+                "range": {
+                  "end": 39,
+                  "start": 31
+                },
+                "right": "wantee"
               },
               "focusable": [
                 "wanter",
                 "wantee"
               ],
               "marker": "want",
+              "range": {
+                "end": 39,
+                "start": 31
+              },
               "text": "x wants y",
               "types": [
                 "want"
@@ -850,6 +1417,10 @@
               "value": "want",
               "wantee": {
                 "marker": "unknown",
+                "range": {
+                  "end": 39,
+                  "start": 39
+                },
                 "text": "y",
                 "types": [
                   "unknown"
@@ -860,6 +1431,10 @@
               },
               "wanter": {
                 "marker": "unknown",
+                "range": {
+                  "end": 31,
+                  "start": 31
+                },
                 "text": "x",
                 "types": [
                   "unknown"
@@ -872,36 +1447,46 @@
             },
             "default": true,
             "marker": "if",
+            "range": {
+              "end": 39,
+              "start": 0
+            },
             "text": "if x likes y or x loves y then x wants y",
             "topLevel": true,
             "touchedBy": [
-              "call17",
               "call2"
             ],
+            "value": "if",
             "word": "if"
           },
-          "paraphrases": "if x likes y or x loves y then x wants y",
+          "paraphrases": "if undefined likes undefined or undefined loves undefined then x wants y",
           "responses": [
             ""
           ]
         },
         {
           "context": {
-            "calls": "Context#2: call2",
             "marker": "is",
             "number": "one",
             "one": {
               "concept": true,
               "marker": "unknown",
               "number": "one",
-              "response": true,
-              "text": "wants is xfx between",
+              "range": {
+                "end": 37,
+                "start": 0
+              },
+              "text": "wants",
               "types": [
                 "unknown"
               ],
               "unknown": true,
               "value": "wants",
               "word": "wants"
+            },
+            "range": {
+              "end": 37,
+              "start": 0
             },
             "text": "wants is xfx between",
             "topLevel": true,
@@ -911,9 +1496,17 @@
             "two": {
               "arguments": {
                 "marker": "list",
+                "range": {
+                  "end": 37,
+                  "start": 21
+                },
                 "value": [
                   {
                     "marker": "unknown",
+                    "range": {
+                      "end": 26,
+                      "start": 21
+                    },
                     "text": "wanter",
                     "unknown": true,
                     "value": "wanter",
@@ -921,6 +1514,10 @@
                   },
                   {
                     "marker": "unknown",
+                    "range": {
+                      "end": 37,
+                      "start": 32
+                    },
                     "text": "wantee",
                     "unknown": true,
                     "value": "wantee",
@@ -930,11 +1527,15 @@
               },
               "default": true,
               "marker": "xfx",
-              "response": true,
+              "range": {
+                "end": 37,
+                "start": 9
+              },
               "text": "xfx between",
               "types": [
                 "xfx"
               ],
+              "value": "xfx",
               "word": "xfx"
             },
             "word": "is"
@@ -998,6 +1599,10 @@
         [
           "unknown",
           1
+        ],
+        [
+          "what",
+          0
         ]
       ],
       [
@@ -1008,10 +1613,6 @@
         [
           "like",
           0
-        ],
-        [
-          "unknown",
-          1
         ],
         [
           "what",
@@ -1059,8 +1660,11 @@
       {
         "do": {
           "left": "lover",
-          "right": "lovee",
-          "text": "wendy loves bananas"
+          "range": {
+            "end": 18,
+            "start": 0
+          },
+          "right": "lovee"
         },
         "focusable": [
           "lover",
@@ -1068,6 +1672,10 @@
         ],
         "lovee": {
           "marker": "unknown",
+          "range": {
+            "end": 18,
+            "start": 12
+          },
           "text": "bananas",
           "types": [
             "unknown"
@@ -1078,6 +1686,10 @@
         },
         "lover": {
           "marker": "unknown",
+          "range": {
+            "end": 4,
+            "start": 0
+          },
           "text": "wendy",
           "types": [
             "unknown"
@@ -1089,6 +1701,10 @@
         "marker": "love",
         "number": "one",
         "ordering": "preference",
+        "range": {
+          "end": 18,
+          "start": 0
+        },
         "text": "wendy loves bananas",
         "topLevel": true,
         "touchedBy": [
@@ -1108,47 +1724,13 @@
           "query": [
             "what"
           ],
-          "right": "likee",
-          "text": "wendy like what"
+          "range": {
+            "end": 39,
+            "start": 20
+          },
+          "right": "likee"
         },
-        "focusable": [
-          "liker",
-          "likee"
-        ],
-        "is_compound": true,
-        "likee": {
-          "default": true,
-          "determined": true,
-          "marker": "what",
-          "query": [
-            "what"
-          ],
-          "text": "what",
-          "types": [
-            "what"
-          ],
-          "word": "what"
-        },
-        "liker": {
-          "marker": "unknown",
-          "text": "wendy",
-          "types": [
-            "unknown"
-          ],
-          "unknown": true,
-          "value": "wendy",
-          "word": "wendy"
-        },
-        "marker": "like",
-        "number": "one",
-        "object": {
-          "number": "one"
-        },
-        "ordering": "preference",
-        "query": [
-          "what"
-        ],
-        "response": {
+        "evalue": {
           "isResponse": true,
           "marker": "idontknow",
           "query": {
@@ -1158,8 +1740,11 @@
               "query": [
                 "what"
               ],
-              "right": "likee",
-              "text": "wendy like what"
+              "range": {
+                "end": 39,
+                "start": 20
+              },
+              "right": "likee"
             },
             "focusable": [
               "liker",
@@ -1173,14 +1758,23 @@
               "query": [
                 "what"
               ],
+              "range": {
+                "end": 23,
+                "start": 20
+              },
               "text": "what",
               "types": [
                 "what"
               ],
+              "value": "what",
               "word": "what"
             },
             "liker": {
               "marker": "unknown",
+              "range": {
+                "end": 34,
+                "start": 30
+              },
               "text": "wendy",
               "types": [
                 "unknown"
@@ -1198,6 +1792,10 @@
             "query": [
               "what"
             ],
+            "range": {
+              "end": 39,
+              "start": 20
+            },
             "text": "what like",
             "topLevel": true,
             "unflatten": [
@@ -1209,6 +1807,57 @@
             "word": "like"
           },
           "truthValue": false
+        },
+        "focusable": [
+          "liker",
+          "likee"
+        ],
+        "isResponse": true,
+        "is_compound": true,
+        "likee": {
+          "default": true,
+          "determined": true,
+          "marker": "what",
+          "query": [
+            "what"
+          ],
+          "range": {
+            "end": 23,
+            "start": 20
+          },
+          "text": "what",
+          "types": [
+            "what"
+          ],
+          "value": "what",
+          "word": "what"
+        },
+        "liker": {
+          "marker": "unknown",
+          "range": {
+            "end": 34,
+            "start": 30
+          },
+          "text": "wendy",
+          "types": [
+            "unknown"
+          ],
+          "unknown": true,
+          "value": "wendy",
+          "word": "wendy"
+        },
+        "marker": "like",
+        "number": "one",
+        "object": {
+          "number": "one"
+        },
+        "ordering": "preference",
+        "query": [
+          "what"
+        ],
+        "range": {
+          "end": 39,
+          "start": 20
         },
         "text": "what like",
         "topLevel": true,
@@ -1227,6 +1876,7 @@
     "metadata": {
       "opChoices": [
         {
+          "counter": 1,
           "op": [
             "unknown",
             0
@@ -1255,38 +1905,7 @@
           ]
         },
         {
-          "op": [
-            "unknown",
-            0
-          ],
-          "ops": [
-            [
-              "does",
-              0
-            ],
-            [
-              "like",
-              0
-            ],
-            [
-              "love",
-              0
-            ],
-            [
-              "unknown",
-              0
-            ],
-            [
-              "unknown",
-              1
-            ],
-            [
-              "what",
-              0
-            ]
-          ]
-        },
-        {
+          "counter": 2,
           "op": [
             "unknown",
             0
@@ -1319,6 +1938,127 @@
           ]
         },
         {
+          "counter": 3,
+          "op": [
+            "unknown",
+            0
+          ],
+          "ops": [
+            [
+              "does",
+              0
+            ],
+            [
+              "like",
+              0
+            ],
+            [
+              "love",
+              0
+            ],
+            [
+              "unknown",
+              0
+            ],
+            [
+              "unknown",
+              1
+            ],
+            [
+              "what",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 4,
+          "op": [
+            "unknown",
+            1
+          ],
+          "ops": [
+            [
+              "does",
+              0
+            ],
+            [
+              "like",
+              0
+            ],
+            [
+              "love",
+              0
+            ],
+            [
+              "unknown",
+              1
+            ],
+            [
+              "what",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 5,
+          "op": [
+            "unknown",
+            1
+          ],
+          "ops": [
+            [
+              "does",
+              0
+            ],
+            [
+              "like",
+              0
+            ],
+            [
+              "love",
+              0
+            ],
+            [
+              "unknown",
+              1
+            ],
+            [
+              "what",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 6,
+          "op": [
+            "unknown",
+            1
+          ],
+          "ops": [
+            [
+              "does",
+              0
+            ],
+            [
+              "like",
+              0
+            ],
+            [
+              "love",
+              0
+            ],
+            [
+              "unknown",
+              1
+            ],
+            [
+              "what",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 7,
           "op": [
             "what",
             0
@@ -1337,16 +2077,13 @@
               0
             ],
             [
-              "unknown",
-              1
-            ],
-            [
               "what",
               0
             ]
           ]
         },
         {
+          "counter": 8,
           "op": [
             "like",
             0
@@ -1363,14 +2100,11 @@
             [
               "love",
               0
-            ],
-            [
-              "unknown",
-              1
             ]
           ]
         },
         {
+          "counter": 9,
           "op": [
             "love",
             0
@@ -1383,14 +2117,11 @@
             [
               "love",
               0
-            ],
-            [
-              "unknown",
-              1
             ]
           ]
         },
         {
+          "counter": 10,
           "op": [
             "does",
             0
@@ -1407,6 +2138,7 @@
           ]
         },
         {
+          "counter": 11,
           "op": [
             "like",
             0
@@ -1423,6 +2155,7 @@
           ]
         },
         {
+          "counter": 12,
           "op": [
             "like",
             1
@@ -1439,6 +2172,7 @@
           ]
         },
         {
+          "counter": 13,
           "op": [
             "love",
             1
@@ -1490,11 +2224,184 @@
         },
         "2": {
           "children": {
+            "articlePOS": [
+              "a",
+              "the"
+            ],
+            "canBeDoQuestion": [
+              "have"
+            ],
+            "canBeQuestion": [
+              "have",
+              "is"
+            ],
+            "hierarchyAble": [
+              "unknown"
+            ],
+            "ifAble": [
+              "orAble"
+            ],
+            "notAble": [
+              "unknown"
+            ],
+            "object": [
+              "unknown",
+              "what",
+              "whose"
+            ],
+            "pronoun": [
+              "it",
+              "this"
+            ],
+            "punctuation": [
+              "questionMark"
+            ],
+            "queryable": [
+              "concept",
+              "hierarchyAble",
+              "readonly",
+              "property",
+              "object",
+              "xfx",
+              "unknown",
+              "it",
+              "what",
+              "whatAble",
+              "this",
+              "thisitthat"
+            ],
+            "theAble": [
+              "concept",
+              "property",
+              "object",
+              "unknown"
+            ],
+            "thisitthat": [
+              "it",
+              "this",
+              "that"
+            ],
+            "toAble": [
+              "it"
+            ],
+            "unknown": [
+              "property"
+            ],
+            "verby": [
+              "is"
+            ]
           },
           "concepts": [
-            "properties"
+            "properties",
+            "concept",
+            "theAble",
+            "queryable",
+            "unknown",
+            "hierarchyAble",
+            "object",
+            "what",
+            "readonly",
+            "property",
+            "xfx",
+            "whose",
+            "have",
+            "canBeDoQuestion",
+            "canBeQuestion",
+            "it",
+            "pronoun",
+            "this",
+            "questionMark",
+            "punctuation",
+            "a",
+            "articlePOS",
+            "the",
+            "notAble",
+            "whatAble",
+            "is",
+            "toAble",
+            "verby",
+            "thisitthat",
+            "that",
+            "orAble",
+            "ifAble"
           ],
           "parents": {
+            "a": [
+              "articlePOS"
+            ],
+            "concept": [
+              "theAble",
+              "queryable"
+            ],
+            "have": [
+              "canBeDoQuestion",
+              "canBeQuestion"
+            ],
+            "hierarchyAble": [
+              "queryable"
+            ],
+            "is": [
+              "canBeQuestion",
+              "verby"
+            ],
+            "it": [
+              "pronoun",
+              "queryable",
+              "toAble",
+              "thisitthat"
+            ],
+            "object": [
+              "queryable",
+              "theAble"
+            ],
+            "orAble": [
+              "ifAble"
+            ],
+            "property": [
+              "queryable",
+              "theAble",
+              "unknown"
+            ],
+            "questionMark": [
+              "punctuation"
+            ],
+            "readonly": [
+              "queryable"
+            ],
+            "that": [
+              "thisitthat"
+            ],
+            "the": [
+              "articlePOS"
+            ],
+            "this": [
+              "pronoun",
+              "queryable",
+              "thisitthat"
+            ],
+            "thisitthat": [
+              "queryable"
+            ],
+            "unknown": [
+              "hierarchyAble",
+              "object",
+              "notAble",
+              "theAble",
+              "queryable"
+            ],
+            "what": [
+              "object",
+              "queryable"
+            ],
+            "whatAble": [
+              "queryable"
+            ],
+            "whose": [
+              "object"
+            ],
+            "xfx": [
+              "queryable"
+            ]
           },
           "properties": {
             "handlers": {
@@ -1502,6 +2409,68 @@
             "initHandlers": [
             ],
             "root": {
+              "a": {
+              },
+              "articlePOS": {
+              },
+              "canBeDoQuestion": {
+              },
+              "canBeQuestion": {
+              },
+              "concept": {
+              },
+              "have": {
+              },
+              "hierarchyAble": {
+              },
+              "ifAble": {
+              },
+              "is": {
+              },
+              "it": {
+              },
+              "notAble": {
+              },
+              "object": {
+              },
+              "orAble": {
+              },
+              "pronoun": {
+              },
+              "property": {
+              },
+              "punctuation": {
+              },
+              "queryable": {
+              },
+              "questionMark": {
+              },
+              "readonly": {
+              },
+              "that": {
+              },
+              "the": {
+              },
+              "theAble": {
+              },
+              "this": {
+              },
+              "thisitthat": {
+              },
+              "toAble": {
+              },
+              "unknown": {
+              },
+              "verby": {
+              },
+              "what": {
+              },
+              "whatAble": {
+              },
+              "whose": {
+              },
+              "xfx": {
+              }
             }
           },
           "property": {
@@ -1510,8 +2479,11 @@
             {
               "do": {
                 "left": "lover",
-                "right": "lovee",
-                "text": "wendy loves bananas"
+                "range": {
+                  "end": 18,
+                  "start": 0
+                },
+                "right": "lovee"
               },
               "focusable": [
                 "lover",
@@ -1520,6 +2492,10 @@
               "lovee": {
                 "marker": "unknown",
                 "paraphrase": true,
+                "range": {
+                  "end": 18,
+                  "start": 12
+                },
                 "text": "bananas",
                 "types": [
                   "unknown"
@@ -1531,6 +2507,10 @@
               "lover": {
                 "marker": "unknown",
                 "paraphrase": true,
+                "range": {
+                  "end": 4,
+                  "start": 0
+                },
                 "text": "wendy",
                 "types": [
                   "unknown"
@@ -1543,6 +2523,10 @@
               "number": "one",
               "ordering": "preference",
               "paraphrase": true,
+              "range": {
+                "end": 18,
+                "start": 0
+              },
               "text": "wendy loves bananas",
               "topLevel": true,
               "unflatten": [
@@ -1563,6 +2547,126 @@
           }
         },
         "4": {
+        },
+        "5": {
+        },
+        "6": {
+          "mentioned": [
+            {
+              "concept": true,
+              "marker": "wants",
+              "number": "one",
+              "pullFromContext": false,
+              "range": {
+                "end": 37,
+                "start": 0
+              },
+              "text": "wants",
+              "types": [
+                "unknown"
+              ],
+              "unknown": true,
+              "value": {
+                "arguments": {
+                  "marker": "list",
+                  "range": {
+                    "end": 37,
+                    "start": 21
+                  },
+                  "value": [
+                    {
+                      "marker": "unknown",
+                      "range": {
+                        "end": 26,
+                        "start": 21
+                      },
+                      "text": "wanter",
+                      "unknown": true,
+                      "value": "wanter",
+                      "word": "wanter"
+                    },
+                    {
+                      "marker": "unknown",
+                      "range": {
+                        "end": 37,
+                        "start": 32
+                      },
+                      "text": "wantee",
+                      "unknown": true,
+                      "value": "wantee",
+                      "word": "wantee"
+                    }
+                  ]
+                },
+                "default": true,
+                "marker": "xfx",
+                "range": {
+                  "end": 37,
+                  "start": 9
+                },
+                "text": "xfx between",
+                "types": [
+                  "xfx"
+                ],
+                "value": "xfx",
+                "word": "xfx"
+              },
+              "word": "wants"
+            },
+            {
+              "marker": "wants",
+              "pullFromContext": false,
+              "value": {
+                "arguments": {
+                  "marker": "list",
+                  "range": {
+                    "end": 37,
+                    "start": 21
+                  },
+                  "value": [
+                    {
+                      "marker": "unknown",
+                      "range": {
+                        "end": 26,
+                        "start": 21
+                      },
+                      "text": "wanter",
+                      "unknown": true,
+                      "value": "wanter",
+                      "word": "wanter"
+                    },
+                    {
+                      "marker": "unknown",
+                      "range": {
+                        "end": 37,
+                        "start": 32
+                      },
+                      "text": "wantee",
+                      "unknown": true,
+                      "value": "wantee",
+                      "word": "wantee"
+                    }
+                  ]
+                },
+                "default": true,
+                "marker": "xfx",
+                "range": {
+                  "end": 37,
+                  "start": 9
+                },
+                "text": "xfx between",
+                "types": [
+                  "xfx"
+                ],
+                "value": "xfx",
+                "word": "xfx"
+              }
+            }
+          ],
+          "variables": {
+          }
+        },
+        "7": {
         }
       },
       "processed": [
@@ -1574,47 +2678,13 @@
               "query": [
                 "what"
               ],
-              "right": "likee",
-              "text": "wendy like what"
+              "range": {
+                "end": 39,
+                "start": 20
+              },
+              "right": "likee"
             },
-            "focusable": [
-              "liker",
-              "likee"
-            ],
-            "is_compound": true,
-            "likee": {
-              "default": true,
-              "determined": true,
-              "marker": "what",
-              "query": [
-                "what"
-              ],
-              "text": "what",
-              "types": [
-                "what"
-              ],
-              "word": "what"
-            },
-            "liker": {
-              "marker": "unknown",
-              "text": "wendy",
-              "types": [
-                "unknown"
-              ],
-              "unknown": true,
-              "value": "wendy",
-              "word": "wendy"
-            },
-            "marker": "like",
-            "number": "one",
-            "object": {
-              "number": "one"
-            },
-            "ordering": "preference",
-            "query": [
-              "what"
-            ],
-            "response": {
+            "evalue": {
               "isResponse": true,
               "marker": "idontknow",
               "query": {
@@ -1624,8 +2694,11 @@
                   "query": [
                     "what"
                   ],
-                  "right": "likee",
-                  "text": "wendy like what"
+                  "range": {
+                    "end": 39,
+                    "start": 20
+                  },
+                  "right": "likee"
                 },
                 "focusable": [
                   "liker",
@@ -1639,14 +2712,23 @@
                   "query": [
                     "what"
                   ],
+                  "range": {
+                    "end": 23,
+                    "start": 20
+                  },
                   "text": "what",
                   "types": [
                     "what"
                   ],
+                  "value": "what",
                   "word": "what"
                 },
                 "liker": {
                   "marker": "unknown",
+                  "range": {
+                    "end": 34,
+                    "start": 30
+                  },
                   "text": "wendy",
                   "types": [
                     "unknown"
@@ -1664,6 +2746,10 @@
                 "query": [
                   "what"
                 ],
+                "range": {
+                  "end": 39,
+                  "start": 20
+                },
                 "text": "what like",
                 "topLevel": true,
                 "unflatten": [
@@ -1675,6 +2761,57 @@
                 "word": "like"
               },
               "truthValue": false
+            },
+            "focusable": [
+              "liker",
+              "likee"
+            ],
+            "isResponse": true,
+            "is_compound": true,
+            "likee": {
+              "default": true,
+              "determined": true,
+              "marker": "what",
+              "query": [
+                "what"
+              ],
+              "range": {
+                "end": 23,
+                "start": 20
+              },
+              "text": "what",
+              "types": [
+                "what"
+              ],
+              "value": "what",
+              "word": "what"
+            },
+            "liker": {
+              "marker": "unknown",
+              "range": {
+                "end": 34,
+                "start": 30
+              },
+              "text": "wendy",
+              "types": [
+                "unknown"
+              ],
+              "unknown": true,
+              "value": "wendy",
+              "word": "wendy"
+            },
+            "marker": "like",
+            "number": "one",
+            "object": {
+              "number": "one"
+            },
+            "ordering": "preference",
+            "query": [
+              "what"
+            ],
+            "range": {
+              "end": 39,
+              "start": 20
             },
             "text": "what like",
             "topLevel": true,
@@ -1699,8 +2836,11 @@
           "context": {
             "do": {
               "left": "lover",
-              "right": "lovee",
-              "text": "wendy loves bananas"
+              "range": {
+                "end": 18,
+                "start": 0
+              },
+              "right": "lovee"
             },
             "focusable": [
               "lover",
@@ -1708,6 +2848,10 @@
             ],
             "lovee": {
               "marker": "unknown",
+              "range": {
+                "end": 18,
+                "start": 12
+              },
               "text": "bananas",
               "types": [
                 "unknown"
@@ -1718,6 +2862,10 @@
             },
             "lover": {
               "marker": "unknown",
+              "range": {
+                "end": 4,
+                "start": 0
+              },
               "text": "wendy",
               "types": [
                 "unknown"
@@ -1729,6 +2877,10 @@
             "marker": "love",
             "number": "one",
             "ordering": "preference",
+            "range": {
+              "end": 18,
+              "start": 0
+            },
             "text": "wendy loves bananas",
             "topLevel": true,
             "touchedBy": [
@@ -1753,6 +2905,10 @@
               "dead": true,
               "default": true,
               "marker": "orList",
+              "range": {
+                "end": 24,
+                "start": 3
+              },
               "text": "x likes y or x loves y",
               "types": [
                 "like",
@@ -1762,8 +2918,11 @@
                 {
                   "do": {
                     "left": "liker",
-                    "right": "likee",
-                    "text": "x likes y"
+                    "range": {
+                      "end": 11,
+                      "start": 3
+                    },
+                    "right": "likee"
                   },
                   "focusable": [
                     "liker",
@@ -1771,6 +2930,10 @@
                   ],
                   "likee": {
                     "marker": "unknown",
+                    "range": {
+                      "end": 11,
+                      "start": 11
+                    },
                     "text": "y",
                     "types": [
                       "unknown"
@@ -1781,6 +2944,10 @@
                   },
                   "liker": {
                     "marker": "unknown",
+                    "range": {
+                      "end": 3,
+                      "start": 3
+                    },
                     "text": "x",
                     "types": [
                       "unknown"
@@ -1791,6 +2958,10 @@
                   },
                   "marker": "like",
                   "number": "one",
+                  "range": {
+                    "end": 11,
+                    "start": 3
+                  },
                   "text": "x likes y",
                   "types": [
                     "like"
@@ -1805,8 +2976,11 @@
                 {
                   "do": {
                     "left": "lover",
-                    "right": "lovee",
-                    "text": "x loves y"
+                    "range": {
+                      "end": 24,
+                      "start": 16
+                    },
+                    "right": "lovee"
                   },
                   "focusable": [
                     "lover",
@@ -1814,6 +2988,10 @@
                   ],
                   "lovee": {
                     "marker": "unknown",
+                    "range": {
+                      "end": 24,
+                      "start": 24
+                    },
                     "text": "y",
                     "types": [
                       "unknown"
@@ -1824,6 +3002,10 @@
                   },
                   "lover": {
                     "marker": "unknown",
+                    "range": {
+                      "end": 16,
+                      "start": 16
+                    },
                     "text": "x",
                     "types": [
                       "unknown"
@@ -1834,6 +3016,10 @@
                   },
                   "marker": "love",
                   "number": "one",
+                  "range": {
+                    "end": 24,
+                    "start": 16
+                  },
                   "text": "x loves y",
                   "types": [
                     "love"
@@ -1848,18 +3034,24 @@
               ],
               "word": "or"
             },
-            "calls": "Context#5: call17",
             "consequence": {
               "do": {
                 "left": "wanter",
-                "right": "wantee",
-                "text": "x wants y"
+                "range": {
+                  "end": 39,
+                  "start": 31
+                },
+                "right": "wantee"
               },
               "focusable": [
                 "wanter",
                 "wantee"
               ],
               "marker": "want",
+              "range": {
+                "end": 39,
+                "start": 31
+              },
               "text": "x wants y",
               "types": [
                 "want"
@@ -1871,6 +3063,10 @@
               "value": "want",
               "wantee": {
                 "marker": "unknown",
+                "range": {
+                  "end": 39,
+                  "start": 39
+                },
                 "text": "y",
                 "types": [
                   "unknown"
@@ -1881,6 +3077,10 @@
               },
               "wanter": {
                 "marker": "unknown",
+                "range": {
+                  "end": 31,
+                  "start": 31
+                },
                 "text": "x",
                 "types": [
                   "unknown"
@@ -1893,36 +3093,46 @@
             },
             "default": true,
             "marker": "if",
+            "range": {
+              "end": 39,
+              "start": 0
+            },
             "text": "if x likes y or x loves y then x wants y",
             "topLevel": true,
             "touchedBy": [
-              "call17",
               "call2"
             ],
+            "value": "if",
             "word": "if"
           },
-          "paraphrases": "if x likes y or x loves y then x wants y",
+          "paraphrases": "if undefined likes undefined or undefined loves undefined then x wants y",
           "responses": [
             ""
           ]
         },
         {
           "context": {
-            "calls": "Context#2: call2",
             "marker": "is",
             "number": "one",
             "one": {
               "concept": true,
               "marker": "unknown",
               "number": "one",
-              "response": true,
-              "text": "wants is xfx between",
+              "range": {
+                "end": 37,
+                "start": 0
+              },
+              "text": "wants",
               "types": [
                 "unknown"
               ],
               "unknown": true,
               "value": "wants",
               "word": "wants"
+            },
+            "range": {
+              "end": 37,
+              "start": 0
             },
             "text": "wants is xfx between",
             "topLevel": true,
@@ -1932,9 +3142,17 @@
             "two": {
               "arguments": {
                 "marker": "list",
+                "range": {
+                  "end": 37,
+                  "start": 21
+                },
                 "value": [
                   {
                     "marker": "unknown",
+                    "range": {
+                      "end": 26,
+                      "start": 21
+                    },
                     "text": "wanter",
                     "unknown": true,
                     "value": "wanter",
@@ -1942,6 +3160,10 @@
                   },
                   {
                     "marker": "unknown",
+                    "range": {
+                      "end": 37,
+                      "start": 32
+                    },
                     "text": "wantee",
                     "unknown": true,
                     "value": "wantee",
@@ -1951,11 +3173,15 @@
               },
               "default": true,
               "marker": "xfx",
-              "response": true,
+              "range": {
+                "end": 37,
+                "start": 9
+              },
               "text": "xfx between",
               "types": [
                 "xfx"
               ],
+              "value": "xfx",
               "word": "xfx"
             },
             "word": "is"
