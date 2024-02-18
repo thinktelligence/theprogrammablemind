@@ -445,3 +445,5 @@
 # TODO node length -q 'calculate 10 meters in inches' -g -d
 # TODO node math -q 'price is 20 dollars quantity is 30 what is price times quantity' -g -d
 # TODO node math -q 'price is 20 dollars what is the price' -g -d
+# node punctuation -q '(a)' -g -d
+node math -q '2*(4+5)' -g -d

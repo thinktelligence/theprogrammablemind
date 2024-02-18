@@ -17,6 +17,7 @@ const meta = require('./common/meta');
 const numbers = require('./common/numbers');
 const people = require('./common/people');
 const pos = require('./common/pos');
+const punctuation = require('./common/punctuation');
 const ordering = require('./common/ordering');
 const properties = require('./common/properties');
 const countable = require('./common/countable');
@@ -56,6 +57,7 @@ module.exports = {
   pipboy,
   reports,
   pos,
+  punctuation,
   scorekeeper,
   spock,
   stgame,

@@ -1,86 +1,46 @@
 const { Config, knowledgeModule, where } = require('./runtime').theprogrammablemind
+const gdefaults = require('./gdefaults')
+const punctuation_tests = require('./punctuation.test.json')
 
 let config = {
+  name: 'punctuation',
   operators: [
-    "([t](_)([t]))",
-    //"(((((console)[.](log))['(']) ([arg]) [')'])"
+    "([leftParenthesis|] (phrase) ([rightParenthesis|]))",
   ],
   bridges: [
-    { "id": "t", "level": 0, "bridge": "{ ...after[0] }" },
+    {
+      "id": "leftParenthesis",
+      "level": 0,
+      "bridge": "{ ...after[0], parenthesis: '(' }",
+      "words": [{ word: "(", value: '(', depth: '+' }],
+    },
+    {
+      "id": "rightParenthesis",
+      "level": 0,
+      "bridge": "{ ...next(operator) }",
+      "words": [{ word: ")", value: ')', depth: '-' }],
+    },
   ],
-  debug: false,
-  version: '3',
-  words: {
-    /*
-    " ([0-9]+)": [{"id": "number", "initial": "{ value: int(group[0]) }" }],
-    "one": [{"id": "number", "initial": "{ value: 1 }" }],
-    "ten": [{"id": "number", "initial": "{ value: 10 }" }],
-    */
-  },
 
   generators: [
     { 
       where: where(),
-      match: ({context}) => context.marker == 'number', 
-      apply: ({context}) => `${context.value}` 
+      priority: -1,
+      match: ({context}) => context.parenthesis == '(',
+      apply: ({context, g}) => `(${g({ ...context, parenthesis: null })})` 
     },
-  ],
-
-  semantics: [
-    {
-      where: where(),
-      match: ({context}) => context.marker == 'assignment',
-      apply: ({context, objects}) => {
-        console.log('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx', JSON.stringify(objects, null, 2))
-        objects.variables[context.variable.marker] = context.value.marker
-      }
-    }
   ],
 };
 
-url = "http://184.67.27.82"
-key = "6804954f-e56d-471f-bbb8-08e3c54d9321"
-//url = "http://localhost:3000"
-//key = "6804954f-e56d-471f-bbb8-08e3c54d9321"
-config = new Config(config)
+config = new Config(config, module).add(gdefaults)
 
-knowledgeModule( { 
-  url,
-  key,
-  name: 'punctuation',
-  description: 'punctuation',
+knowledgeModule( {
+  module,
   config,
-  isProcess: require.main === module,
-  test: './punctuation.test',
-  setup: () => {
+  description: 'punctuation',
+  test: {
+    name: './punctuation.test.json',
+    contents: punctuation_tests
   },
-  process: (promise) => {
-    return promise
-      .then( async (responses) => {
-        if (responses.errors) {
-          console.log('Errors')
-          responses.errors.forEach( (error) => console.log(`    ${error}`) )
-        }
-        console.log('This is the global objects from running semantics:\n', config.objects)
-        if (responses.logs) {
-          console.log('Logs')
-          responses.logs.forEach( (log) => console.log(`    ${log}`) )
-        }
-        console.log(responses.trace);
-        console.log('objects', JSON.stringify(config.get("objects"), null, 2))
-        console.log(responses.generated);
-        console.log(JSON.stringify(responses.results, null, 2));
-      })
-      .catch( (error) => {
-        console.log(`Error ${config.get('utterances')}`);
-        console.log('error', error)
-        console.log('error.error', error.error)
-        console.log('error.context', error.context)
-        console.log('error.logs', error.logs);
-        console.log('error.trace', error.trace);
-      })
-  },
-  module: () => {
-    module.exports = config
-  }
 })
+

@@ -1,6 +1,7 @@
 const { Config, knowledgeModule, where } = require('./runtime').theprogrammablemind
 const dialogues = require('./dialogues')
 const numbers = require('./numbers')
+const punctuation = require('./punctuation')
 const mathTemplate = require('./mathTemplate')
 const math_tests = require('./math.test.json')
 
@@ -125,6 +126,7 @@ let config = {
 config = new Config(config, module)
 config.add(numbers);
 config.add(dialogues);
+config.add(punctuation);
 config.add(mathTemplate);
 knowledgeModule( { 
   module,
