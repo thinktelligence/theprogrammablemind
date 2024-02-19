@@ -282,6 +282,7 @@ let config = {
        bridge: "{ ...next(operator), item: after[0] }",
        generatorp: ({context, g}) => `eat ${g(context.item)}`,
        semantic: ({api, context, e}) => {
+         console.log('eat', context)
          const value = e(context.item)
          api.eat(value.value)
        }
