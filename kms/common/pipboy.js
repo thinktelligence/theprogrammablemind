@@ -284,7 +284,7 @@ let config = {
        semantic: ({api, context, e}) => {
          // const value = e(context.item)
          // api.eat(value.value)
-         api.eat(context.item)
+         api.eat(context.item.value)
        }
     },
     { 
@@ -510,7 +510,8 @@ knowledgeModule({
     name: './pipboy.test.json',
     contents: pipboy_tests,
     check: [
-      'apply', 'equip', 'change', 'wear', 'setName', 'showWeapons', 'display'
+      'apply', 'change', 'disarm', 'drink', 'eat', 'equip', 'setName', 'strip', 'take', 'wear',
     ]
+
   },
 })
