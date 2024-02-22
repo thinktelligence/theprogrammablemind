@@ -1,6 +1,8 @@
 const { Config, knowledgeModule, where, Digraph } = require('./runtime').theprogrammablemind
 const gdefaults = require('./gdefaults.js')
+const pos = require('./pos.js')
 const math = require('./math.js')
+const formulasTemplate = require('./formulasTemplate.js')
 const { getVariables, solveFor } = require('./helpers/formulas.js')
 const formulas_tests = require('./formulas.test.json')
 
@@ -62,11 +64,11 @@ class API {
   }
 
   // currently only supportings x = f(x) type formulas
-  add(name, formula) {
+  add(name, formula, equality) {
     if (!this.objects.formulas[name.value]) {
       this.objects.formulas[name.value] = []
     }
-    this.objects.formulas[name.value].push({ name, formula })
+    this.objects.formulas[name.value].push({ name, formula, equality })
   }
 
   remove(name) {
@@ -83,6 +85,7 @@ let config = {
     // TODO notations like (([arg1:]) [op] ([arg2:nameOfArg2}|word1])) -> just make the bridge + operators. put this in the bridge def / also calculate generators
     "([formula])",
     "([solve] ([equals]) ([forVariable|for]) (variable))",
+    "(([formula]) [formulaForVariable|] ([forVariable|]) (variable))",
     "([calculate] ([expression]))",
     "(([expression]) [equals] ([expression]))",
   ],
@@ -92,10 +95,27 @@ let config = {
       apply: ({context, api, e}) => {
         const { formula } = api.get(context)
         context.evalue = e(formula) 
-      }
-    },
+      }    },
   ],
   bridges: [
+    {
+      where: where(),
+      id: 'formulaForVariable', 
+      isA: ['preposition', 'queryable'],
+      convolution: true,
+      bridge: "{ ...next(operator), what: before[0], equality: after[0], variable: after[1] }",
+      generatorp: ({context, g}) => `${g(context.what)} ${g(context.equality)} ${g(context.variable)}`,
+      evaluator: ({context, objects}) => {
+        let formulas = []
+        for (key in objects.formulas|| {}) {
+          if (context.variable.value == key) {
+            debugger
+            formulas = formulas.concat(objects.formulas[key].map((f) => { return { ...f.equality, paraphrase: true } }))
+          }
+        }
+        context.evalue = { marker: 'list', value: formulas }
+      }
+    },
     {
       where: where(),
       id: 'solve', 
@@ -114,6 +134,7 @@ let config = {
     },
     { 
       id: 'forVariable',
+      isA: ['preposition'],
     },
     { 
       id: 'formula',
@@ -146,7 +167,7 @@ let config = {
       semantic: ({context, api}) => {
         // TODO make sure left is a single name
         // TODO calculate invertable formulas?
-        api.add(context.left, context.right)
+        api.add(context.left, context.right, context)
       }
     },
   ]
@@ -154,7 +175,7 @@ let config = {
 
 const api = new API()
 config = new Config(config, module)
-config.add(gdefaults).add(math)
+config.add(gdefaults).add(pos).add(math).add(formulasTemplate)
 config.api = api
 
 knowledgeModule({ 

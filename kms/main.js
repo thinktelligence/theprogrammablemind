@@ -8,6 +8,7 @@ const currency = require('./common/currency');
 const dialogues = require('./common/dialogues');
 const dimension = require('./common/dimension');
 const formulas = require('./common/formulas');
+const formulasTemplate = require('./common/formulasTemplate');
 const gdefaults = require('./common/gdefaults');
 const help = require('./common/help');
 const hierarchy = require('./common/hierarchy');
@@ -44,6 +45,7 @@ module.exports = {
   dialogues,
   dimension,
   formulas,
+  formulasTemplate,
   gdefaults,
   help,
   hierarchy,
