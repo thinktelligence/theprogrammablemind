@@ -41,7 +41,12 @@ let config = {
       level: 0, 
       isA: ['verby'],
       bridge: "{ ...next(operator), changeable: before[0] }",
-      generatorp: ({context, g}) => `${g(context.changeable)} changes`,
+      generatorp: ({context, g}) => {
+        if (!context.changeable) {
+          return 'undefined changes'
+        }
+        return `${g(context.changeable)} changes`
+      }
     },
     { id: "event1", level: 0, bridge: "{ ...next(operator) }", development: true },
     { id: "action1", level: 0, bridge: "{ ...next(operator) }", development: true },

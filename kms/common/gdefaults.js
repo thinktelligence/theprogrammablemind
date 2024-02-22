@@ -49,6 +49,12 @@ let config = {
 
     {
       where: where(),
+      match: ({context}) => context.marker,
+      apply: ({context}) => context.marker,
+    },
+
+    {
+      where: where(),
       match: () => true,
       apply: ({context}) => JSON.stringify(context)
     }

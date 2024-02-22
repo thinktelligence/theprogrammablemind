@@ -451,4 +451,4 @@
 # node formulas -q 'fahrenheit = celcius*9/5 + 32' -g -d 
 # node formulas -q 'fahrenheit = celcius*9/5 + 32 the formulas for fahrenheit' -g
 # node inspect formulas -q 'what are the formulas for fahrenheit' -g -d
-node formulas -q 'fahrenheit = celcius*9/5 + 32 what are the formulas for fahrenheit' -g -d
+node inspect formulas -q 'fahrenheit = celcius*9/5 + 32 what are the formulas for fahrenheit' -g -d
