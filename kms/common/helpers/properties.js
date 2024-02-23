@@ -428,19 +428,6 @@ class API {
       const operatorSingular = pluralize.plural(operator)
       config.addWord(operatorSingular, { id: operator, initial: `{ value: '${operator}', number: 'one' }`})
       config.addWord(operatorPlural, { id: operator, initial: `{ value: '${operator}', number: 'many' }`})
-
-      config.addGenerator({
-        priority: -3,
-        notes: `one case added by helpers/properties for ${operator}`,
-        match: ({context}) => context.evaluateToWord && context.marker == operator,
-        apply: () => operatorSingular
-      });
-      config.addGenerator({
-        priority: -3,
-        notes: `many case added by helpers/properties for ${operator}`,
-        match: ({context}) => context.evaluateToWord && context.marker == operator && context.number == 'many',
-        apply: () => operatorPlural
-      });
     }
 
     if (doAble) {
@@ -453,10 +440,10 @@ class API {
     config.addGenerator({
       notes: 'ordering generator for paraphrase',
       match: ({context}) => context.marker == operator && context.paraphrase && !context.query,
-      apply: ({context, g}) => {
+      apply: ({context, gp, g}) => {
         const beforeGenerator = before.map( (arg) => g(context[arg.tag]) )
         const afterGenerator = after.map( (arg) => g(context[arg.tag], { assumed: { paraphrase: true } }) )
-        const word = g({...context, evaluateToWord: true})
+        const word = context.word
         // return beforeGenerator.concat([`${context.word}`]).concat(afterGenerator).join(' ')
         const sub = []
         if (context.subphrase) {

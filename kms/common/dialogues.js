@@ -33,10 +33,6 @@ class API {
     return this.objects.brief
   }
 
-  evaluateToWord(value, g) {
-    return g({ ...value, evaluateToWord: true })
-  }
-
   evaluateToConcept(value, context, log, s) {
     value.evaluate = { toConcept: true }
     // const concept = s(value, { debug: { apply: true } }) 
@@ -596,13 +592,6 @@ let config = {
         }
         // return `${g({...context.one})} ${isMany(context.one) || isMany(context.two) || isMany(context) ? "are" : "is"} ${g(context.two)}`
       },
-    },
-
-    {
-      where: where(),
-      priority: -3,
-      match: ({context}) => context.evaluateToWord && context.word,
-      apply: ({context}) => context.word,
     },
   ],
 

@@ -1,3 +1,4 @@
+const pluralize = require('pluralize')
 const { Config, knowledgeModule, where } = require('./runtime').theprogrammablemind
 const gdefaults_tests = require('./gdefaults.test.json')
 
@@ -5,6 +6,22 @@ let config = {
   name: 'gdefaults',
   generators: [
     // defaults
+    {
+      where: where(),
+      match: ({context}) => context.paraphrase && context.word && context.number == 'many',
+      apply: ({context}) => {
+        return pluralize.plural(context.word)
+      }
+    },
+
+    {
+      where: where(),
+      match: ({context}) => context.paraphrase && context.word && context.number == 'one',
+      apply: ({context}) => {
+        return pluralize.singular(context.word)
+      }
+    },
+
     {
       where: where(),
       match: ({context}) => context.paraphrase && context.word,

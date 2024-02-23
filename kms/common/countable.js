@@ -34,7 +34,8 @@ let config = {
     { 
       id: "all", 
       level: 0, 
-      bridge: "{ ...next(operator) }" 
+      generatorp: ({context}) => 'all',
+      bridge: "{ ...next(operator), number: ['many'] }" 
     },
   ],
 
@@ -43,7 +44,11 @@ let config = {
       where: where(),
       match: ({context}) => context.quantity,
       apply: ({context, g}) => {
-        const countable = g({ ...context, quantity: undefined, number: context.quantity == 1 ? 'one' : 'many' })
+        let number = context.quantity.number || 'one'
+        if (context.quantity.value > 1) {
+          number = 'many'
+        }
+        const countable = g({ ...context, quantity: undefined, number})
         return `${g(context.quantity)} ${countable}`
       }
     },
