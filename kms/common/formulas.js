@@ -53,14 +53,18 @@ class API {
     this.objects.formulas = {}
   }
 
-  get(name) {
+  gets(name) {
     if (!this.objects.formulas[name.value]) {
-      return
+      return []
     }
     if (this.objects.formulas[name.value].length == 0) {
-      return
+      return []
     }
-    return this.objects.formulas[name.value][0]
+    return this.objects.formulas[name.value]
+  }
+
+  get(name) {
+    return this.gets(name)[0]
   }
 
   // currently only supportings x = f(x) type formulas
@@ -95,7 +99,8 @@ let config = {
       apply: ({context, api, e}) => {
         const { formula } = api.get(context)
         context.evalue = e(formula) 
-      }    },
+      }    
+    },
   ],
   bridges: [
     {
@@ -103,16 +108,10 @@ let config = {
       id: 'formulaForVariable', 
       isA: ['preposition', 'queryable'],
       convolution: true,
-      bridge: "{ ...next(operator), what: before[0], equality: after[0], variable: after[1] }",
+      bridge: "{ number: before[0].number, ...next(operator), what: before[0], equality: after[0], variable: after[1] }",
       generatorp: ({context, g}) => `${g(context.what)} ${g(context.equality)} ${g(context.variable)}`,
-      evaluator: ({context, objects}) => {
-        let formulas = []
-        for (key in objects.formulas|| {}) {
-          if (context.variable.value == key) {
-            debugger
-            formulas = formulas.concat(objects.formulas[key].map((f) => { return { ...f.equality, paraphrase: true } }))
-          }
-        }
+      evaluator: ({context, api, objects}) => {
+        const formulas = api.gets(context.variable).map((f) => { return { ...f.equality, paraphrase: true } })
         context.evalue = { marker: 'list', value: formulas }
       }
     },
@@ -129,7 +128,6 @@ let config = {
           // TODO some KM for talking to the user wrt brief+avatar
           context.verbatim = `Solving failed`
         }
-        debugger
       }
     },
     { 
