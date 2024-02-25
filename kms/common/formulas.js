@@ -3,7 +3,7 @@ const dialogues = require('./dialogues.js')
 const pos = require('./pos.js')
 const math = require('./math.js')
 const formulasTemplate = require('./formulasTemplate.js')
-const { getVariables, solveFor } = require('./helpers/formulas.js')
+const { API, getVariables, solveFor } = require('./helpers/formulas.js')
 const formulas_tests = require('./formulas.test.json')
 
 const template = {
@@ -48,6 +48,7 @@ const template = {
   what is the formula for meters in inches
   put the formalua in the mentioned. that starts acting like short term memory / use template "x is a formula" to put the formula in long term memory / add a phrase rememer that x equals ... / forget that x = ...
 */
+/*
 class API {
   initialize() {
     this.objects.formulas = {}
@@ -82,6 +83,7 @@ class API {
     this.objects.formulas[name.value].pop()
   }
 }
+*/
 
 let config = {
   name: 'formulas',

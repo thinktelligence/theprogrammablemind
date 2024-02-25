@@ -1,4 +1,4 @@
-const { unify, rules, getVariables, solveFor, applyMapping } = require('./formulas')
+const { API, unify, rules, getVariables, solveFor, applyMapping } = require('./formulas')
 
 describe('helpers', () => {
   let x, t_plus_u, x_plus_y_times_z, x_times_y_plus_z, one_plus_2, x_equals_y
@@ -53,6 +53,19 @@ describe('helpers', () => {
     })
   })
 
+  describe('API', () => {
+    it('NEO23 add+get', async () => {
+      const name = { value: 'formula1' }
+      const formula = x
+      const api = new API()
+      api.objects = {}
+      api.initialize()
+
+      api.add(name, formula)
+      expect(api.get(name).formula).toStrictEqual(x)
+    })
+  })
+
   /* 
     solve for x
       x = y => y = z
@@ -62,7 +75,7 @@ describe('helpers', () => {
       y = x - z => x = y + z
   */
   describe('unify', () => {
-    it('NEOS23 x = y => x = y', async () => {
+    it('x = y => x = y', async () => {
       const value = { marker: 'equals', left: 'x', right: 'y' }
       const body = unify(rules[0], value)
       expect(body).toStrictEqual(value)

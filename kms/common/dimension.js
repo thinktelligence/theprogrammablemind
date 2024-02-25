@@ -84,35 +84,45 @@ let config = {
       words: [{ word: 'degrees', number: 'many' }],
       isA: ['amount'],
       generatorp: ({context, g}) => (context.amount) ? `${g(context.amount)} ${context.word}` : context.word,
-      bridge: "{ ...next(operator), amount: before[0] }",
+      bridge: "{ ...next(operator), value: before[0].value, amount: before[0] }",
     },
     { 
       id: "amountOfDimension", 
       convolution: true, 
-      bridge: "{ marker: operator('dimension'), unit: after[0], amount: before[0] }" 
+      bridge: "{ marker: operator('dimension'), unit: after[0], value: before[0].value, amount: before[0] }" 
     },
     { 
       where: where(),
       id: "convertToUnits", 
       bridge: "{ ...next(operator), from: before[0], to: after[0] }",
-      isA: ['expression'],
+      isA: ['expression', 'queryable'],
       generatorp: ({context, g}) => `${g(context.from)} ${context.word} ${g(context.to)}`,
-      evaluator: ({context}) => {
+      // evaluator: ({context, kms, error}) => {
+      evaluator: ({context, kms, e}) => {
+        /*
+        error(({context, e}) => {
+          context.evalue = 'dont know...'
+        })
+        */
         const from = context.from;
         const to = context.to;
-        // from => to => formula
-        const conversion = {
-          "celcius": {
-            "fahrenheit": (celcius) => celcius*9/5 + 32,
-          },
-          "fahrenheit": {
-            "celcius": (fahrenheit) => (fahrenheit-32)*5/9,
-          },
+        const formula = kms.formulas.api.get(to, [from.unit])
+        kms.stm.api.setVariable(from.unit.value, from.amount)
+        const evalue = e(formula)
+        /*
+        '{
+            "marker":"dimension",
+            "unit":{"marker":"unit","range":{"start":19,"end":25},"word":"celcius","text":"celcius","value":"celcius","unknown":true,"types":["unit","unknown"]},
+            "value":10,
+            "amount":{"word":"degrees","number":"many","text":"10 degrees","marker":"degree","range":{"start":8,"end":17},"value":10,"amount":{"value":10,"text":"10","marker":"number","word":"10","range":{"start":8,"end":9},"types":["number"]}},
+              "text":"10 degrees celcius","range":{"start":8,"end":25}}'
+        */
+        context.evalue = { 
+          paraphrase: true,
+          marker: 'dimension',
+          unit: to,
+          amount: { evalue, paraphrase: undefined }
         }
-
-        const value = conversion[from.unit.marker][to.marker](from.amount.amount.value)
-        console.log('value', value)
-        context.evalue = value
       },
     },
     { id: "unit", },
@@ -122,6 +132,7 @@ let config = {
 config = new Config(config, module)
 config.add(base).add(formulas).add(testing)
 config.api = api
+/*
 config.initializer( ({config, api, isAfterApi, isModule}) => {
   if (!isModule && isAfterApi) {
     api.setup({ 
@@ -130,7 +141,7 @@ config.initializer( ({config, api, isAfterApi, isModule}) => {
     })
   }
 }, { initAfterApi: true });
-
+*/
 
 knowledgeModule({ 
   module,
@@ -138,6 +149,11 @@ knowledgeModule({
   config,
   test: {
     name: './dimension.test.json',
-    contents: dimension_tests
+    contents: dimension_tests,
+    /*
+    check: [
+      { km: 'properties' },
+    ]
+    */
   },
 })

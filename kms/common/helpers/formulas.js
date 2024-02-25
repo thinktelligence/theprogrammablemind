@@ -102,10 +102,61 @@ function solveFor(expression, variable, isVariable = (expression) => typeof expr
   }
 }
 
+class API {
+  initialize() {
+    this.objects.formulas = {}
+  }
+
+  gets(name) {
+    if (!this.objects.formulas[name.value]) {
+      return []
+    }
+    if (this.objects.formulas[name.value].length == 0) {
+      return []
+    }
+    return this.objects.formulas[name.value]
+  }
+
+  get(name, expectedVars) {
+    if (expectedVars) {
+      const fs = this.gets(name);
+      for (let f of fs) {
+        const foundVars = getVariables(f.formula)
+        if (foundVars.length == expectedVars.length) {
+          for (let ev of expectedVars) {
+            if (!foundVars.find( (fv) => fv.value == ev.value )) {
+              continue
+            }
+          }
+          return f.formula;
+        }
+      }
+    } else {
+      return this.gets(name)[0]
+    }
+  }
+
+  // currently only supportings x = f(x) type formulas
+  add(name, formula, equality) {
+    if (!this.objects.formulas[name.value]) {
+      this.objects.formulas[name.value] = []
+    }
+    this.objects.formulas[name.value].push({ name, formula, equality })
+  }
+
+  remove(name) {
+    if (!this.objects.formulas[name.value]) {
+      return
+    }
+    this.objects.formulas[name.value].pop()
+  }
+}
+
 
 module.exports = {
   getVariables,
   solveFor,
   unify,
   rules,
+  API,
 }

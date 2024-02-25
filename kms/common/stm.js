@@ -72,7 +72,7 @@ class API {
     if (!name) {
       return
     }
-    let valueNew = this.mentions({ marker: name }) || name
+    let valueNew = this.mentions({ marker: name, value: name }) || name
     if (valueNew && valueNew.value) {
       valueNew = valueNew.value
     }

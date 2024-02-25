@@ -451,5 +451,10 @@
 # node formulas -q 'fahrenheit = celcius*9/5 + 32' -g -d 
 # node formulas -q 'fahrenheit = celcius*9/5 + 32 the formulas for fahrenheit' -g
 # node inspect formulas -q 'what are the formulas for fahrenheit' -g -d
-node inspect formulas -q 'fahrenheit = celcius*9/5 + 32 what are the formulas for fahrenheit' -g -d
+# TODO node inspect formulas -q 'fahrenheit = celcius*9/5 + 32 what are the formulas for fahrenheit' -g -d
 # node inspect countable -q '1 countable' -g
+# node inspect dimension -q "temperature is a dimension\nfahrenheit celcuis and kelvin are units of temperature\nfahrenheit = celcius*9/5 + 32" -g
+# node inspect dimension -q "temperature is a dimension\nfahrenheit celcuis and kelvin are units of temperature" -g
+# node inspect dimension -q "temperature is a dimension" -g
+# node inspect dimension -q "what is 10 degrees celcius in fahrenheit" -g
+node inspect dimension -d -q "temperature is a dimension\nfahrenheit celcuis and kelvin are units of temperature\nfahrenheit = celcius*9/5 + 32\nwhat is 10 degrees celcius in fahrenheit" -g 
