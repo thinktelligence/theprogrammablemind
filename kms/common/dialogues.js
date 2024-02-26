@@ -851,13 +851,18 @@ let config = {
     {
       where: where(),
       notes: 'default handle evaluate',
-      match: ({context}) => context.evaluate,
+      match: ({context, kms}) => context.evaluate && kms.stm.api.getVariable(context.value),
+      // match: ({context, kms}) => context.evaluate,
+      // priority: -1,
       apply: ({context, kms, e}) => {
+        debugger
         const api = kms.stm.api
         context.value = api.getVariable(context.value)
+        /*
         if (!context.value && context.marker !== 'unknown') {
           context.value = api.getVariable(context.marker)
         }
+        */
         if (context.value && context.value.marker) {
           context.evalue = e(context.value)
         }
