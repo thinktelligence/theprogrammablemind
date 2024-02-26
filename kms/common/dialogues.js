@@ -732,7 +732,7 @@ let config = {
         // TODO wtf is the next line?
         value = JSON.parse(JSON.stringify(value))
         let instance = e(value)
-        if (instance.evalue) {
+        if (false && instance.evalue) {
           km('stm').api.mentioned(value)
         }
         if (instance.verbatim) {

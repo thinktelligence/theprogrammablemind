@@ -91,16 +91,15 @@ let config = {
       where: where(),
       match: ({context}) => context.marker == 'time' && context.evalue && context.format == 12, 
       apply: ({g, context}) => {
-        console.log('-------------------', context.evalue)
-            let hh = context.evalue.getHours();
-            let ampm = 'am'
-            if (hh > 12) {
-              hh -= 12;
-              ampm = 'pm'
-            }
-            let ss = context.evalue.getMinutes()
-            ss = pad(ss, 2)
-            return `${hh}:${ss} ${ampm}` 
+        let hh = context.evalue.getHours();
+        let ampm = 'am'
+        if (hh > 12) {
+          hh -= 12;
+          ampm = 'pm'
+        }
+        let ss = context.evalue.getMinutes()
+        ss = pad(ss, 2)
+        return `${hh}:${ss} ${ampm}` 
       }
     },
     { 
