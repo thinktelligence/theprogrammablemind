@@ -10,6 +10,12 @@ const dimension_tests = require('./dimension.test.json')
   10 celcius + 5
 
   10 C
+
+  use a digraph for calculating convertions
+
+  can you convert between all units of length
+  configure the conversions for length
+  "square kilometers" is a phrase
 */
 class API {
 
