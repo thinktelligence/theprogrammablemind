@@ -325,7 +325,7 @@ let config = {
       generatorp: ({g, context}) => `call ${g(context.namee)} ${g(context.name)}`,
       semantic: ({g, context, objects, e, config, km}) => {
         const namee = e(context.namee)
-        const id = namee.value.value
+        const id = namee.value
         const listing = objects.listings[id]
         const name = context.name.text
         objects.listings[name] = {...listing}
@@ -494,7 +494,7 @@ let config = {
             }
             let id = value.value
             if (value.evalue) {
-              id = value.evalue.value
+              id = value.evalue
             }
             const listing = objects.listings[id]
             const api = apis[listing.api]

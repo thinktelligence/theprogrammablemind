@@ -458,7 +458,10 @@
 # node inspect dimension -q "temperature is a dimension" -g
 # node inspect dimension -q "what is 10 degrees celcius in fahrenheit" -g
 # node inspect dimension -d -q "temperature is a dimension\nfahrenheit celcuis and kelvin are units of temperature\nfahrenheit = celcius*9/5 + 32\nwhat is 10 degrees celcius in fahrenheit" -g 
+# node inspect time -q 'what is the time' -g -d
+# node inspect math -q 'price is 20 quantity is 30 what is price times quantity' -g -d
 # node length -q 'what is 1 meter in centimeters' -g -d
-# node time -q 'what is the time' -g -d
-# node properties -q "the age of greg is 23 what is greg's age" -g -d
-node inspect math -q 'price is 20 quantity is 30 what is price times quantity' -g -d
+# node inspect properties -q "the age of greg is 23 what is greg's age" -g -d
+# node inspect reports -q 'call this report1\nshow report1' -g -d
+# node reports -q 'call this report1' -g -d
+node inspect reports -q 'call this report1\nshow it' -g -d
