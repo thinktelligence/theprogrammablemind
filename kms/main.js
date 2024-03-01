@@ -14,6 +14,7 @@ const help = require('./common/help');
 const hierarchy = require('./common/hierarchy');
 const javascript = require('./common/javascript');
 const kirk = require('./common/kirk');
+const length = require('./common/length');
 const math = require('./common/math');
 const meta = require('./common/meta');
 const numbers = require('./common/numbers');
