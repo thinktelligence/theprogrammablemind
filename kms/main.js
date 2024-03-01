@@ -23,10 +23,6 @@ const stm = require('common/stm')
 const ui = require('common/ui')
 const math = require('common/math')
 const formulas = require('common/formulas')
-const pos = require('common/pos')
-const punctuation = require('common/punctuation')
-const stm = require('common/stm')
-const ui = require('common/ui')
 const dimension = require('common/dimension')
 const length = require('common/length')
 const pressure = require('common/pressure')
@@ -69,10 +65,6 @@ stm,
 ui,
 math,
 formulas,
-pos,
-punctuation,
-stm,
-ui,
 dimension,
 length,
 pressure,
