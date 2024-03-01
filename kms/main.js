@@ -1,80 +1,92 @@
 const tpm = require('./common/runtime').theprogrammablemind
-const animals = require('./common/animals');
-const avatar = require('./common/avatar');
-const characters = require('./common/characters');
-const crew = require('./common/crew');
-const comparable = require('./common/comparable');
-const currency = require('./common/currency');
-const dialogues = require('./common/dialogues');
-const dimension = require('./common/dimension');
-const formulas = require('./common/formulas');
-const formulasTemplate = require('./common/formulasTemplate');
-const gdefaults = require('./common/gdefaults');
-const help = require('./common/help');
-const hierarchy = require('./common/hierarchy');
-const javascript = require('./common/javascript');
-const kirk = require('./common/kirk');
-const length = require('./common/length');
-const math = require('./common/math');
-const meta = require('./common/meta');
-const numbers = require('./common/numbers');
-const people = require('./common/people');
-const pos = require('./common/pos');
-const punctuation = require('./common/punctuation');
-const ordering = require('./common/ordering');
-const properties = require('./common/properties');
-const countable = require('./common/countable');
-const pipboyTemplate = require('./common/pipboyTemplate');
-const pipboy = require('./common/pipboy');
-const pressure = require('./common/pressure');
-const reports = require('./common/reports');
-const scorekeeper = require('./common/scorekeeper');
-const spock = require('./common/spock');
-const stgame = require('./common/stgame');
-const stm = require('./common/stm');
-const tell = require('./common/tell');
-const temperature = require('./common/temperature');
-const time = require('./common/time');
-const ui = require('./common/ui');
-const weight = require('./common/weight');
+const currency = require('common/currency')
+const numbers = require('common/numbers')
+const people = require('common/people')
+const time = require('common/time')
+const avatar = require('common/avatar')
+const comparable = require('common/comparable')
+const countable = require('common/countable')
+const help = require('common/help')
+const meta = require('common/meta')
+const hierarchy = require('common/hierarchy')
+const ordering = require('common/ordering')
+const properties = require('common/properties')
+const dimensionTemplate = require('common/dimensionTemplate')
+const formulasTemplate = require('common/formulasTemplate')
+const mathTemplate = require('common/mathTemplate')
+const pipboyTemplate = require('common/pipboyTemplate')
+const dialogues = require('common/dialogues')
+const gdefaults = require('common/gdefaults')
+const pos = require('common/pos')
+const punctuation = require('common/punctuation')
+const stm = require('common/stm')
+const ui = require('common/ui')
+const math = require('common/math')
+const formulas = require('common/formulas')
+const pos = require('common/pos')
+const punctuation = require('common/punctuation')
+const stm = require('common/stm')
+const ui = require('common/ui')
+const dimension = require('common/dimension')
+const length = require('common/length')
+const pressure = require('common/pressure')
+const temperature = require('common/temperature')
+const weight = require('common/weight')
+const animals = require('common/animals')
+const javascript = require('common/javascript')
+const scorekeeper = require('common/scorekeeper')
+const reports = require('common/reports')
+const tell = require('common/tell')
+const pipboy = require('common/pipboy')
+const characters = require('common/characters')
+const crew = require('common/crew')
+const stgame = require('common/stgame')
+const kirk = require('common/kirk')
+const spock = require('common/spock')
 
-module.exports = { 
-  Config: tpm.Config,
-  animals,
-  avatar,
-  characters,
-  countable,
-  crew,
-  comparable,
-  currency,
-  dialogues,
-  dimension,
-  formulas,
-  formulasTemplate,
-  gdefaults,
-  help,
-  hierarchy,
-  javascript,
-  kirk,
-  length,
-  math,
-  meta,
-  numbers,
-  ordering,
-  properties,
-  pipboyTemplate,
-  pipboy,
-  pressure,
-  reports,
-  pos,
-  punctuation,
-  scorekeeper,
-  spock,
-  stgame,
-  stm,
-  tell,
-  temperature,
-  time,
-  ui,
-  weight,
+module.exports = {
+Config: tpm.Config,currency,
+numbers,
+people,
+time,
+avatar,
+comparable,
+countable,
+help,
+meta,
+hierarchy,
+ordering,
+properties,
+dimensionTemplate,
+formulasTemplate,
+mathTemplate,
+pipboyTemplate,
+dialogues,
+gdefaults,
+pos,
+punctuation,
+stm,
+ui,
+math,
+formulas,
+pos,
+punctuation,
+stm,
+ui,
+dimension,
+length,
+pressure,
+temperature,
+weight,
+animals,
+javascript,
+scorekeeper,
+reports,
+tell,
+pipboy,
+characters,
+crew,
+stgame,
+kirk,
+spock,
 }
