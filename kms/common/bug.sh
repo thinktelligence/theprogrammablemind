@@ -464,4 +464,6 @@
 # node inspect properties -q "the age of greg is 23 what is greg's age" -g -d
 # node inspect reports -q 'call this report1\nshow report1' -g -d
 # node reports -q 'call this report1' -g -d
-node inspect reports -q 'call this report1\nshow it' -g -d
+# node inspect reports -q 'call this report1\nshow it' -g -d
+# node inspect formulas -q 'c1 is a dimension\na1 b1 and c1 are units of d1\nwhat are 10 a1 in c1 ' -g -d
+node numbers -q 'c1' -g -s
