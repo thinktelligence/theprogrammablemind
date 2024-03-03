@@ -1,5 +1,6 @@
 const { Config, knowledgeModule, where } = require('./runtime').theprogrammablemind
 const numbers_tests = require('./numbers.test.json')
+const gdefaults = require('./gdefaults')
 
 /*
   TODO 
@@ -52,6 +53,7 @@ let config = {
 };
 
 config = new Config(config, module)
+config.add(gdefaults)
 knowledgeModule( { 
   module,
   config,

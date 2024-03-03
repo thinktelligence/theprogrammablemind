@@ -465,5 +465,7 @@
 # node inspect reports -q 'call this report1\nshow report1' -g -d
 # node reports -q 'call this report1' -g -d
 # node inspect reports -q 'call this report1\nshow it' -g -d
-# node inspect formulas -q 'c1 is a dimension\na1 b1 and c1 are units of d1\nwhat are 10 a1 in c1 ' -g -d
-node numbers -q 'c1' -g -s
+# node numbers -q 'c1' -g -s
+# node inspect dimension -q 'c1 is a dimension\na1 and b1 are units of d1\nwhat are 10 a1 in b1\nwhat is the reason' -g -d
+# node inspect dimension -q 'c1 is a dimension\na1 and b1 are units of d1\nwhat are 10 a1 in b1\nwhy' -g -d  -s
+node dialogues -q 'why' -g -d

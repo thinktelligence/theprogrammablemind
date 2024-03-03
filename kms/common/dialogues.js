@@ -141,6 +141,8 @@ let config = {
     // "(([queryable]) [is:isEdBridge|is,are] ([isEdAble|]))",
     "(([queryable]) [(<isEd|> ([isEdAble|]))])",
 
+    "([why])",
+    "([reason])",
     "([thisitthat|])",
     "([it])",
     "([this])",
@@ -273,6 +275,17 @@ let config = {
       bridge: "{ ...next(operator) }" 
     },
     { 
+      id: "why", 
+      level: 0, 
+      bridge: "{ ...next(operator), pullFromContext: true, types: ['reason'], isResponse: true }" 
+    },
+    { 
+      id: "reason", 
+      level: 0, 
+      isA: ['theAble', 'queryable'], 
+      bridge: "{ ...next(operator) }" 
+    },
+    { 
       id: "it", 
       level: 0, 
       isA: ['thisitthat'], 
@@ -375,6 +388,11 @@ let config = {
        apply: ({context, g}) => { return { "self": "your", "other": "my" }[context.value] },
     },
     */
+    {
+      where: where(),
+      match: ({context}) => context.marker === 'error' && context.paraphrase,
+      apply: ({context, gp}) => gp(context.context)
+    },
     {
       where: where(),
       match: ({context}) => context.marker === 'idontknow',
@@ -612,6 +630,17 @@ let config = {
       apply: ({context, api}) => {
         api.setBrief( context.type.value == 'brief' )
       },
+    },
+    {
+      where: where(),
+      match: ({context}) => context.marker === 'error',
+      apply: ({context, gp}) => {
+        context.evalue = "That is not known"
+        if (context.reason) {
+          context.evalue += ` because ${gp(context.reason)}`
+        }
+        context.isResponse = true
+      }
     },
     { 
       where: where(),
@@ -912,7 +941,9 @@ config.initializer( ({objects, config, api, isModule}) => {
     config.addWord("canbedoquestion", { id: "canBeDoQuestion", "initial": "{}" })
     config.addWord("doesable", { id: "doesAble", "initial": "{}" })
   }
-  config.addArgs((args) => ({ e: (context) => api.getEvaluator(args.s, args.log, context) }))
+  config.addArgs((args) => ({ 
+    e: (context) => api.getEvaluator(args.s, args.log, context),
+  }))
 })
 
 knowledgeModule( { 

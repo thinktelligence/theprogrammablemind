@@ -66,6 +66,13 @@ let config = {
   hierarchy: [
     { child: 'convertToUnits', parent: 'testingValue', development: true },
   ],
+  generators: [
+    {
+      where: where(),
+      match: ({context}) => context.marker == 'noconversion',
+      apply: ({context, gp}) => `there is no conversion between ${gp(context.from)} and ${gp(context.to)}`,
+    },
+  ],
   bridges: [
     { 
       where: where(),
@@ -104,7 +111,7 @@ let config = {
       isA: ['expression', 'queryable'],
       generatorp: ({context, g}) => `${g(context.from)} ${context.word} ${g(context.to)}`,
       // evaluator: ({context, kms, error}) => {
-      evaluator: ({context, kms, e}) => {
+      evaluator: ({context, kms, e, error}) => {
         /*
         error(({context, e}) => {
           context.evalue = 'dont know...'
@@ -113,6 +120,11 @@ let config = {
         const from = context.from;
         const to = context.to;
         const formula = kms.formulas.api.get(to, [from.unit])
+        if (!formula) {
+          const reason = { marker: 'reason', evalue: { marker: 'noconversion', from: from.unit, to } }
+          kms.stm.api.mentioned(reason)
+          error(reason)
+        }
         kms.stm.api.setVariable(from.unit.value, from.amount)
         const evalue = e(formula)
         /*

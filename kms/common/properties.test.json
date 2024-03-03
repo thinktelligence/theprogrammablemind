@@ -191,7 +191,7 @@
           "bridge": "{ ...next(operator), toObject: after[0] }",
           "id": "to",
           "level": 0,
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:208"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:210"
         },
         {
           "bridge": "{ ...next(operator) }",
@@ -344,6 +344,20 @@
           "bridge": "{ ...next(operator) }",
           "id": "thisitthat",
           "isA": [
+            "queryable"
+          ],
+          "level": 0
+        },
+        {
+          "bridge": "{ ...next(operator), pullFromContext: true, types: ['reason'], isResponse: true }",
+          "id": "why",
+          "level": 0
+        },
+        {
+          "bridge": "{ ...next(operator) }",
+          "id": "reason",
+          "isA": [
+            "theAble",
             "queryable"
           ],
           "level": 0
@@ -530,6 +544,12 @@
         },
         {
           "pattern": "(([queryable]) [(<isEd|> ([isEdAble|]))])"
+        },
+        {
+          "pattern": "([why])"
+        },
+        {
+          "pattern": "([reason])"
         },
         {
           "pattern": "([thisitthat|])"
@@ -762,6 +782,7 @@
     "contexts": [
       {
         "concept": {
+          "level": 1,
           "marker": "unknown",
           "range": {
             "end": 22,
@@ -773,8 +794,10 @@
           "word": "strips"
         },
         "default": true,
+        "level": 1,
         "marker": "modifies",
         "modifier": {
+          "level": 1,
           "marker": "unknown",
           "range": {
             "end": 6,
@@ -925,13 +948,15 @@
               "what",
               "whatAble",
               "this",
-              "thisitthat"
+              "thisitthat",
+              "reason"
             ],
             "theAble": [
               "concept",
               "property",
               "object",
-              "unknown"
+              "unknown",
+              "reason"
             ],
             "thisitthat": [
               "it",
@@ -978,6 +1003,7 @@
             "toAble",
             "verby",
             "thisitthat",
+            "reason",
             "that",
             "orAble",
             "ifAble"
@@ -1023,6 +1049,10 @@
               "punctuation"
             ],
             "readonly": [
+              "queryable"
+            ],
+            "reason": [
+              "theAble",
               "queryable"
             ],
             "that": [
@@ -1104,6 +1134,8 @@
               },
               "readonly": {
               },
+              "reason": {
+              },
               "that": {
               },
               "the": {
@@ -1167,6 +1199,7 @@
         {
           "context": {
             "concept": {
+              "level": 1,
               "marker": "unknown",
               "range": {
                 "end": 22,
@@ -1178,8 +1211,10 @@
               "word": "strips"
             },
             "default": true,
+            "level": 1,
             "marker": "modifies",
             "modifier": {
+              "level": 1,
               "marker": "unknown",
               "range": {
                 "end": 6,
@@ -1375,7 +1410,7 @@
           "bridge": "{ ...next(operator), toObject: after[0] }",
           "id": "to",
           "level": 0,
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:208"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:210"
         },
         {
           "bridge": "{ ...next(operator) }",
@@ -1528,6 +1563,20 @@
           "bridge": "{ ...next(operator) }",
           "id": "thisitthat",
           "isA": [
+            "queryable"
+          ],
+          "level": 0
+        },
+        {
+          "bridge": "{ ...next(operator), pullFromContext: true, types: ['reason'], isResponse: true }",
+          "id": "why",
+          "level": 0
+        },
+        {
+          "bridge": "{ ...next(operator) }",
+          "id": "reason",
+          "isA": [
+            "theAble",
             "queryable"
           ],
           "level": 0
@@ -1714,6 +1763,12 @@
         },
         {
           "pattern": "(([queryable]) [(<isEd|> ([isEdAble|]))])"
+        },
+        {
+          "pattern": "([why])"
+        },
+        {
+          "pattern": "([reason])"
         },
         {
           "pattern": "([thisitthat|])"
@@ -1946,6 +2001,7 @@
     "contexts": [
       {
         "concept": {
+          "level": 1,
           "marker": "unknown",
           "range": {
             "end": 22,
@@ -1957,8 +2013,10 @@
           "word": "strips"
         },
         "default": true,
+        "level": 1,
         "marker": "modifies",
         "modifier": {
+          "level": 1,
           "marker": "unknown",
           "range": {
             "end": 6,
@@ -1984,6 +2042,7 @@
       {
         "atomic": true,
         "chicken": {
+          "level": 0,
           "marker": "chicken",
           "range": {
             "end": 6,
@@ -1993,6 +2052,7 @@
           "value": "chicken",
           "word": "chicken"
         },
+        "level": 1,
         "marker": "chicken_strip",
         "modifiers": [
           "chicken"
@@ -2182,13 +2242,15 @@
               "what",
               "whatAble",
               "this",
-              "thisitthat"
+              "thisitthat",
+              "reason"
             ],
             "theAble": [
               "concept",
               "property",
               "object",
-              "unknown"
+              "unknown",
+              "reason"
             ],
             "thisitthat": [
               "it",
@@ -2235,6 +2297,7 @@
             "toAble",
             "verby",
             "thisitthat",
+            "reason",
             "that",
             "orAble",
             "ifAble"
@@ -2280,6 +2343,10 @@
               "punctuation"
             ],
             "readonly": [
+              "queryable"
+            ],
+            "reason": [
+              "theAble",
               "queryable"
             ],
             "that": [
@@ -2361,6 +2428,8 @@
               },
               "readonly": {
               },
+              "reason": {
+              },
               "that": {
               },
               "the": {
@@ -2425,6 +2494,7 @@
           "context": {
             "atomic": true,
             "chicken": {
+              "level": 0,
               "marker": "chicken",
               "range": {
                 "end": 6,
@@ -2434,6 +2504,7 @@
               "value": "chicken",
               "word": "chicken"
             },
+            "level": 1,
             "marker": "chicken_strip",
             "modifiers": [
               "chicken"
@@ -2460,6 +2531,7 @@
         {
           "context": {
             "concept": {
+              "level": 1,
               "marker": "unknown",
               "range": {
                 "end": 22,
@@ -2471,8 +2543,10 @@
               "word": "strips"
             },
             "default": true,
+            "level": 1,
             "marker": "modifies",
             "modifier": {
+              "level": 1,
               "marker": "unknown",
               "range": {
                 "end": 6,
@@ -2726,7 +2800,7 @@
           "bridge": "{ ...next(operator), toObject: after[0] }",
           "id": "to",
           "level": 0,
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:208"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:210"
         },
         {
           "bridge": "{ ...next(operator) }",
@@ -2884,6 +2958,20 @@
           "level": 0
         },
         {
+          "bridge": "{ ...next(operator), pullFromContext: true, types: ['reason'], isResponse: true }",
+          "id": "why",
+          "level": 0
+        },
+        {
+          "bridge": "{ ...next(operator) }",
+          "id": "reason",
+          "isA": [
+            "theAble",
+            "queryable"
+          ],
+          "level": 0
+        },
+        {
           "bridge": "{ ...next(operator), pullFromContext: true, unknown: true, determined: true }",
           "id": "it",
           "isA": [
@@ -3036,6 +3124,12 @@
         },
         {
           "pattern": "(([queryable]) [(<isEd|> ([isEdAble|]))])"
+        },
+        {
+          "pattern": "([why])"
+        },
+        {
+          "pattern": "([reason])"
         },
         {
           "pattern": "([thisitthat|])"
@@ -3260,6 +3354,7 @@
         },
         "doesable": true,
         "is_compound": true,
+        "level": 2,
         "marker": "have",
         "negation": true,
         "number": "one",
@@ -3475,13 +3570,15 @@
               "what",
               "whatAble",
               "this",
-              "thisitthat"
+              "thisitthat",
+              "reason"
             ],
             "theAble": [
               "concept",
               "property",
               "object",
-              "unknown"
+              "unknown",
+              "reason"
             ],
             "thisitthat": [
               "it",
@@ -3528,6 +3625,7 @@
             "toAble",
             "verby",
             "thisitthat",
+            "reason",
             "that",
             "orAble",
             "ifAble",
@@ -3574,6 +3672,10 @@
               "punctuation"
             ],
             "readonly": [
+              "queryable"
+            ],
+            "reason": [
+              "theAble",
               "queryable"
             ],
             "that": [
@@ -3661,6 +3763,8 @@
               },
               "readonly": {
               },
+              "reason": {
+              },
               "that": {
               },
               "the": {
@@ -3715,6 +3819,7 @@
             },
             "doesable": true,
             "is_compound": true,
+            "level": 2,
             "marker": "have",
             "negation": true,
             "number": "one",
@@ -4045,7 +4150,7 @@
           "bridge": "{ ...next(operator), toObject: after[0] }",
           "id": "to",
           "level": 0,
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:208"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:210"
         },
         {
           "bridge": "{ ...next(operator) }",
@@ -4203,6 +4308,20 @@
           "level": 0
         },
         {
+          "bridge": "{ ...next(operator), pullFromContext: true, types: ['reason'], isResponse: true }",
+          "id": "why",
+          "level": 0
+        },
+        {
+          "bridge": "{ ...next(operator) }",
+          "id": "reason",
+          "isA": [
+            "theAble",
+            "queryable"
+          ],
+          "level": 0
+        },
+        {
           "bridge": "{ ...next(operator), pullFromContext: true, unknown: true, determined: true }",
           "id": "it",
           "isA": [
@@ -4355,6 +4474,12 @@
         },
         {
           "pattern": "(([queryable]) [(<isEd|> ([isEdAble|]))])"
+        },
+        {
+          "pattern": "([why])"
+        },
+        {
+          "pattern": "([reason])"
         },
         {
           "pattern": "([thisitthat|])"
@@ -4579,6 +4704,7 @@
         },
         "doesable": true,
         "is_compound": true,
+        "level": 2,
         "marker": "have",
         "negation": true,
         "number": "one",
@@ -4641,6 +4767,7 @@
         },
         "isResponse": true,
         "is_compound": true,
+        "level": 2,
         "marker": "have",
         "number": "one",
         "object": {
@@ -4985,13 +5112,15 @@
               "what",
               "whatAble",
               "this",
-              "thisitthat"
+              "thisitthat",
+              "reason"
             ],
             "theAble": [
               "concept",
               "property",
               "object",
-              "unknown"
+              "unknown",
+              "reason"
             ],
             "thisitthat": [
               "it",
@@ -5038,6 +5167,7 @@
             "toAble",
             "verby",
             "thisitthat",
+            "reason",
             "that",
             "orAble",
             "ifAble",
@@ -5084,6 +5214,10 @@
               "punctuation"
             ],
             "readonly": [
+              "queryable"
+            ],
+            "reason": [
+              "theAble",
               "queryable"
             ],
             "that": [
@@ -5171,6 +5305,8 @@
               },
               "readonly": {
               },
+              "reason": {
+              },
               "that": {
               },
               "the": {
@@ -5230,6 +5366,7 @@
             },
             "isResponse": true,
             "is_compound": true,
+            "level": 2,
             "marker": "have",
             "number": "one",
             "object": {
@@ -5294,6 +5431,7 @@
             },
             "doesable": true,
             "is_compound": true,
+            "level": 2,
             "marker": "have",
             "negation": true,
             "number": "one",
@@ -5549,7 +5687,7 @@
           "bridge": "{ ...next(operator), toObject: after[0] }",
           "id": "to",
           "level": 0,
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:208"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:210"
         },
         {
           "bridge": "{ ...next(operator) }",
@@ -5707,6 +5845,20 @@
           "level": 0
         },
         {
+          "bridge": "{ ...next(operator), pullFromContext: true, types: ['reason'], isResponse: true }",
+          "id": "why",
+          "level": 0
+        },
+        {
+          "bridge": "{ ...next(operator) }",
+          "id": "reason",
+          "isA": [
+            "theAble",
+            "queryable"
+          ],
+          "level": 0
+        },
+        {
           "bridge": "{ ...next(operator), pullFromContext: true, unknown: true, determined: true }",
           "id": "it",
           "isA": [
@@ -5859,6 +6011,12 @@
         },
         {
           "pattern": "(([queryable]) [(<isEd|> ([isEdAble|]))])"
+        },
+        {
+          "pattern": "([why])"
+        },
+        {
+          "pattern": "([reason])"
         },
         {
           "pattern": "([thisitthat|])"
@@ -6081,6 +6239,7 @@
           "right": "property"
         },
         "doesable": true,
+        "level": 2,
         "marker": "have",
         "number": "one",
         "object": {
@@ -6266,13 +6425,15 @@
               "what",
               "whatAble",
               "this",
-              "thisitthat"
+              "thisitthat",
+              "reason"
             ],
             "theAble": [
               "concept",
               "property",
               "object",
-              "unknown"
+              "unknown",
+              "reason"
             ],
             "thisitthat": [
               "it",
@@ -6319,6 +6480,7 @@
             "toAble",
             "verby",
             "thisitthat",
+            "reason",
             "that",
             "orAble",
             "ifAble",
@@ -6365,6 +6527,10 @@
               "punctuation"
             ],
             "readonly": [
+              "queryable"
+            ],
+            "reason": [
+              "theAble",
               "queryable"
             ],
             "that": [
@@ -6452,6 +6618,8 @@
               },
               "readonly": {
               },
+              "reason": {
+              },
               "that": {
               },
               "the": {
@@ -6504,6 +6672,7 @@
               "right": "property"
             },
             "doesable": true,
+            "level": 2,
             "marker": "have",
             "number": "one",
             "object": {
@@ -6811,7 +6980,7 @@
           "bridge": "{ ...next(operator), toObject: after[0] }",
           "id": "to",
           "level": 0,
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:208"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:210"
         },
         {
           "bridge": "{ ...next(operator) }",
@@ -6969,6 +7138,20 @@
           "level": 0
         },
         {
+          "bridge": "{ ...next(operator), pullFromContext: true, types: ['reason'], isResponse: true }",
+          "id": "why",
+          "level": 0
+        },
+        {
+          "bridge": "{ ...next(operator) }",
+          "id": "reason",
+          "isA": [
+            "theAble",
+            "queryable"
+          ],
+          "level": 0
+        },
+        {
           "bridge": "{ ...next(operator), pullFromContext: true, unknown: true, determined: true }",
           "id": "it",
           "isA": [
@@ -7121,6 +7304,12 @@
         },
         {
           "pattern": "(([queryable]) [(<isEd|> ([isEdAble|]))])"
+        },
+        {
+          "pattern": "([why])"
+        },
+        {
+          "pattern": "([reason])"
         },
         {
           "pattern": "([thisitthat|])"
@@ -7343,6 +7532,7 @@
           "right": "property"
         },
         "doesable": true,
+        "level": 2,
         "marker": "have",
         "number": "one",
         "object": {
@@ -7402,6 +7592,7 @@
           "value": true
         },
         "isResponse": true,
+        "level": 2,
         "marker": "have",
         "number": "one",
         "object": {
@@ -7710,13 +7901,15 @@
               "what",
               "whatAble",
               "this",
-              "thisitthat"
+              "thisitthat",
+              "reason"
             ],
             "theAble": [
               "concept",
               "property",
               "object",
-              "unknown"
+              "unknown",
+              "reason"
             ],
             "thisitthat": [
               "it",
@@ -7763,6 +7956,7 @@
             "toAble",
             "verby",
             "thisitthat",
+            "reason",
             "that",
             "orAble",
             "ifAble",
@@ -7809,6 +8003,10 @@
               "punctuation"
             ],
             "readonly": [
+              "queryable"
+            ],
+            "reason": [
+              "theAble",
               "queryable"
             ],
             "that": [
@@ -7896,6 +8094,8 @@
               },
               "readonly": {
               },
+              "reason": {
+              },
               "that": {
               },
               "the": {
@@ -7953,6 +8153,7 @@
               "value": true
             },
             "isResponse": true,
+            "level": 2,
             "marker": "have",
             "number": "one",
             "object": {
@@ -8016,6 +8217,7 @@
               "right": "property"
             },
             "doesable": true,
+            "level": 2,
             "marker": "have",
             "number": "one",
             "object": {
@@ -8292,7 +8494,7 @@
           "bridge": "{ ...next(operator), toObject: after[0] }",
           "id": "to",
           "level": 0,
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:208"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:210"
         },
         {
           "bridge": "{ ...next(operator) }",
@@ -8450,6 +8652,20 @@
           "level": 0
         },
         {
+          "bridge": "{ ...next(operator), pullFromContext: true, types: ['reason'], isResponse: true }",
+          "id": "why",
+          "level": 0
+        },
+        {
+          "bridge": "{ ...next(operator) }",
+          "id": "reason",
+          "isA": [
+            "theAble",
+            "queryable"
+          ],
+          "level": 0
+        },
+        {
           "bridge": "{ ...next(operator), pullFromContext: true, unknown: true, determined: true }",
           "id": "it",
           "isA": [
@@ -8602,6 +8818,12 @@
         },
         {
           "pattern": "(([queryable]) [(<isEd|> ([isEdAble|]))])"
+        },
+        {
+          "pattern": "([why])"
+        },
+        {
+          "pattern": "([reason])"
         },
         {
           "pattern": "([thisitthat|])"
@@ -8825,6 +9047,7 @@
         },
         "doesable": true,
         "isResponse": true,
+        "level": 2,
         "marker": "have",
         "number": "one",
         "object": {
@@ -9042,13 +9265,15 @@
               "what",
               "whatAble",
               "this",
-              "thisitthat"
+              "thisitthat",
+              "reason"
             ],
             "theAble": [
               "concept",
               "property",
               "object",
-              "unknown"
+              "unknown",
+              "reason"
             ],
             "thisitthat": [
               "it",
@@ -9095,6 +9320,7 @@
             "toAble",
             "verby",
             "thisitthat",
+            "reason",
             "that",
             "orAble",
             "ifAble"
@@ -9140,6 +9366,10 @@
               "punctuation"
             ],
             "readonly": [
+              "queryable"
+            ],
+            "reason": [
+              "theAble",
               "queryable"
             ],
             "that": [
@@ -9221,6 +9451,8 @@
               },
               "readonly": {
               },
+              "reason": {
+              },
               "that": {
               },
               "the": {
@@ -9274,6 +9506,7 @@
             },
             "doesable": true,
             "isResponse": true,
+            "level": 2,
             "marker": "have",
             "number": "one",
             "object": {
@@ -9584,7 +9817,7 @@
           "bridge": "{ ...next(operator), toObject: after[0] }",
           "id": "to",
           "level": 0,
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:208"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:210"
         },
         {
           "bridge": "{ ...next(operator) }",
@@ -9742,6 +9975,20 @@
           "level": 0
         },
         {
+          "bridge": "{ ...next(operator), pullFromContext: true, types: ['reason'], isResponse: true }",
+          "id": "why",
+          "level": 0
+        },
+        {
+          "bridge": "{ ...next(operator) }",
+          "id": "reason",
+          "isA": [
+            "theAble",
+            "queryable"
+          ],
+          "level": 0
+        },
+        {
           "bridge": "{ ...next(operator), pullFromContext: true, unknown: true, determined: true }",
           "id": "it",
           "isA": [
@@ -9894,6 +10141,12 @@
         },
         {
           "pattern": "(([queryable]) [(<isEd|> ([isEdAble|]))])"
+        },
+        {
+          "pattern": "([why])"
+        },
+        {
+          "pattern": "([reason])"
         },
         {
           "pattern": "([thisitthat|])"
@@ -10116,6 +10369,7 @@
           "right": "property"
         },
         "doesable": true,
+        "level": 2,
         "marker": "have",
         "number": "one",
         "object": {
@@ -10175,6 +10429,7 @@
           "value": false
         },
         "isResponse": true,
+        "level": 2,
         "marker": "have",
         "number": "one",
         "object": {
@@ -10483,13 +10738,15 @@
               "what",
               "whatAble",
               "this",
-              "thisitthat"
+              "thisitthat",
+              "reason"
             ],
             "theAble": [
               "concept",
               "property",
               "object",
-              "unknown"
+              "unknown",
+              "reason"
             ],
             "thisitthat": [
               "it",
@@ -10536,6 +10793,7 @@
             "toAble",
             "verby",
             "thisitthat",
+            "reason",
             "that",
             "orAble",
             "ifAble",
@@ -10582,6 +10840,10 @@
               "punctuation"
             ],
             "readonly": [
+              "queryable"
+            ],
+            "reason": [
+              "theAble",
               "queryable"
             ],
             "that": [
@@ -10669,6 +10931,8 @@
               },
               "readonly": {
               },
+              "reason": {
+              },
               "that": {
               },
               "the": {
@@ -10726,6 +10990,7 @@
               "value": false
             },
             "isResponse": true,
+            "level": 2,
             "marker": "have",
             "number": "one",
             "object": {
@@ -10789,6 +11054,7 @@
               "right": "property"
             },
             "doesable": true,
+            "level": 2,
             "marker": "have",
             "number": "one",
             "object": {
@@ -11077,7 +11343,7 @@
           "bridge": "{ ...next(operator), toObject: after[0] }",
           "id": "to",
           "level": 0,
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:208"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:210"
         },
         {
           "bridge": "{ ...next(operator) }",
@@ -11235,6 +11501,20 @@
           "level": 0
         },
         {
+          "bridge": "{ ...next(operator), pullFromContext: true, types: ['reason'], isResponse: true }",
+          "id": "why",
+          "level": 0
+        },
+        {
+          "bridge": "{ ...next(operator) }",
+          "id": "reason",
+          "isA": [
+            "theAble",
+            "queryable"
+          ],
+          "level": 0
+        },
+        {
           "bridge": "{ ...next(operator), pullFromContext: true, unknown: true, determined: true }",
           "id": "it",
           "isA": [
@@ -11387,6 +11667,12 @@
         },
         {
           "pattern": "(([queryable]) [(<isEd|> ([isEdAble|]))])"
+        },
+        {
+          "pattern": "([why])"
+        },
+        {
+          "pattern": "([reason])"
         },
         {
           "pattern": "([thisitthat|])"
@@ -11904,13 +12190,15 @@
               "what",
               "whatAble",
               "this",
-              "thisitthat"
+              "thisitthat",
+              "reason"
             ],
             "theAble": [
               "concept",
               "property",
               "object",
-              "unknown"
+              "unknown",
+              "reason"
             ],
             "thisitthat": [
               "it",
@@ -11957,6 +12245,7 @@
             "toAble",
             "verby",
             "thisitthat",
+            "reason",
             "that",
             "orAble",
             "ifAble"
@@ -12002,6 +12291,10 @@
               "punctuation"
             ],
             "readonly": [
+              "queryable"
+            ],
+            "reason": [
+              "theAble",
               "queryable"
             ],
             "that": [
@@ -12082,6 +12375,8 @@
               "questionMark": {
               },
               "readonly": {
+              },
+              "reason": {
               },
               "that": {
               },
@@ -12467,7 +12762,7 @@
           "bridge": "{ ...next(operator), toObject: after[0] }",
           "id": "to",
           "level": 0,
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:208"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:210"
         },
         {
           "bridge": "{ ...next(operator) }",
@@ -12625,6 +12920,20 @@
           "level": 0
         },
         {
+          "bridge": "{ ...next(operator), pullFromContext: true, types: ['reason'], isResponse: true }",
+          "id": "why",
+          "level": 0
+        },
+        {
+          "bridge": "{ ...next(operator) }",
+          "id": "reason",
+          "isA": [
+            "theAble",
+            "queryable"
+          ],
+          "level": 0
+        },
+        {
           "bridge": "{ ...next(operator), pullFromContext: true, unknown: true, determined: true }",
           "id": "it",
           "isA": [
@@ -12777,6 +13086,12 @@
         },
         {
           "pattern": "(([queryable]) [(<isEd|> ([isEdAble|]))])"
+        },
+        {
+          "pattern": "([why])"
+        },
+        {
+          "pattern": "([reason])"
         },
         {
           "pattern": "([thisitthat|])"
@@ -12990,6 +13305,7 @@
     },
     "contexts": [
       {
+        "level": 2,
         "marker": "is",
         "number": "one",
         "one": {
@@ -13315,7 +13631,8 @@
               "what",
               "whatAble",
               "this",
-              "thisitthat"
+              "thisitthat",
+              "reason"
             ],
             "sister": [
               "wendy"
@@ -13324,7 +13641,8 @@
               "concept",
               "property",
               "object",
-              "unknown"
+              "unknown",
+              "reason"
             ],
             "thisitthat": [
               "it",
@@ -13371,6 +13689,7 @@
             "toAble",
             "verby",
             "thisitthat",
+            "reason",
             "that",
             "orAble",
             "ifAble",
@@ -13419,6 +13738,10 @@
               "punctuation"
             ],
             "readonly": [
+              "queryable"
+            ],
+            "reason": [
+              "theAble",
               "queryable"
             ],
             "that": [
@@ -13522,6 +13845,8 @@
               },
               "readonly": {
               },
+              "reason": {
+              },
               "sister": {
               },
               "that": {
@@ -13585,6 +13910,7 @@
       "processed": [
         {
           "context": {
+            "level": 2,
             "marker": "is",
             "number": "one",
             "one": {
@@ -13748,6 +14074,24 @@
         [
           "unknown",
           0
+        ],
+        [
+          "what",
+          0
+        ]
+      ],
+      [
+        [
+          "is",
+          0
+        ],
+        [
+          "possession",
+          0
+        ],
+        [
+          "unknown",
+          1
         ],
         [
           "what",
@@ -13986,7 +14330,7 @@
           "bridge": "{ ...next(operator), toObject: after[0] }",
           "id": "to",
           "level": 0,
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:208"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:210"
         },
         {
           "bridge": "{ ...next(operator) }",
@@ -14144,6 +14488,20 @@
           "level": 0
         },
         {
+          "bridge": "{ ...next(operator), pullFromContext: true, types: ['reason'], isResponse: true }",
+          "id": "why",
+          "level": 0
+        },
+        {
+          "bridge": "{ ...next(operator) }",
+          "id": "reason",
+          "isA": [
+            "theAble",
+            "queryable"
+          ],
+          "level": 0
+        },
+        {
           "bridge": "{ ...next(operator), pullFromContext: true, unknown: true, determined: true }",
           "id": "it",
           "isA": [
@@ -14296,6 +14654,12 @@
         },
         {
           "pattern": "(([queryable]) [(<isEd|> ([isEdAble|]))])"
+        },
+        {
+          "pattern": "([why])"
+        },
+        {
+          "pattern": "([reason])"
         },
         {
           "pattern": "([thisitthat|])"
@@ -14509,6 +14873,7 @@
     },
     "contexts": [
       {
+        "level": 2,
         "marker": "is",
         "number": "one",
         "one": {
@@ -14598,6 +14963,7 @@
         "word": "is"
       },
       {
+        "level": 2,
         "marker": "is",
         "number": "one",
         "one": {
@@ -14853,6 +15219,7 @@
           "word": "is"
         },
         "isResponse": true,
+        "level": 2,
         "marker": "is",
         "number": "one",
         "one": {
@@ -15697,7 +16064,8 @@
               "what",
               "whatAble",
               "this",
-              "thisitthat"
+              "thisitthat",
+              "reason"
             ],
             "sister": [
               "wendy"
@@ -15706,7 +16074,8 @@
               "concept",
               "property",
               "object",
-              "unknown"
+              "unknown",
+              "reason"
             ],
             "thisitthat": [
               "it",
@@ -15753,6 +16122,7 @@
             "toAble",
             "verby",
             "thisitthat",
+            "reason",
             "that",
             "orAble",
             "ifAble",
@@ -15806,6 +16176,10 @@
               "punctuation"
             ],
             "readonly": [
+              "queryable"
+            ],
+            "reason": [
+              "theAble",
               "queryable"
             ],
             "that": [
@@ -15913,6 +16287,8 @@
               },
               "readonly": {
               },
+              "reason": {
+              },
               "sister": {
               },
               "that": {
@@ -16001,81 +16377,6 @@
         },
         "stm2": {
           "mentioned": [
-            {
-              "marker": "property",
-              "object": {
-                "marker": "unknown",
-                "range": {
-                  "end": 11,
-                  "start": 7
-                },
-                "text": "alice",
-                "types": [
-                  "unknown"
-                ],
-                "unknown": true,
-                "value": "alice",
-                "word": "alice"
-              },
-              "objects": [
-                {
-                  "marker": "property",
-                  "range": {
-                    "end": 26,
-                    "start": 24
-                  },
-                  "text": "cat",
-                  "types": [
-                    "property",
-                    "unknown"
-                  ],
-                  "unknown": true,
-                  "value": "cat",
-                  "word": "cat"
-                },
-                {
-                  "marker": "unknown",
-                  "range": {
-                    "end": 20,
-                    "start": 15
-                  },
-                  "text": "sister",
-                  "types": [
-                    "unknown"
-                  ],
-                  "unknown": true,
-                  "value": "sister",
-                  "word": "sister"
-                },
-                {
-                  "marker": "unknown",
-                  "range": {
-                    "end": 11,
-                    "start": 7
-                  },
-                  "text": "alice",
-                  "types": [
-                    "unknown"
-                  ],
-                  "unknown": true,
-                  "value": "alice",
-                  "word": "alice"
-                }
-              ],
-              "possession": true,
-              "pullFromContext": false,
-              "range": {
-                "end": 26,
-                "start": 7
-              },
-              "text": "alice 's sister 's cat",
-              "types": [
-                "property"
-              ],
-              "unknown": true,
-              "value": "cat",
-              "word": "cat"
-            }
           ],
           "variables": {
           }
@@ -16250,6 +16551,7 @@
               "word": "is"
             },
             "isResponse": true,
+            "level": 2,
             "marker": "is",
             "number": "one",
             "one": {
@@ -16366,6 +16668,7 @@
         },
         {
           "context": {
+            "level": 2,
             "marker": "is",
             "number": "one",
             "one": {
@@ -16462,6 +16765,7 @@
         },
         {
           "context": {
+            "level": 2,
             "marker": "is",
             "number": "one",
             "one": {
@@ -16608,20 +16912,6 @@
         [
           "the",
           0
-        ]
-      ],
-      [
-        [
-          "is",
-          0
-        ],
-        [
-          "propertyOf",
-          0
-        ],
-        [
-          "the",
-          0
         ],
         [
           "unknown",
@@ -16690,7 +16980,39 @@
           0
         ],
         [
-          "the",
+          "unknown",
+          1
+        ],
+        [
+          "what",
+          0
+        ]
+      ],
+      [
+        [
+          "is",
+          0
+        ],
+        [
+          "propertyOf",
+          0
+        ],
+        [
+          "unknown",
+          1
+        ],
+        [
+          "what",
+          0
+        ]
+      ],
+      [
+        [
+          "is",
+          0
+        ],
+        [
+          "propertyOf",
           0
         ],
         [
@@ -16878,7 +17200,7 @@
           "bridge": "{ ...next(operator), toObject: after[0] }",
           "id": "to",
           "level": 0,
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:208"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:210"
         },
         {
           "bridge": "{ ...next(operator) }",
@@ -17036,6 +17358,20 @@
           "level": 0
         },
         {
+          "bridge": "{ ...next(operator), pullFromContext: true, types: ['reason'], isResponse: true }",
+          "id": "why",
+          "level": 0
+        },
+        {
+          "bridge": "{ ...next(operator) }",
+          "id": "reason",
+          "isA": [
+            "theAble",
+            "queryable"
+          ],
+          "level": 0
+        },
+        {
           "bridge": "{ ...next(operator), pullFromContext: true, unknown: true, determined: true }",
           "id": "it",
           "isA": [
@@ -17188,6 +17524,12 @@
         },
         {
           "pattern": "(([queryable]) [(<isEd|> ([isEdAble|]))])"
+        },
+        {
+          "pattern": "([why])"
+        },
+        {
+          "pattern": "([reason])"
         },
         {
           "pattern": "([thisitthat|])"
@@ -17401,6 +17743,7 @@
     },
     "contexts": [
       {
+        "level": 2,
         "marker": "is",
         "number": "one",
         "one": {
@@ -17490,6 +17833,7 @@
         "word": "is"
       },
       {
+        "level": 2,
         "marker": "is",
         "number": "one",
         "one": {
@@ -17787,6 +18131,7 @@
           "word": "is"
         },
         "isResponse": true,
+        "level": 2,
         "marker": "is",
         "number": "one",
         "one": {
@@ -18362,8 +18707,8 @@
         {
           "counter": 4,
           "op": [
-            "unknown",
-            1
+            "the",
+            0
           ],
           "ops": [
             [
@@ -18391,8 +18736,8 @@
         {
           "counter": 5,
           "op": [
-            "unknown",
-            1
+            "the",
+            0
           ],
           "ops": [
             [
@@ -18433,7 +18778,28 @@
               0
             ],
             [
-              "the",
+              "unknown",
+              1
+            ],
+            [
+              "what",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 7,
+          "op": [
+            "unknown",
+            1
+          ],
+          "ops": [
+            [
+              "is",
+              0
+            ],
+            [
+              "propertyOf",
               0
             ],
             [
@@ -18447,7 +18813,32 @@
           ]
         },
         {
-          "counter": 7,
+          "counter": 8,
+          "op": [
+            "unknown",
+            1
+          ],
+          "ops": [
+            [
+              "is",
+              0
+            ],
+            [
+              "propertyOf",
+              0
+            ],
+            [
+              "unknown",
+              1
+            ],
+            [
+              "what",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 9,
           "op": [
             "what",
             0
@@ -18462,53 +18853,7 @@
               0
             ],
             [
-              "the",
-              0
-            ],
-            [
               "what",
-              0
-            ]
-          ]
-        },
-        {
-          "counter": 8,
-          "op": [
-            "the",
-            0
-          ],
-          "ops": [
-            [
-              "is",
-              0
-            ],
-            [
-              "propertyOf",
-              0
-            ],
-            [
-              "the",
-              0
-            ]
-          ]
-        },
-        {
-          "counter": 9,
-          "op": [
-            "the",
-            0
-          ],
-          "ops": [
-            [
-              "is",
-              0
-            ],
-            [
-              "propertyOf",
-              0
-            ],
-            [
-              "the",
               0
             ]
           ]
@@ -18684,7 +19029,8 @@
               "what",
               "whatAble",
               "this",
-              "thisitthat"
+              "thisitthat",
+              "reason"
             ],
             "sister": [
               "wendy"
@@ -18693,7 +19039,8 @@
               "concept",
               "property",
               "object",
-              "unknown"
+              "unknown",
+              "reason"
             ],
             "thisitthat": [
               "it",
@@ -18740,6 +19087,7 @@
             "toAble",
             "verby",
             "thisitthat",
+            "reason",
             "that",
             "orAble",
             "ifAble",
@@ -18793,6 +19141,10 @@
               "punctuation"
             ],
             "readonly": [
+              "queryable"
+            ],
+            "reason": [
+              "theAble",
               "queryable"
             ],
             "that": [
@@ -18900,6 +19252,8 @@
               },
               "readonly": {
               },
+              "reason": {
+              },
               "sister": {
               },
               "that": {
@@ -18988,101 +19342,6 @@
         },
         "stm2": {
           "mentioned": [
-            {
-              "concept": true,
-              "determiner": "the",
-              "marker": "property",
-              "modifiers": [
-                "determiner"
-              ],
-              "object": {
-                "marker": "unknown",
-                "range": {
-                  "end": 36,
-                  "start": 32
-                },
-                "text": "alice",
-                "types": [
-                  "unknown"
-                ],
-                "unknown": true,
-                "value": "alice",
-                "word": "alice"
-              },
-              "objects": [
-                {
-                  "concept": true,
-                  "determiner": "the",
-                  "marker": "property",
-                  "modifiers": [
-                    "determiner"
-                  ],
-                  "pullFromContext": true,
-                  "range": {
-                    "end": 13,
-                    "start": 7
-                  },
-                  "text": "the cat",
-                  "types": [
-                    "property",
-                    "unknown"
-                  ],
-                  "unknown": true,
-                  "value": "cat",
-                  "wantsValue": true,
-                  "word": "cat"
-                },
-                {
-                  "concept": true,
-                  "determiner": "the",
-                  "marker": "unknown",
-                  "modifiers": [
-                    "determiner"
-                  ],
-                  "pullFromContext": true,
-                  "range": {
-                    "end": 27,
-                    "start": 18
-                  },
-                  "text": "the sister",
-                  "types": [
-                    "unknown"
-                  ],
-                  "unknown": true,
-                  "value": "sister",
-                  "wantsValue": true,
-                  "word": "sister"
-                },
-                {
-                  "marker": "unknown",
-                  "range": {
-                    "end": 36,
-                    "start": 32
-                  },
-                  "text": "alice",
-                  "types": [
-                    "unknown"
-                  ],
-                  "unknown": true,
-                  "value": "alice",
-                  "word": "alice"
-                }
-              ],
-              "pullFromContext": false,
-              "range": {
-                "end": 36,
-                "start": 7
-              },
-              "text": "the cat of the sister of alice",
-              "types": [
-                "property",
-                "unknown"
-              ],
-              "unknown": true,
-              "value": "cat",
-              "wantsValue": true,
-              "word": "cat"
-            }
           ],
           "variables": {
           }
@@ -19299,6 +19558,7 @@
               "word": "is"
             },
             "isResponse": true,
+            "level": 2,
             "marker": "is",
             "number": "one",
             "one": {
@@ -19436,6 +19696,7 @@
         },
         {
           "context": {
+            "level": 2,
             "marker": "is",
             "number": "one",
             "one": {
@@ -19532,6 +19793,7 @@
         },
         {
           "context": {
+            "level": 2,
             "marker": "is",
             "number": "one",
             "one": {
@@ -19832,7 +20094,7 @@
           "bridge": "{ ...next(operator), toObject: after[0] }",
           "id": "to",
           "level": 0,
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:208"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:210"
         },
         {
           "bridge": "{ ...next(operator) }",
@@ -19990,6 +20252,20 @@
           "level": 0
         },
         {
+          "bridge": "{ ...next(operator), pullFromContext: true, types: ['reason'], isResponse: true }",
+          "id": "why",
+          "level": 0
+        },
+        {
+          "bridge": "{ ...next(operator) }",
+          "id": "reason",
+          "isA": [
+            "theAble",
+            "queryable"
+          ],
+          "level": 0
+        },
+        {
           "bridge": "{ ...next(operator), pullFromContext: true, unknown: true, determined: true }",
           "id": "it",
           "isA": [
@@ -20142,6 +20418,12 @@
         },
         {
           "pattern": "(([queryable]) [(<isEd|> ([isEdAble|]))])"
+        },
+        {
+          "pattern": "([why])"
+        },
+        {
+          "pattern": "([reason])"
         },
         {
           "pattern": "([thisitthat|])"
@@ -20550,13 +20832,15 @@
               "what",
               "whatAble",
               "this",
-              "thisitthat"
+              "thisitthat",
+              "reason"
             ],
             "theAble": [
               "concept",
               "property",
               "object",
-              "unknown"
+              "unknown",
+              "reason"
             ],
             "thisitthat": [
               "it",
@@ -20603,6 +20887,7 @@
             "toAble",
             "verby",
             "thisitthat",
+            "reason",
             "that",
             "orAble",
             "ifAble"
@@ -20648,6 +20933,10 @@
               "punctuation"
             ],
             "readonly": [
+              "queryable"
+            ],
+            "reason": [
+              "theAble",
               "queryable"
             ],
             "that": [
@@ -20728,6 +21017,8 @@
               "questionMark": {
               },
               "readonly": {
+              },
+              "reason": {
               },
               "that": {
               },
@@ -20869,20 +21160,6 @@
         [
           "the",
           0
-        ]
-      ],
-      [
-        [
-          "is",
-          0
-        ],
-        [
-          "propertyOf",
-          0
-        ],
-        [
-          "the",
-          0
         ],
         [
           "unknown",
@@ -20993,6 +21270,10 @@
         [
           "unknown",
           1
+        ],
+        [
+          "what",
+          0
         ]
       ],
       [
@@ -21005,7 +21286,17 @@
           0
         ],
         [
-          "the",
+          "unknown",
+          1
+        ]
+      ],
+      [
+        [
+          "is",
+          0
+        ],
+        [
+          "propertyOf",
           0
         ],
         [
@@ -21027,7 +21318,21 @@
           0
         ],
         [
-          "the",
+          "unknown",
+          1
+        ],
+        [
+          "what",
+          0
+        ]
+      ],
+      [
+        [
+          "is",
+          0
+        ],
+        [
+          "propertyOf",
           0
         ],
         [
@@ -21229,7 +21534,7 @@
           "bridge": "{ ...next(operator), toObject: after[0] }",
           "id": "to",
           "level": 0,
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:208"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:210"
         },
         {
           "bridge": "{ ...next(operator) }",
@@ -21387,6 +21692,20 @@
           "level": 0
         },
         {
+          "bridge": "{ ...next(operator), pullFromContext: true, types: ['reason'], isResponse: true }",
+          "id": "why",
+          "level": 0
+        },
+        {
+          "bridge": "{ ...next(operator) }",
+          "id": "reason",
+          "isA": [
+            "theAble",
+            "queryable"
+          ],
+          "level": 0
+        },
+        {
           "bridge": "{ ...next(operator), pullFromContext: true, unknown: true, determined: true }",
           "id": "it",
           "isA": [
@@ -21539,6 +21858,12 @@
         },
         {
           "pattern": "(([queryable]) [(<isEd|> ([isEdAble|]))])"
+        },
+        {
+          "pattern": "([why])"
+        },
+        {
+          "pattern": "([reason])"
         },
         {
           "pattern": "([thisitthat|])"
@@ -21752,6 +22077,7 @@
     },
     "contexts": [
       {
+        "level": 2,
         "marker": "is",
         "number": "one",
         "one": {
@@ -21855,6 +22181,7 @@
         "word": "is"
       },
       {
+        "level": 2,
         "marker": "is",
         "number": "one",
         "one": {
@@ -22118,6 +22445,7 @@
           "word": "are"
         },
         "isResponse": true,
+        "level": 2,
         "marker": "is",
         "number": "many",
         "one": {
@@ -22493,8 +22821,8 @@
         {
           "counter": 9,
           "op": [
-            "unknown",
-            1
+            "the",
+            0
           ],
           "ops": [
             [
@@ -22522,8 +22850,8 @@
         {
           "counter": 10,
           "op": [
-            "unknown",
-            1
+            "the",
+            0
           ],
           "ops": [
             [
@@ -22551,8 +22879,8 @@
         {
           "counter": 11,
           "op": [
-            "unknown",
-            1
+            "the",
+            0
           ],
           "ops": [
             [
@@ -22593,10 +22921,6 @@
               0
             ],
             [
-              "the",
-              0
-            ],
-            [
               "unknown",
               1
             ],
@@ -22619,10 +22943,6 @@
             ],
             [
               "propertyOf",
-              0
-            ],
-            [
-              "the",
               0
             ],
             [
@@ -22651,10 +22971,6 @@
               0
             ],
             [
-              "the",
-              0
-            ],
-            [
               "unknown",
               1
             ],
@@ -22677,10 +22993,6 @@
             ],
             [
               "propertyOf",
-              0
-            ],
-            [
-              "the",
               0
             ],
             [
@@ -22709,7 +23021,28 @@
               0
             ],
             [
-              "the",
+              "unknown",
+              1
+            ],
+            [
+              "what",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 17,
+          "op": [
+            "unknown",
+            1
+          ],
+          "ops": [
+            [
+              "is",
+              0
+            ],
+            [
+              "propertyOf",
               0
             ],
             [
@@ -22723,7 +23056,57 @@
           ]
         },
         {
-          "counter": 17,
+          "counter": 18,
+          "op": [
+            "unknown",
+            1
+          ],
+          "ops": [
+            [
+              "is",
+              0
+            ],
+            [
+              "propertyOf",
+              0
+            ],
+            [
+              "unknown",
+              1
+            ],
+            [
+              "what",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 19,
+          "op": [
+            "unknown",
+            1
+          ],
+          "ops": [
+            [
+              "is",
+              0
+            ],
+            [
+              "propertyOf",
+              0
+            ],
+            [
+              "unknown",
+              1
+            ],
+            [
+              "what",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 20,
           "op": [
             "what",
             0
@@ -22738,74 +23121,7 @@
               0
             ],
             [
-              "the",
-              0
-            ],
-            [
               "what",
-              0
-            ]
-          ]
-        },
-        {
-          "counter": 18,
-          "op": [
-            "the",
-            0
-          ],
-          "ops": [
-            [
-              "is",
-              0
-            ],
-            [
-              "propertyOf",
-              0
-            ],
-            [
-              "the",
-              0
-            ]
-          ]
-        },
-        {
-          "counter": 19,
-          "op": [
-            "the",
-            0
-          ],
-          "ops": [
-            [
-              "is",
-              0
-            ],
-            [
-              "propertyOf",
-              0
-            ],
-            [
-              "the",
-              0
-            ]
-          ]
-        },
-        {
-          "counter": 20,
-          "op": [
-            "the",
-            0
-          ],
-          "ops": [
-            [
-              "is",
-              0
-            ],
-            [
-              "propertyOf",
-              0
-            ],
-            [
-              "the",
               0
             ]
           ]
@@ -23082,13 +23398,15 @@
               "what",
               "whatAble",
               "this",
-              "thisitthat"
+              "thisitthat",
+              "reason"
             ],
             "theAble": [
               "concept",
               "property",
               "object",
-              "unknown"
+              "unknown",
+              "reason"
             ],
             "thisitthat": [
               "it",
@@ -23135,6 +23453,7 @@
             "toAble",
             "verby",
             "thisitthat",
+            "reason",
             "that",
             "orAble",
             "ifAble",
@@ -23191,6 +23510,10 @@
               "punctuation"
             ],
             "readonly": [
+              "queryable"
+            ],
+            "reason": [
+              "theAble",
               "queryable"
             ],
             "that": [
@@ -23316,6 +23639,8 @@
               },
               "readonly": {
               },
+              "reason": {
+              },
               "that": {
               },
               "the": {
@@ -23383,80 +23708,6 @@
         },
         "stm2": {
           "mentioned": [
-            {
-              "concept": true,
-              "determiner": "the",
-              "marker": "property",
-              "modifiers": [
-                "determiner"
-              ],
-              "object": {
-                "marker": "unknown",
-                "range": {
-                  "end": 89,
-                  "start": 86
-                },
-                "text": "greg",
-                "types": [
-                  "unknown"
-                ],
-                "unknown": true,
-                "value": "greg",
-                "word": "greg"
-              },
-              "objects": [
-                {
-                  "concept": true,
-                  "determiner": "the",
-                  "marker": "property",
-                  "modifiers": [
-                    "determiner"
-                  ],
-                  "pullFromContext": true,
-                  "range": {
-                    "end": 81,
-                    "start": 68
-                  },
-                  "text": "the properties",
-                  "types": [
-                    "property",
-                    "unknown"
-                  ],
-                  "unknown": true,
-                  "value": "properties",
-                  "wantsValue": true,
-                  "word": "properties"
-                },
-                {
-                  "marker": "unknown",
-                  "range": {
-                    "end": 89,
-                    "start": 86
-                  },
-                  "text": "greg",
-                  "types": [
-                    "unknown"
-                  ],
-                  "unknown": true,
-                  "value": "greg",
-                  "word": "greg"
-                }
-              ],
-              "pullFromContext": false,
-              "range": {
-                "end": 89,
-                "start": 68
-              },
-              "text": "the properties of greg",
-              "types": [
-                "property",
-                "unknown"
-              ],
-              "unknown": true,
-              "value": "properties",
-              "wantsValue": true,
-              "word": "properties"
-            }
           ],
           "variables": {
           }
@@ -23625,6 +23876,7 @@
               "word": "are"
             },
             "isResponse": true,
+            "level": 2,
             "marker": "is",
             "number": "many",
             "one": {
@@ -23743,6 +23995,7 @@
         },
         {
           "context": {
+            "level": 2,
             "marker": "is",
             "number": "one",
             "one": {
@@ -23854,6 +24107,7 @@
         },
         {
           "context": {
+            "level": 2,
             "marker": "is",
             "number": "one",
             "one": {
@@ -24057,6 +24311,24 @@
           0
         ],
         [
+          "unknown",
+          1
+        ],
+        [
+          "what",
+          0
+        ]
+      ],
+      [
+        [
+          "is",
+          0
+        ],
+        [
+          "possession",
+          0
+        ],
+        [
           "what",
           0
         ]
@@ -24103,20 +24375,6 @@
         [
           "the",
           0
-        ]
-      ],
-      [
-        [
-          "is",
-          0
-        ],
-        [
-          "propertyOf",
-          0
-        ],
-        [
-          "the",
-          0
         ],
         [
           "unknown",
@@ -24170,10 +24428,6 @@
         ],
         [
           "propertyOf",
-          0
-        ],
-        [
-          "the",
           0
         ],
         [
@@ -24375,7 +24629,7 @@
           "bridge": "{ ...next(operator), toObject: after[0] }",
           "id": "to",
           "level": 0,
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:208"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:210"
         },
         {
           "bridge": "{ ...next(operator) }",
@@ -24533,6 +24787,20 @@
           "level": 0
         },
         {
+          "bridge": "{ ...next(operator), pullFromContext: true, types: ['reason'], isResponse: true }",
+          "id": "why",
+          "level": 0
+        },
+        {
+          "bridge": "{ ...next(operator) }",
+          "id": "reason",
+          "isA": [
+            "theAble",
+            "queryable"
+          ],
+          "level": 0
+        },
+        {
           "bridge": "{ ...next(operator), pullFromContext: true, unknown: true, determined: true }",
           "id": "it",
           "isA": [
@@ -24685,6 +24953,12 @@
         },
         {
           "pattern": "(([queryable]) [(<isEd|> ([isEdAble|]))])"
+        },
+        {
+          "pattern": "([why])"
+        },
+        {
+          "pattern": "([reason])"
         },
         {
           "pattern": "([thisitthat|])"
@@ -24898,6 +25172,7 @@
     },
     "contexts": [
       {
+        "level": 2,
         "marker": "is",
         "number": "one",
         "one": {
@@ -25139,6 +25414,7 @@
           "word": "is"
         },
         "isResponse": true,
+        "level": 2,
         "marker": "is",
         "number": "one",
         "one": {
@@ -25421,8 +25697,8 @@
         {
           "counter": 6,
           "op": [
-            "unknown",
-            1
+            "the",
+            0
           ],
           "ops": [
             [
@@ -25471,10 +25747,6 @@
               0
             ],
             [
-              "the",
-              0
-            ],
-            [
               "unknown",
               1
             ],
@@ -25501,10 +25773,6 @@
             ],
             [
               "propertyOf",
-              0
-            ],
-            [
-              "the",
               0
             ],
             [
@@ -25537,10 +25805,6 @@
               0
             ],
             [
-              "the",
-              0
-            ],
-            [
               "unknown",
               1
             ],
@@ -25570,7 +25834,32 @@
               0
             ],
             [
-              "the",
+              "unknown",
+              1
+            ],
+            [
+              "what",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 11,
+          "op": [
+            "unknown",
+            1
+          ],
+          "ops": [
+            [
+              "is",
+              0
+            ],
+            [
+              "possession",
+              0
+            ],
+            [
+              "propertyOf",
               0
             ],
             [
@@ -25584,7 +25873,7 @@
           ]
         },
         {
-          "counter": 11,
+          "counter": 12,
           "op": [
             "what",
             0
@@ -25603,17 +25892,13 @@
               0
             ],
             [
-              "the",
-              0
-            ],
-            [
               "what",
               0
             ]
           ]
         },
         {
-          "counter": 12,
+          "counter": 13,
           "op": [
             "possession",
             0
@@ -25630,15 +25915,11 @@
             [
               "propertyOf",
               0
-            ],
-            [
-              "the",
-              0
             ]
           ]
         },
         {
-          "counter": 13,
+          "counter": 14,
           "op": [
             "possession",
             1
@@ -25655,15 +25936,11 @@
             [
               "propertyOf",
               0
-            ],
-            [
-              "the",
-              0
             ]
           ]
         },
         {
-          "counter": 14,
+          "counter": 15,
           "op": [
             "property",
             0
@@ -25679,31 +25956,6 @@
             ],
             [
               "propertyOf",
-              0
-            ],
-            [
-              "the",
-              0
-            ]
-          ]
-        },
-        {
-          "counter": 15,
-          "op": [
-            "the",
-            0
-          ],
-          "ops": [
-            [
-              "is",
-              0
-            ],
-            [
-              "propertyOf",
-              0
-            ],
-            [
-              "the",
               0
             ]
           ]
@@ -25871,13 +26123,15 @@
               "what",
               "whatAble",
               "this",
-              "thisitthat"
+              "thisitthat",
+              "reason"
             ],
             "theAble": [
               "concept",
               "property",
               "object",
-              "unknown"
+              "unknown",
+              "reason"
             ],
             "thisitthat": [
               "it",
@@ -25924,6 +26178,7 @@
             "toAble",
             "verby",
             "thisitthat",
+            "reason",
             "that",
             "orAble",
             "ifAble",
@@ -25975,6 +26230,10 @@
               "punctuation"
             ],
             "readonly": [
+              "queryable"
+            ],
+            "reason": [
+              "theAble",
               "queryable"
             ],
             "that": [
@@ -26079,6 +26338,8 @@
               },
               "readonly": {
               },
+              "reason": {
+              },
               "that": {
               },
               "the": {
@@ -26130,67 +26391,6 @@
         },
         "stm2": {
           "mentioned": [
-            {
-              "marker": "property",
-              "object": {
-                "marker": "unknown",
-                "range": {
-                  "end": 33,
-                  "start": 30
-                },
-                "text": "greg",
-                "types": [
-                  "unknown"
-                ],
-                "unknown": true,
-                "value": "greg",
-                "word": "greg"
-              },
-              "objects": [
-                {
-                  "marker": "property",
-                  "range": {
-                    "end": 39,
-                    "start": 37
-                  },
-                  "text": "age",
-                  "types": [
-                    "property",
-                    "unknown"
-                  ],
-                  "unknown": true,
-                  "value": "age",
-                  "word": "age"
-                },
-                {
-                  "marker": "unknown",
-                  "range": {
-                    "end": 33,
-                    "start": 30
-                  },
-                  "text": "greg",
-                  "types": [
-                    "unknown"
-                  ],
-                  "unknown": true,
-                  "value": "greg",
-                  "word": "greg"
-                }
-              ],
-              "possession": true,
-              "pullFromContext": false,
-              "range": {
-                "end": 39,
-                "start": 30
-              },
-              "text": "greg 's age",
-              "types": [
-                "property"
-              ],
-              "unknown": true,
-              "value": "age",
-              "word": "age"
-            }
           ],
           "variables": {
           }
@@ -26337,6 +26537,7 @@
               "word": "is"
             },
             "isResponse": true,
+            "level": 2,
             "marker": "is",
             "number": "one",
             "one": {
@@ -26440,6 +26641,7 @@
         },
         {
           "context": {
+            "level": 2,
             "marker": "is",
             "number": "one",
             "one": {
@@ -26584,20 +26786,6 @@
         [
           "the",
           0
-        ]
-      ],
-      [
-        [
-          "is",
-          0
-        ],
-        [
-          "propertyOf",
-          0
-        ],
-        [
-          "the",
-          0
         ],
         [
           "unknown",
@@ -26708,6 +26896,10 @@
         [
           "unknown",
           1
+        ],
+        [
+          "what",
+          0
         ]
       ],
       [
@@ -26720,7 +26912,17 @@
           0
         ],
         [
-          "the",
+          "unknown",
+          1
+        ]
+      ],
+      [
+        [
+          "is",
+          0
+        ],
+        [
+          "propertyOf",
           0
         ],
         [
@@ -26742,7 +26944,21 @@
           0
         ],
         [
-          "the",
+          "unknown",
+          1
+        ],
+        [
+          "what",
+          0
+        ]
+      ],
+      [
+        [
+          "is",
+          0
+        ],
+        [
+          "propertyOf",
           0
         ],
         [
@@ -26948,7 +27164,7 @@
           "bridge": "{ ...next(operator), toObject: after[0] }",
           "id": "to",
           "level": 0,
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:208"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:210"
         },
         {
           "bridge": "{ ...next(operator) }",
@@ -27106,6 +27322,20 @@
           "level": 0
         },
         {
+          "bridge": "{ ...next(operator), pullFromContext: true, types: ['reason'], isResponse: true }",
+          "id": "why",
+          "level": 0
+        },
+        {
+          "bridge": "{ ...next(operator) }",
+          "id": "reason",
+          "isA": [
+            "theAble",
+            "queryable"
+          ],
+          "level": 0
+        },
+        {
           "bridge": "{ ...next(operator), pullFromContext: true, unknown: true, determined: true }",
           "id": "it",
           "isA": [
@@ -27258,6 +27488,12 @@
         },
         {
           "pattern": "(([queryable]) [(<isEd|> ([isEdAble|]))])"
+        },
+        {
+          "pattern": "([why])"
+        },
+        {
+          "pattern": "([reason])"
         },
         {
           "pattern": "([thisitthat|])"
@@ -27471,6 +27707,7 @@
     },
     "contexts": [
       {
+        "level": 2,
         "marker": "is",
         "number": "one",
         "one": {
@@ -27740,6 +27977,7 @@
           "word": "is"
         },
         "isResponse": true,
+        "level": 2,
         "marker": "is",
         "number": "one",
         "one": {
@@ -28016,8 +28254,8 @@
         {
           "counter": 6,
           "op": [
-            "unknown",
-            1
+            "the",
+            0
           ],
           "ops": [
             [
@@ -28045,8 +28283,8 @@
         {
           "counter": 7,
           "op": [
-            "unknown",
-            1
+            "the",
+            0
           ],
           "ops": [
             [
@@ -28087,10 +28325,6 @@
               0
             ],
             [
-              "the",
-              0
-            ],
-            [
               "unknown",
               1
             ],
@@ -28113,10 +28347,6 @@
             ],
             [
               "propertyOf",
-              0
-            ],
-            [
-              "the",
               0
             ],
             [
@@ -28145,7 +28375,28 @@
               0
             ],
             [
-              "the",
+              "unknown",
+              1
+            ],
+            [
+              "what",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 11,
+          "op": [
+            "unknown",
+            1
+          ],
+          "ops": [
+            [
+              "is",
+              0
+            ],
+            [
+              "propertyOf",
               0
             ],
             [
@@ -28159,7 +28410,32 @@
           ]
         },
         {
-          "counter": 11,
+          "counter": 12,
+          "op": [
+            "unknown",
+            1
+          ],
+          "ops": [
+            [
+              "is",
+              0
+            ],
+            [
+              "propertyOf",
+              0
+            ],
+            [
+              "unknown",
+              1
+            ],
+            [
+              "what",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 13,
           "op": [
             "what",
             0
@@ -28174,53 +28450,7 @@
               0
             ],
             [
-              "the",
-              0
-            ],
-            [
               "what",
-              0
-            ]
-          ]
-        },
-        {
-          "counter": 12,
-          "op": [
-            "the",
-            0
-          ],
-          "ops": [
-            [
-              "is",
-              0
-            ],
-            [
-              "propertyOf",
-              0
-            ],
-            [
-              "the",
-              0
-            ]
-          ]
-        },
-        {
-          "counter": 13,
-          "op": [
-            "the",
-            0
-          ],
-          "ops": [
-            [
-              "is",
-              0
-            ],
-            [
-              "propertyOf",
-              0
-            ],
-            [
-              "the",
               0
             ]
           ]
@@ -28426,13 +28656,15 @@
               "what",
               "whatAble",
               "this",
-              "thisitthat"
+              "thisitthat",
+              "reason"
             ],
             "theAble": [
               "concept",
               "property",
               "object",
-              "unknown"
+              "unknown",
+              "reason"
             ],
             "thisitthat": [
               "it",
@@ -28479,6 +28711,7 @@
             "toAble",
             "verby",
             "thisitthat",
+            "reason",
             "that",
             "orAble",
             "ifAble",
@@ -28530,6 +28763,10 @@
               "punctuation"
             ],
             "readonly": [
+              "queryable"
+            ],
+            "reason": [
+              "theAble",
               "queryable"
             ],
             "that": [
@@ -28634,6 +28871,8 @@
               },
               "readonly": {
               },
+              "reason": {
+              },
               "that": {
               },
               "the": {
@@ -28685,80 +28924,6 @@
         },
         "stm2": {
           "mentioned": [
-            {
-              "concept": true,
-              "determiner": "the",
-              "marker": "property",
-              "modifiers": [
-                "determiner"
-              ],
-              "object": {
-                "marker": "unknown",
-                "range": {
-                  "end": 44,
-                  "start": 41
-                },
-                "text": "greg",
-                "types": [
-                  "unknown"
-                ],
-                "unknown": true,
-                "value": "greg",
-                "word": "greg"
-              },
-              "objects": [
-                {
-                  "concept": true,
-                  "determiner": "the",
-                  "marker": "property",
-                  "modifiers": [
-                    "determiner"
-                  ],
-                  "pullFromContext": true,
-                  "range": {
-                    "end": 36,
-                    "start": 30
-                  },
-                  "text": "the age",
-                  "types": [
-                    "property",
-                    "unknown"
-                  ],
-                  "unknown": true,
-                  "value": "age",
-                  "wantsValue": true,
-                  "word": "age"
-                },
-                {
-                  "marker": "unknown",
-                  "range": {
-                    "end": 44,
-                    "start": 41
-                  },
-                  "text": "greg",
-                  "types": [
-                    "unknown"
-                  ],
-                  "unknown": true,
-                  "value": "greg",
-                  "word": "greg"
-                }
-              ],
-              "pullFromContext": false,
-              "range": {
-                "end": 44,
-                "start": 30
-              },
-              "text": "the age of greg",
-              "types": [
-                "property",
-                "unknown"
-              ],
-              "unknown": true,
-              "value": "age",
-              "wantsValue": true,
-              "word": "age"
-            }
           ],
           "variables": {
           }
@@ -28933,6 +29098,7 @@
               "word": "is"
             },
             "isResponse": true,
+            "level": 2,
             "marker": "is",
             "number": "one",
             "one": {
@@ -29050,6 +29216,7 @@
         },
         {
           "context": {
+            "level": 2,
             "marker": "is",
             "number": "one",
             "one": {
@@ -29194,20 +29361,6 @@
         [
           "the",
           0
-        ]
-      ],
-      [
-        [
-          "is",
-          0
-        ],
-        [
-          "propertyOf",
-          0
-        ],
-        [
-          "the",
-          0
         ],
         [
           "unknown",
@@ -29276,7 +29429,39 @@
           0
         ],
         [
-          "the",
+          "unknown",
+          1
+        ],
+        [
+          "what",
+          0
+        ]
+      ],
+      [
+        [
+          "is",
+          0
+        ],
+        [
+          "propertyOf",
+          0
+        ],
+        [
+          "unknown",
+          1
+        ],
+        [
+          "what",
+          0
+        ]
+      ],
+      [
+        [
+          "is",
+          0
+        ],
+        [
+          "propertyOf",
           0
         ],
         [
@@ -29468,7 +29653,7 @@
           "bridge": "{ ...next(operator), toObject: after[0] }",
           "id": "to",
           "level": 0,
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:208"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:210"
         },
         {
           "bridge": "{ ...next(operator) }",
@@ -29626,6 +29811,20 @@
           "level": 0
         },
         {
+          "bridge": "{ ...next(operator), pullFromContext: true, types: ['reason'], isResponse: true }",
+          "id": "why",
+          "level": 0
+        },
+        {
+          "bridge": "{ ...next(operator) }",
+          "id": "reason",
+          "isA": [
+            "theAble",
+            "queryable"
+          ],
+          "level": 0
+        },
+        {
           "bridge": "{ ...next(operator), pullFromContext: true, unknown: true, determined: true }",
           "id": "it",
           "isA": [
@@ -29778,6 +29977,12 @@
         },
         {
           "pattern": "(([queryable]) [(<isEd|> ([isEdAble|]))])"
+        },
+        {
+          "pattern": "([why])"
+        },
+        {
+          "pattern": "([reason])"
         },
         {
           "pattern": "([thisitthat|])"
@@ -29991,6 +30196,7 @@
     },
     "contexts": [
       {
+        "level": 2,
         "marker": "is",
         "number": "one",
         "one": {
@@ -30260,6 +30466,7 @@
           "word": "is"
         },
         "isResponse": true,
+        "level": 2,
         "marker": "is",
         "number": "one",
         "one": {
@@ -30617,8 +30824,8 @@
         {
           "counter": 3,
           "op": [
-            "unknown",
-            1
+            "the",
+            0
           ],
           "ops": [
             [
@@ -30659,7 +30866,28 @@
               0
             ],
             [
-              "the",
+              "unknown",
+              1
+            ],
+            [
+              "what",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 5,
+          "op": [
+            "unknown",
+            1
+          ],
+          "ops": [
+            [
+              "is",
+              0
+            ],
+            [
+              "propertyOf",
               0
             ],
             [
@@ -30673,7 +30901,7 @@
           ]
         },
         {
-          "counter": 5,
+          "counter": 6,
           "op": [
             "what",
             0
@@ -30688,32 +30916,7 @@
               0
             ],
             [
-              "the",
-              0
-            ],
-            [
               "what",
-              0
-            ]
-          ]
-        },
-        {
-          "counter": 6,
-          "op": [
-            "the",
-            0
-          ],
-          "ops": [
-            [
-              "is",
-              0
-            ],
-            [
-              "propertyOf",
-              0
-            ],
-            [
-              "the",
               0
             ]
           ]
@@ -30851,13 +31054,15 @@
               "what",
               "whatAble",
               "this",
-              "thisitthat"
+              "thisitthat",
+              "reason"
             ],
             "theAble": [
               "concept",
               "property",
               "object",
-              "unknown"
+              "unknown",
+              "reason"
             ],
             "thisitthat": [
               "it",
@@ -30904,6 +31109,7 @@
             "toAble",
             "verby",
             "thisitthat",
+            "reason",
             "that",
             "orAble",
             "ifAble",
@@ -30955,6 +31161,10 @@
               "punctuation"
             ],
             "readonly": [
+              "queryable"
+            ],
+            "reason": [
+              "theAble",
               "queryable"
             ],
             "that": [
@@ -31059,6 +31269,8 @@
               },
               "readonly": {
               },
+              "reason": {
+              },
               "that": {
               },
               "the": {
@@ -31110,80 +31322,6 @@
         },
         "stm2": {
           "mentioned": [
-            {
-              "concept": true,
-              "determiner": "the",
-              "marker": "property",
-              "modifiers": [
-                "determiner"
-              ],
-              "object": {
-                "marker": "unknown",
-                "range": {
-                  "end": 22,
-                  "start": 19
-                },
-                "text": "greg",
-                "types": [
-                  "unknown"
-                ],
-                "unknown": true,
-                "value": "greg",
-                "word": "greg"
-              },
-              "objects": [
-                {
-                  "concept": true,
-                  "determiner": "the",
-                  "marker": "property",
-                  "modifiers": [
-                    "determiner"
-                  ],
-                  "pullFromContext": true,
-                  "range": {
-                    "end": 14,
-                    "start": 8
-                  },
-                  "text": "the age",
-                  "types": [
-                    "property",
-                    "unknown"
-                  ],
-                  "unknown": true,
-                  "value": "age",
-                  "wantsValue": true,
-                  "word": "age"
-                },
-                {
-                  "marker": "unknown",
-                  "range": {
-                    "end": 22,
-                    "start": 19
-                  },
-                  "text": "greg",
-                  "types": [
-                    "unknown"
-                  ],
-                  "unknown": true,
-                  "value": "greg",
-                  "word": "greg"
-                }
-              ],
-              "pullFromContext": false,
-              "range": {
-                "end": 22,
-                "start": 8
-              },
-              "text": "the age of greg",
-              "types": [
-                "property",
-                "unknown"
-              ],
-              "unknown": true,
-              "value": "age",
-              "wantsValue": true,
-              "word": "age"
-            }
           ],
           "variables": {
           }
@@ -31358,6 +31496,7 @@
               "word": "is"
             },
             "isResponse": true,
+            "level": 2,
             "marker": "is",
             "number": "one",
             "one": {
@@ -31474,6 +31613,7 @@
         },
         {
           "context": {
+            "level": 2,
             "marker": "is",
             "number": "one",
             "one": {
@@ -31889,7 +32029,7 @@
           "bridge": "{ ...next(operator), toObject: after[0] }",
           "id": "to",
           "level": 0,
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:208"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:210"
         },
         {
           "bridge": "{ ...next(operator) }",
@@ -32047,6 +32187,20 @@
           "level": 0
         },
         {
+          "bridge": "{ ...next(operator), pullFromContext: true, types: ['reason'], isResponse: true }",
+          "id": "why",
+          "level": 0
+        },
+        {
+          "bridge": "{ ...next(operator) }",
+          "id": "reason",
+          "isA": [
+            "theAble",
+            "queryable"
+          ],
+          "level": 0
+        },
+        {
           "bridge": "{ ...next(operator), pullFromContext: true, unknown: true, determined: true }",
           "id": "it",
           "isA": [
@@ -32199,6 +32353,12 @@
         },
         {
           "pattern": "(([queryable]) [(<isEd|> ([isEdAble|]))])"
+        },
+        {
+          "pattern": "([why])"
+        },
+        {
+          "pattern": "([reason])"
         },
         {
           "pattern": "([thisitthat|])"
@@ -32412,6 +32572,7 @@
     },
     "contexts": [
       {
+        "level": 2,
         "marker": "is",
         "number": "one",
         "one": {
@@ -32515,6 +32676,7 @@
         "word": "is"
       },
       {
+        "level": 2,
         "marker": "is",
         "number": "one",
         "one": {
@@ -32921,13 +33083,15 @@
               "what",
               "whatAble",
               "this",
-              "thisitthat"
+              "thisitthat",
+              "reason"
             ],
             "theAble": [
               "concept",
               "property",
               "object",
-              "unknown"
+              "unknown",
+              "reason"
             ],
             "thisitthat": [
               "it",
@@ -32974,6 +33138,7 @@
             "toAble",
             "verby",
             "thisitthat",
+            "reason",
             "that",
             "orAble",
             "ifAble",
@@ -33024,6 +33189,10 @@
               "punctuation"
             ],
             "readonly": [
+              "queryable"
+            ],
+            "reason": [
+              "theAble",
               "queryable"
             ],
             "that": [
@@ -33128,6 +33297,8 @@
               },
               "readonly": {
               },
+              "reason": {
+              },
               "that": {
               },
               "the": {
@@ -33187,6 +33358,7 @@
       "processed": [
         {
           "context": {
+            "level": 2,
             "marker": "is",
             "number": "one",
             "one": {
@@ -33237,6 +33409,7 @@
         },
         {
           "context": {
+            "level": 2,
             "marker": "is",
             "number": "one",
             "one": {
@@ -33653,7 +33826,7 @@
           "bridge": "{ ...next(operator), toObject: after[0] }",
           "id": "to",
           "level": 0,
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:208"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:210"
         },
         {
           "bridge": "{ ...next(operator) }",
@@ -33811,6 +33984,20 @@
           "level": 0
         },
         {
+          "bridge": "{ ...next(operator), pullFromContext: true, types: ['reason'], isResponse: true }",
+          "id": "why",
+          "level": 0
+        },
+        {
+          "bridge": "{ ...next(operator) }",
+          "id": "reason",
+          "isA": [
+            "theAble",
+            "queryable"
+          ],
+          "level": 0
+        },
+        {
           "bridge": "{ ...next(operator), pullFromContext: true, unknown: true, determined: true }",
           "id": "it",
           "isA": [
@@ -33963,6 +34150,12 @@
         },
         {
           "pattern": "(([queryable]) [(<isEd|> ([isEdAble|]))])"
+        },
+        {
+          "pattern": "([why])"
+        },
+        {
+          "pattern": "([reason])"
         },
         {
           "pattern": "([thisitthat|])"
@@ -34176,6 +34369,7 @@
     },
     "contexts": [
       {
+        "level": 2,
         "marker": "is",
         "number": "one",
         "one": {
@@ -34279,6 +34473,7 @@
         "word": "is"
       },
       {
+        "level": 2,
         "marker": "is",
         "number": "one",
         "one": {
@@ -34329,6 +34524,7 @@
             "value": false
           },
           {
+            "level": 2,
             "marker": "is",
             "number": "one",
             "one": {
@@ -34438,6 +34634,7 @@
           }
         ],
         "isResponse": true,
+        "level": 2,
         "marker": "is",
         "number": "one",
         "one": {
@@ -35108,13 +35305,15 @@
               "what",
               "whatAble",
               "this",
-              "thisitthat"
+              "thisitthat",
+              "reason"
             ],
             "theAble": [
               "concept",
               "property",
               "object",
-              "unknown"
+              "unknown",
+              "reason"
             ],
             "thisitthat": [
               "it",
@@ -35161,6 +35360,7 @@
             "toAble",
             "verby",
             "thisitthat",
+            "reason",
             "that",
             "orAble",
             "ifAble",
@@ -35211,6 +35411,10 @@
               "punctuation"
             ],
             "readonly": [
+              "queryable"
+            ],
+            "reason": [
+              "theAble",
               "queryable"
             ],
             "that": [
@@ -35315,6 +35519,8 @@
               },
               "readonly": {
               },
+              "reason": {
+              },
               "that": {
               },
               "the": {
@@ -35381,6 +35587,7 @@
                 "value": false
               },
               {
+                "level": 2,
                 "marker": "is",
                 "number": "one",
                 "one": {
@@ -35490,6 +35697,7 @@
               }
             ],
             "isResponse": true,
+            "level": 2,
             "marker": "is",
             "number": "one",
             "one": {
@@ -35601,6 +35809,7 @@
         },
         {
           "context": {
+            "level": 2,
             "marker": "is",
             "number": "one",
             "one": {
@@ -35652,6 +35861,7 @@
         },
         {
           "context": {
+            "level": 2,
             "marker": "is",
             "number": "one",
             "one": {
@@ -35943,7 +36153,7 @@
           "bridge": "{ ...next(operator), toObject: after[0] }",
           "id": "to",
           "level": 0,
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:208"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:210"
         },
         {
           "bridge": "{ ...next(operator) }",
@@ -36101,6 +36311,20 @@
           "level": 0
         },
         {
+          "bridge": "{ ...next(operator), pullFromContext: true, types: ['reason'], isResponse: true }",
+          "id": "why",
+          "level": 0
+        },
+        {
+          "bridge": "{ ...next(operator) }",
+          "id": "reason",
+          "isA": [
+            "theAble",
+            "queryable"
+          ],
+          "level": 0
+        },
+        {
           "bridge": "{ ...next(operator), pullFromContext: true, unknown: true, determined: true }",
           "id": "it",
           "isA": [
@@ -36253,6 +36477,12 @@
         },
         {
           "pattern": "(([queryable]) [(<isEd|> ([isEdAble|]))])"
+        },
+        {
+          "pattern": "([why])"
+        },
+        {
+          "pattern": "([reason])"
         },
         {
           "pattern": "([thisitthat|])"
@@ -36595,13 +36825,15 @@
               "what",
               "whatAble",
               "this",
-              "thisitthat"
+              "thisitthat",
+              "reason"
             ],
             "theAble": [
               "concept",
               "property",
               "object",
-              "unknown"
+              "unknown",
+              "reason"
             ],
             "thisitthat": [
               "it",
@@ -36648,6 +36880,7 @@
             "toAble",
             "verby",
             "thisitthat",
+            "reason",
             "that",
             "orAble",
             "ifAble"
@@ -36693,6 +36926,10 @@
               "punctuation"
             ],
             "readonly": [
+              "queryable"
+            ],
+            "reason": [
+              "theAble",
               "queryable"
             ],
             "that": [
@@ -36773,6 +37010,8 @@
               "questionMark": {
               },
               "readonly": {
+              },
+              "reason": {
               },
               "that": {
               },
@@ -37086,7 +37325,7 @@
           "bridge": "{ ...next(operator), toObject: after[0] }",
           "id": "to",
           "level": 0,
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:208"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:210"
         },
         {
           "bridge": "{ ...next(operator) }",
@@ -37244,6 +37483,20 @@
           "level": 0
         },
         {
+          "bridge": "{ ...next(operator), pullFromContext: true, types: ['reason'], isResponse: true }",
+          "id": "why",
+          "level": 0
+        },
+        {
+          "bridge": "{ ...next(operator) }",
+          "id": "reason",
+          "isA": [
+            "theAble",
+            "queryable"
+          ],
+          "level": 0
+        },
+        {
           "bridge": "{ ...next(operator), pullFromContext: true, unknown: true, determined: true }",
           "id": "it",
           "isA": [
@@ -37396,6 +37649,12 @@
         },
         {
           "pattern": "(([queryable]) [(<isEd|> ([isEdAble|]))])"
+        },
+        {
+          "pattern": "([why])"
+        },
+        {
+          "pattern": "([reason])"
         },
         {
           "pattern": "([thisitthat|])"
@@ -37848,13 +38107,15 @@
               "what",
               "whatAble",
               "this",
-              "thisitthat"
+              "thisitthat",
+              "reason"
             ],
             "theAble": [
               "concept",
               "property",
               "object",
-              "unknown"
+              "unknown",
+              "reason"
             ],
             "thisitthat": [
               "it",
@@ -37901,6 +38162,7 @@
             "toAble",
             "verby",
             "thisitthat",
+            "reason",
             "that",
             "orAble",
             "ifAble"
@@ -37946,6 +38208,10 @@
               "punctuation"
             ],
             "readonly": [
+              "queryable"
+            ],
+            "reason": [
+              "theAble",
               "queryable"
             ],
             "that": [
@@ -38026,6 +38292,8 @@
               "questionMark": {
               },
               "readonly": {
+              },
+              "reason": {
               },
               "that": {
               },
@@ -38231,20 +38499,6 @@
         ],
         [
           "propertyOf",
-          0
-        ],
-        [
-          "the",
-          0
-        ]
-      ],
-      [
-        [
-          "property",
-          0
-        ],
-        [
-          "propertyOf",
           1
         ]
       ],
@@ -38414,7 +38668,7 @@
           "bridge": "{ ...next(operator), toObject: after[0] }",
           "id": "to",
           "level": 0,
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:208"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:210"
         },
         {
           "bridge": "{ ...next(operator) }",
@@ -38572,6 +38826,20 @@
           "level": 0
         },
         {
+          "bridge": "{ ...next(operator), pullFromContext: true, types: ['reason'], isResponse: true }",
+          "id": "why",
+          "level": 0
+        },
+        {
+          "bridge": "{ ...next(operator) }",
+          "id": "reason",
+          "isA": [
+            "theAble",
+            "queryable"
+          ],
+          "level": 0
+        },
+        {
           "bridge": "{ ...next(operator), pullFromContext: true, unknown: true, determined: true }",
           "id": "it",
           "isA": [
@@ -38724,6 +38992,12 @@
         },
         {
           "pattern": "(([queryable]) [(<isEd|> ([isEdAble|]))])"
+        },
+        {
+          "pattern": "([why])"
+        },
+        {
+          "pattern": "([reason])"
         },
         {
           "pattern": "([thisitthat|])"
@@ -39207,13 +39481,15 @@
               "what",
               "whatAble",
               "this",
-              "thisitthat"
+              "thisitthat",
+              "reason"
             ],
             "theAble": [
               "concept",
               "property",
               "object",
-              "unknown"
+              "unknown",
+              "reason"
             ],
             "thisitthat": [
               "it",
@@ -39260,6 +39536,7 @@
             "toAble",
             "verby",
             "thisitthat",
+            "reason",
             "that",
             "orAble",
             "ifAble"
@@ -39305,6 +39582,10 @@
               "punctuation"
             ],
             "readonly": [
+              "queryable"
+            ],
+            "reason": [
+              "theAble",
               "queryable"
             ],
             "that": [
@@ -39385,6 +39666,8 @@
               "questionMark": {
               },
               "readonly": {
+              },
+              "reason": {
               },
               "that": {
               },
@@ -39559,20 +39842,6 @@
         [
           "the",
           0
-        ]
-      ],
-      [
-        [
-          "is",
-          0
-        ],
-        [
-          "propertyOf",
-          0
-        ],
-        [
-          "the",
-          0
         ],
         [
           "unknown",
@@ -39641,7 +39910,39 @@
           0
         ],
         [
-          "the",
+          "unknown",
+          1
+        ],
+        [
+          "what",
+          0
+        ]
+      ],
+      [
+        [
+          "is",
+          0
+        ],
+        [
+          "propertyOf",
+          0
+        ],
+        [
+          "unknown",
+          1
+        ],
+        [
+          "what",
+          0
+        ]
+      ],
+      [
+        [
+          "is",
+          0
+        ],
+        [
+          "propertyOf",
           0
         ],
         [
@@ -39833,7 +40134,7 @@
           "bridge": "{ ...next(operator), toObject: after[0] }",
           "id": "to",
           "level": 0,
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:208"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:210"
         },
         {
           "bridge": "{ ...next(operator) }",
@@ -39991,6 +40292,20 @@
           "level": 0
         },
         {
+          "bridge": "{ ...next(operator), pullFromContext: true, types: ['reason'], isResponse: true }",
+          "id": "why",
+          "level": 0
+        },
+        {
+          "bridge": "{ ...next(operator) }",
+          "id": "reason",
+          "isA": [
+            "theAble",
+            "queryable"
+          ],
+          "level": 0
+        },
+        {
           "bridge": "{ ...next(operator), pullFromContext: true, unknown: true, determined: true }",
           "id": "it",
           "isA": [
@@ -40143,6 +40458,12 @@
         },
         {
           "pattern": "(([queryable]) [(<isEd|> ([isEdAble|]))])"
+        },
+        {
+          "pattern": "([why])"
+        },
+        {
+          "pattern": "([reason])"
         },
         {
           "pattern": "([thisitthat|])"
@@ -40360,6 +40681,7 @@
           "verbatim": "What \"greg\" means is unknown"
         },
         "isResponse": true,
+        "level": 2,
         "marker": "is",
         "number": "one",
         "one": {
@@ -40537,8 +40859,8 @@
         {
           "counter": 3,
           "op": [
-            "unknown",
-            1
+            "the",
+            0
           ],
           "ops": [
             [
@@ -40579,7 +40901,28 @@
               0
             ],
             [
-              "the",
+              "unknown",
+              1
+            ],
+            [
+              "what",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 5,
+          "op": [
+            "unknown",
+            1
+          ],
+          "ops": [
+            [
+              "is",
+              0
+            ],
+            [
+              "propertyOf",
               0
             ],
             [
@@ -40593,7 +40936,7 @@
           ]
         },
         {
-          "counter": 5,
+          "counter": 6,
           "op": [
             "what",
             0
@@ -40608,32 +40951,7 @@
               0
             ],
             [
-              "the",
-              0
-            ],
-            [
               "what",
-              0
-            ]
-          ]
-        },
-        {
-          "counter": 6,
-          "op": [
-            "the",
-            0
-          ],
-          "ops": [
-            [
-              "is",
-              0
-            ],
-            [
-              "propertyOf",
-              0
-            ],
-            [
-              "the",
               0
             ]
           ]
@@ -40768,13 +41086,15 @@
               "what",
               "whatAble",
               "this",
-              "thisitthat"
+              "thisitthat",
+              "reason"
             ],
             "theAble": [
               "concept",
               "property",
               "object",
-              "unknown"
+              "unknown",
+              "reason"
             ],
             "thisitthat": [
               "it",
@@ -40821,6 +41141,7 @@
             "toAble",
             "verby",
             "thisitthat",
+            "reason",
             "that",
             "orAble",
             "ifAble"
@@ -40866,6 +41187,10 @@
               "punctuation"
             ],
             "readonly": [
+              "queryable"
+            ],
+            "reason": [
+              "theAble",
               "queryable"
             ],
             "that": [
@@ -40947,6 +41272,8 @@
               },
               "readonly": {
               },
+              "reason": {
+              },
               "that": {
               },
               "the": {
@@ -40982,80 +41309,6 @@
         },
         "stm2": {
           "mentioned": [
-            {
-              "concept": true,
-              "determiner": "the",
-              "marker": "property",
-              "modifiers": [
-                "determiner"
-              ],
-              "object": {
-                "marker": "unknown",
-                "range": {
-                  "end": 22,
-                  "start": 19
-                },
-                "text": "greg",
-                "types": [
-                  "unknown"
-                ],
-                "unknown": true,
-                "value": "greg",
-                "word": "greg"
-              },
-              "objects": [
-                {
-                  "concept": true,
-                  "determiner": "the",
-                  "marker": "property",
-                  "modifiers": [
-                    "determiner"
-                  ],
-                  "pullFromContext": true,
-                  "range": {
-                    "end": 14,
-                    "start": 8
-                  },
-                  "text": "the age",
-                  "types": [
-                    "property",
-                    "unknown"
-                  ],
-                  "unknown": true,
-                  "value": "age",
-                  "wantsValue": true,
-                  "word": "age"
-                },
-                {
-                  "marker": "unknown",
-                  "range": {
-                    "end": 22,
-                    "start": 19
-                  },
-                  "text": "greg",
-                  "types": [
-                    "unknown"
-                  ],
-                  "unknown": true,
-                  "value": "greg",
-                  "word": "greg"
-                }
-              ],
-              "pullFromContext": false,
-              "range": {
-                "end": 22,
-                "start": 8
-              },
-              "text": "the age of greg",
-              "types": [
-                "property",
-                "unknown"
-              ],
-              "unknown": true,
-              "value": "age",
-              "wantsValue": true,
-              "word": "age"
-            }
           ],
           "variables": {
           }
@@ -41068,6 +41321,7 @@
               "verbatim": "What \"greg\" means is unknown"
             },
             "isResponse": true,
+            "level": 2,
             "marker": "is",
             "number": "one",
             "one": {
@@ -41286,6 +41540,10 @@
         [
           "the",
           0
+        ],
+        [
+          "what",
+          0
         ]
       ],
       [
@@ -41295,10 +41553,6 @@
         ],
         [
           "propertyOf",
-          0
-        ],
-        [
-          "the",
           0
         ],
         [
@@ -41472,7 +41726,7 @@
           "bridge": "{ ...next(operator), toObject: after[0] }",
           "id": "to",
           "level": 0,
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:208"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:210"
         },
         {
           "bridge": "{ ...next(operator) }",
@@ -41630,6 +41884,20 @@
           "level": 0
         },
         {
+          "bridge": "{ ...next(operator), pullFromContext: true, types: ['reason'], isResponse: true }",
+          "id": "why",
+          "level": 0
+        },
+        {
+          "bridge": "{ ...next(operator) }",
+          "id": "reason",
+          "isA": [
+            "theAble",
+            "queryable"
+          ],
+          "level": 0
+        },
+        {
           "bridge": "{ ...next(operator), pullFromContext: true, unknown: true, determined: true }",
           "id": "it",
           "isA": [
@@ -41782,6 +42050,12 @@
         },
         {
           "pattern": "(([queryable]) [(<isEd|> ([isEdAble|]))])"
+        },
+        {
+          "pattern": "([why])"
+        },
+        {
+          "pattern": "([reason])"
         },
         {
           "pattern": "([thisitthat|])"
@@ -41999,6 +42273,7 @@
           "verbatim": "There is no property the property of object"
         },
         "isResponse": true,
+        "level": 2,
         "marker": "is",
         "number": "one",
         "one": {
@@ -42174,7 +42449,7 @@
         {
           "counter": 3,
           "op": [
-            "what",
+            "the",
             0
           ],
           "ops": [
@@ -42199,7 +42474,7 @@
         {
           "counter": 4,
           "op": [
-            "the",
+            "what",
             0
           ],
           "ops": [
@@ -42212,7 +42487,7 @@
               0
             ],
             [
-              "the",
+              "what",
               0
             ]
           ]
@@ -42347,13 +42622,15 @@
               "what",
               "whatAble",
               "this",
-              "thisitthat"
+              "thisitthat",
+              "reason"
             ],
             "theAble": [
               "concept",
               "property",
               "object",
-              "unknown"
+              "unknown",
+              "reason"
             ],
             "thisitthat": [
               "it",
@@ -42400,6 +42677,7 @@
             "toAble",
             "verby",
             "thisitthat",
+            "reason",
             "that",
             "orAble",
             "ifAble"
@@ -42445,6 +42723,10 @@
               "punctuation"
             ],
             "readonly": [
+              "queryable"
+            ],
+            "reason": [
+              "theAble",
               "queryable"
             ],
             "that": [
@@ -42526,6 +42808,8 @@
               },
               "readonly": {
               },
+              "reason": {
+              },
               "that": {
               },
               "the": {
@@ -42561,78 +42845,6 @@
         },
         "stm2": {
           "mentioned": [
-            {
-              "concept": true,
-              "default": true,
-              "determiner": "the",
-              "marker": "property",
-              "modifiers": [
-                "determiner"
-              ],
-              "object": {
-                "default": true,
-                "marker": "object",
-                "range": {
-                  "end": 29,
-                  "start": 24
-                },
-                "text": "object",
-                "types": [
-                  "object"
-                ],
-                "value": "object",
-                "word": "object"
-              },
-              "objects": [
-                {
-                  "concept": true,
-                  "default": true,
-                  "determiner": "the",
-                  "marker": "property",
-                  "modifiers": [
-                    "determiner"
-                  ],
-                  "pullFromContext": true,
-                  "range": {
-                    "end": 19,
-                    "start": 8
-                  },
-                  "text": "the property",
-                  "types": [
-                    "property"
-                  ],
-                  "value": "property",
-                  "wantsValue": true,
-                  "word": "property"
-                },
-                {
-                  "default": true,
-                  "marker": "object",
-                  "range": {
-                    "end": 29,
-                    "start": 24
-                  },
-                  "text": "object",
-                  "types": [
-                    "object"
-                  ],
-                  "value": "object",
-                  "word": "object"
-                }
-              ],
-              "pullFromContext": false,
-              "range": {
-                "end": 29,
-                "start": 8
-              },
-              "text": "the property of object",
-              "types": [
-                "property"
-              ],
-              "value": "property",
-              "wantsValue": true,
-              "word": "property"
-            }
           ],
           "variables": {
           }
@@ -42645,6 +42857,7 @@
               "verbatim": "There is no property the property of object"
             },
             "isResponse": true,
+            "level": 2,
             "marker": "is",
             "number": "one",
             "one": {
@@ -42935,7 +43148,7 @@
           "bridge": "{ ...next(operator), toObject: after[0] }",
           "id": "to",
           "level": 0,
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:208"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:210"
         },
         {
           "bridge": "{ ...next(operator) }",
@@ -43093,6 +43306,20 @@
           "level": 0
         },
         {
+          "bridge": "{ ...next(operator), pullFromContext: true, types: ['reason'], isResponse: true }",
+          "id": "why",
+          "level": 0
+        },
+        {
+          "bridge": "{ ...next(operator) }",
+          "id": "reason",
+          "isA": [
+            "theAble",
+            "queryable"
+          ],
+          "level": 0
+        },
+        {
           "bridge": "{ ...next(operator), pullFromContext: true, unknown: true, determined: true }",
           "id": "it",
           "isA": [
@@ -43245,6 +43472,12 @@
         },
         {
           "pattern": "(([queryable]) [(<isEd|> ([isEdAble|]))])"
+        },
+        {
+          "pattern": "([why])"
+        },
+        {
+          "pattern": "([reason])"
         },
         {
           "pattern": "([thisitthat|])"
@@ -43580,13 +43813,15 @@
               "what",
               "whatAble",
               "this",
-              "thisitthat"
+              "thisitthat",
+              "reason"
             ],
             "theAble": [
               "concept",
               "property",
               "object",
-              "unknown"
+              "unknown",
+              "reason"
             ],
             "thisitthat": [
               "it",
@@ -43633,6 +43868,7 @@
             "toAble",
             "verby",
             "thisitthat",
+            "reason",
             "that",
             "orAble",
             "ifAble"
@@ -43678,6 +43914,10 @@
               "punctuation"
             ],
             "readonly": [
+              "queryable"
+            ],
+            "reason": [
+              "theAble",
               "queryable"
             ],
             "that": [
@@ -43758,6 +43998,8 @@
               "questionMark": {
               },
               "readonly": {
+              },
+              "reason": {
               },
               "that": {
               },
@@ -44050,7 +44292,7 @@
           "bridge": "{ ...next(operator), toObject: after[0] }",
           "id": "to",
           "level": 0,
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:208"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:210"
         },
         {
           "bridge": "{ ...next(operator) }",
@@ -44208,6 +44450,20 @@
           "level": 0
         },
         {
+          "bridge": "{ ...next(operator), pullFromContext: true, types: ['reason'], isResponse: true }",
+          "id": "why",
+          "level": 0
+        },
+        {
+          "bridge": "{ ...next(operator) }",
+          "id": "reason",
+          "isA": [
+            "theAble",
+            "queryable"
+          ],
+          "level": 0
+        },
+        {
           "bridge": "{ ...next(operator), pullFromContext: true, unknown: true, determined: true }",
           "id": "it",
           "isA": [
@@ -44360,6 +44616,12 @@
         },
         {
           "pattern": "(([queryable]) [(<isEd|> ([isEdAble|]))])"
+        },
+        {
+          "pattern": "([why])"
+        },
+        {
+          "pattern": "([reason])"
         },
         {
           "pattern": "([thisitthat|])"
@@ -44574,6 +44836,7 @@
     "contexts": [
       {
         "arguments": {
+          "level": 1,
           "marker": "list",
           "range": {
             "end": 20,
@@ -44581,6 +44844,7 @@
           },
           "value": [
             {
+              "level": 1,
               "marker": "unknown",
               "range": {
                 "end": 13,
@@ -44592,6 +44856,7 @@
               "word": "a1"
             },
             {
+              "level": 1,
               "marker": "unknown",
               "range": {
                 "end": 20,
@@ -44826,13 +45091,15 @@
               "what",
               "whatAble",
               "this",
-              "thisitthat"
+              "thisitthat",
+              "reason"
             ],
             "theAble": [
               "concept",
               "property",
               "object",
-              "unknown"
+              "unknown",
+              "reason"
             ],
             "thisitthat": [
               "it",
@@ -44879,6 +45146,7 @@
             "toAble",
             "verby",
             "thisitthat",
+            "reason",
             "that",
             "orAble",
             "ifAble"
@@ -44924,6 +45192,10 @@
               "punctuation"
             ],
             "readonly": [
+              "queryable"
+            ],
+            "reason": [
+              "theAble",
               "queryable"
             ],
             "that": [
@@ -45005,6 +45277,8 @@
               },
               "readonly": {
               },
+              "reason": {
+              },
               "that": {
               },
               "the": {
@@ -45049,6 +45323,7 @@
         {
           "context": {
             "arguments": {
+              "level": 1,
               "marker": "list",
               "range": {
                 "end": 20,
@@ -45056,6 +45331,7 @@
               },
               "value": [
                 {
+                  "level": 1,
                   "marker": "unknown",
                   "range": {
                     "end": 13,
@@ -45067,6 +45343,7 @@
                   "word": "a1"
                 },
                 {
+                  "level": 1,
                   "marker": "unknown",
                   "range": {
                     "end": 20,
@@ -45326,7 +45603,7 @@
           "bridge": "{ ...next(operator), toObject: after[0] }",
           "id": "to",
           "level": 0,
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:208"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:210"
         },
         {
           "bridge": "{ ...next(operator) }",
@@ -45479,6 +45756,20 @@
           "bridge": "{ ...next(operator) }",
           "id": "thisitthat",
           "isA": [
+            "queryable"
+          ],
+          "level": 0
+        },
+        {
+          "bridge": "{ ...next(operator), pullFromContext: true, types: ['reason'], isResponse: true }",
+          "id": "why",
+          "level": 0
+        },
+        {
+          "bridge": "{ ...next(operator) }",
+          "id": "reason",
+          "isA": [
+            "theAble",
             "queryable"
           ],
           "level": 0
@@ -45647,6 +45938,12 @@
         },
         {
           "pattern": "(([queryable]) [(<isEd|> ([isEdAble|]))])"
+        },
+        {
+          "pattern": "([why])"
+        },
+        {
+          "pattern": "([reason])"
         },
         {
           "pattern": "([thisitthat|])"
@@ -45870,6 +46167,7 @@
     },
     "contexts": [
       {
+        "level": 2,
         "marker": "is",
         "number": "one",
         "one": {
@@ -46094,13 +46392,15 @@
               "what",
               "whatAble",
               "this",
-              "thisitthat"
+              "thisitthat",
+              "reason"
             ],
             "theAble": [
               "concept",
               "property",
               "object",
-              "unknown"
+              "unknown",
+              "reason"
             ],
             "thisitthat": [
               "it",
@@ -46147,6 +46447,7 @@
             "toAble",
             "verby",
             "thisitthat",
+            "reason",
             "that",
             "orAble",
             "ifAble"
@@ -46192,6 +46493,10 @@
               "punctuation"
             ],
             "readonly": [
+              "queryable"
+            ],
+            "reason": [
+              "theAble",
               "queryable"
             ],
             "that": [
@@ -46273,6 +46578,8 @@
               },
               "readonly": {
               },
+              "reason": {
+              },
               "that": {
               },
               "the": {
@@ -46316,6 +46623,7 @@
       "processed": [
         {
           "context": {
+            "level": 2,
             "marker": "is",
             "number": "one",
             "one": {
