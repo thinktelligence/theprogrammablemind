@@ -263,7 +263,7 @@ let config = {
       level: 0, 
       bridge: '{ ...after[0], pullFromContext: true, concept: true, wantsValue: true, determiner: "the", modifiers: append(["determiner"], after[0].modifiers)}' 
     },
-    { id: "a", level: 0, bridge: "{ ...after[0], pullFromContext: false, concept: true, number: 'one', wantsValue: true, determiner: 'a', modifiers: append(['determiner'], after[0].modifiers) }" },
+    { id: "a", level: 0, bridge: "{ ...after[0], pullFromContext: false, concept: true, number: 'one', wantsValue: true, determiner: operator, modifiers: append(['determiner'], after[0].modifiers) }" },
     { id: "theAble", level: 0, bridge: "{ ...next(operator) }" },
 
     // TODO make this hierarchy thing work
@@ -632,7 +632,7 @@ let config = {
       notes: 'pull from context',
       // match: ({context}) => context.marker == 'it' && context.pullFromContext, // && context.value,
       match: ({context}) => context.pullFromContext && !context.same, // && context.value,
-      apply: ({context, s, kms, e, log, retry, callId}) => {
+      apply: ({context, s, kms, e, log, retry}) => {
         if (true) {
           /*
                    {
@@ -803,7 +803,7 @@ let config = {
       where: where(),
       notes: 'x is y. handles x is a kind of y or x = y in the stm',
       match: ({context}) => context.marker == 'is' && !context.query && context.one && context.two,
-      apply: ({context, s, log, api, kms, config, callId}) => {
+      apply: ({context, s, log, api, kms, config}) => {
         // const oneZero = { ...context.one }
         // const twoZero = { ...context.two }
 
@@ -823,13 +823,7 @@ let config = {
         let twoPrime;
         if (!onePrime.sameWasProcessed) {
           two.same = one
-          if (callId == 'call22') {
-            debugger
-          }
           twoPrime = s(two)
-          if (callId == 'call22') {
-            debugger
-          }
           if (!twoPrime.sameWasProcessed) {
             warningSameNotEvaluated(log, two)
           } else {

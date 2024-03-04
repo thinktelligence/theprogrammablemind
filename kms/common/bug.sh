@@ -472,3 +472,4 @@
 # TODO node formulas -q "1+2 is a formula" -g -d
 # node formulas -q 'is 1+2 an expression' -g -d
 node math -q 'an expression' -g -d
+# node inspect hierarchy -q 'greg is a human is greg a human' -g -d

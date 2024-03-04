@@ -200,12 +200,12 @@ let config = {
       notes: 'humans are mammels',
       // match: ({context, listable}) => listable(context, 'unknown') && context.same,
       where: where(),
-      match: ({context, listable, hierarchy}) => {
+      match: ({context, listable, hierarchy, callId}) => {
         if (!context.same) {
           return
         }
 
-        if (context.same.determiner == 'a') {
+        if (context.same.determiner && context.same.determiner.marker == 'a') {
           context.same.concept = true;
         } else if (context.same.evaluate) {
           return // some kind of instance
