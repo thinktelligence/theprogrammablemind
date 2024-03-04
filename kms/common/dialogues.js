@@ -533,21 +533,6 @@ let config = {
     },
     { 
       where: where(),
-      match: ({context}) => context.marker == 'what' && (context.evalue || context.paraphrase), 
-      apply: ({context}) => `what` 
-    },
-    { 
-      where: where(),
-      match: ({context}) => context.marker == 'it' && !context.isQuery && !context.instance, 
-      apply: ({context}) => `it` 
-    },
-    { 
-      where: where(),
-      match: ({context}) => context.marker == 'it' && !context.isQuery && context.instance, 
-      apply: ({context}) => context.value
-    },
-    { 
-      where: where(),
       match: ({context}) => context.marker == 'name' && !context.isQuery && context.subject, 
       apply: ({context}) => `${context.subject} ${context.word}` 
     },

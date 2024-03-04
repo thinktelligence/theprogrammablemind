@@ -36,7 +36,10 @@ let config = {
     { pattern: "([y])", development: true },
   ],
   bridges: [
-    { id: "mathematicalExpression" },
+    { 
+      id: "mathematicalExpression",
+      isA: ['queryable', 'theAble'],
+    },
     { id: "mathematicalOperator" },
     { id: "x", isA: ['number'], level: 0, bridge: '{ ...next(operator) }', development: true},
     { id: "y", isA: ['number'], level: 0, bridge: '{ ...next(operator) }', development: true},
