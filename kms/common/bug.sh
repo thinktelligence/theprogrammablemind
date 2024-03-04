@@ -470,6 +470,6 @@
 # node inspect dimension -q 'c1 is a dimension\na1 and b1 are units of d1\nwhat are 10 a1 in b1\nwhy' -g -d  -s
 # node dialogues -q 'why' -g -d
 # TODO node formulas -q "1+2 is a formula" -g -d
-# node formulas -q 'is 1+2 an expression' -g -d
-node math -q 'an expression' -g -d
+# node math -q 'an expression' -g -d
 # node inspect hierarchy -q 'greg is a human is greg a human' -g -d
+node math -q 'is 1+2 an expression' -g -d
