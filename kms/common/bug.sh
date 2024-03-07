@@ -472,4 +472,9 @@
 # TODO node formulas -q "1+2 is a formula" -g -d
 # node math -q 'an expression' -g -d
 # node inspect hierarchy -q 'greg is a human is greg a human' -g -d
-node math -q 'is 1+2 an expression' -g -d
+# node math -q 'is 1+2 an expression' -g -d
+# node properties -q "the age of greg" -g -d
+# node hierarchy -q 'cats and dogs are animals what are the types of animals' -g -d
+# node hierarchy -q 'cats and dogs are animals' -g -d
+node animals -q 'do dogs have skin' -g -d
+# node hierarchy -q 'dogs and wolves are canines' -g -d
