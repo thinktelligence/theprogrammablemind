@@ -53,10 +53,15 @@ class API {
 
   // word is for one or many
   makeObject({config, context, types=[], doPluralize=true} = {}) {
+    /*
     if (!context.unknown) {
       return context.value
     }
+    */
     const { word, value, number } = context;
+    if (!value) {
+      return
+    }
     const concept = pluralize.singular(value)
 		if (config.exists(concept)) {
 			return concept

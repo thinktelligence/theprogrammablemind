@@ -476,5 +476,7 @@
 # node properties -q "the age of greg" -g -d
 # node hierarchy -q 'cats and dogs are animals what are the types of animals' -g -d
 # node hierarchy -q 'cats and dogs are animals' -g -d
-node animals -q 'do dogs have skin' -g -d
+# node animals -q 'do dogs have skin' -g -d
 # node hierarchy -q 'dogs and wolves are canines' -g -d
+# node inspect animals -q "birds and mammals are animals\hi" -g -d
+node scorekeeper -q 'the winning score is 37 points' -g -d
