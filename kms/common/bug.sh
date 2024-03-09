@@ -479,4 +479,6 @@
 # node animals -q 'do dogs have skin' -g -d
 # node hierarchy -q 'dogs and wolves are canines' -g -d
 # node inspect animals -q "birds and mammals are animals\hi" -g -d
-node scorekeeper -q 'the winning score is 37 points' -g -d
+# node scorekeeper -q 'the winning score is 37 points' -g -d
+# node countable -q 'all countable' -g -d
+node reports -q 'worthtest is price times quantity' -g -d

@@ -12,6 +12,7 @@ const { v4 : uuidv4, validate : validatev4 } = require('uuid');
 
 const template ={
   "queries": [
+      "price and quantity are properties",
       "worth means price times quantity"
   ],
 }
@@ -116,7 +117,7 @@ let config = {
     "([reportAction|] ([on] ([report|])))",
     "(([product]) <(<that> ([cost] ([price])))>)",
     "([answer] ([with] ([listingType|])))",
-    "([show] (<the> ([property])))",
+    "([show] (<the> ([property|property,properties])))",
     "([call] ([report|]) (rest))",
     "(([property]) <ascending>)",
     "(([property]) <descending>)",
@@ -354,6 +355,10 @@ let config = {
     ['show', 'action'],
     ['move', 'reportAction'],
     ['remove', 'reportAction'],
+    ['times', 'property'],
+    ['plus', 'property'],
+    ['minus', 'property'],
+    ['divideBy', 'property'],
   //  ['report', 'product'],
   ],
   floaters: ["api", "isQuery"],
