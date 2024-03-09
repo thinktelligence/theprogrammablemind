@@ -207,7 +207,7 @@ let config = {
           const old = listing.columns[from-1]
           listing.columns[from-1] = listing.columns[to-1]
           listing.columns[to-1] = old
-          kms.events.api.happens({ marker: "changes", changeable: report })
+          kms.events.api.happens({ marker: "changes", level: 1, changeable: report })
         }
     },
     { 
@@ -221,7 +221,7 @@ let config = {
           const listing = objects.listings[id]
           const column = context.removee.index.value
           listing.columns.splice(column-1, 1)
-          kms.events.api.happens({ marker: "changes", changeable: report })
+          kms.events.api.happens({ marker: "changes", level: 1, changeable: report })
         }
     },
     { 
@@ -533,7 +533,7 @@ let config = {
             listing.ordering.push([value.marker, value.ordering])
             listing.columns = _.uniq(listing.columns)
           }
-          kms.events.api.happens({ marker: "changes", changeable: report })
+          kms.events.api.happens({ marker: "changes", level: 1, changeable: report })
         }
       }
     },
@@ -570,7 +570,7 @@ let config = {
         const id = report.value.value
         const listing = objects.listings[id]
         listing.type = context.type
-        kms.events.api.happens({ marker: "changes", changeable: { marker: 'report', pullFromContext: true } })
+        kms.events.api.happens({ marker: "changes", level: 1, changeable: { marker: 'report', pullFromContext: true } })
       }
     ],
   ],

@@ -477,11 +477,13 @@ let config = {
     {
       where: where(),
       notes: 'paraphrase a queryable response',
-      match: ({context, hierarchy}) => hierarchy.isA(context.marker, 'queryable') && !context.isQuery && context.evalue && !context.paraphrase,
+      // || context.evalue.paraphrase -> when the evalue acts as a paraphrase value
+      match: ({context, hierarchy}) => hierarchy.isA(context.marker, 'queryable') && !context.isQuery && context.evalue && (!context.paraphrase || context.evalue.paraphrase),
       apply: ({context, g}) => {
         return g(context.evalue)
       }
     },
+    /* dup of one above
     {
       where: where(),
       notes: 'paraphrase a queryable',
@@ -493,6 +495,7 @@ let config = {
         return result
       }
     },
+    */
     {
       where: where(),
       match: ({context, hierarchy}) => hierarchy.isA(context.marker, 'queryable') && !context.isQuery && context.isSelf && context.subject == 'my',

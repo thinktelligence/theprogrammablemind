@@ -481,4 +481,5 @@
 # node inspect animals -q "birds and mammals are animals\hi" -g -d
 # node scorekeeper -q 'the winning score is 37 points' -g -d
 # node countable -q 'all countable' -g -d
-node reports -q 'worthtest is price times quantity' -g -d
+# node reports -q 'worthtest is price times quantity' -g -d
+node inspect dimension -q 'temperature is a dimension\nfahrenheit celcuis and kelvin are units of temperature\nfahrenheit = celcius*9/5 + 32\nwhat is 10 degrees celcius in fahrenheit' -g -d

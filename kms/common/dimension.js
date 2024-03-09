@@ -138,6 +138,7 @@ let config = {
         context.evalue = { 
           paraphrase: true,
           marker: 'dimension',
+          level: 1,
           unit: to,
           amount: { evalue, paraphrase: undefined }
         }

@@ -5,7 +5,18 @@ const gdefaults_tests = require('./gdefaults.test.json')
 let config = {
   name: 'gdefaults',
   generators: [
-    // defaults
+  /* TODO save for later
+    {
+      where: where(),
+      priority: -10,
+      match: ({context, log}) => {
+        if (!context.level) {
+          log(`WARNING: Context for ${context.marker} is missing the level. ${JSON.stringify(context)}`)
+        }
+        return false
+      },
+    },
+  */
     {
       where: where(),
       match: ({context}) => context.paraphrase && context.word && context.number == 'many',
