@@ -157,7 +157,7 @@ class API {
                     { 
                        property: '${after[0].tag}', 
                        properties: ['${after[0].tag}', '${before[0].tag}'], 
-                       paraphrase: { marker: '${operator}', ${before[0].tag}: { marker: '${before[0].id}', types: ['${before[0].id}'], word: '${before[0].id}' }, ${after[0].tag}: { marker: '${after[0].id}', types: ['${after[0].id}'], word: '${after[0].id}' } }, 
+                       paraphrase: { marker: '${operator}', level: 1, ${before[0].tag}: { marker: '${before[0].id}', level: 1, types: [['${before[0].id}', 1]], word: '${before[0].id}' }, ${after[0].tag}: { marker: '${after[0].id}', level: 1, types: [['${after[0].id}', 1]], word: '${after[0].id}' } }, 
                        constraint: 
                           { 
                             ...next(operator), 
@@ -190,11 +190,11 @@ class API {
     config.addPriorities([['is', 1], [edAble.operator, 0]])
     */
     // config.addPriorities([['what', 0], ['by', 0]])
-    config.addHierarchy(id_s(edAble.operator), id_s('isEdAble', 1))
+    config.addHierarchy(id_s(edAble.operator, 0), id_s('isEdAble', 1))
     config.addHierarchy(id_s(before[0].id), id_s('isEder', 1))
     config.addHierarchy(id_s(after[0].id), id_s('isEdee', 1))
     config.addSemantic({
-      notes: 'semantic for setting value with constraint',
+      notes: `semantic for setting value with constraint for ${after[0].tag}`,
       match: ({context, isA}) => isA(context.marker, after[0].tag) && context.evaluate && context.constraints,
       // match: ({context, isA}) => context.marker == after[0].tag && context.evaluate,
       apply: ({km, context, e, log, isA, s}) => {
@@ -227,8 +227,8 @@ class API {
       },
     })
     config.addGenerator({
-      notes: 'generator for constraint',
-      match: ({context}) => context.marker == edAble.operator && context.paraphrase && context.constrained,
+      notes: `generator for constraint for ${edAble.operator}`,
+      match: ({context}) => context.marker == id_s(edAble.operator, 1) && context.paraphrase && context.constrained,
       apply: ({context, g}) => {
         if (context[before[0].tag].marker == 'by#0') {
           // the cat wendy owned
@@ -241,7 +241,7 @@ class API {
     })
     config.addGenerator({
       match: ({context}) => {
-        if (context.marker == operator && context.paraphrase) {
+        if (context.marker == id_s(operator, 1) && context.paraphrase) {
           if (context['do']) {
             const left = context['do'].left
             if (context[left]) {
@@ -261,7 +261,7 @@ class API {
       }
     })
     config.addGenerator({
-      match: ({context}) => context.marker == edAble.operator && context.isEd,
+      match: ({context}) => context.marker == id_s(edAble.operator, 1) && context.isEd,
       apply: ({context, g}) => {
         const chosen = chooseNumber(context[after[0].tag], 'is', 'are')
         if (context[before[0].tag].evalue && context[before[0].tag].evalue.marker == 'answerNotKnown#1') {
@@ -303,9 +303,9 @@ class API {
       ])
       
       const generator = {
-        notes: `generator for who/what is X owned by`,
+        notes: `generator for who/what is X owned by for ${edAble.operator}`,
         // match: ({context, hierarchy}) => hierarchy.isA(context.marker, 'is') && context.one && context.one.marker == 'ownee' && context.one.constraints && context.one.constraints[0] && context.one.constraints[0].constraint.marker == 'owned' && context.one.constraints[0].constraint.owner.implicit,
-        match: ({context, hierarchy}) => hierarchy.isA(context.marker, 'is#1') && context.one && context.one.marker == after[0].tag && context.one.constraints && context.one.constraints[0] && context.one.constraints[0].constraint.marker == edAble.operator && context.one.constraints[0].constraint[before[0].tag].implicit,
+        match: ({context, hierarchy}) => hierarchy.isA(context.marker, 'is#1') && context.one && context.one.marker == id_s(after[0].tag, 1) && context.one.constraints && context.one.constraints[0] && context.one.constraints[0].constraint.marker == id_s(edAble.operator, 1) && context.one.constraints[0].constraint[before[0].tag].implicit,
         apply: ({context, g, callId}) => {
           const isToFromM = [{"from":["one"],"to":["two"]},{"from":["two"],"to":["one"]}]
           const fromF = config.fragment(whoIsWhatVerbedBy).contexts()[0]
@@ -370,7 +370,7 @@ class API {
       config.addPriorities([id_s(operator, 1), id_s('does', 0)])
       config.addPriorities([id_s(operator, 1), id_s('doesnt', 0)])
       config.addPriorities([id_s('does', 0), id_s(operator, 0)])
-      config.addPriorities([id_s('doesnt#1', 0), id_s(operator, 0)])
+      config.addPriorities([id_s('doesnt', 0), id_s(operator, 0)])
     } else {
       config.addOperator({ pattern: `(${beforeOperators} [${operator}|] ${afterOperators})`, allowDups: true })
     }
@@ -380,6 +380,7 @@ class API {
         // config.addHierarchy('unknown', argument.id)
         // config.addHierarchy('what', argument.id)
         // greg23 <<<<<<<<<<<< doing this
+        config.addHierarchy(id_s(argument.id), id_s('unknown', 0))
         config.addHierarchy(id_s(argument.id), id_s('unknown', 1))
         config.addHierarchy(id_s(argument.id), id_s('what', 1))
       }
@@ -405,7 +406,7 @@ class API {
 
         const unflattenArgs = [ ...before.map( (arg) => arg.tag ), ...after.map( (arg) => arg.tag ) ] 
         const focusable = [ ...before.map( (arg) => arg.tag ), ...after.map( (arg) => arg.tag ) ] 
-        config.addBridge({ id: operator, level: 0, localHierarchy, bridge: `{ ... next(operator) ${doParams} ${beforeArgs} ${afterArgs}, unflatten: ${JSON.stringify(unflattenArgs)}, focusable: ${JSON.stringify(focusable)} }`, allowDups: true })
+        config.addBridge({ id: operator, level: 0, localHierarchy, bridge: `{ ... next(operator) ${doParams} ${beforeArgs} ${afterArgs}, unflatten: ${JSON.stringify(unflattenArgs)}, focusable: ${JSON.stringify(focusable)}, dead: true }`, allowDups: true })
         if (words.length > 0) {
           for (const word of words) {
             config.addWord(word, { id: operator, initial: `{ value: "${operator}" }` })
@@ -426,15 +427,15 @@ class API {
     }
 
     if (doAble) {
-      config.addHierarchy(id_s(operator), id_s('canBeDoQuestion', 1))
+      config.addHierarchy(id_s(operator, 0), id_s('canBeDoQuestion', 1))
     }
 
     config.addPriorities([id_s('means', 0), id_s(operator, 0)])
     config.addPriorities([id_s(operator, 0), id_s('articlePOS', 0)])
 
     config.addGenerator({
-      notes: 'ordering generator for paraphrase',
-      match: ({context}) => context.marker == operator && context.paraphrase && !context.query,
+      notes: `ordering generator for paraphrase for ${operator}`,
+      match: ({context}) => context.marker == id_s(operator, 1) && context.paraphrase && !context.query,
       apply: ({context, gp, g}) => {
         const beforeGenerator = before.map( (arg) => g(context[arg.tag]) )
         const afterGenerator = after.map( (arg) => g(context[arg.tag], { assumed: { paraphrase: true } }) )
@@ -449,8 +450,8 @@ class API {
     })
 
     config.addGenerator({
-      notes: 'ordering generator for response',
-      match: ({context}) => context.marker == operator && context.evalue && context.isResponse,
+      notes: `ordering generator for response for ${operator}`,
+      match: ({context}) => context.marker == id_s(operator, 1) && context.evalue && context.isResponse,
       apply: ({context, g, km}) => {
         const brief = km("dialogues").api.getBrief()
 
@@ -473,9 +474,9 @@ class API {
  
     if (ordering) {
       config.addSemantic({
-        notes: 'ordering setter',
+        notes: `ordering setter for ${operator}`,
         // TODO use hierarchy for operator
-        match: ({context}) => context.marker == operator,
+        match: ({context}) => context.marker == id_s(operator, 1),
         apply: ({context, km}) => {
           //const api = km('ordering').api
           // api.setCategory(ordering.name, context[ordering.object].value, context[ordering.category].value, context)
@@ -491,8 +492,8 @@ class API {
         }
       })
       config.addSemantic({
-        notes: 'ordering query',
-        match: ({context}) => context.marker == operator && context.query,
+        notes: `ordering query for ${operator}`,
+        match: ({context}) => context.marker == id_s(operator, 1) && context.query,
         apply: ({context, km}) => {
           const api = km('ordering').api
           const propertiesAPI = km('properties').api
@@ -530,22 +531,22 @@ class API {
               context.evalue = { marker: 'list#1', value: matches, isResponse: true }
             }
             context.isResponse = true
-            context.evalue.truthValue = matches.length > 0 && matches[0].marker == ordering.marker
+            context.evalue.truthValue = matches.length > 0 && matches[0].marker == id_s(ordering.marker, 1)
           }
         }
       })
     }
 
     if (ordering || relation || doAble) {
-      config.addHierarchy(id_s(operator), id_s('canBeQuestion', 1))
-      config.addHierarchy(id_s(operator), id_s('ifAble', 1))
-      config.addHierarchy(id_s(operator), id_s('orAble', 1))
+      config.addHierarchy(id_s(operator, 0), id_s('canBeQuestion', 1))
+      config.addHierarchy(id_s(operator, 0), id_s('ifAble', 1))
+      config.addHierarchy(id_s(operator, 0), id_s('orAble', 1))
     }
 
     if (relation) {
       config.addSemantic({
         notes: `setter for ${operator}`,
-        match: ({context}) => context.marker == operator,
+        match: ({context}) => context.marker == id_s(operator, 1),
         apply: ({context, km, hierarchy, config}) => {
           const api = km('properties').api
           // add types for arguments
@@ -571,7 +572,7 @@ class API {
       })
       config.addSemantic({
         notes: `getter for ${operator}`,
-        match: ({context}) => context.marker == operator && context.query,
+        match: ({context}) => context.marker == id_s(operator, 1) && context.query,
         apply: ({context, km}) => {
           const api = km('properties').api
 
@@ -594,7 +595,7 @@ class API {
     if (semanticApply) {
       config.addSemantic({
         notes: `override semantic apply for ${operator}`,
-        match: ({context}) => context.marker == operator,
+        match: ({context}) => context.marker == id_s(operator, 1),
         apply: semanticApply,
       })
     }
@@ -645,7 +646,7 @@ class API {
     config.addWord(objectPlural, { id: objectId, initial: `{ value: '${objectId}', number: 'many' }`})
     config.addWord(modifierId, { id: modifierId, initial: `{ value: '${modifierId}' }`})
 
-    config.addBridge({ id: modifierId, level: 0, bridge: `{ ...after, ${modifierId}: operator, marker: operator(concat('${modifierId}_', after.value)), atomic: true, value: concat('${modifierId}_', after.value), modifiers: append(['${modifierId}'], after[0].modifiers)}`, allowDups: true })
+    config.addBridge({ id: modifierId, level: 0, bridge: `{ ...after, ${modifierId}: operator, marker: operator(concat('${modifierId}_', after.value)), level: 1, atomic: true, value: concat('${modifierId}_', after.value), modifiers: append(['${modifierId}'], after[0].modifiers)}`, allowDups: true })
     config.addBridge({ id: objectId, level: 0, bridge: `{ ...next(operator), value: '${objectId}' }`,  allowDups: true })
     config.addBridge({ id: modifierObjectId, level: 0, bridge: `{ ...next(operator), value: '${modifierObjectId}' }`, allowDups: true })
     {

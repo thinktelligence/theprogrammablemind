@@ -518,4 +518,10 @@
 # node hierarchy -q 'what are the types of animals' -g -d
 # node hierarchy -q 'cats and dogs are animals what are the types of animals' -g -d
 # node hierarchy -q 'a cat is an animal?' -g -d
-node inspect hierarchy -q 'greg is a human is greg a human' -g -d
+# node inspect hierarchy -q 'greg is a human is greg a human' -g -d
+# node emotions -q 'greg feels angry what is the emotion of greg' -g -d
+# node inspect emotions -q 'greg feels angry' -g -d
+# node ordering -q 'wendy loves bananas what does wendy like' -g -d
+# node people -q "greg owns x what does greg own" -g -d
+# node people -q "greg owns x" -g -d
+node people -q "what does greg own" -g -d

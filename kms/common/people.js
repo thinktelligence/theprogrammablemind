@@ -18,9 +18,6 @@ const template = {
       "given modifies name",
       "given name means first name",
       "ownee is owned by owner means owner owns ownee",
-//      "ownee23 is owned by owner23",
-//      "cleo is a cat",
-//      "wendy owns cleo",
     ],
 }
 let config = {
@@ -39,7 +36,7 @@ let config = {
     { id: 'person', level: 0, bridge: '{ ...next(operator) }' },
   ],
   hierarchy: [
-    ['person', 'unknown'],
+    ['person#1', 'unknown#0'],
   ],
 };
 
@@ -55,12 +52,11 @@ config.initializer( ({config, context, km, isAfterApi, isModule}) => {
             before: [{tag: 'owner', id: 'owner'}],
             after: [{tag: 'ownee', id: 'ownee'}],
             relation: true,
-            localHierarchy: [['unknown', 'owner'], ['object', 'owner'], ['unknown', 'ownee'], ['object', 'ownee']],
+            localHierarchy: [[['unknown', 0], ['owner', 1]], [['object', 1], ['owner', 1]], [['unknown', 0], ['ownee', 1]], [['object', 1], ['ownee', 1]]],
             doAble: true,
             edAble: { operator: 'owned', word: 'owned' },
             config
           })
-
 })
 
 knowledgeModule( { 

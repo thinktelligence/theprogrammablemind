@@ -197,7 +197,7 @@ let config = {
     ]
   },
   bridges: [
-    { id: "by", level: 0, bridge: "{ ...next(operator), object: after[0] }", optional: { 'isEder': "{ marker: 'unknown#1', implicit: true, concept: true }", }, },
+    { id: "by", level: 0, bridge: "{ ...next(operator), object: after[0] }", optional: { 'isEder': "{ marker: 'unknown', level: 1, implicit: true, concept: true }", }, },
 
     { id: "debug23", level: 0, bridge: "{ ...next(operator) }" },
     // { id: "what", level: 0, bridge: "{ ...next(operator), ...after[0], query: ['what'], determined: true }" },
@@ -367,7 +367,7 @@ let config = {
     {
       where: where(),
       notes: "unknown ",
-      match: ({context}) => context.marker == 'unknown#0' && context.implicit,
+      match: ({context}) => ['unknown#0', 'unknown#1'].includes(context.marker) && context.implicit,
       apply: ({context}) => '',
     },
     {

@@ -303,7 +303,7 @@ let config = {
             notes: "setup the read semantic (2)",
             // match: match(context), 
             where: where(),
-            match: match,
+            match,
             apply: apply(mappings, _.cloneDeep(context.to)),
           }
           config.addSemantic(semantic)
