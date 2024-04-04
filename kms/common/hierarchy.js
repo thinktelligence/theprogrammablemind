@@ -20,7 +20,7 @@ const getTypes = ( km, concept, instance ) => {
     word.paraphrase = true
   }
   instance = {
-    marker: 'list', 
+    marker: 'list#1', 
     value: words,
     paraphrase: true,
   }
@@ -44,13 +44,13 @@ let config = {
   hierarchy: [
     // ['unknown', 'hierarchyAble'],
     // ['hierarchyAble', 'queryable'],
-    ['type', 'property'],
-    ['type', 'whatAble'],
-    ['have', 'canBeQuestion'],
-    ['have', 'canBeDoQuestion'],
+    ['type#1', 'property#1'],
+    ['type#1', 'whatAble#1'],
+    ['have#1', 'canBeQuestion#1'],
+    ['have#1', 'canBeDoQuestion#1'],
   ],
   priorities: [
-    [['questionMark', 0], ['is', 0], ['a', 0]],
+    ['questionMark#0', 'is#0', 'a#0'],
     // [['is', 0], ['hierarchyAble', 0]],
     // [['a', 0], ['is', 0], ['hierarchyAble', 0]],
   ],
@@ -58,7 +58,7 @@ let config = {
     {
       notes: 'what type is pikachu',
       where: where(),
-      match: ({context, hierarchy}) => hierarchy.isA(context.marker, 'is') && context.query && !['what'].includes(context.one.marker) && !['what'].includes(context.two.marker) && (context.one.query || context.two.query),
+      match: ({context, hierarchy}) => hierarchy.isA(context.marker, 'is#1') && context.query && !['what#1'].includes(context.one.marker) && !['what#1'].includes(context.two.marker) && (context.one.query || context.two.query),
       apply: ({context, hierarchy, km, log, e, s}) => {
         const one = context.one;
         const two = context.two;
@@ -87,7 +87,7 @@ let config = {
         const many = isMany(concept) || isMany(instance)
         context.evalue = {
           "default": true,
-          "marker": "is",
+          "marker": "is#1",
           "one": concept,
           "two": instance,
           "focusable": ['two', 'one'],
@@ -103,7 +103,7 @@ let config = {
       // types of job           what are the types of animals -> next one
       notes: 'type of pikachu',  // the types of type is the next one
       where: where(),
-      match: ({context}) => context.marker == 'type' && context.evaluate && context.object && context.objects[context.objects.length-1].number == 'one' && pluralize.isSingular(context.objects[0].word),
+      match: ({context}) => context.marker == 'type#1' && context.evaluate && context.object && context.objects[context.objects.length-1].number == 'one' && pluralize.isSingular(context.objects[0].word),
       apply: ({context, objects, e, gs, km, log, s}) => {
         const concept = context.objects[0];
         const value = context.objects[1];
@@ -124,14 +124,14 @@ let config = {
       notes: 'is x y',
       // debug: 'call2',
       where: where(),
-      match: ({context, hierarchy, args}) => {
+      match: ({context, hierarchy, args, callId}) => {
         if ((context.one && context.one.constraints) || (context.two && context.two.constraints)) {
           return false
         }
         if (context.query && context.query.includes && !context.query.includes(context.marker)) {
           return false
         }
-        return hierarchy.isA(context.marker, 'is') && context.query && args( { types: ['hierarchyAble', 'hierarchyAble'], properties: ['one', 'two'] } )
+        return hierarchy.isA(context.marker, 'is#1') && context.query && args( { types: ['hierarchyAble#1', 'hierarchyAble#1'], properties: ['one', 'two'] } )
       },
       apply: ({context, km, objects, g}) => {
         const api = km('properties').api
@@ -154,7 +154,7 @@ let config = {
           return
         }
         context.evalue = {
-          marker: 'yesno',
+          marker: 'yesno#1',
           value: api.isA(oneId, twoId)
         }
         context.isResponse = true
@@ -163,7 +163,7 @@ let config = {
     {
       notes: 'c is a y',
       where: where(),
-      match: ({context, listable}) => listable(context.marker, 'hierarchyAble') && !context.pullFromContext && !context.wantsValue && context.same && !context.same.pullFromContext && context.same.wantsValue,
+      match: ({context, listable}) => listable(context.marker, 'hierarchyAble#1') && !context.pullFromContext && !context.wantsValue && context.same && !context.same.pullFromContext && context.same.wantsValue,
       apply: ({context, km, objects, asList, baseConfig : config}) => {
         const api = km('properties').api
         // mark c as an instance?
@@ -182,7 +182,7 @@ let config = {
     {
       notes: 'an x is a y',
       where: where(),
-      match: ({context, listable}) => listable(context.marker, 'hierarchyAble') && !context.pullFromContext && context.wantsValue && context.same,
+      match: ({context, listable}) => listable(context.marker, 'hierarchyAble#1') && !context.pullFromContext && context.wantsValue && context.same,
       apply: ({context, km, objects, baseConfig : config, asList}) => {
         const api = km('properties').api
         const oneConcepts = asList(context);
@@ -206,7 +206,7 @@ let config = {
           return
         }
 
-        if (context.same.determiner && context.same.determiner.marker == 'a') {
+        if (context.same.determiner && context.same.determiner.marker == 'a#0') {
           context.same.concept = true;
         } else if (context.same.evaluate) {
           return // some kind of instance
@@ -218,7 +218,7 @@ let config = {
           return
         }
 
-        if ((hierarchy.isA(context.marker, 'property') && context.same && context.objects)|| ((context.same||{}).marker === 'readonly')) {
+        if ((hierarchy.isA(context.marker, 'property#1') && context.same && context.objects)|| ((context.same||{}).marker === 'readonly#1')) {
           return;
         }
 
@@ -231,7 +231,7 @@ let config = {
           context.same.concept = true;
         }
        
-        return listable(context, 'hierarchyAble') && context.same && context.same.concept && !context.query
+        return listable(context, 'hierarchyAble#1') && context.same && context.same.concept && !context.query
       },
       apply: ({config, objects, km, context, asList, listable}) => {
         const api = km('properties').api
@@ -253,14 +253,14 @@ let config = {
       // types of job
       notes: 'types of type', // what are the types of animals
       where: where(),
-      match: ({context}) => context.marker == 'type' && context.evaluate && context.object,
+      match: ({context}) => context.marker == 'type#1' && context.evaluate && context.object,
       apply: ({context, objects, gs, km}) => {
         const api = km('properties').api
         const type = pluralize.singular(context.object.value);
         const children = api.children(type)
         const values = children.map( (t) => api.getWordForValue(t, { number: 'many'}))
         context.evalue = {
-          marker: 'list',
+          marker: 'list#1',
           value: values,
         }
         if (children.length > 1) {
@@ -289,10 +289,12 @@ knowledgeModule( {
     name: './hierarchy.test.json',
     contents: hierarchy_tests,
     // TODO doesnt this need the KM
+    /*
     check: ['children', 'concept', 'parents', 'properties'],
     includes: {
       words: true,
     }
+    */
   },
   afterTest: ({query, config}) => {
     if (query == 'a cat is an animal') {

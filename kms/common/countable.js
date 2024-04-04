@@ -12,17 +12,20 @@ let config = {
     "([all])",
     // everything
   ],
+  hierarchy: [
+    ['all#1', 'quantifier#1'],
+    ['number#1', 'quantifier#1'],
+  ],
   bridges: [
     { 
       id: "counting", 
       level: 0, 
       convolution: true, 
-      before: ['verby'],
+      before: ['verby#0'],
       bridge: "{ ...after, quantity: before[0] }" 
     },
     { 
       id: "quantifier", 
-      children: ['number', 'all'],
       level: 0, 
       bridge: "{ ...next(operator) }" 
     },

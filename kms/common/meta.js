@@ -48,18 +48,18 @@ let config = {
     // what does (word) mean
   ],
   priorities: [
-    [['if', 0], ['then', 0], ['orList', 0]],
+    ['if#0', 'then#0', 'orList#0'],
   //  [['means', 0], ['is', 0]],
   ],
   hierarchy: [
-    { child: 'e', parent: 'orAble', development: true },
-    { child: 'f', parent: 'orAble', development: true },
-    { child: 'g', parent: 'ifAble', development: true },
-    { child: 'orAble', parent: 'ifAble' },
+    { child: 'e#1', parent: 'orAble#1', development: true },
+    { child: 'f#1', parent: 'orAble#1', development: true },
+    { child: 'g#1', parent: 'ifAble#1', development: true },
+    { child: 'orAble#1', parent: 'ifAble#1' },
   ],
   bridges: [
-    {id: "orList", level: 0, selector: {left: [{ marker: 'orAble' }], right: [{ marker: 'orAble' }], passthrough: true}, bridge: "{ ...next(operator), value: append(before, after) }"},
-    {id: "orList", level: 1, selector: {left: [{ marker: 'orAble' }], passthrough: true}, bridge: "{ ...operator, value: append(before, operator.value) }"},
+    {id: "orList", level: 0, selector: {left: [{ marker: 'orAble', level: 1 }], right: [{ marker: 'orAble', level: 1 }], passthrough: true}, bridge: "{ ...next(operator), value: append(before, after) }"},
+    {id: "orList", level: 1, selector: {left: [{ marker: 'orAble', level: 1 }], passthrough: true}, bridge: "{ ...operator, value: append(before, operator.value) }"},
 
     // {id: "orList", level: 0, selector: {/*match: "same", type: "infix",*/ left: [{ marker: 'orAble'}], right: [{ marker: 'orAble' }], passthrough: true}, bridge: "{ ...next(operator), value: append(before, after) }"},
     // {id: "orList", level: 1, selector: {/*match: "same",*/ left: [{ marker: 'orAble' }], passthrough: true}, bridge: "{ ...operator, value: append(before, operator.value) }"},
@@ -92,13 +92,13 @@ let config = {
   generators: [
     {
       where: where(),
-      match: ({context}) => context.marker == 'undefined',
+      match: ({context}) => context.marker == 'undefined#0',
       apply: ({context}) => 'undefined',
       development: true,
     },
     {
       where: where(),
-      match: ({context}) => context.marker == 'defined',
+      match: ({context}) => context.marker == 'defined#1',
       apply: ({context}) => 'defined',
       development: true,
     },
@@ -110,7 +110,7 @@ let config = {
     },
     {
       where: where(),
-      match: ({context}) => context.marker == 'orList' && context.paraphrase,
+      match: ({context}) => context.marker == 'orList#1' && context.paraphrase,
       apply: ({context, gs}) => {
         return gs(context.value, ', ', ' or ')
       },
@@ -119,7 +119,7 @@ let config = {
     {
       priority: -1,
       where: where(),
-      match: ({context}) => context.marker == 'means' && context.paraphrase,
+      match: ({context}) => context.marker == 'means#1' && context.paraphrase,
       apply: ({context, g}) => {
         // const before = g({ ...context.from, paraphrase: true, debug: true})
         const before = g({ ...context.from, paraphrase: true})
@@ -128,19 +128,19 @@ let config = {
     },
     { 
       where: where(),
-      match: ({context}) => context.marker === 'ifAble',
+      match: ({context}) => context.marker === 'ifAble#1',
       apply: ({context}) => context.value,
       development: true,
     },
     { 
       where: where(),
-      match: ({context}) => ['x', 'g', 'f', 'e', 'ifAble'].includes(context.marker),
+      match: ({context}) => ['x#0', 'g#1', 'f#1', 'e#0', 'ifAble#1'].includes(context.marker),
       apply: ({context}) => `${context.word}`,
       development: true,
     },
     {
       where: where(),
-      match: ({context}) => context.marker === 'if',
+      match: ({context}) => context.marker === 'if#1',
       apply: ({context, g}) => {
         return `if ${g(context.antecedant)} then ${g(context.consequence)}`
       },
@@ -151,10 +151,10 @@ let config = {
   semantics: [
     {
       where: where(),
-      match: ({context}) => ['e', 'f', 'g'].includes(context.marker),
+      match: ({context}) => ['e#1', 'f#1', 'g#1'].includes(context.marker),
       apply: ({context}) => {
         context.evalue = {
-          verbatim: `this is ${context.marker} response`
+          verbatim: `this is ${context.value} response`
         }
         context.isResponse = true
       },
@@ -162,7 +162,7 @@ let config = {
     },
     {
       where: where(),
-      match: ({context}) => context.marker == 'orList',
+      match: ({context}) => context.marker == 'orList#1',
       apply: ({context, s}) => {
         const response = []
         for (const value of context.value) {
@@ -177,7 +177,7 @@ let config = {
     },
     {
       where: where(),
-      match: ({context}) => context.marker == 'if',
+      match: ({context}) => context.marker == 'if#1',
       apply: ({config, context}) => {
         // setup the read semantic
        
@@ -260,7 +260,7 @@ let config = {
     {
       notes: 'from means to where from is unknown',
       where: where(),
-      match: ({context}) => context.marker == 'means' && context.from.marker == 'unknown',
+      match: ({context}) => context.marker == 'means#1' && context.from.marker == 'unknown#0',
       apply: ({config, context, kms, e, isTest}) => {
         if (false && isTest) {
           return
@@ -280,7 +280,7 @@ let config = {
     {
       notes: 'x means y where x and y have known markers',
       where: where(),
-      match: ({context}) => context.marker == 'means',
+      match: ({context}) => context.marker == 'means#1',
       apply: ({config, context, g}) => {
         // setup the write semantic
         {
@@ -366,7 +366,7 @@ config.initializer( ({config, isModule}) => {
   if (!isModule) {
     config.addGenerator({
       where: where(),
-      match: ({context}) => context.marker == 'unknown',
+      match: ({context}) => context.marker == 'unknown#0',
       apply: ({context}) => `${context.word}`
     })
     //config.addPriorities([['then', 0], ['g', 0], ['if', 0], ['f', 0]])

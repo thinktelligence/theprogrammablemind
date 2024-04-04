@@ -1,10 +1,10 @@
+const { id_s, id_p } = require('../runtime').theprogrammablemind
 const pluralize = require('pluralize')
 const { unflatten, flattens, Digraph } = require('../runtime').theprogrammablemind
 const _ = require('lodash')
 const deepEqual = require('deep-equal')
 const { chooseNumber } = require('../helpers.js')
 const { compose, translationMapping, translationMappingToInstantiatorMappings } = require('./meta.js')
-
 
 class Frankenhash {
   constructor(data) {
@@ -122,7 +122,7 @@ class API {
                 config,
                 unflatten: [before, after],
               })
-    config.addHierarchy(operator, 'canBeQuestion')
+    config.addHierarchy(id_s(operator), id_s('canBeQuestion', 1))
   }
 
   /*
@@ -190,9 +190,9 @@ class API {
     config.addPriorities([['is', 1], [edAble.operator, 0]])
     */
     // config.addPriorities([['what', 0], ['by', 0]])
-    config.addHierarchy(edAble.operator, 'isEdAble')
-    config.addHierarchy(before[0].id, 'isEder')
-    config.addHierarchy(after[0].id, 'isEdee')
+    config.addHierarchy(id_s(edAble.operator), id_s('isEdAble', 1))
+    config.addHierarchy(id_s(before[0].id), id_s('isEder', 1))
+    config.addHierarchy(id_s(after[0].id), id_s('isEdee', 1))
     config.addSemantic({
       notes: 'semantic for setting value with constraint',
       match: ({context, isA}) => isA(context.marker, after[0].tag) && context.evaluate && context.constraints,
@@ -217,20 +217,20 @@ class API {
           context.evalue = { verbatim: instance.verbatim }
           return
         }
-        if (instance.evalue.marker == 'answerNotKnown') {
+        if (instance.evalue.marker == 'answerNotKnown#1') {
           context.evalue = instance.evalue
           return
         }
         const selected = instance.evalue.value.map( (r) => r[property] )
         context.constraints = undefined;
-        context.evalue = { marker: 'list', value: selected }
+        context.evalue = { marker: 'list#1', value: selected }
       },
     })
     config.addGenerator({
       notes: 'generator for constraint',
       match: ({context}) => context.marker == edAble.operator && context.paraphrase && context.constrained,
       apply: ({context, g}) => {
-        if (context[before[0].tag].marker == 'by') {
+        if (context[before[0].tag].marker == 'by#0') {
           // the cat wendy owned
           return `${g({...context[after[0].tag], paraphrase: true})} ${edAble.word} ${g({...context[before[0].tag], paraphrase: true})}`
         } else {
@@ -264,7 +264,7 @@ class API {
       match: ({context}) => context.marker == edAble.operator && context.isEd,
       apply: ({context, g}) => {
         const chosen = chooseNumber(context[after[0].tag], 'is', 'are')
-        if (context[before[0].tag].evalue && context[before[0].tag].evalue.marker == 'answerNotKnown') {
+        if (context[before[0].tag].evalue && context[before[0].tag].evalue.marker == 'answerNotKnown#1') {
           return g(context[before[0].tag])
         }
         return `${g(context[after[0].tag])} ${chosen} ${edAble.word} by ${g(context[before[0].tag])}`
@@ -302,15 +302,10 @@ class API {
           },
       ])
       
-      // config.addHierarchy({ child: 'owneeVar', parent: 'isEdee', maybe: true})
-      // config.addHierarchy({ child: 'ownerVar', parent: 'isEder', maybe: true})
-      // config.addFragments([`${before[0].tag}Var is ${after[0].tag}Var ${edAble.word} by`, `${after[0].tag}Var is ${edAble.word} by ${before[0].tag}Var`])
-      // config.addFragments(["ownerVar is owneeVar owned by", "owneeVar is owned by ownerVar"])
-
       const generator = {
         notes: `generator for who/what is X owned by`,
         // match: ({context, hierarchy}) => hierarchy.isA(context.marker, 'is') && context.one && context.one.marker == 'ownee' && context.one.constraints && context.one.constraints[0] && context.one.constraints[0].constraint.marker == 'owned' && context.one.constraints[0].constraint.owner.implicit,
-        match: ({context, hierarchy}) => hierarchy.isA(context.marker, 'is') && context.one && context.one.marker == after[0].tag && context.one.constraints && context.one.constraints[0] && context.one.constraints[0].constraint.marker == edAble.operator && context.one.constraints[0].constraint[before[0].tag].implicit,
+        match: ({context, hierarchy}) => hierarchy.isA(context.marker, 'is#1') && context.one && context.one.marker == after[0].tag && context.one.constraints && context.one.constraints[0] && context.one.constraints[0].constraint.marker == edAble.operator && context.one.constraints[0].constraint[before[0].tag].implicit,
         apply: ({context, g, callId}) => {
           const isToFromM = [{"from":["one"],"to":["two"]},{"from":["two"],"to":["one"]}]
           const fromF = config.fragment(whoIsWhatVerbedBy).contexts()[0]
@@ -372,10 +367,10 @@ class API {
       })
       // config.addOperator({ id: operator, level: 1, words: [operator] })
       config.addBridge({ id: operator, level: 1, bridge: '{ ...next(operator) }', allowDups: true })
-      config.addPriorities([[operator, 1], ['does', 0]])
-      config.addPriorities([[operator, 1], ['doesnt', 0]])
-      config.addPriorities([['does', 0], [operator, 0]])
-      config.addPriorities([['doesnt', 0], [operator, 0]])
+      config.addPriorities([id_s(operator, 1), id_s('does', 0)])
+      config.addPriorities([id_s(operator, 1), id_s('doesnt', 0)])
+      config.addPriorities([id_s('does', 0), id_s(operator, 0)])
+      config.addPriorities([id_s('doesnt#1', 0), id_s(operator, 0)])
     } else {
       config.addOperator({ pattern: `(${beforeOperators} [${operator}|] ${afterOperators})`, allowDups: true })
     }
@@ -385,8 +380,8 @@ class API {
         // config.addHierarchy('unknown', argument.id)
         // config.addHierarchy('what', argument.id)
         // greg23 <<<<<<<<<<<< doing this
-        config.addHierarchy(argument.id, 'unknown')
-        config.addHierarchy(argument.id, 'what')
+        config.addHierarchy(id_s(argument.id), id_s('unknown', 1))
+        config.addHierarchy(id_s(argument.id), id_s('what', 1))
       }
     }
 
@@ -431,11 +426,11 @@ class API {
     }
 
     if (doAble) {
-      config.addHierarchy(operator, 'canBeDoQuestion')
+      config.addHierarchy(id_s(operator), id_s('canBeDoQuestion', 1))
     }
 
-    config.addPriorities([['means', 0], [operator, 0]])
-    config.addPriorities([[operator, 0], ['articlePOS', 0]])
+    config.addPriorities([id_s('means', 0), id_s(operator, 0)])
+    config.addPriorities([id_s(operator, 0), id_s('articlePOS', 0)])
 
     config.addGenerator({
       notes: 'ordering generator for paraphrase',
@@ -509,13 +504,13 @@ class API {
               const response = _.clone(context)
               response.isResponse = true
               response.query = undefined
-              context.evalue = { marker: 'list', value: [response] }
+              context.evalue = { marker: 'list#1', value: [response] }
             } else {
-              context.evalue = { marker: 'list', value: unflatten(matches) }
+              context.evalue = { marker: 'list#1', value: unflatten(matches) }
               context.evalue.isResponse = true
             }
             context.evalue.truthValue = matches.length > 0
-            context.evalue.truth = { marker: 'yesno', value: matches.length > 0, isResponse: true, focus: true }
+            context.evalue.truth = { marker: 'yesno#1', value: matches.length > 0, isResponse: true, focus: true }
             context.evalue.focusable = ['truth']
             if (!context.evalue.truthValue) {
               context.evalue.truthValueOnly = true
@@ -530,9 +525,9 @@ class API {
             const matches = propertiesAPI.relation_get(context, ['ordering', ordering.object])
             if (matches.length == 0) {
               // Object.assign(context, { marker: 'idontknow', query: _.clone(context) })
-              context.evalue = { marker: 'idontknow', query: _.clone(context), isResponse: true }
+              context.evalue = { marker: 'idontknow#1', query: _.clone(context), isResponse: true }
             } else {
-              context.evalue = { marker: 'list', value: matches, isResponse: true }
+              context.evalue = { marker: 'list#1', value: matches, isResponse: true }
             }
             context.isResponse = true
             context.evalue.truthValue = matches.length > 0 && matches[0].marker == ordering.marker
@@ -542,9 +537,9 @@ class API {
     }
 
     if (ordering || relation || doAble) {
-      config.addHierarchy(operator, 'canBeQuestion')
-      config.addHierarchy(operator, 'ifAble')
-      config.addHierarchy(operator, 'orAble')
+      config.addHierarchy(id_s(operator), id_s('canBeQuestion', 1))
+      config.addHierarchy(id_s(operator), id_s('ifAble', 1))
+      config.addHierarchy(id_s(operator), id_s('orAble', 1))
     }
 
     if (relation) {
@@ -566,7 +561,7 @@ class API {
               const minimas = hierarchy.minima(context[argument].types)
               for (let type of minimas) {
                 if (config.exists(value)) {
-                  config.addHierarchy(value, type);
+                  config.addHierarchy(id_s(value), id_s(type));
                 }
               }
             }
@@ -581,15 +576,15 @@ class API {
           const api = km('properties').api
 
           context.evalue = {
-            marker: 'list',
+            marker: 'list#1',
             value: unflatten(api.relation_get(context, before.concat(after).map( (arg) => arg.tag ) ))
           }
           context.evalue.isResponse = true
           context.isResponse = true
           if (context.evalue.value.length == 0) {
-            context.evalue.marker = 'answerNotKnown';
+            context.evalue.marker = 'answerNotKnown#1';
             context.evalue.value = [];
-            context.evalue.marker = 'answerNotKnown';
+            context.evalue.marker = 'answerNotKnown#1';
             context.evalue.value = [];
           }
         }
@@ -624,12 +619,12 @@ class API {
     }
   
     for (let type of types) {
-      config.addHierarchy(id, type)
+      config.addHierarchy(id_s(id), id_s(type))
     }
   }
 
   makeObject(args) {
-		const types = [ 'hierarchyAble', 'object', 'property' ];
+		const types = [ id_s('hierarchyAble'), id_s('object'), id_s('property') ];
     const { config } = args;
     return this.config().km("dialogues").api.makeObject({ ...args, types });
   }
@@ -676,12 +671,12 @@ class API {
     this.setupObjectHierarchy(config, modifierId, { include_concept: false });
     this.setupObjectHierarchy(config, modifierObjectId);
     if (config.config.bridges.find( (bridge) => bridge.id === 'hierarchyAble' )) {
-      config.addHierarchy(objectId, 'hierarchyAble')
-      config.addHierarchy(modifierObjectId, 'hierarchyAble')
+      config.addHierarchy(id_s(objectId), id_s('hierarchyAble', 1))
+      config.addHierarchy(id_s(modifierObjectId), id_s('hierarchyAble', 1))
     }
 
-    config.addPriorities([['articlePOS', 0], [modifierId, 0]])
-    config.addPriorities([['articlePOS', 0], [objectId, 0]])
+    config.addPriorities([id_s('articlePOS', 0), id_s(modifierId, 0)])
+    config.addPriorities([id_s('articlePOS', 0), id_s(objectId, 0)])
   }
 
   relation_add (relations) {
@@ -824,7 +819,7 @@ class API {
           values.push(`${g(key)}: ${g({ ...objectProps[key].value, paraphrase: true })}`)
         }
       }
-      return { marker: 'list', value: values }
+      return { marker: 'list#1', value: values }
     } else {
       return this.propertiesFH.getValue([object, property]).value
     }
@@ -1003,11 +998,16 @@ class API {
     this.propertiesFH.ensureValue([parent], {})
   }
 
-  isOperator(id) {
-    for (let bridge of this.config().config.bridges) {
-      if (bridge.id == id) {
-        return true
+  isOperator(opKey) {
+    try {
+      const { id } = id_p(opKey)
+      for (let bridge of this.config().config.bridges) {
+        if (bridge.id == id) {
+          return true
+        }
       }
+    } catch( e ) {
+      // invalid opKey so not an operator
     }
     return false
   }

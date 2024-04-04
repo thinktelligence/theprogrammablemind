@@ -60,11 +60,11 @@ let config = {
   generators: [
     { 
       where: where(),
-      match: ({context}) => context.marker == 'currency' && !context.isAbstract, 
+      match: ({context}) => context.marker == 'currency#1' && !context.isAbstract, 
       apply: ({context, g}) => {
         word = Object.assign({}, context.amount)
         word.isAbstract = true
-        word.marker = 'currency'
+        word.marker = 'currency#1'
         word.units = context.units
         word.value = context.amount.value
         // generator = [({context}) => context.marker == 'currency' && context.units == words.units && context.value > 1 && context.isAbstract, ({context, g}) => words.many ]
@@ -75,13 +75,13 @@ let config = {
 
   semantics: [
     {
-      match: ({objects, context}) => context.marker == 'in',
+      match: ({objects, context}) => context.marker == 'in#1',
       where: where(),
       apply: ({objects, api, context}) => {
         const from = context.from
         const to = context.to
         const value = api.convertTo(from.amount.value, from.units, to.units)
-        context.marker = 'currency'
+        context.marker = 'currency#1'
         context.isAbstract = false
         context.amount = { value }
         context.units = to.units
@@ -109,11 +109,11 @@ config.initializer( ({config, objects, api, uuid}) => {
   unitWords = api.getUnitWords();
   for (let words of unitWords) {
       config.addGenerator(
-        ({context}) => context.marker == 'currency' && context.units == words.units && context.value == 1 && context.isAbstract, 
+        ({context}) => context.marker == 'currency#1' && context.units == words.units && context.value == 1 && context.isAbstract, 
         ({context, g}) => words.one, uuid
       );
       config.addGenerator(
-        ({context}) => context.marker == 'currency' && context.units == words.units && !isNaN(context.value) && (context.value != 1) && context.isAbstract, 
+        ({context}) => context.marker == 'currency#1' && context.units == words.units && !isNaN(context.value) && (context.value != 1) && context.isAbstract, 
         ({context, g}) => words.many, uuid
       )
   }

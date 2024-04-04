@@ -36,14 +36,14 @@ let config = {
   },
 
   hierarchy: [
-    { child: 'number', parent: 'queryable', maybe: true },
+    { child: 'number#1', parent: 'queryable#1', maybe: true },
     // { child: 'unknown', parent: 'number', maybe: true },
   ],
 
   generators: [
     { 
       where: where(),
-      match: ({context}) => context.marker == 'number', 
+      match: ({context}) => context.marker == 'number#1', 
       apply: ({context}) => `${context.value}` 
     },
   ],

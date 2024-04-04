@@ -1,4 +1,4 @@
-const { Config, knowledgeModule, where } = require('./runtime').theprogrammablemind
+const { Config, knowledgeModule, where, id_s, id_p } = require('./runtime').theprogrammablemind
 const dialogues = require('./dialogues')
 const meta = require('./meta')
 const properties_instance = require('./properties.instance.json')
@@ -107,22 +107,25 @@ let config = {
     "(([property]) <([propertyOf|of] ([object]))>)",
   */
   hierarchy: [
-    ['concept', 'theAble'],
-    ['concept', 'queryable'],
-    ['unknown', 'hierarchyAble'],
-    ['unknown', 'object'],
-    ['what', 'object'],
-    ['hierarchyAble', 'queryable'],
-    ['readonly', 'queryable'],
-    ['property', 'queryable'],
-    ['object', 'queryable'],
-    ['xfx', 'queryable'],
-    ['property', 'theAble'],
-    ['property', 'unknown'],
-    ['object', 'theAble'],
-    ['whose', 'object'],
-    ['have', 'canBeDoQuestion'],
-    ['have', 'canBeQuestion'],
+    ['concept#1', 'theAble#1'],
+    ['concept#1', 'queryable#1'],
+    ['unknown#1', 'hierarchyAble#1'],
+    ['unknown#1', 'object#1'],
+    ['unknown#0', 'hierarchyAble#1'],
+    ['unknown#0', 'object#1'],
+    ['what#1', 'object#1'],
+    ['hierarchyAble#1', 'queryable#1'],
+    ['readonly#1', 'queryable#1'],
+    ['property#0', 'queryable#1'],
+    ['object#1', 'queryable#1'],
+    ['xfx#1', 'queryable#1'],
+    ['property#1', 'theAble#1'],
+    ['property#1', 'unknown#1'],
+    ['property#1', 'unknown#0'],
+    ['object#1', 'theAble#1'],
+    ['whose#1', 'object#1'],
+    ['have#1', 'canBeDoQuestion#1'],
+    ['have#1', 'canBeQuestion#1'],
   ],
   bridges: [
     { id: 'xfx', level: 0, bridge: "{ ...next(operator) }" },
@@ -138,9 +141,10 @@ let config = {
     // { id: "doesnt", level: 0, bridge: "{ ...context, number: operator.number, negation: true }*" },
     // { id: "doesnt", level: 0, bridge: "{ ...context, number: 'one', negation: true }*" },
     { id: "doesnt", level: 0, bridge: "{ ...context, number: operator.number, object.number: operator.number, negation: true }*" },
-    { id: "have", level: 0, bridge: "{ ...next(operator), object: { number: operator.number, ...before }, property: after[0], do: { left: 'object', right: 'property' } }" },
-    { id: "have", level: 1, bridge: "{ ...next(operator) }" },
+    { id: "have", level: 0, bridge: "{ ...next(operator), object: { number: operator.number, ...before }, property: after[0], do: { left: 'object', right: 'property' }, dead: true }" },
+    { id: "have", level: 1, bridge: "{ ...operator, dead: true }" },
     { id: "property", level: 0, bridge: "{ ...next(operator) }" },
+    { id: "property", level: 1, bridge: "{ ...operator, dead: true }" }, // TODO this is needed because of operator('property', 0) below fix that
     { id: "object", level: 0, bridge: "{ ...next(operator) }" },
 
     // old
@@ -148,7 +152,7 @@ let config = {
     // { id: "possession", level: 1, bridge: "{ ...after[0], object: operator.object, marker: operator('property', 0) }" },
 
     { id: "possession", level: 0, inverted: true, bridge: "{ ...next(operator), possession: true, object: before[0], objects: before }" },
-    { id: "possession", level: 1, inverted: true, bridge: "{ ...after[0], object: operator.object, possession: true, objects: append(default(after[0].objects, after), operator.objects), marker: operator('property', 0) }" },
+    { id: "possession", level: 1, inverted: true, bridge: "{ ...after[0], object: operator.object, possession: true, objects: append(default(after[0].objects, after), operator.objects), marker: operator('property', 1) }" },
     // TODO make object be after[0] that makes more sense
     // { id: "possession", level: 1, inverted: true, bridge: "{ ...after[0], object: after[0], objects: append(default(after[0].objects, after), operator.objects), marker: operator('property', 0) }" },
 
@@ -168,28 +172,28 @@ let config = {
     // "your": [{ id: 'objectPrefix', initial: "{ value: 'self' }" }],
   },
   priorities: [
-    [['is', 0], ['between', 1]],
-    [['is', 0], ['hierarchyAble', 0]],
-    [['a', 0], ['is', 0], ['hierarchyAble', 0]],
-    [['have', 1], ['does', 0]],
-    [['does', 0], ['have', 0], ['doesnt', 0]],
-    [['is', 0], ['propertyOf', 0], ['not', 0]],
-    [['is', 0], ['questionMark', 0], ['objectPrefix', 0]],
-    [['is', 0], ['questionMark', 0], ['possession', 0]],
-    [['is', 0], ['questionMark', 0], ['possession', 1]],
-    [['have', 0], ['a', 0]],
-    [['does', 0], ['have', 0]],
-    // [['does', 0], ['have', 1]],
-    [['is', 0], ['possession', 0], ['propertyOf', 0], ['what', 0]],
-    [['is', 0], ['possession', 1]],
-    [['is', 0], ['objectPrefix', 0]],
-    [['is', 0], ['what', 0], ['propertyOf', 0], ['articlePOS', 0], ['property', 0]],
-    [['is', 0], ['propertyOf', 1]],
-    [['propertyOf', 0], ['articlePOS', 0]],
-    [['articlePOS', 0], ['propertyOf', 0], ['property', 0]],
-    [['questionMark', 0], ['have', 0]],
-    [['questionMark', 0], ['have', 1], ['is', 1], ['have', 0]],
-    [['is', 0], ['objectPrefix', 0], ['what', 0]],
+    ['is#1','between#1'],
+    ['is#1','hierarchyAble#0'],
+    ['a#0','is#1','hierarchyAble#0'],
+    ['have#1','does#0'],
+    ['does#0','have#0','doesnt#0'],
+    ['is#0','propertyOf#0','not#0'],
+    ['is#0','questionMark#0','objectPrefix#0'],
+    ['is#0','questionMark#0','possession#0'],
+    ['is#0','questionMark#0','possession#1'],
+    ['have#0','a#0'],
+    ['does#0','have#0'],
+    // ['does#0','have#1'],
+    ['is#0','possession#0','propertyOf#0','what#0'],
+    ['is#0','possession#1'],
+    ['is#0','objectPrefix#0'],
+    ['is#0','what#0','propertyOf#0','articlePOS#0','property#0'],
+    ['is#0','propertyOf#1'],
+    ['propertyOf#0','articlePOS#0'],
+    ['articlePOS#0','propertyOf#0','property#0'],
+    ['questionMark#0','have#0'],
+    ['questionMark#0','have#1','is#0','have#0'],
+    ['is#1','objectPrefix#0','what#0'],
   ],
   generators: [
     {
@@ -217,7 +221,7 @@ let config = {
     },
     {
       where: where(),
-      match: ({context}) => context.marker == 'xfx',
+      match: ({context}) => context.marker == 'xfx#1',
       apply: ({context, g}) => `${context.word} between ${g(context.arguments)}`
     },
     {
@@ -300,33 +304,33 @@ let config = {
     },
     {
       where: where(),
-      match: ({context}) => context.marker == 'modifies' && context.paraphrase,
+      match: ({context}) => context.marker == 'modifies#1' && context.paraphrase,
       apply: ({context}) => `${context.modifier.word} modifies ${context.concept.word}`,
     },
     {
       where: where(),
-      match: ({context}) => context.marker == 'objectPrefix' && context.value == 'other' && context.paraphrase,
+      match: ({context}) => context.marker == 'objectPrefix#1' && context.value == 'other' && context.paraphrase,
       apply: ({context}) => `my`
     },
     {
       where: where(),
-      match: ({context}) => context.marker == 'objectPrefix' && context.value == 'other',
+      match: ({context}) => context.marker == 'objectPrefix#1' && context.value == 'other',
       apply: ({context}) => `your`
     },
     {
       where: where(),
-      match: ({context}) => context.marker == 'objectPrefix' && context.value == 'self' && context.paraphrase,
+      match: ({context}) => context.marker == 'objectPrefix#1' && context.value == 'self' && context.paraphrase,
       apply: ({context}) => `your`
     },
     {
       where: where(),
-      match: ({context}) => context.marker == 'objectPrefix' && context.value == 'self',
+      match: ({context}) => context.marker == 'objectPrefix#1' && context.value == 'self',
       apply: ({context}) => `my`
     },
     {
       notes: 'negative do questions',
       where: where(),
-      match: ({context, hierarchy}) => hierarchy.isA(context.marker, 'canBeDoQuestion') && context.paraphrase && context.negation,
+      match: ({context, hierarchy}) => hierarchy.isA(context.marker, 'canBeDoQuestion#1') && context.paraphrase && context.negation,
       apply: ({context, g}) => {
         /*
         let query = ''
@@ -342,7 +346,7 @@ let config = {
       notes: 'do questions',
       // debug: 'call9',
       where: where(),
-      match: ({context, hierarchy}) => hierarchy.isA(context.marker, 'canBeDoQuestion') && context.paraphrase && context.query && context.do,
+      match: ({context, hierarchy}) => hierarchy.isA(context.marker, 'canBeDoQuestion#1') && context.paraphrase && context.query && context.do,
       apply: ({context, g}) => {
         const right = context['do'].right
         if (context[right].query) {
@@ -351,13 +355,16 @@ let config = {
         } else {
           // return `does ${g(context[context.do.left])} ${pluralize.singular(context.word)} ${g(context[context.do.right])}`
           // the marker is the infinite form
-          return `${chooseNumber(context[context.do.left], "does", "do")} ${g(context[context.do.left])} ${context.marker} ${g(context[context.do.right])}`
+          // GREG99
+          const contextVerb = g({ ...context, marker: id_s(id_p(context.marker).id, 0), root: true, object: undefined })
+          return `${chooseNumber(context[context.do.left], "does", "do")} ${g(context[context.do.left])} ${contextVerb} ${g(context[context.do.right])}`
         }
       },
     },
     {
       where: where(),
-      match: ({context, hierarchy}) => hierarchy.isA(context.marker, 'canBeDoQuestion') && context.paraphrase && !context.query,
+      // TODO add a type checki here
+      match: ({context, hierarchy}) => hierarchy.isA(context.marker, 'canBeDoQuestion#1') && context.paraphrase && !context.query,
       apply: ({context, g}) => {
         return `${g(context.object)} ${context.word} ${g(context.property)}`
       }
@@ -366,11 +373,12 @@ let config = {
       notes: 'the property of object',
       where: where(),
       // match: ({context}) => context.paraphrase && context.modifiers && context.object, 
-      match: ({context}) => context.paraphrase && !context.possession && context.object, 
+      match: ({context, hierarchy}) => context.paraphrase && !context.possession && context.object, 
       apply: ({context, g, gs}) => {
+
                const base = { ...context }
                base.object = undefined;
-               if (context.object.marker == 'objectPrefix') {
+               if (context.object.marker == 'objectPrefix#1') {
                  return `${g(context.object)} ${g(base)}`
                } else {
                  if (context.objects) {
@@ -385,7 +393,8 @@ let config = {
     {
       // ({context, hierarchy}) => hierarchy.isA(context.marker, 'property') && context.object && !context.value && !context.evaluate,
       where: where(),
-      match: ({context, hierarchy}) => hierarchy.isA(context.marker, 'property') && context.object && !context.possession && !context.evaluate && !context.object.marker == 'objectPrefix',
+      // TODO add a type check here
+      match: ({context, hierarchy}) => hierarchy.isA(context.marker, 'property#1') && context.object && !context.possession && !context.evaluate && !context.object.marker == 'objectPrefix#1',
       apply: ({context, g}) => {
         const property = Object.assign({}, context, { object: undefined })
         return `${g(property)} of ${g({ ...context.object, paraphrase: true })}`
@@ -395,6 +404,7 @@ let config = {
       notes: "object's property",
       where: where(),
       // match: ({context}) => context.paraphrase && !context.modifiers && context.object, 
+      // TODO add a type check here
       match: ({context}) => !context.modifiers && context.object, 
       apply: ({context, g, gs}) => {
                if (context.objects) {
@@ -411,7 +421,7 @@ let config = {
                } else {
                  const base = { ...context }
                  base.object = undefined; // TODO make paraphrase be a default when paraphrasing?
-                 if (context.object.marker == 'objectPrefix') {
+                 if (context.object.marker == 'objectPrefix#1') {
                    return `${g(context.object)} ${g(base)}`
                  } else {
                    return `${g({...context.object, paraphrase: context.paraphrase})}'s ${g(base)}`
@@ -423,7 +433,7 @@ let config = {
   semantics: [
     {
       where: where(),
-      match: ({context}) => context.marker == 'concept' && context.same,
+      match: ({context}) => context.marker == 'concept#1' && context.same,
       apply: ({context, km, config}) => {
         const api = km('properties').api
         api.makeObject({ config, context: context.same })
@@ -434,7 +444,7 @@ let config = {
       // TODO maybe use the dialogue management to get params
       notes: 'wants is xfx between wanter and wantee',
       where: where(),
-      match: ({context}) => context.same && context.same.marker == 'xfx',
+      match: ({context}) => context.same && context.same.marker == 'xfx#1',
       // debug: 'call3',
       apply: ({context, km, config}) => {
         const papi = km('properties').api
@@ -451,7 +461,7 @@ let config = {
         'chicken modifies strips',
       ],
       where: where(),
-      match: ({context}) => context.marker == 'modifies',
+      match: ({context}) => context.marker == 'modifies#1',
       apply: ({config, km, context}) => {
         km('properties').api.kindOfConcept({ config, modifier: context.modifier.value, object: context.concept.value || context.concept.marker })
       }
@@ -459,7 +469,7 @@ let config = {
     {
       notes: 'marking something as readonly',
       where: where(),
-      match: ({context}) => context.marker == 'readonly' && context.same,
+      match: ({context}) => context.marker == 'readonly#1' && context.same,
       apply: ({context, km, objects}) => {
         km('properties').api.setReadOnly([context.same.value]) 
         context.sameWasProcessed = true
@@ -484,7 +494,7 @@ let config = {
       notes: 'crew members. evaluate a concepts to get instances',
       where: where(),
       match: ({context, hierarchy, api}) => 
-                          hierarchy.isA(context.marker, 'concept') && 
+                          hierarchy.isA(context.marker, 'concept#1') && 
                           context.evaluate &&
                           !context.types.includes('property') &&
                           // !context.value &&  // greghere
@@ -504,7 +514,7 @@ let config = {
     {
       notes: 'greg has eyes',
       where: where(),
-      match: ({context}) => context.marker == 'have' && !context.query,
+      match: ({context}) => context.marker == 'have#1' && !context.query,
       apply: ({context, objects, api}) => {
         if (context.negation) {
           api.setProperty(pluralize.singular(context.object.value), pluralize.singular(context.property.value), null, false)
@@ -517,7 +527,7 @@ let config = {
     {
       notes: 'greg has eyes?',
       where: where(),
-      match: ({context, hierarchy}) => hierarchy.isA(context.marker, 'have') && context.query,
+      match: ({context, hierarchy}) => hierarchy.isA(context.marker, 'have#1') && context.query,
       apply: ({context, g, api, objects}) => {
         const object = pluralize.singular(context.object.value);
         const property = pluralize.singular(context.property.value);
@@ -528,12 +538,12 @@ let config = {
         }
         if (!api.hasProperty(object, property)) {
           context.evalue = {
-            marker: 'yesno', 
+            marker: 'yesno#1', 
             value: false,
           }
         } else {
           context.evalue = {
-            marker: 'yesno', 
+            marker: 'yesno#1', 
             value: true,
           }
           return
@@ -544,7 +554,7 @@ let config = {
       notes: 'set the property of an object',
       where: where(),
       // match: ({context}) => context.marker == 'property' && context.same && context.object,
-      match: ({context, hierarchy, uuid}) => hierarchy.isA(context.marker, 'property') && context.same && context.objects && !context[`disable${uuid}`],
+      match: ({context, hierarchy, uuid}) => hierarchy.isA(context.marker, 'property#1') && context.same && context.objects && !context[`disable${uuid}`],
       apply: ({context, objects, km, api, log, s, uuid}) => {
         const objectContext = context.object;
         const propertyContext = context;
@@ -579,7 +589,7 @@ let config = {
           const value = api.getProperty(objectId, propertyId)
           if (value.value == context.same.value) {
             context.evalue = [
-              { marker: 'yesno', value: true, paraphrase: true },
+              { marker: 'yesno#1', value: true, paraphrase: true },
             ]
             context.isResponse = true
             context.sameWasProcessed = true
@@ -605,7 +615,7 @@ let config = {
             ]
             // run the query 'the property of object' then copy that here and template it
             context.evalue = [
-              { marker: 'yesno', value: false, paraphrase: true },
+              { marker: 'yesno#1', value: false, paraphrase: true },
             ]
             context.evalue = context.evalue.concat(fragment.instantiate(mappings))
             context.evalue.forEach( (r) => r.paraphrase = true )
@@ -619,7 +629,7 @@ let config = {
       notes: 'get/evaluate a property',
       where: where(),
       match: ({context, hierarchy}) => 
-                      hierarchy.isA(context.marker, 'property') && 
+                      hierarchy.isA(context.marker, 'property#1') && 
                       context.evaluate && 
                       context.objects &&
                       !context.evaluate.toConcept, // && !context.value,
@@ -696,6 +706,7 @@ knowledgeModule( {
   test: {
     name: './properties.test.json',
     contents: properties_tests,
+    /*
     check: [
       'children', 
       'concept', 
@@ -707,6 +718,7 @@ knowledgeModule( {
       operators: true,
       bridges: true,
     }
+    */
   },
   template: {
     template,

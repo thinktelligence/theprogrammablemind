@@ -482,4 +482,40 @@
 # node scorekeeper -q 'the winning score is 37 points' -g -d
 # node countable -q 'all countable' -g -d
 # node reports -q 'worthtest is price times quantity' -g -d
-node inspect dimension -q 'temperature is a dimension\nfahrenheit celcuis and kelvin are units of temperature\nfahrenheit = celcius*9/5 + 32\nwhat is 10 degrees celcius in fahrenheit' -g -d
+# node inspect dimension -q 'temperature is a dimension\nfahrenheit celcuis and kelvin are units of temperature\nfahrenheit = celcius*9/5 + 32\nwhat is 10 degrees celcius in fahrenheit' -g -d
+# node dialogues -q 'x is 3 what is x' -g -d
+# node dialogues -q 'why' -g -d
+# node dialogues -q '1 2 and 3' -g -d
+# node dialogues -q 'is x y' -g -d
+# node dialogues -q 'x is y?' -g -d
+# node dialogues -q 'what is it' -g -d
+# node dialogues -q 'x is 3 what is x' -g -d
+# node currency -q '1 dollar' -g -d
+# node time -q 'tell me when the time is 2 pm' -g -d
+# node comparable -q 'highest comparable' -g -d -dic
+# node countable -q '2 countable ' -g -d -dic
+# node properties -q 'greg has eyes' -g -d
+# node properties -q "the age of greg is 23 what is greg's age" -g -d
+# node properties -q "the age of greg is 23" -g -d
+# node properties -q "the age of greg is 23\nwhat is the age of greg" -g -d
+# node properties -q 'greg doesnt have wings does greg have wings' -g -d
+# node properties -q "alice's sister is wendy" -g -d -ph
+# node inspect properties -q "alice's sister is wendy" -g -d -dh '["sister#1","unknown#1#1"]'
+# node properties -q "alice's sister is wendy" -g -d -ph
+# node properties -q "alice's sister is wendy wendy's cat is cleo\nwho is alice's sister's cat" -g -d
+# node inspect properties -q "wendy's cat is cleo" -g -d -ph
+# node properties -q "wendy's cat" -g -d -ph
+# node properties -q "chicken modifies strips" -g -d -ph
+# node properties -q 'the age of greg is 23\nwhat are the properties of greg' -g -d
+# node properties -q "greg's car's bumper" -g -d
+# node properties -q 'what is the property of object' -g -d
+# wants 'does greg have eyes?'
+# node properties -q 'greg has eyes?' -g -d
+# node properties -q 'greg doesnt have wings does greg have wings' -g -d
+# node properties -q 'does greg have wings' -g -d
+# node inspect properties -q 'the name of greg is greg greg is readonly the name of greg is fred' -g -d
+# node hierarchy -q 'cats and dogs are animals' -g -d -ph
+# node hierarchy -q 'what are the types of animals' -g -d
+# node hierarchy -q 'cats and dogs are animals what are the types of animals' -g -d
+# node hierarchy -q 'a cat is an animal?' -g -d
+node inspect hierarchy -q 'greg is a human is greg a human' -g -d

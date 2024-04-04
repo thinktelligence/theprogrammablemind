@@ -64,9 +64,9 @@ let config = {
     },
   ],
   hierarchy: [
-    ['time', 'queryable'],
-    ['ampm', 'queryable'],
-    ['time', 'theAble'],
+    ['time#1', 'queryable#1'],
+    ['ampm#1', 'queryable#1'],
+    ['time#1', 'theAble#1'],
   ],
 
   "words": {
@@ -84,12 +84,12 @@ let config = {
   generators: [
     { 
       where: where(),
-      match: ({context}) => context.marker == 'ampm' && context.paraphrase, 
+      match: ({context}) => context.marker == 'ampm#1' && context.paraphrase, 
       apply: ({g, context}) => `${context.hour.hour} ${context.ampm}` 
     },
     { 
       where: where(),
-      match: ({context}) => context.marker == 'time' && context.evalue && context.format == 12, 
+      match: ({context}) => context.marker == 'time#1' && context.evalue && context.format == 12, 
       apply: ({g, context}) => {
         let hh = context.evalue.getHours();
         let ampm = 'am'
@@ -104,7 +104,7 @@ let config = {
     },
     { 
       where: where(),
-      match: ({context}) => context.marker == 'time' && context.evalue && context.format == 24, 
+      match: ({context}) => context.marker == 'time#1' && context.evalue && context.format == 24, 
       apply: ({g, context}) => {
         const pad = (num, size) => {
           num = num.toString();
@@ -117,7 +117,7 @@ let config = {
     },
     { 
       where: where(),
-      match: ({context}) => context.marker == 'response', 
+      match: ({context}) => context.marker == 'response#1', 
       apply: ({g, context}) => context.text 
     },
   ],
@@ -126,7 +126,7 @@ let config = {
     {
       notes: 'evaluate time',
       where: where(),
-      match: ({objects, context, api}) => context.marker == 'time' && context.evaluate, 
+      match: ({objects, context, api}) => context.marker == 'time#1' && context.evaluate, 
       apply: ({objects, context, api}) => {
         context.evalue = api.newDate()
         context.format = objects.format
@@ -135,7 +135,7 @@ let config = {
     {
       notes: 'use time format working case',
       where: where(),
-      match: ({objects, context}) => context.marker == 'use' && context.format && (context.format.count == 12 || context.format.count == 24), 
+      match: ({objects, context}) => context.marker == 'use#1' && context.format && (context.format.count == 12 || context.format.count == 24), 
       apply: ({objects, context}) => {
         objects.format = context.format.count
       }
@@ -143,9 +143,9 @@ let config = {
     {
       notes: 'use time format error case',
       where: where(),
-      match: ({objects, context}) => context.marker == 'use' && context.format && (context.format.count != 12 && context.format.count != 24), 
+      match: ({objects, context}) => context.marker == 'use#1' && context.format && (context.format.count != 12 && context.format.count != 24), 
       apply: ({objects, context}) => {
-        context.marker = 'response'
+        context.marker = 'response#1'
         context.text = 'The hour format is 12 hour or 24 hour'
       }
     },
@@ -163,7 +163,7 @@ config.initializer( ({api, config, objects, isModule}) => {
     format: 12  // or 24
   });
   config.addSemantic(
-      ({context, hierarchy, args}) => context.happening && context.marker == 'is' && args({ types: ['ampm', 'time'], properties: ['one', 'two'] }),
+      ({context, hierarchy, args}) => context.happening && context.marker == 'is#2' && args({ types: ['ampm#1', 'time#1'], properties: ['one', 'two'] }),
       api.semantics
   )
 })

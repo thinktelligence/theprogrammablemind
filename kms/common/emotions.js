@@ -35,12 +35,12 @@ const config = new Config({
     { id: 'emotion', level: 0, bridge: '{ ...next(operator) }' },
   ],
   priorities: [
-    [['means', 0], ['feel', 0]]
+    ['means#0', 'feel#0']
   ],
 
   hierarchy: [
-    ['emotion', 'unknown'],
-    ['sentientBeing', 'unknown'],
+    ['emotion#1', 'unknown#1'],
+    ['sentientBeing#1', 'unknown#1'],
   ]
 }, module)
 config.add(hierarchy)

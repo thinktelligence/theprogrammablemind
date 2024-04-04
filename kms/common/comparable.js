@@ -6,17 +6,20 @@ const comparable_tests = require('./comparable.test.json')
 let config = {
   name: 'comparable',
   operators: [
-    "([condition|])",
-    "(([condition/1]) <compare|> ([comparable]))",
+    "(([condition]) <compare|> ([comparable]))",
     "([highest])",
     "([lowest])",
+  ],
+  hierarchy: [
+    ['highest#1', 'condition#1'],
+    ['lowest#1', 'condition#1'],
   ],
   bridges: [
     { 
       id: "compare", 
       level: 0, 
       convolution: true, 
-      before: ['verby', 'articlePOS'],
+      before: ['verby#0', 'articlePOS#0'],
       // bridge: "{ ...after, comparison: append(before[0], after[0].comparison), modifiers: append([before[0].marker], after[0].modifiers), [before[0].marker]: before[0] }" 
       // bridge: "{ ...after, comparison: append([], before[0].marker, after[0].comparison) }" 
       bridge: "{ ...next(before[0]), property: after, postModifiers: append([after[0].marker], before[0].modifiers), [after[0].marker.id]: after[0] }" 
@@ -24,7 +27,6 @@ let config = {
     },
     { 
       id: "condition", 
-      children: ['highest', 'lowest'],
       level: 0, 
       bridge: "{ ...next(operator) }" 
     },

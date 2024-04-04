@@ -28,7 +28,7 @@ class API {
   mentioned(concept, value = undefined) {
     concept = { ...concept, pullFromContext: false }
     if (value) {
-      if (concept.marker == 'unknown') {
+      if (concept.marker == 'unknown#1') {
         if (concept.value) {
           concept.marker = concept.value
         }
@@ -47,13 +47,13 @@ class API {
     }
     // care about marker second
     for (let m of this.objects.mentioned) {
-      if (context.marker != 'unknown' && this.isA(m.marker, context.marker)) {
+      if (context.marker != 'unknown#1' && this.isA(m.marker, context.marker)) {
         return m
       }
       // if (context.types && context.types.includes(m.marker)) {
       if (context.types) {
         for (let parent of context.types) {
-          if (parent != 'unknown' && this.isA(m.marker, parent)) {
+          if (parent != 'unknown#1' && this.isA(m.marker, parent)) {
             return m
           }
         }

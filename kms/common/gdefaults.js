@@ -1,5 +1,5 @@
 const pluralize = require('pluralize')
-const { Config, knowledgeModule, where } = require('./runtime').theprogrammablemind
+const { Config, knowledgeModule, where, id_p } = require('./runtime').theprogrammablemind
 const gdefaults_tests = require('./gdefaults.test.json')
 
 let config = {
@@ -17,6 +17,14 @@ let config = {
       },
     },
   */
+    {
+      where: where(),
+      match: ({context}) => context.paraphrase && context.word && context.root,
+      apply: ({context}) => {
+        return id_p(context.marker).id
+      }
+    },
+
     {
       where: where(),
       match: ({context}) => context.paraphrase && context.word && context.number == 'many',

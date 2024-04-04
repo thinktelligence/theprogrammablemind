@@ -1,4 +1,4 @@
-const { Config, knowledgeModule, where } = require('./runtime').theprogrammablemind
+const { Config, knowledgeModule, where, id_s } = require('./runtime').theprogrammablemind
 const meta = require('./meta.js')
 const gdefaults = require('./gdefaults.js')
 const pos = require('./pos.js')
@@ -79,14 +79,13 @@ class API {
     const addConcept = (word, number) => {
       config.addWord(word, { id: concept, initial: `{ value: "${concept}", number: "${number}" }` } )
       const baseTypes = [
-        'theAble',
-        'queryable',
-        'isEdee',
-        'isEder',
+        id_s('theAble'),
+        id_s('queryable'),
+        id_s('isEdee'),
+        id_s('isEder'),
       ];
-
       const allTypes = new Set(baseTypes.concat(types))
-      this.setupObjectHierarchy(config, concept, {types: allTypes});
+      this.setupObjectHierarchy(config, id_s(concept), {types: allTypes});
     }
 
     if (pluralize.isSingular(word)) {
@@ -189,19 +188,16 @@ let config = {
       // [['is', 0], ['means', 0]],
     ],
     positive: [
-      // [['is', 0], ['unknown', 0]],
-      // [['is', 0], ['unknown', 1]],
-      // [['isEd', 0], ['means', 0]],
-      [['isEdee', 0], ['isEd', 0], ['isEder', 0], ['by', 0]],
-      [['isEdee', 0], ['isEd', 0], ['isEdAble', 0]],
-      [['unknown', 1], ['isEd', 0], ['isEdAble', 0]],
-      [['unknown', 0], ['isEd', 0], ['isEdAble', 0]],
-      [["isEd",0],["unknown",1],["isEdAble",0]],
+      ['isEdee#0', 'isEd#0', 'isEder#0', 'by#0'],
+      ['isEdee#0', 'isEd#0', 'isEdAble#0'],
+      ['unknown#1', 'isEd#0', 'isEdAble#0'],
+      ['unknown#0', 'isEd#0', 'isEdAble#0'],
+      ["isEd#0", "unknown#1", "isEdAble#0"],
 
     ]
   },
   bridges: [
-    { id: "by", level: 0, bridge: "{ ...next(operator), object: after[0] }", optional: { 'isEder': "{ marker: 'unknown', implicit: true, concept: true }", }, },
+    { id: "by", level: 0, bridge: "{ ...next(operator), object: after[0] }", optional: { 'isEder': "{ marker: 'unknown#1', implicit: true, concept: true }", }, },
 
     { id: "debug23", level: 0, bridge: "{ ...next(operator) }" },
     // { id: "what", level: 0, bridge: "{ ...next(operator), ...after[0], query: ['what'], determined: true }" },
@@ -231,8 +227,7 @@ let config = {
     { id: "yesno", level: 0, bridge: "{ ...next(operator) }" },
     { id: "canBeQuestion", level: 0, bridge: "{ ...next(operator) }" },
     { id: "canBeQuestion", level: 1, bridge: "{ ...next(operator) }" },
-    // greg101
-    { id: "unknown", level: 0, bridge: "{ ...next(operator), unknown: true }" },
+    { id: "unknown", level: 0, bridge: "{ ...next(operator), unknown: true, dead: true }" },
     { id: "unknown", level: 1, bridge: "{ ...next(operator) }" },
     { id: "queryable", level: 0, bridge: "{ ...next(operator) }" },
     { id: "questionMark", level: 0, bridge: "{ ...before[0], query: [before.marker] }" },
@@ -250,9 +245,9 @@ let config = {
     { id: "isEdee", level: 0, bridge: "{ ...next(operator) }" },
     { id: "isEder", level: 0, bridge: "{ ...next(operator) }" },
     { id: "is", level: 0, 
-            bridge: "{ ...next(operator), one: { number: operator.number, ...before[0] }, two: after[0] }", 
-            isA: ['verby'],
-            queryBridge: "{ ...next(operator), one: after[0], two: after[1], query: true }" ,
+            bridge: "{ ...next(operator), one: { number: operator.number, ...before[0] }, two: after[0], dead: true }", 
+            isA: ['verby#1'],
+            queryBridge: "{ ...next(operator), one: after[0], two: after[1], query: true, dead: true }" ,
     },
     { id: "is", level: 1, bridge: "{ ...next(operator) }" },
 
@@ -275,37 +270,37 @@ let config = {
     { 
       id: "thisitthat", 
       level: 0, 
-      isA: ['queryable'], 
-      before: ['verby'],
+      isA: ['queryable#1'], 
+      before: ['verby#0'],
       bridge: "{ ...next(operator) }" 
     },
     { 
       id: "why", 
       level: 0, 
-      bridge: "{ ...next(operator), pullFromContext: true, types: ['reason'], isResponse: true }" 
+      bridge: "{ ...next(operator), pullFromContext: true, types: [['reason', 0]], isResponse: true }" 
     },
     { 
       id: "reason", 
       level: 0, 
-      isA: ['theAble', 'queryable'], 
+      isA: ['theAble#1', 'queryable#1'], 
       bridge: "{ ...next(operator) }" 
     },
     { 
       id: "it", 
       level: 0, 
-      isA: ['thisitthat'], 
+      isA: ['thisitthat#1'], 
       bridge: "{ ...next(operator), pullFromContext: true, unknown: true, determined: true }" 
     },
     { 
       id: "this", 
       level: 0, 
-      isA: ['thisitthat'], 
+      isA: ['thisitthat#1'], 
       bridge: "{ ...next(operator), unknown: true, pullFromContext: true }" 
     },
     { 
       id: "that", 
       level: 0, 
-      isA: ['thisitthat'], 
+      isA: ['thisitthat#1'], 
       bridge: "{ ...next(operator), unknown: true, pullFromContext: true }" 
     },
   ],
@@ -325,32 +320,35 @@ let config = {
 
   floaters: ['query'],
   priorities: [
-    [['means', 0], ['is', 0]],
-    [["does",0],["what",0]],
-    [["is",1],["is",0]],
-    [["isEd",0],["isEdAble",0]],
-    [['is', 0], ['does', 0], ['a', 0]],
-    [['means', 0], ['isEd', 0]],
-    [['isEdAble', 0], ['articlePOS', 0]],
-    [['is', 0], ['isEdAble', 0]],
-    [['is', 1], ['isEdAble', 0]],
+    ['means#0', 'is#0'],
+    ["does#0", "what#0"],
+    ["is#1", "is#0"],
+    ["isEd#0", "isEdAble#0"],
+    ['is#0', 'does#0', 'a#0'],
+    ['means#0', 'isEd#0'],
+    ['isEdAble#0', 'articlePOS#0'],
+    ['is#0', 'isEdAble#0'],
+    ['is#1', 'isEdAble#0'],
   ],
   hierarchy: [
-    ['it', 'pronoun'],
-    ['this', 'pronoun'],
-    ['questionMark', 'punctuation'],
+    ['it#1', 'pronoun#1'],
+    ['this#1', 'pronoun#1'],
+    ['questionMark#1', 'punctuation#1'],
     // ['questionMark', 'isEd'],
-    ['a', 'articlePOS'],
-    ['the', 'articlePOS'],
-    ['unknown', 'notAble'],
-    ['unknown', 'theAble'],
-    ['unknown', 'queryable'],
-    ['it', 'queryable'],
-    ['what', 'queryable'],
-    ['whatAble', 'queryable'],
-    ['is', 'canBeQuestion'],
-    ['it', 'toAble'],
-    ['this', 'queryable'],
+    ['a#1', 'articlePOS#1'],
+    ['the#1', 'articlePOS#1'],
+    ['unknown#1', 'notAble#1'],
+    ['unknown#1', 'theAble#1'],
+    ['unknown#1', 'queryable#1'],
+    ['unknown#0', 'notAble#1'],
+    ['unknown#0', 'theAble#1'],
+    ['unknown#0', 'queryable#1'],
+    ['it#1', 'queryable#1'],
+    ['what#1', 'queryable#1'],
+    ['whatAble#1', 'queryable#1'],
+    ['is#1', 'canBeQuestion#1'],
+    ['it#1', 'toAble#1'],
+    ['this#1', 'queryable#1'],
   ],
   debug: false,
   version: '3',
@@ -369,19 +367,19 @@ let config = {
     {
       where: where(),
       notes: "unknown ",
-      match: ({context}) => context.marker == 'unknown' && context.implicit,
+      match: ({context}) => context.marker == 'unknown#0' && context.implicit,
       apply: ({context}) => '',
     },
     {
       where: where(),
       notes: "unknown answer default response",
-      match: ({context}) => context.marker == 'answerNotKnown',
+      match: ({context}) => context.marker == 'answerNotKnown#1',
       apply: ({context}) => `that is not known`,
     },
     {
       where: where(),
       notes: "be brief or wordy",
-      match: ({context}) => context.marker == 'be',
+      match: ({context}) => context.marker == 'be#1',
       apply: ({context}) => `be ${context.type.word}`,
     },
     /*
@@ -395,24 +393,24 @@ let config = {
     */
     {
       where: where(),
-      match: ({context}) => context.marker === 'error' && context.paraphrase,
+      match: ({context}) => context.marker === 'error#1' && context.paraphrase,
       apply: ({context, gp}) => gp(context.context)
     },
     {
       where: where(),
-      match: ({context}) => context.marker === 'idontknow',
+      match: ({context}) => context.marker === 'idontknow#1',
       apply: ({context}) => "i don't know",
     },
     {
       where: where(),
-      match: ({context}) => context.marker == 'yesno',
+      match: ({context}) => context.marker == 'yesno#1',
       apply: ({context}) => context.value ? 'yes' : 'no',
       priority: -1,
       // debug: 'call11',
     },
     {
       where: where(),
-      match: ({context}) => !context.paraphrase && context.evalue && context.evalue.marker == 'yesno',
+      match: ({context}) => !context.paraphrase && context.evalue && context.evalue.marker == 'yesno#1',
       apply: ({context}) => context.evalue.value ? 'yes' : 'no',
       priority: -1,
     },
@@ -441,7 +439,7 @@ let config = {
       notes: 'handle lists with yes no',
       // ({context, hierarchy}) => context.marker == 'list' && context.paraphrase && context.value,
       // ({context, hierarchy}) => context.marker == 'list' && context.value,
-      match: ({context, hierarchy}) => context.marker == 'list' && context.paraphrase && context.value && context.value.length > 0 && context.value[0].marker == 'yesno',
+      match: ({context, hierarchy}) => context.marker == 'list#1' && context.paraphrase && context.value && context.value.length > 0 && context.value[0].marker == 'yesno#1',
       apply: ({context, g, gs}) => {
         return `${g(context.value[0])} ${gs(context.value.slice(1), ', ', ' and ')}`
       }
@@ -452,7 +450,7 @@ let config = {
       notes: 'handle lists',
       // ({context, hierarchy}) => context.marker == 'list' && context.paraphrase && context.value,
       // ({context, hierarchy}) => context.marker == 'list' && context.value,
-      match: ({context, hierarchy}) => context.marker == 'list' && context.value,
+      match: ({context, hierarchy}) => context.marker == 'list#1' && context.value,
       apply: ({context, gs}) => {
         if (context.newLinesOnly) {
           return gs(context.value, '\n')
@@ -465,7 +463,7 @@ let config = {
     {
       where: where(),
       notes: 'paraphrase a negation',
-      match: ({context, hierarchy}) => hierarchy.isA(context.marker, 'notAble') && context.negated, // && !context.isQuery && !context.paraphrase && context.value,
+      match: ({context, hierarchy}) => hierarchy.isA(context.marker, 'notAble#1') && context.negated, // && !context.isQuery && !context.paraphrase && context.value,
       apply: ({context, g}) => {
         context.negated = false
         const result = g(context.value)
@@ -478,7 +476,7 @@ let config = {
       where: where(),
       notes: 'paraphrase a queryable response',
       // || context.evalue.paraphrase -> when the evalue acts as a paraphrase value
-      match: ({context, hierarchy}) => hierarchy.isA(context.marker, 'queryable') && !context.isQuery && context.evalue && (!context.paraphrase || context.evalue.paraphrase),
+      match: ({context, hierarchy}) => hierarchy.isA(context.marker, 'queryable#1') && !context.isQuery && context.evalue && (!context.paraphrase || context.evalue.paraphrase),
       apply: ({context, g}) => {
         return g(context.evalue)
       }
@@ -498,37 +496,37 @@ let config = {
     */
     {
       where: where(),
-      match: ({context, hierarchy}) => hierarchy.isA(context.marker, 'queryable') && !context.isQuery && context.isSelf && context.subject == 'my',
+      match: ({context, hierarchy}) => hierarchy.isA(context.marker, 'queryable#1') && !context.isQuery && context.isSelf && context.subject == 'my',
       apply: ({context}) => `your ${context.word}`
     },
     { 
       where: where(),
-      match: ({context, hierarchy}) => ['it', 'what'].includes(context.marker) && context.paraphrase, 
-      apply: ({g, context}) => `${context.marker}`
+      match: ({context, hierarchy}) => ['it', 'what'].includes(context.word) && context.paraphrase, 
+      apply: ({g, context}) => `${context.word}`
     },
     {
       where: where(),
-      match: ({context, hierarchy}) => hierarchy.isA(context.marker, 'queryable') && !context.isQuery && context.isSelf && context.subject == 'your',
+      match: ({context, hierarchy}) => hierarchy.isA(context.marker, 'queryable#1') && !context.isQuery && context.isSelf && context.subject == 'your',
       apply: ({context}) => `my ${context.word}`
     },
     { 
       where: where(),
-      match: ({context, hierarchy}) => ['my', 'your'].includes(context.subject) && hierarchy.isA(context.marker, 'queryable') && context.paraphrase, 
+      match: ({context, hierarchy}) => ['my', 'your'].includes(context.subject) && hierarchy.isA(context.marker, 'queryable#1') && context.paraphrase, 
       apply: ({g, context}) => `${context.subject} ${context.marker}`
     },
     { 
       where: where(),
-      match: ({context, hierarchy}) => hierarchy.isA(context.marker, 'theAble') && context.paraphrase && context.wantsValue && !context.pullFromContext, 
+      match: ({context, hierarchy}) => hierarchy.isA(context.marker, 'theAble#1') && context.paraphrase && context.wantsValue && !context.pullFromContext, 
       apply: ({g, context}) => `a ${context.word}`
     },
     {
       where: where(),
-      match: ({context, hierarchy}) => hierarchy.isA(context.marker, 'queryable') && !context.isQuery && context.subject,
+      match: ({context, hierarchy}) => hierarchy.isA(context.marker, 'queryable#1') && !context.isQuery && context.subject,
       apply: ({context}) => `${context.subject} ${context.word}`
     },
     { 
       where: where(),
-      match: ({context}) => context.marker == 'unknown', 
+      match: ({context}) => context.marker == 'unknown#1', 
       apply: ({context}) => {
         if (typeof context.marker === 'string' && context.value) {
           return context.value
@@ -541,7 +539,7 @@ let config = {
     },
     { 
       where: where(),
-      match: ({context}) => context.marker == 'name' && !context.isQuery && context.subject, 
+      match: ({context}) => context.marker == 'name#1' && !context.isQuery && context.subject, 
       apply: ({context}) => `${context.subject} ${context.word}` 
     },
     {
@@ -557,7 +555,7 @@ let config = {
     },
     { 
       where: where(),
-      match: ({context, hierarchy}) => hierarchy.isA(context.marker, 'canBeQuestion') && context.paraphrase && context.topLevel && context.query,
+      match: ({context, hierarchy}) => hierarchy.isA(context.marker, 'canBeQuestion#1') && context.paraphrase && context.topLevel && context.query,
       apply: ({context, gp}) => {
         return `${gp({...context, topLevel: undefined})}?` 
       },
@@ -566,7 +564,7 @@ let config = {
     { 
       where: where(),
       notes: "x is y",
-      match: ({context, hierarchy}) => { return hierarchy.isA(context.marker, 'is') && context.paraphrase },
+      match: ({context, hierarchy}) => { return hierarchy.isA(context.marker, 'is#1') && context.paraphrase },
       apply: ({context, g, gp}) => {
         return `${g({ ...context.one, paraphrase: true })} ${context.word} ${gp(context.two)}` 
       }
@@ -574,7 +572,7 @@ let config = {
     { 
       where: where(),
       notes: 'is with a response defined',
-      match: ({context, hierarchy}) => hierarchy.isA(context.marker, 'is') && context.evalue,
+      match: ({context, hierarchy}) => hierarchy.isA(context.marker, 'is#1') && context.evalue,
       apply: ({context, g}) => {
         const response = context.evalue;
         const concept = response.concept;
@@ -591,9 +589,9 @@ let config = {
     { 
       where: where(),
       notes: 'x is y (not a response)',
-      match: ({context, hierarchy}) => hierarchy.isA(context.marker, 'is') && !context.evalue,
+      match: ({context, hierarchy}) => hierarchy.isA(context.marker, 'is#1') && !context.evalue,
       apply: ({context, g}) => {
-        if ((context.two.evalue || {}).marker == 'answerNotKnown') {
+        if ((context.two.evalue || {}).marker == 'answerNotKnown#1') {
           return g(context.two.evalue)
         }
         if (context.two.focusableForPhrase) {
@@ -610,7 +608,7 @@ let config = {
     {
       where: where(),
       todo: 'debug23',
-      match: ({context}) => context.marker == 'debug23',
+      match: ({context}) => context.marker == 'debug23#1',
       apply: ({context, hierarchy}) => {
         debugger
         debugger
@@ -619,14 +617,14 @@ let config = {
     { 
       where: where(),
       todo: 'be brief or wordy',
-      match: ({context}) => context.marker == 'be',
+      match: ({context}) => context.marker == 'be#1',
       apply: ({context, api}) => {
         api.setBrief( context.type.value == 'brief' )
       },
     },
     {
       where: where(),
-      match: ({context}) => context.marker === 'error',
+      match: ({context}) => context.marker === 'error#1',
       apply: ({context, gp}) => {
         context.evalue = "That is not known"
         if (context.reason) {
@@ -670,7 +668,7 @@ let config = {
           context.value = kms.stm.api.mentions(context)
           if (!context.value) {
             // retry()
-            context.value = { marker: 'answerNotKnown' }
+            context.value = { marker: 'answerNotKnown#1' }
             return
           }
           
@@ -711,11 +709,11 @@ let config = {
           // debugger;
           if (!context.value) {
             // retry()
-            context.value = { marker: 'answerNotKnown' }
+            context.value = { marker: 'answerNotKnown#1' }
             return
           }
           // avoid loops
-          if (context.marker != 'unknown') {
+          if (context.marker != 'unknown#1') {
             if (context.value.marker != context.marker) {
               const instance = e(context.value)
               if (instance.evalue && !instance.edefault) {
@@ -738,7 +736,7 @@ let config = {
         object is a type (is greg a human) // handled by queryBridge
       */
 
-      match: ({context, hierarchy}) => hierarchy.isA(context.marker, 'is') && context.query,
+      match: ({context, hierarchy}) => hierarchy.isA(context.marker, 'is#1') && context.query,
       apply: ({context, s, log, km, objects, e}) => {
         const one = context.one;
         const two = context.two;
@@ -771,7 +769,7 @@ let config = {
         const many = isMany(concept) || isMany(instance)
         const evalue = {
           "default": true,
-          "marker": "is",
+          "marker": "is#1",
           "one": concept,
           "two": instance,
           "focusable": ['two', 'one'],
@@ -785,7 +783,7 @@ let config = {
     { 
       where: where(),
       notes: 'x is y?',
-      match: ({context, hierarchy}) => hierarchy.isA(context.marker, 'is') && context.query,
+      match: ({context, hierarchy}) => hierarchy.isA(context.marker, 'is#1') && context.query,
       apply: ({context, log}) => {
         warningIsANotImplemented(log, context)
         context.evalue = {
@@ -810,7 +808,7 @@ let config = {
       */
       where: where(),
       notes: 'x is y. handles x is a kind of y or x = y in the stm',
-      match: ({context}) => context.marker == 'is' && !context.query && context.one && context.two,
+      match: ({context}) => context.marker == 'is#1' && !context.query && context.one && context.two,
       apply: ({context, s, log, api, kms, config}) => {
         // const oneZero = { ...context.one }
         // const twoZero = { ...context.two }
@@ -844,7 +842,8 @@ let config = {
 
         // if not isA add to stm
         if (!onePrime.sameWasProcessed && !twoPrime.sameWasProcessed) {
-					api.makeObject({ context: one, config, types: context.two.types || [] })
+					// api.makeObject({ context: one, config, types: context.two.types || [] })
+					api.makeObject({ context: one, config, types: context.one.types || [] })
 					kms.stm.api.setVariable(one.value, two)
 					kms.stm.api.mentioned(one, two)
         }

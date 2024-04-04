@@ -57,29 +57,29 @@ let config = {
     "me": [{ id: 'person', level: 0, initial: "{ target: 'me' }" }],
   },
   hierarchy: [
-    ['is', 'event'],
+    ['is#1', 'event#1'],
   ],
   generators: [
     {
       where: where(),
-      match: ({context}) => context.marker == 'tell',
+      match: ({context}) => context.marker == 'tell#1',
       apply: ({context, g}) => `tell ${g(context.target)} ${g(context.info.info)} ${g(context.event)}`
     },
     {
       where: where(),
-      match: ({context}) => context.marker == 'info',
+      match: ({context}) => context.marker == 'info#1',
       apply: ({context, g}) => context.info
     },
     {
       where: where(),
-      match: ({context}) => context.marker == 'event' && context.paraphrase,
+      match: ({context}) => context.marker == 'event#1' && context.paraphrase,
       apply: ({context, g}) => 'event'
     },
   ],
   semantics: [
     {
       where: where(),
-      match: ({context, hierarchy}) => !context.happening && hierarchy.isA(context.marker, 'tell'),
+      match: ({context, hierarchy}) => !context.happening && hierarchy.isA(context.marker, 'tell#1'),
       apply: ({context, api, s, config}) => {
         const result = config.processContext({ ...context.event, happening: true })
         const event = result.context.event
@@ -101,9 +101,9 @@ config.add(dialogues)
 config.initializer( ({config, isModule}) => {
     if (!isModule) {
       config.addSemantic(
-        ({context, hierarchy}) => context.happening && hierarchy.isA(context.marker, 'event'),
+        ({context, hierarchy}) => context.happening && hierarchy.isA(context.marker, 'event#1'),
         ({context}) => {
-          context.event = Promise.resolve( { marker: 'event' } )
+          context.event = Promise.resolve( { marker: 'event#1' } )
         }
       )
     }
