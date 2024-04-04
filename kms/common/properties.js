@@ -254,7 +254,7 @@ let config = {
         if (!context.paraphrase) {
           return
         }
-        if (context.marker !== 'list') {
+        if (context.marker !== 'list#1') {
           return
         }
         if ((context.value || []).length < 2) {
@@ -278,7 +278,7 @@ let config = {
         context.value = null
         context.modifiers = ['modifier']
         context.modifier = {
-          marker: 'list',
+          marker: 'list#1',
           paraphrase: true,
           value: modifiers
         }
@@ -505,7 +505,7 @@ let config = {
         const phrases = values.map( (value) => api.getWordForValue(value) )
         context.focusableForPhrase = true
         context.evalue = { 
-          marker: 'list', 
+          marker: 'list#1', 
           // value: api.objects.children[context.marker]
           value: phrases,
         }

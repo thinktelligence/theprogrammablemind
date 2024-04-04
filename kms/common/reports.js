@@ -512,7 +512,7 @@ let config = {
             })
           }
           context.evalue = {
-            marker: 'list', 
+            marker: 'list#1', 
             newLinesOnly: true,
             value: responses,
           }

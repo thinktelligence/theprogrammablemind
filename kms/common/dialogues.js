@@ -63,7 +63,7 @@ class API {
       return
     }
     const concept = pluralize.singular(value)
-		if (config.exists(concept)) {
+		if (config.exists(id_s(concept))) {
 			return concept
 		}
 
@@ -103,7 +103,7 @@ class API {
     } else if (number == 'one') {
     }
     */
-    return concept;
+    return id_s(concept);
   }
 }
 

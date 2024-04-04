@@ -524,4 +524,13 @@
 # node ordering -q 'wendy loves bananas what does wendy like' -g -d
 # node people -q "greg owns x what does greg own" -g -d
 # node people -q "greg owns x" -g -d
-node people -q "what does greg own" -g -d
+# node people -q "what does greg own" -g -d
+# node people -q "cleo is owned by wendy" -g -d -daa
+# node people -q "cleo is owned by wendy who owns cleo" -g -d -daa
+# node people -q "who owns cleo" -g -d -daa
+# node people -q 'what does greg own' -g -d -daa
+# node people -q 'wendy owns cleo wendy owns mary what does wendy own' -g -d -daa
+# node inspect people -q 'ownee is owned by owner' -g -d -daa
+# node hierarchy -q 'bats are mammels are bats mammels' -g -d -daa
+# node inspect hierarchy -q "cats and dogs are animals what are the types of animals" -g -d -daa
+node hierarchy -q "mccoy's rank is doctor is mccoy a doctor" -g -d

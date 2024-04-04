@@ -382,6 +382,7 @@ class API {
         // greg23 <<<<<<<<<<<< doing this
         config.addHierarchy(id_s(argument.id), id_s('unknown', 0))
         config.addHierarchy(id_s(argument.id), id_s('unknown', 1))
+        config.addHierarchy(id_s(argument.id), id_s('what', 0))
         config.addHierarchy(id_s(argument.id), id_s('what', 1))
       }
     }
@@ -428,6 +429,7 @@ class API {
 
     if (doAble) {
       config.addHierarchy(id_s(operator, 0), id_s('canBeDoQuestion', 1))
+      config.addHierarchy(id_s(operator, 1), id_s('canBeDoQuestion', 1))
     }
 
     config.addPriorities([id_s('means', 0), id_s(operator, 0)])
@@ -539,6 +541,7 @@ class API {
 
     if (ordering || relation || doAble) {
       config.addHierarchy(id_s(operator, 0), id_s('canBeQuestion', 1))
+      config.addHierarchy(id_s(operator, 1), id_s('canBeQuestion', 1))
       config.addHierarchy(id_s(operator, 0), id_s('ifAble', 1))
       config.addHierarchy(id_s(operator, 0), id_s('orAble', 1))
     }
@@ -562,7 +565,8 @@ class API {
               const minimas = hierarchy.minima(context[argument].types)
               for (let type of minimas) {
                 if (config.exists(value)) {
-                  config.addHierarchy(id_s(value), id_s(type));
+                  // config.addHierarchy(id_s(value), id_s(type));
+                  config.addHierarchy(id_s(value), type);
                 }
               }
             }
@@ -1050,7 +1054,7 @@ class API {
   getWordForValue(value, { number } = {}) {
     let context;
     if (!this.objects.valueToWords[value]) {
-      context = { marker: value, value: value, number, word: value, paraphrase: true }
+      context = { marker: value, value: value, number, word: id_p(value).id, paraphrase: true }
     } else {
       context = this.objects.valueToWords[value][0]
     }

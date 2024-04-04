@@ -114,7 +114,7 @@ let config = {
       generatorp: ({context, g}) => `${g(context.what)} ${g(context.equality)} ${g(context.variable)}`,
       evaluator: ({context, api, objects}) => {
         const formulas = api.gets(context.variable).map((f) => { return { ...f.equality, paraphrase: true } })
-        context.evalue = { marker: 'list', value: formulas }
+        context.evalue = { marker: 'list#1', value: formulas }
       }
     },
     {

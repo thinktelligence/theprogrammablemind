@@ -1,4 +1,4 @@
-const { Config, knowledgeModule, where } = require('./runtime').theprogrammablemind
+const { Config, knowledgeModule, where, id_s } = require('./runtime').theprogrammablemind
 const properties = require('./properties')
 const hierarchy_tests = require('./hierarchy.test.json')
 const pluralize = require('pluralize')
@@ -137,7 +137,7 @@ let config = {
         const api = km('properties').api
         const one = context.one
         const two = context.two
-        const oneId = pluralize.singular(one.value);
+        const oneId = id_s(pluralize.singular(one.value));
         if (!api.conceptExists(oneId)) {
           context.evalue = {
             verbatim: `I don't know about ${g({ ...one, paraphrase: true})}` 
@@ -145,7 +145,7 @@ let config = {
           context.isResponse = true
           return
         }
-        const twoId = pluralize.singular(two.value);
+        const twoId = id_s(pluralize.singular(two.value));
         if (!api.conceptExists(twoId)) {
           context.evalue = {
             verbatim: `I don't know about ${g({ ...two, paraphrase: true})}` 
@@ -256,7 +256,7 @@ let config = {
       match: ({context}) => context.marker == 'type#1' && context.evaluate && context.object,
       apply: ({context, objects, gs, km}) => {
         const api = km('properties').api
-        const type = pluralize.singular(context.object.value);
+        const type = id_s(pluralize.singular(context.object.value));
         const children = api.children(type)
         const values = children.map( (t) => api.getWordForValue(t, { number: 'many'}))
         context.evalue = {

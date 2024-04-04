@@ -205,7 +205,7 @@ let config = {
               where: where(),
               matchq: ({objects}) => objects.players.length == 0,
               applyq: () => 'who are the players?',
-              matchr: ({context}) => context.marker == 'list',
+              matchr: ({context}) => context.marker == 'list#1',
               applyr: ({context, gs, objects, config}) => {
                         const players = context.value.map( (player) => player.value )
                         setPlayers(objects, config, players)
