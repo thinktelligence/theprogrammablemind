@@ -6,8 +6,15 @@ let config = {
   name: 'punctuation',
   operators: [
     "([leftParenthesis|] (phrase) ([rightParenthesis|]))",
+    "((before) [comma|])" // comma applies if before is dead
   ],
   bridges: [
+    {
+      "id": "comma",
+      "level": 0,
+      "bridge": "{ ...before[0], decorators.after: operator }",      // css :after decoration
+      "words": [{ word: ",", value: ',', depth: '+' }],
+    },
     {
       "id": "leftParenthesis",
       "level": 0,

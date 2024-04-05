@@ -844,7 +844,7 @@
         "temperature is dimension"
       ],
       "paraphrases": [
-        "temperature is dimension"
+        "temperature is a dimension"
       ],
       "responses": [
         ""
@@ -3164,7 +3164,7 @@
           },
           {
             "op": [
-              "divideBy",
+              "times",
               0
             ],
             "ops": [
@@ -3197,12 +3197,12 @@
           },
           {
             "op": [
-              "times",
+              "divideBy",
               0
             ],
             "ops": [
               [
-                "celcius",
+                "divideBy",
                 0
               ],
               [
@@ -3215,10 +3215,6 @@
               ],
               [
                 "plus",
-                0
-              ],
-              [
-                "times",
                 0
               ]
             ],
@@ -3314,54 +3310,54 @@
               "end": 28
             },
             "types": [
+              "divideBy",
               "mathematicalExpression",
               "number",
-              "plus",
-              "times"
+              "plus"
             ],
             "x": {
               "value": null,
               "text": "celcius * 9 / 5",
-              "marker": "times",
-              "word": "*",
+              "marker": "divideBy",
+              "word": "/",
               "range": {
                 "start": 13,
                 "end": 23
               },
               "types": [
-                "times"
+                "divideBy"
               ],
               "x": {
-                "value": "celcius",
-                "number": "one",
-                "text": "celcius",
-                "marker": "celcius",
-                "word": "celcius",
+                "value": null,
+                "text": "celcius * 9",
+                "marker": "times",
+                "word": "*",
                 "range": {
                   "start": 13,
-                  "end": 19
+                  "end": 21
                 },
                 "types": [
-                  "celcius",
-                  "number"
-                ],
-                "level": 0
-              },
-              "y": {
-                "value": null,
-                "text": "9 / 5",
-                "marker": "divideBy",
-                "word": "/",
-                "range": {
-                  "start": 21,
-                  "end": 23
-                },
-                "types": [
-                  "divideBy",
                   "expression",
-                  "queryable"
+                  "queryable",
+                  "times"
                 ],
                 "x": {
+                  "value": "celcius",
+                  "number": "one",
+                  "text": "celcius",
+                  "marker": "celcius",
+                  "word": "celcius",
+                  "range": {
+                    "start": 13,
+                    "end": 19
+                  },
+                  "types": [
+                    "celcius",
+                    "number"
+                  ],
+                  "level": 0
+                },
+                "y": {
                   "value": 9,
                   "text": "9",
                   "marker": "number",
@@ -3375,23 +3371,23 @@
                   ],
                   "level": 1
                 },
-                "y": {
-                  "value": 5,
-                  "text": "5",
-                  "marker": "number",
-                  "word": "5",
-                  "range": {
-                    "start": 23,
-                    "end": 23
-                  },
-                  "types": [
-                    "number"
-                  ],
-                  "level": 1
-                },
                 "number": "one",
                 "isResponse": true,
                 "evaluate": true,
+                "level": 1
+              },
+              "y": {
+                "value": 5,
+                "text": "5",
+                "marker": "number",
+                "word": "5",
+                "range": {
+                  "start": 23,
+                  "end": 23
+                },
+                "types": [
+                  "number"
+                ],
                 "level": 1
               },
               "number": "one",
@@ -3505,10 +3501,6 @@
             0
           ],
           [
-            "number",
-            0
-          ],
-          [
             "plus",
             0
           ],
@@ -3518,10 +3510,6 @@
           ]
         ],
         [
-          [
-            "celcius",
-            0
-          ],
           [
             "divideBy",
             0
@@ -3536,32 +3524,6 @@
           ],
           [
             "plus",
-            0
-          ],
-          [
-            "times",
-            0
-          ]
-        ],
-        [
-          [
-            "celcius",
-            0
-          ],
-          [
-            "equals",
-            0
-          ],
-          [
-            "fahrenheit",
-            0
-          ],
-          [
-            "plus",
-            0
-          ],
-          [
-            "times",
             0
           ]
         ],
@@ -4557,7 +4519,7 @@
           },
           {
             "op": [
-              "divideBy",
+              "times",
               0
             ],
             "ops": [
@@ -4586,7 +4548,7 @@
           },
           {
             "op": [
-              "times",
+              "divideBy",
               0
             ],
             "ops": [
@@ -4595,15 +4557,15 @@
                 0
               ],
               [
+                "divideBy",
+                0
+              ],
+              [
                 "equals",
                 0
               ],
               [
                 "plus",
-                0
-              ],
-              [
-                "times",
                 0
               ]
             ],
@@ -4699,88 +4661,90 @@
               "end": 35
             },
             "types": [
+              "divideBy",
+              "expression",
               "mathematicalExpression",
               "number",
               "plus",
-              "times"
+              "queryable"
             ],
             "x": {
               "value": null,
               "text": "( fahrenheit - 32 ) * 5 / 8",
-              "marker": "times",
-              "word": "*",
+              "marker": "divideBy",
+              "word": "/",
               "range": {
                 "start": 10,
                 "end": 30
               },
               "types": [
-                "times"
+                "divideBy",
+                "expression",
+                "queryable"
               ],
               "x": {
                 "value": null,
-                "text": "( fahrenheit - 32 )",
-                "marker": "minus",
-                "word": "-",
+                "text": "( fahrenheit - 32 ) * 5",
+                "marker": "times",
+                "word": "*",
                 "range": {
                   "start": 10,
-                  "end": 26
+                  "end": 28
                 },
                 "types": [
-                  "expression",
-                  "minus",
-                  "queryable"
+                  "times"
                 ],
                 "x": {
-                  "value": "fahrenheit",
+                  "value": null,
+                  "text": "( fahrenheit - 32 )",
+                  "marker": "minus",
+                  "word": "-",
+                  "range": {
+                    "start": 10,
+                    "end": 26
+                  },
+                  "types": [
+                    "expression",
+                    "minus",
+                    "queryable"
+                  ],
+                  "x": {
+                    "value": "fahrenheit",
+                    "number": "one",
+                    "text": "fahrenheit",
+                    "marker": "fahrenheit",
+                    "word": "fahrenheit",
+                    "range": {
+                      "start": 11,
+                      "end": 20
+                    },
+                    "types": [
+                      "fahrenheit",
+                      "number"
+                    ],
+                    "level": 0
+                  },
+                  "y": {
+                    "value": 32,
+                    "text": "32",
+                    "marker": "number",
+                    "word": "32",
+                    "range": {
+                      "start": 24,
+                      "end": 25
+                    },
+                    "types": [
+                      "number"
+                    ],
+                    "level": 1
+                  },
                   "number": "one",
-                  "text": "fahrenheit",
-                  "marker": "fahrenheit",
-                  "word": "fahrenheit",
-                  "range": {
-                    "start": 11,
-                    "end": 20
-                  },
-                  "types": [
-                    "fahrenheit",
-                    "number"
-                  ],
-                  "level": 0
-                },
-                "y": {
-                  "value": 32,
-                  "text": "32",
-                  "marker": "number",
-                  "word": "32",
-                  "range": {
-                    "start": 24,
-                    "end": 25
-                  },
-                  "types": [
-                    "number"
-                  ],
+                  "isResponse": true,
+                  "evaluate": true,
+                  "parenthesis": "(",
                   "level": 1
                 },
-                "number": "one",
-                "isResponse": true,
-                "evaluate": true,
-                "parenthesis": "(",
-                "level": 1
-              },
-              "y": {
-                "value": null,
-                "text": "5 / 8",
-                "marker": "divideBy",
-                "word": "/",
-                "range": {
-                  "start": 28,
-                  "end": 30
-                },
-                "types": [
-                  "divideBy",
-                  "expression",
-                  "queryable"
-                ],
-                "x": {
+                "y": {
                   "value": 5,
                   "text": "5",
                   "marker": "number",
@@ -4794,23 +4758,23 @@
                   ],
                   "level": 1
                 },
-                "y": {
-                  "value": 8,
-                  "text": "8",
-                  "marker": "number",
-                  "word": "8",
-                  "range": {
-                    "start": 30,
-                    "end": 30
-                  },
-                  "types": [
-                    "number"
-                  ],
-                  "level": 1
-                },
                 "number": "one",
                 "isResponse": true,
                 "evaluate": true,
+                "level": 1
+              },
+              "y": {
+                "value": 8,
+                "text": "8",
+                "marker": "number",
+                "word": "8",
+                "range": {
+                  "start": 30,
+                  "end": 30
+                },
+                "types": [
+                  "number"
+                ],
                 "level": 1
               },
               "number": "one",
@@ -5028,6 +4992,24 @@
           [
             "plus",
             0
+          ]
+        ],
+        [
+          [
+            "celcius",
+            0
+          ],
+          [
+            "divideBy",
+            0
+          ],
+          [
+            "equals",
+            0
+          ],
+          [
+            "plus",
+            0
           ],
           [
             "times",
@@ -5055,24 +5037,6 @@
           ],
           [
             "plus",
-            0
-          ]
-        ],
-        [
-          [
-            "celcius",
-            0
-          ],
-          [
-            "equals",
-            0
-          ],
-          [
-            "plus",
-            0
-          ],
-          [
-            "times",
             0
           ]
         ]
@@ -5274,36 +5238,6 @@
         0
       ],
       [
-        "number",
-        0
-      ],
-      [
-        "plus",
-        0
-      ],
-      [
-        "times",
-        0
-      ]
-    ],
-    [
-      [
-        "celcius",
-        0
-      ],
-      [
-        "divideBy",
-        0
-      ],
-      [
-        "equals",
-        0
-      ],
-      [
-        "fahrenheit",
-        0
-      ],
-      [
         "plus",
         0
       ],
@@ -5418,6 +5352,24 @@
       [
         "plus",
         0
+      ]
+    ],
+    [
+      [
+        "celcius",
+        0
+      ],
+      [
+        "divideBy",
+        0
+      ],
+      [
+        "equals",
+        0
+      ],
+      [
+        "plus",
+        0
       ],
       [
         "times",
@@ -5437,6 +5389,20 @@
     [
       [
         "celcius",
+        0
+      ],
+      [
+        "equals",
+        0
+      ],
+      [
+        "plus",
+        0
+      ]
+    ],
+    [
+      [
+        "divideBy",
         0
       ],
       [
@@ -5449,42 +5415,6 @@
       ],
       [
         "plus",
-        0
-      ],
-      [
-        "times",
-        0
-      ]
-    ],
-    [
-      [
-        "celcius",
-        0
-      ],
-      [
-        "equals",
-        0
-      ],
-      [
-        "plus",
-        0
-      ]
-    ],
-    [
-      [
-        "celcius",
-        0
-      ],
-      [
-        "equals",
-        0
-      ],
-      [
-        "plus",
-        0
-      ],
-      [
-        "times",
         0
       ]
     ],
