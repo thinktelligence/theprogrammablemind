@@ -490,4 +490,11 @@ fi
 # TODO $NODE weight -q 'what are the weights' -g -d
 # TODO $NODE weight -q 'what are the different types of weights' -g -d
 # TODO $NODE weight -q 'what is 1 troy ounce in ounces' -g -d
-$NODE weight -q 'what are the dimensions' -g -d
+# TODO $NODE temperature -q 'what is 10 degrees celcuis in fahrenheit that in kelvin' -g -d
+# $NODE weight -q 'what are the dimensions' -g -d
+# $NODE dimension -q 'c1 is a dimension\na1 and b1 are units of d1\nwhat are 10 a1 in b1\nwhat is the reason' -g -d
+# $NODE dialogues -q 'x is 3 what is x' -g -d
+# $NODE dialogues -q 'x is 3 what is x what is it' -g -d
+# $NODE pokemon -q 'what type is pikachu' -g -d
+$NODE pokemon -q 'who is electric type' -g -d
+

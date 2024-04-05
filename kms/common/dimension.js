@@ -124,7 +124,7 @@ let config = {
         const to = context.to;
         const formula = kms.formulas.api.get(to, [from.unit])
         if (!formula) {
-          const reason = { marker: 'reason', evalue: { marker: 'noconversion', from: from.unit, to } }
+          const reason = { marker: 'reason', focusableForPhrase: true, evalue: { marker: 'noconversion', from: from.unit, to } }
           kms.stm.api.mentioned(reason)
           error(reason)
         }

@@ -231,7 +231,6 @@ let config = {
     { id: "yesno", level: 0, bridge: "{ ...next(operator) }" },
     { id: "canBeQuestion", level: 0, bridge: "{ ...next(operator) }" },
     { id: "canBeQuestion", level: 1, bridge: "{ ...next(operator) }" },
-    // greg101
     { id: "unknown", level: 0, bridge: "{ ...next(operator), unknown: true }" },
     { id: "unknown", level: 1, bridge: "{ ...next(operator) }" },
     { id: "queryable", level: 0, bridge: "{ ...next(operator) }" },
@@ -266,7 +265,7 @@ let config = {
     { 
       id: 'the', 
       level: 0, 
-      bridge: '{ ...after[0], pullFromContext: true, concept: true, wantsValue: true, determiner: "the", modifiers: append(["determiner"], after[0].modifiers)}' 
+      bridge: '{ ...after[0], focusableForPhrase: true, pullFromContext: true, concept: true, wantsValue: true, determiner: "the", modifiers: append(["determiner"], after[0].modifiers)}' 
     },
     { id: "a", level: 0, bridge: "{ ...after[0], pullFromContext: false, concept: true, number: 'one', wantsValue: true, determiner: operator, modifiers: append(['determiner'], after[0].modifiers) }" },
     { id: "theAble", level: 0, bridge: "{ ...next(operator) }" },
@@ -592,11 +591,37 @@ let config = {
       where: where(),
       notes: 'x is y (not a response)',
       match: ({context, hierarchy}) => hierarchy.isA(context.marker, 'is') && !context.evalue,
-      apply: ({context, g}) => {
+      apply: ({context, g, callId}) => {
         if ((context.two.evalue || {}).marker == 'answerNotKnown') {
           return g(context.two.evalue)
         }
-        if (context.two.focusableForPhrase) {
+
+        if (!context.isResponse) {
+          return `${g({...context.one, paraphrase: true}, { assumed: {subphrase: true} })} ${isMany(context.one) || isMany(context.two) || isMany(context) ? "are" : "is"} ${g(context.two)}`
+        }
+
+        const hasFocus = (property) => {
+          if (context.focusableForPhrase) {
+            return true
+          }
+          if (context.focusable && context.focusable.includes(property) && context[property].focus) {
+            return true
+          }
+        }
+        let focus;
+        if (context.two.hierarchy && !isMany(context.two)) {
+          focus = 'one'
+        } else if (context.one.focusableForPhrase && !context.two.focusableForPhrase) {
+          focus = 'one'
+        } else if (!context.one.focusableForPhrase && context.two.focusableForPhrase) {
+          focus = 'two'
+        } else if (hasFocus('two')) {
+          focus = 'two'
+        } else {
+          focus = 'one'
+        }
+        // greg101
+        if (focus == 'one') {
           return `${g(context.two)} ${isMany(context.one) || isMany(context.two) || isMany(context) ? "are" : "is"} ${g({...context.one, paraphrase: true}, { assumed: { subphrase: true } })}`
         } else {
           return `${g({...context.one, paraphrase: true}, { assumed: {subphrase: true} })} ${isMany(context.one) || isMany(context.two) || isMany(context) ? "are" : "is"} ${g(context.two)}`
@@ -763,10 +788,16 @@ let config = {
           return
         }
         // instance.focusable = ['one', 'two']
-        instance.focus = true
         // concept = JSON.parse(JSON.stringify(value)) 
         concept = _.cloneDeep(value) 
         concept.isQuery = undefined
+        // greg101
+        // instance.focusableForPhrase = true
+        instance.focus = true
+        if (concept.hierarchy) {
+          concept.focusableForPhrase = true
+        }
+        // concept.focus = true
 
         const many = isMany(concept) || isMany(instance)
         const evalue = {
@@ -881,6 +912,7 @@ let config = {
         if (context.value && context.value.marker) {
           context.evalue = e(context.value)
         }
+        context.focusableForPhrase = true
       }
     },
 /*
