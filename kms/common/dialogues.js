@@ -231,7 +231,7 @@ let config = {
     { id: "yesno", level: 0, bridge: "{ ...next(operator) }" },
     { id: "canBeQuestion", level: 0, bridge: "{ ...next(operator) }" },
     { id: "canBeQuestion", level: 1, bridge: "{ ...next(operator) }" },
-    { id: "unknown", level: 0, bridge: "{ ...next(operator), unknown: true }" },
+    { id: "unknown", level: 0, bridge: "{ ...next(operator), unknown: true, dead: true }" },
     { id: "unknown", level: 1, bridge: "{ ...next(operator) }" },
     { id: "queryable", level: 0, bridge: "{ ...next(operator) }" },
     { id: "questionMark", level: 0, bridge: "{ ...before[0], query: [before.marker] }" },
