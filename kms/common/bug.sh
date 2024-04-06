@@ -501,4 +501,5 @@ fi
 # $NODE weight -q '1 troy ounce' -g -d -dic
 # $NODE weight -q '"kilograms grams pounds troy ounces ounces and tons are units of weight"' -g -d -daa
 # $NODE weight -q '(troy ounces) and ounces are units of weight"' -g -d -daa
+# $NODE weight -q 'troy ounces and ounces' -g -d -daa
 $NODE weight -q '(troy ounces) and ounces' -g -d -daa
