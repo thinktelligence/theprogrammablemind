@@ -16,6 +16,9 @@ const dimension_tests = require('./dimension.test.json')
   can you convert between all units of length
   configure the conversions for length
   "square kilometers" is a phrase
+  for weight what can you convert between
+  what can you convert between for weight
+  what is the conversion between pounds and kilograms
 */
 class API {
 

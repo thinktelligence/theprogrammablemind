@@ -11,15 +11,17 @@ const weight_instance = require('./weight.instance.json')
   troy ounces english ounces and pounds
   troy and english ounces and ounces
   troy ounces and ounces
+
+  troy ounce is an ounce
 */
 const template = {
   "queries": [
     "troy modifies ounces",
     "weight is a dimension",
     // "kilograms grams pounds ounces and tons are units of weight",
-    "kilograms grams pounds troy ounces ounces and tons are units of weight",
+    "kilograms grams pounds (troy ounces) ounces and tons are units of weight",
     "ounces = 1.097 * troy ounces",
-    // "troy ounces = ounces / 1.097",
+    "troy ounces = ounces / 1.097",
     "kilograms = pounds * 0.453592",
     "grams = kilograms * 1000",
     "kilograms = grams / 1000",

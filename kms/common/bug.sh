@@ -502,4 +502,16 @@ fi
 # $NODE weight -q '"kilograms grams pounds troy ounces ounces and tons are units of weight"' -g -d -daa
 # $NODE weight -q '(troy ounces) and ounces are units of weight"' -g -d -daa
 # $NODE weight -q 'troy ounces and ounces' -g -d -daa
-$NODE weight -q '(troy ounces) and ounces' -g -d -daa
+# $NODE weight -q '(troy ounces) and ounces' -g -d -daa
+# $NODE weight -q 'troy ounces' -g -d -daa
+# $NODE weight -q '(troy ounces) and ounces' -g -d -daa
+# $NODE weight -q 'kilos (troy ounces) and ounces' -g -d -daa
+# TODO $NODE weight -q 'troy ounces = ounces / 1.097' -g -d -daa
+# TODO 
+# TODO $NODE weight -q 'what is 1 ounce in troy ounces' -g -d
+# TODO $NODE weight -q 'kilos troy ounces and ounces' -g -d -daa
+# TODO 
+# $NODE people -q 'given name means first name the first name of greg is greg23 what is the given name of greg' -g -d -daa
+# $NODE people -q 'the first name of greg is greg23 what is the given name of greg' -g -d -daa
+# $NODE people -q 'the first name of greg is greg23' -g -d -daa
+$NODE people -q 'what is the given name of greg' -g -d -daa

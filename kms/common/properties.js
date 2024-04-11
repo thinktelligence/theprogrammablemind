@@ -486,7 +486,7 @@ let config = {
       match: ({context, hierarchy, api}) => 
                           hierarchy.isA(context.marker, 'concept') && 
                           context.evaluate &&
-                          !context.types.includes('property') &&
+                          !(context.types || []).includes('property') &&
                           // !context.value &&  // greghere
                           (api.objects && api.objects.children && api.objects.children[context.marker]) &&
                           !context.evaluate.toConcept,

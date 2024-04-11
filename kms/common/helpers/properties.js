@@ -643,16 +643,30 @@ class API {
 
     const objectSingular = pluralize.singular(object)
     const objectPlural = pluralize.plural(object)
-    config.addOperator({ pattern: `(<${modifierId}|> ([${objectId}|]))`, allowDups: true })
-    config.addOperator({ pattern: `([${modifierObjectId}|])`, allowDups: true })
+    config.addOperator({ pattern: `((${modifierId}/0) [${modifierObjectId}] (${objectId}/0))`, allowDups: true })
+    // config.addOperator({ pattern: `(<${modifierId}|> ([${objectId}|]))`, allowDups: true })
+    // config.addOperator({ pattern: `([${modifierObjectId}|])`, allowDups: true })
+    config.addOperator({ pattern: `([${modifierId}|])`, allowDups: true })
+    config.addOperator({ pattern: `([${objectId}|])`, allowDups: true })
 
     config.addWord(objectSingular, { id: objectId, initial: `{ value: '${objectId}', number: 'one' }`})
     config.addWord(objectPlural, { id: objectId, initial: `{ value: '${objectId}', number: 'many' }`})
     config.addWord(modifierId, { id: modifierId, initial: `{ value: '${modifierId}' }`})
 
-    config.addBridge({ id: modifierId, level: 0, bridge: `{ ...after, ${modifierId}: operator, marker: operator(concat('${modifierId}_', after.value)), atomic: true, value: concat('${modifierId}_', after.value), modifiers: append(['${modifierId}'], after[0].modifiers)}`, allowDups: true })
+    // config.addBridge({ id: modifierId, level: 0, bridge: `{ ...after, ${modifierId}: operator, marker: operator(concat('${modifierId}_', after.value)), atomic: true, value: concat('${modifierId}_', after.value), modifiers: append(['${modifierId}'], after[0].modifiers)}`, allowDups: true })
+    config.addBridge({ id: modifierId, level: 0, bridge: `{ ...next(operator), value: '${modifierId}' }`,  allowDups: true })
     config.addBridge({ id: objectId, level: 0, bridge: `{ ...next(operator), value: '${objectId}' }`,  allowDups: true })
-    config.addBridge({ id: modifierObjectId, level: 0, bridge: `{ ...next(operator), value: '${modifierObjectId}' }`, allowDups: true })
+    // config.addBridge({ id: modifierObjectId, level: 0, bridge: `{ ...next(operator), value: '${modifierObjectId}' }`, allowDups: true })
+    config.addBridge({ 
+      id: modifierObjectId, 
+      level: 0, 
+      convolution: true,
+      before: ['verby'],
+      // bridge: `{ ...after[0], ${modifierId}: before[0], atomic: true, dead: true, marker: operator(concat(before.value, '_', after.value)), value: concat(before.value, '_', after.value), modifiers: append(['${modifierId}'], after[0].modifiers)}`, 
+      bridge: `{ ...after[0], ${modifierId}: before[0], atomic: true, dead: true, marker: next(operator(concat(before.value, '_', after.value))), value: concat(before.value, '_', after.value), modifiers: append(['${modifierId}'], after[0].modifiers)}`, 
+      // bridge: `{ ...after[0], ${modifierId}: before[0], atomic: true, value: concat(before.value, after.value), modifiers: append(['${modifierId}'], after[0].modifiers)}`, 
+    // config.addBridge({ id: modifierId, level: 0, bridge: `{ ...after, ${modifierId}: operator, marker: operator(concat('${modifierId}_', after.value)), atomic: true, value: concat('${modifierId}_', after.value), modifiers: append(['${modifierId}'], after[0].modifiers)}`, allowDups: true })
+      allowDups: true })
     {
       const word = {
         [modifierId]: {
@@ -682,6 +696,8 @@ class API {
 
     config.addPriorities([['articlePOS', 0], [modifierId, 0]])
     config.addPriorities([['articlePOS', 0], [objectId, 0]])
+    config.addPriorities([[modifierId, 0], [modifierObjectId, 0]])
+    config.addPriorities([[objectId, 0], [modifierObjectId, 0]])
   }
 
   relation_add (relations) {

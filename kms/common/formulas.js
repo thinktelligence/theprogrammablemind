@@ -90,7 +90,7 @@ let config = {
   operators: [
     // TODO notations like (([arg1:]) [op] ([arg2:nameOfArg2}|word1])) -> just make the bridge + operators. put this in the bridge def / also calculate generators
     "([formula])",
-    "([solve] ([equals]) ([forVariable|for]) (variable))",
+    "([solve] (equals/1) ([forVariable|for]) (variable))",
     "(([formula]) [formulaForVariable|] ([forVariable|]) (variable))",
     "([calculate] ([expression]))",
     "(([expression]) [equals] ([expression]))",
