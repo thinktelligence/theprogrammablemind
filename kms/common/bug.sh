@@ -469,9 +469,9 @@ fi
 # $NODE inspect reports -q 'call this report1\nshow report1' -g -d
 # $NODE reports -q 'call this report1' -g -d
 # $NODE inspect reports -q 'call this report1\nshow it' -g -d
-# $NODE numbers -q 'c1' -g -s
+# $NODE numbers -q 'c1' -g
 # $NODE inspect dimension -q 'c1 is a dimension\na1 and b1 are units of d1\nwhat are 10 a1 in b1\nwhat is the reason' -g -d
-# $NODE inspect dimension -q 'c1 is a dimension\na1 and b1 are units of d1\nwhat are 10 a1 in b1\nwhy' -g -d  -s
+# $NODE inspect dimension -q 'c1 is a dimension\na1 and b1 are units of d1\nwhat are 10 a1 in b1\nwhy' -g -d 
 # $NODE dialogues -q 'why' -g -d
 # TODO $NODE formulas -q "1+2 is a formula" -g -d
 # $NODE math -q 'an expression' -g -d
@@ -506,12 +506,19 @@ fi
 # $NODE weight -q 'troy ounces' -g -d -daa
 # $NODE weight -q '(troy ounces) and ounces' -g -d -daa
 # $NODE weight -q 'kilos (troy ounces) and ounces' -g -d -daa
-# TODO $NODE weight -q 'troy ounces = ounces / 1.097' -g -d -daa
-# TODO 
-# TODO $NODE weight -q 'what is 1 ounce in troy ounces' -g -d
-# TODO $NODE weight -q 'kilos troy ounces and ounces' -g -d -daa
-# TODO 
 # $NODE people -q 'given name means first name the first name of greg is greg23 what is the given name of greg' -g -d -daa
 # $NODE people -q 'the first name of greg is greg23 what is the given name of greg' -g -d -daa
 # $NODE people -q 'the first name of greg is greg23' -g -d -daa
-$NODE people -q 'what is the given name of greg' -g -d -daa
+# $NODE people -q 'what is the given name of greg' -g -d -daa
+# TODO $NODE weight -q 'kilos troy ounces and ounces' -g -d -daa
+# $NODE weight -q 'what is 1 ounce in troy ounces' -g -d 
+# $NODE weight -q 'troy ounces = ounces / 1.097' -g -d -daa
+# TODO $NODE weight -q 'ounces = 1.097 * troy ounces' -g -d -daa
+# $NODE math -q 'worth is price times quantity' -g -d -daa -dic
+# $NODE weight -q 'what is 1 troy ounce in ounces' -g -d
+# $NODE weight -q 'what is 1 ounce in troy ounces' -g -d
+# $NODE weight -q '1.097 * troy ounces' -g -d -daa --parenthesized
+# TODO 
+$NODE reports -q 'show the worth' -g -d -daa
+# $NODE reports -q 'worth means price times quantity' -g -d -daa --parenthesized
+# $NODE reports -q 'show the quantity descending and the price ascending list the products' -g -d -daa 

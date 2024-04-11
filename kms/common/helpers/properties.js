@@ -661,6 +661,7 @@ class API {
       id: modifierObjectId, 
       level: 0, 
       convolution: true,
+      isA: ['adjective'],
       before: ['verby'],
       // bridge: `{ ...after[0], ${modifierId}: before[0], atomic: true, dead: true, marker: operator(concat(before.value, '_', after.value)), value: concat(before.value, '_', after.value), modifiers: append(['${modifierId}'], after[0].modifiers)}`, 
       bridge: `{ ...after[0], ${modifierId}: before[0], atomic: true, dead: true, marker: next(operator(concat(before.value, '_', after.value))), value: concat(before.value, '_', after.value), modifiers: append(['${modifierId}'], after[0].modifiers)}`, 

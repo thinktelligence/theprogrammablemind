@@ -23,15 +23,50 @@ const toValue = (context) => {
   }
 }
 
+const mathematicalOperator = (name, words, apply, before = []) => [
+  { 
+      where: where(),
+      id: `${name}Operator`, level: 0, 
+      bridge: `{ ...next(operator), marker: next(operator('${name}Expression')), types: lub(append(['mathematicalExpression'], operator.types, before[0].types, after[0].types)), value: null, x: before[0], y: after[0], number: 'one', isResponse: true, evaluate: true }` ,
+      // bridge: `{ ...next(operator), marker: next(operator('${name}Expression')), value: null, x: before[0], y: after[0], number: 'one', isResponse: true, evaluate: true }` ,
+      isA: ['mathematicalOperator'],
+      before,
+      localHierarchy: [ ['unknown', 'number'] ],
+      // levelSpecificHierarchy: [[1, 'mathematicalExpression']],
+      words,
+      generatorp: ({gp, context}) => context.word,
+  },
+  { 
+      where: where(),
+      id: `${name}Expression`, level: 0, 
+      bridge: "{ ...next(operator) }" ,
+      isA: ['mathematicalExpression'],
+      generatorp: ({gp, context}) => `${gp(context.x)} ${context.word} ${gp(context.y)}`,
+      evaluator: ({e, context}) => {
+        const x = toValue(e(context.x)) 
+        const y = toValue(e(context.y))
+        if (!x || !y) {
+          context.evalue = { ...context, paraphrase: true, x: { ...context.x, value: x }, y: { ...context.y, value: y } }
+        } else {
+          context.evalue = apply(x, y)
+        }
+      }
+  }
+]
+    
 let config = {
   name: 'math',
   operators: [
     "([mathematicalExpression])",
     "([mathematicalOperator])",
-    "(([number|]) [times] ([number|]))",
-    "(([number|]) [plus] ([number|]))",
-    "(([number|]) [minus] ([number|]))",
-    "(([number|]) [divideBy|] ([number|]))",
+    "(([number|]) [plusOperator] ([number|]))",
+    "(([number|]) [minusOperator] ([number|]))",
+    "(([number|]) [timesOperator] ([number|]))",
+    "(([number|]) [divideByOperator|] ([number|]))",
+    "([plusExpression|])", 
+    "([minusExpression|])", 
+    "([timesExpression|])", 
+    "([divideByExpression|])", 
     { pattern: "([x])", development: true },
     { pattern: "([y])", development: true },
   ],
@@ -39,95 +74,19 @@ let config = {
     { 
       id: "mathematicalExpression",
       // isA: ['queryable', 'theAble'],
-      isA: ['concept'],
+      isA: ['concept', 'number'],
     },
-    { id: "mathematicalOperator" },
+    { 
+      id: "mathematicalOperator", 
+      before: ['verby'],
+      after: ['adjective'],
+    },
     { id: "x", isA: ['number'], level: 0, bridge: '{ ...next(operator) }', development: true},
     { id: "y", isA: ['number'], level: 0, bridge: '{ ...next(operator) }', development: true},
-    { 
-        where: where(),
-        id: "plus", level: 0, 
-        // bridge: "{ ...next(operator), types: append(type(before[0]), type(after[0])), x: before[0], y: after[0], number: 'one' }" ,
-        // bridge: "{ ...next(operator), value: null, types: lub(append(operator.types, before[0].types, after[0].types)), x: before[0], y: after[0], number: 'one', isResponse: true, evaluate: true }" ,
-        bridge: "{ ...next(operator), value: null, types: append(['mathematicalExpression'], operator.types, before[0].types, after[0].types), x: before[0], y: after[0], number: 'one', isResponse: true, evaluate: true }" ,
-        isA: ['queryable', 'number', 'mathematicalOperator'],
-        localHierarchy: [ ['unknown', 'number'] ],
-        levelSpecificHierarchy: [[1, 'mathematicalExpression']],
-        words: ['+'],
-        generatorp: ({gp, context}) => `${gp(context.x)} ${context.word} ${gp(context.y)}`,
-        evaluator: ({e, context}) => {
-          const x = toValue(e(context.x)) 
-          const y = toValue(e(context.y))
-          if (!x || !y) {
-            context.evalue = { ...context, paraphrase: true, x: { ...context.x, value: x }, y: { ...context.y, value: y } }
-          } else {
-            context.evalue = x + y
-          }
-        }
-    },
-    {   
-        where: where(),
-        id: "minus", level: 0, 
-        // bridge: "{ ...next(operator), value: null, types: lub(append(operator.types, before[0].types, after[0].types)), x: before[0], y: after[0], number: 'one', isResponse: true, evaluate: true }" ,
-        bridge: "{ ...next(operator), value: null, types: lub(append(['mathematicalExpression'], operator.types, before[0].types, after[0].types)), x: before[0], y: after[0], number: 'one', isResponse: true, evaluate: true }" ,
-        isA: ['queryable', 'number', 'mathematicalOperator'],
-        localHierarchy: [ ['unknown', 'number'] ],
-        words: ['-'],
-        generatorp: ({gp, context}) => `${gp(context.x)} ${context.word} ${gp(context.y)}`,
-        evaluator: ({e, context}) => {
-          const x = toValue(e(context.x)) 
-          const y = toValue(e(context.y))
-          if (!x || !y) {
-            context.evalue = { ...context, paraphrase: true, x: { ...context.x, value: x }, y: { ...context.y, value: y } }
-          } else {
-            context.evalue = x - y
-          }
-        }
-    },
-    {   
-        where: where(),
-        id: "times", level: 0, 
-        // bridge: "{ ...next(operator), types: lub(append(type(before[0]), type(after[0]))), x: before[0], y: after[0], number: 'one' }" ,
-        // bridge: "{ ...next(operator), value: null, types: lub(append(operator.types, before[0].types, after[0].types)), x: before[0], y: after[0], value: null, number: 'one', isResponse: true, evaluate: true }" ,
-        bridge: "{ ...next(operator), value: null, types: lub(append(['mathematicalExpression'], operator.types, before[0].types, after[0].types)), x: before[0], y: after[0], value: null, number: 'one', isResponse: true, evaluate: true }",
-        isA: ['queryable', 'number', 'mathematicalOperator'],
-        before: [['plus', 0], ['minus', 0]],
-        localHierarchy: [ ['unknown', 'number'] ],
-        words: ['*'],
-        generatorp: ({gp, context}) => `${gp(context.x)} ${context.word} ${gp(context.y)}`,
-        evaluator: ({e, context, theDebugger}) => {
-          // theDebugger.breakOnSemantics(true)
-          const x = toValue(e(context.x)) 
-          const y = toValue(e(context.y))
-          if (!x || !y) {
-            context.evalue = { ...context, paraphrase: true, x: { ...context.x, value: x }, y: { ...context.y, value: y } }
-          } else {
-            context.evalue = x * y
-          }
-        }
-    },
-    {   
-        where: where(),
-        id: "divideBy", level: 0, 
-        // bridge: "{ ...next(operator), types: lub(append(type(before[0]), type(after[0]))), x: before[0], y: after[0], number: 'one' }" ,
-        // bridge: "{ ...next(operator), value: null, types: lub(append(operator.types, before[0].types, after[0].types)), x: before[0], y: after[0], value: null, number: 'one', isResponse: true, evaluate: true }" ,
-        bridge: "{ ...next(operator), value: null, types: lub(append(['mathematicalExpression'], operator.types, before[0].types, after[0].types)), x: before[0], y: after[0], value: null, number: 'one', isResponse: true, evaluate: true }" ,
-        isA: ['queryable', 'number', 'mathematicalOperator'],
-        before: [['plus', 0], ['minus', 0]],
-        localHierarchy: [ ['unknown', 'number'] ],
-        words: ['/'],
-        generatorp: ({gp, context}) => `${gp(context.x)} ${context.word} ${gp(context.y)}`,
-        evaluator: ({e, context}) => {
-          // TODO handle divided by zero
-          const x = toValue(e(context.x)) 
-          const y = toValue(e(context.y))
-          if (!x || !y) {
-            context.evalue = { ...context, paraphrase: true, x: { ...context.x, value: x }, y: { ...context.y, value: y } }
-          } else {
-            context.evalue = x / y
-          }
-        }
-    },
+    ...mathematicalOperator('plus', ['plus', '+'], (x, y) => x + y),
+    ...mathematicalOperator('minus', ['minus', '-'], (x, y) => x - y),
+    ...mathematicalOperator('times', ['times', '*'], (x, y) => x * y, [['plusOperator', 0], ['minusOperator', 0]]),
+    ...mathematicalOperator('divideBy', ['/'], (x, y) => x / y, [['plusOperator', 0], ['minusOperator', 0]]),
   ],
 };
 

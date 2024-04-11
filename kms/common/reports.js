@@ -355,10 +355,13 @@ let config = {
     ['show', 'action'],
     ['move', 'reportAction'],
     ['remove', 'reportAction'],
-    ['times', 'property'],
-    ['plus', 'property'],
-    ['minus', 'property'],
-    ['divideBy', 'property'],
+    ['mathematicalExpression', 'property'],
+    /*
+    ['timesExpression', 'property'],
+    ['plusExpression', 'property'],
+    ['minusExpression', 'property'],
+    ['divideByExpression', 'property'],
+    */
   //  ['report', 'product'],
   ],
   floaters: ["api", "isQuery"],

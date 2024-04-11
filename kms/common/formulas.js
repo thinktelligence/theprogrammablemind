@@ -161,6 +161,7 @@ let config = {
       id: 'equals',
       bridge: "{ ...next(operator), left: before[0], right: after[0] }",
       words: ['='],
+      after: ['mathematicalOperator'],
       // TODO have this be per argument then 'is' can map to equals where this only applied to before[0] and not after[0]
       localHierarchy: [ ['unknown', 'expression'] ],
       generatorp: ({context, gp}) => `${gp(context.left)} ${context.word} ${gp(context.right)}`,
