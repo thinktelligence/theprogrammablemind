@@ -513,12 +513,11 @@ fi
 # TODO $NODE weight -q 'kilos troy ounces and ounces' -g -d -daa
 # $NODE weight -q 'what is 1 ounce in troy ounces' -g -d 
 # $NODE weight -q 'troy ounces = ounces / 1.097' -g -d -daa
-# TODO $NODE weight -q 'ounces = 1.097 * troy ounces' -g -d -daa
+# $NODE weight -q 'ounces = 1.097 * troy ounces' -g -d -daa
 # $NODE math -q 'worth is price times quantity' -g -d -daa -dic
 # $NODE weight -q 'what is 1 troy ounce in ounces' -g -d
 # $NODE weight -q 'what is 1 ounce in troy ounces' -g -d
 # $NODE weight -q '1.097 * troy ounces' -g -d -daa --parenthesized
-# TODO 
-$NODE reports -q 'show the worth' -g -d -daa
+# $NODE reports -q 'show the worth' -g -d -daa
 # $NODE reports -q 'worth means price times quantity' -g -d -daa --parenthesized
 # $NODE reports -q 'show the quantity descending and the price ascending list the products' -g -d -daa 
