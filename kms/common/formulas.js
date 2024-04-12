@@ -97,9 +97,11 @@ let config = {
   ],
   semantics: [
     {
+      where: where(),
       match: ({context, api}) => context.evaluate && api.get(context),
       apply: ({context, api, e}) => {
         const { formula } = api.get(context)
+        // console.log('greg24 -----------', JSON.stringify(formula, null, 2))
         context.evalue = e(formula) 
       }    
     },

@@ -521,3 +521,6 @@ fi
 # $NODE reports -q 'show the worth' -g -d -daa
 # $NODE reports -q 'worth means price times quantity' -g -d -daa --parenthesized
 # $NODE reports -q 'show the quantity descending and the price ascending list the products' -g -d -daa 
+# $NODE time_dimension -q 'what is 120 seconds in minutes' -g -d
+# $NODE time_dimension -q 'what is 2 minutes in seconds' -g -d
+$NODE time_dimension -q 'what is 120 seconds in seconds' -g -d

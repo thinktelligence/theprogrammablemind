@@ -1,4 +1,4 @@
-operators = ['plus', 'minus', 'times', 'divideBy']
+operators = ['plusExpression', 'minusExpression', 'timesExpression', 'divideByExpression']
 
 function getVariables(expression, isVariable = (expression) => typeof expression.value != 'number') {
   if (!expression) {
@@ -123,12 +123,16 @@ class API {
       for (let f of fs) {
         const foundVars = getVariables(f.formula)
         if (foundVars.length == expectedVars.length) {
+          let failed = false
           for (let ev of expectedVars) {
             if (!foundVars.find( (fv) => fv.value == ev.value )) {
-              continue
+              failed = true
+              break
             }
           }
-          return f.formula;
+          if (!failed) {
+            return f.formula;
+          }
         }
       }
     } else {

@@ -125,14 +125,20 @@ let config = {
         */
         const from = context.from;
         const to = context.to;
-        const formula = kms.formulas.api.get(to, [from.unit])
-        if (!formula) {
-          const reason = { marker: 'reason', focusableForPhrase: true, evalue: { marker: 'noconversion', from: from.unit, to } }
-          kms.stm.api.mentioned(reason)
-          error(reason)
+        let evalue;
+        debugger
+        if (to.value == from.unit.value) {
+          evalue = from
+        } else {
+          const formula = kms.formulas.api.get(to, [from.unit])
+          if (!formula) {
+            const reason = { marker: 'reason', focusableForPhrase: true, evalue: { marker: 'noconversion', from: from.unit, to } }
+            kms.stm.api.mentioned(reason)
+            error(reason)
+          }
+          kms.stm.api.setVariable(from.unit.value, from.amount)
+          evalue = e(formula)
         }
-        kms.stm.api.setVariable(from.unit.value, from.amount)
-        const evalue = e(formula)
         /*
         '{
             "marker":"dimension",
