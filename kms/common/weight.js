@@ -29,6 +29,7 @@ const template = {
     "ounces = pounds * 16",
     "ton = tonne * 0.907185",
     "pounds = ton * 2000",
+    // "the weight of greg is 213 pounds",
   ],
 }
 

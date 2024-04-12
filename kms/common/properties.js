@@ -148,7 +148,8 @@ let config = {
     // { id: "possession", level: 1, bridge: "{ ...after[0], object: operator.object, marker: operator('property', 0) }" },
 
     { id: "possession", level: 0, inverted: true, bridge: "{ ...next(operator), possession: true, object: before[0], objects: before }" },
-    { id: "possession", level: 1, inverted: true, bridge: "{ ...after[0], object: operator.object, possession: true, objects: append(default(after[0].objects, after), operator.objects), marker: operator('property', 0) }" },
+    // greg44 { id: "possession", level: 1, inverted: true, bridge: "{ ...after[0], object: operator.object, possession: true, objects: append(default(after[0].objects, after), operator.objects), marker: operator('property', 0) }" },
+    { id: "possession", level: 1, inverted: true, bridge: "{ ...after[0], object: operator.object, possession: true, objects: append(default(after[0].objects, after), operator.objects), marker: after.marker, types: append(after[0].types, ['property']) }" },
     // TODO make object be after[0] that makes more sense
     // { id: "possession", level: 1, inverted: true, bridge: "{ ...after[0], object: after[0], objects: append(default(after[0].objects, after), operator.objects), marker: operator('property', 0) }" },
 
