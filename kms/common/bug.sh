@@ -523,4 +523,7 @@ fi
 # $NODE reports -q 'show the quantity descending and the price ascending list the products' -g -d -daa 
 # $NODE time_dimension -q 'what is 120 seconds in minutes' -g -d
 # $NODE time_dimension -q 'what is 2 minutes in seconds' -g -d
-$NODE time_dimension -q 'what is 120 seconds in seconds' -g -d
+# $NODE time_dimension -q 'what is 120 seconds in seconds' -g -d
+$NODE weight -q "the weight of greg is 213 pounds what is greg's weight" -g -d
+# $NODE length -q "what is 36 inches in feet" -g -d
+

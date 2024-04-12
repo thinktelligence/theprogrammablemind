@@ -81,9 +81,9 @@ let config = {
       where: where(),
       id: "dimension", 
       isA: [],
-      generatorp: {
+      generatorpr: {
         match: ({context}) => context.amount,
-        apply: ({context, g}) => `${g(context.amount)} ${g(context.unit)}`,
+        apply: ({context, g, gp}) => `${g(context.amount)} ${gp(context.unit)}`,
       },
     },
     { id: "length", isA: ['dimension'], development: true },
