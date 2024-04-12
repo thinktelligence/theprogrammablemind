@@ -115,6 +115,7 @@ let config = {
       id: "convertToUnits", 
       bridge: "{ ...next(operator), from: before[0], to: after[0] }",
       isA: ['expression', 'queryable'],
+      after: [['possession', 0], ['possession', 1]],
       generatorp: ({context, g}) => `${g(context.from)} ${context.word} ${g(context.to)}`,
       // evaluator: ({context, kms, error}) => {
       evaluator: ({context, kms, e, error}) => {
@@ -127,16 +128,20 @@ let config = {
         const to = context.to;
         let evalue;
         debugger
-        if (to.value == from.unit.value) {
-          evalue = from
+        let efrom = from
+        if (!from.unit) {
+          efrom = e(from).evalue
+        }
+        if (to.value == efrom.unit.value) {
+          evalue = efrom
         } else {
-          const formula = kms.formulas.api.get(to, [from.unit])
+          const formula = kms.formulas.api.get(to, [efrom.unit])
           if (!formula) {
-            const reason = { marker: 'reason', focusableForPhrase: true, evalue: { marker: 'noconversion', from: from.unit, to } }
+            const reason = { marker: 'reason', focusableForPhrase: true, evalue: { marker: 'noconversion', from: efrom.unit, to } }
             kms.stm.api.mentioned(reason)
             error(reason)
           }
-          kms.stm.api.setVariable(from.unit.value, from.amount)
+          kms.stm.api.setVariable(efrom.unit.value, efrom.amount)
           evalue = e(formula)
         }
         /*
