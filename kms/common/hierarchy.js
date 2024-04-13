@@ -35,11 +35,13 @@ let config = {
   operators: [
     // "([hierarchyAble|])",
     "([type|type,types])",
+    "([category])",
   ],
   bridges: [
     // // { id: 'hierarchyAble', level: 0, bridge: "{ ...next(operator) }" },
     // { id: 'type', level: 0, bridge: "{ ...next(operator), value: 'type' }" },
-    { id: 'type', level: 0, bridge: "{ ...next(operator) }" },
+    { id: 'type' },
+    { id: 'category' },
   ],
   hierarchy: [
     // ['unknown', 'hierarchyAble'],
@@ -214,6 +216,8 @@ let config = {
           context.same.concept = true;
         } else if (context.number == 'many') {
           context.same.concept = true;
+        // greg88 } else if (!context.same.determiner && pluralize.isSingular(context.same.word) && !context.same.instance) {
+        //  context.same.concept = true;
         } else {
           return
         }

@@ -529,5 +529,10 @@ fi
 # $NODE properties -q "alice's cat" -g -d -daa --parenthesized
 # $NODE weight -q "the weight of greg is 213 pounds what is greg's weight" -g -d
 # $NODE weight -q "what is greg's weight" -g -d
-$NODE weight -q "the weight of greg is 213 pounds what is greg's weight in kilograms" -g -d -s
+# $NODE weight -q "the weight of greg is 213 pounds what is greg's weight in kilograms" -g -d -s
 # $NODE weight -q "what is greg's weight in kilograms" -g -d # --parenthesized
+# $NODE time_dimension -q "10:05 pm" -g -d
+# TODO $NODE time_dimension -q "what is the time" -g -d
+# $NODE hierarchy -q 'fruit is food what are the types of food' -g -d
+$NODE hierarchy -q 'x is 20 what is x' -g -d
+# $NODE hierarchy -q 'fruits are food what are the types of food' -g -d

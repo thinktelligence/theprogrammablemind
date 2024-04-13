@@ -6,27 +6,29 @@ let config = {
   name: 'punctuation',
   operators: [
     "([leftParenthesis|] (phrase) ([rightParenthesis|]))",
-    "((before) [comma|])" // comma applies if before is dead
+    "((before) [comma|])", // comma applies if before is dead
+    "([colon|])",
   ],
   bridges: [
     {
-      "id": "comma",
-      "level": 0,
-      "bridge": "{ ...before[0], decorators.after: operator }",      // css :after decoration
-      "words": [{ word: ",", value: ',', depth: '+' }],
+      id: "comma",
+      level: 0,
+      bridge: "{ ...before[0], decorators.after: operator }",      // css :after decoration
+      words: [{ word: ",", value: ',', depth: '+' }],
     },
     {
-      "id": "leftParenthesis",
-      "level": 0,
-      "bridge": "{ ...after[0], parenthesis: '(' }",
-      "words": [{ word: "(", value: '(', depth: '+' }],
+      id: "leftParenthesis",
+      level: 0,
+      bridge: "{ ...after[0], parenthesis: '(' }",
+      words: [{ word: "(", value: '(', depth: '+' }],
     },
     {
-      "id": "rightParenthesis",
-      "level": 0,
-      "bridge": "{ ...next(operator) }",
-      "words": [{ word: ")", value: ')', depth: '-' }],
+      id: "rightParenthesis",
+      level: 0,
+      bridge: "{ ...next(operator) }",
+      words: [{ word: ")", value: ')', depth: '-' }],
     },
+    { id: "colon", words: [':'],  },
   ],
 
   generators: [

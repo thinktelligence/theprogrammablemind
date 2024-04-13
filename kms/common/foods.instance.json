@@ -2,7 +2,9 @@
   "queries": [
     "chicken modifies strips",
     "chicken strips are food",
-    "sushi is food"
+    "sushi is food",
+    "fruits are food",
+    "apples oranges and bananas are fruit"
   ],
   "resultss": [
     {
@@ -120,6 +122,14 @@
           "queryable"
         ],
         [
+          "reason",
+          "queryable"
+        ],
+        [
+          "reason",
+          "theAble"
+        ],
+        [
           "that",
           "thisitthat"
         ],
@@ -204,13 +214,6 @@
           "queryable"
         ]
       ],
-      "logs": [
-        "Undefined word 'chicken'",
-        "Undefined word 'strips'",
-        "Op choices were: [(('unknown', 0), [('modifies', 0), ('unknown', 0)], 1), (('unknown', 0), [('modifies', 0), ('unknown', 0), ('unknown', 1)], 2), (('modifies', 0), [('modifies', 0), ('unknown', 1)], 3)]",
-        "Contexts used for choosing operators (if the wrong choices were made update the priorities array. Put the expected choice at the end of the list. you can check for loops in the priorities by adding the -cl flag and running a query): \n  Context for choosing the operator unknown/0 was [['modifies', 0], ['unknown', 0]]. Counter 1\n  Context for choosing the operator unknown/0 was [['modifies', 0], ['unknown', 0], ['unknown', 1]]. Counter 2\n  Context for choosing the operator modifies/0 was [['modifies', 0], ['unknown', 1]]. Counter 3",
-        ""
-      ],
       "metadata": {
         "opChoices": [
           {
@@ -243,10 +246,6 @@
               [
                 "unknown",
                 0
-              ],
-              [
-                "unknown",
-                1
               ]
             ],
             "counter": 2
@@ -260,10 +259,6 @@
               [
                 "modifies",
                 0
-              ],
-              [
-                "unknown",
-                1
               ]
             ],
             "counter": 3
@@ -282,6 +277,7 @@
             "start": 0,
             "end": 22
           },
+          "dead": true,
           "modifier": {
             "marker": "unknown",
             "range": {
@@ -291,7 +287,9 @@
             "word": "chicken",
             "text": "chicken",
             "value": "chicken",
-            "unknown": true
+            "unknown": true,
+            "dead": true,
+            "level": 1
           },
           "concept": {
             "marker": "unknown",
@@ -302,16 +300,19 @@
             "word": "strips",
             "text": "strips",
             "value": "strips",
-            "unknown": true
+            "unknown": true,
+            "dead": true,
+            "level": 1
           },
+          "level": 1,
           "topLevel": true,
           "touchedBy": [
-            "call2"
+            "foods#call2"
           ]
         }
       ],
       "generated": [
-        "modifies"
+        ""
       ],
       "paraphrases": [
         "chicken modifies strips"
@@ -355,7 +356,6 @@
           ]
         ]
       ],
-      "version": "7.5.5",
       "query": "chicken modifies strips",
       "key": {
         "query": "chicken modifies strips"
@@ -366,6 +366,10 @@
         [
           "a",
           "articlePOS"
+        ],
+        [
+          "adjective",
+          "adjective"
         ],
         [
           "articlePOS",
@@ -406,6 +410,10 @@
         [
           "chicken",
           "theAble"
+        ],
+        [
+          "chicken_strip",
+          "adjective"
         ],
         [
           "chicken_strip",
@@ -544,6 +552,14 @@
           "queryable"
         ],
         [
+          "reason",
+          "queryable"
+        ],
+        [
+          "reason",
+          "theAble"
+        ],
+        [
           "strip",
           "concept"
         ],
@@ -660,12 +676,6 @@
           "queryable"
         ]
       ],
-      "logs": [
-        "Undefined word 'food'",
-        "Op choices were: [(('unknown', 0), [('chicken', 0), ('is', 0), ('strip', 0), ('unknown', 0)], 1), (('strip', 0), [('chicken', 0), ('is', 0), ('strip', 0), ('unknown', 1)], 2), (('chicken', 0), [('chicken', 0), ('is', 0), ('unknown', 1)], 3), (('chicken_strip', 0), [('chicken_strip', 0), ('is', 0), ('unknown', 1)], 4), (('is', 0), [('is', 0), ('unknown', 1)], 5), (('is', 1), [('is', 1)], 6)]",
-        "Contexts used for choosing operators (if the wrong choices were made update the priorities array. Put the expected choice at the end of the list. you can check for loops in the priorities by adding the -cl flag and running a query): \n  Context for choosing the operator unknown/0 was [['chicken', 0], ['is', 0], ['strip', 0], ['unknown', 0]]. Counter 1\n  Context for choosing the operator strip/0 was [['chicken', 0], ['is', 0], ['strip', 0], ['unknown', 1]]. Counter 2\n  Context for choosing the operator chicken/0 was [['chicken', 0], ['is', 0], ['unknown', 1]]. Counter 3\n  Context for choosing the operator chicken_strip/0 was [['chicken_strip', 0], ['is', 0], ['unknown', 1]]. Counter 4\n  Context for choosing the operator is/0 was [['is', 0], ['unknown', 1]]. Counter 5\n  Context for choosing the operator is/1 was [['is', 1]]. Counter 6",
-        "Associations made with probabilities (each group is a choice point. if the wrong choices were made update the associations list): "
-      ],
       "metadata": {
         "opChoices": [
           {
@@ -689,13 +699,17 @@
               [
                 "unknown",
                 0
+              ],
+              [
+                "chicken_strip",
+                0
               ]
             ],
             "counter": 1
           },
           {
             "op": [
-              "strip",
+              "chicken_strip",
               0
             ],
             "ops": [
@@ -712,53 +726,11 @@
                 0
               ],
               [
-                "unknown",
-                1
+                "chicken_strip",
+                0
               ]
             ],
             "counter": 2
-          },
-          {
-            "op": [
-              "chicken",
-              0
-            ],
-            "ops": [
-              [
-                "chicken",
-                0
-              ],
-              [
-                "is",
-                0
-              ],
-              [
-                "unknown",
-                1
-              ]
-            ],
-            "counter": 3
-          },
-          {
-            "op": [
-              "chicken_strip",
-              0
-            ],
-            "ops": [
-              [
-                "chicken_strip",
-                0
-              ],
-              [
-                "is",
-                0
-              ],
-              [
-                "unknown",
-                1
-              ]
-            ],
-            "counter": 4
           },
           {
             "op": [
@@ -769,13 +741,9 @@
               [
                 "is",
                 0
-              ],
-              [
-                "unknown",
-                1
               ]
             ],
-            "counter": 5
+            "counter": 3
           },
           {
             "op": [
@@ -788,7 +756,7 @@
                 1
               ]
             ],
-            "counter": 6
+            "counter": 4
           }
         ]
       },
@@ -813,10 +781,6 @@
               "start": 0,
               "end": 22
             },
-            "types": [
-              "chicken_strip",
-              "strip"
-            ],
             "chicken": {
               "value": "chicken",
               "text": "chicken",
@@ -825,12 +789,18 @@
               "range": {
                 "start": 0,
                 "end": 6
-              }
+              },
+              "level": 0
             },
             "atomic": true,
+            "dead": true,
             "modifiers": [
               "chicken"
-            ]
+            ],
+            "types": [
+              "chicken_strip"
+            ],
+            "level": 1
           },
           "two": {
             "marker": "unknown",
@@ -842,19 +812,23 @@
             "text": "food",
             "value": "food",
             "unknown": true,
+            "dead": true,
             "types": [
               "unknown"
             ],
+            "level": 1,
             "concept": true
           },
+          "dead": true,
+          "level": 2,
           "topLevel": true,
           "touchedBy": [
-            "call2"
+            "foods#call2"
           ]
         }
       ],
       "generated": [
-        "chicken strips are food"
+        ""
       ],
       "paraphrases": [
         "chicken strips are food"
@@ -905,36 +879,8 @@
             0
           ],
           [
-            "is",
-            0
-          ],
-          [
-            "unknown",
-            1
-          ]
-        ],
-        [
-          [
-            "chicken",
-            0
-          ],
-          [
             "unknown",
             0
-          ]
-        ],
-        [
-          [
-            "chicken_strip",
-            0
-          ],
-          [
-            "is",
-            0
-          ],
-          [
-            "unknown",
-            1
           ]
         ],
         [
@@ -948,7 +894,6 @@
           ]
         ]
       ],
-      "version": "7.5.5",
       "query": "chicken strips are food",
       "key": {
         "query": "chicken strips are food"
@@ -959,6 +904,10 @@
         [
           "a",
           "articlePOS"
+        ],
+        [
+          "adjective",
+          "adjective"
         ],
         [
           "articlePOS",
@@ -999,6 +948,10 @@
         [
           "chicken",
           "theAble"
+        ],
+        [
+          "chicken_strip",
+          "adjective"
         ],
         [
           "chicken_strip",
@@ -1169,6 +1122,14 @@
           "queryable"
         ],
         [
+          "reason",
+          "queryable"
+        ],
+        [
+          "reason",
+          "theAble"
+        ],
+        [
           "strip",
           "concept"
         ],
@@ -1285,14 +1246,6 @@
           "queryable"
         ]
       ],
-      "logs": [
-        "Undefined word 'sushi'",
-        "Op choices were: [(('unknown', 0), [('food', 0), ('is', 0), ('unknown', 0)], 1), (('food', 0), [('food', 0), ('is', 0), ('unknown', 1)], 2), (('is', 0), [('is', 0), ('unknown', 1)], 3), (('is', 1), [('is', 1)], 4)]",
-        "Contexts used for choosing operators (if the wrong choices were made update the priorities array. Put the expected choice at the end of the list. you can check for loops in the priorities by adding the -cl flag and running a query): \n  Context for choosing the operator unknown/0 was [['food', 0], ['is', 0], ['unknown', 0]]. Counter 1\n  Context for choosing the operator food/0 was [['food', 0], ['is', 0], ['unknown', 1]]. Counter 2\n  Context for choosing the operator is/0 was [['is', 0], ['unknown', 1]]. Counter 3\n  Context for choosing the operator is/1 was [['is', 1]]. Counter 4",
-        "Associations made with probabilities (each group is a choice point. if the wrong choices were made update the associations list): \n  Group 0\n    0.6666666666666666 - [['unknown', 0], \">>>>1 ['isEd', 0] <<<<1\", ['food', 0]]\n      (('unknown', 0), ('isEd', 0))\n      (('isEd', 0), ('food', 0))\n    1.0 - [['unknown', 0], \">>>>1 ['is', 0] <<<<1\", ['food', 0]]\n      (('unknown', 0), ('is', 0), ('food', 0))\n  Group 1\n    1.0 - [['unknown', 0], \">>>>1 ['is', 0] <<<<1\", ['food', 0]]\n      (('unknown', 1), ('is', 0), ('food', 0))\n    0.6666666666666666 - [['unknown', 0], \">>>>1 ['isEd', 0] <<<<1\", ['food', 0]]\n      (('unknown', 1), ('isEd', 0))\n      (('isEd', 0), ('food', 0))\n  Group 2\n    1.0 - [['unknown', 0], \">>>>1 ['is', 0] <<<<1\", ['food', 0]]\n      (('unknown', 1), ('is', 0), ('food', 0))\n    0.6666666666666666 - [['unknown', 0], \">>>>1 ['isEd', 0] <<<<1\", ['food', 0]]\n      (('unknown', 1), ('isEd', 0))\n      (('isEd', 0), ('food', 0))",
-        "    WARNING from Dialogues KM: For the \"X is Y\" type phrase implement a same handler.\n    The semantic would be\n      match: ({context}) => context.marker == 'unknown' && context.same && <other conditions as you like>\n      apply: ({context}) => <do stuff... context.same is the other value>; context.sameWasProcessed = true\n    The input context would be:\n      {\n        \"number\": \"one\",\n        \"marker\": \"unknown\",\n        \"range\": {\n          \"start\": 0,\n          \"end\": 12\n        },\n        \"word\": \"sushi\",\n        \"text\": \"sushi\",\n        \"value\": \"sushi\",\n        \"unknown\": true,\n        \"types\": [\n          \"unknown\"\n        ],\n        \"same\": {\n          \"value\": \"food\",\n          \"number\": \"one\",\n          \"text\": \"food\",\n          \"marker\": \"food\",\n          \"word\": \"food\",\n          \"range\": {\n            \"start\": 9,\n            \"end\": 12\n          },\n          \"types\": [\n            \"food\"\n          ]\n        }\n      }\n    ",
-        "    WARNING from Dialogues KM: For the \"X is Y\" type phrase implement a same handler.\n    The semantic would be\n      match: ({context}) => context.marker == 'food' && context.same && <other conditions as you like>\n      apply: ({context}) => <do stuff... context.same is the other value>; context.sameWasProcessed = true\n    The input context would be:\n      {\n        \"value\": \"food\",\n        \"number\": \"one\",\n        \"text\": \"food\",\n        \"marker\": \"food\",\n        \"word\": \"food\",\n        \"range\": {\n          \"start\": 9,\n          \"end\": 12\n        },\n        \"types\": [\n          \"food\"\n        ],\n        \"same\": {\n          \"number\": \"one\",\n          \"marker\": \"unknown\",\n          \"range\": {\n            \"start\": 0,\n            \"end\": 12\n          },\n          \"word\": \"sushi\",\n          \"text\": \"sushi\",\n          \"value\": \"sushi\",\n          \"unknown\": true,\n          \"types\": [\n            \"unknown\"\n          ]\n        }\n      }\n    "
-      ],
       "metadata": {
         "opChoices": [
           {
@@ -1329,10 +1282,6 @@
               [
                 "is",
                 0
-              ],
-              [
-                "unknown",
-                1
               ]
             ],
             "counter": 2
@@ -1346,10 +1295,6 @@
               [
                 "is",
                 0
-              ],
-              [
-                "unknown",
-                1
               ]
             ],
             "counter": 3
@@ -1391,9 +1336,11 @@
             "text": "sushi",
             "value": "sushi",
             "unknown": true,
+            "dead": true,
             "types": [
               "unknown"
-            ]
+            ],
+            "level": 1
           },
           "two": {
             "value": "food",
@@ -1405,18 +1352,23 @@
               "start": 9,
               "end": 12
             },
+            "dead": true,
             "types": [
               "food"
-            ]
+            ],
+            "level": 1,
+            "concept": true
           },
+          "dead": true,
+          "level": 2,
           "topLevel": true,
           "touchedBy": [
-            "call2"
+            "foods#call2"
           ]
         }
       ],
       "generated": [
-        "sushi is food"
+        ""
       ],
       "paraphrases": [
         "sushi is food"
@@ -1464,10 +1416,1278 @@
           ]
         ]
       ],
-      "version": "7.5.5",
       "query": "sushi is food",
       "key": {
         "query": "sushi is food"
+      }
+    },
+    {
+      "hierarchy": [
+        [
+          "a",
+          "articlePOS"
+        ],
+        [
+          "adjective",
+          "adjective"
+        ],
+        [
+          "articlePOS",
+          "articlePOS"
+        ],
+        [
+          "canBeDoQuestion",
+          "canBeDoQuestion"
+        ],
+        [
+          "canBeQuestion",
+          "canBeQuestion"
+        ],
+        [
+          "chicken",
+          "hierarchyAble"
+        ],
+        [
+          "chicken",
+          "isEdee"
+        ],
+        [
+          "chicken",
+          "isEder"
+        ],
+        [
+          "chicken",
+          "object"
+        ],
+        [
+          "chicken",
+          "property"
+        ],
+        [
+          "chicken",
+          "queryable"
+        ],
+        [
+          "chicken",
+          "theAble"
+        ],
+        [
+          "chicken_strip",
+          "adjective"
+        ],
+        [
+          "chicken_strip",
+          "concept"
+        ],
+        [
+          "chicken_strip",
+          "food"
+        ],
+        [
+          "chicken_strip",
+          "hierarchyAble"
+        ],
+        [
+          "chicken_strip",
+          "isEdee"
+        ],
+        [
+          "chicken_strip",
+          "isEder"
+        ],
+        [
+          "chicken_strip",
+          "object"
+        ],
+        [
+          "chicken_strip",
+          "property"
+        ],
+        [
+          "chicken_strip",
+          "queryable"
+        ],
+        [
+          "chicken_strip",
+          "theAble"
+        ],
+        [
+          "concept",
+          "queryable"
+        ],
+        [
+          "concept",
+          "theAble"
+        ],
+        [
+          "food",
+          "hierarchyAble"
+        ],
+        [
+          "food",
+          "isEdee"
+        ],
+        [
+          "food",
+          "isEder"
+        ],
+        [
+          "food",
+          "object"
+        ],
+        [
+          "food",
+          "property"
+        ],
+        [
+          "food",
+          "queryable"
+        ],
+        [
+          "food",
+          "theAble"
+        ],
+        [
+          "have",
+          "canBeDoQuestion"
+        ],
+        [
+          "have",
+          "canBeQuestion"
+        ],
+        [
+          "hierarchyAble",
+          "queryable"
+        ],
+        [
+          "ifAble",
+          "ifAble"
+        ],
+        [
+          "is",
+          "canBeQuestion"
+        ],
+        [
+          "is",
+          "verby"
+        ],
+        [
+          "isEdee",
+          "isEdee"
+        ],
+        [
+          "isEder",
+          "isEder"
+        ],
+        [
+          "it",
+          "pronoun"
+        ],
+        [
+          "it",
+          "queryable"
+        ],
+        [
+          "it",
+          "thisitthat"
+        ],
+        [
+          "it",
+          "toAble"
+        ],
+        [
+          "notAble",
+          "notAble"
+        ],
+        [
+          "object",
+          "queryable"
+        ],
+        [
+          "object",
+          "theAble"
+        ],
+        [
+          "orAble",
+          "ifAble"
+        ],
+        [
+          "pronoun",
+          "pronoun"
+        ],
+        [
+          "property",
+          "queryable"
+        ],
+        [
+          "property",
+          "theAble"
+        ],
+        [
+          "property",
+          "unknown"
+        ],
+        [
+          "punctuation",
+          "punctuation"
+        ],
+        [
+          "queryable",
+          "queryable"
+        ],
+        [
+          "questionMark",
+          "punctuation"
+        ],
+        [
+          "readonly",
+          "queryable"
+        ],
+        [
+          "reason",
+          "queryable"
+        ],
+        [
+          "reason",
+          "theAble"
+        ],
+        [
+          "strip",
+          "concept"
+        ],
+        [
+          "strip",
+          "hierarchyAble"
+        ],
+        [
+          "strip",
+          "isEdee"
+        ],
+        [
+          "strip",
+          "isEder"
+        ],
+        [
+          "strip",
+          "object"
+        ],
+        [
+          "strip",
+          "property"
+        ],
+        [
+          "strip",
+          "queryable"
+        ],
+        [
+          "strip",
+          "theAble"
+        ],
+        [
+          "sushi",
+          "food"
+        ],
+        [
+          "sushi",
+          "hierarchyAble"
+        ],
+        [
+          "sushi",
+          "isEdee"
+        ],
+        [
+          "sushi",
+          "isEder"
+        ],
+        [
+          "sushi",
+          "object"
+        ],
+        [
+          "sushi",
+          "property"
+        ],
+        [
+          "sushi",
+          "queryable"
+        ],
+        [
+          "sushi",
+          "theAble"
+        ],
+        [
+          "that",
+          "thisitthat"
+        ],
+        [
+          "the",
+          "articlePOS"
+        ],
+        [
+          "theAble",
+          "theAble"
+        ],
+        [
+          "this",
+          "pronoun"
+        ],
+        [
+          "this",
+          "queryable"
+        ],
+        [
+          "this",
+          "thisitthat"
+        ],
+        [
+          "thisitthat",
+          "queryable"
+        ],
+        [
+          "toAble",
+          "toAble"
+        ],
+        [
+          "type",
+          "property"
+        ],
+        [
+          "type",
+          "whatAble"
+        ],
+        [
+          "unknown",
+          "hierarchyAble"
+        ],
+        [
+          "unknown",
+          "notAble"
+        ],
+        [
+          "unknown",
+          "object"
+        ],
+        [
+          "unknown",
+          "queryable"
+        ],
+        [
+          "unknown",
+          "theAble"
+        ],
+        [
+          "verby",
+          "verby"
+        ],
+        [
+          "what",
+          "object"
+        ],
+        [
+          "what",
+          "queryable"
+        ],
+        [
+          "whatAble",
+          "queryable"
+        ],
+        [
+          "whose",
+          "object"
+        ],
+        [
+          "xfx",
+          "queryable"
+        ]
+      ],
+      "metadata": {
+        "opChoices": [
+          {
+            "op": [
+              "unknown",
+              0
+            ],
+            "ops": [
+              [
+                "food",
+                0
+              ],
+              [
+                "is",
+                0
+              ],
+              [
+                "unknown",
+                0
+              ]
+            ],
+            "counter": 1
+          },
+          {
+            "op": [
+              "food",
+              0
+            ],
+            "ops": [
+              [
+                "food",
+                0
+              ],
+              [
+                "is",
+                0
+              ]
+            ],
+            "counter": 2
+          },
+          {
+            "op": [
+              "is",
+              0
+            ],
+            "ops": [
+              [
+                "is",
+                0
+              ]
+            ],
+            "counter": 3
+          },
+          {
+            "op": [
+              "is",
+              1
+            ],
+            "ops": [
+              [
+                "is",
+                1
+              ]
+            ],
+            "counter": 4
+          }
+        ]
+      },
+      "trace": "undefined",
+      "contexts": [
+        {
+          "number": "many",
+          "text": "fruits are food",
+          "marker": "is",
+          "word": "are",
+          "range": {
+            "start": 0,
+            "end": 14
+          },
+          "one": {
+            "number": "many",
+            "marker": "unknown",
+            "range": {
+              "start": 0,
+              "end": 14
+            },
+            "word": "fruits",
+            "text": "fruits",
+            "value": "fruits",
+            "unknown": true,
+            "dead": true,
+            "types": [
+              "unknown"
+            ],
+            "level": 1
+          },
+          "two": {
+            "value": "food",
+            "number": "one",
+            "text": "food",
+            "marker": "food",
+            "word": "food",
+            "range": {
+              "start": 11,
+              "end": 14
+            },
+            "dead": true,
+            "types": [
+              "food"
+            ],
+            "level": 1,
+            "concept": true
+          },
+          "dead": true,
+          "level": 2,
+          "topLevel": true,
+          "touchedBy": [
+            "foods#call2"
+          ]
+        }
+      ],
+      "generated": [
+        ""
+      ],
+      "paraphrases": [
+        "fruits are food"
+      ],
+      "responses": [
+        ""
+      ],
+      "associations": [
+        [
+          [
+            "food",
+            0
+          ],
+          [
+            "is",
+            0
+          ],
+          [
+            "unknown",
+            0
+          ]
+        ],
+        [
+          [
+            "food",
+            0
+          ],
+          [
+            "is",
+            0
+          ],
+          [
+            "unknown",
+            1
+          ]
+        ],
+        [
+          [
+            "food",
+            0
+          ],
+          [
+            "unknown",
+            0
+          ]
+        ],
+        [
+          [
+            "is",
+            0
+          ],
+          [
+            "unknown",
+            1
+          ]
+        ]
+      ],
+      "query": "fruits are food",
+      "key": {
+        "query": "fruits are food"
+      }
+    },
+    {
+      "hierarchy": [
+        [
+          "a",
+          "articlePOS"
+        ],
+        [
+          "adjective",
+          "adjective"
+        ],
+        [
+          "articlePOS",
+          "articlePOS"
+        ],
+        [
+          "canBeDoQuestion",
+          "canBeDoQuestion"
+        ],
+        [
+          "canBeQuestion",
+          "canBeQuestion"
+        ],
+        [
+          "chicken",
+          "hierarchyAble"
+        ],
+        [
+          "chicken",
+          "isEdee"
+        ],
+        [
+          "chicken",
+          "isEder"
+        ],
+        [
+          "chicken",
+          "object"
+        ],
+        [
+          "chicken",
+          "property"
+        ],
+        [
+          "chicken",
+          "queryable"
+        ],
+        [
+          "chicken",
+          "theAble"
+        ],
+        [
+          "chicken_strip",
+          "adjective"
+        ],
+        [
+          "chicken_strip",
+          "concept"
+        ],
+        [
+          "chicken_strip",
+          "food"
+        ],
+        [
+          "chicken_strip",
+          "hierarchyAble"
+        ],
+        [
+          "chicken_strip",
+          "isEdee"
+        ],
+        [
+          "chicken_strip",
+          "isEder"
+        ],
+        [
+          "chicken_strip",
+          "object"
+        ],
+        [
+          "chicken_strip",
+          "property"
+        ],
+        [
+          "chicken_strip",
+          "queryable"
+        ],
+        [
+          "chicken_strip",
+          "theAble"
+        ],
+        [
+          "concept",
+          "queryable"
+        ],
+        [
+          "concept",
+          "theAble"
+        ],
+        [
+          "food",
+          "hierarchyAble"
+        ],
+        [
+          "food",
+          "isEdee"
+        ],
+        [
+          "food",
+          "isEder"
+        ],
+        [
+          "food",
+          "object"
+        ],
+        [
+          "food",
+          "property"
+        ],
+        [
+          "food",
+          "queryable"
+        ],
+        [
+          "food",
+          "theAble"
+        ],
+        [
+          "fruit",
+          "food"
+        ],
+        [
+          "fruit",
+          "hierarchyAble"
+        ],
+        [
+          "fruit",
+          "isEdee"
+        ],
+        [
+          "fruit",
+          "isEder"
+        ],
+        [
+          "fruit",
+          "object"
+        ],
+        [
+          "fruit",
+          "property"
+        ],
+        [
+          "fruit",
+          "queryable"
+        ],
+        [
+          "fruit",
+          "theAble"
+        ],
+        [
+          "have",
+          "canBeDoQuestion"
+        ],
+        [
+          "have",
+          "canBeQuestion"
+        ],
+        [
+          "hierarchyAble",
+          "queryable"
+        ],
+        [
+          "ifAble",
+          "ifAble"
+        ],
+        [
+          "is",
+          "canBeQuestion"
+        ],
+        [
+          "is",
+          "verby"
+        ],
+        [
+          "isEdee",
+          "isEdee"
+        ],
+        [
+          "isEder",
+          "isEder"
+        ],
+        [
+          "it",
+          "pronoun"
+        ],
+        [
+          "it",
+          "queryable"
+        ],
+        [
+          "it",
+          "thisitthat"
+        ],
+        [
+          "it",
+          "toAble"
+        ],
+        [
+          "notAble",
+          "notAble"
+        ],
+        [
+          "object",
+          "queryable"
+        ],
+        [
+          "object",
+          "theAble"
+        ],
+        [
+          "orAble",
+          "ifAble"
+        ],
+        [
+          "pronoun",
+          "pronoun"
+        ],
+        [
+          "property",
+          "queryable"
+        ],
+        [
+          "property",
+          "theAble"
+        ],
+        [
+          "property",
+          "unknown"
+        ],
+        [
+          "punctuation",
+          "punctuation"
+        ],
+        [
+          "queryable",
+          "queryable"
+        ],
+        [
+          "questionMark",
+          "punctuation"
+        ],
+        [
+          "readonly",
+          "queryable"
+        ],
+        [
+          "reason",
+          "queryable"
+        ],
+        [
+          "reason",
+          "theAble"
+        ],
+        [
+          "strip",
+          "concept"
+        ],
+        [
+          "strip",
+          "hierarchyAble"
+        ],
+        [
+          "strip",
+          "isEdee"
+        ],
+        [
+          "strip",
+          "isEder"
+        ],
+        [
+          "strip",
+          "object"
+        ],
+        [
+          "strip",
+          "property"
+        ],
+        [
+          "strip",
+          "queryable"
+        ],
+        [
+          "strip",
+          "theAble"
+        ],
+        [
+          "sushi",
+          "food"
+        ],
+        [
+          "sushi",
+          "hierarchyAble"
+        ],
+        [
+          "sushi",
+          "isEdee"
+        ],
+        [
+          "sushi",
+          "isEder"
+        ],
+        [
+          "sushi",
+          "object"
+        ],
+        [
+          "sushi",
+          "property"
+        ],
+        [
+          "sushi",
+          "queryable"
+        ],
+        [
+          "sushi",
+          "theAble"
+        ],
+        [
+          "that",
+          "thisitthat"
+        ],
+        [
+          "the",
+          "articlePOS"
+        ],
+        [
+          "theAble",
+          "theAble"
+        ],
+        [
+          "this",
+          "pronoun"
+        ],
+        [
+          "this",
+          "queryable"
+        ],
+        [
+          "this",
+          "thisitthat"
+        ],
+        [
+          "thisitthat",
+          "queryable"
+        ],
+        [
+          "toAble",
+          "toAble"
+        ],
+        [
+          "type",
+          "property"
+        ],
+        [
+          "type",
+          "whatAble"
+        ],
+        [
+          "unknown",
+          "hierarchyAble"
+        ],
+        [
+          "unknown",
+          "notAble"
+        ],
+        [
+          "unknown",
+          "object"
+        ],
+        [
+          "unknown",
+          "queryable"
+        ],
+        [
+          "unknown",
+          "theAble"
+        ],
+        [
+          "verby",
+          "verby"
+        ],
+        [
+          "what",
+          "object"
+        ],
+        [
+          "what",
+          "queryable"
+        ],
+        [
+          "whatAble",
+          "queryable"
+        ],
+        [
+          "whose",
+          "object"
+        ],
+        [
+          "xfx",
+          "queryable"
+        ]
+      ],
+      "metadata": {
+        "opChoices": [
+          {
+            "op": [
+              "list",
+              0
+            ],
+            "ops": [
+              [
+                "fruit",
+                0
+              ],
+              [
+                "is",
+                0
+              ],
+              [
+                "unknown",
+                0
+              ]
+            ],
+            "counter": 1
+          },
+          {
+            "op": [
+              "list",
+              1
+            ],
+            "ops": [
+              [
+                "fruit",
+                0
+              ],
+              [
+                "is",
+                0
+              ],
+              [
+                "unknown",
+                0
+              ]
+            ],
+            "counter": 2
+          },
+          {
+            "op": [
+              "list",
+              1
+            ],
+            "ops": [
+              [
+                "fruit",
+                0
+              ],
+              [
+                "is",
+                0
+              ],
+              [
+                "unknown",
+                0
+              ]
+            ],
+            "counter": 3
+          },
+          {
+            "op": [
+              "fruit",
+              0
+            ],
+            "ops": [
+              [
+                "fruit",
+                0
+              ],
+              [
+                "is",
+                0
+              ],
+              [
+                "unknown",
+                1
+              ]
+            ],
+            "counter": 4
+          },
+          {
+            "op": [
+              "is",
+              0
+            ],
+            "ops": [
+              [
+                "is",
+                0
+              ],
+              [
+                "unknown",
+                1
+              ]
+            ],
+            "counter": 5
+          },
+          {
+            "op": [
+              "is",
+              1
+            ],
+            "ops": [
+              [
+                "is",
+                1
+              ]
+            ],
+            "counter": 6
+          }
+        ]
+      },
+      "trace": "undefined",
+      "contexts": [
+        {
+          "number": "many",
+          "text": " are fruit",
+          "marker": "is",
+          "word": "are",
+          "range": {
+            "start": 0,
+            "end": 35
+          },
+          "one": {
+            "number": "many",
+            "marker": "list",
+            "value": [
+              {
+                "marker": "unknown",
+                "range": {
+                  "start": 0,
+                  "end": 5
+                },
+                "word": "apples",
+                "text": "apples",
+                "value": "apples",
+                "unknown": true,
+                "dead": true,
+                "level": 1
+              },
+              {
+                "marker": "unknown",
+                "range": {
+                  "start": 7,
+                  "end": 13
+                },
+                "word": "oranges",
+                "text": "oranges",
+                "value": "oranges",
+                "unknown": true,
+                "dead": true,
+                "level": 1
+              },
+              {
+                "marker": "unknown",
+                "range": {
+                  "start": 19,
+                  "end": 25
+                },
+                "word": "bananas",
+                "text": "bananas",
+                "value": "bananas",
+                "unknown": true,
+                "dead": true,
+                "level": 1
+              }
+            ],
+            "range": {
+              "start": 0,
+              "end": 35
+            },
+            "types": [
+              "list",
+              "unknown"
+            ],
+            "level": 1
+          },
+          "two": {
+            "value": "fruit",
+            "number": "one",
+            "text": "fruit",
+            "marker": "fruit",
+            "word": "fruit",
+            "range": {
+              "start": 31,
+              "end": 35
+            },
+            "dead": true,
+            "types": [
+              "fruit"
+            ],
+            "level": 1,
+            "concept": true
+          },
+          "dead": true,
+          "level": 2,
+          "topLevel": true,
+          "touchedBy": [
+            "foods#call2"
+          ]
+        }
+      ],
+      "generated": [
+        ""
+      ],
+      "paraphrases": [
+        "apples, oranges and bananas are fruit"
+      ],
+      "responses": [
+        ""
+      ],
+      "associations": [
+        [
+          [
+            "fruit",
+            0
+          ],
+          [
+            "is",
+            0
+          ],
+          [
+            "list",
+            0
+          ],
+          [
+            "unknown",
+            0
+          ]
+        ],
+        [
+          [
+            "fruit",
+            0
+          ],
+          [
+            "is",
+            0
+          ],
+          [
+            "list",
+            1
+          ]
+        ],
+        [
+          [
+            "fruit",
+            0
+          ],
+          [
+            "is",
+            0
+          ],
+          [
+            "list",
+            1
+          ],
+          [
+            "unknown",
+            0
+          ]
+        ],
+        [
+          [
+            "fruit",
+            0
+          ],
+          [
+            "unknown",
+            0
+          ]
+        ],
+        [
+          [
+            "is",
+            0
+          ],
+          [
+            "list",
+            1
+          ]
+        ]
+      ],
+      "query": "apples oranges and bananas are fruit",
+      "key": {
+        "query": "apples oranges and bananas are fruit"
       }
     }
   ],
@@ -1516,17 +2736,31 @@
         0
       ],
       [
+        "unknown",
+        0
+      ]
+    ],
+    [
+      [
+        "food",
+        0
+      ],
+      [
         "is",
         0
       ],
       [
         "unknown",
-        1
+        0
       ]
     ],
     [
       [
-        "chicken",
+        "food",
+        0
+      ],
+      [
+        "is",
         0
       ],
       [
@@ -1536,7 +2770,7 @@
     ],
     [
       [
-        "chicken_strip",
+        "food",
         0
       ],
       [
@@ -1559,7 +2793,7 @@
       ],
       [
         "unknown",
-        0
+        1
       ]
     ],
     [
@@ -1567,6 +2801,82 @@
         "food",
         0
       ],
+      [
+        "unknown",
+        0
+      ]
+    ],
+    [
+      [
+        "fruit",
+        0
+      ],
+      [
+        "is",
+        0
+      ],
+      [
+        "list",
+        0
+      ],
+      [
+        "unknown",
+        0
+      ]
+    ],
+    [
+      [
+        "fruit",
+        0
+      ],
+      [
+        "is",
+        0
+      ],
+      [
+        "list",
+        1
+      ]
+    ],
+    [
+      [
+        "fruit",
+        0
+      ],
+      [
+        "is",
+        0
+      ],
+      [
+        "list",
+        1
+      ],
+      [
+        "unknown",
+        0
+      ]
+    ],
+    [
+      [
+        "fruit",
+        0
+      ],
+      [
+        "unknown",
+        0
+      ]
+    ],
+    [
+      [
+        "is",
+        0
+      ],
+      [
+        "list",
+        1
+      ]
+    ],
+    [
       [
         "is",
         0

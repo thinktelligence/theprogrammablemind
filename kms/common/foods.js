@@ -9,11 +9,21 @@ const foods_instance = require('./foods.instance.json')
 // fix this
 // fix loading ordering not working
 
+// fruit is food
+// rotton fruit is not food
+// rotton is a state of fruit
+// ripe is a state of fruit
+
+// x is 20              | fruit is food
+// the value of x is 20 | fruit is a kind of food
+
 const template ={
   "queries": [
     "chicken modifies strips",
     "chicken strips are food",
     "sushi is food",
+    "fruits are food",
+    "apples oranges and bananas are fruit",
   ],
 }
 

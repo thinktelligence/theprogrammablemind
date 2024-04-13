@@ -20,19 +20,19 @@ let config = {
   version: '3',
   words: {
     // start with a space for regular expressions
-    " ([0-9]+$)": [{"id": "number", "initial": "{ value: int(group[0]) }" }],
-    " ([0-9]+[.][0-9]+$)": [{"id": "number", "initial": "{ value: float(group[0]) }" }],
-    " ([.][0-9]+$)": [{"id": "number", "initial": "{ value: float(group[0]) }" }],
-    "one": [{"id": "number", "initial": "{ value: 1 }" }],
-    "two": [{"id": "number", "initial": "{ value: 2 }" }],
-    "three": [{"id": "number", "initial": "{ value: 3 }" }],
-    "four": [{"id": "number", "initial": "{ value: 4 }" }],
-    "five": [{"id": "number", "initial": "{ value: 5 }" }],
-    "six": [{"id": "number", "initial": "{ value: 6 }" }],
-    "seven": [{"id": "number", "initial": "{ value: 7 }" }],
-    "eight": [{"id": "number", "initial": "{ value: 8 }" }],
-    "nine": [{"id": "number", "initial": "{ value: 9 }" }],
-    "ten": [{"id": "number", "initial": "{ value: 10 }" }],
+    " ([0-9]+$)": [{"id": "number", "initial": "{ value: int(group[0]), instance: true }" }],
+    " ([0-9]+[.][0-9]+$)": [{"id": "number", "initial": "{ value: float(group[0]), instance: true }" }],
+    " ([.][0-9]+$)": [{"id": "number", "initial": "{ value: float(group[0]), instance: true }" }],
+    "one": [{"id": "number", "initial": "{ value: 1, instance:true }" }],
+    "two": [{"id": "number", "initial": "{ value: 2 , instance:true}" }],
+    "three": [{"id": "number", "initial": "{ value: 3, instance:true }" }],
+    "four": [{"id": "number", "initial": "{ value: 4, instance:true }" }],
+    "five": [{"id": "number", "initial": "{ value: 5, instance:true }" }],
+    "six": [{"id": "number", "initial": "{ value: 6, instance:true }" }],
+    "seven": [{"id": "number", "initial": "{ value: 7, instance:true }" }],
+    "eight": [{"id": "number", "initial": "{ value: 8, instance:true }" }],
+    "nine": [{"id": "number", "initial": "{ value: 9, instance:true }" }],
+    "ten": [{"id": "number", "initial": "{ value: 10, instance:true }" }],
   },
 
   hierarchy: [
@@ -41,6 +41,17 @@ let config = {
   ],
 
   generators: [
+    { 
+      where: where(),
+      match: ({context}) => context.marker == 'number' && context.leadingZeros && context.value >= 0, 
+      apply: ({context}) => {
+        value = `${context.value}` 
+        if (value.length < context.length) {
+          value = "0".repeat(context.length-value.length)+value
+        }
+        return value
+      }
+    },
     { 
       where: where(),
       match: ({context}) => context.marker == 'number', 
