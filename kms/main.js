@@ -29,11 +29,13 @@ const pressure = require('./common/pressure')
 const temperature = require('./common/temperature')
 const weight = require('./common/weight')
 const animals = require('./common/animals')
+const foods = require('./common/foods')
 const javascript = require('./common/javascript')
 const scorekeeper = require('./common/scorekeeper')
 const reports = require('./common/reports')
 const tell = require('./common/tell')
 const pipboy = require('./common/pipboy')
+const fastfood = require('./common/fastfood')
 const characters = require('./common/characters')
 const crew = require('./common/crew')
 const stgame = require('./common/stgame')
@@ -72,11 +74,13 @@ pressure,
 temperature,
 weight,
 animals,
+foods,
 javascript,
 scorekeeper,
 reports,
 tell,
 pipboy,
+fastfood,
 characters,
 crew,
 stgame,
