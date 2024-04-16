@@ -35,13 +35,11 @@ let config = {
   operators: [
     // "([hierarchyAble|])",
     "([type|type,types])",
-    "([category])",
   ],
   bridges: [
     // // { id: 'hierarchyAble', level: 0, bridge: "{ ...next(operator) }" },
     // { id: 'type', level: 0, bridge: "{ ...next(operator), value: 'type' }" },
     { id: 'type' },
-    { id: 'category' },
   ],
   hierarchy: [
     // ['unknown', 'hierarchyAble'],
@@ -203,7 +201,7 @@ let config = {
       notes: 'humans are mammels',
       // match: ({context, listable}) => listable(context, 'unknown') && context.same,
       where: where(),
-      match: ({context, listable, hierarchy, callId}) => {
+      match: ({context, listable, hierarchy, isA, callId}) => {
         if (!context.same) {
           return
         }
@@ -216,9 +214,21 @@ let config = {
           context.same.concept = true;
         } else if (context.number == 'many') {
           context.same.concept = true;
-        // greg88 } else if (!context.same.determiner && pluralize.isSingular(context.same.word) && !context.same.instance) {
+        //} else if (!context.same.determiner && pluralize.isSingular(context.same.word) && !context.same.instance) {
         //  context.same.concept = true;
+        } else if (isA(context.same.marker, 'hierarchyAble') && context.same.word && pluralize.isSingular(context.same.word) && !context.same.instance) {
+          context.same.concept = true;
         } else {
+          /*
+          if (isA(context.same.marker, 'hierarchyAble') && context.same.word && pluralize.isSingular(context.same.word) && !context.same.instance) {
+            console.log("the one", JSON.stringify(context.same, null, 2))
+          }
+          */
+          /*
+          if (!context.same.determiner && pluralize.isSingular(context.same.word) && !context.same.instance) {
+            console.log("the one", JSON.stringify(context.same, null, 2))
+          }
+          */
           return
         }
 

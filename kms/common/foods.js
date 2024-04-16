@@ -22,8 +22,17 @@ const template ={
     "chicken modifies strips",
     "chicken strips are food",
     "sushi is food",
-    "fruits are food",
     "apples oranges and bananas are fruit",
+    "hot modifies dog",
+    "hot dogs are sausages",
+    "sausages are meat",
+    "french modifies fries",
+    "french fries are food",
+    "meat is food",
+    "fruits are food",
+    "carrots peas cabbage and brocoli are vegetables",
+    "vegetables are food",
+    "a hamburger is a food",
   ],
 }
 

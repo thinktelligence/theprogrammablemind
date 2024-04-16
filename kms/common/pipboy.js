@@ -512,6 +512,5 @@ knowledgeModule({
     check: [
       'apply', 'change', 'disarm', 'drink', 'eat', 'equip', 'setName', 'strip', 'take', 'wear',
     ]
-
   },
 })

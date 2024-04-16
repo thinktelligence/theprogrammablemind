@@ -5,6 +5,13 @@ const { indent } = require('./helpers')
 // ask that are to be done for sure and ask that apply in a context
 // if condition then action -> condition may be true, this is a semantic
 
+/*
+what used to be in tests
+  "test1 do motivations": {
+  "do motivations": {
+  "test1 test1": {
+  "test1 test1 do motivations": {
+*/
 class API {
 
   initialize() {

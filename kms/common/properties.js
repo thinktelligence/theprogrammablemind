@@ -130,7 +130,11 @@ let config = {
     { id: 'between', level: 1, bridge: "{ ...before[0], arguments: operator.arguments }" },
 
     { id: 'hierarchyAble', level: 0, bridge: "{ ...next(operator) }" },
-    { id: "modifies", level: 0, bridge: "{ ...next(operator), modifier: before[0], concept: after[0] }" },
+    { 
+      id: "modifies", 
+      isA: ['verby'],
+      bridge: "{ ...next(operator), modifier: before[0], concept: after[0] }" 
+    },
     { id: "readonly", level: 0, bridge: "{ ...next(operator) }" },
     { id: "concept", level: 0, bridge: "{ ...next(operator) }" },
     // the cars dont have wings

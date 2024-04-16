@@ -127,7 +127,6 @@ let config = {
         const from = context.from;
         const to = context.to;
         let evalue;
-        debugger
         let efrom = from
         if (!from.unit) {
           efrom = e(from).evalue

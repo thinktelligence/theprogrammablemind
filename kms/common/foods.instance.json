@@ -3,8 +3,17 @@
     "chicken modifies strips",
     "chicken strips are food",
     "sushi is food",
+    "apples oranges and bananas are fruit",
+    "hot modifies dog",
+    "hot dogs are sausages",
+    "sausages are meat",
+    "french modifies fries",
+    "french fries are food",
+    "meat is food",
     "fruits are food",
-    "apples oranges and bananas are fruit"
+    "carrots peas cabbage and brocoli are vegetables",
+    "vegetables are food",
+    "a hamburger is a food"
   ],
   "resultss": [
     {
@@ -76,6 +85,10 @@
         [
           "notAble",
           "notAble"
+        ],
+        [
+          "noun",
+          "theAble"
         ],
         [
           "object",
@@ -317,6 +330,8 @@
       "paraphrases": [
         "chicken modifies strips"
       ],
+      "paraphrasesParenthesized": [],
+      "generatedParenthesized": [],
       "responses": [
         ""
       ],
@@ -506,6 +521,10 @@
         [
           "notAble",
           "notAble"
+        ],
+        [
+          "noun",
+          "theAble"
         ],
         [
           "object",
@@ -833,6 +852,8 @@
       "paraphrases": [
         "chicken strips are food"
       ],
+      "paraphrasesParenthesized": [],
+      "generatedParenthesized": [],
       "responses": [
         ""
       ],
@@ -1076,6 +1097,10 @@
         [
           "notAble",
           "notAble"
+        ],
+        [
+          "noun",
+          "theAble"
         ],
         [
           "object",
@@ -1356,8 +1381,7 @@
             "types": [
               "food"
             ],
-            "level": 1,
-            "concept": true
+            "level": 1
           },
           "dead": true,
           "level": 2,
@@ -1373,6 +1397,8 @@
       "paraphrases": [
         "sushi is food"
       ],
+      "paraphrasesParenthesized": [],
+      "generatedParenthesized": [],
       "responses": [
         ""
       ],
@@ -1600,6 +1626,10 @@
           "notAble"
         ],
         [
+          "noun",
+          "theAble"
+        ],
+        [
           "object",
           "queryable"
         ],
@@ -1689,23 +1719,11 @@
         ],
         [
           "sushi",
-          "hierarchyAble"
-        ],
-        [
-          "sushi",
           "isEdee"
         ],
         [
           "sushi",
           "isEder"
-        ],
-        [
-          "sushi",
-          "object"
-        ],
-        [
-          "sushi",
-          "property"
         ],
         [
           "sushi",
@@ -1804,14 +1822,10 @@
         "opChoices": [
           {
             "op": [
-              "unknown",
+              "list",
               0
             ],
             "ops": [
-              [
-                "food",
-                0
-              ],
               [
                 "is",
                 0
@@ -1825,20 +1839,58 @@
           },
           {
             "op": [
-              "food",
-              0
+              "list",
+              1
             ],
             "ops": [
               [
-                "food",
+                "is",
                 0
               ],
               [
-                "is",
+                "unknown",
                 0
               ]
             ],
             "counter": 2
+          },
+          {
+            "op": [
+              "list",
+              1
+            ],
+            "ops": [
+              [
+                "is",
+                0
+              ],
+              [
+                "unknown",
+                0
+              ]
+            ],
+            "counter": 3
+          },
+          {
+            "op": [
+              "unknown",
+              0
+            ],
+            "ops": [
+              [
+                "is",
+                0
+              ],
+              [
+                "unknown",
+                0
+              ],
+              [
+                "unknown",
+                1
+              ]
+            ],
+            "counter": 4
           },
           {
             "op": [
@@ -1849,9 +1901,13 @@
               [
                 "is",
                 0
+              ],
+              [
+                "unknown",
+                1
               ]
             ],
-            "counter": 3
+            "counter": 5
           },
           {
             "op": [
@@ -1864,7 +1920,7 @@
                 1
               ]
             ],
-            "counter": 4
+            "counter": 6
           }
         ]
       },
@@ -1872,43 +1928,80 @@
       "contexts": [
         {
           "number": "many",
-          "text": "fruits are food",
+          "text": " are fruit",
           "marker": "is",
           "word": "are",
           "range": {
             "start": 0,
-            "end": 14
+            "end": 35
           },
           "one": {
             "number": "many",
-            "marker": "unknown",
+            "marker": "list",
+            "value": [
+              {
+                "marker": "unknown",
+                "range": {
+                  "start": 0,
+                  "end": 5
+                },
+                "word": "apples",
+                "text": "apples",
+                "value": "apples",
+                "unknown": true,
+                "dead": true,
+                "level": 1
+              },
+              {
+                "marker": "unknown",
+                "range": {
+                  "start": 7,
+                  "end": 13
+                },
+                "word": "oranges",
+                "text": "oranges",
+                "value": "oranges",
+                "unknown": true,
+                "dead": true,
+                "level": 1
+              },
+              {
+                "marker": "unknown",
+                "range": {
+                  "start": 19,
+                  "end": 25
+                },
+                "word": "bananas",
+                "text": "bananas",
+                "value": "bananas",
+                "unknown": true,
+                "dead": true,
+                "level": 1
+              }
+            ],
             "range": {
               "start": 0,
-              "end": 14
+              "end": 35
             },
-            "word": "fruits",
-            "text": "fruits",
-            "value": "fruits",
-            "unknown": true,
-            "dead": true,
             "types": [
+              "list",
               "unknown"
             ],
             "level": 1
           },
           "two": {
-            "value": "food",
-            "number": "one",
-            "text": "food",
-            "marker": "food",
-            "word": "food",
+            "marker": "unknown",
             "range": {
-              "start": 11,
-              "end": 14
+              "start": 31,
+              "end": 35
             },
+            "word": "fruit",
+            "text": "fruit",
+            "value": "fruit",
+            "unknown": true,
             "dead": true,
             "types": [
-              "food"
+              "unknown"
             ],
             "level": 1,
             "concept": true
@@ -1925,19 +2018,21 @@
         ""
       ],
       "paraphrases": [
-        "fruits are food"
+        "apples, oranges and bananas are fruit"
       ],
+      "paraphrasesParenthesized": [],
+      "generatedParenthesized": [],
       "responses": [
         ""
       ],
       "associations": [
         [
           [
-            "food",
+            "is",
             0
           ],
           [
-            "is",
+            "list",
             0
           ],
           [
@@ -1947,22 +2042,12 @@
         ],
         [
           [
-            "food",
-            0
-          ],
-          [
             "is",
             0
           ],
           [
-            "unknown",
+            "list",
             1
-          ]
-        ],
-        [
-          [
-            "food",
-            0
           ],
           [
             "unknown",
@@ -1973,6 +2058,10 @@
           [
             "is",
             0
+          ],
+          [
+            "list",
+            1
           ],
           [
             "unknown",
@@ -1980,9 +2069,9 @@
           ]
         ]
       ],
-      "query": "fruits are food",
+      "query": "apples oranges and bananas are fruit",
       "key": {
-        "query": "fruits are food"
+        "query": "apples oranges and bananas are fruit"
       }
     },
     {
@@ -1996,8 +2085,72 @@
           "adjective"
         ],
         [
+          "apple",
+          "fruit"
+        ],
+        [
+          "apple",
+          "hierarchyAble"
+        ],
+        [
+          "apple",
+          "isEdee"
+        ],
+        [
+          "apple",
+          "isEder"
+        ],
+        [
+          "apple",
+          "object"
+        ],
+        [
+          "apple",
+          "property"
+        ],
+        [
+          "apple",
+          "queryable"
+        ],
+        [
+          "apple",
+          "theAble"
+        ],
+        [
           "articlePOS",
           "articlePOS"
+        ],
+        [
+          "banana",
+          "fruit"
+        ],
+        [
+          "banana",
+          "hierarchyAble"
+        ],
+        [
+          "banana",
+          "isEdee"
+        ],
+        [
+          "banana",
+          "isEder"
+        ],
+        [
+          "banana",
+          "object"
+        ],
+        [
+          "banana",
+          "property"
+        ],
+        [
+          "banana",
+          "queryable"
+        ],
+        [
+          "banana",
+          "theAble"
         ],
         [
           "canBeDoQuestion",
@@ -2113,10 +2266,6 @@
         ],
         [
           "fruit",
-          "food"
-        ],
-        [
-          "fruit",
           "hierarchyAble"
         ],
         [
@@ -2196,6 +2345,10 @@
           "notAble"
         ],
         [
+          "noun",
+          "theAble"
+        ],
+        [
           "object",
           "queryable"
         ],
@@ -2206,6 +2359,38 @@
         [
           "orAble",
           "ifAble"
+        ],
+        [
+          "orange",
+          "fruit"
+        ],
+        [
+          "orange",
+          "hierarchyAble"
+        ],
+        [
+          "orange",
+          "isEdee"
+        ],
+        [
+          "orange",
+          "isEder"
+        ],
+        [
+          "orange",
+          "object"
+        ],
+        [
+          "orange",
+          "property"
+        ],
+        [
+          "orange",
+          "queryable"
+        ],
+        [
+          "orange",
+          "theAble"
         ],
         [
           "pronoun",
@@ -2285,7 +2470,743 @@
         ],
         [
           "sushi",
+          "isEdee"
+        ],
+        [
+          "sushi",
+          "isEder"
+        ],
+        [
+          "sushi",
+          "queryable"
+        ],
+        [
+          "sushi",
+          "theAble"
+        ],
+        [
+          "that",
+          "thisitthat"
+        ],
+        [
+          "the",
+          "articlePOS"
+        ],
+        [
+          "theAble",
+          "theAble"
+        ],
+        [
+          "this",
+          "pronoun"
+        ],
+        [
+          "this",
+          "queryable"
+        ],
+        [
+          "this",
+          "thisitthat"
+        ],
+        [
+          "thisitthat",
+          "queryable"
+        ],
+        [
+          "toAble",
+          "toAble"
+        ],
+        [
+          "type",
+          "property"
+        ],
+        [
+          "type",
+          "whatAble"
+        ],
+        [
+          "unknown",
           "hierarchyAble"
+        ],
+        [
+          "unknown",
+          "notAble"
+        ],
+        [
+          "unknown",
+          "object"
+        ],
+        [
+          "unknown",
+          "queryable"
+        ],
+        [
+          "unknown",
+          "theAble"
+        ],
+        [
+          "verby",
+          "verby"
+        ],
+        [
+          "what",
+          "object"
+        ],
+        [
+          "what",
+          "queryable"
+        ],
+        [
+          "whatAble",
+          "queryable"
+        ],
+        [
+          "whose",
+          "object"
+        ],
+        [
+          "xfx",
+          "queryable"
+        ]
+      ],
+      "metadata": {
+        "opChoices": [
+          {
+            "op": [
+              "unknown",
+              0
+            ],
+            "ops": [
+              [
+                "modifies",
+                0
+              ],
+              [
+                "unknown",
+                0
+              ]
+            ],
+            "counter": 1
+          },
+          {
+            "op": [
+              "unknown",
+              0
+            ],
+            "ops": [
+              [
+                "modifies",
+                0
+              ],
+              [
+                "unknown",
+                0
+              ]
+            ],
+            "counter": 2
+          },
+          {
+            "op": [
+              "modifies",
+              0
+            ],
+            "ops": [
+              [
+                "modifies",
+                0
+              ]
+            ],
+            "counter": 3
+          }
+        ]
+      },
+      "trace": "undefined",
+      "contexts": [
+        {
+          "marker": "modifies",
+          "value": "modifies",
+          "default": true,
+          "text": "hot modifies dog",
+          "word": "modifies",
+          "range": {
+            "start": 0,
+            "end": 15
+          },
+          "dead": true,
+          "modifier": {
+            "marker": "unknown",
+            "range": {
+              "start": 0,
+              "end": 2
+            },
+            "word": "hot",
+            "text": "hot",
+            "value": "hot",
+            "unknown": true,
+            "dead": true,
+            "level": 1
+          },
+          "concept": {
+            "marker": "unknown",
+            "range": {
+              "start": 13,
+              "end": 15
+            },
+            "word": "dog",
+            "text": "dog",
+            "value": "dog",
+            "unknown": true,
+            "dead": true,
+            "level": 1
+          },
+          "level": 1,
+          "topLevel": true,
+          "touchedBy": [
+            "foods#call2"
+          ]
+        }
+      ],
+      "generated": [
+        ""
+      ],
+      "paraphrases": [
+        "hot modifies dog"
+      ],
+      "paraphrasesParenthesized": [],
+      "generatedParenthesized": [],
+      "responses": [
+        ""
+      ],
+      "associations": [
+        [
+          [
+            "modifies",
+            0
+          ],
+          [
+            "unknown",
+            0
+          ]
+        ],
+        [
+          [
+            "modifies",
+            0
+          ],
+          [
+            "unknown",
+            0
+          ],
+          [
+            "unknown",
+            1
+          ]
+        ],
+        [
+          [
+            "modifies",
+            0
+          ],
+          [
+            "unknown",
+            1
+          ]
+        ]
+      ],
+      "query": "hot modifies dog",
+      "key": {
+        "query": "hot modifies dog"
+      }
+    },
+    {
+      "hierarchy": [
+        [
+          "a",
+          "articlePOS"
+        ],
+        [
+          "adjective",
+          "adjective"
+        ],
+        [
+          "apple",
+          "fruit"
+        ],
+        [
+          "apple",
+          "hierarchyAble"
+        ],
+        [
+          "apple",
+          "isEdee"
+        ],
+        [
+          "apple",
+          "isEder"
+        ],
+        [
+          "apple",
+          "object"
+        ],
+        [
+          "apple",
+          "property"
+        ],
+        [
+          "apple",
+          "queryable"
+        ],
+        [
+          "apple",
+          "theAble"
+        ],
+        [
+          "articlePOS",
+          "articlePOS"
+        ],
+        [
+          "banana",
+          "fruit"
+        ],
+        [
+          "banana",
+          "hierarchyAble"
+        ],
+        [
+          "banana",
+          "isEdee"
+        ],
+        [
+          "banana",
+          "isEder"
+        ],
+        [
+          "banana",
+          "object"
+        ],
+        [
+          "banana",
+          "property"
+        ],
+        [
+          "banana",
+          "queryable"
+        ],
+        [
+          "banana",
+          "theAble"
+        ],
+        [
+          "canBeDoQuestion",
+          "canBeDoQuestion"
+        ],
+        [
+          "canBeQuestion",
+          "canBeQuestion"
+        ],
+        [
+          "chicken",
+          "hierarchyAble"
+        ],
+        [
+          "chicken",
+          "isEdee"
+        ],
+        [
+          "chicken",
+          "isEder"
+        ],
+        [
+          "chicken",
+          "object"
+        ],
+        [
+          "chicken",
+          "property"
+        ],
+        [
+          "chicken",
+          "queryable"
+        ],
+        [
+          "chicken",
+          "theAble"
+        ],
+        [
+          "chicken_strip",
+          "adjective"
+        ],
+        [
+          "chicken_strip",
+          "concept"
+        ],
+        [
+          "chicken_strip",
+          "food"
+        ],
+        [
+          "chicken_strip",
+          "hierarchyAble"
+        ],
+        [
+          "chicken_strip",
+          "isEdee"
+        ],
+        [
+          "chicken_strip",
+          "isEder"
+        ],
+        [
+          "chicken_strip",
+          "object"
+        ],
+        [
+          "chicken_strip",
+          "property"
+        ],
+        [
+          "chicken_strip",
+          "queryable"
+        ],
+        [
+          "chicken_strip",
+          "theAble"
+        ],
+        [
+          "concept",
+          "queryable"
+        ],
+        [
+          "concept",
+          "theAble"
+        ],
+        [
+          "dog",
+          "concept"
+        ],
+        [
+          "dog",
+          "hierarchyAble"
+        ],
+        [
+          "dog",
+          "isEdee"
+        ],
+        [
+          "dog",
+          "isEder"
+        ],
+        [
+          "dog",
+          "object"
+        ],
+        [
+          "dog",
+          "property"
+        ],
+        [
+          "dog",
+          "queryable"
+        ],
+        [
+          "dog",
+          "theAble"
+        ],
+        [
+          "food",
+          "hierarchyAble"
+        ],
+        [
+          "food",
+          "isEdee"
+        ],
+        [
+          "food",
+          "isEder"
+        ],
+        [
+          "food",
+          "object"
+        ],
+        [
+          "food",
+          "property"
+        ],
+        [
+          "food",
+          "queryable"
+        ],
+        [
+          "food",
+          "theAble"
+        ],
+        [
+          "fruit",
+          "hierarchyAble"
+        ],
+        [
+          "fruit",
+          "isEdee"
+        ],
+        [
+          "fruit",
+          "isEder"
+        ],
+        [
+          "fruit",
+          "object"
+        ],
+        [
+          "fruit",
+          "property"
+        ],
+        [
+          "fruit",
+          "queryable"
+        ],
+        [
+          "fruit",
+          "theAble"
+        ],
+        [
+          "have",
+          "canBeDoQuestion"
+        ],
+        [
+          "have",
+          "canBeQuestion"
+        ],
+        [
+          "hierarchyAble",
+          "queryable"
+        ],
+        [
+          "hot",
+          "hierarchyAble"
+        ],
+        [
+          "hot",
+          "isEdee"
+        ],
+        [
+          "hot",
+          "isEder"
+        ],
+        [
+          "hot",
+          "object"
+        ],
+        [
+          "hot",
+          "property"
+        ],
+        [
+          "hot",
+          "queryable"
+        ],
+        [
+          "hot",
+          "theAble"
+        ],
+        [
+          "hot_dog",
+          "adjective"
+        ],
+        [
+          "hot_dog",
+          "concept"
+        ],
+        [
+          "hot_dog",
+          "hierarchyAble"
+        ],
+        [
+          "hot_dog",
+          "isEdee"
+        ],
+        [
+          "hot_dog",
+          "isEder"
+        ],
+        [
+          "hot_dog",
+          "object"
+        ],
+        [
+          "hot_dog",
+          "property"
+        ],
+        [
+          "hot_dog",
+          "queryable"
+        ],
+        [
+          "hot_dog",
+          "theAble"
+        ],
+        [
+          "ifAble",
+          "ifAble"
+        ],
+        [
+          "is",
+          "canBeQuestion"
+        ],
+        [
+          "is",
+          "verby"
+        ],
+        [
+          "isEdee",
+          "isEdee"
+        ],
+        [
+          "isEder",
+          "isEder"
+        ],
+        [
+          "it",
+          "pronoun"
+        ],
+        [
+          "it",
+          "queryable"
+        ],
+        [
+          "it",
+          "thisitthat"
+        ],
+        [
+          "it",
+          "toAble"
+        ],
+        [
+          "notAble",
+          "notAble"
+        ],
+        [
+          "noun",
+          "theAble"
+        ],
+        [
+          "object",
+          "queryable"
+        ],
+        [
+          "object",
+          "theAble"
+        ],
+        [
+          "orAble",
+          "ifAble"
+        ],
+        [
+          "orange",
+          "fruit"
+        ],
+        [
+          "orange",
+          "hierarchyAble"
+        ],
+        [
+          "orange",
+          "isEdee"
+        ],
+        [
+          "orange",
+          "isEder"
+        ],
+        [
+          "orange",
+          "object"
+        ],
+        [
+          "orange",
+          "property"
+        ],
+        [
+          "orange",
+          "queryable"
+        ],
+        [
+          "orange",
+          "theAble"
+        ],
+        [
+          "pronoun",
+          "pronoun"
+        ],
+        [
+          "property",
+          "queryable"
+        ],
+        [
+          "property",
+          "theAble"
+        ],
+        [
+          "property",
+          "unknown"
+        ],
+        [
+          "punctuation",
+          "punctuation"
+        ],
+        [
+          "queryable",
+          "queryable"
+        ],
+        [
+          "questionMark",
+          "punctuation"
+        ],
+        [
+          "readonly",
+          "queryable"
+        ],
+        [
+          "reason",
+          "queryable"
+        ],
+        [
+          "reason",
+          "theAble"
+        ],
+        [
+          "strip",
+          "concept"
+        ],
+        [
+          "strip",
+          "hierarchyAble"
+        ],
+        [
+          "strip",
+          "isEdee"
+        ],
+        [
+          "strip",
+          "isEder"
+        ],
+        [
+          "strip",
+          "object"
+        ],
+        [
+          "strip",
+          "property"
+        ],
+        [
+          "strip",
+          "queryable"
+        ],
+        [
+          "strip",
+          "theAble"
+        ],
+        [
+          "sushi",
+          "food"
         ],
         [
           "sushi",
@@ -2297,11 +3218,5385 @@
         ],
         [
           "sushi",
-          "object"
+          "queryable"
         ],
         [
           "sushi",
+          "theAble"
+        ],
+        [
+          "that",
+          "thisitthat"
+        ],
+        [
+          "the",
+          "articlePOS"
+        ],
+        [
+          "theAble",
+          "theAble"
+        ],
+        [
+          "this",
+          "pronoun"
+        ],
+        [
+          "this",
+          "queryable"
+        ],
+        [
+          "this",
+          "thisitthat"
+        ],
+        [
+          "thisitthat",
+          "queryable"
+        ],
+        [
+          "toAble",
+          "toAble"
+        ],
+        [
+          "type",
           "property"
+        ],
+        [
+          "type",
+          "whatAble"
+        ],
+        [
+          "unknown",
+          "hierarchyAble"
+        ],
+        [
+          "unknown",
+          "notAble"
+        ],
+        [
+          "unknown",
+          "object"
+        ],
+        [
+          "unknown",
+          "queryable"
+        ],
+        [
+          "unknown",
+          "theAble"
+        ],
+        [
+          "verby",
+          "verby"
+        ],
+        [
+          "what",
+          "object"
+        ],
+        [
+          "what",
+          "queryable"
+        ],
+        [
+          "whatAble",
+          "queryable"
+        ],
+        [
+          "whose",
+          "object"
+        ],
+        [
+          "xfx",
+          "queryable"
+        ]
+      ],
+      "metadata": {
+        "opChoices": [
+          {
+            "op": [
+              "unknown",
+              0
+            ],
+            "ops": [
+              [
+                "dog",
+                0
+              ],
+              [
+                "hot",
+                0
+              ],
+              [
+                "is",
+                0
+              ],
+              [
+                "unknown",
+                0
+              ],
+              [
+                "hot_dog",
+                0
+              ]
+            ],
+            "counter": 1
+          },
+          {
+            "op": [
+              "hot_dog",
+              0
+            ],
+            "ops": [
+              [
+                "dog",
+                0
+              ],
+              [
+                "hot",
+                0
+              ],
+              [
+                "is",
+                0
+              ],
+              [
+                "hot_dog",
+                0
+              ]
+            ],
+            "counter": 2
+          },
+          {
+            "op": [
+              "is",
+              0
+            ],
+            "ops": [
+              [
+                "is",
+                0
+              ]
+            ],
+            "counter": 3
+          },
+          {
+            "op": [
+              "is",
+              1
+            ],
+            "ops": [
+              [
+                "is",
+                1
+              ]
+            ],
+            "counter": 4
+          }
+        ]
+      },
+      "trace": "undefined",
+      "contexts": [
+        {
+          "number": "many",
+          "text": "hot dogs are sausages",
+          "marker": "is",
+          "word": "are",
+          "range": {
+            "start": 0,
+            "end": 20
+          },
+          "one": {
+            "number": "many",
+            "value": "hot_dog",
+            "text": "hot dogs",
+            "marker": "hot_dog",
+            "word": "dogs",
+            "range": {
+              "start": 0,
+              "end": 20
+            },
+            "hot": {
+              "value": "hot",
+              "text": "hot",
+              "marker": "hot",
+              "word": "hot",
+              "range": {
+                "start": 0,
+                "end": 2
+              },
+              "level": 0
+            },
+            "atomic": true,
+            "dead": true,
+            "modifiers": [
+              "hot"
+            ],
+            "types": [
+              "hot_dog"
+            ],
+            "level": 1
+          },
+          "two": {
+            "marker": "unknown",
+            "range": {
+              "start": 13,
+              "end": 20
+            },
+            "word": "sausages",
+            "text": "sausages",
+            "value": "sausages",
+            "unknown": true,
+            "dead": true,
+            "types": [
+              "unknown"
+            ],
+            "level": 1,
+            "concept": true
+          },
+          "dead": true,
+          "level": 2,
+          "topLevel": true,
+          "touchedBy": [
+            "foods#call2"
+          ]
+        }
+      ],
+      "generated": [
+        ""
+      ],
+      "paraphrases": [
+        "hot dogs are sausages"
+      ],
+      "paraphrasesParenthesized": [],
+      "generatedParenthesized": [],
+      "responses": [
+        ""
+      ],
+      "associations": [
+        [
+          [
+            "dog",
+            0
+          ],
+          [
+            "hot",
+            0
+          ],
+          [
+            "is",
+            0
+          ],
+          [
+            "unknown",
+            0
+          ]
+        ],
+        [
+          [
+            "dog",
+            0
+          ],
+          [
+            "hot",
+            0
+          ],
+          [
+            "is",
+            0
+          ],
+          [
+            "unknown",
+            1
+          ]
+        ],
+        [
+          [
+            "hot",
+            0
+          ],
+          [
+            "unknown",
+            0
+          ]
+        ],
+        [
+          [
+            "is",
+            0
+          ],
+          [
+            "unknown",
+            1
+          ]
+        ]
+      ],
+      "query": "hot dogs are sausages",
+      "key": {
+        "query": "hot dogs are sausages"
+      }
+    },
+    {
+      "hierarchy": [
+        [
+          "a",
+          "articlePOS"
+        ],
+        [
+          "adjective",
+          "adjective"
+        ],
+        [
+          "apple",
+          "fruit"
+        ],
+        [
+          "apple",
+          "hierarchyAble"
+        ],
+        [
+          "apple",
+          "isEdee"
+        ],
+        [
+          "apple",
+          "isEder"
+        ],
+        [
+          "apple",
+          "object"
+        ],
+        [
+          "apple",
+          "property"
+        ],
+        [
+          "apple",
+          "queryable"
+        ],
+        [
+          "apple",
+          "theAble"
+        ],
+        [
+          "articlePOS",
+          "articlePOS"
+        ],
+        [
+          "banana",
+          "fruit"
+        ],
+        [
+          "banana",
+          "hierarchyAble"
+        ],
+        [
+          "banana",
+          "isEdee"
+        ],
+        [
+          "banana",
+          "isEder"
+        ],
+        [
+          "banana",
+          "object"
+        ],
+        [
+          "banana",
+          "property"
+        ],
+        [
+          "banana",
+          "queryable"
+        ],
+        [
+          "banana",
+          "theAble"
+        ],
+        [
+          "canBeDoQuestion",
+          "canBeDoQuestion"
+        ],
+        [
+          "canBeQuestion",
+          "canBeQuestion"
+        ],
+        [
+          "chicken",
+          "hierarchyAble"
+        ],
+        [
+          "chicken",
+          "isEdee"
+        ],
+        [
+          "chicken",
+          "isEder"
+        ],
+        [
+          "chicken",
+          "object"
+        ],
+        [
+          "chicken",
+          "property"
+        ],
+        [
+          "chicken",
+          "queryable"
+        ],
+        [
+          "chicken",
+          "theAble"
+        ],
+        [
+          "chicken_strip",
+          "adjective"
+        ],
+        [
+          "chicken_strip",
+          "concept"
+        ],
+        [
+          "chicken_strip",
+          "food"
+        ],
+        [
+          "chicken_strip",
+          "hierarchyAble"
+        ],
+        [
+          "chicken_strip",
+          "isEdee"
+        ],
+        [
+          "chicken_strip",
+          "isEder"
+        ],
+        [
+          "chicken_strip",
+          "object"
+        ],
+        [
+          "chicken_strip",
+          "property"
+        ],
+        [
+          "chicken_strip",
+          "queryable"
+        ],
+        [
+          "chicken_strip",
+          "theAble"
+        ],
+        [
+          "concept",
+          "queryable"
+        ],
+        [
+          "concept",
+          "theAble"
+        ],
+        [
+          "dog",
+          "concept"
+        ],
+        [
+          "dog",
+          "hierarchyAble"
+        ],
+        [
+          "dog",
+          "isEdee"
+        ],
+        [
+          "dog",
+          "isEder"
+        ],
+        [
+          "dog",
+          "object"
+        ],
+        [
+          "dog",
+          "property"
+        ],
+        [
+          "dog",
+          "queryable"
+        ],
+        [
+          "dog",
+          "theAble"
+        ],
+        [
+          "food",
+          "hierarchyAble"
+        ],
+        [
+          "food",
+          "isEdee"
+        ],
+        [
+          "food",
+          "isEder"
+        ],
+        [
+          "food",
+          "object"
+        ],
+        [
+          "food",
+          "property"
+        ],
+        [
+          "food",
+          "queryable"
+        ],
+        [
+          "food",
+          "theAble"
+        ],
+        [
+          "fruit",
+          "hierarchyAble"
+        ],
+        [
+          "fruit",
+          "isEdee"
+        ],
+        [
+          "fruit",
+          "isEder"
+        ],
+        [
+          "fruit",
+          "object"
+        ],
+        [
+          "fruit",
+          "property"
+        ],
+        [
+          "fruit",
+          "queryable"
+        ],
+        [
+          "fruit",
+          "theAble"
+        ],
+        [
+          "have",
+          "canBeDoQuestion"
+        ],
+        [
+          "have",
+          "canBeQuestion"
+        ],
+        [
+          "hierarchyAble",
+          "queryable"
+        ],
+        [
+          "hot",
+          "hierarchyAble"
+        ],
+        [
+          "hot",
+          "isEdee"
+        ],
+        [
+          "hot",
+          "isEder"
+        ],
+        [
+          "hot",
+          "object"
+        ],
+        [
+          "hot",
+          "property"
+        ],
+        [
+          "hot",
+          "queryable"
+        ],
+        [
+          "hot",
+          "theAble"
+        ],
+        [
+          "hot_dog",
+          "adjective"
+        ],
+        [
+          "hot_dog",
+          "concept"
+        ],
+        [
+          "hot_dog",
+          "hierarchyAble"
+        ],
+        [
+          "hot_dog",
+          "isEdee"
+        ],
+        [
+          "hot_dog",
+          "isEder"
+        ],
+        [
+          "hot_dog",
+          "object"
+        ],
+        [
+          "hot_dog",
+          "property"
+        ],
+        [
+          "hot_dog",
+          "queryable"
+        ],
+        [
+          "hot_dog",
+          "sausage"
+        ],
+        [
+          "hot_dog",
+          "theAble"
+        ],
+        [
+          "ifAble",
+          "ifAble"
+        ],
+        [
+          "is",
+          "canBeQuestion"
+        ],
+        [
+          "is",
+          "verby"
+        ],
+        [
+          "isEdee",
+          "isEdee"
+        ],
+        [
+          "isEder",
+          "isEder"
+        ],
+        [
+          "it",
+          "pronoun"
+        ],
+        [
+          "it",
+          "queryable"
+        ],
+        [
+          "it",
+          "thisitthat"
+        ],
+        [
+          "it",
+          "toAble"
+        ],
+        [
+          "notAble",
+          "notAble"
+        ],
+        [
+          "noun",
+          "theAble"
+        ],
+        [
+          "object",
+          "queryable"
+        ],
+        [
+          "object",
+          "theAble"
+        ],
+        [
+          "orAble",
+          "ifAble"
+        ],
+        [
+          "orange",
+          "fruit"
+        ],
+        [
+          "orange",
+          "hierarchyAble"
+        ],
+        [
+          "orange",
+          "isEdee"
+        ],
+        [
+          "orange",
+          "isEder"
+        ],
+        [
+          "orange",
+          "object"
+        ],
+        [
+          "orange",
+          "property"
+        ],
+        [
+          "orange",
+          "queryable"
+        ],
+        [
+          "orange",
+          "theAble"
+        ],
+        [
+          "pronoun",
+          "pronoun"
+        ],
+        [
+          "property",
+          "queryable"
+        ],
+        [
+          "property",
+          "theAble"
+        ],
+        [
+          "property",
+          "unknown"
+        ],
+        [
+          "punctuation",
+          "punctuation"
+        ],
+        [
+          "queryable",
+          "queryable"
+        ],
+        [
+          "questionMark",
+          "punctuation"
+        ],
+        [
+          "readonly",
+          "queryable"
+        ],
+        [
+          "reason",
+          "queryable"
+        ],
+        [
+          "reason",
+          "theAble"
+        ],
+        [
+          "sausage",
+          "hierarchyAble"
+        ],
+        [
+          "sausage",
+          "isEdee"
+        ],
+        [
+          "sausage",
+          "isEder"
+        ],
+        [
+          "sausage",
+          "object"
+        ],
+        [
+          "sausage",
+          "property"
+        ],
+        [
+          "sausage",
+          "queryable"
+        ],
+        [
+          "sausage",
+          "theAble"
+        ],
+        [
+          "strip",
+          "concept"
+        ],
+        [
+          "strip",
+          "hierarchyAble"
+        ],
+        [
+          "strip",
+          "isEdee"
+        ],
+        [
+          "strip",
+          "isEder"
+        ],
+        [
+          "strip",
+          "object"
+        ],
+        [
+          "strip",
+          "property"
+        ],
+        [
+          "strip",
+          "queryable"
+        ],
+        [
+          "strip",
+          "theAble"
+        ],
+        [
+          "sushi",
+          "food"
+        ],
+        [
+          "sushi",
+          "isEdee"
+        ],
+        [
+          "sushi",
+          "isEder"
+        ],
+        [
+          "sushi",
+          "queryable"
+        ],
+        [
+          "sushi",
+          "theAble"
+        ],
+        [
+          "that",
+          "thisitthat"
+        ],
+        [
+          "the",
+          "articlePOS"
+        ],
+        [
+          "theAble",
+          "theAble"
+        ],
+        [
+          "this",
+          "pronoun"
+        ],
+        [
+          "this",
+          "queryable"
+        ],
+        [
+          "this",
+          "thisitthat"
+        ],
+        [
+          "thisitthat",
+          "queryable"
+        ],
+        [
+          "toAble",
+          "toAble"
+        ],
+        [
+          "type",
+          "property"
+        ],
+        [
+          "type",
+          "whatAble"
+        ],
+        [
+          "unknown",
+          "hierarchyAble"
+        ],
+        [
+          "unknown",
+          "notAble"
+        ],
+        [
+          "unknown",
+          "object"
+        ],
+        [
+          "unknown",
+          "queryable"
+        ],
+        [
+          "unknown",
+          "theAble"
+        ],
+        [
+          "verby",
+          "verby"
+        ],
+        [
+          "what",
+          "object"
+        ],
+        [
+          "what",
+          "queryable"
+        ],
+        [
+          "whatAble",
+          "queryable"
+        ],
+        [
+          "whose",
+          "object"
+        ],
+        [
+          "xfx",
+          "queryable"
+        ]
+      ],
+      "metadata": {
+        "opChoices": [
+          {
+            "op": [
+              "unknown",
+              0
+            ],
+            "ops": [
+              [
+                "is",
+                0
+              ],
+              [
+                "sausage",
+                0
+              ],
+              [
+                "unknown",
+                0
+              ]
+            ],
+            "counter": 1
+          },
+          {
+            "op": [
+              "sausage",
+              0
+            ],
+            "ops": [
+              [
+                "is",
+                0
+              ],
+              [
+                "sausage",
+                0
+              ]
+            ],
+            "counter": 2
+          },
+          {
+            "op": [
+              "is",
+              0
+            ],
+            "ops": [
+              [
+                "is",
+                0
+              ]
+            ],
+            "counter": 3
+          },
+          {
+            "op": [
+              "is",
+              1
+            ],
+            "ops": [
+              [
+                "is",
+                1
+              ]
+            ],
+            "counter": 4
+          }
+        ]
+      },
+      "trace": "undefined",
+      "contexts": [
+        {
+          "number": "many",
+          "text": "sausages are meat",
+          "marker": "is",
+          "word": "are",
+          "range": {
+            "start": 0,
+            "end": 16
+          },
+          "one": {
+            "number": "many",
+            "value": "sausage",
+            "text": "sausages",
+            "marker": "sausage",
+            "word": "sausages",
+            "range": {
+              "start": 0,
+              "end": 16
+            },
+            "dead": true,
+            "types": [
+              "sausage"
+            ],
+            "level": 1
+          },
+          "two": {
+            "marker": "unknown",
+            "range": {
+              "start": 13,
+              "end": 16
+            },
+            "word": "meat",
+            "text": "meat",
+            "value": "meat",
+            "unknown": true,
+            "dead": true,
+            "types": [
+              "unknown"
+            ],
+            "level": 1,
+            "concept": true
+          },
+          "dead": true,
+          "level": 2,
+          "topLevel": true,
+          "touchedBy": [
+            "foods#call2"
+          ]
+        }
+      ],
+      "generated": [
+        ""
+      ],
+      "paraphrases": [
+        "sausages are meat"
+      ],
+      "paraphrasesParenthesized": [],
+      "generatedParenthesized": [],
+      "responses": [
+        ""
+      ],
+      "associations": [
+        [
+          [
+            "is",
+            0
+          ],
+          [
+            "sausage",
+            0
+          ],
+          [
+            "unknown",
+            0
+          ]
+        ],
+        [
+          [
+            "is",
+            0
+          ],
+          [
+            "sausage",
+            0
+          ],
+          [
+            "unknown",
+            1
+          ]
+        ],
+        [
+          [
+            "is",
+            0
+          ],
+          [
+            "unknown",
+            1
+          ]
+        ]
+      ],
+      "query": "sausages are meat",
+      "key": {
+        "query": "sausages are meat"
+      }
+    },
+    {
+      "hierarchy": [
+        [
+          "a",
+          "articlePOS"
+        ],
+        [
+          "adjective",
+          "adjective"
+        ],
+        [
+          "apple",
+          "fruit"
+        ],
+        [
+          "apple",
+          "hierarchyAble"
+        ],
+        [
+          "apple",
+          "isEdee"
+        ],
+        [
+          "apple",
+          "isEder"
+        ],
+        [
+          "apple",
+          "object"
+        ],
+        [
+          "apple",
+          "property"
+        ],
+        [
+          "apple",
+          "queryable"
+        ],
+        [
+          "apple",
+          "theAble"
+        ],
+        [
+          "articlePOS",
+          "articlePOS"
+        ],
+        [
+          "banana",
+          "fruit"
+        ],
+        [
+          "banana",
+          "hierarchyAble"
+        ],
+        [
+          "banana",
+          "isEdee"
+        ],
+        [
+          "banana",
+          "isEder"
+        ],
+        [
+          "banana",
+          "object"
+        ],
+        [
+          "banana",
+          "property"
+        ],
+        [
+          "banana",
+          "queryable"
+        ],
+        [
+          "banana",
+          "theAble"
+        ],
+        [
+          "canBeDoQuestion",
+          "canBeDoQuestion"
+        ],
+        [
+          "canBeQuestion",
+          "canBeQuestion"
+        ],
+        [
+          "chicken",
+          "hierarchyAble"
+        ],
+        [
+          "chicken",
+          "isEdee"
+        ],
+        [
+          "chicken",
+          "isEder"
+        ],
+        [
+          "chicken",
+          "object"
+        ],
+        [
+          "chicken",
+          "property"
+        ],
+        [
+          "chicken",
+          "queryable"
+        ],
+        [
+          "chicken",
+          "theAble"
+        ],
+        [
+          "chicken_strip",
+          "adjective"
+        ],
+        [
+          "chicken_strip",
+          "concept"
+        ],
+        [
+          "chicken_strip",
+          "food"
+        ],
+        [
+          "chicken_strip",
+          "hierarchyAble"
+        ],
+        [
+          "chicken_strip",
+          "isEdee"
+        ],
+        [
+          "chicken_strip",
+          "isEder"
+        ],
+        [
+          "chicken_strip",
+          "object"
+        ],
+        [
+          "chicken_strip",
+          "property"
+        ],
+        [
+          "chicken_strip",
+          "queryable"
+        ],
+        [
+          "chicken_strip",
+          "theAble"
+        ],
+        [
+          "concept",
+          "queryable"
+        ],
+        [
+          "concept",
+          "theAble"
+        ],
+        [
+          "dog",
+          "concept"
+        ],
+        [
+          "dog",
+          "hierarchyAble"
+        ],
+        [
+          "dog",
+          "isEdee"
+        ],
+        [
+          "dog",
+          "isEder"
+        ],
+        [
+          "dog",
+          "object"
+        ],
+        [
+          "dog",
+          "property"
+        ],
+        [
+          "dog",
+          "queryable"
+        ],
+        [
+          "dog",
+          "theAble"
+        ],
+        [
+          "food",
+          "hierarchyAble"
+        ],
+        [
+          "food",
+          "isEdee"
+        ],
+        [
+          "food",
+          "isEder"
+        ],
+        [
+          "food",
+          "object"
+        ],
+        [
+          "food",
+          "property"
+        ],
+        [
+          "food",
+          "queryable"
+        ],
+        [
+          "food",
+          "theAble"
+        ],
+        [
+          "fruit",
+          "hierarchyAble"
+        ],
+        [
+          "fruit",
+          "isEdee"
+        ],
+        [
+          "fruit",
+          "isEder"
+        ],
+        [
+          "fruit",
+          "object"
+        ],
+        [
+          "fruit",
+          "property"
+        ],
+        [
+          "fruit",
+          "queryable"
+        ],
+        [
+          "fruit",
+          "theAble"
+        ],
+        [
+          "have",
+          "canBeDoQuestion"
+        ],
+        [
+          "have",
+          "canBeQuestion"
+        ],
+        [
+          "hierarchyAble",
+          "queryable"
+        ],
+        [
+          "hot",
+          "hierarchyAble"
+        ],
+        [
+          "hot",
+          "isEdee"
+        ],
+        [
+          "hot",
+          "isEder"
+        ],
+        [
+          "hot",
+          "object"
+        ],
+        [
+          "hot",
+          "property"
+        ],
+        [
+          "hot",
+          "queryable"
+        ],
+        [
+          "hot",
+          "theAble"
+        ],
+        [
+          "hot_dog",
+          "adjective"
+        ],
+        [
+          "hot_dog",
+          "concept"
+        ],
+        [
+          "hot_dog",
+          "hierarchyAble"
+        ],
+        [
+          "hot_dog",
+          "isEdee"
+        ],
+        [
+          "hot_dog",
+          "isEder"
+        ],
+        [
+          "hot_dog",
+          "object"
+        ],
+        [
+          "hot_dog",
+          "property"
+        ],
+        [
+          "hot_dog",
+          "queryable"
+        ],
+        [
+          "hot_dog",
+          "sausage"
+        ],
+        [
+          "hot_dog",
+          "theAble"
+        ],
+        [
+          "ifAble",
+          "ifAble"
+        ],
+        [
+          "is",
+          "canBeQuestion"
+        ],
+        [
+          "is",
+          "verby"
+        ],
+        [
+          "isEdee",
+          "isEdee"
+        ],
+        [
+          "isEder",
+          "isEder"
+        ],
+        [
+          "it",
+          "pronoun"
+        ],
+        [
+          "it",
+          "queryable"
+        ],
+        [
+          "it",
+          "thisitthat"
+        ],
+        [
+          "it",
+          "toAble"
+        ],
+        [
+          "meat",
+          "hierarchyAble"
+        ],
+        [
+          "meat",
+          "isEdee"
+        ],
+        [
+          "meat",
+          "isEder"
+        ],
+        [
+          "meat",
+          "object"
+        ],
+        [
+          "meat",
+          "property"
+        ],
+        [
+          "meat",
+          "queryable"
+        ],
+        [
+          "meat",
+          "theAble"
+        ],
+        [
+          "notAble",
+          "notAble"
+        ],
+        [
+          "noun",
+          "theAble"
+        ],
+        [
+          "object",
+          "queryable"
+        ],
+        [
+          "object",
+          "theAble"
+        ],
+        [
+          "orAble",
+          "ifAble"
+        ],
+        [
+          "orange",
+          "fruit"
+        ],
+        [
+          "orange",
+          "hierarchyAble"
+        ],
+        [
+          "orange",
+          "isEdee"
+        ],
+        [
+          "orange",
+          "isEder"
+        ],
+        [
+          "orange",
+          "object"
+        ],
+        [
+          "orange",
+          "property"
+        ],
+        [
+          "orange",
+          "queryable"
+        ],
+        [
+          "orange",
+          "theAble"
+        ],
+        [
+          "pronoun",
+          "pronoun"
+        ],
+        [
+          "property",
+          "queryable"
+        ],
+        [
+          "property",
+          "theAble"
+        ],
+        [
+          "property",
+          "unknown"
+        ],
+        [
+          "punctuation",
+          "punctuation"
+        ],
+        [
+          "queryable",
+          "queryable"
+        ],
+        [
+          "questionMark",
+          "punctuation"
+        ],
+        [
+          "readonly",
+          "queryable"
+        ],
+        [
+          "reason",
+          "queryable"
+        ],
+        [
+          "reason",
+          "theAble"
+        ],
+        [
+          "sausage",
+          "hierarchyAble"
+        ],
+        [
+          "sausage",
+          "isEdee"
+        ],
+        [
+          "sausage",
+          "isEder"
+        ],
+        [
+          "sausage",
+          "meat"
+        ],
+        [
+          "sausage",
+          "object"
+        ],
+        [
+          "sausage",
+          "property"
+        ],
+        [
+          "sausage",
+          "queryable"
+        ],
+        [
+          "sausage",
+          "theAble"
+        ],
+        [
+          "strip",
+          "concept"
+        ],
+        [
+          "strip",
+          "hierarchyAble"
+        ],
+        [
+          "strip",
+          "isEdee"
+        ],
+        [
+          "strip",
+          "isEder"
+        ],
+        [
+          "strip",
+          "object"
+        ],
+        [
+          "strip",
+          "property"
+        ],
+        [
+          "strip",
+          "queryable"
+        ],
+        [
+          "strip",
+          "theAble"
+        ],
+        [
+          "sushi",
+          "food"
+        ],
+        [
+          "sushi",
+          "isEdee"
+        ],
+        [
+          "sushi",
+          "isEder"
+        ],
+        [
+          "sushi",
+          "queryable"
+        ],
+        [
+          "sushi",
+          "theAble"
+        ],
+        [
+          "that",
+          "thisitthat"
+        ],
+        [
+          "the",
+          "articlePOS"
+        ],
+        [
+          "theAble",
+          "theAble"
+        ],
+        [
+          "this",
+          "pronoun"
+        ],
+        [
+          "this",
+          "queryable"
+        ],
+        [
+          "this",
+          "thisitthat"
+        ],
+        [
+          "thisitthat",
+          "queryable"
+        ],
+        [
+          "toAble",
+          "toAble"
+        ],
+        [
+          "type",
+          "property"
+        ],
+        [
+          "type",
+          "whatAble"
+        ],
+        [
+          "unknown",
+          "hierarchyAble"
+        ],
+        [
+          "unknown",
+          "notAble"
+        ],
+        [
+          "unknown",
+          "object"
+        ],
+        [
+          "unknown",
+          "queryable"
+        ],
+        [
+          "unknown",
+          "theAble"
+        ],
+        [
+          "verby",
+          "verby"
+        ],
+        [
+          "what",
+          "object"
+        ],
+        [
+          "what",
+          "queryable"
+        ],
+        [
+          "whatAble",
+          "queryable"
+        ],
+        [
+          "whose",
+          "object"
+        ],
+        [
+          "xfx",
+          "queryable"
+        ]
+      ],
+      "metadata": {
+        "opChoices": [
+          {
+            "op": [
+              "unknown",
+              0
+            ],
+            "ops": [
+              [
+                "modifies",
+                0
+              ],
+              [
+                "unknown",
+                0
+              ]
+            ],
+            "counter": 1
+          },
+          {
+            "op": [
+              "unknown",
+              0
+            ],
+            "ops": [
+              [
+                "modifies",
+                0
+              ],
+              [
+                "unknown",
+                0
+              ]
+            ],
+            "counter": 2
+          },
+          {
+            "op": [
+              "modifies",
+              0
+            ],
+            "ops": [
+              [
+                "modifies",
+                0
+              ]
+            ],
+            "counter": 3
+          }
+        ]
+      },
+      "trace": "undefined",
+      "contexts": [
+        {
+          "marker": "modifies",
+          "value": "modifies",
+          "default": true,
+          "text": "french modifies fries",
+          "word": "modifies",
+          "range": {
+            "start": 0,
+            "end": 20
+          },
+          "dead": true,
+          "modifier": {
+            "marker": "unknown",
+            "range": {
+              "start": 0,
+              "end": 5
+            },
+            "word": "french",
+            "text": "french",
+            "value": "french",
+            "unknown": true,
+            "dead": true,
+            "level": 1
+          },
+          "concept": {
+            "marker": "unknown",
+            "range": {
+              "start": 16,
+              "end": 20
+            },
+            "word": "fries",
+            "text": "fries",
+            "value": "fries",
+            "unknown": true,
+            "dead": true,
+            "level": 1
+          },
+          "level": 1,
+          "topLevel": true,
+          "touchedBy": [
+            "foods#call2"
+          ]
+        }
+      ],
+      "generated": [
+        ""
+      ],
+      "paraphrases": [
+        "french modifies fries"
+      ],
+      "paraphrasesParenthesized": [],
+      "generatedParenthesized": [],
+      "responses": [
+        ""
+      ],
+      "associations": [
+        [
+          [
+            "modifies",
+            0
+          ],
+          [
+            "unknown",
+            0
+          ]
+        ],
+        [
+          [
+            "modifies",
+            0
+          ],
+          [
+            "unknown",
+            0
+          ],
+          [
+            "unknown",
+            1
+          ]
+        ],
+        [
+          [
+            "modifies",
+            0
+          ],
+          [
+            "unknown",
+            1
+          ]
+        ]
+      ],
+      "query": "french modifies fries",
+      "key": {
+        "query": "french modifies fries"
+      }
+    },
+    {
+      "hierarchy": [
+        [
+          "a",
+          "articlePOS"
+        ],
+        [
+          "adjective",
+          "adjective"
+        ],
+        [
+          "apple",
+          "fruit"
+        ],
+        [
+          "apple",
+          "hierarchyAble"
+        ],
+        [
+          "apple",
+          "isEdee"
+        ],
+        [
+          "apple",
+          "isEder"
+        ],
+        [
+          "apple",
+          "object"
+        ],
+        [
+          "apple",
+          "property"
+        ],
+        [
+          "apple",
+          "queryable"
+        ],
+        [
+          "apple",
+          "theAble"
+        ],
+        [
+          "articlePOS",
+          "articlePOS"
+        ],
+        [
+          "banana",
+          "fruit"
+        ],
+        [
+          "banana",
+          "hierarchyAble"
+        ],
+        [
+          "banana",
+          "isEdee"
+        ],
+        [
+          "banana",
+          "isEder"
+        ],
+        [
+          "banana",
+          "object"
+        ],
+        [
+          "banana",
+          "property"
+        ],
+        [
+          "banana",
+          "queryable"
+        ],
+        [
+          "banana",
+          "theAble"
+        ],
+        [
+          "canBeDoQuestion",
+          "canBeDoQuestion"
+        ],
+        [
+          "canBeQuestion",
+          "canBeQuestion"
+        ],
+        [
+          "chicken",
+          "hierarchyAble"
+        ],
+        [
+          "chicken",
+          "isEdee"
+        ],
+        [
+          "chicken",
+          "isEder"
+        ],
+        [
+          "chicken",
+          "object"
+        ],
+        [
+          "chicken",
+          "property"
+        ],
+        [
+          "chicken",
+          "queryable"
+        ],
+        [
+          "chicken",
+          "theAble"
+        ],
+        [
+          "chicken_strip",
+          "adjective"
+        ],
+        [
+          "chicken_strip",
+          "concept"
+        ],
+        [
+          "chicken_strip",
+          "food"
+        ],
+        [
+          "chicken_strip",
+          "hierarchyAble"
+        ],
+        [
+          "chicken_strip",
+          "isEdee"
+        ],
+        [
+          "chicken_strip",
+          "isEder"
+        ],
+        [
+          "chicken_strip",
+          "object"
+        ],
+        [
+          "chicken_strip",
+          "property"
+        ],
+        [
+          "chicken_strip",
+          "queryable"
+        ],
+        [
+          "chicken_strip",
+          "theAble"
+        ],
+        [
+          "concept",
+          "queryable"
+        ],
+        [
+          "concept",
+          "theAble"
+        ],
+        [
+          "dog",
+          "concept"
+        ],
+        [
+          "dog",
+          "hierarchyAble"
+        ],
+        [
+          "dog",
+          "isEdee"
+        ],
+        [
+          "dog",
+          "isEder"
+        ],
+        [
+          "dog",
+          "object"
+        ],
+        [
+          "dog",
+          "property"
+        ],
+        [
+          "dog",
+          "queryable"
+        ],
+        [
+          "dog",
+          "theAble"
+        ],
+        [
+          "food",
+          "hierarchyAble"
+        ],
+        [
+          "food",
+          "isEdee"
+        ],
+        [
+          "food",
+          "isEder"
+        ],
+        [
+          "food",
+          "object"
+        ],
+        [
+          "food",
+          "property"
+        ],
+        [
+          "food",
+          "queryable"
+        ],
+        [
+          "food",
+          "theAble"
+        ],
+        [
+          "french",
+          "hierarchyAble"
+        ],
+        [
+          "french",
+          "isEdee"
+        ],
+        [
+          "french",
+          "isEder"
+        ],
+        [
+          "french",
+          "object"
+        ],
+        [
+          "french",
+          "property"
+        ],
+        [
+          "french",
+          "queryable"
+        ],
+        [
+          "french",
+          "theAble"
+        ],
+        [
+          "french_fry",
+          "adjective"
+        ],
+        [
+          "french_fry",
+          "concept"
+        ],
+        [
+          "french_fry",
+          "hierarchyAble"
+        ],
+        [
+          "french_fry",
+          "isEdee"
+        ],
+        [
+          "french_fry",
+          "isEder"
+        ],
+        [
+          "french_fry",
+          "object"
+        ],
+        [
+          "french_fry",
+          "property"
+        ],
+        [
+          "french_fry",
+          "queryable"
+        ],
+        [
+          "french_fry",
+          "theAble"
+        ],
+        [
+          "fruit",
+          "hierarchyAble"
+        ],
+        [
+          "fruit",
+          "isEdee"
+        ],
+        [
+          "fruit",
+          "isEder"
+        ],
+        [
+          "fruit",
+          "object"
+        ],
+        [
+          "fruit",
+          "property"
+        ],
+        [
+          "fruit",
+          "queryable"
+        ],
+        [
+          "fruit",
+          "theAble"
+        ],
+        [
+          "fry",
+          "concept"
+        ],
+        [
+          "fry",
+          "hierarchyAble"
+        ],
+        [
+          "fry",
+          "isEdee"
+        ],
+        [
+          "fry",
+          "isEder"
+        ],
+        [
+          "fry",
+          "object"
+        ],
+        [
+          "fry",
+          "property"
+        ],
+        [
+          "fry",
+          "queryable"
+        ],
+        [
+          "fry",
+          "theAble"
+        ],
+        [
+          "have",
+          "canBeDoQuestion"
+        ],
+        [
+          "have",
+          "canBeQuestion"
+        ],
+        [
+          "hierarchyAble",
+          "queryable"
+        ],
+        [
+          "hot",
+          "hierarchyAble"
+        ],
+        [
+          "hot",
+          "isEdee"
+        ],
+        [
+          "hot",
+          "isEder"
+        ],
+        [
+          "hot",
+          "object"
+        ],
+        [
+          "hot",
+          "property"
+        ],
+        [
+          "hot",
+          "queryable"
+        ],
+        [
+          "hot",
+          "theAble"
+        ],
+        [
+          "hot_dog",
+          "adjective"
+        ],
+        [
+          "hot_dog",
+          "concept"
+        ],
+        [
+          "hot_dog",
+          "hierarchyAble"
+        ],
+        [
+          "hot_dog",
+          "isEdee"
+        ],
+        [
+          "hot_dog",
+          "isEder"
+        ],
+        [
+          "hot_dog",
+          "object"
+        ],
+        [
+          "hot_dog",
+          "property"
+        ],
+        [
+          "hot_dog",
+          "queryable"
+        ],
+        [
+          "hot_dog",
+          "sausage"
+        ],
+        [
+          "hot_dog",
+          "theAble"
+        ],
+        [
+          "ifAble",
+          "ifAble"
+        ],
+        [
+          "is",
+          "canBeQuestion"
+        ],
+        [
+          "is",
+          "verby"
+        ],
+        [
+          "isEdee",
+          "isEdee"
+        ],
+        [
+          "isEder",
+          "isEder"
+        ],
+        [
+          "it",
+          "pronoun"
+        ],
+        [
+          "it",
+          "queryable"
+        ],
+        [
+          "it",
+          "thisitthat"
+        ],
+        [
+          "it",
+          "toAble"
+        ],
+        [
+          "meat",
+          "hierarchyAble"
+        ],
+        [
+          "meat",
+          "isEdee"
+        ],
+        [
+          "meat",
+          "isEder"
+        ],
+        [
+          "meat",
+          "object"
+        ],
+        [
+          "meat",
+          "property"
+        ],
+        [
+          "meat",
+          "queryable"
+        ],
+        [
+          "meat",
+          "theAble"
+        ],
+        [
+          "notAble",
+          "notAble"
+        ],
+        [
+          "noun",
+          "theAble"
+        ],
+        [
+          "object",
+          "queryable"
+        ],
+        [
+          "object",
+          "theAble"
+        ],
+        [
+          "orAble",
+          "ifAble"
+        ],
+        [
+          "orange",
+          "fruit"
+        ],
+        [
+          "orange",
+          "hierarchyAble"
+        ],
+        [
+          "orange",
+          "isEdee"
+        ],
+        [
+          "orange",
+          "isEder"
+        ],
+        [
+          "orange",
+          "object"
+        ],
+        [
+          "orange",
+          "property"
+        ],
+        [
+          "orange",
+          "queryable"
+        ],
+        [
+          "orange",
+          "theAble"
+        ],
+        [
+          "pronoun",
+          "pronoun"
+        ],
+        [
+          "property",
+          "queryable"
+        ],
+        [
+          "property",
+          "theAble"
+        ],
+        [
+          "property",
+          "unknown"
+        ],
+        [
+          "punctuation",
+          "punctuation"
+        ],
+        [
+          "queryable",
+          "queryable"
+        ],
+        [
+          "questionMark",
+          "punctuation"
+        ],
+        [
+          "readonly",
+          "queryable"
+        ],
+        [
+          "reason",
+          "queryable"
+        ],
+        [
+          "reason",
+          "theAble"
+        ],
+        [
+          "sausage",
+          "hierarchyAble"
+        ],
+        [
+          "sausage",
+          "isEdee"
+        ],
+        [
+          "sausage",
+          "isEder"
+        ],
+        [
+          "sausage",
+          "meat"
+        ],
+        [
+          "sausage",
+          "object"
+        ],
+        [
+          "sausage",
+          "property"
+        ],
+        [
+          "sausage",
+          "queryable"
+        ],
+        [
+          "sausage",
+          "theAble"
+        ],
+        [
+          "strip",
+          "concept"
+        ],
+        [
+          "strip",
+          "hierarchyAble"
+        ],
+        [
+          "strip",
+          "isEdee"
+        ],
+        [
+          "strip",
+          "isEder"
+        ],
+        [
+          "strip",
+          "object"
+        ],
+        [
+          "strip",
+          "property"
+        ],
+        [
+          "strip",
+          "queryable"
+        ],
+        [
+          "strip",
+          "theAble"
+        ],
+        [
+          "sushi",
+          "food"
+        ],
+        [
+          "sushi",
+          "isEdee"
+        ],
+        [
+          "sushi",
+          "isEder"
+        ],
+        [
+          "sushi",
+          "queryable"
+        ],
+        [
+          "sushi",
+          "theAble"
+        ],
+        [
+          "that",
+          "thisitthat"
+        ],
+        [
+          "the",
+          "articlePOS"
+        ],
+        [
+          "theAble",
+          "theAble"
+        ],
+        [
+          "this",
+          "pronoun"
+        ],
+        [
+          "this",
+          "queryable"
+        ],
+        [
+          "this",
+          "thisitthat"
+        ],
+        [
+          "thisitthat",
+          "queryable"
+        ],
+        [
+          "toAble",
+          "toAble"
+        ],
+        [
+          "type",
+          "property"
+        ],
+        [
+          "type",
+          "whatAble"
+        ],
+        [
+          "unknown",
+          "hierarchyAble"
+        ],
+        [
+          "unknown",
+          "notAble"
+        ],
+        [
+          "unknown",
+          "object"
+        ],
+        [
+          "unknown",
+          "queryable"
+        ],
+        [
+          "unknown",
+          "theAble"
+        ],
+        [
+          "verby",
+          "verby"
+        ],
+        [
+          "what",
+          "object"
+        ],
+        [
+          "what",
+          "queryable"
+        ],
+        [
+          "whatAble",
+          "queryable"
+        ],
+        [
+          "whose",
+          "object"
+        ],
+        [
+          "xfx",
+          "queryable"
+        ]
+      ],
+      "metadata": {
+        "opChoices": [
+          {
+            "op": [
+              "food",
+              0
+            ],
+            "ops": [
+              [
+                "food",
+                0
+              ],
+              [
+                "french",
+                0
+              ],
+              [
+                "fry",
+                0
+              ],
+              [
+                "is",
+                0
+              ],
+              [
+                "french_fry",
+                0
+              ]
+            ],
+            "counter": 1
+          },
+          {
+            "op": [
+              "french_fry",
+              0
+            ],
+            "ops": [
+              [
+                "french",
+                0
+              ],
+              [
+                "fry",
+                0
+              ],
+              [
+                "is",
+                0
+              ],
+              [
+                "french_fry",
+                0
+              ]
+            ],
+            "counter": 2
+          },
+          {
+            "op": [
+              "is",
+              0
+            ],
+            "ops": [
+              [
+                "is",
+                0
+              ]
+            ],
+            "counter": 3
+          },
+          {
+            "op": [
+              "is",
+              1
+            ],
+            "ops": [
+              [
+                "is",
+                1
+              ]
+            ],
+            "counter": 4
+          }
+        ]
+      },
+      "trace": "undefined",
+      "contexts": [
+        {
+          "number": "many",
+          "text": "french fries are food",
+          "marker": "is",
+          "word": "are",
+          "range": {
+            "start": 0,
+            "end": 20
+          },
+          "one": {
+            "number": "many",
+            "value": "french_fry",
+            "text": "french fries",
+            "marker": "french_fry",
+            "word": "fries",
+            "range": {
+              "start": 0,
+              "end": 20
+            },
+            "french": {
+              "value": "french",
+              "text": "french",
+              "marker": "french",
+              "word": "french",
+              "range": {
+                "start": 0,
+                "end": 5
+              },
+              "level": 0
+            },
+            "atomic": true,
+            "dead": true,
+            "modifiers": [
+              "french"
+            ],
+            "types": [
+              "french_fry"
+            ],
+            "level": 1
+          },
+          "two": {
+            "value": "food",
+            "number": "one",
+            "text": "food",
+            "marker": "food",
+            "word": "food",
+            "range": {
+              "start": 17,
+              "end": 20
+            },
+            "dead": true,
+            "types": [
+              "food"
+            ],
+            "level": 1,
+            "concept": true
+          },
+          "dead": true,
+          "level": 2,
+          "topLevel": true,
+          "touchedBy": [
+            "foods#call2"
+          ]
+        }
+      ],
+      "generated": [
+        ""
+      ],
+      "paraphrases": [
+        "french fries are food"
+      ],
+      "paraphrasesParenthesized": [],
+      "generatedParenthesized": [],
+      "responses": [
+        ""
+      ],
+      "associations": [
+        [
+          [
+            "food",
+            0
+          ],
+          [
+            "french",
+            0
+          ]
+        ],
+        [
+          [
+            "food",
+            0
+          ],
+          [
+            "french",
+            0
+          ],
+          [
+            "fry",
+            0
+          ],
+          [
+            "is",
+            0
+          ]
+        ],
+        [
+          [
+            "french",
+            0
+          ],
+          [
+            "fry",
+            0
+          ],
+          [
+            "is",
+            0
+          ]
+        ]
+      ],
+      "query": "french fries are food",
+      "key": {
+        "query": "french fries are food"
+      }
+    },
+    {
+      "hierarchy": [
+        [
+          "a",
+          "articlePOS"
+        ],
+        [
+          "adjective",
+          "adjective"
+        ],
+        [
+          "apple",
+          "fruit"
+        ],
+        [
+          "apple",
+          "hierarchyAble"
+        ],
+        [
+          "apple",
+          "isEdee"
+        ],
+        [
+          "apple",
+          "isEder"
+        ],
+        [
+          "apple",
+          "object"
+        ],
+        [
+          "apple",
+          "property"
+        ],
+        [
+          "apple",
+          "queryable"
+        ],
+        [
+          "apple",
+          "theAble"
+        ],
+        [
+          "articlePOS",
+          "articlePOS"
+        ],
+        [
+          "banana",
+          "fruit"
+        ],
+        [
+          "banana",
+          "hierarchyAble"
+        ],
+        [
+          "banana",
+          "isEdee"
+        ],
+        [
+          "banana",
+          "isEder"
+        ],
+        [
+          "banana",
+          "object"
+        ],
+        [
+          "banana",
+          "property"
+        ],
+        [
+          "banana",
+          "queryable"
+        ],
+        [
+          "banana",
+          "theAble"
+        ],
+        [
+          "canBeDoQuestion",
+          "canBeDoQuestion"
+        ],
+        [
+          "canBeQuestion",
+          "canBeQuestion"
+        ],
+        [
+          "chicken",
+          "hierarchyAble"
+        ],
+        [
+          "chicken",
+          "isEdee"
+        ],
+        [
+          "chicken",
+          "isEder"
+        ],
+        [
+          "chicken",
+          "object"
+        ],
+        [
+          "chicken",
+          "property"
+        ],
+        [
+          "chicken",
+          "queryable"
+        ],
+        [
+          "chicken",
+          "theAble"
+        ],
+        [
+          "chicken_strip",
+          "adjective"
+        ],
+        [
+          "chicken_strip",
+          "concept"
+        ],
+        [
+          "chicken_strip",
+          "food"
+        ],
+        [
+          "chicken_strip",
+          "hierarchyAble"
+        ],
+        [
+          "chicken_strip",
+          "isEdee"
+        ],
+        [
+          "chicken_strip",
+          "isEder"
+        ],
+        [
+          "chicken_strip",
+          "object"
+        ],
+        [
+          "chicken_strip",
+          "property"
+        ],
+        [
+          "chicken_strip",
+          "queryable"
+        ],
+        [
+          "chicken_strip",
+          "theAble"
+        ],
+        [
+          "concept",
+          "queryable"
+        ],
+        [
+          "concept",
+          "theAble"
+        ],
+        [
+          "dog",
+          "concept"
+        ],
+        [
+          "dog",
+          "hierarchyAble"
+        ],
+        [
+          "dog",
+          "isEdee"
+        ],
+        [
+          "dog",
+          "isEder"
+        ],
+        [
+          "dog",
+          "object"
+        ],
+        [
+          "dog",
+          "property"
+        ],
+        [
+          "dog",
+          "queryable"
+        ],
+        [
+          "dog",
+          "theAble"
+        ],
+        [
+          "food",
+          "hierarchyAble"
+        ],
+        [
+          "food",
+          "isEdee"
+        ],
+        [
+          "food",
+          "isEder"
+        ],
+        [
+          "food",
+          "object"
+        ],
+        [
+          "food",
+          "property"
+        ],
+        [
+          "food",
+          "queryable"
+        ],
+        [
+          "food",
+          "theAble"
+        ],
+        [
+          "french",
+          "hierarchyAble"
+        ],
+        [
+          "french",
+          "isEdee"
+        ],
+        [
+          "french",
+          "isEder"
+        ],
+        [
+          "french",
+          "object"
+        ],
+        [
+          "french",
+          "property"
+        ],
+        [
+          "french",
+          "queryable"
+        ],
+        [
+          "french",
+          "theAble"
+        ],
+        [
+          "french_fry",
+          "adjective"
+        ],
+        [
+          "french_fry",
+          "concept"
+        ],
+        [
+          "french_fry",
+          "food"
+        ],
+        [
+          "french_fry",
+          "hierarchyAble"
+        ],
+        [
+          "french_fry",
+          "isEdee"
+        ],
+        [
+          "french_fry",
+          "isEder"
+        ],
+        [
+          "french_fry",
+          "object"
+        ],
+        [
+          "french_fry",
+          "property"
+        ],
+        [
+          "french_fry",
+          "queryable"
+        ],
+        [
+          "french_fry",
+          "theAble"
+        ],
+        [
+          "fruit",
+          "hierarchyAble"
+        ],
+        [
+          "fruit",
+          "isEdee"
+        ],
+        [
+          "fruit",
+          "isEder"
+        ],
+        [
+          "fruit",
+          "object"
+        ],
+        [
+          "fruit",
+          "property"
+        ],
+        [
+          "fruit",
+          "queryable"
+        ],
+        [
+          "fruit",
+          "theAble"
+        ],
+        [
+          "fry",
+          "concept"
+        ],
+        [
+          "fry",
+          "hierarchyAble"
+        ],
+        [
+          "fry",
+          "isEdee"
+        ],
+        [
+          "fry",
+          "isEder"
+        ],
+        [
+          "fry",
+          "object"
+        ],
+        [
+          "fry",
+          "property"
+        ],
+        [
+          "fry",
+          "queryable"
+        ],
+        [
+          "fry",
+          "theAble"
+        ],
+        [
+          "have",
+          "canBeDoQuestion"
+        ],
+        [
+          "have",
+          "canBeQuestion"
+        ],
+        [
+          "hierarchyAble",
+          "queryable"
+        ],
+        [
+          "hot",
+          "hierarchyAble"
+        ],
+        [
+          "hot",
+          "isEdee"
+        ],
+        [
+          "hot",
+          "isEder"
+        ],
+        [
+          "hot",
+          "object"
+        ],
+        [
+          "hot",
+          "property"
+        ],
+        [
+          "hot",
+          "queryable"
+        ],
+        [
+          "hot",
+          "theAble"
+        ],
+        [
+          "hot_dog",
+          "adjective"
+        ],
+        [
+          "hot_dog",
+          "concept"
+        ],
+        [
+          "hot_dog",
+          "hierarchyAble"
+        ],
+        [
+          "hot_dog",
+          "isEdee"
+        ],
+        [
+          "hot_dog",
+          "isEder"
+        ],
+        [
+          "hot_dog",
+          "object"
+        ],
+        [
+          "hot_dog",
+          "property"
+        ],
+        [
+          "hot_dog",
+          "queryable"
+        ],
+        [
+          "hot_dog",
+          "sausage"
+        ],
+        [
+          "hot_dog",
+          "theAble"
+        ],
+        [
+          "ifAble",
+          "ifAble"
+        ],
+        [
+          "is",
+          "canBeQuestion"
+        ],
+        [
+          "is",
+          "verby"
+        ],
+        [
+          "isEdee",
+          "isEdee"
+        ],
+        [
+          "isEder",
+          "isEder"
+        ],
+        [
+          "it",
+          "pronoun"
+        ],
+        [
+          "it",
+          "queryable"
+        ],
+        [
+          "it",
+          "thisitthat"
+        ],
+        [
+          "it",
+          "toAble"
+        ],
+        [
+          "meat",
+          "hierarchyAble"
+        ],
+        [
+          "meat",
+          "isEdee"
+        ],
+        [
+          "meat",
+          "isEder"
+        ],
+        [
+          "meat",
+          "object"
+        ],
+        [
+          "meat",
+          "property"
+        ],
+        [
+          "meat",
+          "queryable"
+        ],
+        [
+          "meat",
+          "theAble"
+        ],
+        [
+          "notAble",
+          "notAble"
+        ],
+        [
+          "noun",
+          "theAble"
+        ],
+        [
+          "object",
+          "queryable"
+        ],
+        [
+          "object",
+          "theAble"
+        ],
+        [
+          "orAble",
+          "ifAble"
+        ],
+        [
+          "orange",
+          "fruit"
+        ],
+        [
+          "orange",
+          "hierarchyAble"
+        ],
+        [
+          "orange",
+          "isEdee"
+        ],
+        [
+          "orange",
+          "isEder"
+        ],
+        [
+          "orange",
+          "object"
+        ],
+        [
+          "orange",
+          "property"
+        ],
+        [
+          "orange",
+          "queryable"
+        ],
+        [
+          "orange",
+          "theAble"
+        ],
+        [
+          "pronoun",
+          "pronoun"
+        ],
+        [
+          "property",
+          "queryable"
+        ],
+        [
+          "property",
+          "theAble"
+        ],
+        [
+          "property",
+          "unknown"
+        ],
+        [
+          "punctuation",
+          "punctuation"
+        ],
+        [
+          "queryable",
+          "queryable"
+        ],
+        [
+          "questionMark",
+          "punctuation"
+        ],
+        [
+          "readonly",
+          "queryable"
+        ],
+        [
+          "reason",
+          "queryable"
+        ],
+        [
+          "reason",
+          "theAble"
+        ],
+        [
+          "sausage",
+          "hierarchyAble"
+        ],
+        [
+          "sausage",
+          "isEdee"
+        ],
+        [
+          "sausage",
+          "isEder"
+        ],
+        [
+          "sausage",
+          "meat"
+        ],
+        [
+          "sausage",
+          "object"
+        ],
+        [
+          "sausage",
+          "property"
+        ],
+        [
+          "sausage",
+          "queryable"
+        ],
+        [
+          "sausage",
+          "theAble"
+        ],
+        [
+          "strip",
+          "concept"
+        ],
+        [
+          "strip",
+          "hierarchyAble"
+        ],
+        [
+          "strip",
+          "isEdee"
+        ],
+        [
+          "strip",
+          "isEder"
+        ],
+        [
+          "strip",
+          "object"
+        ],
+        [
+          "strip",
+          "property"
+        ],
+        [
+          "strip",
+          "queryable"
+        ],
+        [
+          "strip",
+          "theAble"
+        ],
+        [
+          "sushi",
+          "food"
+        ],
+        [
+          "sushi",
+          "isEdee"
+        ],
+        [
+          "sushi",
+          "isEder"
+        ],
+        [
+          "sushi",
+          "queryable"
+        ],
+        [
+          "sushi",
+          "theAble"
+        ],
+        [
+          "that",
+          "thisitthat"
+        ],
+        [
+          "the",
+          "articlePOS"
+        ],
+        [
+          "theAble",
+          "theAble"
+        ],
+        [
+          "this",
+          "pronoun"
+        ],
+        [
+          "this",
+          "queryable"
+        ],
+        [
+          "this",
+          "thisitthat"
+        ],
+        [
+          "thisitthat",
+          "queryable"
+        ],
+        [
+          "toAble",
+          "toAble"
+        ],
+        [
+          "type",
+          "property"
+        ],
+        [
+          "type",
+          "whatAble"
+        ],
+        [
+          "unknown",
+          "hierarchyAble"
+        ],
+        [
+          "unknown",
+          "notAble"
+        ],
+        [
+          "unknown",
+          "object"
+        ],
+        [
+          "unknown",
+          "queryable"
+        ],
+        [
+          "unknown",
+          "theAble"
+        ],
+        [
+          "verby",
+          "verby"
+        ],
+        [
+          "what",
+          "object"
+        ],
+        [
+          "what",
+          "queryable"
+        ],
+        [
+          "whatAble",
+          "queryable"
+        ],
+        [
+          "whose",
+          "object"
+        ],
+        [
+          "xfx",
+          "queryable"
+        ]
+      ],
+      "metadata": {
+        "opChoices": [
+          {
+            "op": [
+              "food",
+              0
+            ],
+            "ops": [
+              [
+                "food",
+                0
+              ],
+              [
+                "is",
+                0
+              ],
+              [
+                "meat",
+                0
+              ]
+            ],
+            "counter": 1
+          },
+          {
+            "op": [
+              "meat",
+              0
+            ],
+            "ops": [
+              [
+                "is",
+                0
+              ],
+              [
+                "meat",
+                0
+              ]
+            ],
+            "counter": 2
+          },
+          {
+            "op": [
+              "is",
+              0
+            ],
+            "ops": [
+              [
+                "is",
+                0
+              ]
+            ],
+            "counter": 3
+          },
+          {
+            "op": [
+              "is",
+              1
+            ],
+            "ops": [
+              [
+                "is",
+                1
+              ]
+            ],
+            "counter": 4
+          }
+        ]
+      },
+      "trace": "undefined",
+      "contexts": [
+        {
+          "number": "one",
+          "text": "meat is food",
+          "marker": "is",
+          "word": "is",
+          "range": {
+            "start": 0,
+            "end": 11
+          },
+          "one": {
+            "number": "one",
+            "value": "meat",
+            "text": "meat",
+            "marker": "meat",
+            "word": "meat",
+            "range": {
+              "start": 0,
+              "end": 11
+            },
+            "dead": true,
+            "types": [
+              "meat"
+            ],
+            "level": 1
+          },
+          "two": {
+            "value": "food",
+            "number": "one",
+            "text": "food",
+            "marker": "food",
+            "word": "food",
+            "range": {
+              "start": 8,
+              "end": 11
+            },
+            "dead": true,
+            "types": [
+              "food"
+            ],
+            "level": 1
+          },
+          "dead": true,
+          "level": 2,
+          "topLevel": true,
+          "touchedBy": [
+            "foods#call2"
+          ]
+        }
+      ],
+      "generated": [
+        ""
+      ],
+      "paraphrases": [
+        "meat is food"
+      ],
+      "paraphrasesParenthesized": [],
+      "generatedParenthesized": [],
+      "responses": [
+        ""
+      ],
+      "associations": [
+        [
+          [
+            "food",
+            0
+          ],
+          [
+            "is",
+            0
+          ],
+          [
+            "meat",
+            0
+          ]
+        ],
+        [
+          [
+            "is",
+            0
+          ],
+          [
+            "meat",
+            0
+          ]
+        ]
+      ],
+      "query": "meat is food",
+      "key": {
+        "query": "meat is food"
+      }
+    },
+    {
+      "hierarchy": [
+        [
+          "a",
+          "articlePOS"
+        ],
+        [
+          "adjective",
+          "adjective"
+        ],
+        [
+          "apple",
+          "fruit"
+        ],
+        [
+          "apple",
+          "hierarchyAble"
+        ],
+        [
+          "apple",
+          "isEdee"
+        ],
+        [
+          "apple",
+          "isEder"
+        ],
+        [
+          "apple",
+          "object"
+        ],
+        [
+          "apple",
+          "property"
+        ],
+        [
+          "apple",
+          "queryable"
+        ],
+        [
+          "apple",
+          "theAble"
+        ],
+        [
+          "articlePOS",
+          "articlePOS"
+        ],
+        [
+          "banana",
+          "fruit"
+        ],
+        [
+          "banana",
+          "hierarchyAble"
+        ],
+        [
+          "banana",
+          "isEdee"
+        ],
+        [
+          "banana",
+          "isEder"
+        ],
+        [
+          "banana",
+          "object"
+        ],
+        [
+          "banana",
+          "property"
+        ],
+        [
+          "banana",
+          "queryable"
+        ],
+        [
+          "banana",
+          "theAble"
+        ],
+        [
+          "canBeDoQuestion",
+          "canBeDoQuestion"
+        ],
+        [
+          "canBeQuestion",
+          "canBeQuestion"
+        ],
+        [
+          "chicken",
+          "hierarchyAble"
+        ],
+        [
+          "chicken",
+          "isEdee"
+        ],
+        [
+          "chicken",
+          "isEder"
+        ],
+        [
+          "chicken",
+          "object"
+        ],
+        [
+          "chicken",
+          "property"
+        ],
+        [
+          "chicken",
+          "queryable"
+        ],
+        [
+          "chicken",
+          "theAble"
+        ],
+        [
+          "chicken_strip",
+          "adjective"
+        ],
+        [
+          "chicken_strip",
+          "concept"
+        ],
+        [
+          "chicken_strip",
+          "food"
+        ],
+        [
+          "chicken_strip",
+          "hierarchyAble"
+        ],
+        [
+          "chicken_strip",
+          "isEdee"
+        ],
+        [
+          "chicken_strip",
+          "isEder"
+        ],
+        [
+          "chicken_strip",
+          "object"
+        ],
+        [
+          "chicken_strip",
+          "property"
+        ],
+        [
+          "chicken_strip",
+          "queryable"
+        ],
+        [
+          "chicken_strip",
+          "theAble"
+        ],
+        [
+          "concept",
+          "queryable"
+        ],
+        [
+          "concept",
+          "theAble"
+        ],
+        [
+          "dog",
+          "concept"
+        ],
+        [
+          "dog",
+          "hierarchyAble"
+        ],
+        [
+          "dog",
+          "isEdee"
+        ],
+        [
+          "dog",
+          "isEder"
+        ],
+        [
+          "dog",
+          "object"
+        ],
+        [
+          "dog",
+          "property"
+        ],
+        [
+          "dog",
+          "queryable"
+        ],
+        [
+          "dog",
+          "theAble"
+        ],
+        [
+          "food",
+          "hierarchyAble"
+        ],
+        [
+          "food",
+          "isEdee"
+        ],
+        [
+          "food",
+          "isEder"
+        ],
+        [
+          "food",
+          "object"
+        ],
+        [
+          "food",
+          "property"
+        ],
+        [
+          "food",
+          "queryable"
+        ],
+        [
+          "food",
+          "theAble"
+        ],
+        [
+          "french",
+          "hierarchyAble"
+        ],
+        [
+          "french",
+          "isEdee"
+        ],
+        [
+          "french",
+          "isEder"
+        ],
+        [
+          "french",
+          "object"
+        ],
+        [
+          "french",
+          "property"
+        ],
+        [
+          "french",
+          "queryable"
+        ],
+        [
+          "french",
+          "theAble"
+        ],
+        [
+          "french_fry",
+          "adjective"
+        ],
+        [
+          "french_fry",
+          "concept"
+        ],
+        [
+          "french_fry",
+          "food"
+        ],
+        [
+          "french_fry",
+          "hierarchyAble"
+        ],
+        [
+          "french_fry",
+          "isEdee"
+        ],
+        [
+          "french_fry",
+          "isEder"
+        ],
+        [
+          "french_fry",
+          "object"
+        ],
+        [
+          "french_fry",
+          "property"
+        ],
+        [
+          "french_fry",
+          "queryable"
+        ],
+        [
+          "french_fry",
+          "theAble"
+        ],
+        [
+          "fruit",
+          "hierarchyAble"
+        ],
+        [
+          "fruit",
+          "isEdee"
+        ],
+        [
+          "fruit",
+          "isEder"
+        ],
+        [
+          "fruit",
+          "object"
+        ],
+        [
+          "fruit",
+          "property"
+        ],
+        [
+          "fruit",
+          "queryable"
+        ],
+        [
+          "fruit",
+          "theAble"
+        ],
+        [
+          "fry",
+          "concept"
+        ],
+        [
+          "fry",
+          "hierarchyAble"
+        ],
+        [
+          "fry",
+          "isEdee"
+        ],
+        [
+          "fry",
+          "isEder"
+        ],
+        [
+          "fry",
+          "object"
+        ],
+        [
+          "fry",
+          "property"
+        ],
+        [
+          "fry",
+          "queryable"
+        ],
+        [
+          "fry",
+          "theAble"
+        ],
+        [
+          "have",
+          "canBeDoQuestion"
+        ],
+        [
+          "have",
+          "canBeQuestion"
+        ],
+        [
+          "hierarchyAble",
+          "queryable"
+        ],
+        [
+          "hot",
+          "hierarchyAble"
+        ],
+        [
+          "hot",
+          "isEdee"
+        ],
+        [
+          "hot",
+          "isEder"
+        ],
+        [
+          "hot",
+          "object"
+        ],
+        [
+          "hot",
+          "property"
+        ],
+        [
+          "hot",
+          "queryable"
+        ],
+        [
+          "hot",
+          "theAble"
+        ],
+        [
+          "hot_dog",
+          "adjective"
+        ],
+        [
+          "hot_dog",
+          "concept"
+        ],
+        [
+          "hot_dog",
+          "hierarchyAble"
+        ],
+        [
+          "hot_dog",
+          "isEdee"
+        ],
+        [
+          "hot_dog",
+          "isEder"
+        ],
+        [
+          "hot_dog",
+          "object"
+        ],
+        [
+          "hot_dog",
+          "property"
+        ],
+        [
+          "hot_dog",
+          "queryable"
+        ],
+        [
+          "hot_dog",
+          "sausage"
+        ],
+        [
+          "hot_dog",
+          "theAble"
+        ],
+        [
+          "ifAble",
+          "ifAble"
+        ],
+        [
+          "is",
+          "canBeQuestion"
+        ],
+        [
+          "is",
+          "verby"
+        ],
+        [
+          "isEdee",
+          "isEdee"
+        ],
+        [
+          "isEder",
+          "isEder"
+        ],
+        [
+          "it",
+          "pronoun"
+        ],
+        [
+          "it",
+          "queryable"
+        ],
+        [
+          "it",
+          "thisitthat"
+        ],
+        [
+          "it",
+          "toAble"
+        ],
+        [
+          "meat",
+          "hierarchyAble"
+        ],
+        [
+          "meat",
+          "isEdee"
+        ],
+        [
+          "meat",
+          "isEder"
+        ],
+        [
+          "meat",
+          "object"
+        ],
+        [
+          "meat",
+          "property"
+        ],
+        [
+          "meat",
+          "queryable"
+        ],
+        [
+          "meat",
+          "theAble"
+        ],
+        [
+          "notAble",
+          "notAble"
+        ],
+        [
+          "noun",
+          "theAble"
+        ],
+        [
+          "object",
+          "queryable"
+        ],
+        [
+          "object",
+          "theAble"
+        ],
+        [
+          "orAble",
+          "ifAble"
+        ],
+        [
+          "orange",
+          "fruit"
+        ],
+        [
+          "orange",
+          "hierarchyAble"
+        ],
+        [
+          "orange",
+          "isEdee"
+        ],
+        [
+          "orange",
+          "isEder"
+        ],
+        [
+          "orange",
+          "object"
+        ],
+        [
+          "orange",
+          "property"
+        ],
+        [
+          "orange",
+          "queryable"
+        ],
+        [
+          "orange",
+          "theAble"
+        ],
+        [
+          "pronoun",
+          "pronoun"
+        ],
+        [
+          "property",
+          "queryable"
+        ],
+        [
+          "property",
+          "theAble"
+        ],
+        [
+          "property",
+          "unknown"
+        ],
+        [
+          "punctuation",
+          "punctuation"
+        ],
+        [
+          "queryable",
+          "queryable"
+        ],
+        [
+          "questionMark",
+          "punctuation"
+        ],
+        [
+          "readonly",
+          "queryable"
+        ],
+        [
+          "reason",
+          "queryable"
+        ],
+        [
+          "reason",
+          "theAble"
+        ],
+        [
+          "sausage",
+          "hierarchyAble"
+        ],
+        [
+          "sausage",
+          "isEdee"
+        ],
+        [
+          "sausage",
+          "isEder"
+        ],
+        [
+          "sausage",
+          "meat"
+        ],
+        [
+          "sausage",
+          "object"
+        ],
+        [
+          "sausage",
+          "property"
+        ],
+        [
+          "sausage",
+          "queryable"
+        ],
+        [
+          "sausage",
+          "theAble"
+        ],
+        [
+          "strip",
+          "concept"
+        ],
+        [
+          "strip",
+          "hierarchyAble"
+        ],
+        [
+          "strip",
+          "isEdee"
+        ],
+        [
+          "strip",
+          "isEder"
+        ],
+        [
+          "strip",
+          "object"
+        ],
+        [
+          "strip",
+          "property"
+        ],
+        [
+          "strip",
+          "queryable"
+        ],
+        [
+          "strip",
+          "theAble"
+        ],
+        [
+          "sushi",
+          "food"
+        ],
+        [
+          "sushi",
+          "isEdee"
+        ],
+        [
+          "sushi",
+          "isEder"
+        ],
+        [
+          "sushi",
+          "queryable"
+        ],
+        [
+          "sushi",
+          "theAble"
+        ],
+        [
+          "that",
+          "thisitthat"
+        ],
+        [
+          "the",
+          "articlePOS"
+        ],
+        [
+          "theAble",
+          "theAble"
+        ],
+        [
+          "this",
+          "pronoun"
+        ],
+        [
+          "this",
+          "queryable"
+        ],
+        [
+          "this",
+          "thisitthat"
+        ],
+        [
+          "thisitthat",
+          "queryable"
+        ],
+        [
+          "toAble",
+          "toAble"
+        ],
+        [
+          "type",
+          "property"
+        ],
+        [
+          "type",
+          "whatAble"
+        ],
+        [
+          "unknown",
+          "hierarchyAble"
+        ],
+        [
+          "unknown",
+          "notAble"
+        ],
+        [
+          "unknown",
+          "object"
+        ],
+        [
+          "unknown",
+          "queryable"
+        ],
+        [
+          "unknown",
+          "theAble"
+        ],
+        [
+          "verby",
+          "verby"
+        ],
+        [
+          "what",
+          "object"
+        ],
+        [
+          "what",
+          "queryable"
+        ],
+        [
+          "whatAble",
+          "queryable"
+        ],
+        [
+          "whose",
+          "object"
+        ],
+        [
+          "xfx",
+          "queryable"
+        ]
+      ],
+      "metadata": {
+        "opChoices": [
+          {
+            "op": [
+              "food",
+              0
+            ],
+            "ops": [
+              [
+                "food",
+                0
+              ],
+              [
+                "fruit",
+                0
+              ],
+              [
+                "is",
+                0
+              ]
+            ],
+            "counter": 1
+          },
+          {
+            "op": [
+              "fruit",
+              0
+            ],
+            "ops": [
+              [
+                "fruit",
+                0
+              ],
+              [
+                "is",
+                0
+              ]
+            ],
+            "counter": 2
+          },
+          {
+            "op": [
+              "is",
+              0
+            ],
+            "ops": [
+              [
+                "is",
+                0
+              ]
+            ],
+            "counter": 3
+          },
+          {
+            "op": [
+              "is",
+              1
+            ],
+            "ops": [
+              [
+                "is",
+                1
+              ]
+            ],
+            "counter": 4
+          }
+        ]
+      },
+      "trace": "undefined",
+      "contexts": [
+        {
+          "number": "many",
+          "text": "fruits are food",
+          "marker": "is",
+          "word": "are",
+          "range": {
+            "start": 0,
+            "end": 14
+          },
+          "one": {
+            "number": "many",
+            "value": "fruit",
+            "text": "fruits",
+            "marker": "fruit",
+            "word": "fruits",
+            "range": {
+              "start": 0,
+              "end": 14
+            },
+            "dead": true,
+            "types": [
+              "fruit"
+            ],
+            "level": 1
+          },
+          "two": {
+            "value": "food",
+            "number": "one",
+            "text": "food",
+            "marker": "food",
+            "word": "food",
+            "range": {
+              "start": 11,
+              "end": 14
+            },
+            "dead": true,
+            "types": [
+              "food"
+            ],
+            "level": 1,
+            "concept": true
+          },
+          "dead": true,
+          "level": 2,
+          "topLevel": true,
+          "touchedBy": [
+            "foods#call2"
+          ]
+        }
+      ],
+      "generated": [
+        ""
+      ],
+      "paraphrases": [
+        "fruits are food"
+      ],
+      "paraphrasesParenthesized": [],
+      "generatedParenthesized": [],
+      "responses": [
+        ""
+      ],
+      "associations": [
+        [
+          [
+            "food",
+            0
+          ],
+          [
+            "fruit",
+            0
+          ],
+          [
+            "is",
+            0
+          ]
+        ],
+        [
+          [
+            "fruit",
+            0
+          ],
+          [
+            "is",
+            0
+          ]
+        ]
+      ],
+      "query": "fruits are food",
+      "key": {
+        "query": "fruits are food"
+      }
+    },
+    {
+      "hierarchy": [
+        [
+          "a",
+          "articlePOS"
+        ],
+        [
+          "adjective",
+          "adjective"
+        ],
+        [
+          "apple",
+          "fruit"
+        ],
+        [
+          "apple",
+          "hierarchyAble"
+        ],
+        [
+          "apple",
+          "isEdee"
+        ],
+        [
+          "apple",
+          "isEder"
+        ],
+        [
+          "apple",
+          "object"
+        ],
+        [
+          "apple",
+          "property"
+        ],
+        [
+          "apple",
+          "queryable"
+        ],
+        [
+          "apple",
+          "theAble"
+        ],
+        [
+          "articlePOS",
+          "articlePOS"
+        ],
+        [
+          "banana",
+          "fruit"
+        ],
+        [
+          "banana",
+          "hierarchyAble"
+        ],
+        [
+          "banana",
+          "isEdee"
+        ],
+        [
+          "banana",
+          "isEder"
+        ],
+        [
+          "banana",
+          "object"
+        ],
+        [
+          "banana",
+          "property"
+        ],
+        [
+          "banana",
+          "queryable"
+        ],
+        [
+          "banana",
+          "theAble"
+        ],
+        [
+          "canBeDoQuestion",
+          "canBeDoQuestion"
+        ],
+        [
+          "canBeQuestion",
+          "canBeQuestion"
+        ],
+        [
+          "chicken",
+          "hierarchyAble"
+        ],
+        [
+          "chicken",
+          "isEdee"
+        ],
+        [
+          "chicken",
+          "isEder"
+        ],
+        [
+          "chicken",
+          "object"
+        ],
+        [
+          "chicken",
+          "property"
+        ],
+        [
+          "chicken",
+          "queryable"
+        ],
+        [
+          "chicken",
+          "theAble"
+        ],
+        [
+          "chicken_strip",
+          "adjective"
+        ],
+        [
+          "chicken_strip",
+          "concept"
+        ],
+        [
+          "chicken_strip",
+          "food"
+        ],
+        [
+          "chicken_strip",
+          "hierarchyAble"
+        ],
+        [
+          "chicken_strip",
+          "isEdee"
+        ],
+        [
+          "chicken_strip",
+          "isEder"
+        ],
+        [
+          "chicken_strip",
+          "object"
+        ],
+        [
+          "chicken_strip",
+          "property"
+        ],
+        [
+          "chicken_strip",
+          "queryable"
+        ],
+        [
+          "chicken_strip",
+          "theAble"
+        ],
+        [
+          "concept",
+          "queryable"
+        ],
+        [
+          "concept",
+          "theAble"
+        ],
+        [
+          "dog",
+          "concept"
+        ],
+        [
+          "dog",
+          "hierarchyAble"
+        ],
+        [
+          "dog",
+          "isEdee"
+        ],
+        [
+          "dog",
+          "isEder"
+        ],
+        [
+          "dog",
+          "object"
+        ],
+        [
+          "dog",
+          "property"
+        ],
+        [
+          "dog",
+          "queryable"
+        ],
+        [
+          "dog",
+          "theAble"
+        ],
+        [
+          "food",
+          "hierarchyAble"
+        ],
+        [
+          "food",
+          "isEdee"
+        ],
+        [
+          "food",
+          "isEder"
+        ],
+        [
+          "food",
+          "object"
+        ],
+        [
+          "food",
+          "property"
+        ],
+        [
+          "food",
+          "queryable"
+        ],
+        [
+          "food",
+          "theAble"
+        ],
+        [
+          "french",
+          "hierarchyAble"
+        ],
+        [
+          "french",
+          "isEdee"
+        ],
+        [
+          "french",
+          "isEder"
+        ],
+        [
+          "french",
+          "object"
+        ],
+        [
+          "french",
+          "property"
+        ],
+        [
+          "french",
+          "queryable"
+        ],
+        [
+          "french",
+          "theAble"
+        ],
+        [
+          "french_fry",
+          "adjective"
+        ],
+        [
+          "french_fry",
+          "concept"
+        ],
+        [
+          "french_fry",
+          "food"
+        ],
+        [
+          "french_fry",
+          "hierarchyAble"
+        ],
+        [
+          "french_fry",
+          "isEdee"
+        ],
+        [
+          "french_fry",
+          "isEder"
+        ],
+        [
+          "french_fry",
+          "object"
+        ],
+        [
+          "french_fry",
+          "property"
+        ],
+        [
+          "french_fry",
+          "queryable"
+        ],
+        [
+          "french_fry",
+          "theAble"
+        ],
+        [
+          "fruit",
+          "food"
+        ],
+        [
+          "fruit",
+          "hierarchyAble"
+        ],
+        [
+          "fruit",
+          "isEdee"
+        ],
+        [
+          "fruit",
+          "isEder"
+        ],
+        [
+          "fruit",
+          "object"
+        ],
+        [
+          "fruit",
+          "property"
+        ],
+        [
+          "fruit",
+          "queryable"
+        ],
+        [
+          "fruit",
+          "theAble"
+        ],
+        [
+          "fry",
+          "concept"
+        ],
+        [
+          "fry",
+          "hierarchyAble"
+        ],
+        [
+          "fry",
+          "isEdee"
+        ],
+        [
+          "fry",
+          "isEder"
+        ],
+        [
+          "fry",
+          "object"
+        ],
+        [
+          "fry",
+          "property"
+        ],
+        [
+          "fry",
+          "queryable"
+        ],
+        [
+          "fry",
+          "theAble"
+        ],
+        [
+          "have",
+          "canBeDoQuestion"
+        ],
+        [
+          "have",
+          "canBeQuestion"
+        ],
+        [
+          "hierarchyAble",
+          "queryable"
+        ],
+        [
+          "hot",
+          "hierarchyAble"
+        ],
+        [
+          "hot",
+          "isEdee"
+        ],
+        [
+          "hot",
+          "isEder"
+        ],
+        [
+          "hot",
+          "object"
+        ],
+        [
+          "hot",
+          "property"
+        ],
+        [
+          "hot",
+          "queryable"
+        ],
+        [
+          "hot",
+          "theAble"
+        ],
+        [
+          "hot_dog",
+          "adjective"
+        ],
+        [
+          "hot_dog",
+          "concept"
+        ],
+        [
+          "hot_dog",
+          "hierarchyAble"
+        ],
+        [
+          "hot_dog",
+          "isEdee"
+        ],
+        [
+          "hot_dog",
+          "isEder"
+        ],
+        [
+          "hot_dog",
+          "object"
+        ],
+        [
+          "hot_dog",
+          "property"
+        ],
+        [
+          "hot_dog",
+          "queryable"
+        ],
+        [
+          "hot_dog",
+          "sausage"
+        ],
+        [
+          "hot_dog",
+          "theAble"
+        ],
+        [
+          "ifAble",
+          "ifAble"
+        ],
+        [
+          "is",
+          "canBeQuestion"
+        ],
+        [
+          "is",
+          "verby"
+        ],
+        [
+          "isEdee",
+          "isEdee"
+        ],
+        [
+          "isEder",
+          "isEder"
+        ],
+        [
+          "it",
+          "pronoun"
+        ],
+        [
+          "it",
+          "queryable"
+        ],
+        [
+          "it",
+          "thisitthat"
+        ],
+        [
+          "it",
+          "toAble"
+        ],
+        [
+          "meat",
+          "hierarchyAble"
+        ],
+        [
+          "meat",
+          "isEdee"
+        ],
+        [
+          "meat",
+          "isEder"
+        ],
+        [
+          "meat",
+          "object"
+        ],
+        [
+          "meat",
+          "property"
+        ],
+        [
+          "meat",
+          "queryable"
+        ],
+        [
+          "meat",
+          "theAble"
+        ],
+        [
+          "notAble",
+          "notAble"
+        ],
+        [
+          "noun",
+          "theAble"
+        ],
+        [
+          "object",
+          "queryable"
+        ],
+        [
+          "object",
+          "theAble"
+        ],
+        [
+          "orAble",
+          "ifAble"
+        ],
+        [
+          "orange",
+          "fruit"
+        ],
+        [
+          "orange",
+          "hierarchyAble"
+        ],
+        [
+          "orange",
+          "isEdee"
+        ],
+        [
+          "orange",
+          "isEder"
+        ],
+        [
+          "orange",
+          "object"
+        ],
+        [
+          "orange",
+          "property"
+        ],
+        [
+          "orange",
+          "queryable"
+        ],
+        [
+          "orange",
+          "theAble"
+        ],
+        [
+          "pronoun",
+          "pronoun"
+        ],
+        [
+          "property",
+          "queryable"
+        ],
+        [
+          "property",
+          "theAble"
+        ],
+        [
+          "property",
+          "unknown"
+        ],
+        [
+          "punctuation",
+          "punctuation"
+        ],
+        [
+          "queryable",
+          "queryable"
+        ],
+        [
+          "questionMark",
+          "punctuation"
+        ],
+        [
+          "readonly",
+          "queryable"
+        ],
+        [
+          "reason",
+          "queryable"
+        ],
+        [
+          "reason",
+          "theAble"
+        ],
+        [
+          "sausage",
+          "hierarchyAble"
+        ],
+        [
+          "sausage",
+          "isEdee"
+        ],
+        [
+          "sausage",
+          "isEder"
+        ],
+        [
+          "sausage",
+          "meat"
+        ],
+        [
+          "sausage",
+          "object"
+        ],
+        [
+          "sausage",
+          "property"
+        ],
+        [
+          "sausage",
+          "queryable"
+        ],
+        [
+          "sausage",
+          "theAble"
+        ],
+        [
+          "strip",
+          "concept"
+        ],
+        [
+          "strip",
+          "hierarchyAble"
+        ],
+        [
+          "strip",
+          "isEdee"
+        ],
+        [
+          "strip",
+          "isEder"
+        ],
+        [
+          "strip",
+          "object"
+        ],
+        [
+          "strip",
+          "property"
+        ],
+        [
+          "strip",
+          "queryable"
+        ],
+        [
+          "strip",
+          "theAble"
+        ],
+        [
+          "sushi",
+          "food"
+        ],
+        [
+          "sushi",
+          "isEdee"
+        ],
+        [
+          "sushi",
+          "isEder"
         ],
         [
           "sushi",
@@ -2405,10 +8700,6 @@
             ],
             "ops": [
               [
-                "fruit",
-                0
-              ],
-              [
                 "is",
                 0
               ],
@@ -2425,10 +8716,6 @@
               1
             ],
             "ops": [
-              [
-                "fruit",
-                0
-              ],
               [
                 "is",
                 0
@@ -2447,10 +8734,6 @@
             ],
             "ops": [
               [
-                "fruit",
-                0
-              ],
-              [
                 "is",
                 0
               ],
@@ -2463,16 +8746,33 @@
           },
           {
             "op": [
-              "fruit",
+              "list",
+              1
+            ],
+            "ops": [
+              [
+                "is",
+                0
+              ],
+              [
+                "unknown",
+                0
+              ]
+            ],
+            "counter": 4
+          },
+          {
+            "op": [
+              "unknown",
               0
             ],
             "ops": [
               [
-                "fruit",
+                "is",
                 0
               ],
               [
-                "is",
+                "unknown",
                 0
               ],
               [
@@ -2480,7 +8780,7 @@
                 1
               ]
             ],
-            "counter": 4
+            "counter": 5
           },
           {
             "op": [
@@ -2495,6 +8795,2275 @@
               [
                 "unknown",
                 1
+              ]
+            ],
+            "counter": 6
+          },
+          {
+            "op": [
+              "is",
+              1
+            ],
+            "ops": [
+              [
+                "is",
+                1
+              ]
+            ],
+            "counter": 7
+          }
+        ]
+      },
+      "trace": "undefined",
+      "contexts": [
+        {
+          "number": "many",
+          "text": " are vegetables",
+          "marker": "is",
+          "word": "are",
+          "range": {
+            "start": 0,
+            "end": 46
+          },
+          "one": {
+            "number": "many",
+            "marker": "list",
+            "value": [
+              {
+                "marker": "unknown",
+                "range": {
+                  "start": 0,
+                  "end": 6
+                },
+                "word": "carrots",
+                "text": "carrots",
+                "value": "carrots",
+                "unknown": true,
+                "dead": true,
+                "level": 1
+              },
+              {
+                "marker": "unknown",
+                "range": {
+                  "start": 8,
+                  "end": 11
+                },
+                "word": "peas",
+                "text": "peas",
+                "value": "peas",
+                "unknown": true,
+                "dead": true,
+                "level": 1
+              },
+              {
+                "marker": "unknown",
+                "range": {
+                  "start": 13,
+                  "end": 19
+                },
+                "word": "cabbage",
+                "text": "cabbage",
+                "value": "cabbage",
+                "unknown": true,
+                "dead": true,
+                "level": 1
+              },
+              {
+                "marker": "unknown",
+                "range": {
+                  "start": 25,
+                  "end": 31
+                },
+                "word": "brocoli",
+                "text": "brocoli",
+                "value": "brocoli",
+                "unknown": true,
+                "dead": true,
+                "level": 1
+              }
+            ],
+            "range": {
+              "start": 0,
+              "end": 46
+            },
+            "types": [
+              "list",
+              "unknown"
+            ],
+            "level": 1
+          },
+          "two": {
+            "marker": "unknown",
+            "range": {
+              "start": 37,
+              "end": 46
+            },
+            "word": "vegetables",
+            "text": "vegetables",
+            "value": "vegetables",
+            "unknown": true,
+            "dead": true,
+            "types": [
+              "unknown"
+            ],
+            "level": 1,
+            "concept": true
+          },
+          "dead": true,
+          "level": 2,
+          "topLevel": true,
+          "touchedBy": [
+            "foods#call2"
+          ]
+        }
+      ],
+      "generated": [
+        ""
+      ],
+      "paraphrases": [
+        "carrots, peas, cabbage and brocoli are vegetables"
+      ],
+      "paraphrasesParenthesized": [],
+      "generatedParenthesized": [],
+      "responses": [
+        ""
+      ],
+      "associations": [
+        [
+          [
+            "is",
+            0
+          ],
+          [
+            "list",
+            0
+          ],
+          [
+            "unknown",
+            0
+          ]
+        ],
+        [
+          [
+            "is",
+            0
+          ],
+          [
+            "list",
+            1
+          ],
+          [
+            "unknown",
+            0
+          ]
+        ],
+        [
+          [
+            "is",
+            0
+          ],
+          [
+            "list",
+            1
+          ],
+          [
+            "unknown",
+            1
+          ]
+        ]
+      ],
+      "query": "carrots peas cabbage and brocoli are vegetables",
+      "key": {
+        "query": "carrots peas cabbage and brocoli are vegetables"
+      }
+    },
+    {
+      "hierarchy": [
+        [
+          "a",
+          "articlePOS"
+        ],
+        [
+          "adjective",
+          "adjective"
+        ],
+        [
+          "apple",
+          "fruit"
+        ],
+        [
+          "apple",
+          "hierarchyAble"
+        ],
+        [
+          "apple",
+          "isEdee"
+        ],
+        [
+          "apple",
+          "isEder"
+        ],
+        [
+          "apple",
+          "object"
+        ],
+        [
+          "apple",
+          "property"
+        ],
+        [
+          "apple",
+          "queryable"
+        ],
+        [
+          "apple",
+          "theAble"
+        ],
+        [
+          "articlePOS",
+          "articlePOS"
+        ],
+        [
+          "banana",
+          "fruit"
+        ],
+        [
+          "banana",
+          "hierarchyAble"
+        ],
+        [
+          "banana",
+          "isEdee"
+        ],
+        [
+          "banana",
+          "isEder"
+        ],
+        [
+          "banana",
+          "object"
+        ],
+        [
+          "banana",
+          "property"
+        ],
+        [
+          "banana",
+          "queryable"
+        ],
+        [
+          "banana",
+          "theAble"
+        ],
+        [
+          "brocoli",
+          "hierarchyAble"
+        ],
+        [
+          "brocoli",
+          "isEdee"
+        ],
+        [
+          "brocoli",
+          "isEder"
+        ],
+        [
+          "brocoli",
+          "object"
+        ],
+        [
+          "brocoli",
+          "property"
+        ],
+        [
+          "brocoli",
+          "queryable"
+        ],
+        [
+          "brocoli",
+          "theAble"
+        ],
+        [
+          "brocoli",
+          "vegetable"
+        ],
+        [
+          "cabbage",
+          "hierarchyAble"
+        ],
+        [
+          "cabbage",
+          "isEdee"
+        ],
+        [
+          "cabbage",
+          "isEder"
+        ],
+        [
+          "cabbage",
+          "object"
+        ],
+        [
+          "cabbage",
+          "property"
+        ],
+        [
+          "cabbage",
+          "queryable"
+        ],
+        [
+          "cabbage",
+          "theAble"
+        ],
+        [
+          "cabbage",
+          "vegetable"
+        ],
+        [
+          "canBeDoQuestion",
+          "canBeDoQuestion"
+        ],
+        [
+          "canBeQuestion",
+          "canBeQuestion"
+        ],
+        [
+          "carrot",
+          "hierarchyAble"
+        ],
+        [
+          "carrot",
+          "isEdee"
+        ],
+        [
+          "carrot",
+          "isEder"
+        ],
+        [
+          "carrot",
+          "object"
+        ],
+        [
+          "carrot",
+          "property"
+        ],
+        [
+          "carrot",
+          "queryable"
+        ],
+        [
+          "carrot",
+          "theAble"
+        ],
+        [
+          "carrot",
+          "vegetable"
+        ],
+        [
+          "chicken",
+          "hierarchyAble"
+        ],
+        [
+          "chicken",
+          "isEdee"
+        ],
+        [
+          "chicken",
+          "isEder"
+        ],
+        [
+          "chicken",
+          "object"
+        ],
+        [
+          "chicken",
+          "property"
+        ],
+        [
+          "chicken",
+          "queryable"
+        ],
+        [
+          "chicken",
+          "theAble"
+        ],
+        [
+          "chicken_strip",
+          "adjective"
+        ],
+        [
+          "chicken_strip",
+          "concept"
+        ],
+        [
+          "chicken_strip",
+          "food"
+        ],
+        [
+          "chicken_strip",
+          "hierarchyAble"
+        ],
+        [
+          "chicken_strip",
+          "isEdee"
+        ],
+        [
+          "chicken_strip",
+          "isEder"
+        ],
+        [
+          "chicken_strip",
+          "object"
+        ],
+        [
+          "chicken_strip",
+          "property"
+        ],
+        [
+          "chicken_strip",
+          "queryable"
+        ],
+        [
+          "chicken_strip",
+          "theAble"
+        ],
+        [
+          "concept",
+          "queryable"
+        ],
+        [
+          "concept",
+          "theAble"
+        ],
+        [
+          "dog",
+          "concept"
+        ],
+        [
+          "dog",
+          "hierarchyAble"
+        ],
+        [
+          "dog",
+          "isEdee"
+        ],
+        [
+          "dog",
+          "isEder"
+        ],
+        [
+          "dog",
+          "object"
+        ],
+        [
+          "dog",
+          "property"
+        ],
+        [
+          "dog",
+          "queryable"
+        ],
+        [
+          "dog",
+          "theAble"
+        ],
+        [
+          "food",
+          "hierarchyAble"
+        ],
+        [
+          "food",
+          "isEdee"
+        ],
+        [
+          "food",
+          "isEder"
+        ],
+        [
+          "food",
+          "object"
+        ],
+        [
+          "food",
+          "property"
+        ],
+        [
+          "food",
+          "queryable"
+        ],
+        [
+          "food",
+          "theAble"
+        ],
+        [
+          "french",
+          "hierarchyAble"
+        ],
+        [
+          "french",
+          "isEdee"
+        ],
+        [
+          "french",
+          "isEder"
+        ],
+        [
+          "french",
+          "object"
+        ],
+        [
+          "french",
+          "property"
+        ],
+        [
+          "french",
+          "queryable"
+        ],
+        [
+          "french",
+          "theAble"
+        ],
+        [
+          "french_fry",
+          "adjective"
+        ],
+        [
+          "french_fry",
+          "concept"
+        ],
+        [
+          "french_fry",
+          "food"
+        ],
+        [
+          "french_fry",
+          "hierarchyAble"
+        ],
+        [
+          "french_fry",
+          "isEdee"
+        ],
+        [
+          "french_fry",
+          "isEder"
+        ],
+        [
+          "french_fry",
+          "object"
+        ],
+        [
+          "french_fry",
+          "property"
+        ],
+        [
+          "french_fry",
+          "queryable"
+        ],
+        [
+          "french_fry",
+          "theAble"
+        ],
+        [
+          "fruit",
+          "food"
+        ],
+        [
+          "fruit",
+          "hierarchyAble"
+        ],
+        [
+          "fruit",
+          "isEdee"
+        ],
+        [
+          "fruit",
+          "isEder"
+        ],
+        [
+          "fruit",
+          "object"
+        ],
+        [
+          "fruit",
+          "property"
+        ],
+        [
+          "fruit",
+          "queryable"
+        ],
+        [
+          "fruit",
+          "theAble"
+        ],
+        [
+          "fry",
+          "concept"
+        ],
+        [
+          "fry",
+          "hierarchyAble"
+        ],
+        [
+          "fry",
+          "isEdee"
+        ],
+        [
+          "fry",
+          "isEder"
+        ],
+        [
+          "fry",
+          "object"
+        ],
+        [
+          "fry",
+          "property"
+        ],
+        [
+          "fry",
+          "queryable"
+        ],
+        [
+          "fry",
+          "theAble"
+        ],
+        [
+          "have",
+          "canBeDoQuestion"
+        ],
+        [
+          "have",
+          "canBeQuestion"
+        ],
+        [
+          "hierarchyAble",
+          "queryable"
+        ],
+        [
+          "hot",
+          "hierarchyAble"
+        ],
+        [
+          "hot",
+          "isEdee"
+        ],
+        [
+          "hot",
+          "isEder"
+        ],
+        [
+          "hot",
+          "object"
+        ],
+        [
+          "hot",
+          "property"
+        ],
+        [
+          "hot",
+          "queryable"
+        ],
+        [
+          "hot",
+          "theAble"
+        ],
+        [
+          "hot_dog",
+          "adjective"
+        ],
+        [
+          "hot_dog",
+          "concept"
+        ],
+        [
+          "hot_dog",
+          "hierarchyAble"
+        ],
+        [
+          "hot_dog",
+          "isEdee"
+        ],
+        [
+          "hot_dog",
+          "isEder"
+        ],
+        [
+          "hot_dog",
+          "object"
+        ],
+        [
+          "hot_dog",
+          "property"
+        ],
+        [
+          "hot_dog",
+          "queryable"
+        ],
+        [
+          "hot_dog",
+          "sausage"
+        ],
+        [
+          "hot_dog",
+          "theAble"
+        ],
+        [
+          "ifAble",
+          "ifAble"
+        ],
+        [
+          "is",
+          "canBeQuestion"
+        ],
+        [
+          "is",
+          "verby"
+        ],
+        [
+          "isEdee",
+          "isEdee"
+        ],
+        [
+          "isEder",
+          "isEder"
+        ],
+        [
+          "it",
+          "pronoun"
+        ],
+        [
+          "it",
+          "queryable"
+        ],
+        [
+          "it",
+          "thisitthat"
+        ],
+        [
+          "it",
+          "toAble"
+        ],
+        [
+          "meat",
+          "hierarchyAble"
+        ],
+        [
+          "meat",
+          "isEdee"
+        ],
+        [
+          "meat",
+          "isEder"
+        ],
+        [
+          "meat",
+          "object"
+        ],
+        [
+          "meat",
+          "property"
+        ],
+        [
+          "meat",
+          "queryable"
+        ],
+        [
+          "meat",
+          "theAble"
+        ],
+        [
+          "notAble",
+          "notAble"
+        ],
+        [
+          "noun",
+          "theAble"
+        ],
+        [
+          "object",
+          "queryable"
+        ],
+        [
+          "object",
+          "theAble"
+        ],
+        [
+          "orAble",
+          "ifAble"
+        ],
+        [
+          "orange",
+          "fruit"
+        ],
+        [
+          "orange",
+          "hierarchyAble"
+        ],
+        [
+          "orange",
+          "isEdee"
+        ],
+        [
+          "orange",
+          "isEder"
+        ],
+        [
+          "orange",
+          "object"
+        ],
+        [
+          "orange",
+          "property"
+        ],
+        [
+          "orange",
+          "queryable"
+        ],
+        [
+          "orange",
+          "theAble"
+        ],
+        [
+          "pea",
+          "hierarchyAble"
+        ],
+        [
+          "pea",
+          "isEdee"
+        ],
+        [
+          "pea",
+          "isEder"
+        ],
+        [
+          "pea",
+          "object"
+        ],
+        [
+          "pea",
+          "property"
+        ],
+        [
+          "pea",
+          "queryable"
+        ],
+        [
+          "pea",
+          "theAble"
+        ],
+        [
+          "pea",
+          "vegetable"
+        ],
+        [
+          "pronoun",
+          "pronoun"
+        ],
+        [
+          "property",
+          "queryable"
+        ],
+        [
+          "property",
+          "theAble"
+        ],
+        [
+          "property",
+          "unknown"
+        ],
+        [
+          "punctuation",
+          "punctuation"
+        ],
+        [
+          "queryable",
+          "queryable"
+        ],
+        [
+          "questionMark",
+          "punctuation"
+        ],
+        [
+          "readonly",
+          "queryable"
+        ],
+        [
+          "reason",
+          "queryable"
+        ],
+        [
+          "reason",
+          "theAble"
+        ],
+        [
+          "sausage",
+          "hierarchyAble"
+        ],
+        [
+          "sausage",
+          "isEdee"
+        ],
+        [
+          "sausage",
+          "isEder"
+        ],
+        [
+          "sausage",
+          "meat"
+        ],
+        [
+          "sausage",
+          "object"
+        ],
+        [
+          "sausage",
+          "property"
+        ],
+        [
+          "sausage",
+          "queryable"
+        ],
+        [
+          "sausage",
+          "theAble"
+        ],
+        [
+          "strip",
+          "concept"
+        ],
+        [
+          "strip",
+          "hierarchyAble"
+        ],
+        [
+          "strip",
+          "isEdee"
+        ],
+        [
+          "strip",
+          "isEder"
+        ],
+        [
+          "strip",
+          "object"
+        ],
+        [
+          "strip",
+          "property"
+        ],
+        [
+          "strip",
+          "queryable"
+        ],
+        [
+          "strip",
+          "theAble"
+        ],
+        [
+          "sushi",
+          "food"
+        ],
+        [
+          "sushi",
+          "isEdee"
+        ],
+        [
+          "sushi",
+          "isEder"
+        ],
+        [
+          "sushi",
+          "queryable"
+        ],
+        [
+          "sushi",
+          "theAble"
+        ],
+        [
+          "that",
+          "thisitthat"
+        ],
+        [
+          "the",
+          "articlePOS"
+        ],
+        [
+          "theAble",
+          "theAble"
+        ],
+        [
+          "this",
+          "pronoun"
+        ],
+        [
+          "this",
+          "queryable"
+        ],
+        [
+          "this",
+          "thisitthat"
+        ],
+        [
+          "thisitthat",
+          "queryable"
+        ],
+        [
+          "toAble",
+          "toAble"
+        ],
+        [
+          "type",
+          "property"
+        ],
+        [
+          "type",
+          "whatAble"
+        ],
+        [
+          "unknown",
+          "hierarchyAble"
+        ],
+        [
+          "unknown",
+          "notAble"
+        ],
+        [
+          "unknown",
+          "object"
+        ],
+        [
+          "unknown",
+          "queryable"
+        ],
+        [
+          "unknown",
+          "theAble"
+        ],
+        [
+          "vegetable",
+          "hierarchyAble"
+        ],
+        [
+          "vegetable",
+          "isEdee"
+        ],
+        [
+          "vegetable",
+          "isEder"
+        ],
+        [
+          "vegetable",
+          "object"
+        ],
+        [
+          "vegetable",
+          "property"
+        ],
+        [
+          "vegetable",
+          "queryable"
+        ],
+        [
+          "vegetable",
+          "theAble"
+        ],
+        [
+          "verby",
+          "verby"
+        ],
+        [
+          "what",
+          "object"
+        ],
+        [
+          "what",
+          "queryable"
+        ],
+        [
+          "whatAble",
+          "queryable"
+        ],
+        [
+          "whose",
+          "object"
+        ],
+        [
+          "xfx",
+          "queryable"
+        ]
+      ],
+      "metadata": {
+        "opChoices": [
+          {
+            "op": [
+              "food",
+              0
+            ],
+            "ops": [
+              [
+                "food",
+                0
+              ],
+              [
+                "is",
+                0
+              ],
+              [
+                "vegetable",
+                0
+              ]
+            ],
+            "counter": 1
+          },
+          {
+            "op": [
+              "vegetable",
+              0
+            ],
+            "ops": [
+              [
+                "is",
+                0
+              ],
+              [
+                "vegetable",
+                0
+              ]
+            ],
+            "counter": 2
+          },
+          {
+            "op": [
+              "is",
+              0
+            ],
+            "ops": [
+              [
+                "is",
+                0
+              ]
+            ],
+            "counter": 3
+          },
+          {
+            "op": [
+              "is",
+              1
+            ],
+            "ops": [
+              [
+                "is",
+                1
+              ]
+            ],
+            "counter": 4
+          }
+        ]
+      },
+      "trace": "undefined",
+      "contexts": [
+        {
+          "number": "many",
+          "text": "vegetables are food",
+          "marker": "is",
+          "word": "are",
+          "range": {
+            "start": 0,
+            "end": 18
+          },
+          "one": {
+            "number": "many",
+            "value": "vegetable",
+            "text": "vegetables",
+            "marker": "vegetable",
+            "word": "vegetables",
+            "range": {
+              "start": 0,
+              "end": 18
+            },
+            "dead": true,
+            "types": [
+              "vegetable"
+            ],
+            "level": 1
+          },
+          "two": {
+            "value": "food",
+            "number": "one",
+            "text": "food",
+            "marker": "food",
+            "word": "food",
+            "range": {
+              "start": 15,
+              "end": 18
+            },
+            "dead": true,
+            "types": [
+              "food"
+            ],
+            "level": 1,
+            "concept": true
+          },
+          "dead": true,
+          "level": 2,
+          "topLevel": true,
+          "touchedBy": [
+            "foods#call2"
+          ]
+        }
+      ],
+      "generated": [
+        ""
+      ],
+      "paraphrases": [
+        "vegetables are food"
+      ],
+      "paraphrasesParenthesized": [],
+      "generatedParenthesized": [],
+      "responses": [
+        ""
+      ],
+      "associations": [
+        [
+          [
+            "food",
+            0
+          ],
+          [
+            "is",
+            0
+          ],
+          [
+            "vegetable",
+            0
+          ]
+        ],
+        [
+          [
+            "is",
+            0
+          ],
+          [
+            "vegetable",
+            0
+          ]
+        ]
+      ],
+      "query": "vegetables are food",
+      "key": {
+        "query": "vegetables are food"
+      }
+    },
+    {
+      "hierarchy": [
+        [
+          "a",
+          "articlePOS"
+        ],
+        [
+          "adjective",
+          "adjective"
+        ],
+        [
+          "apple",
+          "fruit"
+        ],
+        [
+          "apple",
+          "hierarchyAble"
+        ],
+        [
+          "apple",
+          "isEdee"
+        ],
+        [
+          "apple",
+          "isEder"
+        ],
+        [
+          "apple",
+          "object"
+        ],
+        [
+          "apple",
+          "property"
+        ],
+        [
+          "apple",
+          "queryable"
+        ],
+        [
+          "apple",
+          "theAble"
+        ],
+        [
+          "articlePOS",
+          "articlePOS"
+        ],
+        [
+          "banana",
+          "fruit"
+        ],
+        [
+          "banana",
+          "hierarchyAble"
+        ],
+        [
+          "banana",
+          "isEdee"
+        ],
+        [
+          "banana",
+          "isEder"
+        ],
+        [
+          "banana",
+          "object"
+        ],
+        [
+          "banana",
+          "property"
+        ],
+        [
+          "banana",
+          "queryable"
+        ],
+        [
+          "banana",
+          "theAble"
+        ],
+        [
+          "brocoli",
+          "hierarchyAble"
+        ],
+        [
+          "brocoli",
+          "isEdee"
+        ],
+        [
+          "brocoli",
+          "isEder"
+        ],
+        [
+          "brocoli",
+          "object"
+        ],
+        [
+          "brocoli",
+          "property"
+        ],
+        [
+          "brocoli",
+          "queryable"
+        ],
+        [
+          "brocoli",
+          "theAble"
+        ],
+        [
+          "brocoli",
+          "vegetable"
+        ],
+        [
+          "cabbage",
+          "hierarchyAble"
+        ],
+        [
+          "cabbage",
+          "isEdee"
+        ],
+        [
+          "cabbage",
+          "isEder"
+        ],
+        [
+          "cabbage",
+          "object"
+        ],
+        [
+          "cabbage",
+          "property"
+        ],
+        [
+          "cabbage",
+          "queryable"
+        ],
+        [
+          "cabbage",
+          "theAble"
+        ],
+        [
+          "cabbage",
+          "vegetable"
+        ],
+        [
+          "canBeDoQuestion",
+          "canBeDoQuestion"
+        ],
+        [
+          "canBeQuestion",
+          "canBeQuestion"
+        ],
+        [
+          "carrot",
+          "hierarchyAble"
+        ],
+        [
+          "carrot",
+          "isEdee"
+        ],
+        [
+          "carrot",
+          "isEder"
+        ],
+        [
+          "carrot",
+          "object"
+        ],
+        [
+          "carrot",
+          "property"
+        ],
+        [
+          "carrot",
+          "queryable"
+        ],
+        [
+          "carrot",
+          "theAble"
+        ],
+        [
+          "carrot",
+          "vegetable"
+        ],
+        [
+          "chicken",
+          "hierarchyAble"
+        ],
+        [
+          "chicken",
+          "isEdee"
+        ],
+        [
+          "chicken",
+          "isEder"
+        ],
+        [
+          "chicken",
+          "object"
+        ],
+        [
+          "chicken",
+          "property"
+        ],
+        [
+          "chicken",
+          "queryable"
+        ],
+        [
+          "chicken",
+          "theAble"
+        ],
+        [
+          "chicken_strip",
+          "adjective"
+        ],
+        [
+          "chicken_strip",
+          "concept"
+        ],
+        [
+          "chicken_strip",
+          "food"
+        ],
+        [
+          "chicken_strip",
+          "hierarchyAble"
+        ],
+        [
+          "chicken_strip",
+          "isEdee"
+        ],
+        [
+          "chicken_strip",
+          "isEder"
+        ],
+        [
+          "chicken_strip",
+          "object"
+        ],
+        [
+          "chicken_strip",
+          "property"
+        ],
+        [
+          "chicken_strip",
+          "queryable"
+        ],
+        [
+          "chicken_strip",
+          "theAble"
+        ],
+        [
+          "concept",
+          "queryable"
+        ],
+        [
+          "concept",
+          "theAble"
+        ],
+        [
+          "dog",
+          "concept"
+        ],
+        [
+          "dog",
+          "hierarchyAble"
+        ],
+        [
+          "dog",
+          "isEdee"
+        ],
+        [
+          "dog",
+          "isEder"
+        ],
+        [
+          "dog",
+          "object"
+        ],
+        [
+          "dog",
+          "property"
+        ],
+        [
+          "dog",
+          "queryable"
+        ],
+        [
+          "dog",
+          "theAble"
+        ],
+        [
+          "food",
+          "hierarchyAble"
+        ],
+        [
+          "food",
+          "isEdee"
+        ],
+        [
+          "food",
+          "isEder"
+        ],
+        [
+          "food",
+          "object"
+        ],
+        [
+          "food",
+          "property"
+        ],
+        [
+          "food",
+          "queryable"
+        ],
+        [
+          "food",
+          "theAble"
+        ],
+        [
+          "french",
+          "hierarchyAble"
+        ],
+        [
+          "french",
+          "isEdee"
+        ],
+        [
+          "french",
+          "isEder"
+        ],
+        [
+          "french",
+          "object"
+        ],
+        [
+          "french",
+          "property"
+        ],
+        [
+          "french",
+          "queryable"
+        ],
+        [
+          "french",
+          "theAble"
+        ],
+        [
+          "french_fry",
+          "adjective"
+        ],
+        [
+          "french_fry",
+          "concept"
+        ],
+        [
+          "french_fry",
+          "food"
+        ],
+        [
+          "french_fry",
+          "hierarchyAble"
+        ],
+        [
+          "french_fry",
+          "isEdee"
+        ],
+        [
+          "french_fry",
+          "isEder"
+        ],
+        [
+          "french_fry",
+          "object"
+        ],
+        [
+          "french_fry",
+          "property"
+        ],
+        [
+          "french_fry",
+          "queryable"
+        ],
+        [
+          "french_fry",
+          "theAble"
+        ],
+        [
+          "fruit",
+          "food"
+        ],
+        [
+          "fruit",
+          "hierarchyAble"
+        ],
+        [
+          "fruit",
+          "isEdee"
+        ],
+        [
+          "fruit",
+          "isEder"
+        ],
+        [
+          "fruit",
+          "object"
+        ],
+        [
+          "fruit",
+          "property"
+        ],
+        [
+          "fruit",
+          "queryable"
+        ],
+        [
+          "fruit",
+          "theAble"
+        ],
+        [
+          "fry",
+          "concept"
+        ],
+        [
+          "fry",
+          "hierarchyAble"
+        ],
+        [
+          "fry",
+          "isEdee"
+        ],
+        [
+          "fry",
+          "isEder"
+        ],
+        [
+          "fry",
+          "object"
+        ],
+        [
+          "fry",
+          "property"
+        ],
+        [
+          "fry",
+          "queryable"
+        ],
+        [
+          "fry",
+          "theAble"
+        ],
+        [
+          "have",
+          "canBeDoQuestion"
+        ],
+        [
+          "have",
+          "canBeQuestion"
+        ],
+        [
+          "hierarchyAble",
+          "queryable"
+        ],
+        [
+          "hot",
+          "hierarchyAble"
+        ],
+        [
+          "hot",
+          "isEdee"
+        ],
+        [
+          "hot",
+          "isEder"
+        ],
+        [
+          "hot",
+          "object"
+        ],
+        [
+          "hot",
+          "property"
+        ],
+        [
+          "hot",
+          "queryable"
+        ],
+        [
+          "hot",
+          "theAble"
+        ],
+        [
+          "hot_dog",
+          "adjective"
+        ],
+        [
+          "hot_dog",
+          "concept"
+        ],
+        [
+          "hot_dog",
+          "hierarchyAble"
+        ],
+        [
+          "hot_dog",
+          "isEdee"
+        ],
+        [
+          "hot_dog",
+          "isEder"
+        ],
+        [
+          "hot_dog",
+          "object"
+        ],
+        [
+          "hot_dog",
+          "property"
+        ],
+        [
+          "hot_dog",
+          "queryable"
+        ],
+        [
+          "hot_dog",
+          "sausage"
+        ],
+        [
+          "hot_dog",
+          "theAble"
+        ],
+        [
+          "ifAble",
+          "ifAble"
+        ],
+        [
+          "is",
+          "canBeQuestion"
+        ],
+        [
+          "is",
+          "verby"
+        ],
+        [
+          "isEdee",
+          "isEdee"
+        ],
+        [
+          "isEder",
+          "isEder"
+        ],
+        [
+          "it",
+          "pronoun"
+        ],
+        [
+          "it",
+          "queryable"
+        ],
+        [
+          "it",
+          "thisitthat"
+        ],
+        [
+          "it",
+          "toAble"
+        ],
+        [
+          "meat",
+          "hierarchyAble"
+        ],
+        [
+          "meat",
+          "isEdee"
+        ],
+        [
+          "meat",
+          "isEder"
+        ],
+        [
+          "meat",
+          "object"
+        ],
+        [
+          "meat",
+          "property"
+        ],
+        [
+          "meat",
+          "queryable"
+        ],
+        [
+          "meat",
+          "theAble"
+        ],
+        [
+          "notAble",
+          "notAble"
+        ],
+        [
+          "noun",
+          "theAble"
+        ],
+        [
+          "object",
+          "queryable"
+        ],
+        [
+          "object",
+          "theAble"
+        ],
+        [
+          "orAble",
+          "ifAble"
+        ],
+        [
+          "orange",
+          "fruit"
+        ],
+        [
+          "orange",
+          "hierarchyAble"
+        ],
+        [
+          "orange",
+          "isEdee"
+        ],
+        [
+          "orange",
+          "isEder"
+        ],
+        [
+          "orange",
+          "object"
+        ],
+        [
+          "orange",
+          "property"
+        ],
+        [
+          "orange",
+          "queryable"
+        ],
+        [
+          "orange",
+          "theAble"
+        ],
+        [
+          "pea",
+          "hierarchyAble"
+        ],
+        [
+          "pea",
+          "isEdee"
+        ],
+        [
+          "pea",
+          "isEder"
+        ],
+        [
+          "pea",
+          "object"
+        ],
+        [
+          "pea",
+          "property"
+        ],
+        [
+          "pea",
+          "queryable"
+        ],
+        [
+          "pea",
+          "theAble"
+        ],
+        [
+          "pea",
+          "vegetable"
+        ],
+        [
+          "pronoun",
+          "pronoun"
+        ],
+        [
+          "property",
+          "queryable"
+        ],
+        [
+          "property",
+          "theAble"
+        ],
+        [
+          "property",
+          "unknown"
+        ],
+        [
+          "punctuation",
+          "punctuation"
+        ],
+        [
+          "queryable",
+          "queryable"
+        ],
+        [
+          "questionMark",
+          "punctuation"
+        ],
+        [
+          "readonly",
+          "queryable"
+        ],
+        [
+          "reason",
+          "queryable"
+        ],
+        [
+          "reason",
+          "theAble"
+        ],
+        [
+          "sausage",
+          "hierarchyAble"
+        ],
+        [
+          "sausage",
+          "isEdee"
+        ],
+        [
+          "sausage",
+          "isEder"
+        ],
+        [
+          "sausage",
+          "meat"
+        ],
+        [
+          "sausage",
+          "object"
+        ],
+        [
+          "sausage",
+          "property"
+        ],
+        [
+          "sausage",
+          "queryable"
+        ],
+        [
+          "sausage",
+          "theAble"
+        ],
+        [
+          "strip",
+          "concept"
+        ],
+        [
+          "strip",
+          "hierarchyAble"
+        ],
+        [
+          "strip",
+          "isEdee"
+        ],
+        [
+          "strip",
+          "isEder"
+        ],
+        [
+          "strip",
+          "object"
+        ],
+        [
+          "strip",
+          "property"
+        ],
+        [
+          "strip",
+          "queryable"
+        ],
+        [
+          "strip",
+          "theAble"
+        ],
+        [
+          "sushi",
+          "food"
+        ],
+        [
+          "sushi",
+          "isEdee"
+        ],
+        [
+          "sushi",
+          "isEder"
+        ],
+        [
+          "sushi",
+          "queryable"
+        ],
+        [
+          "sushi",
+          "theAble"
+        ],
+        [
+          "that",
+          "thisitthat"
+        ],
+        [
+          "the",
+          "articlePOS"
+        ],
+        [
+          "theAble",
+          "theAble"
+        ],
+        [
+          "this",
+          "pronoun"
+        ],
+        [
+          "this",
+          "queryable"
+        ],
+        [
+          "this",
+          "thisitthat"
+        ],
+        [
+          "thisitthat",
+          "queryable"
+        ],
+        [
+          "toAble",
+          "toAble"
+        ],
+        [
+          "type",
+          "property"
+        ],
+        [
+          "type",
+          "whatAble"
+        ],
+        [
+          "unknown",
+          "hierarchyAble"
+        ],
+        [
+          "unknown",
+          "notAble"
+        ],
+        [
+          "unknown",
+          "object"
+        ],
+        [
+          "unknown",
+          "queryable"
+        ],
+        [
+          "unknown",
+          "theAble"
+        ],
+        [
+          "vegetable",
+          "food"
+        ],
+        [
+          "vegetable",
+          "hierarchyAble"
+        ],
+        [
+          "vegetable",
+          "isEdee"
+        ],
+        [
+          "vegetable",
+          "isEder"
+        ],
+        [
+          "vegetable",
+          "object"
+        ],
+        [
+          "vegetable",
+          "property"
+        ],
+        [
+          "vegetable",
+          "queryable"
+        ],
+        [
+          "vegetable",
+          "theAble"
+        ],
+        [
+          "verby",
+          "verby"
+        ],
+        [
+          "what",
+          "object"
+        ],
+        [
+          "what",
+          "queryable"
+        ],
+        [
+          "whatAble",
+          "queryable"
+        ],
+        [
+          "whose",
+          "object"
+        ],
+        [
+          "xfx",
+          "queryable"
+        ]
+      ],
+      "metadata": {
+        "opChoices": [
+          {
+            "op": [
+              "unknown",
+              0
+            ],
+            "ops": [
+              [
+                "a",
+                0
+              ],
+              [
+                "food",
+                0
+              ],
+              [
+                "is",
+                0
+              ],
+              [
+                "unknown",
+                0
+              ]
+            ],
+            "counter": 1
+          },
+          {
+            "op": [
+              "food",
+              0
+            ],
+            "ops": [
+              [
+                "a",
+                0
+              ],
+              [
+                "food",
+                0
+              ],
+              [
+                "is",
+                0
+              ]
+            ],
+            "counter": 2
+          },
+          {
+            "op": [
+              "a",
+              0
+            ],
+            "ops": [
+              [
+                "a",
+                0
+              ],
+              [
+                "is",
+                0
+              ]
+            ],
+            "counter": 3
+          },
+          {
+            "op": [
+              "a",
+              0
+            ],
+            "ops": [
+              [
+                "a",
+                0
+              ],
+              [
+                "is",
+                0
+              ]
+            ],
+            "counter": 4
+          },
+          {
+            "op": [
+              "is",
+              0
+            ],
+            "ops": [
+              [
+                "is",
+                0
               ]
             ],
             "counter": 5
@@ -2517,84 +11086,80 @@
       "trace": "undefined",
       "contexts": [
         {
-          "number": "many",
-          "text": " are fruit",
+          "number": "one",
+          "text": "a hamburger is a food",
           "marker": "is",
-          "word": "are",
+          "word": "is",
           "range": {
             "start": 0,
-            "end": 35
+            "end": 20
           },
           "one": {
-            "number": "many",
-            "marker": "list",
-            "value": [
-              {
-                "marker": "unknown",
-                "range": {
-                  "start": 0,
-                  "end": 5
-                },
-                "word": "apples",
-                "text": "apples",
-                "value": "apples",
-                "unknown": true,
-                "dead": true,
-                "level": 1
-              },
-              {
-                "marker": "unknown",
-                "range": {
-                  "start": 7,
-                  "end": 13
-                },
-                "word": "oranges",
-                "text": "oranges",
-                "value": "oranges",
-                "unknown": true,
-                "dead": true,
-                "level": 1
-              },
-              {
-                "marker": "unknown",
-                "range": {
-                  "start": 19,
-                  "end": 25
-                },
-                "word": "bananas",
-                "text": "bananas",
-                "value": "bananas",
-                "unknown": true,
-                "dead": true,
-                "level": 1
-              }
-            ],
+            "number": "one",
+            "marker": "unknown",
             "range": {
               "start": 0,
-              "end": 35
+              "end": 20
             },
+            "word": "hamburger",
+            "text": "a hamburger",
+            "value": "hamburger",
+            "unknown": true,
+            "dead": true,
             "types": [
-              "list",
               "unknown"
+            ],
+            "pullFromContext": false,
+            "concept": true,
+            "wantsValue": true,
+            "determiner": {
+              "marker": "a",
+              "default": true,
+              "word": "a",
+              "text": "a",
+              "range": {
+                "start": 0,
+                "end": 0
+              },
+              "level": 0
+            },
+            "modifiers": [
+              "determiner"
             ],
             "level": 1
           },
           "two": {
-            "value": "fruit",
+            "value": "food",
             "number": "one",
-            "text": "fruit",
-            "marker": "fruit",
-            "word": "fruit",
+            "text": "a food",
+            "marker": "food",
+            "word": "food",
             "range": {
-              "start": 31,
-              "end": 35
+              "start": 15,
+              "end": 20
             },
             "dead": true,
             "types": [
-              "fruit"
+              "food"
             ],
-            "level": 1,
-            "concept": true
+            "pullFromContext": false,
+            "concept": true,
+            "wantsValue": true,
+            "determiner": {
+              "marker": "a",
+              "default": true,
+              "word": "a",
+              "text": "a",
+              "range": {
+                "start": 15,
+                "end": 15
+              },
+              "level": 0
+            },
+            "modifiers": [
+              "determiner"
+            ],
+            "level": 1
           },
           "dead": true,
           "level": 2,
@@ -2608,23 +11173,25 @@
         ""
       ],
       "paraphrases": [
-        "apples, oranges and bananas are fruit"
+        "a hamburger is a food"
       ],
+      "paraphrasesParenthesized": [],
+      "generatedParenthesized": [],
       "responses": [
         ""
       ],
       "associations": [
         [
           [
-            "fruit",
+            "a",
+            0
+          ],
+          [
+            "food",
             0
           ],
           [
             "is",
-            0
-          ],
-          [
-            "list",
             0
           ],
           [
@@ -2634,7 +11201,11 @@
         ],
         [
           [
-            "fruit",
+            "a",
+            0
+          ],
+          [
+            "food",
             0
           ],
           [
@@ -2642,13 +11213,13 @@
             0
           ],
           [
-            "list",
+            "unknown",
             1
           ]
         ],
         [
           [
-            "fruit",
+            "a",
             0
           ],
           [
@@ -2656,22 +11227,8 @@
             0
           ],
           [
-            "list",
+            "unknown",
             1
-          ],
-          [
-            "unknown",
-            0
-          ]
-        ],
-        [
-          [
-            "fruit",
-            0
-          ],
-          [
-            "unknown",
-            0
           ]
         ],
         [
@@ -2680,14 +11237,14 @@
             0
           ],
           [
-            "list",
+            "unknown",
             1
           ]
         ]
       ],
-      "query": "apples oranges and bananas are fruit",
+      "query": "a hamburger is a food",
       "key": {
-        "query": "apples oranges and bananas are fruit"
+        "query": "a hamburger is a food"
       }
     }
   ],
@@ -2696,6 +11253,56 @@
   "associations": [
     [
       [
+        "a",
+        0
+      ],
+      [
+        "food",
+        0
+      ],
+      [
+        "is",
+        0
+      ],
+      [
+        "unknown",
+        0
+      ]
+    ],
+    [
+      [
+        "a",
+        0
+      ],
+      [
+        "food",
+        0
+      ],
+      [
+        "is",
+        0
+      ],
+      [
+        "unknown",
+        1
+      ]
+    ],
+    [
+      [
+        "a",
+        0
+      ],
+      [
+        "is",
+        0
+      ],
+      [
+        "unknown",
+        1
+      ]
+    ],
+    [
+      [
         "chicken",
         0
       ],
@@ -2742,7 +11349,11 @@
     ],
     [
       [
-        "food",
+        "dog",
+        0
+      ],
+      [
+        "hot",
         0
       ],
       [
@@ -2751,6 +11362,80 @@
       ],
       [
         "unknown",
+        0
+      ]
+    ],
+    [
+      [
+        "dog",
+        0
+      ],
+      [
+        "hot",
+        0
+      ],
+      [
+        "is",
+        0
+      ],
+      [
+        "unknown",
+        1
+      ]
+    ],
+    [
+      [
+        "food",
+        0
+      ],
+      [
+        "french",
+        0
+      ]
+    ],
+    [
+      [
+        "food",
+        0
+      ],
+      [
+        "french",
+        0
+      ],
+      [
+        "fry",
+        0
+      ],
+      [
+        "is",
+        0
+      ]
+    ],
+    [
+      [
+        "food",
+        0
+      ],
+      [
+        "fruit",
+        0
+      ],
+      [
+        "is",
+        0
+      ]
+    ],
+    [
+      [
+        "food",
+        0
+      ],
+      [
+        "is",
+        0
+      ],
+      [
+        "meat",
         0
       ]
     ],
@@ -2792,17 +11477,21 @@
         0
       ],
       [
-        "unknown",
-        1
+        "vegetable",
+        0
       ]
     ],
     [
       [
-        "food",
+        "french",
         0
       ],
       [
-        "unknown",
+        "fry",
+        0
+      ],
+      [
+        "is",
         0
       ]
     ],
@@ -2811,6 +11500,22 @@
         "fruit",
         0
       ],
+      [
+        "is",
+        0
+      ]
+    ],
+    [
+      [
+        "hot",
+        0
+      ],
+      [
+        "unknown",
+        0
+      ]
+    ],
+    [
       [
         "is",
         0
@@ -2826,23 +11531,19 @@
     ],
     [
       [
-        "fruit",
-        0
-      ],
-      [
         "is",
         0
       ],
       [
         "list",
-        1
+        0
+      ],
+      [
+        "unknown",
+        0
       ]
     ],
     [
-      [
-        "fruit",
-        0
-      ],
       [
         "is",
         0
@@ -2858,8 +11559,12 @@
     ],
     [
       [
-        "fruit",
+        "is",
         0
+      ],
+      [
+        "list",
+        1
       ],
       [
         "unknown",
@@ -2874,6 +11579,82 @@
       [
         "list",
         1
+      ],
+      [
+        "unknown",
+        1
+      ]
+    ],
+    [
+      [
+        "is",
+        0
+      ],
+      [
+        "list",
+        1
+      ],
+      [
+        "unknown",
+        1
+      ]
+    ],
+    [
+      [
+        "is",
+        0
+      ],
+      [
+        "meat",
+        0
+      ]
+    ],
+    [
+      [
+        "is",
+        0
+      ],
+      [
+        "sausage",
+        0
+      ],
+      [
+        "unknown",
+        0
+      ]
+    ],
+    [
+      [
+        "is",
+        0
+      ],
+      [
+        "sausage",
+        0
+      ],
+      [
+        "unknown",
+        1
+      ]
+    ],
+    [
+      [
+        "is",
+        0
+      ],
+      [
+        "unknown",
+        1
+      ]
+    ],
+    [
+      [
+        "is",
+        0
+      ],
+      [
+        "unknown",
+        1
       ]
     ],
     [
@@ -2904,6 +11685,16 @@
       [
         "unknown",
         1
+      ]
+    ],
+    [
+      [
+        "is",
+        0
+      ],
+      [
+        "vegetable",
+        0
       ]
     ],
     [
@@ -2923,6 +11714,74 @@
       ],
       [
         "unknown",
+        0
+      ]
+    ],
+    [
+      [
+        "modifies",
+        0
+      ],
+      [
+        "unknown",
+        0
+      ]
+    ],
+    [
+      [
+        "modifies",
+        0
+      ],
+      [
+        "unknown",
+        0
+      ],
+      [
+        "unknown",
+        1
+      ]
+    ],
+    [
+      [
+        "modifies",
+        0
+      ],
+      [
+        "unknown",
+        0
+      ],
+      [
+        "unknown",
+        1
+      ]
+    ],
+    [
+      [
+        "modifies",
+        0
+      ],
+      [
+        "unknown",
+        0
+      ],
+      [
+        "unknown",
+        1
+      ]
+    ],
+    [
+      [
+        "modifies",
+        0
+      ],
+      [
+        "unknown",
+        1
+      ]
+    ],
+    [
+      [
+        "modifies",
         0
       ],
       [

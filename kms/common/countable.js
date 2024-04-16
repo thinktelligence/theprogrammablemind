@@ -1,5 +1,5 @@
 const { Config, knowledgeModule, where, Digraph } = require('./runtime').theprogrammablemind
-const dialogues = require("./dialogues")
+const dialogues = require("./hierarchy")
 const numbers = require("./numbers")
 const countable_tests = require('./countable.test.json')
 
@@ -29,6 +29,8 @@ let config = {
     { 
       id: "countable", 
       level: 0, 
+      // isA: ['type'],
+      isA: ['hierarchyAble'],
       bridge: "{ ...next(operator) }" 
     },
     { 

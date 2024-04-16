@@ -534,5 +534,8 @@ fi
 # $NODE time_dimension -q "10:05 pm" -g -d
 # TODO $NODE time_dimension -q "what is the time" -g -d
 # $NODE hierarchy -q 'fruit is food what are the types of food' -g -d
-$NODE hierarchy -q 'x is 20 what is x' -g -d
+# $NODE hierarchy -q 'apples are fruit fruit is food what are the types of food' -g -d
+# $NODE hierarchy -q 'x is 20 what is x' -g -d
 # $NODE hierarchy -q 'fruits are food what are the types of food' -g -d
+# TODO $NODE fastfood -q 'more modifies food' -g -d
+$NODE fastfood -q 'more modifies big mac' -g -d

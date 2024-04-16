@@ -242,11 +242,49 @@
                   "word": "sushis"
                 },
                 {
+                  "french": {
+                    "marker": "french",
+                    "value": "french",
+                    "word": "french"
+                  },
+                  "marker": "french_fry",
+                  "modifiers": [
+                    "french"
+                  ],
+                  "paraphrase": true,
+                  "types": [
+                    "french_fry"
+                  ],
+                  "value": "french_fry",
+                  "word": "fries"
+                },
+                {
+                  "marker": "meat",
+                  "number": "many",
+                  "paraphrase": true,
+                  "value": "meat",
+                  "word": "meats"
+                },
+                {
                   "marker": "fruit",
                   "number": "many",
                   "paraphrase": true,
                   "value": "fruit",
                   "word": "fruits"
+                },
+                {
+                  "marker": "vegetable",
+                  "number": "many",
+                  "paraphrase": true,
+                  "value": "vegetable",
+                  "word": "vegetables"
+                },
+                {
+                  "marker": "hamburger",
+                  "number": "many",
+                  "paraphrase": true,
+                  "value": "hamburger",
+                  "word": "hamburgers"
                 }
               ]
             },
@@ -453,6 +491,9 @@
         },
         "word": "are"
       }
+    ],
+    "generatedParenthesized": [
+      "((((the types) of (food)) are ((((chicken) strips), (sushis), ((french) fries), (meats), (fruits), (vegetables) and (hamburgers)))))"
     ],
     "metadata": {
       "opChoices": [
@@ -670,13 +711,25 @@
             "food": [
               "chicken_strip",
               "sushi",
-              "fruit"
+              "french_fry",
+              "meat",
+              "fruit",
+              "vegetable",
+              "hamburger"
+            ],
+            "fruit": [
+              "apple",
+              "orange",
+              "banana"
             ],
             "hierarchyAble": [
               "unknown"
             ],
             "ifAble": [
               "orAble"
+            ],
+            "meat": [
+              "sausage"
             ],
             "notAble": [
               "unknown"
@@ -708,11 +761,15 @@
               "thisitthat",
               "reason"
             ],
+            "sausage": [
+              "hot_dog"
+            ],
             "theAble": [
               "concept",
               "property",
               "object",
               "unknown",
+              "noun",
               "reason"
             ],
             "thisitthat": [
@@ -725,6 +782,12 @@
             ],
             "unknown": [
               "property"
+            ],
+            "vegetable": [
+              "carrot",
+              "pea",
+              "cabbage",
+              "brocoli"
             ],
             "verby": [
               "is"
@@ -759,6 +822,7 @@
             "is",
             "toAble",
             "verby",
+            "noun",
             "thisitthat",
             "reason",
             "that",
@@ -767,11 +831,39 @@
             "chicken_strip",
             "food",
             "sushi",
-            "fruit"
+            "apple",
+            "fruit",
+            "orange",
+            "banana",
+            "hot_dog",
+            "sausage",
+            "meat",
+            "french_fry",
+            "carrot",
+            "vegetable",
+            "pea",
+            "cabbage",
+            "brocoli",
+            "hamburger"
           ],
           "parents": {
             "a": [
               "articlePOS"
+            ],
+            "apple": [
+              "fruit"
+            ],
+            "banana": [
+              "fruit"
+            ],
+            "brocoli": [
+              "vegetable"
+            ],
+            "cabbage": [
+              "vegetable"
+            ],
+            "carrot": [
+              "vegetable"
             ],
             "chicken_strip": [
               "food"
@@ -780,7 +872,13 @@
               "theAble",
               "queryable"
             ],
+            "french_fry": [
+              "food"
+            ],
             "fruit": [
+              "food"
+            ],
+            "hamburger": [
               "food"
             ],
             "have": [
@@ -789,6 +887,9 @@
             ],
             "hierarchyAble": [
               "queryable"
+            ],
+            "hot_dog": [
+              "sausage"
             ],
             "is": [
               "canBeQuestion",
@@ -800,12 +901,24 @@
               "toAble",
               "thisitthat"
             ],
+            "meat": [
+              "food"
+            ],
+            "noun": [
+              "theAble"
+            ],
             "object": [
               "queryable",
               "theAble"
             ],
             "orAble": [
               "ifAble"
+            ],
+            "orange": [
+              "fruit"
+            ],
+            "pea": [
+              "vegetable"
             ],
             "property": [
               "queryable",
@@ -821,6 +934,9 @@
             "reason": [
               "theAble",
               "queryable"
+            ],
+            "sausage": [
+              "meat"
             ],
             "sushi": [
               "food"
@@ -846,6 +962,9 @@
               "theAble",
               "queryable"
             ],
+            "vegetable": [
+              "food"
+            ],
             "what": [
               "object",
               "queryable"
@@ -868,11 +987,21 @@
             "root": {
               "a": {
               },
+              "apple": {
+              },
               "articlePOS": {
+              },
+              "banana": {
+              },
+              "brocoli": {
+              },
+              "cabbage": {
               },
               "canBeDoQuestion": {
               },
               "canBeQuestion": {
+              },
+              "carrot": {
               },
               "chicken_strip": {
               },
@@ -880,11 +1009,17 @@
               },
               "food": {
               },
+              "french_fry": {
+              },
               "fruit": {
+              },
+              "hamburger": {
               },
               "have": {
               },
               "hierarchyAble": {
+              },
+              "hot_dog": {
               },
               "ifAble": {
               },
@@ -892,11 +1027,19 @@
               },
               "it": {
               },
+              "meat": {
+              },
               "notAble": {
+              },
+              "noun": {
               },
               "object": {
               },
               "orAble": {
+              },
+              "orange": {
+              },
+              "pea": {
               },
               "pronoun": {
               },
@@ -911,6 +1054,8 @@
               "readonly": {
               },
               "reason": {
+              },
+              "sausage": {
               },
               "sushi": {
               },
@@ -927,6 +1072,8 @@
               "toAble": {
               },
               "unknown": {
+              },
+              "vegetable": {
               },
               "verby": {
               },
@@ -962,6 +1109,44 @@
                 ],
                 "value": "chicken_strip",
                 "word": "strips"
+              }
+            ],
+            "french_fry": [
+              {
+                "french": {
+                  "marker": "french",
+                  "value": "french",
+                  "word": "french"
+                },
+                "marker": "french_fry",
+                "modifiers": [
+                  "french"
+                ],
+                "paraphrase": true,
+                "types": [
+                  "french_fry"
+                ],
+                "value": "french_fry",
+                "word": "fries"
+              }
+            ],
+            "hot_dog": [
+              {
+                "hot": {
+                  "marker": "hot",
+                  "value": "hot",
+                  "word": "hot"
+                },
+                "marker": "hot_dog",
+                "modifiers": [
+                  "hot"
+                ],
+                "paraphrase": true,
+                "types": [
+                  "hot_dog"
+                ],
+                "value": "hot_dog",
+                "word": "dog"
               }
             ]
           }
@@ -1098,11 +1283,49 @@
                       "word": "sushis"
                     },
                     {
+                      "french": {
+                        "marker": "french",
+                        "value": "french",
+                        "word": "french"
+                      },
+                      "marker": "french_fry",
+                      "modifiers": [
+                        "french"
+                      ],
+                      "paraphrase": true,
+                      "types": [
+                        "french_fry"
+                      ],
+                      "value": "french_fry",
+                      "word": "fries"
+                    },
+                    {
+                      "marker": "meat",
+                      "number": "many",
+                      "paraphrase": true,
+                      "value": "meat",
+                      "word": "meats"
+                    },
+                    {
                       "marker": "fruit",
                       "number": "many",
                       "paraphrase": true,
                       "value": "fruit",
                       "word": "fruits"
+                    },
+                    {
+                      "marker": "vegetable",
+                      "number": "many",
+                      "paraphrase": true,
+                      "value": "vegetable",
+                      "word": "vegetables"
+                    },
+                    {
+                      "marker": "hamburger",
+                      "number": "many",
+                      "paraphrase": true,
+                      "value": "hamburger",
+                      "word": "hamburgers"
                     }
                   ]
                 },
@@ -1309,9 +1532,104 @@
             },
             "word": "are"
           },
+          "generatedParenthesized": "((((the types) of (food)) are ((((chicken) strips), (sushis), ((french) fries), (meats), (fruits), (vegetables) and (hamburgers)))))",
           "paraphrases": "what are the types of food?",
+          "paraphrasesParenthesized": "(((what) are ((the types) of (food)))?)",
           "responses": [
-            "the types of food are chicken strips, sushis and fruits"
+            "the types of food are chicken strips, sushis, french fries, meats, fruits, vegetables and hamburgers"
+          ]
+        },
+        {
+          "context": {
+            "dead": true,
+            "level": 2,
+            "marker": "is",
+            "number": "one",
+            "one": {
+              "concept": true,
+              "dead": true,
+              "determiner": {
+                "default": true,
+                "level": 0,
+                "marker": "a",
+                "range": {
+                  "end": 0,
+                  "start": 0
+                },
+                "text": "a",
+                "word": "a"
+              },
+              "level": 1,
+              "marker": "unknown",
+              "modifiers": [
+                "determiner"
+              ],
+              "number": "one",
+              "pullFromContext": false,
+              "range": {
+                "end": 20,
+                "start": 0
+              },
+              "text": "a hamburger",
+              "types": [
+                "unknown"
+              ],
+              "unknown": true,
+              "value": "hamburger",
+              "wantsValue": true,
+              "word": "hamburger"
+            },
+            "range": {
+              "end": 20,
+              "start": 0
+            },
+            "text": "a hamburger is a food",
+            "topLevel": true,
+            "touchedBy": [
+              "foods#call2"
+            ],
+            "two": {
+              "concept": true,
+              "dead": true,
+              "determiner": {
+                "default": true,
+                "level": 0,
+                "marker": "a",
+                "range": {
+                  "end": 15,
+                  "start": 15
+                },
+                "text": "a",
+                "word": "a"
+              },
+              "level": 1,
+              "marker": "food",
+              "modifiers": [
+                "determiner"
+              ],
+              "number": "one",
+              "pullFromContext": false,
+              "range": {
+                "end": 20,
+                "start": 15
+              },
+              "text": "a food",
+              "types": [
+                "food"
+              ],
+              "value": "food",
+              "wantsValue": true,
+              "word": "food"
+            },
+            "word": "is"
+          },
+          "generatedParenthesized": [
+          ],
+          "paraphrases": "a hamburger is a food",
+          "paraphrasesParenthesized": [
+          ],
+          "responses": [
+            ""
           ]
         },
         {
@@ -1323,7 +1641,176 @@
             "one": {
               "dead": true,
               "level": 1,
+              "marker": "vegetable",
+              "number": "many",
+              "range": {
+                "end": 18,
+                "start": 0
+              },
+              "text": "vegetables",
+              "types": [
+                "vegetable"
+              ],
+              "value": "vegetable",
+              "word": "vegetables"
+            },
+            "range": {
+              "end": 18,
+              "start": 0
+            },
+            "text": "vegetables are food",
+            "topLevel": true,
+            "touchedBy": [
+              "foods#call2"
+            ],
+            "two": {
+              "concept": true,
+              "dead": true,
+              "level": 1,
+              "marker": "food",
+              "number": "one",
+              "range": {
+                "end": 18,
+                "start": 15
+              },
+              "text": "food",
+              "types": [
+                "food"
+              ],
+              "value": "food",
+              "word": "food"
+            },
+            "word": "are"
+          },
+          "generatedParenthesized": [
+          ],
+          "paraphrases": "vegetables are food",
+          "paraphrasesParenthesized": [
+          ],
+          "responses": [
+            ""
+          ]
+        },
+        {
+          "context": {
+            "dead": true,
+            "level": 2,
+            "marker": "is",
+            "number": "many",
+            "one": {
+              "level": 1,
+              "marker": "list",
+              "number": "many",
+              "range": {
+                "end": 46,
+                "start": 0
+              },
+              "types": [
+                "list",
+                "unknown"
+              ],
+              "value": [
+                {
+                  "dead": true,
+                  "level": 1,
+                  "marker": "unknown",
+                  "range": {
+                    "end": 6,
+                    "start": 0
+                  },
+                  "text": "carrots",
+                  "unknown": true,
+                  "value": "carrots",
+                  "word": "carrots"
+                },
+                {
+                  "dead": true,
+                  "level": 1,
+                  "marker": "unknown",
+                  "range": {
+                    "end": 11,
+                    "start": 8
+                  },
+                  "text": "peas",
+                  "unknown": true,
+                  "value": "peas",
+                  "word": "peas"
+                },
+                {
+                  "dead": true,
+                  "level": 1,
+                  "marker": "unknown",
+                  "range": {
+                    "end": 19,
+                    "start": 13
+                  },
+                  "text": "cabbage",
+                  "unknown": true,
+                  "value": "cabbage",
+                  "word": "cabbage"
+                },
+                {
+                  "dead": true,
+                  "level": 1,
+                  "marker": "unknown",
+                  "range": {
+                    "end": 31,
+                    "start": 25
+                  },
+                  "text": "brocoli",
+                  "unknown": true,
+                  "value": "brocoli",
+                  "word": "brocoli"
+                }
+              ]
+            },
+            "range": {
+              "end": 46,
+              "start": 0
+            },
+            "text": " are vegetables",
+            "topLevel": true,
+            "touchedBy": [
+              "foods#call2"
+            ],
+            "two": {
+              "concept": true,
+              "dead": true,
+              "level": 1,
               "marker": "unknown",
+              "range": {
+                "end": 46,
+                "start": 37
+              },
+              "text": "vegetables",
+              "types": [
+                "unknown"
+              ],
+              "unknown": true,
+              "value": "vegetables",
+              "word": "vegetables"
+            },
+            "word": "are"
+          },
+          "generatedParenthesized": [
+          ],
+          "paraphrases": "carrots, peas, cabbage and brocoli are vegetables",
+          "paraphrasesParenthesized": [
+          ],
+          "responses": [
+            ""
+          ]
+        },
+        {
+          "context": {
+            "dead": true,
+            "level": 2,
+            "marker": "is",
+            "number": "many",
+            "one": {
+              "dead": true,
+              "level": 1,
+              "marker": "fruit",
               "number": "many",
               "range": {
                 "end": 14,
@@ -1331,10 +1818,9 @@
               },
               "text": "fruits",
               "types": [
-                "unknown"
+                "fruit"
               ],
-              "unknown": true,
-              "value": "fruits",
+              "value": "fruit",
               "word": "fruits"
             },
             "range": {
@@ -1365,7 +1851,11 @@
             },
             "word": "are"
           },
+          "generatedParenthesized": [
+          ],
           "paraphrases": "fruits are food",
+          "paraphrasesParenthesized": [
+          ],
           "responses": [
             ""
           ]
@@ -1379,25 +1869,24 @@
             "one": {
               "dead": true,
               "level": 1,
-              "marker": "unknown",
+              "marker": "meat",
               "number": "one",
               "range": {
-                "end": 12,
+                "end": 11,
                 "start": 0
               },
-              "text": "sushi",
+              "text": "meat",
               "types": [
-                "unknown"
+                "meat"
               ],
-              "unknown": true,
-              "value": "sushi",
-              "word": "sushi"
+              "value": "meat",
+              "word": "meat"
             },
             "range": {
-              "end": 12,
+              "end": 11,
               "start": 0
             },
-            "text": "sushi is food",
+            "text": "meat is food",
             "topLevel": true,
             "touchedBy": [
               "foods#call2"
@@ -1409,8 +1898,8 @@
               "marker": "food",
               "number": "one",
               "range": {
-                "end": 12,
-                "start": 9
+                "end": 11,
+                "start": 8
               },
               "text": "food",
               "types": [
@@ -1421,126 +1910,11 @@
             },
             "word": "is"
           },
-          "paraphrases": "sushi is food",
-          "responses": [
-            ""
-          ]
-        },
-        {
-          "context": {
-            "dead": true,
-            "level": 2,
-            "marker": "is",
-            "number": "many",
-            "one": {
-              "atomic": true,
-              "chicken": {
-                "level": 0,
-                "marker": "chicken",
-                "range": {
-                  "end": 6,
-                  "start": 0
-                },
-                "text": "chicken",
-                "value": "chicken",
-                "word": "chicken"
-              },
-              "dead": true,
-              "level": 1,
-              "marker": "chicken_strip",
-              "modifiers": [
-                "chicken"
-              ],
-              "number": "many",
-              "range": {
-                "end": 22,
-                "start": 0
-              },
-              "text": "chicken strips",
-              "types": [
-                "chicken_strip"
-              ],
-              "value": "chicken_strip",
-              "word": "strips"
-            },
-            "range": {
-              "end": 22,
-              "start": 0
-            },
-            "text": "chicken strips are food",
-            "topLevel": true,
-            "touchedBy": [
-              "foods#call2"
-            ],
-            "two": {
-              "concept": true,
-              "dead": true,
-              "level": 1,
-              "marker": "unknown",
-              "range": {
-                "end": 22,
-                "start": 19
-              },
-              "text": "food",
-              "types": [
-                "unknown"
-              ],
-              "unknown": true,
-              "value": "food",
-              "word": "food"
-            },
-            "word": "are"
-          },
-          "paraphrases": "chicken strips are food",
-          "responses": [
-            ""
-          ]
-        },
-        {
-          "context": {
-            "concept": {
-              "dead": true,
-              "level": 1,
-              "marker": "unknown",
-              "range": {
-                "end": 22,
-                "start": 17
-              },
-              "text": "strips",
-              "unknown": true,
-              "value": "strips",
-              "word": "strips"
-            },
-            "dead": true,
-            "default": true,
-            "level": 1,
-            "marker": "modifies",
-            "modifier": {
-              "dead": true,
-              "level": 1,
-              "marker": "unknown",
-              "range": {
-                "end": 6,
-                "start": 0
-              },
-              "text": "chicken",
-              "unknown": true,
-              "value": "chicken",
-              "word": "chicken"
-            },
-            "range": {
-              "end": 22,
-              "start": 0
-            },
-            "text": "chicken modifies strips",
-            "topLevel": true,
-            "touchedBy": [
-              "foods#call2"
-            ],
-            "value": "modifies",
-            "word": "modifies"
-          },
-          "paraphrases": "chicken modifies strips",
+          "generatedParenthesized": [
+          ],
+          "paraphrases": "meat is food",
+          "paraphrasesParenthesized": [
+          ],
           "responses": [
             ""
           ]
@@ -1550,9 +1924,12 @@
     "paraphrases": [
       "what are the types of food?"
     ],
+    "paraphrasesParenthesized": [
+      "(((what) are ((the types) of (food)))?)"
+    ],
     "query": "what are the types of food",
     "responses": [
-      "the types of food are chicken strips, sushis and fruits"
+      "the types of food are chicken strips, sushis, french fries, meats, fruits, vegetables and hamburgers"
     ]
   }
 ]
