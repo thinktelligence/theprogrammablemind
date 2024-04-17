@@ -2,11 +2,11 @@ const { Config, knowledgeModule, ensureTestFile, where } = require('./runtime').
 const foods = require('./foods')
 const events = require('./events')
 const countable = require('./countable')
-ensureTestFile(module, 'fastfoods', 'test')
-ensureTestFile(module, 'fastfoods', 'instance')
+ensureTestFile(module, 'fastfood', 'test')
+ensureTestFile(module, 'fastfood', 'instance')
 
-const fastfoods_tests = require('./fastfoods.test.json')
-const fastfoods_instance = require('./fastfoods.instance.json')
+const fastfood_tests = require('./fastfood.test.json')
+const fastfood_instance = require('./fastfood.instance.json')
 
 /*
   hello -> to order
@@ -61,7 +61,7 @@ class API {
 const api = new API()
 
 const config = new Config({ 
-  name: 'fastfoods',
+  name: 'fastfood',
   operators: [
     "([orderNoun|order])",
     "([showOrder|show] ([orderNoun/1]))",
@@ -119,15 +119,15 @@ config.initializer( ({motivation}) => {
 
 knowledgeModule( {
     module,
-      description: 'fastfoods related concepts',
+      description: 'fastfood related concepts',
       config,
       test: {
-              name: './fastfoods.test.json',
-              contents: fastfoods_tests
+              name: './fastfood.test.json',
+              contents: fastfood_tests
             },
       template: {
         template,
-        instance: fastfoods_instance,
+        instance: fastfood_instance,
       },
       check: [
         'show', 'items',
