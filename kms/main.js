@@ -9,6 +9,8 @@ const currency = require('./common/currency')
 const dialogues = require('./common/dialogues')
 const dimension = require('./common/dimension')
 const dimensionTemplate = require('./common/dimensionTemplate')
+const emotions = require('./common/emotions')
+const events = require('./common/events')
 const fastfood = require('./common/fastfood')
 const foods = require('./common/foods')
 const formulas = require('./common/formulas')
@@ -27,6 +29,7 @@ const ordering = require('./common/ordering')
 const people = require('./common/people')
 const pipboy = require('./common/pipboy')
 const pipboyTemplate = require('./common/pipboyTemplate')
+const pokemon = require('./common/pokemon')
 const pos = require('./common/pos')
 const pressure = require('./common/pressure')
 const properties = require('./common/properties')
@@ -38,6 +41,8 @@ const stgame = require('./common/stgame')
 const stm = require('./common/stm')
 const tell = require('./common/tell')
 const temperature = require('./common/temperature')
+const tester = require('./common/tester')
+const testing = require('./common/testing')
 const time = require('./common/time')
 const ui = require('./common/ui')
 const weight = require('./common/weight')
@@ -54,6 +59,8 @@ module.exports = {
   dialogues,
   dimension,
   dimensionTemplate,
+  emotions,
+  events,
   fastfood,
   foods,
   formulas,
@@ -72,6 +79,7 @@ module.exports = {
   people,
   pipboy,
   pipboyTemplate,
+  pokemon,
   pos,
   pressure,
   properties,
@@ -83,6 +91,8 @@ module.exports = {
   stm,
   tell,
   temperature,
+  tester,
+  testing,
   time,
   ui,
   weight,
