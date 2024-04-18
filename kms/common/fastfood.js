@@ -33,7 +33,8 @@ const template ={
 
 class API {
   initialize() {
-    this.objects.items = []
+    this.objects.items = [{ name: 'Whopper' }]
+    this.listener = ({api}) => {}
   }
 
   add(food) {
@@ -56,6 +57,15 @@ class API {
   // user ask what the order was
   show() {
     this.objects.show = this.objects.items
+  }
+
+  order() {
+    return this.objects.items
+  }
+
+  // listener ({api}) => {...} . Called whenever there is a change to the order
+  addListener( listener ) {
+    this.listener = listener
   }
 }
 const api = new API()
