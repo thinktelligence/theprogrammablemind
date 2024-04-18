@@ -34,7 +34,22 @@ const template ={
 class API {
   initialize() {
     this.objects.items = [{ name: 'Whopper' }]
-    this.listener = ({api}) => {}
+  }
+
+  changed() {
+    this.objects.changes = this.objects.items
+  }
+
+  say(response) {
+    this.objects.response = response
+  }
+}
+const api = new API()
+
+class State {
+  constructor(api) {
+    this.api = api
+    this.api.objects.items = [{ name: 'Whopper' }]
   }
 
   add(food) {
@@ -46,29 +61,28 @@ class API {
       quantity = food.quantity.value
     }
 
-    const existing = this.objects.items.find( (item) => item.name == name )
+    const existing = this.api.objects.items.find( (item) => item.name == name )
     if (existing) {
       existing.quantity = quantity
     } else {
-      this.objects.items.push({ name, quantity })
+      this.api.objects.items.push({ name, quantity })
     }
+    this.api.changed()
   }
 
   // user ask what the order was
   show() {
-    this.objects.show = this.objects.items
+    this.api.objects.show = this.api.objects.items
+  }
+
+  say(response) {
+    this.api.say(response)
   }
 
   order() {
-    return this.objects.items
-  }
-
-  // listener ({api}) => {...} . Called whenever there is a change to the order
-  addListener( listener ) {
-    this.listener = listener
+    return this.api.objects.items
   }
 }
-const api = new API()
 
 const config = new Config({ 
   name: 'fastfood',
@@ -100,7 +114,8 @@ config.add(foods)
 config.add(countable)
 config.add(events)
 config.api = api
-config.initializer( ({motivation}) => {
+config.initializer( ({motivation, api}) => {
+  this.state = new State(api)
   /*
   ask([
   {
@@ -120,8 +135,7 @@ config.initializer( ({motivation}) => {
       return isA(context.marker, 'food')
     },
     apply: ({context, api}) => {
-      debugger;
-      api.add(context)
+      this.state.add(context)
     }
   })
 
@@ -140,6 +154,6 @@ knowledgeModule( {
         instance: fastfood_instance,
       },
       check: [
-        'show', 'items',
+        'show', 'items', 'changes'
       ]
 })
