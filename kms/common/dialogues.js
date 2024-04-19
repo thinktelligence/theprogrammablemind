@@ -75,7 +75,7 @@ class API {
       return concept
     }
     config.addOperator({ pattern: `([${fixUps(concept)}])`, allowDups: true })
-    config.addBridge({ id: concept, level: 0, bridge: "{ ...next(operator) }" , allowDups: true })
+    config.addBridge({ id: concept, level: 0, bridge: `{ ...next(operator), value: '${concept}' }` , allowDups: true })
     const addConcept = (word, number) => {
       config.addWord(word, { id: concept, initial: `{ value: "${concept}", number: "${number}" }` } )
       const baseTypes = [
