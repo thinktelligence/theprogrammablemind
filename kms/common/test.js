@@ -1,6 +1,8 @@
 const package = require('../package.json')
 const { exec } = require('child_process');
 
+console.time('tests time')
+
 let tests = []
 let retrains = []
 for (let file of package.files) {
@@ -31,6 +33,7 @@ const loop = (tests, failed) => {
     if (failed.length > 0) {
       console.log("FAILED Tests", JSON.stringify(failed, null, 2))
     }
+    console.timeEnd('tests time')
     return
   }
   const test = tests.shift()
