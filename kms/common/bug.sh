@@ -538,4 +538,6 @@ fi
 # $NODE hierarchy -q 'x is 20 what is x' -g -d
 # $NODE hierarchy -q 'fruits are food what are the types of food' -g -d
 # TODO $NODE fastfood -q 'more modifies food' -g -d
-$NODE fastfood -q 'more modifies big mac' -g -d
+# TODO $NODE fastfood -q 'more modifies big mac' -g -d
+$NODE properties -q 'the age of greg is 23 the profession of greg is programmer what are the properties of greg' -g -d
+
