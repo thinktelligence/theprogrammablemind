@@ -539,5 +539,7 @@ fi
 # $NODE hierarchy -q 'fruits are food what are the types of food' -g -d
 # TODO $NODE fastfood -q 'more modifies food' -g -d
 # TODO $NODE fastfood -q 'more modifies big mac' -g -d
-$NODE properties -q 'the age of greg is 23 the profession of greg is programmer what are the properties of greg' -g -d
+# $NODE properties -q 'the age of greg is 23 the profession of greg is programmer what are the properties of greg' -g -d
+$NODE weight -q "kilograms grams pounds (troy ounces) ounces and tons are units of weight" -g -d --parenthesized -daa
+
 

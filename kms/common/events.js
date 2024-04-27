@@ -110,7 +110,6 @@ config.add(dialogues)
 
 knowledgeModule({ 
   module,
-  name: 'events',
   description: 'do stuff after events',
   config,
   test: {

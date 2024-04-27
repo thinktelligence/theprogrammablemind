@@ -105,7 +105,7 @@ const config = new Config({
       bridge: "{ ...next(operator), order: after[0] }",
       generatorp: ({context, g}) => `show ${g(context.order)}`,
       semantic: ({api}) => {
-        api.show()
+        this.state.show()
       },
     },
   ],
@@ -143,17 +143,17 @@ config.initializer( ({motivation, api}) => {
 
 knowledgeModule( {
     module,
-      description: 'fastfood related concepts',
-      config,
-      test: {
-              name: './fastfood.test.json',
-              contents: fastfood_tests
-            },
-      template: {
-        template,
-        instance: fastfood_instance,
-      },
-      check: [
-        'show', 'items', 'changes'
-      ]
+    description: 'fastfood related concepts',
+    config,
+    test: {
+            name: './fastfood.test.json',
+            contents: fastfood_tests,
+            check: [
+              'show', 'items', 'changes'
+            ]
+          },
+    template: {
+      template,
+      instance: fastfood_instance,
+    },
 })

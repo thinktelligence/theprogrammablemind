@@ -381,7 +381,6 @@ config.initializer( ({config, isModule}) => {
 
 knowledgeModule({ 
   module,
-  name: 'meta',
   description: 'Ways of defining new language elements',
   config,
   test: {
