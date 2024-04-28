@@ -540,6 +540,8 @@ fi
 # TODO $NODE fastfood -q 'more modifies food' -g -d
 # TODO $NODE fastfood -q 'more modifies big mac' -g -d
 # $NODE properties -q 'the age of greg is 23 the profession of greg is programmer what are the properties of greg' -g -d
-$NODE weight -q "kilograms grams pounds (troy ounces) ounces and tons are units of weight" -g -d --parenthesized -daa
-
+# $NODE weight -q "kilograms grams pounds (troy ounces) ounces and tons are units of weight" -g -d --parenthesized -daa
+# $NODE fastfood -q "baconater and bacon deluxe are hamburgers" -g -d --parenthesized -daa
+# TODO infinite loop $NODE fastfood -q 'hamburger modifies combo\nsingle combo' -g -d
+$NODE fastfood -q "single and double modifies combo" -g -d --parenthesized -daa
 

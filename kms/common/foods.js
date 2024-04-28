@@ -30,9 +30,10 @@ const template ={
     "french fries are food",
     "meat is food",
     "fruits are food",
+    "sandwiches are food",
     "carrots peas cabbage and brocoli are vegetables",
     "vegetables are food",
-    "a hamburger is a food",
+    "a hamburger is a sandwich",
   ],
 }
 

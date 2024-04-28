@@ -15,18 +15,31 @@ const fastfood_instance = require('./fastfood.instance.json')
   gimme a big mac and large fries with a large coke
   make them large
   no small instead
+  give me a combo one / give me a single combo / i want combo one
   i want 2 hamburgers -> what kind?
     big mac
     big mac quarter pounder
+
+  single and double combo
+  single combo
+  combo one and two
 */
 
 const template ={
   "queries": [
     "food is countable",
+    /*
     "big modifies mac",
     "a big mac is a hamburger",
     "quarter modifies pounder",
     "a quarter pounder is a hamburger",
+    */
+    "bacon modifies deluxe",
+    "chicken modifies sandwich",
+    "premium modifies cod",
+    "spicy modifies homestyle",
+    "single double triple baconater and bacon deluxe are hamburgers",
+    "spicy homestyle and premium cod are sandwiches",
     // "more modifies big mac",
   ],
 }
@@ -89,6 +102,11 @@ const config = new Config({
   operators: [
     "([orderNoun|order])",
     "([showOrder|show] ([orderNoun/1]))",
+  ],
+  contextual_priorities: [
+    { context: [['list', 0], ['bacon',0], ['deluxe', 0]], choose: [1,2] },
+    { context: [['list', 0], ['spicy',0], ['homestyle', 0]], choose: [1,2] },
+    { context: [['list', 0], ['premium',0], ['cod', 0]], choose: [1,2] },
   ],
   bridges: [
     { 
