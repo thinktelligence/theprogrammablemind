@@ -155,9 +155,9 @@ let config = {
 config = new Config(config, module)
 config.add(tell)
 config.api = api
-config.initializer( ({api, config, objects, isModule}) => {
-  if (!isModule) {
-    api.newDate = () => new Date("December 25, 1995 1:59:58 pm" )
+config.initializer( ({isAfterApi, config, objects, isModule}) => {
+  if (!isModule && isAfterApi) {
+    config.api.newDate = () => new Date("December 25, 1995 1:59:58 pm" )
   }
   Object.assign(objects, {
     format: 12  // or 24
@@ -166,7 +166,7 @@ config.initializer( ({api, config, objects, isModule}) => {
       ({context, hierarchy, args}) => context.happening && context.marker == 'is' && args({ types: ['ampm', 'time'], properties: ['one', 'two'] }),
       api.semantics
   )
-})
+}, { initAfterApi: true })
 
 knowledgeModule({
   module,

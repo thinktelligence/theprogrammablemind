@@ -355,14 +355,17 @@ config = new Config(config, module)
 config.add(dialogues)
 config.add(numbers)
 config.add(properties)
-config.initializer( ({objects, km, isModule}) => {
+config.initializer( ({objects, km, isAfterApi, isModule}) => {
+  if (!isAfterApi) {
+    return
+  }
   objects.players = []
   objects.nextPlayer = undefined;
   setNextPlayer(km, objects);
   objects.scores = {};
   objects.winningScore = null
   objects.allPlayersAreKnown = false;
-})
+}, { initAfterApi: true })
 
 startWithDefault20 = [
   "greg got 1 point alice got 2 points greg got 1 point start a new game who is next",

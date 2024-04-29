@@ -132,8 +132,12 @@ config.add(foods)
 config.add(countable)
 config.add(events)
 config.api = api
-config.initializer( ({motivation, api}) => {
-  this.state = new State(api)
+config.initializer( ({motivation, isAfterApi, config}) => {
+  if (!isAfterApi) {
+    return
+  }
+
+  this.state = new State(config.api)
   /*
   ask([
   {
@@ -157,7 +161,7 @@ config.initializer( ({motivation, api}) => {
     }
   })
 
-})
+}, { initAfterApi: true })
 
 knowledgeModule( {
     module,

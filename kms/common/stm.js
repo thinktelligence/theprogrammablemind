@@ -89,9 +89,6 @@ const api = new API()
 let config = new Config({ name: 'stm' }, module)
 config.api = api
 
-config.initializer( ({objects, config, api, isModule}) => {
-})
-
 knowledgeModule( { 
   module,
   description: 'short term memory',

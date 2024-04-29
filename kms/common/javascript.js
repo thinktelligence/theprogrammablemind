@@ -60,7 +60,7 @@ let config = {
 config = new Config(config, module)
 config.add(dialogues)
 
-config.initializer( ({objects, api, uuid}) => {
+config.initializer( ({objects, uuid}) => {
   objects.variables = {}
 })
 

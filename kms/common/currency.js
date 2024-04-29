@@ -94,30 +94,33 @@ let config = {
 config = new Config(config, module)
 config.add(numbersKM)
 config.api = api
-config.initializer( ({config, objects, api, uuid}) => {
-  units = api.getUnits()
-  for (word in units) {
-    words = config.get('words')
-    def = {"id": "currency", "initial": { units: units[word] }, uuid}
-    if (words[word]) {
-      words[word].push(def)
-    } else {
-      words[word] = [def]
+config.initializer( ({config, objects, isAfterApi, uuid}) => {
+  if (isAfterApi) {
+    const api = config.api
+    units = api.getUnits()
+    for (word in units) {
+      words = config.get('words')
+      def = {"id": "currency", "initial": { units: units[word] }, uuid}
+      if (words[word]) {
+        words[word].push(def)
+      } else {
+        words[word] = [def]
+      }
+    }
+
+    unitWords = api.getUnitWords();
+    for (let words of unitWords) {
+        config.addGenerator(
+          ({context}) => context.marker == 'currency' && context.units == words.units && context.value == 1 && context.isAbstract, 
+          ({context, g}) => words.one, uuid
+        );
+        config.addGenerator(
+          ({context}) => context.marker == 'currency' && context.units == words.units && !isNaN(context.value) && (context.value != 1) && context.isAbstract, 
+          ({context, g}) => words.many, uuid
+        )
     }
   }
-
-  unitWords = api.getUnitWords();
-  for (let words of unitWords) {
-      config.addGenerator(
-        ({context}) => context.marker == 'currency' && context.units == words.units && context.value == 1 && context.isAbstract, 
-        ({context, g}) => words.one, uuid
-      );
-      config.addGenerator(
-        ({context}) => context.marker == 'currency' && context.units == words.units && !isNaN(context.value) && (context.value != 1) && context.isAbstract, 
-        ({context, g}) => words.many, uuid
-      )
-  }
-})
+}, { initAfterApi: true })
 
 knowledgeModule({ 
   module,
