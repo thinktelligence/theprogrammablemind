@@ -94,10 +94,18 @@ let config = {
 config = new Config(config, module)
 config.add(numbersKM)
 config.api = api
-config.initializer( ({config, objects, isAfterApi, uuid}) => {
+config.initializer( ({config, objects, isAfterApi, kms, addWord, addGenerator, baseConfig, uuid}) => {
   if (isAfterApi) {
-    const api = config.api
+    // const api = config.km('currency').api
+    // const api = kms.currency.api
+    debugger
+    const api = baseConfig.getConfig('currency').api
     units = api.getUnits()
+    for (word in units) {
+      def = {"id": "currency", "initial": { units: units[word] }, uuid}
+      addWord(word, def)
+    }
+    /*
     for (word in units) {
       words = config.get('words')
       def = {"id": "currency", "initial": { units: units[word] }, uuid}
@@ -107,14 +115,15 @@ config.initializer( ({config, objects, isAfterApi, uuid}) => {
         words[word] = [def]
       }
     }
+    */
 
     unitWords = api.getUnitWords();
     for (let words of unitWords) {
-        config.addGenerator(
+        addGenerator(
           ({context}) => context.marker == 'currency' && context.units == words.units && context.value == 1 && context.isAbstract, 
           ({context, g}) => words.one, uuid
         );
-        config.addGenerator(
+        addGenerator(
           ({context}) => context.marker == 'currency' && context.units == words.units && !isNaN(context.value) && (context.value != 1) && context.isAbstract, 
           ({context, g}) => words.many, uuid
         )

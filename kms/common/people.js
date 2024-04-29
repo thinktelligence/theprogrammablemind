@@ -46,11 +46,12 @@ let config = {
 
 config = new Config(config, module)
 config.add(hierarchy)
-config.initializer( ({config, context, km, isAfterApi, isModule}) => {
+config.initializer( ({baseConfig, context, km, kms, isAfterApi, isModule}) => {
   if (!isAfterApi) {
     return 
   }
-  const api = km('properties').api
+  // const api = km('properties').api
+  const api = kms.properties.api
   // setup paraphrase
   api.createActionPrefix({
             operator: 'owns',
@@ -62,7 +63,7 @@ config.initializer( ({config, context, km, isAfterApi, isModule}) => {
             localHierarchy: [['unknown', 'owner'], ['object', 'owner'], ['unknown', 'ownee'], ['object', 'ownee']],
             doAble: true,
             edAble: { operator: 'owned', word: 'owned' },
-            config
+            config: baseConfig
           })
 
 }, { initAfterApi: true })

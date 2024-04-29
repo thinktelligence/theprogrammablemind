@@ -543,5 +543,7 @@ fi
 # $NODE weight -q "kilograms grams pounds (troy ounces) ounces and tons are units of weight" -g -d --parenthesized -daa
 # $NODE fastfood -q "baconater and bacon deluxe are hamburgers" -g -d --parenthesized -daa
 # TODO infinite loop $NODE fastfood -q 'hamburger modifies combo\nsingle combo' -g -d
-$NODE fastfood -q "single and double modifies combo" -g -d --parenthesized -daa
-
+# $NODE fastfood -q "single and double modifies combo" -g -d --parenthesized -daa
+# $NODE tester -m people -tva -tmn people -g
+# $NODE tester -m people -tmn people -g -q 'greg owns x what does greg own'
+$NODE tester -m fastfood -tva -tmn fastfood -g

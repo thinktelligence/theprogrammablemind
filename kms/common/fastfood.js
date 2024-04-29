@@ -132,12 +132,14 @@ config.add(foods)
 config.add(countable)
 config.add(events)
 config.api = api
-config.initializer( ({motivation, isAfterApi, config}) => {
+config.initializer( ({motivation, isAfterApi, config, baseConfig}) => {
   if (!isAfterApi) {
     return
   }
 
-  this.state = new State(config.api)
+  // this.state = new State(config.api)
+  const api = baseConfig.getConfig('fastfood').api
+  this.state = new State(api)
   /*
   ask([
   {

@@ -362,9 +362,9 @@ let config = {
 config = new Config(config, module)
 //config.load(template, meta_instance)
 // config.add(dialogue)
-config.initializer( ({config, isModule}) => {
+config.initializer( ({config, addGenerator, isModule}) => {
   if (!isModule) {
-    config.addGenerator({
+    addGenerator({
       where: where(),
       match: ({context}) => context.marker == 'unknown',
       apply: ({context}) => `${context.word}`
