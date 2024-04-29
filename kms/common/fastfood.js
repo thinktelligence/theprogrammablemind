@@ -123,7 +123,7 @@ const config = new Config({
       bridge: "{ ...next(operator), order: after[0] }",
       generatorp: ({context, g}) => `show ${g(context.order)}`,
       semantic: ({api}) => {
-        this.state.show()
+        api.state.show()
       },
     },
   ],
@@ -132,14 +132,15 @@ config.add(foods)
 config.add(countable)
 config.add(events)
 config.api = api
-config.initializer( ({motivation, isAfterApi, config, baseConfig}) => {
+config.initializer( ({motivation, km, isAfterApi}) => {
   if (!isAfterApi) {
     return
   }
 
   // this.state = new State(config.api)
-  const api = baseConfig.getConfig('fastfood').api
-  this.state = new State(api)
+  // const api = baseConfig.getConfig('fastfood').api
+  const config = km('fastfood')
+  config.api.state = new State(config.api)
   /*
   ask([
   {
@@ -152,14 +153,15 @@ config.initializer( ({motivation, isAfterApi, config, baseConfig}) => {
     }
   }
   */
+  debugger
   motivation({
     repeat: true,
     where: where(),
-    match: ({context, kms, isA}) => {
-      return isA(context.marker, 'food')
-    },
-    apply: ({context, api}) => {
-      this.state.add(context)
+    match: ({context, isA}) => isA(context.marker, 'food'),
+    apply: ({context, km, api}) => {
+      // config.state.add(context)
+      // km('fastfood').state.add(context)
+      km('fastfood').api.state.add(context)
     }
   })
 

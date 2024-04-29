@@ -690,7 +690,8 @@ class API {
     this.setupObjectHierarchy(config, objectId);
     this.setupObjectHierarchy(config, modifierId, { include_concept: false });
     this.setupObjectHierarchy(config, modifierObjectId);
-    if (config.config.bridges.find( (bridge) => bridge.id === 'hierarchyAble' )) {
+    // if (config.config.bridges.find( (bridge) => bridge.id === 'hierarchyAble' )) {
+    if (config.getBridge('hierarchyAble')) {
       config.addHierarchy(objectId, 'hierarchyAble')
       config.addHierarchy(modifierObjectId, 'hierarchyAble')
     }

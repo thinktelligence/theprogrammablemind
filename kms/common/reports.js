@@ -602,8 +602,10 @@ config.multiApi = initializeApi
 // mode this to non-module init only
 config.initializer(({config, objects, km, isModule, isAfterApi}) => {
   if (!isModule) {
-    config.addAPI(api1)
-    config.addAPI(api2)
+    km('reports').addAPI(api1)
+    km('reports').addAPI(api2)
+    // config.addAPI(api1)
+    // config.addAPI(api2)
   }
   if (isAfterApi) {
     objects.tempReportId = 0

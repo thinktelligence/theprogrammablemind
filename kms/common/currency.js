@@ -98,7 +98,6 @@ config.initializer( ({config, objects, isAfterApi, kms, addWord, addGenerator, b
   if (isAfterApi) {
     // const api = config.km('currency').api
     // const api = kms.currency.api
-    debugger
     const api = baseConfig.getConfig('currency').api
     units = api.getUnits()
     for (word in units) {

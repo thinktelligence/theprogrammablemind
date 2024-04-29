@@ -11,19 +11,20 @@ const pad = (v, l) => {
 
 class API {
   // gets the contexts for doing the happening
-  semantics({context, isModule, args, api}) {
-        const values = args({ types: ['ampm', 'time'], properties: ['one', 'two']  })
-        const ampm = context[values[0]]
-        let hour = ampm.hour.hour
-        if (ampm.ampm == 'pm') {
-          hour += 12;
-        }
-        const ms = helpers.millisecondsUntilHourOfDay(api.newDate, hour)
-        const promise =  new Promise((resolve) => {
-          setTimeout( () => resolve(context), ms);
-        }).then( () => context )
-        context.event = promise
-      }
+  semantics({context, isModule, args, kms}) {
+    const api = kms.time.api
+    const values = args({ types: ['ampm', 'time'], properties: ['one', 'two']  })
+    const ampm = context[values[0]]
+    let hour = ampm.hour.hour
+    if (ampm.ampm == 'pm') {
+      hour += 12;
+    }
+    const ms = helpers.millisecondsUntilHourOfDay(api.newDate, hour)
+    const promise =  new Promise((resolve) => {
+      setTimeout( () => resolve(context), ms);
+    }).then( () => context )
+    context.event = promise
+  }
 
   newDate() {
     return new Date()
@@ -155,9 +156,9 @@ let config = {
 config = new Config(config, module)
 config.add(tell)
 config.api = api
-config.initializer( ({isAfterApi, config, objects, isModule}) => {
+config.initializer( ({isAfterApi, config, objects, kms, isModule}) => {
   if (!isModule && isAfterApi) {
-    config.api.newDate = () => new Date("December 25, 1995 1:59:58 pm" )
+    kms.time.api.newDate = () => new Date("December 25, 1995 1:59:58 pm" )
   }
   Object.assign(objects, {
     format: 12  // or 24

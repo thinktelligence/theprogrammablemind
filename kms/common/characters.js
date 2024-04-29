@@ -122,6 +122,7 @@ let config = {
         const words = context.words.map( (context) => context.word )
         const utterance = words.join(' ')
         const config = km('characters')
+        debugger
         const api = config._api.apis[context.value]
         api.process(config, utterance).then( (result) => {
           if (!api.response) {
@@ -165,8 +166,11 @@ const initializeApi = (config, api) => {
 
 config = new Config(config, module)
 config.multiApi = initializeApi
-config.initializer( ({isModule, config}) => {
+config.initializer( ({isModule, config, km}) => {
   if (!isModule) {
+    // config.api = api2
+    // config.api = api
+    const config = km('characters')
     config.api = api2
     config.api = api
   }

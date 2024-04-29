@@ -546,4 +546,13 @@ fi
 # $NODE fastfood -q "single and double modifies combo" -g -d --parenthesized -daa
 # $NODE tester -m people -tva -tmn people -g
 # $NODE tester -m people -tmn people -g -q 'greg owns x what does greg own'
+# $NODE tester -m fastfood -tva -tmn fastfood -g
+# $NODE tester -m time -tva -tmn time -g
+# $NODE tester -m time -tmn time -g -q "tell me when the time is 2 pm"
+# $NODE tester -m crew -tva -tmn crew -g
+# $NODE tester -m crew -tmn crew -g -q 'arm the phasers' -d
+# $NODE characters -tva -g
+# $NODE tester -m reports -tva -tmn reports -g
 $NODE tester -m fastfood -tva -tmn fastfood -g
+# $NODE tester -m fastfood -tmn fastfood -g -q '2 french fries' -d
+# $NODE fastfood -q 'show the order' -g -d
