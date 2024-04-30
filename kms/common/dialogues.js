@@ -849,19 +849,19 @@ config.api = api
 config.add(gdefaults).add(pos).add(stm).add(meta)
 
 config.initializer( ({objects, config, isModule, isAfterApi}) => {
-  if (isAfterApi) {
-    config.addArgs((args) => ({ 
-      e: (context) => config.api.getEvaluator(args.s, args.log, context),
-    }))
+  if (!isAfterApi) {
+    return
+  }
+  config.addArgs((args) => ({ 
+    e: (context) => config.api.getEvaluator(args.s, args.log, context),
+  }))
+  objects.mentioned = []
+  objects.variables = {
+  }
+  if (isModule) {
   } else {
-    objects.mentioned = []
-    objects.variables = {
-    }
-    if (isModule) {
-    } else {
-      config.addWord("canbedoquestion", { id: "canBeDoQuestion", "initial": "{}" })
-      config.addWord("doesable", { id: "doesAble", "initial": "{}" })
-    }
+    config.addWord("canbedoquestion", { id: "canBeDoQuestion", "initial": "{}" })
+    config.addWord("doesable", { id: "doesAble", "initial": "{}" })
   }
 }, { initAfterApi: true })
 

@@ -167,16 +167,6 @@ let config = {
 config = new Config(config, module)
 config.add(base).add(formulas).add(testing)
 config.api = api
-/*
-config.initializer( ({config, api, isAfterApi, isModule}) => {
-  if (!isModule && isAfterApi) {
-    api.setup({ 
-      dimension: 'temperature',
-      units: ['celcius', 'fahrenheit', 'kelvin'],
-    })
-  }
-}, { initAfterApi: true });
-*/
 
 knowledgeModule({ 
   module,

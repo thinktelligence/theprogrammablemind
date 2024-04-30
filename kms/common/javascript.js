@@ -60,9 +60,12 @@ let config = {
 config = new Config(config, module)
 config.add(dialogues)
 
-config.initializer( ({objects, uuid}) => {
+config.initializer( ({objects, uuid, isAfterApi}) => {
+  if (!isAfterApi) {
+    return
+  }
   objects.variables = {}
-})
+}, { initAfterApi: true })
 
 knowledgeModule( { 
   module,

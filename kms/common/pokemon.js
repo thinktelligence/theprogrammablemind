@@ -38,7 +38,10 @@ const config = new Config({
   ],
 })
 config.add(hierarchy)
-config.initializer( ({config, apis}) => {
+config.initializer( ({config, apis, isAfterApi}) => {
+  if (!isAfterApi) {
+    return
+  }
   const api = apis('properties')
   // api.kindOfConcept({ config, modifier: 'pokemon', object: 'type' })
   /*
@@ -59,7 +62,7 @@ config.initializer( ({config, apis}) => {
               relation: true,
               config 
             })
-})
+}, { initAfterApi: true })
 // config.load(template, pokemon_instance)
 knowledgeModule( {
   module,

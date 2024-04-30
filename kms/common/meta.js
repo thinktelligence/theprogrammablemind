@@ -362,7 +362,10 @@ let config = {
 config = new Config(config, module)
 //config.load(template, meta_instance)
 // config.add(dialogue)
-config.initializer( ({config, addGenerator, isModule}) => {
+config.initializer( ({config, addGenerator, isModule, isAfterApi}) => {
+  if (!isAfterApi) {
+    return
+  }
   if (!isModule) {
     addGenerator({
       where: where(),
@@ -377,7 +380,7 @@ config.initializer( ({config, addGenerator, isModule}) => {
     config.addOperator("([testword2|])")
     */
   }
-})
+}, { initAfterApi: true })
 
 knowledgeModule({ 
   module,

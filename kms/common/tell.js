@@ -98,7 +98,10 @@ let config = {
 config = new Config(config, module)
 config.api = api
 config.add(dialogues)
-config.initializer( ({config, isModule}) => {
+config.initializer( ({config, isModule, isAfterApi}) => {
+    if (!isAfterApi) {
+      return
+    }
     if (!isModule) {
       config.addSemantic(
         ({context, hierarchy}) => context.happening && hierarchy.isA(context.marker, 'event'),
@@ -107,7 +110,7 @@ config.initializer( ({config, isModule}) => {
         }
       )
     }
-  })
+  }, { initAfterApi: true })
 
 knowledgeModule( { 
   module,

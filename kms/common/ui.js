@@ -169,7 +169,10 @@ const template = {
 config = new Config(config, module)
 config.add(dialogues).add(math)
 config.api = api
-config.initializer( ({config, baseConfig}) => {
+config.initializer( ({config, baseConfig, isAfterApi}) => {
+  if (!isAfterApi) {
+    return
+  }
   // TODO fix this config/baseConfig thing
   baseConfig.addMotivation({
     repeat: true,
@@ -187,7 +190,7 @@ config.initializer( ({config, baseConfig}) => {
       s(instantiation)
     }
   })
-})
+}, { initAfterApi: true })
 
 knowledgeModule({ 
   module,

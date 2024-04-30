@@ -44,7 +44,10 @@ const config = new Config({
   ]
 }, module)
 config.add(hierarchy)
-config.initializer( ({config, apis}) => {
+config.initializer( ({config, apis, isAfterApi}) => {
+  if (!isAfterApi) {
+    return
+  }
   const api = apis('properties')
   api.createActionPrefix({
                 operator: 'feel',
@@ -53,7 +56,7 @@ config.initializer( ({config, apis}) => {
                 after: [{tag: 'emotion', id: 'emotion'}],
                 doAble: true,
                 config })
-})
+}, { initAfterApi: true })
 //config.load(template, emotions_instance)
 
 knowledgeModule( {

@@ -157,7 +157,10 @@ config = new Config(config, module)
 config.add(tell)
 config.api = api
 config.initializer( ({isAfterApi, config, objects, kms, isModule}) => {
-  if (!isModule && isAfterApi) {
+  if (!isAfterApi) {
+    return
+  }
+  if (!isModule) {
     kms.time.api.newDate = () => new Date("December 25, 1995 1:59:58 pm" )
   }
   Object.assign(objects, {

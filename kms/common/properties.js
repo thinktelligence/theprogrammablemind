@@ -688,12 +688,6 @@ config = new Config(config, module)
 config.api = api
 config.add(meta)
 config.add(dialogues)
-/*
-config.initializer( ({config}) => {
-  config.km('properties').config = config
-})
-*/
-// config.load(template, properties_instance)
 
 knowledgeModule( { 
   module,

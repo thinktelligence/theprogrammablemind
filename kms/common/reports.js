@@ -601,29 +601,21 @@ config = new Config(config, module).add(currencyKM).add(helpKM).add(math).add(ev
 config.multiApi = initializeApi
 // mode this to non-module init only
 config.initializer(({config, objects, km, isModule, isAfterApi}) => {
+  if (!isAfterApi) {
+    return
+  }
   if (!isModule) {
     km('reports').addAPI(api1)
     km('reports').addAPI(api2)
     // config.addAPI(api1)
     // config.addAPI(api2)
   }
-  if (isAfterApi) {
-    objects.tempReportId = 0
-    objects.listings = {
-    }
-    const id = newReport({km, objects})
-    if (!isModule) {
-      objects.listings[id].api = 'clothes'
-    }
-    /*
-    if (isModule) {
-      objects.initDefaults = () => {
-        config.addAPI(api1)
-        config.addAPI(api2)
-        objects.listings[id].api = 'clothes'
-      }
-    }
-    */
+  objects.tempReportId = 0
+  objects.listings = {
+  }
+  const id = newReport({km, objects})
+  if (!isModule) {
+    objects.listings[id].api = 'clothes'
   }
 }, { initAfterApi: true })
 
