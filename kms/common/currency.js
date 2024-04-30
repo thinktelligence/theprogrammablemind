@@ -117,14 +117,14 @@ config.initializer( ({config, objects, apis, addWord, addGenerator, baseConfig, 
 
   unitWords = api.getUnitWords();
   for (let words of unitWords) {
-      addGenerator(
-        ({context}) => context.marker == 'currency' && context.units == words.units && context.value == 1 && context.isAbstract, 
-        ({context, g}) => words.one, uuid
-      );
-      addGenerator(
-        ({context}) => context.marker == 'currency' && context.units == words.units && !isNaN(context.value) && (context.value != 1) && context.isAbstract, 
-        ({context, g}) => words.many, uuid
-      )
+      addGenerator({
+        match: ({context}) => context.marker == 'currency' && context.units == words.units && context.value == 1 && context.isAbstract, 
+        apply: ({context, g}) => words.one, uuid
+      });
+      addGenerator({
+        match: ({context}) => context.marker == 'currency' && context.units == words.units && !isNaN(context.value) && (context.value != 1) && context.isAbstract, 
+        apply: ({context, g}) => words.many, uuid
+      })
   }
 })
 

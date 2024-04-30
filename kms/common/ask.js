@@ -49,22 +49,22 @@ config.initializer( (args) => {
     config.addBridge({id: "test1", level: 0, bridge: "{ ...next(operator) }"})
     config.addBridge({id: "ask", level: 0, bridge: "{ ...next(operator) }"})
     config.addBridge({id: "do", level: 0, bridge: "{ ...next(operator), what: after[0] }"})
-    config.addGenerator(
-      ({context}) => context.marker == 'do',
-      ({context}) => `do ${context.what.word}`
-    )
+    config.addGenerator({
+      match; ({context}) => context.marker == 'do',
+      apply: ({context}) => `do ${context.what.word}`
+    })
       
-    config.addSemantic(
-        ({context}) => context.marker == 'do', 
-        ({context, km}) => km('ask').api.apply(args)
-      )
-    config.addSemantic(
-        ({context}) => context.marker == 'action', 
-        ({objects}) => objects.actionWasRun = true
-    )
-    config.addSemantic(
-        ({context}) => context.marker == 'test1', 
-        ({config}) => {
+    config.addSemantic({
+        match: ({context}) => context.marker == 'do', 
+        apply: ({context, km}) => km('ask').api.apply(args)
+    })
+    config.addSemantic({
+        match: ({context}) => context.marker == 'action', 
+        apply: ({objects}) => objects.actionWasRun = true
+    })
+    config.addSemantic({
+        match: ({context}) => context.marker == 'test1', 
+        apply: ({config}) => {
           config.api.motivation({ 
             match: ({objects}) => {
               objects.matchWasRun = true
@@ -73,7 +73,7 @@ config.initializer( (args) => {
             context: { marker: 'action' }
           })
         }
-    )
+    })
   }
 })
 

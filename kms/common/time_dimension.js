@@ -127,12 +127,6 @@ config.initializer( ({api, config, objects, isModule}) => {
   Object.assign(objects, {
     format: 12  // or 24
   });
-  /*
-  config.addSemantic(
-      ({context, hierarchy, args}) => context.happening && context.marker == 'is' && args({ types: ['ampm', 'time'], properties: ['one', 'two'] }),
-      api.semantics
-  )
-  */
 })
 
 knowledgeModule({ 

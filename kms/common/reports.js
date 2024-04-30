@@ -97,7 +97,10 @@ const apiTemplate = (marker, testData) => {
       })
       return results
     },
-    productGenerator: [({context}) => context.marker == marker && context.isInstance, ({g, context}) => `${context.name}`]
+    productGenerator: {
+      match: ({context}) => context.marker == marker && context.isInstance, 
+      apply: ({g, context}) => `${context.name}`,
+    }
   }
 }
 
@@ -591,7 +594,7 @@ const initializeApi = (config, api, km) => {
   }
   */
   // newReport(config, api)
-  config.addGenerator( ...api.productGenerator )
+  config.addGenerator( api.productGenerator )
   // const open = '{'
   // const close = '}'
   // config.addWord(type, {"id": "report", "initial": `${open} value: '${type}' ${close}` })

@@ -100,12 +100,12 @@ config.api = api
 config.add(dialogues)
 config.initializer( ({config, isModule}) => {
     if (!isModule) {
-      config.addSemantic(
-        ({context, hierarchy}) => context.happening && hierarchy.isA(context.marker, 'event'),
-        ({context}) => {
+      config.addSemantic({
+        match: ({context, hierarchy}) => context.happening && hierarchy.isA(context.marker, 'event'),
+        apply: ({context}) => {
           context.event = Promise.resolve( { marker: 'event' } )
         }
-      )
+      })
     }
   })
 

@@ -163,10 +163,10 @@ config.initializer( ({config, objects, kms, isModule}) => {
   Object.assign(objects, {
     format: 12  // or 24
   });
-  config.addSemantic(
-      ({context, hierarchy, args}) => context.happening && context.marker == 'is' && args({ types: ['ampm', 'time'], properties: ['one', 'two'] }),
-      api.semantics
-  )
+  config.addSemantic({
+      match: ({context, hierarchy, args}) => context.happening && context.marker == 'is' && args({ types: ['ampm', 'time'], properties: ['one', 'two'] }),
+      apply: api.semantics
+  })
 })
 
 knowledgeModule({
