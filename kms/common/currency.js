@@ -94,11 +94,11 @@ let config = {
 config = new Config(config, module)
 config.add(numbersKM)
 config.api = api
-config.initializer( ({config, objects, isAfterApi, kms, addWord, addGenerator, baseConfig, uuid}) => {
+config.initializer( ({config, objects, isAfterApi, apis, addWord, addGenerator, baseConfig, uuid}) => {
   if (isAfterApi) {
     // const api = config.km('currency').api
     // const api = kms.currency.api
-    const api = baseConfig.getConfig('currency').api
+    const api = apis('currency')
     units = api.getUnits()
     for (word in units) {
       def = {"id": "currency", "initial": { units: units[word] }, uuid}

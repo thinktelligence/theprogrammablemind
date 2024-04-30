@@ -287,9 +287,9 @@ let config = {
 
 config = new Config(config, module)
 config.add(properties)
-config.initializer( ({isAfterApi, kms, hierarchy}) => {
+config.initializer( ({isAfterApi, apis, hierarchy}) => {
   if (isAfterApi) {
-    kms.stm.api.addIsA( (child, parent) => {
+    apis('stm').addIsA( (child, parent) => {
       return hierarchy.isA(child, parent) 
     })
   }

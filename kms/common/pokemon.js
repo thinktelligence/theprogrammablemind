@@ -38,8 +38,8 @@ const config = new Config({
   ],
 })
 config.add(hierarchy)
-config.initializer( ({config, km}) => {
-  const api = km('properties').api
+config.initializer( ({config, apis}) => {
+  const api = apis('properties')
   // api.kindOfConcept({ config, modifier: 'pokemon', object: 'type' })
   /*
   api.createActionPrefix({

@@ -46,12 +46,12 @@ let config = {
 
 config = new Config(config, module)
 config.add(hierarchy)
-config.initializer( ({baseConfig, context, km, kms, isAfterApi, isModule}) => {
+config.initializer( ({baseConfig, context, apis, isAfterApi, isModule}) => {
   if (!isAfterApi) {
     return 
   }
   // const api = km('properties').api
-  const api = kms.properties.api
+  const api = apis('properties')
   // setup paraphrase
   api.createActionPrefix({
             operator: 'owns',

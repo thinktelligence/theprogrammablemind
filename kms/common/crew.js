@@ -39,11 +39,11 @@ const config = new Config({ name: 'crew', }, module)
 config.add(avatar)
 config.add(animals)
 crew_instance.base = 'avatar'
-config.initializer( ({config, km, isAfterApi}) => {
+config.initializer( ({config, apis, isAfterApi}) => {
   if (!isAfterApi) {
     return
   }
-  const api = km('properties').api
+  const api = apis('properties')
   api.kindOfConcept({ config, modifier: 'photon', object: 'torpedo' })
   api.kindOfConcept({ config, modifier: 'crew', object: 'member' })
   api.createActionPrefix({ 

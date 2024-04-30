@@ -44,8 +44,8 @@ const config = new Config({
   ]
 }, module)
 config.add(hierarchy)
-config.initializer( ({config, km}) => {
-  const api = km('properties').api
+config.initializer( ({config, apis}) => {
+  const api = apis('properties')
   api.createActionPrefix({
                 operator: 'feel',
                 create: ['feel'/*, 'emotion'*/],
