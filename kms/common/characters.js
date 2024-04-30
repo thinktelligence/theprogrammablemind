@@ -166,10 +166,7 @@ const initializeApi = (config, api) => {
 
 config = new Config(config, module)
 config.multiApi = initializeApi
-config.initializer( ({isModule, config, km, isAfterApi}) => {
-  if (!isAfterApi) {
-    return
-  }
+config.initializer( ({isModule, config, km}) => {
   if (!isModule) {
     // config.api = api2
     // config.api = api
@@ -177,7 +174,7 @@ config.initializer( ({isModule, config, km, isAfterApi}) => {
     config.api = api2
     config.api = api
   }
-}, { initAfterApi: true } )
+})
 
 // mode this to non-module init only
 knowledgeModule({

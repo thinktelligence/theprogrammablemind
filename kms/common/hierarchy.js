@@ -287,13 +287,11 @@ let config = {
 
 config = new Config(config, module)
 config.add(properties)
-config.initializer( ({isAfterApi, apis, hierarchy}) => {
-  if (isAfterApi) {
-    apis('stm').addIsA( (child, parent) => {
-      return hierarchy.isA(child, parent) 
-    })
-  }
-}, { initAfterApi: true })
+config.initializer( ({apis, hierarchy}) => {
+  apis('stm').addIsA( (child, parent) => {
+    return hierarchy.isA(child, parent) 
+  })
+})
 
 knowledgeModule( { 
   module,

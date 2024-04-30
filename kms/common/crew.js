@@ -39,10 +39,7 @@ const config = new Config({ name: 'crew', }, module)
 config.add(avatar)
 config.add(animals)
 crew_instance.base = 'avatar'
-config.initializer( ({config, apis, isAfterApi}) => {
-  if (!isAfterApi) {
-    return
-  }
+config.initializer( ({config, apis}) => {
   const api = apis('properties')
   api.kindOfConcept({ config, modifier: 'photon', object: 'torpedo' })
   api.kindOfConcept({ config, modifier: 'crew', object: 'member' })
@@ -73,7 +70,7 @@ config.initializer( ({config, apis, isAfterApi}) => {
                 create: ['disarm'/*, 'weapon'*/], 
                 after: [{tag: 'weapon', id: 'weapon'}],
                 config }) 
-}, { initAfterApi: true })
+})
 // config.load(template, crew_instance)
 knowledgeModule( {
   module,

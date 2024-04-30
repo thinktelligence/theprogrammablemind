@@ -600,10 +600,7 @@ const initializeApi = (config, api, km) => {
 config = new Config(config, module).add(currencyKM).add(helpKM).add(math).add(events)
 config.multiApi = initializeApi
 // mode this to non-module init only
-config.initializer(({config, objects, km, isModule, isAfterApi}) => {
-  if (!isAfterApi) {
-    return
-  }
+config.initializer(({config, objects, km, isModule}) => {
   if (!isModule) {
     km('reports').addAPI(api1)
     km('reports').addAPI(api2)
@@ -617,7 +614,7 @@ config.initializer(({config, objects, km, isModule, isAfterApi}) => {
   if (!isModule) {
     objects.listings[id].api = 'clothes'
   }
-}, { initAfterApi: true })
+})
 
 knowledgeModule({
   module,

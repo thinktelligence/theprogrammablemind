@@ -848,10 +848,7 @@ config = new Config(config, module)
 config.api = api
 config.add(gdefaults).add(pos).add(stm).add(meta)
 
-config.initializer( ({objects, config, isModule, isAfterApi}) => {
-  if (!isAfterApi) {
-    return
-  }
+config.initializer( ({objects, config, isModule}) => {
   config.addArgs((args) => ({ 
     e: (context) => config.api.getEvaluator(args.s, args.log, context),
   }))
@@ -863,7 +860,7 @@ config.initializer( ({objects, config, isModule, isAfterApi}) => {
     config.addWord("canbedoquestion", { id: "canBeDoQuestion", "initial": "{}" })
     config.addWord("doesable", { id: "doesAble", "initial": "{}" })
   }
-}, { initAfterApi: true })
+})
 
 knowledgeModule( { 
   module,

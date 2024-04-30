@@ -36,10 +36,7 @@ config.api = api
 config.add(hierarchy)
 // config.load(template, ordering_instance)
 
-config.initializer(({config, km, isAfterApi}) => {
-  if (!isAfterApi) {
-    return
-  }
+config.initializer(({config, km}) => {
   const oapi = km('ordering').api
   oapi.createOrdering({ name: 'preference', categories: [ ['love', 'like'], ['hate', 'dislike'] ], ordering: [ ['love', 'like'], ['like', 'dislike'], ['dislike', 'hate'] ] })
   const papi = km('properties').api
@@ -113,7 +110,7 @@ config.initializer(({config, km, isAfterApi}) => {
               config
             })
   */
-}, { initAfterApi: true })
+})
 
 knowledgeModule( {
     module,

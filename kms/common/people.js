@@ -46,10 +46,7 @@ let config = {
 
 config = new Config(config, module)
 config.add(hierarchy)
-config.initializer( ({baseConfig, context, apis, isAfterApi, isModule}) => {
-  if (!isAfterApi) {
-    return 
-  }
+config.initializer( ({baseConfig, context, apis, isModule}) => {
   // const api = km('properties').api
   const api = apis('properties')
   // setup paraphrase
@@ -66,7 +63,7 @@ config.initializer( ({baseConfig, context, apis, isAfterApi, isModule}) => {
             config: baseConfig
           })
 
-}, { initAfterApi: true })
+})
 
 knowledgeModule( { 
   module,

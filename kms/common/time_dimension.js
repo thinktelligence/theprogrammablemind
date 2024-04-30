@@ -120,10 +120,7 @@ config = new Config({
 config.add(dimension)
 config.api = api
 
-config.initializer( ({api, config, objects, isModule, isAfterApi}) => {
-  if (!isAfterApi) {
-    return
-  }
+config.initializer( ({api, config, objects, isModule}) => {
   if (!isModule) {
     api.newDate = () => new Date("December 25, 1995 1:59:58 pm" )
   }
@@ -136,7 +133,7 @@ config.initializer( ({api, config, objects, isModule, isAfterApi}) => {
       api.semantics
   )
   */
-}, { initAfterApi: true })
+})
 
 knowledgeModule({ 
   module,

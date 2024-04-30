@@ -79,17 +79,15 @@ let config = {
 config = new Config(config, module)
 config.add(dialogues)
 
-config.initializer( ({ isAfterApi, config, addWord, kms }) => {
-  if (isAfterApi) {
-    const names = new Set()
-    for (let name in kms) {
-      names.add(name);
-    }
-    for (let name of names) {
-      addWord(name, {id: "km", initial: `{ value: '${name}', word: '${name}' }`})
-    }
+config.initializer( ({ config, addWord, kms }) => {
+  const names = new Set()
+  for (let name in kms) {
+    names.add(name);
   }
-}, { initAfterApi: true })
+  for (let name of names) {
+    addWord(name, {id: "km", initial: `{ value: '${name}', word: '${name}' }`})
+  }
+})
 
 knowledgeModule({
   module,

@@ -38,10 +38,7 @@ config = new Config(config)
 config.api = api
 
 config.initializer( (args) => {
-  const {objects, isModule, config, addBridge, isAfterApi} = args;
-  if (!isAfterApi) {
-    return
-  }
+  const {objects, isModule, config, addBridge} = args;
   objects.ask = []
   if (isModule) {
   } else {
@@ -78,7 +75,7 @@ config.initializer( (args) => {
         }
     )
   }
-}, { initAfterApi: true })
+})
 
 knowledgeModule( { 
   module,

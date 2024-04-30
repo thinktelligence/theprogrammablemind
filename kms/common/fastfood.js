@@ -132,11 +132,7 @@ config.add(foods)
 config.add(countable)
 config.add(events)
 config.api = api
-config.initializer( ({motivation, km, isAfterApi}) => {
-  if (!isAfterApi) {
-    return
-  }
-
+config.initializer( ({motivation, km}) => {
   // this.state = new State(config.api)
   // const api = baseConfig.getConfig('fastfood').api
   const config = km('fastfood')
@@ -153,7 +149,6 @@ config.initializer( ({motivation, km, isAfterApi}) => {
     }
   }
   */
-  debugger
   motivation({
     repeat: true,
     where: where(),
@@ -165,7 +160,7 @@ config.initializer( ({motivation, km, isAfterApi}) => {
     }
   })
 
-}, { initAfterApi: true })
+})
 
 knowledgeModule( {
     module,

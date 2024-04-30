@@ -94,11 +94,7 @@ let config = {
 config = new Config(config, module)
 config.add(numbersKM)
 config.api = api
-config.initializer( ({config, objects, isAfterApi, apis, addWord, addGenerator, baseConfig, uuid}) => {
-  if (!isAfterApi) {
-    return
-  }
-
+config.initializer( ({config, objects, apis, addWord, addGenerator, baseConfig, uuid}) => {
   // const api = config.km('currency').api
   // const api = kms.currency.api
   const api = apis('currency')
@@ -130,7 +126,7 @@ config.initializer( ({config, objects, isAfterApi, apis, addWord, addGenerator, 
         ({context, g}) => words.many, uuid
       )
   }
-}, { initAfterApi: true })
+})
 
 knowledgeModule({ 
   module,
