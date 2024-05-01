@@ -9,6 +9,8 @@ const concept_instance = require('./concept.instance.json')
   pokemon modifies type fire water and ice modifie pokemon type type means pokemon type
   first name last name is a pattern for the name of people
   ice and sour modify cream
+  plain and regular fries are the same thing
+  plain and regular fries mean the same thing
 */
 const config = new Config({
   name: 'concept',
