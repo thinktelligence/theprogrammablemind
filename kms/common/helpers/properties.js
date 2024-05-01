@@ -607,20 +607,10 @@ class API {
     }
   }
 
-  setupObjectHierarchy(...args) {
-    return this.args.api('concept').setupObjectHierarchy(...args)
-  }
-
   makeObject(args) {
 		const types = [ 'hierarchyAble', 'object', 'property' ];
     const { config } = args;
     return this.config().km("dialogues").api.makeObject({ ...args, types });
-  }
-
-  // for example, "crew member" or "photon torpedo"
-  // TODO account for modifier a complex phrase for example "hot (chicken strips)"
-  kindOfConcept(...args) {
-    return this.args.api('concept').kindOfConcept(...args)
   }
 
   relation_add (relations) {
@@ -956,22 +946,6 @@ class API {
 
   conceptExists(concept) {
     return this.objects.concepts.includes(concept)
-  }
-
-  addWord(...args) {
-    return this.args.api('concept').addWord(...args)
-  }
-
-  addWordToValue(...args) {
-    return this.args.api('concept').addWordToValue(...args)
-  }
-
-  getWordForValue(...args) {
-    return this.args.api('concept').getWordForValue(...args)
-  }
-
-  getWordsForValue(...args) {
-    return this.args.api('concept').getWordsForValue(...args)
   }
 
   set objects(objects) {

@@ -41,8 +41,9 @@ config.add(animals)
 crew_instance.base = 'avatar'
 config.initializer( ({config, apis}) => {
   const api = apis('properties')
-  api.kindOfConcept({ config, modifier: 'photon', object: 'torpedo' })
-  api.kindOfConcept({ config, modifier: 'crew', object: 'member' })
+  const conceptApi = apis('concept')
+  conceptApi.kindOfConcept({ config, modifier: 'photon', object: 'torpedo' })
+  conceptApi.kindOfConcept({ config, modifier: 'crew', object: 'member' })
   api.createActionPrefix({ 
                 operator: 'arm', 
                 create: ['arm', 'weapon'], 

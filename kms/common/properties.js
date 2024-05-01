@@ -459,7 +459,7 @@ let config = {
       where: where(),
       match: ({context}) => context.marker == 'modifies',
       apply: ({config, km, context}) => {
-        km('properties').api.kindOfConcept({ config, modifier: context.modifier.value, object: context.concept.value || context.concept.marker })
+        km('concept').api.kindOfConcept({ config, modifier: context.modifier.value, object: context.concept.value || context.concept.marker })
       }
     },
     {
@@ -496,9 +496,9 @@ let config = {
                           // !context.value &&  // greghere
                           (api.objects && api.objects.children && api.objects.children[context.marker]) &&
                           !context.evaluate.toConcept,
-      apply: ({context, objects, api}) => {
+      apply: ({context, objects, api, km}) => {
         const values = api.objects.children[context.marker]
-        const phrases = values.map( (value) => api.getWordForValue(value) )
+        const phrases = values.map( (value) => km('concept').api.getWordForValue(value) )
         // context.focusableForPhrase = true
         context.hierarchy = true
         context.evalue = { 

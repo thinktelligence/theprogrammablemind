@@ -7,6 +7,7 @@ const { isMany } = require('./helpers')
 
 const getTypes = ( km, concept, instance ) => {
   const propertiesAPI = km('properties').api;
+  const conceptAPI = km('concept').api;
   const digraph = propertiesAPI.digraph;
   const intersect = (set1, set2) => {
     return new Set([...set1].filter(x => set2.has(x)))
@@ -15,7 +16,7 @@ const getTypes = ( km, concept, instance ) => {
   const ancestors = digraph.ancestors(instance.evalue)
   const common = intersect(ancestors, descendants)
   const answer = Array.from(digraph.minima(common))
-  const words = answer.map( (value) => propertiesAPI.getWordForValue(value) )
+  const words = answer.map( (value) => conceptAPI.getWordForValue(value) )
   for (const word of words) {
     word.paraphrase = true
   }
@@ -270,9 +271,10 @@ let config = {
       match: ({context}) => context.marker == 'type' && context.evaluate && context.object,
       apply: ({context, objects, gs, km}) => {
         const api = km('properties').api
+        const conceptApi = km('concept').api
         const type = pluralize.singular(context.object.value);
         const children = api.children(type)
-        const values = children.map( (t) => api.getWordForValue(t, { number: 'many'}))
+        const values = children.map( (t) => conceptApi.getWordForValue(t, { number: 'many'}))
         context.evalue = {
           marker: 'list',
           value: values,
