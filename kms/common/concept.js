@@ -1,4 +1,4 @@
-const { Config, knowledgeModule, where, Digraph } = require('./runtime').theprogrammablemind
+const { Config, knowledgeModule, flatten, where, Digraph } = require('./runtime').theprogrammablemind
 const { API }= require('./helpers/concept')
 const dialogues = require('./dialogues.js')
 const concept_tests = require('./concept.test.json')
@@ -23,7 +23,7 @@ const config = new Config({
       id: "modifies",
       isA: ['verby'],
       words: [{ word: 'modifies', number: 'one' }, { word: 'modify', number: 'many' }],
-      bridge: "{ ...next(operator), modifier: before[0], concept: after[0] }"
+      bridge: "{ ...next(operator), modifier: before[0], concept: after[0], flatten: true }"
     },
     { id: "concept", level: 0, bridge: "{ ...next(operator) }" },
   ],
@@ -99,6 +99,20 @@ const config = new Config({
     },
   ],
   semantics: [
+    /*
+    {
+      notes: 'flatten',
+      where: where(),
+      priority: -1,
+      match: ({context}) => context.flatten,
+      apply: ({config, km, context, s}) => {
+        [flats, wf] = flatten(['list'], context)
+        for (let flat of flats) {
+          s({ ...flat, flatten: false })
+        }
+      }
+    },
+    */
     {
       notes: 'define a modifier',
       where: where(),

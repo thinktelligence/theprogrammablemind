@@ -89,7 +89,7 @@ class API {
     this.digraph = new Digraph()
   }
 
-  initialize() {
+  initialize({ km }) {
     this.digraph = new Digraph()
 
     const toJSON = (h) => {
@@ -105,6 +105,18 @@ class API {
       if (this.isOperator(h.child) && this.isOperator(h.parent)) {
         this.rememberIsA(h.child, h.parent)
       }
+    }
+
+    if (km('concept')) {
+      km('concept').api.addDefaultTypesForObjectHierarchy([
+        'theAble',
+        'queryable',
+        'hierarchyAble',
+        'object',
+        'isEdee',
+        'isEder',
+        'property'
+      ])
     }
   }
 

@@ -1,6 +1,7 @@
 const { Config, knowledgeModule, where } = require('./runtime').theprogrammablemind
 const meta = require('./meta.js')
 const gdefaults = require('./gdefaults.js')
+const sdefaults = require('./sdefaults.js')
 const pos = require('./pos.js')
 const stm = require('./stm.js')
 const _ = require('lodash')
@@ -846,7 +847,7 @@ let config = {
 
 config = new Config(config, module)
 config.api = api
-config.add(gdefaults).add(pos).add(stm).add(meta)
+config.add(gdefaults).add(sdefaults).add(pos).add(stm).add(meta)
 
 config.initializer( ({objects, config, isModule}) => {
   /* TODO add this beck in. some stuff from config needs to be here

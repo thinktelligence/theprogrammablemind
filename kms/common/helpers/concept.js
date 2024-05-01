@@ -6,18 +6,17 @@ const { compose, translationMapping, translationMappingToInstantiatorMappings } 
 class API {
   initialize() {
     this.objects.valueToWords = []
+    this.objects.defaultTypesForHierarchy = new Set([])
+  }
+
+  addDefaultTypesForObjectHierarchy(types) {
+    for (let type of types) {
+      this.objects.defaultTypesForHierarchy.add(type)
+    }
   }
 
   setupObjectHierarchy(config, id, { include_concept=true  } = {}) {
-    const types = [
-      'theAble',
-      'queryable',
-      'hierarchyAble',
-      'object',
-      'isEdee',
-      'isEder',
-      'property'
-    ];
+    const types = [...this.objects.defaultTypesForHierarchy]
 
     if (include_concept) {
       types.push('concept');
