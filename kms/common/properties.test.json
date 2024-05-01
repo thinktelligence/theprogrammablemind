@@ -59,21 +59,8 @@
           "level": 0
         },
         {
-          "bridge": "{ ...next(operator), modifier: before[0], concept: after[0] }",
-          "id": "modifies",
-          "isA": [
-            "verby"
-          ],
-          "level": 0
-        },
-        {
           "bridge": "{ ...next(operator) }",
           "id": "readonly",
-          "level": 0
-        },
-        {
-          "bridge": "{ ...next(operator) }",
-          "id": "concept",
           "level": 0
         },
         {
@@ -131,6 +118,19 @@
         {
           "bridge": "{ ...after[0], object: operator, objects: [after[0], operator] }",
           "id": "objectPrefix",
+          "level": 0
+        },
+        {
+          "bridge": "{ ...next(operator), modifier: before[0], concept: after[0] }",
+          "id": "modifies",
+          "isA": [
+            "verby"
+          ],
+          "level": 0
+        },
+        {
+          "bridge": "{ ...next(operator) }",
+          "id": "concept",
           "level": 0
         },
         {
@@ -194,7 +194,7 @@
           "bridge": "{ ...next(operator), toObject: after[0] }",
           "id": "to",
           "level": 0,
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:215"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:108"
         },
         {
           "bridge": "{ ...next(operator) }",
@@ -535,12 +535,6 @@
           "pattern": "(<whose> ([property]))"
         },
         {
-          "pattern": "((modifier) [modifies] (concept))"
-        },
-        {
-          "pattern": "([concept])"
-        },
-        {
           "pattern": "([readonly])"
         },
         {
@@ -557,6 +551,12 @@
         },
         {
           "pattern": "(([xfx]) <([between] (words))>)"
+        },
+        {
+          "pattern": "((modifier) [modifies] (concept))"
+        },
+        {
+          "pattern": "([concept])"
         },
         {
           "pattern": "(([queryable]) [is|] ([queryable|]))"
@@ -905,6 +905,7 @@
     },
     "objects": {
       "nameToUUID": {
+        "concept": "concept2",
         "dialogues": "dialogues2",
         "gdefaults": "gdefaults2",
         "meta": "meta2",
@@ -913,6 +914,10 @@
         "stm": "stm2"
       },
       "namespaced": {
+        "concept2": {
+          "valueToWords": [
+          ]
+        },
         "dialogues2": {
           "mentioned": [
           ],
@@ -960,12 +965,12 @@
               "questionMark"
             ],
             "queryable": [
-              "concept",
               "hierarchyAble",
               "readonly",
               "property",
               "object",
               "xfx",
+              "concept",
               "unknown",
               "it",
               "what",
@@ -975,9 +980,9 @@
               "reason"
             ],
             "theAble": [
-              "concept",
               "property",
               "object",
+              "concept",
               "unknown",
               "noun",
               "reason"
@@ -1000,20 +1005,20 @@
           },
           "concepts": [
             "properties",
-            "concept",
-            "theAble",
-            "queryable",
             "unknown",
             "hierarchyAble",
             "object",
             "what",
+            "queryable",
             "readonly",
             "property",
             "xfx",
+            "theAble",
             "whose",
             "have",
             "canBeDoQuestion",
             "canBeQuestion",
+            "concept",
             "modifies",
             "verby",
             "it",
@@ -1204,25 +1209,6 @@
           "relations": [
           ],
           "valueToWords": {
-            "chicken_strip": [
-              {
-                "chicken": {
-                  "marker": "chicken",
-                  "value": "chicken",
-                  "word": "chicken"
-                },
-                "marker": "chicken_strip",
-                "modifiers": [
-                  "chicken"
-                ],
-                "paraphrase": true,
-                "types": [
-                  "chicken_strip"
-                ],
-                "value": "chicken_strip",
-                "word": "strip"
-              }
-            ]
           }
         },
         "stm2": {
@@ -1323,21 +1309,8 @@
           "level": 0
         },
         {
-          "bridge": "{ ...next(operator), modifier: before[0], concept: after[0] }",
-          "id": "modifies",
-          "isA": [
-            "verby"
-          ],
-          "level": 0
-        },
-        {
           "bridge": "{ ...next(operator) }",
           "id": "readonly",
-          "level": 0
-        },
-        {
-          "bridge": "{ ...next(operator) }",
-          "id": "concept",
           "level": 0
         },
         {
@@ -1395,6 +1368,19 @@
         {
           "bridge": "{ ...after[0], object: operator, objects: [after[0], operator] }",
           "id": "objectPrefix",
+          "level": 0
+        },
+        {
+          "bridge": "{ ...next(operator), modifier: before[0], concept: after[0] }",
+          "id": "modifies",
+          "isA": [
+            "verby"
+          ],
+          "level": 0
+        },
+        {
+          "bridge": "{ ...next(operator) }",
+          "id": "concept",
           "level": 0
         },
         {
@@ -1458,7 +1444,7 @@
           "bridge": "{ ...next(operator), toObject: after[0] }",
           "id": "to",
           "level": 0,
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:215"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:108"
         },
         {
           "bridge": "{ ...next(operator) }",
@@ -1799,12 +1785,6 @@
           "pattern": "(<whose> ([property]))"
         },
         {
-          "pattern": "((modifier) [modifies] (concept))"
-        },
-        {
-          "pattern": "([concept])"
-        },
-        {
           "pattern": "([readonly])"
         },
         {
@@ -1821,6 +1801,12 @@
         },
         {
           "pattern": "(([xfx]) <([between] (words))>)"
+        },
+        {
+          "pattern": "((modifier) [modifies] (concept))"
+        },
+        {
+          "pattern": "([concept])"
         },
         {
           "pattern": "(([queryable]) [is|] ([queryable|]))"
@@ -2220,6 +2206,7 @@
     },
     "objects": {
       "nameToUUID": {
+        "concept": "concept2",
         "dialogues": "dialogues2",
         "gdefaults": "gdefaults2",
         "meta": "meta2",
@@ -2228,6 +2215,10 @@
         "stm": "stm2"
       },
       "namespaced": {
+        "concept2": {
+          "valueToWords": [
+          ]
+        },
         "dialogues2": {
           "mentioned": [
           ],
@@ -2275,12 +2266,12 @@
               "questionMark"
             ],
             "queryable": [
-              "concept",
               "hierarchyAble",
               "readonly",
               "property",
               "object",
               "xfx",
+              "concept",
               "unknown",
               "it",
               "what",
@@ -2290,9 +2281,9 @@
               "reason"
             ],
             "theAble": [
-              "concept",
               "property",
               "object",
+              "concept",
               "unknown",
               "noun",
               "reason"
@@ -2315,20 +2306,20 @@
           },
           "concepts": [
             "properties",
-            "concept",
-            "theAble",
-            "queryable",
             "unknown",
             "hierarchyAble",
             "object",
             "what",
+            "queryable",
             "readonly",
             "property",
             "xfx",
+            "theAble",
             "whose",
             "have",
             "canBeDoQuestion",
             "canBeQuestion",
+            "concept",
             "modifies",
             "verby",
             "it",
@@ -2519,25 +2510,6 @@
           "relations": [
           ],
           "valueToWords": {
-            "chicken_strip": [
-              {
-                "chicken": {
-                  "marker": "chicken",
-                  "value": "chicken",
-                  "word": "chicken"
-                },
-                "marker": "chicken_strip",
-                "modifiers": [
-                  "chicken"
-                ],
-                "paraphrase": true,
-                "types": [
-                  "chicken_strip"
-                ],
-                "value": "chicken_strip",
-                "word": "strip"
-              }
-            ]
           }
         },
         "stm2": {
@@ -2734,21 +2706,8 @@
           "level": 0
         },
         {
-          "bridge": "{ ...next(operator), modifier: before[0], concept: after[0] }",
-          "id": "modifies",
-          "isA": [
-            "verby"
-          ],
-          "level": 0
-        },
-        {
           "bridge": "{ ...next(operator) }",
           "id": "readonly",
-          "level": 0
-        },
-        {
-          "bridge": "{ ...next(operator) }",
-          "id": "concept",
           "level": 0
         },
         {
@@ -2806,6 +2765,19 @@
         {
           "bridge": "{ ...after[0], object: operator, objects: [after[0], operator] }",
           "id": "objectPrefix",
+          "level": 0
+        },
+        {
+          "bridge": "{ ...next(operator), modifier: before[0], concept: after[0] }",
+          "id": "modifies",
+          "isA": [
+            "verby"
+          ],
+          "level": 0
+        },
+        {
+          "bridge": "{ ...next(operator) }",
+          "id": "concept",
           "level": 0
         },
         {
@@ -2869,7 +2841,7 @@
           "bridge": "{ ...next(operator), toObject: after[0] }",
           "id": "to",
           "level": 0,
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:215"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:108"
         },
         {
           "bridge": "{ ...next(operator) }",
@@ -3170,12 +3142,6 @@
           "pattern": "(<whose> ([property]))"
         },
         {
-          "pattern": "((modifier) [modifies] (concept))"
-        },
-        {
-          "pattern": "([concept])"
-        },
-        {
           "pattern": "([readonly])"
         },
         {
@@ -3192,6 +3158,12 @@
         },
         {
           "pattern": "(([xfx]) <([between] (words))>)"
+        },
+        {
+          "pattern": "((modifier) [modifies] (concept))"
+        },
+        {
+          "pattern": "([concept])"
         },
         {
           "pattern": "(([queryable]) [is|] ([queryable|]))"
@@ -3578,6 +3550,7 @@
     },
     "objects": {
       "nameToUUID": {
+        "concept": "concept2",
         "dialogues": "dialogues2",
         "gdefaults": "gdefaults2",
         "meta": "meta2",
@@ -3586,6 +3559,10 @@
         "stm": "stm2"
       },
       "namespaced": {
+        "concept2": {
+          "valueToWords": [
+          ]
+        },
         "dialogues2": {
           "mentioned": [
           ],
@@ -3633,12 +3610,12 @@
               "questionMark"
             ],
             "queryable": [
-              "concept",
               "hierarchyAble",
               "readonly",
               "property",
               "object",
               "xfx",
+              "concept",
               "unknown",
               "it",
               "what",
@@ -3648,9 +3625,9 @@
               "reason"
             ],
             "theAble": [
-              "concept",
               "property",
               "object",
+              "concept",
               "unknown",
               "noun",
               "reason"
@@ -3673,20 +3650,20 @@
           },
           "concepts": [
             "properties",
-            "concept",
-            "theAble",
-            "queryable",
             "unknown",
             "hierarchyAble",
             "object",
             "what",
+            "queryable",
             "readonly",
             "property",
             "xfx",
+            "theAble",
             "whose",
             "have",
             "canBeDoQuestion",
             "canBeQuestion",
+            "concept",
             "modifies",
             "verby",
             "it",
@@ -4114,21 +4091,8 @@
           "level": 0
         },
         {
-          "bridge": "{ ...next(operator), modifier: before[0], concept: after[0] }",
-          "id": "modifies",
-          "isA": [
-            "verby"
-          ],
-          "level": 0
-        },
-        {
           "bridge": "{ ...next(operator) }",
           "id": "readonly",
-          "level": 0
-        },
-        {
-          "bridge": "{ ...next(operator) }",
-          "id": "concept",
           "level": 0
         },
         {
@@ -4186,6 +4150,19 @@
         {
           "bridge": "{ ...after[0], object: operator, objects: [after[0], operator] }",
           "id": "objectPrefix",
+          "level": 0
+        },
+        {
+          "bridge": "{ ...next(operator), modifier: before[0], concept: after[0] }",
+          "id": "modifies",
+          "isA": [
+            "verby"
+          ],
+          "level": 0
+        },
+        {
+          "bridge": "{ ...next(operator) }",
+          "id": "concept",
           "level": 0
         },
         {
@@ -4249,7 +4226,7 @@
           "bridge": "{ ...next(operator), toObject: after[0] }",
           "id": "to",
           "level": 0,
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:215"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:108"
         },
         {
           "bridge": "{ ...next(operator) }",
@@ -4550,12 +4527,6 @@
           "pattern": "(<whose> ([property]))"
         },
         {
-          "pattern": "((modifier) [modifies] (concept))"
-        },
-        {
-          "pattern": "([concept])"
-        },
-        {
           "pattern": "([readonly])"
         },
         {
@@ -4572,6 +4543,12 @@
         },
         {
           "pattern": "(([xfx]) <([between] (words))>)"
+        },
+        {
+          "pattern": "((modifier) [modifies] (concept))"
+        },
+        {
+          "pattern": "([concept])"
         },
         {
           "pattern": "(([queryable]) [is|] ([queryable|]))"
@@ -5142,6 +5119,7 @@
     },
     "objects": {
       "nameToUUID": {
+        "concept": "concept2",
         "dialogues": "dialogues2",
         "gdefaults": "gdefaults2",
         "meta": "meta2",
@@ -5150,6 +5128,10 @@
         "stm": "stm2"
       },
       "namespaced": {
+        "concept2": {
+          "valueToWords": [
+          ]
+        },
         "dialogues2": {
           "mentioned": [
           ],
@@ -5197,12 +5179,12 @@
               "questionMark"
             ],
             "queryable": [
-              "concept",
               "hierarchyAble",
               "readonly",
               "property",
               "object",
               "xfx",
+              "concept",
               "unknown",
               "it",
               "what",
@@ -5212,9 +5194,9 @@
               "reason"
             ],
             "theAble": [
-              "concept",
               "property",
               "object",
+              "concept",
               "unknown",
               "noun",
               "reason"
@@ -5237,20 +5219,20 @@
           },
           "concepts": [
             "properties",
-            "concept",
-            "theAble",
-            "queryable",
             "unknown",
             "hierarchyAble",
             "object",
             "what",
+            "queryable",
             "readonly",
             "property",
             "xfx",
+            "theAble",
             "whose",
             "have",
             "canBeDoQuestion",
             "canBeQuestion",
+            "concept",
             "modifies",
             "verby",
             "it",
@@ -5679,21 +5661,8 @@
           "level": 0
         },
         {
-          "bridge": "{ ...next(operator), modifier: before[0], concept: after[0] }",
-          "id": "modifies",
-          "isA": [
-            "verby"
-          ],
-          "level": 0
-        },
-        {
           "bridge": "{ ...next(operator) }",
           "id": "readonly",
-          "level": 0
-        },
-        {
-          "bridge": "{ ...next(operator) }",
-          "id": "concept",
           "level": 0
         },
         {
@@ -5751,6 +5720,19 @@
         {
           "bridge": "{ ...after[0], object: operator, objects: [after[0], operator] }",
           "id": "objectPrefix",
+          "level": 0
+        },
+        {
+          "bridge": "{ ...next(operator), modifier: before[0], concept: after[0] }",
+          "id": "modifies",
+          "isA": [
+            "verby"
+          ],
+          "level": 0
+        },
+        {
+          "bridge": "{ ...next(operator) }",
+          "id": "concept",
           "level": 0
         },
         {
@@ -5814,7 +5796,7 @@
           "bridge": "{ ...next(operator), toObject: after[0] }",
           "id": "to",
           "level": 0,
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:215"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:108"
         },
         {
           "bridge": "{ ...next(operator) }",
@@ -6115,12 +6097,6 @@
           "pattern": "(<whose> ([property]))"
         },
         {
-          "pattern": "((modifier) [modifies] (concept))"
-        },
-        {
-          "pattern": "([concept])"
-        },
-        {
           "pattern": "([readonly])"
         },
         {
@@ -6137,6 +6113,12 @@
         },
         {
           "pattern": "(([xfx]) <([between] (words))>)"
+        },
+        {
+          "pattern": "((modifier) [modifies] (concept))"
+        },
+        {
+          "pattern": "([concept])"
         },
         {
           "pattern": "(([queryable]) [is|] ([queryable|]))"
@@ -6496,6 +6478,7 @@
     },
     "objects": {
       "nameToUUID": {
+        "concept": "concept2",
         "dialogues": "dialogues2",
         "gdefaults": "gdefaults2",
         "meta": "meta2",
@@ -6504,6 +6487,10 @@
         "stm": "stm2"
       },
       "namespaced": {
+        "concept2": {
+          "valueToWords": [
+          ]
+        },
         "dialogues2": {
           "mentioned": [
           ],
@@ -6551,12 +6538,12 @@
               "questionMark"
             ],
             "queryable": [
-              "concept",
               "hierarchyAble",
               "readonly",
               "property",
               "object",
               "xfx",
+              "concept",
               "unknown",
               "it",
               "what",
@@ -6566,9 +6553,9 @@
               "reason"
             ],
             "theAble": [
-              "concept",
               "property",
               "object",
+              "concept",
               "unknown",
               "noun",
               "reason"
@@ -6591,20 +6578,20 @@
           },
           "concepts": [
             "properties",
-            "concept",
-            "theAble",
-            "queryable",
             "unknown",
             "hierarchyAble",
             "object",
             "what",
+            "queryable",
             "readonly",
             "property",
             "xfx",
+            "theAble",
             "whose",
             "have",
             "canBeDoQuestion",
             "canBeQuestion",
+            "concept",
             "modifies",
             "verby",
             "it",
@@ -7008,21 +6995,8 @@
           "level": 0
         },
         {
-          "bridge": "{ ...next(operator), modifier: before[0], concept: after[0] }",
-          "id": "modifies",
-          "isA": [
-            "verby"
-          ],
-          "level": 0
-        },
-        {
           "bridge": "{ ...next(operator) }",
           "id": "readonly",
-          "level": 0
-        },
-        {
-          "bridge": "{ ...next(operator) }",
-          "id": "concept",
           "level": 0
         },
         {
@@ -7080,6 +7054,19 @@
         {
           "bridge": "{ ...after[0], object: operator, objects: [after[0], operator] }",
           "id": "objectPrefix",
+          "level": 0
+        },
+        {
+          "bridge": "{ ...next(operator), modifier: before[0], concept: after[0] }",
+          "id": "modifies",
+          "isA": [
+            "verby"
+          ],
+          "level": 0
+        },
+        {
+          "bridge": "{ ...next(operator) }",
+          "id": "concept",
           "level": 0
         },
         {
@@ -7143,7 +7130,7 @@
           "bridge": "{ ...next(operator), toObject: after[0] }",
           "id": "to",
           "level": 0,
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:215"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:108"
         },
         {
           "bridge": "{ ...next(operator) }",
@@ -7444,12 +7431,6 @@
           "pattern": "(<whose> ([property]))"
         },
         {
-          "pattern": "((modifier) [modifies] (concept))"
-        },
-        {
-          "pattern": "([concept])"
-        },
-        {
           "pattern": "([readonly])"
         },
         {
@@ -7466,6 +7447,12 @@
         },
         {
           "pattern": "(([xfx]) <([between] (words))>)"
+        },
+        {
+          "pattern": "((modifier) [modifies] (concept))"
+        },
+        {
+          "pattern": "([concept])"
         },
         {
           "pattern": "(([queryable]) [is|] ([queryable|]))"
@@ -8001,6 +7988,7 @@
     },
     "objects": {
       "nameToUUID": {
+        "concept": "concept2",
         "dialogues": "dialogues2",
         "gdefaults": "gdefaults2",
         "meta": "meta2",
@@ -8009,6 +7997,10 @@
         "stm": "stm2"
       },
       "namespaced": {
+        "concept2": {
+          "valueToWords": [
+          ]
+        },
         "dialogues2": {
           "mentioned": [
           ],
@@ -8056,12 +8048,12 @@
               "questionMark"
             ],
             "queryable": [
-              "concept",
               "hierarchyAble",
               "readonly",
               "property",
               "object",
               "xfx",
+              "concept",
               "unknown",
               "it",
               "what",
@@ -8071,9 +8063,9 @@
               "reason"
             ],
             "theAble": [
-              "concept",
               "property",
               "object",
+              "concept",
               "unknown",
               "noun",
               "reason"
@@ -8096,20 +8088,20 @@
           },
           "concepts": [
             "properties",
-            "concept",
-            "theAble",
-            "queryable",
             "unknown",
             "hierarchyAble",
             "object",
             "what",
+            "queryable",
             "readonly",
             "property",
             "xfx",
+            "theAble",
             "whose",
             "have",
             "canBeDoQuestion",
             "canBeQuestion",
+            "concept",
             "modifies",
             "verby",
             "it",
@@ -8558,21 +8550,8 @@
           "level": 0
         },
         {
-          "bridge": "{ ...next(operator), modifier: before[0], concept: after[0] }",
-          "id": "modifies",
-          "isA": [
-            "verby"
-          ],
-          "level": 0
-        },
-        {
           "bridge": "{ ...next(operator) }",
           "id": "readonly",
-          "level": 0
-        },
-        {
-          "bridge": "{ ...next(operator) }",
-          "id": "concept",
           "level": 0
         },
         {
@@ -8630,6 +8609,19 @@
         {
           "bridge": "{ ...after[0], object: operator, objects: [after[0], operator] }",
           "id": "objectPrefix",
+          "level": 0
+        },
+        {
+          "bridge": "{ ...next(operator), modifier: before[0], concept: after[0] }",
+          "id": "modifies",
+          "isA": [
+            "verby"
+          ],
+          "level": 0
+        },
+        {
+          "bridge": "{ ...next(operator) }",
+          "id": "concept",
           "level": 0
         },
         {
@@ -8693,7 +8685,7 @@
           "bridge": "{ ...next(operator), toObject: after[0] }",
           "id": "to",
           "level": 0,
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:215"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:108"
         },
         {
           "bridge": "{ ...next(operator) }",
@@ -8994,12 +8986,6 @@
           "pattern": "(<whose> ([property]))"
         },
         {
-          "pattern": "((modifier) [modifies] (concept))"
-        },
-        {
-          "pattern": "([concept])"
-        },
-        {
           "pattern": "([readonly])"
         },
         {
@@ -9016,6 +9002,12 @@
         },
         {
           "pattern": "(([xfx]) <([between] (words))>)"
+        },
+        {
+          "pattern": "((modifier) [modifies] (concept))"
+        },
+        {
+          "pattern": "([concept])"
         },
         {
           "pattern": "(([queryable]) [is|] ([queryable|]))"
@@ -9408,6 +9400,7 @@
     },
     "objects": {
       "nameToUUID": {
+        "concept": "concept2",
         "dialogues": "dialogues2",
         "gdefaults": "gdefaults2",
         "meta": "meta2",
@@ -9416,6 +9409,10 @@
         "stm": "stm2"
       },
       "namespaced": {
+        "concept2": {
+          "valueToWords": [
+          ]
+        },
         "dialogues2": {
           "mentioned": [
           ],
@@ -9463,12 +9460,12 @@
               "questionMark"
             ],
             "queryable": [
-              "concept",
               "hierarchyAble",
               "readonly",
               "property",
               "object",
               "xfx",
+              "concept",
               "unknown",
               "it",
               "what",
@@ -9478,9 +9475,9 @@
               "reason"
             ],
             "theAble": [
-              "concept",
               "property",
               "object",
+              "concept",
               "unknown",
               "noun",
               "reason"
@@ -9503,20 +9500,20 @@
           },
           "concepts": [
             "properties",
-            "concept",
-            "theAble",
-            "queryable",
             "unknown",
             "hierarchyAble",
             "object",
             "what",
+            "queryable",
             "readonly",
             "property",
             "xfx",
+            "theAble",
             "whose",
             "have",
             "canBeDoQuestion",
             "canBeQuestion",
+            "concept",
             "modifies",
             "verby",
             "it",
@@ -9917,21 +9914,8 @@
           "level": 0
         },
         {
-          "bridge": "{ ...next(operator), modifier: before[0], concept: after[0] }",
-          "id": "modifies",
-          "isA": [
-            "verby"
-          ],
-          "level": 0
-        },
-        {
           "bridge": "{ ...next(operator) }",
           "id": "readonly",
-          "level": 0
-        },
-        {
-          "bridge": "{ ...next(operator) }",
-          "id": "concept",
           "level": 0
         },
         {
@@ -9989,6 +9973,19 @@
         {
           "bridge": "{ ...after[0], object: operator, objects: [after[0], operator] }",
           "id": "objectPrefix",
+          "level": 0
+        },
+        {
+          "bridge": "{ ...next(operator), modifier: before[0], concept: after[0] }",
+          "id": "modifies",
+          "isA": [
+            "verby"
+          ],
+          "level": 0
+        },
+        {
+          "bridge": "{ ...next(operator) }",
+          "id": "concept",
           "level": 0
         },
         {
@@ -10052,7 +10049,7 @@
           "bridge": "{ ...next(operator), toObject: after[0] }",
           "id": "to",
           "level": 0,
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:215"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:108"
         },
         {
           "bridge": "{ ...next(operator) }",
@@ -10353,12 +10350,6 @@
           "pattern": "(<whose> ([property]))"
         },
         {
-          "pattern": "((modifier) [modifies] (concept))"
-        },
-        {
-          "pattern": "([concept])"
-        },
-        {
           "pattern": "([readonly])"
         },
         {
@@ -10375,6 +10366,12 @@
         },
         {
           "pattern": "(([xfx]) <([between] (words))>)"
+        },
+        {
+          "pattern": "((modifier) [modifies] (concept))"
+        },
+        {
+          "pattern": "([concept])"
         },
         {
           "pattern": "(([queryable]) [is|] ([queryable|]))"
@@ -10910,6 +10907,7 @@
     },
     "objects": {
       "nameToUUID": {
+        "concept": "concept2",
         "dialogues": "dialogues2",
         "gdefaults": "gdefaults2",
         "meta": "meta2",
@@ -10918,6 +10916,10 @@
         "stm": "stm2"
       },
       "namespaced": {
+        "concept2": {
+          "valueToWords": [
+          ]
+        },
         "dialogues2": {
           "mentioned": [
           ],
@@ -10965,12 +10967,12 @@
               "questionMark"
             ],
             "queryable": [
-              "concept",
               "hierarchyAble",
               "readonly",
               "property",
               "object",
               "xfx",
+              "concept",
               "unknown",
               "it",
               "what",
@@ -10980,9 +10982,9 @@
               "reason"
             ],
             "theAble": [
-              "concept",
               "property",
               "object",
+              "concept",
               "unknown",
               "noun",
               "reason"
@@ -11005,20 +11007,20 @@
           },
           "concepts": [
             "properties",
-            "concept",
-            "theAble",
-            "queryable",
             "unknown",
             "hierarchyAble",
             "object",
             "what",
+            "queryable",
             "readonly",
             "property",
             "xfx",
+            "theAble",
             "whose",
             "have",
             "canBeDoQuestion",
             "canBeQuestion",
+            "concept",
             "modifies",
             "verby",
             "it",
@@ -11469,21 +11471,8 @@
           "level": 0
         },
         {
-          "bridge": "{ ...next(operator), modifier: before[0], concept: after[0] }",
-          "id": "modifies",
-          "isA": [
-            "verby"
-          ],
-          "level": 0
-        },
-        {
           "bridge": "{ ...next(operator) }",
           "id": "readonly",
-          "level": 0
-        },
-        {
-          "bridge": "{ ...next(operator) }",
-          "id": "concept",
           "level": 0
         },
         {
@@ -11541,6 +11530,19 @@
         {
           "bridge": "{ ...after[0], object: operator, objects: [after[0], operator] }",
           "id": "objectPrefix",
+          "level": 0
+        },
+        {
+          "bridge": "{ ...next(operator), modifier: before[0], concept: after[0] }",
+          "id": "modifies",
+          "isA": [
+            "verby"
+          ],
+          "level": 0
+        },
+        {
+          "bridge": "{ ...next(operator) }",
+          "id": "concept",
           "level": 0
         },
         {
@@ -11604,7 +11606,7 @@
           "bridge": "{ ...next(operator), toObject: after[0] }",
           "id": "to",
           "level": 0,
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:215"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:108"
         },
         {
           "bridge": "{ ...next(operator) }",
@@ -11905,12 +11907,6 @@
           "pattern": "(<whose> ([property]))"
         },
         {
-          "pattern": "((modifier) [modifies] (concept))"
-        },
-        {
-          "pattern": "([concept])"
-        },
-        {
           "pattern": "([readonly])"
         },
         {
@@ -11927,6 +11923,12 @@
         },
         {
           "pattern": "(([xfx]) <([between] (words))>)"
+        },
+        {
+          "pattern": "((modifier) [modifies] (concept))"
+        },
+        {
+          "pattern": "([concept])"
         },
         {
           "pattern": "(([queryable]) [is|] ([queryable|]))"
@@ -12358,6 +12360,7 @@
     },
     "objects": {
       "nameToUUID": {
+        "concept": "concept2",
         "dialogues": "dialogues2",
         "gdefaults": "gdefaults2",
         "meta": "meta2",
@@ -12366,6 +12369,10 @@
         "stm": "stm2"
       },
       "namespaced": {
+        "concept2": {
+          "valueToWords": [
+          ]
+        },
         "dialogues2": {
           "mentioned": [
           ],
@@ -12413,12 +12420,12 @@
               "questionMark"
             ],
             "queryable": [
-              "concept",
               "hierarchyAble",
               "readonly",
               "property",
               "object",
               "xfx",
+              "concept",
               "unknown",
               "it",
               "what",
@@ -12428,9 +12435,9 @@
               "reason"
             ],
             "theAble": [
-              "concept",
               "property",
               "object",
+              "concept",
               "unknown",
               "noun",
               "reason"
@@ -12453,20 +12460,20 @@
           },
           "concepts": [
             "properties",
-            "concept",
-            "theAble",
-            "queryable",
             "unknown",
             "hierarchyAble",
             "object",
             "what",
+            "queryable",
             "readonly",
             "property",
             "xfx",
+            "theAble",
             "whose",
             "have",
             "canBeDoQuestion",
             "canBeQuestion",
+            "concept",
             "modifies",
             "verby",
             "it",
@@ -12878,21 +12885,8 @@
           "level": 0
         },
         {
-          "bridge": "{ ...next(operator), modifier: before[0], concept: after[0] }",
-          "id": "modifies",
-          "isA": [
-            "verby"
-          ],
-          "level": 0
-        },
-        {
           "bridge": "{ ...next(operator) }",
           "id": "readonly",
-          "level": 0
-        },
-        {
-          "bridge": "{ ...next(operator) }",
-          "id": "concept",
           "level": 0
         },
         {
@@ -12950,6 +12944,19 @@
         {
           "bridge": "{ ...after[0], object: operator, objects: [after[0], operator] }",
           "id": "objectPrefix",
+          "level": 0
+        },
+        {
+          "bridge": "{ ...next(operator), modifier: before[0], concept: after[0] }",
+          "id": "modifies",
+          "isA": [
+            "verby"
+          ],
+          "level": 0
+        },
+        {
+          "bridge": "{ ...next(operator) }",
+          "id": "concept",
           "level": 0
         },
         {
@@ -13013,7 +13020,7 @@
           "bridge": "{ ...next(operator), toObject: after[0] }",
           "id": "to",
           "level": 0,
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:215"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:108"
         },
         {
           "bridge": "{ ...next(operator) }",
@@ -13314,12 +13321,6 @@
           "pattern": "(<whose> ([property]))"
         },
         {
-          "pattern": "((modifier) [modifies] (concept))"
-        },
-        {
-          "pattern": "([concept])"
-        },
-        {
           "pattern": "([readonly])"
         },
         {
@@ -13336,6 +13337,12 @@
         },
         {
           "pattern": "(([xfx]) <([between] (words))>)"
+        },
+        {
+          "pattern": "((modifier) [modifies] (concept))"
+        },
+        {
+          "pattern": "([concept])"
         },
         {
           "pattern": "(([queryable]) [is|] ([queryable|]))"
@@ -13799,6 +13806,7 @@
     },
     "objects": {
       "nameToUUID": {
+        "concept": "concept2",
         "dialogues": "dialogues2",
         "gdefaults": "gdefaults2",
         "meta": "meta2",
@@ -13807,6 +13815,10 @@
         "stm": "stm2"
       },
       "namespaced": {
+        "concept2": {
+          "valueToWords": [
+          ]
+        },
         "dialogues2": {
           "mentioned": [
           ],
@@ -13854,12 +13866,12 @@
               "questionMark"
             ],
             "queryable": [
-              "concept",
               "hierarchyAble",
               "readonly",
               "property",
               "object",
               "xfx",
+              "concept",
               "unknown",
               "it",
               "what",
@@ -13872,9 +13884,9 @@
               "wendy"
             ],
             "theAble": [
-              "concept",
               "property",
               "object",
+              "concept",
               "unknown",
               "noun",
               "reason"
@@ -13897,20 +13909,20 @@
           },
           "concepts": [
             "properties",
-            "concept",
-            "theAble",
-            "queryable",
             "unknown",
             "hierarchyAble",
             "object",
             "what",
+            "queryable",
             "readonly",
             "property",
             "xfx",
+            "theAble",
             "whose",
             "have",
             "canBeDoQuestion",
             "canBeQuestion",
+            "concept",
             "modifies",
             "verby",
             "it",
@@ -14431,21 +14443,8 @@
           "level": 0
         },
         {
-          "bridge": "{ ...next(operator), modifier: before[0], concept: after[0] }",
-          "id": "modifies",
-          "isA": [
-            "verby"
-          ],
-          "level": 0
-        },
-        {
           "bridge": "{ ...next(operator) }",
           "id": "readonly",
-          "level": 0
-        },
-        {
-          "bridge": "{ ...next(operator) }",
-          "id": "concept",
           "level": 0
         },
         {
@@ -14503,6 +14502,19 @@
         {
           "bridge": "{ ...after[0], object: operator, objects: [after[0], operator] }",
           "id": "objectPrefix",
+          "level": 0
+        },
+        {
+          "bridge": "{ ...next(operator), modifier: before[0], concept: after[0] }",
+          "id": "modifies",
+          "isA": [
+            "verby"
+          ],
+          "level": 0
+        },
+        {
+          "bridge": "{ ...next(operator) }",
+          "id": "concept",
           "level": 0
         },
         {
@@ -14566,7 +14578,7 @@
           "bridge": "{ ...next(operator), toObject: after[0] }",
           "id": "to",
           "level": 0,
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:215"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:108"
         },
         {
           "bridge": "{ ...next(operator) }",
@@ -14867,12 +14879,6 @@
           "pattern": "(<whose> ([property]))"
         },
         {
-          "pattern": "((modifier) [modifies] (concept))"
-        },
-        {
-          "pattern": "([concept])"
-        },
-        {
           "pattern": "([readonly])"
         },
         {
@@ -14889,6 +14895,12 @@
         },
         {
           "pattern": "(([xfx]) <([between] (words))>)"
+        },
+        {
+          "pattern": "((modifier) [modifies] (concept))"
+        },
+        {
+          "pattern": "([concept])"
         },
         {
           "pattern": "(([queryable]) [is|] ([queryable|]))"
@@ -16087,6 +16099,7 @@
     },
     "objects": {
       "nameToUUID": {
+        "concept": "concept2",
         "dialogues": "dialogues2",
         "gdefaults": "gdefaults2",
         "meta": "meta2",
@@ -16095,6 +16108,10 @@
         "stm": "stm2"
       },
       "namespaced": {
+        "concept2": {
+          "valueToWords": [
+          ]
+        },
         "dialogues2": {
           "mentioned": [
           ],
@@ -16145,12 +16162,12 @@
               "questionMark"
             ],
             "queryable": [
-              "concept",
               "hierarchyAble",
               "readonly",
               "property",
               "object",
               "xfx",
+              "concept",
               "unknown",
               "it",
               "what",
@@ -16163,9 +16180,9 @@
               "wendy"
             ],
             "theAble": [
-              "concept",
               "property",
               "object",
+              "concept",
               "unknown",
               "noun",
               "reason"
@@ -16188,20 +16205,20 @@
           },
           "concepts": [
             "properties",
-            "concept",
-            "theAble",
-            "queryable",
             "unknown",
             "hierarchyAble",
             "object",
             "what",
+            "queryable",
             "readonly",
             "property",
             "xfx",
+            "theAble",
             "whose",
             "have",
             "canBeDoQuestion",
             "canBeQuestion",
+            "concept",
             "modifies",
             "verby",
             "it",
@@ -17234,21 +17251,8 @@
           "level": 0
         },
         {
-          "bridge": "{ ...next(operator), modifier: before[0], concept: after[0] }",
-          "id": "modifies",
-          "isA": [
-            "verby"
-          ],
-          "level": 0
-        },
-        {
           "bridge": "{ ...next(operator) }",
           "id": "readonly",
-          "level": 0
-        },
-        {
-          "bridge": "{ ...next(operator) }",
-          "id": "concept",
           "level": 0
         },
         {
@@ -17306,6 +17310,19 @@
         {
           "bridge": "{ ...after[0], object: operator, objects: [after[0], operator] }",
           "id": "objectPrefix",
+          "level": 0
+        },
+        {
+          "bridge": "{ ...next(operator), modifier: before[0], concept: after[0] }",
+          "id": "modifies",
+          "isA": [
+            "verby"
+          ],
+          "level": 0
+        },
+        {
+          "bridge": "{ ...next(operator) }",
+          "id": "concept",
           "level": 0
         },
         {
@@ -17369,7 +17386,7 @@
           "bridge": "{ ...next(operator), toObject: after[0] }",
           "id": "to",
           "level": 0,
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:215"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:108"
         },
         {
           "bridge": "{ ...next(operator) }",
@@ -17670,12 +17687,6 @@
           "pattern": "(<whose> ([property]))"
         },
         {
-          "pattern": "((modifier) [modifies] (concept))"
-        },
-        {
-          "pattern": "([concept])"
-        },
-        {
           "pattern": "([readonly])"
         },
         {
@@ -17692,6 +17703,12 @@
         },
         {
           "pattern": "(([xfx]) <([between] (words))>)"
+        },
+        {
+          "pattern": "((modifier) [modifies] (concept))"
+        },
+        {
+          "pattern": "([concept])"
         },
         {
           "pattern": "(([queryable]) [is|] ([queryable|]))"
@@ -19027,6 +19044,7 @@
     },
     "objects": {
       "nameToUUID": {
+        "concept": "concept2",
         "dialogues": "dialogues2",
         "gdefaults": "gdefaults2",
         "meta": "meta2",
@@ -19035,6 +19053,10 @@
         "stm": "stm2"
       },
       "namespaced": {
+        "concept2": {
+          "valueToWords": [
+          ]
+        },
         "dialogues2": {
           "mentioned": [
           ],
@@ -19085,12 +19107,12 @@
               "questionMark"
             ],
             "queryable": [
-              "concept",
               "hierarchyAble",
               "readonly",
               "property",
               "object",
               "xfx",
+              "concept",
               "unknown",
               "it",
               "what",
@@ -19103,9 +19125,9 @@
               "wendy"
             ],
             "theAble": [
-              "concept",
               "property",
               "object",
+              "concept",
               "unknown",
               "noun",
               "reason"
@@ -19128,20 +19150,20 @@
           },
           "concepts": [
             "properties",
-            "concept",
-            "theAble",
-            "queryable",
             "unknown",
             "hierarchyAble",
             "object",
             "what",
+            "queryable",
             "readonly",
             "property",
             "xfx",
+            "theAble",
             "whose",
             "have",
             "canBeDoQuestion",
             "canBeQuestion",
+            "concept",
             "modifies",
             "verby",
             "it",
@@ -20125,21 +20147,8 @@
           "level": 0
         },
         {
-          "bridge": "{ ...next(operator), modifier: before[0], concept: after[0] }",
-          "id": "modifies",
-          "isA": [
-            "verby"
-          ],
-          "level": 0
-        },
-        {
           "bridge": "{ ...next(operator) }",
           "id": "readonly",
-          "level": 0
-        },
-        {
-          "bridge": "{ ...next(operator) }",
-          "id": "concept",
           "level": 0
         },
         {
@@ -20197,6 +20206,19 @@
         {
           "bridge": "{ ...after[0], object: operator, objects: [after[0], operator] }",
           "id": "objectPrefix",
+          "level": 0
+        },
+        {
+          "bridge": "{ ...next(operator), modifier: before[0], concept: after[0] }",
+          "id": "modifies",
+          "isA": [
+            "verby"
+          ],
+          "level": 0
+        },
+        {
+          "bridge": "{ ...next(operator) }",
+          "id": "concept",
           "level": 0
         },
         {
@@ -20260,7 +20282,7 @@
           "bridge": "{ ...next(operator), toObject: after[0] }",
           "id": "to",
           "level": 0,
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:215"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:108"
         },
         {
           "bridge": "{ ...next(operator) }",
@@ -20561,12 +20583,6 @@
           "pattern": "(<whose> ([property]))"
         },
         {
-          "pattern": "((modifier) [modifies] (concept))"
-        },
-        {
-          "pattern": "([concept])"
-        },
-        {
           "pattern": "([readonly])"
         },
         {
@@ -20583,6 +20599,12 @@
         },
         {
           "pattern": "(([xfx]) <([between] (words))>)"
+        },
+        {
+          "pattern": "((modifier) [modifies] (concept))"
+        },
+        {
+          "pattern": "([concept])"
         },
         {
           "pattern": "(([queryable]) [is|] ([queryable|]))"
@@ -20954,6 +20976,7 @@
     },
     "objects": {
       "nameToUUID": {
+        "concept": "concept2",
         "dialogues": "dialogues2",
         "gdefaults": "gdefaults2",
         "meta": "meta2",
@@ -20962,6 +20985,10 @@
         "stm": "stm2"
       },
       "namespaced": {
+        "concept2": {
+          "valueToWords": [
+          ]
+        },
         "dialogues2": {
           "mentioned": [
           ],
@@ -21009,12 +21036,12 @@
               "questionMark"
             ],
             "queryable": [
-              "concept",
               "hierarchyAble",
               "readonly",
               "property",
               "object",
               "xfx",
+              "concept",
               "unknown",
               "it",
               "what",
@@ -21024,9 +21051,9 @@
               "reason"
             ],
             "theAble": [
-              "concept",
               "property",
               "object",
+              "concept",
               "unknown",
               "noun",
               "reason"
@@ -21049,20 +21076,20 @@
           },
           "concepts": [
             "properties",
-            "concept",
-            "theAble",
-            "queryable",
             "unknown",
             "hierarchyAble",
             "object",
             "what",
+            "queryable",
             "readonly",
             "property",
             "xfx",
+            "theAble",
             "whose",
             "have",
             "canBeDoQuestion",
             "canBeQuestion",
+            "concept",
             "modifies",
             "verby",
             "it",
@@ -21589,21 +21616,8 @@
           "level": 0
         },
         {
-          "bridge": "{ ...next(operator), modifier: before[0], concept: after[0] }",
-          "id": "modifies",
-          "isA": [
-            "verby"
-          ],
-          "level": 0
-        },
-        {
           "bridge": "{ ...next(operator) }",
           "id": "readonly",
-          "level": 0
-        },
-        {
-          "bridge": "{ ...next(operator) }",
-          "id": "concept",
           "level": 0
         },
         {
@@ -21661,6 +21675,19 @@
         {
           "bridge": "{ ...after[0], object: operator, objects: [after[0], operator] }",
           "id": "objectPrefix",
+          "level": 0
+        },
+        {
+          "bridge": "{ ...next(operator), modifier: before[0], concept: after[0] }",
+          "id": "modifies",
+          "isA": [
+            "verby"
+          ],
+          "level": 0
+        },
+        {
+          "bridge": "{ ...next(operator) }",
+          "id": "concept",
           "level": 0
         },
         {
@@ -21724,7 +21751,7 @@
           "bridge": "{ ...next(operator), toObject: after[0] }",
           "id": "to",
           "level": 0,
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:215"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:108"
         },
         {
           "bridge": "{ ...next(operator) }",
@@ -22025,12 +22052,6 @@
           "pattern": "(<whose> ([property]))"
         },
         {
-          "pattern": "((modifier) [modifies] (concept))"
-        },
-        {
-          "pattern": "([concept])"
-        },
-        {
           "pattern": "([readonly])"
         },
         {
@@ -22047,6 +22068,12 @@
         },
         {
           "pattern": "(([xfx]) <([between] (words))>)"
+        },
+        {
+          "pattern": "((modifier) [modifies] (concept))"
+        },
+        {
+          "pattern": "([concept])"
         },
         {
           "pattern": "(([queryable]) [is|] ([queryable|]))"
@@ -23350,6 +23377,7 @@
     },
     "objects": {
       "nameToUUID": {
+        "concept": "concept2",
         "dialogues": "dialogues2",
         "gdefaults": "gdefaults2",
         "meta": "meta2",
@@ -23358,6 +23386,10 @@
         "stm": "stm2"
       },
       "namespaced": {
+        "concept2": {
+          "valueToWords": [
+          ]
+        },
         "dialogues2": {
           "mentioned": [
           ],
@@ -23411,12 +23443,12 @@
               "questionMark"
             ],
             "queryable": [
-              "concept",
               "hierarchyAble",
               "readonly",
               "property",
               "object",
               "xfx",
+              "concept",
               "unknown",
               "it",
               "what",
@@ -23426,9 +23458,9 @@
               "reason"
             ],
             "theAble": [
-              "concept",
               "property",
               "object",
+              "concept",
               "unknown",
               "noun",
               "reason"
@@ -23451,20 +23483,20 @@
           },
           "concepts": [
             "properties",
-            "concept",
-            "theAble",
-            "queryable",
             "unknown",
             "hierarchyAble",
             "object",
             "what",
+            "queryable",
             "readonly",
             "property",
             "xfx",
+            "theAble",
             "whose",
             "have",
             "canBeDoQuestion",
             "canBeQuestion",
+            "concept",
             "modifies",
             "verby",
             "it",
@@ -24582,21 +24614,8 @@
           "level": 0
         },
         {
-          "bridge": "{ ...next(operator), modifier: before[0], concept: after[0] }",
-          "id": "modifies",
-          "isA": [
-            "verby"
-          ],
-          "level": 0
-        },
-        {
           "bridge": "{ ...next(operator) }",
           "id": "readonly",
-          "level": 0
-        },
-        {
-          "bridge": "{ ...next(operator) }",
-          "id": "concept",
           "level": 0
         },
         {
@@ -24654,6 +24673,19 @@
         {
           "bridge": "{ ...after[0], object: operator, objects: [after[0], operator] }",
           "id": "objectPrefix",
+          "level": 0
+        },
+        {
+          "bridge": "{ ...next(operator), modifier: before[0], concept: after[0] }",
+          "id": "modifies",
+          "isA": [
+            "verby"
+          ],
+          "level": 0
+        },
+        {
+          "bridge": "{ ...next(operator) }",
+          "id": "concept",
           "level": 0
         },
         {
@@ -24717,7 +24749,7 @@
           "bridge": "{ ...next(operator), toObject: after[0] }",
           "id": "to",
           "level": 0,
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:215"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:108"
         },
         {
           "bridge": "{ ...next(operator) }",
@@ -25018,12 +25050,6 @@
           "pattern": "(<whose> ([property]))"
         },
         {
-          "pattern": "((modifier) [modifies] (concept))"
-        },
-        {
-          "pattern": "([concept])"
-        },
-        {
           "pattern": "([readonly])"
         },
         {
@@ -25040,6 +25066,12 @@
         },
         {
           "pattern": "(([xfx]) <([between] (words))>)"
+        },
+        {
+          "pattern": "((modifier) [modifies] (concept))"
+        },
+        {
+          "pattern": "([concept])"
         },
         {
           "pattern": "(([queryable]) [is|] ([queryable|]))"
@@ -26009,6 +26041,7 @@
     },
     "objects": {
       "nameToUUID": {
+        "concept": "concept2",
         "dialogues": "dialogues2",
         "gdefaults": "gdefaults2",
         "meta": "meta2",
@@ -26017,6 +26050,10 @@
         "stm": "stm2"
       },
       "namespaced": {
+        "concept2": {
+          "valueToWords": [
+          ]
+        },
         "dialogues2": {
           "mentioned": [
           ],
@@ -26067,12 +26104,12 @@
               "questionMark"
             ],
             "queryable": [
-              "concept",
               "hierarchyAble",
               "readonly",
               "property",
               "object",
               "xfx",
+              "concept",
               "unknown",
               "it",
               "what",
@@ -26082,9 +26119,9 @@
               "reason"
             ],
             "theAble": [
-              "concept",
               "property",
               "object",
+              "concept",
               "unknown",
               "noun",
               "reason"
@@ -26107,20 +26144,20 @@
           },
           "concepts": [
             "properties",
-            "concept",
-            "theAble",
-            "queryable",
             "unknown",
             "hierarchyAble",
             "object",
             "what",
+            "queryable",
             "readonly",
             "property",
             "xfx",
+            "theAble",
             "whose",
             "have",
             "canBeDoQuestion",
             "canBeQuestion",
+            "concept",
             "modifies",
             "verby",
             "it",
@@ -27023,21 +27060,8 @@
           "level": 0
         },
         {
-          "bridge": "{ ...next(operator), modifier: before[0], concept: after[0] }",
-          "id": "modifies",
-          "isA": [
-            "verby"
-          ],
-          "level": 0
-        },
-        {
           "bridge": "{ ...next(operator) }",
           "id": "readonly",
-          "level": 0
-        },
-        {
-          "bridge": "{ ...next(operator) }",
-          "id": "concept",
           "level": 0
         },
         {
@@ -27095,6 +27119,19 @@
         {
           "bridge": "{ ...after[0], object: operator, objects: [after[0], operator] }",
           "id": "objectPrefix",
+          "level": 0
+        },
+        {
+          "bridge": "{ ...next(operator), modifier: before[0], concept: after[0] }",
+          "id": "modifies",
+          "isA": [
+            "verby"
+          ],
+          "level": 0
+        },
+        {
+          "bridge": "{ ...next(operator) }",
+          "id": "concept",
           "level": 0
         },
         {
@@ -27158,7 +27195,7 @@
           "bridge": "{ ...next(operator), toObject: after[0] }",
           "id": "to",
           "level": 0,
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:215"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:108"
         },
         {
           "bridge": "{ ...next(operator) }",
@@ -27459,12 +27496,6 @@
           "pattern": "(<whose> ([property]))"
         },
         {
-          "pattern": "((modifier) [modifies] (concept))"
-        },
-        {
-          "pattern": "([concept])"
-        },
-        {
           "pattern": "([readonly])"
         },
         {
@@ -27481,6 +27512,12 @@
         },
         {
           "pattern": "(([xfx]) <([between] (words))>)"
+        },
+        {
+          "pattern": "((modifier) [modifies] (concept))"
+        },
+        {
+          "pattern": "([concept])"
         },
         {
           "pattern": "(([queryable]) [is|] ([queryable|]))"
@@ -28494,6 +28531,7 @@
     },
     "objects": {
       "nameToUUID": {
+        "concept": "concept2",
         "dialogues": "dialogues2",
         "gdefaults": "gdefaults2",
         "meta": "meta2",
@@ -28502,6 +28540,10 @@
         "stm": "stm2"
       },
       "namespaced": {
+        "concept2": {
+          "valueToWords": [
+          ]
+        },
         "dialogues2": {
           "mentioned": [
           ],
@@ -28552,12 +28594,12 @@
               "questionMark"
             ],
             "queryable": [
-              "concept",
               "hierarchyAble",
               "readonly",
               "property",
               "object",
               "xfx",
+              "concept",
               "unknown",
               "it",
               "what",
@@ -28567,9 +28609,9 @@
               "reason"
             ],
             "theAble": [
-              "concept",
               "property",
               "object",
+              "concept",
               "unknown",
               "noun",
               "reason"
@@ -28592,20 +28634,20 @@
           },
           "concepts": [
             "properties",
-            "concept",
-            "theAble",
-            "queryable",
             "unknown",
             "hierarchyAble",
             "object",
             "what",
+            "queryable",
             "readonly",
             "property",
             "xfx",
+            "theAble",
             "whose",
             "have",
             "canBeDoQuestion",
             "canBeQuestion",
+            "concept",
             "modifies",
             "verby",
             "it",
@@ -29477,21 +29519,8 @@
           "level": 0
         },
         {
-          "bridge": "{ ...next(operator), modifier: before[0], concept: after[0] }",
-          "id": "modifies",
-          "isA": [
-            "verby"
-          ],
-          "level": 0
-        },
-        {
           "bridge": "{ ...next(operator) }",
           "id": "readonly",
-          "level": 0
-        },
-        {
-          "bridge": "{ ...next(operator) }",
-          "id": "concept",
           "level": 0
         },
         {
@@ -29549,6 +29578,19 @@
         {
           "bridge": "{ ...after[0], object: operator, objects: [after[0], operator] }",
           "id": "objectPrefix",
+          "level": 0
+        },
+        {
+          "bridge": "{ ...next(operator), modifier: before[0], concept: after[0] }",
+          "id": "modifies",
+          "isA": [
+            "verby"
+          ],
+          "level": 0
+        },
+        {
+          "bridge": "{ ...next(operator) }",
+          "id": "concept",
           "level": 0
         },
         {
@@ -29612,7 +29654,7 @@
           "bridge": "{ ...next(operator), toObject: after[0] }",
           "id": "to",
           "level": 0,
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:215"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:108"
         },
         {
           "bridge": "{ ...next(operator) }",
@@ -29913,12 +29955,6 @@
           "pattern": "(<whose> ([property]))"
         },
         {
-          "pattern": "((modifier) [modifies] (concept))"
-        },
-        {
-          "pattern": "([concept])"
-        },
-        {
           "pattern": "([readonly])"
         },
         {
@@ -29935,6 +29971,12 @@
         },
         {
           "pattern": "(([xfx]) <([between] (words))>)"
+        },
+        {
+          "pattern": "((modifier) [modifies] (concept))"
+        },
+        {
+          "pattern": "([concept])"
         },
         {
           "pattern": "(([queryable]) [is|] ([queryable|]))"
@@ -30924,6 +30966,7 @@
     },
     "objects": {
       "nameToUUID": {
+        "concept": "concept2",
         "dialogues": "dialogues2",
         "gdefaults": "gdefaults2",
         "meta": "meta2",
@@ -30932,6 +30975,10 @@
         "stm": "stm2"
       },
       "namespaced": {
+        "concept2": {
+          "valueToWords": [
+          ]
+        },
         "dialogues2": {
           "mentioned": [
           ],
@@ -30982,12 +31029,12 @@
               "questionMark"
             ],
             "queryable": [
-              "concept",
               "hierarchyAble",
               "readonly",
               "property",
               "object",
               "xfx",
+              "concept",
               "unknown",
               "it",
               "what",
@@ -30997,9 +31044,9 @@
               "reason"
             ],
             "theAble": [
-              "concept",
               "property",
               "object",
+              "concept",
               "unknown",
               "noun",
               "reason"
@@ -31022,20 +31069,20 @@
           },
           "concepts": [
             "properties",
-            "concept",
-            "theAble",
-            "queryable",
             "unknown",
             "hierarchyAble",
             "object",
             "what",
+            "queryable",
             "readonly",
             "property",
             "xfx",
+            "theAble",
             "whose",
             "have",
             "canBeDoQuestion",
             "canBeQuestion",
+            "concept",
             "modifies",
             "verby",
             "it",
@@ -31909,21 +31956,8 @@
           "level": 0
         },
         {
-          "bridge": "{ ...next(operator), modifier: before[0], concept: after[0] }",
-          "id": "modifies",
-          "isA": [
-            "verby"
-          ],
-          "level": 0
-        },
-        {
           "bridge": "{ ...next(operator) }",
           "id": "readonly",
-          "level": 0
-        },
-        {
-          "bridge": "{ ...next(operator) }",
-          "id": "concept",
           "level": 0
         },
         {
@@ -31981,6 +32015,19 @@
         {
           "bridge": "{ ...after[0], object: operator, objects: [after[0], operator] }",
           "id": "objectPrefix",
+          "level": 0
+        },
+        {
+          "bridge": "{ ...next(operator), modifier: before[0], concept: after[0] }",
+          "id": "modifies",
+          "isA": [
+            "verby"
+          ],
+          "level": 0
+        },
+        {
+          "bridge": "{ ...next(operator) }",
+          "id": "concept",
           "level": 0
         },
         {
@@ -32044,7 +32091,7 @@
           "bridge": "{ ...next(operator), toObject: after[0] }",
           "id": "to",
           "level": 0,
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:215"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:108"
         },
         {
           "bridge": "{ ...next(operator) }",
@@ -32345,12 +32392,6 @@
           "pattern": "(<whose> ([property]))"
         },
         {
-          "pattern": "((modifier) [modifies] (concept))"
-        },
-        {
-          "pattern": "([concept])"
-        },
-        {
           "pattern": "([readonly])"
         },
         {
@@ -32367,6 +32408,12 @@
         },
         {
           "pattern": "(([xfx]) <([between] (words))>)"
+        },
+        {
+          "pattern": "((modifier) [modifies] (concept))"
+        },
+        {
+          "pattern": "([concept])"
         },
         {
           "pattern": "(([queryable]) [is|] ([queryable|]))"
@@ -33026,6 +33073,7 @@
     },
     "objects": {
       "nameToUUID": {
+        "concept": "concept2",
         "dialogues": "dialogues2",
         "gdefaults": "gdefaults2",
         "meta": "meta2",
@@ -33034,6 +33082,10 @@
         "stm": "stm2"
       },
       "namespaced": {
+        "concept2": {
+          "valueToWords": [
+          ]
+        },
         "dialogues2": {
           "mentioned": [
           ],
@@ -33084,12 +33136,12 @@
               "questionMark"
             ],
             "queryable": [
-              "concept",
               "hierarchyAble",
               "readonly",
               "property",
               "object",
               "xfx",
+              "concept",
               "unknown",
               "it",
               "what",
@@ -33099,9 +33151,9 @@
               "reason"
             ],
             "theAble": [
-              "concept",
               "property",
               "object",
+              "concept",
               "unknown",
               "noun",
               "reason"
@@ -33124,20 +33176,20 @@
           },
           "concepts": [
             "properties",
-            "concept",
-            "theAble",
-            "queryable",
             "unknown",
             "hierarchyAble",
             "object",
             "what",
+            "queryable",
             "readonly",
             "property",
             "xfx",
+            "theAble",
             "whose",
             "have",
             "canBeDoQuestion",
             "canBeQuestion",
+            "concept",
             "modifies",
             "verby",
             "it",
@@ -33750,21 +33802,8 @@
           "level": 0
         },
         {
-          "bridge": "{ ...next(operator), modifier: before[0], concept: after[0] }",
-          "id": "modifies",
-          "isA": [
-            "verby"
-          ],
-          "level": 0
-        },
-        {
           "bridge": "{ ...next(operator) }",
           "id": "readonly",
-          "level": 0
-        },
-        {
-          "bridge": "{ ...next(operator) }",
-          "id": "concept",
           "level": 0
         },
         {
@@ -33822,6 +33861,19 @@
         {
           "bridge": "{ ...after[0], object: operator, objects: [after[0], operator] }",
           "id": "objectPrefix",
+          "level": 0
+        },
+        {
+          "bridge": "{ ...next(operator), modifier: before[0], concept: after[0] }",
+          "id": "modifies",
+          "isA": [
+            "verby"
+          ],
+          "level": 0
+        },
+        {
+          "bridge": "{ ...next(operator) }",
+          "id": "concept",
           "level": 0
         },
         {
@@ -33885,7 +33937,7 @@
           "bridge": "{ ...next(operator), toObject: after[0] }",
           "id": "to",
           "level": 0,
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:215"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:108"
         },
         {
           "bridge": "{ ...next(operator) }",
@@ -34186,12 +34238,6 @@
           "pattern": "(<whose> ([property]))"
         },
         {
-          "pattern": "((modifier) [modifies] (concept))"
-        },
-        {
-          "pattern": "([concept])"
-        },
-        {
           "pattern": "([readonly])"
         },
         {
@@ -34208,6 +34254,12 @@
         },
         {
           "pattern": "(([xfx]) <([between] (words))>)"
+        },
+        {
+          "pattern": "((modifier) [modifies] (concept))"
+        },
+        {
+          "pattern": "([concept])"
         },
         {
           "pattern": "(([queryable]) [is|] ([queryable|]))"
@@ -35291,6 +35343,7 @@
     },
     "objects": {
       "nameToUUID": {
+        "concept": "concept2",
         "dialogues": "dialogues2",
         "gdefaults": "gdefaults2",
         "meta": "meta2",
@@ -35299,6 +35352,10 @@
         "stm": "stm2"
       },
       "namespaced": {
+        "concept2": {
+          "valueToWords": [
+          ]
+        },
         "dialogues2": {
           "mentioned": [
           ],
@@ -35349,12 +35406,12 @@
               "questionMark"
             ],
             "queryable": [
-              "concept",
               "hierarchyAble",
               "readonly",
               "property",
               "object",
               "xfx",
+              "concept",
               "unknown",
               "it",
               "what",
@@ -35364,9 +35421,9 @@
               "reason"
             ],
             "theAble": [
-              "concept",
               "property",
               "object",
+              "concept",
               "unknown",
               "noun",
               "reason"
@@ -35389,20 +35446,20 @@
           },
           "concepts": [
             "properties",
-            "concept",
-            "theAble",
-            "queryable",
             "unknown",
             "hierarchyAble",
             "object",
             "what",
+            "queryable",
             "readonly",
             "property",
             "xfx",
+            "theAble",
             "whose",
             "have",
             "canBeDoQuestion",
             "canBeQuestion",
+            "concept",
             "modifies",
             "verby",
             "it",
@@ -36149,21 +36206,8 @@
           "level": 0
         },
         {
-          "bridge": "{ ...next(operator), modifier: before[0], concept: after[0] }",
-          "id": "modifies",
-          "isA": [
-            "verby"
-          ],
-          "level": 0
-        },
-        {
           "bridge": "{ ...next(operator) }",
           "id": "readonly",
-          "level": 0
-        },
-        {
-          "bridge": "{ ...next(operator) }",
-          "id": "concept",
           "level": 0
         },
         {
@@ -36221,6 +36265,19 @@
         {
           "bridge": "{ ...after[0], object: operator, objects: [after[0], operator] }",
           "id": "objectPrefix",
+          "level": 0
+        },
+        {
+          "bridge": "{ ...next(operator), modifier: before[0], concept: after[0] }",
+          "id": "modifies",
+          "isA": [
+            "verby"
+          ],
+          "level": 0
+        },
+        {
+          "bridge": "{ ...next(operator) }",
+          "id": "concept",
           "level": 0
         },
         {
@@ -36284,7 +36341,7 @@
           "bridge": "{ ...next(operator), toObject: after[0] }",
           "id": "to",
           "level": 0,
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:215"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:108"
         },
         {
           "bridge": "{ ...next(operator) }",
@@ -36585,12 +36642,6 @@
           "pattern": "(<whose> ([property]))"
         },
         {
-          "pattern": "((modifier) [modifies] (concept))"
-        },
-        {
-          "pattern": "([concept])"
-        },
-        {
           "pattern": "([readonly])"
         },
         {
@@ -36607,6 +36658,12 @@
         },
         {
           "pattern": "(([xfx]) <([between] (words))>)"
+        },
+        {
+          "pattern": "((modifier) [modifies] (concept))"
+        },
+        {
+          "pattern": "([concept])"
         },
         {
           "pattern": "(([queryable]) [is|] ([queryable|]))"
@@ -36907,6 +36964,7 @@
     },
     "objects": {
       "nameToUUID": {
+        "concept": "concept2",
         "dialogues": "dialogues2",
         "gdefaults": "gdefaults2",
         "meta": "meta2",
@@ -36915,6 +36973,10 @@
         "stm": "stm2"
       },
       "namespaced": {
+        "concept2": {
+          "valueToWords": [
+          ]
+        },
         "dialogues2": {
           "mentioned": [
           ],
@@ -36962,12 +37024,12 @@
               "questionMark"
             ],
             "queryable": [
-              "concept",
               "hierarchyAble",
               "readonly",
               "property",
               "object",
               "xfx",
+              "concept",
               "unknown",
               "it",
               "what",
@@ -36977,9 +37039,9 @@
               "reason"
             ],
             "theAble": [
-              "concept",
               "property",
               "object",
+              "concept",
               "unknown",
               "noun",
               "reason"
@@ -37002,20 +37064,20 @@
           },
           "concepts": [
             "properties",
-            "concept",
-            "theAble",
-            "queryable",
             "unknown",
             "hierarchyAble",
             "object",
             "what",
+            "queryable",
             "readonly",
             "property",
             "xfx",
+            "theAble",
             "whose",
             "have",
             "canBeDoQuestion",
             "canBeQuestion",
+            "concept",
             "modifies",
             "verby",
             "it",
@@ -37349,21 +37411,8 @@
           "level": 0
         },
         {
-          "bridge": "{ ...next(operator), modifier: before[0], concept: after[0] }",
-          "id": "modifies",
-          "isA": [
-            "verby"
-          ],
-          "level": 0
-        },
-        {
           "bridge": "{ ...next(operator) }",
           "id": "readonly",
-          "level": 0
-        },
-        {
-          "bridge": "{ ...next(operator) }",
-          "id": "concept",
           "level": 0
         },
         {
@@ -37421,6 +37470,19 @@
         {
           "bridge": "{ ...after[0], object: operator, objects: [after[0], operator] }",
           "id": "objectPrefix",
+          "level": 0
+        },
+        {
+          "bridge": "{ ...next(operator), modifier: before[0], concept: after[0] }",
+          "id": "modifies",
+          "isA": [
+            "verby"
+          ],
+          "level": 0
+        },
+        {
+          "bridge": "{ ...next(operator) }",
+          "id": "concept",
           "level": 0
         },
         {
@@ -37484,7 +37546,7 @@
           "bridge": "{ ...next(operator), toObject: after[0] }",
           "id": "to",
           "level": 0,
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:215"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:108"
         },
         {
           "bridge": "{ ...next(operator) }",
@@ -37785,12 +37847,6 @@
           "pattern": "(<whose> ([property]))"
         },
         {
-          "pattern": "((modifier) [modifies] (concept))"
-        },
-        {
-          "pattern": "([concept])"
-        },
-        {
           "pattern": "([readonly])"
         },
         {
@@ -37807,6 +37863,12 @@
         },
         {
           "pattern": "(([xfx]) <([between] (words))>)"
+        },
+        {
+          "pattern": "((modifier) [modifies] (concept))"
+        },
+        {
+          "pattern": "([concept])"
         },
         {
           "pattern": "(([queryable]) [is|] ([queryable|]))"
@@ -38224,6 +38286,7 @@
     },
     "objects": {
       "nameToUUID": {
+        "concept": "concept2",
         "dialogues": "dialogues2",
         "gdefaults": "gdefaults2",
         "meta": "meta2",
@@ -38232,6 +38295,10 @@
         "stm": "stm2"
       },
       "namespaced": {
+        "concept2": {
+          "valueToWords": [
+          ]
+        },
         "dialogues2": {
           "mentioned": [
           ],
@@ -38279,12 +38346,12 @@
               "questionMark"
             ],
             "queryable": [
-              "concept",
               "hierarchyAble",
               "readonly",
               "property",
               "object",
               "xfx",
+              "concept",
               "unknown",
               "it",
               "what",
@@ -38294,9 +38361,9 @@
               "reason"
             ],
             "theAble": [
-              "concept",
               "property",
               "object",
+              "concept",
               "unknown",
               "noun",
               "reason"
@@ -38319,20 +38386,20 @@
           },
           "concepts": [
             "properties",
-            "concept",
-            "theAble",
-            "queryable",
             "unknown",
             "hierarchyAble",
             "object",
             "what",
+            "queryable",
             "readonly",
             "property",
             "xfx",
+            "theAble",
             "whose",
             "have",
             "canBeDoQuestion",
             "canBeQuestion",
+            "concept",
             "modifies",
             "verby",
             "it",
@@ -38724,21 +38791,8 @@
           "level": 0
         },
         {
-          "bridge": "{ ...next(operator), modifier: before[0], concept: after[0] }",
-          "id": "modifies",
-          "isA": [
-            "verby"
-          ],
-          "level": 0
-        },
-        {
           "bridge": "{ ...next(operator) }",
           "id": "readonly",
-          "level": 0
-        },
-        {
-          "bridge": "{ ...next(operator) }",
-          "id": "concept",
           "level": 0
         },
         {
@@ -38796,6 +38850,19 @@
         {
           "bridge": "{ ...after[0], object: operator, objects: [after[0], operator] }",
           "id": "objectPrefix",
+          "level": 0
+        },
+        {
+          "bridge": "{ ...next(operator), modifier: before[0], concept: after[0] }",
+          "id": "modifies",
+          "isA": [
+            "verby"
+          ],
+          "level": 0
+        },
+        {
+          "bridge": "{ ...next(operator) }",
+          "id": "concept",
           "level": 0
         },
         {
@@ -38859,7 +38926,7 @@
           "bridge": "{ ...next(operator), toObject: after[0] }",
           "id": "to",
           "level": 0,
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:215"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:108"
         },
         {
           "bridge": "{ ...next(operator) }",
@@ -39160,12 +39227,6 @@
           "pattern": "(<whose> ([property]))"
         },
         {
-          "pattern": "((modifier) [modifies] (concept))"
-        },
-        {
-          "pattern": "([concept])"
-        },
-        {
           "pattern": "([readonly])"
         },
         {
@@ -39182,6 +39243,12 @@
         },
         {
           "pattern": "(([xfx]) <([between] (words))>)"
+        },
+        {
+          "pattern": "((modifier) [modifies] (concept))"
+        },
+        {
+          "pattern": "([concept])"
         },
         {
           "pattern": "(([queryable]) [is|] ([queryable|]))"
@@ -39632,6 +39699,7 @@
     },
     "objects": {
       "nameToUUID": {
+        "concept": "concept2",
         "dialogues": "dialogues2",
         "gdefaults": "gdefaults2",
         "meta": "meta2",
@@ -39640,6 +39708,10 @@
         "stm": "stm2"
       },
       "namespaced": {
+        "concept2": {
+          "valueToWords": [
+          ]
+        },
         "dialogues2": {
           "mentioned": [
           ],
@@ -39687,12 +39759,12 @@
               "questionMark"
             ],
             "queryable": [
-              "concept",
               "hierarchyAble",
               "readonly",
               "property",
               "object",
               "xfx",
+              "concept",
               "unknown",
               "it",
               "what",
@@ -39702,9 +39774,9 @@
               "reason"
             ],
             "theAble": [
-              "concept",
               "property",
               "object",
+              "concept",
               "unknown",
               "noun",
               "reason"
@@ -39727,20 +39799,20 @@
           },
           "concepts": [
             "properties",
-            "concept",
-            "theAble",
-            "queryable",
             "unknown",
             "hierarchyAble",
             "object",
             "what",
+            "queryable",
             "readonly",
             "property",
             "xfx",
+            "theAble",
             "whose",
             "have",
             "canBeDoQuestion",
             "canBeQuestion",
+            "concept",
             "modifies",
             "verby",
             "it",
@@ -40226,21 +40298,8 @@
           "level": 0
         },
         {
-          "bridge": "{ ...next(operator), modifier: before[0], concept: after[0] }",
-          "id": "modifies",
-          "isA": [
-            "verby"
-          ],
-          "level": 0
-        },
-        {
           "bridge": "{ ...next(operator) }",
           "id": "readonly",
-          "level": 0
-        },
-        {
-          "bridge": "{ ...next(operator) }",
-          "id": "concept",
           "level": 0
         },
         {
@@ -40298,6 +40357,19 @@
         {
           "bridge": "{ ...after[0], object: operator, objects: [after[0], operator] }",
           "id": "objectPrefix",
+          "level": 0
+        },
+        {
+          "bridge": "{ ...next(operator), modifier: before[0], concept: after[0] }",
+          "id": "modifies",
+          "isA": [
+            "verby"
+          ],
+          "level": 0
+        },
+        {
+          "bridge": "{ ...next(operator) }",
+          "id": "concept",
           "level": 0
         },
         {
@@ -40361,7 +40433,7 @@
           "bridge": "{ ...next(operator), toObject: after[0] }",
           "id": "to",
           "level": 0,
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:215"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:108"
         },
         {
           "bridge": "{ ...next(operator) }",
@@ -40662,12 +40734,6 @@
           "pattern": "(<whose> ([property]))"
         },
         {
-          "pattern": "((modifier) [modifies] (concept))"
-        },
-        {
-          "pattern": "([concept])"
-        },
-        {
           "pattern": "([readonly])"
         },
         {
@@ -40684,6 +40750,12 @@
         },
         {
           "pattern": "(([xfx]) <([between] (words))>)"
+        },
+        {
+          "pattern": "((modifier) [modifies] (concept))"
+        },
+        {
+          "pattern": "([concept])"
         },
         {
           "pattern": "(([queryable]) [is|] ([queryable|]))"
@@ -41216,6 +41288,7 @@
     },
     "objects": {
       "nameToUUID": {
+        "concept": "concept2",
         "dialogues": "dialogues2",
         "gdefaults": "gdefaults2",
         "meta": "meta2",
@@ -41224,6 +41297,10 @@
         "stm": "stm2"
       },
       "namespaced": {
+        "concept2": {
+          "valueToWords": [
+          ]
+        },
         "dialogues2": {
           "mentioned": [
           ],
@@ -41271,12 +41348,12 @@
               "questionMark"
             ],
             "queryable": [
-              "concept",
               "hierarchyAble",
               "readonly",
               "property",
               "object",
               "xfx",
+              "concept",
               "unknown",
               "it",
               "what",
@@ -41286,9 +41363,9 @@
               "reason"
             ],
             "theAble": [
-              "concept",
               "property",
               "object",
+              "concept",
               "unknown",
               "noun",
               "reason"
@@ -41311,20 +41388,20 @@
           },
           "concepts": [
             "properties",
-            "concept",
-            "theAble",
-            "queryable",
             "unknown",
             "hierarchyAble",
             "object",
             "what",
+            "queryable",
             "readonly",
             "property",
             "xfx",
+            "theAble",
             "whose",
             "have",
             "canBeDoQuestion",
             "canBeQuestion",
+            "concept",
             "modifies",
             "verby",
             "it",
@@ -41822,21 +41899,8 @@
           "level": 0
         },
         {
-          "bridge": "{ ...next(operator), modifier: before[0], concept: after[0] }",
-          "id": "modifies",
-          "isA": [
-            "verby"
-          ],
-          "level": 0
-        },
-        {
           "bridge": "{ ...next(operator) }",
           "id": "readonly",
-          "level": 0
-        },
-        {
-          "bridge": "{ ...next(operator) }",
-          "id": "concept",
           "level": 0
         },
         {
@@ -41894,6 +41958,19 @@
         {
           "bridge": "{ ...after[0], object: operator, objects: [after[0], operator] }",
           "id": "objectPrefix",
+          "level": 0
+        },
+        {
+          "bridge": "{ ...next(operator), modifier: before[0], concept: after[0] }",
+          "id": "modifies",
+          "isA": [
+            "verby"
+          ],
+          "level": 0
+        },
+        {
+          "bridge": "{ ...next(operator) }",
+          "id": "concept",
           "level": 0
         },
         {
@@ -41957,7 +42034,7 @@
           "bridge": "{ ...next(operator), toObject: after[0] }",
           "id": "to",
           "level": 0,
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:215"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:108"
         },
         {
           "bridge": "{ ...next(operator) }",
@@ -42258,12 +42335,6 @@
           "pattern": "(<whose> ([property]))"
         },
         {
-          "pattern": "((modifier) [modifies] (concept))"
-        },
-        {
-          "pattern": "([concept])"
-        },
-        {
           "pattern": "([readonly])"
         },
         {
@@ -42280,6 +42351,12 @@
         },
         {
           "pattern": "(([xfx]) <([between] (words))>)"
+        },
+        {
+          "pattern": "((modifier) [modifies] (concept))"
+        },
+        {
+          "pattern": "([concept])"
         },
         {
           "pattern": "(([queryable]) [is|] ([queryable|]))"
@@ -42814,6 +42891,7 @@
     },
     "objects": {
       "nameToUUID": {
+        "concept": "concept2",
         "dialogues": "dialogues2",
         "gdefaults": "gdefaults2",
         "meta": "meta2",
@@ -42822,6 +42900,10 @@
         "stm": "stm2"
       },
       "namespaced": {
+        "concept2": {
+          "valueToWords": [
+          ]
+        },
         "dialogues2": {
           "mentioned": [
           ],
@@ -42869,12 +42951,12 @@
               "questionMark"
             ],
             "queryable": [
-              "concept",
               "hierarchyAble",
               "readonly",
               "property",
               "object",
               "xfx",
+              "concept",
               "unknown",
               "it",
               "what",
@@ -42884,9 +42966,9 @@
               "reason"
             ],
             "theAble": [
-              "concept",
               "property",
               "object",
+              "concept",
               "unknown",
               "noun",
               "reason"
@@ -42909,20 +42991,20 @@
           },
           "concepts": [
             "properties",
-            "concept",
-            "theAble",
-            "queryable",
             "unknown",
             "hierarchyAble",
             "object",
             "what",
+            "queryable",
             "readonly",
             "property",
             "xfx",
+            "theAble",
             "whose",
             "have",
             "canBeDoQuestion",
             "canBeQuestion",
+            "concept",
             "modifies",
             "verby",
             "it",
@@ -43306,21 +43388,8 @@
           "level": 0
         },
         {
-          "bridge": "{ ...next(operator), modifier: before[0], concept: after[0] }",
-          "id": "modifies",
-          "isA": [
-            "verby"
-          ],
-          "level": 0
-        },
-        {
           "bridge": "{ ...next(operator) }",
           "id": "readonly",
-          "level": 0
-        },
-        {
-          "bridge": "{ ...next(operator) }",
-          "id": "concept",
           "level": 0
         },
         {
@@ -43378,6 +43447,19 @@
         {
           "bridge": "{ ...after[0], object: operator, objects: [after[0], operator] }",
           "id": "objectPrefix",
+          "level": 0
+        },
+        {
+          "bridge": "{ ...next(operator), modifier: before[0], concept: after[0] }",
+          "id": "modifies",
+          "isA": [
+            "verby"
+          ],
+          "level": 0
+        },
+        {
+          "bridge": "{ ...next(operator) }",
+          "id": "concept",
           "level": 0
         },
         {
@@ -43441,7 +43523,7 @@
           "bridge": "{ ...next(operator), toObject: after[0] }",
           "id": "to",
           "level": 0,
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:215"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:108"
         },
         {
           "bridge": "{ ...next(operator) }",
@@ -43742,12 +43824,6 @@
           "pattern": "(<whose> ([property]))"
         },
         {
-          "pattern": "((modifier) [modifies] (concept))"
-        },
-        {
-          "pattern": "([concept])"
-        },
-        {
           "pattern": "([readonly])"
         },
         {
@@ -43764,6 +43840,12 @@
         },
         {
           "pattern": "(([xfx]) <([between] (words))>)"
+        },
+        {
+          "pattern": "((modifier) [modifies] (concept))"
+        },
+        {
+          "pattern": "([concept])"
         },
         {
           "pattern": "(([queryable]) [is|] ([queryable|]))"
@@ -44056,6 +44138,7 @@
     },
     "objects": {
       "nameToUUID": {
+        "concept": "concept2",
         "dialogues": "dialogues2",
         "gdefaults": "gdefaults2",
         "meta": "meta2",
@@ -44064,6 +44147,10 @@
         "stm": "stm2"
       },
       "namespaced": {
+        "concept2": {
+          "valueToWords": [
+          ]
+        },
         "dialogues2": {
           "mentioned": [
           ],
@@ -44111,12 +44198,12 @@
               "questionMark"
             ],
             "queryable": [
-              "concept",
               "hierarchyAble",
               "readonly",
               "property",
               "object",
               "xfx",
+              "concept",
               "unknown",
               "it",
               "what",
@@ -44126,9 +44213,9 @@
               "reason"
             ],
             "theAble": [
-              "concept",
               "property",
               "object",
+              "concept",
               "unknown",
               "noun",
               "reason"
@@ -44151,20 +44238,20 @@
           },
           "concepts": [
             "properties",
-            "concept",
-            "theAble",
-            "queryable",
             "unknown",
             "hierarchyAble",
             "object",
             "what",
+            "queryable",
             "readonly",
             "property",
             "xfx",
+            "theAble",
             "whose",
             "have",
             "canBeDoQuestion",
             "canBeQuestion",
+            "concept",
             "modifies",
             "verby",
             "it",
@@ -44490,21 +44577,8 @@
           "level": 0
         },
         {
-          "bridge": "{ ...next(operator), modifier: before[0], concept: after[0] }",
-          "id": "modifies",
-          "isA": [
-            "verby"
-          ],
-          "level": 0
-        },
-        {
           "bridge": "{ ...next(operator) }",
           "id": "readonly",
-          "level": 0
-        },
-        {
-          "bridge": "{ ...next(operator) }",
-          "id": "concept",
           "level": 0
         },
         {
@@ -44562,6 +44636,19 @@
         {
           "bridge": "{ ...after[0], object: operator, objects: [after[0], operator] }",
           "id": "objectPrefix",
+          "level": 0
+        },
+        {
+          "bridge": "{ ...next(operator), modifier: before[0], concept: after[0] }",
+          "id": "modifies",
+          "isA": [
+            "verby"
+          ],
+          "level": 0
+        },
+        {
+          "bridge": "{ ...next(operator) }",
+          "id": "concept",
           "level": 0
         },
         {
@@ -44625,7 +44712,7 @@
           "bridge": "{ ...next(operator), toObject: after[0] }",
           "id": "to",
           "level": 0,
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:215"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:108"
         },
         {
           "bridge": "{ ...next(operator) }",
@@ -44926,12 +45013,6 @@
           "pattern": "(<whose> ([property]))"
         },
         {
-          "pattern": "((modifier) [modifies] (concept))"
-        },
-        {
-          "pattern": "([concept])"
-        },
-        {
           "pattern": "([readonly])"
         },
         {
@@ -44948,6 +45029,12 @@
         },
         {
           "pattern": "(([xfx]) <([between] (words))>)"
+        },
+        {
+          "pattern": "((modifier) [modifies] (concept))"
+        },
+        {
+          "pattern": "([concept])"
         },
         {
           "pattern": "(([queryable]) [is|] ([queryable|]))"
@@ -45315,6 +45402,7 @@
     },
     "objects": {
       "nameToUUID": {
+        "concept": "concept2",
         "dialogues": "dialogues2",
         "gdefaults": "gdefaults2",
         "meta": "meta2",
@@ -45323,6 +45411,10 @@
         "stm": "stm2"
       },
       "namespaced": {
+        "concept2": {
+          "valueToWords": [
+          ]
+        },
         "dialogues2": {
           "mentioned": [
           ],
@@ -45370,12 +45462,12 @@
               "questionMark"
             ],
             "queryable": [
-              "concept",
               "hierarchyAble",
               "readonly",
               "property",
               "object",
               "xfx",
+              "concept",
               "unknown",
               "it",
               "what",
@@ -45385,9 +45477,9 @@
               "reason"
             ],
             "theAble": [
-              "concept",
               "property",
               "object",
+              "concept",
               "unknown",
               "noun",
               "reason"
@@ -45410,20 +45502,20 @@
           },
           "concepts": [
             "properties",
-            "concept",
-            "theAble",
-            "queryable",
             "unknown",
             "hierarchyAble",
             "object",
             "what",
+            "queryable",
             "readonly",
             "property",
             "xfx",
+            "theAble",
             "whose",
             "have",
             "canBeDoQuestion",
             "canBeQuestion",
+            "concept",
             "modifies",
             "verby",
             "it",
@@ -45786,21 +45878,8 @@
           "level": 0
         },
         {
-          "bridge": "{ ...next(operator), modifier: before[0], concept: after[0] }",
-          "id": "modifies",
-          "isA": [
-            "verby"
-          ],
-          "level": 0
-        },
-        {
           "bridge": "{ ...next(operator) }",
           "id": "readonly",
-          "level": 0
-        },
-        {
-          "bridge": "{ ...next(operator) }",
-          "id": "concept",
           "level": 0
         },
         {
@@ -45858,6 +45937,19 @@
         {
           "bridge": "{ ...after[0], object: operator, objects: [after[0], operator] }",
           "id": "objectPrefix",
+          "level": 0
+        },
+        {
+          "bridge": "{ ...next(operator), modifier: before[0], concept: after[0] }",
+          "id": "modifies",
+          "isA": [
+            "verby"
+          ],
+          "level": 0
+        },
+        {
+          "bridge": "{ ...next(operator) }",
+          "id": "concept",
           "level": 0
         },
         {
@@ -45921,7 +46013,7 @@
           "bridge": "{ ...next(operator), toObject: after[0] }",
           "id": "to",
           "level": 0,
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:215"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:108"
         },
         {
           "bridge": "{ ...next(operator) }",
@@ -46212,7 +46304,7 @@
         },
         {
           "allowDups": true,
-          "bridge": "{ ...next(operator) }",
+          "bridge": "{ ...next(operator), value: 'pokemon' }",
           "id": "pokemon",
           "level": 0,
           "transitoryMode": true
@@ -46233,12 +46325,6 @@
           "pattern": "(<whose> ([property]))"
         },
         {
-          "pattern": "((modifier) [modifies] (concept))"
-        },
-        {
-          "pattern": "([concept])"
-        },
-        {
           "pattern": "([readonly])"
         },
         {
@@ -46255,6 +46341,12 @@
         },
         {
           "pattern": "(([xfx]) <([between] (words))>)"
+        },
+        {
+          "pattern": "((modifier) [modifies] (concept))"
+        },
+        {
+          "pattern": "([concept])"
         },
         {
           "pattern": "(([queryable]) [is|] ([queryable|]))"
@@ -46661,6 +46753,7 @@
     },
     "objects": {
       "nameToUUID": {
+        "concept": "concept2",
         "dialogues": "dialogues2",
         "gdefaults": "gdefaults2",
         "meta": "meta2",
@@ -46669,6 +46762,10 @@
         "stm": "stm2"
       },
       "namespaced": {
+        "concept2": {
+          "valueToWords": [
+          ]
+        },
         "dialogues2": {
           "mentioned": [
           ],
@@ -46716,12 +46813,12 @@
               "questionMark"
             ],
             "queryable": [
-              "concept",
               "hierarchyAble",
               "readonly",
               "property",
               "object",
               "xfx",
+              "concept",
               "unknown",
               "it",
               "what",
@@ -46731,9 +46828,9 @@
               "reason"
             ],
             "theAble": [
-              "concept",
               "property",
               "object",
+              "concept",
               "unknown",
               "noun",
               "reason"
@@ -46756,20 +46853,20 @@
           },
           "concepts": [
             "properties",
-            "concept",
-            "theAble",
-            "queryable",
             "unknown",
             "hierarchyAble",
             "object",
             "what",
+            "queryable",
             "readonly",
             "property",
             "xfx",
+            "theAble",
             "whose",
             "have",
             "canBeDoQuestion",
             "canBeQuestion",
+            "concept",
             "modifies",
             "verby",
             "it",

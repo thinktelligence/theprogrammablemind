@@ -1,5 +1,6 @@
 const { Config, knowledgeModule, where, Digraph } = require('./runtime').theprogrammablemind
 const { API }= require('./helpers/concept')
+const dialogues = require('./dialogues.js')
 const concept_tests = require('./concept.test.json')
 const concept_instance = require('./concept.instance.json')
 
@@ -7,6 +8,7 @@ const config = new Config({
   name: 'concept',
   operators: [
     "((modifier) [modifies] (concept))",
+    "([concept])",
   ],
   bridges: [
     {
@@ -15,6 +17,10 @@ const config = new Config({
       bridge: "{ ...next(operator), modifier: before[0], concept: after[0] }"
     },
     { id: "concept", level: 0, bridge: "{ ...next(operator) }" },
+  ],
+  hierarchy: [
+    ['concept', 'theAble'],
+    ['concept', 'queryable'],
   ],
   generators: [
     {
@@ -100,6 +106,7 @@ const config = new Config({
   ],
 }, module)
 config.api = new API()
+config.add(dialogues)
 
 knowledgeModule({ 
   module,

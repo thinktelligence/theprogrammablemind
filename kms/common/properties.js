@@ -85,7 +85,7 @@ let config = {
     "(([property]) <([propertyOf|of] ([object]))>)",
     "(<whose> ([property]))",
     // "((modifier) [modifies] (concept))", 
-    "([concept])",
+    // "([concept])",
     "([readonly])", 
     "(<objectPrefix|> ([property]))",
     "(<(([object]) [possession|])> ([property|]))",
@@ -108,8 +108,8 @@ let config = {
     "(([property]) <([propertyOf|of] ([object]))>)",
   */
   hierarchy: [
-    ['concept', 'theAble'],
-    ['concept', 'queryable'],
+    // ['concept', 'theAble'],
+    // ['concept', 'queryable'],
     ['unknown', 'hierarchyAble'],
     ['unknown', 'object'],
     ['what', 'object'],
