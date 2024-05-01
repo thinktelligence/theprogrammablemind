@@ -1,6 +1,7 @@
 const { Config, knowledgeModule, where } = require('./runtime').theprogrammablemind
 const dialogues = require('./dialogues')
 const meta = require('./meta')
+const concept = require('./concept')
 const properties_instance = require('./properties.instance.json')
 const properties_tests = require('./properties.test.json')
 const { API } = require('./helpers/properties')
@@ -686,6 +687,7 @@ let config = {
 
 config = new Config(config, module)
 config.api = api
+config.add(concept)
 config.add(meta)
 config.add(dialogues)
 
