@@ -3,17 +3,24 @@ const { API }= require('./helpers/concept')
 const dialogues = require('./dialogues.js')
 const concept_tests = require('./concept.test.json')
 const concept_instance = require('./concept.instance.json')
+// const { chooseNumber } = require('../helpers.js')
 
+/*
+  pokemon modifies type fire water and ice modifie pokemon type type means pokemon type
+  first name last name is a pattern for the name of people
+  ice and sour modify cream
+*/
 const config = new Config({
   name: 'concept',
   operators: [
-    "((modifier) [modifies] (concept))",
+    "((modifier) [modifies|] (concept))",
     "([concept])",
   ],
   bridges: [
     {
       id: "modifies",
       isA: ['verby'],
+      words: [{ word: 'modifies', number: 'one' }, { word: 'modify', number: 'many' }],
       bridge: "{ ...next(operator), modifier: before[0], concept: after[0] }"
     },
     { id: "concept", level: 0, bridge: "{ ...next(operator) }" },
@@ -25,9 +32,6 @@ const config = new Config({
   generators: [
     {
       notes: '"fire type, water type and earth type" to "fire water and earth type"',
-      tests: [
-        'chicken modifies strips',
-      ],
       /*
         {
           "water": {
@@ -88,15 +92,13 @@ const config = new Config({
     {
       where: where(),
       match: ({context}) => context.marker == 'modifies' && context.paraphrase,
-      apply: ({context}) => `${context.modifier.word} modifies ${context.concept.word}`,
+      apply: ({context, gp, gw}) => `${gp(context.modifier)} ${gw(context, { number: context.modifier })} ${context.concept.word}`,
+      // const chosen = chooseNumber(context, word.singular, word.plural)
     },
   ],
   semantics: [
     {
       notes: 'define a modifier',
-      tests: [
-        'chicken modifies strips',
-      ],
       where: where(),
       match: ({context}) => context.marker == 'modifies',
       apply: ({config, km, context}) => {

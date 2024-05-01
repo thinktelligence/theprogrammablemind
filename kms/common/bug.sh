@@ -553,6 +553,8 @@ fi
 # $NODE tester -m crew -tmn crew -g -q 'arm the phasers' -d
 # $NODE characters -tva -g
 # $NODE tester -m reports -tva -tmn reports -g
-$NODE tester -m fastfood -tva -tmn fastfood -g
+# $NODE tester -m fastfood -tva -tmn fastfood -g
 # $NODE tester -m fastfood -tmn fastfood -g -q '2 french fries' -d
 # $NODE fastfood -q 'show the order' -g -d
+$NODE concept -q 'ice and hand modify cream' -g -d
+# TODO $NODE concept -q 'ice and hand modify cream ice and sour cream' -g -d

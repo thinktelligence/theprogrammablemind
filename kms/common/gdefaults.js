@@ -1,6 +1,7 @@
 const pluralize = require('pluralize')
 const { Config, knowledgeModule, where } = require('./runtime').theprogrammablemind
 const gdefaults_tests = require('./gdefaults.test.json')
+const { isMany } = require('./helpers.js')
 
 let config = {
   name: 'gdefaults',
@@ -17,6 +18,33 @@ let config = {
       },
     },
   */
+    {
+      where: where(),
+      priority: -1,
+      match: ({context}) => context.marker == 'modifies' && context.evaluateWord && context.paraphrase && context.number == 'one',
+      apply: ({context}) => 'modifies'
+    },
+    {
+      where: where(),
+      priority: -1,
+      match: ({context}) => context.marker == 'modifies' && context.evaluateWord && context.paraphrase && context.number == 'many',
+      apply: ({context}) => 'modify'
+    },
+
+    {
+      where: where(),
+      priority: -1,
+      match: ({context}) => context.evaluateWord && context.paraphrase && context.word && context.number == 'many',
+      apply: ({context}) => pluralize.plural(context.word),
+    },
+
+    {
+      where: where(),
+      priority: -1,
+      match: ({context}) => context.evaluateWord && context.paraphrase && context.word && context.number == 'one',
+      apply: ({context}) => pluralize.singular(context.word),
+    },
+
     {
       where: where(),
       match: ({context}) => context.paraphrase && context.word && context.number == 'many',
@@ -90,6 +118,19 @@ let config = {
 };
 
 config = new Config(config, module)
+config.initializer( ({config}) => {
+  config.addArgs((args) => {
+    return {
+      number: (context) => isMany(context) ? "many" : "one",
+      // number/gender/person etc
+      gw: (context, { number: numberContext }) => {
+        const number = numberContext ? args.number(numberContext) : context.number;
+        return args.gp( { ...context, evaluateWord: true, number } )
+      }
+    }
+  })
+})
+
 
 knowledgeModule({ 
   module,
