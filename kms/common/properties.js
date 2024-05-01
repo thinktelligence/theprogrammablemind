@@ -84,7 +84,7 @@ let config = {
     "([hierarchyAble|])",
     "(([property]) <([propertyOf|of] ([object]))>)",
     "(<whose> ([property]))",
-    "((modifier) [modifies] (concept))", 
+    // "((modifier) [modifies] (concept))", 
     "([concept])",
     "([readonly])", 
     "(<objectPrefix|> ([property]))",
@@ -131,13 +131,15 @@ let config = {
     { id: 'between', level: 1, bridge: "{ ...before[0], arguments: operator.arguments }" },
 
     { id: 'hierarchyAble', level: 0, bridge: "{ ...next(operator) }" },
+    /*
     { 
       id: "modifies", 
       isA: ['verby'],
       bridge: "{ ...next(operator), modifier: before[0], concept: after[0] }" 
     },
+    */
     { id: "readonly", level: 0, bridge: "{ ...next(operator) }" },
-    { id: "concept", level: 0, bridge: "{ ...next(operator) }" },
+    // { id: "concept", level: 0, bridge: "{ ...next(operator) }" },
     // the cars dont have wings
     // greg doesnt have wings 
     // { id: "doesnt", level: 0, bridge: "{ ...context, number: operator.number, negation: true }*" },
@@ -226,68 +228,68 @@ let config = {
       match: ({context}) => context.marker == 'xfx',
       apply: ({context, g}) => `${context.word} between ${g(context.arguments)}`
     },
-    {
-      notes: '"fire type, water type and earth type" to "fire water and earth type"',
-      tests: [
-        'chicken modifies strips',
-      ],
-      /*
-        {
-          "water": {
-            "marker": "water",
-            "value": "water",
-            "word": "water"
-          },
-          "marker": "water_type",
-          "modifiers": [
-            "water"
-          ],
-          "types": [
-            "water_type"
-          ],
-          "value": "water_type",
-          "word": "type",
-          "paraphrase": true
-        },
-      */
-      where: where(),
-      match: ({context}) => {
-        // debugger;
-        if (!context.paraphrase) {
-          return
-        }
-        if (context.marker !== 'list') {
-          return
-        }
-        if ((context.value || []).length < 2) {
-          return
-        }
-        if (!context.value[0].word) {
-          return
-        }
-        const word = context.value[0].word
+//   {
+//     notes: '"fire type, water type and earth type" to "fire water and earth type"',
+//     tests: [
+//       'chicken modifies strips',
+//     ],
+//     /*
+//       {
+//         "water": {
+//           "marker": "water",
+//           "value": "water",
+//           "word": "water"
+//         },
+//         "marker": "water_type",
+//         "modifiers": [
+//           "water"
+//         ],
+//         "types": [
+//           "water_type"
+//         ],
+//         "value": "water_type",
+//         "word": "type",
+//         "paraphrase": true
+//       },
+//     */
+//     where: where(),
+//     match: ({context}) => {
+//       // debugger;
+//       if (!context.paraphrase) {
+//         return
+//       }
+//       if (context.marker !== 'list') {
+//         return
+//       }
+//       if ((context.value || []).length < 2) {
+//         return
+//       }
+//       if (!context.value[0].word) {
+//         return
+//       }
+//       const word = context.value[0].word
 
-        for (let value of context.value) {
-          if (!(value.modifiers && value.modifiers.length == 1 && value.word == word)) {
-            return
-          }
-        }
-        return true
-      },
-      apply: ({g, context}) => {
-        const modifiers = context.value.map( (p) => p[p.modifiers[0]] )
-        context.word = context.value[0].word
-        context.value = null
-        context.modifiers = ['modifier']
-        context.modifier = {
-          marker: 'list',
-          paraphrase: true,
-          value: modifiers
-        }
-        context.paraphrase = true
-        return g(context)
-      }
-    },
+//       for (let value of context.value) {
+//         if (!(value.modifiers && value.modifiers.length == 1 && value.word == word)) {
+//           return
+//         }
+//       }
+//       return true
+//     },
+//     apply: ({g, context}) => {
+//       const modifiers = context.value.map( (p) => p[p.modifiers[0]] )
+//       context.word = context.value[0].word
+//       context.value = null
+//       context.modifiers = ['modifier']
+//       context.modifier = {
+//         marker: 'list',
+//         paraphrase: true,
+//         value: modifiers
+//       }
+//       context.paraphrase = true
+//       return g(context)
+//     }
+//   },
     {
       notes: 'add possession ending',
       priority: -1, 
@@ -304,11 +306,13 @@ let config = {
         }
       }
     },
+    /*
     {
       where: where(),
       match: ({context}) => context.marker == 'modifies' && context.paraphrase,
       apply: ({context}) => `${context.modifier.word} modifies ${context.concept.word}`,
     },
+    */
     {
       where: where(),
       match: ({context}) => context.marker == 'objectPrefix' && context.value == 'other' && context.paraphrase,
@@ -451,6 +455,7 @@ let config = {
       },
       priority: -1,
     },
+    /*
     {
       notes: 'define a modifier',
       tests: [
@@ -462,6 +467,7 @@ let config = {
         km('concept').api.kindOfConcept({ config, modifier: context.modifier.value, object: context.concept.value || context.concept.marker })
       }
     },
+    */
     {
       notes: 'marking something as readonly',
       where: where(),
