@@ -529,7 +529,7 @@ fi
 # $NODE properties -q "alice's cat" -g -d -daa --parenthesized
 # $NODE weight -q "the weight of greg is 213 pounds what is greg's weight" -g -d
 # $NODE weight -q "what is greg's weight" -g -d
-# $NODE weight -q "the weight of greg is 213 pounds what is greg's weight in kilograms" -g -d -s
+# $NODE weight -q "the weight of greg is 213 pounds what is greg's weight in kilograms" -g -d
 # $NODE weight -q "what is greg's weight in kilograms" -g -d # --parenthesized
 # $NODE time_dimension -q "10:05 pm" -g -d
 # TODO $NODE time_dimension -q "what is the time" -g -d
@@ -557,5 +557,10 @@ fi
 # $NODE tester -m fastfood -tmn fastfood -g -q '2 french fries' -d
 # $NODE fastfood -q 'show the order' -g -d
 # $NODE concept -q 'ice and hand modify cream' -g -d
-$NODE concept -q 'ice and hand modify cream\n ice cream hand cream' -g -d -s
-# TODO $NODE concept -q 'ice and hand modify cream ice and sour cream' -g -d
+# $NODE concept -q 'ice and hand modify cream\n ice cream hand cream' -g -d
+# TODO $NODE concept -q 'ice and hand modify cream ice cream hand cream' -g -d
+# TODO $NODE concept -q 'ice and sour modify cream\n ice and sour cream' -g -d
+# $NODE fastfood -q '"single double triple baconater bacon deluxe spicy homestyle and premium cod are meals"' -g -d
+# $NODE fastfood -q 'double comboMeal combo' -g -d
+# $NODE pipboy -q 'put on the city outfit' -g -d
+$NODE pipboy -q 'the stats tab' -g -d

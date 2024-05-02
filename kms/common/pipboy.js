@@ -140,6 +140,8 @@ let config = {
   ],
   priorities: [
     [['to2', 0], ['articlePOS', 0]],
+    [['articlePOS', 0], ['tab', 0]],
+    // TODO this should trigger a circular warning or somethign [['put', 0], ['on', 0]],
   ],
   bridges: [
     {
@@ -163,7 +165,7 @@ let config = {
        id: "on", 
        isA: ['preposition'],
        level: 0, 
-       bridge: "{ ...before, marker: operator('putOn', 0) }",
+       bridge: "{ ...before, marker: operator('putOn', 0), dead: false }",
        generatorp: ({context, g}) => `put on ${g(context.item)}`,
        semantic: ({api, context}) => {
          api.change(context.item.marker)

@@ -40,13 +40,16 @@ const template ={
     "spicy modifies homestyle",
     "single double triple baconater and bacon deluxe are hamburgers",
     "spicy homestyle and premium cod are sandwiches",
+    "a meals is food",
+    "a combo is a meal",
+    "single double triple baconater bacon deluxe spicy homestyle and premium cod are meals",
     // "more modifies big mac",
   ],
 }
 
 class API {
   initialize() {
-    this.objects.items = [{ name: 'Whopper' }]
+    this.objects.items = []
   }
 
   changed() {
@@ -62,7 +65,7 @@ const api = new API()
 class State {
   constructor(api) {
     this.api = api
-    this.api.objects.items = [{ name: 'Whopper' }]
+    this.api.objects.items = []
   }
 
   add(food) {
@@ -102,6 +105,7 @@ const config = new Config({
   operators: [
     "([orderNoun|order])",
     "([showOrder|show] ([orderNoun/1]))",
+    "((meal/1) [comboMeal] (combo/1))",
   ],
   contextual_priorities: [
     { context: [['list', 0], ['bacon',0], ['deluxe', 0]], choose: [1,2] },
@@ -109,6 +113,11 @@ const config = new Config({
     { context: [['list', 0], ['premium',0], ['cod', 0]], choose: [1,2] },
   ],
   bridges: [
+    { 
+      id: 'comboMeal',
+      convolution: true,
+      bridge: "{ ...before[0], combo: true }",
+    },
     { 
       id: 'orderNoun',
       parents: ['noun', 'queryable'],
