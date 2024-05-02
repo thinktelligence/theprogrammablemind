@@ -4,19 +4,20 @@ const { chooseNumber } = require('../helpers.js')
 const { compose, translationMapping, translationMappingToInstantiatorMappings } = require('./meta.js')
 
 class API {
-  initialize() {
-    this.objects.valueToWords = []
-    this.objects.defaultTypesForHierarchy = new Set([])
+  initialize({ objects }) {
+    this._objects = objects
+    this._objects.valueToWords = []
+    this._objects.defaultTypesForHierarchy = new Set([])
   }
 
   addDefaultTypesForObjectHierarchy(types) {
     for (let type of types) {
-      this.objects.defaultTypesForHierarchy.add(type)
+      this._objects.defaultTypesForHierarchy.add(type)
     }
   }
 
   setupObjectHierarchy(config, id, { include_concept=true  } = {}) {
-    const types = [...this.objects.defaultTypesForHierarchy]
+    const types = [...this._objects.defaultTypesForHierarchy]
 
     if (include_concept) {
       types.push('concept');
@@ -102,19 +103,19 @@ class API {
   }
 
   addWordToValue(value, word) {
-    if (!this.objects.valueToWords[value]) {
-      this.objects.valueToWords[value] = []
+    if (!this._objects.valueToWords[value]) {
+      this._objects.valueToWords[value] = []
     }
 
     word = Object.assign({}, word)
     delete word.evalue
     word.paraphrase = true
 
-    if (this.objects.valueToWords[value].some( (entry) => deepEqual(entry, word) )) {
+    if (this._objects.valueToWords[value].some( (entry) => deepEqual(entry, word) )) {
       return
     }
 
-    const words = this.objects.valueToWords[value]
+    const words = this._objects.valueToWords[value]
     if (!words.includes(word)) {
       words.push(word)
     }
@@ -122,10 +123,10 @@ class API {
 
   getWordForValue(value, { number } = {}) {
     let context;
-    if (!this.objects.valueToWords[value]) {
+    if (!this._objects.valueToWords[value]) {
       context = { marker: value, value: value, number, word: value, paraphrase: true }
     } else {
-      context = this.objects.valueToWords[value][0]
+      context = this._objects.valueToWords[value][0]
     }
     if (context.word) {
       context.word = (number == 'many') ? pluralize.plural(context.word) : pluralize.singular(context.word)
@@ -134,7 +135,7 @@ class API {
   }
 
   getWordsForValue(value) {
-    return this.objects.valueToWords[value]
+    return this._objects.valueToWords[value]
   }
 }
 

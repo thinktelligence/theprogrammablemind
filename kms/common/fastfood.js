@@ -48,16 +48,20 @@ const template ={
 }
 
 class API {
-  initialize() {
-    this.objects.items = []
+  initialize({ objects }) {
+    this._objects = objects
+    // this.objects.items = []
+    this._objects.items = []
+
+    this.state = new State(this)
   }
 
   changed() {
-    this.objects.changes = this.objects.items
+    this._objects.changes = this._objects.items
   }
 
   say(response) {
-    this.objects.response = response
+    this._objects.response = response
   }
 }
 const api = new API()
@@ -65,7 +69,7 @@ const api = new API()
 class State {
   constructor(api) {
     this.api = api
-    this.api.objects.items = []
+    // this.api.objects.items = []
   }
 
   add(food) {
@@ -77,18 +81,18 @@ class State {
       quantity = food.quantity.value
     }
 
-    const existing = this.api.objects.items.find( (item) => item.name == name )
+    const existing = this.api._objects.items.find( (item) => item.name == name )
     if (existing) {
       existing.quantity = quantity
     } else {
-      this.api.objects.items.push({ name, quantity })
+      this.api._objects.items.push({ name, quantity })
     }
     this.api.changed()
   }
 
   // user ask what the order was
   show() {
-    this.api.objects.show = this.api.objects.items
+    this.api._objects.show = this.api._objects.items
   }
 
   say(response) {
@@ -96,7 +100,7 @@ class State {
   }
 
   order() {
-    return this.api.objects.items
+    return this.api._objects.items
   }
 }
 
@@ -105,7 +109,7 @@ const config = new Config({
   operators: [
     "([orderNoun|order])",
     "([showOrder|show] ([orderNoun/1]))",
-    "((meal/1) [comboMeal] (combo/1))",
+  //  "((meal/0) [comboMeal] (combo/0))",
   ],
   contextual_priorities: [
     { context: [['list', 0], ['bacon',0], ['deluxe', 0]], choose: [1,2] },
@@ -113,11 +117,13 @@ const config = new Config({
     { context: [['list', 0], ['premium',0], ['cod', 0]], choose: [1,2] },
   ],
   bridges: [
+  /*
     { 
       id: 'comboMeal',
       convolution: true,
       bridge: "{ ...before[0], combo: true }",
     },
+    */
     { 
       id: 'orderNoun',
       parents: ['noun', 'queryable'],
@@ -144,8 +150,8 @@ config.api = api
 config.initializer( ({motivation, km}) => {
   // this.state = new State(config.api)
   // const api = baseConfig.getConfig('fastfood').api
-  const config = km('fastfood')
-  config.api.state = new State(config.api)
+  // const config = km('fastfood')
+  // config.api.state = new State(config.api)
   /*
   ask([
   {

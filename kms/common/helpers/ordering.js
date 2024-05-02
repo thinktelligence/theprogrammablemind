@@ -5,7 +5,7 @@ class API {
   createOrdering({ name, categories=[], ordering=[] }) {
     // sections = [slow fast] [love like hate detest] # ordered sections
     // instances = x < y x == y x != y 
-    this.objects[name] = {
+    this._objects[name] = {
       categories,
       contextToObjectToCategory: {},
       lessThans: [],
@@ -15,31 +15,31 @@ class API {
 
   setCategory(name, context, object, category) {
     // categories: context -> object -> category ie greg banana like
-    if (!this.objects[name].contextToObjectToCategory[context]) {
-      this.objects[name].contextToObjectToCategory[context] = {}
+    if (!this._objects[name].contextToObjectToCategory[context]) {
+      this._objects[name].contextToObjectToCategory[context] = {}
     }
-    this.objects[name].contextToObjectToCategory[context][object] = category
+    this._objects[name].contextToObjectToCategory[context][object] = category
     category.truthValue = true
   }
 
   getCategory(name, context, object) {
-    return this.objects[name].contextToObjectToCategory[context][object]
+    return this._objects[name].contextToObjectToCategory[context][object]
   }
 
   inCategory(name, context, object, category) {
-    const digraph = new Digraph(this.objects[name].categories)
+    const digraph = new Digraph(this._objects[name].categories)
     return digraph.isA(this.getCategory(name, context, object), category)
   }
 
   setLessThan( {name, context, smaller, larger} ) {
-    if (!this.objects[name].lessThans[context]) {
-      this.objects[name].lessThans[context] = []
+    if (!this._objects[name].lessThans[context]) {
+      this._objects[name].lessThans[context] = []
     }
-    this.objects[name].lessThans[context].push( [smaller, larger] )
+    this._objects[name].lessThans[context].push( [smaller, larger] )
   }
 
   getLessThan( {name, context, smaller, larger} ) {
-    const digraph = new Digraph(this.objects[name].lessThans[context])
+    const digraph = new Digraph(this._objects[name].lessThans[context])
 
     // try the edges first
 
@@ -68,7 +68,7 @@ class API {
       const smallerCat = this.getCategory(name, context, smaller)
       const largerCat = this.getCategory(name, context, larger)
       if (smallerCat && largerCat) {
-        return new Digraph(this.objects[name].ordering).lessThan(smallerCat, largerCat)
+        return new Digraph(this._objects[name].ordering).lessThan(smallerCat, largerCat)
       }
     }
   }
@@ -76,7 +76,7 @@ class API {
   initialize({km, objects}) {
     if (km('properties')) {
       this.propertiesAPI = km('properties').api
-      this.objects = objects
+      this._objects = objects
     }
   }
 

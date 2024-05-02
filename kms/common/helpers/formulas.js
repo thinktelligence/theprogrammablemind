@@ -103,18 +103,19 @@ function solveFor(expression, variable, isVariable = (expression) => typeof expr
 }
 
 class API {
-  initialize() {
-    this.objects.formulas = {}
+  initialize({ objects }) {
+    this._objects = objects
+    this._objects.formulas = {}
   }
 
   gets(name) {
-    if (!this.objects.formulas[name.value]) {
+    if (!this._objects.formulas[name.value]) {
       return []
     }
-    if (this.objects.formulas[name.value].length == 0) {
+    if (this._objects.formulas[name.value].length == 0) {
       return []
     }
-    return this.objects.formulas[name.value]
+    return this._objects.formulas[name.value]
   }
 
   get(name, expectedVars) {
@@ -142,17 +143,17 @@ class API {
 
   // currently only supportings x = f(x) type formulas
   add(name, formula, equality) {
-    if (!this.objects.formulas[name.value]) {
-      this.objects.formulas[name.value] = []
+    if (!this._objects.formulas[name.value]) {
+      this._objects.formulas[name.value] = []
     }
-    this.objects.formulas[name.value].push({ name, formula, equality })
+    this._objects.formulas[name.value].push({ name, formula, equality })
   }
 
   remove(name) {
-    if (!this.objects.formulas[name.value]) {
+    if (!this._objects.formulas[name.value]) {
       return
     }
-    this.objects.formulas[name.value].pop()
+    this._objects.formulas[name.value].pop()
   }
 }
 

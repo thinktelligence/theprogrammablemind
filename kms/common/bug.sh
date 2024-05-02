@@ -563,4 +563,5 @@ fi
 # $NODE fastfood -q '"single double triple baconater bacon deluxe spicy homestyle and premium cod are meals"' -g -d
 # $NODE fastfood -q 'double comboMeal combo' -g -d
 # $NODE pipboy -q 'put on the city outfit' -g -d
-$NODE pipboy -q 'the stats tab' -g -d
+# $NODE pipboy -q 'the stats tab' -g -d
+$NODE reports -q 'after the report changes show the report\nanswer with sentences' -g -d

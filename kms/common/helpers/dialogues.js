@@ -2,7 +2,8 @@ const pluralize = require('pluralize')
 const { indent, focus } = require('../helpers')
 
 class API {
-  initialize() {
+  initialize({ objects }) {
+    this._objects = objects
   }
 
   warningNotEvaluated(log, value) {
@@ -27,11 +28,11 @@ class API {
   // then call mentioned with the tank created. Then if one asks 'what is it' the 'it' will be found to be the tank.
 
   setBrief(value) {
-    this.objects.brief = value
+    this._objects.brief = value
   }
 
   getBrief() {
-    return this.objects.brief
+    return this._objects.brief
   }
 
   evaluateToConcept(value, context, log, s) {

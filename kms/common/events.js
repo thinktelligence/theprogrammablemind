@@ -5,8 +5,9 @@ ensureTestFile(module, 'events', 'test')
 const events_tests = require('./events.test.json')
 
 class API {
-  happens (context) {
-    this.args.insert({ ...context, event: true, hidden: true, inserted: true })
+  happens (insert, context) {
+    insert({ ...context, event: true, hidden: true, inserted: true })
+    // this.args.insert({ ...context, event: true, hidden: true, inserted: true })
   }
 
   happened(context, event) {
@@ -70,8 +71,8 @@ let config = {
       development: true,
       where: where(),
       match: ({context}) => context.marker == 'event1' && !context.event,
-      apply: ({context, kms}) => {
-        kms.events.api.happens({ marker: 'event1' })
+      apply: ({context, kms, insert}) => {
+        kms.events.api.happens(insert, { marker: 'event1' })
       }
     },
     {

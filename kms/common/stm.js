@@ -2,12 +2,13 @@ const { Config, knowledgeModule, where } = require('./runtime').theprogrammablem
 const stm_tests = require('./stm.test.json')
 
 class API {
-  initialize() {
+  initialize({ objects }) {
+    this._objects = objects
     this.isAs = [
       (child, parent) => child == parent
     ]
-    this.objects.mentioned = []
-    this.objects.variables = {}
+    this._objects.mentioned = []
+    this._objects.variables = {}
   }
 
   addIsA(isA) {
@@ -35,18 +36,18 @@ class API {
       }
       concept.value = value
     }
-    this.objects.mentioned.unshift(concept)
+    this._objects.mentioned.unshift(concept)
   }
 
   mentions(context) {
     // care about value first
-    for (let m of this.objects.mentioned) {
+    for (let m of this._objects.mentioned) {
       if (context.value && context.value == m.marker) {
         return m
       }
     }
     // care about marker second
-    for (let m of this.objects.mentioned) {
+    for (let m of this._objects.mentioned) {
       if (context.marker != 'unknown' && this.isA(m.marker, context.marker)) {
         return m
       }
@@ -60,7 +61,7 @@ class API {
       }
     }
     if (context.types && context.types.length == 1) {
-      for (let m of this.objects.mentioned) {
+      for (let m of this._objects.mentioned) {
         if (context.unknown) {
           return m
         }

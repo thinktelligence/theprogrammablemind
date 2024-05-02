@@ -22,11 +22,12 @@ const dimension_tests = require('./dimension.test.json')
 */
 class API {
 
-  initialize() {
+  initialize({ config }) {
+    this._config = config
   }
 
   setup( {dimension, units} ) {
-    const config = this.config()
+    const config = this._config
 
     // for example, setup temperature concept
     config.addOperator(`([${dimension}])`)

@@ -6,26 +6,27 @@ const ui_instance = require('./ui.instance.json')
 
 class API {
   move(direction, steps = 1) {
-    this.objects.move = { direction, steps }
+    this._objects.move = { direction, steps }
   }
 
   select(item) {
-    this.objects.select = { item }
+    this._objects.select = { item }
   }
 
   unselect(item) {
-    this.objects.unselect = { item }
+    this._objects.unselect = { item }
   }
 
   cancel(direction) {
-    this.objects.cancel = true
+    this._objects.cancel = true
   }
 
   stop(action) {
-    this.objects.stop = action
+    this._objects.stop = action
   }
 
-  initialize() {
+  initialize({ objects }) {
+    this._objects = objects
   }
 }
 const api = new API()

@@ -190,7 +190,7 @@ let config = {
         directionBridge: "{ ...next(operator), on: { marker: 'report', pullFromContext: true }, directionBridge: true, from: after[0], to: after[1] }",
 
         generatorp: ({context, gp}) => `move ${gp(context.from)} ${gp(context.to)}`,
-        semantic: ({context, e, objects, kms}) => {
+        semantic: ({context, e, objects, kms, insert}) => {
           const report = e(context.on)
           const id = report.value.value
           const listing = objects.listings[id]
@@ -210,7 +210,7 @@ let config = {
           const old = listing.columns[from-1]
           listing.columns[from-1] = listing.columns[to-1]
           listing.columns[to-1] = old
-          kms.events.api.happens({ marker: "changes", level: 1, changeable: report })
+          kms.events.api.happens(insert, { marker: "changes", level: 1, changeable: report })
         }
     },
     { 
@@ -218,13 +218,13 @@ let config = {
         id: "remove", level: 0, 
         bridge: "{ ...next(operator), on: { marker: 'report', pullFromContext: true }, removee: after[0] }",
         generatorp: ({context, gp}) => `remove ${gp(context.removee)}`,
-        semantic: ({context, e, kms, objects}) => {
+        semantic: ({context, e, kms, insert, objects}) => {
           const report = e(context.on)
           const id = report.value.value
           const listing = objects.listings[id]
           const column = context.removee.index.value
           listing.columns.splice(column-1, 1)
-          kms.events.api.happens({ marker: "changes", level: 1, changeable: report })
+          kms.events.api.happens(insert, { marker: "changes", level: 1, changeable: report })
         }
     },
     { 
@@ -495,7 +495,7 @@ let config = {
       where: where(),
       notes: 'handle show semantic',
       match: ({context}) => context.marker == 'show',
-      apply: ({context, e, km, kms, apis, config, objects}) => {
+      apply: ({context, e, km, kms, apis, insert, config, objects}) => {
         if (context.report) {
           const values = propertyToArray(context.report)
           const responses = []
@@ -539,7 +539,7 @@ let config = {
             listing.ordering.push([value.marker, value.ordering])
             listing.columns = _.uniq(listing.columns)
           }
-          kms.events.api.happens({ marker: "changes", level: 1, changeable: report })
+          kms.events.api.happens(insert, { marker: "changes", level: 1, changeable: report })
         }
       }
     },
@@ -571,12 +571,12 @@ let config = {
     },
     [
       ({context}) => context.marker == 'answer', 
-      ({e, context, objects, kms}) => {
+      ({e, context, objects, kms, insert}) => {
         const report = e({ marker: 'report', pullFromContext: true })
         const id = report.value.value
         const listing = objects.listings[id]
         listing.type = context.type
-        kms.events.api.happens({ marker: "changes", level: 1, changeable: { marker: 'report', pullFromContext: true } })
+        kms.events.api.happens(insert, { marker: "changes", level: 1, changeable: { marker: 'report', pullFromContext: true } })
       }
     ],
   ],

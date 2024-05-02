@@ -3,95 +3,31 @@ const { unflatten, flattens, Digraph } = require('../runtime').theprogrammablemi
 const _ = require('lodash')
 const deepEqual = require('deep-equal')
 const { chooseNumber } = require('../helpers.js')
+const { Frankenhash } = require('./frankenhash.js')
 const { compose, translationMapping, translationMappingToInstantiatorMappings } = require('./meta.js')
-
-class Frankenhash {
-  constructor(data) {
-    this.data = data
-    this.data.root = {}
-    this.data.handlers = {}
-    this.data.initHandlers = []
-  }
-
-  setInitHandler({path, handler}) {
-    this.data.initHandlers.push( { path, handler } )
-  }
-
-  setHandler(path, handler) {
-    let where = this.data.handlers
-    for (let arg of path.slice(0, path.length-1)) {
-      if (!where[arg]) {
-        where[arg] = {}
-      }
-      where = where[arg]
-    }
-    where[path[path.length-1]] = handler
-  }
-
-  getValue(path, writeDefault=true) {
-    let value = this.data.root
-    for (let property of path) {
-      if (!value[property]) {
-        if (writeDefault) {
-          value[property] = {}
-        } else {
-          return null
-        }
-      }
-      value = value[property]
-    }
-    return value
-  }
-
-  isHandler(value) {
-    return value && !!value.getValue && !!value.setValue
-  }
-
-  getHandler(path) {
-    let value = this.data.handlers
-    for (let property of path) {
-      if (this.isHandler(value)) {
-        return value
-      }
-      value = value || {}
-      value = value[property]
-    }
-    return value
-  }
-
-  knownProperty(path) {
-    let value = this.data.root;
-    for (let property of path) {
-      if (!value[property]) {
-        return false
-      }
-      value = value[property]
-    }
-    return !!value
-  }
-
-
-  ensureValue(path, value, has=true) {
-    if (!this.getValue(path)) {
-      this.setValue(path, value, has)
-    }
-  }
-
-  setValue(path, value, has) {
-    const prefix = path.slice(0, path.length - 1)
-    const last = path[path.length-1]
-    this.getValue(prefix)[last] = {has, value} || undefined
-  }
-}
 
 class API {
   constructor() {
     this.digraph = new Digraph()
   }
 
-  initialize({ km }) {
-    this.digraph = new Digraph()
+  initialize({ km, objects, config }) {
+    this._objects = objects
 
+    objects.concepts = ['properties']
+    // object -> property -> {has, value}
+    objects.properties = {}
+    // property -> values
+    objects.property = {}
+    objects.parents = {}
+    objects.children = {}
+    objects.relations = []
+    objects.valueToWords = {}
+    this.propertiesFH = new Frankenhash(objects.properties)
+
+    this._km = km
+    this.__config = config
+    this.digraph = new Digraph()
     const toJSON = (h) => {
       if (h.child && h.parent) {
         return h
@@ -99,7 +35,8 @@ class API {
         return { child: h[0], parent: h[1] }
       }
     }
-    for (const tuple of [...this.config().config.hierarchy]) {
+    // for (const tuple of [...this.config().config.hierarchy]) {
+    for (const tuple of [...config.getHierarchy()]) {
       const h = toJSON(tuple);
       // TODO should this notice development flag?
       if (this.isOperator(h.child) && this.isOperator(h.parent)) {
@@ -622,7 +559,7 @@ class API {
   makeObject(args) {
 		const types = [ 'hierarchyAble', 'object', 'property' ];
     const { config } = args;
-    return this.config().km("dialogues").api.makeObject({ ...args, types });
+    return this._km("dialogues").api.makeObject({ ...args, types });
   }
 
   relation_add (relations) {
@@ -630,7 +567,7 @@ class API {
       relations = [relations]
     }
     for (let relation of relations) {
-      this.objects.relations.push(relation)
+      this._objects.relations.push(relation)
     }
   }
 
@@ -675,7 +612,7 @@ class API {
 
   relation_get(context, args) {
     const andTheAnswerIs = []
-    for (let relation of this.objects.relations) {
+    for (let relation of this._objects.relations) {
       if (this.relation_match(args, context, relation)) {
         const queriedArgs = args.filter( (arg) => context[arg].query )
         if (queriedArgs.length == 1) {
@@ -741,7 +678,7 @@ class API {
     if (!context) {
       return;
     }
-    return this.config().km("stm").api.getVariable(context.value);
+    return this._km("stm").api.getVariable(context.value);
     // return context.value
   }
 
@@ -785,18 +722,18 @@ class API {
 
     this.propertiesFH.setValue([object, property], value, has)
     if (has && value) {
-      let values = this.objects.property[property] || []
+      let values = this._objects.property[property] || []
       if (!values.includes(value)) {
         values = values.concat(value)
       }
-      this.objects.property[property] = values
-      // this.objects.property[property] = (this.objects.property[property] || []).concat(value)
+      this._objects.property[property] = values
+      // this._objects.property[property] = (this.objects.property[property] || []).concat(value)
       // "mccoy's rank is doctor",
       // infer doctor is a type of rank
       this.rememberIsA(value.value, property);
     }
-    if (!this.objects.concepts.includes(object)) {
-      this.objects.concepts.push(pluralize.singular(object))
+    if (!this._objects.concepts.includes(object)) {
+      this._objects.concepts.push(pluralize.singular(object))
     }
   }
 
@@ -825,7 +762,7 @@ class API {
       if ((this.propertiesFH.getValue([next, property], false) || {}).has) {
         return true
       }
-      const parents = this.objects.parents[next] || [];
+      const parents = this._objects.parents[next] || [];
       for (let parent of parents) {
         if (!seen.includes(parent)) {
           todo.push(parent)
@@ -852,7 +789,7 @@ class API {
       if ((this.propertiesFH.getValue([next, property], false) || {}).has) {
         return true
       }
-      const parents = this.objects.parents[next] || [];
+      const parents = this._objects.parents[next] || [];
       for (let parent of parents) {
         if (!seen.includes(parent)) {
           todo.push(parent)
@@ -867,10 +804,10 @@ class API {
   }
 /*
   ensureDefault(map, key, default) {
-    if (!this.objects[map][key]) {
-      this.objects[map][key] = default
+    if (!this._objects[map][key]) {
+      this._objects[map][key] = default
     }
-    return this.objects[map][key]
+    return this._objects[map][key]
   }
 
   pushListNoDups(list, value) {
@@ -891,7 +828,7 @@ class API {
   }
 */
   isA(child, ancestor) {
-    // return this.objects.parents[child].includes(parent);
+    // return this._objects.parents[child].includes(parent);
     const todo = [child];
     const seen = [child];
     while (todo.length > 0) {
@@ -899,7 +836,7 @@ class API {
       if (next == ancestor) {
         return true
       }
-      const parents = this.objects.parents[next] || [];
+      const parents = this._objects.parents[next] || [];
       for (let parent of parents) {
         if (!seen.includes(parent)) {
           todo.push(parent)
@@ -913,30 +850,30 @@ class API {
   rememberIsA(child, parent) {
     this.digraph.add(child, parent)
 
-    if (!this.objects.parents[child]) {
-      this.objects.parents[child] = []
+    if (!this._objects.parents[child]) {
+      this._objects.parents[child] = []
     }
-    if (!this.objects.parents[child].includes(parent)) {
-      this.objects.parents[child].push(parent)
-    }
-
-    if (!this.objects.children[parent]) {
-      this.objects.children[parent] = []
-    }
-    if (!this.objects.children[parent].includes(child)) {
-      this.objects.children[parent].push(child)
+    if (!this._objects.parents[child].includes(parent)) {
+      this._objects.parents[child].push(parent)
     }
 
-    if (!this.objects.concepts.includes(child)) {
-      this.objects.concepts.push(child)
+    if (!this._objects.children[parent]) {
+      this._objects.children[parent] = []
+    }
+    if (!this._objects.children[parent].includes(child)) {
+      this._objects.children[parent].push(child)
     }
 
-    if (!this.objects.concepts.includes(parent)) {
-      this.objects.concepts.push(parent)
+    if (!this._objects.concepts.includes(child)) {
+      this._objects.concepts.push(child)
+    }
+
+    if (!this._objects.concepts.includes(parent)) {
+      this._objects.concepts.push(parent)
     }
 
     if (this.isOperator(child) && this.isOperator(parent)) {
-      this.config().addHierarchy(child, parent)
+      this.__config.addHierarchy(child, parent)
     }
 
     this.propertiesFH.ensureValue([child], {})
@@ -944,7 +881,7 @@ class API {
   }
 
   isOperator(id) {
-    for (let bridge of this.config().config.bridges) {
+    for (let bridge of this.__config.getBridges()) {
       if (bridge.id == id) {
         return true
       }
@@ -953,14 +890,15 @@ class API {
   }
 
   children(parent) {
-    return this.objects.children[parent] || []
+    return this._objects.children[parent] || []
   }
 
   conceptExists(concept) {
-    return this.objects.concepts.includes(concept)
+    return this._objects.concepts.includes(concept)
   }
 
   set objects(objects) {
+    /*
     this._objects = objects
 
     objects.concepts = ['properties']
@@ -973,6 +911,8 @@ class API {
     objects.relations = []
     objects.valueToWords = {}
     this.propertiesFH = new Frankenhash(objects.properties)
+    */
+    throw "delete me"
   }
 
   get objects() {
@@ -980,6 +920,7 @@ class API {
   }
 
   set config(config) {
+    debugger
     this._config = config
     /*
     const toJSON = (h) => {

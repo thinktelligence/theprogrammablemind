@@ -7,17 +7,18 @@ const pipboy_tests = require('./pipboy.test.json')
 
 // start/stop listening
 class API {
-  initialize() {
+  initialize({ objects }) {
+    this._objects = objects
   }
   // id in stats, inv, data, map, radio
   //      under stats: status, special, perks
   //      under inventory: weapons, apparel, aid
   setDisplay(id) {
-    this.objects.display = id
+    this._objects.display = id
   }
 
   showWeapons(id) {
-    this.objects.showWeapons = id
+    this._objects.showWeapons = id
   }
 
   setWeapon(id) {
@@ -28,39 +29,39 @@ class API {
 
   // { item: 'stimpak', quantity: <number>, to?: [ { part: ['arm', 'leg', 'torso', head'], side?: ['left', 'right'] } ] }
   apply(item) {
-    this.objects.apply = item
+    this._objects.apply = item
   }
 
   setName(item, name) {
-    this.objects.setName = { item, name }
+    this._objects.setName = { item, name }
   }
 
   strip() {
-    this.objects.strip = true
+    this._objects.strip = true
   }
 
   disarm() {
-    this.objects.disarm = true
+    this._objects.disarm = true
   }
 
   drink(item) {
-    this.objects.drink = item
+    this._objects.drink = item
   }
 
   eat(item) {
-    this.objects.eat = item
+    this._objects.eat = item
   }
 
   take(item) {
-    this.objects.take = item
+    this._objects.take = item
   }
 
   wear(item) {
-    this.objects.wear = item
+    this._objects.wear = item
   }
 
   equip(item) {
-    this.objects.equip = item
+    this._objects.equip = item
   }
   // wear/arm with default that
   // 'weapon', 'apparel'
@@ -91,7 +92,7 @@ class API {
   // disarm
   // 
   change(item) {
-    this.objects.change = item
+    this._objects.change = item
   }
 }
 const api = new API()
