@@ -561,7 +561,12 @@ fi
 # TODO $NODE concept -q 'ice and hand modify cream ice cream hand cream' -g -d
 # TODO $NODE concept -q 'ice and sour modify cream\n ice and sour cream' -g -d
 # $NODE fastfood -q '"single double triple baconater bacon deluxe spicy homestyle and premium cod are meals"' -g -d
-# $NODE fastfood -q 'double comboMeal combo' -g -d
 # $NODE pipboy -q 'put on the city outfit' -g -d
 # $NODE pipboy -q 'the stats tab' -g -d
-$NODE reports -q 'after the report changes show the report\nanswer with sentences' -g -d
+# $NODE reports -q 'after the report changes show the report\nanswer with sentences' -g -d
+# $NODE fastfood -q 'double combo' -g -d
+# $NODE fastfood -q '2 double combo' -g -d
+$NODE fastfood -q '(single and double) combo' -g -d
+# $NODE fastfood -q 'single and double combo' -g -d
+# $NODE fastfood -q '2 double combos one with coke and one with sprite' -g -d
+# $NODE fastfood -q '2 double combos one with sprite and coke' -g -d

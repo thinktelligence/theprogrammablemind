@@ -3,6 +3,7 @@ const meta = require('./meta.js')
 const gdefaults = require('./gdefaults.js')
 const sdefaults = require('./sdefaults.js')
 const pos = require('./pos.js')
+const punctuation = require('./punctuation.js')
 const stm = require('./stm.js')
 const _ = require('lodash')
 const { API } = require('./helpers/dialogues')
@@ -847,7 +848,7 @@ let config = {
 
 config = new Config(config, module)
 config.api = api
-config.add(gdefaults).add(sdefaults).add(pos).add(stm).add(meta)
+config.add(gdefaults).add(sdefaults).add(pos).add(stm).add(meta).add(punctuation)
 
 config.initializer( ({objects, config, isModule}) => {
   /* TODO add this beck in. some stuff from config needs to be here

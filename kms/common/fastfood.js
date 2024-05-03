@@ -44,6 +44,20 @@ const template ={
     "a combo is a meal",
     "single double triple baconater bacon deluxe spicy homestyle and premium cod are meals",
     // "more modifies big mac",
+    {
+      where: where(),
+      operators: [
+        "((meal/0) [comboMeal] (combo/0))",
+      ],
+      bridges: [
+        { 
+          id: 'comboMeal',
+          convolution: true,
+          before: ['meal', 'combo'],
+          bridge: "{ ...before[0], combo: true, postModifiers: append(before[0].postModifiers, ['combo']), combo: after[0] }",
+        },
+      ]
+    }
   ],
 }
 
@@ -80,12 +94,13 @@ class State {
     if (food.quantity) {
       quantity = food.quantity.value
     }
+    let combo = !!food.combo
 
     const existing = this.api._objects.items.find( (item) => item.name == name )
     if (existing) {
       existing.quantity = quantity
     } else {
-      this.api._objects.items.push({ name, quantity })
+      this.api._objects.items.push({ name, quantity, combo })
     }
     this.api.changed()
   }
@@ -109,7 +124,6 @@ const config = new Config({
   operators: [
     "([orderNoun|order])",
     "([showOrder|show] ([orderNoun/1]))",
-  //  "((meal/0) [comboMeal] (combo/0))",
   ],
   contextual_priorities: [
     { context: [['list', 0], ['bacon',0], ['deluxe', 0]], choose: [1,2] },
@@ -117,13 +131,6 @@ const config = new Config({
     { context: [['list', 0], ['premium',0], ['cod', 0]], choose: [1,2] },
   ],
   bridges: [
-  /*
-    { 
-      id: 'comboMeal',
-      convolution: true,
-      bridge: "{ ...before[0], combo: true }",
-    },
-    */
     { 
       id: 'orderNoun',
       parents: ['noun', 'queryable'],

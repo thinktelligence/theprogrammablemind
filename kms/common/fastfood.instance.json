@@ -9,7 +9,24 @@
     "spicy homestyle and premium cod are sandwiches",
     "a meals is food",
     "a combo is a meal",
-    "single double triple baconater bacon deluxe spicy homestyle and premium cod are meals"
+    "single double triple baconater bacon deluxe spicy homestyle and premium cod are meals",
+    {
+      "where": "/home/dev/code/theprogrammablemind/kms/common/fastfood.js:48",
+      "operators": [
+        "((meal/0) [comboMeal] (combo/0))"
+      ],
+      "bridges": [
+        {
+          "id": "comboMeal",
+          "convolution": true,
+          "before": [
+            "meal",
+            "combo"
+          ],
+          "bridge": "{ ...before[0], combo: true, postModifiers: append(before[0].postModifiers, ['combo']), combo: after[0] }"
+        }
+      ]
+    }
   ],
   "resultss": [
     {
@@ -16613,6 +16630,24 @@
       "key": {
         "query": "single double triple baconater bacon deluxe spicy homestyle and premium cod are meals"
       }
+    },
+    {
+      "extraConfig": true,
+      "where": "/home/dev/code/theprogrammablemind/kms/common/fastfood.js:48",
+      "operators": [
+        "((meal/0) [comboMeal] (combo/0))"
+      ],
+      "bridges": [
+        {
+          "id": "comboMeal",
+          "convolution": true,
+          "before": [
+            "meal",
+            "combo"
+          ],
+          "bridge": "{ ...before[0], combo: true, postModifiers: append(before[0].postModifiers, ['combo']), combo: after[0] }"
+        }
+      ]
     }
   ],
   "fragments": [],
