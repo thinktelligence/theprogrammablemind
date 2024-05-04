@@ -566,7 +566,8 @@ fi
 # $NODE reports -q 'after the report changes show the report\nanswer with sentences' -g -d
 # $NODE fastfood -q 'double combo' -g -d
 # $NODE fastfood -q '2 double combo' -g -d
-$NODE fastfood -q '(single and double) combo' -g -d
 # $NODE fastfood -q 'single and double combo' -g -d
 # $NODE fastfood -q '2 double combos one with coke and one with sprite' -g -d
 # $NODE fastfood -q '2 double combos one with sprite and coke' -g -d
+# TODO $NODE fastfood -q '(single and double) combo' -g -d
+$NODE pipboy -q 'the city outfit' -g -d --parenthesized
