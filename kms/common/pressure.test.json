@@ -493,10 +493,6 @@
           ],
           "ops": [
             [
-              "amountOfDimension",
-              0
-            ],
-            [
               "atmosphere",
               0
             ],
@@ -526,10 +522,6 @@
           ],
           "ops": [
             [
-              "amountOfDimension",
-              0
-            ],
-            [
               "convertToUnits",
               0
             ],
@@ -554,10 +546,6 @@
             0
           ],
           "ops": [
-            [
-              "amountOfDimension",
-              0
-            ],
             [
               "convertToUnits",
               0
@@ -662,6 +650,7 @@
     "objects": {
       "nameToUUID": {
         "comparable": "comparable2",
+        "concept": "concept2",
         "countable": "countable2",
         "dialogues": "dialogues2",
         "dimension": "dimension2",
@@ -678,11 +667,18 @@
         "pressure": "pressure1",
         "properties": "properties2",
         "punctuation": "punctuation2",
+        "sdefaults": "sdefaults2",
         "stm": "stm2",
         "testing": "testing2"
       },
       "namespaced": {
         "comparable2": {
+        },
+        "concept2": {
+          "defaultTypesForHierarchy": {
+          },
+          "valueToWords": [
+          ]
         },
         "countable2": {
         },
@@ -744,7 +740,8 @@
                     "value": null,
                     "word": "/",
                     "x": {
-                      "level": 0,
+                      "dead": true,
+                      "level": 1,
                       "marker": "pascal",
                       "number": "many",
                       "range": {
@@ -779,7 +776,8 @@
                   "text": "atmospheres = pascals / 101325",
                   "topLevel": true,
                   "touchedBy": [
-                    "pressure#call2"
+                    "pressure#call2",
+                    "instance3#pressure#call2"
                   ],
                   "value": "=",
                   "word": "="
@@ -803,7 +801,8 @@
                   "value": null,
                   "word": "/",
                   "x": {
-                    "level": 0,
+                    "dead": true,
+                    "level": 1,
                     "marker": "pascal",
                     "number": "many",
                     "range": {
@@ -936,7 +935,8 @@
                   "text": "pascals = atmospheres * 101325",
                   "topLevel": true,
                   "touchedBy": [
-                    "pressure#call2"
+                    "pressure#call2",
+                    "instance2#pressure#call2"
                   ],
                   "value": "=",
                   "word": "="
@@ -1081,26 +1081,26 @@
               "questionMark"
             ],
             "queryable": [
-              "concept",
               "hierarchyAble",
               "readonly",
               "property",
               "object",
               "xfx",
+              "concept",
               "unknown",
               "it",
               "what",
               "whatAble",
               "this",
               "thisitthat",
-              "reason",
-              "number"
+              "reason"
             ],
             "theAble": [
-              "concept",
               "property",
               "object",
+              "concept",
               "unknown",
+              "noun",
               "reason"
             ],
             "thisitthat": [
@@ -1119,25 +1119,28 @@
               "property"
             ],
             "verby": [
+              "modifies",
               "is"
             ]
           },
           "concepts": [
             "properties",
-            "concept",
-            "theAble",
-            "queryable",
             "unknown",
             "hierarchyAble",
             "object",
             "what",
+            "queryable",
             "readonly",
             "property",
             "xfx",
+            "theAble",
             "whose",
             "have",
             "canBeDoQuestion",
             "canBeQuestion",
+            "concept",
+            "modifies",
+            "verby",
             "it",
             "pronoun",
             "this",
@@ -1150,11 +1153,10 @@
             "whatAble",
             "is",
             "toAble",
-            "verby",
+            "noun",
             "thisitthat",
             "reason",
             "that",
-            "number",
             "orAble",
             "ifAble",
             "*",
@@ -1215,8 +1217,11 @@
               "toAble",
               "thisitthat"
             ],
-            "number": [
-              "queryable"
+            "modifies": [
+              "verby"
+            ],
+            "noun": [
+              "theAble"
             ],
             "object": [
               "queryable",
@@ -1326,9 +1331,11 @@
               },
               "mathematical_operator": {
               },
+              "modifies": {
+              },
               "notAble": {
               },
-              "number": {
+              "noun": {
               },
               "object": {
               },
@@ -1385,28 +1392,11 @@
           "relations": [
           ],
           "valueToWords": {
-            "mathematical_operator": [
-              {
-                "marker": "mathematical_operator",
-                "mathematical": {
-                  "marker": "mathematical",
-                  "value": "mathematical",
-                  "word": "mathematical"
-                },
-                "modifiers": [
-                  "mathematical"
-                ],
-                "paraphrase": true,
-                "types": [
-                  "mathematical_operator"
-                ],
-                "value": "mathematical_operator",
-                "word": "operator"
-              }
-            ]
           }
         },
         "punctuation2": {
+        },
+        "sdefaults2": {
         },
         "stm2": {
           "mentioned": [
@@ -1825,7 +1815,8 @@
               "value": null,
               "word": "/",
               "x": {
-                "level": 0,
+                "dead": true,
+                "level": 1,
                 "marker": "pascal",
                 "number": "many",
                 "range": {
@@ -1860,7 +1851,8 @@
             "text": "atmospheres = pascals / 101325",
             "topLevel": true,
             "touchedBy": [
-              "pressure#call2"
+              "pressure#call2",
+              "instance3#pressure#call2"
             ],
             "value": "=",
             "word": "="
@@ -1955,7 +1947,8 @@
             "text": "pascals = atmospheres * 101325",
             "topLevel": true,
             "touchedBy": [
-              "pressure#call2"
+              "pressure#call2",
+              "instance2#pressure#call2"
             ],
             "value": "=",
             "word": "="
@@ -1977,6 +1970,7 @@
             "number": "many",
             "one": {
               "level": 1,
+              "listable": true,
               "marker": "list",
               "number": "many",
               "range": {
@@ -1990,7 +1984,7 @@
               "value": [
                 {
                   "dead": true,
-                  "level": 1,
+                  "level": 2,
                   "marker": "unknown",
                   "range": {
                     "end": 6,
@@ -2003,7 +1997,7 @@
                 },
                 {
                   "dead": true,
-                  "level": 1,
+                  "level": 2,
                   "marker": "unknown",
                   "range": {
                     "end": 22,
@@ -2023,7 +2017,8 @@
             "text": " are units of pressure",
             "topLevel": true,
             "touchedBy": [
-              "pressure#call2"
+              "pressure#call2",
+              "instance1#pressure#call2"
             ],
             "two": {
               "concept": true,
@@ -2133,7 +2128,8 @@
             "text": "pressure is a dimension",
             "topLevel": true,
             "touchedBy": [
-              "pressure#call2"
+              "pressure#call2",
+              "instance0#pressure#call2"
             ],
             "two": {
               "concept": true,
@@ -2187,6 +2183,7 @@
             "number": "many",
             "one": {
               "level": 1,
+              "listable": true,
               "marker": "list",
               "number": "many",
               "range": {
@@ -2232,8 +2229,9 @@
             "topLevel": true,
             "touchedBy": [
               "dimensionTemplate#call2",
-              "dimension#call2",
-              "pressure#call2"
+              "instance0#dimensionTemplate#call2",
+              "instance0#dimension#call2",
+              "instance0#pressure#call2"
             ],
             "two": {
               "concept": true,
@@ -2328,6 +2326,24 @@
       ],
       [
         [
+          "atmosphere",
+          0
+        ],
+        [
+          "convertToUnits",
+          0
+        ],
+        [
+          "is",
+          0
+        ],
+        [
+          "what",
+          0
+        ]
+      ],
+      [
+        [
           "convertToUnits",
           0
         ],
@@ -2347,24 +2363,6 @@
         ],
         [
           "is",
-          0
-        ]
-      ],
-      [
-        [
-          "convertToUnits",
-          0
-        ],
-        [
-          "is",
-          0
-        ],
-        [
-          "pascal",
-          0
-        ],
-        [
-          "what",
           0
         ]
       ],
@@ -2492,7 +2490,8 @@
                   "value": null,
                   "word": "/",
                   "x": {
-                    "level": 0,
+                    "dead": true,
+                    "level": 1,
                     "marker": "pascal",
                     "number": "many",
                     "range": {
@@ -2764,14 +2763,10 @@
         {
           "counter": 2,
           "op": [
-            "atmosphere",
+            "pascal",
             0
           ],
           "ops": [
-            [
-              "amountOfDimension",
-              0
-            ],
             [
               "atmosphere",
               0
@@ -2797,12 +2792,12 @@
         {
           "counter": 3,
           "op": [
-            "pascal",
+            "atmosphere",
             0
           ],
           "ops": [
             [
-              "amountOfDimension",
+              "atmosphere",
               0
             ],
             [
@@ -2811,10 +2806,6 @@
             ],
             [
               "is",
-              0
-            ],
-            [
-              "pascal",
               0
             ],
             [
@@ -2830,10 +2821,6 @@
             0
           ],
           "ops": [
-            [
-              "amountOfDimension",
-              0
-            ],
             [
               "convertToUnits",
               0
@@ -2938,6 +2925,7 @@
     "objects": {
       "nameToUUID": {
         "comparable": "comparable2",
+        "concept": "concept2",
         "countable": "countable2",
         "dialogues": "dialogues2",
         "dimension": "dimension2",
@@ -2954,11 +2942,18 @@
         "pressure": "pressure1",
         "properties": "properties2",
         "punctuation": "punctuation2",
+        "sdefaults": "sdefaults2",
         "stm": "stm2",
         "testing": "testing2"
       },
       "namespaced": {
         "comparable2": {
+        },
+        "concept2": {
+          "defaultTypesForHierarchy": {
+          },
+          "valueToWords": [
+          ]
         },
         "countable2": {
         },
@@ -3020,7 +3015,8 @@
                     "value": null,
                     "word": "/",
                     "x": {
-                      "level": 0,
+                      "dead": true,
+                      "level": 1,
                       "marker": "pascal",
                       "number": "many",
                       "range": {
@@ -3055,7 +3051,8 @@
                   "text": "atmospheres = pascals / 101325",
                   "topLevel": true,
                   "touchedBy": [
-                    "pressure#call2"
+                    "pressure#call2",
+                    "instance3#pressure#call2"
                   ],
                   "value": "=",
                   "word": "="
@@ -3079,7 +3076,8 @@
                   "value": null,
                   "word": "/",
                   "x": {
-                    "level": 0,
+                    "dead": true,
+                    "level": 1,
                     "marker": "pascal",
                     "number": "many",
                     "range": {
@@ -3212,7 +3210,8 @@
                   "text": "pascals = atmospheres * 101325",
                   "topLevel": true,
                   "touchedBy": [
-                    "pressure#call2"
+                    "pressure#call2",
+                    "instance2#pressure#call2"
                   ],
                   "value": "=",
                   "word": "="
@@ -3357,26 +3356,26 @@
               "questionMark"
             ],
             "queryable": [
-              "concept",
               "hierarchyAble",
               "readonly",
               "property",
               "object",
               "xfx",
+              "concept",
               "unknown",
               "it",
               "what",
               "whatAble",
               "this",
               "thisitthat",
-              "reason",
-              "number"
+              "reason"
             ],
             "theAble": [
-              "concept",
               "property",
               "object",
+              "concept",
               "unknown",
+              "noun",
               "reason"
             ],
             "thisitthat": [
@@ -3395,25 +3394,28 @@
               "property"
             ],
             "verby": [
+              "modifies",
               "is"
             ]
           },
           "concepts": [
             "properties",
-            "concept",
-            "theAble",
-            "queryable",
             "unknown",
             "hierarchyAble",
             "object",
             "what",
+            "queryable",
             "readonly",
             "property",
             "xfx",
+            "theAble",
             "whose",
             "have",
             "canBeDoQuestion",
             "canBeQuestion",
+            "concept",
+            "modifies",
+            "verby",
             "it",
             "pronoun",
             "this",
@@ -3426,11 +3428,10 @@
             "whatAble",
             "is",
             "toAble",
-            "verby",
+            "noun",
             "thisitthat",
             "reason",
             "that",
-            "number",
             "orAble",
             "ifAble",
             "*",
@@ -3491,8 +3492,11 @@
               "toAble",
               "thisitthat"
             ],
-            "number": [
-              "queryable"
+            "modifies": [
+              "verby"
+            ],
+            "noun": [
+              "theAble"
             ],
             "object": [
               "queryable",
@@ -3602,9 +3606,11 @@
               },
               "mathematical_operator": {
               },
+              "modifies": {
+              },
               "notAble": {
               },
-              "number": {
+              "noun": {
               },
               "object": {
               },
@@ -3661,28 +3667,11 @@
           "relations": [
           ],
           "valueToWords": {
-            "mathematical_operator": [
-              {
-                "marker": "mathematical_operator",
-                "mathematical": {
-                  "marker": "mathematical",
-                  "value": "mathematical",
-                  "word": "mathematical"
-                },
-                "modifiers": [
-                  "mathematical"
-                ],
-                "paraphrase": true,
-                "types": [
-                  "mathematical_operator"
-                ],
-                "value": "mathematical_operator",
-                "word": "operator"
-              }
-            ]
           }
         },
         "punctuation2": {
+        },
+        "sdefaults2": {
         },
         "stm2": {
           "mentioned": [
@@ -3818,7 +3807,8 @@
                       "value": null,
                       "word": "/",
                       "x": {
-                        "level": 0,
+                        "dead": true,
+                        "level": 1,
                         "marker": "pascal",
                         "number": "many",
                         "range": {
@@ -4100,7 +4090,8 @@
               "value": null,
               "word": "/",
               "x": {
-                "level": 0,
+                "dead": true,
+                "level": 1,
                 "marker": "pascal",
                 "number": "many",
                 "range": {
@@ -4135,7 +4126,8 @@
             "text": "atmospheres = pascals / 101325",
             "topLevel": true,
             "touchedBy": [
-              "pressure#call2"
+              "pressure#call2",
+              "instance3#pressure#call2"
             ],
             "value": "=",
             "word": "="
@@ -4230,7 +4222,8 @@
             "text": "pascals = atmospheres * 101325",
             "topLevel": true,
             "touchedBy": [
-              "pressure#call2"
+              "pressure#call2",
+              "instance2#pressure#call2"
             ],
             "value": "=",
             "word": "="
@@ -4252,6 +4245,7 @@
             "number": "many",
             "one": {
               "level": 1,
+              "listable": true,
               "marker": "list",
               "number": "many",
               "range": {
@@ -4265,7 +4259,7 @@
               "value": [
                 {
                   "dead": true,
-                  "level": 1,
+                  "level": 2,
                   "marker": "unknown",
                   "range": {
                     "end": 6,
@@ -4278,7 +4272,7 @@
                 },
                 {
                   "dead": true,
-                  "level": 1,
+                  "level": 2,
                   "marker": "unknown",
                   "range": {
                     "end": 22,
@@ -4298,7 +4292,8 @@
             "text": " are units of pressure",
             "topLevel": true,
             "touchedBy": [
-              "pressure#call2"
+              "pressure#call2",
+              "instance1#pressure#call2"
             ],
             "two": {
               "concept": true,
@@ -4408,7 +4403,8 @@
             "text": "pressure is a dimension",
             "topLevel": true,
             "touchedBy": [
-              "pressure#call2"
+              "pressure#call2",
+              "instance0#pressure#call2"
             ],
             "two": {
               "concept": true,
@@ -4462,6 +4458,7 @@
             "number": "many",
             "one": {
               "level": 1,
+              "listable": true,
               "marker": "list",
               "number": "many",
               "range": {
@@ -4507,8 +4504,9 @@
             "topLevel": true,
             "touchedBy": [
               "dimensionTemplate#call2",
-              "dimension#call2",
-              "pressure#call2"
+              "instance0#dimensionTemplate#call2",
+              "instance0#dimension#call2",
+              "instance0#pressure#call2"
             ],
             "two": {
               "concept": true,

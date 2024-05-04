@@ -103,7 +103,7 @@ let config = {
     { id: "what", level: 0, optional: "{ ...next(operator), query: ['what'], determined: true }", bridge: "{ ...after, query: ['what'], modifiers: ['what'], what: operator }" },
     { id: "whatAble", level: 0, bridge: "{ ...next(operator) }" },
 
-    {id: "list", level: 0, selector: {match: "same", left: [ { variable: 'type' } ], right: [ { variable: 'type' } ], passthrough: true}, bridge: "{ ...next(operator), value: append(before, after) }"},
+    {id: "list", level: 0, selector: {match: "same", left: [ { variable: 'type' } ], right: [ { variable: 'type' } ], passthrough: true}, bridge: "{ ...next(operator), isList: true, value: append(before, after) }"},
     {id: "list", level: 1, selector: {match: "same", left: [ { variable: 'type' } ], passthrough: true}, bridge: "{ ...operator, value: append(before, operator.value) }"},
 
     {   
@@ -326,7 +326,8 @@ let config = {
         for (modifier of (context.modifiers || [])) {
           text.push(g(context[modifier]))
         }
-        text.push(context.word)
+        // text.push(context.word)
+        text.push(g({...context, postModifiers: undefined, modifiers: undefined}))
         for (modifier of (context.postModifiers || [])) {
           text.push(g(context[modifier]))
         }
@@ -402,7 +403,7 @@ let config = {
     { 
       where: where(),
       match: ({context, hierarchy}) => ['it', 'what'].includes(context.marker) && context.paraphrase, 
-      apply: ({g, context}) => `${context.marker}`
+      apply: ({g, context}) => `${context.word}`
     },
     {
       where: where(),
@@ -414,11 +415,13 @@ let config = {
       match: ({context, hierarchy}) => ['my', 'your'].includes(context.subject) && hierarchy.isA(context.marker, 'queryable') && context.paraphrase, 
       apply: ({g, context}) => `${context.subject} ${context.marker}`
     },
+    /*
     { 
       where: where(),
       match: ({context, hierarchy}) => hierarchy.isA(context.marker, 'theAble') && context.paraphrase && context.wantsValue && !context.pullFromContext, 
       apply: ({g, context}) => `a ${context.word}`
     },
+    */
     {
       where: where(),
       match: ({context, hierarchy}) => hierarchy.isA(context.marker, 'queryable') && !context.isQuery && context.subject,

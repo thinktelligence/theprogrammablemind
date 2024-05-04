@@ -331,6 +331,18 @@
               0
             ],
             [
+              "unknown",
+              0
+            ],
+            [
+              "unknown",
+              0
+            ],
+            [
+              "unknown",
+              0
+            ],
+            [
               "want",
               0
             ]
@@ -356,6 +368,14 @@
               0
             ],
             [
+              "unknown",
+              0
+            ],
+            [
+              "unknown",
+              0
+            ],
+            [
               "want",
               0
             ]
@@ -374,6 +394,10 @@
             ],
             [
               "love",
+              0
+            ],
+            [
+              "unknown",
               0
             ],
             [
@@ -508,6 +532,7 @@
     },
     "objects": {
       "nameToUUID": {
+        "concept": "concept2",
         "dialogues": "dialogues2",
         "gdefaults": "gdefaults2",
         "hierarchy": "hierarchy2",
@@ -515,9 +540,17 @@
         "ordering": "ordering1",
         "pos": "pos2",
         "properties": "properties2",
+        "punctuation": "punctuation2",
+        "sdefaults": "sdefaults2",
         "stm": "stm2"
       },
       "namespaced": {
+        "concept2": {
+          "defaultTypesForHierarchy": {
+          },
+          "valueToWords": [
+          ]
+        },
         "dialogues2": {
           "mentioned": [
           ],
@@ -599,12 +632,12 @@
               "questionMark"
             ],
             "queryable": [
-              "concept",
               "hierarchyAble",
               "readonly",
               "property",
               "object",
               "xfx",
+              "concept",
               "unknown",
               "it",
               "what",
@@ -614,10 +647,11 @@
               "reason"
             ],
             "theAble": [
-              "concept",
               "property",
               "object",
+              "concept",
               "unknown",
+              "noun",
               "reason"
             ],
             "thisitthat": [
@@ -632,25 +666,28 @@
               "property"
             ],
             "verby": [
+              "modifies",
               "is"
             ]
           },
           "concepts": [
             "properties",
-            "concept",
-            "theAble",
-            "queryable",
             "unknown",
             "hierarchyAble",
             "object",
             "what",
+            "queryable",
             "readonly",
             "property",
             "xfx",
+            "theAble",
             "whose",
             "have",
             "canBeDoQuestion",
             "canBeQuestion",
+            "concept",
+            "modifies",
+            "verby",
             "it",
             "pronoun",
             "this",
@@ -663,7 +700,7 @@
             "whatAble",
             "is",
             "toAble",
-            "verby",
+            "noun",
             "thisitthat",
             "reason",
             "that",
@@ -694,6 +731,12 @@
               "queryable",
               "toAble",
               "thisitthat"
+            ],
+            "modifies": [
+              "verby"
+            ],
+            "noun": [
+              "theAble"
             ],
             "object": [
               "queryable",
@@ -778,7 +821,11 @@
               },
               "it": {
               },
+              "modifies": {
+              },
               "notAble": {
+              },
+              "noun": {
               },
               "object": {
               },
@@ -897,6 +944,10 @@
           "valueToWords": {
           }
         },
+        "punctuation2": {
+        },
+        "sdefaults2": {
+        },
         "stm2": {
           "mentioned": [
             {
@@ -918,6 +969,7 @@
               "value": {
                 "arguments": {
                   "default": true,
+                  "isList": true,
                   "level": 1,
                   "marker": "list",
                   "range": {
@@ -977,6 +1029,7 @@
               "value": {
                 "arguments": {
                   "default": true,
+                  "isList": true,
                   "level": 1,
                   "marker": "list",
                   "range": {
@@ -1344,7 +1397,6 @@
                   "word": "likes"
                 },
                 {
-                  "dead": true,
                   "do": {
                     "left": "lover",
                     "range": {
@@ -1357,7 +1409,7 @@
                     "lover",
                     "lovee"
                   ],
-                  "level": 2,
+                  "level": 1,
                   "lovee": {
                     "dead": true,
                     "level": 1,
@@ -1483,14 +1535,15 @@
             "text": "if x likes y or x loves y then x wants y",
             "topLevel": true,
             "touchedBy": [
-              "ordering#call2"
+              "ordering#call2",
+              "instance1#ordering#call2"
             ],
             "value": "if",
             "word": "if"
           },
           "generatedParenthesized": [
           ],
-          "paraphrases": "if undefined likes undefined or undefined loves undefined then x wants y",
+          "paraphrases": "if x likes y or x loves y then x wants y",
           "paraphrasesParenthesized": [
           ],
           "responses": [
@@ -1528,11 +1581,13 @@
             "text": "wants is xfx between wanter and wantee",
             "topLevel": true,
             "touchedBy": [
-              "ordering#call2"
+              "ordering#call2",
+              "instance0#ordering#call2"
             ],
             "two": {
               "arguments": {
                 "default": true,
+                "isList": true,
                 "level": 1,
                 "marker": "list",
                 "range": {
@@ -1973,6 +2028,14 @@
               0
             ],
             [
+              "unknown",
+              0
+            ],
+            [
+              "unknown",
+              0
+            ],
+            [
               "what",
               0
             ]
@@ -1995,6 +2058,10 @@
             ],
             [
               "love",
+              0
+            ],
+            [
+              "unknown",
               0
             ],
             [
@@ -2064,7 +2131,7 @@
         {
           "counter": 5,
           "op": [
-            "like",
+            "love",
             0
           ],
           "ops": [
@@ -2085,7 +2152,7 @@
         {
           "counter": 6,
           "op": [
-            "love",
+            "like",
             0
           ],
           "ops": [
@@ -2094,8 +2161,12 @@
               0
             ],
             [
-              "love",
+              "like",
               0
+            ],
+            [
+              "love",
+              1
             ]
           ]
         },
@@ -2136,7 +2207,7 @@
         {
           "counter": 9,
           "op": [
-            "like",
+            "love",
             1
           ],
           "ops": [
@@ -2153,12 +2224,12 @@
         {
           "counter": 10,
           "op": [
-            "love",
+            "like",
             1
           ],
           "ops": [
             [
-              "love",
+              "like",
               1
             ]
           ]
@@ -2167,6 +2238,7 @@
     },
     "objects": {
       "nameToUUID": {
+        "concept": "concept2",
         "dialogues": "dialogues2",
         "gdefaults": "gdefaults2",
         "hierarchy": "hierarchy2",
@@ -2174,9 +2246,17 @@
         "ordering": "ordering1",
         "pos": "pos2",
         "properties": "properties2",
+        "punctuation": "punctuation2",
+        "sdefaults": "sdefaults2",
         "stm": "stm2"
       },
       "namespaced": {
+        "concept2": {
+          "defaultTypesForHierarchy": {
+          },
+          "valueToWords": [
+          ]
+        },
         "dialogues2": {
           "mentioned": [
           ],
@@ -2258,12 +2338,12 @@
               "questionMark"
             ],
             "queryable": [
-              "concept",
               "hierarchyAble",
               "readonly",
               "property",
               "object",
               "xfx",
+              "concept",
               "unknown",
               "it",
               "what",
@@ -2273,10 +2353,11 @@
               "reason"
             ],
             "theAble": [
-              "concept",
               "property",
               "object",
+              "concept",
               "unknown",
+              "noun",
               "reason"
             ],
             "thisitthat": [
@@ -2291,25 +2372,28 @@
               "property"
             ],
             "verby": [
+              "modifies",
               "is"
             ]
           },
           "concepts": [
             "properties",
-            "concept",
-            "theAble",
-            "queryable",
             "unknown",
             "hierarchyAble",
             "object",
             "what",
+            "queryable",
             "readonly",
             "property",
             "xfx",
+            "theAble",
             "whose",
             "have",
             "canBeDoQuestion",
             "canBeQuestion",
+            "concept",
+            "modifies",
+            "verby",
             "it",
             "pronoun",
             "this",
@@ -2322,7 +2406,7 @@
             "whatAble",
             "is",
             "toAble",
-            "verby",
+            "noun",
             "thisitthat",
             "reason",
             "that",
@@ -2353,6 +2437,12 @@
               "queryable",
               "toAble",
               "thisitthat"
+            ],
+            "modifies": [
+              "verby"
+            ],
+            "noun": [
+              "theAble"
             ],
             "object": [
               "queryable",
@@ -2437,7 +2527,11 @@
               },
               "it": {
               },
+              "modifies": {
+              },
               "notAble": {
+              },
+              "noun": {
               },
               "object": {
               },
@@ -2556,6 +2650,10 @@
           "valueToWords": {
           }
         },
+        "punctuation2": {
+        },
+        "sdefaults2": {
+        },
         "stm2": {
           "mentioned": [
             {
@@ -2577,6 +2675,7 @@
               "value": {
                 "arguments": {
                   "default": true,
+                  "isList": true,
                   "level": 1,
                   "marker": "list",
                   "range": {
@@ -2636,6 +2735,7 @@
               "value": {
                 "arguments": {
                   "default": true,
+                  "isList": true,
                   "level": 1,
                   "marker": "list",
                   "range": {
@@ -3025,7 +3125,6 @@
                   "word": "likes"
                 },
                 {
-                  "dead": true,
                   "do": {
                     "left": "lover",
                     "range": {
@@ -3038,7 +3137,7 @@
                     "lover",
                     "lovee"
                   ],
-                  "level": 2,
+                  "level": 1,
                   "lovee": {
                     "dead": true,
                     "level": 1,
@@ -3164,14 +3263,15 @@
             "text": "if x likes y or x loves y then x wants y",
             "topLevel": true,
             "touchedBy": [
-              "ordering#call2"
+              "ordering#call2",
+              "instance1#ordering#call2"
             ],
             "value": "if",
             "word": "if"
           },
           "generatedParenthesized": [
           ],
-          "paraphrases": "if undefined likes undefined or undefined loves undefined then x wants y",
+          "paraphrases": "if x likes y or x loves y then x wants y",
           "paraphrasesParenthesized": [
           ],
           "responses": [
@@ -3209,11 +3309,13 @@
             "text": "wants is xfx between wanter and wantee",
             "topLevel": true,
             "touchedBy": [
-              "ordering#call2"
+              "ordering#call2",
+              "instance0#ordering#call2"
             ],
             "two": {
               "arguments": {
                 "default": true,
+                "isList": true,
                 "level": 1,
                 "marker": "list",
                 "range": {

@@ -99,6 +99,24 @@
         [
           "unknown",
           1
+        ]
+      ],
+      [
+        [
+          "is",
+          0
+        ],
+        [
+          "propertyOf",
+          0
+        ],
+        [
+          "the",
+          0
+        ],
+        [
+          "unknown",
+          1
         ],
         [
           "what",
@@ -117,24 +135,6 @@
         [
           "unknown",
           1
-        ]
-      ],
-      [
-        [
-          "is",
-          0
-        ],
-        [
-          "propertyOf",
-          0
-        ],
-        [
-          "unknown",
-          1
-        ],
-        [
-          "what",
-          0
         ]
       ],
       [
@@ -184,6 +184,7 @@
           "right": "emotion"
         },
         "emotion": {
+          "concept": true,
           "dead": true,
           "level": 1,
           "marker": "emotion",
@@ -336,6 +337,7 @@
             "dead": true,
             "determiner": "the",
             "evalue": {
+              "concept": true,
               "dead": true,
               "level": 1,
               "marker": "emotion",
@@ -552,7 +554,7 @@
     ],
     "generatedParenthesized": [
       "",
-      "((((the emotion) of (greg)) is ((angry))))"
+      "((((the (emotion)) of (greg)) is ((angry))))"
     ],
     "metadata": {
       "opChoices": [
@@ -577,6 +579,18 @@
             ],
             [
               "the",
+              0
+            ],
+            [
+              "unknown",
+              0
+            ],
+            [
+              "unknown",
+              0
+            ],
+            [
+              "unknown",
               0
             ],
             [
@@ -617,6 +631,14 @@
               0
             ],
             [
+              "unknown",
+              0
+            ],
+            [
+              "unknown",
+              0
+            ],
+            [
               "what",
               0
             ]
@@ -643,6 +665,10 @@
             ],
             [
               "the",
+              0
+            ],
+            [
+              "unknown",
               0
             ],
             [
@@ -691,7 +717,7 @@
         {
           "counter": 5,
           "op": [
-            "the",
+            "what",
             0
           ],
           "ops": [
@@ -720,6 +746,31 @@
         {
           "counter": 6,
           "op": [
+            "the",
+            0
+          ],
+          "ops": [
+            [
+              "feel",
+              0
+            ],
+            [
+              "is",
+              0
+            ],
+            [
+              "propertyOf",
+              0
+            ],
+            [
+              "the",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 7,
+          "op": [
             "feel",
             0
           ],
@@ -734,35 +785,6 @@
             ],
             [
               "propertyOf",
-              0
-            ],
-            [
-              "what",
-              0
-            ]
-          ]
-        },
-        {
-          "counter": 7,
-          "op": [
-            "what",
-            0
-          ],
-          "ops": [
-            [
-              "feel",
-              1
-            ],
-            [
-              "is",
-              0
-            ],
-            [
-              "propertyOf",
-              0
-            ],
-            [
-              "what",
               0
             ]
           ]
@@ -852,6 +874,7 @@
     },
     "objects": {
       "nameToUUID": {
+        "concept": "concept2",
         "dialogues": "dialogues2",
         "emotions": "emotions1",
         "gdefaults": "gdefaults2",
@@ -859,9 +882,17 @@
         "meta": "meta2",
         "pos": "pos2",
         "properties": "properties2",
+        "punctuation": "punctuation2",
+        "sdefaults": "sdefaults2",
         "stm": "stm2"
       },
       "namespaced": {
+        "concept2": {
+          "defaultTypesForHierarchy": {
+          },
+          "valueToWords": [
+          ]
+        },
         "dialogues2": {
           "mentioned": [
           ],
@@ -916,12 +947,12 @@
               "questionMark"
             ],
             "queryable": [
-              "concept",
               "hierarchyAble",
               "readonly",
               "property",
               "object",
               "xfx",
+              "concept",
               "unknown",
               "it",
               "what",
@@ -931,10 +962,11 @@
               "reason"
             ],
             "theAble": [
-              "concept",
               "property",
               "object",
+              "concept",
               "unknown",
+              "noun",
               "reason"
             ],
             "thisitthat": [
@@ -949,25 +981,28 @@
               "property"
             ],
             "verby": [
+              "modifies",
               "is"
             ]
           },
           "concepts": [
             "properties",
-            "concept",
-            "theAble",
-            "queryable",
             "unknown",
             "hierarchyAble",
             "object",
             "what",
+            "queryable",
             "readonly",
             "property",
             "xfx",
+            "theAble",
             "whose",
             "have",
             "canBeDoQuestion",
             "canBeQuestion",
+            "concept",
+            "modifies",
+            "verby",
             "it",
             "pronoun",
             "this",
@@ -980,7 +1015,7 @@
             "whatAble",
             "is",
             "toAble",
-            "verby",
+            "noun",
             "thisitthat",
             "reason",
             "that",
@@ -1017,6 +1052,12 @@
               "queryable",
               "toAble",
               "thisitthat"
+            ],
+            "modifies": [
+              "verby"
+            ],
+            "noun": [
+              "theAble"
             ],
             "object": [
               "queryable",
@@ -1099,6 +1140,7 @@
                 "emotion": {
                   "has": true,
                   "value": {
+                    "concept": true,
                     "dead": true,
                     "level": 1,
                     "marker": "emotion",
@@ -1126,7 +1168,11 @@
               },
               "it": {
               },
+              "modifies": {
+              },
               "notAble": {
+              },
+              "noun": {
               },
               "object": {
               },
@@ -1175,6 +1221,7 @@
           "property": {
             "emotion": [
               {
+                "concept": true,
                 "dead": true,
                 "level": 1,
                 "marker": "emotion",
@@ -1196,6 +1243,10 @@
           ],
           "valueToWords": {
           }
+        },
+        "punctuation2": {
+        },
+        "sdefaults2": {
         },
         "stm2": {
           "mentioned": [
@@ -1304,6 +1355,7 @@
                 "dead": true,
                 "determiner": "the",
                 "evalue": {
+                  "concept": true,
                   "dead": true,
                   "level": 1,
                   "marker": "emotion",
@@ -1517,9 +1569,9 @@
             },
             "word": "is"
           },
-          "generatedParenthesized": "((((the emotion) of (greg)) is ((angry))))",
+          "generatedParenthesized": "((((the (emotion)) of (greg)) is ((angry))))",
           "paraphrases": "what is the emotion of greg?",
-          "paraphrasesParenthesized": "(((what) is ((the emotion) of (greg)))?)",
+          "paraphrasesParenthesized": "(((what) is ((the (emotion)) of (greg)))?)",
           "responses": [
             "",
             "the emotion of greg is angry"
@@ -1537,6 +1589,7 @@
               "right": "emotion"
             },
             "emotion": {
+              "concept": true,
               "dead": true,
               "level": 1,
               "marker": "emotion",
@@ -1666,15 +1719,14 @@
             },
             "level": 1,
             "marker": "means",
-            "metaInfo": "The mapping from from the expression being defined \"undefined feels undefined\" to the definition phrase \"the emotion of sentientbeing1 is emotion1\" is [{\"from\":[\"sentientBeing\"],\"to\":[\"one\",\"object\"]},{\"from\":[\"emotion\"],\"to\":[\"two\"]},{\"from\":[\"number\"],\"to\":[\"number\"]}]",
+            "metaInfo": "The mapping from from the expression being defined \"sentientbeing1 feels emotion1\" to the definition phrase \"the emotion of sentientbeing1 is emotion1\" is [{\"from\":[\"sentientBeing\"],\"to\":[\"one\",\"object\"]},{\"from\":[\"emotion\"],\"to\":[\"two\"]},{\"from\":[\"number\"],\"to\":[\"number\"]}]",
             "range": {
               "end": 76,
               "start": 0
             },
             "text": "sentientbeing1 feels emotion1 means the emotion of sentientbeing1 is emotion1",
             "to": {
-              "dead": true,
-              "level": 2,
+              "level": 1,
               "marker": "is",
               "number": "one",
               "one": {
@@ -1787,14 +1839,15 @@
             },
             "topLevel": true,
             "touchedBy": [
-              "emotions#call2"
+              "emotions#call2",
+              "instance0#emotions#call2"
             ],
             "value": "means",
             "word": "means"
           },
           "generatedParenthesized": [
           ],
-          "paraphrases": "undefined feels undefined means the emotion of sentientbeing1 is emotion1",
+          "paraphrases": "sentientbeing1 feels emotion1 means the emotion of sentientbeing1 is emotion1",
           "paraphrasesParenthesized": [
           ],
           "responses": [
@@ -1809,7 +1862,7 @@
     ],
     "paraphrasesParenthesized": [
       "((greg) feels (angry))",
-      "(((what) is ((the emotion) of (greg)))?)"
+      "(((what) is ((the (emotion)) of (greg)))?)"
     ],
     "query": "greg feels angry what is the emotion of greg",
     "responses": [

@@ -569,5 +569,5 @@ fi
 # $NODE fastfood -q 'single and double combo' -g -d
 # $NODE fastfood -q '2 double combos one with coke and one with sprite' -g -d
 # $NODE fastfood -q '2 double combos one with sprite and coke' -g -d
-# TODO $NODE fastfood -q '(single and double) combo' -g -d
-$NODE pipboy -q 'the city outfit' -g -d --parenthesized
+$NODE fastfood -q '(single and double) comboMeal combo' -g -d
+# $NODE pipboy -q 'the city outfit' -g -d --parenthesized

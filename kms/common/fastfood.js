@@ -47,7 +47,7 @@ const template ={
     {
       where: where(),
       operators: [
-        "((meal/0) [comboMeal] (combo/0))",
+        "((meal/0,1) [comboMeal] (combo/0))",
       ],
       bridges: [
         { 

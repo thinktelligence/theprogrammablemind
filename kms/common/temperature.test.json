@@ -237,7 +237,7 @@
                     "evaluate": true,
                     "isResponse": true,
                     "level": 1,
-                    "marker": "timesExpression",
+                    "marker": "divideByExpression",
                     "number": "one",
                     "range": {
                       "end": 23,
@@ -245,47 +245,47 @@
                     },
                     "text": "celcius * 9 / 5",
                     "types": [
-                      "number",
-                      "timesExpression"
+                      "divideByExpression",
+                      "number"
                     ],
                     "value": null,
-                    "word": "*",
+                    "word": "/",
                     "x": {
-                      "dead": true,
-                      "level": 1,
-                      "marker": "celcius",
-                      "number": "one",
-                      "range": {
-                        "end": 19,
-                        "start": 13
-                      },
-                      "text": "celcius",
-                      "types": [
-                        "celcius",
-                        "number"
-                      ],
-                      "value": "celcius",
-                      "word": "celcius"
-                    },
-                    "y": {
                       "dead": true,
                       "evaluate": true,
                       "isResponse": true,
                       "level": 1,
-                      "marker": "divideByExpression",
+                      "marker": "timesExpression",
                       "number": "one",
                       "range": {
-                        "end": 23,
-                        "start": 21
+                        "end": 21,
+                        "start": 13
                       },
-                      "text": "9 / 5",
+                      "text": "celcius * 9",
                       "types": [
-                        "divideByExpression",
-                        "number"
+                        "number",
+                        "timesExpression"
                       ],
                       "value": null,
-                      "word": "/",
+                      "word": "*",
                       "x": {
+                        "dead": true,
+                        "level": 1,
+                        "marker": "celcius",
+                        "number": "one",
+                        "range": {
+                          "end": 19,
+                          "start": 13
+                        },
+                        "text": "celcius",
+                        "types": [
+                          "celcius",
+                          "number"
+                        ],
+                        "value": "celcius",
+                        "word": "celcius"
+                      },
+                      "y": {
                         "dead": true,
                         "instance": true,
                         "level": 1,
@@ -300,23 +300,23 @@
                         ],
                         "value": 9,
                         "word": "9"
-                      },
-                      "y": {
-                        "dead": true,
-                        "instance": true,
-                        "level": 1,
-                        "marker": "number",
-                        "range": {
-                          "end": 23,
-                          "start": 23
-                        },
-                        "text": "5",
-                        "types": [
-                          "number"
-                        ],
-                        "value": 5,
-                        "word": "5"
                       }
+                    },
+                    "y": {
+                      "dead": true,
+                      "instance": true,
+                      "level": 1,
+                      "marker": "number",
+                      "range": {
+                        "end": 23,
+                        "start": 23
+                      },
+                      "text": "5",
+                      "types": [
+                        "number"
+                      ],
+                      "value": 5,
+                      "word": "5"
                     }
                   },
                   "y": {
@@ -581,10 +581,6 @@
           ],
           "ops": [
             [
-              "amountOfDimension",
-              0
-            ],
-            [
               "celcius",
               0
             ],
@@ -614,10 +610,6 @@
           ],
           "ops": [
             [
-              "amountOfDimension",
-              0
-            ],
-            [
               "convertToUnits",
               0
             ],
@@ -642,10 +634,6 @@
             0
           ],
           "ops": [
-            [
-              "amountOfDimension",
-              0
-            ],
             [
               "convertToUnits",
               0
@@ -750,6 +738,7 @@
     "objects": {
       "nameToUUID": {
         "comparable": "comparable2",
+        "concept": "concept2",
         "countable": "countable2",
         "dialogues": "dialogues2",
         "dimension": "dimension2",
@@ -765,12 +754,19 @@
         "pos": "pos2",
         "properties": "properties2",
         "punctuation": "punctuation2",
+        "sdefaults": "sdefaults2",
         "stm": "stm2",
         "temperature": "temperature1",
         "testing": "testing2"
       },
       "namespaced": {
         "comparable2": {
+        },
+        "concept2": {
+          "defaultTypesForHierarchy": {
+          },
+          "valueToWords": [
+          ]
         },
         "countable2": {
         },
@@ -836,13 +832,198 @@
                       "evaluate": true,
                       "isResponse": true,
                       "level": 1,
-                      "marker": "timesExpression",
+                      "marker": "divideByExpression",
                       "number": "one",
                       "range": {
                         "end": 30,
                         "start": 10
                       },
                       "text": "( fahrenheit - 32 ) * 5 / 8",
+                      "types": [
+                        "divideByExpression",
+                        "number"
+                      ],
+                      "value": null,
+                      "word": "/",
+                      "x": {
+                        "dead": true,
+                        "evaluate": true,
+                        "isResponse": true,
+                        "level": 1,
+                        "marker": "timesExpression",
+                        "number": "one",
+                        "range": {
+                          "end": 28,
+                          "start": 10
+                        },
+                        "text": "( fahrenheit - 32 ) * 5",
+                        "types": [
+                          "number",
+                          "timesExpression"
+                        ],
+                        "value": null,
+                        "word": "*",
+                        "x": {
+                          "dead": true,
+                          "evaluate": true,
+                          "isResponse": true,
+                          "level": 1,
+                          "marker": "minusExpression",
+                          "number": "one",
+                          "parenthesis": "(",
+                          "range": {
+                            "end": 26,
+                            "start": 10
+                          },
+                          "text": "( fahrenheit - 32 )",
+                          "types": [
+                            "minusExpression",
+                            "number"
+                          ],
+                          "value": null,
+                          "word": "-",
+                          "x": {
+                            "dead": true,
+                            "level": 1,
+                            "marker": "fahrenheit",
+                            "number": "one",
+                            "range": {
+                              "end": 20,
+                              "start": 11
+                            },
+                            "text": "fahrenheit",
+                            "types": [
+                              "fahrenheit",
+                              "number"
+                            ],
+                            "value": "fahrenheit",
+                            "word": "fahrenheit"
+                          },
+                          "y": {
+                            "dead": true,
+                            "instance": true,
+                            "level": 1,
+                            "marker": "number",
+                            "range": {
+                              "end": 25,
+                              "start": 24
+                            },
+                            "text": "32",
+                            "types": [
+                              "number"
+                            ],
+                            "value": 32,
+                            "word": "32"
+                          }
+                        },
+                        "y": {
+                          "dead": true,
+                          "instance": true,
+                          "level": 1,
+                          "marker": "number",
+                          "range": {
+                            "end": 28,
+                            "start": 28
+                          },
+                          "text": "5",
+                          "types": [
+                            "number"
+                          ],
+                          "value": 5,
+                          "word": "5"
+                        }
+                      },
+                      "y": {
+                        "dead": true,
+                        "instance": true,
+                        "level": 1,
+                        "marker": "number",
+                        "range": {
+                          "end": 30,
+                          "start": 30
+                        },
+                        "text": "8",
+                        "types": [
+                          "number"
+                        ],
+                        "value": 8,
+                        "word": "8"
+                      }
+                    },
+                    "y": {
+                      "dead": true,
+                      "instance": true,
+                      "level": 1,
+                      "marker": "number",
+                      "range": {
+                        "end": 35,
+                        "start": 34
+                      },
+                      "text": "32",
+                      "types": [
+                        "number"
+                      ],
+                      "value": 32,
+                      "word": "32"
+                    }
+                  },
+                  "text": "celcius = ( fahrenheit - 32 ) * 5 / 8 + 32",
+                  "topLevel": true,
+                  "touchedBy": [
+                    "temperature#call2",
+                    "instance3#temperature#call2"
+                  ],
+                  "value": "=",
+                  "word": "="
+                },
+                "formula": {
+                  "dead": true,
+                  "evaluate": true,
+                  "isResponse": true,
+                  "level": 1,
+                  "marker": "plusExpression",
+                  "number": "one",
+                  "range": {
+                    "end": 35,
+                    "start": 10
+                  },
+                  "text": "( fahrenheit - 32 ) * 5 / 8 + 32",
+                  "types": [
+                    "number",
+                    "plusExpression"
+                  ],
+                  "value": null,
+                  "word": "+",
+                  "x": {
+                    "dead": true,
+                    "evaluate": true,
+                    "isResponse": true,
+                    "level": 1,
+                    "marker": "divideByExpression",
+                    "number": "one",
+                    "range": {
+                      "end": 30,
+                      "start": 10
+                    },
+                    "text": "( fahrenheit - 32 ) * 5 / 8",
+                    "types": [
+                      "divideByExpression",
+                      "number"
+                    ],
+                    "value": null,
+                    "word": "/",
+                    "x": {
+                      "dead": true,
+                      "evaluate": true,
+                      "isResponse": true,
+                      "level": 1,
+                      "marker": "timesExpression",
+                      "number": "one",
+                      "range": {
+                        "end": 28,
+                        "start": 10
+                      },
+                      "text": "( fahrenheit - 32 ) * 5",
                       "types": [
                         "number",
                         "timesExpression"
@@ -904,190 +1085,6 @@
                       },
                       "y": {
                         "dead": true,
-                        "evaluate": true,
-                        "isResponse": true,
-                        "level": 1,
-                        "marker": "divideByExpression",
-                        "number": "one",
-                        "range": {
-                          "end": 30,
-                          "start": 28
-                        },
-                        "text": "5 / 8",
-                        "types": [
-                          "divideByExpression",
-                          "number"
-                        ],
-                        "value": null,
-                        "word": "/",
-                        "x": {
-                          "dead": true,
-                          "instance": true,
-                          "level": 1,
-                          "marker": "number",
-                          "range": {
-                            "end": 28,
-                            "start": 28
-                          },
-                          "text": "5",
-                          "types": [
-                            "number"
-                          ],
-                          "value": 5,
-                          "word": "5"
-                        },
-                        "y": {
-                          "dead": true,
-                          "instance": true,
-                          "level": 1,
-                          "marker": "number",
-                          "range": {
-                            "end": 30,
-                            "start": 30
-                          },
-                          "text": "8",
-                          "types": [
-                            "number"
-                          ],
-                          "value": 8,
-                          "word": "8"
-                        }
-                      }
-                    },
-                    "y": {
-                      "dead": true,
-                      "instance": true,
-                      "level": 1,
-                      "marker": "number",
-                      "range": {
-                        "end": 35,
-                        "start": 34
-                      },
-                      "text": "32",
-                      "types": [
-                        "number"
-                      ],
-                      "value": 32,
-                      "word": "32"
-                    }
-                  },
-                  "text": "celcius = ( fahrenheit - 32 ) * 5 / 8 + 32",
-                  "topLevel": true,
-                  "touchedBy": [
-                    "temperature#call2"
-                  ],
-                  "value": "=",
-                  "word": "="
-                },
-                "formula": {
-                  "dead": true,
-                  "evaluate": true,
-                  "isResponse": true,
-                  "level": 1,
-                  "marker": "plusExpression",
-                  "number": "one",
-                  "range": {
-                    "end": 35,
-                    "start": 10
-                  },
-                  "text": "( fahrenheit - 32 ) * 5 / 8 + 32",
-                  "types": [
-                    "number",
-                    "plusExpression"
-                  ],
-                  "value": null,
-                  "word": "+",
-                  "x": {
-                    "dead": true,
-                    "evaluate": true,
-                    "isResponse": true,
-                    "level": 1,
-                    "marker": "timesExpression",
-                    "number": "one",
-                    "range": {
-                      "end": 30,
-                      "start": 10
-                    },
-                    "text": "( fahrenheit - 32 ) * 5 / 8",
-                    "types": [
-                      "number",
-                      "timesExpression"
-                    ],
-                    "value": null,
-                    "word": "*",
-                    "x": {
-                      "dead": true,
-                      "evaluate": true,
-                      "isResponse": true,
-                      "level": 1,
-                      "marker": "minusExpression",
-                      "number": "one",
-                      "parenthesis": "(",
-                      "range": {
-                        "end": 26,
-                        "start": 10
-                      },
-                      "text": "( fahrenheit - 32 )",
-                      "types": [
-                        "minusExpression",
-                        "number"
-                      ],
-                      "value": null,
-                      "word": "-",
-                      "x": {
-                        "dead": true,
-                        "level": 1,
-                        "marker": "fahrenheit",
-                        "number": "one",
-                        "range": {
-                          "end": 20,
-                          "start": 11
-                        },
-                        "text": "fahrenheit",
-                        "types": [
-                          "fahrenheit",
-                          "number"
-                        ],
-                        "value": "fahrenheit",
-                        "word": "fahrenheit"
-                      },
-                      "y": {
-                        "dead": true,
-                        "instance": true,
-                        "level": 1,
-                        "marker": "number",
-                        "range": {
-                          "end": 25,
-                          "start": 24
-                        },
-                        "text": "32",
-                        "types": [
-                          "number"
-                        ],
-                        "value": 32,
-                        "word": "32"
-                      }
-                    },
-                    "y": {
-                      "dead": true,
-                      "evaluate": true,
-                      "isResponse": true,
-                      "level": 1,
-                      "marker": "divideByExpression",
-                      "number": "one",
-                      "range": {
-                        "end": 30,
-                        "start": 28
-                      },
-                      "text": "5 / 8",
-                      "types": [
-                        "divideByExpression",
-                        "number"
-                      ],
-                      "value": null,
-                      "word": "/",
-                      "x": {
-                        "dead": true,
                         "instance": true,
                         "level": 1,
                         "marker": "number",
@@ -1101,23 +1098,23 @@
                         ],
                         "value": 5,
                         "word": "5"
-                      },
-                      "y": {
-                        "dead": true,
-                        "instance": true,
-                        "level": 1,
-                        "marker": "number",
-                        "range": {
-                          "end": 30,
-                          "start": 30
-                        },
-                        "text": "8",
-                        "types": [
-                          "number"
-                        ],
-                        "value": 8,
-                        "word": "8"
                       }
+                    },
+                    "y": {
+                      "dead": true,
+                      "instance": true,
+                      "level": 1,
+                      "marker": "number",
+                      "range": {
+                        "end": 30,
+                        "start": 30
+                      },
+                      "text": "8",
+                      "types": [
+                        "number"
+                      ],
+                      "value": 8,
+                      "word": "8"
                     }
                   },
                   "y": {
@@ -1206,7 +1203,7 @@
                       "evaluate": true,
                       "isResponse": true,
                       "level": 1,
-                      "marker": "timesExpression",
+                      "marker": "divideByExpression",
                       "number": "one",
                       "range": {
                         "end": 23,
@@ -1214,47 +1211,47 @@
                       },
                       "text": "celcius * 9 / 5",
                       "types": [
-                        "number",
-                        "timesExpression"
+                        "divideByExpression",
+                        "number"
                       ],
                       "value": null,
-                      "word": "*",
+                      "word": "/",
                       "x": {
-                        "dead": true,
-                        "level": 1,
-                        "marker": "celcius",
-                        "number": "one",
-                        "range": {
-                          "end": 19,
-                          "start": 13
-                        },
-                        "text": "celcius",
-                        "types": [
-                          "celcius",
-                          "number"
-                        ],
-                        "value": "celcius",
-                        "word": "celcius"
-                      },
-                      "y": {
                         "dead": true,
                         "evaluate": true,
                         "isResponse": true,
                         "level": 1,
-                        "marker": "divideByExpression",
+                        "marker": "timesExpression",
                         "number": "one",
                         "range": {
-                          "end": 23,
-                          "start": 21
+                          "end": 21,
+                          "start": 13
                         },
-                        "text": "9 / 5",
+                        "text": "celcius * 9",
                         "types": [
-                          "divideByExpression",
-                          "number"
+                          "number",
+                          "timesExpression"
                         ],
                         "value": null,
-                        "word": "/",
+                        "word": "*",
                         "x": {
+                          "dead": true,
+                          "level": 1,
+                          "marker": "celcius",
+                          "number": "one",
+                          "range": {
+                            "end": 19,
+                            "start": 13
+                          },
+                          "text": "celcius",
+                          "types": [
+                            "celcius",
+                            "number"
+                          ],
+                          "value": "celcius",
+                          "word": "celcius"
+                        },
+                        "y": {
                           "dead": true,
                           "instance": true,
                           "level": 1,
@@ -1269,23 +1266,23 @@
                           ],
                           "value": 9,
                           "word": "9"
-                        },
-                        "y": {
-                          "dead": true,
-                          "instance": true,
-                          "level": 1,
-                          "marker": "number",
-                          "range": {
-                            "end": 23,
-                            "start": 23
-                          },
-                          "text": "5",
-                          "types": [
-                            "number"
-                          ],
-                          "value": 5,
-                          "word": "5"
                         }
+                      },
+                      "y": {
+                        "dead": true,
+                        "instance": true,
+                        "level": 1,
+                        "marker": "number",
+                        "range": {
+                          "end": 23,
+                          "start": 23
+                        },
+                        "text": "5",
+                        "types": [
+                          "number"
+                        ],
+                        "value": 5,
+                        "word": "5"
                       }
                     },
                     "y": {
@@ -1308,7 +1305,8 @@
                   "text": "fahrenheit = celcius * 9 / 5 + 32",
                   "topLevel": true,
                   "touchedBy": [
-                    "temperature#call2"
+                    "temperature#call2",
+                    "instance2#temperature#call2"
                   ],
                   "value": "=",
                   "word": "="
@@ -1336,7 +1334,7 @@
                     "evaluate": true,
                     "isResponse": true,
                     "level": 1,
-                    "marker": "timesExpression",
+                    "marker": "divideByExpression",
                     "number": "one",
                     "range": {
                       "end": 23,
@@ -1344,47 +1342,47 @@
                     },
                     "text": "celcius * 9 / 5",
                     "types": [
-                      "number",
-                      "timesExpression"
+                      "divideByExpression",
+                      "number"
                     ],
                     "value": null,
-                    "word": "*",
+                    "word": "/",
                     "x": {
-                      "dead": true,
-                      "level": 1,
-                      "marker": "celcius",
-                      "number": "one",
-                      "range": {
-                        "end": 19,
-                        "start": 13
-                      },
-                      "text": "celcius",
-                      "types": [
-                        "celcius",
-                        "number"
-                      ],
-                      "value": "celcius",
-                      "word": "celcius"
-                    },
-                    "y": {
                       "dead": true,
                       "evaluate": true,
                       "isResponse": true,
                       "level": 1,
-                      "marker": "divideByExpression",
+                      "marker": "timesExpression",
                       "number": "one",
                       "range": {
-                        "end": 23,
-                        "start": 21
+                        "end": 21,
+                        "start": 13
                       },
-                      "text": "9 / 5",
+                      "text": "celcius * 9",
                       "types": [
-                        "divideByExpression",
-                        "number"
+                        "number",
+                        "timesExpression"
                       ],
                       "value": null,
-                      "word": "/",
+                      "word": "*",
                       "x": {
+                        "dead": true,
+                        "level": 1,
+                        "marker": "celcius",
+                        "number": "one",
+                        "range": {
+                          "end": 19,
+                          "start": 13
+                        },
+                        "text": "celcius",
+                        "types": [
+                          "celcius",
+                          "number"
+                        ],
+                        "value": "celcius",
+                        "word": "celcius"
+                      },
+                      "y": {
                         "dead": true,
                         "instance": true,
                         "level": 1,
@@ -1399,23 +1397,23 @@
                         ],
                         "value": 9,
                         "word": "9"
-                      },
-                      "y": {
-                        "dead": true,
-                        "instance": true,
-                        "level": 1,
-                        "marker": "number",
-                        "range": {
-                          "end": 23,
-                          "start": 23
-                        },
-                        "text": "5",
-                        "types": [
-                          "number"
-                        ],
-                        "value": 5,
-                        "word": "5"
                       }
+                    },
+                    "y": {
+                      "dead": true,
+                      "instance": true,
+                      "level": 1,
+                      "marker": "number",
+                      "range": {
+                        "end": 23,
+                        "start": 23
+                      },
+                      "text": "5",
+                      "types": [
+                        "number"
+                      ],
+                      "value": 5,
+                      "word": "5"
                     }
                   },
                   "y": {
@@ -1521,26 +1519,26 @@
               "questionMark"
             ],
             "queryable": [
-              "concept",
               "hierarchyAble",
               "readonly",
               "property",
               "object",
               "xfx",
+              "concept",
               "unknown",
               "it",
               "what",
               "whatAble",
               "this",
               "thisitthat",
-              "reason",
-              "number"
+              "reason"
             ],
             "theAble": [
-              "concept",
               "property",
               "object",
+              "concept",
               "unknown",
+              "noun",
               "reason"
             ],
             "thisitthat": [
@@ -1560,25 +1558,28 @@
               "property"
             ],
             "verby": [
+              "modifies",
               "is"
             ]
           },
           "concepts": [
             "properties",
-            "concept",
-            "theAble",
-            "queryable",
             "unknown",
             "hierarchyAble",
             "object",
             "what",
+            "queryable",
             "readonly",
             "property",
             "xfx",
+            "theAble",
             "whose",
             "have",
             "canBeDoQuestion",
             "canBeQuestion",
+            "concept",
+            "modifies",
+            "verby",
             "it",
             "pronoun",
             "this",
@@ -1591,11 +1592,10 @@
             "whatAble",
             "is",
             "toAble",
-            "verby",
+            "noun",
             "thisitthat",
             "reason",
             "that",
-            "number",
             "orAble",
             "ifAble",
             "*",
@@ -1663,8 +1663,11 @@
             "kelvin": [
               "unit"
             ],
-            "number": [
-              "queryable"
+            "modifies": [
+              "verby"
+            ],
+            "noun": [
+              "theAble"
             ],
             "object": [
               "queryable",
@@ -1775,9 +1778,11 @@
               },
               "mathematical_operator": {
               },
+              "modifies": {
+              },
               "notAble": {
               },
-              "number": {
+              "noun": {
               },
               "object": {
               },
@@ -1832,28 +1837,11 @@
           "relations": [
           ],
           "valueToWords": {
-            "mathematical_operator": [
-              {
-                "marker": "mathematical_operator",
-                "mathematical": {
-                  "marker": "mathematical",
-                  "value": "mathematical",
-                  "word": "mathematical"
-                },
-                "modifiers": [
-                  "mathematical"
-                ],
-                "paraphrase": true,
-                "types": [
-                  "mathematical_operator"
-                ],
-                "value": "mathematical_operator",
-                "word": "operator"
-              }
-            ]
           }
         },
         "punctuation2": {
+        },
+        "sdefaults2": {
         },
         "stm2": {
           "mentioned": [
@@ -1995,7 +1983,7 @@
                         "evaluate": true,
                         "isResponse": true,
                         "level": 1,
-                        "marker": "timesExpression",
+                        "marker": "divideByExpression",
                         "number": "one",
                         "range": {
                           "end": 23,
@@ -2003,47 +1991,47 @@
                         },
                         "text": "celcius * 9 / 5",
                         "types": [
-                          "number",
-                          "timesExpression"
+                          "divideByExpression",
+                          "number"
                         ],
                         "value": null,
-                        "word": "*",
+                        "word": "/",
                         "x": {
-                          "dead": true,
-                          "level": 1,
-                          "marker": "celcius",
-                          "number": "one",
-                          "range": {
-                            "end": 19,
-                            "start": 13
-                          },
-                          "text": "celcius",
-                          "types": [
-                            "celcius",
-                            "number"
-                          ],
-                          "value": "celcius",
-                          "word": "celcius"
-                        },
-                        "y": {
                           "dead": true,
                           "evaluate": true,
                           "isResponse": true,
                           "level": 1,
-                          "marker": "divideByExpression",
+                          "marker": "timesExpression",
                           "number": "one",
                           "range": {
-                            "end": 23,
-                            "start": 21
+                            "end": 21,
+                            "start": 13
                           },
-                          "text": "9 / 5",
+                          "text": "celcius * 9",
                           "types": [
-                            "divideByExpression",
-                            "number"
+                            "number",
+                            "timesExpression"
                           ],
                           "value": null,
-                          "word": "/",
+                          "word": "*",
                           "x": {
+                            "dead": true,
+                            "level": 1,
+                            "marker": "celcius",
+                            "number": "one",
+                            "range": {
+                              "end": 19,
+                              "start": 13
+                            },
+                            "text": "celcius",
+                            "types": [
+                              "celcius",
+                              "number"
+                            ],
+                            "value": "celcius",
+                            "word": "celcius"
+                          },
+                          "y": {
                             "dead": true,
                             "instance": true,
                             "level": 1,
@@ -2058,23 +2046,23 @@
                             ],
                             "value": 9,
                             "word": "9"
-                          },
-                          "y": {
-                            "dead": true,
-                            "instance": true,
-                            "level": 1,
-                            "marker": "number",
-                            "range": {
-                              "end": 23,
-                              "start": 23
-                            },
-                            "text": "5",
-                            "types": [
-                              "number"
-                            ],
-                            "value": 5,
-                            "word": "5"
                           }
+                        },
+                        "y": {
+                          "dead": true,
+                          "instance": true,
+                          "level": 1,
+                          "marker": "number",
+                          "range": {
+                            "end": 23,
+                            "start": 23
+                          },
+                          "text": "5",
+                          "types": [
+                            "number"
+                          ],
+                          "value": 5,
+                          "word": "5"
                         }
                       },
                       "y": {
@@ -2348,7 +2336,7 @@
                 "evaluate": true,
                 "isResponse": true,
                 "level": 1,
-                "marker": "timesExpression",
+                "marker": "divideByExpression",
                 "number": "one",
                 "range": {
                   "end": 30,
@@ -2356,83 +2344,83 @@
                 },
                 "text": "( fahrenheit - 32 ) * 5 / 8",
                 "types": [
-                  "number",
-                  "timesExpression"
+                  "divideByExpression",
+                  "number"
                 ],
                 "value": null,
-                "word": "*",
+                "word": "/",
                 "x": {
                   "dead": true,
                   "evaluate": true,
                   "isResponse": true,
                   "level": 1,
-                  "marker": "minusExpression",
+                  "marker": "timesExpression",
                   "number": "one",
-                  "parenthesis": "(",
                   "range": {
-                    "end": 26,
+                    "end": 28,
                     "start": 10
                   },
-                  "text": "( fahrenheit - 32 )",
+                  "text": "( fahrenheit - 32 ) * 5",
                   "types": [
-                    "minusExpression",
-                    "number"
+                    "number",
+                    "timesExpression"
                   ],
                   "value": null,
-                  "word": "-",
+                  "word": "*",
                   "x": {
                     "dead": true,
+                    "evaluate": true,
+                    "isResponse": true,
                     "level": 1,
-                    "marker": "fahrenheit",
+                    "marker": "minusExpression",
                     "number": "one",
+                    "parenthesis": "(",
                     "range": {
-                      "end": 20,
-                      "start": 11
+                      "end": 26,
+                      "start": 10
                     },
-                    "text": "fahrenheit",
+                    "text": "( fahrenheit - 32 )",
                     "types": [
-                      "fahrenheit",
+                      "minusExpression",
                       "number"
                     ],
-                    "value": "fahrenheit",
-                    "word": "fahrenheit"
+                    "value": null,
+                    "word": "-",
+                    "x": {
+                      "dead": true,
+                      "level": 1,
+                      "marker": "fahrenheit",
+                      "number": "one",
+                      "range": {
+                        "end": 20,
+                        "start": 11
+                      },
+                      "text": "fahrenheit",
+                      "types": [
+                        "fahrenheit",
+                        "number"
+                      ],
+                      "value": "fahrenheit",
+                      "word": "fahrenheit"
+                    },
+                    "y": {
+                      "dead": true,
+                      "instance": true,
+                      "level": 1,
+                      "marker": "number",
+                      "range": {
+                        "end": 25,
+                        "start": 24
+                      },
+                      "text": "32",
+                      "types": [
+                        "number"
+                      ],
+                      "value": 32,
+                      "word": "32"
+                    }
                   },
                   "y": {
-                    "dead": true,
-                    "instance": true,
-                    "level": 1,
-                    "marker": "number",
-                    "range": {
-                      "end": 25,
-                      "start": 24
-                    },
-                    "text": "32",
-                    "types": [
-                      "number"
-                    ],
-                    "value": 32,
-                    "word": "32"
-                  }
-                },
-                "y": {
-                  "dead": true,
-                  "evaluate": true,
-                  "isResponse": true,
-                  "level": 1,
-                  "marker": "divideByExpression",
-                  "number": "one",
-                  "range": {
-                    "end": 30,
-                    "start": 28
-                  },
-                  "text": "5 / 8",
-                  "types": [
-                    "divideByExpression",
-                    "number"
-                  ],
-                  "value": null,
-                  "word": "/",
-                  "x": {
                     "dead": true,
                     "instance": true,
                     "level": 1,
@@ -2447,23 +2435,23 @@
                     ],
                     "value": 5,
                     "word": "5"
-                  },
-                  "y": {
-                    "dead": true,
-                    "instance": true,
-                    "level": 1,
-                    "marker": "number",
-                    "range": {
-                      "end": 30,
-                      "start": 30
-                    },
-                    "text": "8",
-                    "types": [
-                      "number"
-                    ],
-                    "value": 8,
-                    "word": "8"
                   }
+                },
+                "y": {
+                  "dead": true,
+                  "instance": true,
+                  "level": 1,
+                  "marker": "number",
+                  "range": {
+                    "end": 30,
+                    "start": 30
+                  },
+                  "text": "8",
+                  "types": [
+                    "number"
+                  ],
+                  "value": 8,
+                  "word": "8"
                 }
               },
               "y": {
@@ -2486,7 +2474,8 @@
             "text": "celcius = ( fahrenheit - 32 ) * 5 / 8 + 32",
             "topLevel": true,
             "touchedBy": [
-              "temperature#call2"
+              "temperature#call2",
+              "instance3#temperature#call2"
             ],
             "value": "=",
             "word": "="
@@ -2549,7 +2538,7 @@
                 "evaluate": true,
                 "isResponse": true,
                 "level": 1,
-                "marker": "timesExpression",
+                "marker": "divideByExpression",
                 "number": "one",
                 "range": {
                   "end": 23,
@@ -2557,47 +2546,47 @@
                 },
                 "text": "celcius * 9 / 5",
                 "types": [
-                  "number",
-                  "timesExpression"
+                  "divideByExpression",
+                  "number"
                 ],
                 "value": null,
-                "word": "*",
+                "word": "/",
                 "x": {
-                  "dead": true,
-                  "level": 1,
-                  "marker": "celcius",
-                  "number": "one",
-                  "range": {
-                    "end": 19,
-                    "start": 13
-                  },
-                  "text": "celcius",
-                  "types": [
-                    "celcius",
-                    "number"
-                  ],
-                  "value": "celcius",
-                  "word": "celcius"
-                },
-                "y": {
                   "dead": true,
                   "evaluate": true,
                   "isResponse": true,
                   "level": 1,
-                  "marker": "divideByExpression",
+                  "marker": "timesExpression",
                   "number": "one",
                   "range": {
-                    "end": 23,
-                    "start": 21
+                    "end": 21,
+                    "start": 13
                   },
-                  "text": "9 / 5",
+                  "text": "celcius * 9",
                   "types": [
-                    "divideByExpression",
-                    "number"
+                    "number",
+                    "timesExpression"
                   ],
                   "value": null,
-                  "word": "/",
+                  "word": "*",
                   "x": {
+                    "dead": true,
+                    "level": 1,
+                    "marker": "celcius",
+                    "number": "one",
+                    "range": {
+                      "end": 19,
+                      "start": 13
+                    },
+                    "text": "celcius",
+                    "types": [
+                      "celcius",
+                      "number"
+                    ],
+                    "value": "celcius",
+                    "word": "celcius"
+                  },
+                  "y": {
                     "dead": true,
                     "instance": true,
                     "level": 1,
@@ -2612,23 +2601,23 @@
                     ],
                     "value": 9,
                     "word": "9"
-                  },
-                  "y": {
-                    "dead": true,
-                    "instance": true,
-                    "level": 1,
-                    "marker": "number",
-                    "range": {
-                      "end": 23,
-                      "start": 23
-                    },
-                    "text": "5",
-                    "types": [
-                      "number"
-                    ],
-                    "value": 5,
-                    "word": "5"
                   }
+                },
+                "y": {
+                  "dead": true,
+                  "instance": true,
+                  "level": 1,
+                  "marker": "number",
+                  "range": {
+                    "end": 23,
+                    "start": 23
+                  },
+                  "text": "5",
+                  "types": [
+                    "number"
+                  ],
+                  "value": 5,
+                  "word": "5"
                 }
               },
               "y": {
@@ -2651,7 +2640,8 @@
             "text": "fahrenheit = celcius * 9 / 5 + 32",
             "topLevel": true,
             "touchedBy": [
-              "temperature#call2"
+              "temperature#call2",
+              "instance2#temperature#call2"
             ],
             "value": "=",
             "word": "="
@@ -2673,6 +2663,7 @@
             "number": "many",
             "one": {
               "level": 1,
+              "listable": true,
               "marker": "list",
               "number": "many",
               "range": {
@@ -2686,7 +2677,7 @@
               "value": [
                 {
                   "dead": true,
-                  "level": 1,
+                  "level": 2,
                   "marker": "unknown",
                   "range": {
                     "end": 6,
@@ -2699,7 +2690,7 @@
                 },
                 {
                   "dead": true,
-                  "level": 1,
+                  "level": 2,
                   "marker": "unknown",
                   "range": {
                     "end": 17,
@@ -2712,7 +2703,7 @@
                 },
                 {
                   "dead": true,
-                  "level": 1,
+                  "level": 2,
                   "marker": "unknown",
                   "range": {
                     "end": 28,
@@ -2732,7 +2723,8 @@
             "text": " are units of temperature",
             "topLevel": true,
             "touchedBy": [
-              "temperature#call2"
+              "temperature#call2",
+              "instance1#temperature#call2"
             ],
             "two": {
               "concept": true,
@@ -2842,7 +2834,8 @@
             "text": "temperature is a dimension",
             "topLevel": true,
             "touchedBy": [
-              "temperature#call2"
+              "temperature#call2",
+              "instance0#temperature#call2"
             ],
             "two": {
               "concept": true,
@@ -2896,6 +2889,7 @@
             "number": "many",
             "one": {
               "level": 1,
+              "listable": true,
               "marker": "list",
               "number": "many",
               "range": {
@@ -2941,8 +2935,9 @@
             "topLevel": true,
             "touchedBy": [
               "dimensionTemplate#call2",
-              "dimension#call2",
-              "temperature#call2"
+              "instance0#dimensionTemplate#call2",
+              "instance0#dimension#call2",
+              "instance0#temperature#call2"
             ],
             "two": {
               "concept": true,
@@ -3041,6 +3036,24 @@
           0
         ],
         [
+          "convertToUnits",
+          0
+        ],
+        [
+          "is",
+          0
+        ],
+        [
+          "what",
+          0
+        ]
+      ],
+      [
+        [
+          "celcius",
+          0
+        ],
+        [
           "fahrenheit",
           0
         ],
@@ -3064,24 +3077,6 @@
         ],
         [
           "is",
-          0
-        ]
-      ],
-      [
-        [
-          "convertToUnits",
-          0
-        ],
-        [
-          "fahrenheit",
-          0
-        ],
-        [
-          "is",
-          0
-        ],
-        [
-          "what",
           0
         ]
       ],
@@ -3223,7 +3218,7 @@
                     "evaluate": true,
                     "isResponse": true,
                     "level": 1,
-                    "marker": "timesExpression",
+                    "marker": "divideByExpression",
                     "number": "one",
                     "range": {
                       "end": 30,
@@ -3231,83 +3226,83 @@
                     },
                     "text": "( fahrenheit - 32 ) * 5 / 8",
                     "types": [
-                      "number",
-                      "timesExpression"
+                      "divideByExpression",
+                      "number"
                     ],
                     "value": null,
-                    "word": "*",
+                    "word": "/",
                     "x": {
                       "dead": true,
                       "evaluate": true,
                       "isResponse": true,
                       "level": 1,
-                      "marker": "minusExpression",
+                      "marker": "timesExpression",
                       "number": "one",
-                      "parenthesis": "(",
                       "range": {
-                        "end": 26,
+                        "end": 28,
                         "start": 10
                       },
-                      "text": "( fahrenheit - 32 )",
+                      "text": "( fahrenheit - 32 ) * 5",
                       "types": [
-                        "minusExpression",
-                        "number"
+                        "number",
+                        "timesExpression"
                       ],
                       "value": null,
-                      "word": "-",
+                      "word": "*",
                       "x": {
                         "dead": true,
+                        "evaluate": true,
+                        "isResponse": true,
                         "level": 1,
-                        "marker": "fahrenheit",
+                        "marker": "minusExpression",
                         "number": "one",
+                        "parenthesis": "(",
                         "range": {
-                          "end": 20,
-                          "start": 11
+                          "end": 26,
+                          "start": 10
                         },
-                        "text": "fahrenheit",
+                        "text": "( fahrenheit - 32 )",
                         "types": [
-                          "fahrenheit",
+                          "minusExpression",
                           "number"
                         ],
-                        "value": "fahrenheit",
-                        "word": "fahrenheit"
+                        "value": null,
+                        "word": "-",
+                        "x": {
+                          "dead": true,
+                          "level": 1,
+                          "marker": "fahrenheit",
+                          "number": "one",
+                          "range": {
+                            "end": 20,
+                            "start": 11
+                          },
+                          "text": "fahrenheit",
+                          "types": [
+                            "fahrenheit",
+                            "number"
+                          ],
+                          "value": "fahrenheit",
+                          "word": "fahrenheit"
+                        },
+                        "y": {
+                          "dead": true,
+                          "instance": true,
+                          "level": 1,
+                          "marker": "number",
+                          "range": {
+                            "end": 25,
+                            "start": 24
+                          },
+                          "text": "32",
+                          "types": [
+                            "number"
+                          ],
+                          "value": 32,
+                          "word": "32"
+                        }
                       },
                       "y": {
-                        "dead": true,
-                        "instance": true,
-                        "level": 1,
-                        "marker": "number",
-                        "range": {
-                          "end": 25,
-                          "start": 24
-                        },
-                        "text": "32",
-                        "types": [
-                          "number"
-                        ],
-                        "value": 32,
-                        "word": "32"
-                      }
-                    },
-                    "y": {
-                      "dead": true,
-                      "evaluate": true,
-                      "isResponse": true,
-                      "level": 1,
-                      "marker": "divideByExpression",
-                      "number": "one",
-                      "range": {
-                        "end": 30,
-                        "start": 28
-                      },
-                      "text": "5 / 8",
-                      "types": [
-                        "divideByExpression",
-                        "number"
-                      ],
-                      "value": null,
-                      "word": "/",
-                      "x": {
                         "dead": true,
                         "instance": true,
                         "level": 1,
@@ -3322,23 +3317,23 @@
                         ],
                         "value": 5,
                         "word": "5"
-                      },
-                      "y": {
-                        "dead": true,
-                        "instance": true,
-                        "level": 1,
-                        "marker": "number",
-                        "range": {
-                          "end": 30,
-                          "start": 30
-                        },
-                        "text": "8",
-                        "types": [
-                          "number"
-                        ],
-                        "value": 8,
-                        "word": "8"
                       }
+                    },
+                    "y": {
+                      "dead": true,
+                      "instance": true,
+                      "level": 1,
+                      "marker": "number",
+                      "range": {
+                        "end": 30,
+                        "start": 30
+                      },
+                      "text": "8",
+                      "types": [
+                        "number"
+                      ],
+                      "value": 8,
+                      "word": "8"
                     }
                   },
                   "y": {
@@ -3598,14 +3593,10 @@
         {
           "counter": 2,
           "op": [
-            "celcius",
+            "fahrenheit",
             0
           ],
           "ops": [
-            [
-              "amountOfDimension",
-              0
-            ],
             [
               "celcius",
               0
@@ -3631,20 +3622,16 @@
         {
           "counter": 3,
           "op": [
-            "fahrenheit",
+            "celcius",
             0
           ],
           "ops": [
             [
-              "amountOfDimension",
+              "celcius",
               0
             ],
             [
               "convertToUnits",
-              0
-            ],
-            [
-              "fahrenheit",
               0
             ],
             [
@@ -3664,10 +3651,6 @@
             0
           ],
           "ops": [
-            [
-              "amountOfDimension",
-              0
-            ],
             [
               "convertToUnits",
               0
@@ -3772,6 +3755,7 @@
     "objects": {
       "nameToUUID": {
         "comparable": "comparable2",
+        "concept": "concept2",
         "countable": "countable2",
         "dialogues": "dialogues2",
         "dimension": "dimension2",
@@ -3787,12 +3771,19 @@
         "pos": "pos2",
         "properties": "properties2",
         "punctuation": "punctuation2",
+        "sdefaults": "sdefaults2",
         "stm": "stm2",
         "temperature": "temperature1",
         "testing": "testing2"
       },
       "namespaced": {
         "comparable2": {
+        },
+        "concept2": {
+          "defaultTypesForHierarchy": {
+          },
+          "valueToWords": [
+          ]
         },
         "countable2": {
         },
@@ -3858,13 +3849,198 @@
                       "evaluate": true,
                       "isResponse": true,
                       "level": 1,
-                      "marker": "timesExpression",
+                      "marker": "divideByExpression",
                       "number": "one",
                       "range": {
                         "end": 30,
                         "start": 10
                       },
                       "text": "( fahrenheit - 32 ) * 5 / 8",
+                      "types": [
+                        "divideByExpression",
+                        "number"
+                      ],
+                      "value": null,
+                      "word": "/",
+                      "x": {
+                        "dead": true,
+                        "evaluate": true,
+                        "isResponse": true,
+                        "level": 1,
+                        "marker": "timesExpression",
+                        "number": "one",
+                        "range": {
+                          "end": 28,
+                          "start": 10
+                        },
+                        "text": "( fahrenheit - 32 ) * 5",
+                        "types": [
+                          "number",
+                          "timesExpression"
+                        ],
+                        "value": null,
+                        "word": "*",
+                        "x": {
+                          "dead": true,
+                          "evaluate": true,
+                          "isResponse": true,
+                          "level": 1,
+                          "marker": "minusExpression",
+                          "number": "one",
+                          "parenthesis": "(",
+                          "range": {
+                            "end": 26,
+                            "start": 10
+                          },
+                          "text": "( fahrenheit - 32 )",
+                          "types": [
+                            "minusExpression",
+                            "number"
+                          ],
+                          "value": null,
+                          "word": "-",
+                          "x": {
+                            "dead": true,
+                            "level": 1,
+                            "marker": "fahrenheit",
+                            "number": "one",
+                            "range": {
+                              "end": 20,
+                              "start": 11
+                            },
+                            "text": "fahrenheit",
+                            "types": [
+                              "fahrenheit",
+                              "number"
+                            ],
+                            "value": "fahrenheit",
+                            "word": "fahrenheit"
+                          },
+                          "y": {
+                            "dead": true,
+                            "instance": true,
+                            "level": 1,
+                            "marker": "number",
+                            "range": {
+                              "end": 25,
+                              "start": 24
+                            },
+                            "text": "32",
+                            "types": [
+                              "number"
+                            ],
+                            "value": 32,
+                            "word": "32"
+                          }
+                        },
+                        "y": {
+                          "dead": true,
+                          "instance": true,
+                          "level": 1,
+                          "marker": "number",
+                          "range": {
+                            "end": 28,
+                            "start": 28
+                          },
+                          "text": "5",
+                          "types": [
+                            "number"
+                          ],
+                          "value": 5,
+                          "word": "5"
+                        }
+                      },
+                      "y": {
+                        "dead": true,
+                        "instance": true,
+                        "level": 1,
+                        "marker": "number",
+                        "range": {
+                          "end": 30,
+                          "start": 30
+                        },
+                        "text": "8",
+                        "types": [
+                          "number"
+                        ],
+                        "value": 8,
+                        "word": "8"
+                      }
+                    },
+                    "y": {
+                      "dead": true,
+                      "instance": true,
+                      "level": 1,
+                      "marker": "number",
+                      "range": {
+                        "end": 35,
+                        "start": 34
+                      },
+                      "text": "32",
+                      "types": [
+                        "number"
+                      ],
+                      "value": 32,
+                      "word": "32"
+                    }
+                  },
+                  "text": "celcius = ( fahrenheit - 32 ) * 5 / 8 + 32",
+                  "topLevel": true,
+                  "touchedBy": [
+                    "temperature#call2",
+                    "instance3#temperature#call2"
+                  ],
+                  "value": "=",
+                  "word": "="
+                },
+                "formula": {
+                  "dead": true,
+                  "evaluate": true,
+                  "isResponse": true,
+                  "level": 1,
+                  "marker": "plusExpression",
+                  "number": "one",
+                  "range": {
+                    "end": 35,
+                    "start": 10
+                  },
+                  "text": "( fahrenheit - 32 ) * 5 / 8 + 32",
+                  "types": [
+                    "number",
+                    "plusExpression"
+                  ],
+                  "value": null,
+                  "word": "+",
+                  "x": {
+                    "dead": true,
+                    "evaluate": true,
+                    "isResponse": true,
+                    "level": 1,
+                    "marker": "divideByExpression",
+                    "number": "one",
+                    "range": {
+                      "end": 30,
+                      "start": 10
+                    },
+                    "text": "( fahrenheit - 32 ) * 5 / 8",
+                    "types": [
+                      "divideByExpression",
+                      "number"
+                    ],
+                    "value": null,
+                    "word": "/",
+                    "x": {
+                      "dead": true,
+                      "evaluate": true,
+                      "isResponse": true,
+                      "level": 1,
+                      "marker": "timesExpression",
+                      "number": "one",
+                      "range": {
+                        "end": 28,
+                        "start": 10
+                      },
+                      "text": "( fahrenheit - 32 ) * 5",
                       "types": [
                         "number",
                         "timesExpression"
@@ -3926,190 +4102,6 @@
                       },
                       "y": {
                         "dead": true,
-                        "evaluate": true,
-                        "isResponse": true,
-                        "level": 1,
-                        "marker": "divideByExpression",
-                        "number": "one",
-                        "range": {
-                          "end": 30,
-                          "start": 28
-                        },
-                        "text": "5 / 8",
-                        "types": [
-                          "divideByExpression",
-                          "number"
-                        ],
-                        "value": null,
-                        "word": "/",
-                        "x": {
-                          "dead": true,
-                          "instance": true,
-                          "level": 1,
-                          "marker": "number",
-                          "range": {
-                            "end": 28,
-                            "start": 28
-                          },
-                          "text": "5",
-                          "types": [
-                            "number"
-                          ],
-                          "value": 5,
-                          "word": "5"
-                        },
-                        "y": {
-                          "dead": true,
-                          "instance": true,
-                          "level": 1,
-                          "marker": "number",
-                          "range": {
-                            "end": 30,
-                            "start": 30
-                          },
-                          "text": "8",
-                          "types": [
-                            "number"
-                          ],
-                          "value": 8,
-                          "word": "8"
-                        }
-                      }
-                    },
-                    "y": {
-                      "dead": true,
-                      "instance": true,
-                      "level": 1,
-                      "marker": "number",
-                      "range": {
-                        "end": 35,
-                        "start": 34
-                      },
-                      "text": "32",
-                      "types": [
-                        "number"
-                      ],
-                      "value": 32,
-                      "word": "32"
-                    }
-                  },
-                  "text": "celcius = ( fahrenheit - 32 ) * 5 / 8 + 32",
-                  "topLevel": true,
-                  "touchedBy": [
-                    "temperature#call2"
-                  ],
-                  "value": "=",
-                  "word": "="
-                },
-                "formula": {
-                  "dead": true,
-                  "evaluate": true,
-                  "isResponse": true,
-                  "level": 1,
-                  "marker": "plusExpression",
-                  "number": "one",
-                  "range": {
-                    "end": 35,
-                    "start": 10
-                  },
-                  "text": "( fahrenheit - 32 ) * 5 / 8 + 32",
-                  "types": [
-                    "number",
-                    "plusExpression"
-                  ],
-                  "value": null,
-                  "word": "+",
-                  "x": {
-                    "dead": true,
-                    "evaluate": true,
-                    "isResponse": true,
-                    "level": 1,
-                    "marker": "timesExpression",
-                    "number": "one",
-                    "range": {
-                      "end": 30,
-                      "start": 10
-                    },
-                    "text": "( fahrenheit - 32 ) * 5 / 8",
-                    "types": [
-                      "number",
-                      "timesExpression"
-                    ],
-                    "value": null,
-                    "word": "*",
-                    "x": {
-                      "dead": true,
-                      "evaluate": true,
-                      "isResponse": true,
-                      "level": 1,
-                      "marker": "minusExpression",
-                      "number": "one",
-                      "parenthesis": "(",
-                      "range": {
-                        "end": 26,
-                        "start": 10
-                      },
-                      "text": "( fahrenheit - 32 )",
-                      "types": [
-                        "minusExpression",
-                        "number"
-                      ],
-                      "value": null,
-                      "word": "-",
-                      "x": {
-                        "dead": true,
-                        "level": 1,
-                        "marker": "fahrenheit",
-                        "number": "one",
-                        "range": {
-                          "end": 20,
-                          "start": 11
-                        },
-                        "text": "fahrenheit",
-                        "types": [
-                          "fahrenheit",
-                          "number"
-                        ],
-                        "value": "fahrenheit",
-                        "word": "fahrenheit"
-                      },
-                      "y": {
-                        "dead": true,
-                        "instance": true,
-                        "level": 1,
-                        "marker": "number",
-                        "range": {
-                          "end": 25,
-                          "start": 24
-                        },
-                        "text": "32",
-                        "types": [
-                          "number"
-                        ],
-                        "value": 32,
-                        "word": "32"
-                      }
-                    },
-                    "y": {
-                      "dead": true,
-                      "evaluate": true,
-                      "isResponse": true,
-                      "level": 1,
-                      "marker": "divideByExpression",
-                      "number": "one",
-                      "range": {
-                        "end": 30,
-                        "start": 28
-                      },
-                      "text": "5 / 8",
-                      "types": [
-                        "divideByExpression",
-                        "number"
-                      ],
-                      "value": null,
-                      "word": "/",
-                      "x": {
-                        "dead": true,
                         "instance": true,
                         "level": 1,
                         "marker": "number",
@@ -4123,23 +4115,23 @@
                         ],
                         "value": 5,
                         "word": "5"
-                      },
-                      "y": {
-                        "dead": true,
-                        "instance": true,
-                        "level": 1,
-                        "marker": "number",
-                        "range": {
-                          "end": 30,
-                          "start": 30
-                        },
-                        "text": "8",
-                        "types": [
-                          "number"
-                        ],
-                        "value": 8,
-                        "word": "8"
                       }
+                    },
+                    "y": {
+                      "dead": true,
+                      "instance": true,
+                      "level": 1,
+                      "marker": "number",
+                      "range": {
+                        "end": 30,
+                        "start": 30
+                      },
+                      "text": "8",
+                      "types": [
+                        "number"
+                      ],
+                      "value": 8,
+                      "word": "8"
                     }
                   },
                   "y": {
@@ -4228,7 +4220,7 @@
                       "evaluate": true,
                       "isResponse": true,
                       "level": 1,
-                      "marker": "timesExpression",
+                      "marker": "divideByExpression",
                       "number": "one",
                       "range": {
                         "end": 23,
@@ -4236,47 +4228,47 @@
                       },
                       "text": "celcius * 9 / 5",
                       "types": [
-                        "number",
-                        "timesExpression"
+                        "divideByExpression",
+                        "number"
                       ],
                       "value": null,
-                      "word": "*",
+                      "word": "/",
                       "x": {
-                        "dead": true,
-                        "level": 1,
-                        "marker": "celcius",
-                        "number": "one",
-                        "range": {
-                          "end": 19,
-                          "start": 13
-                        },
-                        "text": "celcius",
-                        "types": [
-                          "celcius",
-                          "number"
-                        ],
-                        "value": "celcius",
-                        "word": "celcius"
-                      },
-                      "y": {
                         "dead": true,
                         "evaluate": true,
                         "isResponse": true,
                         "level": 1,
-                        "marker": "divideByExpression",
+                        "marker": "timesExpression",
                         "number": "one",
                         "range": {
-                          "end": 23,
-                          "start": 21
+                          "end": 21,
+                          "start": 13
                         },
-                        "text": "9 / 5",
+                        "text": "celcius * 9",
                         "types": [
-                          "divideByExpression",
-                          "number"
+                          "number",
+                          "timesExpression"
                         ],
                         "value": null,
-                        "word": "/",
+                        "word": "*",
                         "x": {
+                          "dead": true,
+                          "level": 1,
+                          "marker": "celcius",
+                          "number": "one",
+                          "range": {
+                            "end": 19,
+                            "start": 13
+                          },
+                          "text": "celcius",
+                          "types": [
+                            "celcius",
+                            "number"
+                          ],
+                          "value": "celcius",
+                          "word": "celcius"
+                        },
+                        "y": {
                           "dead": true,
                           "instance": true,
                           "level": 1,
@@ -4291,23 +4283,23 @@
                           ],
                           "value": 9,
                           "word": "9"
-                        },
-                        "y": {
-                          "dead": true,
-                          "instance": true,
-                          "level": 1,
-                          "marker": "number",
-                          "range": {
-                            "end": 23,
-                            "start": 23
-                          },
-                          "text": "5",
-                          "types": [
-                            "number"
-                          ],
-                          "value": 5,
-                          "word": "5"
                         }
+                      },
+                      "y": {
+                        "dead": true,
+                        "instance": true,
+                        "level": 1,
+                        "marker": "number",
+                        "range": {
+                          "end": 23,
+                          "start": 23
+                        },
+                        "text": "5",
+                        "types": [
+                          "number"
+                        ],
+                        "value": 5,
+                        "word": "5"
                       }
                     },
                     "y": {
@@ -4330,7 +4322,8 @@
                   "text": "fahrenheit = celcius * 9 / 5 + 32",
                   "topLevel": true,
                   "touchedBy": [
-                    "temperature#call2"
+                    "temperature#call2",
+                    "instance2#temperature#call2"
                   ],
                   "value": "=",
                   "word": "="
@@ -4358,7 +4351,7 @@
                     "evaluate": true,
                     "isResponse": true,
                     "level": 1,
-                    "marker": "timesExpression",
+                    "marker": "divideByExpression",
                     "number": "one",
                     "range": {
                       "end": 23,
@@ -4366,47 +4359,47 @@
                     },
                     "text": "celcius * 9 / 5",
                     "types": [
-                      "number",
-                      "timesExpression"
+                      "divideByExpression",
+                      "number"
                     ],
                     "value": null,
-                    "word": "*",
+                    "word": "/",
                     "x": {
-                      "dead": true,
-                      "level": 1,
-                      "marker": "celcius",
-                      "number": "one",
-                      "range": {
-                        "end": 19,
-                        "start": 13
-                      },
-                      "text": "celcius",
-                      "types": [
-                        "celcius",
-                        "number"
-                      ],
-                      "value": "celcius",
-                      "word": "celcius"
-                    },
-                    "y": {
                       "dead": true,
                       "evaluate": true,
                       "isResponse": true,
                       "level": 1,
-                      "marker": "divideByExpression",
+                      "marker": "timesExpression",
                       "number": "one",
                       "range": {
-                        "end": 23,
-                        "start": 21
+                        "end": 21,
+                        "start": 13
                       },
-                      "text": "9 / 5",
+                      "text": "celcius * 9",
                       "types": [
-                        "divideByExpression",
-                        "number"
+                        "number",
+                        "timesExpression"
                       ],
                       "value": null,
-                      "word": "/",
+                      "word": "*",
                       "x": {
+                        "dead": true,
+                        "level": 1,
+                        "marker": "celcius",
+                        "number": "one",
+                        "range": {
+                          "end": 19,
+                          "start": 13
+                        },
+                        "text": "celcius",
+                        "types": [
+                          "celcius",
+                          "number"
+                        ],
+                        "value": "celcius",
+                        "word": "celcius"
+                      },
+                      "y": {
                         "dead": true,
                         "instance": true,
                         "level": 1,
@@ -4421,23 +4414,23 @@
                         ],
                         "value": 9,
                         "word": "9"
-                      },
-                      "y": {
-                        "dead": true,
-                        "instance": true,
-                        "level": 1,
-                        "marker": "number",
-                        "range": {
-                          "end": 23,
-                          "start": 23
-                        },
-                        "text": "5",
-                        "types": [
-                          "number"
-                        ],
-                        "value": 5,
-                        "word": "5"
                       }
+                    },
+                    "y": {
+                      "dead": true,
+                      "instance": true,
+                      "level": 1,
+                      "marker": "number",
+                      "range": {
+                        "end": 23,
+                        "start": 23
+                      },
+                      "text": "5",
+                      "types": [
+                        "number"
+                      ],
+                      "value": 5,
+                      "word": "5"
                     }
                   },
                   "y": {
@@ -4543,26 +4536,26 @@
               "questionMark"
             ],
             "queryable": [
-              "concept",
               "hierarchyAble",
               "readonly",
               "property",
               "object",
               "xfx",
+              "concept",
               "unknown",
               "it",
               "what",
               "whatAble",
               "this",
               "thisitthat",
-              "reason",
-              "number"
+              "reason"
             ],
             "theAble": [
-              "concept",
               "property",
               "object",
+              "concept",
               "unknown",
+              "noun",
               "reason"
             ],
             "thisitthat": [
@@ -4582,25 +4575,28 @@
               "property"
             ],
             "verby": [
+              "modifies",
               "is"
             ]
           },
           "concepts": [
             "properties",
-            "concept",
-            "theAble",
-            "queryable",
             "unknown",
             "hierarchyAble",
             "object",
             "what",
+            "queryable",
             "readonly",
             "property",
             "xfx",
+            "theAble",
             "whose",
             "have",
             "canBeDoQuestion",
             "canBeQuestion",
+            "concept",
+            "modifies",
+            "verby",
             "it",
             "pronoun",
             "this",
@@ -4613,11 +4609,10 @@
             "whatAble",
             "is",
             "toAble",
-            "verby",
+            "noun",
             "thisitthat",
             "reason",
             "that",
-            "number",
             "orAble",
             "ifAble",
             "*",
@@ -4685,8 +4680,11 @@
             "kelvin": [
               "unit"
             ],
-            "number": [
-              "queryable"
+            "modifies": [
+              "verby"
+            ],
+            "noun": [
+              "theAble"
             ],
             "object": [
               "queryable",
@@ -4797,9 +4795,11 @@
               },
               "mathematical_operator": {
               },
+              "modifies": {
+              },
               "notAble": {
               },
-              "number": {
+              "noun": {
               },
               "object": {
               },
@@ -4854,28 +4854,11 @@
           "relations": [
           ],
           "valueToWords": {
-            "mathematical_operator": [
-              {
-                "marker": "mathematical_operator",
-                "mathematical": {
-                  "marker": "mathematical",
-                  "value": "mathematical",
-                  "word": "mathematical"
-                },
-                "modifiers": [
-                  "mathematical"
-                ],
-                "paraphrase": true,
-                "types": [
-                  "mathematical_operator"
-                ],
-                "value": "mathematical_operator",
-                "word": "operator"
-              }
-            ]
           }
         },
         "punctuation2": {
+        },
+        "sdefaults2": {
         },
         "stm2": {
           "mentioned": [
@@ -5017,7 +5000,7 @@
                         "evaluate": true,
                         "isResponse": true,
                         "level": 1,
-                        "marker": "timesExpression",
+                        "marker": "divideByExpression",
                         "number": "one",
                         "range": {
                           "end": 30,
@@ -5025,83 +5008,83 @@
                         },
                         "text": "( fahrenheit - 32 ) * 5 / 8",
                         "types": [
-                          "number",
-                          "timesExpression"
+                          "divideByExpression",
+                          "number"
                         ],
                         "value": null,
-                        "word": "*",
+                        "word": "/",
                         "x": {
                           "dead": true,
                           "evaluate": true,
                           "isResponse": true,
                           "level": 1,
-                          "marker": "minusExpression",
+                          "marker": "timesExpression",
                           "number": "one",
-                          "parenthesis": "(",
                           "range": {
-                            "end": 26,
+                            "end": 28,
                             "start": 10
                           },
-                          "text": "( fahrenheit - 32 )",
+                          "text": "( fahrenheit - 32 ) * 5",
                           "types": [
-                            "minusExpression",
-                            "number"
+                            "number",
+                            "timesExpression"
                           ],
                           "value": null,
-                          "word": "-",
+                          "word": "*",
                           "x": {
                             "dead": true,
+                            "evaluate": true,
+                            "isResponse": true,
                             "level": 1,
-                            "marker": "fahrenheit",
+                            "marker": "minusExpression",
                             "number": "one",
+                            "parenthesis": "(",
                             "range": {
-                              "end": 20,
-                              "start": 11
+                              "end": 26,
+                              "start": 10
                             },
-                            "text": "fahrenheit",
+                            "text": "( fahrenheit - 32 )",
                             "types": [
-                              "fahrenheit",
+                              "minusExpression",
                               "number"
                             ],
-                            "value": "fahrenheit",
-                            "word": "fahrenheit"
+                            "value": null,
+                            "word": "-",
+                            "x": {
+                              "dead": true,
+                              "level": 1,
+                              "marker": "fahrenheit",
+                              "number": "one",
+                              "range": {
+                                "end": 20,
+                                "start": 11
+                              },
+                              "text": "fahrenheit",
+                              "types": [
+                                "fahrenheit",
+                                "number"
+                              ],
+                              "value": "fahrenheit",
+                              "word": "fahrenheit"
+                            },
+                            "y": {
+                              "dead": true,
+                              "instance": true,
+                              "level": 1,
+                              "marker": "number",
+                              "range": {
+                                "end": 25,
+                                "start": 24
+                              },
+                              "text": "32",
+                              "types": [
+                                "number"
+                              ],
+                              "value": 32,
+                              "word": "32"
+                            }
                           },
                           "y": {
-                            "dead": true,
-                            "instance": true,
-                            "level": 1,
-                            "marker": "number",
-                            "range": {
-                              "end": 25,
-                              "start": 24
-                            },
-                            "text": "32",
-                            "types": [
-                              "number"
-                            ],
-                            "value": 32,
-                            "word": "32"
-                          }
-                        },
-                        "y": {
-                          "dead": true,
-                          "evaluate": true,
-                          "isResponse": true,
-                          "level": 1,
-                          "marker": "divideByExpression",
-                          "number": "one",
-                          "range": {
-                            "end": 30,
-                            "start": 28
-                          },
-                          "text": "5 / 8",
-                          "types": [
-                            "divideByExpression",
-                            "number"
-                          ],
-                          "value": null,
-                          "word": "/",
-                          "x": {
                             "dead": true,
                             "instance": true,
                             "level": 1,
@@ -5116,23 +5099,23 @@
                             ],
                             "value": 5,
                             "word": "5"
-                          },
-                          "y": {
-                            "dead": true,
-                            "instance": true,
-                            "level": 1,
-                            "marker": "number",
-                            "range": {
-                              "end": 30,
-                              "start": 30
-                            },
-                            "text": "8",
-                            "types": [
-                              "number"
-                            ],
-                            "value": 8,
-                            "word": "8"
                           }
+                        },
+                        "y": {
+                          "dead": true,
+                          "instance": true,
+                          "level": 1,
+                          "marker": "number",
+                          "range": {
+                            "end": 30,
+                            "start": 30
+                          },
+                          "text": "8",
+                          "types": [
+                            "number"
+                          ],
+                          "value": 8,
+                          "word": "8"
                         }
                       },
                       "y": {
@@ -5406,7 +5389,7 @@
                 "evaluate": true,
                 "isResponse": true,
                 "level": 1,
-                "marker": "timesExpression",
+                "marker": "divideByExpression",
                 "number": "one",
                 "range": {
                   "end": 30,
@@ -5414,83 +5397,83 @@
                 },
                 "text": "( fahrenheit - 32 ) * 5 / 8",
                 "types": [
-                  "number",
-                  "timesExpression"
+                  "divideByExpression",
+                  "number"
                 ],
                 "value": null,
-                "word": "*",
+                "word": "/",
                 "x": {
                   "dead": true,
                   "evaluate": true,
                   "isResponse": true,
                   "level": 1,
-                  "marker": "minusExpression",
+                  "marker": "timesExpression",
                   "number": "one",
-                  "parenthesis": "(",
                   "range": {
-                    "end": 26,
+                    "end": 28,
                     "start": 10
                   },
-                  "text": "( fahrenheit - 32 )",
+                  "text": "( fahrenheit - 32 ) * 5",
                   "types": [
-                    "minusExpression",
-                    "number"
+                    "number",
+                    "timesExpression"
                   ],
                   "value": null,
-                  "word": "-",
+                  "word": "*",
                   "x": {
                     "dead": true,
+                    "evaluate": true,
+                    "isResponse": true,
                     "level": 1,
-                    "marker": "fahrenheit",
+                    "marker": "minusExpression",
                     "number": "one",
+                    "parenthesis": "(",
                     "range": {
-                      "end": 20,
-                      "start": 11
+                      "end": 26,
+                      "start": 10
                     },
-                    "text": "fahrenheit",
+                    "text": "( fahrenheit - 32 )",
                     "types": [
-                      "fahrenheit",
+                      "minusExpression",
                       "number"
                     ],
-                    "value": "fahrenheit",
-                    "word": "fahrenheit"
+                    "value": null,
+                    "word": "-",
+                    "x": {
+                      "dead": true,
+                      "level": 1,
+                      "marker": "fahrenheit",
+                      "number": "one",
+                      "range": {
+                        "end": 20,
+                        "start": 11
+                      },
+                      "text": "fahrenheit",
+                      "types": [
+                        "fahrenheit",
+                        "number"
+                      ],
+                      "value": "fahrenheit",
+                      "word": "fahrenheit"
+                    },
+                    "y": {
+                      "dead": true,
+                      "instance": true,
+                      "level": 1,
+                      "marker": "number",
+                      "range": {
+                        "end": 25,
+                        "start": 24
+                      },
+                      "text": "32",
+                      "types": [
+                        "number"
+                      ],
+                      "value": 32,
+                      "word": "32"
+                    }
                   },
                   "y": {
-                    "dead": true,
-                    "instance": true,
-                    "level": 1,
-                    "marker": "number",
-                    "range": {
-                      "end": 25,
-                      "start": 24
-                    },
-                    "text": "32",
-                    "types": [
-                      "number"
-                    ],
-                    "value": 32,
-                    "word": "32"
-                  }
-                },
-                "y": {
-                  "dead": true,
-                  "evaluate": true,
-                  "isResponse": true,
-                  "level": 1,
-                  "marker": "divideByExpression",
-                  "number": "one",
-                  "range": {
-                    "end": 30,
-                    "start": 28
-                  },
-                  "text": "5 / 8",
-                  "types": [
-                    "divideByExpression",
-                    "number"
-                  ],
-                  "value": null,
-                  "word": "/",
-                  "x": {
                     "dead": true,
                     "instance": true,
                     "level": 1,
@@ -5505,23 +5488,23 @@
                     ],
                     "value": 5,
                     "word": "5"
-                  },
-                  "y": {
-                    "dead": true,
-                    "instance": true,
-                    "level": 1,
-                    "marker": "number",
-                    "range": {
-                      "end": 30,
-                      "start": 30
-                    },
-                    "text": "8",
-                    "types": [
-                      "number"
-                    ],
-                    "value": 8,
-                    "word": "8"
                   }
+                },
+                "y": {
+                  "dead": true,
+                  "instance": true,
+                  "level": 1,
+                  "marker": "number",
+                  "range": {
+                    "end": 30,
+                    "start": 30
+                  },
+                  "text": "8",
+                  "types": [
+                    "number"
+                  ],
+                  "value": 8,
+                  "word": "8"
                 }
               },
               "y": {
@@ -5544,7 +5527,8 @@
             "text": "celcius = ( fahrenheit - 32 ) * 5 / 8 + 32",
             "topLevel": true,
             "touchedBy": [
-              "temperature#call2"
+              "temperature#call2",
+              "instance3#temperature#call2"
             ],
             "value": "=",
             "word": "="
@@ -5607,7 +5591,7 @@
                 "evaluate": true,
                 "isResponse": true,
                 "level": 1,
-                "marker": "timesExpression",
+                "marker": "divideByExpression",
                 "number": "one",
                 "range": {
                   "end": 23,
@@ -5615,47 +5599,47 @@
                 },
                 "text": "celcius * 9 / 5",
                 "types": [
-                  "number",
-                  "timesExpression"
+                  "divideByExpression",
+                  "number"
                 ],
                 "value": null,
-                "word": "*",
+                "word": "/",
                 "x": {
-                  "dead": true,
-                  "level": 1,
-                  "marker": "celcius",
-                  "number": "one",
-                  "range": {
-                    "end": 19,
-                    "start": 13
-                  },
-                  "text": "celcius",
-                  "types": [
-                    "celcius",
-                    "number"
-                  ],
-                  "value": "celcius",
-                  "word": "celcius"
-                },
-                "y": {
                   "dead": true,
                   "evaluate": true,
                   "isResponse": true,
                   "level": 1,
-                  "marker": "divideByExpression",
+                  "marker": "timesExpression",
                   "number": "one",
                   "range": {
-                    "end": 23,
-                    "start": 21
+                    "end": 21,
+                    "start": 13
                   },
-                  "text": "9 / 5",
+                  "text": "celcius * 9",
                   "types": [
-                    "divideByExpression",
-                    "number"
+                    "number",
+                    "timesExpression"
                   ],
                   "value": null,
-                  "word": "/",
+                  "word": "*",
                   "x": {
+                    "dead": true,
+                    "level": 1,
+                    "marker": "celcius",
+                    "number": "one",
+                    "range": {
+                      "end": 19,
+                      "start": 13
+                    },
+                    "text": "celcius",
+                    "types": [
+                      "celcius",
+                      "number"
+                    ],
+                    "value": "celcius",
+                    "word": "celcius"
+                  },
+                  "y": {
                     "dead": true,
                     "instance": true,
                     "level": 1,
@@ -5670,23 +5654,23 @@
                     ],
                     "value": 9,
                     "word": "9"
-                  },
-                  "y": {
-                    "dead": true,
-                    "instance": true,
-                    "level": 1,
-                    "marker": "number",
-                    "range": {
-                      "end": 23,
-                      "start": 23
-                    },
-                    "text": "5",
-                    "types": [
-                      "number"
-                    ],
-                    "value": 5,
-                    "word": "5"
                   }
+                },
+                "y": {
+                  "dead": true,
+                  "instance": true,
+                  "level": 1,
+                  "marker": "number",
+                  "range": {
+                    "end": 23,
+                    "start": 23
+                  },
+                  "text": "5",
+                  "types": [
+                    "number"
+                  ],
+                  "value": 5,
+                  "word": "5"
                 }
               },
               "y": {
@@ -5709,7 +5693,8 @@
             "text": "fahrenheit = celcius * 9 / 5 + 32",
             "topLevel": true,
             "touchedBy": [
-              "temperature#call2"
+              "temperature#call2",
+              "instance2#temperature#call2"
             ],
             "value": "=",
             "word": "="
@@ -5731,6 +5716,7 @@
             "number": "many",
             "one": {
               "level": 1,
+              "listable": true,
               "marker": "list",
               "number": "many",
               "range": {
@@ -5744,7 +5730,7 @@
               "value": [
                 {
                   "dead": true,
-                  "level": 1,
+                  "level": 2,
                   "marker": "unknown",
                   "range": {
                     "end": 6,
@@ -5757,7 +5743,7 @@
                 },
                 {
                   "dead": true,
-                  "level": 1,
+                  "level": 2,
                   "marker": "unknown",
                   "range": {
                     "end": 17,
@@ -5770,7 +5756,7 @@
                 },
                 {
                   "dead": true,
-                  "level": 1,
+                  "level": 2,
                   "marker": "unknown",
                   "range": {
                     "end": 28,
@@ -5790,7 +5776,8 @@
             "text": " are units of temperature",
             "topLevel": true,
             "touchedBy": [
-              "temperature#call2"
+              "temperature#call2",
+              "instance1#temperature#call2"
             ],
             "two": {
               "concept": true,
@@ -5900,7 +5887,8 @@
             "text": "temperature is a dimension",
             "topLevel": true,
             "touchedBy": [
-              "temperature#call2"
+              "temperature#call2",
+              "instance0#temperature#call2"
             ],
             "two": {
               "concept": true,
@@ -5954,6 +5942,7 @@
             "number": "many",
             "one": {
               "level": 1,
+              "listable": true,
               "marker": "list",
               "number": "many",
               "range": {
@@ -5999,8 +5988,9 @@
             "topLevel": true,
             "touchedBy": [
               "dimensionTemplate#call2",
-              "dimension#call2",
-              "temperature#call2"
+              "instance0#dimensionTemplate#call2",
+              "instance0#dimension#call2",
+              "instance0#temperature#call2"
             ],
             "two": {
               "concept": true,
