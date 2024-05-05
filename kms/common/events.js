@@ -88,12 +88,11 @@ let config = {
       notes: 'after event action handler',
       where: where(),
       match: ({context}) => context.marker == 'after',
-      apply: ({context, motivation}) => {
+      apply: ({context, config}) => {
           // add motivation that watches for event
           const event = context.event
           const action = context.action
-          motivation({
-            repeat: true,
+          config.addSemantic({
             where: where(),
             match: ({context, kms}) => kms.events.api.happened(context, event),
             apply: ({context, insert}) => { 

@@ -54,6 +54,23 @@ let config = {
     "([listening])",
     "(([direction]) [moveAmount|] ([number]))"
   ],
+  semantics: [
+    {
+      where: where(),
+      match: ({context, isA}) => isA(context, 'direction'),
+      apply: ({context, insert, s}) => {
+        const direction = context
+        const fragment = config.fragment("move direction")
+        const mappings = [{
+          where: where(),
+          match: ({context}) => context.value == 'direction',
+          apply: ({context}) => Object.assign(context, direction),
+        }]
+        const instantiation = fragment.instantiate(mappings)
+        s(instantiation)
+      }
+    },
+  ],
   bridges: [
     { 
        where: where(),
@@ -170,25 +187,6 @@ const template = {
 config = new Config(config, module)
 config.add(dialogues).add(math)
 config.api = api
-config.initializer( ({config, baseConfig}) => {
-  // TODO fix this config/baseConfig thing
-  baseConfig.addMotivation({
-    repeat: true,
-    where: where(),
-    match: ({context, isA}) => isA(context, 'direction'),
-    apply: ({context, insert, s}) => {
-      const direction = context
-      const fragment = config.fragment("move direction")
-      const mappings = [{
-        where: where(),
-        match: ({context}) => context.value == 'direction',
-        apply: ({context}) => Object.assign(context, direction),
-      }]
-      const instantiation = fragment.instantiate(mappings)
-      s(instantiation)
-    }
-  })
-})
 
 knowledgeModule({ 
   module,

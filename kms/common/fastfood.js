@@ -54,7 +54,8 @@ const template ={
           id: 'comboMeal',
           convolution: true,
           before: ['meal', 'combo'],
-          bridge: "{ ...before[0], combo: true, postModifiers: append(before[0].postModifiers, ['combo']), combo: after[0] }",
+          // bridge: "{ ...before[0], combo: true, postModifiers: append(before[0].postModifiers, ['combo']), combo: after[0], flatten: true }",
+          bridge: "{ ...next(after[0]), modifiers: append(before[0].modifiers, ['type']), type: before[0], flatten: true }",
         },
       ]
     }
@@ -125,10 +126,22 @@ const config = new Config({
     "([orderNoun|order])",
     "([showOrder|show] ([orderNoun/1]))",
   ],
+  // flatten: ['list'],
   contextual_priorities: [
     { context: [['list', 0], ['bacon',0], ['deluxe', 0]], choose: [1,2] },
     { context: [['list', 0], ['spicy',0], ['homestyle', 0]], choose: [1,2] },
     { context: [['list', 0], ['premium',0], ['cod', 0]], choose: [1,2] },
+  ],
+  semantics: [
+    {
+      where: where(),
+      match: ({context, isA}) => isA(context.marker, 'food'),
+      apply: ({context, km, callId, api}) => {
+        // config.state.add(context)
+        // km('fastfood').state.add(context)
+        km('fastfood').api.state.add(context)
+      }
+    }
   ],
   bridges: [
     { 
@@ -154,6 +167,7 @@ config.add(foods)
 config.add(countable)
 config.add(events)
 config.api = api
+
 config.initializer( ({motivation, km}) => {
   // this.state = new State(config.api)
   // const api = baseConfig.getConfig('fastfood').api
@@ -171,16 +185,6 @@ config.initializer( ({motivation, km}) => {
     }
   }
   */
-  motivation({
-    repeat: true,
-    where: where(),
-    match: ({context, isA}) => isA(context.marker, 'food'),
-    apply: ({context, km, api}) => {
-      // config.state.add(context)
-      // km('fastfood').state.add(context)
-      km('fastfood').api.state.add(context)
-    }
-  })
 
 })
 

@@ -23,7 +23,7 @@
             "meal",
             "combo"
           ],
-          "bridge": "{ ...before[0], combo: true, postModifiers: append(before[0].postModifiers, ['combo']), combo: after[0] }"
+          "bridge": "{ ...next(after[0]), modifiers: append(before[0].modifiers, ['type']), type: before[0], flatten: true }"
         }
       ]
     }
@@ -1169,7 +1169,8 @@
             "types": [
               "food"
             ],
-            "level": 1
+            "level": 1,
+            "concept": true
           },
           "two": {
             "marker": "countable",
@@ -1185,8 +1186,7 @@
             "types": [
               "countable"
             ],
-            "level": 1,
-            "concept": true
+            "level": 1
           },
           "dead": true,
           "level": 2,
@@ -1510,6 +1510,10 @@
         ],
         [
           "countable",
+          "food"
+        ],
+        [
+          "countable",
           "hierarchyAble"
         ],
         [
@@ -1547,10 +1551,6 @@
         [
           "event",
           "event"
-        ],
-        [
-          "food",
-          "countable"
         ],
         [
           "food",
@@ -2778,6 +2778,10 @@
         ],
         [
           "countable",
+          "food"
+        ],
+        [
+          "countable",
           "hierarchyAble"
         ],
         [
@@ -2847,10 +2851,6 @@
         [
           "event",
           "event"
-        ],
-        [
-          "food",
-          "countable"
         ],
         [
           "food",
@@ -4103,6 +4103,10 @@
         ],
         [
           "countable",
+          "food"
+        ],
+        [
+          "countable",
           "hierarchyAble"
         ],
         [
@@ -4172,10 +4176,6 @@
         [
           "event",
           "event"
-        ],
-        [
-          "food",
-          "countable"
         ],
         [
           "food",
@@ -5475,6 +5475,10 @@
         ],
         [
           "countable",
+          "food"
+        ],
+        [
+          "countable",
           "hierarchyAble"
         ],
         [
@@ -5544,10 +5548,6 @@
         [
           "event",
           "event"
-        ],
-        [
-          "food",
-          "countable"
         ],
         [
           "food",
@@ -6911,6 +6911,10 @@
         ],
         [
           "countable",
+          "food"
+        ],
+        [
+          "countable",
           "hierarchyAble"
         ],
         [
@@ -6980,10 +6984,6 @@
         [
           "event",
           "event"
-        ],
-        [
-          "food",
-          "countable"
         ],
         [
           "food",
@@ -8153,10 +8153,6 @@
             ],
             "ops": [
               [
-                "list",
-                1
-              ],
-              [
                 "is",
                 0
               ],
@@ -8173,10 +8169,6 @@
               0
             ],
             "ops": [
-              [
-                "list",
-                1
-              ],
               [
                 "is",
                 0
@@ -8203,7 +8195,7 @@
       "contexts": [
         {
           "number": "many",
-          "text": " are hamburgers",
+          "text": "single double triple baconater and bacon deluxe are hamburgers",
           "marker": "is",
           "word": "are",
           "range": {
@@ -8213,7 +8205,18 @@
           "one": {
             "number": "many",
             "marker": "list",
-            "listable": true,
+            "default": true,
+            "word": "and",
+            "text": "single double triple baconater and bacon deluxe",
+            "range": {
+              "start": 0,
+              "end": 61
+            },
+            "types": [
+              "list",
+              "unknown"
+            ],
+            "isList": true,
             "value": [
               {
                 "marker": "unknown",
@@ -8226,7 +8229,7 @@
                 "value": "single",
                 "unknown": true,
                 "dead": true,
-                "level": 2
+                "level": 1
               },
               {
                 "marker": "unknown",
@@ -8239,7 +8242,7 @@
                 "value": "double",
                 "unknown": true,
                 "dead": true,
-                "level": 2
+                "level": 1
               },
               {
                 "marker": "unknown",
@@ -8252,7 +8255,7 @@
                 "value": "triple",
                 "unknown": true,
                 "dead": true,
-                "level": 2
+                "level": 1
               },
               {
                 "marker": "unknown",
@@ -8265,7 +8268,7 @@
                 "value": "baconater",
                 "unknown": true,
                 "dead": true,
-                "level": 2
+                "level": 1
               },
               {
                 "value": "bacon_deluxe",
@@ -8293,17 +8296,10 @@
                 "modifiers": [
                   "bacon"
                 ],
-                "level": 2
+                "level": 1
               }
             ],
-            "range": {
-              "start": 0,
-              "end": 61
-            },
-            "types": [
-              "list",
-              "unknown"
-            ],
+            "dead": true,
             "level": 1
           },
           "two": {
@@ -8945,6 +8941,10 @@
         ],
         [
           "countable",
+          "food"
+        ],
+        [
+          "countable",
           "hierarchyAble"
         ],
         [
@@ -9046,10 +9046,6 @@
         [
           "event",
           "event"
-        ],
-        [
-          "food",
-          "countable"
         ],
         [
           "food",
@@ -10835,6 +10831,10 @@
         ],
         [
           "countable",
+          "food"
+        ],
+        [
+          "countable",
           "hierarchyAble"
         ],
         [
@@ -10936,10 +10936,6 @@
         [
           "event",
           "event"
-        ],
-        [
-          "food",
-          "countable"
         ],
         [
           "food",
@@ -12595,6 +12591,10 @@
         ],
         [
           "countable",
+          "food"
+        ],
+        [
+          "countable",
           "hierarchyAble"
         ],
         [
@@ -12696,10 +12696,6 @@
         [
           "event",
           "event"
-        ],
-        [
-          "food",
-          "countable"
         ],
         [
           "food",
@@ -14464,6 +14460,10 @@
         ],
         [
           "countable",
+          "food"
+        ],
+        [
+          "countable",
           "hierarchyAble"
         ],
         [
@@ -14565,10 +14565,6 @@
         [
           "event",
           "event"
-        ],
-        [
-          "food",
-          "countable"
         ],
         [
           "food",
@@ -16644,7 +16640,7 @@
             "meal",
             "combo"
           ],
-          "bridge": "{ ...before[0], combo: true, postModifiers: append(before[0].postModifiers, ['combo']), combo: after[0] }"
+          "bridge": "{ ...next(after[0]), modifiers: append(before[0].modifiers, ['type']), type: before[0], flatten: true }"
         }
       ]
     }

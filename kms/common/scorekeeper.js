@@ -13,10 +13,6 @@ const game = {
   score: null
 }
 // TODO start a new game greg and elon who are the players
-
-api = {
-  _motivations: []
-}
 */
 
 const template = {

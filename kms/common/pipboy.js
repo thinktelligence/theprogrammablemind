@@ -134,6 +134,9 @@ let config = {
     // TODO for future
     // { pattern: "([testsetup1] ([equipable]))", development: true },
   ],
+  contextual_priorities: [
+    { context: [['articlePOS', 0], ['unknown', 1], ['outfit', 0]], choose: [1,2] },
+  ],
   hierarchy: [
     ['weapon', 'countable'],
     ['property', 'comparable'],

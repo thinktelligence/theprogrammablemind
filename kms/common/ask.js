@@ -65,7 +65,8 @@ config.initializer( (args) => {
     config.addSemantic({
         match: ({context}) => context.marker == 'test1', 
         apply: ({config}) => {
-          config.api.motivation({ 
+          config.addSemantic({ 
+            deleteAfterwards: true,
             match: ({objects}) => {
               objects.matchWasRun = true
               return true
