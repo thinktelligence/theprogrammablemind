@@ -578,8 +578,9 @@ fi
 # $NODE fastfood -q '2 french fries' -g -d
 # this had the server side bug $NODE fastfood -q 'single and double combo' -g -d
 # $NODE fastfood -q '2 double combos' -g -d
+$NODE fastfood -q 'double combo' -g -d
 # $NODE fastfood -q 'combo one' -g -d
-$NODE fastfood -q 'combo one and two' -g -d -dic
+# $NODE fastfood -q 'combo one and two' -g -d -dic
 # $NODE fastfood -q 'two combo ones' -g -d
 # $NODE fastfood -q 'number one' -g -d
 # $NODE fastfood -q 'number one and two' -g -d

@@ -13,7 +13,9 @@
     {
       "where": "/home/dev/code/theprogrammablemind/kms/common/fastfood.js:48",
       "operators": [
-        "((meal/0,1) [comboMeal] (combo/0))"
+        "((meal/0,1) [comboMeal] (combo/0))",
+        "((combo/0) [comboNumber] (number/0,1))",
+        "((number/1) [numberNumberCombo] (number/1))"
       ],
       "bridges": [
         {
@@ -24,6 +26,24 @@
             "combo"
           ],
           "bridge": "{ ...next(after[0]), modifiers: append(before[0].modifiers, ['type']), type: before[0], flatten: true }"
+        },
+        {
+          "id": "comboNumber",
+          "convolution": true,
+          "before": [
+            "meal",
+            "combo"
+          ],
+          "bridge": "{ ...next(before[0]), postModifiers: append(before[0].modifiers, ['comboNumber']), comboNumber: after[0], flatten: true }"
+        },
+        {
+          "id": "numberNumberCombo",
+          "convolution": true,
+          "before": [
+            "meal",
+            "combo"
+          ],
+          "bridge": "{ marker: operator('combo', 0), postModifiers: append(before[0].modifiers, ['comboNumber']), comboNumber: after[0], flatten: true }"
         }
       ]
     }
@@ -1169,8 +1189,7 @@
             "types": [
               "food"
             ],
-            "level": 1,
-            "concept": true
+            "level": 1
           },
           "two": {
             "marker": "countable",
@@ -1186,7 +1205,8 @@
             "types": [
               "countable"
             ],
-            "level": 1
+            "level": 1,
+            "concept": true
           },
           "dead": true,
           "level": 2,
@@ -1510,10 +1530,6 @@
         ],
         [
           "countable",
-          "food"
-        ],
-        [
-          "countable",
           "hierarchyAble"
         ],
         [
@@ -1551,6 +1567,10 @@
         [
           "event",
           "event"
+        ],
+        [
+          "food",
+          "countable"
         ],
         [
           "food",
@@ -2778,10 +2798,6 @@
         ],
         [
           "countable",
-          "food"
-        ],
-        [
-          "countable",
           "hierarchyAble"
         ],
         [
@@ -2851,6 +2867,10 @@
         [
           "event",
           "event"
+        ],
+        [
+          "food",
+          "countable"
         ],
         [
           "food",
@@ -4103,10 +4123,6 @@
         ],
         [
           "countable",
-          "food"
-        ],
-        [
-          "countable",
           "hierarchyAble"
         ],
         [
@@ -4176,6 +4192,10 @@
         [
           "event",
           "event"
+        ],
+        [
+          "food",
+          "countable"
         ],
         [
           "food",
@@ -5475,10 +5495,6 @@
         ],
         [
           "countable",
-          "food"
-        ],
-        [
-          "countable",
           "hierarchyAble"
         ],
         [
@@ -5548,6 +5564,10 @@
         [
           "event",
           "event"
+        ],
+        [
+          "food",
+          "countable"
         ],
         [
           "food",
@@ -6911,10 +6931,6 @@
         ],
         [
           "countable",
-          "food"
-        ],
-        [
-          "countable",
           "hierarchyAble"
         ],
         [
@@ -6984,6 +7000,10 @@
         [
           "event",
           "event"
+        ],
+        [
+          "food",
+          "countable"
         ],
         [
           "food",
@@ -8216,6 +8236,7 @@
               "list",
               "unknown"
             ],
+            "listable": true,
             "isList": true,
             "value": [
               {
@@ -8941,10 +8962,6 @@
         ],
         [
           "countable",
-          "food"
-        ],
-        [
-          "countable",
           "hierarchyAble"
         ],
         [
@@ -9046,6 +9063,10 @@
         [
           "event",
           "event"
+        ],
+        [
+          "food",
+          "countable"
         ],
         [
           "food",
@@ -10179,6 +10200,7 @@
               "list",
               "spicy_homestyle"
             ],
+            "listable": true,
             "isList": true,
             "value": [
               {
@@ -10831,10 +10853,6 @@
         ],
         [
           "countable",
-          "food"
-        ],
-        [
-          "countable",
           "hierarchyAble"
         ],
         [
@@ -10936,6 +10954,10 @@
         [
           "event",
           "event"
+        ],
+        [
+          "food",
+          "countable"
         ],
         [
           "food",
@@ -12591,10 +12613,6 @@
         ],
         [
           "countable",
-          "food"
-        ],
-        [
-          "countable",
           "hierarchyAble"
         ],
         [
@@ -12696,6 +12714,10 @@
         [
           "event",
           "event"
+        ],
+        [
+          "food",
+          "countable"
         ],
         [
           "food",
@@ -14460,10 +14482,6 @@
         ],
         [
           "countable",
-          "food"
-        ],
-        [
-          "countable",
           "hierarchyAble"
         ],
         [
@@ -14565,6 +14583,10 @@
         [
           "event",
           "event"
+        ],
+        [
+          "food",
+          "countable"
         ],
         [
           "food",
@@ -16080,6 +16102,7 @@
               "list",
               "single"
             ],
+            "listable": true,
             "isList": true,
             "value": [
               {
@@ -16630,7 +16653,9 @@
       "extraConfig": true,
       "where": "/home/dev/code/theprogrammablemind/kms/common/fastfood.js:48",
       "operators": [
-        "((meal/0,1) [comboMeal] (combo/0))"
+        "((meal/0,1) [comboMeal] (combo/0))",
+        "((combo/0) [comboNumber] (number/0,1))",
+        "((number/1) [numberNumberCombo] (number/1))"
       ],
       "bridges": [
         {
@@ -16641,6 +16666,24 @@
             "combo"
           ],
           "bridge": "{ ...next(after[0]), modifiers: append(before[0].modifiers, ['type']), type: before[0], flatten: true }"
+        },
+        {
+          "id": "comboNumber",
+          "convolution": true,
+          "before": [
+            "meal",
+            "combo"
+          ],
+          "bridge": "{ ...next(before[0]), postModifiers: append(before[0].modifiers, ['comboNumber']), comboNumber: after[0], flatten: true }"
+        },
+        {
+          "id": "numberNumberCombo",
+          "convolution": true,
+          "before": [
+            "meal",
+            "combo"
+          ],
+          "bridge": "{ marker: operator('combo', 0), postModifiers: append(before[0].modifiers, ['comboNumber']), comboNumber: after[0], flatten: true }"
         }
       ]
     }

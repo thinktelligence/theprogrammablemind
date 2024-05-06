@@ -48,6 +48,10 @@ const template ={
       where: where(),
       operators: [
         "((meal/0,1) [comboMeal] (combo/0))",
+        "((combo/0) [comboNumber] (number/0,1))",
+        // "( (number/0 && value='number') [numberNumberCombo] (number/0))",
+        // "((combo/0) (number/1) [comboNumberNumber] (number/1))",
+        "((number/1) [numberNumberCombo] (number/1))",
       ],
       bridges: [
         { 
@@ -57,6 +61,29 @@ const template ={
           // bridge: "{ ...before[0], combo: true, postModifiers: append(before[0].postModifiers, ['combo']), combo: after[0], flatten: true }",
           bridge: "{ ...next(after[0]), modifiers: append(before[0].modifiers, ['type']), type: before[0], flatten: true }",
         },
+        { 
+          id: 'comboNumber',
+          convolution: true,
+          before: ['meal', 'combo'],
+          // bridge: "{ ...before[0], combo: true, postModifiers: append(before[0].postModifiers, ['combo']), combo: after[0], flatten: true }",
+          bridge: "{ ...next(before[0]), postModifiers: append(before[0].modifiers, ['comboNumber']), comboNumber: after[0], flatten: true }",
+        },
+        { 
+          id: 'numberNumberCombo',
+          convolution: true,
+          before: ['meal', 'combo'],
+          // bridge: "{ ...before[0], combo: true, postModifiers: append(before[0].postModifiers, ['combo']), combo: after[0], flatten: true }",
+          bridge: "{ marker: operator('combo', 0), postModifiers: append(before[0].modifiers, ['comboNumber']), comboNumber: after[0], flatten: true }",
+        },
+        /*
+        { 
+          id: 'comboNumberNumber',
+          convolution: true,
+          before: ['meal', 'combo'],
+          // bridge: "{ ...before[0], combo: true, postModifiers: append(before[0].postModifiers, ['combo']), combo: after[0], flatten: true }",
+          bridge: "{ marker: operator('combo', 0), postModifiers: append(before[0].modifiers, ['number']), comboNumber: after[0], flatten: true }",
+        },
+        */
       ]
     }
   ],
@@ -78,6 +105,13 @@ class API {
   say(response) {
     this._objects.response = response
   }
+
+  getCombo(number) {
+    const map = {
+      1: 'single'
+    }
+    return map[number]
+  }
 }
 const api = new API()
 
@@ -88,20 +122,28 @@ class State {
   }
 
   add(food) {
-    // this.objects.items.push(food)
-    // this.args.kms.events.api.happens({ marker: "changes", level: 1, changeable: this.objects.items })
-    const name = food.value
     let quantity = 1
     if (food.quantity) {
       quantity = food.quantity.value
     }
-    let combo = !!food.combo
-
-    const existing = this.api._objects.items.find( (item) => item.name == name )
-    if (existing) {
-      existing.quantity = quantity
+    let name, combo
+    if (food.comboNumber) {
+      name = this.api.getCombo(food.comboNumber.value)
+      if (!name) {
+        "some kind of error"
+        return
+      }
+      combo = true
+    } else if (food.marker == 'combo') {
+      name = food.type.value
+      combo = true
     } else {
-      this.api._objects.items.push({ name, quantity, combo })
+      name = food.value
+      combo = !!food.combo
+    }
+
+    for (let i = 0; i < quantity; ++i) {
+      this.api._objects.items.push({ name, combo })
     }
     this.api.changed()
   }
@@ -131,12 +173,15 @@ const config = new Config({
     { context: [['list', 0], ['bacon',0], ['deluxe', 0]], choose: [1,2] },
     { context: [['list', 0], ['spicy',0], ['homestyle', 0]], choose: [1,2] },
     { context: [['list', 0], ['premium',0], ['cod', 0]], choose: [1,2] },
+    { context: [['list', 0], ['food',0], ['combo', 0]], choose: [0,1] },
+    { context: [['combo', 0], ['number', 0], ['list',0], ['number', 0]], choose: [1,2,3] },
+    { context: [['combo', 0], ['comboNumber', 0], ['list', 1]], choose: [1] },
   ],
   semantics: [
     {
       where: where(),
-      match: ({context, isA}) => isA(context.marker, 'food'),
-      apply: ({context, km, callId, api}) => {
+      match: ({context, isA}) => isA(context.marker, 'food') && context.marker !== 'food',
+      apply: ({context, km, api}) => {
         // config.state.add(context)
         // km('fastfood').state.add(context)
         km('fastfood').api.state.add(context)
@@ -167,26 +212,6 @@ config.add(foods)
 config.add(countable)
 config.add(events)
 config.api = api
-
-config.initializer( ({motivation, km}) => {
-  // this.state = new State(config.api)
-  // const api = baseConfig.getConfig('fastfood').api
-  // const config = km('fastfood')
-  // config.api.state = new State(config.api)
-  /*
-  ask([
-  {
-    where: where(),
-    matchq: ({objects}) => !objects.winningScore,
-    applyq: () => 'What did you want?',
-    matchr: ({context}) => context.marker == 'food',
-    applyr: ({context, objects}) => {
-      // add to order
-    }
-  }
-  */
-
-})
 
 knowledgeModule( {
     module,
