@@ -571,6 +571,21 @@ fi
 # $NODE fastfood -q '2 double combos one with sprite and coke' -g -d
 # $NODE pipboy -q 'the city outfit' -g -d --parenthesized
 # $NODE weight -q 'kilos (troy ounces) and ounces' -g -d --parenthesized
-# $NODE fastfood -q '(single and double) combo' -g -d
 # $NODE tester -m scorekeeper -q 'start a new game 100 points' -tmn scorekeeper -g
-$NODE tester -m scorekeeper -tva -tmn scorekeeper -g
+# $NODE tester -m scorekeeper -tva -tmn scorekeeper -g
+# $NODE tester -m fastfood -tva -tmn fastfood -g
+# $NODE tester -m fastfood -q '2 french fries' -g -d
+# $NODE fastfood -q '2 french fries' -g -d
+# this had the server side bug $NODE fastfood -q 'single and double combo' -g -d
+# $NODE fastfood -q '2 double combos' -g -d
+# $NODE fastfood -q 'combo one' -g -d
+$NODE fastfood -q 'combo one and two' -g -d -dic
+# $NODE fastfood -q 'two combo ones' -g -d
+# $NODE fastfood -q 'number one' -g -d
+# $NODE fastfood -q 'number one and two' -g -d
+# $NODE fastfood -q 'combo number one' -g -d
+# $NODE fastfood -q 'one combo number one' -g -d
+# $NODE fastfood -q 'one number one combo' -g -d
+# $NODE fastfood -q 'one number one' -g -d
+# $NODE fastfood -q 'combo number one and two' -g -d
+
