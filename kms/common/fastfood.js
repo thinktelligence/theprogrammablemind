@@ -23,6 +23,9 @@ const fastfood_instance = require('./fastfood.instance.json')
   single and double combo
   single combo
   combo one and two
+
+  number 1 and 2
+  number 1 2 and 3
 */
 
 const template ={
@@ -51,7 +54,7 @@ const template ={
         "((combo/0) [comboNumber] (number/0,1))",
         // "( (number/0 && value='number') [numberNumberCombo] (number/0))",
         // "((combo/0) (number/1) [comboNumberNumber] (number/1))",
-        "((number/1) [numberNumberCombo] (number/1))",
+        "((number/0,1) [numberNumberCombo] (list/0,1))",
       ],
       bridges: [
         { 
@@ -108,7 +111,8 @@ class API {
 
   getCombo(number) {
     const map = {
-      1: 'single'
+      1: 'single',
+      2: 'double',
     }
     return map[number]
   }
@@ -122,6 +126,7 @@ class State {
   }
 
   add(food) {
+    debugger
     let quantity = 1
     if (food.quantity) {
       quantity = food.quantity.value
@@ -176,6 +181,7 @@ const config = new Config({
     { context: [['list', 0], ['food',0], ['combo', 0]], choose: [0,1] },
     { context: [['combo', 0], ['number', 0], ['list',0], ['number', 0]], choose: [1,2,3] },
     { context: [['combo', 0], ['comboNumber', 0], ['list', 1]], choose: [1] },
+    { context: [['number', 0], ['numberNumberCombo', 0], ['list', 1]], choose: [1] },
   ],
   semantics: [
     {
