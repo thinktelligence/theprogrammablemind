@@ -50,11 +50,11 @@ const template ={
     {
       where: where(),
       operators: [
-        "((meal/0,1) [comboMeal] (combo/0))",
+        "((meal/0,1 && !comboNumber ) [comboMeal] (combo/0))",
         "((combo/0) [comboNumber] (number/0,1))",
         // "( (number/0 && value='number') [numberNumberCombo] (number/0))",
         // "((combo/0) (number/1) [comboNumberNumber] (number/1))",
-        "((number/0,1) [numberNumberCombo] (list/0,1))",
+        "((number/0,1) [numberNumberCombo] (number/0,1))",
       ],
       bridges: [
         { 
@@ -74,7 +74,7 @@ const template ={
         { 
           id: 'numberNumberCombo',
           convolution: true,
-          before: ['meal', 'combo'],
+          before: ['meal', 'combo', 'comboNumber'],
           // bridge: "{ ...before[0], combo: true, postModifiers: append(before[0].postModifiers, ['combo']), combo: after[0], flatten: true }",
           bridge: "{ marker: operator('combo', 0), postModifiers: append(before[0].modifiers, ['comboNumber']), comboNumber: after[0], flatten: true }",
         },

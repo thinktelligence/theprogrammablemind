@@ -103,8 +103,9 @@ let config = {
     { id: "what", level: 0, optional: "{ ...next(operator), query: ['what'], determined: true }", bridge: "{ ...after, query: ['what'], modifiers: ['what'], what: operator }" },
     { id: "whatAble", level: 0, bridge: "{ ...next(operator) }" },
 
-    {id: "list", level: 0, selector: {match: "same", left: [ { variable: 'type' } ], right: [ { variable: 'type' } ], passthrough: true}, bridge: "{ ...next(operator), listable: true, isList: true, value: append(before, after) }"},
-    {id: "list", level: 1, selector: {match: "same", left: [ { variable: 'type' } ], passthrough: true}, bridge: "{ ...operator, value: append(before, operator.value) }"},
+    // context.instance == variables.instance (unification)
+    {id: "list", level: 0, selector: {match: "same", left: [ { pattern: '($type && context.instance == variables.instance)' } ], right: [ { pattern: '($type && context.instance == variables.instance)' } ], passthrough: true}, bridge: "{ ...next(operator), listable: true, isList: true, value: append(before, after) }"},
+    {id: "list", level: 1, selector: {match: "same", left: [ { pattern: '($type && context.instance == variables.instance)' } ], passthrough: true}, bridge: "{ ...operator, value: append(before, operator.value) }"},
 
     {   
         where: where(),
