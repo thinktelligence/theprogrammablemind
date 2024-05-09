@@ -13,7 +13,7 @@
     {
       "where": "/home/dev/code/theprogrammablemind/kms/common/fastfood.js:51",
       "operators": [
-        "((meal/0,1 && !comboNumber ) [comboMeal] (combo/0))",
+        "((meal/0,1 && context.comboNumber == undefined) [comboMeal] (combo/0))",
         "((combo/0) [comboNumber] (number/0,1))",
         "((number/0,1) [numberNumberCombo] (number/0,1))"
       ],
@@ -23,7 +23,8 @@
           "convolution": true,
           "before": [
             "meal",
-            "combo"
+            "combo",
+            "counting"
           ],
           "bridge": "{ ...next(after[0]), modifiers: append(before[0].modifiers, ['type']), type: before[0], flatten: true }"
         },
@@ -15667,15 +15668,15 @@
                 0
               ],
               [
-                "bacon_deluxe",
-                0
-              ],
-              [
                 "spicy_homestyle",
                 0
               ],
               [
                 "premium_cod",
+                0
+              ],
+              [
+                "bacon_deluxe",
                 0
               ]
             ],
@@ -15732,15 +15733,15 @@
                 0
               ],
               [
-                "bacon_deluxe",
-                0
-              ],
-              [
                 "spicy_homestyle",
                 0
               ],
               [
                 "premium_cod",
+                0
+              ],
+              [
+                "bacon_deluxe",
                 0
               ]
             ],
@@ -15793,15 +15794,15 @@
                 0
               ],
               [
-                "bacon_deluxe",
-                0
-              ],
-              [
                 "spicy_homestyle",
                 0
               ],
               [
                 "premium_cod",
+                0
+              ],
+              [
+                "bacon_deluxe",
                 0
               ]
             ],
@@ -15850,15 +15851,15 @@
                 0
               ],
               [
-                "bacon_deluxe",
-                0
-              ],
-              [
                 "spicy_homestyle",
                 0
               ],
               [
                 "premium_cod",
+                0
+              ],
+              [
+                "bacon_deluxe",
                 0
               ]
             ],
@@ -16718,7 +16719,7 @@
       "extraConfig": true,
       "where": "/home/dev/code/theprogrammablemind/kms/common/fastfood.js:51",
       "operators": [
-        "((meal/0,1 && !comboNumber ) [comboMeal] (combo/0))",
+        "((meal/0,1 && context.comboNumber == undefined) [comboMeal] (combo/0))",
         "((combo/0) [comboNumber] (number/0,1))",
         "((number/0,1) [numberNumberCombo] (number/0,1))"
       ],
@@ -16728,7 +16729,8 @@
           "convolution": true,
           "before": [
             "meal",
-            "combo"
+            "combo",
+            "counting"
           ],
           "bridge": "{ ...next(after[0]), modifiers: append(before[0].modifiers, ['type']), type: before[0], flatten: true }"
         },

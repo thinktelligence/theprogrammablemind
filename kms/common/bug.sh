@@ -580,14 +580,15 @@ fi
 # $NODE fastfood -q '2 double combos' -g -d
 #$NODE fastfood -q 'double combo' -g -d
 # $NODE fastfood -q 'combo one and two' -g -d
+# $NODE fastfood -q '2 double combos' -g -d
 # TODO $NODE fastfood -q 'combo one and combo two' -g -d
-$NODE fastfood -q 'combo one combo two and combo three' -g -d
+# TODO $NODE fastfood -q 'combo one combo two and combo three' -g -d
 # TODO $NODE fastfood -q 'combo one and combo two and three' -g -d
 # $NODE fastfood -q 'combo one' -g -d
 # $NODE fastfood -q 'number one' -g -d
 # TODO $NODE fastfood -q 'combo one and two combo twos' -g -d
 # TODO  $NODE fastfood -q '(combo one) and (two combo twos)' -g -d
-# $NODE fastfood -q 'two combo ones' -g -d
+$NODE fastfood -q 'two combo ones' -g -d
 # $NODE fastfood -q 'number one' -g -d
 # $NODE fastfood -q 'number one and two' -g -d
 # TODO $NODE fastfood -q 'two combo number ones' -g -d

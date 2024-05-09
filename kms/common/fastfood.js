@@ -50,7 +50,7 @@ const template ={
     {
       where: where(),
       operators: [
-        "((meal/0,1 && !comboNumber ) [comboMeal] (combo/0))",
+        "((meal/0,1 && context.comboNumber == undefined) [comboMeal] (combo/0))",
         "((combo/0) [comboNumber] (number/0,1))",
         // "( (number/0 && value='number') [numberNumberCombo] (number/0))",
         // "((combo/0) (number/1) [comboNumberNumber] (number/1))",
@@ -60,7 +60,7 @@ const template ={
         { 
           id: 'comboMeal',
           convolution: true,
-          before: ['meal', 'combo'],
+          before: ['meal', 'combo', 'counting'],
           // bridge: "{ ...before[0], combo: true, postModifiers: append(before[0].postModifiers, ['combo']), combo: after[0], flatten: true }",
           bridge: "{ ...next(after[0]), modifiers: append(before[0].modifiers, ['type']), type: before[0], flatten: true }",
         },
