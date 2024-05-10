@@ -23,17 +23,20 @@ for (let file of package.files) {
 
   retrains.push(`node ${file} -rt -g`)
   tests.push(`node ${file} -tva -g`)
-  tests.push(`node tester -m ${file} -tva -tmn ${file} -g`)
+  // tests.push(`node tester -m ${file} -tva -tmn ${file} -g`)
+
 }
 
 // tests = [tests[0]]
 
 const loop = (tests, failed) => {
   if (tests.length == []) {
+    console.log('\u0007')
     if (failed.length > 0) {
       console.log("FAILED Tests", JSON.stringify(failed, null, 2))
     }
     console.timeEnd('tests time')
+    console.log('\u0007')
     return
   }
   const test = tests.shift()

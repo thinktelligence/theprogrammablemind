@@ -56,6 +56,13 @@ const template ={
         // "((combo/0) (number/1) [comboNumberNumber] (number/1))",
         "((number/0,1) [numberNumberCombo] (number/0,1))",
       ],
+      generators: [
+        {
+          where: where(),
+          match: ({context}) => false && context.marker == 'combo' && context.comboNumber,
+          apply: ({context, g}) => g(context.comboNumber),
+        }
+      ],
       bridges: [
         { 
           id: 'comboMeal',
@@ -126,7 +133,6 @@ class State {
   }
 
   add(food) {
-    debugger
     let quantity = 1
     if (food.quantity) {
       quantity = food.quantity.value

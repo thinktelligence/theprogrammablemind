@@ -403,6 +403,7 @@ let config = {
         }
       }
     },
+    /*
     { 
       where: where(),
       match: ({context, isA}) => isA(context.marker, 'reportAction') && context.on && context.isResponse, 
@@ -413,6 +414,7 @@ let config = {
       match: ({context, isA}) => isA(context.marker, 'reportAction') && context.on && context.paraphrase, 
       apply: ({context, g}) => `${g({...context, on: undefined})} on ${g(context.on)}` 
     },
+    */
     { 
       where: where(),
       match: ({context}) => context.marker == 'product' && !context.isInstance, 

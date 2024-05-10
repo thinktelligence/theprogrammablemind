@@ -33,7 +33,6 @@ let config = {
       bridge: "{ ...next(operator), event: after[0], action: after[1] }",
       generatorp: ({context, gp}) => `after ${gp(context.event)} ${gp(context.action)}`,
     },
-    { id: "event", level: 0, bridge: "{ ...next(operator) }" },
     { id: "action", level: 0, bridge: "{ ...next(operator) }" },
     { id: "changeable", level: 0, bridge: "{ ...next(operator) }" },
     { 
@@ -49,6 +48,19 @@ let config = {
         return `${g(context.changeable)} changes`
       }
     },
+    { 
+      id: "event", 
+      level: 0, 
+      bridge: "{ ...next(operator) }",
+      generators: [
+        {
+          notes: 'paraphrase for events',
+          where: where(),
+          match: ({context, isA}) => isA(context.marker, 'event') && context.event,
+          apply: ({context}) => `event happened: ${JSON.stringify(context)}`
+        }
+      ]
+    },
     { id: "event1", level: 0, bridge: "{ ...next(operator) }", development: true },
     { id: "action1", level: 0, bridge: "{ ...next(operator) }", development: true },
   ],
@@ -61,7 +73,7 @@ let config = {
     {
       notes: 'paraphrase for events',
       where: where(),
-      match: ({context, isA}) => isA(context.marker, 'event') && context.event,
+      match: ({context, isA}) => false && isA(context.marker, 'event') && context.event,
       apply: ({context}) => `event happened: ${JSON.stringify(context)}`
     },
   ],
