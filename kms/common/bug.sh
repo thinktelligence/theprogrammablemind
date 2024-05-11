@@ -583,7 +583,7 @@ fi
 # $NODE fastfood -q '2 double combos' -g -d
 # $NODE fastfood -q 'combo one and combo two' -g -d
 # $NODE fastfood -q 'number one combo' -g -d
-# $NODE fastfood -q 'combo one combo two and combo three' -g -d
+$NODE fastfood -q 'combo one combo two and combo three' -g -d
 # $NODE fastfood -q 'combo one and combo two and three' -g -d
 # $NODE fastfood -q 'combo one' -g -d
 # $NODE fastfood -q 'number one' -g -d
@@ -592,7 +592,7 @@ fi
 # $NODE fastfood -q 'two combo ones' -g -d
 # $NODE fastfood -q 'number one' -g -d
 # $NODE fastfood -q 'number one and two' -g -d
-$NODE fastfood -q 'two combo number ones' -g -d -r
+# $NODE fastfood -q 'two combo number ones' -g -d -r
 # $NODE fastfood -q 'one number one combo' -g -d --parenthesized
 # $NODE fastfood -q 'one number one' -g -d
 # $NODE fastfood -q 'combo number one and two' -g -d

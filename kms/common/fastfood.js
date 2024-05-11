@@ -136,6 +136,14 @@ class API {
       1: 'single',
       2: 'double',
       3: 'triple',
+      4: 'baconater',
+      5: 'bacon deluxe',
+      6: 'spicy',
+      7: 'homestyle',
+      8: 'asiago range chicken club',
+      9: 'ultimate chicken grill',
+      10: '10 peice nuggets',
+      11: 'premium cod',
     }
     return map[number]
   }
