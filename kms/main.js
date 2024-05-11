@@ -3,6 +3,7 @@ const animals = require('./common/animals')
 const avatar = require('./common/avatar')
 const characters = require('./common/characters')
 const comparable = require('./common/comparable')
+const concept = require('./common/concept')
 const countable = require('./common/countable')
 const crew = require('./common/crew')
 const currency = require('./common/currency')
@@ -36,6 +37,7 @@ const properties = require('./common/properties')
 const punctuation = require('./common/punctuation')
 const reports = require('./common/reports')
 const scorekeeper = require('./common/scorekeeper')
+const sizeable = require('./common/sizeable')
 const spock = require('./common/spock')
 const stgame = require('./common/stgame')
 const stm = require('./common/stm')
@@ -53,6 +55,7 @@ module.exports = {
   avatar,
   characters,
   comparable,
+  concept,
   countable,
   crew,
   currency,
@@ -86,6 +89,7 @@ module.exports = {
   punctuation,
   reports,
   scorekeeper,
+  sizeable,
   spock,
   stgame,
   stm,
