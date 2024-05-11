@@ -14,17 +14,31 @@
       "where": "/home/dev/code/theprogrammablemind/kms/common/fastfood.js:51",
       "operators": [
         "((meal/0,1 && context.comboNumber == undefined) [comboMeal] (combo/0))",
-        "((combo/0) [comboNumber] (number/0,1))",
-        "((number/0,1) [numberNumberCombo] (number/0,1))"
+        "((combo/0) [comboNumber] (number/0,1 || numberNumberCombo/0,1))",
+        "((numberNumberCombo/1) [numberNumberCombo_combo|] (combo/0))",
+        "((number/0,1 && context.instance == undefined) [numberNumberCombo] (number/0,1))"
       ],
       "generators": [
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/fastfood.js:61",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/fastfood.js:64",
           "match": "({context}) => false && context.marker == 'combo' && context.comboNumber",
           "apply": "({context, g}) => g(context.comboNumber)"
         }
       ],
       "bridges": [
+        {
+          "id": "numberNumberCombo_combo",
+          "convolution": true,
+          "isA": [
+            "food"
+          ],
+          "before": [
+            "meal",
+            "combo",
+            "counting"
+          ],
+          "bridge": "{ ...next(operator), modifiers: append(before[0].modifiers, ['comboNumber']), comboNumber: before[0], word: 'combo', flatten: true }"
+        },
         {
           "id": "comboMeal",
           "convolution": true,
@@ -42,17 +56,21 @@
             "meal",
             "combo"
           ],
-          "bridge": "{ ...next(before[0]), postModifiers: append(before[0].modifiers, ['comboNumber']), comboNumber: after[0], flatten: true }"
+          "bridge": "{ ...next(before[0]), postModifiers: append(before[0].modifiers, ['comboNumber']), comboNumber: after[0], instance: true, flatten: true }",
+          "nncBridge": "{ ...next(before[0]), postModifiers: append(before[0].modifiers, ['comboNumber']), comboNumber: after[0].comboNumber, flatten: true }"
         },
         {
           "id": "numberNumberCombo",
           "convolution": true,
+          "isA": [
+            "food"
+          ],
           "before": [
             "meal",
             "combo",
             "comboNumber"
           ],
-          "bridge": "{ marker: operator('combo', 0), postModifiers: append(before[0].modifiers, ['comboNumber']), comboNumber: after[0], flatten: true }"
+          "bridge": "{ ...next(operator), word: 'number', combo: true, postModifiers: append(before[0].postModifiers, ['comboNumber']), comboNumber: after[0], flatten: true }"
         }
       ]
     }
@@ -8326,6 +8344,10 @@
                   "start": 35,
                   "end": 46
                 },
+                "types": [
+                  "bacon_deluxe",
+                  "deluxe"
+                ],
                 "bacon": {
                   "value": "bacon",
                   "text": "bacon",
@@ -8335,6 +8357,9 @@
                     "start": 35,
                     "end": 39
                   },
+                  "types": [
+                    "bacon"
+                  ],
                   "level": 0
                 },
                 "atomic": true,
@@ -10238,6 +10263,10 @@
                   "start": 0,
                   "end": 14
                 },
+                "types": [
+                  "homestyle",
+                  "spicy_homestyle"
+                ],
                 "spicy": {
                   "value": "spicy",
                   "text": "spicy",
@@ -10247,6 +10276,9 @@
                     "start": 0,
                     "end": 4
                   },
+                  "types": [
+                    "spicy"
+                  ],
                   "level": 0
                 },
                 "atomic": true,
@@ -10266,6 +10298,10 @@
                   "start": 20,
                   "end": 30
                 },
+                "types": [
+                  "cod",
+                  "premium_cod"
+                ],
                 "premium": {
                   "value": "premium",
                   "text": "premium",
@@ -10275,6 +10311,9 @@
                     "start": 20,
                     "end": 26
                   },
+                  "types": [
+                    "premium"
+                  ],
                   "level": 0
                 },
                 "atomic": true,
@@ -15679,11 +15718,11 @@
                 0
               ],
               [
-                "spicy_homestyle",
+                "premium_cod",
                 0
               ],
               [
-                "premium_cod",
+                "spicy_homestyle",
                 0
               ]
             ],
@@ -15744,11 +15783,11 @@
                 0
               ],
               [
-                "spicy_homestyle",
+                "premium_cod",
                 0
               ],
               [
-                "premium_cod",
+                "spicy_homestyle",
                 0
               ]
             ],
@@ -15805,11 +15844,11 @@
                 0
               ],
               [
-                "spicy_homestyle",
+                "premium_cod",
                 0
               ],
               [
-                "premium_cod",
+                "spicy_homestyle",
                 0
               ]
             ],
@@ -15862,11 +15901,11 @@
                 0
               ],
               [
-                "spicy_homestyle",
+                "premium_cod",
                 0
               ],
               [
-                "premium_cod",
+                "spicy_homestyle",
                 0
               ]
             ],
@@ -16240,6 +16279,10 @@
                   "start": 31,
                   "end": 42
                 },
+                "types": [
+                  "bacon_deluxe",
+                  "deluxe"
+                ],
                 "bacon": {
                   "value": "bacon",
                   "text": "bacon",
@@ -16249,6 +16292,9 @@
                     "start": 31,
                     "end": 35
                   },
+                  "types": [
+                    "bacon"
+                  ],
                   "level": 0
                 },
                 "atomic": true,
@@ -16268,6 +16314,10 @@
                   "start": 44,
                   "end": 58
                 },
+                "types": [
+                  "homestyle",
+                  "spicy_homestyle"
+                ],
                 "spicy": {
                   "value": "spicy",
                   "text": "spicy",
@@ -16277,6 +16327,9 @@
                     "start": 44,
                     "end": 48
                   },
+                  "types": [
+                    "spicy"
+                  ],
                   "level": 0
                 },
                 "atomic": true,
@@ -16296,6 +16349,10 @@
                   "start": 64,
                   "end": 74
                 },
+                "types": [
+                  "cod",
+                  "premium_cod"
+                ],
                 "premium": {
                   "value": "premium",
                   "text": "premium",
@@ -16305,6 +16362,9 @@
                     "start": 64,
                     "end": 70
                   },
+                  "types": [
+                    "premium"
+                  ],
                   "level": 0
                 },
                 "atomic": true,
@@ -16727,15 +16787,29 @@
       "where": "/home/dev/code/theprogrammablemind/kms/common/fastfood.js:51",
       "operators": [
         "((meal/0,1 && context.comboNumber == undefined) [comboMeal] (combo/0))",
-        "((combo/0) [comboNumber] (number/0,1))",
-        "((number/0,1) [numberNumberCombo] (number/0,1))"
+        "((combo/0) [comboNumber] (number/0,1 || numberNumberCombo/0,1))",
+        "((numberNumberCombo/1) [numberNumberCombo_combo|] (combo/0))",
+        "((number/0,1 && context.instance == undefined) [numberNumberCombo] (number/0,1))"
       ],
       "generators": [
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/fastfood.js:61"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/fastfood.js:64"
         }
       ],
       "bridges": [
+        {
+          "id": "numberNumberCombo_combo",
+          "convolution": true,
+          "isA": [
+            "food"
+          ],
+          "before": [
+            "meal",
+            "combo",
+            "counting"
+          ],
+          "bridge": "{ ...next(operator), modifiers: append(before[0].modifiers, ['comboNumber']), comboNumber: before[0], word: 'combo', flatten: true }"
+        },
         {
           "id": "comboMeal",
           "convolution": true,
@@ -16753,17 +16827,21 @@
             "meal",
             "combo"
           ],
-          "bridge": "{ ...next(before[0]), postModifiers: append(before[0].modifiers, ['comboNumber']), comboNumber: after[0], flatten: true }"
+          "bridge": "{ ...next(before[0]), postModifiers: append(before[0].modifiers, ['comboNumber']), comboNumber: after[0], instance: true, flatten: true }",
+          "nncBridge": "{ ...next(before[0]), postModifiers: append(before[0].modifiers, ['comboNumber']), comboNumber: after[0].comboNumber, flatten: true }"
         },
         {
           "id": "numberNumberCombo",
           "convolution": true,
+          "isA": [
+            "food"
+          ],
           "before": [
             "meal",
             "combo",
             "comboNumber"
           ],
-          "bridge": "{ marker: operator('combo', 0), postModifiers: append(before[0].modifiers, ['comboNumber']), comboNumber: after[0], flatten: true }"
+          "bridge": "{ ...next(operator), word: 'number', combo: true, postModifiers: append(before[0].postModifiers, ['comboNumber']), comboNumber: after[0], flatten: true }"
         }
       ]
     }

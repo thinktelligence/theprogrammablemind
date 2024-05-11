@@ -51,10 +51,13 @@ const template ={
       where: where(),
       operators: [
         "((meal/0,1 && context.comboNumber == undefined) [comboMeal] (combo/0))",
-        "((combo/0) [comboNumber] (number/0,1))",
+        "((combo/0) [comboNumber] (number/0,1 || numberNumberCombo/0,1))",
+        "((numberNumberCombo/1) [numberNumberCombo_combo|] (combo/0))",
+        // "((combo/0) [comboNumber] (number/0,1))",
+        // "((combo/0) [comboNumber:nncBridge] (numberNumberCombo/0,1))",
         // "( (number/0 && value='number') [numberNumberCombo] (number/0))",
         // "((combo/0) (number/1) [comboNumberNumber] (number/1))",
-        "((number/0,1) [numberNumberCombo] (number/0,1))",
+        "((number/0,1 && context.instance == undefined) [numberNumberCombo] (number/0,1))",
       ],
       generators: [
         {
@@ -64,6 +67,15 @@ const template ={
         }
       ],
       bridges: [
+        { 
+          id: 'numberNumberCombo_combo',
+          convolution: true,
+          isA: ['food'],
+          before: ['meal', 'combo', 'counting'],
+          // bridge: "{ ...before[0], combo: true, postModifiers: append(before[0].postModifiers, ['combo']), combo: after[0], flatten: true }",
+          // bridge: "{ ...next(after[0]), modifiers: append(before[0].modifiers, ['type']), type: before[0], flatten: true }",
+          bridge: "{ ...next(operator), modifiers: append(before[0].modifiers, ['comboNumber']), comboNumber: before[0], word: 'combo', flatten: true }",
+        },
         { 
           id: 'comboMeal',
           convolution: true,
@@ -76,14 +88,17 @@ const template ={
           convolution: true,
           before: ['meal', 'combo'],
           // bridge: "{ ...before[0], combo: true, postModifiers: append(before[0].postModifiers, ['combo']), combo: after[0], flatten: true }",
-          bridge: "{ ...next(before[0]), postModifiers: append(before[0].modifiers, ['comboNumber']), comboNumber: after[0], flatten: true }",
+          bridge: "{ ...next(before[0]), postModifiers: append(before[0].modifiers, ['comboNumber']), comboNumber: after[0], instance: true, flatten: true }",
+          nncBridge: "{ ...next(before[0]), postModifiers: append(before[0].modifiers, ['comboNumber']), comboNumber: after[0].comboNumber, flatten: true }",
         },
         { 
           id: 'numberNumberCombo',
           convolution: true,
+          isA: ['food'],
           before: ['meal', 'combo', 'comboNumber'],
+          bridge: "{ ...next(operator), word: 'number', combo: true, postModifiers: append(before[0].postModifiers, ['comboNumber']), comboNumber: after[0], flatten: true }",
           // bridge: "{ ...before[0], combo: true, postModifiers: append(before[0].postModifiers, ['combo']), combo: after[0], flatten: true }",
-          bridge: "{ marker: operator('combo', 0), postModifiers: append(before[0].modifiers, ['comboNumber']), comboNumber: after[0], flatten: true }",
+          // bridge: "{ marker: operator('combo', 0), postModifiers: append(before[0].modifiers, ['comboNumber']), comboNumber: after[0], flatten: true }",
         },
         /*
         { 
@@ -120,6 +135,7 @@ class API {
     const map = {
       1: 'single',
       2: 'double',
+      3: 'triple',
     }
     return map[number]
   }
@@ -133,12 +149,21 @@ class State {
   }
 
   add(food) {
+    debugger
     let quantity = 1
     if (food.quantity) {
       quantity = food.quantity.value
     }
     let name, combo
-    if (food.comboNumber) {
+    if (food.comboNumber?.marker == 'numberNumberCombo') {
+      name = this.api.getCombo(food.comboNumber.comboNumber.value)
+      if (!name) {
+        "some kind of error"
+        return
+      }
+      combo = true
+    }
+    else if (food.comboNumber) {
       name = this.api.getCombo(food.comboNumber.value)
       if (!name) {
         "some kind of error"
@@ -188,6 +213,8 @@ const config = new Config({
     { context: [['combo', 0], ['number', 0], ['list',0], ['number', 0]], choose: [1,2,3] },
     { context: [['combo', 0], ['comboNumber', 0], ['list', 1]], choose: [1] },
     { context: [['number', 0], ['numberNumberCombo', 0], ['list', 1]], choose: [1] },
+    { context: [['number', 1], ['numberNumberCombo', 1], ['combo', 0]], choose: [2] },
+    { context: [['list', 0], ['number', 0], ['combo', 0], ['number', 0]], choose: [1,2,3] },
   ],
   semantics: [
     {

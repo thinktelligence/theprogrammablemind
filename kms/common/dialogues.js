@@ -328,9 +328,17 @@ let config = {
           text.push(g(context[modifier]))
         }
         // text.push(context.word)
-        text.push(g({...context, postModifiers: undefined, modifiers: undefined}))
-        for (modifier of (context.postModifiers || [])) {
-          text.push(g(context[modifier]))
+        if (context.postModifiers) {
+          text.push(g({...context, number: 'one', postModifiers: undefined, modifiers: undefined}))
+        } else {
+          text.push(g({...context, postModifiers: undefined, modifiers: undefined}))
+        }
+        for ([index, modifier] of (context.postModifiers || []).entries()) {
+          if (index == context.postModifiers.length - 1) {
+            text.push(g({...context[modifier], number: context.number}))
+          } else {
+            text.push(g(context[modifier]))
+          }
         }
         return text.join(' ')
       }

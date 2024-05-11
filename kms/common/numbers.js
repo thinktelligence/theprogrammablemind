@@ -64,6 +64,11 @@ let config = {
     },
     { 
       where: where(),
+      match: ({context}) => context.marker == 'number' && context.number == 'many', 
+      apply: ({context}) => `${context.value}'s` 
+    },
+    { 
+      where: where(),
       match: ({context}) => context.marker == 'number', 
       apply: ({context}) => `${context.value}` 
     },
