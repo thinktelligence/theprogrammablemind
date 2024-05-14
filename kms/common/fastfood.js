@@ -120,8 +120,12 @@ class API {
     this._objects.items = []
   }
 
-  changed() {
-    this._objects.changes = this._objects.items
+  show() {
+    this._objects.show = this._objects.items
+  }
+
+  add({ name, combo }) {
+    this._objects.items.push({ name, combo })
   }
 
   say(response) {
@@ -155,7 +159,6 @@ class State {
   }
 
   add(food) {
-    debugger
     let quantity = 1
     if (food.quantity) {
       quantity = food.quantity.value
@@ -185,22 +188,17 @@ class State {
     }
 
     for (let i = 0; i < quantity; ++i) {
-      this.api._objects.items.push({ name, combo })
+      this.api.add({ name, combo })
     }
-    this.api.changed()
   }
 
   // user ask what the order was
   show() {
-    this.api._objects.show = this.api._objects.items
+    this.api.show()
   }
 
   say(response) {
     this.api.say(response)
-  }
-
-  order() {
-    return this.api._objects.items
   }
 }
 
@@ -228,8 +226,6 @@ const createConfig = () => {
         where: where(),
         match: ({context, isA}) => isA(context.marker, 'food') && context.marker !== 'food',
         apply: ({context, km, api}) => {
-          // config.state.add(context)
-          // km('fastfood').state.add(context)
           km('fastfood').api.state.add(context)
         }
       }
