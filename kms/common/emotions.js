@@ -1,5 +1,5 @@
 const { Config, knowledgeModule, ensureTestFile, where } = require('./runtime').theprogrammablemind
-const hierarchy = require('./hierarchy').copy()
+const hierarchy = require('./hierarchy')
 ensureTestFile(module, 'emotions', 'test')
 ensureTestFile(module, 'emotions', 'instance')
 const emotions_tests = require('./emotions.test.json')
@@ -22,44 +22,47 @@ const template ={
   ],
 }
 
-const config = new Config({ 
-  name: 'emotions',
-  operators: [
-    "([sentientBeing|])",
-    "([emotion|])",
-  ],
-  bridges: [
-    { id: 'sentientBeing', level: 0, bridge: '{ ...next(operator) }' },
-    // just here so it loads and the sentence can make the semantics
-    // { id: 'feel', level: 0, bridge: '{ ...next(operator) }' },
-    { id: 'emotion', level: 0, bridge: '{ ...next(operator) }' },
-  ],
-  priorities: [
-    [['means', 0], ['feel', 0]]
-  ],
+const createConfig = () => {
+  const config = new Config({ 
+    name: 'emotions',
+    operators: [
+      "([sentientBeing|])",
+      "([emotion|])",
+    ],
+    bridges: [
+      { id: 'sentientBeing', level: 0, bridge: '{ ...next(operator) }' },
+      // just here so it loads and the sentence can make the semantics
+      // { id: 'feel', level: 0, bridge: '{ ...next(operator) }' },
+      { id: 'emotion', level: 0, bridge: '{ ...next(operator) }' },
+    ],
+    priorities: [
+      [['means', 0], ['feel', 0]]
+    ],
 
-  hierarchy: [
-    ['emotion', 'unknown'],
-    ['sentientBeing', 'unknown'],
-  ]
-}, module)
-config.add(hierarchy)
-config.initializer( ({config, apis}) => {
-  const api = apis('properties')
-  api.createActionPrefix({
-                operator: 'feel',
-                create: ['feel'/*, 'emotion'*/],
-                before: [{tag: 'sentientBeing', id: 'sentientBeing'}],
-                after: [{tag: 'emotion', id: 'emotion'}],
-                doAble: true,
-                config })
-})
-//config.load(template, emotions_instance)
+    hierarchy: [
+      ['emotion', 'unknown'],
+      ['sentientBeing', 'unknown'],
+    ]
+  }, module)
+  config.add(hierarchy())
+  config.initializer( ({config, apis}) => {
+    const api = apis('properties')
+    api.createActionPrefix({
+                  operator: 'feel',
+                  create: ['feel'/*, 'emotion'*/],
+                  before: [{tag: 'sentientBeing', id: 'sentientBeing'}],
+                  after: [{tag: 'emotion', id: 'emotion'}],
+                  doAble: true,
+                  config })
+  })
+  //config.load(template, emotions_instance)
+  return config
+}
 
 knowledgeModule( {
     module,
       description: 'emotions related concepts',
-      config,
+      createConfig,
       test: {
               name: './emotions.test.json',
               contents: emotions_tests

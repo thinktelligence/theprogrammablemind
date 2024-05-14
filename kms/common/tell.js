@@ -39,7 +39,7 @@ class API {
 
 const api = new API()
 
-let config = {
+let configStruct = {
   name: 'tell',
   operators: [
     "([tell] ([person]) ([info|]) ([event]))"
@@ -95,24 +95,27 @@ let config = {
   ],
 };
 
-config = new Config(config, module)
-config.api = api
-config.add(dialogues)
-config.initializer( ({config, isModule}) => {
-    if (!isModule) {
-      config.addSemantic({
-        match: ({context, hierarchy}) => context.happening && hierarchy.isA(context.marker, 'event'),
-        apply: ({context}) => {
-          context.event = Promise.resolve( { marker: 'event' } )
-        }
-      })
-    }
-  })
+const createConfig = () => {
+  const config = new Config(configStruct, module)
+  config.api = api
+  config.add(dialogues())
+  config.initializer( ({config, isModule}) => {
+      if (!isModule) {
+        config.addSemantic({
+          match: ({context, hierarchy}) => context.happening && hierarchy.isA(context.marker, 'event'),
+          apply: ({context}) => {
+            context.event = Promise.resolve( { marker: 'event' } )
+          }
+        })
+      }
+    })
+  return config
+}
 
 knowledgeModule( { 
   module,
   description: 'telling entities things',
-  config,
+  createConfig,
   test: {
     name: './tell.test.json',
     contents: tell_tests

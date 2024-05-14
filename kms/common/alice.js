@@ -12,8 +12,14 @@ const template = {
   ]
 };
 
-const config = new Config({ name: 'alice', }, module)
-config.add(kid)
+const createConfig = () => {
+  const config = new Config({ name: 'alice', }, module)
+  config.add(kid())
+  return config
+}
+
+const config = createConfig()
+
 // config.load(template, alice_instance)
 knowledgeModule( {
   module,

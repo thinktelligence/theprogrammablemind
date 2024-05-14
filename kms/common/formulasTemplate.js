@@ -11,12 +11,12 @@ const template = {
   ] 
 }
 
-config = new Config({ name: 'formulasTemplate' }, module).add(base_km).add(countable).add(comparable)
+const createConfig = () => new Config({ name: 'formulasTemplate' }, module).add(base_km()).add(countable()).add(comparable())
 
 knowledgeModule({ 
   module,
   description: 'Template for formulas',
-  config,
+  createConfig,
   template: { template, instance },
   test: {
     name: './formulasTemplate.test.json',

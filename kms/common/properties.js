@@ -78,7 +78,7 @@ const template = {
 
 const api = new API();
 
-let config = {
+let configStruct = {
   name: 'properties',
   operators: [
     "([hierarchyAble|])",
@@ -691,16 +691,19 @@ let config = {
   ]
 };
 
-config = new Config(config, module)
-config.api = api
-config.add(concept)
-config.add(meta)
-config.add(dialogues)
+const createConfig = () => {
+  const config = new Config(configStruct, module)
+  config.api = api
+  config.add(concept())
+  config.add(meta())
+  config.add(dialogues())
+  return config
+}
 
 knowledgeModule( { 
   module,
   description: 'properties of objects',
-  config,
+  createConfig,
   test: {
     name: './properties.test.json',
     contents: properties_tests,

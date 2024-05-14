@@ -1,7 +1,7 @@
 const { Config, knowledgeModule, where } = require('./runtime').theprogrammablemind
 const pronouns_tests = require('./pronouns.test.json')
  
-let config = {
+let configStruct = {
   name: 'pronouns',
 
   operators: [
@@ -60,12 +60,12 @@ let config = {
 
 };
 
-config = new Config(config, module)
+const createConfig = () => config = new Config(configStruct, module)
 
 knowledgeModule( { 
   module,
   description: 'pronouns',
-  config,
+  createConfig,
   test: {
     name: './pronouns.test.json',
     contents: pronouns_tests

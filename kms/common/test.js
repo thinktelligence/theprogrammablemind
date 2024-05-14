@@ -3,6 +3,12 @@ const { exec } = require('child_process');
 
 console.time('tests time')
 
+const sleep = async (ms) => {
+  return new Promise((resolve) => {
+    setTimeout(resolve, ms);
+  });
+}
+
 let tests = []
 let retrains = []
 for (let file of package.files) {
@@ -23,20 +29,21 @@ for (let file of package.files) {
 
   retrains.push(`node ${file} -rt -g`)
   tests.push(`node ${file} -tva -g`)
-  // tests.push(`node tester -m ${file} -tva -tmn ${file} -g`)
-
+  tests.push(`node tester -m ${file} -tva -tmn ${file} -g`)
 }
 
 // tests = [tests[0]]
 
-const loop = (tests, failed) => {
+const loop = async (tests, failed) => {
   if (tests.length == []) {
-    console.log('\u0007')
     if (failed.length > 0) {
       console.log("FAILED Tests", JSON.stringify(failed, null, 2))
     }
     console.timeEnd('tests time')
-    console.log('\u0007')
+    while ( true ) {
+      console.log('\u0007')
+      await sleep(1000)
+    }
     return
   }
   const test = tests.shift()
@@ -52,4 +59,6 @@ const loop = (tests, failed) => {
     });
 }
 
-loop(retrains.concat(tests), [])
+(async () => {
+  await loop(retrains.concat(tests), [])
+})()

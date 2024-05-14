@@ -1,7 +1,6 @@
 const { Config, knowledgeModule, where } = require('./runtime').theprogrammablemind
-const currencyKM = require('./currency.js')
-const helpKM = require('./help.js')
-const timeKM = require('./time.js')
+const createCurrencyKM = require('./currency.js')
+const createTimeKM = require('./time.js')
 const { table } = require('table')
 const _ = require('lodash')
 const characters_tests = require('./characters.test.json')
@@ -17,6 +16,9 @@ const getHelp = (config, indent=2) => {
   }
   return help
 }
+
+const timeKM = createTimeKM()
+const currencyKM = createCurrencyKM()
 
 class Sally {
   getName() {
@@ -54,7 +56,7 @@ const api = new Sally()
     -> get response back: sally said: blah
 */
 
-let config = {
+let configStruct = {
   name: 'characters',
 
   operators: [
@@ -164,24 +166,27 @@ const initializeApi = (config, api) => {
   config.addWord(name, {"id": "character", "initial": "{ value: '" + name + `', api: '${name}'}` })
 }
 
-config = new Config(config, module)
-config.multiApi = initializeApi
-config.initializer( ({isModule, config, km}) => {
-  if (!isModule) {
-    // config.api = api2
-    // config.api = api
-    const config = km('characters')
-    config.api = api2
-    config.api = api
-  }
-})
+const createConfig = () => {
+  const config = new Config(configStruct, module)
+  config.multiApi = initializeApi
+  config.initializer( ({isModule, config, km}) => {
+    if (!isModule) {
+      // config.api = api2
+      // config.api = api
+      const config = km('characters')
+      config.api = api2
+      config.api = api
+    }
+  })
+  return config
+}
 
 // mode this to non-module init only
 knowledgeModule({
   module,
   description: 'this module is for creating a team of characters that can respond to commands',
   demo: "https://youtu.be/eA25GZ0ZAHo",
-  config,
+  createConfig,
   test: {
     name: './characters.test.json',
     contents: characters_tests

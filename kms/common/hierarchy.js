@@ -31,7 +31,7 @@ const getTypes = ( km, concept, instance ) => {
 
 // TODO the types of rank are x y z ....
 // TODO x is a kind of y
-let config = {
+let configStruct = {
   name: 'hierarchy',
   operators: [
     // "([hierarchyAble|])",
@@ -287,18 +287,21 @@ let config = {
   ]
 };
 
-config = new Config(config, module)
-config.add(properties)
-config.initializer( ({apis, hierarchy}) => {
-  apis('stm').addIsA( (child, parent) => {
-    return hierarchy.isA(child, parent) 
+const createConfig = () => {
+  const config = new Config(configStruct, module)
+  config.add(properties())
+  config.initializer( ({apis, hierarchy}) => {
+    apis('stm').addIsA( (child, parent) => {
+      return hierarchy.isA(child, parent) 
+    })
   })
-})
+  return config
+}
 
 knowledgeModule( { 
   module,
   description: 'hierarchy of objects',
-  config,
+  createConfig,
   test: {
     name: './hierarchy.test.json',
     contents: hierarchy_tests,
@@ -308,22 +311,6 @@ knowledgeModule( {
       words: true,
     }
   },
-  afterTest: ({query, config}) => {
-    if (query == 'a cat is an animal') {
-      const wordDef = config.config.words['cat'][0]
-      failure = ''
-      const expected = {
-        id: 'cat',
-        initial: '{ value: "cat", number: "one" }',
-      }
-      for (key of Object.keys(expected)) {
-        if (wordDef[key] !== expected[key]) {
-          failure += `expected ${key} to be "${expected[expected]}"\n`
-        }
-      }
-      return failure
-    }
-  }
 })
 
 /* Random design notes

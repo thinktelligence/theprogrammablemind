@@ -13,13 +13,16 @@ const template = {
   ],
 }
 
-config = new Config({ name: 'pressure' }, module)
-config.add(dimension)
+const createConfig = () => {
+  const config = new Config({ name: 'pressure' }, module)
+  config.add(dimension())
+  return config
+}
 
 knowledgeModule({ 
   module,
   description: 'Pressure dimension',
-  config,
+  createConfig,
   test: {
     name: './pressure.test.json',
     contents: pressure_tests

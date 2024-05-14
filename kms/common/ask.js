@@ -30,11 +30,11 @@ class API {
 }
 const api = new API()
 
-let config = {
+let configStruct = {
   name: 'ask',
 };
 
-config = new Config(config)
+config = new Config(configStruct)
 config.api = api
 
 config.initializer( (args) => {

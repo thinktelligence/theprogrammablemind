@@ -4,7 +4,7 @@ const hierarchy = require('./hierarchy')
 const emotions = require('./emotions')
 const avatar_tests = require('./avatar.test.json')
  
-let config = {
+let configStruct = {
   name: 'avatar',
 
   // TODO make different response for answerNotKnown based on emotions
@@ -64,14 +64,17 @@ let config = {
 
 };
 
-config = new Config(config, module)
-config.add(hierarchy)
-config.add(emotions)
+const createConfig = () => {
+  const config = new Config(configStruct, module)
+  config.add(hierarchy())
+  config.add(emotions())
+  return config
+}
 
 knowledgeModule( { 
   module,
   description: 'avatar for dialogues',
-  config,
+  createConfig,
   test: {
     name: './avatar.test.json',
     contents: avatar_tests

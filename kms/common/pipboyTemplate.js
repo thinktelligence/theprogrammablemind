@@ -30,12 +30,12 @@ const template = {
   ] 
 }
 
-const config = new Config({ name: 'pipboyTemplate' }, module).add(base_km).add(countable).add(comparable)
+const createConfig = () => new Config({ name: 'pipboyTemplate' }, module).add(base_km()).add(countable()).add(comparable())
 
 knowledgeModule({ 
   module,
   description: 'Template for pipboy with speech',
-  config,
+  createConfig,
   template: { template, instance },
   test: {
     name: './pipboyTemplate.test.json',

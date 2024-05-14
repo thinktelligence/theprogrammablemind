@@ -33,7 +33,7 @@ const warningSameNotEvaluated = (log, one) => {
 }
 
 // TODO implement what / what did you say ...
-let config = {
+let configStruct = {
   name: 'dialogues',
   operators: [
     "(([queryable]) [is|] ([queryable|]))",
@@ -857,31 +857,32 @@ let config = {
   ],
 };
 
-
-config = new Config(config, module)
-config.api = api
-config.add(gdefaults).add(sdefaults).add(pos).add(stm).add(meta).add(punctuation)
-
-config.initializer( ({objects, config, isModule}) => {
-  /* TODO add this beck in. some stuff from config needs to be here
-  config.addArgs((args) => ({ 
-    e: (context) => config.api.getEvaluator(args.s, args.log, context),
-  }))
-  */
-  objects.mentioned = []
-  objects.variables = {
-  }
-  if (isModule) {
-  } else {
-    config.addWord("canbedoquestion", { id: "canBeDoQuestion", "initial": "{}" })
-    config.addWord("doesable", { id: "doesAble", "initial": "{}" })
-  }
-})
+const createConfig = () => {
+  const config = new Config(configStruct, module)
+  config.api = api
+  config.add(gdefaults()).add(sdefaults()).add(pos()).add(stm()).add(meta()).add(punctuation())
+  config.initializer( ({objects, config, isModule}) => {
+    /* TODO add this beck in. some stuff from config needs to be here
+    config.addArgs((args) => ({ 
+      e: (context) => config.api.getEvaluator(args.s, args.log, context),
+    }))
+    */
+    objects.mentioned = []
+    objects.variables = {
+    }
+    if (isModule) {
+    } else {
+      config.addWord("canbedoquestion", { id: "canBeDoQuestion", "initial": "{}" })
+      config.addWord("doesable", { id: "doesAble", "initial": "{}" })
+    }
+  })
+  return config
+}
 
 knowledgeModule( { 
   module,
   description: 'framework for dialogues',
-  config,
+  createConfig, newWay: true,
   test: {
     name: './dialogues.test.json',
     contents: dialogues_tests

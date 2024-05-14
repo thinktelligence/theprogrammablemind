@@ -2,7 +2,7 @@ const { Config, knowledgeModule, where } = require('./runtime').theprogrammablem
 const dialogues = require('./dialogues')
 const javascript_tests = require('./javascript.test.json')
 
-let config = {
+let configStruct = {
   name: 'javascript',
   operators: [
     "((<let> ([variable|])) [assignment|] (value))",
@@ -57,17 +57,20 @@ let config = {
   ],
 };
 
-config = new Config(config, module)
-config.add(dialogues)
+const createConfig = () => {
+  const config = new Config(configStruct, module)
+  config.add(dialogues())
 
-config.initializer( ({objects, uuid}) => {
-  objects.variables = {}
-})
+  config.initializer( ({objects, uuid}) => {
+    objects.variables = {}
+  })
+  return config
+}
 
 knowledgeModule( { 
   module,
   description: 'javascript interpreter',
-  config,
+  createConfig,
   test: {
     name: './javascript.test.json',
     contents: javascript_tests,

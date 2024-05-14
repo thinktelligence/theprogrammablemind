@@ -12,13 +12,17 @@ const template = {
   ]
 };
 
-const config = new Config({ name: 'wendy', }, module)
-config.add(kid)
+const createConfig = () => {
+  const config = new Config({ name: 'wendy', }, module)
+  config.add(kid())
+  return config
+}
+
 // config.load(template, wendy_instance)
 knowledgeModule( {
   module,
   description: 'Kia Simulator using a KM template',
-  config,
+  createConfig,
   test: {
           name: './wendy.test.json',
           contents: wendy_tests,

@@ -18,7 +18,7 @@ const getHelp = (config, indent=2) => {
   return help
 }
 
-let config = {
+const configStruct = {
   name: 'help',
   operators: [
     "([help] ([withKM|with] ([km]))?)",
@@ -76,23 +76,26 @@ let config = {
   },
 };
 
-config = new Config(config, module)
-config.add(dialogues)
+const createConfig = () => {
+  const config = new Config(configStruct, module)
+  config.add(dialogues())
 
-config.initializer( ({ config, addWord, kms }) => {
-  const names = new Set()
-  for (let name in kms) {
-    names.add(name);
-  }
-  for (let name of names) {
-    addWord(name, {id: "km", initial: `{ value: '${name}', word: '${name}' }`})
-  }
-})
+  config.initializer( ({ config, addWord, kms }) => {
+    const names = new Set()
+    for (let name in kms) {
+      names.add(name);
+    }
+    for (let name of names) {
+      addWord(name, {id: "km", initial: `{ value: '${name}', word: '${name}' }`})
+    }
+  })
+  return config
+}
 
 knowledgeModule({
   module,
   description: 'Help the user with the current knowledge modules',
-  config,
+  createConfig,
   test: {
     name: './help.test.json',
     contents: help_tests

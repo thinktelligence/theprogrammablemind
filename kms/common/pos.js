@@ -1,7 +1,7 @@
 const { Config, knowledgeModule, where } = require('./runtime').theprogrammablemind
 const pos_tests = require('./pos.test.json')
 
-let config = {
+let configStruct = {
   name: 'pos',
   operators: [
     "([adjective])",
@@ -32,10 +32,11 @@ let config = {
 
 };
 
-config = new Config(config, module)
+createConfig = () => new Config(configStruct, module)
+
 knowledgeModule( { 
   module,
-  config,
+  createConfig,
   description: 'parts of speech',
   test: {
     name: './pos.test.json',

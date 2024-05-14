@@ -14,13 +14,16 @@ const template ={
   ],
 }
 
-const config = new Config({ name: 'places' }, module)
-config.add(hierarchy)
+const createConfig = () => {
+  const config = new Config({ name: 'places' }, module)
+  config.add(hierarchy())
+  return config
+}
 
 knowledgeModule( {
     module,
       description: 'places related concepts',
-      config,
+      createConfig,
       test: {
               name: './places.test.json',
               contents: animals_tests

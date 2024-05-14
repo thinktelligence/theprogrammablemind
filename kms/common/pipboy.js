@@ -97,7 +97,7 @@ class API {
 }
 const api = new API()
 
-let config = {
+let configStruct = {
   name: 'pipboy',
   // TODO mark default as local scope
   operators: [
@@ -501,17 +501,20 @@ addWeapon('pistol')
 addWeapon('rifle')
 */
 
-config = new Config(config, module)
-//console.log('base_km.config.hierarchy', JSON.stringify(base_km.config.hierarchy, null, 2))
-config.add(base_km).add(countable).add(comparable).add(help)
-// console.log('config.config.hierarchy', JSON.stringify(config.config.hierarchy, null, 2))
-// console.log('config.hierarchy', config.hierarchy)
-config.api = api
+const createConfig = () => {
+  const config = new Config(configStruct, module)
+  //console.log('base_km.config.hierarchy', JSON.stringify(base_km.config.hierarchy, null, 2))
+  config.add(base_km()).add(countable()).add(comparable()).add(help())
+  // console.log('config.config.hierarchy', JSON.stringify(config.config.hierarchy, null, 2))
+  // console.log('config.hierarchy', config.hierarchy)
+  config.api = api
+  return config
+}
 
 knowledgeModule({ 
   module,
   description: 'Control a pipboy with speech',
-  config,
+  createConfig,
   test: {
     name: './pipboy.test.json',
     contents: pipboy_tests,

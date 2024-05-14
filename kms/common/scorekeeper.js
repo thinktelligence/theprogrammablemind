@@ -50,7 +50,7 @@ const addPlayer = (objects, config, player) => {
   objects.players.push(player);
 }
 
-let config = {
+let configStruct = {
   name: 'scorekeeper',
   operators: [
     "([next])",
@@ -306,7 +306,7 @@ let config = {
     {
       where: where(),
       match: ({context}) => context.marker == 'scored',
-      apply: ({context, objects, km}) => {
+      apply: ({config, context, objects, km}) => {
         const player = context.player.value;
         const points = context.points.amount.value;
         // add names to the known words
@@ -347,18 +347,21 @@ let config = {
   ],
 };
 
-config = new Config(config, module)
-config.add(dialogues)
-config.add(numbers)
-config.add(properties)
-config.initializer( ({objects, km, isModule}) => {
-  objects.players = []
-  objects.nextPlayer = undefined;
-  setNextPlayer(km, objects);
-  objects.scores = {};
-  objects.winningScore = null
-  objects.allPlayersAreKnown = false;
-})
+const createConfig = () => {
+  const config = new Config(configStruct, module)
+  config.add(dialogues())
+  config.add(numbers())
+  config.add(properties())
+  config.initializer( ({objects, km, isModule}) => {
+    objects.players = []
+    objects.nextPlayer = undefined;
+    setNextPlayer(km, objects);
+    objects.scores = {};
+    objects.winningScore = null
+    objects.allPlayersAreKnown = false;
+  })
+  return config
+}
 
 startWithDefault20 = [
   "greg got 1 point alice got 2 points greg got 1 point start a new game who is next",
@@ -378,7 +381,7 @@ startWithDefault20 = [
 knowledgeModule( { 
   module,
   description: 'scorekeeper for card or dice games',
-  config,
+  createConfig,
   test: {
     name: './scorekeeper.test.json',
     contents: scorekeeper_tests

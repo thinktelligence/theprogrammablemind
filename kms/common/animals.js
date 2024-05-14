@@ -24,14 +24,16 @@ const template = {
   ],
 }
 
-const config = new Config({ name: 'animals' }, module)
-config.add(hierarchy)
-// config.load(template, animals_instance)
+const createConfig = () => {
+  const config = new Config({ name: 'animals' }, module)
+  config.add(hierarchy())
+  return config
+}
 
 knowledgeModule( {
     module,
       description: 'animals related concepts',
-      config,
+      createConfig, newWay: true,
       test: {
               name: './animals.test.json',
               contents: animals_tests

@@ -28,17 +28,20 @@ const template = {
   ]
 };
 
-const config = new Config({ name: 'kid', }, module)
+const createConfig = () => {
+  const config = new Config({ name: 'kid', }, module)
+  config.add(avatar())
+  config.add(animals())
+  config.add(foods())
+  config.add(ordering())
+  // config.load(template, kid_instance)
+  return config
+}
 
-config.add(avatar)
-config.add(animals)
-config.add(foods)
-config.add(ordering)
-// config.load(template, kid_instance)
 knowledgeModule({
   module,
   description: 'KM for my kids',
-  config,
+  createConfig,
   test: {
           name: './kid.test.json',
           contents: kid_tests,

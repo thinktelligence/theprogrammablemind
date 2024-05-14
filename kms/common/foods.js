@@ -37,14 +37,17 @@ const template ={
   ],
 }
 
-const config = new Config({ name: 'foods' }, module)
-config.add(hierarchy)
-// config.load(template, foods_instance)
+const createConfig = () => {
+  const config = new Config({ name: 'foods' }, module)
+  config.add(hierarchy())
+  // config.load(template, foods_instance)
+  return config
+}
 
 knowledgeModule( {
     module,
       description: 'foods related concepts',
-      config,
+      createConfig,
       test: {
               name: './foods.test.json',
               contents: foods_tests

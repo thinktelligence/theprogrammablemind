@@ -28,42 +28,46 @@ const template = {
 // 'ashe owns pikachu who owns pikachu'
 // TODO does ashe own pikachu / ash owns pikachu? / 'ashe likes pikachu does ashe like pikachu'
 
-const config = new Config({ 
-  name: 'pokemon',
-  hierarchy: [
-    // ['pokemon', 'theAble'],
-    // ['pokemon', 'theAble'],
-    // ['pokemon', 'queryable'],
-    // ['pokemon', 'whatAble'],
-  ],
-})
-config.add(hierarchy)
-config.initializer( ({config, apis}) => {
-  const api = apis('properties')
-  /*
-  api.createActionPrefix({
-              operator: 'owns',
-              create: ['owns'],
-              before: [{tag: 'owner', id: 'object'}],
-              after: [{tag: 'owned', id: 'object'}],
-              relation: true,
-              config 
-            })
-  */
-  api.createActionPrefix({
-              operator: 'likes',
-              create: ['likes'],
-              before: [{tag: 'liker', id: 'object'}],
-              after: [{tag: 'likee', id: 'object'}],
-              relation: true,
-              config 
-            })
-})
-// config.load(template, pokemon_instance)
+const createConfig = () => {
+  const config = new Config({ 
+    name: 'pokemon',
+    hierarchy: [
+      // ['pokemon', 'theAble'],
+      // ['pokemon', 'theAble'],
+      // ['pokemon', 'queryable'],
+      // ['pokemon', 'whatAble'],
+    ],
+  })
+  config.add(hierarchy())
+  config.initializer( ({config, apis}) => {
+    const api = apis('properties')
+    /*
+    api.createActionPrefix({
+                operator: 'owns',
+                create: ['owns'],
+                before: [{tag: 'owner', id: 'object'}],
+                after: [{tag: 'owned', id: 'object'}],
+                relation: true,
+                config 
+              })
+    */
+    api.createActionPrefix({
+                operator: 'likes',
+                create: ['likes'],
+                before: [{tag: 'liker', id: 'object'}],
+                after: [{tag: 'likee', id: 'object'}],
+                relation: true,
+                config 
+              })
+  })
+  // config.load(template, pokemon_instance)
+  return config
+}
+
 knowledgeModule( {
   module,
   description: 'Knowledge about the pokemon using a KM template',
-  config,
+  createConfig,
   test: {
           name: './pokemon.test.json',
           contents: pokemon_tests,

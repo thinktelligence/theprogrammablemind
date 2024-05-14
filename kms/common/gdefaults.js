@@ -3,7 +3,7 @@ const { Config, knowledgeModule, where } = require('./runtime').theprogrammablem
 const gdefaults_tests = require('./gdefaults.test.json')
 const { isMany } = require('./helpers.js')
 
-let config = {
+let configStruct = {
   name: 'gdefaults',
   generators: [
   /* TODO save for later
@@ -117,25 +117,27 @@ let config = {
   ],
 };
 
-config = new Config(config, module)
-config.initializer( ({config}) => {
-  config.addArgs((args) => {
-    return {
-      number: (context) => isMany(context) ? "many" : "one",
-      // number/gender/person etc
-      gw: (context, { number: numberContext }) => {
-        const number = numberContext ? args.number(numberContext) : context.number;
-        return args.gp( { ...context, evaluateWord: true, number } )
+const createConfig = () => {
+  const config = new Config(configStruct, module)
+  config.initializer( ({config}) => {
+    config.addArgs((args) => {
+      return {
+        number: (context) => isMany(context) ? "many" : "one",
+        // number/gender/person etc
+        gw: (context, { number: numberContext }) => {
+          const number = numberContext ? args.number(numberContext) : context.number;
+          return args.gp( { ...context, evaluateWord: true, number } )
+        }
       }
-    }
+    })
   })
-})
-
+  return config
+}
 
 knowledgeModule({ 
   module,
   description: 'defaults for generators',
-  config,
+  createConfig,
   test: {
     name: './gdefaults.test.json',
     contents: gdefaults_tests

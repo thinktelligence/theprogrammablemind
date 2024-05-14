@@ -8,7 +8,7 @@ const gdefaults = require('./gdefaults')
     10 million 300 hundred and fifty
 */
 
-let config = {
+let configStruct = {
   name: 'numbers',
   operators: [
     "([number])",
@@ -78,11 +78,15 @@ let config = {
   ],
 };
 
-config = new Config(config, module)
-config.add(gdefaults)
+const createConfig = () => {
+  const config = new Config(configStruct, module)
+  config.add(gdefaults())
+  return config
+}
+
 knowledgeModule( { 
   module,
-  config,
+  createConfig,
   description: 'talking about numbers',
   test: {
     name: './numbers.test.json',

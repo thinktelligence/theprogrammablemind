@@ -54,7 +54,7 @@ const mathematicalOperator = (name, words, apply, before = []) => [
   }
 ]
     
-let config = {
+let configStruct = {
   name: 'math',
   operators: [
     "([mathematicalExpression])",
@@ -90,14 +90,18 @@ let config = {
   ],
 };
 
-config = new Config(config, module)
-config.add(numbers);
-config.add(dialogues);
-config.add(punctuation);
-config.add(mathTemplate);
+const createConfig = () => {
+  const config = new Config(configStruct, module)
+  config.add(numbers());
+  config.add(dialogues());
+  config.add(punctuation());
+  config.add(mathTemplate());
+  return config
+}
+
 knowledgeModule( { 
   module,
-  config,
+  createConfig,
   description: 'talking about math',
   test: {
     name: './math.test.json',

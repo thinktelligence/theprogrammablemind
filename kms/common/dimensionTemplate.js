@@ -9,13 +9,16 @@ const template = {
   ],
 }
 
-const config = new Config({ name: 'dimensionTemplate' }, module)
-config.add(hierarchy)
+const createConfig = () => {
+  const config = new Config({ name: 'dimensionTemplate' }, module)
+  config.add(hierarchy())
+  return config
+}
 
 knowledgeModule( {
     module,
       description: 'template for dimension',
-      config,
+      createConfig,
       test: {
               name: './dimensionTemplate.test.json',
               contents: dimensionTemplate_tests

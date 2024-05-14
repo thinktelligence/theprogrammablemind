@@ -18,7 +18,7 @@ class API {
   }
 }
 
-let config = {
+let configStruct = {
   name: 'events',
   operators: [
     "([after] ([event]) ([action]))",
@@ -116,14 +116,17 @@ let config = {
   ],
 };
 
-config = new Config(config, module)
-config.api = new API()
-config.add(dialogues)
+const createConfig = () => {
+  const config = new Config(configStruct, module)
+  config.api = new API()
+  config.add(dialogues())
+  return config
+}
 
 knowledgeModule({ 
   module,
   description: 'do stuff after events',
-  config,
+  createConfig,
   test: {
     name: './events.test.json',
     contents: events_tests,

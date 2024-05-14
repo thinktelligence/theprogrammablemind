@@ -5,7 +5,7 @@ const countable_tests = require('./countable.test.json')
 
 // TODO 1 to 2 countables
 
-let config = {
+let configStruct = {
   name: 'countable',
   operators: [
     "(([quantifier|]) [counting] ([countable]))",
@@ -57,13 +57,16 @@ let config = {
   ]
 };
 
-config = new Config(config, module)
-config.add(dialogues).add(numbers)
+const createConfig = () => {
+  const config = new Config(configStruct, module)
+  config.add(dialogues()).add(numbers())
+  return config
+}
 
 knowledgeModule({ 
   module,
   description: 'Countable things',
-  config,
+  createConfig,
   test: {
     name: './countable.test.json',
     contents: countable_tests

@@ -5,7 +5,7 @@ const sizeable_tests = require('./sizeable.test.json')
 
 // TODO 1 to 2 sizeables
 
-let config = {
+let configStruct = {
   name: 'sizeable',
   operators: [
     "(([size|]) [sizing] ([sizeable]))",
@@ -41,13 +41,16 @@ let config = {
   ]
 };
 
-config = new Config(config, module)
-config.add(dialogues).add(numbers)
+const createConfig = () => {
+  const config = new Config(configStruct, module)
+  config.add(dialogues()).add(numbers())
+  return config
+}
 
 knowledgeModule({ 
   module,
   description: 'Sizeable things',
-  config,
+  createConfig,
   test: {
     name: './sizeable.test.json',
     contents: sizeable_tests

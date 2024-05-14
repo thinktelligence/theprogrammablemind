@@ -1,9 +1,12 @@
 const { Config, knowledgeModule, where } = require('./runtime').theprogrammablemind
-const characters = require('./characters')
+const createCharacters = require('./characters')
 const stgame_tests = require('./stgame.test.json')
-const crew = require('./crew')
-const kirk = require('./kirk')
-const spock = require('./spock')
+const createKirk = require('./kirk')
+const createSpock = require('./spock')
+
+const characters = createCharacters()
+const kirk = createKirk()
+const spock = createSpock()
 
 class API {
   response({context, result}) {
@@ -34,6 +37,7 @@ class KirkAPI {
     km('stgame').api.response({context, result})
   }
 }
+
 characters.api = new KirkAPI();
 
 class SpockAPI {
@@ -55,19 +59,22 @@ class SpockAPI {
 }
 characters.api = new SpockAPI();
 
-const config = new Config({ 
-    name: 'stgame', 
-    operators: [ "([a])" ],
-    bridges: [ { id: 'a', level: 0, bridge: "{ ...next(operator) }" } ],
-    words: {"?": [{"id": "a", "initial": "{}" }]},
-}, module)
-config.api = api
-config.add(characters)
+const createConfig = () => {
+  const config = new Config({ 
+      name: 'stgame', 
+      operators: [ "([a])" ],
+      bridges: [ { id: 'a', level: 0, bridge: "{ ...next(operator) }" } ],
+      words: {"?": [{"id": "a", "initial": "{}" }]},
+  }, module)
+  config.api = api
+  config.add(characters)
+  return config
+}
 
 knowledgeModule( {
   module,
   description: 'Game simulator for trek-like characters',
-  config,
+  createConfig,
   test: {
           name: './stgame.test.json',
           contents: stgame_tests

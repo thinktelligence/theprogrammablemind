@@ -109,7 +109,7 @@ const apiTemplate = (marker, testData) => {
 const api1 = apiTemplate('models', testData2)
 const api2 = apiTemplate('clothes', testData)
 
-let config = {
+let configStruct = {
   name: 'reports',
   operators: [
     //"(([type]) [([(<less> ([than]))] ([amount]))])",
@@ -602,29 +602,32 @@ const initializeApi = (config, api, km) => {
   // config.addWord(type, {"id": "report", "initial": `${open} value: '${type}' ${close}` })
  }
 
-config = new Config(config, module).add(currencyKM).add(helpKM).add(math).add(events)
-config.multiApi = initializeApi
-// mode this to non-module init only
-config.initializer(({config, objects, km, isModule}) => {
-  if (!isModule) {
-    km('reports').addAPI(api1)
-    km('reports').addAPI(api2)
-    // config.addAPI(api1)
-    // config.addAPI(api2)
-  }
-  objects.tempReportId = 0
-  objects.listings = {
-  }
-  const id = newReport({km, objects})
-  if (!isModule) {
-    objects.listings[id].api = 'clothes'
-  }
-})
+const createConfig = () => {
+  const config = new Config(configStruct, module).add(currencyKM()).add(helpKM()).add(math()).add(events())
+  config.multiApi = initializeApi
+  // mode this to non-module init only
+  config.initializer(({config, objects, km, isModule}) => {
+    if (!isModule) {
+      km('reports').addAPI(api1)
+      km('reports').addAPI(api2)
+      // config.addAPI(api1)
+      // config.addAPI(api2)
+    }
+    objects.tempReportId = 0
+    objects.listings = {
+    }
+    const id = newReport({km, objects})
+    if (!isModule) {
+      objects.listings[id].api = 'clothes'
+    }
+  })
+  return config
+}
 
 knowledgeModule({
   module,
   description: 'this module is for getting info about a concept with properties',
-  config,
+  createConfig,
   test: {
     name: './reports.test.json',
     contents: reports_tests

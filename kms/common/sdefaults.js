@@ -1,7 +1,7 @@
 const { Config, flatten, knowledgeModule, where } = require('./runtime').theprogrammablemind
 const sdefaults_tests = require('./sdefaults.test.json')
 
-let config = {
+let configStruct = {
   name: 'sdefaults',
   semantics: [
     {
@@ -19,12 +19,12 @@ let config = {
   ],
 };
 
-config = new Config(config, module)
+const createConfig = () => new Config(configStruct, module)
 
 knowledgeModule({ 
   module,
   description: 'defaults for semantics',
-  config,
+  createConfig,
   test: {
     name: './sdefaults.test.json',
     contents: sdefaults_tests

@@ -5,6 +5,10 @@ const ui_tests = require('./ui.test.json')
 const ui_instance = require('./ui.instance.json')
 
 class API {
+  initialize({ objects }) {
+    this._objects = objects
+  }
+
   move(direction, steps = 1) {
     this._objects.move = { direction, steps }
   }
@@ -24,12 +28,7 @@ class API {
   stop(action) {
     this._objects.stop = action
   }
-
-  initialize({ objects }) {
-    this._objects = objects
-  }
 }
-const api = new API()
 
 /*
   TODO
@@ -39,7 +38,7 @@ const api = new API()
   again
   stop/start listening
 */
-let config = {
+const configStruct = {
   name: 'ui',
   operators: [
     "([select])",
@@ -58,9 +57,9 @@ let config = {
     {
       where: where(),
       match: ({context, isA}) => isA(context, 'direction'),
-      apply: ({context, insert, s}) => {
+      apply: ({context, insert, s, fragments}) => {
         const direction = context
-        const fragment = config.fragment("move direction")
+        const fragment = fragments("move direction")
         const mappings = [{
           where: where(),
           match: ({context}) => context.value == 'direction',
@@ -184,14 +183,19 @@ const template = {
   ],
 }
 
-config = new Config(config, module)
-config.add(dialogues).add(math)
-config.api = api
+const createConfig = () => {
+  const config = new Config(configStruct, module)
+  config.add(dialogues()).add(math())
+  config.api = new API()
+  return config
+}
+
+// const config = createConfig()
 
 knowledgeModule({ 
   module,
   description: 'Control a ui with speech',
-  config,
+  createConfig,
   test: {
     name: './ui.test.json',
     contents: ui_tests,

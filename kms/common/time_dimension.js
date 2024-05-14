@@ -56,83 +56,87 @@ class API {
 }
 const api = new API()
 
-config = new Config({ 
-  name: 'time_dimension',
-  operators: [
-    "([time])",
-    "((number/1) [ampm:hourBridge|])",
-    "((number/1) (colon/1) (number/1) [ampm:hourMinuteBridge|])",
-  ],
-  generators: [
-    {
-      where: where(),
-      match: ({context}) => context.marker == 'time' && context.evalue && (context.format == 12 || !context.format),
-      apply: ({g, context}) => {
-        let hh = context.evalue.getHours();
-        let ampm = 'am'
-        if (hh > 12) {
-          hh -= 12;
-          ampm = 'pm'
-        }
-        let ss = context.evalue.getMinutes()
-        ss = pad(ss, 2)
-        return `${hh}:${ss} ${ampm}`
-      }
-    },
-    {
-      where: where(),
-      match: ({context}) => context.marker == 'time' && context.evalue && context.format == 24,
-      apply: ({g, context}) => {
-        const pad = (num, size) => {
-          num = num.toString();
-          while (num.length < size) num = "0" + num;
-          return num;
-        }
-
-          return `${context.evalue.getHours()}:${pad(context.evalue.getMinutes(), 2)}`
-      }
-    },
-  ],
-  bridges: [
-    { 
-      id: 'time',
-      isA: ['queryable', 'theAble'],
-      evaluator: ({context, api}) => {
-        context.evalue = api.newDate()
-      }
-    },
-    { 
-      id: 'ampm', 
-      words: ['am', 'pm'],
-      generatorp: ({context, g}) => {
-        if (context.minute) {
-          return `${g(context.hour)}:${g({ ...context.minute, leadingZeros: true, length: 2 })} ${context.word}`
-        } else {
-          return `${g(context.hour)} ${context.word}`
+const createConfig = () => {
+  const config = new Config({ 
+    name: 'time_dimension',
+    operators: [
+      "([time])",
+      "((number/1) [ampm:hourBridge|])",
+      "((number/1) (colon/1) (number/1) [ampm:hourMinuteBridge|])",
+    ],
+    generators: [
+      {
+        where: where(),
+        match: ({context}) => context.marker == 'time' && context.evalue && (context.format == 12 || !context.format),
+        apply: ({g, context}) => {
+          let hh = context.evalue.getHours();
+          let ampm = 'am'
+          if (hh > 12) {
+            hh -= 12;
+            ampm = 'pm'
+          }
+          let ss = context.evalue.getMinutes()
+          ss = pad(ss, 2)
+          return `${hh}:${ss} ${ampm}`
         }
       },
-      bridge: '{ ...next(operator), hour: before[0] }',
-      hourBridge: '{ ...next(operator), hour: before[0] }',
-      hourMinuteBridge: '{ ...next(operator), hour: before[2], minute: before[0] }',
-    },
-  ],
-}, module)
-config.add(dimension)
-config.api = api
+      {
+        where: where(),
+        match: ({context}) => context.marker == 'time' && context.evalue && context.format == 24,
+        apply: ({g, context}) => {
+          const pad = (num, size) => {
+            num = num.toString();
+            while (num.length < size) num = "0" + num;
+            return num;
+          }
 
-config.initializer( ({api, config, objects, isModule}) => {
-  if (!isModule) {
-    api.newDate = () => new Date("December 25, 1995 1:59:58 pm" )
-  }
-  Object.assign(objects, {
-    format: 12  // or 24
-  });
-})
+            return `${context.evalue.getHours()}:${pad(context.evalue.getMinutes(), 2)}`
+        }
+      },
+    ],
+    bridges: [
+      { 
+        id: 'time',
+        isA: ['queryable', 'theAble'],
+        evaluator: ({context, api}) => {
+          context.evalue = api.newDate()
+        }
+      },
+      { 
+        id: 'ampm', 
+        words: ['am', 'pm'],
+        generatorp: ({context, g}) => {
+          if (context.minute) {
+            return `${g(context.hour)}:${g({ ...context.minute, leadingZeros: true, length: 2 })} ${context.word}`
+          } else {
+            return `${g(context.hour)} ${context.word}`
+          }
+        },
+        bridge: '{ ...next(operator), hour: before[0] }',
+        hourBridge: '{ ...next(operator), hour: before[0] }',
+        hourMinuteBridge: '{ ...next(operator), hour: before[2], minute: before[0] }',
+      },
+    ],
+  }, module)
+  config.add(dimension())
+  config.api = api
+
+  config.initializer( ({api, config, objects, isModule}) => {
+    if (!isModule) {
+      api.newDate = () => new Date("December 25, 1995 1:59:58 pm" )
+    }
+    Object.assign(objects, {
+      format: 12  // or 24
+    });
+  })
+
+  return config
+}
 
 knowledgeModule({ 
   module,
   description: 'Time dimension',
-  config,
+  createConfig,
   test: {
     name: './time_dimension.test.json',
     contents: time_tests

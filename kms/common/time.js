@@ -35,7 +35,7 @@ class API {
 }
 const api = new API()
 
-let config = {
+const configStruct = {
   name: 'time',
   operators: [
     "([time])",
@@ -153,26 +153,29 @@ let config = {
   ],
 };
 
-config = new Config(config, module)
-config.add(tell)
-config.api = api
-config.initializer( ({config, objects, kms, isModule}) => {
-  if (!isModule) {
-    kms.time.api.newDate = () => new Date("December 25, 1995 1:59:58 pm" )
-  }
-  Object.assign(objects, {
-    format: 12  // or 24
-  });
-  config.addSemantic({
-      match: ({context, hierarchy, args}) => context.happening && context.marker == 'is' && args({ types: ['ampm', 'time'], properties: ['one', 'two'] }),
-      apply: api.semantics
+const createConfig = () => {
+  const config = new Config(configStruct, module)
+  config.add(tell())
+  config.api = api
+  config.initializer( ({config, objects, kms, isModule}) => {
+    if (!isModule) {
+      kms.time.api.newDate = () => new Date("December 25, 1995 1:59:58 pm" )
+    }
+    Object.assign(objects, {
+      format: 12  // or 24
+    });
+    config.addSemantic({
+        match: ({context, hierarchy, args}) => context.happening && context.marker == 'is' && args({ types: ['ampm', 'time'], properties: ['one', 'two'] }),
+        apply: api.semantics
+    })
   })
-})
+  return config
+}
 
 knowledgeModule({
   module,
   description: 'Time related concepts',
-  config,
+  createConfig,
   test: {
     name: './time.test.json',
     contents: time_tests

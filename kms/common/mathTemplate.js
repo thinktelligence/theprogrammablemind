@@ -12,12 +12,14 @@ const template = {
   ] 
 }
 
-config = new Config({ name: 'mathTemplate' }, module).add(base_km).add(countable).add(comparable)
+const createConfig = () => {
+  return new Config({ name: 'mathTemplate' }, module).add(base_km()).add(countable()).add(comparable())
+}
 
 knowledgeModule({ 
   module,
   description: 'Template for math',
-  config,
+  createConfig,
   template: { template, instance },
   test: {
     name: './mathTemplate.test.json',

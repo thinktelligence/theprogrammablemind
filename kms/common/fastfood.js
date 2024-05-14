@@ -206,64 +206,67 @@ class State {
   }
 }
 
-const config = new Config({ 
-  name: 'fastfood',
-  operators: [
-    "([orderNoun|order])",
-    "([showOrder|show] ([orderNoun/1]))",
-  ],
-  // flatten: ['list'],
-  contextual_priorities: [
-    { context: [['list', 0], ['bacon',0], ['deluxe', 0]], choose: [1,2] },
-    { context: [['list', 0], ['spicy',0], ['homestyle', 0]], choose: [1,2] },
-    { context: [['list', 0], ['premium',0], ['cod', 0]], choose: [1,2] },
-    { context: [['list', 0], ['food',0], ['combo', 0]], choose: [0,1] },
-    { context: [['combo', 0], ['number', 0], ['list',0], ['number', 0]], choose: [1,2,3] },
-    { context: [['combo', 0], ['comboNumber', 0], ['list', 1]], choose: [1] },
-    { context: [['number', 0], ['numberNumberCombo', 0], ['list', 1]], choose: [1] },
-    { context: [['number', 1], ['numberNumberCombo', 1], ['combo', 0]], choose: [2] },
-    { context: [['list', 0], ['number', 0], ['combo', 0], ['number', 0]], choose: [1,2,3] },
-  ],
-  semantics: [
-    {
-      where: where(),
-      match: ({context, isA}) => isA(context.marker, 'food') && context.marker !== 'food',
-      apply: ({context, km, api}) => {
-        // config.state.add(context)
-        // km('fastfood').state.add(context)
-        km('fastfood').api.state.add(context)
+const createConfig = () => {
+  const config = new Config({ 
+    name: 'fastfood',
+    operators: [
+      "([orderNoun|order])",
+      "([showOrder|show] ([orderNoun/1]))",
+    ],
+    // flatten: ['list'],
+    contextual_priorities: [
+      { context: [['list', 0], ['bacon',0], ['deluxe', 0]], choose: [1,2] },
+      { context: [['list', 0], ['spicy',0], ['homestyle', 0]], choose: [1,2] },
+      { context: [['list', 0], ['premium',0], ['cod', 0]], choose: [1,2] },
+      { context: [['list', 0], ['food',0], ['combo', 0]], choose: [0,1] },
+      { context: [['combo', 0], ['number', 0], ['list',0], ['number', 0]], choose: [1,2,3] },
+      { context: [['combo', 0], ['comboNumber', 0], ['list', 1]], choose: [1] },
+      { context: [['number', 0], ['numberNumberCombo', 0], ['list', 1]], choose: [1] },
+      { context: [['number', 1], ['numberNumberCombo', 1], ['combo', 0]], choose: [2] },
+      { context: [['list', 0], ['number', 0], ['combo', 0], ['number', 0]], choose: [1,2,3] },
+    ],
+    semantics: [
+      {
+        where: where(),
+        match: ({context, isA}) => isA(context.marker, 'food') && context.marker !== 'food',
+        apply: ({context, km, api}) => {
+          // config.state.add(context)
+          // km('fastfood').state.add(context)
+          km('fastfood').api.state.add(context)
+        }
       }
-    }
-  ],
-  bridges: [
-    { 
-      id: 'orderNoun',
-      parents: ['noun', 'queryable'],
-      evaluator: ({context, api}) => {
-        context.evalue = { marker: 'list', value: api.objects.items }
-        api.show()
-      }
-    },
-    { 
-      id: 'showOrder',
-      parents: ['verby'],
-      bridge: "{ ...next(operator), order: after[0] }",
-      generatorp: ({context, g}) => `show ${g(context.order)}`,
-      semantic: ({api}) => {
-        api.state.show()
+    ],
+    bridges: [
+      { 
+        id: 'orderNoun',
+        parents: ['noun', 'queryable'],
+        evaluator: ({context, api}) => {
+          context.evalue = { marker: 'list', value: api.objects.items }
+          api.show()
+        }
       },
-    },
-  ],
-}, module)
-config.add(foods)
-config.add(countable)
-config.add(events)
-config.api = api
+      { 
+        id: 'showOrder',
+        parents: ['verby'],
+        bridge: "{ ...next(operator), order: after[0] }",
+        generatorp: ({context, g}) => `show ${g(context.order)}`,
+        semantic: ({api}) => {
+          api.state.show()
+        },
+      },
+    ],
+  }, module)
+  config.add(foods())
+  config.add(countable())
+  config.add(events())
+  config.api = api
+  return config
+}
 
 knowledgeModule( {
     module,
     description: 'fastfood related concepts',
-    config,
+    createConfig,
     test: {
             name: './fastfood.test.json',
             contents: fastfood_tests,

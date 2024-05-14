@@ -2,7 +2,7 @@ const { Config, knowledgeModule, where } = require('./runtime').theprogrammablem
 const gdefaults = require('./gdefaults')
 const punctuation_tests = require('./punctuation.test.json')
 
-let config = {
+let configStruct = {
   name: 'punctuation',
   operators: [
     "([leftParenthesis|] (phrase) ([rightParenthesis|]))",
@@ -41,11 +41,11 @@ let config = {
   ],
 };
 
-config = new Config(config, module).add(gdefaults)
+const createConfig = () => new Config(configStruct, module).add(gdefaults())
 
 knowledgeModule( {
   module,
-  config,
+  createConfig,
   description: 'punctuation',
   test: {
     name: './punctuation.test.json',

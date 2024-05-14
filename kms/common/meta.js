@@ -15,7 +15,7 @@ const template = {
 };
 
 // TODO -> if a car's top speed is over 200 mph then the car is fast
-let config = {
+let configStruct = {
   name: 'meta',
   operators: [
     "((phrase) [means] (phrase))",
@@ -359,30 +359,31 @@ let config = {
   ],
 };
 
-config = new Config(config, module)
-//config.load(template, meta_instance)
-// config.add(dialogue)
-config.initializer( ({config, addGenerator, isModule}) => {
-  if (!isModule) {
-    addGenerator({
-      where: where(),
-      match: ({context}) => context.marker == 'unknown',
-      apply: ({context}) => `${context.word}`
-    })
-    //config.addPriorities([['then', 0], ['g', 0], ['if', 0], ['f', 0]])
-    //config.addPriorities([['then', 0], ['if', 0], ['g', 0]])
-    /*
-    config.addWord('testword2', { id: "testword2", initial: "{ value: 'testWord2Value' }" })
-    config.addBridge({ "id": "testword2", "level": 0, "bridge": "{ ...next(operator) }" })
-    config.addOperator("([testword2|])")
-    */
-  }
-})
+const createConfig = () => {
+  const config = new Config(configStruct, module)
+  config.initializer( ({config, addGenerator, isModule}) => {
+    if (!isModule) {
+      addGenerator({
+        where: where(),
+        match: ({context}) => context.marker == 'unknown',
+        apply: ({context}) => `${context.word}`
+      })
+      //config.addPriorities([['then', 0], ['g', 0], ['if', 0], ['f', 0]])
+      //config.addPriorities([['then', 0], ['if', 0], ['g', 0]])
+      /*
+      config.addWord('testword2', { id: "testword2", initial: "{ value: 'testWord2Value' }" })
+      config.addBridge({ "id": "testword2", "level": 0, "bridge": "{ ...next(operator) }" })
+      config.addOperator("([testword2|])")
+      */
+    }
+  })
+  return config
+}
 
 knowledgeModule({ 
   module,
   description: 'Ways of defining new language elements',
-  config,
+  createConfig,
   test: {
     name: './meta.test.json',
     contents: meta_tests,

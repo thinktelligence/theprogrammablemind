@@ -50,7 +50,7 @@ class API {
 
 const api = new API()
 
-let config = {
+let configStruct = {
   name: 'dimension',
   operators: [
     "([dimension])",
@@ -165,14 +165,17 @@ let config = {
   ]
 };
 
-config = new Config(config, module)
-config.add(base).add(formulas).add(testing)
-config.api = api
+const createConfig = () => {
+  const config = new Config(configStruct, module)
+  config.add(base()).add(formulas()).add(testing())
+  config.api = api
+  return config
+}
 
 knowledgeModule({ 
   module,
   description: 'Used to define numeric temperature such as currency, temperature or weight',
-  config,
+  createConfig,
   test: {
     name: './dimension.test.json',
     contents: dimension_tests,

@@ -35,13 +35,16 @@ const template = {
   ],
 }
 
-config = new Config({ name: 'length' }, module)
-config.add(dimension)
+const createConfig = () => {
+  const config = new Config({ name: 'length' }, module)
+  config.add(dimension())
+  return config
+}
 
 knowledgeModule({ 
   module,
   description: 'Length dimension',
-  config,
+  createConfig,
   test: {
     name: './length.test.json',
     contents: length_tests

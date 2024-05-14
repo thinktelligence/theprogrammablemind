@@ -33,13 +33,16 @@ const template = {
   ],
 }
 
-config = new Config({ name: 'weight' }, module)
-config.add(dimension)
+const createConfig = () => {
+  const config = new Config({ name: 'weight' }, module)
+  config.add(dimension())
+  return config
+}
 
 knowledgeModule({ 
   module,
   description: 'Weight dimension',
-  config,
+  createConfig,
   test: {
     name: './weight.test.json',
     contents: weight_tests

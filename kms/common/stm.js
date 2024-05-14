@@ -87,13 +87,16 @@ class API {
 
 const api = new API()
 
-let config = new Config({ name: 'stm' }, module)
-config.api = api
+let createConfig = () => {
+  const config = new Config({ name: 'stm' }, module)
+  config.api = api
+  return config
+}
 
 knowledgeModule( { 
   module,
   description: 'short term memory',
-  config,
+  createConfig,
   test: {
     name: './stm.test.json',
     contents: stm_tests

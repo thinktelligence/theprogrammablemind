@@ -11,21 +11,24 @@ const [args, unknown] = parser.parse_known_args()
 
 process.argv = [process.argv[0], process.argv[1], ...unknown]
 
-let config = new Config({ name: 'tester' })
-global.theprogrammablemind = {
-  loadForTesting: {}
-}
-for (let module of args.modules.split(',')) {
-  global.theprogrammablemind.loadForTesting[module] = true
-  const km = require(`./${module}`)
-  // km.rebuild({ isModule: false }) // load the usually defaults
-  config.add(km)
+const createConfig = () => {
+  const config = new Config({ name: 'tester' })
+  global.theprogrammablemind = {
+    loadForTesting: {}
+  }
+  for (let module of args.modules.split(',')) {
+    global.theprogrammablemind.loadForTesting[module] = true
+    const km = require(`./${module}`)
+    // km.rebuild({ isModule: false }) // load the usually defaults
+    config.add(km())
+  }
+  return config
 }
 
 knowledgeModule({
   module,
   description: 'Testing modules loaded together',
-  config,
+  createConfig,
   test: {
     name: './tester.test.json',
     contents: tester_tests

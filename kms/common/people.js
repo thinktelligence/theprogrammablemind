@@ -24,7 +24,7 @@ const template = {
 //      "wendy owns cleo",
     ],
 }
-let config = {
+let configStruct = {
   name: 'people',
   operators: [
     "([person|person,people])",
@@ -44,31 +44,34 @@ let config = {
   ],
 };
 
-config = new Config(config, module)
-config.add(hierarchy)
-config.initializer( ({baseConfig, context, apis, isModule}) => {
-  // const api = km('properties').api
-  const api = apis('properties')
-  // setup paraphrase
-  api.createActionPrefix({
-            operator: 'owns',
-            word: { singular: 'owns', plural: 'own' },
-            create: ['owns', 'owner', 'ownee'],
-            before: [{tag: 'owner', id: 'owner'}],
-            after: [{tag: 'ownee', id: 'ownee'}],
-            relation: true,
-            localHierarchy: [['unknown', 'owner'], ['object', 'owner'], ['unknown', 'ownee'], ['object', 'ownee']],
-            doAble: true,
-            edAble: { operator: 'owned', word: 'owned' },
-            config: baseConfig
-          })
+const createConfig = () => {
+  const config = new Config(configStruct, module)
+  config.add(hierarchy())
+  config.initializer( ({baseConfig, context, apis, isModule}) => {
+    // const api = km('properties').api
+    const api = apis('properties')
+    // setup paraphrase
+    api.createActionPrefix({
+              operator: 'owns',
+              word: { singular: 'owns', plural: 'own' },
+              create: ['owns', 'owner', 'ownee'],
+              before: [{tag: 'owner', id: 'owner'}],
+              after: [{tag: 'ownee', id: 'ownee'}],
+              relation: true,
+              localHierarchy: [['unknown', 'owner'], ['object', 'owner'], ['unknown', 'ownee'], ['object', 'ownee']],
+              doAble: true,
+              edAble: { operator: 'owned', word: 'owned' },
+              config: baseConfig
+            })
 
-})
+  })
+  return config
+}
 
 knowledgeModule( { 
   module,
   description: 'about people',
-  config,
+  createConfig,
   test: {
     name: './people.test.json',
     contents: people_tests

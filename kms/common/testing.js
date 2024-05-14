@@ -2,7 +2,7 @@ const { Config, knowledgeModule, where } = require('./runtime').theprogrammablem
 const testing_tests = require('./testing.test.json')
 const gdefaults = require('./gdefaults')
 
-let config = {
+let configStruct = {
   name: 'testing',
   operators: [
     { pattern: "([testingEvaluate] ([testingValue]))" },
@@ -30,13 +30,16 @@ let config = {
   ],
 };
 
-config = new Config(config, module)
-config.add(gdefaults)
+const createConfig = () => {
+  const config = new Config(configStruct, module)
+  config.add(gdefaults())
+  return config
+}
 
 knowledgeModule({ 
   module,
   description: 'code for testing',
-  config,
+  createConfig,
   test: {
     name: './testing.test.json',
     contents: testing_tests

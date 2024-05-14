@@ -85,7 +85,7 @@ class API {
 }
 */
 
-let config = {
+let configStruct = {
   name: 'formulas',
   operators: [
     // TODO notations like (([arg1:]) [op] ([arg2:nameOfArg2}|word1])) -> just make the bridge + operators. put this in the bridge def / also calculate generators
@@ -176,15 +176,18 @@ let config = {
   ]
 };
 
-const api = new API()
-config = new Config(config, module)
-config.add(dialogues).add(pos).add(math).add(formulasTemplate)
-config.api = api
+const createConfig = () => {
+  const api = new API()
+  config = new Config(configStruct, module)
+  config.add(dialogues()).add(pos()).add(math()).add(formulasTemplate())
+  config.api = api
+  return config
+}
 
 knowledgeModule({ 
   module,
   description: 'Formulas using math',
-  config,
+  createConfig,
   test: {
     name: './formulas.test.json',
     contents: formulas_tests,
