@@ -17,36 +17,6 @@ const getHelp = (config, indent=2) => {
   return help
 }
 
-const timeKM = createTimeKM()
-const currencyKM = createCurrencyKM()
-
-class Sally {
-  getName() {
-    return "sally"
-  }
-
-  process(config, utterance) {
-    // call the characters config to get response and return that. this is testing so I am not doing that
-    /*
-    if (utterance == 'what is the time') {
-      return 'the magic has happened'
-    }
-    */
-    timeKM.server(config.getServer(), config.getAPIKey())
-    return timeKM.process(utterance)
-  }
-
-  response({context, result}) {
-    console.log('----------------------------------------')
-    console.log(`${context.value} says: `, result.generated)
-    console.log('----------------------------------------')
-  }
-
-  initialize() {
-  }
-}
-const api = new Sally()
-
 /*
   get request 
     -> process to contexts 
@@ -140,14 +110,20 @@ let configStruct = {
   ]
 };
 
-class Bob {
+class Sally {
   getName() {
-    return "bob"
+    return "sally"
   }
 
   process(config, utterance) {
-    currencyKM.server(config.getServer(), config.getAPIKey())
-    return currencyKM.process(utterance, { credentials: this.credentials })
+    // call the characters config to get response and return that. this is testing so I am not doing that
+    /*
+    if (utterance == 'what is the time') {
+      return 'the magic has happened'
+    }
+    */
+    this.timeKM.server(config.getServer(), config.getAPIKey())
+    return this.timeKM.process(utterance)
   }
 
   response({context, result}) {
@@ -158,15 +134,48 @@ class Bob {
 
   initialize() {
   }
+
+  constructor(timeKM) {
+    this.timeKM = timeKM
+  }
 }
-const api2 = new Bob()
+
+class Bob {
+  getName() {
+    return "bob"
+  }
+
+  process(config, utterance) {
+    this.currencyKM.server(config.getServer(), config.getAPIKey())
+    return this.currencyKM.process(utterance, { credentials: this.credentials })
+  }
+
+  response({context, result}) {
+    console.log('----------------------------------------')
+    console.log(`${context.value} says: `, result.generated)
+    console.log('----------------------------------------')
+  }
+
+  initialize() {
+  }
+
+  constructor(currencyKM) {
+    this.currencyKM = currencyKM
+  }
+}
 
 const initializeApi = (config, api) => {
   const name = api.getName();
   config.addWord(name, {"id": "character", "initial": "{ value: '" + name + `', api: '${name}'}` })
 }
 
+
 const createConfig = () => {
+  const timeKM = createTimeKM()
+  const currencyKM = createCurrencyKM()
+  const api = new Sally(timeKM)
+  const api2 = new Bob(currencyKM)
+
   const config = new Config(configStruct, module)
   config.multiApi = initializeApi
   config.initializer( ({isModule, config, km}) => {

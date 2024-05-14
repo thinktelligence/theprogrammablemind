@@ -4,10 +4,6 @@ const stgame_tests = require('./stgame.test.json')
 const createKirk = require('./kirk')
 const createSpock = require('./spock')
 
-const characters = createCharacters()
-const kirk = createKirk()
-const spock = createSpock()
-
 class API {
   response({context, result}) {
     console.log('----------------------------------------')
@@ -24,13 +20,17 @@ class KirkAPI {
   initialize() {
   }
 
+  constructor(kirk) {
+    this.kirk = kirk
+  }
+
   getName() {
     return "kirk"
   }
 
   process(config, utterance) {
-    kirk.server(config.getServer(), config.getAPIKey())
-    return kirk.process(utterance, { credentials: this.credentials })
+    this.kirk.server(config.getServer(), config.getAPIKey())
+    return this.kirk.process(utterance, { credentials: this.credentials })
   }
   
   response({km, context, result}) {
@@ -38,10 +38,12 @@ class KirkAPI {
   }
 }
 
-characters.api = new KirkAPI();
-
 class SpockAPI {
   initialize() {
+  }
+
+  constructor(spock) {
+    this.spock = spock
   }
 
   getName() {
@@ -49,17 +51,22 @@ class SpockAPI {
   }
 
   process(config, utterance) {
-    spock.server(config.getServer(), config.getAPIKey())
-    return spock.process(utterance, { credentials: this.credentials })
+    this.spock.server(config.getServer(), config.getAPIKey())
+    return this.spock.process(utterance, { credentials: this.credentials })
   }
   
   response({km, context, result}) {
     km('stgame').api.response({context, result})
   }
 }
-characters.api = new SpockAPI();
+
 
 const createConfig = () => {
+  const characters = createCharacters()
+  const kirk = createKirk()
+  const spock = createSpock()
+  characters.api = new KirkAPI(kirk);
+  characters.api = new SpockAPI(spock);
   const config = new Config({ 
       name: 'stgame', 
       operators: [ "([a])" ],
