@@ -117,10 +117,7 @@ const template ={
 class API {
   initialize({ objects }) {
     this._objects = objects
-    // this.objects.items = []
     this._objects.items = []
-
-    this.state = new State(this)
   }
 
   changed() {
@@ -148,6 +145,7 @@ class API {
     return map[number]
   }
 }
+
 const api = new API()
 
 class State {
@@ -260,6 +258,9 @@ const createConfig = () => {
   config.add(countable())
   config.add(events())
   config.api = api
+  config.initializer( ({api}) => {
+    api.state = new State(api)
+  })
   return config
 }
 
