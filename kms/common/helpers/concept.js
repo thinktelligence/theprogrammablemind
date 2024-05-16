@@ -30,69 +30,78 @@ class API {
 
   // for example, "crew member" or "photon torpedo"
   // TODO account for modifier a complex phrase for example "hot (chicken strips)"
-  kindOfConcept({ config, modifier, object }) {
+  kindOfConcept({ config, modifiers, object }) {
     const objectId = pluralize.singular(object)
-    const modifierId = pluralize.singular(modifier)
-    const modifierObjectId = `${modifierId}_${objectId}`
+    const modifierIds = modifiers.map( (modifier) => pluralize.singular(modifier) )
+    const modifiersObjectId = `${modifierIds.join("_")}_${objectId}`
 
     const objectSingular = pluralize.singular(object)
     const objectPlural = pluralize.plural(object)
-    config.addOperator({ pattern: `((${modifierId}/0) [${modifierObjectId}] (${objectId}/0))`, allowDups: true })
+    config.addOperator({ pattern: `(${modifierIds.map((modifierId) => `(${modifierId}/0)`).join(' ')} [${modifiersObjectId}] (${objectId}/0))`, allowDups: true })
     // config.addOperator({ pattern: `(<${modifierId}|> ([${objectId}|]))`, allowDups: true })
     // config.addOperator({ pattern: `([${modifierObjectId}|])`, allowDups: true })
-    config.addOperator({ pattern: `([${modifierId}|])`, allowDups: true })
+    modifierIds.forEach((modifierId) => config.addOperator({ pattern: `([${modifierId}|])`, allowDups: true }))
     config.addOperator({ pattern: `([${objectId}|])`, allowDups: true })
 
     config.addWord(objectSingular, { id: objectId, initial: `{ value: '${objectId}', number: 'one' }`})
     config.addWord(objectPlural, { id: objectId, initial: `{ value: '${objectId}', number: 'many' }`})
-    config.addWord(modifierId, { id: modifierId, initial: `{ value: '${modifierId}' }`})
+    modifierIds.forEach((modifierId) => config.addWord(modifierId, { id: modifierId, initial: `{ value: '${modifierId}' }`}))
 
     // config.addBridge({ id: modifierId, level: 0, bridge: `{ ...after, ${modifierId}: operator, marker: operator(concat('${modifierId}_', after.value)), atomic: true, value: concat('${modifierId}_', after.value), modifiers: append(['${modifierId}'], after[0].modifiers)}`, allowDups: true })
-    config.addBridge({ id: modifierId, level: 0, bridge: `{ ...next(operator), value: '${modifierId}' }`,  allowDups: true })
+    modifierIds.forEach((modifierId) => config.addBridge({ id: modifierId, level: 0, bridge: `{ ...next(operator), value: '${modifierId}' }`,  allowDups: true }))
     config.addBridge({ id: objectId, level: 0, bridge: `{ ...next(operator), value: '${objectId}' }`,  allowDups: true })
     // config.addBridge({ id: modifierObjectId, level: 0, bridge: `{ ...next(operator), value: '${modifierObjectId}' }`, allowDups: true })
+    const modifierProperties = modifierIds.map((modifierId, index) => `'${modifierId}': before[${index}]`).join(', ')
+    const modifierList = modifierIds.map((modifierId) => `'${modifierId}'`).join(', ')
+
     config.addBridge({ 
-      id: modifierObjectId, 
+      id: modifiersObjectId, 
       level: 0, 
       convolution: true,
       isA: ['adjective'],
       before: ['verby'],
-      // bridge: `{ ...after[0], ${modifierId}: before[0], atomic: true, dead: true, marker: operator(concat(before.value, '_', after.value)), value: concat(before.value, '_', after.value), modifiers: append(['${modifierId}'], after[0].modifiers)}`, 
-      bridge: `{ ...after[0], ${modifierId}: before[0], atomic: true, dead: true, marker: next(operator(concat(before.value, '_', after.value))), value: concat(before.value, '_', after.value), modifiers: append(['${modifierId}'], after[0].modifiers)}`, 
-      // bridge: `{ ...after[0], ${modifierId}: before[0], atomic: true, value: concat(before.value, after.value), modifiers: append(['${modifierId}'], after[0].modifiers)}`, 
+      // bridge: `{ ...after[0], ${modifierId}: before[0], atomic: true, dead: true, marker: next(operator(concat(before.value, '_', after.value))), value: concat(before.value, '_', after.value), modifiers: append(['${modifierId}'], after[0].modifiers)}`, 
+      bridge: `{ ...after[0], ${modifierProperties}, atomic: true, dead: true, marker: next(operator(concat(before.value, '_', after.value))), value: concat(before.value, '_', after.value), modifiers: append([${modifierList}], after[0].modifiers)}`, 
     // config.addBridge({ id: modifierId, level: 0, bridge: `{ ...after, ${modifierId}: operator, marker: operator(concat('${modifierId}_', after.value)), atomic: true, value: concat('${modifierId}_', after.value), modifiers: append(['${modifierId}'], after[0].modifiers)}`, allowDups: true })
       allowDups: true })
     {
       const word = {
+        /*
         [modifierId]: {
           "marker": modifierId,
           "value": modifierId,
           "word": modifierId, 
         },
-        "marker": modifierObjectId,
-        "modifiers": [
-          modifierId
-        ],
+        */
+        "marker": modifiersObjectId,
+        "modifiers": modifierIds,
         "types": [
-          modifierObjectId,
+          modifiersObjectId,
         ],
-        "value": modifierObjectId,
+        "value": modifiersObjectId,
         "word": objectId,
       }
+      modifierIds.forEach((modifierId) => {
+        word[modifierId] = {
+          "marker": modifierId,
+          "value": modifierId,
+          "word": modifierId, 
+        }
+      })
       this.addWord(word)
     }
     this.setupObjectHierarchy(config, objectId);
-    this.setupObjectHierarchy(config, modifierId, { include_concept: false });
-    this.setupObjectHierarchy(config, modifierObjectId);
+    modifierIds.forEach((modifierId) => this.setupObjectHierarchy(config, modifierId, { include_concept: false }))
+    this.setupObjectHierarchy(config, modifiersObjectId);
     if (config.getBridge('hierarchyAble')) {
       config.addHierarchy(objectId, 'hierarchyAble')
-      config.addHierarchy(modifierObjectId, 'hierarchyAble')
+      config.addHierarchy(modifiersObjectId, 'hierarchyAble')
     }
 
-    config.addPriorities([['articlePOS', 0], [modifierId, 0]])
+    modifierIds.forEach((modifierId) => config.addPriorities([['articlePOS', 0], [modifierId, 0]]))
     config.addPriorities([['articlePOS', 0], [objectId, 0]])
-    config.addPriorities([[modifierId, 0], [modifierObjectId, 0]])
-    config.addPriorities([[objectId, 0], [modifierObjectId, 0]])
+    modifierIds.forEach((modifierId) => config.addPriorities([[modifierId, 0], [modifiersObjectId, 0]]))
+    config.addPriorities([[objectId, 0], [modifiersObjectId, 0]])
   }
 
   addWord(context) {

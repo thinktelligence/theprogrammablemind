@@ -120,7 +120,7 @@ const createConfig = () => {
         where: where(),
         match: ({context}) => context.marker == 'modifies',
         apply: ({config, km, context}) => {
-          km('concept').api.kindOfConcept({ config, modifier: context.modifier.value, object: context.concept.value || context.concept.marker })
+          km('concept').api.kindOfConcept({ config, modifiers: [context.modifier.value], object: context.concept.value || context.concept.marker })
         }
       },
     ],

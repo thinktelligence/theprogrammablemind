@@ -42,8 +42,8 @@ const createConfig = () => {
   config.initializer( ({config, apis}) => {
     const api = apis('properties')
     const conceptApi = apis('concept')
-    conceptApi.kindOfConcept({ config, modifier: 'photon', object: 'torpedo' })
-    conceptApi.kindOfConcept({ config, modifier: 'crew', object: 'member' })
+    conceptApi.kindOfConcept({ config, modifiers: ['photon'], object: 'torpedo' })
+    conceptApi.kindOfConcept({ config, modifiers: ['crew'], object: 'member' })
     api.createActionPrefix({ 
                   operator: 'arm', 
                   create: ['arm', 'weapon'], 
