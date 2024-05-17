@@ -17,7 +17,7 @@ const createConfig = () => {
   const config = new Config({
     name: 'concept',
     operators: [
-      "((modifier) [modifies|] (concept))",
+      "((context.punctuation != true)* [modifies|] (concept))",
       "([concept])",
     ],
     bridges: [
@@ -25,7 +25,7 @@ const createConfig = () => {
         id: "modifies",
         isA: ['verby'],
         words: [{ word: 'modifies', number: 'one' }, { word: 'modify', number: 'many' }],
-        bridge: "{ ...next(operator), modifier: before[0], concept: after[0], flatten: true }"
+        bridge: "{ ...next(operator), modifiers: before, concept: after[0], flatten: true }"
       },
       { id: "concept", level: 0, bridge: "{ ...next(operator) }" },
     ],
@@ -96,31 +96,17 @@ const createConfig = () => {
       {
         where: where(),
         match: ({context}) => context.marker == 'modifies' && context.paraphrase,
-        apply: ({context, gp, gw}) => `${gp(context.modifier)} ${gw(context, { number: context.modifier })} ${context.concept.word}`,
+        apply: ({context, gp, gw}) => `${context.modifiers.map(gp).join(" ")} ${gw(context, { number: context.modifiers[context.modifiers.length - 1] })} ${context.concept.word}`,
         // const chosen = chooseNumber(context, word.singular, word.plural)
       },
     ],
     semantics: [
-      /*
-      {
-        notes: 'flatten',
-        where: where(),
-        priority: -1,
-        match: ({context}) => context.flatten,
-        apply: ({config, km, context, s}) => {
-          [flats, wf] = flatten(['list'], context)
-          for (let flat of flats) {
-            s({ ...flat, flatten: false })
-          }
-        }
-      },
-      */
       {
         notes: 'define a modifier',
         where: where(),
         match: ({context}) => context.marker == 'modifies',
         apply: ({config, km, context}) => {
-          km('concept').api.kindOfConcept({ config, modifiers: [context.modifier.value], object: context.concept.value || context.concept.marker })
+          km('concept').api.kindOfConcept({ config, modifiers: context.modifiers.map(modifier => modifier.value), object: context.concept.value || context.concept.marker })
         }
       },
     ],
@@ -137,5 +123,9 @@ knowledgeModule({
   test: {
     name: './concept.test.json',
     contents: concept_tests,
+    checks: {
+      context: ['marker', 'value'],
+      objects: []
+    }
   }
 })

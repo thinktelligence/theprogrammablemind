@@ -47,7 +47,6 @@ class API {
     config.addWord(objectPlural, { id: objectId, initial: `{ value: '${objectId}', number: 'many' }`})
     modifierIds.forEach((modifierId) => config.addWord(modifierId, { id: modifierId, initial: `{ value: '${modifierId}' }`}))
 
-    // config.addBridge({ id: modifierId, level: 0, bridge: `{ ...after, ${modifierId}: operator, marker: operator(concat('${modifierId}_', after.value)), atomic: true, value: concat('${modifierId}_', after.value), modifiers: append(['${modifierId}'], after[0].modifiers)}`, allowDups: true })
     modifierIds.forEach((modifierId) => config.addBridge({ id: modifierId, level: 0, bridge: `{ ...next(operator), value: '${modifierId}' }`,  allowDups: true }))
     config.addBridge({ id: objectId, level: 0, bridge: `{ ...next(operator), value: '${objectId}' }`,  allowDups: true })
     // config.addBridge({ id: modifierObjectId, level: 0, bridge: `{ ...next(operator), value: '${modifierObjectId}' }`, allowDups: true })
@@ -60,19 +59,11 @@ class API {
       convolution: true,
       isA: ['adjective'],
       before: ['verby'],
-      // bridge: `{ ...after[0], ${modifierId}: before[0], atomic: true, dead: true, marker: next(operator(concat(before.value, '_', after.value))), value: concat(before.value, '_', after.value), modifiers: append(['${modifierId}'], after[0].modifiers)}`, 
-      bridge: `{ ...after[0], ${modifierProperties}, atomic: true, dead: true, marker: next(operator(concat(before.value, '_', after.value))), value: concat(before.value, '_', after.value), modifiers: append([${modifierList}], after[0].modifiers)}`, 
-    // config.addBridge({ id: modifierId, level: 0, bridge: `{ ...after, ${modifierId}: operator, marker: operator(concat('${modifierId}_', after.value)), atomic: true, value: concat('${modifierId}_', after.value), modifiers: append(['${modifierId}'], after[0].modifiers)}`, allowDups: true })
+      // bridge: `{ ...after[0], ${modifierProperties}, atomic: true, dead: true, marker: next(operator(concat(before.value, '_', after.value))), value: concat(before.value, '_', after.value), modifiers: append([${modifierList}], after[0].modifiers)}`, 
+      bridge: `{ ...after[0], ${modifierProperties}, atomic: true, dead: true, marker: next(operator('${modifiersObjectId}')), value: '${modifiersObjectId}', modifiers: append([${modifierList}], after[0].modifiers)}`, 
       allowDups: true })
     {
       const word = {
-        /*
-        [modifierId]: {
-          "marker": modifierId,
-          "value": modifierId,
-          "word": modifierId, 
-        },
-        */
         "marker": modifiersObjectId,
         "modifiers": modifierIds,
         "types": [

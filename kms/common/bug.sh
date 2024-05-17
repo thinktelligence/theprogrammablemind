@@ -583,7 +583,7 @@ fi
 # $NODE fastfood -q '2 double combos' -g -d
 # $NODE fastfood -q 'combo one and combo two' -g -d
 # $NODE fastfood -q 'number one combo' -g -d
-$NODE fastfood -q 'combo one combo two and combo three' -g -d
+# $NODE fastfood -q 'combo one combo two and combo three' -g -d
 # $NODE fastfood -q 'combo one and combo two and three' -g -d
 # $NODE fastfood -q 'combo one' -g -d
 # $NODE fastfood -q 'number one' -g -d
@@ -598,3 +598,4 @@ $NODE fastfood -q 'combo one combo two and combo three' -g -d
 # $NODE fastfood -q 'combo number one and two' -g -d
 # node reports -q 'answer with sentences list the models' -g -d
 # $NODE fastfood -q '2 french fries' -g -d
+node concept -q 'raw chicken modifies strips\n raw chicken strips' -d -g

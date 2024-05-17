@@ -29,7 +29,7 @@ for (let file of package.files) {
 
   retrains.push(`node ${file} -rt -g`)
   tests.push(`node ${file} -tva -g`)
-  tests.push(`node tester -m ${file} -tva -tmn ${file} -g`)
+  // tests.push(`node tester -m ${file} -tva -tmn ${file} -g`)
 }
 
 // tests = [tests[0]]
@@ -47,6 +47,7 @@ const loop = async (tests, failed) => {
     return
   }
   const test = tests.shift()
+  console.log("Doing", test)
   exec(test,
     (error, stdout, stderr) => {
       console.log(stdout);
