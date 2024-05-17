@@ -179,8 +179,8 @@ knowledgeModule({
   test: {
     name: './dimension.test.json',
     contents: dimension_tests,
-    check: [
-      { km: 'properties' },
-    ]
+    checks: {
+      objects: [{ km: 'properties' }],
+    }
   },
 })

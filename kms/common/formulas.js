@@ -191,6 +191,8 @@ knowledgeModule({
   test: {
     name: './formulas.test.json',
     contents: formulas_tests,
-    check: ['formulas']
+    checks: {
+      objects: ['formulas']
+    }
   },
 })

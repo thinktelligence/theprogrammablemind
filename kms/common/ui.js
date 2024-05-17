@@ -199,7 +199,9 @@ knowledgeModule({
   test: {
     name: './ui.test.json',
     contents: ui_tests,
-    check: ['move', 'select', 'unselect', 'cancel', 'stop'],
+    checks: {
+      objects: ['move', 'select', 'unselect', 'cancel', 'stop'],
+    },
   },
   template: {
     template,

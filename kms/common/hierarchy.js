@@ -306,7 +306,9 @@ knowledgeModule( {
     name: './hierarchy.test.json',
     contents: hierarchy_tests,
     // TODO doesnt this need the KM
-    check: ['children', 'concept', 'parents', 'properties'],
+    checks: {
+      objects: ['children', 'concept', 'parents', 'properties'],
+    },
     includes: {
       words: true,
     }

@@ -267,9 +267,11 @@ knowledgeModule( {
     test: {
             name: './fastfood.test.json',
             contents: fastfood_tests,
-            check: [
-              'show', 'items', 'changes'
-            ]
+            checks: {
+              objects: [
+                'show', 'items', 'changes'
+              ]
+            },
           },
     template: {
       template,

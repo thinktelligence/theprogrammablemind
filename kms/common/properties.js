@@ -694,12 +694,14 @@ knowledgeModule( {
   test: {
     name: './properties.test.json',
     contents: properties_tests,
-    check: [
-      'children', 
-      'concept', 
-      'parents', 
-      'properties'
-    ],
+    checks: {
+      objects: [
+        'children', 
+        'concept', 
+        'parents', 
+        'properties'
+      ]
+    },
     include: {
       words: true,
       operators: true,

@@ -518,8 +518,10 @@ knowledgeModule({
   test: {
     name: './pipboy.test.json',
     contents: pipboy_tests,
-    check: [
-      'apply', 'change', 'disarm', 'drink', 'eat', 'equip', 'setName', 'strip', 'take', 'wear',
-    ]
+    checks: {
+      objects: [
+        'apply', 'change', 'disarm', 'drink', 'eat', 'equip', 'setName', 'strip', 'take', 'wear',
+      ]
+    },
   },
 })
