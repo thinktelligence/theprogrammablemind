@@ -23,6 +23,13 @@ knowledgeModule({
   template: { template, instance },
   test: {
     name: './mathTemplate.test.json',
-    contents: tests
+    contents: tests,
+    checks: {
+            context: [
+              'marker',
+              'text',
+              { 'value': ['marker', 'text', 'value'] },
+            ],
+          },
   },
 })

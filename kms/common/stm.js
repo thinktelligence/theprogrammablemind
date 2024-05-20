@@ -99,6 +99,13 @@ knowledgeModule( {
   createConfig,
   test: {
     name: './stm.test.json',
-    contents: stm_tests
+    contents: stm_tests,
+    checks: {
+            context: [
+              'marker',
+              'text',
+              { 'value': ['marker', 'text', 'value'] },
+            ],
+          },
   },
 })

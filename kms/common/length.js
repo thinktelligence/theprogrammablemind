@@ -47,7 +47,15 @@ knowledgeModule({
   createConfig,
   test: {
     name: './length.test.json',
-    contents: length_tests
+    contents: length_tests,
+    checks: {
+            context: [
+              'marker',
+              'text',
+              { 'value': ['marker', 'text', 'value'] },
+            ],
+          },
+
   },
   template: {
     template,

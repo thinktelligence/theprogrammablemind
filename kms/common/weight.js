@@ -45,7 +45,14 @@ knowledgeModule({
   createConfig,
   test: {
     name: './weight.test.json',
-    contents: weight_tests
+    contents: weight_tests,
+    checks: {
+            context: [
+              'marker',
+              'text',
+              { 'value': ['marker', 'text', 'value'] },
+            ],
+          },
   },
   template: {
     template,

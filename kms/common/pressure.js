@@ -29,6 +29,13 @@ knowledgeModule({
   },
   template: {
     template,
-    instance: pressure_instance
+    instance: pressure_instance,
+    checks: {
+            context: [
+              'marker',
+              'text',
+              { 'value': ['marker', 'text', 'value'] },
+            ],
+          },
   }
 })

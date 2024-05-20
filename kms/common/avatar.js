@@ -77,6 +77,13 @@ knowledgeModule( {
   createConfig,
   test: {
     name: './avatar.test.json',
-    contents: avatar_tests
+    contents: avatar_tests,
+    checks: {
+            context: [
+              'marker',
+              'text',
+              { 'value': ['marker', 'text', 'value'] },
+            ],
+          },
   }
 })

@@ -137,6 +137,14 @@ knowledgeModule({
   createConfig,
   test: {
     name: './currency.test.json',
-    contents: currency_tests
+    contents: currency_tests,
+    checks: {
+            context: [
+              'marker',
+              'text',
+              { 'value': ['marker', 'text', 'value'] },
+            ],
+          },
+
   },
 })

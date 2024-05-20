@@ -98,7 +98,13 @@ knowledgeModule({
   createConfig,
   test: {
     name: './help.test.json',
-    contents: help_tests
+    contents: help_tests,
+    checks: {
+            context: [
+              'marker',
+              'text',
+              { 'value': ['marker', 'text', 'value'] },
+            ],
+          },
   },
-
 })

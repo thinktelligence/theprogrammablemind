@@ -95,6 +95,9 @@ let configStruct = {
     "([calculate] ([expression]))",
     "(([expression]) [equals] ([expression]))",
   ],
+  priorities: [
+    [['number', 0], ['mathematicalOperator', 0]],
+  ],
   semantics: [
     {
       where: where(),
@@ -192,7 +195,13 @@ knowledgeModule({
     name: './formulas.test.json',
     contents: formulas_tests,
     checks: {
-      objects: ['formulas']
+      objects: ['formulas'],
+      context: [
+        'marker',
+        'text',
+        { 'value': ['marker', 'text', 'value'] },
+      ],
+
     }
   },
 })

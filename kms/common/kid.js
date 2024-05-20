@@ -45,6 +45,14 @@ knowledgeModule({
   test: {
           name: './kid.test.json',
           contents: kid_tests,
+          checks: {
+            context: [
+              'marker',
+              'text',
+              { 'value': ['marker', 'text', 'value'] },
+            ],
+          },
+
         },
   template: {
     template,

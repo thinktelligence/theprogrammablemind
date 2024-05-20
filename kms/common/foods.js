@@ -55,5 +55,13 @@ knowledgeModule( {
       template: {
         template,
         instance: foods_instance,
+        checks: {
+            context: [
+              'marker',
+              'text',
+              { 'value': ['marker', 'text', 'value'] },
+            ],
+          },
+
       },
 })

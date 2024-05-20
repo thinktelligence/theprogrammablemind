@@ -630,7 +630,14 @@ knowledgeModule({
   createConfig,
   test: {
     name: './reports.test.json',
-    contents: reports_tests
+    contents: reports_tests,
+    checks: {
+            context: [
+              'marker',
+              'text',
+              { 'value': ['marker', 'text', 'value'] },
+            ],
+          },
   },
   template: {
     template,

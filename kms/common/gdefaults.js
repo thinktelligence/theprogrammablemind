@@ -140,6 +140,14 @@ knowledgeModule({
   createConfig,
   test: {
     name: './gdefaults.test.json',
-    contents: gdefaults_tests
+    contents: gdefaults_tests,
+    checks: {
+            context: [
+              'marker',
+              'text',
+              { 'value': ['marker', 'text', 'value'] },
+            ],
+          },
+
   },
 })

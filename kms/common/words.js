@@ -37,6 +37,13 @@ knowledgeModule( {
   description: 'evaluating to a word',
   test: {
     name: './words.test.json',
-    contents: words_tests
+    contents: words_tests,
+    checks: {
+            context: [
+              'marker',
+              'text',
+              { 'value': ['marker', 'text', 'value'] },
+            ],
+          },
   },
 })

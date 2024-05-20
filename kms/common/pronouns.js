@@ -68,6 +68,13 @@ knowledgeModule( {
   createConfig,
   test: {
     name: './pronouns.test.json',
-    contents: pronouns_tests
+    contents: pronouns_tests,
+    checks: {
+            context: [
+              'marker',
+              'text',
+              { 'value': ['marker', 'text', 'value'] },
+            ],
+          },
   }
 })

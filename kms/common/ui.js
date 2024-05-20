@@ -201,6 +201,11 @@ knowledgeModule({
     contents: ui_tests,
     checks: {
       objects: ['move', 'select', 'unselect', 'cancel', 'stop'],
+      context: [
+              'marker',
+              'text',
+              { 'value': ['marker', 'text', 'value'] },
+            ],
     },
   },
   template: {

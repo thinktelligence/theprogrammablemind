@@ -124,7 +124,11 @@ knowledgeModule({
     name: './concept.test.json',
     contents: concept_tests,
     checks: {
-      context: ['marker', 'value'],
+      context: [
+              'marker',
+              'text',
+              { 'value': ['marker', 'text', 'value'] },
+            ],
       objects: []
     }
   }

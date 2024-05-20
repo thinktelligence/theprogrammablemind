@@ -389,7 +389,15 @@ knowledgeModule({
     contents: meta_tests,
     include: {
       words: true,
-    }
+    },
+    checks: {
+            context: [
+              'marker',
+              'text',
+              { 'value': ['marker', 'text', 'value'] },
+            ],
+          },
+
   },
   template: {
     template,

@@ -40,6 +40,13 @@ knowledgeModule( {
   description: 'parts of speech',
   test: {
     name: './pos.test.json',
-    contents: pos_tests
+    contents: pos_tests,
+    checks: {
+            context: [
+              'marker',
+              'text',
+              { 'value': ['marker', 'text', 'value'] },
+            ],
+          },
   },
 })

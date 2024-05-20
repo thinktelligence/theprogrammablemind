@@ -122,7 +122,15 @@ knowledgeModule( {
     test: {
             name: './ordering.test.json',
             heck: ['children', 'concept', 'parents', 'properties'],
-            contents: ordering_tests
+            contents: ordering_tests,
+            checks: {
+              context: [
+                'marker',
+                'text',
+                { 'value': ['marker', 'text', 'value'] },
+              ],
+            },
+
           },
     template: {
       template, 

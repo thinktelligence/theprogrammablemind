@@ -40,9 +40,11 @@ const template ={
     "bacon modifies deluxe",
     "chicken modifies sandwich",
     "premium modifies cod",
-    "spicy modifies homestyle",
+    "ultimate chicken modifies grill",
+    // "10 piece modifies nuggets",
+    "asiago ranch chicken modifies club",
     "single double triple baconater and bacon deluxe are hamburgers",
-    "spicy homestyle and premium cod are sandwiches",
+    // "spicy homestyle asiago ranch chicken club 10 piece nuggets ultimate chicken grill and premium cod are sandwiches",
     "a meals is food",
     "a combo is a meal",
     "single double triple baconater bacon deluxe spicy homestyle and premium cod are meals",
@@ -58,6 +60,10 @@ const template ={
         // "( (number/0 && value='number') [numberNumberCombo] (number/0))",
         // "((combo/0) (number/1) [comboNumberNumber] (number/1))",
         "((number/0,1 && context.instance == undefined) [numberNumberCombo] (number/0,1))",
+      ],
+      priorities: [
+        [['list', 0], ['premium_cod', 0]],
+        [['list', 1], ['premium_cod', 0]],
       ],
       generators: [
         {
@@ -212,8 +218,8 @@ const createConfig = () => {
     // flatten: ['list'],
     contextual_priorities: [
       { context: [['list', 0], ['bacon',0], ['deluxe', 0]], choose: [1,2] },
-      { context: [['list', 0], ['spicy',0], ['homestyle', 0]], choose: [1,2] },
-      { context: [['list', 0], ['premium',0], ['cod', 0]], choose: [1,2] },
+      // { context: [['list', 0], ['spicy',0], ['homestyle', 0]], choose: [1,2] },
+      // { context: [['list', 0], ['premium',0], ['cod', 0]], choose: [1,2] },
       { context: [['list', 0], ['food',0], ['combo', 0]], choose: [0,1] },
       { context: [['combo', 0], ['number', 0], ['list',0], ['number', 0]], choose: [1,2,3] },
       { context: [['combo', 0], ['comboNumber', 0], ['list', 1]], choose: [1] },
@@ -270,7 +276,12 @@ knowledgeModule( {
             checks: {
               objects: [
                 'show', 'items', 'changes'
-              ]
+              ],
+              context: [
+                'marker',
+                'text',
+                { 'value': ['marker', 'text', 'value'] },
+              ],
             },
           },
     template: {

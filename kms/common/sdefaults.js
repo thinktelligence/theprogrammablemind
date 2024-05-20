@@ -27,6 +27,13 @@ knowledgeModule({
   createConfig,
   test: {
     name: './sdefaults.test.json',
-    contents: sdefaults_tests
+    contents: sdefaults_tests,
+    checks: {
+            context: [
+              'marker',
+              'text',
+              { 'value': ['marker', 'text', 'value'] },
+            ],
+          },
   },
 })

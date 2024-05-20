@@ -74,5 +74,13 @@ knowledgeModule( {
   test: {
     name: './javascript.test.json',
     contents: javascript_tests,
+    checks: {
+            context: [
+              'marker',
+              'text',
+              { 'value': ['marker', 'text', 'value'] },
+            ],
+          },
+
   },
 })

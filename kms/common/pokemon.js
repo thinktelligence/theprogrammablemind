@@ -71,6 +71,14 @@ knowledgeModule( {
   test: {
           name: './pokemon.test.json',
           contents: pokemon_tests,
+          checks: {
+            context: [
+              'marker',
+              'text',
+              { 'value': ['marker', 'text', 'value'] },
+            ],
+          },
+
         },
   template: {
     template,

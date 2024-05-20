@@ -28,6 +28,14 @@ knowledgeModule( {
   test: {
           name: './kirk.test.json',
           contents: kirk_tests,
+          checks: {
+            context: [
+              'marker',
+              'text',
+              { 'value': ['marker', 'text', 'value'] },
+            ],
+          },
+
         },
   template: {
     template,

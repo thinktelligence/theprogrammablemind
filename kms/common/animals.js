@@ -36,7 +36,15 @@ knowledgeModule( {
       createConfig, newWay: true,
       test: {
               name: './animals.test.json',
-              contents: animals_tests
+              contents: animals_tests,
+              checks: {
+                context: [
+                  'marker',
+                  'text',
+                  { 'value': ['marker', 'text', 'value'] },
+                ],
+              },
+
             },
       template: {
         template,

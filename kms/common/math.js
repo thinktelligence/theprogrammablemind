@@ -105,6 +105,14 @@ knowledgeModule( {
   description: 'talking about math',
   test: {
     name: './math.test.json',
-    contents: math_tests
+    contents: math_tests,
+    checks: {
+            context: [
+              'marker',
+              'text',
+              { 'value': ['marker', 'text', 'value'] },
+            ],
+          },
+
   },
 })

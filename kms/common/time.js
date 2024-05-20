@@ -178,6 +178,13 @@ knowledgeModule({
   createConfig,
   test: {
     name: './time.test.json',
-    contents: time_tests
+    contents: time_tests,
+    checks: {
+            context: [
+              'marker',
+              'text',
+              { 'value': ['marker', 'text', 'value'] },
+            ],
+          },
   },
 })

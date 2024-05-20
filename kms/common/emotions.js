@@ -70,5 +70,13 @@ knowledgeModule( {
       template: {
         template,
         instance: emotions_instance,
+        checks: {
+            context: [
+              'marker',
+              'text',
+              { 'value': ['marker', 'text', 'value'] },
+            ],
+          },
+
       },
 })

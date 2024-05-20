@@ -24,6 +24,13 @@ knowledgeModule( {
   test: {
           name: './spock.test.json',
           contents: spock_tests,
+          checks: {
+            context: [
+              'marker',
+              'text',
+              { 'value': ['marker', 'text', 'value'] },
+            ],
+          },
         },
   template: {
     template,

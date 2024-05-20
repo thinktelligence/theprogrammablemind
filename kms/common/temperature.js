@@ -25,7 +25,14 @@ knowledgeModule({
   createConfig,
   test: {
     name: './temperature.test.json',
-    contents: temperature_tests
+    contents: temperature_tests,
+    checks: {
+            context: [
+              'marker',
+              'text',
+              { 'value': ['marker', 'text', 'value'] },
+            ],
+          },
   },
   template: {
     template,

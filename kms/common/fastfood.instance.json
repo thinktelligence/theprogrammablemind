@@ -4,23 +4,45 @@
     "bacon modifies deluxe",
     "chicken modifies sandwich",
     "premium modifies cod",
-    "spicy modifies homestyle",
+    "ultimate chicken modifies grill",
+    "asiago ranch chicken modifies club",
     "single double triple baconater and bacon deluxe are hamburgers",
-    "spicy homestyle and premium cod are sandwiches",
     "a meals is food",
     "a combo is a meal",
     "single double triple baconater bacon deluxe spicy homestyle and premium cod are meals",
     {
-      "where": "/home/dev/code/theprogrammablemind/kms/common/fastfood.js:51",
+      "where": "/home/dev/code/theprogrammablemind/kms/common/fastfood.js:53",
       "operators": [
         "((meal/0,1 && context.comboNumber == undefined) [comboMeal] (combo/0))",
         "((combo/0) [comboNumber] (number/0,1 || numberNumberCombo/0,1))",
         "((numberNumberCombo/1) [numberNumberCombo_combo|] (combo/0))",
         "((number/0,1 && context.instance == undefined) [numberNumberCombo] (number/0,1))"
       ],
+      "priorities": [
+        [
+          [
+            "list",
+            0
+          ],
+          [
+            "premium_cod",
+            0
+          ]
+        ],
+        [
+          [
+            "list",
+            1
+          ],
+          [
+            "premium_cod",
+            0
+          ]
+        ]
+      ],
       "generators": [
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/fastfood.js:64",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/fastfood.js:70",
           "match": "({context}) => false && context.marker == 'combo' && context.comboNumber",
           "apply": "({context, g}) => g(context.comboNumber)"
         }
@@ -157,6 +179,10 @@
         [
           "banana",
           "theAble"
+        ],
+        [
+          "between",
+          "preposition"
         ],
         [
           "brocoli",
@@ -831,6 +857,10 @@
           "vegetable"
         ],
         [
+          "preposition",
+          "preposition"
+        ],
+        [
           "pronoun",
           "pronoun"
         ],
@@ -1366,6 +1396,10 @@
         [
           "banana",
           "theAble"
+        ],
+        [
+          "between",
+          "preposition"
         ],
         [
           "brocoli",
@@ -2042,6 +2076,10 @@
         [
           "pea",
           "vegetable"
+        ],
+        [
+          "preposition",
+          "preposition"
         ],
         [
           "pronoun",
@@ -2638,6 +2676,10 @@
           "theAble"
         ],
         [
+          "between",
+          "preposition"
+        ],
+        [
           "brocoli",
           "hierarchyAble"
         ],
@@ -3344,6 +3386,10 @@
         [
           "pea",
           "vegetable"
+        ],
+        [
+          "preposition",
+          "preposition"
         ],
         [
           "pronoun",
@@ -3929,6 +3975,10 @@
           "theAble"
         ],
         [
+          "between",
+          "preposition"
+        ],
+        [
           "brocoli",
           "hierarchyAble"
         ],
@@ -4671,6 +4721,10 @@
         [
           "pea",
           "vegetable"
+        ],
+        [
+          "preposition",
+          "preposition"
         ],
         [
           "pronoun",
@@ -5271,6 +5325,10 @@
           "theAble"
         ],
         [
+          "between",
+          "preposition"
+        ],
+        [
           "brocoli",
           "hierarchyAble"
         ],
@@ -6109,6 +6167,10 @@
         [
           "premium_cod",
           "theAble"
+        ],
+        [
+          "preposition",
+          "preposition"
         ],
         [
           "pronoun",
@@ -6420,6 +6482,10 @@
                 0
               ],
               [
+                "chicken",
+                0
+              ],
+              [
                 "modifies",
                 0
               ],
@@ -6437,6 +6503,10 @@
             ],
             "ops": [
               [
+                "chicken",
+                0
+              ],
+              [
                 "modifies",
                 0
               ],
@@ -6449,6 +6519,23 @@
           },
           {
             "op": [
+              "chicken",
+              0
+            ],
+            "ops": [
+              [
+                "chicken",
+                0
+              ],
+              [
+                "modifies",
+                0
+              ]
+            ],
+            "counter": 3
+          },
+          {
+            "op": [
               "modifies",
               0
             ],
@@ -6458,7 +6545,7 @@
                 0
               ]
             ],
-            "counter": 3
+            "counter": 4
           }
         ]
       },
@@ -6467,11 +6554,11 @@
         {
           "word": "modifies",
           "number": "one",
-          "text": "spicy modifies homestyle",
+          "text": "ultimate chicken modifies grill",
           "marker": "modifies",
           "range": {
             "start": 0,
-            "end": 23
+            "end": 30
           },
           "dead": true,
           "modifiers": [
@@ -6479,12 +6566,24 @@
               "marker": "unknown",
               "range": {
                 "start": 0,
-                "end": 4
+                "end": 7
               },
-              "word": "spicy",
-              "text": "spicy",
-              "value": "spicy",
+              "word": "ultimate",
+              "text": "ultimate",
+              "value": "ultimate",
               "unknown": true,
+              "dead": true,
+              "level": 1
+            },
+            {
+              "value": "chicken",
+              "text": "chicken",
+              "marker": "chicken",
+              "word": "chicken",
+              "range": {
+                "start": 9,
+                "end": 15
+              },
               "dead": true,
               "level": 1
             }
@@ -6492,12 +6591,12 @@
           "concept": {
             "marker": "unknown",
             "range": {
-              "start": 15,
-              "end": 23
+              "start": 26,
+              "end": 30
             },
-            "word": "homestyle",
-            "text": "homestyle",
-            "value": "homestyle",
+            "word": "grill",
+            "text": "grill",
+            "value": "grill",
             "unknown": true,
             "dead": true,
             "level": 1
@@ -6514,7 +6613,7 @@
         ""
       ],
       "paraphrases": [
-        "spicy modifies homestyle"
+        "ultimate chicken modifies grill"
       ],
       "paraphrasesParenthesized": [],
       "generatedParenthesized": [],
@@ -6523,6 +6622,10 @@
       ],
       "associations": [
         [
+          [
+            "chicken",
+            0
+          ],
           [
             "modifies",
             0
@@ -6534,11 +6637,29 @@
         ],
         [
           [
+            "chicken",
+            0
+          ],
+          [
             "modifies",
             0
           ],
           [
             "unknown",
+            0
+          ],
+          [
+            "unknown",
+            1
+          ]
+        ],
+        [
+          [
+            "chicken",
+            0
+          ],
+          [
+            "modifies",
             0
           ],
           [
@@ -6557,9 +6678,9 @@
           ]
         ]
       ],
-      "query": "spicy modifies homestyle",
+      "query": "ultimate chicken modifies grill",
       "key": {
-        "query": "spicy modifies homestyle"
+        "query": "ultimate chicken modifies grill"
       }
     },
     {
@@ -6707,6 +6828,10 @@
         [
           "banana",
           "theAble"
+        ],
+        [
+          "between",
+          "preposition"
         ],
         [
           "brocoli",
@@ -7201,6 +7326,38 @@
           "theAble"
         ],
         [
+          "grill",
+          "concept"
+        ],
+        [
+          "grill",
+          "hierarchyAble"
+        ],
+        [
+          "grill",
+          "isEdee"
+        ],
+        [
+          "grill",
+          "isEder"
+        ],
+        [
+          "grill",
+          "object"
+        ],
+        [
+          "grill",
+          "property"
+        ],
+        [
+          "grill",
+          "queryable"
+        ],
+        [
+          "grill",
+          "theAble"
+        ],
+        [
           "hamburger",
           "hierarchyAble"
         ],
@@ -7243,38 +7400,6 @@
         [
           "hierarchyAble",
           "queryable"
-        ],
-        [
-          "homestyle",
-          "concept"
-        ],
-        [
-          "homestyle",
-          "hierarchyAble"
-        ],
-        [
-          "homestyle",
-          "isEdee"
-        ],
-        [
-          "homestyle",
-          "isEder"
-        ],
-        [
-          "homestyle",
-          "object"
-        ],
-        [
-          "homestyle",
-          "property"
-        ],
-        [
-          "homestyle",
-          "queryable"
-        ],
-        [
-          "homestyle",
-          "theAble"
         ],
         [
           "hot",
@@ -7581,6 +7706,10 @@
           "theAble"
         ],
         [
+          "preposition",
+          "preposition"
+        ],
+        [
           "pronoun",
           "pronoun"
         ],
@@ -7697,68 +7826,1771 @@
           "verby"
         ],
         [
-          "spicy",
-          "hierarchyAble"
-        ],
-        [
-          "spicy",
-          "isEdee"
-        ],
-        [
-          "spicy",
-          "isEder"
-        ],
-        [
-          "spicy",
-          "object"
-        ],
-        [
-          "spicy",
-          "property"
-        ],
-        [
-          "spicy",
-          "queryable"
-        ],
-        [
-          "spicy",
-          "theAble"
-        ],
-        [
-          "spicy_homestyle",
-          "adjective"
-        ],
-        [
-          "spicy_homestyle",
+          "strip",
           "concept"
         ],
         [
-          "spicy_homestyle",
+          "strip",
           "hierarchyAble"
         ],
         [
-          "spicy_homestyle",
+          "strip",
           "isEdee"
         ],
         [
-          "spicy_homestyle",
+          "strip",
           "isEder"
         ],
         [
-          "spicy_homestyle",
+          "strip",
           "object"
         ],
         [
-          "spicy_homestyle",
+          "strip",
           "property"
         ],
         [
-          "spicy_homestyle",
+          "strip",
           "queryable"
         ],
         [
-          "spicy_homestyle",
+          "strip",
           "theAble"
+        ],
+        [
+          "sushi",
+          "food"
+        ],
+        [
+          "sushi",
+          "hierarchyAble"
+        ],
+        [
+          "sushi",
+          "isEdee"
+        ],
+        [
+          "sushi",
+          "isEder"
+        ],
+        [
+          "sushi",
+          "object"
+        ],
+        [
+          "sushi",
+          "property"
+        ],
+        [
+          "sushi",
+          "queryable"
+        ],
+        [
+          "sushi",
+          "theAble"
+        ],
+        [
+          "that",
+          "thisitthat"
+        ],
+        [
+          "the",
+          "articlePOS"
+        ],
+        [
+          "theAble",
+          "theAble"
+        ],
+        [
+          "this",
+          "pronoun"
+        ],
+        [
+          "this",
+          "queryable"
+        ],
+        [
+          "this",
+          "thisitthat"
+        ],
+        [
+          "thisitthat",
+          "queryable"
+        ],
+        [
+          "toAble",
+          "toAble"
+        ],
+        [
+          "type",
+          "property"
+        ],
+        [
+          "type",
+          "whatAble"
+        ],
+        [
+          "ultimate",
+          "hierarchyAble"
+        ],
+        [
+          "ultimate",
+          "isEdee"
+        ],
+        [
+          "ultimate",
+          "isEder"
+        ],
+        [
+          "ultimate",
+          "object"
+        ],
+        [
+          "ultimate",
+          "property"
+        ],
+        [
+          "ultimate",
+          "queryable"
+        ],
+        [
+          "ultimate",
+          "theAble"
+        ],
+        [
+          "ultimate_chicken_grill",
+          "adjective"
+        ],
+        [
+          "ultimate_chicken_grill",
+          "concept"
+        ],
+        [
+          "ultimate_chicken_grill",
+          "hierarchyAble"
+        ],
+        [
+          "ultimate_chicken_grill",
+          "isEdee"
+        ],
+        [
+          "ultimate_chicken_grill",
+          "isEder"
+        ],
+        [
+          "ultimate_chicken_grill",
+          "object"
+        ],
+        [
+          "ultimate_chicken_grill",
+          "property"
+        ],
+        [
+          "ultimate_chicken_grill",
+          "queryable"
+        ],
+        [
+          "ultimate_chicken_grill",
+          "theAble"
+        ],
+        [
+          "unknown",
+          "hierarchyAble"
+        ],
+        [
+          "unknown",
+          "notAble"
+        ],
+        [
+          "unknown",
+          "object"
+        ],
+        [
+          "unknown",
+          "queryable"
+        ],
+        [
+          "unknown",
+          "theAble"
+        ],
+        [
+          "vegetable",
+          "food"
+        ],
+        [
+          "vegetable",
+          "hierarchyAble"
+        ],
+        [
+          "vegetable",
+          "isEdee"
+        ],
+        [
+          "vegetable",
+          "isEder"
+        ],
+        [
+          "vegetable",
+          "object"
+        ],
+        [
+          "vegetable",
+          "property"
+        ],
+        [
+          "vegetable",
+          "queryable"
+        ],
+        [
+          "vegetable",
+          "theAble"
+        ],
+        [
+          "verby",
+          "verby"
+        ],
+        [
+          "what",
+          "object"
+        ],
+        [
+          "what",
+          "queryable"
+        ],
+        [
+          "whatAble",
+          "queryable"
+        ],
+        [
+          "whose",
+          "object"
+        ],
+        [
+          "xfx",
+          "queryable"
+        ]
+      ],
+      "metadata": {
+        "opChoices": [
+          {
+            "op": [
+              "unknown",
+              0
+            ],
+            "ops": [
+              [
+                "unknown",
+                0
+              ],
+              [
+                "unknown",
+                0
+              ],
+              [
+                "chicken",
+                0
+              ],
+              [
+                "modifies",
+                0
+              ],
+              [
+                "unknown",
+                0
+              ]
+            ],
+            "counter": 1
+          },
+          {
+            "op": [
+              "unknown",
+              0
+            ],
+            "ops": [
+              [
+                "unknown",
+                0
+              ],
+              [
+                "chicken",
+                0
+              ],
+              [
+                "modifies",
+                0
+              ],
+              [
+                "unknown",
+                0
+              ]
+            ],
+            "counter": 2
+          },
+          {
+            "op": [
+              "unknown",
+              0
+            ],
+            "ops": [
+              [
+                "chicken",
+                0
+              ],
+              [
+                "modifies",
+                0
+              ],
+              [
+                "unknown",
+                0
+              ]
+            ],
+            "counter": 3
+          },
+          {
+            "op": [
+              "chicken",
+              0
+            ],
+            "ops": [
+              [
+                "chicken",
+                0
+              ],
+              [
+                "modifies",
+                0
+              ]
+            ],
+            "counter": 4
+          },
+          {
+            "op": [
+              "modifies",
+              0
+            ],
+            "ops": [
+              [
+                "modifies",
+                0
+              ]
+            ],
+            "counter": 5
+          }
+        ]
+      },
+      "trace": "undefined",
+      "contexts": [
+        {
+          "word": "modifies",
+          "number": "one",
+          "text": "asiago ranch chicken modifies club",
+          "marker": "modifies",
+          "range": {
+            "start": 0,
+            "end": 33
+          },
+          "dead": true,
+          "modifiers": [
+            {
+              "marker": "unknown",
+              "range": {
+                "start": 0,
+                "end": 5
+              },
+              "word": "asiago",
+              "text": "asiago",
+              "value": "asiago",
+              "unknown": true,
+              "dead": true,
+              "level": 1
+            },
+            {
+              "marker": "unknown",
+              "range": {
+                "start": 7,
+                "end": 11
+              },
+              "word": "ranch",
+              "text": "ranch",
+              "value": "ranch",
+              "unknown": true,
+              "dead": true,
+              "level": 1
+            },
+            {
+              "value": "chicken",
+              "text": "chicken",
+              "marker": "chicken",
+              "word": "chicken",
+              "range": {
+                "start": 13,
+                "end": 19
+              },
+              "dead": true,
+              "level": 1
+            }
+          ],
+          "concept": {
+            "marker": "unknown",
+            "range": {
+              "start": 30,
+              "end": 33
+            },
+            "word": "club",
+            "text": "club",
+            "value": "club",
+            "unknown": true,
+            "dead": true,
+            "level": 1
+          },
+          "flatten": true,
+          "level": 1,
+          "topLevel": true,
+          "touchedBy": [
+            "fastfood#call2"
+          ]
+        }
+      ],
+      "generated": [
+        ""
+      ],
+      "paraphrases": [
+        "asiago ranch chicken modifies club"
+      ],
+      "paraphrasesParenthesized": [],
+      "generatedParenthesized": [],
+      "responses": [
+        ""
+      ],
+      "associations": [
+        [
+          [
+            "chicken",
+            0
+          ],
+          [
+            "modifies",
+            0
+          ],
+          [
+            "unknown",
+            0
+          ]
+        ],
+        [
+          [
+            "chicken",
+            0
+          ],
+          [
+            "modifies",
+            0
+          ],
+          [
+            "unknown",
+            0
+          ],
+          [
+            "unknown",
+            1
+          ]
+        ],
+        [
+          [
+            "chicken",
+            0
+          ],
+          [
+            "modifies",
+            0
+          ],
+          [
+            "unknown",
+            1
+          ]
+        ],
+        [
+          [
+            "modifies",
+            0
+          ],
+          [
+            "unknown",
+            1
+          ]
+        ]
+      ],
+      "query": "asiago ranch chicken modifies club",
+      "key": {
+        "query": "asiago ranch chicken modifies club"
+      }
+    },
+    {
+      "hierarchy": [
+        [
+          "a",
+          "articlePOS"
+        ],
+        [
+          "adjective",
+          "adjective"
+        ],
+        [
+          "all",
+          "quantifier"
+        ],
+        [
+          "apple",
+          "fruit"
+        ],
+        [
+          "apple",
+          "hierarchyAble"
+        ],
+        [
+          "apple",
+          "isEdee"
+        ],
+        [
+          "apple",
+          "isEder"
+        ],
+        [
+          "apple",
+          "object"
+        ],
+        [
+          "apple",
+          "property"
+        ],
+        [
+          "apple",
+          "queryable"
+        ],
+        [
+          "apple",
+          "theAble"
+        ],
+        [
+          "articlePOS",
+          "articlePOS"
+        ],
+        [
+          "asiago",
+          "hierarchyAble"
+        ],
+        [
+          "asiago",
+          "isEdee"
+        ],
+        [
+          "asiago",
+          "isEder"
+        ],
+        [
+          "asiago",
+          "object"
+        ],
+        [
+          "asiago",
+          "property"
+        ],
+        [
+          "asiago",
+          "queryable"
+        ],
+        [
+          "asiago",
+          "theAble"
+        ],
+        [
+          "asiago_ranch_chicken_club",
+          "adjective"
+        ],
+        [
+          "asiago_ranch_chicken_club",
+          "concept"
+        ],
+        [
+          "asiago_ranch_chicken_club",
+          "hierarchyAble"
+        ],
+        [
+          "asiago_ranch_chicken_club",
+          "isEdee"
+        ],
+        [
+          "asiago_ranch_chicken_club",
+          "isEder"
+        ],
+        [
+          "asiago_ranch_chicken_club",
+          "object"
+        ],
+        [
+          "asiago_ranch_chicken_club",
+          "property"
+        ],
+        [
+          "asiago_ranch_chicken_club",
+          "queryable"
+        ],
+        [
+          "asiago_ranch_chicken_club",
+          "theAble"
+        ],
+        [
+          "bacon",
+          "hierarchyAble"
+        ],
+        [
+          "bacon",
+          "isEdee"
+        ],
+        [
+          "bacon",
+          "isEder"
+        ],
+        [
+          "bacon",
+          "object"
+        ],
+        [
+          "bacon",
+          "property"
+        ],
+        [
+          "bacon",
+          "queryable"
+        ],
+        [
+          "bacon",
+          "theAble"
+        ],
+        [
+          "bacon_deluxe",
+          "adjective"
+        ],
+        [
+          "bacon_deluxe",
+          "concept"
+        ],
+        [
+          "bacon_deluxe",
+          "hierarchyAble"
+        ],
+        [
+          "bacon_deluxe",
+          "isEdee"
+        ],
+        [
+          "bacon_deluxe",
+          "isEder"
+        ],
+        [
+          "bacon_deluxe",
+          "object"
+        ],
+        [
+          "bacon_deluxe",
+          "property"
+        ],
+        [
+          "bacon_deluxe",
+          "queryable"
+        ],
+        [
+          "bacon_deluxe",
+          "theAble"
+        ],
+        [
+          "banana",
+          "fruit"
+        ],
+        [
+          "banana",
+          "hierarchyAble"
+        ],
+        [
+          "banana",
+          "isEdee"
+        ],
+        [
+          "banana",
+          "isEder"
+        ],
+        [
+          "banana",
+          "object"
+        ],
+        [
+          "banana",
+          "property"
+        ],
+        [
+          "banana",
+          "queryable"
+        ],
+        [
+          "banana",
+          "theAble"
+        ],
+        [
+          "between",
+          "preposition"
+        ],
+        [
+          "brocoli",
+          "hierarchyAble"
+        ],
+        [
+          "brocoli",
+          "isEdee"
+        ],
+        [
+          "brocoli",
+          "isEder"
+        ],
+        [
+          "brocoli",
+          "object"
+        ],
+        [
+          "brocoli",
+          "property"
+        ],
+        [
+          "brocoli",
+          "queryable"
+        ],
+        [
+          "brocoli",
+          "theAble"
+        ],
+        [
+          "brocoli",
+          "vegetable"
+        ],
+        [
+          "cabbage",
+          "hierarchyAble"
+        ],
+        [
+          "cabbage",
+          "isEdee"
+        ],
+        [
+          "cabbage",
+          "isEder"
+        ],
+        [
+          "cabbage",
+          "object"
+        ],
+        [
+          "cabbage",
+          "property"
+        ],
+        [
+          "cabbage",
+          "queryable"
+        ],
+        [
+          "cabbage",
+          "theAble"
+        ],
+        [
+          "cabbage",
+          "vegetable"
+        ],
+        [
+          "canBeDoQuestion",
+          "canBeDoQuestion"
+        ],
+        [
+          "canBeQuestion",
+          "canBeQuestion"
+        ],
+        [
+          "carrot",
+          "hierarchyAble"
+        ],
+        [
+          "carrot",
+          "isEdee"
+        ],
+        [
+          "carrot",
+          "isEder"
+        ],
+        [
+          "carrot",
+          "object"
+        ],
+        [
+          "carrot",
+          "property"
+        ],
+        [
+          "carrot",
+          "queryable"
+        ],
+        [
+          "carrot",
+          "theAble"
+        ],
+        [
+          "carrot",
+          "vegetable"
+        ],
+        [
+          "changes",
+          "event"
+        ],
+        [
+          "changes",
+          "verby"
+        ],
+        [
+          "chicken",
+          "hierarchyAble"
+        ],
+        [
+          "chicken",
+          "isEdee"
+        ],
+        [
+          "chicken",
+          "isEder"
+        ],
+        [
+          "chicken",
+          "object"
+        ],
+        [
+          "chicken",
+          "property"
+        ],
+        [
+          "chicken",
+          "queryable"
+        ],
+        [
+          "chicken",
+          "theAble"
+        ],
+        [
+          "chicken_sandwich",
+          "adjective"
+        ],
+        [
+          "chicken_sandwich",
+          "concept"
+        ],
+        [
+          "chicken_sandwich",
+          "hierarchyAble"
+        ],
+        [
+          "chicken_sandwich",
+          "isEdee"
+        ],
+        [
+          "chicken_sandwich",
+          "isEder"
+        ],
+        [
+          "chicken_sandwich",
+          "object"
+        ],
+        [
+          "chicken_sandwich",
+          "property"
+        ],
+        [
+          "chicken_sandwich",
+          "queryable"
+        ],
+        [
+          "chicken_sandwich",
+          "theAble"
+        ],
+        [
+          "chicken_strip",
+          "adjective"
+        ],
+        [
+          "chicken_strip",
+          "concept"
+        ],
+        [
+          "chicken_strip",
+          "food"
+        ],
+        [
+          "chicken_strip",
+          "hierarchyAble"
+        ],
+        [
+          "chicken_strip",
+          "isEdee"
+        ],
+        [
+          "chicken_strip",
+          "isEder"
+        ],
+        [
+          "chicken_strip",
+          "object"
+        ],
+        [
+          "chicken_strip",
+          "property"
+        ],
+        [
+          "chicken_strip",
+          "queryable"
+        ],
+        [
+          "chicken_strip",
+          "theAble"
+        ],
+        [
+          "club",
+          "concept"
+        ],
+        [
+          "club",
+          "hierarchyAble"
+        ],
+        [
+          "club",
+          "isEdee"
+        ],
+        [
+          "club",
+          "isEder"
+        ],
+        [
+          "club",
+          "object"
+        ],
+        [
+          "club",
+          "property"
+        ],
+        [
+          "club",
+          "queryable"
+        ],
+        [
+          "club",
+          "theAble"
+        ],
+        [
+          "cod",
+          "concept"
+        ],
+        [
+          "cod",
+          "hierarchyAble"
+        ],
+        [
+          "cod",
+          "isEdee"
+        ],
+        [
+          "cod",
+          "isEder"
+        ],
+        [
+          "cod",
+          "object"
+        ],
+        [
+          "cod",
+          "property"
+        ],
+        [
+          "cod",
+          "queryable"
+        ],
+        [
+          "cod",
+          "theAble"
+        ],
+        [
+          "concept",
+          "queryable"
+        ],
+        [
+          "concept",
+          "theAble"
+        ],
+        [
+          "countable",
+          "hierarchyAble"
+        ],
+        [
+          "deluxe",
+          "concept"
+        ],
+        [
+          "deluxe",
+          "hierarchyAble"
+        ],
+        [
+          "deluxe",
+          "isEdee"
+        ],
+        [
+          "deluxe",
+          "isEder"
+        ],
+        [
+          "deluxe",
+          "object"
+        ],
+        [
+          "deluxe",
+          "property"
+        ],
+        [
+          "deluxe",
+          "queryable"
+        ],
+        [
+          "deluxe",
+          "theAble"
+        ],
+        [
+          "dog",
+          "concept"
+        ],
+        [
+          "dog",
+          "hierarchyAble"
+        ],
+        [
+          "dog",
+          "isEdee"
+        ],
+        [
+          "dog",
+          "isEder"
+        ],
+        [
+          "dog",
+          "object"
+        ],
+        [
+          "dog",
+          "property"
+        ],
+        [
+          "dog",
+          "queryable"
+        ],
+        [
+          "dog",
+          "theAble"
+        ],
+        [
+          "event",
+          "event"
+        ],
+        [
+          "food",
+          "countable"
+        ],
+        [
+          "food",
+          "hierarchyAble"
+        ],
+        [
+          "food",
+          "isEdee"
+        ],
+        [
+          "food",
+          "isEder"
+        ],
+        [
+          "food",
+          "object"
+        ],
+        [
+          "food",
+          "property"
+        ],
+        [
+          "food",
+          "queryable"
+        ],
+        [
+          "food",
+          "theAble"
+        ],
+        [
+          "french",
+          "hierarchyAble"
+        ],
+        [
+          "french",
+          "isEdee"
+        ],
+        [
+          "french",
+          "isEder"
+        ],
+        [
+          "french",
+          "object"
+        ],
+        [
+          "french",
+          "property"
+        ],
+        [
+          "french",
+          "queryable"
+        ],
+        [
+          "french",
+          "theAble"
+        ],
+        [
+          "french_fry",
+          "adjective"
+        ],
+        [
+          "french_fry",
+          "concept"
+        ],
+        [
+          "french_fry",
+          "food"
+        ],
+        [
+          "french_fry",
+          "hierarchyAble"
+        ],
+        [
+          "french_fry",
+          "isEdee"
+        ],
+        [
+          "french_fry",
+          "isEder"
+        ],
+        [
+          "french_fry",
+          "object"
+        ],
+        [
+          "french_fry",
+          "property"
+        ],
+        [
+          "french_fry",
+          "queryable"
+        ],
+        [
+          "french_fry",
+          "theAble"
+        ],
+        [
+          "fruit",
+          "food"
+        ],
+        [
+          "fruit",
+          "hierarchyAble"
+        ],
+        [
+          "fruit",
+          "isEdee"
+        ],
+        [
+          "fruit",
+          "isEder"
+        ],
+        [
+          "fruit",
+          "object"
+        ],
+        [
+          "fruit",
+          "property"
+        ],
+        [
+          "fruit",
+          "queryable"
+        ],
+        [
+          "fruit",
+          "theAble"
+        ],
+        [
+          "fry",
+          "concept"
+        ],
+        [
+          "fry",
+          "hierarchyAble"
+        ],
+        [
+          "fry",
+          "isEdee"
+        ],
+        [
+          "fry",
+          "isEder"
+        ],
+        [
+          "fry",
+          "object"
+        ],
+        [
+          "fry",
+          "property"
+        ],
+        [
+          "fry",
+          "queryable"
+        ],
+        [
+          "fry",
+          "theAble"
+        ],
+        [
+          "grill",
+          "concept"
+        ],
+        [
+          "grill",
+          "hierarchyAble"
+        ],
+        [
+          "grill",
+          "isEdee"
+        ],
+        [
+          "grill",
+          "isEder"
+        ],
+        [
+          "grill",
+          "object"
+        ],
+        [
+          "grill",
+          "property"
+        ],
+        [
+          "grill",
+          "queryable"
+        ],
+        [
+          "grill",
+          "theAble"
+        ],
+        [
+          "hamburger",
+          "hierarchyAble"
+        ],
+        [
+          "hamburger",
+          "isEdee"
+        ],
+        [
+          "hamburger",
+          "isEder"
+        ],
+        [
+          "hamburger",
+          "object"
+        ],
+        [
+          "hamburger",
+          "property"
+        ],
+        [
+          "hamburger",
+          "queryable"
+        ],
+        [
+          "hamburger",
+          "sandwich"
+        ],
+        [
+          "hamburger",
+          "theAble"
+        ],
+        [
+          "have",
+          "canBeDoQuestion"
+        ],
+        [
+          "have",
+          "canBeQuestion"
+        ],
+        [
+          "hierarchyAble",
+          "queryable"
+        ],
+        [
+          "hot",
+          "hierarchyAble"
+        ],
+        [
+          "hot",
+          "isEdee"
+        ],
+        [
+          "hot",
+          "isEder"
+        ],
+        [
+          "hot",
+          "object"
+        ],
+        [
+          "hot",
+          "property"
+        ],
+        [
+          "hot",
+          "queryable"
+        ],
+        [
+          "hot",
+          "theAble"
+        ],
+        [
+          "hot_dog",
+          "adjective"
+        ],
+        [
+          "hot_dog",
+          "concept"
+        ],
+        [
+          "hot_dog",
+          "hierarchyAble"
+        ],
+        [
+          "hot_dog",
+          "isEdee"
+        ],
+        [
+          "hot_dog",
+          "isEder"
+        ],
+        [
+          "hot_dog",
+          "object"
+        ],
+        [
+          "hot_dog",
+          "property"
+        ],
+        [
+          "hot_dog",
+          "queryable"
+        ],
+        [
+          "hot_dog",
+          "sausage"
+        ],
+        [
+          "hot_dog",
+          "theAble"
+        ],
+        [
+          "ifAble",
+          "ifAble"
+        ],
+        [
+          "is",
+          "canBeQuestion"
+        ],
+        [
+          "is",
+          "verby"
+        ],
+        [
+          "isEdee",
+          "isEdee"
+        ],
+        [
+          "isEder",
+          "isEder"
+        ],
+        [
+          "it",
+          "pronoun"
+        ],
+        [
+          "it",
+          "queryable"
+        ],
+        [
+          "it",
+          "thisitthat"
+        ],
+        [
+          "it",
+          "toAble"
+        ],
+        [
+          "meat",
+          "food"
+        ],
+        [
+          "meat",
+          "hierarchyAble"
+        ],
+        [
+          "meat",
+          "isEdee"
+        ],
+        [
+          "meat",
+          "isEder"
+        ],
+        [
+          "meat",
+          "object"
+        ],
+        [
+          "meat",
+          "property"
+        ],
+        [
+          "meat",
+          "queryable"
+        ],
+        [
+          "meat",
+          "theAble"
+        ],
+        [
+          "modifies",
+          "verby"
+        ],
+        [
+          "notAble",
+          "notAble"
+        ],
+        [
+          "noun",
+          "theAble"
+        ],
+        [
+          "number",
+          "quantifier"
+        ],
+        [
+          "number",
+          "queryable"
+        ],
+        [
+          "object",
+          "queryable"
+        ],
+        [
+          "object",
+          "theAble"
+        ],
+        [
+          "orAble",
+          "ifAble"
+        ],
+        [
+          "orange",
+          "fruit"
+        ],
+        [
+          "orange",
+          "hierarchyAble"
+        ],
+        [
+          "orange",
+          "isEdee"
+        ],
+        [
+          "orange",
+          "isEder"
+        ],
+        [
+          "orange",
+          "object"
+        ],
+        [
+          "orange",
+          "property"
+        ],
+        [
+          "orange",
+          "queryable"
+        ],
+        [
+          "orange",
+          "theAble"
+        ],
+        [
+          "orderNoun",
+          "noun"
+        ],
+        [
+          "orderNoun",
+          "queryable"
+        ],
+        [
+          "pea",
+          "hierarchyAble"
+        ],
+        [
+          "pea",
+          "isEdee"
+        ],
+        [
+          "pea",
+          "isEder"
+        ],
+        [
+          "pea",
+          "object"
+        ],
+        [
+          "pea",
+          "property"
+        ],
+        [
+          "pea",
+          "queryable"
+        ],
+        [
+          "pea",
+          "theAble"
+        ],
+        [
+          "pea",
+          "vegetable"
+        ],
+        [
+          "premium",
+          "hierarchyAble"
+        ],
+        [
+          "premium",
+          "isEdee"
+        ],
+        [
+          "premium",
+          "isEder"
+        ],
+        [
+          "premium",
+          "object"
+        ],
+        [
+          "premium",
+          "property"
+        ],
+        [
+          "premium",
+          "queryable"
+        ],
+        [
+          "premium",
+          "theAble"
+        ],
+        [
+          "premium_cod",
+          "adjective"
+        ],
+        [
+          "premium_cod",
+          "concept"
+        ],
+        [
+          "premium_cod",
+          "hierarchyAble"
+        ],
+        [
+          "premium_cod",
+          "isEdee"
+        ],
+        [
+          "premium_cod",
+          "isEder"
+        ],
+        [
+          "premium_cod",
+          "object"
+        ],
+        [
+          "premium_cod",
+          "property"
+        ],
+        [
+          "premium_cod",
+          "queryable"
+        ],
+        [
+          "premium_cod",
+          "theAble"
+        ],
+        [
+          "preposition",
+          "preposition"
+        ],
+        [
+          "pronoun",
+          "pronoun"
+        ],
+        [
+          "property",
+          "queryable"
+        ],
+        [
+          "property",
+          "theAble"
+        ],
+        [
+          "property",
+          "unknown"
+        ],
+        [
+          "punctuation",
+          "punctuation"
+        ],
+        [
+          "quantifier",
+          "quantifier"
+        ],
+        [
+          "queryable",
+          "queryable"
+        ],
+        [
+          "questionMark",
+          "punctuation"
+        ],
+        [
+          "ranch",
+          "hierarchyAble"
+        ],
+        [
+          "ranch",
+          "isEdee"
+        ],
+        [
+          "ranch",
+          "isEder"
+        ],
+        [
+          "ranch",
+          "object"
+        ],
+        [
+          "ranch",
+          "property"
+        ],
+        [
+          "ranch",
+          "queryable"
+        ],
+        [
+          "ranch",
+          "theAble"
+        ],
+        [
+          "readonly",
+          "queryable"
+        ],
+        [
+          "reason",
+          "queryable"
+        ],
+        [
+          "reason",
+          "theAble"
+        ],
+        [
+          "sandwich",
+          "concept"
+        ],
+        [
+          "sandwich",
+          "food"
+        ],
+        [
+          "sandwich",
+          "hierarchyAble"
+        ],
+        [
+          "sandwich",
+          "isEdee"
+        ],
+        [
+          "sandwich",
+          "isEder"
+        ],
+        [
+          "sandwich",
+          "object"
+        ],
+        [
+          "sandwich",
+          "property"
+        ],
+        [
+          "sandwich",
+          "queryable"
+        ],
+        [
+          "sandwich",
+          "theAble"
+        ],
+        [
+          "sausage",
+          "hierarchyAble"
+        ],
+        [
+          "sausage",
+          "isEdee"
+        ],
+        [
+          "sausage",
+          "isEder"
+        ],
+        [
+          "sausage",
+          "meat"
+        ],
+        [
+          "sausage",
+          "object"
+        ],
+        [
+          "sausage",
+          "property"
+        ],
+        [
+          "sausage",
+          "queryable"
+        ],
+        [
+          "sausage",
+          "theAble"
+        ],
+        [
+          "showOrder",
+          "verby"
         ],
         [
           "strip",
@@ -7863,6 +9695,70 @@
         [
           "type",
           "whatAble"
+        ],
+        [
+          "ultimate",
+          "hierarchyAble"
+        ],
+        [
+          "ultimate",
+          "isEdee"
+        ],
+        [
+          "ultimate",
+          "isEder"
+        ],
+        [
+          "ultimate",
+          "object"
+        ],
+        [
+          "ultimate",
+          "property"
+        ],
+        [
+          "ultimate",
+          "queryable"
+        ],
+        [
+          "ultimate",
+          "theAble"
+        ],
+        [
+          "ultimate_chicken_grill",
+          "adjective"
+        ],
+        [
+          "ultimate_chicken_grill",
+          "concept"
+        ],
+        [
+          "ultimate_chicken_grill",
+          "hierarchyAble"
+        ],
+        [
+          "ultimate_chicken_grill",
+          "isEdee"
+        ],
+        [
+          "ultimate_chicken_grill",
+          "isEder"
+        ],
+        [
+          "ultimate_chicken_grill",
+          "object"
+        ],
+        [
+          "ultimate_chicken_grill",
+          "property"
+        ],
+        [
+          "ultimate_chicken_grill",
+          "queryable"
+        ],
+        [
+          "ultimate_chicken_grill",
+          "theAble"
         ],
         [
           "unknown",
@@ -8130,7 +10026,7 @@
           },
           {
             "op": [
-              "list",
+              "hamburger",
               0
             ],
             "ops": [
@@ -8141,6 +10037,10 @@
               [
                 "hamburger",
                 0
+              ],
+              [
+                "list",
+                0
               ]
             ],
             "counter": 6
@@ -8148,7 +10048,7 @@
           {
             "op": [
               "list",
-              1
+              0
             ],
             "ops": [
               [
@@ -8156,7 +10056,7 @@
                 0
               ],
               [
-                "hamburger",
+                "list",
                 0
               ]
             ],
@@ -8173,8 +10073,8 @@
                 0
               ],
               [
-                "hamburger",
-                0
+                "list",
+                1
               ]
             ],
             "counter": 8
@@ -8190,8 +10090,8 @@
                 0
               ],
               [
-                "hamburger",
-                0
+                "list",
+                1
               ]
             ],
             "counter": 9
@@ -8203,36 +10103,15 @@
             ],
             "ops": [
               [
-                "list",
-                1
-              ],
-              [
                 "is",
                 0
               ],
               [
-                "hamburger",
-                0
+                "list",
+                1
               ]
             ],
             "counter": 10
-          },
-          {
-            "op": [
-              "hamburger",
-              0
-            ],
-            "ops": [
-              [
-                "is",
-                0
-              ],
-              [
-                "hamburger",
-                0
-              ]
-            ],
-            "counter": 11
           },
           {
             "op": [
@@ -8245,7 +10124,7 @@
                 0
               ]
             ],
-            "counter": 12
+            "counter": 11
           },
           {
             "op": [
@@ -8258,7 +10137,7 @@
                 1
               ]
             ],
-            "counter": 13
+            "counter": 12
           }
         ]
       },
@@ -8378,7 +10257,6 @@
                 "level": 1
               }
             ],
-            "dead": true,
             "level": 1
           },
           "two": {
@@ -8534,30 +10412,12 @@
         ],
         [
           [
-            "hamburger",
-            0
-          ],
-          [
             "is",
             0
           ],
           [
             "list",
-            1
-          ]
-        ],
-        [
-          [
-            "hamburger",
             0
-          ],
-          [
-            "is",
-            0
-          ],
-          [
-            "list",
-            1
           ],
           [
             "unknown",
@@ -8571,6 +10431,20 @@
           ],
           [
             "list",
+            1
+          ]
+        ],
+        [
+          [
+            "is",
+            0
+          ],
+          [
+            "list",
+            1
+          ],
+          [
+            "unknown",
             1
           ]
         ]
@@ -8631,6 +10505,70 @@
           "articlePOS"
         ],
         [
+          "asiago",
+          "hierarchyAble"
+        ],
+        [
+          "asiago",
+          "isEdee"
+        ],
+        [
+          "asiago",
+          "isEder"
+        ],
+        [
+          "asiago",
+          "object"
+        ],
+        [
+          "asiago",
+          "property"
+        ],
+        [
+          "asiago",
+          "queryable"
+        ],
+        [
+          "asiago",
+          "theAble"
+        ],
+        [
+          "asiago_ranch_chicken_club",
+          "adjective"
+        ],
+        [
+          "asiago_ranch_chicken_club",
+          "concept"
+        ],
+        [
+          "asiago_ranch_chicken_club",
+          "hierarchyAble"
+        ],
+        [
+          "asiago_ranch_chicken_club",
+          "isEdee"
+        ],
+        [
+          "asiago_ranch_chicken_club",
+          "isEder"
+        ],
+        [
+          "asiago_ranch_chicken_club",
+          "object"
+        ],
+        [
+          "asiago_ranch_chicken_club",
+          "property"
+        ],
+        [
+          "asiago_ranch_chicken_club",
+          "queryable"
+        ],
+        [
+          "asiago_ranch_chicken_club",
+          "theAble"
+        ],
+        [
           "bacon",
           "hierarchyAble"
         ],
@@ -8761,6 +10699,10 @@
         [
           "banana",
           "theAble"
+        ],
+        [
+          "between",
+          "preposition"
         ],
         [
           "brocoli",
@@ -8976,6 +10918,38 @@
         ],
         [
           "chicken_strip",
+          "theAble"
+        ],
+        [
+          "club",
+          "concept"
+        ],
+        [
+          "club",
+          "hierarchyAble"
+        ],
+        [
+          "club",
+          "isEdee"
+        ],
+        [
+          "club",
+          "isEder"
+        ],
+        [
+          "club",
+          "object"
+        ],
+        [
+          "club",
+          "property"
+        ],
+        [
+          "club",
+          "queryable"
+        ],
+        [
+          "club",
           "theAble"
         ],
         [
@@ -9287,6 +11261,38 @@
           "theAble"
         ],
         [
+          "grill",
+          "concept"
+        ],
+        [
+          "grill",
+          "hierarchyAble"
+        ],
+        [
+          "grill",
+          "isEdee"
+        ],
+        [
+          "grill",
+          "isEder"
+        ],
+        [
+          "grill",
+          "object"
+        ],
+        [
+          "grill",
+          "property"
+        ],
+        [
+          "grill",
+          "queryable"
+        ],
+        [
+          "grill",
+          "theAble"
+        ],
+        [
           "hamburger",
           "hierarchyAble"
         ],
@@ -9329,38 +11335,6 @@
         [
           "hierarchyAble",
           "queryable"
-        ],
-        [
-          "homestyle",
-          "concept"
-        ],
-        [
-          "homestyle",
-          "hierarchyAble"
-        ],
-        [
-          "homestyle",
-          "isEdee"
-        ],
-        [
-          "homestyle",
-          "isEder"
-        ],
-        [
-          "homestyle",
-          "object"
-        ],
-        [
-          "homestyle",
-          "property"
-        ],
-        [
-          "homestyle",
-          "queryable"
-        ],
-        [
-          "homestyle",
-          "theAble"
         ],
         [
           "hot",
@@ -9667,6 +11641,10 @@
           "theAble"
         ],
         [
+          "preposition",
+          "preposition"
+        ],
+        [
           "pronoun",
           "pronoun"
         ],
@@ -9697,6 +11675,34 @@
         [
           "questionMark",
           "punctuation"
+        ],
+        [
+          "ranch",
+          "hierarchyAble"
+        ],
+        [
+          "ranch",
+          "isEdee"
+        ],
+        [
+          "ranch",
+          "isEder"
+        ],
+        [
+          "ranch",
+          "object"
+        ],
+        [
+          "ranch",
+          "property"
+        ],
+        [
+          "ranch",
+          "queryable"
+        ],
+        [
+          "ranch",
+          "theAble"
         ],
         [
           "readonly",
@@ -9812,70 +11818,6 @@
         ],
         [
           "single",
-          "theAble"
-        ],
-        [
-          "spicy",
-          "hierarchyAble"
-        ],
-        [
-          "spicy",
-          "isEdee"
-        ],
-        [
-          "spicy",
-          "isEder"
-        ],
-        [
-          "spicy",
-          "object"
-        ],
-        [
-          "spicy",
-          "property"
-        ],
-        [
-          "spicy",
-          "queryable"
-        ],
-        [
-          "spicy",
-          "theAble"
-        ],
-        [
-          "spicy_homestyle",
-          "adjective"
-        ],
-        [
-          "spicy_homestyle",
-          "concept"
-        ],
-        [
-          "spicy_homestyle",
-          "hierarchyAble"
-        ],
-        [
-          "spicy_homestyle",
-          "isEdee"
-        ],
-        [
-          "spicy_homestyle",
-          "isEder"
-        ],
-        [
-          "spicy_homestyle",
-          "object"
-        ],
-        [
-          "spicy_homestyle",
-          "property"
-        ],
-        [
-          "spicy_homestyle",
-          "queryable"
-        ],
-        [
-          "spicy_homestyle",
           "theAble"
         ],
         [
@@ -10015,1917 +11957,68 @@
           "whatAble"
         ],
         [
-          "unknown",
+          "ultimate",
           "hierarchyAble"
         ],
         [
-          "unknown",
-          "notAble"
-        ],
-        [
-          "unknown",
-          "object"
-        ],
-        [
-          "unknown",
-          "queryable"
-        ],
-        [
-          "unknown",
-          "theAble"
-        ],
-        [
-          "vegetable",
-          "food"
-        ],
-        [
-          "vegetable",
-          "hierarchyAble"
-        ],
-        [
-          "vegetable",
+          "ultimate",
           "isEdee"
         ],
         [
-          "vegetable",
+          "ultimate",
           "isEder"
         ],
         [
-          "vegetable",
+          "ultimate",
           "object"
         ],
         [
-          "vegetable",
+          "ultimate",
           "property"
         ],
         [
-          "vegetable",
+          "ultimate",
           "queryable"
         ],
         [
-          "vegetable",
+          "ultimate",
           "theAble"
         ],
         [
-          "verby",
-          "verby"
-        ],
-        [
-          "what",
-          "object"
-        ],
-        [
-          "what",
-          "queryable"
-        ],
-        [
-          "whatAble",
-          "queryable"
-        ],
-        [
-          "whose",
-          "object"
-        ],
-        [
-          "xfx",
-          "queryable"
-        ]
-      ],
-      "metadata": {
-        "opChoices": [
-          {
-            "op": [
-              "spicy_homestyle",
-              0
-            ],
-            "ops": [
-              [
-                "spicy",
-                0
-              ],
-              [
-                "homestyle",
-                0
-              ],
-              [
-                "spicy_homestyle",
-                0
-              ],
-              [
-                "premium",
-                0
-              ],
-              [
-                "cod",
-                0
-              ],
-              [
-                "premium_cod",
-                0
-              ],
-              [
-                "is",
-                0
-              ],
-              [
-                "sandwich",
-                0
-              ]
-            ],
-            "counter": 1
-          },
-          {
-            "op": [
-              "premium_cod",
-              0
-            ],
-            "ops": [
-              [
-                "premium",
-                0
-              ],
-              [
-                "cod",
-                0
-              ],
-              [
-                "premium_cod",
-                0
-              ],
-              [
-                "is",
-                0
-              ],
-              [
-                "sandwich",
-                0
-              ]
-            ],
-            "counter": 2
-          },
-          {
-            "op": [
-              "list",
-              0
-            ],
-            "ops": [
-              [
-                "is",
-                0
-              ],
-              [
-                "sandwich",
-                0
-              ]
-            ],
-            "counter": 3
-          },
-          {
-            "op": [
-              "sandwich",
-              0
-            ],
-            "ops": [
-              [
-                "list",
-                1
-              ],
-              [
-                "is",
-                0
-              ],
-              [
-                "sandwich",
-                0
-              ]
-            ],
-            "counter": 4
-          },
-          {
-            "op": [
-              "is",
-              0
-            ],
-            "ops": [
-              [
-                "list",
-                1
-              ],
-              [
-                "is",
-                0
-              ]
-            ],
-            "counter": 5
-          },
-          {
-            "op": [
-              "is",
-              1
-            ],
-            "ops": [
-              [
-                "is",
-                1
-              ]
-            ],
-            "counter": 6
-          }
-        ]
-      },
-      "trace": "undefined",
-      "contexts": [
-        {
-          "number": "many",
-          "text": "spicy homestyle and premium cod are sandwiches",
-          "marker": "is",
-          "word": "are",
-          "range": {
-            "start": 0,
-            "end": 45
-          },
-          "one": {
-            "number": "many",
-            "marker": "list",
-            "default": true,
-            "word": "and",
-            "text": "spicy homestyle and premium cod",
-            "range": {
-              "start": 0,
-              "end": 45
-            },
-            "types": [
-              "list",
-              "spicy_homestyle"
-            ],
-            "listable": true,
-            "isList": true,
-            "value": [
-              {
-                "value": "spicy_homestyle",
-                "number": "one",
-                "text": "spicy homestyle",
-                "marker": "spicy_homestyle",
-                "word": "homestyle",
-                "range": {
-                  "start": 0,
-                  "end": 14
-                },
-                "types": [
-                  "homestyle",
-                  "spicy_homestyle"
-                ],
-                "spicy": {
-                  "value": "spicy",
-                  "text": "spicy",
-                  "marker": "spicy",
-                  "word": "spicy",
-                  "range": {
-                    "start": 0,
-                    "end": 4
-                  },
-                  "types": [
-                    "spicy"
-                  ],
-                  "level": 0
-                },
-                "atomic": true,
-                "dead": true,
-                "modifiers": [
-                  "spicy"
-                ],
-                "level": 1
-              },
-              {
-                "value": "premium_cod",
-                "number": "many",
-                "text": "premium cod",
-                "marker": "premium_cod",
-                "word": "cod",
-                "range": {
-                  "start": 20,
-                  "end": 30
-                },
-                "types": [
-                  "cod",
-                  "premium_cod"
-                ],
-                "premium": {
-                  "value": "premium",
-                  "text": "premium",
-                  "marker": "premium",
-                  "word": "premium",
-                  "range": {
-                    "start": 20,
-                    "end": 26
-                  },
-                  "types": [
-                    "premium"
-                  ],
-                  "level": 0
-                },
-                "atomic": true,
-                "dead": true,
-                "modifiers": [
-                  "premium"
-                ],
-                "level": 1
-              }
-            ],
-            "level": 1
-          },
-          "two": {
-            "value": "sandwich",
-            "number": "many",
-            "text": "sandwiches",
-            "marker": "sandwich",
-            "word": "sandwiches",
-            "range": {
-              "start": 36,
-              "end": 45
-            },
-            "dead": true,
-            "types": [
-              "sandwich"
-            ],
-            "level": 1,
-            "concept": true
-          },
-          "dead": true,
-          "level": 2,
-          "topLevel": true,
-          "touchedBy": [
-            "fastfood#call2"
-          ]
-        }
-      ],
-      "generated": [
-        ""
-      ],
-      "paraphrases": [
-        "spicy homestyle and premium cod are sandwiches"
-      ],
-      "paraphrasesParenthesized": [],
-      "generatedParenthesized": [],
-      "responses": [
-        ""
-      ],
-      "associations": [
-        [
-          [
-            "cod",
-            0
-          ],
-          [
-            "homestyle",
-            0
-          ],
-          [
-            "is",
-            0
-          ],
-          [
-            "list",
-            0
-          ],
-          [
-            "premium",
-            0
-          ],
-          [
-            "sandwich",
-            0
-          ],
-          [
-            "spicy",
-            0
-          ]
-        ],
-        [
-          [
-            "cod",
-            0
-          ],
-          [
-            "homestyle",
-            0
-          ],
-          [
-            "premium",
-            0
-          ],
-          [
-            "spicy",
-            0
-          ]
-        ],
-        [
-          [
-            "cod",
-            0
-          ],
-          [
-            "is",
-            0
-          ],
-          [
-            "list",
-            0
-          ],
-          [
-            "premium",
-            0
-          ],
-          [
-            "sandwich",
-            0
-          ]
-        ],
-        [
-          [
-            "is",
-            0
-          ],
-          [
-            "list",
-            0
-          ],
-          [
-            "sandwich",
-            0
-          ]
-        ],
-        [
-          [
-            "is",
-            0
-          ],
-          [
-            "list",
-            1
-          ]
-        ],
-        [
-          [
-            "is",
-            0
-          ],
-          [
-            "list",
-            1
-          ],
-          [
-            "sandwich",
-            0
-          ]
-        ]
-      ],
-      "query": "spicy homestyle and premium cod are sandwiches",
-      "key": {
-        "query": "spicy homestyle and premium cod are sandwiches"
-      }
-    },
-    {
-      "hierarchy": [
-        [
-          "a",
-          "articlePOS"
-        ],
-        [
-          "adjective",
+          "ultimate_chicken_grill",
           "adjective"
         ],
         [
-          "all",
-          "quantifier"
-        ],
-        [
-          "apple",
-          "fruit"
-        ],
-        [
-          "apple",
-          "hierarchyAble"
-        ],
-        [
-          "apple",
-          "isEdee"
-        ],
-        [
-          "apple",
-          "isEder"
-        ],
-        [
-          "apple",
-          "object"
-        ],
-        [
-          "apple",
-          "property"
-        ],
-        [
-          "apple",
-          "queryable"
-        ],
-        [
-          "apple",
-          "theAble"
-        ],
-        [
-          "articlePOS",
-          "articlePOS"
-        ],
-        [
-          "bacon",
-          "hierarchyAble"
-        ],
-        [
-          "bacon",
-          "isEdee"
-        ],
-        [
-          "bacon",
-          "isEder"
-        ],
-        [
-          "bacon",
-          "object"
-        ],
-        [
-          "bacon",
-          "property"
-        ],
-        [
-          "bacon",
-          "queryable"
-        ],
-        [
-          "bacon",
-          "theAble"
-        ],
-        [
-          "bacon_deluxe",
-          "adjective"
-        ],
-        [
-          "bacon_deluxe",
+          "ultimate_chicken_grill",
           "concept"
         ],
         [
-          "bacon_deluxe",
-          "hamburger"
-        ],
-        [
-          "bacon_deluxe",
+          "ultimate_chicken_grill",
           "hierarchyAble"
         ],
         [
-          "bacon_deluxe",
+          "ultimate_chicken_grill",
           "isEdee"
         ],
         [
-          "bacon_deluxe",
+          "ultimate_chicken_grill",
           "isEder"
         ],
         [
-          "bacon_deluxe",
+          "ultimate_chicken_grill",
           "object"
         ],
         [
-          "bacon_deluxe",
+          "ultimate_chicken_grill",
           "property"
         ],
         [
-          "bacon_deluxe",
+          "ultimate_chicken_grill",
           "queryable"
         ],
         [
-          "bacon_deluxe",
+          "ultimate_chicken_grill",
           "theAble"
-        ],
-        [
-          "baconater",
-          "hamburger"
-        ],
-        [
-          "baconater",
-          "hierarchyAble"
-        ],
-        [
-          "baconater",
-          "isEdee"
-        ],
-        [
-          "baconater",
-          "isEder"
-        ],
-        [
-          "baconater",
-          "object"
-        ],
-        [
-          "baconater",
-          "property"
-        ],
-        [
-          "baconater",
-          "queryable"
-        ],
-        [
-          "baconater",
-          "theAble"
-        ],
-        [
-          "banana",
-          "fruit"
-        ],
-        [
-          "banana",
-          "hierarchyAble"
-        ],
-        [
-          "banana",
-          "isEdee"
-        ],
-        [
-          "banana",
-          "isEder"
-        ],
-        [
-          "banana",
-          "object"
-        ],
-        [
-          "banana",
-          "property"
-        ],
-        [
-          "banana",
-          "queryable"
-        ],
-        [
-          "banana",
-          "theAble"
-        ],
-        [
-          "brocoli",
-          "hierarchyAble"
-        ],
-        [
-          "brocoli",
-          "isEdee"
-        ],
-        [
-          "brocoli",
-          "isEder"
-        ],
-        [
-          "brocoli",
-          "object"
-        ],
-        [
-          "brocoli",
-          "property"
-        ],
-        [
-          "brocoli",
-          "queryable"
-        ],
-        [
-          "brocoli",
-          "theAble"
-        ],
-        [
-          "brocoli",
-          "vegetable"
-        ],
-        [
-          "cabbage",
-          "hierarchyAble"
-        ],
-        [
-          "cabbage",
-          "isEdee"
-        ],
-        [
-          "cabbage",
-          "isEder"
-        ],
-        [
-          "cabbage",
-          "object"
-        ],
-        [
-          "cabbage",
-          "property"
-        ],
-        [
-          "cabbage",
-          "queryable"
-        ],
-        [
-          "cabbage",
-          "theAble"
-        ],
-        [
-          "cabbage",
-          "vegetable"
-        ],
-        [
-          "canBeDoQuestion",
-          "canBeDoQuestion"
-        ],
-        [
-          "canBeQuestion",
-          "canBeQuestion"
-        ],
-        [
-          "carrot",
-          "hierarchyAble"
-        ],
-        [
-          "carrot",
-          "isEdee"
-        ],
-        [
-          "carrot",
-          "isEder"
-        ],
-        [
-          "carrot",
-          "object"
-        ],
-        [
-          "carrot",
-          "property"
-        ],
-        [
-          "carrot",
-          "queryable"
-        ],
-        [
-          "carrot",
-          "theAble"
-        ],
-        [
-          "carrot",
-          "vegetable"
-        ],
-        [
-          "changes",
-          "event"
-        ],
-        [
-          "changes",
-          "verby"
-        ],
-        [
-          "chicken",
-          "hierarchyAble"
-        ],
-        [
-          "chicken",
-          "isEdee"
-        ],
-        [
-          "chicken",
-          "isEder"
-        ],
-        [
-          "chicken",
-          "object"
-        ],
-        [
-          "chicken",
-          "property"
-        ],
-        [
-          "chicken",
-          "queryable"
-        ],
-        [
-          "chicken",
-          "theAble"
-        ],
-        [
-          "chicken_sandwich",
-          "adjective"
-        ],
-        [
-          "chicken_sandwich",
-          "concept"
-        ],
-        [
-          "chicken_sandwich",
-          "hierarchyAble"
-        ],
-        [
-          "chicken_sandwich",
-          "isEdee"
-        ],
-        [
-          "chicken_sandwich",
-          "isEder"
-        ],
-        [
-          "chicken_sandwich",
-          "object"
-        ],
-        [
-          "chicken_sandwich",
-          "property"
-        ],
-        [
-          "chicken_sandwich",
-          "queryable"
-        ],
-        [
-          "chicken_sandwich",
-          "theAble"
-        ],
-        [
-          "chicken_strip",
-          "adjective"
-        ],
-        [
-          "chicken_strip",
-          "concept"
-        ],
-        [
-          "chicken_strip",
-          "food"
-        ],
-        [
-          "chicken_strip",
-          "hierarchyAble"
-        ],
-        [
-          "chicken_strip",
-          "isEdee"
-        ],
-        [
-          "chicken_strip",
-          "isEder"
-        ],
-        [
-          "chicken_strip",
-          "object"
-        ],
-        [
-          "chicken_strip",
-          "property"
-        ],
-        [
-          "chicken_strip",
-          "queryable"
-        ],
-        [
-          "chicken_strip",
-          "theAble"
-        ],
-        [
-          "cod",
-          "concept"
-        ],
-        [
-          "cod",
-          "hierarchyAble"
-        ],
-        [
-          "cod",
-          "isEdee"
-        ],
-        [
-          "cod",
-          "isEder"
-        ],
-        [
-          "cod",
-          "object"
-        ],
-        [
-          "cod",
-          "property"
-        ],
-        [
-          "cod",
-          "queryable"
-        ],
-        [
-          "cod",
-          "theAble"
-        ],
-        [
-          "concept",
-          "queryable"
-        ],
-        [
-          "concept",
-          "theAble"
-        ],
-        [
-          "countable",
-          "hierarchyAble"
-        ],
-        [
-          "deluxe",
-          "concept"
-        ],
-        [
-          "deluxe",
-          "hierarchyAble"
-        ],
-        [
-          "deluxe",
-          "isEdee"
-        ],
-        [
-          "deluxe",
-          "isEder"
-        ],
-        [
-          "deluxe",
-          "object"
-        ],
-        [
-          "deluxe",
-          "property"
-        ],
-        [
-          "deluxe",
-          "queryable"
-        ],
-        [
-          "deluxe",
-          "theAble"
-        ],
-        [
-          "dog",
-          "concept"
-        ],
-        [
-          "dog",
-          "hierarchyAble"
-        ],
-        [
-          "dog",
-          "isEdee"
-        ],
-        [
-          "dog",
-          "isEder"
-        ],
-        [
-          "dog",
-          "object"
-        ],
-        [
-          "dog",
-          "property"
-        ],
-        [
-          "dog",
-          "queryable"
-        ],
-        [
-          "dog",
-          "theAble"
-        ],
-        [
-          "double",
-          "hamburger"
-        ],
-        [
-          "double",
-          "hierarchyAble"
-        ],
-        [
-          "double",
-          "isEdee"
-        ],
-        [
-          "double",
-          "isEder"
-        ],
-        [
-          "double",
-          "object"
-        ],
-        [
-          "double",
-          "property"
-        ],
-        [
-          "double",
-          "queryable"
-        ],
-        [
-          "double",
-          "theAble"
-        ],
-        [
-          "event",
-          "event"
-        ],
-        [
-          "food",
-          "countable"
-        ],
-        [
-          "food",
-          "hierarchyAble"
-        ],
-        [
-          "food",
-          "isEdee"
-        ],
-        [
-          "food",
-          "isEder"
-        ],
-        [
-          "food",
-          "object"
-        ],
-        [
-          "food",
-          "property"
-        ],
-        [
-          "food",
-          "queryable"
-        ],
-        [
-          "food",
-          "theAble"
-        ],
-        [
-          "french",
-          "hierarchyAble"
-        ],
-        [
-          "french",
-          "isEdee"
-        ],
-        [
-          "french",
-          "isEder"
-        ],
-        [
-          "french",
-          "object"
-        ],
-        [
-          "french",
-          "property"
-        ],
-        [
-          "french",
-          "queryable"
-        ],
-        [
-          "french",
-          "theAble"
-        ],
-        [
-          "french_fry",
-          "adjective"
-        ],
-        [
-          "french_fry",
-          "concept"
-        ],
-        [
-          "french_fry",
-          "food"
-        ],
-        [
-          "french_fry",
-          "hierarchyAble"
-        ],
-        [
-          "french_fry",
-          "isEdee"
-        ],
-        [
-          "french_fry",
-          "isEder"
-        ],
-        [
-          "french_fry",
-          "object"
-        ],
-        [
-          "french_fry",
-          "property"
-        ],
-        [
-          "french_fry",
-          "queryable"
-        ],
-        [
-          "french_fry",
-          "theAble"
-        ],
-        [
-          "fruit",
-          "food"
-        ],
-        [
-          "fruit",
-          "hierarchyAble"
-        ],
-        [
-          "fruit",
-          "isEdee"
-        ],
-        [
-          "fruit",
-          "isEder"
-        ],
-        [
-          "fruit",
-          "object"
-        ],
-        [
-          "fruit",
-          "property"
-        ],
-        [
-          "fruit",
-          "queryable"
-        ],
-        [
-          "fruit",
-          "theAble"
-        ],
-        [
-          "fry",
-          "concept"
-        ],
-        [
-          "fry",
-          "hierarchyAble"
-        ],
-        [
-          "fry",
-          "isEdee"
-        ],
-        [
-          "fry",
-          "isEder"
-        ],
-        [
-          "fry",
-          "object"
-        ],
-        [
-          "fry",
-          "property"
-        ],
-        [
-          "fry",
-          "queryable"
-        ],
-        [
-          "fry",
-          "theAble"
-        ],
-        [
-          "hamburger",
-          "hierarchyAble"
-        ],
-        [
-          "hamburger",
-          "isEdee"
-        ],
-        [
-          "hamburger",
-          "isEder"
-        ],
-        [
-          "hamburger",
-          "object"
-        ],
-        [
-          "hamburger",
-          "property"
-        ],
-        [
-          "hamburger",
-          "queryable"
-        ],
-        [
-          "hamburger",
-          "sandwich"
-        ],
-        [
-          "hamburger",
-          "theAble"
-        ],
-        [
-          "have",
-          "canBeDoQuestion"
-        ],
-        [
-          "have",
-          "canBeQuestion"
-        ],
-        [
-          "hierarchyAble",
-          "queryable"
-        ],
-        [
-          "homestyle",
-          "concept"
-        ],
-        [
-          "homestyle",
-          "hierarchyAble"
-        ],
-        [
-          "homestyle",
-          "isEdee"
-        ],
-        [
-          "homestyle",
-          "isEder"
-        ],
-        [
-          "homestyle",
-          "object"
-        ],
-        [
-          "homestyle",
-          "property"
-        ],
-        [
-          "homestyle",
-          "queryable"
-        ],
-        [
-          "homestyle",
-          "theAble"
-        ],
-        [
-          "hot",
-          "hierarchyAble"
-        ],
-        [
-          "hot",
-          "isEdee"
-        ],
-        [
-          "hot",
-          "isEder"
-        ],
-        [
-          "hot",
-          "object"
-        ],
-        [
-          "hot",
-          "property"
-        ],
-        [
-          "hot",
-          "queryable"
-        ],
-        [
-          "hot",
-          "theAble"
-        ],
-        [
-          "hot_dog",
-          "adjective"
-        ],
-        [
-          "hot_dog",
-          "concept"
-        ],
-        [
-          "hot_dog",
-          "hierarchyAble"
-        ],
-        [
-          "hot_dog",
-          "isEdee"
-        ],
-        [
-          "hot_dog",
-          "isEder"
-        ],
-        [
-          "hot_dog",
-          "object"
-        ],
-        [
-          "hot_dog",
-          "property"
-        ],
-        [
-          "hot_dog",
-          "queryable"
-        ],
-        [
-          "hot_dog",
-          "sausage"
-        ],
-        [
-          "hot_dog",
-          "theAble"
-        ],
-        [
-          "ifAble",
-          "ifAble"
-        ],
-        [
-          "is",
-          "canBeQuestion"
-        ],
-        [
-          "is",
-          "verby"
-        ],
-        [
-          "isEdee",
-          "isEdee"
-        ],
-        [
-          "isEder",
-          "isEder"
-        ],
-        [
-          "it",
-          "pronoun"
-        ],
-        [
-          "it",
-          "queryable"
-        ],
-        [
-          "it",
-          "thisitthat"
-        ],
-        [
-          "it",
-          "toAble"
-        ],
-        [
-          "meat",
-          "food"
-        ],
-        [
-          "meat",
-          "hierarchyAble"
-        ],
-        [
-          "meat",
-          "isEdee"
-        ],
-        [
-          "meat",
-          "isEder"
-        ],
-        [
-          "meat",
-          "object"
-        ],
-        [
-          "meat",
-          "property"
-        ],
-        [
-          "meat",
-          "queryable"
-        ],
-        [
-          "meat",
-          "theAble"
-        ],
-        [
-          "modifies",
-          "verby"
-        ],
-        [
-          "notAble",
-          "notAble"
-        ],
-        [
-          "noun",
-          "theAble"
-        ],
-        [
-          "number",
-          "quantifier"
-        ],
-        [
-          "number",
-          "queryable"
-        ],
-        [
-          "object",
-          "queryable"
-        ],
-        [
-          "object",
-          "theAble"
-        ],
-        [
-          "orAble",
-          "ifAble"
-        ],
-        [
-          "orange",
-          "fruit"
-        ],
-        [
-          "orange",
-          "hierarchyAble"
-        ],
-        [
-          "orange",
-          "isEdee"
-        ],
-        [
-          "orange",
-          "isEder"
-        ],
-        [
-          "orange",
-          "object"
-        ],
-        [
-          "orange",
-          "property"
-        ],
-        [
-          "orange",
-          "queryable"
-        ],
-        [
-          "orange",
-          "theAble"
-        ],
-        [
-          "orderNoun",
-          "noun"
-        ],
-        [
-          "orderNoun",
-          "queryable"
-        ],
-        [
-          "pea",
-          "hierarchyAble"
-        ],
-        [
-          "pea",
-          "isEdee"
-        ],
-        [
-          "pea",
-          "isEder"
-        ],
-        [
-          "pea",
-          "object"
-        ],
-        [
-          "pea",
-          "property"
-        ],
-        [
-          "pea",
-          "queryable"
-        ],
-        [
-          "pea",
-          "theAble"
-        ],
-        [
-          "pea",
-          "vegetable"
-        ],
-        [
-          "premium",
-          "hierarchyAble"
-        ],
-        [
-          "premium",
-          "isEdee"
-        ],
-        [
-          "premium",
-          "isEder"
-        ],
-        [
-          "premium",
-          "object"
-        ],
-        [
-          "premium",
-          "property"
-        ],
-        [
-          "premium",
-          "queryable"
-        ],
-        [
-          "premium",
-          "theAble"
-        ],
-        [
-          "premium_cod",
-          "adjective"
-        ],
-        [
-          "premium_cod",
-          "concept"
-        ],
-        [
-          "premium_cod",
-          "hierarchyAble"
-        ],
-        [
-          "premium_cod",
-          "isEdee"
-        ],
-        [
-          "premium_cod",
-          "isEder"
-        ],
-        [
-          "premium_cod",
-          "object"
-        ],
-        [
-          "premium_cod",
-          "property"
-        ],
-        [
-          "premium_cod",
-          "queryable"
-        ],
-        [
-          "premium_cod",
-          "sandwich"
-        ],
-        [
-          "premium_cod",
-          "theAble"
-        ],
-        [
-          "pronoun",
-          "pronoun"
-        ],
-        [
-          "property",
-          "queryable"
-        ],
-        [
-          "property",
-          "theAble"
-        ],
-        [
-          "property",
-          "unknown"
-        ],
-        [
-          "punctuation",
-          "punctuation"
-        ],
-        [
-          "quantifier",
-          "quantifier"
-        ],
-        [
-          "queryable",
-          "queryable"
-        ],
-        [
-          "questionMark",
-          "punctuation"
-        ],
-        [
-          "readonly",
-          "queryable"
-        ],
-        [
-          "reason",
-          "queryable"
-        ],
-        [
-          "reason",
-          "theAble"
-        ],
-        [
-          "sandwich",
-          "concept"
-        ],
-        [
-          "sandwich",
-          "food"
-        ],
-        [
-          "sandwich",
-          "hierarchyAble"
-        ],
-        [
-          "sandwich",
-          "isEdee"
-        ],
-        [
-          "sandwich",
-          "isEder"
-        ],
-        [
-          "sandwich",
-          "object"
-        ],
-        [
-          "sandwich",
-          "property"
-        ],
-        [
-          "sandwich",
-          "queryable"
-        ],
-        [
-          "sandwich",
-          "theAble"
-        ],
-        [
-          "sausage",
-          "hierarchyAble"
-        ],
-        [
-          "sausage",
-          "isEdee"
-        ],
-        [
-          "sausage",
-          "isEder"
-        ],
-        [
-          "sausage",
-          "meat"
-        ],
-        [
-          "sausage",
-          "object"
-        ],
-        [
-          "sausage",
-          "property"
-        ],
-        [
-          "sausage",
-          "queryable"
-        ],
-        [
-          "sausage",
-          "theAble"
-        ],
-        [
-          "showOrder",
-          "verby"
-        ],
-        [
-          "single",
-          "hamburger"
-        ],
-        [
-          "single",
-          "hierarchyAble"
-        ],
-        [
-          "single",
-          "isEdee"
-        ],
-        [
-          "single",
-          "isEder"
-        ],
-        [
-          "single",
-          "object"
-        ],
-        [
-          "single",
-          "property"
-        ],
-        [
-          "single",
-          "queryable"
-        ],
-        [
-          "single",
-          "theAble"
-        ],
-        [
-          "spicy",
-          "hierarchyAble"
-        ],
-        [
-          "spicy",
-          "isEdee"
-        ],
-        [
-          "spicy",
-          "isEder"
-        ],
-        [
-          "spicy",
-          "object"
-        ],
-        [
-          "spicy",
-          "property"
-        ],
-        [
-          "spicy",
-          "queryable"
-        ],
-        [
-          "spicy",
-          "theAble"
-        ],
-        [
-          "spicy_homestyle",
-          "adjective"
-        ],
-        [
-          "spicy_homestyle",
-          "concept"
-        ],
-        [
-          "spicy_homestyle",
-          "hierarchyAble"
-        ],
-        [
-          "spicy_homestyle",
-          "isEdee"
-        ],
-        [
-          "spicy_homestyle",
-          "isEder"
-        ],
-        [
-          "spicy_homestyle",
-          "object"
-        ],
-        [
-          "spicy_homestyle",
-          "property"
-        ],
-        [
-          "spicy_homestyle",
-          "queryable"
-        ],
-        [
-          "spicy_homestyle",
-          "sandwich"
-        ],
-        [
-          "spicy_homestyle",
-          "theAble"
-        ],
-        [
-          "strip",
-          "concept"
-        ],
-        [
-          "strip",
-          "hierarchyAble"
-        ],
-        [
-          "strip",
-          "isEdee"
-        ],
-        [
-          "strip",
-          "isEder"
-        ],
-        [
-          "strip",
-          "object"
-        ],
-        [
-          "strip",
-          "property"
-        ],
-        [
-          "strip",
-          "queryable"
-        ],
-        [
-          "strip",
-          "theAble"
-        ],
-        [
-          "sushi",
-          "food"
-        ],
-        [
-          "sushi",
-          "hierarchyAble"
-        ],
-        [
-          "sushi",
-          "isEdee"
-        ],
-        [
-          "sushi",
-          "isEder"
-        ],
-        [
-          "sushi",
-          "object"
-        ],
-        [
-          "sushi",
-          "property"
-        ],
-        [
-          "sushi",
-          "queryable"
-        ],
-        [
-          "sushi",
-          "theAble"
-        ],
-        [
-          "that",
-          "thisitthat"
-        ],
-        [
-          "the",
-          "articlePOS"
-        ],
-        [
-          "theAble",
-          "theAble"
-        ],
-        [
-          "this",
-          "pronoun"
-        ],
-        [
-          "this",
-          "queryable"
-        ],
-        [
-          "this",
-          "thisitthat"
-        ],
-        [
-          "thisitthat",
-          "queryable"
-        ],
-        [
-          "toAble",
-          "toAble"
-        ],
-        [
-          "triple",
-          "hamburger"
-        ],
-        [
-          "triple",
-          "hierarchyAble"
-        ],
-        [
-          "triple",
-          "isEdee"
-        ],
-        [
-          "triple",
-          "isEder"
-        ],
-        [
-          "triple",
-          "object"
-        ],
-        [
-          "triple",
-          "property"
-        ],
-        [
-          "triple",
-          "queryable"
-        ],
-        [
-          "triple",
-          "theAble"
-        ],
-        [
-          "type",
-          "property"
-        ],
-        [
-          "type",
-          "whatAble"
         ],
         [
           "unknown",
@@ -12296,6 +12389,70 @@
           "articlePOS"
         ],
         [
+          "asiago",
+          "hierarchyAble"
+        ],
+        [
+          "asiago",
+          "isEdee"
+        ],
+        [
+          "asiago",
+          "isEder"
+        ],
+        [
+          "asiago",
+          "object"
+        ],
+        [
+          "asiago",
+          "property"
+        ],
+        [
+          "asiago",
+          "queryable"
+        ],
+        [
+          "asiago",
+          "theAble"
+        ],
+        [
+          "asiago_ranch_chicken_club",
+          "adjective"
+        ],
+        [
+          "asiago_ranch_chicken_club",
+          "concept"
+        ],
+        [
+          "asiago_ranch_chicken_club",
+          "hierarchyAble"
+        ],
+        [
+          "asiago_ranch_chicken_club",
+          "isEdee"
+        ],
+        [
+          "asiago_ranch_chicken_club",
+          "isEder"
+        ],
+        [
+          "asiago_ranch_chicken_club",
+          "object"
+        ],
+        [
+          "asiago_ranch_chicken_club",
+          "property"
+        ],
+        [
+          "asiago_ranch_chicken_club",
+          "queryable"
+        ],
+        [
+          "asiago_ranch_chicken_club",
+          "theAble"
+        ],
+        [
           "bacon",
           "hierarchyAble"
         ],
@@ -12426,6 +12583,10 @@
         [
           "banana",
           "theAble"
+        ],
+        [
+          "between",
+          "preposition"
         ],
         [
           "brocoli",
@@ -12641,6 +12802,38 @@
         ],
         [
           "chicken_strip",
+          "theAble"
+        ],
+        [
+          "club",
+          "concept"
+        ],
+        [
+          "club",
+          "hierarchyAble"
+        ],
+        [
+          "club",
+          "isEdee"
+        ],
+        [
+          "club",
+          "isEder"
+        ],
+        [
+          "club",
+          "object"
+        ],
+        [
+          "club",
+          "property"
+        ],
+        [
+          "club",
+          "queryable"
+        ],
+        [
+          "club",
           "theAble"
         ],
         [
@@ -12952,6 +13145,38 @@
           "theAble"
         ],
         [
+          "grill",
+          "concept"
+        ],
+        [
+          "grill",
+          "hierarchyAble"
+        ],
+        [
+          "grill",
+          "isEdee"
+        ],
+        [
+          "grill",
+          "isEder"
+        ],
+        [
+          "grill",
+          "object"
+        ],
+        [
+          "grill",
+          "property"
+        ],
+        [
+          "grill",
+          "queryable"
+        ],
+        [
+          "grill",
+          "theAble"
+        ],
+        [
           "hamburger",
           "hierarchyAble"
         ],
@@ -12994,38 +13219,6 @@
         [
           "hierarchyAble",
           "queryable"
-        ],
-        [
-          "homestyle",
-          "concept"
-        ],
-        [
-          "homestyle",
-          "hierarchyAble"
-        ],
-        [
-          "homestyle",
-          "isEdee"
-        ],
-        [
-          "homestyle",
-          "isEder"
-        ],
-        [
-          "homestyle",
-          "object"
-        ],
-        [
-          "homestyle",
-          "property"
-        ],
-        [
-          "homestyle",
-          "queryable"
-        ],
-        [
-          "homestyle",
-          "theAble"
         ],
         [
           "hot",
@@ -13361,11 +13554,11 @@
         ],
         [
           "premium_cod",
-          "sandwich"
+          "theAble"
         ],
         [
-          "premium_cod",
-          "theAble"
+          "preposition",
+          "preposition"
         ],
         [
           "pronoun",
@@ -13398,6 +13591,34 @@
         [
           "questionMark",
           "punctuation"
+        ],
+        [
+          "ranch",
+          "hierarchyAble"
+        ],
+        [
+          "ranch",
+          "isEdee"
+        ],
+        [
+          "ranch",
+          "isEder"
+        ],
+        [
+          "ranch",
+          "object"
+        ],
+        [
+          "ranch",
+          "property"
+        ],
+        [
+          "ranch",
+          "queryable"
+        ],
+        [
+          "ranch",
+          "theAble"
         ],
         [
           "readonly",
@@ -13513,74 +13734,6 @@
         ],
         [
           "single",
-          "theAble"
-        ],
-        [
-          "spicy",
-          "hierarchyAble"
-        ],
-        [
-          "spicy",
-          "isEdee"
-        ],
-        [
-          "spicy",
-          "isEder"
-        ],
-        [
-          "spicy",
-          "object"
-        ],
-        [
-          "spicy",
-          "property"
-        ],
-        [
-          "spicy",
-          "queryable"
-        ],
-        [
-          "spicy",
-          "theAble"
-        ],
-        [
-          "spicy_homestyle",
-          "adjective"
-        ],
-        [
-          "spicy_homestyle",
-          "concept"
-        ],
-        [
-          "spicy_homestyle",
-          "hierarchyAble"
-        ],
-        [
-          "spicy_homestyle",
-          "isEdee"
-        ],
-        [
-          "spicy_homestyle",
-          "isEder"
-        ],
-        [
-          "spicy_homestyle",
-          "object"
-        ],
-        [
-          "spicy_homestyle",
-          "property"
-        ],
-        [
-          "spicy_homestyle",
-          "queryable"
-        ],
-        [
-          "spicy_homestyle",
-          "sandwich"
-        ],
-        [
-          "spicy_homestyle",
           "theAble"
         ],
         [
@@ -13718,6 +13871,70 @@
         [
           "type",
           "whatAble"
+        ],
+        [
+          "ultimate",
+          "hierarchyAble"
+        ],
+        [
+          "ultimate",
+          "isEdee"
+        ],
+        [
+          "ultimate",
+          "isEder"
+        ],
+        [
+          "ultimate",
+          "object"
+        ],
+        [
+          "ultimate",
+          "property"
+        ],
+        [
+          "ultimate",
+          "queryable"
+        ],
+        [
+          "ultimate",
+          "theAble"
+        ],
+        [
+          "ultimate_chicken_grill",
+          "adjective"
+        ],
+        [
+          "ultimate_chicken_grill",
+          "concept"
+        ],
+        [
+          "ultimate_chicken_grill",
+          "hierarchyAble"
+        ],
+        [
+          "ultimate_chicken_grill",
+          "isEdee"
+        ],
+        [
+          "ultimate_chicken_grill",
+          "isEder"
+        ],
+        [
+          "ultimate_chicken_grill",
+          "object"
+        ],
+        [
+          "ultimate_chicken_grill",
+          "property"
+        ],
+        [
+          "ultimate_chicken_grill",
+          "queryable"
+        ],
+        [
+          "ultimate_chicken_grill",
+          "theAble"
         ],
         [
           "unknown",
@@ -14068,6 +14285,20 @@
         ],
         [
           [
+            "a",
+            0
+          ],
+          [
+            "is",
+            0
+          ],
+          [
+            "unknown",
+            1
+          ]
+        ],
+        [
+          [
             "is",
             0
           ],
@@ -14131,6 +14362,70 @@
         [
           "articlePOS",
           "articlePOS"
+        ],
+        [
+          "asiago",
+          "hierarchyAble"
+        ],
+        [
+          "asiago",
+          "isEdee"
+        ],
+        [
+          "asiago",
+          "isEder"
+        ],
+        [
+          "asiago",
+          "object"
+        ],
+        [
+          "asiago",
+          "property"
+        ],
+        [
+          "asiago",
+          "queryable"
+        ],
+        [
+          "asiago",
+          "theAble"
+        ],
+        [
+          "asiago_ranch_chicken_club",
+          "adjective"
+        ],
+        [
+          "asiago_ranch_chicken_club",
+          "concept"
+        ],
+        [
+          "asiago_ranch_chicken_club",
+          "hierarchyAble"
+        ],
+        [
+          "asiago_ranch_chicken_club",
+          "isEdee"
+        ],
+        [
+          "asiago_ranch_chicken_club",
+          "isEder"
+        ],
+        [
+          "asiago_ranch_chicken_club",
+          "object"
+        ],
+        [
+          "asiago_ranch_chicken_club",
+          "property"
+        ],
+        [
+          "asiago_ranch_chicken_club",
+          "queryable"
+        ],
+        [
+          "asiago_ranch_chicken_club",
+          "theAble"
         ],
         [
           "bacon",
@@ -14263,6 +14558,10 @@
         [
           "banana",
           "theAble"
+        ],
+        [
+          "between",
+          "preposition"
         ],
         [
           "brocoli",
@@ -14478,6 +14777,38 @@
         ],
         [
           "chicken_strip",
+          "theAble"
+        ],
+        [
+          "club",
+          "concept"
+        ],
+        [
+          "club",
+          "hierarchyAble"
+        ],
+        [
+          "club",
+          "isEdee"
+        ],
+        [
+          "club",
+          "isEder"
+        ],
+        [
+          "club",
+          "object"
+        ],
+        [
+          "club",
+          "property"
+        ],
+        [
+          "club",
+          "queryable"
+        ],
+        [
+          "club",
           "theAble"
         ],
         [
@@ -14821,6 +15152,38 @@
           "theAble"
         ],
         [
+          "grill",
+          "concept"
+        ],
+        [
+          "grill",
+          "hierarchyAble"
+        ],
+        [
+          "grill",
+          "isEdee"
+        ],
+        [
+          "grill",
+          "isEder"
+        ],
+        [
+          "grill",
+          "object"
+        ],
+        [
+          "grill",
+          "property"
+        ],
+        [
+          "grill",
+          "queryable"
+        ],
+        [
+          "grill",
+          "theAble"
+        ],
+        [
           "hamburger",
           "hierarchyAble"
         ],
@@ -14863,38 +15226,6 @@
         [
           "hierarchyAble",
           "queryable"
-        ],
-        [
-          "homestyle",
-          "concept"
-        ],
-        [
-          "homestyle",
-          "hierarchyAble"
-        ],
-        [
-          "homestyle",
-          "isEdee"
-        ],
-        [
-          "homestyle",
-          "isEder"
-        ],
-        [
-          "homestyle",
-          "object"
-        ],
-        [
-          "homestyle",
-          "property"
-        ],
-        [
-          "homestyle",
-          "queryable"
-        ],
-        [
-          "homestyle",
-          "theAble"
         ],
         [
           "hot",
@@ -15230,11 +15561,11 @@
         ],
         [
           "premium_cod",
-          "sandwich"
+          "theAble"
         ],
         [
-          "premium_cod",
-          "theAble"
+          "preposition",
+          "preposition"
         ],
         [
           "pronoun",
@@ -15267,6 +15598,34 @@
         [
           "questionMark",
           "punctuation"
+        ],
+        [
+          "ranch",
+          "hierarchyAble"
+        ],
+        [
+          "ranch",
+          "isEdee"
+        ],
+        [
+          "ranch",
+          "isEder"
+        ],
+        [
+          "ranch",
+          "object"
+        ],
+        [
+          "ranch",
+          "property"
+        ],
+        [
+          "ranch",
+          "queryable"
+        ],
+        [
+          "ranch",
+          "theAble"
         ],
         [
           "readonly",
@@ -15382,74 +15741,6 @@
         ],
         [
           "single",
-          "theAble"
-        ],
-        [
-          "spicy",
-          "hierarchyAble"
-        ],
-        [
-          "spicy",
-          "isEdee"
-        ],
-        [
-          "spicy",
-          "isEder"
-        ],
-        [
-          "spicy",
-          "object"
-        ],
-        [
-          "spicy",
-          "property"
-        ],
-        [
-          "spicy",
-          "queryable"
-        ],
-        [
-          "spicy",
-          "theAble"
-        ],
-        [
-          "spicy_homestyle",
-          "adjective"
-        ],
-        [
-          "spicy_homestyle",
-          "concept"
-        ],
-        [
-          "spicy_homestyle",
-          "hierarchyAble"
-        ],
-        [
-          "spicy_homestyle",
-          "isEdee"
-        ],
-        [
-          "spicy_homestyle",
-          "isEder"
-        ],
-        [
-          "spicy_homestyle",
-          "object"
-        ],
-        [
-          "spicy_homestyle",
-          "property"
-        ],
-        [
-          "spicy_homestyle",
-          "queryable"
-        ],
-        [
-          "spicy_homestyle",
-          "sandwich"
-        ],
-        [
-          "spicy_homestyle",
           "theAble"
         ],
         [
@@ -15589,6 +15880,70 @@
           "whatAble"
         ],
         [
+          "ultimate",
+          "hierarchyAble"
+        ],
+        [
+          "ultimate",
+          "isEdee"
+        ],
+        [
+          "ultimate",
+          "isEder"
+        ],
+        [
+          "ultimate",
+          "object"
+        ],
+        [
+          "ultimate",
+          "property"
+        ],
+        [
+          "ultimate",
+          "queryable"
+        ],
+        [
+          "ultimate",
+          "theAble"
+        ],
+        [
+          "ultimate_chicken_grill",
+          "adjective"
+        ],
+        [
+          "ultimate_chicken_grill",
+          "concept"
+        ],
+        [
+          "ultimate_chicken_grill",
+          "hierarchyAble"
+        ],
+        [
+          "ultimate_chicken_grill",
+          "isEdee"
+        ],
+        [
+          "ultimate_chicken_grill",
+          "isEder"
+        ],
+        [
+          "ultimate_chicken_grill",
+          "object"
+        ],
+        [
+          "ultimate_chicken_grill",
+          "property"
+        ],
+        [
+          "ultimate_chicken_grill",
+          "queryable"
+        ],
+        [
+          "ultimate_chicken_grill",
+          "theAble"
+        ],
+        [
           "unknown",
           "hierarchyAble"
         ],
@@ -15669,6 +16024,140 @@
         "opChoices": [
           {
             "op": [
+              "unknown",
+              0
+            ],
+            "ops": [
+              [
+                "single",
+                0
+              ],
+              [
+                "double",
+                0
+              ],
+              [
+                "triple",
+                0
+              ],
+              [
+                "baconater",
+                0
+              ],
+              [
+                "bacon",
+                0
+              ],
+              [
+                "deluxe",
+                0
+              ],
+              [
+                "unknown",
+                0
+              ],
+              [
+                "unknown",
+                0
+              ],
+              [
+                "premium",
+                0
+              ],
+              [
+                "cod",
+                0
+              ],
+              [
+                "is",
+                0
+              ],
+              [
+                "meal",
+                0
+              ],
+              [
+                "premium_cod",
+                0
+              ],
+              [
+                "bacon_deluxe",
+                0
+              ],
+              [
+                "list",
+                0
+              ]
+            ],
+            "counter": 1
+          },
+          {
+            "op": [
+              "unknown",
+              0
+            ],
+            "ops": [
+              [
+                "single",
+                0
+              ],
+              [
+                "double",
+                0
+              ],
+              [
+                "triple",
+                0
+              ],
+              [
+                "baconater",
+                0
+              ],
+              [
+                "bacon",
+                0
+              ],
+              [
+                "deluxe",
+                0
+              ],
+              [
+                "unknown",
+                0
+              ],
+              [
+                "premium",
+                0
+              ],
+              [
+                "cod",
+                0
+              ],
+              [
+                "is",
+                0
+              ],
+              [
+                "meal",
+                0
+              ],
+              [
+                "premium_cod",
+                0
+              ],
+              [
+                "bacon_deluxe",
+                0
+              ],
+              [
+                "list",
+                0
+              ]
+            ],
+            "counter": 2
+          },
+          {
+            "op": [
               "single",
               0
             ],
@@ -15698,14 +16187,6 @@
                 0
               ],
               [
-                "spicy",
-                0
-              ],
-              [
-                "homestyle",
-                0
-              ],
-              [
                 "premium",
                 0
               ],
@@ -15730,11 +16211,11 @@
                 0
               ],
               [
-                "spicy_homestyle",
+                "list",
                 0
               ]
             ],
-            "counter": 1
+            "counter": 3
           },
           {
             "op": [
@@ -15763,14 +16244,6 @@
                 0
               ],
               [
-                "spicy",
-                0
-              ],
-              [
-                "homestyle",
-                0
-              ],
-              [
                 "premium",
                 0
               ],
@@ -15795,11 +16268,11 @@
                 0
               ],
               [
-                "spicy_homestyle",
+                "list",
                 0
               ]
             ],
-            "counter": 2
+            "counter": 4
           },
           {
             "op": [
@@ -15824,14 +16297,6 @@
                 0
               ],
               [
-                "spicy",
-                0
-              ],
-              [
-                "homestyle",
-                0
-              ],
-              [
                 "premium",
                 0
               ],
@@ -15856,11 +16321,11 @@
                 0
               ],
               [
-                "spicy_homestyle",
+                "list",
                 0
               ]
             ],
-            "counter": 3
+            "counter": 5
           },
           {
             "op": [
@@ -15881,14 +16346,6 @@
                 0
               ],
               [
-                "spicy",
-                0
-              ],
-              [
-                "homestyle",
-                0
-              ],
-              [
                 "premium",
                 0
               ],
@@ -15913,11 +16370,11 @@
                 0
               ],
               [
-                "spicy_homestyle",
+                "list",
                 0
               ]
             ],
-            "counter": 4
+            "counter": 6
           },
           {
             "op": [
@@ -15938,87 +16395,9 @@
                 0
               ],
               [
-                "spicy",
+                "list",
                 0
               ],
-              [
-                "homestyle",
-                0
-              ],
-              [
-                "spicy_homestyle",
-                0
-              ],
-              [
-                "premium",
-                0
-              ],
-              [
-                "cod",
-                0
-              ],
-              [
-                "premium_cod",
-                0
-              ],
-              [
-                "is",
-                0
-              ],
-              [
-                "meal",
-                0
-              ]
-            ],
-            "counter": 5
-          },
-          {
-            "op": [
-              "spicy_homestyle",
-              0
-            ],
-            "ops": [
-              [
-                "spicy",
-                0
-              ],
-              [
-                "homestyle",
-                0
-              ],
-              [
-                "spicy_homestyle",
-                0
-              ],
-              [
-                "premium",
-                0
-              ],
-              [
-                "cod",
-                0
-              ],
-              [
-                "premium_cod",
-                0
-              ],
-              [
-                "is",
-                0
-              ],
-              [
-                "meal",
-                0
-              ]
-            ],
-            "counter": 6
-          },
-          {
-            "op": [
-              "premium_cod",
-              0
-            ],
-            "ops": [
               [
                 "premium",
                 0
@@ -16044,10 +16423,26 @@
           },
           {
             "op": [
-              "list",
+              "premium_cod",
               0
             ],
             "ops": [
+              [
+                "list",
+                0
+              ],
+              [
+                "premium",
+                0
+              ],
+              [
+                "cod",
+                0
+              ],
+              [
+                "premium_cod",
+                0
+              ],
               [
                 "is",
                 0
@@ -16061,8 +16456,8 @@
           },
           {
             "op": [
-              "list",
-              1
+              "meal",
+              0
             ],
             "ops": [
               [
@@ -16071,6 +16466,10 @@
               ],
               [
                 "meal",
+                0
+              ],
+              [
+                "list",
                 0
               ]
             ],
@@ -16079,7 +16478,7 @@
           {
             "op": [
               "list",
-              1
+              0
             ],
             "ops": [
               [
@@ -16087,7 +16486,7 @@
                 0
               ],
               [
-                "meal",
+                "list",
                 0
               ]
             ],
@@ -16104,8 +16503,8 @@
                 0
               ],
               [
-                "meal",
-                0
+                "list",
+                1
               ]
             ],
             "counter": 11
@@ -16121,8 +16520,8 @@
                 0
               ],
               [
-                "meal",
-                0
+                "list",
+                1
               ]
             ],
             "counter": 12
@@ -16138,32 +16537,62 @@
                 0
               ],
               [
-                "meal",
-                0
+                "list",
+                1
               ]
             ],
             "counter": 13
           },
           {
             "op": [
-              "meal",
-              0
+              "list",
+              1
             ],
             "ops": [
-              [
-                "list",
-                1
-              ],
               [
                 "is",
                 0
               ],
               [
-                "meal",
-                0
+                "list",
+                1
               ]
             ],
             "counter": 14
+          },
+          {
+            "op": [
+              "list",
+              1
+            ],
+            "ops": [
+              [
+                "is",
+                0
+              ],
+              [
+                "list",
+                1
+              ]
+            ],
+            "counter": 15
+          },
+          {
+            "op": [
+              "list",
+              1
+            ],
+            "ops": [
+              [
+                "is",
+                0
+              ],
+              [
+                "list",
+                1
+              ]
+            ],
+            "counter": 16
           },
           {
             "op": [
@@ -16172,15 +16601,11 @@
             ],
             "ops": [
               [
-                "list",
-                1
-              ],
-              [
                 "is",
                 0
               ]
             ],
-            "counter": 15
+            "counter": 17
           },
           {
             "op": [
@@ -16193,7 +16618,7 @@
                 1
               ]
             ],
-            "counter": 16
+            "counter": 18
           }
         ]
       },
@@ -16313,38 +16738,29 @@
                 "level": 1
               },
               {
-                "value": "spicy_homestyle",
-                "number": "one",
-                "text": "spicy homestyle",
-                "marker": "spicy_homestyle",
-                "word": "homestyle",
+                "marker": "unknown",
                 "range": {
                   "start": 44,
+                  "end": 48
+                },
+                "word": "spicy",
+                "text": "spicy",
+                "value": "spicy",
+                "unknown": true,
+                "dead": true,
+                "level": 1
+              },
+              {
+                "marker": "unknown",
+                "range": {
+                  "start": 50,
                   "end": 58
                 },
-                "types": [
-                  "homestyle",
-                  "spicy_homestyle"
-                ],
-                "spicy": {
-                  "value": "spicy",
-                  "text": "spicy",
-                  "marker": "spicy",
-                  "word": "spicy",
-                  "range": {
-                    "start": 44,
-                    "end": 48
-                  },
-                  "types": [
-                    "spicy"
-                  ],
-                  "level": 0
-                },
-                "atomic": true,
+                "word": "homestyle",
+                "text": "homestyle",
+                "value": "homestyle",
+                "unknown": true,
                 "dead": true,
-                "modifiers": [
-                  "spicy"
-                ],
                 "level": 1
               },
               {
@@ -16414,7 +16830,7 @@
         ""
       ],
       "paraphrases": [
-        "single, double, triple, baconater, bacon deluxe, spicy homestyle and premium cod are meals"
+        "single, double, triple, baconater, bacon deluxe, spicy, homestyle and premium cod are meals"
       ],
       "paraphrasesParenthesized": [],
       "generatedParenthesized": [],
@@ -16444,10 +16860,6 @@
             0
           ],
           [
-            "homestyle",
-            0
-          ],
-          [
             "is",
             0
           ],
@@ -16468,11 +16880,11 @@
             0
           ],
           [
-            "spicy",
+            "triple",
             0
           ],
           [
-            "triple",
+            "unknown",
             0
           ]
         ],
@@ -16498,10 +16910,6 @@
             0
           ],
           [
-            "homestyle",
-            0
-          ],
-          [
             "is",
             0
           ],
@@ -16518,12 +16926,20 @@
             0
           ],
           [
-            "spicy",
+            "single",
             0
           ],
           [
             "triple",
             0
+          ],
+          [
+            "unknown",
+            0
+          ],
+          [
+            "unknown",
+            1
           ]
         ],
         [
@@ -16548,7 +16964,15 @@
             0
           ],
           [
-            "homestyle",
+            "is",
+            0
+          ],
+          [
+            "list",
+            0
+          ],
+          [
+            "meal",
             0
           ],
           [
@@ -16560,11 +16984,95 @@
             0
           ],
           [
-            "spicy",
+            "triple",
+            0
+          ],
+          [
+            "unknown",
+            1
+          ]
+        ],
+        [
+          [
+            "bacon",
+            0
+          ],
+          [
+            "baconater",
+            0
+          ],
+          [
+            "cod",
+            0
+          ],
+          [
+            "deluxe",
+            0
+          ],
+          [
+            "double",
+            0
+          ],
+          [
+            "is",
+            0
+          ],
+          [
+            "list",
+            0
+          ],
+          [
+            "meal",
+            0
+          ],
+          [
+            "premium",
             0
           ],
           [
             "triple",
+            0
+          ],
+          [
+            "unknown",
+            1
+          ]
+        ],
+        [
+          [
+            "bacon",
+            0
+          ],
+          [
+            "baconater",
+            0
+          ],
+          [
+            "cod",
+            0
+          ],
+          [
+            "deluxe",
+            0
+          ],
+          [
+            "double",
+            0
+          ],
+          [
+            "premium",
+            0
+          ],
+          [
+            "single",
+            0
+          ],
+          [
+            "triple",
+            0
+          ],
+          [
+            "unknown",
             0
           ]
         ],
@@ -16586,10 +17094,6 @@
             0
           ],
           [
-            "homestyle",
-            0
-          ],
-          [
             "is",
             0
           ],
@@ -16606,8 +17110,12 @@
             0
           ],
           [
-            "spicy",
+            "triple",
             0
+          ],
+          [
+            "unknown",
+            1
           ]
         ],
         [
@@ -16628,10 +17136,6 @@
             0
           ],
           [
-            "homestyle",
-            0
-          ],
-          [
             "is",
             0
           ],
@@ -16648,12 +17152,8 @@
             0
           ],
           [
-            "spicy",
-            0
-          ],
-          [
-            "triple",
-            0
+            "unknown",
+            1
           ]
         ],
         [
@@ -16670,10 +17170,6 @@
             0
           ],
           [
-            "homestyle",
-            0
-          ],
-          [
             "is",
             0
           ],
@@ -16690,38 +17186,8 @@
             0
           ],
           [
-            "spicy",
-            0
-          ]
-        ],
-        [
-          [
-            "cod",
-            0
-          ],
-          [
-            "homestyle",
-            0
-          ],
-          [
-            "is",
-            0
-          ],
-          [
-            "list",
-            0
-          ],
-          [
-            "meal",
-            0
-          ],
-          [
-            "premium",
-            0
-          ],
-          [
-            "spicy",
-            0
+            "unknown",
+            1
           ]
         ],
         [
@@ -16744,6 +17210,10 @@
           [
             "premium",
             0
+          ],
+          [
+            "unknown",
+            1
           ]
         ],
         [
@@ -16758,6 +17228,10 @@
           [
             "meal",
             0
+          ],
+          [
+            "unknown",
+            1
           ]
         ],
         [
@@ -16767,6 +17241,10 @@
           ],
           [
             "list",
+            0
+          ],
+          [
+            "unknown",
             1
           ]
         ],
@@ -16778,10 +17256,6 @@
           [
             "list",
             1
-          ],
-          [
-            "meal",
-            0
           ]
         ],
         [
@@ -16794,8 +17268,8 @@
             1
           ],
           [
-            "meal",
-            0
+            "unknown",
+            1
           ]
         ]
       ],
@@ -16806,16 +17280,38 @@
     },
     {
       "extraConfig": true,
-      "where": "/home/dev/code/theprogrammablemind/kms/common/fastfood.js:51",
+      "where": "/home/dev/code/theprogrammablemind/kms/common/fastfood.js:53",
       "operators": [
         "((meal/0,1 && context.comboNumber == undefined) [comboMeal] (combo/0))",
         "((combo/0) [comboNumber] (number/0,1 || numberNumberCombo/0,1))",
         "((numberNumberCombo/1) [numberNumberCombo_combo|] (combo/0))",
         "((number/0,1 && context.instance == undefined) [numberNumberCombo] (number/0,1))"
       ],
+      "priorities": [
+        [
+          [
+            "list",
+            0
+          ],
+          [
+            "premium_cod",
+            0
+          ]
+        ],
+        [
+          [
+            "list",
+            1
+          ],
+          [
+            "premium_cod",
+            0
+          ]
+        ]
+      ],
       "generators": [
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/fastfood.js:64"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/fastfood.js:70"
         }
       ],
       "bridges": [
@@ -16973,6 +17469,20 @@
     ],
     [
       [
+        "a",
+        0
+      ],
+      [
+        "is",
+        0
+      ],
+      [
+        "unknown",
+        1
+      ]
+    ],
+    [
+      [
         "bacon",
         0
       ],
@@ -16990,10 +17500,6 @@
       ],
       [
         "double",
-        0
-      ],
-      [
-        "homestyle",
         0
       ],
       [
@@ -17017,11 +17523,11 @@
         0
       ],
       [
-        "spicy",
+        "triple",
         0
       ],
       [
-        "triple",
+        "unknown",
         0
       ]
     ],
@@ -17044,10 +17550,6 @@
       ],
       [
         "double",
-        0
-      ],
-      [
-        "homestyle",
         0
       ],
       [
@@ -17060,44 +17562,6 @@
       ],
       [
         "meal",
-        0
-      ],
-      [
-        "premium",
-        0
-      ],
-      [
-        "spicy",
-        0
-      ],
-      [
-        "triple",
-        0
-      ]
-    ],
-    [
-      [
-        "bacon",
-        0
-      ],
-      [
-        "baconater",
-        0
-      ],
-      [
-        "cod",
-        0
-      ],
-      [
-        "deluxe",
-        0
-      ],
-      [
-        "double",
-        0
-      ],
-      [
-        "homestyle",
         0
       ],
       [
@@ -17109,11 +17573,149 @@
         0
       ],
       [
-        "spicy",
+        "triple",
+        0
+      ],
+      [
+        "unknown",
+        0
+      ],
+      [
+        "unknown",
+        1
+      ]
+    ],
+    [
+      [
+        "bacon",
+        0
+      ],
+      [
+        "baconater",
+        0
+      ],
+      [
+        "cod",
+        0
+      ],
+      [
+        "deluxe",
+        0
+      ],
+      [
+        "double",
+        0
+      ],
+      [
+        "is",
+        0
+      ],
+      [
+        "list",
+        0
+      ],
+      [
+        "meal",
+        0
+      ],
+      [
+        "premium",
+        0
+      ],
+      [
+        "single",
         0
       ],
       [
         "triple",
+        0
+      ],
+      [
+        "unknown",
+        1
+      ]
+    ],
+    [
+      [
+        "bacon",
+        0
+      ],
+      [
+        "baconater",
+        0
+      ],
+      [
+        "cod",
+        0
+      ],
+      [
+        "deluxe",
+        0
+      ],
+      [
+        "double",
+        0
+      ],
+      [
+        "is",
+        0
+      ],
+      [
+        "list",
+        0
+      ],
+      [
+        "meal",
+        0
+      ],
+      [
+        "premium",
+        0
+      ],
+      [
+        "triple",
+        0
+      ],
+      [
+        "unknown",
+        1
+      ]
+    ],
+    [
+      [
+        "bacon",
+        0
+      ],
+      [
+        "baconater",
+        0
+      ],
+      [
+        "cod",
+        0
+      ],
+      [
+        "deluxe",
+        0
+      ],
+      [
+        "double",
+        0
+      ],
+      [
+        "premium",
+        0
+      ],
+      [
+        "single",
+        0
+      ],
+      [
+        "triple",
+        0
+      ],
+      [
+        "unknown",
         0
       ]
     ],
@@ -17135,10 +17737,6 @@
         0
       ],
       [
-        "homestyle",
-        0
-      ],
-      [
         "is",
         0
       ],
@@ -17155,8 +17753,12 @@
         0
       ],
       [
-        "spicy",
+        "triple",
         0
+      ],
+      [
+        "unknown",
+        1
       ]
     ],
     [
@@ -17177,10 +17779,6 @@
         0
       ],
       [
-        "homestyle",
-        0
-      ],
-      [
         "is",
         0
       ],
@@ -17197,12 +17795,8 @@
         0
       ],
       [
-        "spicy",
-        0
-      ],
-      [
-        "triple",
-        0
+        "unknown",
+        1
       ]
     ],
     [
@@ -17219,10 +17813,6 @@
         0
       ],
       [
-        "homestyle",
-        0
-      ],
-      [
         "is",
         0
       ],
@@ -17239,8 +17829,8 @@
         0
       ],
       [
-        "spicy",
-        0
+        "unknown",
+        1
       ]
     ],
     [
@@ -17355,11 +17945,99 @@
     ],
     [
       [
-        "cod",
+        "chicken",
         0
       ],
       [
-        "homestyle",
+        "modifies",
+        0
+      ],
+      [
+        "unknown",
+        0
+      ]
+    ],
+    [
+      [
+        "chicken",
+        0
+      ],
+      [
+        "modifies",
+        0
+      ],
+      [
+        "unknown",
+        0
+      ]
+    ],
+    [
+      [
+        "chicken",
+        0
+      ],
+      [
+        "modifies",
+        0
+      ],
+      [
+        "unknown",
+        0
+      ],
+      [
+        "unknown",
+        1
+      ]
+    ],
+    [
+      [
+        "chicken",
+        0
+      ],
+      [
+        "modifies",
+        0
+      ],
+      [
+        "unknown",
+        0
+      ],
+      [
+        "unknown",
+        1
+      ]
+    ],
+    [
+      [
+        "chicken",
+        0
+      ],
+      [
+        "modifies",
+        0
+      ],
+      [
+        "unknown",
+        1
+      ]
+    ],
+    [
+      [
+        "chicken",
+        0
+      ],
+      [
+        "modifies",
+        0
+      ],
+      [
+        "unknown",
+        1
+      ]
+    ],
+    [
+      [
+        "cod",
         0
       ],
       [
@@ -17379,100 +18057,8 @@
         0
       ],
       [
-        "spicy",
-        0
-      ]
-    ],
-    [
-      [
-        "cod",
-        0
-      ],
-      [
-        "homestyle",
-        0
-      ],
-      [
-        "is",
-        0
-      ],
-      [
-        "list",
-        0
-      ],
-      [
-        "premium",
-        0
-      ],
-      [
-        "sandwich",
-        0
-      ],
-      [
-        "spicy",
-        0
-      ]
-    ],
-    [
-      [
-        "cod",
-        0
-      ],
-      [
-        "homestyle",
-        0
-      ],
-      [
-        "premium",
-        0
-      ],
-      [
-        "spicy",
-        0
-      ]
-    ],
-    [
-      [
-        "cod",
-        0
-      ],
-      [
-        "is",
-        0
-      ],
-      [
-        "list",
-        0
-      ],
-      [
-        "meal",
-        0
-      ],
-      [
-        "premium",
-        0
-      ]
-    ],
-    [
-      [
-        "cod",
-        0
-      ],
-      [
-        "is",
-        0
-      ],
-      [
-        "list",
-        0
-      ],
-      [
-        "premium",
-        0
-      ],
-      [
-        "sandwich",
-        0
+        "unknown",
+        1
       ]
     ],
     [
@@ -17519,9 +18105,51 @@
     ],
     [
       [
-        "hamburger",
+        "is",
         0
       ],
+      [
+        "list",
+        0
+      ],
+      [
+        "meal",
+        0
+      ],
+      [
+        "unknown",
+        1
+      ]
+    ],
+    [
+      [
+        "is",
+        0
+      ],
+      [
+        "list",
+        0
+      ],
+      [
+        "unknown",
+        1
+      ]
+    ],
+    [
+      [
+        "is",
+        0
+      ],
+      [
+        "list",
+        0
+      ],
+      [
+        "unknown",
+        1
+      ]
+    ],
+    [
       [
         "is",
         0
@@ -17533,9 +18161,15 @@
     ],
     [
       [
-        "hamburger",
+        "is",
         0
       ],
+      [
+        "list",
+        1
+      ]
+    ],
+    [
       [
         "is",
         0
@@ -17556,97 +18190,11 @@
       ],
       [
         "list",
-        0
-      ],
-      [
-        "meal",
-        0
-      ]
-    ],
-    [
-      [
-        "is",
-        0
-      ],
-      [
-        "list",
-        0
-      ],
-      [
-        "sandwich",
-        0
-      ]
-    ],
-    [
-      [
-        "is",
-        0
-      ],
-      [
-        "list",
-        1
-      ]
-    ],
-    [
-      [
-        "is",
-        0
-      ],
-      [
-        "list",
-        1
-      ]
-    ],
-    [
-      [
-        "is",
-        0
-      ],
-      [
-        "list",
-        1
-      ]
-    ],
-    [
-      [
-        "is",
-        0
-      ],
-      [
-        "list",
         1
       ],
       [
-        "meal",
-        0
-      ]
-    ],
-    [
-      [
-        "is",
-        0
-      ],
-      [
-        "list",
+        "unknown",
         1
-      ],
-      [
-        "meal",
-        0
-      ]
-    ],
-    [
-      [
-        "is",
-        0
-      ],
-      [
-        "list",
-        1
-      ],
-      [
-        "sandwich",
-        0
       ]
     ],
     [
@@ -17707,16 +18255,6 @@
       [
         "unknown",
         0
-      ]
-    ],
-    [
-      [
-        "modifies",
-        0
-      ],
-      [
-        "unknown",
-        0
       ],
       [
         "unknown",
@@ -17740,10 +18278,6 @@
     [
       [
         "modifies",
-        0
-      ],
-      [
-        "unknown",
         0
       ],
       [

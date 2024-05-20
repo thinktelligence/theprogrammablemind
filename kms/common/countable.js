@@ -69,6 +69,13 @@ knowledgeModule({
   createConfig,
   test: {
     name: './countable.test.json',
-    contents: countable_tests
+    contents: countable_tests,
+    checks: {
+            context: [
+              'marker',
+              'text',
+              { 'value': ['marker', 'text', 'value'] },
+            ],
+          },
   },
 })

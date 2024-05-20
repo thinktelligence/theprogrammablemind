@@ -28,6 +28,13 @@ knowledgeModule( {
   test: {
           name: './alice.test.json',
           contents: alice_tests,
+          checks: {
+            context: [
+              'marker',
+              'text',
+              { 'value': ['marker', 'text', 'value'] },
+            ],
+          },
         },
   template: {
     template,

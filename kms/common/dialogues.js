@@ -104,7 +104,17 @@ let configStruct = {
     { id: "whatAble", level: 0, bridge: "{ ...next(operator) }" },
 
     // context.instance == variables.instance (unification)
-    {id: "list", level: 0, selector: {match: "same", left: [ { pattern: '($type && context.instance == variables.instance)' } ], right: [ { pattern: '($type && context.instance == variables.instance)' } ], passthrough: true}, bridge: "{ ...next(operator), listable: true, isList: true, value: append(before, after) }"},
+    {
+      id: "list", 
+      level: 0, 
+      selector: {
+          match: "same", 
+          left: [ { pattern: '($type && context.instance == variables.instance)' } ], 
+          right: [ { pattern: '($type && context.instance == variables.instance)' } ], 
+          passthrough: true
+      }, 
+      bridge: "{ ...next(operator), listable: true, isList: true, value: append(before, after) }"
+    },
     {id: "list", level: 1, selector: {match: "same", left: [ { pattern: '($type && context.instance == variables.instance)' } ], passthrough: true}, bridge: "{ ...operator, value: append(before, operator.value) }"},
 
     {   
@@ -885,6 +895,14 @@ knowledgeModule( {
   createConfig, newWay: true,
   test: {
     name: './dialogues.test.json',
-    contents: dialogues_tests
+    contents: dialogues_tests,
+    checks: {
+            context: [
+              'marker',
+              'text',
+              { 'value': ['marker', 'text', 'value'] },
+            ],
+          },
+
   },
 })

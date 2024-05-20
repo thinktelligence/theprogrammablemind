@@ -69,6 +69,13 @@ knowledgeModule({
   createConfig,
   test: {
     name: './comparable.test.json',
-    contents: comparable_tests
+    contents: comparable_tests,
+    checks: {
+            context: [
+              'marker',
+              'text',
+              { 'value': ['marker', 'text', 'value'] },
+            ],
+          },
   },
 })

@@ -53,6 +53,13 @@ knowledgeModule({
   createConfig,
   test: {
     name: './sizeable.test.json',
-    contents: sizeable_tests
+    contents: sizeable_tests,
+    checks: {
+            context: [
+              'marker',
+              'text',
+              { 'value': ['marker', 'text', 'value'] },
+            ],
+          },
   },
 })

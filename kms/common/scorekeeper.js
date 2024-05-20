@@ -384,7 +384,14 @@ knowledgeModule( {
   createConfig,
   test: {
     name: './scorekeeper.test.json',
-    contents: scorekeeper_tests
+    contents: scorekeeper_tests,
+    checks: {
+            context: [
+              'marker',
+              'text',
+              { 'value': ['marker', 'text', 'value'] },
+            ],
+          },
   },
   template: {
     template,

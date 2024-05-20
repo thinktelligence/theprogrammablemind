@@ -25,6 +25,14 @@ knowledgeModule( {
             },
       template: {
         template,
-        instance: dimensionTemplate_instance
+        instance: dimensionTemplate_instance,
+        checks: {
+            context: [
+              'marker',
+              'text',
+              { 'value': ['marker', 'text', 'value'] },
+            ],
+          },
+
       }
 })

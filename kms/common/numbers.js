@@ -90,6 +90,14 @@ knowledgeModule( {
   description: 'talking about numbers',
   test: {
     name: './numbers.test.json',
-    contents: numbers_tests
+    contents: numbers_tests,
+    checks: {
+            context: [
+              'marker',
+              'text',
+              { 'value': ['marker', 'text', 'value'] },
+            ],
+          },
+
   },
 })

@@ -49,7 +49,14 @@ knowledgeModule( {
   description: 'punctuation',
   test: {
     name: './punctuation.test.json',
-    contents: punctuation_tests
+    contents: punctuation_tests,
+    checks: {
+            context: [
+              'marker',
+              'text',
+              { 'value': ['marker', 'text', 'value'] },
+            ],
+          },
   },
 })
 

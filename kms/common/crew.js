@@ -87,5 +87,12 @@ knowledgeModule( {
   template: {
     template,
     instance: crew_instance,
+    checks: {
+            context: [
+              'marker',
+              'text',
+              { 'value': ['marker', 'text', 'value'] },
+            ],
+          },
   },
 })

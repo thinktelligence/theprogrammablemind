@@ -308,6 +308,14 @@ knowledgeModule( {
     // TODO doesnt this need the KM
     checks: {
       objects: ['children', 'concept', 'parents', 'properties'],
+      checks: {
+            context: [
+              'marker',
+              'text',
+              { 'value': ['marker', 'text', 'value'] },
+            ],
+          },
+
     },
     includes: {
       words: true,

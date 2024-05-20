@@ -598,4 +598,9 @@ fi
 # $NODE fastfood -q 'combo number one and two' -g -d
 # node reports -q 'answer with sentences list the models' -g -d
 # $NODE fastfood -q '2 french fries' -g -d
-node concept -q 'raw chicken modifies strips\n raw chicken strips' -d -g
+# node concept -q 'raw chicken modifies strips\n raw chicken strips' -d -g
+# node fastfood -q "spicy homestyle (asiago ranch chicken club) (10 piece nuggets) (ultimate chicken grill) and (premium cod) are sandwiches" -g -d -daa
+# node fastfood -q "spicy homestyle (asiago ranch chicken club) (ultimate chicken grill) and (premium cod) are sandwiches" -g -d -daa
+# node fastfood -q "spicy homestyle asiago ranch chicken club ultimate chicken grill and premium cod are sandwiches" -g -d -daa
+# $NODE properties -q 'xfx between a1 and a2' -g -d
+$NODE formulas -q 'fahrenheit = celcius*(9/5) + 32' -g -d

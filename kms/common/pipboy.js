@@ -521,7 +521,12 @@ knowledgeModule({
     checks: {
       objects: [
         'apply', 'change', 'disarm', 'drink', 'eat', 'equip', 'setName', 'strip', 'take', 'wear',
-      ]
+      ],
+      context: [
+        'marker',
+        'text',
+        { 'value': ['marker', 'text', 'value'] },
+      ],
     },
   },
 })

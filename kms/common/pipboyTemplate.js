@@ -39,6 +39,13 @@ knowledgeModule({
   template: { template, instance },
   test: {
     name: './pipboyTemplate.test.json',
-    contents: tests
+    contents: tests,
+    checks: {
+            context: [
+              'marker',
+              'text',
+              { 'value': ['marker', 'text', 'value'] },
+            ],
+          },
   },
 })

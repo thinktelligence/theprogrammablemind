@@ -198,6 +198,13 @@ knowledgeModule({
   createConfig,
   test: {
     name: './characters.test.json',
-    contents: characters_tests
+    contents: characters_tests,
+    checks: {
+        context: [
+              'marker',
+              'text',
+              { 'value': ['marker', 'text', 'value'] },
+            ],
+          },
   },
 })

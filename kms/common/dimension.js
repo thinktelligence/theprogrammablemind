@@ -181,6 +181,14 @@ knowledgeModule({
     contents: dimension_tests,
     checks: {
       objects: [{ km: 'properties' }],
+      checks: {
+            context: [
+              'marker',
+              'text',
+              { 'value': ['marker', 'text', 'value'] },
+            ],
+          },
+
     }
   },
 })

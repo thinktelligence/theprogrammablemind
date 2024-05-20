@@ -127,7 +127,12 @@ let configStruct = {
   ],
   bridges: [
     { id: 'xfx', level: 0, bridge: "{ ...next(operator) }" },
-    { id: 'between', level: 0, bridge: "{ ...next(operator), arguments: after[0] }" },
+    { 
+      id: 'between', 
+      isA: ['preposition'],
+      level: 0, 
+      bridge: "{ ...next(operator), arguments: after[0] }" 
+    },
     { id: 'between', level: 1, bridge: "{ ...before[0], arguments: operator.arguments }" },
 
     { id: 'hierarchyAble', level: 0, bridge: "{ ...next(operator) }" },
@@ -176,6 +181,8 @@ let configStruct = {
     // "your": [{ id: 'objectPrefix', initial: "{ value: 'self' }" }],
   },
   priorities: [
+    [['between', 0], ['list', 0]],
+    [['between', 0], ['list', 1]],
     [['is', 0], ['between', 1]],
     [['is', 0], ['hierarchyAble', 0]],
     [['a', 0], ['is', 0], ['hierarchyAble', 0]],
@@ -695,7 +702,12 @@ knowledgeModule( {
     name: './properties.test.json',
     contents: properties_tests,
     checks: {
-      objects: [
+      context: [
+        'marker',
+        'text',
+        { 'value': ['marker', 'text', 'value'] },
+      ],
+      xobjects: [
         'children', 
         'concept', 
         'parents', 

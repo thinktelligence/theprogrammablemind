@@ -20,6 +20,14 @@ knowledgeModule({
   template: { template, instance },
   test: {
     name: './formulasTemplate.test.json',
-    contents: tests
+    contents: tests,
+    checks: {
+            context: [
+              'marker',
+              'text',
+              { 'value': ['marker', 'text', 'value'] },
+            ],
+          },
+
   },
 })
