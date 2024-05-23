@@ -96,7 +96,7 @@ let configStruct = {
     "(([expression]) [equals] ([expression]))",
   ],
   priorities: [
-    [['number', 0], ['mathematicalOperator', 0]],
+    [['mathematicalOperator', 0], ['number', 0], ],
   ],
   semantics: [
     {

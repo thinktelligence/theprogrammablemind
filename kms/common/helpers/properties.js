@@ -320,10 +320,10 @@ class API {
       })
       // config.addOperator({ id: operator, level: 1, words: [operator] })
       config.addBridge({ id: operator, level: 1, bridge: '{ ...next(operator) }', allowDups: true })
-      config.addPriorities([[operator, 1], ['does', 0]])
-      config.addPriorities([[operator, 1], ['doesnt', 0]])
-      config.addPriorities([['does', 0], [operator, 0]])
-      config.addPriorities([['doesnt', 0], [operator, 0]])
+      config.addPriorities([['does', 0], [operator, 1], ])
+      config.addPriorities([['doesnt', 0], [operator, 1], ])
+      config.addPriorities([[operator, 0], ['does', 0], ])
+      config.addPriorities([[operator, 0], ['doesnt', 0], ])
     } else {
       config.addOperator({ pattern: `(${beforeOperators} [${operator}|] ${afterOperators})`, allowDups: true })
     }
@@ -382,8 +382,8 @@ class API {
       config.addHierarchy(operator, 'canBeDoQuestion')
     }
 
-    config.addPriorities([['means', 0], [operator, 0]])
-    config.addPriorities([[operator, 0], ['articlePOS', 0]])
+    config.addPriorities([[operator, 0], ['means', 0], ])
+    config.addPriorities([['articlePOS', 0], [operator, 0], ])
 
     config.addGenerator({
       notes: 'ordering generator for paraphrase',

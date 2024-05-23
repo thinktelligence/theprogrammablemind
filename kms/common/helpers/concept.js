@@ -89,10 +89,10 @@ class API {
       config.addHierarchy(modifiersObjectId, 'hierarchyAble')
     }
 
-    modifierIds.forEach((modifierId) => config.addPriorities([['articlePOS', 0], [modifierId, 0]]))
-    config.addPriorities([['articlePOS', 0], [objectId, 0]])
-    modifierIds.forEach((modifierId) => config.addPriorities([[modifierId, 0], [modifiersObjectId, 0]]))
-    config.addPriorities([[objectId, 0], [modifiersObjectId, 0]])
+    modifierIds.forEach((modifierId) => config.addPriorities([[modifierId, 0], ['articlePOS', 0]]))
+    config.addPriorities([[objectId, 0], ['articlePOS', 0], ])
+    modifierIds.forEach((modifierId) => config.addPriorities([[modifiersObjectId, 0], [modifierId, 0], ]))
+    config.addPriorities([[modifiersObjectId, 0], [objectId, 0], ])
     // config.addPriorities([['list', 0], [modifiersObjectId, 0]])
   }
 

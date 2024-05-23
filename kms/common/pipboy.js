@@ -143,8 +143,8 @@ let configStruct = {
     // ['weapon', 'showable'],
   ],
   priorities: [
-    [['to2', 0], ['articlePOS', 0]],
-    [['articlePOS', 0], ['tab', 0]],
+    [['articlePOS', 0], ['to2', 0], ],
+    [['tab', 0], ['articlePOS', 0], ],
     // TODO this should trigger a circular warning or somethign [['put', 0], ['on', 0]],
   ],
   bridges: [

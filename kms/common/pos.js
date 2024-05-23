@@ -22,12 +22,12 @@ let configStruct = {
     { "id": "noun" },
   ],
   priorities: [
-    [['verby', 0], ['pronoun', 0]],
-    [['verby', 0], ['preposition', 0]],
-    [['verby', 0], ['adjective', 0]],
-    [['verby', 0], ['articlePOS', 0]],
-    [['verby', 0], ['punctuation', 0]],
-    [['verby', 0], ['noun', 0]],
+    [['pronoun', 0], ['verby', 0], ],
+    [['preposition', 0], ['verby', 0], ],
+    [['adjective', 0], ['verby', 0], ],
+    [['articlePOS', 0], ['verby', 0], ],
+    [['punctuation', 0], ['verby', 0], ],
+    [['noun', 0], ['verby', 0], ],
   ],
 
 };
