@@ -93,7 +93,7 @@ const template ={
           id: 'numberNumberCombo_combo',
           convolution: true,
           isA: ['food'],
-          before: ['meal', 'combo', 'counting'],
+          before: ['combo', 'counting'],
           // bridge: "{ ...before[0], combo: true, postModifiers: append(before[0].postModifiers, ['combo']), combo: after[0], flatten: true }",
           // bridge: "{ ...next(after[0]), modifiers: append(before[0].modifiers, ['type']), type: before[0], flatten: true }",
           bridge: "{ ...next(operator), modifiers: append(before[0].modifiers, ['comboNumber']), comboNumber: before[0], word: 'combo', flatten: true }",
@@ -108,7 +108,7 @@ const template ={
         { 
           id: 'comboNumber',
           convolution: true,
-          before: ['meal', 'combo'],
+          before: ['combo'],
           // bridge: "{ ...before[0], combo: true, postModifiers: append(before[0].postModifiers, ['combo']), combo: after[0], flatten: true }",
           bridge: "{ ...next(before[0]), postModifiers: append(before[0].modifiers, ['comboNumber']), comboNumber: after[0], instance: true, flatten: true }",
           nncBridge: "{ ...next(before[0]), postModifiers: append(before[0].modifiers, ['comboNumber']), comboNumber: after[0].comboNumber, flatten: true }",
@@ -117,7 +117,7 @@ const template ={
           id: 'numberNumberCombo',
           convolution: true,
           isA: ['food'],
-          before: ['meal', 'combo', 'comboNumber'],
+          before: ['combo', 'comboNumber'],
           bridge: "{ ...next(operator), word: 'number', combo: true, postModifiers: append(before[0].postModifiers, ['comboNumber']), comboNumber: after[0], flatten: true }",
           // bridge: "{ ...before[0], combo: true, postModifiers: append(before[0].postModifiers, ['combo']), combo: after[0], flatten: true }",
           // bridge: "{ marker: operator('combo', 0), postModifiers: append(before[0].modifiers, ['comboNumber']), comboNumber: after[0], flatten: true }",
@@ -243,6 +243,9 @@ const createConfig = () => {
       { context: [['number', 0], ['numberNumberCombo', 0], ['list', 1]], choose: [1] },
       { context: [['number', 1], ['numberNumberCombo', 1], ['combo', 0]], choose: [2] },
       { context: [['list', 0], ['number', 0], ['combo', 0], ['number', 0]], choose: [1,2,3] },
+      { context: [['list', 0], ['number', 1], ['combo', 0], ['number', 0]], choose: [1,2,3] },
+      { context: [['list', 0], ['number', 1], ['combo', 0], ['number', 1]], choose: [1,2,3] },
+      { context: [['combo', 1], ['list', 0], ['number', 1], ['combo', 1]], choose: [2,3] },
     ],
     semantics: [
       {
