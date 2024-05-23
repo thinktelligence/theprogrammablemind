@@ -603,4 +603,14 @@ fi
 # node fastfood -q "spicy homestyle (asiago ranch chicken club) (ultimate chicken grill) and (premium cod) are sandwiches" -g -d -daa
 # node fastfood -q "spicy homestyle asiago ranch chicken club ultimate chicken grill and premium cod are sandwiches" -g -d -daa
 # $NODE properties -q 'xfx between a1 and a2' -g -d
-$NODE formulas -q 'fahrenheit = celcius*(9/5) + 32' -g -d
+# $NODE formulas -q 'fahrenheit = celcius*(9/5) + 32' -g -d
+# $NODE fastfood -q 'single and double combo' -g -d --parenthesized -dic
+# $NODE fastfood -q 'combo one and two' -g -d --parenthesized
+# $NODE fastfood -q 'number one and two' -g -d --parenthesized -cl
+# $NODE fastfood -q 'double combo' -g -d --parenthesized -dic comboMeal $@
+# $NODE fastfood -q 'single double triple baconater and bacon deluxe are hamburgers' -g -d $@
+# $NODE fastfood -q 'single double triple baconater bacon deluxe spicy homestyle and premium cod are meals' -g -d $@
+# $NODE fastfood -q 'double combo' -g -d $@
+# $NODE inspect fastfood -q 'combo one and two' -g -d $@
+$NODE fastfood -q 'combo one and two' -g -d -cl '[["list", 0]]' 
+# $NODE fastfood -q 'single double triple baconater bacon deluxe spicy homestyle and premium cod are meals' -g -d -cl '[["list", 0]]' 

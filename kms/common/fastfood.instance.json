@@ -2,22 +2,37 @@
   "queries": [
     "food is countable",
     "bacon modifies deluxe",
-    "chicken modifies sandwich",
-    "premium modifies cod",
-    "ultimate chicken modifies grill",
-    "asiago ranch chicken modifies club",
-    "single double triple baconater and bacon deluxe are hamburgers",
-    "a meals is food",
-    "a combo is a meal",
-    "single double triple baconater bacon deluxe spicy homestyle and premium cod are meals",
     {
-      "where": "/home/dev/code/theprogrammablemind/kms/common/fastfood.js:53",
-      "operators": [
-        "((meal/0,1 && context.comboNumber == undefined) [comboMeal] (combo/0))",
-        "((combo/0) [comboNumber] (number/0,1 || numberNumberCombo/0,1))",
-        "((numberNumberCombo/1) [numberNumberCombo_combo|] (combo/0))",
-        "((number/0,1 && context.instance == undefined) [numberNumberCombo] (number/0,1))"
-      ],
+      "priorities": [
+        [
+          [
+            "list",
+            0
+          ],
+          [
+            "bacon_deluxe",
+            0
+          ]
+        ]
+      ]
+    },
+    "chicken modifies sandwich",
+    {
+      "priorities": [
+        [
+          [
+            "list",
+            0
+          ],
+          [
+            "chicken_sandwich",
+            0
+          ]
+        ]
+      ]
+    },
+    "premium modifies cod",
+    {
       "priorities": [
         [
           [
@@ -28,21 +43,87 @@
             "premium_cod",
             0
           ]
-        ],
+        ]
+      ]
+    },
+    "ultimate chicken modifies grill",
+    {
+      "priorities": [
         [
           [
             "list",
-            1
+            0
           ],
           [
-            "premium_cod",
+            "ultimate_chicken_grill",
+            0
+          ]
+        ]
+      ]
+    },
+    "asiago ranch chicken modifies club",
+    {
+      "priorities": [
+        [
+          [
+            "list",
+            0
+          ],
+          [
+            "asiago_ranch_chicken_club",
+            0
+          ]
+        ]
+      ]
+    },
+    "single double triple baconater and bacon deluxe are hamburgers",
+    "spicy homestyle asiago ranch chicken club 10 piece nuggets ultimate chicken grill and premium cod are sandwiches",
+    "a meals is food",
+    "a combo is a meal",
+    "single double triple baconater bacon deluxe spicy homestyle and premium cod are meals",
+    {
+      "where": "/home/dev/code/theprogrammablemind/kms/common/fastfood.js:58",
+      "operators": [
+        "((meal/* && context.comboNumber == undefined) [comboMeal] (combo/*))",
+        "((combo/*) [comboNumber] (number/* || numberNumberCombo/*))",
+        "((numberNumberCombo/1) [numberNumberCombo_combo|] (combo/0))",
+        "((number/0,1 && context.instance == undefined) [numberNumberCombo] (number/0,1))"
+      ],
+      "priorities": [
+        [
+          [
+            "numberNumberCombo",
+            0
+          ],
+          [
+            "number",
+            0
+          ]
+        ],
+        [
+          [
+            "numberNumberCombo",
+            0
+          ],
+          [
+            "list",
+            0
+          ]
+        ],
+        [
+          [
+            "comboNumber",
+            0
+          ],
+          [
+            "list",
             0
           ]
         ]
       ],
       "generators": [
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/fastfood.js:70",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/fastfood.js:86",
           "match": "({context}) => false && context.marker == 'combo' && context.comboNumber",
           "apply": "({context, g}) => g(context.comboNumber)"
         }
@@ -2530,6 +2611,21 @@
       }
     },
     {
+      "extraConfig": true,
+      "priorities": [
+        [
+          [
+            "list",
+            0
+          ],
+          [
+            "bacon_deluxe",
+            0
+          ]
+        ]
+      ]
+    },
+    {
       "hierarchy": [
         [
           "a",
@@ -3827,6 +3923,21 @@
       "key": {
         "query": "chicken modifies sandwich"
       }
+    },
+    {
+      "extraConfig": true,
+      "priorities": [
+        [
+          [
+            "list",
+            0
+          ],
+          [
+            "chicken_sandwich",
+            0
+          ]
+        ]
+      ]
     },
     {
       "hierarchy": [
@@ -5177,6 +5288,21 @@
       "key": {
         "query": "premium modifies cod"
       }
+    },
+    {
+      "extraConfig": true,
+      "priorities": [
+        [
+          [
+            "list",
+            0
+          ],
+          [
+            "premium_cod",
+            0
+          ]
+        ]
+      ]
     },
     {
       "hierarchy": [
@@ -6682,6 +6808,21 @@
       "key": {
         "query": "ultimate chicken modifies grill"
       }
+    },
+    {
+      "extraConfig": true,
+      "priorities": [
+        [
+          [
+            "list",
+            0
+          ],
+          [
+            "ultimate_chicken_grill",
+            0
+          ]
+        ]
+      ]
     },
     {
       "hierarchy": [
@@ -8325,6 +8466,21 @@
       "key": {
         "query": "asiago ranch chicken modifies club"
       }
+    },
+    {
+      "extraConfig": true,
+      "priorities": [
+        [
+          [
+            "list",
+            0
+          ],
+          [
+            "asiago_ranch_chicken_club",
+            0
+          ]
+        ]
+      ]
     },
     {
       "hierarchy": [
@@ -10026,7 +10182,7 @@
           },
           {
             "op": [
-              "hamburger",
+              "list",
               0
             ],
             "ops": [
@@ -10048,7 +10204,7 @@
           {
             "op": [
               "list",
-              0
+              1
             ],
             "ops": [
               [
@@ -10056,8 +10212,12 @@
                 0
               ],
               [
-                "list",
+                "hamburger",
                 0
+              ],
+              [
+                "list",
+                1
               ]
             ],
             "counter": 7
@@ -10070,6 +10230,10 @@
             "ops": [
               [
                 "is",
+                0
+              ],
+              [
+                "hamburger",
                 0
               ],
               [
@@ -10090,6 +10254,10 @@
                 0
               ],
               [
+                "hamburger",
+                0
+              ],
+              [
                 "list",
                 1
               ]
@@ -10098,8 +10266,8 @@
           },
           {
             "op": [
-              "list",
-              1
+              "hamburger",
+              0
             ],
             "ops": [
               [
@@ -10107,8 +10275,8 @@
                 0
               ],
               [
-                "list",
-                1
+                "hamburger",
+                0
               ]
             ],
             "counter": 10
@@ -10412,12 +10580,30 @@
         ],
         [
           [
+            "hamburger",
+            0
+          ],
+          [
             "is",
             0
           ],
           [
             "list",
+            1
+          ]
+        ],
+        [
+          [
+            "hamburger",
             0
+          ],
+          [
+            "is",
+            0
+          ],
+          [
+            "list",
+            1
           ],
           [
             "unknown",
@@ -10431,20 +10617,6 @@
           ],
           [
             "list",
-            1
-          ]
-        ],
-        [
-          [
-            "is",
-            0
-          ],
-          [
-            "list",
-            1
-          ],
-          [
-            "unknown",
             1
           ]
         ]
@@ -12106,7 +12278,7 @@
             ],
             "ops": [
               [
-                "a",
+                "unknown",
                 0
               ],
               [
@@ -12114,11 +12286,79 @@
                 0
               ],
               [
+                "asiago",
+                0
+              ],
+              [
+                "ranch",
+                0
+              ],
+              [
+                "chicken",
+                0
+              ],
+              [
+                "club",
+                0
+              ],
+              [
+                "number",
+                0
+              ],
+              [
+                "unknown",
+                0
+              ],
+              [
+                "unknown",
+                0
+              ],
+              [
+                "ultimate",
+                0
+              ],
+              [
+                "chicken",
+                0
+              ],
+              [
+                "grill",
+                0
+              ],
+              [
+                "premium",
+                0
+              ],
+              [
+                "cod",
+                0
+              ],
+              [
                 "is",
                 0
               ],
               [
-                "food",
+                "sandwich",
+                0
+              ],
+              [
+                "ultimate_chicken_grill",
+                0
+              ],
+              [
+                "premium_cod",
+                0
+              ],
+              [
+                "asiago_ranch_chicken_club",
+                0
+              ],
+              [
+                "counting",
+                0
+              ],
+              [
+                "list",
                 0
               ]
             ],
@@ -12126,12 +12366,60 @@
           },
           {
             "op": [
-              "food",
+              "unknown",
               0
             ],
             "ops": [
               [
-                "a",
+                "unknown",
+                0
+              ],
+              [
+                "asiago",
+                0
+              ],
+              [
+                "ranch",
+                0
+              ],
+              [
+                "chicken",
+                0
+              ],
+              [
+                "club",
+                0
+              ],
+              [
+                "number",
+                0
+              ],
+              [
+                "unknown",
+                0
+              ],
+              [
+                "unknown",
+                0
+              ],
+              [
+                "ultimate",
+                0
+              ],
+              [
+                "chicken",
+                0
+              ],
+              [
+                "grill",
+                0
+              ],
+              [
+                "premium",
+                0
+              ],
+              [
+                "cod",
                 0
               ],
               [
@@ -12139,7 +12427,27 @@
                 0
               ],
               [
-                "food",
+                "sandwich",
+                0
+              ],
+              [
+                "ultimate_chicken_grill",
+                0
+              ],
+              [
+                "premium_cod",
+                0
+              ],
+              [
+                "asiago_ranch_chicken_club",
+                0
+              ],
+              [
+                "counting",
+                0
+              ],
+              [
+                "list",
                 0
               ]
             ],
@@ -12147,12 +12455,494 @@
           },
           {
             "op": [
-              "a",
+              "unknown",
               0
             ],
             "ops": [
               [
-                "a",
+                "asiago",
+                0
+              ],
+              [
+                "ranch",
+                0
+              ],
+              [
+                "chicken",
+                0
+              ],
+              [
+                "club",
+                0
+              ],
+              [
+                "number",
+                0
+              ],
+              [
+                "unknown",
+                0
+              ],
+              [
+                "unknown",
+                0
+              ],
+              [
+                "ultimate",
+                0
+              ],
+              [
+                "chicken",
+                0
+              ],
+              [
+                "grill",
+                0
+              ],
+              [
+                "premium",
+                0
+              ],
+              [
+                "cod",
+                0
+              ],
+              [
+                "is",
+                0
+              ],
+              [
+                "sandwich",
+                0
+              ],
+              [
+                "ultimate_chicken_grill",
+                0
+              ],
+              [
+                "premium_cod",
+                0
+              ],
+              [
+                "asiago_ranch_chicken_club",
+                0
+              ],
+              [
+                "counting",
+                0
+              ],
+              [
+                "list",
+                0
+              ]
+            ],
+            "counter": 3
+          },
+          {
+            "op": [
+              "unknown",
+              0
+            ],
+            "ops": [
+              [
+                "asiago",
+                0
+              ],
+              [
+                "ranch",
+                0
+              ],
+              [
+                "chicken",
+                0
+              ],
+              [
+                "club",
+                0
+              ],
+              [
+                "number",
+                0
+              ],
+              [
+                "unknown",
+                0
+              ],
+              [
+                "ultimate",
+                0
+              ],
+              [
+                "chicken",
+                0
+              ],
+              [
+                "grill",
+                0
+              ],
+              [
+                "premium",
+                0
+              ],
+              [
+                "cod",
+                0
+              ],
+              [
+                "is",
+                0
+              ],
+              [
+                "sandwich",
+                0
+              ],
+              [
+                "ultimate_chicken_grill",
+                0
+              ],
+              [
+                "premium_cod",
+                0
+              ],
+              [
+                "asiago_ranch_chicken_club",
+                0
+              ],
+              [
+                "counting",
+                0
+              ],
+              [
+                "list",
+                0
+              ]
+            ],
+            "counter": 4
+          },
+          {
+            "op": [
+              "asiago_ranch_chicken_club",
+              0
+            ],
+            "ops": [
+              [
+                "asiago",
+                0
+              ],
+              [
+                "ranch",
+                0
+              ],
+              [
+                "chicken",
+                0
+              ],
+              [
+                "asiago_ranch_chicken_club",
+                0
+              ],
+              [
+                "club",
+                0
+              ],
+              [
+                "number",
+                0
+              ],
+              [
+                "counting",
+                0
+              ],
+              [
+                "ultimate",
+                0
+              ],
+              [
+                "grill",
+                0
+              ],
+              [
+                "ultimate_chicken_grill",
+                0
+              ],
+              [
+                "list",
+                0
+              ],
+              [
+                "premium",
+                0
+              ],
+              [
+                "cod",
+                0
+              ],
+              [
+                "premium_cod",
+                0
+              ],
+              [
+                "is",
+                0
+              ],
+              [
+                "sandwich",
+                0
+              ]
+            ],
+            "counter": 5
+          },
+          {
+            "op": [
+              "number",
+              0
+            ],
+            "ops": [
+              [
+                "number",
+                0
+              ],
+              [
+                "ultimate",
+                0
+              ],
+              [
+                "chicken",
+                0
+              ],
+              [
+                "grill",
+                0
+              ],
+              [
+                "premium",
+                0
+              ],
+              [
+                "cod",
+                0
+              ],
+              [
+                "is",
+                0
+              ],
+              [
+                "sandwich",
+                0
+              ],
+              [
+                "ultimate_chicken_grill",
+                0
+              ],
+              [
+                "premium_cod",
+                0
+              ],
+              [
+                "counting",
+                0
+              ],
+              [
+                "list",
+                0
+              ]
+            ],
+            "counter": 6
+          },
+          {
+            "op": [
+              "ultimate_chicken_grill",
+              0
+            ],
+            "ops": [
+              [
+                "counting",
+                0
+              ],
+              [
+                "ultimate",
+                0
+              ],
+              [
+                "chicken",
+                0
+              ],
+              [
+                "grill",
+                0
+              ],
+              [
+                "ultimate_chicken_grill",
+                0
+              ],
+              [
+                "list",
+                0
+              ],
+              [
+                "premium",
+                0
+              ],
+              [
+                "cod",
+                0
+              ],
+              [
+                "premium_cod",
+                0
+              ],
+              [
+                "is",
+                0
+              ],
+              [
+                "sandwich",
+                0
+              ]
+            ],
+            "counter": 7
+          },
+          {
+            "op": [
+              "premium_cod",
+              0
+            ],
+            "ops": [
+              [
+                "counting",
+                0
+              ],
+              [
+                "list",
+                0
+              ],
+              [
+                "premium",
+                0
+              ],
+              [
+                "cod",
+                0
+              ],
+              [
+                "premium_cod",
+                0
+              ],
+              [
+                "is",
+                0
+              ],
+              [
+                "sandwich",
+                0
+              ]
+            ],
+            "counter": 8
+          },
+          {
+            "op": [
+              "list",
+              0
+            ],
+            "ops": [
+              [
+                "is",
+                0
+              ],
+              [
+                "sandwich",
+                0
+              ],
+              [
+                "counting",
+                0
+              ],
+              [
+                "list",
+                0
+              ]
+            ],
+            "counter": 9
+          },
+          {
+            "op": [
+              "list",
+              1
+            ],
+            "ops": [
+              [
+                "is",
+                0
+              ],
+              [
+                "sandwich",
+                0
+              ],
+              [
+                "counting",
+                0
+              ],
+              [
+                "list",
+                1
+              ]
+            ],
+            "counter": 10
+          },
+          {
+            "op": [
+              "list",
+              1
+            ],
+            "ops": [
+              [
+                "is",
+                0
+              ],
+              [
+                "sandwich",
+                0
+              ],
+              [
+                "counting",
+                0
+              ],
+              [
+                "list",
+                1
+              ]
+            ],
+            "counter": 11
+          },
+          {
+            "op": [
+              "sandwich",
+              0
+            ],
+            "ops": [
+              [
+                "is",
+                0
+              ],
+              [
+                "sandwich",
+                0
+              ],
+              [
+                "counting",
+                0
+              ]
+            ],
+            "counter": 12
+          },
+          {
+            "op": [
+              "counting",
+              0
+            ],
+            "ops": [
+              [
+                "counting",
                 0
               ],
               [
@@ -12160,7 +12950,58 @@
                 0
               ]
             ],
-            "counter": 3
+            "counter": 13
+          },
+          {
+            "op": [
+              "list",
+              1
+            ],
+            "ops": [
+              [
+                "is",
+                0
+              ],
+              [
+                "list",
+                1
+              ]
+            ],
+            "counter": 14
+          },
+          {
+            "op": [
+              "list",
+              1
+            ],
+            "ops": [
+              [
+                "is",
+                0
+              ],
+              [
+                "list",
+                1
+              ]
+            ],
+            "counter": 15
+          },
+          {
+            "op": [
+              "list",
+              1
+            ],
+            "ops": [
+              [
+                "is",
+                0
+              ],
+              [
+                "list",
+                1
+              ]
+            ],
+            "counter": 16
           },
           {
             "op": [
@@ -12173,7 +13014,7 @@
                 0
               ]
             ],
-            "counter": 4
+            "counter": 17
           },
           {
             "op": [
@@ -12186,68 +13027,277 @@
                 1
               ]
             ],
-            "counter": 5
+            "counter": 18
           }
         ]
       },
       "trace": "undefined",
       "contexts": [
         {
-          "number": "one",
-          "text": "a meals is food",
+          "number": "many",
+          "text": "spicy homestyle asiago ranch chicken club 10 piece nuggets ultimate chicken grill and premium cod are sandwiches",
           "marker": "is",
-          "word": "is",
+          "word": "are",
           "range": {
             "start": 0,
-            "end": 14
+            "end": 111
           },
           "one": {
-            "number": "one",
-            "marker": "unknown",
+            "number": "many",
+            "marker": "list",
+            "default": true,
+            "word": "and",
+            "text": "spicy homestyle asiago ranch chicken club 10 piece nuggets ultimate chicken grill and premium cod",
             "range": {
               "start": 0,
-              "end": 14
+              "end": 111
             },
-            "word": "meals",
-            "text": "a meals",
-            "value": "meals",
-            "unknown": true,
-            "dead": true,
             "types": [
+              "countable",
+              "list",
               "unknown"
             ],
-            "pullFromContext": false,
-            "concept": true,
-            "wantsValue": true,
-            "determiner": {
-              "marker": "a",
-              "default": true,
-              "word": "a",
-              "text": "a",
-              "range": {
-                "start": 0,
-                "end": 0
+            "listable": true,
+            "isList": true,
+            "value": [
+              {
+                "marker": "unknown",
+                "range": {
+                  "start": 0,
+                  "end": 4
+                },
+                "word": "spicy",
+                "text": "spicy",
+                "value": "spicy",
+                "unknown": true,
+                "dead": true,
+                "level": 1
               },
-              "level": 0
-            },
-            "modifiers": [
-              "determiner"
+              {
+                "marker": "unknown",
+                "range": {
+                  "start": 6,
+                  "end": 14
+                },
+                "word": "homestyle",
+                "text": "homestyle",
+                "value": "homestyle",
+                "unknown": true,
+                "dead": true,
+                "level": 1
+              },
+              {
+                "value": "asiago_ranch_chicken_club",
+                "number": "one",
+                "text": "asiago ranch chicken club",
+                "marker": "asiago_ranch_chicken_club",
+                "word": "club",
+                "range": {
+                  "start": 16,
+                  "end": 40
+                },
+                "types": [
+                  "asiago_ranch_chicken_club",
+                  "club"
+                ],
+                "asiago": {
+                  "value": "asiago",
+                  "text": "asiago",
+                  "marker": "asiago",
+                  "word": "asiago",
+                  "range": {
+                    "start": 16,
+                    "end": 21
+                  },
+                  "types": [
+                    "asiago"
+                  ],
+                  "level": 0
+                },
+                "ranch": {
+                  "value": "ranch",
+                  "text": "ranch",
+                  "marker": "ranch",
+                  "word": "ranch",
+                  "range": {
+                    "start": 23,
+                    "end": 27
+                  },
+                  "types": [
+                    "ranch"
+                  ],
+                  "level": 0
+                },
+                "chicken": {
+                  "value": "chicken",
+                  "text": "chicken",
+                  "marker": "chicken",
+                  "word": "chicken",
+                  "range": {
+                    "start": 29,
+                    "end": 35
+                  },
+                  "types": [
+                    "chicken"
+                  ],
+                  "level": 0
+                },
+                "atomic": true,
+                "dead": true,
+                "modifiers": [
+                  "asiago",
+                  "ranch",
+                  "chicken"
+                ],
+                "level": 1
+              },
+              {
+                "marker": "unknown",
+                "range": {
+                  "start": 45,
+                  "end": 49
+                },
+                "word": "piece",
+                "text": "piece",
+                "value": "piece",
+                "types": [
+                  "countable",
+                  "unknown"
+                ],
+                "unknown": true,
+                "dead": true,
+                "level": 1
+              },
+              {
+                "marker": "unknown",
+                "range": {
+                  "start": 51,
+                  "end": 57
+                },
+                "word": "nuggets",
+                "text": "nuggets",
+                "value": "nuggets",
+                "unknown": true,
+                "dead": true,
+                "level": 1
+              },
+              {
+                "value": "ultimate_chicken_grill",
+                "number": "one",
+                "text": "ultimate chicken grill",
+                "marker": "ultimate_chicken_grill",
+                "word": "grill",
+                "range": {
+                  "start": 59,
+                  "end": 80
+                },
+                "types": [
+                  "grill",
+                  "ultimate_chicken_grill"
+                ],
+                "ultimate": {
+                  "value": "ultimate",
+                  "text": "ultimate",
+                  "marker": "ultimate",
+                  "word": "ultimate",
+                  "range": {
+                    "start": 59,
+                    "end": 66
+                  },
+                  "types": [
+                    "ultimate"
+                  ],
+                  "level": 0
+                },
+                "chicken": {
+                  "value": "chicken",
+                  "text": "chicken",
+                  "marker": "chicken",
+                  "word": "chicken",
+                  "range": {
+                    "start": 68,
+                    "end": 74
+                  },
+                  "types": [
+                    "chicken"
+                  ],
+                  "level": 0
+                },
+                "atomic": true,
+                "dead": true,
+                "modifiers": [
+                  "ultimate",
+                  "chicken"
+                ],
+                "level": 1
+              },
+              {
+                "value": "premium_cod",
+                "number": "many",
+                "text": "premium cod",
+                "marker": "premium_cod",
+                "word": "cod",
+                "range": {
+                  "start": 86,
+                  "end": 96
+                },
+                "types": [
+                  "cod",
+                  "premium_cod"
+                ],
+                "premium": {
+                  "value": "premium",
+                  "text": "premium",
+                  "marker": "premium",
+                  "word": "premium",
+                  "range": {
+                    "start": 86,
+                    "end": 92
+                  },
+                  "types": [
+                    "premium"
+                  ],
+                  "level": 0
+                },
+                "atomic": true,
+                "dead": true,
+                "modifiers": [
+                  "premium"
+                ],
+                "level": 1
+              }
             ],
+            "quantity": {
+              "value": 10,
+              "instance": true,
+              "text": "10",
+              "marker": "number",
+              "word": "10",
+              "range": {
+                "start": 42,
+                "end": 43
+              },
+              "types": [
+                "number"
+              ],
+              "dead": true,
+              "level": 1
+            },
             "level": 1
           },
           "two": {
-            "value": "food",
-            "number": "one",
-            "text": "food",
-            "marker": "food",
-            "word": "food",
+            "value": "sandwich",
+            "number": "many",
+            "text": "sandwiches",
+            "marker": "sandwich",
+            "word": "sandwiches",
             "range": {
-              "start": 11,
-              "end": 14
+              "start": 102,
+              "end": 111
             },
             "dead": true,
             "types": [
-              "food"
+              "sandwich"
             ],
             "level": 1,
             "concept": true
@@ -12264,7 +13314,7 @@
         ""
       ],
       "paraphrases": [
-        "a meals is food"
+        "10 spicy, homestyle, asiago ranch chicken club, piece, nuggets, ultimate chicken grill and premium cod are sandwiches"
       ],
       "paraphrasesParenthesized": [],
       "generatedParenthesized": [],
@@ -12274,15 +13324,51 @@
       "associations": [
         [
           [
-            "a",
+            "asiago",
             0
           ],
           [
-            "food",
+            "chicken",
+            0
+          ],
+          [
+            "club",
+            0
+          ],
+          [
+            "cod",
+            0
+          ],
+          [
+            "grill",
             0
           ],
           [
             "is",
+            0
+          ],
+          [
+            "list",
+            0
+          ],
+          [
+            "number",
+            0
+          ],
+          [
+            "premium",
+            0
+          ],
+          [
+            "ranch",
+            0
+          ],
+          [
+            "sandwich",
+            0
+          ],
+          [
+            "ultimate",
             0
           ],
           [
@@ -12292,15 +13378,55 @@
         ],
         [
           [
-            "a",
+            "asiago",
             0
           ],
           [
-            "food",
+            "chicken",
+            0
+          ],
+          [
+            "club",
+            0
+          ],
+          [
+            "cod",
+            0
+          ],
+          [
+            "grill",
             0
           ],
           [
             "is",
+            0
+          ],
+          [
+            "list",
+            0
+          ],
+          [
+            "number",
+            0
+          ],
+          [
+            "premium",
+            0
+          ],
+          [
+            "ranch",
+            0
+          ],
+          [
+            "sandwich",
+            0
+          ],
+          [
+            "ultimate",
+            0
+          ],
+          [
+            "unknown",
             0
           ],
           [
@@ -12310,11 +13436,195 @@
         ],
         [
           [
-            "a",
+            "asiago",
+            0
+          ],
+          [
+            "chicken",
+            0
+          ],
+          [
+            "club",
+            0
+          ],
+          [
+            "cod",
+            0
+          ],
+          [
+            "grill",
             0
           ],
           [
             "is",
+            0
+          ],
+          [
+            "list",
+            0
+          ],
+          [
+            "number",
+            0
+          ],
+          [
+            "premium",
+            0
+          ],
+          [
+            "ranch",
+            0
+          ],
+          [
+            "sandwich",
+            0
+          ],
+          [
+            "ultimate",
+            0
+          ],
+          [
+            "unknown",
+            1
+          ]
+        ],
+        [
+          [
+            "asiago",
+            0
+          ],
+          [
+            "chicken",
+            0
+          ],
+          [
+            "club",
+            0
+          ],
+          [
+            "cod",
+            0
+          ],
+          [
+            "grill",
+            0
+          ],
+          [
+            "premium",
+            0
+          ],
+          [
+            "ranch",
+            0
+          ],
+          [
+            "ultimate",
+            0
+          ],
+          [
+            "unknown",
+            0
+          ]
+        ],
+        [
+          [
+            "chicken",
+            0
+          ],
+          [
+            "cod",
+            0
+          ],
+          [
+            "grill",
+            0
+          ],
+          [
+            "is",
+            0
+          ],
+          [
+            "list",
+            0
+          ],
+          [
+            "number",
+            0
+          ],
+          [
+            "premium",
+            0
+          ],
+          [
+            "sandwich",
+            0
+          ],
+          [
+            "ultimate",
+            0
+          ],
+          [
+            "unknown",
+            1
+          ]
+        ],
+        [
+          [
+            "chicken",
+            0
+          ],
+          [
+            "cod",
+            0
+          ],
+          [
+            "grill",
+            0
+          ],
+          [
+            "is",
+            0
+          ],
+          [
+            "list",
+            0
+          ],
+          [
+            "premium",
+            0
+          ],
+          [
+            "sandwich",
+            0
+          ],
+          [
+            "ultimate",
+            0
+          ],
+          [
+            "unknown",
+            1
+          ]
+        ],
+        [
+          [
+            "cod",
+            0
+          ],
+          [
+            "is",
+            0
+          ],
+          [
+            "list",
+            0
+          ],
+          [
+            "premium",
+            0
+          ],
+          [
+            "sandwich",
             0
           ],
           [
@@ -12326,6 +13636,56 @@
           [
             "is",
             0
+          ],
+          [
+            "list",
+            0
+          ],
+          [
+            "sandwich",
+            0
+          ],
+          [
+            "unknown",
+            1
+          ]
+        ],
+        [
+          [
+            "is",
+            0
+          ],
+          [
+            "list",
+            1
+          ]
+        ],
+        [
+          [
+            "is",
+            0
+          ],
+          [
+            "list",
+            1
+          ],
+          [
+            "sandwich",
+            0
+          ],
+          [
+            "unknown",
+            1
+          ]
+        ],
+        [
+          [
+            "is",
+            0
+          ],
+          [
+            "list",
+            1
           ],
           [
             "unknown",
@@ -12333,9 +13693,9 @@
           ]
         ]
       ],
-      "query": "a meals is food",
+      "query": "spicy homestyle asiago ranch chicken club 10 piece nuggets ultimate chicken grill and premium cod are sandwiches",
       "key": {
-        "query": "a meals is food"
+        "query": "spicy homestyle asiago ranch chicken club 10 piece nuggets ultimate chicken grill and premium cod are sandwiches"
       }
     },
     {
@@ -12447,6 +13807,10 @@
         [
           "asiago_ranch_chicken_club",
           "queryable"
+        ],
+        [
+          "asiago_ranch_chicken_club",
+          "sandwich"
         ],
         [
           "asiago_ranch_chicken_club",
@@ -13221,6 +14585,38 @@
           "queryable"
         ],
         [
+          "homestyle",
+          "hierarchyAble"
+        ],
+        [
+          "homestyle",
+          "isEdee"
+        ],
+        [
+          "homestyle",
+          "isEder"
+        ],
+        [
+          "homestyle",
+          "object"
+        ],
+        [
+          "homestyle",
+          "property"
+        ],
+        [
+          "homestyle",
+          "queryable"
+        ],
+        [
+          "homestyle",
+          "sandwich"
+        ],
+        [
+          "homestyle",
+          "theAble"
+        ],
+        [
           "hot",
           "hierarchyAble"
         ],
@@ -13325,38 +14721,6 @@
           "toAble"
         ],
         [
-          "meal",
-          "food"
-        ],
-        [
-          "meal",
-          "hierarchyAble"
-        ],
-        [
-          "meal",
-          "isEdee"
-        ],
-        [
-          "meal",
-          "isEder"
-        ],
-        [
-          "meal",
-          "object"
-        ],
-        [
-          "meal",
-          "property"
-        ],
-        [
-          "meal",
-          "queryable"
-        ],
-        [
-          "meal",
-          "theAble"
-        ],
-        [
           "meat",
           "food"
         ],
@@ -13398,6 +14762,38 @@
         ],
         [
           "noun",
+          "theAble"
+        ],
+        [
+          "nugget",
+          "hierarchyAble"
+        ],
+        [
+          "nugget",
+          "isEdee"
+        ],
+        [
+          "nugget",
+          "isEder"
+        ],
+        [
+          "nugget",
+          "object"
+        ],
+        [
+          "nugget",
+          "property"
+        ],
+        [
+          "nugget",
+          "queryable"
+        ],
+        [
+          "nugget",
+          "sandwich"
+        ],
+        [
+          "nugget",
           "theAble"
         ],
         [
@@ -13493,6 +14889,38 @@
           "vegetable"
         ],
         [
+          "piece",
+          "hierarchyAble"
+        ],
+        [
+          "piece",
+          "isEdee"
+        ],
+        [
+          "piece",
+          "isEder"
+        ],
+        [
+          "piece",
+          "object"
+        ],
+        [
+          "piece",
+          "property"
+        ],
+        [
+          "piece",
+          "queryable"
+        ],
+        [
+          "piece",
+          "sandwich"
+        ],
+        [
+          "piece",
+          "theAble"
+        ],
+        [
           "premium",
           "hierarchyAble"
         ],
@@ -13551,6 +14979,10 @@
         [
           "premium_cod",
           "queryable"
+        ],
+        [
+          "premium_cod",
+          "sandwich"
         ],
         [
           "premium_cod",
@@ -13734,6 +15166,38 @@
         ],
         [
           "single",
+          "theAble"
+        ],
+        [
+          "spicy",
+          "hierarchyAble"
+        ],
+        [
+          "spicy",
+          "isEdee"
+        ],
+        [
+          "spicy",
+          "isEder"
+        ],
+        [
+          "spicy",
+          "object"
+        ],
+        [
+          "spicy",
+          "property"
+        ],
+        [
+          "spicy",
+          "queryable"
+        ],
+        [
+          "spicy",
+          "sandwich"
+        ],
+        [
+          "spicy",
           "theAble"
         ],
         [
@@ -13931,6 +15395,2066 @@
         [
           "ultimate_chicken_grill",
           "queryable"
+        ],
+        [
+          "ultimate_chicken_grill",
+          "sandwich"
+        ],
+        [
+          "ultimate_chicken_grill",
+          "theAble"
+        ],
+        [
+          "unknown",
+          "hierarchyAble"
+        ],
+        [
+          "unknown",
+          "notAble"
+        ],
+        [
+          "unknown",
+          "object"
+        ],
+        [
+          "unknown",
+          "queryable"
+        ],
+        [
+          "unknown",
+          "theAble"
+        ],
+        [
+          "vegetable",
+          "food"
+        ],
+        [
+          "vegetable",
+          "hierarchyAble"
+        ],
+        [
+          "vegetable",
+          "isEdee"
+        ],
+        [
+          "vegetable",
+          "isEder"
+        ],
+        [
+          "vegetable",
+          "object"
+        ],
+        [
+          "vegetable",
+          "property"
+        ],
+        [
+          "vegetable",
+          "queryable"
+        ],
+        [
+          "vegetable",
+          "theAble"
+        ],
+        [
+          "verby",
+          "verby"
+        ],
+        [
+          "what",
+          "object"
+        ],
+        [
+          "what",
+          "queryable"
+        ],
+        [
+          "whatAble",
+          "queryable"
+        ],
+        [
+          "whose",
+          "object"
+        ],
+        [
+          "xfx",
+          "queryable"
+        ]
+      ],
+      "metadata": {
+        "opChoices": [
+          {
+            "op": [
+              "unknown",
+              0
+            ],
+            "ops": [
+              [
+                "a",
+                0
+              ],
+              [
+                "unknown",
+                0
+              ],
+              [
+                "is",
+                0
+              ],
+              [
+                "food",
+                0
+              ]
+            ],
+            "counter": 1
+          },
+          {
+            "op": [
+              "food",
+              0
+            ],
+            "ops": [
+              [
+                "a",
+                0
+              ],
+              [
+                "is",
+                0
+              ],
+              [
+                "food",
+                0
+              ]
+            ],
+            "counter": 2
+          },
+          {
+            "op": [
+              "a",
+              0
+            ],
+            "ops": [
+              [
+                "a",
+                0
+              ],
+              [
+                "is",
+                0
+              ]
+            ],
+            "counter": 3
+          },
+          {
+            "op": [
+              "is",
+              0
+            ],
+            "ops": [
+              [
+                "is",
+                0
+              ]
+            ],
+            "counter": 4
+          },
+          {
+            "op": [
+              "is",
+              1
+            ],
+            "ops": [
+              [
+                "is",
+                1
+              ]
+            ],
+            "counter": 5
+          }
+        ]
+      },
+      "trace": "undefined",
+      "contexts": [
+        {
+          "number": "one",
+          "text": "a meals is food",
+          "marker": "is",
+          "word": "is",
+          "range": {
+            "start": 0,
+            "end": 14
+          },
+          "one": {
+            "number": "one",
+            "marker": "unknown",
+            "range": {
+              "start": 0,
+              "end": 14
+            },
+            "word": "meals",
+            "text": "a meals",
+            "value": "meals",
+            "unknown": true,
+            "dead": true,
+            "types": [
+              "unknown"
+            ],
+            "pullFromContext": false,
+            "concept": true,
+            "wantsValue": true,
+            "determiner": {
+              "marker": "a",
+              "default": true,
+              "word": "a",
+              "text": "a",
+              "range": {
+                "start": 0,
+                "end": 0
+              },
+              "level": 0
+            },
+            "modifiers": [
+              "determiner"
+            ],
+            "level": 1
+          },
+          "two": {
+            "value": "food",
+            "number": "one",
+            "text": "food",
+            "marker": "food",
+            "word": "food",
+            "range": {
+              "start": 11,
+              "end": 14
+            },
+            "dead": true,
+            "types": [
+              "food"
+            ],
+            "level": 1,
+            "concept": true
+          },
+          "dead": true,
+          "level": 2,
+          "topLevel": true,
+          "touchedBy": [
+            "fastfood#call2"
+          ]
+        }
+      ],
+      "generated": [
+        ""
+      ],
+      "paraphrases": [
+        "a meals is food"
+      ],
+      "paraphrasesParenthesized": [],
+      "generatedParenthesized": [],
+      "responses": [
+        ""
+      ],
+      "associations": [
+        [
+          [
+            "a",
+            0
+          ],
+          [
+            "food",
+            0
+          ],
+          [
+            "is",
+            0
+          ],
+          [
+            "unknown",
+            0
+          ]
+        ],
+        [
+          [
+            "a",
+            0
+          ],
+          [
+            "food",
+            0
+          ],
+          [
+            "is",
+            0
+          ],
+          [
+            "unknown",
+            1
+          ]
+        ],
+        [
+          [
+            "a",
+            0
+          ],
+          [
+            "is",
+            0
+          ],
+          [
+            "unknown",
+            1
+          ]
+        ],
+        [
+          [
+            "is",
+            0
+          ],
+          [
+            "unknown",
+            1
+          ]
+        ]
+      ],
+      "query": "a meals is food",
+      "key": {
+        "query": "a meals is food"
+      }
+    },
+    {
+      "hierarchy": [
+        [
+          "a",
+          "articlePOS"
+        ],
+        [
+          "adjective",
+          "adjective"
+        ],
+        [
+          "all",
+          "quantifier"
+        ],
+        [
+          "apple",
+          "fruit"
+        ],
+        [
+          "apple",
+          "hierarchyAble"
+        ],
+        [
+          "apple",
+          "isEdee"
+        ],
+        [
+          "apple",
+          "isEder"
+        ],
+        [
+          "apple",
+          "object"
+        ],
+        [
+          "apple",
+          "property"
+        ],
+        [
+          "apple",
+          "queryable"
+        ],
+        [
+          "apple",
+          "theAble"
+        ],
+        [
+          "articlePOS",
+          "articlePOS"
+        ],
+        [
+          "asiago",
+          "hierarchyAble"
+        ],
+        [
+          "asiago",
+          "isEdee"
+        ],
+        [
+          "asiago",
+          "isEder"
+        ],
+        [
+          "asiago",
+          "object"
+        ],
+        [
+          "asiago",
+          "property"
+        ],
+        [
+          "asiago",
+          "queryable"
+        ],
+        [
+          "asiago",
+          "theAble"
+        ],
+        [
+          "asiago_ranch_chicken_club",
+          "adjective"
+        ],
+        [
+          "asiago_ranch_chicken_club",
+          "concept"
+        ],
+        [
+          "asiago_ranch_chicken_club",
+          "hierarchyAble"
+        ],
+        [
+          "asiago_ranch_chicken_club",
+          "isEdee"
+        ],
+        [
+          "asiago_ranch_chicken_club",
+          "isEder"
+        ],
+        [
+          "asiago_ranch_chicken_club",
+          "object"
+        ],
+        [
+          "asiago_ranch_chicken_club",
+          "property"
+        ],
+        [
+          "asiago_ranch_chicken_club",
+          "queryable"
+        ],
+        [
+          "asiago_ranch_chicken_club",
+          "sandwich"
+        ],
+        [
+          "asiago_ranch_chicken_club",
+          "theAble"
+        ],
+        [
+          "bacon",
+          "hierarchyAble"
+        ],
+        [
+          "bacon",
+          "isEdee"
+        ],
+        [
+          "bacon",
+          "isEder"
+        ],
+        [
+          "bacon",
+          "object"
+        ],
+        [
+          "bacon",
+          "property"
+        ],
+        [
+          "bacon",
+          "queryable"
+        ],
+        [
+          "bacon",
+          "theAble"
+        ],
+        [
+          "bacon_deluxe",
+          "adjective"
+        ],
+        [
+          "bacon_deluxe",
+          "concept"
+        ],
+        [
+          "bacon_deluxe",
+          "hamburger"
+        ],
+        [
+          "bacon_deluxe",
+          "hierarchyAble"
+        ],
+        [
+          "bacon_deluxe",
+          "isEdee"
+        ],
+        [
+          "bacon_deluxe",
+          "isEder"
+        ],
+        [
+          "bacon_deluxe",
+          "object"
+        ],
+        [
+          "bacon_deluxe",
+          "property"
+        ],
+        [
+          "bacon_deluxe",
+          "queryable"
+        ],
+        [
+          "bacon_deluxe",
+          "theAble"
+        ],
+        [
+          "baconater",
+          "hamburger"
+        ],
+        [
+          "baconater",
+          "hierarchyAble"
+        ],
+        [
+          "baconater",
+          "isEdee"
+        ],
+        [
+          "baconater",
+          "isEder"
+        ],
+        [
+          "baconater",
+          "object"
+        ],
+        [
+          "baconater",
+          "property"
+        ],
+        [
+          "baconater",
+          "queryable"
+        ],
+        [
+          "baconater",
+          "theAble"
+        ],
+        [
+          "banana",
+          "fruit"
+        ],
+        [
+          "banana",
+          "hierarchyAble"
+        ],
+        [
+          "banana",
+          "isEdee"
+        ],
+        [
+          "banana",
+          "isEder"
+        ],
+        [
+          "banana",
+          "object"
+        ],
+        [
+          "banana",
+          "property"
+        ],
+        [
+          "banana",
+          "queryable"
+        ],
+        [
+          "banana",
+          "theAble"
+        ],
+        [
+          "between",
+          "preposition"
+        ],
+        [
+          "brocoli",
+          "hierarchyAble"
+        ],
+        [
+          "brocoli",
+          "isEdee"
+        ],
+        [
+          "brocoli",
+          "isEder"
+        ],
+        [
+          "brocoli",
+          "object"
+        ],
+        [
+          "brocoli",
+          "property"
+        ],
+        [
+          "brocoli",
+          "queryable"
+        ],
+        [
+          "brocoli",
+          "theAble"
+        ],
+        [
+          "brocoli",
+          "vegetable"
+        ],
+        [
+          "cabbage",
+          "hierarchyAble"
+        ],
+        [
+          "cabbage",
+          "isEdee"
+        ],
+        [
+          "cabbage",
+          "isEder"
+        ],
+        [
+          "cabbage",
+          "object"
+        ],
+        [
+          "cabbage",
+          "property"
+        ],
+        [
+          "cabbage",
+          "queryable"
+        ],
+        [
+          "cabbage",
+          "theAble"
+        ],
+        [
+          "cabbage",
+          "vegetable"
+        ],
+        [
+          "canBeDoQuestion",
+          "canBeDoQuestion"
+        ],
+        [
+          "canBeQuestion",
+          "canBeQuestion"
+        ],
+        [
+          "carrot",
+          "hierarchyAble"
+        ],
+        [
+          "carrot",
+          "isEdee"
+        ],
+        [
+          "carrot",
+          "isEder"
+        ],
+        [
+          "carrot",
+          "object"
+        ],
+        [
+          "carrot",
+          "property"
+        ],
+        [
+          "carrot",
+          "queryable"
+        ],
+        [
+          "carrot",
+          "theAble"
+        ],
+        [
+          "carrot",
+          "vegetable"
+        ],
+        [
+          "changes",
+          "event"
+        ],
+        [
+          "changes",
+          "verby"
+        ],
+        [
+          "chicken",
+          "hierarchyAble"
+        ],
+        [
+          "chicken",
+          "isEdee"
+        ],
+        [
+          "chicken",
+          "isEder"
+        ],
+        [
+          "chicken",
+          "object"
+        ],
+        [
+          "chicken",
+          "property"
+        ],
+        [
+          "chicken",
+          "queryable"
+        ],
+        [
+          "chicken",
+          "theAble"
+        ],
+        [
+          "chicken_sandwich",
+          "adjective"
+        ],
+        [
+          "chicken_sandwich",
+          "concept"
+        ],
+        [
+          "chicken_sandwich",
+          "hierarchyAble"
+        ],
+        [
+          "chicken_sandwich",
+          "isEdee"
+        ],
+        [
+          "chicken_sandwich",
+          "isEder"
+        ],
+        [
+          "chicken_sandwich",
+          "object"
+        ],
+        [
+          "chicken_sandwich",
+          "property"
+        ],
+        [
+          "chicken_sandwich",
+          "queryable"
+        ],
+        [
+          "chicken_sandwich",
+          "theAble"
+        ],
+        [
+          "chicken_strip",
+          "adjective"
+        ],
+        [
+          "chicken_strip",
+          "concept"
+        ],
+        [
+          "chicken_strip",
+          "food"
+        ],
+        [
+          "chicken_strip",
+          "hierarchyAble"
+        ],
+        [
+          "chicken_strip",
+          "isEdee"
+        ],
+        [
+          "chicken_strip",
+          "isEder"
+        ],
+        [
+          "chicken_strip",
+          "object"
+        ],
+        [
+          "chicken_strip",
+          "property"
+        ],
+        [
+          "chicken_strip",
+          "queryable"
+        ],
+        [
+          "chicken_strip",
+          "theAble"
+        ],
+        [
+          "club",
+          "concept"
+        ],
+        [
+          "club",
+          "hierarchyAble"
+        ],
+        [
+          "club",
+          "isEdee"
+        ],
+        [
+          "club",
+          "isEder"
+        ],
+        [
+          "club",
+          "object"
+        ],
+        [
+          "club",
+          "property"
+        ],
+        [
+          "club",
+          "queryable"
+        ],
+        [
+          "club",
+          "theAble"
+        ],
+        [
+          "cod",
+          "concept"
+        ],
+        [
+          "cod",
+          "hierarchyAble"
+        ],
+        [
+          "cod",
+          "isEdee"
+        ],
+        [
+          "cod",
+          "isEder"
+        ],
+        [
+          "cod",
+          "object"
+        ],
+        [
+          "cod",
+          "property"
+        ],
+        [
+          "cod",
+          "queryable"
+        ],
+        [
+          "cod",
+          "theAble"
+        ],
+        [
+          "concept",
+          "queryable"
+        ],
+        [
+          "concept",
+          "theAble"
+        ],
+        [
+          "countable",
+          "hierarchyAble"
+        ],
+        [
+          "deluxe",
+          "concept"
+        ],
+        [
+          "deluxe",
+          "hierarchyAble"
+        ],
+        [
+          "deluxe",
+          "isEdee"
+        ],
+        [
+          "deluxe",
+          "isEder"
+        ],
+        [
+          "deluxe",
+          "object"
+        ],
+        [
+          "deluxe",
+          "property"
+        ],
+        [
+          "deluxe",
+          "queryable"
+        ],
+        [
+          "deluxe",
+          "theAble"
+        ],
+        [
+          "dog",
+          "concept"
+        ],
+        [
+          "dog",
+          "hierarchyAble"
+        ],
+        [
+          "dog",
+          "isEdee"
+        ],
+        [
+          "dog",
+          "isEder"
+        ],
+        [
+          "dog",
+          "object"
+        ],
+        [
+          "dog",
+          "property"
+        ],
+        [
+          "dog",
+          "queryable"
+        ],
+        [
+          "dog",
+          "theAble"
+        ],
+        [
+          "double",
+          "hamburger"
+        ],
+        [
+          "double",
+          "hierarchyAble"
+        ],
+        [
+          "double",
+          "isEdee"
+        ],
+        [
+          "double",
+          "isEder"
+        ],
+        [
+          "double",
+          "object"
+        ],
+        [
+          "double",
+          "property"
+        ],
+        [
+          "double",
+          "queryable"
+        ],
+        [
+          "double",
+          "theAble"
+        ],
+        [
+          "event",
+          "event"
+        ],
+        [
+          "food",
+          "countable"
+        ],
+        [
+          "food",
+          "hierarchyAble"
+        ],
+        [
+          "food",
+          "isEdee"
+        ],
+        [
+          "food",
+          "isEder"
+        ],
+        [
+          "food",
+          "object"
+        ],
+        [
+          "food",
+          "property"
+        ],
+        [
+          "food",
+          "queryable"
+        ],
+        [
+          "food",
+          "theAble"
+        ],
+        [
+          "french",
+          "hierarchyAble"
+        ],
+        [
+          "french",
+          "isEdee"
+        ],
+        [
+          "french",
+          "isEder"
+        ],
+        [
+          "french",
+          "object"
+        ],
+        [
+          "french",
+          "property"
+        ],
+        [
+          "french",
+          "queryable"
+        ],
+        [
+          "french",
+          "theAble"
+        ],
+        [
+          "french_fry",
+          "adjective"
+        ],
+        [
+          "french_fry",
+          "concept"
+        ],
+        [
+          "french_fry",
+          "food"
+        ],
+        [
+          "french_fry",
+          "hierarchyAble"
+        ],
+        [
+          "french_fry",
+          "isEdee"
+        ],
+        [
+          "french_fry",
+          "isEder"
+        ],
+        [
+          "french_fry",
+          "object"
+        ],
+        [
+          "french_fry",
+          "property"
+        ],
+        [
+          "french_fry",
+          "queryable"
+        ],
+        [
+          "french_fry",
+          "theAble"
+        ],
+        [
+          "fruit",
+          "food"
+        ],
+        [
+          "fruit",
+          "hierarchyAble"
+        ],
+        [
+          "fruit",
+          "isEdee"
+        ],
+        [
+          "fruit",
+          "isEder"
+        ],
+        [
+          "fruit",
+          "object"
+        ],
+        [
+          "fruit",
+          "property"
+        ],
+        [
+          "fruit",
+          "queryable"
+        ],
+        [
+          "fruit",
+          "theAble"
+        ],
+        [
+          "fry",
+          "concept"
+        ],
+        [
+          "fry",
+          "hierarchyAble"
+        ],
+        [
+          "fry",
+          "isEdee"
+        ],
+        [
+          "fry",
+          "isEder"
+        ],
+        [
+          "fry",
+          "object"
+        ],
+        [
+          "fry",
+          "property"
+        ],
+        [
+          "fry",
+          "queryable"
+        ],
+        [
+          "fry",
+          "theAble"
+        ],
+        [
+          "grill",
+          "concept"
+        ],
+        [
+          "grill",
+          "hierarchyAble"
+        ],
+        [
+          "grill",
+          "isEdee"
+        ],
+        [
+          "grill",
+          "isEder"
+        ],
+        [
+          "grill",
+          "object"
+        ],
+        [
+          "grill",
+          "property"
+        ],
+        [
+          "grill",
+          "queryable"
+        ],
+        [
+          "grill",
+          "theAble"
+        ],
+        [
+          "hamburger",
+          "hierarchyAble"
+        ],
+        [
+          "hamburger",
+          "isEdee"
+        ],
+        [
+          "hamburger",
+          "isEder"
+        ],
+        [
+          "hamburger",
+          "object"
+        ],
+        [
+          "hamburger",
+          "property"
+        ],
+        [
+          "hamburger",
+          "queryable"
+        ],
+        [
+          "hamburger",
+          "sandwich"
+        ],
+        [
+          "hamburger",
+          "theAble"
+        ],
+        [
+          "have",
+          "canBeDoQuestion"
+        ],
+        [
+          "have",
+          "canBeQuestion"
+        ],
+        [
+          "hierarchyAble",
+          "queryable"
+        ],
+        [
+          "homestyle",
+          "hierarchyAble"
+        ],
+        [
+          "homestyle",
+          "isEdee"
+        ],
+        [
+          "homestyle",
+          "isEder"
+        ],
+        [
+          "homestyle",
+          "object"
+        ],
+        [
+          "homestyle",
+          "property"
+        ],
+        [
+          "homestyle",
+          "queryable"
+        ],
+        [
+          "homestyle",
+          "sandwich"
+        ],
+        [
+          "homestyle",
+          "theAble"
+        ],
+        [
+          "hot",
+          "hierarchyAble"
+        ],
+        [
+          "hot",
+          "isEdee"
+        ],
+        [
+          "hot",
+          "isEder"
+        ],
+        [
+          "hot",
+          "object"
+        ],
+        [
+          "hot",
+          "property"
+        ],
+        [
+          "hot",
+          "queryable"
+        ],
+        [
+          "hot",
+          "theAble"
+        ],
+        [
+          "hot_dog",
+          "adjective"
+        ],
+        [
+          "hot_dog",
+          "concept"
+        ],
+        [
+          "hot_dog",
+          "hierarchyAble"
+        ],
+        [
+          "hot_dog",
+          "isEdee"
+        ],
+        [
+          "hot_dog",
+          "isEder"
+        ],
+        [
+          "hot_dog",
+          "object"
+        ],
+        [
+          "hot_dog",
+          "property"
+        ],
+        [
+          "hot_dog",
+          "queryable"
+        ],
+        [
+          "hot_dog",
+          "sausage"
+        ],
+        [
+          "hot_dog",
+          "theAble"
+        ],
+        [
+          "ifAble",
+          "ifAble"
+        ],
+        [
+          "is",
+          "canBeQuestion"
+        ],
+        [
+          "is",
+          "verby"
+        ],
+        [
+          "isEdee",
+          "isEdee"
+        ],
+        [
+          "isEder",
+          "isEder"
+        ],
+        [
+          "it",
+          "pronoun"
+        ],
+        [
+          "it",
+          "queryable"
+        ],
+        [
+          "it",
+          "thisitthat"
+        ],
+        [
+          "it",
+          "toAble"
+        ],
+        [
+          "meal",
+          "food"
+        ],
+        [
+          "meal",
+          "hierarchyAble"
+        ],
+        [
+          "meal",
+          "isEdee"
+        ],
+        [
+          "meal",
+          "isEder"
+        ],
+        [
+          "meal",
+          "object"
+        ],
+        [
+          "meal",
+          "property"
+        ],
+        [
+          "meal",
+          "queryable"
+        ],
+        [
+          "meal",
+          "theAble"
+        ],
+        [
+          "meat",
+          "food"
+        ],
+        [
+          "meat",
+          "hierarchyAble"
+        ],
+        [
+          "meat",
+          "isEdee"
+        ],
+        [
+          "meat",
+          "isEder"
+        ],
+        [
+          "meat",
+          "object"
+        ],
+        [
+          "meat",
+          "property"
+        ],
+        [
+          "meat",
+          "queryable"
+        ],
+        [
+          "meat",
+          "theAble"
+        ],
+        [
+          "modifies",
+          "verby"
+        ],
+        [
+          "notAble",
+          "notAble"
+        ],
+        [
+          "noun",
+          "theAble"
+        ],
+        [
+          "nugget",
+          "hierarchyAble"
+        ],
+        [
+          "nugget",
+          "isEdee"
+        ],
+        [
+          "nugget",
+          "isEder"
+        ],
+        [
+          "nugget",
+          "object"
+        ],
+        [
+          "nugget",
+          "property"
+        ],
+        [
+          "nugget",
+          "queryable"
+        ],
+        [
+          "nugget",
+          "sandwich"
+        ],
+        [
+          "nugget",
+          "theAble"
+        ],
+        [
+          "number",
+          "quantifier"
+        ],
+        [
+          "number",
+          "queryable"
+        ],
+        [
+          "object",
+          "queryable"
+        ],
+        [
+          "object",
+          "theAble"
+        ],
+        [
+          "orAble",
+          "ifAble"
+        ],
+        [
+          "orange",
+          "fruit"
+        ],
+        [
+          "orange",
+          "hierarchyAble"
+        ],
+        [
+          "orange",
+          "isEdee"
+        ],
+        [
+          "orange",
+          "isEder"
+        ],
+        [
+          "orange",
+          "object"
+        ],
+        [
+          "orange",
+          "property"
+        ],
+        [
+          "orange",
+          "queryable"
+        ],
+        [
+          "orange",
+          "theAble"
+        ],
+        [
+          "orderNoun",
+          "noun"
+        ],
+        [
+          "orderNoun",
+          "queryable"
+        ],
+        [
+          "pea",
+          "hierarchyAble"
+        ],
+        [
+          "pea",
+          "isEdee"
+        ],
+        [
+          "pea",
+          "isEder"
+        ],
+        [
+          "pea",
+          "object"
+        ],
+        [
+          "pea",
+          "property"
+        ],
+        [
+          "pea",
+          "queryable"
+        ],
+        [
+          "pea",
+          "theAble"
+        ],
+        [
+          "pea",
+          "vegetable"
+        ],
+        [
+          "piece",
+          "hierarchyAble"
+        ],
+        [
+          "piece",
+          "isEdee"
+        ],
+        [
+          "piece",
+          "isEder"
+        ],
+        [
+          "piece",
+          "object"
+        ],
+        [
+          "piece",
+          "property"
+        ],
+        [
+          "piece",
+          "queryable"
+        ],
+        [
+          "piece",
+          "sandwich"
+        ],
+        [
+          "piece",
+          "theAble"
+        ],
+        [
+          "premium",
+          "hierarchyAble"
+        ],
+        [
+          "premium",
+          "isEdee"
+        ],
+        [
+          "premium",
+          "isEder"
+        ],
+        [
+          "premium",
+          "object"
+        ],
+        [
+          "premium",
+          "property"
+        ],
+        [
+          "premium",
+          "queryable"
+        ],
+        [
+          "premium",
+          "theAble"
+        ],
+        [
+          "premium_cod",
+          "adjective"
+        ],
+        [
+          "premium_cod",
+          "concept"
+        ],
+        [
+          "premium_cod",
+          "hierarchyAble"
+        ],
+        [
+          "premium_cod",
+          "isEdee"
+        ],
+        [
+          "premium_cod",
+          "isEder"
+        ],
+        [
+          "premium_cod",
+          "object"
+        ],
+        [
+          "premium_cod",
+          "property"
+        ],
+        [
+          "premium_cod",
+          "queryable"
+        ],
+        [
+          "premium_cod",
+          "sandwich"
+        ],
+        [
+          "premium_cod",
+          "theAble"
+        ],
+        [
+          "preposition",
+          "preposition"
+        ],
+        [
+          "pronoun",
+          "pronoun"
+        ],
+        [
+          "property",
+          "queryable"
+        ],
+        [
+          "property",
+          "theAble"
+        ],
+        [
+          "property",
+          "unknown"
+        ],
+        [
+          "punctuation",
+          "punctuation"
+        ],
+        [
+          "quantifier",
+          "quantifier"
+        ],
+        [
+          "queryable",
+          "queryable"
+        ],
+        [
+          "questionMark",
+          "punctuation"
+        ],
+        [
+          "ranch",
+          "hierarchyAble"
+        ],
+        [
+          "ranch",
+          "isEdee"
+        ],
+        [
+          "ranch",
+          "isEder"
+        ],
+        [
+          "ranch",
+          "object"
+        ],
+        [
+          "ranch",
+          "property"
+        ],
+        [
+          "ranch",
+          "queryable"
+        ],
+        [
+          "ranch",
+          "theAble"
+        ],
+        [
+          "readonly",
+          "queryable"
+        ],
+        [
+          "reason",
+          "queryable"
+        ],
+        [
+          "reason",
+          "theAble"
+        ],
+        [
+          "sandwich",
+          "concept"
+        ],
+        [
+          "sandwich",
+          "food"
+        ],
+        [
+          "sandwich",
+          "hierarchyAble"
+        ],
+        [
+          "sandwich",
+          "isEdee"
+        ],
+        [
+          "sandwich",
+          "isEder"
+        ],
+        [
+          "sandwich",
+          "object"
+        ],
+        [
+          "sandwich",
+          "property"
+        ],
+        [
+          "sandwich",
+          "queryable"
+        ],
+        [
+          "sandwich",
+          "theAble"
+        ],
+        [
+          "sausage",
+          "hierarchyAble"
+        ],
+        [
+          "sausage",
+          "isEdee"
+        ],
+        [
+          "sausage",
+          "isEder"
+        ],
+        [
+          "sausage",
+          "meat"
+        ],
+        [
+          "sausage",
+          "object"
+        ],
+        [
+          "sausage",
+          "property"
+        ],
+        [
+          "sausage",
+          "queryable"
+        ],
+        [
+          "sausage",
+          "theAble"
+        ],
+        [
+          "showOrder",
+          "verby"
+        ],
+        [
+          "single",
+          "hamburger"
+        ],
+        [
+          "single",
+          "hierarchyAble"
+        ],
+        [
+          "single",
+          "isEdee"
+        ],
+        [
+          "single",
+          "isEder"
+        ],
+        [
+          "single",
+          "object"
+        ],
+        [
+          "single",
+          "property"
+        ],
+        [
+          "single",
+          "queryable"
+        ],
+        [
+          "single",
+          "theAble"
+        ],
+        [
+          "spicy",
+          "hierarchyAble"
+        ],
+        [
+          "spicy",
+          "isEdee"
+        ],
+        [
+          "spicy",
+          "isEder"
+        ],
+        [
+          "spicy",
+          "object"
+        ],
+        [
+          "spicy",
+          "property"
+        ],
+        [
+          "spicy",
+          "queryable"
+        ],
+        [
+          "spicy",
+          "sandwich"
+        ],
+        [
+          "spicy",
+          "theAble"
+        ],
+        [
+          "strip",
+          "concept"
+        ],
+        [
+          "strip",
+          "hierarchyAble"
+        ],
+        [
+          "strip",
+          "isEdee"
+        ],
+        [
+          "strip",
+          "isEder"
+        ],
+        [
+          "strip",
+          "object"
+        ],
+        [
+          "strip",
+          "property"
+        ],
+        [
+          "strip",
+          "queryable"
+        ],
+        [
+          "strip",
+          "theAble"
+        ],
+        [
+          "sushi",
+          "food"
+        ],
+        [
+          "sushi",
+          "hierarchyAble"
+        ],
+        [
+          "sushi",
+          "isEdee"
+        ],
+        [
+          "sushi",
+          "isEder"
+        ],
+        [
+          "sushi",
+          "object"
+        ],
+        [
+          "sushi",
+          "property"
+        ],
+        [
+          "sushi",
+          "queryable"
+        ],
+        [
+          "sushi",
+          "theAble"
+        ],
+        [
+          "that",
+          "thisitthat"
+        ],
+        [
+          "the",
+          "articlePOS"
+        ],
+        [
+          "theAble",
+          "theAble"
+        ],
+        [
+          "this",
+          "pronoun"
+        ],
+        [
+          "this",
+          "queryable"
+        ],
+        [
+          "this",
+          "thisitthat"
+        ],
+        [
+          "thisitthat",
+          "queryable"
+        ],
+        [
+          "toAble",
+          "toAble"
+        ],
+        [
+          "triple",
+          "hamburger"
+        ],
+        [
+          "triple",
+          "hierarchyAble"
+        ],
+        [
+          "triple",
+          "isEdee"
+        ],
+        [
+          "triple",
+          "isEder"
+        ],
+        [
+          "triple",
+          "object"
+        ],
+        [
+          "triple",
+          "property"
+        ],
+        [
+          "triple",
+          "queryable"
+        ],
+        [
+          "triple",
+          "theAble"
+        ],
+        [
+          "type",
+          "property"
+        ],
+        [
+          "type",
+          "whatAble"
+        ],
+        [
+          "ultimate",
+          "hierarchyAble"
+        ],
+        [
+          "ultimate",
+          "isEdee"
+        ],
+        [
+          "ultimate",
+          "isEder"
+        ],
+        [
+          "ultimate",
+          "object"
+        ],
+        [
+          "ultimate",
+          "property"
+        ],
+        [
+          "ultimate",
+          "queryable"
+        ],
+        [
+          "ultimate",
+          "theAble"
+        ],
+        [
+          "ultimate_chicken_grill",
+          "adjective"
+        ],
+        [
+          "ultimate_chicken_grill",
+          "concept"
+        ],
+        [
+          "ultimate_chicken_grill",
+          "hierarchyAble"
+        ],
+        [
+          "ultimate_chicken_grill",
+          "isEdee"
+        ],
+        [
+          "ultimate_chicken_grill",
+          "isEder"
+        ],
+        [
+          "ultimate_chicken_grill",
+          "object"
+        ],
+        [
+          "ultimate_chicken_grill",
+          "property"
+        ],
+        [
+          "ultimate_chicken_grill",
+          "queryable"
+        ],
+        [
+          "ultimate_chicken_grill",
+          "sandwich"
         ],
         [
           "ultimate_chicken_grill",
@@ -14285,20 +17809,6 @@
         ],
         [
           [
-            "a",
-            0
-          ],
-          [
-            "is",
-            0
-          ],
-          [
-            "unknown",
-            1
-          ]
-        ],
-        [
-          [
             "is",
             0
           ],
@@ -14422,6 +17932,10 @@
         [
           "asiago_ranch_chicken_club",
           "queryable"
+        ],
+        [
+          "asiago_ranch_chicken_club",
+          "sandwich"
         ],
         [
           "asiago_ranch_chicken_club",
@@ -15228,6 +18742,38 @@
           "queryable"
         ],
         [
+          "homestyle",
+          "hierarchyAble"
+        ],
+        [
+          "homestyle",
+          "isEdee"
+        ],
+        [
+          "homestyle",
+          "isEder"
+        ],
+        [
+          "homestyle",
+          "object"
+        ],
+        [
+          "homestyle",
+          "property"
+        ],
+        [
+          "homestyle",
+          "queryable"
+        ],
+        [
+          "homestyle",
+          "sandwich"
+        ],
+        [
+          "homestyle",
+          "theAble"
+        ],
+        [
           "hot",
           "hierarchyAble"
         ],
@@ -15408,6 +18954,38 @@
           "theAble"
         ],
         [
+          "nugget",
+          "hierarchyAble"
+        ],
+        [
+          "nugget",
+          "isEdee"
+        ],
+        [
+          "nugget",
+          "isEder"
+        ],
+        [
+          "nugget",
+          "object"
+        ],
+        [
+          "nugget",
+          "property"
+        ],
+        [
+          "nugget",
+          "queryable"
+        ],
+        [
+          "nugget",
+          "sandwich"
+        ],
+        [
+          "nugget",
+          "theAble"
+        ],
+        [
           "number",
           "quantifier"
         ],
@@ -15500,6 +19078,38 @@
           "vegetable"
         ],
         [
+          "piece",
+          "hierarchyAble"
+        ],
+        [
+          "piece",
+          "isEdee"
+        ],
+        [
+          "piece",
+          "isEder"
+        ],
+        [
+          "piece",
+          "object"
+        ],
+        [
+          "piece",
+          "property"
+        ],
+        [
+          "piece",
+          "queryable"
+        ],
+        [
+          "piece",
+          "sandwich"
+        ],
+        [
+          "piece",
+          "theAble"
+        ],
+        [
           "premium",
           "hierarchyAble"
         ],
@@ -15558,6 +19168,10 @@
         [
           "premium_cod",
           "queryable"
+        ],
+        [
+          "premium_cod",
+          "sandwich"
         ],
         [
           "premium_cod",
@@ -15741,6 +19355,38 @@
         ],
         [
           "single",
+          "theAble"
+        ],
+        [
+          "spicy",
+          "hierarchyAble"
+        ],
+        [
+          "spicy",
+          "isEdee"
+        ],
+        [
+          "spicy",
+          "isEder"
+        ],
+        [
+          "spicy",
+          "object"
+        ],
+        [
+          "spicy",
+          "property"
+        ],
+        [
+          "spicy",
+          "queryable"
+        ],
+        [
+          "spicy",
+          "sandwich"
+        ],
+        [
+          "spicy",
           "theAble"
         ],
         [
@@ -15941,6 +19587,10 @@
         ],
         [
           "ultimate_chicken_grill",
+          "sandwich"
+        ],
+        [
+          "ultimate_chicken_grill",
           "theAble"
         ],
         [
@@ -16024,7 +19674,7 @@
         "opChoices": [
           {
             "op": [
-              "unknown",
+              "single",
               0
             ],
             "ops": [
@@ -16053,11 +19703,11 @@
                 0
               ],
               [
-                "unknown",
+                "spicy",
                 0
               ],
               [
-                "unknown",
+                "homestyle",
                 0
               ],
               [
@@ -16093,14 +19743,10 @@
           },
           {
             "op": [
-              "unknown",
+              "double",
               0
             ],
             "ops": [
-              [
-                "single",
-                0
-              ],
               [
                 "double",
                 0
@@ -16122,7 +19768,11 @@
                 0
               ],
               [
-                "unknown",
+                "spicy",
+                0
+              ],
+              [
+                "homestyle",
                 0
               ],
               [
@@ -16158,18 +19808,10 @@
           },
           {
             "op": [
-              "single",
+              "triple",
               0
             ],
             "ops": [
-              [
-                "single",
-                0
-              ],
-              [
-                "double",
-                0
-              ],
               [
                 "triple",
                 0
@@ -16184,6 +19826,14 @@
               ],
               [
                 "deluxe",
+                0
+              ],
+              [
+                "spicy",
+                0
+              ],
+              [
+                "homestyle",
                 0
               ],
               [
@@ -16219,18 +19869,10 @@
           },
           {
             "op": [
-              "double",
+              "baconater",
               0
             ],
             "ops": [
-              [
-                "double",
-                0
-              ],
-              [
-                "triple",
-                0
-              ],
               [
                 "baconater",
                 0
@@ -16241,6 +19883,14 @@
               ],
               [
                 "deluxe",
+                0
+              ],
+              [
+                "spicy",
+                0
+              ],
+              [
+                "homestyle",
                 0
               ],
               [
@@ -16276,108 +19926,6 @@
           },
           {
             "op": [
-              "triple",
-              0
-            ],
-            "ops": [
-              [
-                "triple",
-                0
-              ],
-              [
-                "baconater",
-                0
-              ],
-              [
-                "bacon",
-                0
-              ],
-              [
-                "deluxe",
-                0
-              ],
-              [
-                "premium",
-                0
-              ],
-              [
-                "cod",
-                0
-              ],
-              [
-                "is",
-                0
-              ],
-              [
-                "meal",
-                0
-              ],
-              [
-                "premium_cod",
-                0
-              ],
-              [
-                "bacon_deluxe",
-                0
-              ],
-              [
-                "list",
-                0
-              ]
-            ],
-            "counter": 5
-          },
-          {
-            "op": [
-              "baconater",
-              0
-            ],
-            "ops": [
-              [
-                "baconater",
-                0
-              ],
-              [
-                "bacon",
-                0
-              ],
-              [
-                "deluxe",
-                0
-              ],
-              [
-                "premium",
-                0
-              ],
-              [
-                "cod",
-                0
-              ],
-              [
-                "is",
-                0
-              ],
-              [
-                "meal",
-                0
-              ],
-              [
-                "premium_cod",
-                0
-              ],
-              [
-                "bacon_deluxe",
-                0
-              ],
-              [
-                "list",
-                0
-              ]
-            ],
-            "counter": 6
-          },
-          {
-            "op": [
               "bacon_deluxe",
               0
             ],
@@ -16395,6 +19943,14 @@
                 0
               ],
               [
+                "spicy",
+                0
+              ],
+              [
+                "homestyle",
+                0
+              ],
+              [
                 "list",
                 0
               ],
@@ -16416,6 +19972,84 @@
               ],
               [
                 "meal",
+                0
+              ]
+            ],
+            "counter": 5
+          },
+          {
+            "op": [
+              "spicy",
+              0
+            ],
+            "ops": [
+              [
+                "spicy",
+                0
+              ],
+              [
+                "homestyle",
+                0
+              ],
+              [
+                "premium",
+                0
+              ],
+              [
+                "cod",
+                0
+              ],
+              [
+                "is",
+                0
+              ],
+              [
+                "meal",
+                0
+              ],
+              [
+                "premium_cod",
+                0
+              ],
+              [
+                "list",
+                0
+              ]
+            ],
+            "counter": 6
+          },
+          {
+            "op": [
+              "homestyle",
+              0
+            ],
+            "ops": [
+              [
+                "homestyle",
+                0
+              ],
+              [
+                "premium",
+                0
+              ],
+              [
+                "cod",
+                0
+              ],
+              [
+                "is",
+                0
+              ],
+              [
+                "meal",
+                0
+              ],
+              [
+                "premium_cod",
+                0
+              ],
+              [
+                "list",
                 0
               ]
             ],
@@ -16456,7 +20090,7 @@
           },
           {
             "op": [
-              "meal",
+              "list",
               0
             ],
             "ops": [
@@ -16478,7 +20112,7 @@
           {
             "op": [
               "list",
-              0
+              1
             ],
             "ops": [
               [
@@ -16486,8 +20120,12 @@
                 0
               ],
               [
-                "list",
+                "meal",
                 0
+              ],
+              [
+                "list",
+                1
               ]
             ],
             "counter": 10
@@ -16500,6 +20138,10 @@
             "ops": [
               [
                 "is",
+                0
+              ],
+              [
+                "meal",
                 0
               ],
               [
@@ -16520,6 +20162,10 @@
                 0
               ],
               [
+                "meal",
+                0
+              ],
+              [
                 "list",
                 1
               ]
@@ -16534,6 +20180,10 @@
             "ops": [
               [
                 "is",
+                0
+              ],
+              [
+                "meal",
                 0
               ],
               [
@@ -16554,6 +20204,10 @@
                 0
               ],
               [
+                "meal",
+                0
+              ],
+              [
                 "list",
                 1
               ]
@@ -16571,6 +20225,10 @@
                 0
               ],
               [
+                "meal",
+                0
+              ],
+              [
                 "list",
                 1
               ]
@@ -16579,8 +20237,8 @@
           },
           {
             "op": [
-              "list",
-              1
+              "meal",
+              0
             ],
             "ops": [
               [
@@ -16588,8 +20246,8 @@
                 0
               ],
               [
-                "list",
-                1
+                "meal",
+                0
               ]
             ],
             "counter": 16
@@ -16738,28 +20396,28 @@
                 "level": 1
               },
               {
-                "marker": "unknown",
+                "value": "spicy",
+                "number": "one",
+                "text": "spicy",
+                "marker": "spicy",
+                "word": "spicy",
                 "range": {
                   "start": 44,
                   "end": 48
                 },
-                "word": "spicy",
-                "text": "spicy",
-                "value": "spicy",
-                "unknown": true,
                 "dead": true,
                 "level": 1
               },
               {
-                "marker": "unknown",
+                "value": "homestyle",
+                "number": "one",
+                "text": "homestyle",
+                "marker": "homestyle",
+                "word": "homestyle",
                 "range": {
                   "start": 50,
                   "end": 58
                 },
-                "word": "homestyle",
-                "text": "homestyle",
-                "value": "homestyle",
-                "unknown": true,
                 "dead": true,
                 "level": 1
               },
@@ -16860,6 +20518,10 @@
             0
           ],
           [
+            "homestyle",
+            0
+          ],
+          [
             "is",
             0
           ],
@@ -16880,11 +20542,11 @@
             0
           ],
           [
-            "triple",
+            "spicy",
             0
           ],
           [
-            "unknown",
+            "triple",
             0
           ]
         ],
@@ -16910,6 +20572,10 @@
             0
           ],
           [
+            "homestyle",
+            0
+          ],
+          [
             "is",
             0
           ],
@@ -16926,20 +20592,12 @@
             0
           ],
           [
-            "single",
+            "spicy",
             0
           ],
           [
             "triple",
             0
-          ],
-          [
-            "unknown",
-            0
-          ],
-          [
-            "unknown",
-            1
           ]
         ],
         [
@@ -16964,15 +20622,7 @@
             0
           ],
           [
-            "is",
-            0
-          ],
-          [
-            "list",
-            0
-          ],
-          [
-            "meal",
+            "homestyle",
             0
           ],
           [
@@ -16984,95 +20634,11 @@
             0
           ],
           [
-            "triple",
-            0
-          ],
-          [
-            "unknown",
-            1
-          ]
-        ],
-        [
-          [
-            "bacon",
-            0
-          ],
-          [
-            "baconater",
-            0
-          ],
-          [
-            "cod",
-            0
-          ],
-          [
-            "deluxe",
-            0
-          ],
-          [
-            "double",
-            0
-          ],
-          [
-            "is",
-            0
-          ],
-          [
-            "list",
-            0
-          ],
-          [
-            "meal",
-            0
-          ],
-          [
-            "premium",
+            "spicy",
             0
           ],
           [
             "triple",
-            0
-          ],
-          [
-            "unknown",
-            1
-          ]
-        ],
-        [
-          [
-            "bacon",
-            0
-          ],
-          [
-            "baconater",
-            0
-          ],
-          [
-            "cod",
-            0
-          ],
-          [
-            "deluxe",
-            0
-          ],
-          [
-            "double",
-            0
-          ],
-          [
-            "premium",
-            0
-          ],
-          [
-            "single",
-            0
-          ],
-          [
-            "triple",
-            0
-          ],
-          [
-            "unknown",
             0
           ]
         ],
@@ -17094,6 +20660,10 @@
             0
           ],
           [
+            "homestyle",
+            0
+          ],
+          [
             "is",
             0
           ],
@@ -17110,12 +20680,8 @@
             0
           ],
           [
-            "triple",
+            "spicy",
             0
-          ],
-          [
-            "unknown",
-            1
           ]
         ],
         [
@@ -17136,6 +20702,10 @@
             0
           ],
           [
+            "homestyle",
+            0
+          ],
+          [
             "is",
             0
           ],
@@ -17152,8 +20722,12 @@
             0
           ],
           [
-            "unknown",
-            1
+            "spicy",
+            0
+          ],
+          [
+            "triple",
+            0
           ]
         ],
         [
@@ -17170,6 +20744,10 @@
             0
           ],
           [
+            "homestyle",
+            0
+          ],
+          [
             "is",
             0
           ],
@@ -17186,8 +20764,64 @@
             0
           ],
           [
-            "unknown",
-            1
+            "spicy",
+            0
+          ]
+        ],
+        [
+          [
+            "cod",
+            0
+          ],
+          [
+            "homestyle",
+            0
+          ],
+          [
+            "is",
+            0
+          ],
+          [
+            "list",
+            0
+          ],
+          [
+            "meal",
+            0
+          ],
+          [
+            "premium",
+            0
+          ]
+        ],
+        [
+          [
+            "cod",
+            0
+          ],
+          [
+            "homestyle",
+            0
+          ],
+          [
+            "is",
+            0
+          ],
+          [
+            "list",
+            0
+          ],
+          [
+            "meal",
+            0
+          ],
+          [
+            "premium",
+            0
+          ],
+          [
+            "spicy",
+            0
           ]
         ],
         [
@@ -17210,10 +20844,6 @@
           [
             "premium",
             0
-          ],
-          [
-            "unknown",
-            1
           ]
         ],
         [
@@ -17228,24 +20858,6 @@
           [
             "meal",
             0
-          ],
-          [
-            "unknown",
-            1
-          ]
-        ],
-        [
-          [
-            "is",
-            0
-          ],
-          [
-            "list",
-            0
-          ],
-          [
-            "unknown",
-            1
           ]
         ],
         [
@@ -17268,8 +20880,22 @@
             1
           ],
           [
-            "unknown",
+            "meal",
+            0
+          ]
+        ],
+        [
+          [
+            "is",
+            0
+          ],
+          [
+            "list",
             1
+          ],
+          [
+            "meal",
+            0
           ]
         ]
       ],
@@ -17280,38 +20906,48 @@
     },
     {
       "extraConfig": true,
-      "where": "/home/dev/code/theprogrammablemind/kms/common/fastfood.js:53",
+      "where": "/home/dev/code/theprogrammablemind/kms/common/fastfood.js:58",
       "operators": [
-        "((meal/0,1 && context.comboNumber == undefined) [comboMeal] (combo/0))",
-        "((combo/0) [comboNumber] (number/0,1 || numberNumberCombo/0,1))",
+        "((meal/* && context.comboNumber == undefined) [comboMeal] (combo/*))",
+        "((combo/*) [comboNumber] (number/* || numberNumberCombo/*))",
         "((numberNumberCombo/1) [numberNumberCombo_combo|] (combo/0))",
         "((number/0,1 && context.instance == undefined) [numberNumberCombo] (number/0,1))"
       ],
       "priorities": [
         [
           [
-            "list",
+            "numberNumberCombo",
             0
           ],
           [
-            "premium_cod",
+            "number",
             0
           ]
         ],
         [
           [
-            "list",
-            1
+            "numberNumberCombo",
+            0
           ],
           [
-            "premium_cod",
+            "list",
+            0
+          ]
+        ],
+        [
+          [
+            "comboNumber",
+            0
+          ],
+          [
+            "list",
             0
           ]
         ]
       ],
       "generators": [
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/fastfood.js:70"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/fastfood.js:86"
         }
       ],
       "bridges": [
@@ -17469,7 +21105,23 @@
     ],
     [
       [
-        "a",
+        "asiago",
+        0
+      ],
+      [
+        "chicken",
+        0
+      ],
+      [
+        "club",
+        0
+      ],
+      [
+        "cod",
+        0
+      ],
+      [
+        "grill",
         0
       ],
       [
@@ -17477,8 +21129,182 @@
         0
       ],
       [
+        "list",
+        0
+      ],
+      [
+        "number",
+        0
+      ],
+      [
+        "premium",
+        0
+      ],
+      [
+        "ranch",
+        0
+      ],
+      [
+        "sandwich",
+        0
+      ],
+      [
+        "ultimate",
+        0
+      ],
+      [
+        "unknown",
+        0
+      ]
+    ],
+    [
+      [
+        "asiago",
+        0
+      ],
+      [
+        "chicken",
+        0
+      ],
+      [
+        "club",
+        0
+      ],
+      [
+        "cod",
+        0
+      ],
+      [
+        "grill",
+        0
+      ],
+      [
+        "is",
+        0
+      ],
+      [
+        "list",
+        0
+      ],
+      [
+        "number",
+        0
+      ],
+      [
+        "premium",
+        0
+      ],
+      [
+        "ranch",
+        0
+      ],
+      [
+        "sandwich",
+        0
+      ],
+      [
+        "ultimate",
+        0
+      ],
+      [
+        "unknown",
+        0
+      ],
+      [
         "unknown",
         1
+      ]
+    ],
+    [
+      [
+        "asiago",
+        0
+      ],
+      [
+        "chicken",
+        0
+      ],
+      [
+        "club",
+        0
+      ],
+      [
+        "cod",
+        0
+      ],
+      [
+        "grill",
+        0
+      ],
+      [
+        "is",
+        0
+      ],
+      [
+        "list",
+        0
+      ],
+      [
+        "number",
+        0
+      ],
+      [
+        "premium",
+        0
+      ],
+      [
+        "ranch",
+        0
+      ],
+      [
+        "sandwich",
+        0
+      ],
+      [
+        "ultimate",
+        0
+      ],
+      [
+        "unknown",
+        1
+      ]
+    ],
+    [
+      [
+        "asiago",
+        0
+      ],
+      [
+        "chicken",
+        0
+      ],
+      [
+        "club",
+        0
+      ],
+      [
+        "cod",
+        0
+      ],
+      [
+        "grill",
+        0
+      ],
+      [
+        "premium",
+        0
+      ],
+      [
+        "ranch",
+        0
+      ],
+      [
+        "ultimate",
+        0
+      ],
+      [
+        "unknown",
+        0
       ]
     ],
     [
@@ -17500,6 +21326,10 @@
       ],
       [
         "double",
+        0
+      ],
+      [
+        "homestyle",
         0
       ],
       [
@@ -17523,11 +21353,11 @@
         0
       ],
       [
-        "triple",
+        "spicy",
         0
       ],
       [
-        "unknown",
+        "triple",
         0
       ]
     ],
@@ -17553,6 +21383,10 @@
         0
       ],
       [
+        "homestyle",
+        0
+      ],
+      [
         "is",
         0
       ],
@@ -17562,6 +21396,44 @@
       ],
       [
         "meal",
+        0
+      ],
+      [
+        "premium",
+        0
+      ],
+      [
+        "spicy",
+        0
+      ],
+      [
+        "triple",
+        0
+      ]
+    ],
+    [
+      [
+        "bacon",
+        0
+      ],
+      [
+        "baconater",
+        0
+      ],
+      [
+        "cod",
+        0
+      ],
+      [
+        "deluxe",
+        0
+      ],
+      [
+        "double",
+        0
+      ],
+      [
+        "homestyle",
         0
       ],
       [
@@ -17573,149 +21445,11 @@
         0
       ],
       [
-        "triple",
-        0
-      ],
-      [
-        "unknown",
-        0
-      ],
-      [
-        "unknown",
-        1
-      ]
-    ],
-    [
-      [
-        "bacon",
-        0
-      ],
-      [
-        "baconater",
-        0
-      ],
-      [
-        "cod",
-        0
-      ],
-      [
-        "deluxe",
-        0
-      ],
-      [
-        "double",
-        0
-      ],
-      [
-        "is",
-        0
-      ],
-      [
-        "list",
-        0
-      ],
-      [
-        "meal",
-        0
-      ],
-      [
-        "premium",
-        0
-      ],
-      [
-        "single",
+        "spicy",
         0
       ],
       [
         "triple",
-        0
-      ],
-      [
-        "unknown",
-        1
-      ]
-    ],
-    [
-      [
-        "bacon",
-        0
-      ],
-      [
-        "baconater",
-        0
-      ],
-      [
-        "cod",
-        0
-      ],
-      [
-        "deluxe",
-        0
-      ],
-      [
-        "double",
-        0
-      ],
-      [
-        "is",
-        0
-      ],
-      [
-        "list",
-        0
-      ],
-      [
-        "meal",
-        0
-      ],
-      [
-        "premium",
-        0
-      ],
-      [
-        "triple",
-        0
-      ],
-      [
-        "unknown",
-        1
-      ]
-    ],
-    [
-      [
-        "bacon",
-        0
-      ],
-      [
-        "baconater",
-        0
-      ],
-      [
-        "cod",
-        0
-      ],
-      [
-        "deluxe",
-        0
-      ],
-      [
-        "double",
-        0
-      ],
-      [
-        "premium",
-        0
-      ],
-      [
-        "single",
-        0
-      ],
-      [
-        "triple",
-        0
-      ],
-      [
-        "unknown",
         0
       ]
     ],
@@ -17737,6 +21471,10 @@
         0
       ],
       [
+        "homestyle",
+        0
+      ],
+      [
         "is",
         0
       ],
@@ -17753,12 +21491,8 @@
         0
       ],
       [
-        "triple",
+        "spicy",
         0
-      ],
-      [
-        "unknown",
-        1
       ]
     ],
     [
@@ -17779,6 +21513,10 @@
         0
       ],
       [
+        "homestyle",
+        0
+      ],
+      [
         "is",
         0
       ],
@@ -17795,8 +21533,12 @@
         0
       ],
       [
-        "unknown",
-        1
+        "spicy",
+        0
+      ],
+      [
+        "triple",
+        0
       ]
     ],
     [
@@ -17813,6 +21555,10 @@
         0
       ],
       [
+        "homestyle",
+        0
+      ],
+      [
         "is",
         0
       ],
@@ -17829,8 +21575,8 @@
         0
       ],
       [
-        "unknown",
-        1
+        "spicy",
+        0
       ]
     ],
     [
@@ -17927,6 +21673,86 @@
       [
         "unknown",
         0
+      ]
+    ],
+    [
+      [
+        "chicken",
+        0
+      ],
+      [
+        "cod",
+        0
+      ],
+      [
+        "grill",
+        0
+      ],
+      [
+        "is",
+        0
+      ],
+      [
+        "list",
+        0
+      ],
+      [
+        "number",
+        0
+      ],
+      [
+        "premium",
+        0
+      ],
+      [
+        "sandwich",
+        0
+      ],
+      [
+        "ultimate",
+        0
+      ],
+      [
+        "unknown",
+        1
+      ]
+    ],
+    [
+      [
+        "chicken",
+        0
+      ],
+      [
+        "cod",
+        0
+      ],
+      [
+        "grill",
+        0
+      ],
+      [
+        "is",
+        0
+      ],
+      [
+        "list",
+        0
+      ],
+      [
+        "premium",
+        0
+      ],
+      [
+        "sandwich",
+        0
+      ],
+      [
+        "ultimate",
+        0
+      ],
+      [
+        "unknown",
+        1
       ]
     ],
     [
@@ -18041,6 +21867,10 @@
         0
       ],
       [
+        "homestyle",
+        0
+      ],
+      [
         "is",
         0
       ],
@@ -18054,6 +21884,80 @@
       ],
       [
         "premium",
+        0
+      ]
+    ],
+    [
+      [
+        "cod",
+        0
+      ],
+      [
+        "homestyle",
+        0
+      ],
+      [
+        "is",
+        0
+      ],
+      [
+        "list",
+        0
+      ],
+      [
+        "meal",
+        0
+      ],
+      [
+        "premium",
+        0
+      ],
+      [
+        "spicy",
+        0
+      ]
+    ],
+    [
+      [
+        "cod",
+        0
+      ],
+      [
+        "is",
+        0
+      ],
+      [
+        "list",
+        0
+      ],
+      [
+        "meal",
+        0
+      ],
+      [
+        "premium",
+        0
+      ]
+    ],
+    [
+      [
+        "cod",
+        0
+      ],
+      [
+        "is",
+        0
+      ],
+      [
+        "list",
+        0
+      ],
+      [
+        "premium",
+        0
+      ],
+      [
+        "sandwich",
         0
       ],
       [
@@ -18105,6 +22009,38 @@
     ],
     [
       [
+        "hamburger",
+        0
+      ],
+      [
+        "is",
+        0
+      ],
+      [
+        "list",
+        1
+      ]
+    ],
+    [
+      [
+        "hamburger",
+        0
+      ],
+      [
+        "is",
+        0
+      ],
+      [
+        "list",
+        1
+      ],
+      [
+        "unknown",
+        1
+      ]
+    ],
+    [
+      [
         "is",
         0
       ],
@@ -18115,10 +22051,6 @@
       [
         "meal",
         0
-      ],
-      [
-        "unknown",
-        1
       ]
     ],
     [
@@ -18131,17 +22063,7 @@
         0
       ],
       [
-        "unknown",
-        1
-      ]
-    ],
-    [
-      [
-        "is",
-        0
-      ],
-      [
-        "list",
+        "sandwich",
         0
       ],
       [
@@ -18177,6 +22099,48 @@
       [
         "list",
         1
+      ]
+    ],
+    [
+      [
+        "is",
+        0
+      ],
+      [
+        "list",
+        1
+      ],
+      [
+        "meal",
+        0
+      ]
+    ],
+    [
+      [
+        "is",
+        0
+      ],
+      [
+        "list",
+        1
+      ],
+      [
+        "meal",
+        0
+      ]
+    ],
+    [
+      [
+        "is",
+        0
+      ],
+      [
+        "list",
+        1
+      ],
+      [
+        "sandwich",
+        0
       ],
       [
         "unknown",

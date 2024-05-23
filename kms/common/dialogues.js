@@ -68,7 +68,7 @@ let configStruct = {
     // joe is a person the age of joe ...
     //"arm them, what, the phasers"
     //greg is a first name
-    "(([theAble|]) [list|and] ([theAble|]))",
+    "(x [list|and] y)",
     "([yesno|])",
     "(([isEdee])^ <isEdAble|> ([by] ([isEder])?))",
     "([isEdee|])",

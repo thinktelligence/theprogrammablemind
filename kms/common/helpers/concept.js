@@ -93,6 +93,7 @@ class API {
     config.addPriorities([['articlePOS', 0], [objectId, 0]])
     modifierIds.forEach((modifierId) => config.addPriorities([[modifierId, 0], [modifiersObjectId, 0]]))
     config.addPriorities([[objectId, 0], [modifiersObjectId, 0]])
+    // config.addPriorities([['list', 0], [modifiersObjectId, 0]])
   }
 
   addWord(context) {

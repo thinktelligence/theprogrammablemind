@@ -38,13 +38,18 @@ const template ={
     "a quarter pounder is a hamburger",
     */
     "bacon modifies deluxe",
+    { priorities: [ [['list', 0], ['bacon_deluxe', 0]] ] },
     "chicken modifies sandwich",
+    { priorities: [ [['list', 0], ['chicken_sandwich', 0]] ] },
     "premium modifies cod",
+    { priorities: [ [['list', 0], ['premium_cod', 0]] ] },
     "ultimate chicken modifies grill",
+    { priorities: [ [['list', 0], ['ultimate_chicken_grill', 0]] ] },
     // "10 piece modifies nuggets",
     "asiago ranch chicken modifies club",
+    { priorities: [ [['list', 0], ['asiago_ranch_chicken_club', 0]] ] },
     "single double triple baconater and bacon deluxe are hamburgers",
-    // "spicy homestyle asiago ranch chicken club 10 piece nuggets ultimate chicken grill and premium cod are sandwiches",
+    "spicy homestyle asiago ranch chicken club 10 piece nuggets ultimate chicken grill and premium cod are sandwiches",
     "a meals is food",
     "a combo is a meal",
     "single double triple baconater bacon deluxe spicy homestyle and premium cod are meals",
@@ -52,8 +57,8 @@ const template ={
     {
       where: where(),
       operators: [
-        "((meal/0,1 && context.comboNumber == undefined) [comboMeal] (combo/0))",
-        "((combo/0) [comboNumber] (number/0,1 || numberNumberCombo/0,1))",
+        "((meal/* && context.comboNumber == undefined) [comboMeal] (combo/*))",
+        "((combo/*) [comboNumber] (number/* || numberNumberCombo/*))",
         "((numberNumberCombo/1) [numberNumberCombo_combo|] (combo/0))",
         // "((combo/0) [comboNumber] (number/0,1))",
         // "((combo/0) [comboNumber:nncBridge] (numberNumberCombo/0,1))",
@@ -62,8 +67,19 @@ const template ={
         "((number/0,1 && context.instance == undefined) [numberNumberCombo] (number/0,1))",
       ],
       priorities: [
+        /*
         [['list', 0], ['premium_cod', 0]],
         [['list', 1], ['premium_cod', 0]],
+        [['comboMeal', 0], ['list', 0]],
+        [['comboMeal', 0], ['list', 1]],
+        [['comboNumber', 0], ['list', 0]],
+        [['comboNumber', 0], ['list', 1]],
+        */
+        [['numberNumberCombo', 0], ['number', 0]],
+        [['numberNumberCombo', 0], ['list', 0]],
+        [['comboNumber', 0], ['list', 0]],
+        // [['premium_cod', 0], ['list', 0]],
+        // [['comboNumber', 0], ['number', 0]],
       ],
       generators: [
         {
@@ -216,6 +232,7 @@ const createConfig = () => {
       "([showOrder|show] ([orderNoun/1]))",
     ],
     // flatten: ['list'],
+    // TODO use node naming not python
     contextual_priorities: [
       { context: [['list', 0], ['bacon',0], ['deluxe', 0]], choose: [1,2] },
       // { context: [['list', 0], ['spicy',0], ['homestyle', 0]], choose: [1,2] },
@@ -231,7 +248,7 @@ const createConfig = () => {
       {
         where: where(),
         match: ({context, isA}) => isA(context.marker, 'food') && context.marker !== 'food',
-        apply: ({context, km, api}) => {
+        apply: ({context, km, api, instance}) => {
           km('fastfood').api.state.add(context)
         }
       }
