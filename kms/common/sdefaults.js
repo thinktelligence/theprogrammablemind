@@ -1,4 +1,5 @@
 const { Config, flatten, knowledgeModule, where } = require('./runtime').theprogrammablemind
+const { defaultContextCheck } = require('./helpers')
 const sdefaults_tests = require('./sdefaults.test.json')
 
 let configStruct = {
@@ -30,11 +31,7 @@ knowledgeModule({
     name: './sdefaults.test.json',
     contents: sdefaults_tests,
     checks: {
-            context: [
-              'marker',
-              'text',
-              { valueLists: { value: ['marker', 'text', 'value'] } },
-            ],
+            context: defaultContextCheck,
           },
   },
 })

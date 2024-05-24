@@ -1,4 +1,5 @@
 const { Config, knowledgeModule, ensureTestFile, where, unflatten, flattens } = require('./runtime').theprogrammablemind
+const { defaultContextCheck } = require('./helpers')
 const _ = require('lodash')
 ensureTestFile(module, 'meta', 'test')
 ensureTestFile(module, 'meta', 'instance')
@@ -391,11 +392,7 @@ knowledgeModule({
       words: true,
     },
     checks: {
-            context: [
-              'marker',
-              'text',
-              { valueLists: { value: ['marker', 'text', 'value'] } },
-            ],
+            context: defaultContextCheck,
           },
 
   },

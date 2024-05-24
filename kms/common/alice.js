@@ -1,4 +1,5 @@
 const { Config, knowledgeModule, ensureTestFile, where } = require('./runtime').theprogrammablemind
+const { defaultContextCheck } = require('./helpers')
 ensureTestFile(module, 'alice', 'test')
 ensureTestFile(module, 'alice', 'instance')
 
@@ -29,11 +30,7 @@ knowledgeModule( {
           name: './alice.test.json',
           contents: alice_tests,
           checks: {
-            context: [
-              'marker',
-              'text',
-              { valueLists: { value: ['marker', 'text', 'value'] } },
-            ],
+            context: defaultContextCheck,
           },
         },
   template: {

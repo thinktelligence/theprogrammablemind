@@ -1,4 +1,5 @@
 const { Config, knowledgeModule, where, Digraph } = require('./runtime').theprogrammablemind
+const { defaultContextCheck } = require('./helpers')
 const base_km = require('./pipboyTemplate')
 const countable = require('./countable')
 const comparable = require('./comparable')
@@ -522,11 +523,7 @@ knowledgeModule({
       objects: [
         'apply', 'change', 'disarm', 'drink', 'eat', 'equip', 'setName', 'strip', 'take', 'wear',
       ],
-      context: [
-        'marker',
-        'text',
-        { valueLists: { value: ['marker', 'text', 'value'] } },
-      ],
+      context: defaultContextCheck,
     },
   },
 })

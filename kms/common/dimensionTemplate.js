@@ -1,4 +1,5 @@
 const { Config, knowledgeModule, where } = require('./runtime').theprogrammablemind
+const { defaultContextCheck } = require('./helpers')
 const hierarchy = require('./hierarchy')
 const dimensionTemplate_tests = require('./dimensionTemplate.test.json')
 const dimensionTemplate_instance = require('./dimensionTemplate.instance.json')
@@ -27,11 +28,7 @@ knowledgeModule( {
         template,
         instance: dimensionTemplate_instance,
         checks: {
-            context: [
-              'marker',
-              'text',
-              { valueLists: { value: ['marker', 'text', 'value'] } },
-            ],
+            context: defaultContextCheck,
           },
 
       }

@@ -1,4 +1,5 @@
 const { Config, knowledgeModule, where } = require('./runtime').theprogrammablemind
+const { defaultContextCheck } = require('./helpers')
 const dialogues = require('./dialogues')
 const help_tests = require('./help.test.json')
 const helpers = require('./helpers')
@@ -100,11 +101,7 @@ knowledgeModule({
     name: './help.test.json',
     contents: help_tests,
     checks: {
-            context: [
-              'marker',
-              'text',
-              { valueLists: { value: ['marker', 'text', 'value'] } },
-            ],
+            context: defaultContextCheck,
           },
   },
 })

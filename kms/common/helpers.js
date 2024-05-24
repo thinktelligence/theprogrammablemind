@@ -108,7 +108,16 @@ const toEValue = (context) => {
 	return context;
 }
 
+const defaultContextCheck = [
+  'marker',
+  'text',
+  { valueLists: { value: ['marker', 'text', 'value'] } },
+  'modifiers',
+  { propertyLists: { modifiers: ['marker', 'text', 'value'] } }
+]
+
 module.exports = {
+  defaultContextCheck,
 	toEValue,
   millisecondsUntilHourOfDay,
   indent,

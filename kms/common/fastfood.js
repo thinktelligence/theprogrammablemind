@@ -1,4 +1,5 @@
 const { Config, knowledgeModule, ensureTestFile, where } = require('./runtime').theprogrammablemind
+const { defaultContextCheck } = require('./helpers')
 const foods = require('./foods')
 const events = require('./events')
 const countable = require('./countable')
@@ -261,11 +262,7 @@ knowledgeModule( {
               objects: [
                 'show', 'items', 'changes'
               ],
-              context: [
-                'marker',
-                'text',
-                { valueLists: { value: ['marker', 'text', 'value'] } },
-              ],
+              context: defaultContextCheck,
             },
           },
     template: {

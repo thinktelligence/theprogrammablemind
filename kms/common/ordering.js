@@ -1,4 +1,5 @@
 const { Config, knowledgeModule, where } = require('./runtime').theprogrammablemind
+const { defaultContextCheck } = require('./helpers')
 const hierarchy = require('./hierarchy')
 const ordering_tests = require('./ordering.test.json')
 const ordering_instance = require('./ordering.instance.json')
@@ -124,11 +125,7 @@ knowledgeModule( {
             heck: ['children', 'concept', 'parents', 'properties'],
             contents: ordering_tests,
             checks: {
-              context: [
-                'marker',
-                'text',
-                { valueLists: { value: ['marker', 'text', 'value'] } },
-              ],
+              context: defaultContextCheck,
             },
 
           },

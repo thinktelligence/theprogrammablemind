@@ -1,4 +1,5 @@
 const { Config, knowledgeModule, where, Digraph } = require('./runtime').theprogrammablemind
+const { defaultContextCheck } = require('./helpers')
 const dialogues = require('./dialogues.js')
 const pos = require('./pos.js')
 const math = require('./math.js')
@@ -196,12 +197,7 @@ knowledgeModule({
     contents: formulas_tests,
     checks: {
       objects: ['formulas'],
-      context: [
-        'marker',
-        'text',
-        { valueLists: { value: ['marker', 'text', 'value'] } },
-      ],
-
+      context: defaultContextCheck,
     }
   },
 })

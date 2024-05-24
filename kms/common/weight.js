@@ -1,4 +1,5 @@
 const { Config, knowledgeModule, where, Digraph } = require('./runtime').theprogrammablemind
+const { defaultContextCheck } = require('./helpers')
 const dimension = require('./dimension.js')
 const weight_tests = require('./weight.test.json')
 const weight_instance = require('./weight.instance.json')
@@ -47,11 +48,7 @@ knowledgeModule({
     name: './weight.test.json',
     contents: weight_tests,
     checks: {
-            context: [
-              'marker',
-              'text',
-              { valueLists: { value: ['marker', 'text', 'value'] } },
-            ],
+            context: defaultContextCheck,
           },
   },
   template: {

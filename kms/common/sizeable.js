@@ -1,4 +1,5 @@
 const { Config, knowledgeModule, where, Digraph } = require('./runtime').theprogrammablemind
+const { defaultContextCheck } = require('./helpers')
 const dialogues = require("./hierarchy")
 const numbers = require("./numbers")
 const sizeable_tests = require('./sizeable.test.json')
@@ -55,11 +56,7 @@ knowledgeModule({
     name: './sizeable.test.json',
     contents: sizeable_tests,
     checks: {
-            context: [
-              'marker',
-              'text',
-              { valueLists: { value: ['marker', 'text', 'value'] } },
-            ],
+            context: defaultContextCheck,
           },
   },
 })

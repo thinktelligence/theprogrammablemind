@@ -1,4 +1,5 @@
 const pluralize = require('pluralize')
+const { defaultContextCheck } = require('./helpers')
 const { Config, knowledgeModule, where } = require('./runtime').theprogrammablemind
 const gdefaults_tests = require('./gdefaults.test.json')
 const { isMany } = require('./helpers.js')
@@ -142,11 +143,7 @@ knowledgeModule({
     name: './gdefaults.test.json',
     contents: gdefaults_tests,
     checks: {
-            context: [
-              'marker',
-              'text',
-              { valueLists: { value: ['marker', 'text', 'value'] } },
-            ],
+            context: defaultContextCheck,
           },
 
   },

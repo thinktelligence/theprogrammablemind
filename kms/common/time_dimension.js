@@ -1,4 +1,5 @@
 const { Config, knowledgeModule, where, Digraph } = require('./runtime').theprogrammablemind
+>const { defaultContextCheck } = require('./helpers')
 const dimension = require('./dimension.js')
 const time_tests = require('./time_dimension.test.json')
 const time_instance = require('./time_dimension.instance.json')

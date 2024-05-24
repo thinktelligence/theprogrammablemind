@@ -1,4 +1,5 @@
 const { Config, knowledgeModule, where, Digraph } = require('./runtime').theprogrammablemind
+const { defaultContextCheck } = require('./helpers')
 const base_km = require('./hierarchy')
 const countable = require('./countable')
 const comparable = require('./comparable')
@@ -22,11 +23,7 @@ knowledgeModule({
     name: './formulasTemplate.test.json',
     contents: tests,
     checks: {
-            context: [
-              'marker',
-              'text',
-              { valueLists: { value: ['marker', 'text', 'value'] } },
-            ],
+            context: defaultContextCheck,
           },
 
   },

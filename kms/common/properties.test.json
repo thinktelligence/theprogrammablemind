@@ -46,6 +46,9 @@
         {
           "bridge": "{ ...next(operator), arguments: after[0] }",
           "id": "between",
+          "isA": [
+            "preposition"
+          ],
           "level": 0
         },
         {
@@ -121,7 +124,7 @@
           "level": 0
         },
         {
-          "bridge": "{ ...next(operator), modifier: before[0], concept: after[0], flatten: true }",
+          "bridge": "{ ...next(operator), modifiers: before, concept: after[0], flatten: true }",
           "id": "modifies",
           "isA": [
             "verby"
@@ -168,20 +171,20 @@
           "level": 0
         },
         {
-          "bridge": "{ ...next(operator), isList: true, value: append(before, after) }",
+          "bridge": "{ ...next(operator), listable: true, isList: true, value: append(before, after) }",
           "id": "list",
           "level": 0,
           "selector": {
             "left": [
               {
-                "variable": "type"
+                "pattern": "($type && context.instance == variables.instance)"
               }
             ],
             "match": "same",
             "passthrough": true,
             "right": [
               {
-                "variable": "type"
+                "pattern": "($type && context.instance == variables.instance)"
               }
             ]
           }
@@ -193,7 +196,7 @@
           "selector": {
             "left": [
               {
-                "variable": "type"
+                "pattern": "($type && context.instance == variables.instance)"
               }
             ],
             "match": "same",
@@ -204,7 +207,7 @@
           "bridge": "{ ...next(operator), toObject: after[0] }",
           "id": "to",
           "level": 0,
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:110"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:121"
         },
         {
           "bridge": "{ ...next(operator) }",
@@ -556,7 +559,7 @@
           "before": [
             "verby"
           ],
-          "bridge": "{ ...after[0], chicken: before[0], atomic: true, dead: true, marker: next(operator(concat(before.value, '_', after.value))), value: concat(before.value, '_', after.value), modifiers: append(['chicken'], after[0].modifiers)}",
+          "bridge": "{ ...after[0], 'chicken': before[0], atomic: true, dead: true, marker: next(operator('chicken_strip')), value: 'chicken_strip', modifiers: append(['chicken'], after[0].modifiers)}",
           "convolution": true,
           "id": "chicken_strip",
           "isA": [
@@ -607,7 +610,7 @@
           "pattern": "(([xfx]) <([between] (words))>)"
         },
         {
-          "pattern": "((modifier) [modifies|] (concept))"
+          "pattern": "((context.punctuation != true)* [modifies|] (concept))"
         },
         {
           "pattern": "([concept])"
@@ -676,7 +679,7 @@
           "pattern": "(<does|> ([canBeDoQuestion/0,1]))"
         },
         {
-          "pattern": "(([theAble|]) [list|and] ([theAble|]))"
+          "pattern": "(x [list|and] y)"
         },
         {
           "pattern": "([yesno|])"
@@ -927,19 +930,21 @@
         "flatten": true,
         "level": 1,
         "marker": "modifies",
-        "modifier": {
-          "dead": true,
-          "level": 1,
-          "marker": "unknown",
-          "range": {
-            "end": 6,
-            "start": 0
-          },
-          "text": "chicken",
-          "unknown": true,
-          "value": "chicken",
-          "word": "chicken"
-        },
+        "modifiers": [
+          {
+            "dead": true,
+            "level": 1,
+            "marker": "unknown",
+            "range": {
+              "end": 6,
+              "start": 0
+            },
+            "text": "chicken",
+            "unknown": true,
+            "value": "chicken",
+            "word": "chicken"
+          }
+        ],
         "number": "one",
         "range": {
           "end": 22,
@@ -1069,6 +1074,9 @@
               "what",
               "whose"
             ],
+            "preposition": [
+              "between"
+            ],
             "pronoun": [
               "it",
               "this"
@@ -1130,6 +1138,8 @@
             "have",
             "canBeDoQuestion",
             "canBeQuestion",
+            "between",
+            "preposition",
             "concept",
             "modifies",
             "verby",
@@ -1155,6 +1165,9 @@
           "parents": {
             "a": [
               "articlePOS"
+            ],
+            "between": [
+              "preposition"
             ],
             "concept": [
               "theAble",
@@ -1250,6 +1263,8 @@
               },
               "articlePOS": {
               },
+              "between": {
+              },
               "canBeDoQuestion": {
               },
               "canBeQuestion": {
@@ -1275,6 +1290,8 @@
               "object": {
               },
               "orAble": {
+              },
+              "preposition": {
               },
               "pronoun": {
               },
@@ -1354,19 +1371,21 @@
             "flatten": true,
             "level": 1,
             "marker": "modifies",
-            "modifier": {
-              "dead": true,
-              "level": 1,
-              "marker": "unknown",
-              "range": {
-                "end": 6,
-                "start": 0
-              },
-              "text": "chicken",
-              "unknown": true,
-              "value": "chicken",
-              "word": "chicken"
-            },
+            "modifiers": [
+              {
+                "dead": true,
+                "level": 1,
+                "marker": "unknown",
+                "range": {
+                  "end": 6,
+                  "start": 0
+                },
+                "text": "chicken",
+                "unknown": true,
+                "value": "chicken",
+                "word": "chicken"
+              }
+            ],
             "number": "one",
             "range": {
               "end": 22,
@@ -1412,6 +1431,9 @@
         {
           "bridge": "{ ...next(operator), arguments: after[0] }",
           "id": "between",
+          "isA": [
+            "preposition"
+          ],
           "level": 0
         },
         {
@@ -1487,7 +1509,7 @@
           "level": 0
         },
         {
-          "bridge": "{ ...next(operator), modifier: before[0], concept: after[0], flatten: true }",
+          "bridge": "{ ...next(operator), modifiers: before, concept: after[0], flatten: true }",
           "id": "modifies",
           "isA": [
             "verby"
@@ -1534,20 +1556,20 @@
           "level": 0
         },
         {
-          "bridge": "{ ...next(operator), isList: true, value: append(before, after) }",
+          "bridge": "{ ...next(operator), listable: true, isList: true, value: append(before, after) }",
           "id": "list",
           "level": 0,
           "selector": {
             "left": [
               {
-                "variable": "type"
+                "pattern": "($type && context.instance == variables.instance)"
               }
             ],
             "match": "same",
             "passthrough": true,
             "right": [
               {
-                "variable": "type"
+                "pattern": "($type && context.instance == variables.instance)"
               }
             ]
           }
@@ -1559,7 +1581,7 @@
           "selector": {
             "left": [
               {
-                "variable": "type"
+                "pattern": "($type && context.instance == variables.instance)"
               }
             ],
             "match": "same",
@@ -1570,7 +1592,7 @@
           "bridge": "{ ...next(operator), toObject: after[0] }",
           "id": "to",
           "level": 0,
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:110"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:121"
         },
         {
           "bridge": "{ ...next(operator) }",
@@ -1922,7 +1944,7 @@
           "before": [
             "verby"
           ],
-          "bridge": "{ ...after[0], chicken: before[0], atomic: true, dead: true, marker: next(operator(concat(before.value, '_', after.value))), value: concat(before.value, '_', after.value), modifiers: append(['chicken'], after[0].modifiers)}",
+          "bridge": "{ ...after[0], 'chicken': before[0], atomic: true, dead: true, marker: next(operator('chicken_strip')), value: 'chicken_strip', modifiers: append(['chicken'], after[0].modifiers)}",
           "convolution": true,
           "id": "chicken_strip",
           "isA": [
@@ -1973,7 +1995,7 @@
           "pattern": "(([xfx]) <([between] (words))>)"
         },
         {
-          "pattern": "((modifier) [modifies|] (concept))"
+          "pattern": "((context.punctuation != true)* [modifies|] (concept))"
         },
         {
           "pattern": "([concept])"
@@ -2042,7 +2064,7 @@
           "pattern": "(<does|> ([canBeDoQuestion/0,1]))"
         },
         {
-          "pattern": "(([theAble|]) [list|and] ([theAble|]))"
+          "pattern": "(x [list|and] y)"
         },
         {
           "pattern": "([yesno|])"
@@ -2293,19 +2315,21 @@
         "flatten": true,
         "level": 1,
         "marker": "modifies",
-        "modifier": {
-          "dead": true,
-          "level": 1,
-          "marker": "unknown",
-          "range": {
-            "end": 6,
-            "start": 0
-          },
-          "text": "chicken",
-          "unknown": true,
-          "value": "chicken",
-          "word": "chicken"
-        },
+        "modifiers": [
+          {
+            "dead": true,
+            "level": 1,
+            "marker": "unknown",
+            "range": {
+              "end": 6,
+              "start": 0
+            },
+            "text": "chicken",
+            "unknown": true,
+            "value": "chicken",
+            "word": "chicken"
+          }
+        ],
         "number": "one",
         "range": {
           "end": 22,
@@ -2328,6 +2352,9 @@
             "start": 0
           },
           "text": "chicken",
+          "types": [
+            "chicken"
+          ],
           "value": "chicken",
           "word": "chicken"
         },
@@ -2344,6 +2371,10 @@
         },
         "text": "chicken strips",
         "topLevel": true,
+        "types": [
+          "chicken_strip",
+          "strip"
+        ],
         "value": "chicken_strip",
         "word": "strips"
       }
@@ -2486,6 +2517,9 @@
               "what",
               "whose"
             ],
+            "preposition": [
+              "between"
+            ],
             "pronoun": [
               "it",
               "this"
@@ -2547,6 +2581,8 @@
             "have",
             "canBeDoQuestion",
             "canBeQuestion",
+            "between",
+            "preposition",
             "concept",
             "modifies",
             "verby",
@@ -2572,6 +2608,9 @@
           "parents": {
             "a": [
               "articlePOS"
+            ],
+            "between": [
+              "preposition"
             ],
             "concept": [
               "theAble",
@@ -2667,6 +2706,8 @@
               },
               "articlePOS": {
               },
+              "between": {
+              },
               "canBeDoQuestion": {
               },
               "canBeQuestion": {
@@ -2692,6 +2733,8 @@
               "object": {
               },
               "orAble": {
+              },
+              "preposition": {
               },
               "pronoun": {
               },
@@ -2763,6 +2806,9 @@
                 "start": 0
               },
               "text": "chicken",
+              "types": [
+                "chicken"
+              ],
               "value": "chicken",
               "word": "chicken"
             },
@@ -2779,6 +2825,10 @@
             },
             "text": "chicken strips",
             "topLevel": true,
+            "types": [
+              "chicken_strip",
+              "strip"
+            ],
             "value": "chicken_strip",
             "word": "strips"
           },
@@ -2808,19 +2858,21 @@
             "flatten": true,
             "level": 1,
             "marker": "modifies",
-            "modifier": {
-              "dead": true,
-              "level": 1,
-              "marker": "unknown",
-              "range": {
-                "end": 6,
-                "start": 0
-              },
-              "text": "chicken",
-              "unknown": true,
-              "value": "chicken",
-              "word": "chicken"
-            },
+            "modifiers": [
+              {
+                "dead": true,
+                "level": 1,
+                "marker": "unknown",
+                "range": {
+                  "end": 6,
+                  "start": 0
+                },
+                "text": "chicken",
+                "unknown": true,
+                "value": "chicken",
+                "word": "chicken"
+              }
+            ],
             "number": "one",
             "range": {
               "end": 22,
@@ -2925,6 +2977,9 @@
         {
           "bridge": "{ ...next(operator), arguments: after[0] }",
           "id": "between",
+          "isA": [
+            "preposition"
+          ],
           "level": 0
         },
         {
@@ -3000,7 +3055,7 @@
           "level": 0
         },
         {
-          "bridge": "{ ...next(operator), modifier: before[0], concept: after[0], flatten: true }",
+          "bridge": "{ ...next(operator), modifiers: before, concept: after[0], flatten: true }",
           "id": "modifies",
           "isA": [
             "verby"
@@ -3047,20 +3102,20 @@
           "level": 0
         },
         {
-          "bridge": "{ ...next(operator), isList: true, value: append(before, after) }",
+          "bridge": "{ ...next(operator), listable: true, isList: true, value: append(before, after) }",
           "id": "list",
           "level": 0,
           "selector": {
             "left": [
               {
-                "variable": "type"
+                "pattern": "($type && context.instance == variables.instance)"
               }
             ],
             "match": "same",
             "passthrough": true,
             "right": [
               {
-                "variable": "type"
+                "pattern": "($type && context.instance == variables.instance)"
               }
             ]
           }
@@ -3072,7 +3127,7 @@
           "selector": {
             "left": [
               {
-                "variable": "type"
+                "pattern": "($type && context.instance == variables.instance)"
               }
             ],
             "match": "same",
@@ -3083,7 +3138,7 @@
           "bridge": "{ ...next(operator), toObject: after[0] }",
           "id": "to",
           "level": 0,
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:110"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:121"
         },
         {
           "bridge": "{ ...next(operator) }",
@@ -3446,7 +3501,7 @@
           "pattern": "(([xfx]) <([between] (words))>)"
         },
         {
-          "pattern": "((modifier) [modifies|] (concept))"
+          "pattern": "((context.punctuation != true)* [modifies|] (concept))"
         },
         {
           "pattern": "([concept])"
@@ -3515,7 +3570,7 @@
           "pattern": "(<does|> ([canBeDoQuestion/0,1]))"
         },
         {
-          "pattern": "(([theAble|]) [list|and] ([theAble|]))"
+          "pattern": "(x [list|and] y)"
         },
         {
           "pattern": "([yesno|])"
@@ -3788,6 +3843,9 @@
         "topLevel": true,
         "touchedBy": [
           "properties#call2"
+        ],
+        "types": [
+          "have"
         ],
         "word": "have"
       }
@@ -3946,6 +4004,9 @@
               "what",
               "whose"
             ],
+            "preposition": [
+              "between"
+            ],
             "pronoun": [
               "it",
               "this"
@@ -4007,6 +4068,8 @@
             "have",
             "canBeDoQuestion",
             "canBeQuestion",
+            "between",
+            "preposition",
             "concept",
             "modifies",
             "verby",
@@ -4033,6 +4096,9 @@
           "parents": {
             "a": [
               "articlePOS"
+            ],
+            "between": [
+              "preposition"
             ],
             "concept": [
               "theAble",
@@ -4128,6 +4194,8 @@
               },
               "articlePOS": {
               },
+              "between": {
+              },
               "canBeDoQuestion": {
               },
               "canBeQuestion": {
@@ -4159,6 +4227,8 @@
               "object": {
               },
               "orAble": {
+              },
+              "preposition": {
               },
               "pronoun": {
               },
@@ -4278,6 +4348,9 @@
             "topLevel": true,
             "touchedBy": [
               "properties#call2"
+            ],
+            "types": [
+              "have"
             ],
             "word": "have"
           },
@@ -4426,6 +4499,9 @@
         {
           "bridge": "{ ...next(operator), arguments: after[0] }",
           "id": "between",
+          "isA": [
+            "preposition"
+          ],
           "level": 0
         },
         {
@@ -4501,7 +4577,7 @@
           "level": 0
         },
         {
-          "bridge": "{ ...next(operator), modifier: before[0], concept: after[0], flatten: true }",
+          "bridge": "{ ...next(operator), modifiers: before, concept: after[0], flatten: true }",
           "id": "modifies",
           "isA": [
             "verby"
@@ -4548,20 +4624,20 @@
           "level": 0
         },
         {
-          "bridge": "{ ...next(operator), isList: true, value: append(before, after) }",
+          "bridge": "{ ...next(operator), listable: true, isList: true, value: append(before, after) }",
           "id": "list",
           "level": 0,
           "selector": {
             "left": [
               {
-                "variable": "type"
+                "pattern": "($type && context.instance == variables.instance)"
               }
             ],
             "match": "same",
             "passthrough": true,
             "right": [
               {
-                "variable": "type"
+                "pattern": "($type && context.instance == variables.instance)"
               }
             ]
           }
@@ -4573,7 +4649,7 @@
           "selector": {
             "left": [
               {
-                "variable": "type"
+                "pattern": "($type && context.instance == variables.instance)"
               }
             ],
             "match": "same",
@@ -4584,7 +4660,7 @@
           "bridge": "{ ...next(operator), toObject: after[0] }",
           "id": "to",
           "level": 0,
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:110"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:121"
         },
         {
           "bridge": "{ ...next(operator) }",
@@ -4947,7 +5023,7 @@
           "pattern": "(([xfx]) <([between] (words))>)"
         },
         {
-          "pattern": "((modifier) [modifies|] (concept))"
+          "pattern": "((context.punctuation != true)* [modifies|] (concept))"
         },
         {
           "pattern": "([concept])"
@@ -5016,7 +5092,7 @@
           "pattern": "(<does|> ([canBeDoQuestion/0,1]))"
         },
         {
-          "pattern": "(([theAble|]) [list|and] ([theAble|]))"
+          "pattern": "(x [list|and] y)"
         },
         {
           "pattern": "([yesno|])"
@@ -5290,6 +5366,9 @@
         "touchedBy": [
           "properties#call2"
         ],
+        "types": [
+          "have"
+        ],
         "word": "have"
       },
       {
@@ -5354,6 +5433,9 @@
         "topLevel": true,
         "touchedBy": [
           "properties#call10"
+        ],
+        "types": [
+          "have"
         ],
         "what": "does",
         "word": "have"
@@ -5683,6 +5765,9 @@
               "what",
               "whose"
             ],
+            "preposition": [
+              "between"
+            ],
             "pronoun": [
               "it",
               "this"
@@ -5744,6 +5829,8 @@
             "have",
             "canBeDoQuestion",
             "canBeQuestion",
+            "between",
+            "preposition",
             "concept",
             "modifies",
             "verby",
@@ -5770,6 +5857,9 @@
           "parents": {
             "a": [
               "articlePOS"
+            ],
+            "between": [
+              "preposition"
             ],
             "concept": [
               "theAble",
@@ -5865,6 +5955,8 @@
               },
               "articlePOS": {
               },
+              "between": {
+              },
               "canBeDoQuestion": {
               },
               "canBeQuestion": {
@@ -5896,6 +5988,8 @@
               "object": {
               },
               "orAble": {
+              },
+              "preposition": {
               },
               "pronoun": {
               },
@@ -6020,6 +6114,9 @@
             "touchedBy": [
               "properties#call10"
             ],
+            "types": [
+              "have"
+            ],
             "what": "does",
             "word": "have"
           },
@@ -6090,6 +6187,9 @@
             "topLevel": true,
             "touchedBy": [
               "properties#call2"
+            ],
+            "types": [
+              "have"
             ],
             "word": "have"
           },
@@ -6164,6 +6264,9 @@
         {
           "bridge": "{ ...next(operator), arguments: after[0] }",
           "id": "between",
+          "isA": [
+            "preposition"
+          ],
           "level": 0
         },
         {
@@ -6239,7 +6342,7 @@
           "level": 0
         },
         {
-          "bridge": "{ ...next(operator), modifier: before[0], concept: after[0], flatten: true }",
+          "bridge": "{ ...next(operator), modifiers: before, concept: after[0], flatten: true }",
           "id": "modifies",
           "isA": [
             "verby"
@@ -6286,20 +6389,20 @@
           "level": 0
         },
         {
-          "bridge": "{ ...next(operator), isList: true, value: append(before, after) }",
+          "bridge": "{ ...next(operator), listable: true, isList: true, value: append(before, after) }",
           "id": "list",
           "level": 0,
           "selector": {
             "left": [
               {
-                "variable": "type"
+                "pattern": "($type && context.instance == variables.instance)"
               }
             ],
             "match": "same",
             "passthrough": true,
             "right": [
               {
-                "variable": "type"
+                "pattern": "($type && context.instance == variables.instance)"
               }
             ]
           }
@@ -6311,7 +6414,7 @@
           "selector": {
             "left": [
               {
-                "variable": "type"
+                "pattern": "($type && context.instance == variables.instance)"
               }
             ],
             "match": "same",
@@ -6322,7 +6425,7 @@
           "bridge": "{ ...next(operator), toObject: after[0] }",
           "id": "to",
           "level": 0,
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:110"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:121"
         },
         {
           "bridge": "{ ...next(operator) }",
@@ -6685,7 +6788,7 @@
           "pattern": "(([xfx]) <([between] (words))>)"
         },
         {
-          "pattern": "((modifier) [modifies|] (concept))"
+          "pattern": "((context.punctuation != true)* [modifies|] (concept))"
         },
         {
           "pattern": "([concept])"
@@ -6754,7 +6857,7 @@
           "pattern": "(<does|> ([canBeDoQuestion/0,1]))"
         },
         {
-          "pattern": "(([theAble|]) [list|and] ([theAble|]))"
+          "pattern": "(x [list|and] y)"
         },
         {
           "pattern": "([yesno|])"
@@ -7158,6 +7261,9 @@
               "what",
               "whose"
             ],
+            "preposition": [
+              "between"
+            ],
             "pronoun": [
               "it",
               "this"
@@ -7219,6 +7325,8 @@
             "have",
             "canBeDoQuestion",
             "canBeQuestion",
+            "between",
+            "preposition",
             "concept",
             "modifies",
             "verby",
@@ -7245,6 +7353,9 @@
           "parents": {
             "a": [
               "articlePOS"
+            ],
+            "between": [
+              "preposition"
             ],
             "concept": [
               "theAble",
@@ -7340,6 +7451,8 @@
               },
               "articlePOS": {
               },
+              "between": {
+              },
               "canBeDoQuestion": {
               },
               "canBeQuestion": {
@@ -7371,6 +7484,8 @@
               "object": {
               },
               "orAble": {
+              },
+              "preposition": {
               },
               "pronoun": {
               },
@@ -7614,6 +7729,9 @@
         {
           "bridge": "{ ...next(operator), arguments: after[0] }",
           "id": "between",
+          "isA": [
+            "preposition"
+          ],
           "level": 0
         },
         {
@@ -7689,7 +7807,7 @@
           "level": 0
         },
         {
-          "bridge": "{ ...next(operator), modifier: before[0], concept: after[0], flatten: true }",
+          "bridge": "{ ...next(operator), modifiers: before, concept: after[0], flatten: true }",
           "id": "modifies",
           "isA": [
             "verby"
@@ -7736,20 +7854,20 @@
           "level": 0
         },
         {
-          "bridge": "{ ...next(operator), isList: true, value: append(before, after) }",
+          "bridge": "{ ...next(operator), listable: true, isList: true, value: append(before, after) }",
           "id": "list",
           "level": 0,
           "selector": {
             "left": [
               {
-                "variable": "type"
+                "pattern": "($type && context.instance == variables.instance)"
               }
             ],
             "match": "same",
             "passthrough": true,
             "right": [
               {
-                "variable": "type"
+                "pattern": "($type && context.instance == variables.instance)"
               }
             ]
           }
@@ -7761,7 +7879,7 @@
           "selector": {
             "left": [
               {
-                "variable": "type"
+                "pattern": "($type && context.instance == variables.instance)"
               }
             ],
             "match": "same",
@@ -7772,7 +7890,7 @@
           "bridge": "{ ...next(operator), toObject: after[0] }",
           "id": "to",
           "level": 0,
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:110"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:121"
         },
         {
           "bridge": "{ ...next(operator) }",
@@ -8135,7 +8253,7 @@
           "pattern": "(([xfx]) <([between] (words))>)"
         },
         {
-          "pattern": "((modifier) [modifies|] (concept))"
+          "pattern": "((context.punctuation != true)* [modifies|] (concept))"
         },
         {
           "pattern": "([concept])"
@@ -8204,7 +8322,7 @@
           "pattern": "(<does|> ([canBeDoQuestion/0,1]))"
         },
         {
-          "pattern": "(([theAble|]) [list|and] ([theAble|]))"
+          "pattern": "(x [list|and] y)"
         },
         {
           "pattern": "([yesno|])"
@@ -8542,6 +8660,9 @@
         "touchedBy": [
           "properties#call10"
         ],
+        "types": [
+          "have"
+        ],
         "word": "has"
       }
     ],
@@ -8828,6 +8949,9 @@
               "what",
               "whose"
             ],
+            "preposition": [
+              "between"
+            ],
             "pronoun": [
               "it",
               "this"
@@ -8889,6 +9013,8 @@
             "have",
             "canBeDoQuestion",
             "canBeQuestion",
+            "between",
+            "preposition",
             "concept",
             "modifies",
             "verby",
@@ -8915,6 +9041,9 @@
           "parents": {
             "a": [
               "articlePOS"
+            ],
+            "between": [
+              "preposition"
             ],
             "concept": [
               "theAble",
@@ -9010,6 +9139,8 @@
               },
               "articlePOS": {
               },
+              "between": {
+              },
               "canBeDoQuestion": {
               },
               "canBeQuestion": {
@@ -9041,6 +9172,8 @@
               "object": {
               },
               "orAble": {
+              },
+              "preposition": {
               },
               "pronoun": {
               },
@@ -9165,6 +9298,9 @@
             "topLevel": true,
             "touchedBy": [
               "properties#call10"
+            ],
+            "types": [
+              "have"
             ],
             "word": "has"
           },
@@ -9329,6 +9465,9 @@
         {
           "bridge": "{ ...next(operator), arguments: after[0] }",
           "id": "between",
+          "isA": [
+            "preposition"
+          ],
           "level": 0
         },
         {
@@ -9404,7 +9543,7 @@
           "level": 0
         },
         {
-          "bridge": "{ ...next(operator), modifier: before[0], concept: after[0], flatten: true }",
+          "bridge": "{ ...next(operator), modifiers: before, concept: after[0], flatten: true }",
           "id": "modifies",
           "isA": [
             "verby"
@@ -9451,20 +9590,20 @@
           "level": 0
         },
         {
-          "bridge": "{ ...next(operator), isList: true, value: append(before, after) }",
+          "bridge": "{ ...next(operator), listable: true, isList: true, value: append(before, after) }",
           "id": "list",
           "level": 0,
           "selector": {
             "left": [
               {
-                "variable": "type"
+                "pattern": "($type && context.instance == variables.instance)"
               }
             ],
             "match": "same",
             "passthrough": true,
             "right": [
               {
-                "variable": "type"
+                "pattern": "($type && context.instance == variables.instance)"
               }
             ]
           }
@@ -9476,7 +9615,7 @@
           "selector": {
             "left": [
               {
-                "variable": "type"
+                "pattern": "($type && context.instance == variables.instance)"
               }
             ],
             "match": "same",
@@ -9487,7 +9626,7 @@
           "bridge": "{ ...next(operator), toObject: after[0] }",
           "id": "to",
           "level": 0,
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:110"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:121"
         },
         {
           "bridge": "{ ...next(operator) }",
@@ -9850,7 +9989,7 @@
           "pattern": "(([xfx]) <([between] (words))>)"
         },
         {
-          "pattern": "((modifier) [modifies|] (concept))"
+          "pattern": "((context.punctuation != true)* [modifies|] (concept))"
         },
         {
           "pattern": "([concept])"
@@ -9919,7 +10058,7 @@
           "pattern": "(<does|> ([canBeDoQuestion/0,1]))"
         },
         {
-          "pattern": "(([theAble|]) [list|and] ([theAble|]))"
+          "pattern": "(x [list|and] y)"
         },
         {
           "pattern": "([yesno|])"
@@ -10194,6 +10333,9 @@
         "touchedBy": [
           "properties#call2"
         ],
+        "types": [
+          "have"
+        ],
         "verbatim": "There is no object named greg",
         "word": "has"
       }
@@ -10356,6 +10498,9 @@
               "what",
               "whose"
             ],
+            "preposition": [
+              "between"
+            ],
             "pronoun": [
               "it",
               "this"
@@ -10417,6 +10562,8 @@
             "have",
             "canBeDoQuestion",
             "canBeQuestion",
+            "between",
+            "preposition",
             "concept",
             "modifies",
             "verby",
@@ -10442,6 +10589,9 @@
           "parents": {
             "a": [
               "articlePOS"
+            ],
+            "between": [
+              "preposition"
             ],
             "concept": [
               "theAble",
@@ -10537,6 +10687,8 @@
               },
               "articlePOS": {
               },
+              "between": {
+              },
               "canBeDoQuestion": {
               },
               "canBeQuestion": {
@@ -10562,6 +10714,8 @@
               "object": {
               },
               "orAble": {
+              },
+              "preposition": {
               },
               "pronoun": {
               },
@@ -10682,6 +10836,9 @@
             "topLevel": true,
             "touchedBy": [
               "properties#call2"
+            ],
+            "types": [
+              "have"
             ],
             "verbatim": "There is no object named greg",
             "word": "has"
@@ -10809,6 +10966,9 @@
         {
           "bridge": "{ ...next(operator), arguments: after[0] }",
           "id": "between",
+          "isA": [
+            "preposition"
+          ],
           "level": 0
         },
         {
@@ -10884,7 +11044,7 @@
           "level": 0
         },
         {
-          "bridge": "{ ...next(operator), modifier: before[0], concept: after[0], flatten: true }",
+          "bridge": "{ ...next(operator), modifiers: before, concept: after[0], flatten: true }",
           "id": "modifies",
           "isA": [
             "verby"
@@ -10931,20 +11091,20 @@
           "level": 0
         },
         {
-          "bridge": "{ ...next(operator), isList: true, value: append(before, after) }",
+          "bridge": "{ ...next(operator), listable: true, isList: true, value: append(before, after) }",
           "id": "list",
           "level": 0,
           "selector": {
             "left": [
               {
-                "variable": "type"
+                "pattern": "($type && context.instance == variables.instance)"
               }
             ],
             "match": "same",
             "passthrough": true,
             "right": [
               {
-                "variable": "type"
+                "pattern": "($type && context.instance == variables.instance)"
               }
             ]
           }
@@ -10956,7 +11116,7 @@
           "selector": {
             "left": [
               {
-                "variable": "type"
+                "pattern": "($type && context.instance == variables.instance)"
               }
             ],
             "match": "same",
@@ -10967,7 +11127,7 @@
           "bridge": "{ ...next(operator), toObject: after[0] }",
           "id": "to",
           "level": 0,
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:110"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:121"
         },
         {
           "bridge": "{ ...next(operator) }",
@@ -11330,7 +11490,7 @@
           "pattern": "(([xfx]) <([between] (words))>)"
         },
         {
-          "pattern": "((modifier) [modifies|] (concept))"
+          "pattern": "((context.punctuation != true)* [modifies|] (concept))"
         },
         {
           "pattern": "([concept])"
@@ -11399,7 +11559,7 @@
           "pattern": "(<does|> ([canBeDoQuestion/0,1]))"
         },
         {
-          "pattern": "(([theAble|]) [list|and] ([theAble|]))"
+          "pattern": "(x [list|and] y)"
         },
         {
           "pattern": "([yesno|])"
@@ -11737,6 +11897,9 @@
         "touchedBy": [
           "properties#call10"
         ],
+        "types": [
+          "have"
+        ],
         "word": "has"
       }
     ],
@@ -12023,6 +12186,9 @@
               "what",
               "whose"
             ],
+            "preposition": [
+              "between"
+            ],
             "pronoun": [
               "it",
               "this"
@@ -12084,6 +12250,8 @@
             "have",
             "canBeDoQuestion",
             "canBeQuestion",
+            "between",
+            "preposition",
             "concept",
             "modifies",
             "verby",
@@ -12110,6 +12278,9 @@
           "parents": {
             "a": [
               "articlePOS"
+            ],
+            "between": [
+              "preposition"
             ],
             "concept": [
               "theAble",
@@ -12205,6 +12376,8 @@
               },
               "articlePOS": {
               },
+              "between": {
+              },
               "canBeDoQuestion": {
               },
               "canBeQuestion": {
@@ -12236,6 +12409,8 @@
               "object": {
               },
               "orAble": {
+              },
+              "preposition": {
               },
               "pronoun": {
               },
@@ -12360,6 +12535,9 @@
             "topLevel": true,
             "touchedBy": [
               "properties#call10"
+            ],
+            "types": [
+              "have"
             ],
             "word": "has"
           },
@@ -12526,6 +12704,9 @@
         {
           "bridge": "{ ...next(operator), arguments: after[0] }",
           "id": "between",
+          "isA": [
+            "preposition"
+          ],
           "level": 0
         },
         {
@@ -12601,7 +12782,7 @@
           "level": 0
         },
         {
-          "bridge": "{ ...next(operator), modifier: before[0], concept: after[0], flatten: true }",
+          "bridge": "{ ...next(operator), modifiers: before, concept: after[0], flatten: true }",
           "id": "modifies",
           "isA": [
             "verby"
@@ -12648,20 +12829,20 @@
           "level": 0
         },
         {
-          "bridge": "{ ...next(operator), isList: true, value: append(before, after) }",
+          "bridge": "{ ...next(operator), listable: true, isList: true, value: append(before, after) }",
           "id": "list",
           "level": 0,
           "selector": {
             "left": [
               {
-                "variable": "type"
+                "pattern": "($type && context.instance == variables.instance)"
               }
             ],
             "match": "same",
             "passthrough": true,
             "right": [
               {
-                "variable": "type"
+                "pattern": "($type && context.instance == variables.instance)"
               }
             ]
           }
@@ -12673,7 +12854,7 @@
           "selector": {
             "left": [
               {
-                "variable": "type"
+                "pattern": "($type && context.instance == variables.instance)"
               }
             ],
             "match": "same",
@@ -12684,7 +12865,7 @@
           "bridge": "{ ...next(operator), toObject: after[0] }",
           "id": "to",
           "level": 0,
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:110"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:121"
         },
         {
           "bridge": "{ ...next(operator) }",
@@ -13047,7 +13228,7 @@
           "pattern": "(([xfx]) <([between] (words))>)"
         },
         {
-          "pattern": "((modifier) [modifies|] (concept))"
+          "pattern": "((context.punctuation != true)* [modifies|] (concept))"
         },
         {
           "pattern": "([concept])"
@@ -13116,7 +13297,7 @@
           "pattern": "(<does|> ([canBeDoQuestion/0,1]))"
         },
         {
-          "pattern": "(([theAble|]) [list|and] ([theAble|]))"
+          "pattern": "(x [list|and] y)"
         },
         {
           "pattern": "([yesno|])"
@@ -13620,6 +13801,9 @@
               "what",
               "whose"
             ],
+            "preposition": [
+              "between"
+            ],
             "pronoun": [
               "it",
               "this"
@@ -13681,6 +13865,8 @@
             "have",
             "canBeDoQuestion",
             "canBeQuestion",
+            "between",
+            "preposition",
             "concept",
             "modifies",
             "verby",
@@ -13706,6 +13892,9 @@
           "parents": {
             "a": [
               "articlePOS"
+            ],
+            "between": [
+              "preposition"
             ],
             "concept": [
               "theAble",
@@ -13801,6 +13990,8 @@
               },
               "articlePOS": {
               },
+              "between": {
+              },
               "canBeDoQuestion": {
               },
               "canBeQuestion": {
@@ -13826,6 +14017,8 @@
               "object": {
               },
               "orAble": {
+              },
+              "preposition": {
               },
               "pronoun": {
               },
@@ -14084,6 +14277,9 @@
         {
           "bridge": "{ ...next(operator), arguments: after[0] }",
           "id": "between",
+          "isA": [
+            "preposition"
+          ],
           "level": 0
         },
         {
@@ -14159,7 +14355,7 @@
           "level": 0
         },
         {
-          "bridge": "{ ...next(operator), modifier: before[0], concept: after[0], flatten: true }",
+          "bridge": "{ ...next(operator), modifiers: before, concept: after[0], flatten: true }",
           "id": "modifies",
           "isA": [
             "verby"
@@ -14206,20 +14402,20 @@
           "level": 0
         },
         {
-          "bridge": "{ ...next(operator), isList: true, value: append(before, after) }",
+          "bridge": "{ ...next(operator), listable: true, isList: true, value: append(before, after) }",
           "id": "list",
           "level": 0,
           "selector": {
             "left": [
               {
-                "variable": "type"
+                "pattern": "($type && context.instance == variables.instance)"
               }
             ],
             "match": "same",
             "passthrough": true,
             "right": [
               {
-                "variable": "type"
+                "pattern": "($type && context.instance == variables.instance)"
               }
             ]
           }
@@ -14231,7 +14427,7 @@
           "selector": {
             "left": [
               {
-                "variable": "type"
+                "pattern": "($type && context.instance == variables.instance)"
               }
             ],
             "match": "same",
@@ -14242,7 +14438,7 @@
           "bridge": "{ ...next(operator), toObject: after[0] }",
           "id": "to",
           "level": 0,
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:110"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:121"
         },
         {
           "bridge": "{ ...next(operator) }",
@@ -14605,7 +14801,7 @@
           "pattern": "(([xfx]) <([between] (words))>)"
         },
         {
-          "pattern": "((modifier) [modifies|] (concept))"
+          "pattern": "((context.punctuation != true)* [modifies|] (concept))"
         },
         {
           "pattern": "([concept])"
@@ -14674,7 +14870,7 @@
           "pattern": "(<does|> ([canBeDoQuestion/0,1]))"
         },
         {
-          "pattern": "(([theAble|]) [list|and] ([theAble|]))"
+          "pattern": "(x [list|and] y)"
         },
         {
           "pattern": "([yesno|])"
@@ -15190,6 +15386,9 @@
               "what",
               "whose"
             ],
+            "preposition": [
+              "between"
+            ],
             "pronoun": [
               "it",
               "this"
@@ -15254,6 +15453,8 @@
             "have",
             "canBeDoQuestion",
             "canBeQuestion",
+            "between",
+            "preposition",
             "concept",
             "modifies",
             "verby",
@@ -15282,6 +15483,9 @@
           "parents": {
             "a": [
               "articlePOS"
+            ],
+            "between": [
+              "preposition"
             ],
             "concept": [
               "theAble",
@@ -15401,6 +15605,8 @@
               },
               "articlePOS": {
               },
+              "between": {
+              },
               "canBeDoQuestion": {
               },
               "canBeQuestion": {
@@ -15426,6 +15632,8 @@
               "object": {
               },
               "orAble": {
+              },
+              "preposition": {
               },
               "pronoun": {
               },
@@ -15766,6 +15974,9 @@
         {
           "bridge": "{ ...next(operator), arguments: after[0] }",
           "id": "between",
+          "isA": [
+            "preposition"
+          ],
           "level": 0
         },
         {
@@ -15841,7 +16052,7 @@
           "level": 0
         },
         {
-          "bridge": "{ ...next(operator), modifier: before[0], concept: after[0], flatten: true }",
+          "bridge": "{ ...next(operator), modifiers: before, concept: after[0], flatten: true }",
           "id": "modifies",
           "isA": [
             "verby"
@@ -15888,20 +16099,20 @@
           "level": 0
         },
         {
-          "bridge": "{ ...next(operator), isList: true, value: append(before, after) }",
+          "bridge": "{ ...next(operator), listable: true, isList: true, value: append(before, after) }",
           "id": "list",
           "level": 0,
           "selector": {
             "left": [
               {
-                "variable": "type"
+                "pattern": "($type && context.instance == variables.instance)"
               }
             ],
             "match": "same",
             "passthrough": true,
             "right": [
               {
-                "variable": "type"
+                "pattern": "($type && context.instance == variables.instance)"
               }
             ]
           }
@@ -15913,7 +16124,7 @@
           "selector": {
             "left": [
               {
-                "variable": "type"
+                "pattern": "($type && context.instance == variables.instance)"
               }
             ],
             "match": "same",
@@ -15924,7 +16135,7 @@
           "bridge": "{ ...next(operator), toObject: after[0] }",
           "id": "to",
           "level": 0,
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:110"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:121"
         },
         {
           "bridge": "{ ...next(operator) }",
@@ -16287,7 +16498,7 @@
           "pattern": "(([xfx]) <([between] (words))>)"
         },
         {
-          "pattern": "((modifier) [modifies|] (concept))"
+          "pattern": "((context.punctuation != true)* [modifies|] (concept))"
         },
         {
           "pattern": "([concept])"
@@ -16356,7 +16567,7 @@
           "pattern": "(<does|> ([canBeDoQuestion/0,1]))"
         },
         {
-          "pattern": "(([theAble|]) [list|and] ([theAble|]))"
+          "pattern": "(x [list|and] y)"
         },
         {
           "pattern": "([yesno|])"
@@ -17774,6 +17985,9 @@
               "what",
               "whose"
             ],
+            "preposition": [
+              "between"
+            ],
             "pronoun": [
               "it",
               "this"
@@ -17838,6 +18052,8 @@
             "have",
             "canBeDoQuestion",
             "canBeQuestion",
+            "between",
+            "preposition",
             "concept",
             "modifies",
             "verby",
@@ -17868,6 +18084,9 @@
           "parents": {
             "a": [
               "articlePOS"
+            ],
+            "between": [
+              "preposition"
             ],
             "cleo": [
               "cat"
@@ -17990,6 +18209,8 @@
               },
               "articlePOS": {
               },
+              "between": {
+              },
               "canBeDoQuestion": {
               },
               "canBeQuestion": {
@@ -18019,6 +18240,8 @@
               "object": {
               },
               "orAble": {
+              },
+              "preposition": {
               },
               "pronoun": {
               },
@@ -18862,6 +19085,9 @@
         {
           "bridge": "{ ...next(operator), arguments: after[0] }",
           "id": "between",
+          "isA": [
+            "preposition"
+          ],
           "level": 0
         },
         {
@@ -18937,7 +19163,7 @@
           "level": 0
         },
         {
-          "bridge": "{ ...next(operator), modifier: before[0], concept: after[0], flatten: true }",
+          "bridge": "{ ...next(operator), modifiers: before, concept: after[0], flatten: true }",
           "id": "modifies",
           "isA": [
             "verby"
@@ -18984,20 +19210,20 @@
           "level": 0
         },
         {
-          "bridge": "{ ...next(operator), isList: true, value: append(before, after) }",
+          "bridge": "{ ...next(operator), listable: true, isList: true, value: append(before, after) }",
           "id": "list",
           "level": 0,
           "selector": {
             "left": [
               {
-                "variable": "type"
+                "pattern": "($type && context.instance == variables.instance)"
               }
             ],
             "match": "same",
             "passthrough": true,
             "right": [
               {
-                "variable": "type"
+                "pattern": "($type && context.instance == variables.instance)"
               }
             ]
           }
@@ -19009,7 +19235,7 @@
           "selector": {
             "left": [
               {
-                "variable": "type"
+                "pattern": "($type && context.instance == variables.instance)"
               }
             ],
             "match": "same",
@@ -19020,7 +19246,7 @@
           "bridge": "{ ...next(operator), toObject: after[0] }",
           "id": "to",
           "level": 0,
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:110"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:121"
         },
         {
           "bridge": "{ ...next(operator) }",
@@ -19383,7 +19609,7 @@
           "pattern": "(([xfx]) <([between] (words))>)"
         },
         {
-          "pattern": "((modifier) [modifies|] (concept))"
+          "pattern": "((context.punctuation != true)* [modifies|] (concept))"
         },
         {
           "pattern": "([concept])"
@@ -19452,7 +19678,7 @@
           "pattern": "(<does|> ([canBeDoQuestion/0,1]))"
         },
         {
-          "pattern": "(([theAble|]) [list|and] ([theAble|]))"
+          "pattern": "(x [list|and] y)"
         },
         {
           "pattern": "([yesno|])"
@@ -21031,6 +21257,9 @@
               "what",
               "whose"
             ],
+            "preposition": [
+              "between"
+            ],
             "pronoun": [
               "it",
               "this"
@@ -21095,6 +21324,8 @@
             "have",
             "canBeDoQuestion",
             "canBeQuestion",
+            "between",
+            "preposition",
             "concept",
             "modifies",
             "verby",
@@ -21125,6 +21356,9 @@
           "parents": {
             "a": [
               "articlePOS"
+            ],
+            "between": [
+              "preposition"
             ],
             "cleo": [
               "cat"
@@ -21247,6 +21481,8 @@
               },
               "articlePOS": {
               },
+              "between": {
+              },
               "canBeDoQuestion": {
               },
               "canBeQuestion": {
@@ -21276,6 +21512,8 @@
               "object": {
               },
               "orAble": {
+              },
+              "preposition": {
               },
               "pronoun": {
               },
@@ -22070,6 +22308,9 @@
         {
           "bridge": "{ ...next(operator), arguments: after[0] }",
           "id": "between",
+          "isA": [
+            "preposition"
+          ],
           "level": 0
         },
         {
@@ -22145,7 +22386,7 @@
           "level": 0
         },
         {
-          "bridge": "{ ...next(operator), modifier: before[0], concept: after[0], flatten: true }",
+          "bridge": "{ ...next(operator), modifiers: before, concept: after[0], flatten: true }",
           "id": "modifies",
           "isA": [
             "verby"
@@ -22192,20 +22433,20 @@
           "level": 0
         },
         {
-          "bridge": "{ ...next(operator), isList: true, value: append(before, after) }",
+          "bridge": "{ ...next(operator), listable: true, isList: true, value: append(before, after) }",
           "id": "list",
           "level": 0,
           "selector": {
             "left": [
               {
-                "variable": "type"
+                "pattern": "($type && context.instance == variables.instance)"
               }
             ],
             "match": "same",
             "passthrough": true,
             "right": [
               {
-                "variable": "type"
+                "pattern": "($type && context.instance == variables.instance)"
               }
             ]
           }
@@ -22217,7 +22458,7 @@
           "selector": {
             "left": [
               {
-                "variable": "type"
+                "pattern": "($type && context.instance == variables.instance)"
               }
             ],
             "match": "same",
@@ -22228,7 +22469,7 @@
           "bridge": "{ ...next(operator), toObject: after[0] }",
           "id": "to",
           "level": 0,
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:110"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:121"
         },
         {
           "bridge": "{ ...next(operator) }",
@@ -22591,7 +22832,7 @@
           "pattern": "(([xfx]) <([between] (words))>)"
         },
         {
-          "pattern": "((modifier) [modifies|] (concept))"
+          "pattern": "((context.punctuation != true)* [modifies|] (concept))"
         },
         {
           "pattern": "([concept])"
@@ -22660,7 +22901,7 @@
           "pattern": "(<does|> ([canBeDoQuestion/0,1]))"
         },
         {
-          "pattern": "(([theAble|]) [list|and] ([theAble|]))"
+          "pattern": "(x [list|and] y)"
         },
         {
           "pattern": "([yesno|])"
@@ -23072,6 +23313,9 @@
               "what",
               "whose"
             ],
+            "preposition": [
+              "between"
+            ],
             "pronoun": [
               "it",
               "this"
@@ -23133,6 +23377,8 @@
             "have",
             "canBeDoQuestion",
             "canBeQuestion",
+            "between",
+            "preposition",
             "concept",
             "modifies",
             "verby",
@@ -23158,6 +23404,9 @@
           "parents": {
             "a": [
               "articlePOS"
+            ],
+            "between": [
+              "preposition"
             ],
             "concept": [
               "theAble",
@@ -23253,6 +23502,8 @@
               },
               "articlePOS": {
               },
+              "between": {
+              },
               "canBeDoQuestion": {
               },
               "canBeQuestion": {
@@ -23278,6 +23529,8 @@
               "object": {
               },
               "orAble": {
+              },
+              "preposition": {
               },
               "pronoun": {
               },
@@ -23550,24 +23803,6 @@
         [
           "unknown",
           1
-        ]
-      ],
-      [
-        [
-          "is",
-          0
-        ],
-        [
-          "propertyOf",
-          0
-        ],
-        [
-          "the",
-          0
-        ],
-        [
-          "unknown",
-          1
         ],
         [
           "what",
@@ -23665,6 +23900,9 @@
         {
           "bridge": "{ ...next(operator), arguments: after[0] }",
           "id": "between",
+          "isA": [
+            "preposition"
+          ],
           "level": 0
         },
         {
@@ -23740,7 +23978,7 @@
           "level": 0
         },
         {
-          "bridge": "{ ...next(operator), modifier: before[0], concept: after[0], flatten: true }",
+          "bridge": "{ ...next(operator), modifiers: before, concept: after[0], flatten: true }",
           "id": "modifies",
           "isA": [
             "verby"
@@ -23787,20 +24025,20 @@
           "level": 0
         },
         {
-          "bridge": "{ ...next(operator), isList: true, value: append(before, after) }",
+          "bridge": "{ ...next(operator), listable: true, isList: true, value: append(before, after) }",
           "id": "list",
           "level": 0,
           "selector": {
             "left": [
               {
-                "variable": "type"
+                "pattern": "($type && context.instance == variables.instance)"
               }
             ],
             "match": "same",
             "passthrough": true,
             "right": [
               {
-                "variable": "type"
+                "pattern": "($type && context.instance == variables.instance)"
               }
             ]
           }
@@ -23812,7 +24050,7 @@
           "selector": {
             "left": [
               {
-                "variable": "type"
+                "pattern": "($type && context.instance == variables.instance)"
               }
             ],
             "match": "same",
@@ -23823,7 +24061,7 @@
           "bridge": "{ ...next(operator), toObject: after[0] }",
           "id": "to",
           "level": 0,
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:110"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:121"
         },
         {
           "bridge": "{ ...next(operator) }",
@@ -24186,7 +24424,7 @@
           "pattern": "(([xfx]) <([between] (words))>)"
         },
         {
-          "pattern": "((modifier) [modifies|] (concept))"
+          "pattern": "((context.punctuation != true)* [modifies|] (concept))"
         },
         {
           "pattern": "([concept])"
@@ -24255,7 +24493,7 @@
           "pattern": "(<does|> ([canBeDoQuestion/0,1]))"
         },
         {
-          "pattern": "(([theAble|]) [list|and] ([theAble|]))"
+          "pattern": "(x [list|and] y)"
         },
         {
           "pattern": "([yesno|])"
@@ -25554,7 +25792,7 @@
         {
           "counter": 9,
           "op": [
-            "what",
+            "the",
             0
           ],
           "ops": [
@@ -25640,7 +25878,7 @@
               0
             ],
             [
-              "the",
+              "what",
               0
             ]
           ]
@@ -25648,7 +25886,7 @@
         {
           "counter": 11,
           "op": [
-            "the",
+            "what",
             0
           ],
           "ops": [
@@ -25681,7 +25919,7 @@
               0
             ],
             [
-              "the",
+              "what",
               0
             ]
           ]
@@ -26086,6 +26324,9 @@
               "what",
               "whose"
             ],
+            "preposition": [
+              "between"
+            ],
             "profession": [
               "programmer"
             ],
@@ -26150,6 +26391,8 @@
             "have",
             "canBeDoQuestion",
             "canBeQuestion",
+            "between",
+            "preposition",
             "concept",
             "modifies",
             "verby",
@@ -26183,6 +26426,9 @@
             ],
             "a": [
               "articlePOS"
+            ],
+            "between": [
+              "preposition"
             ],
             "concept": [
               "theAble",
@@ -26285,6 +26531,8 @@
               },
               "articlePOS": {
               },
+              "between": {
+              },
               "canBeDoQuestion": {
               },
               "canBeQuestion": {
@@ -26350,6 +26598,8 @@
               "object": {
               },
               "orAble": {
+              },
+              "preposition": {
               },
               "profession": {
               },
@@ -27259,6 +27509,9 @@
         {
           "bridge": "{ ...next(operator), arguments: after[0] }",
           "id": "between",
+          "isA": [
+            "preposition"
+          ],
           "level": 0
         },
         {
@@ -27334,7 +27587,7 @@
           "level": 0
         },
         {
-          "bridge": "{ ...next(operator), modifier: before[0], concept: after[0], flatten: true }",
+          "bridge": "{ ...next(operator), modifiers: before, concept: after[0], flatten: true }",
           "id": "modifies",
           "isA": [
             "verby"
@@ -27381,20 +27634,20 @@
           "level": 0
         },
         {
-          "bridge": "{ ...next(operator), isList: true, value: append(before, after) }",
+          "bridge": "{ ...next(operator), listable: true, isList: true, value: append(before, after) }",
           "id": "list",
           "level": 0,
           "selector": {
             "left": [
               {
-                "variable": "type"
+                "pattern": "($type && context.instance == variables.instance)"
               }
             ],
             "match": "same",
             "passthrough": true,
             "right": [
               {
-                "variable": "type"
+                "pattern": "($type && context.instance == variables.instance)"
               }
             ]
           }
@@ -27406,7 +27659,7 @@
           "selector": {
             "left": [
               {
-                "variable": "type"
+                "pattern": "($type && context.instance == variables.instance)"
               }
             ],
             "match": "same",
@@ -27417,7 +27670,7 @@
           "bridge": "{ ...next(operator), toObject: after[0] }",
           "id": "to",
           "level": 0,
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:110"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:121"
         },
         {
           "bridge": "{ ...next(operator) }",
@@ -27780,7 +28033,7 @@
           "pattern": "(([xfx]) <([between] (words))>)"
         },
         {
-          "pattern": "((modifier) [modifies|] (concept))"
+          "pattern": "((context.punctuation != true)* [modifies|] (concept))"
         },
         {
           "pattern": "([concept])"
@@ -27849,7 +28102,7 @@
           "pattern": "(<does|> ([canBeDoQuestion/0,1]))"
         },
         {
-          "pattern": "(([theAble|]) [list|and] ([theAble|]))"
+          "pattern": "(x [list|and] y)"
         },
         {
           "pattern": "([yesno|])"
@@ -28676,7 +28929,7 @@
         {
           "counter": 6,
           "op": [
-            "what",
+            "the",
             0
           ],
           "ops": [
@@ -28709,7 +28962,7 @@
         {
           "counter": 7,
           "op": [
-            "the",
+            "what",
             0
           ],
           "ops": [
@@ -28730,7 +28983,7 @@
               0
             ],
             [
-              "the",
+              "what",
               0
             ]
           ]
@@ -28954,6 +29207,9 @@
               "what",
               "whose"
             ],
+            "preposition": [
+              "between"
+            ],
             "pronoun": [
               "it",
               "this"
@@ -29015,6 +29271,8 @@
             "have",
             "canBeDoQuestion",
             "canBeQuestion",
+            "between",
+            "preposition",
             "concept",
             "modifies",
             "verby",
@@ -29046,6 +29304,9 @@
             ],
             "a": [
               "articlePOS"
+            ],
+            "between": [
+              "preposition"
             ],
             "concept": [
               "theAble",
@@ -29145,6 +29406,8 @@
               },
               "articlePOS": {
               },
+              "between": {
+              },
               "canBeDoQuestion": {
               },
               "canBeQuestion": {
@@ -29191,6 +29454,8 @@
               "object": {
               },
               "orAble": {
+              },
+              "preposition": {
               },
               "pronoun": {
               },
@@ -29804,24 +30069,6 @@
         [
           "unknown",
           1
-        ]
-      ],
-      [
-        [
-          "is",
-          0
-        ],
-        [
-          "propertyOf",
-          0
-        ],
-        [
-          "the",
-          0
-        ],
-        [
-          "unknown",
-          1
         ],
         [
           "what",
@@ -29923,6 +30170,9 @@
         {
           "bridge": "{ ...next(operator), arguments: after[0] }",
           "id": "between",
+          "isA": [
+            "preposition"
+          ],
           "level": 0
         },
         {
@@ -29998,7 +30248,7 @@
           "level": 0
         },
         {
-          "bridge": "{ ...next(operator), modifier: before[0], concept: after[0], flatten: true }",
+          "bridge": "{ ...next(operator), modifiers: before, concept: after[0], flatten: true }",
           "id": "modifies",
           "isA": [
             "verby"
@@ -30045,20 +30295,20 @@
           "level": 0
         },
         {
-          "bridge": "{ ...next(operator), isList: true, value: append(before, after) }",
+          "bridge": "{ ...next(operator), listable: true, isList: true, value: append(before, after) }",
           "id": "list",
           "level": 0,
           "selector": {
             "left": [
               {
-                "variable": "type"
+                "pattern": "($type && context.instance == variables.instance)"
               }
             ],
             "match": "same",
             "passthrough": true,
             "right": [
               {
-                "variable": "type"
+                "pattern": "($type && context.instance == variables.instance)"
               }
             ]
           }
@@ -30070,7 +30320,7 @@
           "selector": {
             "left": [
               {
-                "variable": "type"
+                "pattern": "($type && context.instance == variables.instance)"
               }
             ],
             "match": "same",
@@ -30081,7 +30331,7 @@
           "bridge": "{ ...next(operator), toObject: after[0] }",
           "id": "to",
           "level": 0,
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:110"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:121"
         },
         {
           "bridge": "{ ...next(operator) }",
@@ -30444,7 +30694,7 @@
           "pattern": "(([xfx]) <([between] (words))>)"
         },
         {
-          "pattern": "((modifier) [modifies|] (concept))"
+          "pattern": "((context.punctuation != true)* [modifies|] (concept))"
         },
         {
           "pattern": "([concept])"
@@ -30513,7 +30763,7 @@
           "pattern": "(<does|> ([canBeDoQuestion/0,1]))"
         },
         {
-          "pattern": "(([theAble|]) [list|and] ([theAble|]))"
+          "pattern": "(x [list|and] y)"
         },
         {
           "pattern": "([yesno|])"
@@ -31411,7 +31661,7 @@
         {
           "counter": 6,
           "op": [
-            "what",
+            "the",
             0
           ],
           "ops": [
@@ -31448,7 +31698,7 @@
         {
           "counter": 7,
           "op": [
-            "the",
+            "what",
             0
           ],
           "ops": [
@@ -31473,7 +31723,7 @@
               0
             ],
             [
-              "the",
+              "what",
               0
             ]
           ]
@@ -31730,6 +31980,9 @@
               "what",
               "whose"
             ],
+            "preposition": [
+              "between"
+            ],
             "pronoun": [
               "it",
               "this"
@@ -31791,6 +32044,8 @@
             "have",
             "canBeDoQuestion",
             "canBeQuestion",
+            "between",
+            "preposition",
             "concept",
             "modifies",
             "verby",
@@ -31822,6 +32077,9 @@
             ],
             "a": [
               "articlePOS"
+            ],
+            "between": [
+              "preposition"
             ],
             "concept": [
               "theAble",
@@ -31921,6 +32179,8 @@
               },
               "articlePOS": {
               },
+              "between": {
+              },
               "canBeDoQuestion": {
               },
               "canBeQuestion": {
@@ -31967,6 +32227,8 @@
               "object": {
               },
               "orAble": {
+              },
+              "preposition": {
               },
               "pronoun": {
               },
@@ -32654,6 +32916,9 @@
         {
           "bridge": "{ ...next(operator), arguments: after[0] }",
           "id": "between",
+          "isA": [
+            "preposition"
+          ],
           "level": 0
         },
         {
@@ -32729,7 +32994,7 @@
           "level": 0
         },
         {
-          "bridge": "{ ...next(operator), modifier: before[0], concept: after[0], flatten: true }",
+          "bridge": "{ ...next(operator), modifiers: before, concept: after[0], flatten: true }",
           "id": "modifies",
           "isA": [
             "verby"
@@ -32776,20 +33041,20 @@
           "level": 0
         },
         {
-          "bridge": "{ ...next(operator), isList: true, value: append(before, after) }",
+          "bridge": "{ ...next(operator), listable: true, isList: true, value: append(before, after) }",
           "id": "list",
           "level": 0,
           "selector": {
             "left": [
               {
-                "variable": "type"
+                "pattern": "($type && context.instance == variables.instance)"
               }
             ],
             "match": "same",
             "passthrough": true,
             "right": [
               {
-                "variable": "type"
+                "pattern": "($type && context.instance == variables.instance)"
               }
             ]
           }
@@ -32801,7 +33066,7 @@
           "selector": {
             "left": [
               {
-                "variable": "type"
+                "pattern": "($type && context.instance == variables.instance)"
               }
             ],
             "match": "same",
@@ -32812,7 +33077,7 @@
           "bridge": "{ ...next(operator), toObject: after[0] }",
           "id": "to",
           "level": 0,
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:110"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:121"
         },
         {
           "bridge": "{ ...next(operator) }",
@@ -33175,7 +33440,7 @@
           "pattern": "(([xfx]) <([between] (words))>)"
         },
         {
-          "pattern": "((modifier) [modifies|] (concept))"
+          "pattern": "((context.punctuation != true)* [modifies|] (concept))"
         },
         {
           "pattern": "([concept])"
@@ -33244,7 +33509,7 @@
           "pattern": "(<does|> ([canBeDoQuestion/0,1]))"
         },
         {
-          "pattern": "(([theAble|]) [list|and] ([theAble|]))"
+          "pattern": "(x [list|and] y)"
         },
         {
           "pattern": "([yesno|])"
@@ -34293,6 +34558,9 @@
               "what",
               "whose"
             ],
+            "preposition": [
+              "between"
+            ],
             "pronoun": [
               "it",
               "this"
@@ -34354,6 +34622,8 @@
             "have",
             "canBeDoQuestion",
             "canBeQuestion",
+            "between",
+            "preposition",
             "concept",
             "modifies",
             "verby",
@@ -34385,6 +34655,9 @@
             ],
             "a": [
               "articlePOS"
+            ],
+            "between": [
+              "preposition"
             ],
             "concept": [
               "theAble",
@@ -34484,6 +34757,8 @@
               },
               "articlePOS": {
               },
+              "between": {
+              },
               "canBeDoQuestion": {
               },
               "canBeQuestion": {
@@ -34530,6 +34805,8 @@
               "object": {
               },
               "orAble": {
+              },
+              "preposition": {
               },
               "pronoun": {
               },
@@ -35219,6 +35496,9 @@
         {
           "bridge": "{ ...next(operator), arguments: after[0] }",
           "id": "between",
+          "isA": [
+            "preposition"
+          ],
           "level": 0
         },
         {
@@ -35294,7 +35574,7 @@
           "level": 0
         },
         {
-          "bridge": "{ ...next(operator), modifier: before[0], concept: after[0], flatten: true }",
+          "bridge": "{ ...next(operator), modifiers: before, concept: after[0], flatten: true }",
           "id": "modifies",
           "isA": [
             "verby"
@@ -35341,20 +35621,20 @@
           "level": 0
         },
         {
-          "bridge": "{ ...next(operator), isList: true, value: append(before, after) }",
+          "bridge": "{ ...next(operator), listable: true, isList: true, value: append(before, after) }",
           "id": "list",
           "level": 0,
           "selector": {
             "left": [
               {
-                "variable": "type"
+                "pattern": "($type && context.instance == variables.instance)"
               }
             ],
             "match": "same",
             "passthrough": true,
             "right": [
               {
-                "variable": "type"
+                "pattern": "($type && context.instance == variables.instance)"
               }
             ]
           }
@@ -35366,7 +35646,7 @@
           "selector": {
             "left": [
               {
-                "variable": "type"
+                "pattern": "($type && context.instance == variables.instance)"
               }
             ],
             "match": "same",
@@ -35377,7 +35657,7 @@
           "bridge": "{ ...next(operator), toObject: after[0] }",
           "id": "to",
           "level": 0,
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:110"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:121"
         },
         {
           "bridge": "{ ...next(operator) }",
@@ -35740,7 +36020,7 @@
           "pattern": "(([xfx]) <([between] (words))>)"
         },
         {
-          "pattern": "((modifier) [modifies|] (concept))"
+          "pattern": "((context.punctuation != true)* [modifies|] (concept))"
         },
         {
           "pattern": "([concept])"
@@ -35809,7 +36089,7 @@
           "pattern": "(<does|> ([canBeDoQuestion/0,1]))"
         },
         {
-          "pattern": "(([theAble|]) [list|and] ([theAble|]))"
+          "pattern": "(x [list|and] y)"
         },
         {
           "pattern": "([yesno|])"
@@ -36580,6 +36860,9 @@
               "what",
               "whose"
             ],
+            "preposition": [
+              "between"
+            ],
             "pronoun": [
               "it",
               "this"
@@ -36641,6 +36924,8 @@
             "have",
             "canBeDoQuestion",
             "canBeQuestion",
+            "between",
+            "preposition",
             "concept",
             "modifies",
             "verby",
@@ -36668,6 +36953,9 @@
           "parents": {
             "a": [
               "articlePOS"
+            ],
+            "between": [
+              "preposition"
             ],
             "concept": [
               "theAble",
@@ -36768,6 +37056,8 @@
               },
               "articlePOS": {
               },
+              "between": {
+              },
               "canBeDoQuestion": {
               },
               "canBeQuestion": {
@@ -36816,6 +37106,8 @@
               "object": {
               },
               "orAble": {
+              },
+              "preposition": {
               },
               "pronoun": {
               },
@@ -37245,6 +37537,9 @@
         {
           "bridge": "{ ...next(operator), arguments: after[0] }",
           "id": "between",
+          "isA": [
+            "preposition"
+          ],
           "level": 0
         },
         {
@@ -37320,7 +37615,7 @@
           "level": 0
         },
         {
-          "bridge": "{ ...next(operator), modifier: before[0], concept: after[0], flatten: true }",
+          "bridge": "{ ...next(operator), modifiers: before, concept: after[0], flatten: true }",
           "id": "modifies",
           "isA": [
             "verby"
@@ -37367,20 +37662,20 @@
           "level": 0
         },
         {
-          "bridge": "{ ...next(operator), isList: true, value: append(before, after) }",
+          "bridge": "{ ...next(operator), listable: true, isList: true, value: append(before, after) }",
           "id": "list",
           "level": 0,
           "selector": {
             "left": [
               {
-                "variable": "type"
+                "pattern": "($type && context.instance == variables.instance)"
               }
             ],
             "match": "same",
             "passthrough": true,
             "right": [
               {
-                "variable": "type"
+                "pattern": "($type && context.instance == variables.instance)"
               }
             ]
           }
@@ -37392,7 +37687,7 @@
           "selector": {
             "left": [
               {
-                "variable": "type"
+                "pattern": "($type && context.instance == variables.instance)"
               }
             ],
             "match": "same",
@@ -37403,7 +37698,7 @@
           "bridge": "{ ...next(operator), toObject: after[0] }",
           "id": "to",
           "level": 0,
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:110"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:121"
         },
         {
           "bridge": "{ ...next(operator) }",
@@ -37766,7 +38061,7 @@
           "pattern": "(([xfx]) <([between] (words))>)"
         },
         {
-          "pattern": "((modifier) [modifies|] (concept))"
+          "pattern": "((context.punctuation != true)* [modifies|] (concept))"
         },
         {
           "pattern": "([concept])"
@@ -37835,7 +38130,7 @@
           "pattern": "(<does|> ([canBeDoQuestion/0,1]))"
         },
         {
-          "pattern": "(([theAble|]) [list|and] ([theAble|]))"
+          "pattern": "(x [list|and] y)"
         },
         {
           "pattern": "([yesno|])"
@@ -39270,6 +39565,9 @@
               "what",
               "whose"
             ],
+            "preposition": [
+              "between"
+            ],
             "pronoun": [
               "it",
               "this"
@@ -39331,6 +39629,8 @@
             "have",
             "canBeDoQuestion",
             "canBeQuestion",
+            "between",
+            "preposition",
             "concept",
             "modifies",
             "verby",
@@ -39358,6 +39658,9 @@
           "parents": {
             "a": [
               "articlePOS"
+            ],
+            "between": [
+              "preposition"
             ],
             "concept": [
               "theAble",
@@ -39458,6 +39761,8 @@
               },
               "articlePOS": {
               },
+              "between": {
+              },
               "canBeDoQuestion": {
               },
               "canBeQuestion": {
@@ -39506,6 +39811,8 @@
               "object": {
               },
               "orAble": {
+              },
+              "preposition": {
               },
               "pronoun": {
               },
@@ -40069,6 +40376,9 @@
         {
           "bridge": "{ ...next(operator), arguments: after[0] }",
           "id": "between",
+          "isA": [
+            "preposition"
+          ],
           "level": 0
         },
         {
@@ -40144,7 +40454,7 @@
           "level": 0
         },
         {
-          "bridge": "{ ...next(operator), modifier: before[0], concept: after[0], flatten: true }",
+          "bridge": "{ ...next(operator), modifiers: before, concept: after[0], flatten: true }",
           "id": "modifies",
           "isA": [
             "verby"
@@ -40191,20 +40501,20 @@
           "level": 0
         },
         {
-          "bridge": "{ ...next(operator), isList: true, value: append(before, after) }",
+          "bridge": "{ ...next(operator), listable: true, isList: true, value: append(before, after) }",
           "id": "list",
           "level": 0,
           "selector": {
             "left": [
               {
-                "variable": "type"
+                "pattern": "($type && context.instance == variables.instance)"
               }
             ],
             "match": "same",
             "passthrough": true,
             "right": [
               {
-                "variable": "type"
+                "pattern": "($type && context.instance == variables.instance)"
               }
             ]
           }
@@ -40216,7 +40526,7 @@
           "selector": {
             "left": [
               {
-                "variable": "type"
+                "pattern": "($type && context.instance == variables.instance)"
               }
             ],
             "match": "same",
@@ -40227,7 +40537,7 @@
           "bridge": "{ ...next(operator), toObject: after[0] }",
           "id": "to",
           "level": 0,
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:110"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:121"
         },
         {
           "bridge": "{ ...next(operator) }",
@@ -40590,7 +40900,7 @@
           "pattern": "(([xfx]) <([between] (words))>)"
         },
         {
-          "pattern": "((modifier) [modifies|] (concept))"
+          "pattern": "((context.punctuation != true)* [modifies|] (concept))"
         },
         {
           "pattern": "([concept])"
@@ -40659,7 +40969,7 @@
           "pattern": "(<does|> ([canBeDoQuestion/0,1]))"
         },
         {
-          "pattern": "(([theAble|]) [list|and] ([theAble|]))"
+          "pattern": "(x [list|and] y)"
         },
         {
           "pattern": "([yesno|])"
@@ -41000,6 +41310,9 @@
               "what",
               "whose"
             ],
+            "preposition": [
+              "between"
+            ],
             "pronoun": [
               "it",
               "this"
@@ -41061,6 +41374,8 @@
             "have",
             "canBeDoQuestion",
             "canBeQuestion",
+            "between",
+            "preposition",
             "concept",
             "modifies",
             "verby",
@@ -41086,6 +41401,9 @@
           "parents": {
             "a": [
               "articlePOS"
+            ],
+            "between": [
+              "preposition"
             ],
             "concept": [
               "theAble",
@@ -41181,6 +41499,8 @@
               },
               "articlePOS": {
               },
+              "between": {
+              },
               "canBeDoQuestion": {
               },
               "canBeQuestion": {
@@ -41206,6 +41526,8 @@
               "object": {
               },
               "orAble": {
+              },
+              "preposition": {
               },
               "pronoun": {
               },
@@ -41386,6 +41708,9 @@
         {
           "bridge": "{ ...next(operator), arguments: after[0] }",
           "id": "between",
+          "isA": [
+            "preposition"
+          ],
           "level": 0
         },
         {
@@ -41461,7 +41786,7 @@
           "level": 0
         },
         {
-          "bridge": "{ ...next(operator), modifier: before[0], concept: after[0], flatten: true }",
+          "bridge": "{ ...next(operator), modifiers: before, concept: after[0], flatten: true }",
           "id": "modifies",
           "isA": [
             "verby"
@@ -41508,20 +41833,20 @@
           "level": 0
         },
         {
-          "bridge": "{ ...next(operator), isList: true, value: append(before, after) }",
+          "bridge": "{ ...next(operator), listable: true, isList: true, value: append(before, after) }",
           "id": "list",
           "level": 0,
           "selector": {
             "left": [
               {
-                "variable": "type"
+                "pattern": "($type && context.instance == variables.instance)"
               }
             ],
             "match": "same",
             "passthrough": true,
             "right": [
               {
-                "variable": "type"
+                "pattern": "($type && context.instance == variables.instance)"
               }
             ]
           }
@@ -41533,7 +41858,7 @@
           "selector": {
             "left": [
               {
-                "variable": "type"
+                "pattern": "($type && context.instance == variables.instance)"
               }
             ],
             "match": "same",
@@ -41544,7 +41869,7 @@
           "bridge": "{ ...next(operator), toObject: after[0] }",
           "id": "to",
           "level": 0,
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:110"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:121"
         },
         {
           "bridge": "{ ...next(operator) }",
@@ -41907,7 +42232,7 @@
           "pattern": "(([xfx]) <([between] (words))>)"
         },
         {
-          "pattern": "((modifier) [modifies|] (concept))"
+          "pattern": "((context.punctuation != true)* [modifies|] (concept))"
         },
         {
           "pattern": "([concept])"
@@ -41976,7 +42301,7 @@
           "pattern": "(<does|> ([canBeDoQuestion/0,1]))"
         },
         {
-          "pattern": "(([theAble|]) [list|and] ([theAble|]))"
+          "pattern": "(x [list|and] y)"
         },
         {
           "pattern": "([yesno|])"
@@ -42434,6 +42759,9 @@
               "what",
               "whose"
             ],
+            "preposition": [
+              "between"
+            ],
             "pronoun": [
               "it",
               "this"
@@ -42495,6 +42823,8 @@
             "have",
             "canBeDoQuestion",
             "canBeQuestion",
+            "between",
+            "preposition",
             "concept",
             "modifies",
             "verby",
@@ -42520,6 +42850,9 @@
           "parents": {
             "a": [
               "articlePOS"
+            ],
+            "between": [
+              "preposition"
             ],
             "concept": [
               "theAble",
@@ -42615,6 +42948,8 @@
               },
               "articlePOS": {
               },
+              "between": {
+              },
               "canBeDoQuestion": {
               },
               "canBeQuestion": {
@@ -42640,6 +42975,8 @@
               "object": {
               },
               "orAble": {
+              },
+              "preposition": {
               },
               "pronoun": {
               },
@@ -42878,6 +43215,9 @@
         {
           "bridge": "{ ...next(operator), arguments: after[0] }",
           "id": "between",
+          "isA": [
+            "preposition"
+          ],
           "level": 0
         },
         {
@@ -42953,7 +43293,7 @@
           "level": 0
         },
         {
-          "bridge": "{ ...next(operator), modifier: before[0], concept: after[0], flatten: true }",
+          "bridge": "{ ...next(operator), modifiers: before, concept: after[0], flatten: true }",
           "id": "modifies",
           "isA": [
             "verby"
@@ -43000,20 +43340,20 @@
           "level": 0
         },
         {
-          "bridge": "{ ...next(operator), isList: true, value: append(before, after) }",
+          "bridge": "{ ...next(operator), listable: true, isList: true, value: append(before, after) }",
           "id": "list",
           "level": 0,
           "selector": {
             "left": [
               {
-                "variable": "type"
+                "pattern": "($type && context.instance == variables.instance)"
               }
             ],
             "match": "same",
             "passthrough": true,
             "right": [
               {
-                "variable": "type"
+                "pattern": "($type && context.instance == variables.instance)"
               }
             ]
           }
@@ -43025,7 +43365,7 @@
           "selector": {
             "left": [
               {
-                "variable": "type"
+                "pattern": "($type && context.instance == variables.instance)"
               }
             ],
             "match": "same",
@@ -43036,7 +43376,7 @@
           "bridge": "{ ...next(operator), toObject: after[0] }",
           "id": "to",
           "level": 0,
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:110"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:121"
         },
         {
           "bridge": "{ ...next(operator) }",
@@ -43399,7 +43739,7 @@
           "pattern": "(([xfx]) <([between] (words))>)"
         },
         {
-          "pattern": "((modifier) [modifies|] (concept))"
+          "pattern": "((context.punctuation != true)* [modifies|] (concept))"
         },
         {
           "pattern": "([concept])"
@@ -43468,7 +43808,7 @@
           "pattern": "(<does|> ([canBeDoQuestion/0,1]))"
         },
         {
-          "pattern": "(([theAble|]) [list|and] ([theAble|]))"
+          "pattern": "(x [list|and] y)"
         },
         {
           "pattern": "([yesno|])"
@@ -43971,6 +44311,9 @@
               "what",
               "whose"
             ],
+            "preposition": [
+              "between"
+            ],
             "pronoun": [
               "it",
               "this"
@@ -44032,6 +44375,8 @@
             "have",
             "canBeDoQuestion",
             "canBeQuestion",
+            "between",
+            "preposition",
             "concept",
             "modifies",
             "verby",
@@ -44057,6 +44402,9 @@
           "parents": {
             "a": [
               "articlePOS"
+            ],
+            "between": [
+              "preposition"
             ],
             "concept": [
               "theAble",
@@ -44152,6 +44500,8 @@
               },
               "articlePOS": {
               },
+              "between": {
+              },
               "canBeDoQuestion": {
               },
               "canBeQuestion": {
@@ -44177,6 +44527,8 @@
               "object": {
               },
               "orAble": {
+              },
+              "preposition": {
               },
               "pronoun": {
               },
@@ -44509,6 +44861,9 @@
         {
           "bridge": "{ ...next(operator), arguments: after[0] }",
           "id": "between",
+          "isA": [
+            "preposition"
+          ],
           "level": 0
         },
         {
@@ -44584,7 +44939,7 @@
           "level": 0
         },
         {
-          "bridge": "{ ...next(operator), modifier: before[0], concept: after[0], flatten: true }",
+          "bridge": "{ ...next(operator), modifiers: before, concept: after[0], flatten: true }",
           "id": "modifies",
           "isA": [
             "verby"
@@ -44631,20 +44986,20 @@
           "level": 0
         },
         {
-          "bridge": "{ ...next(operator), isList: true, value: append(before, after) }",
+          "bridge": "{ ...next(operator), listable: true, isList: true, value: append(before, after) }",
           "id": "list",
           "level": 0,
           "selector": {
             "left": [
               {
-                "variable": "type"
+                "pattern": "($type && context.instance == variables.instance)"
               }
             ],
             "match": "same",
             "passthrough": true,
             "right": [
               {
-                "variable": "type"
+                "pattern": "($type && context.instance == variables.instance)"
               }
             ]
           }
@@ -44656,7 +45011,7 @@
           "selector": {
             "left": [
               {
-                "variable": "type"
+                "pattern": "($type && context.instance == variables.instance)"
               }
             ],
             "match": "same",
@@ -44667,7 +45022,7 @@
           "bridge": "{ ...next(operator), toObject: after[0] }",
           "id": "to",
           "level": 0,
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:110"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:121"
         },
         {
           "bridge": "{ ...next(operator) }",
@@ -45030,7 +45385,7 @@
           "pattern": "(([xfx]) <([between] (words))>)"
         },
         {
-          "pattern": "((modifier) [modifies|] (concept))"
+          "pattern": "((context.punctuation != true)* [modifies|] (concept))"
         },
         {
           "pattern": "([concept])"
@@ -45099,7 +45454,7 @@
           "pattern": "(<does|> ([canBeDoQuestion/0,1]))"
         },
         {
-          "pattern": "(([theAble|]) [list|and] ([theAble|]))"
+          "pattern": "(x [list|and] y)"
         },
         {
           "pattern": "([yesno|])"
@@ -45676,6 +46031,9 @@
               "what",
               "whose"
             ],
+            "preposition": [
+              "between"
+            ],
             "pronoun": [
               "it",
               "this"
@@ -45737,6 +46095,8 @@
             "have",
             "canBeDoQuestion",
             "canBeQuestion",
+            "between",
+            "preposition",
             "concept",
             "modifies",
             "verby",
@@ -45762,6 +46122,9 @@
           "parents": {
             "a": [
               "articlePOS"
+            ],
+            "between": [
+              "preposition"
             ],
             "concept": [
               "theAble",
@@ -45857,6 +46220,8 @@
               },
               "articlePOS": {
               },
+              "between": {
+              },
               "canBeDoQuestion": {
               },
               "canBeQuestion": {
@@ -45882,6 +46247,8 @@
               "object": {
               },
               "orAble": {
+              },
+              "preposition": {
               },
               "pronoun": {
               },
@@ -46226,6 +46593,9 @@
         {
           "bridge": "{ ...next(operator), arguments: after[0] }",
           "id": "between",
+          "isA": [
+            "preposition"
+          ],
           "level": 0
         },
         {
@@ -46301,7 +46671,7 @@
           "level": 0
         },
         {
-          "bridge": "{ ...next(operator), modifier: before[0], concept: after[0], flatten: true }",
+          "bridge": "{ ...next(operator), modifiers: before, concept: after[0], flatten: true }",
           "id": "modifies",
           "isA": [
             "verby"
@@ -46348,20 +46718,20 @@
           "level": 0
         },
         {
-          "bridge": "{ ...next(operator), isList: true, value: append(before, after) }",
+          "bridge": "{ ...next(operator), listable: true, isList: true, value: append(before, after) }",
           "id": "list",
           "level": 0,
           "selector": {
             "left": [
               {
-                "variable": "type"
+                "pattern": "($type && context.instance == variables.instance)"
               }
             ],
             "match": "same",
             "passthrough": true,
             "right": [
               {
-                "variable": "type"
+                "pattern": "($type && context.instance == variables.instance)"
               }
             ]
           }
@@ -46373,7 +46743,7 @@
           "selector": {
             "left": [
               {
-                "variable": "type"
+                "pattern": "($type && context.instance == variables.instance)"
               }
             ],
             "match": "same",
@@ -46384,7 +46754,7 @@
           "bridge": "{ ...next(operator), toObject: after[0] }",
           "id": "to",
           "level": 0,
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:110"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:121"
         },
         {
           "bridge": "{ ...next(operator) }",
@@ -46747,7 +47117,7 @@
           "pattern": "(([xfx]) <([between] (words))>)"
         },
         {
-          "pattern": "((modifier) [modifies|] (concept))"
+          "pattern": "((context.punctuation != true)* [modifies|] (concept))"
         },
         {
           "pattern": "([concept])"
@@ -46816,7 +47186,7 @@
           "pattern": "(<does|> ([canBeDoQuestion/0,1]))"
         },
         {
-          "pattern": "(([theAble|]) [list|and] ([theAble|]))"
+          "pattern": "(x [list|and] y)"
         },
         {
           "pattern": "([yesno|])"
@@ -47391,6 +47761,9 @@
               "what",
               "whose"
             ],
+            "preposition": [
+              "between"
+            ],
             "pronoun": [
               "it",
               "this"
@@ -47452,6 +47825,8 @@
             "have",
             "canBeDoQuestion",
             "canBeQuestion",
+            "between",
+            "preposition",
             "concept",
             "modifies",
             "verby",
@@ -47477,6 +47852,9 @@
           "parents": {
             "a": [
               "articlePOS"
+            ],
+            "between": [
+              "preposition"
             ],
             "concept": [
               "theAble",
@@ -47572,6 +47950,8 @@
               },
               "articlePOS": {
               },
+              "between": {
+              },
               "canBeDoQuestion": {
               },
               "canBeQuestion": {
@@ -47597,6 +47977,8 @@
               "object": {
               },
               "orAble": {
+              },
+              "preposition": {
               },
               "pronoun": {
               },
@@ -47827,6 +48209,9 @@
         {
           "bridge": "{ ...next(operator), arguments: after[0] }",
           "id": "between",
+          "isA": [
+            "preposition"
+          ],
           "level": 0
         },
         {
@@ -47902,7 +48287,7 @@
           "level": 0
         },
         {
-          "bridge": "{ ...next(operator), modifier: before[0], concept: after[0], flatten: true }",
+          "bridge": "{ ...next(operator), modifiers: before, concept: after[0], flatten: true }",
           "id": "modifies",
           "isA": [
             "verby"
@@ -47949,20 +48334,20 @@
           "level": 0
         },
         {
-          "bridge": "{ ...next(operator), isList: true, value: append(before, after) }",
+          "bridge": "{ ...next(operator), listable: true, isList: true, value: append(before, after) }",
           "id": "list",
           "level": 0,
           "selector": {
             "left": [
               {
-                "variable": "type"
+                "pattern": "($type && context.instance == variables.instance)"
               }
             ],
             "match": "same",
             "passthrough": true,
             "right": [
               {
-                "variable": "type"
+                "pattern": "($type && context.instance == variables.instance)"
               }
             ]
           }
@@ -47974,7 +48359,7 @@
           "selector": {
             "left": [
               {
-                "variable": "type"
+                "pattern": "($type && context.instance == variables.instance)"
               }
             ],
             "match": "same",
@@ -47985,7 +48370,7 @@
           "bridge": "{ ...next(operator), toObject: after[0] }",
           "id": "to",
           "level": 0,
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:110"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:121"
         },
         {
           "bridge": "{ ...next(operator) }",
@@ -48348,7 +48733,7 @@
           "pattern": "(([xfx]) <([between] (words))>)"
         },
         {
-          "pattern": "((modifier) [modifies|] (concept))"
+          "pattern": "((context.punctuation != true)* [modifies|] (concept))"
         },
         {
           "pattern": "([concept])"
@@ -48417,7 +48802,7 @@
           "pattern": "(<does|> ([canBeDoQuestion/0,1]))"
         },
         {
-          "pattern": "(([theAble|]) [list|and] ([theAble|]))"
+          "pattern": "(x [list|and] y)"
         },
         {
           "pattern": "([yesno|])"
@@ -48750,6 +49135,9 @@
               "what",
               "whose"
             ],
+            "preposition": [
+              "between"
+            ],
             "pronoun": [
               "it",
               "this"
@@ -48811,6 +49199,8 @@
             "have",
             "canBeDoQuestion",
             "canBeQuestion",
+            "between",
+            "preposition",
             "concept",
             "modifies",
             "verby",
@@ -48836,6 +49226,9 @@
           "parents": {
             "a": [
               "articlePOS"
+            ],
+            "between": [
+              "preposition"
             ],
             "concept": [
               "theAble",
@@ -48931,6 +49324,8 @@
               },
               "articlePOS": {
               },
+              "between": {
+              },
               "canBeDoQuestion": {
               },
               "canBeQuestion": {
@@ -48956,6 +49351,8 @@
               "object": {
               },
               "orAble": {
+              },
+              "preposition": {
               },
               "pronoun": {
               },
@@ -49075,6 +49472,60 @@
           0
         ],
         [
+          "unknown",
+          1
+        ],
+        [
+          "xfx",
+          0
+        ]
+      ],
+      [
+        [
+          "between",
+          0
+        ],
+        [
+          "list",
+          0
+        ],
+        [
+          "unknown",
+          0
+        ],
+        [
+          "xfx",
+          0
+        ]
+      ],
+      [
+        [
+          "between",
+          0
+        ],
+        [
+          "list",
+          0
+        ],
+        [
+          "unknown",
+          1
+        ]
+      ],
+      [
+        [
+          "between",
+          0
+        ],
+        [
+          "list",
+          0
+        ],
+        [
+          "unknown",
+          1
+        ],
+        [
           "xfx",
           0
         ]
@@ -49087,20 +49538,6 @@
         [
           "list",
           1
-        ]
-      ],
-      [
-        [
-          "between",
-          0
-        ],
-        [
-          "list",
-          1
-        ],
-        [
-          "xfx",
-          0
         ]
       ],
       [
@@ -49128,6 +49565,9 @@
         {
           "bridge": "{ ...next(operator), arguments: after[0] }",
           "id": "between",
+          "isA": [
+            "preposition"
+          ],
           "level": 0
         },
         {
@@ -49203,7 +49643,7 @@
           "level": 0
         },
         {
-          "bridge": "{ ...next(operator), modifier: before[0], concept: after[0], flatten: true }",
+          "bridge": "{ ...next(operator), modifiers: before, concept: after[0], flatten: true }",
           "id": "modifies",
           "isA": [
             "verby"
@@ -49250,20 +49690,20 @@
           "level": 0
         },
         {
-          "bridge": "{ ...next(operator), isList: true, value: append(before, after) }",
+          "bridge": "{ ...next(operator), listable: true, isList: true, value: append(before, after) }",
           "id": "list",
           "level": 0,
           "selector": {
             "left": [
               {
-                "variable": "type"
+                "pattern": "($type && context.instance == variables.instance)"
               }
             ],
             "match": "same",
             "passthrough": true,
             "right": [
               {
-                "variable": "type"
+                "pattern": "($type && context.instance == variables.instance)"
               }
             ]
           }
@@ -49275,7 +49715,7 @@
           "selector": {
             "left": [
               {
-                "variable": "type"
+                "pattern": "($type && context.instance == variables.instance)"
               }
             ],
             "match": "same",
@@ -49286,7 +49726,7 @@
           "bridge": "{ ...next(operator), toObject: after[0] }",
           "id": "to",
           "level": 0,
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:110"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:121"
         },
         {
           "bridge": "{ ...next(operator) }",
@@ -49649,7 +50089,7 @@
           "pattern": "(([xfx]) <([between] (words))>)"
         },
         {
-          "pattern": "((modifier) [modifies|] (concept))"
+          "pattern": "((context.punctuation != true)* [modifies|] (concept))"
         },
         {
           "pattern": "([concept])"
@@ -49718,7 +50158,7 @@
           "pattern": "(<does|> ([canBeDoQuestion/0,1]))"
         },
         {
-          "pattern": "(([theAble|]) [list|and] ([theAble|]))"
+          "pattern": "(x [list|and] y)"
         },
         {
           "pattern": "([yesno|])"
@@ -49938,6 +50378,7 @@
           "default": true,
           "isList": true,
           "level": 1,
+          "listable": true,
           "marker": "list",
           "range": {
             "end": 20,
@@ -49949,24 +50390,28 @@
           ],
           "value": [
             {
-              "level": 0,
-              "marker": "property",
+              "dead": true,
+              "level": 1,
+              "marker": "unknown",
               "range": {
                 "end": 13,
                 "start": 12
               },
               "text": "a1",
+              "unknown": true,
               "value": "a1",
               "word": "a1"
             },
             {
-              "level": 0,
-              "marker": "property",
+              "dead": true,
+              "level": 1,
+              "marker": "unknown",
               "range": {
                 "end": 20,
                 "start": 19
               },
               "text": "a2",
+              "unknown": true,
               "value": "a2",
               "word": "a2"
             }
@@ -49998,12 +50443,16 @@
         {
           "counter": 1,
           "op": [
-            "list",
+            "unknown",
             0
           ],
           "ops": [
             [
               "between",
+              0
+            ],
+            [
+              "list",
               0
             ],
             [
@@ -50023,6 +50472,31 @@
         {
           "counter": 2,
           "op": [
+            "unknown",
+            0
+          ],
+          "ops": [
+            [
+              "between",
+              0
+            ],
+            [
+              "list",
+              0
+            ],
+            [
+              "unknown",
+              0
+            ],
+            [
+              "xfx",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 3,
+          "op": [
             "xfx",
             0
           ],
@@ -50033,7 +50507,7 @@
             ],
             [
               "list",
-              1
+              0
             ],
             [
               "xfx",
@@ -50042,7 +50516,24 @@
           ]
         },
         {
-          "counter": 3,
+          "counter": 4,
+          "op": [
+            "list",
+            0
+          ],
+          "ops": [
+            [
+              "between",
+              0
+            ],
+            [
+              "list",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 5,
           "op": [
             "between",
             0
@@ -50059,7 +50550,7 @@
           ]
         },
         {
-          "counter": 4,
+          "counter": 6,
           "op": [
             "between",
             1
@@ -50131,6 +50622,9 @@
               "what",
               "whose"
             ],
+            "preposition": [
+              "between"
+            ],
             "pronoun": [
               "it",
               "this"
@@ -50192,6 +50686,8 @@
             "have",
             "canBeDoQuestion",
             "canBeQuestion",
+            "between",
+            "preposition",
             "concept",
             "modifies",
             "verby",
@@ -50217,6 +50713,9 @@
           "parents": {
             "a": [
               "articlePOS"
+            ],
+            "between": [
+              "preposition"
             ],
             "concept": [
               "theAble",
@@ -50312,6 +50811,8 @@
               },
               "articlePOS": {
               },
+              "between": {
+              },
               "canBeDoQuestion": {
               },
               "canBeQuestion": {
@@ -50337,6 +50838,8 @@
               "object": {
               },
               "orAble": {
+              },
+              "preposition": {
               },
               "pronoun": {
               },
@@ -50403,6 +50906,7 @@
               "default": true,
               "isList": true,
               "level": 1,
+              "listable": true,
               "marker": "list",
               "range": {
                 "end": 20,
@@ -50414,24 +50918,28 @@
               ],
               "value": [
                 {
-                  "level": 0,
-                  "marker": "property",
+                  "dead": true,
+                  "level": 1,
+                  "marker": "unknown",
                   "range": {
                     "end": 13,
                     "start": 12
                   },
                   "text": "a1",
+                  "unknown": true,
                   "value": "a1",
                   "word": "a1"
                 },
                 {
-                  "level": 0,
-                  "marker": "property",
+                  "dead": true,
+                  "level": 1,
+                  "marker": "unknown",
                   "range": {
                     "end": 20,
                     "start": 19
                   },
                   "text": "a2",
+                  "unknown": true,
                   "value": "a2",
                   "word": "a2"
                 }
@@ -50547,6 +51055,9 @@
         {
           "bridge": "{ ...next(operator), arguments: after[0] }",
           "id": "between",
+          "isA": [
+            "preposition"
+          ],
           "level": 0
         },
         {
@@ -50622,7 +51133,7 @@
           "level": 0
         },
         {
-          "bridge": "{ ...next(operator), modifier: before[0], concept: after[0], flatten: true }",
+          "bridge": "{ ...next(operator), modifiers: before, concept: after[0], flatten: true }",
           "id": "modifies",
           "isA": [
             "verby"
@@ -50669,20 +51180,20 @@
           "level": 0
         },
         {
-          "bridge": "{ ...next(operator), isList: true, value: append(before, after) }",
+          "bridge": "{ ...next(operator), listable: true, isList: true, value: append(before, after) }",
           "id": "list",
           "level": 0,
           "selector": {
             "left": [
               {
-                "variable": "type"
+                "pattern": "($type && context.instance == variables.instance)"
               }
             ],
             "match": "same",
             "passthrough": true,
             "right": [
               {
-                "variable": "type"
+                "pattern": "($type && context.instance == variables.instance)"
               }
             ]
           }
@@ -50694,7 +51205,7 @@
           "selector": {
             "left": [
               {
-                "variable": "type"
+                "pattern": "($type && context.instance == variables.instance)"
               }
             ],
             "match": "same",
@@ -50705,7 +51216,7 @@
           "bridge": "{ ...next(operator), toObject: after[0] }",
           "id": "to",
           "level": 0,
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:110"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:121"
         },
         {
           "bridge": "{ ...next(operator) }",
@@ -51049,7 +51560,7 @@
       "operators": [
         {
           "allowDups": true,
-          "pattern": "([pokemon])"
+          "pattern": "([\"pokemon\"])"
         },
         {
           "pattern": "([hierarchyAble|])"
@@ -51079,7 +51590,7 @@
           "pattern": "(([xfx]) <([between] (words))>)"
         },
         {
-          "pattern": "((modifier) [modifies|] (concept))"
+          "pattern": "((context.punctuation != true)* [modifies|] (concept))"
         },
         {
           "pattern": "([concept])"
@@ -51148,7 +51659,7 @@
           "pattern": "(<does|> ([canBeDoQuestion/0,1]))"
         },
         {
-          "pattern": "(([theAble|]) [list|and] ([theAble|]))"
+          "pattern": "(x [list|and] y)"
         },
         {
           "pattern": "([yesno|])"
@@ -51595,6 +52106,9 @@
               "what",
               "whose"
             ],
+            "preposition": [
+              "between"
+            ],
             "pronoun": [
               "it",
               "this"
@@ -51656,6 +52170,8 @@
             "have",
             "canBeDoQuestion",
             "canBeQuestion",
+            "between",
+            "preposition",
             "concept",
             "modifies",
             "verby",
@@ -51681,6 +52197,9 @@
           "parents": {
             "a": [
               "articlePOS"
+            ],
+            "between": [
+              "preposition"
             ],
             "concept": [
               "theAble",
@@ -51776,6 +52295,8 @@
               },
               "articlePOS": {
               },
+              "between": {
+              },
               "canBeDoQuestion": {
               },
               "canBeQuestion": {
@@ -51801,6 +52322,8 @@
               "object": {
               },
               "orAble": {
+              },
+              "preposition": {
               },
               "pronoun": {
               },

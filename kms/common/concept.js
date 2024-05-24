@@ -1,4 +1,5 @@
 const { Config, knowledgeModule, flatten, where, Digraph } = require('./runtime').theprogrammablemind
+const { defaultContextCheck } = require('./helpers')
 const { API }= require('./helpers/concept')
 const dialogues = require('./dialogues.js')
 const concept_tests = require('./concept.test.json')
@@ -124,12 +125,8 @@ knowledgeModule({
     name: './concept.test.json',
     contents: concept_tests,
     checks: {
-      context: [
-              'marker',
-              'text',
-              { valueLists: { value: ['marker', 'text', 'value'] } },
-            ],
-      objects: []
+      context: defaultContextCheck,
+      objects: [],
     }
   }
 })

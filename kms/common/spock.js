@@ -1,4 +1,5 @@
 const { Config, knowledgeModule, where } = require('./runtime').theprogrammablemind
+const { defaultContextCheck } = require('./helpers')
 const crew = require('./crew')
 const spock_tests = require('./spock.test.json')
 const spock_instance = require('./spock.instance.json')
@@ -25,11 +26,7 @@ knowledgeModule( {
           name: './spock.test.json',
           contents: spock_tests,
           checks: {
-            context: [
-              'marker',
-              'text',
-              { valueLists: { value: ['marker', 'text', 'value'] } },
-            ],
+            context: defaultContextCheck,
           },
         },
   template: {

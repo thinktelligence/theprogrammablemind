@@ -9,7 +9,7 @@ const _ = require('lodash')
 const { API } = require('./helpers/dialogues')
 const { isMany } = require('./helpers')
 const dialogues_tests = require('./dialogues.test.json')
-const { indent, focus } = require('./helpers')
+const { defaultContextCheck, indent, focus } = require('./helpers')
 const pluralize = require('pluralize')
 
 const api = new API()
@@ -897,11 +897,7 @@ knowledgeModule( {
     name: './dialogues.test.json',
     contents: dialogues_tests,
     checks: {
-            context: [
-              'marker',
-              'text',
-              { valueLists: { value: ['marker', 'text', 'value'] } },
-            ],
+            context: defaultContextCheck,
           },
 
   },

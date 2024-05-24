@@ -1,4 +1,5 @@
 const { Config, knowledgeModule, ensureTestFile, where } = require('./runtime').theprogrammablemind
+const { defaultContextCheck } = require('./helpers')
 const hierarchy = require('./hierarchy')
 ensureTestFile(module, 'emotions', 'test')
 ensureTestFile(module, 'emotions', 'instance')
@@ -71,11 +72,7 @@ knowledgeModule( {
         template,
         instance: emotions_instance,
         checks: {
-            context: [
-              'marker',
-              'text',
-              { valueLists: { value: ['marker', 'text', 'value'] } },
-            ],
+            context: defaultContextCheck,
           },
 
       },

@@ -1,4 +1,5 @@
 const { Config, knowledgeModule, where } = require('./runtime').theprogrammablemind
+const { defaultContextCheck } = require('./helpers')
 const dialogues = require('./dialogues')
 const numbers = require('./numbers')
 const pluralize = require('pluralize')
@@ -386,11 +387,7 @@ knowledgeModule( {
     name: './scorekeeper.test.json',
     contents: scorekeeper_tests,
     checks: {
-            context: [
-              'marker',
-              'text',
-              { valueLists: { value: ['marker', 'text', 'value'] } },
-            ],
+            context: defaultContextCheck,
           },
   },
   template: {
