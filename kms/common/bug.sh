@@ -616,4 +616,7 @@ fi
 # $NODE fastfood -q 'single double triple baconater bacon deluxe spicy homestyle and premium cod are meals' -g -d -cl '[["list", 0]]' 
 # $NODE fastfood -q 'number one and two' -g -d -cl '[["list", 0]]'
 # $NODE fastfood -q 'combo number one and two' -g -d -cl '[["list", 0]]'
-$NODE fastfood -q 'combo one and two combo twos' -g -d -cl '[["list", 0]]'
+# $NODE fastfood -q 'combo one and two combo twos' -g -d -cl '[["list", 0]]'
+# $NODE fastfood -q 'single combo' -g -d -cl '[["list", 0]]' -s 
+# $NODE fastfood -q '3 single and 2 double combos' -g -d -cl '[["list", 0]]' 
+$NODE fastfood -q '2 french fries and 3 curly fries' -g -d -cl '[["list", 0]]'

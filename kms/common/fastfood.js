@@ -48,6 +48,9 @@ const template ={
     // "10 piece modifies nuggets",
     "asiago ranch chicken modifies club",
     { priorities: [ [['asiago_ranch_chicken_club', 0], ['list', 0], ] ] },
+    "curly modifies fries",
+    { priorities: [ [['curly_fry', 0], ['list', 0], ] ] },
+    "curly fries are french fries",
     "single double triple baconater and bacon deluxe are hamburgers",
     "spicy homestyle asiago ranch chicken club 10 piece nuggets ultimate chicken grill and premium cod are sandwiches",
     "a meals is food",
@@ -111,7 +114,7 @@ const template ={
           before: ['combo'],
           // bridge: "{ ...before[0], combo: true, postModifiers: append(before[0].postModifiers, ['combo']), combo: after[0], flatten: true }",
           bridge: "{ ...next(before[0]), postModifiers: append(before[0].modifiers, ['comboNumber']), comboNumber: after[0], instance: true, flatten: true }",
-          nncBridge: "{ ...next(before[0]), postModifiers: append(before[0].modifiers, ['comboNumber']), comboNumber: after[0].comboNumber, flatten: true }",
+          ////  nncBridge: "{ ...next(before[0]), postModifiers: append(before[0].modifiers, ['comboNumber']), comboNumber: after[0].comboNumber, flatten: true }",
         },
         { 
           id: 'numberNumberCombo',
