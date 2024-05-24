@@ -619,4 +619,7 @@ fi
 # $NODE fastfood -q 'combo one and two combo twos' -g -d -cl '[["list", 0]]'
 # $NODE fastfood -q 'single combo' -g -d -cl '[["list", 0]]' -s 
 # $NODE fastfood -q '3 single and 2 double combos' -g -d -cl '[["list", 0]]' 
-$NODE fastfood -q '2 french fries and 3 curly fries' -g -d -cl '[["list", 0]]'
+# $NODE fastfood -q '2 french fries and 3 curly fries' -g -d -cl '[["list", 0]]'
+# $NODE fastfood -q '2 french fries' -g -d -cl '[["list", 0]]'
+# $NODE pipboy -q 'apply 10 stimpacks' -g -d -cl '[["list", 0]]'
+$NODE fastfood -q '2 combo ones' -g -d -cl '[["list", 0]]'

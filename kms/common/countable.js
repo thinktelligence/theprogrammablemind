@@ -19,7 +19,8 @@ let configStruct = {
       level: 0, 
       convolution: true, 
       before: ['verby'],
-      bridge: "{ ...after, quantity: before[0] }" 
+      bridge: "{ ...after, modifiers: append(['quantity'], after[0].modifiers), quantity: before[0], number: default(before[0].number, before[0].value) }" 
+      // bridge: "{ ...after, quantity: before[0], number: default(before[0].number, before[0].value) }" 
     },
     { 
       id: "quantifier", 
@@ -38,14 +39,14 @@ let configStruct = {
       id: "all", 
       level: 0, 
       generatorp: ({context}) => 'all',
-      bridge: "{ ...next(operator), number: ['many'] }" 
+      bridge: "{ ...next(operator), number: 'many' }" 
     },
   ],
 
   generators: [
     { 
       where: where(),
-      match: ({context}) => context.quantity,
+      match: ({context}) => false && context.quantity,
       apply: ({context, g}) => {
         let number = context.quantity.number || 'one'
         if (context.quantity.value > 1) {

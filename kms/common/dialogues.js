@@ -332,20 +332,21 @@ let configStruct = {
       where: where(),
       //({context}) => context.paraphrase && context.modifiers,
       match: ({context}) => context.paraphrase && (context.modifiers || context.postModifiers),
-      apply: ({context, g}) => {
+      apply: ({context, g, callId}) => {
         const text = []
         for (modifier of (context.modifiers || [])) {
           text.push(g(context[modifier]))
         }
         // text.push(context.word)
+        const number = isMany(context) ? 'many' : 'one'
         if (context.postModifiers) {
           text.push(g({...context, number: 'one', postModifiers: undefined, modifiers: undefined}))
         } else {
-          text.push(g({...context, postModifiers: undefined, modifiers: undefined}))
+          text.push(g({...context, number, postModifiers: undefined, modifiers: undefined}))
         }
         for ([index, modifier] of (context.postModifiers || []).entries()) {
           if (index == context.postModifiers.length - 1) {
-            text.push(g({...context[modifier], number: context.number}))
+            text.push(g({...context[modifier], number}))
           } else {
             text.push(g(context[modifier]))
           }

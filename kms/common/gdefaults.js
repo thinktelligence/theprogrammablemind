@@ -28,14 +28,14 @@ let configStruct = {
     {
       where: where(),
       priority: -1,
-      match: ({context}) => context.marker == 'modifies' && context.evaluateWord && context.paraphrase && context.number == 'many',
+      match: ({context}) => context.marker == 'modifies' && context.evaluateWord && context.paraphrase && (context.number == 'many' || context.number > 1),
       apply: ({context}) => 'modify'
     },
 
     {
       where: where(),
       priority: -1,
-      match: ({context}) => context.evaluateWord && context.paraphrase && context.word && context.number == 'many',
+      match: ({context}) => context.evaluateWord && context.paraphrase && context.word && (context.number == 'many' || countext.number > 1),
       apply: ({context}) => pluralize.plural(context.word),
     },
 
@@ -48,7 +48,7 @@ let configStruct = {
 
     {
       where: where(),
-      match: ({context}) => context.paraphrase && context.word && context.number == 'many',
+      match: ({context}) => context.paraphrase && context.word && (context.number == 'many' || context.number > 1),
       apply: ({context}) => {
         return pluralize.plural(context.word)
       }

@@ -28,10 +28,20 @@ const isMany = (context) => {
   if (((context || {}).value || {}).marker == 'list' && (((context || {}).value || {}).value || []).length > 1) {
     return true
   }
-  if (context.number == 'many') {
+
+  let number = context.number
+  if (context.quantity) {
+    if (context.quantity.number) {
+      number = context.quantity.number
+    } else if (context.quantity.value !== 1) {
+      number = 'many'
+    }
+  }
+
+  if (number == 'many') {
     return true
   }
-  if (context.number == 'one') {
+  if (number == 'one') {
     return false
   }
   if (context.word && pluralize.isPlural(context.word)) {

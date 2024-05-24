@@ -46,16 +46,18 @@ let configStruct = {
     },
   ],
 
+/*
   generators: [
     { 
       where: where(),
-      match: ({context}) => context.quantity,
+      match: ({context}) => false && context.quantity,
       apply: ({context, g}) => {
         const countable = g({ ...context, quantity: undefined, number: context.quanity == 1 ? 'one' : 'many' })
         return `${g(context.quantity)} ${countable}`
       }
     },
   ]
+*/
 };
 
 const createConfig = () => {
