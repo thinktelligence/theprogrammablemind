@@ -123,7 +123,7 @@ knowledgeModule( {
             context: [
               'marker',
               'text',
-              { 'value': ['marker', 'text', 'value'] },
+              { valueLists: { value: ['marker', 'text', 'value'] } },
             ],
           },
   },

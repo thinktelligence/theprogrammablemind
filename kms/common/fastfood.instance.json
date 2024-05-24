@@ -98,7 +98,7 @@
     "a combo is a meal",
     "single double triple baconater bacon deluxe spicy homestyle and premium cod are meals",
     {
-      "where": "/home/dev/code/theprogrammablemind/kms/common/fastfood.js:61",
+      "where": "/home/dev/code/theprogrammablemind/kms/common/fastfood.js:54",
       "operators": [
         "((meal/* && context.comboNumber == undefined) [comboMeal] (combo/*))",
         "((combo/*) [comboNumber] (number/* || numberNumberCombo/*))",
@@ -139,7 +139,7 @@
       ],
       "generators": [
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/fastfood.js:89",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/fastfood.js:68",
           "match": "({context}) => false && context.marker == 'combo' && context.comboNumber",
           "apply": "({context, g}) => g(context.comboNumber)"
         }
@@ -16407,7 +16407,7 @@
           },
           {
             "op": [
-              "ultimate_chicken_grill",
+              "counting",
               0
             ],
             "ops": [
@@ -16460,12 +16460,24 @@
           },
           {
             "op": [
-              "premium_cod",
+              "ultimate_chicken_grill",
               0
             ],
             "ops": [
               [
-                "counting",
+                "ultimate",
+                0
+              ],
+              [
+                "chicken",
+                0
+              ],
+              [
+                "grill",
+                0
+              ],
+              [
+                "ultimate_chicken_grill",
                 0
               ],
               [
@@ -16497,6 +16509,39 @@
           },
           {
             "op": [
+              "premium_cod",
+              0
+            ],
+            "ops": [
+              [
+                "list",
+                0
+              ],
+              [
+                "premium",
+                0
+              ],
+              [
+                "cod",
+                0
+              ],
+              [
+                "premium_cod",
+                0
+              ],
+              [
+                "is",
+                0
+              ],
+              [
+                "sandwich",
+                0
+              ]
+            ],
+            "counter": 9
+          },
+          {
+            "op": [
               "list",
               0
             ],
@@ -16510,37 +16555,8 @@
                 0
               ],
               [
-                "counting",
-                0
-              ],
-              [
                 "list",
                 0
-              ]
-            ],
-            "counter": 9
-          },
-          {
-            "op": [
-              "list",
-              1
-            ],
-            "ops": [
-              [
-                "is",
-                0
-              ],
-              [
-                "sandwich",
-                0
-              ],
-              [
-                "counting",
-                0
-              ],
-              [
-                "list",
-                1
               ]
             ],
             "counter": 10
@@ -16560,10 +16576,6 @@
                 0
               ],
               [
-                "counting",
-                0
-              ],
-              [
                 "list",
                 1
               ]
@@ -16572,8 +16584,8 @@
           },
           {
             "op": [
-              "sandwich",
-              0
+              "list",
+              1
             ],
             "ops": [
               [
@@ -16585,25 +16597,29 @@
                 0
               ],
               [
-                "counting",
-                0
+                "list",
+                1
               ]
             ],
             "counter": 12
           },
           {
             "op": [
-              "counting",
-              0
+              "list",
+              1
             ],
             "ops": [
               [
-                "counting",
+                "is",
                 0
               ],
               [
-                "is",
+                "sandwich",
                 0
+              ],
+              [
+                "list",
+                1
               ]
             ],
             "counter": 13
@@ -16616,6 +16632,10 @@
             "ops": [
               [
                 "is",
+                0
+              ],
+              [
+                "sandwich",
                 0
               ],
               [
@@ -16636,6 +16656,10 @@
                 0
               ],
               [
+                "sandwich",
+                0
+              ],
+              [
                 "list",
                 1
               ]
@@ -16644,8 +16668,8 @@
           },
           {
             "op": [
-              "list",
-              1
+              "sandwich",
+              0
             ],
             "ops": [
               [
@@ -16653,8 +16677,8 @@
                 0
               ],
               [
-                "list",
-                1
+                "sandwich",
+                0
               ]
             ],
             "counter": 16
@@ -16709,7 +16733,6 @@
               "end": 111
             },
             "types": [
-              "countable",
               "list",
               "unknown"
             ],
@@ -16810,11 +16833,11 @@
               {
                 "marker": "unknown",
                 "range": {
-                  "start": 45,
+                  "start": 42,
                   "end": 49
                 },
                 "word": "piece",
-                "text": "piece",
+                "text": "10 piece",
                 "value": "piece",
                 "types": [
                   "countable",
@@ -16822,6 +16845,22 @@
                 ],
                 "unknown": true,
                 "dead": true,
+                "quantity": {
+                  "value": 10,
+                  "instance": true,
+                  "text": "10",
+                  "marker": "number",
+                  "word": "10",
+                  "range": {
+                    "start": 42,
+                    "end": 43
+                  },
+                  "types": [
+                    "number"
+                  ],
+                  "dead": true,
+                  "level": 1
+                },
                 "level": 1
               },
               {
@@ -16923,22 +16962,6 @@
                 "level": 1
               }
             ],
-            "quantity": {
-              "value": 10,
-              "instance": true,
-              "text": "10",
-              "marker": "number",
-              "word": "10",
-              "range": {
-                "start": 42,
-                "end": 43
-              },
-              "types": [
-                "number"
-              ],
-              "dead": true,
-              "level": 1
-            },
             "level": 1
           },
           "two": {
@@ -16970,7 +16993,7 @@
         ""
       ],
       "paraphrases": [
-        "10 spicy, homestyle, asiago ranch chicken club, piece, nuggets, ultimate chicken grill and premium cod are sandwiches"
+        "spicy, homestyle, asiago ranch chicken club, 10 piece, nuggets, ultimate chicken grill and premium cod are sandwiches"
       ],
       "paraphrasesParenthesized": [],
       "generatedParenthesized": [],
@@ -17141,6 +17164,64 @@
           ],
           [
             "unknown",
+            0
+          ],
+          [
+            "unknown",
+            1
+          ]
+        ],
+        [
+          [
+            "asiago",
+            0
+          ],
+          [
+            "chicken",
+            0
+          ],
+          [
+            "club",
+            0
+          ],
+          [
+            "cod",
+            0
+          ],
+          [
+            "grill",
+            0
+          ],
+          [
+            "is",
+            0
+          ],
+          [
+            "list",
+            0
+          ],
+          [
+            "number",
+            0
+          ],
+          [
+            "premium",
+            0
+          ],
+          [
+            "ranch",
+            0
+          ],
+          [
+            "sandwich",
+            0
+          ],
+          [
+            "ultimate",
+            0
+          ],
+          [
+            "unknown",
             1
           ]
         ],
@@ -17328,6 +17409,20 @@
           [
             "sandwich",
             0
+          ]
+        ],
+        [
+          [
+            "is",
+            0
+          ],
+          [
+            "list",
+            1
+          ],
+          [
+            "sandwich",
+            0
           ],
           [
             "unknown",
@@ -17342,6 +17437,10 @@
           [
             "list",
             1
+          ],
+          [
+            "sandwich",
+            0
           ],
           [
             "unknown",
@@ -21601,6 +21700,20 @@
         ],
         [
           [
+            "a",
+            0
+          ],
+          [
+            "is",
+            0
+          ],
+          [
+            "unknown",
+            1
+          ]
+        ],
+        [
+          [
             "is",
             0
           ],
@@ -23587,11 +23700,11 @@
                 0
               ],
               [
-                "bacon_deluxe",
+                "premium_cod",
                 0
               ],
               [
-                "premium_cod",
+                "bacon_deluxe",
                 0
               ],
               [
@@ -23652,11 +23765,11 @@
                 0
               ],
               [
-                "bacon_deluxe",
+                "premium_cod",
                 0
               ],
               [
-                "premium_cod",
+                "bacon_deluxe",
                 0
               ],
               [
@@ -23713,11 +23826,11 @@
                 0
               ],
               [
-                "bacon_deluxe",
+                "premium_cod",
                 0
               ],
               [
-                "premium_cod",
+                "bacon_deluxe",
                 0
               ],
               [
@@ -23770,11 +23883,11 @@
                 0
               ],
               [
-                "bacon_deluxe",
+                "premium_cod",
                 0
               ],
               [
-                "premium_cod",
+                "bacon_deluxe",
                 0
               ],
               [
@@ -24752,7 +24865,7 @@
     },
     {
       "extraConfig": true,
-      "where": "/home/dev/code/theprogrammablemind/kms/common/fastfood.js:61",
+      "where": "/home/dev/code/theprogrammablemind/kms/common/fastfood.js:54",
       "operators": [
         "((meal/* && context.comboNumber == undefined) [comboMeal] (combo/*))",
         "((combo/*) [comboNumber] (number/* || numberNumberCombo/*))",
@@ -24793,7 +24906,7 @@
       ],
       "generators": [
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/fastfood.js:89"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/fastfood.js:68"
         }
       ],
       "bridges": [
@@ -24947,6 +25060,20 @@
     ],
     [
       [
+        "a",
+        0
+      ],
+      [
+        "is",
+        0
+      ],
+      [
+        "unknown",
+        1
+      ]
+    ],
+    [
+      [
         "asiago",
         0
       ],
@@ -24997,6 +25124,64 @@
       [
         "unknown",
         0
+      ]
+    ],
+    [
+      [
+        "asiago",
+        0
+      ],
+      [
+        "chicken",
+        0
+      ],
+      [
+        "club",
+        0
+      ],
+      [
+        "cod",
+        0
+      ],
+      [
+        "grill",
+        0
+      ],
+      [
+        "is",
+        0
+      ],
+      [
+        "list",
+        0
+      ],
+      [
+        "number",
+        0
+      ],
+      [
+        "premium",
+        0
+      ],
+      [
+        "ranch",
+        0
+      ],
+      [
+        "sandwich",
+        0
+      ],
+      [
+        "ultimate",
+        0
+      ],
+      [
+        "unknown",
+        0
+      ],
+      [
+        "unknown",
+        1
       ]
     ],
     [
@@ -26039,6 +26224,20 @@
       [
         "sandwich",
         0
+      ]
+    ],
+    [
+      [
+        "is",
+        0
+      ],
+      [
+        "list",
+        1
+      ],
+      [
+        "sandwich",
+        0
       ],
       [
         "unknown",
@@ -26053,6 +26252,10 @@
       [
         "list",
         1
+      ],
+      [
+        "sandwich",
+        0
       ],
       [
         "unknown",
