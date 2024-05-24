@@ -31,12 +31,6 @@ const fastfood_instance = require('./fastfood.instance.json')
 const template ={
   "queries": [
     "food is countable",
-    /*
-    "big modifies mac",
-    "a big mac is a hamburger",
-    "quarter modifies pounder",
-    "a quarter pounder is a hamburger",
-    */
     "bacon modifies deluxe",
     { priorities: [ [['bacon_deluxe', 0], ['list', 0], ] ] },
     "chicken modifies sandwich",
@@ -56,33 +50,18 @@ const template ={
     "a meals is food",
     "a combo is a meal",
     "single double triple baconater bacon deluxe spicy homestyle and premium cod are meals",
-    // "more modifies big mac",
     {
       where: where(),
       operators: [
         "((meal/* && context.comboNumber == undefined) [comboMeal] (combo/*))",
         "((combo/*) [comboNumber] (number/* || numberNumberCombo/*))",
         "((numberNumberCombo/1) [numberNumberCombo_combo|] (combo/0))",
-        // "((combo/0) [comboNumber] (number/0,1))",
-        // "((combo/0) [comboNumber:nncBridge] (numberNumberCombo/0,1))",
-        // "( (number/0 && value='number') [numberNumberCombo] (number/0))",
-        // "((combo/0) (number/1) [comboNumberNumber] (number/1))",
         "((number/0,1 && context.instance == undefined) [numberNumberCombo] (number/0,1))",
       ],
       priorities: [
-        /*
-        [['list', 0], ['premium_cod', 0]],
-        [['list', 1], ['premium_cod', 0]],
-        [['comboMeal', 0], ['list', 0]],
-        [['comboMeal', 0], ['list', 1]],
-        [['comboNumber', 0], ['list', 0]],
-        [['comboNumber', 0], ['list', 1]],
-        */
         [['number', 0], ['numberNumberCombo', 0], ],
         [['list', 0], ['numberNumberCombo', 0], ],
         [['list', 0], ['comboNumber', 0], ],
-        // [['premium_cod', 0], ['list', 0]],
-        // [['comboNumber', 0], ['number', 0]],
       ],
       generators: [
         {
@@ -97,24 +76,19 @@ const template ={
           convolution: true,
           isA: ['food'],
           before: ['combo', 'counting'],
-          // bridge: "{ ...before[0], combo: true, postModifiers: append(before[0].postModifiers, ['combo']), combo: after[0], flatten: true }",
-          // bridge: "{ ...next(after[0]), modifiers: append(before[0].modifiers, ['type']), type: before[0], flatten: true }",
           bridge: "{ ...next(operator), modifiers: append(before[0].modifiers, ['comboNumber']), comboNumber: before[0], word: 'combo', flatten: true }",
         },
         { 
           id: 'comboMeal',
           convolution: true,
           before: ['meal', 'combo', 'counting'],
-          // bridge: "{ ...before[0], combo: true, postModifiers: append(before[0].postModifiers, ['combo']), combo: after[0], flatten: true }",
           bridge: "{ ...next(after[0]), modifiers: append(before[0].modifiers, ['type']), type: before[0], flatten: true }",
         },
         { 
           id: 'comboNumber',
           convolution: true,
           before: ['combo'],
-          // bridge: "{ ...before[0], combo: true, postModifiers: append(before[0].postModifiers, ['combo']), combo: after[0], flatten: true }",
           bridge: "{ ...next(before[0]), postModifiers: append(before[0].modifiers, ['comboNumber']), comboNumber: after[0], instance: true, flatten: true }",
-          ////  nncBridge: "{ ...next(before[0]), postModifiers: append(before[0].modifiers, ['comboNumber']), comboNumber: after[0].comboNumber, flatten: true }",
         },
         { 
           id: 'numberNumberCombo',
@@ -122,18 +96,7 @@ const template ={
           isA: ['food'],
           before: ['combo', 'comboNumber'],
           bridge: "{ ...next(operator), word: 'number', combo: true, postModifiers: append(before[0].postModifiers, ['comboNumber']), comboNumber: after[0], flatten: true }",
-          // bridge: "{ ...before[0], combo: true, postModifiers: append(before[0].postModifiers, ['combo']), combo: after[0], flatten: true }",
-          // bridge: "{ marker: operator('combo', 0), postModifiers: append(before[0].modifiers, ['comboNumber']), comboNumber: after[0], flatten: true }",
         },
-        /*
-        { 
-          id: 'comboNumberNumber',
-          convolution: true,
-          before: ['meal', 'combo'],
-          // bridge: "{ ...before[0], combo: true, postModifiers: append(before[0].postModifiers, ['combo']), combo: after[0], flatten: true }",
-          bridge: "{ marker: operator('combo', 0), postModifiers: append(before[0].modifiers, ['number']), comboNumber: after[0], flatten: true }",
-        },
-        */
       ]
     }
   ],
@@ -238,8 +201,6 @@ const createConfig = () => {
     // TODO use node naming not python
     contextual_priorities: [
       { context: [['list', 0], ['bacon',0], ['deluxe', 0]], choose: [1,2] },
-      // { context: [['list', 0], ['spicy',0], ['homestyle', 0]], choose: [1,2] },
-      // { context: [['list', 0], ['premium',0], ['cod', 0]], choose: [1,2] },
       { context: [['list', 0], ['food',0], ['combo', 0]], choose: [0,1] },
       { context: [['combo', 0], ['number', 0], ['list',0], ['number', 0]], choose: [1,2,3] },
       { context: [['combo', 0], ['comboNumber', 0], ['list', 1]], choose: [1] },
