@@ -878,6 +878,19 @@ const createConfig = () => {
       e: (context) => config.api.getEvaluator(args.s, args.log, context),
     }))
     */
+    config.addArgs(({isA}) => ({ 
+      isAListable: (context, type) => {
+        try{
+        if (context.marker == 'list') {
+          return context.value.every( (element) => isA(element.marker, type) )
+        } else {
+          return isA(context.marker, type)
+        } 
+        } catch( e ) {
+          debugger
+        }
+      }
+    }))
     objects.mentioned = []
     objects.variables = {
     }

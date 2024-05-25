@@ -1,5 +1,5 @@
 const { Config, knowledgeModule, ensureTestFile, where } = require('./runtime').theprogrammablemind
-const { defaultContextCheck } = require('./helpers')
+const { defaultContextCheck, propertyToArray } = require('./helpers')
 const foods = require('./foods')
 const events = require('./events')
 const countable = require('./countable')
@@ -215,9 +215,11 @@ const createConfig = () => {
     semantics: [
       {
         where: where(),
-        match: ({context, isA}) => isA(context.marker, 'food') && context.marker !== 'food',
+        match: ({context, isAListable}) => isAListable(context, 'food') && context.marker !== 'food' && !context.same,
         apply: ({context, km, api, instance}) => {
-          km('fastfood').api.state.add(context)
+          for (const element of propertyToArray(context)) {
+            km('fastfood').api.state.add(element)
+          }
         }
       }
     ],
