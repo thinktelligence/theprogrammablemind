@@ -37,10 +37,18 @@ class API {
 
     const objectSingular = pluralize.singular(object)
     const objectPlural = pluralize.plural(object)
-    config.addOperator({ pattern: `(${modifierIds.map((modifierId) => `(${modifierId}/0)`).join(' ')} [${modifiersObjectId}] (${objectId}/0))`, allowDups: true })
+    config.addOperator({ pattern: `(${modifierIds.map((modifierId) => `(${modifierId}/*)`).join(' ')} [${modifiersObjectId}] (${objectId}/0))`, allowDups: true })
     // config.addOperator({ pattern: `(<${modifierId}|> ([${objectId}|]))`, allowDups: true })
     // config.addOperator({ pattern: `([${modifierObjectId}|])`, allowDups: true })
-    modifierIds.forEach((modifierId) => config.addOperator({ pattern: `([${modifierId}|])`, allowDups: true }))
+    modifierIds.forEach((modifierId) => {
+      try{
+      if (!config.exists(modifierId)) {
+        config.addOperator({ pattern: `([${modifierId}|])`, allowDups: true })
+      } 
+      } catch( e ) {
+        debugger
+      }
+    })
     config.addOperator({ pattern: `([${objectId}|])`, allowDups: true })
 
     config.addWord(objectSingular, { id: objectId, initial: `{ value: '${objectId}', number: 'one' }`})
@@ -93,7 +101,7 @@ class API {
     config.addPriorities([[objectId, 0], ['articlePOS', 0], ])
     modifierIds.forEach((modifierId) => config.addPriorities([[modifiersObjectId, 0], [modifierId, 0], ]))
     config.addPriorities([[modifiersObjectId, 0], [objectId, 0], ])
-    // config.addPriorities([['list', 0], [modifiersObjectId, 0]])
+    config.addContextualPriority({ context: [['list', 0]].concat(modifierIds.map((id) => [id, 0])).concat([[objectId, 0]]), choose: [1,2] })
   }
 
   addWord(context) {

@@ -622,4 +622,13 @@ fi
 # $NODE fastfood -q '2 french fries' -g -d -cl '[["list", 0]]'
 # $NODE pipboy -q 'apply 10 stimpacks' -g -d -cl '[["list", 0]]'
 # $NODE fastfood -q '2 combo ones' -g -d -cl '[["list", 0]]'
-$NODE fastfood -q '2 french fries and 3 curly fries' -g -d -cl '[["list", 0]]'
+# $NODE fastfood -q '2 french fries and 3 waffle fries' -g -d -daa -cl '[["list", 0]]'
+# $NODE fastfood -q 'combo 1 with waffle fries' -g -d -daa -cl '[["list", 0]]'
+# $NODE concept -q 'mango modifies passion\nmango passion modifies smoothie\nmango passion smoothie' -g -d
+# DEBUG_OPERATOR="([mango_passion|])" $NODE concept -q 'mango modifies passion\nmango passion modifies smoothie' -g -d -po
+# $NODE fastfood -q "strawberry guava mango passion wild berry and strawberry banana modify smoothie" -g -d -daa -cl '[["list", 0]]' --parenthesized
+# TODO $NODE fastfood -q "a strawberry and guava smoothie" -g -d -daa -cl '[["list", 0]]' --parenthesized
+# TODO $NODE fastfood -q "a strawberry and a guava smoothie" -g -d -daa -cl '[["list", 0]]' --parenthesized
+# TODO $NODE fastfood -q "(a strawberry and a guava) smoothie" -g -d -daa -cl '[["list", 0]]' --parenthesized
+# TODO $NODE fastfood -q "(a strawberry and guava) smoothie" -g -d -daa -cl '[["list", 0]]' --parenthesized
+$NODE fastfood -q "a smoothie" -g -d -daa -cl '[["list", 0]]'

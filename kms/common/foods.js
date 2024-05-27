@@ -20,6 +20,7 @@ const foods_instance = require('./foods.instance.json')
 
 const template ={
   "queries": [
+    "food and drinks are edible",
     "chicken modifies strips",
     "chicken strips are food",
     "sushi is food",
@@ -35,6 +36,7 @@ const template ={
     "carrots peas cabbage and brocoli are vegetables",
     "vegetables are food",
     "a hamburger is a sandwich",
+    "pop soda and juice are drinks",
   ],
 }
 
@@ -47,7 +49,7 @@ const createConfig = () => {
 
 knowledgeModule( {
     module,
-      description: 'foods related concepts',
+      description: 'Edible things',
       createConfig,
       test: {
               name: './foods.test.json',

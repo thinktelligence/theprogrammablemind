@@ -43,9 +43,15 @@ const template ={
     // "10 piece modifies nuggets",
     "asiago ranch chicken modifies club",
     { priorities: [ [['asiago_ranch_chicken_club', 0], ['list', 0], ] ] },
-    "curly modifies fries",
-    { priorities: [ [['curly_fry', 0], ['list', 0], ] ] },
-    "curly fries are french fries",
+    "waffle modifies fries",
+    { priorities: [ [['waffle_fry', 0], ['list', 0], ] ] },
+    "waffle fries are french fries",
+    "mango modifies passion",
+    "wild modifies berry",
+    "strawberry modifies banana",
+    "strawberry guava mango passion wild berry and strawberry banana modify smoothie",
+    "a smoothie is a drink",
+    "french fries and waffle fries are fries",
     "single double triple baconater and bacon deluxe are hamburgers",
     "spicy homestyle asiago ranch chicken club 10 piece nuggets ultimate chicken grill and premium cod are sandwiches",
     "a meals is food",
@@ -58,6 +64,7 @@ const template ={
         "((combo/*) [comboNumber] (number/* || numberNumberCombo/*))",
         "((numberNumberCombo/1) [numberNumberCombo_combo|] (combo/0))",
         "((number/0,1 && context.instance == undefined) [numberNumberCombo] (number/0,1))",
+        "((combo/*) [([withFries|with] (fry/*))])",
       ],
       priorities: [
         [['number', 0], ['numberNumberCombo', 0], ],
@@ -72,6 +79,19 @@ const template ={
         }
       ],
       bridges: [
+        { 
+          id: 'withFries',
+          level: 0,
+          isA: ['preposition'],
+          generatorp: ({context, gp}) => `with ${gp(context.modifications)}`,
+          bridge: "{ ...next(operator), modifications: after[0] }",
+        },
+        { 
+          id: 'withFries',
+          level: 1,
+          isA: ['preposition'],
+          bridge: "{ ...next(before[0]), postModifiers: append(before[0].postModifiers, ['modifications']), modifications: operator }",
+        },
         { 
           id: 'numberNumberCombo_combo',
           convolution: true,
@@ -104,7 +124,7 @@ const template ={
 }
 
 class API {
-  initialize({ objects }) {
+  initialize({ objects, config }) {
     this._objects = objects
     this._objects.items = []
   }
@@ -113,12 +133,17 @@ class API {
     this._objects.show = this._objects.items
   }
 
-  add({ name, combo }) {
-    this._objects.items.push({ name, combo })
+  add({ name, combo, modifications }) {
+    this._objects.items.push({ name, combo, modifications })
   }
 
   say(response) {
     this._objects.response = response
+  }
+
+  isAvailable(id) {
+    return [
+    ].includes(id)
   }
 
   getCombo(number) {
@@ -148,6 +173,7 @@ class State {
   }
 
   add(food) {
+    debugger
     let quantity = 1
     if (food.quantity) {
       quantity = food.quantity.value
@@ -175,9 +201,16 @@ class State {
       name = food.value
       combo = !!food.combo
     }
+    let modifications
+    if (food.modifications) {
+      modifications = []
+      for (const addition of propertyToArray(food.modifications.modifications)) {
+        modifications.push(addition.value)
+      }
+    }
 
     for (let i = 0; i < quantity; ++i) {
-      this.api.add({ name, combo })
+      this.api.add({ name, combo, modifications })
     }
   }
 
@@ -201,7 +234,7 @@ const createConfig = () => {
     // flatten: ['list'],
     // TODO use node naming not python
     contextual_priorities: [
-      { context: [['list', 0], ['bacon',0], ['deluxe', 0]], choose: [1,2] },
+      // { context: [['list', 0], ['bacon',0], ['deluxe', 0]], choose: [1,2] },
       { context: [['list', 0], ['food',0], ['combo', 0]], choose: [0,1] },
       { context: [['combo', 0], ['number', 0], ['list',0], ['number', 0]], choose: [1,2,3] },
       { context: [['combo', 0], ['comboNumber', 0], ['list', 1]], choose: [1] },
