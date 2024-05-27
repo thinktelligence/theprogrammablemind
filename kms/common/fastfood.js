@@ -1,6 +1,6 @@
 const { Config, knowledgeModule, ensureTestFile, where } = require('./runtime').theprogrammablemind
 const { defaultContextCheck, propertyToArray } = require('./helpers')
-const foods = require('./foods')
+const edible = require('./edible')
 const events = require('./events')
 const countable = require('./countable')
 ensureTestFile(module, 'fastfood', 'test')
@@ -276,7 +276,7 @@ const createConfig = () => {
       },
     ],
   }, module)
-  config.add(foods())
+  config.add(edible())
   config.add(countable())
   config.add(events())
   config.api = api

@@ -1,11 +1,11 @@
 const { Config, knowledgeModule, ensureTestFile, where } = require('./runtime').theprogrammablemind
 const { defaultContextCheck } = require('./helpers')
 const hierarchy = require('./hierarchy')
-ensureTestFile(module, 'foods', 'test')
-ensureTestFile(module, 'foods', 'instance')
+ensureTestFile(module, 'edible', 'test')
+ensureTestFile(module, 'edible', 'instance')
 
-const foods_tests = require('./foods.test.json')
-const foods_instance = require('./foods.instance.json')
+const edible_tests = require('./edible.test.json')
+const edible_instance = require('./edible.instance.json')
 
 // fix this
 // fix loading ordering not working
@@ -41,9 +41,8 @@ const template ={
 }
 
 const createConfig = () => {
-  const config = new Config({ name: 'foods' }, module)
+  const config = new Config({ name: 'edible' }, module)
   config.add(hierarchy())
-  // config.load(template, foods_instance)
   return config
 }
 
@@ -52,12 +51,12 @@ knowledgeModule( {
       description: 'Edible things',
       createConfig,
       test: {
-              name: './foods.test.json',
-              contents: foods_tests
+              name: './edible.test.json',
+              contents: edible_tests
             },
       template: {
         template,
-        instance: foods_instance,
+        instance: edible_instance,
         checks: {
             context: defaultContextCheck,
           },
