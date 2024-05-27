@@ -127,6 +127,7 @@ class API {
   initialize({ objects, config }) {
     this._objects = objects
     this._objects.items = []
+    this._objects.notAvailable = []
   }
 
   show() {
@@ -141,8 +142,28 @@ class API {
     this._objects.response = response
   }
 
+  // return true if you want the NLI layer to handle this
+  hasAskedForButNotAvailable(item) {
+    return this._objects.notAvailable.length > 0
+  }
+
+  getAskedForButNotAvailable(item) {
+    const na = this._objects.notAvailable
+    this._objects.notAvailable = []
+    return na
+  }
+
+  addAskedForButNotAvailable(item) {
+    this._objects.notAvailable.push(item)
+  }
+
   isAvailable(id) {
     return [
+      "double",
+      "french_fry",
+      "single",
+      "triple",
+      "waffle_fry",
     ].includes(id)
   }
 
@@ -169,11 +190,9 @@ const api = new API()
 class State {
   constructor(api) {
     this.api = api
-    // this.api.objects.items = []
   }
 
   add(food) {
-    debugger
     let quantity = 1
     if (food.quantity) {
       quantity = food.quantity.value
@@ -201,6 +220,12 @@ class State {
       name = food.value
       combo = !!food.combo
     }
+
+    if (!this.api.isAvailable(name)) {
+      this.api.addAskedForButNotAvailable(food)
+      return
+    }
+
     let modifications
     if (food.modifications) {
       modifications = []
@@ -248,11 +273,23 @@ const createConfig = () => {
     semantics: [
       {
         where: where(),
-        match: ({context, isAListable}) => isAListable(context, 'food') && context.marker !== 'food' && !context.same,
+        match: ({context, isAListable}) => isAListable(context, 'edible') && context.marker !== 'edible' && !context.same,
         apply: ({context, km, api, instance}) => {
           for (const element of propertyToArray(context)) {
             km('fastfood').api.state.add(element)
           }
+        }
+      },
+      {
+        where: where(),
+        match: ({context, api}) => context.marker == 'controlEnd' && api.hasAskedForButNotAvailable(),
+        apply: ({context, insert, api, gp, toContext}) => {
+          const naArray = api.getAskedForButNotAvailable()
+          naArray.forEach((f) => f.paraphrase = true)
+          const naContext = toContext(naArray)
+          naContext.isResponse = true
+          naContext.verbatim = `The following are not menu items: ${gp(naContext)}`
+          insert(naContext)
         }
       }
     ],
@@ -295,7 +332,7 @@ knowledgeModule( {
             contents: fastfood_tests,
             checks: {
               objects: [
-                'show', 'items', 'changes'
+                'show', 'items', 'changes', 'notAvailable'
               ],
               context: defaultContextCheck,
             },

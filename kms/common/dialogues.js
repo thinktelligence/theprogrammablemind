@@ -888,16 +888,21 @@ const createConfig = () => {
     */
     config.addArgs(({isA}) => ({ 
       isAListable: (context, type) => {
-        try{
         if (context.marker == 'list') {
           return context.value.every( (element) => isA(element.marker, type) )
         } else {
           return isA(context.marker, type)
         } 
-        } catch( e ) {
-          debugger
+      },
+      toContext(v) {
+        if (Array.isArray(v)) {
+          return { marker: 'list', level: 1, value: v }
         }
-      }
+        if (v.marker == 'list') {
+          return v
+        }
+        return v
+      },
     }))
     objects.mentioned = []
     objects.variables = {
