@@ -269,6 +269,7 @@ const createConfig = () => {
       { context: [['list', 0], ['number', 1], ['combo', 0], ['number', 0]], choose: [1,2,3] },
       { context: [['list', 0], ['number', 1], ['combo', 0], ['number', 1]], choose: [1,2,3] },
       { context: [['combo', 1], ['list', 0], ['number', 1], ['combo', 1]], choose: [2,3] },
+      { context: [['list', 0], ['number', 1], ['combo', 1]], choose: [1,2] },
     ],
     semantics: [
       {

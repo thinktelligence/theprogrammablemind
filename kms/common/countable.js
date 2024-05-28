@@ -19,8 +19,8 @@ let configStruct = {
       level: 0, 
       convolution: true, 
       before: ['verby'],
-      // bridge: "{ ...after, modifiers: append(['quantity'], after[0].modifiers), quantity: before[0], number: default(before[0].number, before[0].value), instance: true }" 
-      bridge: "{ ...after, modifiers: append(['quantity'], after[0].modifiers), quantity: before[0], number: default(before[0].number, before[0].value) }" 
+      bridge: "{ ...after, modifiers: append(['quantity'], after[0].modifiers), quantity: before[0], number: default(before[0].number, before[0].value), instance: true }" 
+      // bridge: "{ ...after, modifiers: append(['quantity'], after[0].modifiers), quantity: before[0], number: default(before[0].number, before[0].value) }" 
       // bridge: "{ ...after, quantity: before[0], number: default(before[0].number, before[0].value) }" 
     },
     { 

@@ -102,6 +102,10 @@ class API {
     modifierIds.forEach((modifierId) => config.addPriorities([[modifiersObjectId, 0], [modifierId, 0], ]))
     config.addPriorities([[modifiersObjectId, 0], [objectId, 0], ])
     config.addContextualPriority({ context: [['list', 0]].concat(modifierIds.map((id) => [id, 0])).concat([[objectId, 0]]), choose: [1,2] })
+    if (config.exists('number')) {
+      config.addContextualPriority({ context: [['list', 0], ['number', 0]].concat(modifierIds.map((id) => [id, 0])).concat([[objectId, 0]]), choose: [2,3] })
+      config.addContextualPriority({ context: [['list', 0], ['number', 1], [modifiersObjectId, 1]], choose: [1,2] })
+    }
   }
 
   addWord(context) {
