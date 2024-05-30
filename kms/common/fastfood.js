@@ -109,7 +109,7 @@ const template ={
           id: 'comboNumber',
           convolution: true,
           before: ['combo'],
-          bridge: "{ ...next(before[0]), postModifiers: append(before[0].modifiers, ['comboNumber']), comboNumber: after[0], instance: true, flatten: true }",
+          bridge: "{ ...next(before[0]), postModifiers: append(before[0].postModifiers, ['comboNumber']), comboNumber: after[0], instance: true, flatten: true }",
         },
         { 
           id: 'numberNumberCombo',
@@ -333,9 +333,16 @@ knowledgeModule( {
             contents: fastfood_tests,
             checks: {
               objects: [
-                'show', 'items', 'changes', 'notAvailable'
+                'show', 
+                'items', 
+                'changes', 
+                { property: 'notAvailable', filter: [ 'marker', 'value', 'text' ] }, 
+                { property: 'quantity', filter: ['marker', 'value', 'text' ] },
               ],
-              context: defaultContextCheck,
+              context: [
+                ...defaultContextCheck,
+                { property: 'comboNumber', filter: ['marker', 'value', 'text' ] },
+              ],
             },
           },
     template: {

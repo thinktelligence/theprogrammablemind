@@ -121,9 +121,9 @@ const toEValue = (context) => {
 const defaultContextCheck = [
   'marker',
   'text',
-  { valueLists: { value: ['marker', 'text', 'value'] } },
+  { property: 'value', filter: ['marker', 'text', 'value'] },
   'modifiers',
-  { propertyLists: { modifiers: ['marker', 'text', 'value'] } }
+  { property: 'modifiers', filter: ['marker', 'text', 'value'] }
 ]
 
 module.exports = {

@@ -635,10 +635,11 @@ fi
 # $NODE fastfood -q "2 bananas" -g -d -daa -cl '[["list", 0]]'  -s
 # $NODE fastfood -q "2 bananas and (combo 1)" -g -d -daa -cl '[["list", 0]]' 
 # $NODE fastfood -q "2 french fries and 3 waffle fries" -g -d -daa -cl '[["list", 0]]' 
-$NODE fastfood -q "3 singles and 2 double combos" -g -d -daa -cl '[["list", 0]]' 
+# $NODE fastfood -q "3 singles and 2 double combos" -g -d -daa -cl '[["list", 0]]' 
 # number (1 and 2)
 # (2 french fries) and (3 waffle fries) NOT (2 french fries and 3) (waffle fries)
 # (2 french fries) and (waffle fries)
 #               instance by type
 #               associations
 #               contextual priorities learned from parenthesized
+$NODE fastfood -q "two combo ones" -g -d -daa -cl '[["list", 0]]'
