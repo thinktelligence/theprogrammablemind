@@ -119,6 +119,23 @@ const template ={
           bridge: "{ ...next(operator), word: 'number', combo: true, postModifiers: append(before[0].postModifiers, ['comboNumber']), comboNumber: after[0], flatten: true }",
         },
       ]
+    },
+    // this is just to learn associations and contextual_priorities I don't want the semantic to actually run
+    // TODO make this learn cp#2 { query: "combo one and (2 combo twos)", skipSemantics: true },
+    // TODO make this learn cp#1 { query: "(single and double) combo", skipSemantics: true },
+    {
+      contextual_priorities: [
+        // cp#1
+        { context: [['meal', 0], ['list',0], ['meal', 0], ['combo', 0]], choose: [0,1,2] },
+        // cp#2
+        { context: [['list',0], ['number', 0], ['combo', 0], ['number', 0]], choose: [2,3] },
+        /*
+        { context: [['list',0], ['number', 0], ['combo', 0], ['number', 1]], choose: [1,2,3] },
+        { context: [['list',0], ['number', 0], ['combo', 1], ['number', 1]], choose: [1,2,3] },
+        { context: [['list',0], ['number', 1], ['combo', 1], ['number', 1]], choose: [1,2,3] },
+        { context: [['list',0], ['number', 1], ['combo', 2]], choose: [1,2] },
+        */
+      ],
     }
   ],
 }
@@ -258,6 +275,10 @@ const createConfig = () => {
     ],
     // flatten: ['list'],
     // TODO use node naming not python
+
+    priorities: [ 
+      [['comboNumber', 0], ['list', 0]],
+    ],
     contextual_priorities: [
       // { context: [['list', 0], ['bacon',0], ['deluxe', 0]], choose: [1,2] },
       { context: [['list', 0], ['food',0], ['combo', 0]], choose: [0,1] },
@@ -265,11 +286,15 @@ const createConfig = () => {
       { context: [['combo', 0], ['comboNumber', 0], ['list', 1]], choose: [1] },
       { context: [['number', 0], ['numberNumberCombo', 0], ['list', 1]], choose: [1] },
       { context: [['number', 1], ['numberNumberCombo', 1], ['combo', 0]], choose: [2] },
+      /*
       { context: [['list', 0], ['number', 0], ['combo', 0], ['number', 0]], choose: [1,2,3] },
       { context: [['list', 0], ['number', 1], ['combo', 0], ['number', 0]], choose: [1,2,3] },
       { context: [['list', 0], ['number', 1], ['combo', 0], ['number', 1]], choose: [1,2,3] },
+      */
       { context: [['combo', 1], ['list', 0], ['number', 1], ['combo', 1]], choose: [2,3] },
       { context: [['list', 0], ['number', 1], ['combo', 1]], choose: [1,2] },
+      // { context: [['list', 0], ['number', 1], ['combo', 0]], choose: [1, 2]},
+      // { context: [['list', 0], ['combo', 0], ['number', 1]], choose: [1, 2]},
     ],
     semantics: [
       {

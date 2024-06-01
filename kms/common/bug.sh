@@ -642,4 +642,13 @@ fi
 #               instance by type
 #               associations
 #               contextual priorities learned from parenthesized
-$NODE fastfood -q "two combo ones" -g -d -daa -cl '[["list", 0]]'
+# $NODE fastfood -q "two combo ones" -g -d -daa -cl '[["list", 0]]'
+# $NODE weight -q 'kilograms grams pounds (troy ounces) ounces and tons are units of weight' -g -d
+# $NODE fastfood -q "combo one and two combo twos" -g -d
+#$NODE fastfood -q 'combo one and two combo twos' -g -d
+# $NODE fastfood -q '(single and double) combo' -g -d
+# $NODE fastfood -q 'combo one and combo two and three' -g -d --parenthesized
+# $NODE fastfood -q 'combo one and two combo twos' -g -d --parenthesized -dic '["countable"]'
+# $NODE fastfood -q 'single and double combo' -g -d --parenthesized
+$NODE fastfood -q ' combo one and two combo twos' -g -d --parenthesized -cl '[["list", 0]]'
+
