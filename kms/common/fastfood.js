@@ -69,7 +69,8 @@ const template ={
       priorities: [
         [['number', 0], ['numberNumberCombo', 0], ],
         [['list', 0], ['numberNumberCombo', 0], ],
-        [['list', 0], ['comboNumber', 0], ],
+        // [['list', 0], ['comboNumber', 0], ],
+        // [['comboNumber', 0], ['list', 0]],
       ],
       generators: [
         {
@@ -126,9 +127,9 @@ const template ={
     {
       contextual_priorities: [
         // cp#1
-        { context: [['meal', 0], ['list',0], ['meal', 0], ['combo', 0]], choose: [0,1,2] },
+        { context: [['meal', 0], ['list',0], ['meal', 0], ['combo', 0]], ordered: true, choose: [0,1,2] },
         // cp#2
-        { context: [['list',0], ['number', 0], ['combo', 0], ['number', 0]], choose: [2,3] },
+        { context: [['list',0], ['number', 0], ['combo', 0], ['number', 0]], ordered: true, choose: [2,3] },
         /*
         { context: [['list',0], ['number', 0], ['combo', 0], ['number', 1]], choose: [1,2,3] },
         { context: [['list',0], ['number', 0], ['combo', 1], ['number', 1]], choose: [1,2,3] },
@@ -276,23 +277,20 @@ const createConfig = () => {
     // flatten: ['list'],
     // TODO use node naming not python
 
-    priorities: [ 
-      [['comboNumber', 0], ['list', 0]],
-    ],
     contextual_priorities: [
       // { context: [['list', 0], ['bacon',0], ['deluxe', 0]], choose: [1,2] },
-      { context: [['list', 0], ['food',0], ['combo', 0]], choose: [0,1] },
-      { context: [['combo', 0], ['number', 0], ['list',0], ['number', 0]], choose: [1,2,3] },
-      { context: [['combo', 0], ['comboNumber', 0], ['list', 1]], choose: [1] },
-      { context: [['number', 0], ['numberNumberCombo', 0], ['list', 1]], choose: [1] },
-      { context: [['number', 1], ['numberNumberCombo', 1], ['combo', 0]], choose: [2] },
+      { context: [['list', 0], ['food',0], ['combo', 0]], ordered: true, choose: [0,1] },
+      { context: [['combo', 0], ['number', 0], ['list',0], ['number', 0]], ordered: true, choose: [1,2,3] },
+      { context: [['combo', 0], ['comboNumber', 0], ['list', 1]], ordered: true, choose: [1] },
+      { context: [['number', 0], ['numberNumberCombo', 0], ['list', 1]], ordered: true, choose: [1] },
+      { context: [['number', 1], ['numberNumberCombo', 1], ['combo', 0]], ordered: true, choose: [2] },
       /*
       { context: [['list', 0], ['number', 0], ['combo', 0], ['number', 0]], choose: [1,2,3] },
       { context: [['list', 0], ['number', 1], ['combo', 0], ['number', 0]], choose: [1,2,3] },
       { context: [['list', 0], ['number', 1], ['combo', 0], ['number', 1]], choose: [1,2,3] },
       */
-      { context: [['combo', 1], ['list', 0], ['number', 1], ['combo', 1]], choose: [2,3] },
-      { context: [['list', 0], ['number', 1], ['combo', 1]], choose: [1,2] },
+      { context: [['combo', 1], ['list', 0], ['number', 1], ['combo', 1]], ordered: true, choose: [2,3] },
+      { context: [['list', 0], ['number', 1], ['combo', 1]], ordered: true, choose: [1,2] },
       // { context: [['list', 0], ['number', 1], ['combo', 0]], choose: [1, 2]},
       // { context: [['list', 0], ['combo', 0], ['number', 1]], choose: [1, 2]},
     ],
