@@ -37,7 +37,7 @@ const createConfig = () => {
       { id: 'emotion', level: 0, bridge: '{ ...next(operator) }' },
     ],
     priorities: [
-      [['feel', 0], ['means', 0], ]
+      { "context": [['feel', 0], ['means', 0], ], "choose": [0] },
     ],
 
     hierarchy: [

@@ -49,7 +49,7 @@ let configStruct = {
     // what does (word) mean
   ],
   priorities: [
-    [['orList', 0], ['if', 0], ['then', 0], ],
+    { "context": [['orList', 0], ['if', 0], ['then', 0], ], "choose": [0] },
   //  [['means', 0], ['is', 0]],
   ],
   hierarchy: [

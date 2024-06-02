@@ -99,7 +99,7 @@ let configStruct = {
     */
   },
   priorities: [
-    [['winning', 0], ['is', 0], ['the', 0], ],
+    { "context": [['winning', 0], ['is', 0], ['the', 0], ], "choose": [0] },
   ],
 
   hierarchy: [

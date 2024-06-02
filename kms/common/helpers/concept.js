@@ -97,10 +97,10 @@ class API {
       config.addHierarchy(modifiersObjectId, 'hierarchyAble')
     }
 
-    modifierIds.forEach((modifierId) => config.addPriorities([[modifierId, 0], ['articlePOS', 0]]))
-    config.addPriorities([[objectId, 0], ['articlePOS', 0], ])
-    modifierIds.forEach((modifierId) => config.addPriorities([[modifiersObjectId, 0], [modifierId, 0], ]))
-    config.addPriorities([[modifiersObjectId, 0], [objectId, 0], ])
+    modifierIds.forEach((modifierId) => config.addPriorities({ "context": [[modifierId, 0], ['articlePOS', 0]], "choose": [0] }))
+    config.addPriorities({ "context": [[objectId, 0], ['articlePOS', 0], ], "choose": [0] })
+    modifierIds.forEach((modifierId) => config.addPriorities({ "context": [[modifiersObjectId, 0], [modifierId, 0], ], "choose": [0] }))
+    config.addPriorities({ "context": [[modifiersObjectId, 0], [objectId, 0], ], "choose": [0] })
     config.addContextualPriority({ context: [['list', 0]].concat(modifierIds.map((id) => [id, 0])).concat([[objectId, 0]]), choose: [1,2] })
     if (config.exists('number')) {
       config.addContextualPriority({ context: [['list', 0], ['number', 0]].concat(modifierIds.map((id) => [id, 0])).concat([[objectId, 0]]), choose: [2,3] })

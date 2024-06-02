@@ -380,7 +380,7 @@ let configStruct = {
   },
 
   priorities: [
-    [['ordering', 0], ['articlePOS', 0], ],
+    { "context": [['ordering', 0], ['articlePOS', 0], ], "choose": [0] },
   /*
     [['the', 0], ['ordering', 0]],
     [['listAction', 0], ['cost', 1]],

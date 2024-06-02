@@ -21,11 +21,11 @@ let configStruct = {
     { "id": "punctuation" },
   ],
   priorities: [
-    [['pronoun', 0], ['verby', 0], ],
-    [['prewordsition', 0], ['verby', 0], ],
-    [['adjective', 0], ['verby', 0], ],
-    [['articlePOS', 0], ['verby', 0], ],
-    [['punctuation', 0], ['verby', 0], ],
+    { "choose": [['pronoun', 0], ['verby', 0], ], "choose": [0] },
+    { "choose": [['prewordsition', 0], ['verby', 0], ], "choose": [0] },
+    { "choose": [['adjective', 0], ['verby', 0], ], "choose": [0] },
+    { "choose": [['articlePOS', 0], ['verby', 0], ], "choose": [0] },
+    { "choose": [['punctuation', 0], ['verby', 0], ], "choose": [0] },
   ],
 
 };

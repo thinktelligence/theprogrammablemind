@@ -66,7 +66,7 @@ let configStruct = {
   ],
   priorities: [
     // TODO this should have been calculated
-    [['amountOfDimension', 0], ['convertToUnits', 0], ],
+    { "context": [['amountOfDimension', 0], ['convertToUnits', 0], ], "choose": [0] },
   ],
   hierarchy: [
     { child: 'convertToUnits', parent: 'testingValue', development: true },

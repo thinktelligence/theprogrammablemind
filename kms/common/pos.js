@@ -23,12 +23,12 @@ let configStruct = {
     { "id": "noun" },
   ],
   priorities: [
-    [['pronoun', 0], ['verby', 0], ],
-    [['preposition', 0], ['verby', 0], ],
-    [['adjective', 0], ['verby', 0], ],
-    [['articlePOS', 0], ['verby', 0], ],
-    [['punctuation', 0], ['verby', 0], ],
-    [['noun', 0], ['verby', 0], ],
+    { "context": [['pronoun', 0], ['verby', 0], ], "choose": [0] },
+    { "context": [['preposition', 0], ['verby', 0], ], "choose": [0] },
+    { "context": [['adjective', 0], ['verby', 0], ], "choose": [0] },
+    { "context": [['articlePOS', 0], ['verby', 0], ], "choose": [0] },
+    { "context": [['punctuation', 0], ['verby', 0], ], "choose": [0] },
+    { "context": [['noun', 0], ['verby', 0], ], "choose": [0] },
   ],
 
 };
