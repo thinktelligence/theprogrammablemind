@@ -10,10 +10,10 @@ const currency = require('./common/currency')
 const dialogues = require('./common/dialogues')
 const dimension = require('./common/dimension')
 const dimensionTemplate = require('./common/dimensionTemplate')
+const edible = require('./common/edible')
 const emotions = require('./common/emotions')
 const events = require('./common/events')
 const fastfood = require('./common/fastfood')
-const foods = require('./common/foods')
 const formulas = require('./common/formulas')
 const formulasTemplate = require('./common/formulasTemplate')
 const gdefaults = require('./common/gdefaults')
@@ -63,10 +63,10 @@ module.exports = {
   dialogues,
   dimension,
   dimensionTemplate,
+  edible,
   emotions,
   events,
   fastfood,
-  foods,
   formulas,
   formulasTemplate,
   gdefaults,
