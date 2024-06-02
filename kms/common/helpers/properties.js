@@ -130,14 +130,6 @@ class API {
        })
     */
     // TODO have a prepositions category and underPrep category
-    /*
-    config.addPriorities([['is', 0], ['by', 0]])
-    config.addPriorities([['by', 0], ['articlePOS', 0]])
-    config.addPriorities([[edAble.operator, 0], ['articlePOS', 0]])
-    config.addPriorities([['is', 0], [edAble.operator, 0]])
-    config.addPriorities([['is', 1], [edAble.operator, 0]])
-    */
-    // config.addPriorities([['what', 0], ['by', 0]])
     config.addHierarchy(edAble.operator, 'isEdAble')
     config.addHierarchy(before[0].id, 'isEder')
     config.addHierarchy(after[0].id, 'isEdee')
@@ -320,10 +312,10 @@ class API {
       })
       // config.addOperator({ id: operator, level: 1, words: [operator] })
       config.addBridge({ id: operator, level: 1, bridge: '{ ...next(operator) }', allowDups: true })
-      config.addPriorities({ "context": [['does', 0], [operator, 1], ], "choose": [0] })
-      config.addPriorities({ "context": [['doesnt', 0], [operator, 1], ], "choose": [0] })
-      config.addPriorities({ "context": [[operator, 0], ['does', 0], ], "choose": [0] })
-      config.addPriorities({ "context": [[operator, 0], ['doesnt', 0], ], "choose": [0] })
+      config.addPriority({ "context": [['does', 0], [operator, 1], ], "choose": [0] })
+      config.addPriority({ "context": [['doesnt', 0], [operator, 1], ], "choose": [0] })
+      config.addPriority({ "context": [[operator, 0], ['does', 0], ], "choose": [0] })
+      config.addPriority({ "context": [[operator, 0], ['doesnt', 0], ], "choose": [0] })
     } else {
       config.addOperator({ pattern: `(${beforeOperators} [${operator}|] ${afterOperators})`, allowDups: true })
     }
@@ -382,8 +374,8 @@ class API {
       config.addHierarchy(operator, 'canBeDoQuestion')
     }
 
-    config.addPriorities({ "context": [[operator, 0], ['means', 0], ], "choose": [0] })
-    config.addPriorities({ "context": [['articlePOS', 0], [operator, 0], ], "choose": [0] })
+    config.addPriority({ "context": [[operator, 0], ['means', 0], ], "choose": [0] })
+    config.addPriority({ "context": [['articlePOS', 0], [operator, 0], ], "choose": [0] })
 
     config.addGenerator({
       notes: 'ordering generator for paraphrase',

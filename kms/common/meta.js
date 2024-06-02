@@ -369,13 +369,6 @@ const createConfig = () => {
         match: ({context}) => context.marker == 'unknown',
         apply: ({context}) => `${context.word}`
       })
-      //config.addPriorities([['then', 0], ['g', 0], ['if', 0], ['f', 0]])
-      //config.addPriorities([['then', 0], ['if', 0], ['g', 0]])
-      /*
-      config.addWord('testword2', { id: "testword2", initial: "{ value: 'testWord2Value' }" })
-      config.addBridge({ "id": "testword2", "level": 0, "bridge": "{ ...next(operator) }" })
-      config.addOperator("([testword2|])")
-      */
     }
   })
   return config
