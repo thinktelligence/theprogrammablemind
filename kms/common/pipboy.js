@@ -135,17 +135,15 @@ let configStruct = {
     // TODO for future
     // { pattern: "([testsetup1] ([equipable]))", development: true },
   ],
-  contextual_priorities: [
-    { context: [['articlePOS', 0], ['unknown', 1], ['outfit', 0]], ordered: true, choose: [1,2] },
-  ],
   hierarchy: [
     ['weapon', 'countable'],
     ['property', 'comparable'],
     // ['weapon', 'showable'],
   ],
   priorities: [
-    { "context": [['articlePOS', 0], ['to2', 0], ], "choose": [0] },
-    { "context": [['tab', 0], ['articlePOS', 0], ], "choose": [0] },
+    { context: [['articlePOS', 0], ['to2', 0], ], choose: [0] },
+    { context: [['tab', 0], ['articlePOS', 0], ], choose: [0] },
+    { context: [['articlePOS', 0], ['unknown', 1], ['outfit', 0]], ordered: true, choose: [1,2] },
     // TODO this should trigger a circular warning or somethign [['put', 0], ['on', 0]],
   ],
   bridges: [

@@ -68,9 +68,22 @@ const template ={
       ],
       priorities: [
         { "context": [['number', 0], ['numberNumberCombo', 0], ], "choose": [0] },
-        { "context": [['list', 0], ['numberNumberCombo', 0], ], "choose": [0] }
+        { "context": [['list', 0], ['numberNumberCombo', 0], ], "choose": [0] },
         // [['list', 0], ['comboNumber', 0], ],
         // [['comboNumber', 0], ['list', 0]],
+        // this is just to learn associations and contextual_priorities I don't want the semantic to actually run
+        // TODO make this learn cp#2 { query: "combo one and (2 combo twos)", skipSemantics: true },
+        // TODO make this learn cp#1 { query: "(single and double) combo", skipSemantics: true },
+        // cp#1
+        { context: [['meal', 0], ['list',0], ['meal', 0], ['combo', 0]], ordered: true, choose: [0,1,2] },
+        // cp#2
+        { context: [['list',0], ['number', 0], ['combo', 0], ['number', 0]], ordered: true, choose: [2,3] },
+        /*
+        { context: [['list',0], ['number', 0], ['combo', 0], ['number', 1]], choose: [1,2,3] },
+        { context: [['list',0], ['number', 0], ['combo', 1], ['number', 1]], choose: [1,2,3] },
+        { context: [['list',0], ['number', 1], ['combo', 1], ['number', 1]], choose: [1,2,3] },
+        { context: [['list',0], ['number', 1], ['combo', 2]], choose: [1,2] },
+        */
       ],
       generators: [
         {
@@ -121,23 +134,6 @@ const template ={
         },
       ]
     },
-    // this is just to learn associations and contextual_priorities I don't want the semantic to actually run
-    // TODO make this learn cp#2 { query: "combo one and (2 combo twos)", skipSemantics: true },
-    // TODO make this learn cp#1 { query: "(single and double) combo", skipSemantics: true },
-    {
-      contextual_priorities: [
-        // cp#1
-        { context: [['meal', 0], ['list',0], ['meal', 0], ['combo', 0]], ordered: true, choose: [0,1,2] },
-        // cp#2
-        { context: [['list',0], ['number', 0], ['combo', 0], ['number', 0]], ordered: true, choose: [2,3] },
-        /*
-        { context: [['list',0], ['number', 0], ['combo', 0], ['number', 1]], choose: [1,2,3] },
-        { context: [['list',0], ['number', 0], ['combo', 1], ['number', 1]], choose: [1,2,3] },
-        { context: [['list',0], ['number', 1], ['combo', 1], ['number', 1]], choose: [1,2,3] },
-        { context: [['list',0], ['number', 1], ['combo', 2]], choose: [1,2] },
-        */
-      ],
-    }
   ],
 }
 
@@ -277,7 +273,7 @@ const createConfig = () => {
     // flatten: ['list'],
     // TODO use node naming not python
 
-    contextual_priorities: [
+    priorities: [
       // { context: [['list', 0], ['bacon',0], ['deluxe', 0]], choose: [1,2] },
       { context: [['list', 0], ['food',0], ['combo', 0]], ordered: true, choose: [0,1] },
       { context: [['combo', 0], ['number', 0], ['list',0], ['number', 0]], ordered: true, choose: [1,2,3] },
