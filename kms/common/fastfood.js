@@ -77,7 +77,11 @@ const template ={
         // cp#1
         { context: [['meal', 0], ['list',0], ['meal', 0], ['combo', 0]], ordered: true, choose: [0,1,2] },
         // cp#2
+        // have a way of specifing this
+        // { context: [['list',0], ['number', 0], ['combo', 0], ['number', 0]], ordered: true, choose: [comboNumber (in between 2 and 3)] },
         { context: [['list',0], ['number', 0], ['combo', 0], ['number', 0]], ordered: true, choose: [2,3] },
+        { context: [['list',0], ['number', 1], ['combo', 0], ['number', 0]], ordered: true, choose: [2,3] },
+        { context: [['list',0], ['number', 1], ['combo', 0], ['number', 1]], ordered: true, choose: [2,3] },
         /*
         { context: [['list',0], ['number', 0], ['combo', 0], ['number', 1]], choose: [1,2,3] },
         { context: [['list',0], ['number', 0], ['combo', 1], ['number', 1]], choose: [1,2,3] },

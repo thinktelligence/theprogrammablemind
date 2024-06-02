@@ -651,4 +651,3 @@ fi
 # $NODE fastfood -q 'combo one and two combo twos' -g -d --parenthesized -dic '["countable"]'
 # $NODE fastfood -q 'single and double combo' -g -d --parenthesized
 $NODE fastfood -q ' combo one and two combo twos' -g -d --parenthesized -cl '[["list", 0]]'
-
