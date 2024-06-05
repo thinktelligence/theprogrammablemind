@@ -90,7 +90,22 @@ const template ={
         { context: [['list',0], ['number', 1], ['combo', 1], ['number', 1]], choose: [1,2,3] },
         { context: [['list',0], ['number', 1], ['combo', 2]], choose: [1,2] },
         */
-        {"context":[["list",0],["number",1],["strawberry",1]],"ordered":true,"choose":[1,2]},
+        {"context":[["mango_passion_smoothie",1],["list",0],["strawberry",1],['smoothie',1]],"ordered":true,"choose":[2,3]},
+        {"context":[["list",0],["number",0],["strawberry",0],['smoothie',0]],"ordered":true,"choose":[1,2]},
+        {"context":[["list",0],["number",1],["strawberry",1],['smoothie',0]],"ordered":true,"choose":[1,2]},
+        {"context":[["list",0],["number",1],["strawberry",1],['smoothie',1]],"ordered":true,"choose":[1,2]},
+
+        // {"context":[["list",0],["number",1],["strawberry",0],['smoothie',0]],"ordered":true,"choose":[1,2]},
+        // {"context":[["list",0],["number",1],["strawberry",0],['smoothie',1]],"ordered":true,"choose":[1,2]},
+
+        // 2 strawberry and 3 mange smoothies
+        // 2 strawberry smoothies and 3 mango smoothies
+        {"context":[['mango_passion_smoothie', 1],["list",0],["number",1],["strawberry",1],['smoothie',1]],"ordered":true,"choose":[3,4]},
+        {"context":[['smoothie', 0],["list",0],["number",1],["strawberry",0],['smoothie',0]],"ordered":true,"choose":[3,4]},
+        {"context":[['smoothie', 1],["list",0],["number",1],["strawberry",0],['smoothie',0]],"ordered":true,"choose":[3,4]},
+        {"context":[["list",0],["number",1],["strawberry",0],['smoothie',0]],"ordered":true,"choose":[1,2]},
+        {"context":[["list",0],["number",1],["strawberry",0],['smoothie',1]],"ordered":true,"choose":[1,2]},
+
         {"context":[["mango_passion", 1],["list",0],["number",0],["strawberry",0],['smoothie',0]],"ordered":true,"choose":[0,2,3]},
         {"context":[["mango_passion", 1],["list",0],["number",1],["strawberry",0],['smoothie',0]],"ordered":true,"choose":[0,2,3]},
         {"context":[["mango_passion", 1],["list",0],["number",1],["strawberry",1],['smoothie',0]],"ordered":true,"choose":[0,2,3]},

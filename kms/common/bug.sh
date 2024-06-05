@@ -654,9 +654,9 @@ fi
 # $NODE fastfood -q "(a strawberry and guava) smoothie" -g -d -daa -cl '[["list", 0]]' --parenthesized
 # $NODE fastfood -q "a mango passion smoothie" -g -d -daa -cl '[["list", 0]]' --parenthesized
 # $NODE fastfood -q "2 mango passion smoothies" -g -d -daa -cl '[["list", 0]]' -dic counting
-# $NODE fastfood -q "2 mango passion smoothies and 3 strawberry smoothies" -g -d -daa -cl '[["list", 0]]'
 # $NODE fastfood -q "3 strawberry smoothies" -g -d -daa -cl '[["list", 0]]'
 # $NODE fastfood -q "(2 mango passion and 3 strawberry) smoothies" -g -d -daa -cl '[["list", 0]]'
 # $NODE fastfood -q "(2 mango passion and (3 strawberry)) smoothies" -g -d -daa -cl '[["list", 0]]'
-$NODE fastfood -q "2 mango passion and 3 strawberry smoothies" -g -d -daa -cl '[["list", 0]]' --parenthesized
+$NODE fastfood -q "2 mango passion smoothies and 3 strawberry smoothies" -g -d -daa -cl '[["list", 0]]' --parenthesized
+# $NODE fastfood -q "2 mango passion and 3 strawberry smoothies" -g -d -daa -cl '[["list", 0]]' --parenthesized
 # TODO ask for smoothie it replies which ones. they are the flavours... expectation for smooth

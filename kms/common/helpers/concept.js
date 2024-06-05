@@ -105,7 +105,14 @@ class API {
     config.addPriority({ "context": [[modifiersObjectId, 0], [objectId, 0], ], "choose": [0] })
     config.addPriority({ context: [['list', 0]].concat(modifierIds.map((id) => [id, 0])).concat([[objectId, 0]]), ordered: true, choose: [1,2] })
     if (config.exists('number')) {
-      config.addPriority({ context: [['list', 0], ['number', 0]].concat(modifierIds.map((id) => [id, 0])).concat([[objectId, 0]]), ordered: true, choose: [2,3] })
+      // config.addPriority({ context: [['list', 0], ['number', 0]].concat(modifierIds.map((id) => [id, 0])).concat([[objectId, 0]]), ordered: true, choose: [2,3] })
+      if (modifierIds.length > 1) {
+        let choose = []
+        for (let i = 0; i < modifierIds.length; ++i) {
+          choose.push(i+2)
+        }
+        config.addPriority({ context: [['list', 0], ['number', 0]].concat(modifierIds.map((id) => [id, 0])).concat([[objectId, 0]]), ordered: true, choose })
+      }
       config.addPriority({ context: [['list', 0], ['number', 1], [modifiersObjectId, 1]], ordered: true, choose: [1,2] })
     }
   }
