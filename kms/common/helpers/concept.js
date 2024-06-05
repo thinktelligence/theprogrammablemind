@@ -37,7 +37,8 @@ class API {
 
     const objectSingular = pluralize.singular(object)
     const objectPlural = pluralize.plural(object)
-    config.addOperator({ pattern: `(${modifierIds.map((modifierId) => `(${modifierId}/*)`).join(' ')} [${modifiersObjectId}] (${objectId}/0))`, allowDups: true })
+    // config.addOperator({ pattern: `(${modifierIds.map((modifierId) => `(${modifierId}/*)`).join(' ')} [${modifiersObjectId}] (${objectId}/0))`, allowDups: true })
+    config.addOperator({ pattern: `(${modifierIds.map((modifierId) => `(${modifierId}/*)`).join(' ')} [${modifiersObjectId}] (${objectId}/*))`, allowDups: true })
     // config.addOperator({ pattern: `(<${modifierId}|> ([${objectId}|]))`, allowDups: true })
     // config.addOperator({ pattern: `([${modifierObjectId}|])`, allowDups: true })
     modifierIds.forEach((modifierId) => {
