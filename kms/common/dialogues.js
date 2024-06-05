@@ -888,7 +888,7 @@ const createConfig = () => {
     */
     config.addArgs(({isA}) => ({ 
       isAListable: (context, type) => {
-        if (context.marker == 'list') {
+        if (context.marker == 'list' || context.listable) {
           return context.value.every( (element) => isA(element.marker, type) )
         } else {
           return isA(context.marker, type)

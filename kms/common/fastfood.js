@@ -32,6 +32,7 @@ const fastfood_instance = require('./fastfood.instance.json')
 const template ={
   "queries": [
     "food is countable",
+    "drinks are countable",
     "bacon modifies deluxe",
     { priorities: [ { "context": [['bacon_deluxe', 0], ['list', 0]], "choose": [0] } ] },
     "chicken modifies sandwich",
@@ -50,6 +51,7 @@ const template ={
     "wild modifies berry",
     "strawberry modifies banana",
     "strawberry guava mango passion wild berry and strawberry banana modify smoothie",
+    "strawberry guava mango passion wild berry and strawberry banana are countable",
     "a smoothie is a drink",
     "french fries and waffle fries are fries",
     "single double triple baconater and bacon deluxe are hamburgers",
@@ -182,6 +184,11 @@ class API {
       "single",
       "triple",
       "waffle_fry",
+      "strawberry_smoothie",
+      "guava_smoothie",
+      "mango_passion_smoothie",
+      "wild_berry_smoothie",
+      "strawberry_banana_smoothie",
     ].includes(id)
   }
 
@@ -276,7 +283,6 @@ const createConfig = () => {
     ],
     // flatten: ['list'],
     // TODO use node naming not python
-
     priorities: [
       // { context: [['list', 0], ['bacon',0], ['deluxe', 0]], choose: [1,2] },
       { context: [['list', 0], ['food',0], ['combo', 0]], ordered: true, choose: [0,1] },
@@ -295,6 +301,16 @@ const createConfig = () => {
       // { context: [['list', 0], ['combo', 0], ['number', 1]], choose: [1, 2]},
     ],
     semantics: [
+      {
+        where: where(),
+        priority: -10,
+        match: ({context}) => context.marker == 'compound_operator',
+        apply: ({context, s}) => {
+          context.marker = 'list'
+          context.flatten = true
+          s(context)
+        }
+      },
       {
         where: where(),
         match: ({context, isAListable}) => isAListable(context, 'edible') && context.marker !== 'edible' && !context.same,

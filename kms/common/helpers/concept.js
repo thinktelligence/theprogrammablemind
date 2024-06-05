@@ -96,6 +96,7 @@ class API {
       config.addHierarchy(objectId, 'hierarchyAble')
       config.addHierarchy(modifiersObjectId, 'hierarchyAble')
     }
+    config.addHierarchy(modifiersObjectId, objectId)
 
     modifierIds.forEach((modifierId) => config.addPriority({ "context": [[modifierId, 0], ['articlePOS', 0]], "choose": [0] }))
     config.addPriority({ "context": [[objectId, 0], ['articlePOS', 0], ], "choose": [0] })
