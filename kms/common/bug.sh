@@ -617,7 +617,7 @@ fi
 # $NODE fastfood -q 'number one and two' -g -d -cl '[["list", 0]]'
 # $NODE fastfood -q 'combo number one and two' -g -d -cl '[["list", 0]]'
 # $NODE fastfood -q 'combo one and two combo twos' -g -d -cl '[["list", 0]]'
-# $NODE fastfood -q 'single combo' -g -d -cl '[["list", 0]]' -s 
+# $NODE fastfood -q 'single combo' -g -d -cl '[["list", 0]]'
 # $NODE fastfood -q '3 single and 2 double combos' -g -d -cl '[["list", 0]]' 
 # $NODE fastfood -q '2 french fries' -g -d -cl '[["list", 0]]'
 # $NODE pipboy -q 'apply 10 stimpacks' -g -d -cl '[["list", 0]]'
@@ -628,7 +628,7 @@ fi
 # DEBUG_OPERATOR="([mango_passion|])" $NODE concept -q 'mango modifies passion\nmango passion modifies smoothie' -g -d -po
 # $NODE fastfood -q "strawberry guava mango passion wild berry and strawberry banana modify smoothie" -g -d -daa -cl '[["list", 0]]' --parenthesized
 # $NODE fastfood -q "a smoothie" -g -d -daa -cl '[["list", 0]]'
-# $NODE fastfood -q "2 bananas" -g -d -daa -cl '[["list", 0]]'  -s
+# $NODE fastfood -q "2 bananas" -g -d -daa -cl '[["list", 0]]'
 # $NODE fastfood -q "2 bananas and (combo 1)" -g -d -daa -cl '[["list", 0]]' 
 # $NODE fastfood -q "2 french fries and 3 waffle fries" -g -d -daa -cl '[["list", 0]]' 
 # $NODE fastfood -q "3 singles and 2 double combos" -g -d -daa -cl '[["list", 0]]' 
@@ -655,6 +655,7 @@ fi
 # $NODE fastfood -q "a mango passion smoothie" -g -d -daa -cl '[["list", 0]]' --parenthesized
 # $NODE fastfood -q "2 mango passion smoothies" -g -d -daa -cl '[["list", 0]]' -dic counting
 # $NODE fastfood -q "2 mango passion smoothies and 3 strawberry smoothies" -g -d -daa -cl '[["list", 0]]'
-# $NODE fastfood -q "3 strawberry smoothies" -g -d -daa -cl '[["list", 0]]' -s 
-$NODE fastfood -q "(2 mango passion and 3 strawberry) smoothies" -g -d -daa -cl '[["list", 0]]'
+# $NODE fastfood -q "3 strawberry smoothies" -g -d -daa -cl '[["list", 0]]'
+# $NODE fastfood -q "(2 mango passion and 3 strawberry) smoothies" -g -d -daa -cl '[["list", 0]]'
+$NODE fastfood -q "(2 mango passion and (3 strawberry)) smoothies" -g -d -daa -cl '[["list", 0]]'
 # TODO ask for smoothie it replies which ones. they are the flavours... expectation for smooth

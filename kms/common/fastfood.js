@@ -90,6 +90,7 @@ const template ={
         { context: [['list',0], ['number', 1], ['combo', 1], ['number', 1]], choose: [1,2,3] },
         { context: [['list',0], ['number', 1], ['combo', 2]], choose: [1,2] },
         */
+        {"context":[["list",0],["number",1],["strawberry",1]],"ordered":true,"choose":[1,2]},
       ],
       generators: [
         {
@@ -333,6 +334,7 @@ const createConfig = () => {
         }
       }
     ],
+    floaters: ['quantity'],
     bridges: [
       { 
         id: 'orderNoun',
