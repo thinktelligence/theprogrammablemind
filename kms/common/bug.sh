@@ -627,10 +627,6 @@ fi
 # $NODE concept -q 'mango modifies passion\nmango passion modifies smoothie\nmango passion smoothie' -g -d
 # DEBUG_OPERATOR="([mango_passion|])" $NODE concept -q 'mango modifies passion\nmango passion modifies smoothie' -g -d -po
 # $NODE fastfood -q "strawberry guava mango passion wild berry and strawberry banana modify smoothie" -g -d -daa -cl '[["list", 0]]' --parenthesized
-# TODO $NODE fastfood -q "a strawberry and guava smoothie" -g -d -daa -cl '[["list", 0]]' --parenthesized
-# TODO $NODE fastfood -q "a strawberry and a guava smoothie" -g -d -daa -cl '[["list", 0]]' --parenthesized
-# TODO $NODE fastfood -q "(a strawberry and a guava) smoothie" -g -d -daa -cl '[["list", 0]]' --parenthesized
-# TODO $NODE fastfood -q "(a strawberry and guava) smoothie" -g -d -daa -cl '[["list", 0]]' --parenthesized
 # $NODE fastfood -q "a smoothie" -g -d -daa -cl '[["list", 0]]'
 # $NODE fastfood -q "2 bananas" -g -d -daa -cl '[["list", 0]]'  -s
 # $NODE fastfood -q "2 bananas and (combo 1)" -g -d -daa -cl '[["list", 0]]' 
@@ -650,4 +646,8 @@ fi
 # $NODE fastfood -q 'combo one and combo two and three' -g -d --parenthesized
 # $NODE fastfood -q 'combo one and two combo twos' -g -d --parenthesized -dic '["countable"]'
 # $NODE fastfood -q 'single and double combo' -g -d --parenthesized
-$NODE fastfood -q ' combo one and two combo twos' -g -d --parenthesized -cl '[["list", 0]]'
+# $NODE fastfood -q ' combo one and two combo twos' -g -d --parenthesized -cl '[["list", 0]]'
+# TODO $NODE fastfood -q "a strawberry and guava smoothie" -g -d -daa -cl '[["list", 0]]' --parenthesized
+# TODO $NODE fastfood -q "a strawberry and a guava smoothie" -g -d -daa -cl '[["list", 0]]' --parenthesized
+# TODO $NODE fastfood -q "(a strawberry and a guava) smoothie" -g -d -daa -cl '[["list", 0]]' --parenthesized
+$NODE fastfood -q "(a strawberry and guava) smoothie" -g -d -daa -cl '[["list", 0]]' --parenthesized
