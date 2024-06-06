@@ -55,7 +55,8 @@ const template ={
     "a smoothie is a drink",
     "french fries and waffle fries are fries",
     "single double triple baconater and bacon deluxe are hamburgers",
-    "spicy homestyle asiago ranch chicken club 10 piece nuggets ultimate chicken grill and premium cod are sandwiches",
+    // "spicy homestyle asiago ranch chicken club 10 piece nuggets ultimate chicken grill and premium cod are sandwiches",
+    "spicy homestyle asiago ranch chicken club ultimate chicken grill and premium cod are sandwiches",
     "a meals is food",
     "a combo is a meal",
     "single double triple baconater bacon deluxe spicy homestyle and premium cod are meals",
@@ -68,7 +69,21 @@ const template ={
         "((number/0,1 && context.instance == undefined) [numberNumberCombo] (number/0,1))",
         "((combo/*) [([withFries|with] (fry/*))])",
       ],
+      floaters: ['instance'],
       priorities: [
+       { "context": [['number', 0], ['numberNumberCombo', 0], ], "choose": [0] },
+       { "context": [['list', 0], ['numberNumberCombo', 0], ], "choose": [0] },
+
+       // TODO take this out make the server side learn if from "(combo one) and (two combo twos)" .   (prioritized1) 'and' (prioritized2) where 1+2 came from and build the cp that way
+       { "context": [['combo',0], ['number', 0], ['list', 0], ['number', 0],['combo', 0],['number',0]], ordered: true, choose: [0,1,3,4,5] },
+       { "context": [['number',0], ['mango_passion', 0], ['list', 0], ['number', 0],['strawberry', 0],['smoothie',0]], ordered: true, choose: [0,1,3,4] },
+
+       { "context": [['mango_passion', 1], ['list', 0], ['number', 1], ['strawberry', 1], ['smoothie', 1]], ordered: true, choose: [2,3] },
+       { "context": [['mango_passion', 1], ['list', 0], ['strawberry', 1], ['smoothie', 1]], ordered: true, choose: [1] },
+
+       { "context": [['list', 0], ['number', 1], ['combo', 1], ['number', 1]], ordered: true, choose: [2,3] },
+      /*
+
         { "context": [['number', 0], ['numberNumberCombo', 0], ], "choose": [0] },
         { "context": [['list', 0], ['numberNumberCombo', 0], ], "choose": [0] },
         // [['list', 0], ['comboNumber', 0], ],
@@ -84,12 +99,6 @@ const template ={
         { context: [['list',0], ['number', 0], ['combo', 0], ['number', 0]], ordered: true, choose: [2,3] },
         { context: [['list',0], ['number', 1], ['combo', 0], ['number', 0]], ordered: true, choose: [2,3] },
         { context: [['list',0], ['number', 1], ['combo', 0], ['number', 1]], ordered: true, choose: [2,3] },
-        /*
-        { context: [['list',0], ['number', 0], ['combo', 0], ['number', 1]], choose: [1,2,3] },
-        { context: [['list',0], ['number', 0], ['combo', 1], ['number', 1]], choose: [1,2,3] },
-        { context: [['list',0], ['number', 1], ['combo', 1], ['number', 1]], choose: [1,2,3] },
-        { context: [['list',0], ['number', 1], ['combo', 2]], choose: [1,2] },
-        */
         {"context":[["mango_passion_smoothie",1],["list",0],["strawberry",1],['smoothie',1]],"ordered":true,"choose":[2,3]},
         {"context":[["list",0],["number",0],["strawberry",0],['smoothie',0]],"ordered":true,"choose":[1,2]},
         {"context":[["list",0],["number",1],["strawberry",1],['smoothie',0]],"ordered":true,"choose":[1,2]},
@@ -109,6 +118,7 @@ const template ={
         {"context":[["mango_passion", 1],["list",0],["number",0],["strawberry",0],['smoothie',0]],"ordered":true,"choose":[0,2,3]},
         {"context":[["mango_passion", 1],["list",0],["number",1],["strawberry",0],['smoothie',0]],"ordered":true,"choose":[0,2,3]},
         {"context":[["mango_passion", 1],["list",0],["number",1],["strawberry",1],['smoothie',0]],"ordered":true,"choose":[0,2,3]},
+      */
       ],
       generators: [
         {
@@ -159,6 +169,8 @@ const template ={
         },
       ]
     },
+    // TODO Future see above note { query: "(combo one) and (2 combo twos)", skipSemantics: true },
+    // { query: "(2 mango passion and (3 strawberry)) smoothies", skipSemantics: true },
   ],
 }
 
