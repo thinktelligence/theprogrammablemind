@@ -128,6 +128,8 @@
     "strawberry modifies banana",
     "strawberry guava mango passion wild berry and strawberry banana modify smoothie",
     "strawberry guava mango passion wild berry and strawberry banana are countable",
+    "smoothie modifies ingredients",
+    "strawberry guava mango passion wild berry and strawberry banana are smoothie ingredients",
     "a smoothie is a drink",
     "french fries and waffle fries are fries",
     "single double triple baconater and bacon deluxe are hamburgers",
@@ -136,7 +138,7 @@
     "a combo is a meal",
     "single double triple baconater bacon deluxe spicy homestyle and premium cod are meals",
     {
-      "where": "/home/dev/code/theprogrammablemind/kms/common/fastfood.js:64",
+      "where": "/home/dev/code/theprogrammablemind/kms/common/fastfood.js:66",
       "operators": [
         "((meal/* && context.comboNumber == undefined) [comboMeal] (combo/*))",
         "((combo/*) [comboNumber] (number/* || numberNumberCombo/*))",
@@ -221,7 +223,7 @@
               0
             ],
             [
-              "mango_passion",
+              "smoothie_ingredient",
               0
             ],
             [
@@ -233,7 +235,7 @@
               0
             ],
             [
-              "strawberry",
+              "smoothie_ingredient",
               0
             ],
             [
@@ -252,7 +254,7 @@
         {
           "context": [
             [
-              "mango_passion",
+              "smoothie_ingredient",
               1
             ],
             [
@@ -264,7 +266,7 @@
               1
             ],
             [
-              "strawberry",
+              "smoothie_ingredient",
               1
             ],
             [
@@ -281,7 +283,7 @@
         {
           "context": [
             [
-              "mango_passion",
+              "smoothie_ingredient",
               1
             ],
             [
@@ -289,7 +291,7 @@
               0
             ],
             [
-              "strawberry",
+              "smoothie_ingredient",
               1
             ],
             [
@@ -330,7 +332,7 @@
       ],
       "generators": [
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/fastfood.js:125",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/fastfood.js:127",
           "match": "({context}) => false && context.marker == 'combo' && context.comboNumber",
           "apply": "({context, g}) => g(context.comboNumber)"
         }
@@ -11148,6 +11150,24 @@
           [
             "unknown",
             0
+          ]
+        ],
+        [
+          [
+            "chicken",
+            0
+          ],
+          [
+            "modifies",
+            0
+          ],
+          [
+            "unknown",
+            0
+          ],
+          [
+            "unknown",
+            1
           ]
         ],
         [
@@ -23339,15 +23359,15 @@
                 0
               ],
               [
-                "wild_berry",
-                0
-              ],
-              [
                 "mango_passion",
                 0
               ],
               [
                 "strawberry_banana",
+                0
+              ],
+              [
+                "wild_berry",
                 0
               ]
             ],
@@ -23396,15 +23416,15 @@
                 0
               ],
               [
-                "wild_berry",
-                0
-              ],
-              [
                 "mango_passion",
                 0
               ],
               [
                 "strawberry_banana",
+                0
+              ],
+              [
+                "wild_berry",
                 0
               ]
             ],
@@ -26433,15 +26453,15 @@
                 0
               ],
               [
-                "wild_berry",
-                0
-              ],
-              [
                 "mango_passion",
                 0
               ],
               [
                 "strawberry_banana",
+                0
+              ],
+              [
+                "wild_berry",
                 0
               ]
             ],
@@ -29485,6 +29505,5797 @@
         "opChoices": [
           {
             "op": [
+              "unknown",
+              0
+            ],
+            "ops": [
+              [
+                "smoothie",
+                0
+              ],
+              [
+                "modifies",
+                0
+              ],
+              [
+                "unknown",
+                0
+              ]
+            ],
+            "counter": 1
+          },
+          {
+            "op": [
+              "smoothie",
+              0
+            ],
+            "ops": [
+              [
+                "smoothie",
+                0
+              ],
+              [
+                "modifies",
+                0
+              ]
+            ],
+            "counter": 2
+          },
+          {
+            "op": [
+              "modifies",
+              0
+            ],
+            "ops": [
+              [
+                "modifies",
+                0
+              ]
+            ],
+            "counter": 3
+          }
+        ]
+      },
+      "trace": "undefined",
+      "contexts": [
+        {
+          "word": "modifies",
+          "number": "one",
+          "text": "smoothie modifies ingredients",
+          "marker": "modifies",
+          "range": {
+            "start": 0,
+            "end": 28
+          },
+          "dead": true,
+          "modifiers": [
+            {
+              "value": "smoothie",
+              "number": "one",
+              "text": "smoothie",
+              "marker": "smoothie",
+              "word": "smoothie",
+              "range": {
+                "start": 0,
+                "end": 7
+              },
+              "dead": true,
+              "level": 1
+            }
+          ],
+          "concept": {
+            "marker": "unknown",
+            "range": {
+              "start": 18,
+              "end": 28
+            },
+            "word": "ingredients",
+            "text": "ingredients",
+            "value": "ingredients",
+            "unknown": true,
+            "dead": true,
+            "level": 1
+          },
+          "flatten": true,
+          "level": 1,
+          "topLevel": true,
+          "touchedBy": [
+            "fastfood#call2"
+          ]
+        }
+      ],
+      "generated": [
+        ""
+      ],
+      "paraphrases": [
+        "smoothie modifies ingredients"
+      ],
+      "paraphrasesParenthesized": [],
+      "generatedParenthesized": [],
+      "responses": [
+        ""
+      ],
+      "associations": [
+        [
+          [
+            "modifies",
+            0
+          ],
+          [
+            "smoothie",
+            0
+          ],
+          [
+            "unknown",
+            0
+          ]
+        ],
+        [
+          [
+            "modifies",
+            0
+          ],
+          [
+            "smoothie",
+            0
+          ],
+          [
+            "unknown",
+            1
+          ]
+        ],
+        [
+          [
+            "modifies",
+            0
+          ],
+          [
+            "unknown",
+            1
+          ]
+        ]
+      ],
+      "learned_contextual_priorities": [],
+      "query": "smoothie modifies ingredients",
+      "key": {
+        "query": "smoothie modifies ingredients"
+      }
+    },
+    {
+      "hierarchy": [
+        [
+          "a",
+          "articlePOS"
+        ],
+        [
+          "adjective",
+          "adjective"
+        ],
+        [
+          "all",
+          "quantifier"
+        ],
+        [
+          "apple",
+          "fruit"
+        ],
+        [
+          "apple",
+          "hierarchyAble"
+        ],
+        [
+          "apple",
+          "isEdee"
+        ],
+        [
+          "apple",
+          "isEder"
+        ],
+        [
+          "apple",
+          "object"
+        ],
+        [
+          "apple",
+          "property"
+        ],
+        [
+          "apple",
+          "queryable"
+        ],
+        [
+          "apple",
+          "theAble"
+        ],
+        [
+          "articlePOS",
+          "articlePOS"
+        ],
+        [
+          "asiago",
+          "hierarchyAble"
+        ],
+        [
+          "asiago",
+          "isEdee"
+        ],
+        [
+          "asiago",
+          "isEder"
+        ],
+        [
+          "asiago",
+          "object"
+        ],
+        [
+          "asiago",
+          "property"
+        ],
+        [
+          "asiago",
+          "queryable"
+        ],
+        [
+          "asiago",
+          "theAble"
+        ],
+        [
+          "asiago_ranch_chicken_club",
+          "adjective"
+        ],
+        [
+          "asiago_ranch_chicken_club",
+          "club"
+        ],
+        [
+          "asiago_ranch_chicken_club",
+          "concept"
+        ],
+        [
+          "asiago_ranch_chicken_club",
+          "hierarchyAble"
+        ],
+        [
+          "asiago_ranch_chicken_club",
+          "isEdee"
+        ],
+        [
+          "asiago_ranch_chicken_club",
+          "isEder"
+        ],
+        [
+          "asiago_ranch_chicken_club",
+          "object"
+        ],
+        [
+          "asiago_ranch_chicken_club",
+          "property"
+        ],
+        [
+          "asiago_ranch_chicken_club",
+          "queryable"
+        ],
+        [
+          "asiago_ranch_chicken_club",
+          "theAble"
+        ],
+        [
+          "bacon",
+          "hierarchyAble"
+        ],
+        [
+          "bacon",
+          "isEdee"
+        ],
+        [
+          "bacon",
+          "isEder"
+        ],
+        [
+          "bacon",
+          "object"
+        ],
+        [
+          "bacon",
+          "property"
+        ],
+        [
+          "bacon",
+          "queryable"
+        ],
+        [
+          "bacon",
+          "theAble"
+        ],
+        [
+          "bacon_deluxe",
+          "adjective"
+        ],
+        [
+          "bacon_deluxe",
+          "concept"
+        ],
+        [
+          "bacon_deluxe",
+          "deluxe"
+        ],
+        [
+          "bacon_deluxe",
+          "hierarchyAble"
+        ],
+        [
+          "bacon_deluxe",
+          "isEdee"
+        ],
+        [
+          "bacon_deluxe",
+          "isEder"
+        ],
+        [
+          "bacon_deluxe",
+          "object"
+        ],
+        [
+          "bacon_deluxe",
+          "property"
+        ],
+        [
+          "bacon_deluxe",
+          "queryable"
+        ],
+        [
+          "bacon_deluxe",
+          "theAble"
+        ],
+        [
+          "banana",
+          "concept"
+        ],
+        [
+          "banana",
+          "fruit"
+        ],
+        [
+          "banana",
+          "hierarchyAble"
+        ],
+        [
+          "banana",
+          "isEdee"
+        ],
+        [
+          "banana",
+          "isEder"
+        ],
+        [
+          "banana",
+          "object"
+        ],
+        [
+          "banana",
+          "property"
+        ],
+        [
+          "banana",
+          "queryable"
+        ],
+        [
+          "banana",
+          "theAble"
+        ],
+        [
+          "berry",
+          "concept"
+        ],
+        [
+          "berry",
+          "hierarchyAble"
+        ],
+        [
+          "berry",
+          "isEdee"
+        ],
+        [
+          "berry",
+          "isEder"
+        ],
+        [
+          "berry",
+          "object"
+        ],
+        [
+          "berry",
+          "property"
+        ],
+        [
+          "berry",
+          "queryable"
+        ],
+        [
+          "berry",
+          "theAble"
+        ],
+        [
+          "between",
+          "preposition"
+        ],
+        [
+          "brocoli",
+          "hierarchyAble"
+        ],
+        [
+          "brocoli",
+          "isEdee"
+        ],
+        [
+          "brocoli",
+          "isEder"
+        ],
+        [
+          "brocoli",
+          "object"
+        ],
+        [
+          "brocoli",
+          "property"
+        ],
+        [
+          "brocoli",
+          "queryable"
+        ],
+        [
+          "brocoli",
+          "theAble"
+        ],
+        [
+          "brocoli",
+          "vegetable"
+        ],
+        [
+          "cabbage",
+          "hierarchyAble"
+        ],
+        [
+          "cabbage",
+          "isEdee"
+        ],
+        [
+          "cabbage",
+          "isEder"
+        ],
+        [
+          "cabbage",
+          "object"
+        ],
+        [
+          "cabbage",
+          "property"
+        ],
+        [
+          "cabbage",
+          "queryable"
+        ],
+        [
+          "cabbage",
+          "theAble"
+        ],
+        [
+          "cabbage",
+          "vegetable"
+        ],
+        [
+          "canBeDoQuestion",
+          "canBeDoQuestion"
+        ],
+        [
+          "canBeQuestion",
+          "canBeQuestion"
+        ],
+        [
+          "carrot",
+          "hierarchyAble"
+        ],
+        [
+          "carrot",
+          "isEdee"
+        ],
+        [
+          "carrot",
+          "isEder"
+        ],
+        [
+          "carrot",
+          "object"
+        ],
+        [
+          "carrot",
+          "property"
+        ],
+        [
+          "carrot",
+          "queryable"
+        ],
+        [
+          "carrot",
+          "theAble"
+        ],
+        [
+          "carrot",
+          "vegetable"
+        ],
+        [
+          "changes",
+          "event"
+        ],
+        [
+          "changes",
+          "verby"
+        ],
+        [
+          "chicken",
+          "hierarchyAble"
+        ],
+        [
+          "chicken",
+          "isEdee"
+        ],
+        [
+          "chicken",
+          "isEder"
+        ],
+        [
+          "chicken",
+          "object"
+        ],
+        [
+          "chicken",
+          "property"
+        ],
+        [
+          "chicken",
+          "queryable"
+        ],
+        [
+          "chicken",
+          "theAble"
+        ],
+        [
+          "chicken_sandwich",
+          "adjective"
+        ],
+        [
+          "chicken_sandwich",
+          "concept"
+        ],
+        [
+          "chicken_sandwich",
+          "hierarchyAble"
+        ],
+        [
+          "chicken_sandwich",
+          "isEdee"
+        ],
+        [
+          "chicken_sandwich",
+          "isEder"
+        ],
+        [
+          "chicken_sandwich",
+          "object"
+        ],
+        [
+          "chicken_sandwich",
+          "property"
+        ],
+        [
+          "chicken_sandwich",
+          "queryable"
+        ],
+        [
+          "chicken_sandwich",
+          "sandwich"
+        ],
+        [
+          "chicken_sandwich",
+          "theAble"
+        ],
+        [
+          "chicken_strip",
+          "adjective"
+        ],
+        [
+          "chicken_strip",
+          "concept"
+        ],
+        [
+          "chicken_strip",
+          "food"
+        ],
+        [
+          "chicken_strip",
+          "hierarchyAble"
+        ],
+        [
+          "chicken_strip",
+          "isEdee"
+        ],
+        [
+          "chicken_strip",
+          "isEder"
+        ],
+        [
+          "chicken_strip",
+          "object"
+        ],
+        [
+          "chicken_strip",
+          "property"
+        ],
+        [
+          "chicken_strip",
+          "queryable"
+        ],
+        [
+          "chicken_strip",
+          "strip"
+        ],
+        [
+          "chicken_strip",
+          "theAble"
+        ],
+        [
+          "club",
+          "concept"
+        ],
+        [
+          "club",
+          "hierarchyAble"
+        ],
+        [
+          "club",
+          "isEdee"
+        ],
+        [
+          "club",
+          "isEder"
+        ],
+        [
+          "club",
+          "object"
+        ],
+        [
+          "club",
+          "property"
+        ],
+        [
+          "club",
+          "queryable"
+        ],
+        [
+          "club",
+          "theAble"
+        ],
+        [
+          "cod",
+          "concept"
+        ],
+        [
+          "cod",
+          "hierarchyAble"
+        ],
+        [
+          "cod",
+          "isEdee"
+        ],
+        [
+          "cod",
+          "isEder"
+        ],
+        [
+          "cod",
+          "object"
+        ],
+        [
+          "cod",
+          "property"
+        ],
+        [
+          "cod",
+          "queryable"
+        ],
+        [
+          "cod",
+          "theAble"
+        ],
+        [
+          "concept",
+          "queryable"
+        ],
+        [
+          "concept",
+          "theAble"
+        ],
+        [
+          "countable",
+          "hierarchyAble"
+        ],
+        [
+          "deluxe",
+          "concept"
+        ],
+        [
+          "deluxe",
+          "hierarchyAble"
+        ],
+        [
+          "deluxe",
+          "isEdee"
+        ],
+        [
+          "deluxe",
+          "isEder"
+        ],
+        [
+          "deluxe",
+          "object"
+        ],
+        [
+          "deluxe",
+          "property"
+        ],
+        [
+          "deluxe",
+          "queryable"
+        ],
+        [
+          "deluxe",
+          "theAble"
+        ],
+        [
+          "dog",
+          "concept"
+        ],
+        [
+          "dog",
+          "hierarchyAble"
+        ],
+        [
+          "dog",
+          "isEdee"
+        ],
+        [
+          "dog",
+          "isEder"
+        ],
+        [
+          "dog",
+          "object"
+        ],
+        [
+          "dog",
+          "property"
+        ],
+        [
+          "dog",
+          "queryable"
+        ],
+        [
+          "dog",
+          "theAble"
+        ],
+        [
+          "drink",
+          "countable"
+        ],
+        [
+          "drink",
+          "edible"
+        ],
+        [
+          "drink",
+          "hierarchyAble"
+        ],
+        [
+          "drink",
+          "isEdee"
+        ],
+        [
+          "drink",
+          "isEder"
+        ],
+        [
+          "drink",
+          "object"
+        ],
+        [
+          "drink",
+          "property"
+        ],
+        [
+          "drink",
+          "queryable"
+        ],
+        [
+          "drink",
+          "theAble"
+        ],
+        [
+          "edible",
+          "hierarchyAble"
+        ],
+        [
+          "edible",
+          "isEdee"
+        ],
+        [
+          "edible",
+          "isEder"
+        ],
+        [
+          "edible",
+          "object"
+        ],
+        [
+          "edible",
+          "property"
+        ],
+        [
+          "edible",
+          "queryable"
+        ],
+        [
+          "edible",
+          "theAble"
+        ],
+        [
+          "event",
+          "event"
+        ],
+        [
+          "food",
+          "countable"
+        ],
+        [
+          "food",
+          "edible"
+        ],
+        [
+          "food",
+          "hierarchyAble"
+        ],
+        [
+          "food",
+          "isEdee"
+        ],
+        [
+          "food",
+          "isEder"
+        ],
+        [
+          "food",
+          "object"
+        ],
+        [
+          "food",
+          "property"
+        ],
+        [
+          "food",
+          "queryable"
+        ],
+        [
+          "food",
+          "theAble"
+        ],
+        [
+          "french",
+          "hierarchyAble"
+        ],
+        [
+          "french",
+          "isEdee"
+        ],
+        [
+          "french",
+          "isEder"
+        ],
+        [
+          "french",
+          "object"
+        ],
+        [
+          "french",
+          "property"
+        ],
+        [
+          "french",
+          "queryable"
+        ],
+        [
+          "french",
+          "theAble"
+        ],
+        [
+          "french_fry",
+          "adjective"
+        ],
+        [
+          "french_fry",
+          "concept"
+        ],
+        [
+          "french_fry",
+          "food"
+        ],
+        [
+          "french_fry",
+          "fry"
+        ],
+        [
+          "french_fry",
+          "hierarchyAble"
+        ],
+        [
+          "french_fry",
+          "isEdee"
+        ],
+        [
+          "french_fry",
+          "isEder"
+        ],
+        [
+          "french_fry",
+          "object"
+        ],
+        [
+          "french_fry",
+          "property"
+        ],
+        [
+          "french_fry",
+          "queryable"
+        ],
+        [
+          "french_fry",
+          "theAble"
+        ],
+        [
+          "fruit",
+          "food"
+        ],
+        [
+          "fruit",
+          "hierarchyAble"
+        ],
+        [
+          "fruit",
+          "isEdee"
+        ],
+        [
+          "fruit",
+          "isEder"
+        ],
+        [
+          "fruit",
+          "object"
+        ],
+        [
+          "fruit",
+          "property"
+        ],
+        [
+          "fruit",
+          "queryable"
+        ],
+        [
+          "fruit",
+          "theAble"
+        ],
+        [
+          "fry",
+          "concept"
+        ],
+        [
+          "fry",
+          "hierarchyAble"
+        ],
+        [
+          "fry",
+          "isEdee"
+        ],
+        [
+          "fry",
+          "isEder"
+        ],
+        [
+          "fry",
+          "object"
+        ],
+        [
+          "fry",
+          "property"
+        ],
+        [
+          "fry",
+          "queryable"
+        ],
+        [
+          "fry",
+          "theAble"
+        ],
+        [
+          "grill",
+          "concept"
+        ],
+        [
+          "grill",
+          "hierarchyAble"
+        ],
+        [
+          "grill",
+          "isEdee"
+        ],
+        [
+          "grill",
+          "isEder"
+        ],
+        [
+          "grill",
+          "object"
+        ],
+        [
+          "grill",
+          "property"
+        ],
+        [
+          "grill",
+          "queryable"
+        ],
+        [
+          "grill",
+          "theAble"
+        ],
+        [
+          "guava",
+          "countable"
+        ],
+        [
+          "guava",
+          "hierarchyAble"
+        ],
+        [
+          "guava",
+          "isEdee"
+        ],
+        [
+          "guava",
+          "isEder"
+        ],
+        [
+          "guava",
+          "object"
+        ],
+        [
+          "guava",
+          "property"
+        ],
+        [
+          "guava",
+          "queryable"
+        ],
+        [
+          "guava",
+          "theAble"
+        ],
+        [
+          "guava_smoothie",
+          "adjective"
+        ],
+        [
+          "guava_smoothie",
+          "concept"
+        ],
+        [
+          "guava_smoothie",
+          "hierarchyAble"
+        ],
+        [
+          "guava_smoothie",
+          "isEdee"
+        ],
+        [
+          "guava_smoothie",
+          "isEder"
+        ],
+        [
+          "guava_smoothie",
+          "object"
+        ],
+        [
+          "guava_smoothie",
+          "property"
+        ],
+        [
+          "guava_smoothie",
+          "queryable"
+        ],
+        [
+          "guava_smoothie",
+          "smoothie"
+        ],
+        [
+          "guava_smoothie",
+          "theAble"
+        ],
+        [
+          "hamburger",
+          "hierarchyAble"
+        ],
+        [
+          "hamburger",
+          "isEdee"
+        ],
+        [
+          "hamburger",
+          "isEder"
+        ],
+        [
+          "hamburger",
+          "object"
+        ],
+        [
+          "hamburger",
+          "property"
+        ],
+        [
+          "hamburger",
+          "queryable"
+        ],
+        [
+          "hamburger",
+          "sandwich"
+        ],
+        [
+          "hamburger",
+          "theAble"
+        ],
+        [
+          "have",
+          "canBeDoQuestion"
+        ],
+        [
+          "have",
+          "canBeQuestion"
+        ],
+        [
+          "hierarchyAble",
+          "queryable"
+        ],
+        [
+          "hot",
+          "hierarchyAble"
+        ],
+        [
+          "hot",
+          "isEdee"
+        ],
+        [
+          "hot",
+          "isEder"
+        ],
+        [
+          "hot",
+          "object"
+        ],
+        [
+          "hot",
+          "property"
+        ],
+        [
+          "hot",
+          "queryable"
+        ],
+        [
+          "hot",
+          "theAble"
+        ],
+        [
+          "hot_dog",
+          "adjective"
+        ],
+        [
+          "hot_dog",
+          "concept"
+        ],
+        [
+          "hot_dog",
+          "dog"
+        ],
+        [
+          "hot_dog",
+          "hierarchyAble"
+        ],
+        [
+          "hot_dog",
+          "isEdee"
+        ],
+        [
+          "hot_dog",
+          "isEder"
+        ],
+        [
+          "hot_dog",
+          "object"
+        ],
+        [
+          "hot_dog",
+          "property"
+        ],
+        [
+          "hot_dog",
+          "queryable"
+        ],
+        [
+          "hot_dog",
+          "sausage"
+        ],
+        [
+          "hot_dog",
+          "theAble"
+        ],
+        [
+          "ifAble",
+          "ifAble"
+        ],
+        [
+          "ingredient",
+          "concept"
+        ],
+        [
+          "ingredient",
+          "hierarchyAble"
+        ],
+        [
+          "ingredient",
+          "isEdee"
+        ],
+        [
+          "ingredient",
+          "isEder"
+        ],
+        [
+          "ingredient",
+          "object"
+        ],
+        [
+          "ingredient",
+          "property"
+        ],
+        [
+          "ingredient",
+          "queryable"
+        ],
+        [
+          "ingredient",
+          "theAble"
+        ],
+        [
+          "is",
+          "canBeQuestion"
+        ],
+        [
+          "is",
+          "verby"
+        ],
+        [
+          "isEdee",
+          "isEdee"
+        ],
+        [
+          "isEder",
+          "isEder"
+        ],
+        [
+          "it",
+          "pronoun"
+        ],
+        [
+          "it",
+          "queryable"
+        ],
+        [
+          "it",
+          "thisitthat"
+        ],
+        [
+          "it",
+          "toAble"
+        ],
+        [
+          "juice",
+          "drink"
+        ],
+        [
+          "juice",
+          "hierarchyAble"
+        ],
+        [
+          "juice",
+          "isEdee"
+        ],
+        [
+          "juice",
+          "isEder"
+        ],
+        [
+          "juice",
+          "object"
+        ],
+        [
+          "juice",
+          "property"
+        ],
+        [
+          "juice",
+          "queryable"
+        ],
+        [
+          "juice",
+          "theAble"
+        ],
+        [
+          "mango",
+          "hierarchyAble"
+        ],
+        [
+          "mango",
+          "isEdee"
+        ],
+        [
+          "mango",
+          "isEder"
+        ],
+        [
+          "mango",
+          "object"
+        ],
+        [
+          "mango",
+          "property"
+        ],
+        [
+          "mango",
+          "queryable"
+        ],
+        [
+          "mango",
+          "theAble"
+        ],
+        [
+          "mango_passion",
+          "adjective"
+        ],
+        [
+          "mango_passion",
+          "concept"
+        ],
+        [
+          "mango_passion",
+          "countable"
+        ],
+        [
+          "mango_passion",
+          "hierarchyAble"
+        ],
+        [
+          "mango_passion",
+          "isEdee"
+        ],
+        [
+          "mango_passion",
+          "isEder"
+        ],
+        [
+          "mango_passion",
+          "object"
+        ],
+        [
+          "mango_passion",
+          "passion"
+        ],
+        [
+          "mango_passion",
+          "property"
+        ],
+        [
+          "mango_passion",
+          "queryable"
+        ],
+        [
+          "mango_passion",
+          "theAble"
+        ],
+        [
+          "mango_passion_smoothie",
+          "adjective"
+        ],
+        [
+          "mango_passion_smoothie",
+          "concept"
+        ],
+        [
+          "mango_passion_smoothie",
+          "hierarchyAble"
+        ],
+        [
+          "mango_passion_smoothie",
+          "isEdee"
+        ],
+        [
+          "mango_passion_smoothie",
+          "isEder"
+        ],
+        [
+          "mango_passion_smoothie",
+          "object"
+        ],
+        [
+          "mango_passion_smoothie",
+          "property"
+        ],
+        [
+          "mango_passion_smoothie",
+          "queryable"
+        ],
+        [
+          "mango_passion_smoothie",
+          "smoothie"
+        ],
+        [
+          "mango_passion_smoothie",
+          "theAble"
+        ],
+        [
+          "meat",
+          "food"
+        ],
+        [
+          "meat",
+          "hierarchyAble"
+        ],
+        [
+          "meat",
+          "isEdee"
+        ],
+        [
+          "meat",
+          "isEder"
+        ],
+        [
+          "meat",
+          "object"
+        ],
+        [
+          "meat",
+          "property"
+        ],
+        [
+          "meat",
+          "queryable"
+        ],
+        [
+          "meat",
+          "theAble"
+        ],
+        [
+          "modifies",
+          "verby"
+        ],
+        [
+          "notAble",
+          "notAble"
+        ],
+        [
+          "noun",
+          "theAble"
+        ],
+        [
+          "number",
+          "quantifier"
+        ],
+        [
+          "number",
+          "queryable"
+        ],
+        [
+          "object",
+          "queryable"
+        ],
+        [
+          "object",
+          "theAble"
+        ],
+        [
+          "orAble",
+          "ifAble"
+        ],
+        [
+          "orange",
+          "fruit"
+        ],
+        [
+          "orange",
+          "hierarchyAble"
+        ],
+        [
+          "orange",
+          "isEdee"
+        ],
+        [
+          "orange",
+          "isEder"
+        ],
+        [
+          "orange",
+          "object"
+        ],
+        [
+          "orange",
+          "property"
+        ],
+        [
+          "orange",
+          "queryable"
+        ],
+        [
+          "orange",
+          "theAble"
+        ],
+        [
+          "orderNoun",
+          "noun"
+        ],
+        [
+          "orderNoun",
+          "queryable"
+        ],
+        [
+          "passion",
+          "concept"
+        ],
+        [
+          "passion",
+          "hierarchyAble"
+        ],
+        [
+          "passion",
+          "isEdee"
+        ],
+        [
+          "passion",
+          "isEder"
+        ],
+        [
+          "passion",
+          "object"
+        ],
+        [
+          "passion",
+          "property"
+        ],
+        [
+          "passion",
+          "queryable"
+        ],
+        [
+          "passion",
+          "theAble"
+        ],
+        [
+          "pea",
+          "hierarchyAble"
+        ],
+        [
+          "pea",
+          "isEdee"
+        ],
+        [
+          "pea",
+          "isEder"
+        ],
+        [
+          "pea",
+          "object"
+        ],
+        [
+          "pea",
+          "property"
+        ],
+        [
+          "pea",
+          "queryable"
+        ],
+        [
+          "pea",
+          "theAble"
+        ],
+        [
+          "pea",
+          "vegetable"
+        ],
+        [
+          "pop",
+          "drink"
+        ],
+        [
+          "pop",
+          "hierarchyAble"
+        ],
+        [
+          "pop",
+          "isEdee"
+        ],
+        [
+          "pop",
+          "isEder"
+        ],
+        [
+          "pop",
+          "object"
+        ],
+        [
+          "pop",
+          "property"
+        ],
+        [
+          "pop",
+          "queryable"
+        ],
+        [
+          "pop",
+          "theAble"
+        ],
+        [
+          "premium",
+          "hierarchyAble"
+        ],
+        [
+          "premium",
+          "isEdee"
+        ],
+        [
+          "premium",
+          "isEder"
+        ],
+        [
+          "premium",
+          "object"
+        ],
+        [
+          "premium",
+          "property"
+        ],
+        [
+          "premium",
+          "queryable"
+        ],
+        [
+          "premium",
+          "theAble"
+        ],
+        [
+          "premium_cod",
+          "adjective"
+        ],
+        [
+          "premium_cod",
+          "cod"
+        ],
+        [
+          "premium_cod",
+          "concept"
+        ],
+        [
+          "premium_cod",
+          "hierarchyAble"
+        ],
+        [
+          "premium_cod",
+          "isEdee"
+        ],
+        [
+          "premium_cod",
+          "isEder"
+        ],
+        [
+          "premium_cod",
+          "object"
+        ],
+        [
+          "premium_cod",
+          "property"
+        ],
+        [
+          "premium_cod",
+          "queryable"
+        ],
+        [
+          "premium_cod",
+          "theAble"
+        ],
+        [
+          "preposition",
+          "preposition"
+        ],
+        [
+          "pronoun",
+          "pronoun"
+        ],
+        [
+          "property",
+          "queryable"
+        ],
+        [
+          "property",
+          "theAble"
+        ],
+        [
+          "property",
+          "unknown"
+        ],
+        [
+          "punctuation",
+          "punctuation"
+        ],
+        [
+          "quantifier",
+          "quantifier"
+        ],
+        [
+          "queryable",
+          "queryable"
+        ],
+        [
+          "questionMark",
+          "punctuation"
+        ],
+        [
+          "ranch",
+          "hierarchyAble"
+        ],
+        [
+          "ranch",
+          "isEdee"
+        ],
+        [
+          "ranch",
+          "isEder"
+        ],
+        [
+          "ranch",
+          "object"
+        ],
+        [
+          "ranch",
+          "property"
+        ],
+        [
+          "ranch",
+          "queryable"
+        ],
+        [
+          "ranch",
+          "theAble"
+        ],
+        [
+          "readonly",
+          "queryable"
+        ],
+        [
+          "reason",
+          "queryable"
+        ],
+        [
+          "reason",
+          "theAble"
+        ],
+        [
+          "sandwich",
+          "concept"
+        ],
+        [
+          "sandwich",
+          "food"
+        ],
+        [
+          "sandwich",
+          "hierarchyAble"
+        ],
+        [
+          "sandwich",
+          "isEdee"
+        ],
+        [
+          "sandwich",
+          "isEder"
+        ],
+        [
+          "sandwich",
+          "object"
+        ],
+        [
+          "sandwich",
+          "property"
+        ],
+        [
+          "sandwich",
+          "queryable"
+        ],
+        [
+          "sandwich",
+          "theAble"
+        ],
+        [
+          "sausage",
+          "hierarchyAble"
+        ],
+        [
+          "sausage",
+          "isEdee"
+        ],
+        [
+          "sausage",
+          "isEder"
+        ],
+        [
+          "sausage",
+          "meat"
+        ],
+        [
+          "sausage",
+          "object"
+        ],
+        [
+          "sausage",
+          "property"
+        ],
+        [
+          "sausage",
+          "queryable"
+        ],
+        [
+          "sausage",
+          "theAble"
+        ],
+        [
+          "showOrder",
+          "verby"
+        ],
+        [
+          "smoothie",
+          "concept"
+        ],
+        [
+          "smoothie",
+          "hierarchyAble"
+        ],
+        [
+          "smoothie",
+          "isEdee"
+        ],
+        [
+          "smoothie",
+          "isEder"
+        ],
+        [
+          "smoothie",
+          "object"
+        ],
+        [
+          "smoothie",
+          "property"
+        ],
+        [
+          "smoothie",
+          "queryable"
+        ],
+        [
+          "smoothie",
+          "theAble"
+        ],
+        [
+          "smoothie_ingredient",
+          "adjective"
+        ],
+        [
+          "smoothie_ingredient",
+          "concept"
+        ],
+        [
+          "smoothie_ingredient",
+          "hierarchyAble"
+        ],
+        [
+          "smoothie_ingredient",
+          "ingredient"
+        ],
+        [
+          "smoothie_ingredient",
+          "isEdee"
+        ],
+        [
+          "smoothie_ingredient",
+          "isEder"
+        ],
+        [
+          "smoothie_ingredient",
+          "object"
+        ],
+        [
+          "smoothie_ingredient",
+          "property"
+        ],
+        [
+          "smoothie_ingredient",
+          "queryable"
+        ],
+        [
+          "smoothie_ingredient",
+          "theAble"
+        ],
+        [
+          "soda",
+          "drink"
+        ],
+        [
+          "soda",
+          "hierarchyAble"
+        ],
+        [
+          "soda",
+          "isEdee"
+        ],
+        [
+          "soda",
+          "isEder"
+        ],
+        [
+          "soda",
+          "object"
+        ],
+        [
+          "soda",
+          "property"
+        ],
+        [
+          "soda",
+          "queryable"
+        ],
+        [
+          "soda",
+          "theAble"
+        ],
+        [
+          "strawberry",
+          "countable"
+        ],
+        [
+          "strawberry",
+          "hierarchyAble"
+        ],
+        [
+          "strawberry",
+          "isEdee"
+        ],
+        [
+          "strawberry",
+          "isEder"
+        ],
+        [
+          "strawberry",
+          "object"
+        ],
+        [
+          "strawberry",
+          "property"
+        ],
+        [
+          "strawberry",
+          "queryable"
+        ],
+        [
+          "strawberry",
+          "theAble"
+        ],
+        [
+          "strawberry_banana",
+          "adjective"
+        ],
+        [
+          "strawberry_banana",
+          "banana"
+        ],
+        [
+          "strawberry_banana",
+          "concept"
+        ],
+        [
+          "strawberry_banana",
+          "countable"
+        ],
+        [
+          "strawberry_banana",
+          "hierarchyAble"
+        ],
+        [
+          "strawberry_banana",
+          "isEdee"
+        ],
+        [
+          "strawberry_banana",
+          "isEder"
+        ],
+        [
+          "strawberry_banana",
+          "object"
+        ],
+        [
+          "strawberry_banana",
+          "property"
+        ],
+        [
+          "strawberry_banana",
+          "queryable"
+        ],
+        [
+          "strawberry_banana",
+          "theAble"
+        ],
+        [
+          "strawberry_banana_smoothie",
+          "adjective"
+        ],
+        [
+          "strawberry_banana_smoothie",
+          "concept"
+        ],
+        [
+          "strawberry_banana_smoothie",
+          "hierarchyAble"
+        ],
+        [
+          "strawberry_banana_smoothie",
+          "isEdee"
+        ],
+        [
+          "strawberry_banana_smoothie",
+          "isEder"
+        ],
+        [
+          "strawberry_banana_smoothie",
+          "object"
+        ],
+        [
+          "strawberry_banana_smoothie",
+          "property"
+        ],
+        [
+          "strawberry_banana_smoothie",
+          "queryable"
+        ],
+        [
+          "strawberry_banana_smoothie",
+          "smoothie"
+        ],
+        [
+          "strawberry_banana_smoothie",
+          "theAble"
+        ],
+        [
+          "strawberry_smoothie",
+          "adjective"
+        ],
+        [
+          "strawberry_smoothie",
+          "concept"
+        ],
+        [
+          "strawberry_smoothie",
+          "hierarchyAble"
+        ],
+        [
+          "strawberry_smoothie",
+          "isEdee"
+        ],
+        [
+          "strawberry_smoothie",
+          "isEder"
+        ],
+        [
+          "strawberry_smoothie",
+          "object"
+        ],
+        [
+          "strawberry_smoothie",
+          "property"
+        ],
+        [
+          "strawberry_smoothie",
+          "queryable"
+        ],
+        [
+          "strawberry_smoothie",
+          "smoothie"
+        ],
+        [
+          "strawberry_smoothie",
+          "theAble"
+        ],
+        [
+          "strip",
+          "concept"
+        ],
+        [
+          "strip",
+          "hierarchyAble"
+        ],
+        [
+          "strip",
+          "isEdee"
+        ],
+        [
+          "strip",
+          "isEder"
+        ],
+        [
+          "strip",
+          "object"
+        ],
+        [
+          "strip",
+          "property"
+        ],
+        [
+          "strip",
+          "queryable"
+        ],
+        [
+          "strip",
+          "theAble"
+        ],
+        [
+          "sushi",
+          "food"
+        ],
+        [
+          "sushi",
+          "hierarchyAble"
+        ],
+        [
+          "sushi",
+          "isEdee"
+        ],
+        [
+          "sushi",
+          "isEder"
+        ],
+        [
+          "sushi",
+          "object"
+        ],
+        [
+          "sushi",
+          "property"
+        ],
+        [
+          "sushi",
+          "queryable"
+        ],
+        [
+          "sushi",
+          "theAble"
+        ],
+        [
+          "that",
+          "thisitthat"
+        ],
+        [
+          "the",
+          "articlePOS"
+        ],
+        [
+          "theAble",
+          "theAble"
+        ],
+        [
+          "this",
+          "pronoun"
+        ],
+        [
+          "this",
+          "queryable"
+        ],
+        [
+          "this",
+          "thisitthat"
+        ],
+        [
+          "thisitthat",
+          "queryable"
+        ],
+        [
+          "toAble",
+          "toAble"
+        ],
+        [
+          "type",
+          "property"
+        ],
+        [
+          "type",
+          "whatAble"
+        ],
+        [
+          "ultimate",
+          "hierarchyAble"
+        ],
+        [
+          "ultimate",
+          "isEdee"
+        ],
+        [
+          "ultimate",
+          "isEder"
+        ],
+        [
+          "ultimate",
+          "object"
+        ],
+        [
+          "ultimate",
+          "property"
+        ],
+        [
+          "ultimate",
+          "queryable"
+        ],
+        [
+          "ultimate",
+          "theAble"
+        ],
+        [
+          "ultimate_chicken_grill",
+          "adjective"
+        ],
+        [
+          "ultimate_chicken_grill",
+          "concept"
+        ],
+        [
+          "ultimate_chicken_grill",
+          "grill"
+        ],
+        [
+          "ultimate_chicken_grill",
+          "hierarchyAble"
+        ],
+        [
+          "ultimate_chicken_grill",
+          "isEdee"
+        ],
+        [
+          "ultimate_chicken_grill",
+          "isEder"
+        ],
+        [
+          "ultimate_chicken_grill",
+          "object"
+        ],
+        [
+          "ultimate_chicken_grill",
+          "property"
+        ],
+        [
+          "ultimate_chicken_grill",
+          "queryable"
+        ],
+        [
+          "ultimate_chicken_grill",
+          "theAble"
+        ],
+        [
+          "unknown",
+          "hierarchyAble"
+        ],
+        [
+          "unknown",
+          "notAble"
+        ],
+        [
+          "unknown",
+          "object"
+        ],
+        [
+          "unknown",
+          "queryable"
+        ],
+        [
+          "unknown",
+          "theAble"
+        ],
+        [
+          "vegetable",
+          "food"
+        ],
+        [
+          "vegetable",
+          "hierarchyAble"
+        ],
+        [
+          "vegetable",
+          "isEdee"
+        ],
+        [
+          "vegetable",
+          "isEder"
+        ],
+        [
+          "vegetable",
+          "object"
+        ],
+        [
+          "vegetable",
+          "property"
+        ],
+        [
+          "vegetable",
+          "queryable"
+        ],
+        [
+          "vegetable",
+          "theAble"
+        ],
+        [
+          "verby",
+          "verby"
+        ],
+        [
+          "waffle",
+          "hierarchyAble"
+        ],
+        [
+          "waffle",
+          "isEdee"
+        ],
+        [
+          "waffle",
+          "isEder"
+        ],
+        [
+          "waffle",
+          "object"
+        ],
+        [
+          "waffle",
+          "property"
+        ],
+        [
+          "waffle",
+          "queryable"
+        ],
+        [
+          "waffle",
+          "theAble"
+        ],
+        [
+          "waffle_fry",
+          "adjective"
+        ],
+        [
+          "waffle_fry",
+          "concept"
+        ],
+        [
+          "waffle_fry",
+          "french_fry"
+        ],
+        [
+          "waffle_fry",
+          "fry"
+        ],
+        [
+          "waffle_fry",
+          "hierarchyAble"
+        ],
+        [
+          "waffle_fry",
+          "isEdee"
+        ],
+        [
+          "waffle_fry",
+          "isEder"
+        ],
+        [
+          "waffle_fry",
+          "object"
+        ],
+        [
+          "waffle_fry",
+          "property"
+        ],
+        [
+          "waffle_fry",
+          "queryable"
+        ],
+        [
+          "waffle_fry",
+          "theAble"
+        ],
+        [
+          "what",
+          "object"
+        ],
+        [
+          "what",
+          "queryable"
+        ],
+        [
+          "whatAble",
+          "queryable"
+        ],
+        [
+          "whose",
+          "object"
+        ],
+        [
+          "wild",
+          "hierarchyAble"
+        ],
+        [
+          "wild",
+          "isEdee"
+        ],
+        [
+          "wild",
+          "isEder"
+        ],
+        [
+          "wild",
+          "object"
+        ],
+        [
+          "wild",
+          "property"
+        ],
+        [
+          "wild",
+          "queryable"
+        ],
+        [
+          "wild",
+          "theAble"
+        ],
+        [
+          "wild_berry",
+          "adjective"
+        ],
+        [
+          "wild_berry",
+          "berry"
+        ],
+        [
+          "wild_berry",
+          "concept"
+        ],
+        [
+          "wild_berry",
+          "countable"
+        ],
+        [
+          "wild_berry",
+          "hierarchyAble"
+        ],
+        [
+          "wild_berry",
+          "isEdee"
+        ],
+        [
+          "wild_berry",
+          "isEder"
+        ],
+        [
+          "wild_berry",
+          "object"
+        ],
+        [
+          "wild_berry",
+          "property"
+        ],
+        [
+          "wild_berry",
+          "queryable"
+        ],
+        [
+          "wild_berry",
+          "theAble"
+        ],
+        [
+          "wild_berry_smoothie",
+          "adjective"
+        ],
+        [
+          "wild_berry_smoothie",
+          "concept"
+        ],
+        [
+          "wild_berry_smoothie",
+          "hierarchyAble"
+        ],
+        [
+          "wild_berry_smoothie",
+          "isEdee"
+        ],
+        [
+          "wild_berry_smoothie",
+          "isEder"
+        ],
+        [
+          "wild_berry_smoothie",
+          "object"
+        ],
+        [
+          "wild_berry_smoothie",
+          "property"
+        ],
+        [
+          "wild_berry_smoothie",
+          "queryable"
+        ],
+        [
+          "wild_berry_smoothie",
+          "smoothie"
+        ],
+        [
+          "wild_berry_smoothie",
+          "theAble"
+        ],
+        [
+          "xfx",
+          "queryable"
+        ]
+      ],
+      "metadata": {
+        "opChoices": [
+          {
+            "op": [
+              "smoothie_ingredient",
+              0
+            ],
+            "ops": [
+              [
+                "strawberry",
+                0
+              ],
+              [
+                "guava",
+                0
+              ],
+              [
+                "mango",
+                0
+              ],
+              [
+                "passion",
+                0
+              ],
+              [
+                "mango_passion",
+                0
+              ],
+              [
+                "wild",
+                0
+              ],
+              [
+                "berry",
+                0
+              ],
+              [
+                "wild_berry",
+                0
+              ],
+              [
+                "banana",
+                0
+              ],
+              [
+                "strawberry_banana",
+                0
+              ],
+              [
+                "is",
+                0
+              ],
+              [
+                "smoothie",
+                0
+              ],
+              [
+                "ingredient",
+                0
+              ],
+              [
+                "smoothie_ingredient",
+                0
+              ]
+            ],
+            "counter": 1
+          },
+          {
+            "op": [
+              "guava",
+              0
+            ],
+            "ops": [
+              [
+                "strawberry",
+                0
+              ],
+              [
+                "guava",
+                0
+              ],
+              [
+                "mango",
+                0
+              ],
+              [
+                "passion",
+                0
+              ],
+              [
+                "wild",
+                0
+              ],
+              [
+                "berry",
+                0
+              ],
+              [
+                "strawberry",
+                0
+              ],
+              [
+                "banana",
+                0
+              ],
+              [
+                "is",
+                0
+              ],
+              [
+                "mango_passion",
+                0
+              ],
+              [
+                "strawberry_banana",
+                0
+              ],
+              [
+                "wild_berry",
+                0
+              ]
+            ],
+            "counter": 2
+          },
+          {
+            "op": [
+              "mango_passion",
+              0
+            ],
+            "ops": [
+              [
+                "strawberry",
+                0
+              ],
+              [
+                "mango",
+                0
+              ],
+              [
+                "passion",
+                0
+              ],
+              [
+                "mango_passion",
+                0
+              ],
+              [
+                "wild",
+                0
+              ],
+              [
+                "berry",
+                0
+              ],
+              [
+                "wild_berry",
+                0
+              ],
+              [
+                "banana",
+                0
+              ],
+              [
+                "strawberry_banana",
+                0
+              ],
+              [
+                "is",
+                0
+              ]
+            ],
+            "counter": 3
+          },
+          {
+            "op": [
+              "wild_berry",
+              0
+            ],
+            "ops": [
+              [
+                "strawberry",
+                0
+              ],
+              [
+                "wild",
+                0
+              ],
+              [
+                "berry",
+                0
+              ],
+              [
+                "wild_berry",
+                0
+              ],
+              [
+                "banana",
+                0
+              ],
+              [
+                "strawberry_banana",
+                0
+              ],
+              [
+                "is",
+                0
+              ]
+            ],
+            "counter": 4
+          },
+          {
+            "op": [
+              "strawberry_banana",
+              0
+            ],
+            "ops": [
+              [
+                "strawberry",
+                0
+              ],
+              [
+                "banana",
+                0
+              ],
+              [
+                "strawberry_banana",
+                0
+              ],
+              [
+                "is",
+                0
+              ]
+            ],
+            "counter": 5
+          },
+          {
+            "op": [
+              "strawberry",
+              0
+            ],
+            "ops": [
+              [
+                "strawberry",
+                0
+              ],
+              [
+                "is",
+                0
+              ],
+              [
+                "list",
+                0
+              ]
+            ],
+            "counter": 6
+          },
+          {
+            "op": [
+              "list",
+              0
+            ],
+            "ops": [
+              [
+                "is",
+                0
+              ],
+              [
+                "list",
+                0
+              ]
+            ],
+            "counter": 7
+          },
+          {
+            "op": [
+              "list",
+              1
+            ],
+            "ops": [
+              [
+                "is",
+                0
+              ],
+              [
+                "list",
+                1
+              ]
+            ],
+            "counter": 8
+          },
+          {
+            "op": [
+              "list",
+              1
+            ],
+            "ops": [
+              [
+                "is",
+                0
+              ],
+              [
+                "list",
+                1
+              ]
+            ],
+            "counter": 9
+          },
+          {
+            "op": [
+              "list",
+              1
+            ],
+            "ops": [
+              [
+                "is",
+                0
+              ],
+              [
+                "list",
+                1
+              ]
+            ],
+            "counter": 10
+          },
+          {
+            "op": [
+              "is",
+              0
+            ],
+            "ops": [
+              [
+                "is",
+                0
+              ]
+            ],
+            "counter": 11
+          },
+          {
+            "op": [
+              "is",
+              1
+            ],
+            "ops": [
+              [
+                "is",
+                1
+              ]
+            ],
+            "counter": 12
+          }
+        ]
+      },
+      "trace": "undefined",
+      "contexts": [
+        {
+          "number": "many",
+          "text": "strawberry guava mango passion wild berry and strawberry banana are smoothie ingredients",
+          "marker": "is",
+          "word": "are",
+          "range": {
+            "start": 0,
+            "end": 87
+          },
+          "one": {
+            "number": "many",
+            "marker": "list",
+            "default": true,
+            "word": "and",
+            "text": "strawberry guava mango passion wild berry and strawberry banana",
+            "range": {
+              "start": 0,
+              "end": 87
+            },
+            "types": [
+              "list",
+              "strawberry"
+            ],
+            "listable": true,
+            "isList": true,
+            "value": [
+              {
+                "value": "strawberry",
+                "text": "strawberry",
+                "marker": "strawberry",
+                "word": "strawberry",
+                "range": {
+                  "start": 0,
+                  "end": 9
+                },
+                "dead": true,
+                "level": 1
+              },
+              {
+                "value": "guava",
+                "text": "guava",
+                "marker": "guava",
+                "word": "guava",
+                "range": {
+                  "start": 11,
+                  "end": 15
+                },
+                "dead": true,
+                "level": 1
+              },
+              {
+                "value": "mango_passion",
+                "number": "one",
+                "text": "mango passion",
+                "marker": "mango_passion",
+                "word": "passion",
+                "range": {
+                  "start": 17,
+                  "end": 29
+                },
+                "types": [
+                  "mango_passion",
+                  "passion"
+                ],
+                "mango": {
+                  "value": "mango",
+                  "text": "mango",
+                  "marker": "mango",
+                  "word": "mango",
+                  "range": {
+                    "start": 17,
+                    "end": 21
+                  },
+                  "types": [
+                    "mango"
+                  ],
+                  "level": 0
+                },
+                "atomic": true,
+                "dead": true,
+                "modifiers": [
+                  "mango"
+                ],
+                "level": 1
+              },
+              {
+                "value": "wild_berry",
+                "number": "one",
+                "text": "wild berry",
+                "marker": "wild_berry",
+                "word": "berry",
+                "range": {
+                  "start": 31,
+                  "end": 40
+                },
+                "types": [
+                  "berry",
+                  "wild_berry"
+                ],
+                "wild": {
+                  "value": "wild",
+                  "text": "wild",
+                  "marker": "wild",
+                  "word": "wild",
+                  "range": {
+                    "start": 31,
+                    "end": 34
+                  },
+                  "types": [
+                    "wild"
+                  ],
+                  "level": 0
+                },
+                "atomic": true,
+                "dead": true,
+                "modifiers": [
+                  "wild"
+                ],
+                "level": 1
+              },
+              {
+                "value": "strawberry_banana",
+                "number": "one",
+                "text": "strawberry banana",
+                "marker": "strawberry_banana",
+                "word": "banana",
+                "range": {
+                  "start": 46,
+                  "end": 62
+                },
+                "types": [
+                  "banana",
+                  "strawberry_banana"
+                ],
+                "strawberry": {
+                  "value": "strawberry",
+                  "text": "strawberry",
+                  "marker": "strawberry",
+                  "word": "strawberry",
+                  "range": {
+                    "start": 46,
+                    "end": 55
+                  },
+                  "types": [
+                    "strawberry"
+                  ],
+                  "level": 0
+                },
+                "atomic": true,
+                "dead": true,
+                "modifiers": [
+                  "strawberry"
+                ],
+                "level": 1
+              }
+            ],
+            "level": 1
+          },
+          "two": {
+            "value": "smoothie_ingredient",
+            "number": "many",
+            "text": "smoothie ingredients",
+            "marker": "smoothie_ingredient",
+            "word": "ingredients",
+            "range": {
+              "start": 68,
+              "end": 87
+            },
+            "types": [
+              "ingredient",
+              "smoothie_ingredient"
+            ],
+            "smoothie": {
+              "value": "smoothie",
+              "text": "smoothie",
+              "marker": "smoothie",
+              "word": "smoothie",
+              "range": {
+                "start": 68,
+                "end": 75
+              },
+              "types": [
+                "smoothie"
+              ],
+              "level": 0
+            },
+            "atomic": true,
+            "dead": true,
+            "modifiers": [
+              "smoothie"
+            ],
+            "level": 1,
+            "concept": true
+          },
+          "dead": true,
+          "level": 2,
+          "topLevel": true,
+          "touchedBy": [
+            "fastfood#call2"
+          ]
+        }
+      ],
+      "generated": [
+        ""
+      ],
+      "paraphrases": [
+        "strawberry, guava, mango passion, wild berry and strawberry banana are smoothie ingredients"
+      ],
+      "paraphrasesParenthesized": [],
+      "generatedParenthesized": [],
+      "responses": [
+        ""
+      ],
+      "associations": [
+        [
+          [
+            "banana",
+            0
+          ],
+          [
+            "berry",
+            0
+          ],
+          [
+            "guava",
+            0
+          ],
+          [
+            "ingredient",
+            0
+          ],
+          [
+            "is",
+            0
+          ],
+          [
+            "list",
+            0
+          ],
+          [
+            "mango",
+            0
+          ],
+          [
+            "passion",
+            0
+          ],
+          [
+            "smoothie",
+            0
+          ],
+          [
+            "strawberry",
+            0
+          ],
+          [
+            "wild",
+            0
+          ]
+        ],
+        [
+          [
+            "banana",
+            0
+          ],
+          [
+            "berry",
+            0
+          ],
+          [
+            "guava",
+            0
+          ],
+          [
+            "is",
+            0
+          ],
+          [
+            "list",
+            0
+          ],
+          [
+            "mango",
+            0
+          ],
+          [
+            "passion",
+            0
+          ],
+          [
+            "strawberry",
+            0
+          ],
+          [
+            "wild",
+            0
+          ]
+        ],
+        [
+          [
+            "banana",
+            0
+          ],
+          [
+            "berry",
+            0
+          ],
+          [
+            "guava",
+            0
+          ],
+          [
+            "mango",
+            0
+          ],
+          [
+            "passion",
+            0
+          ],
+          [
+            "smoothie",
+            0
+          ],
+          [
+            "strawberry",
+            0
+          ],
+          [
+            "wild",
+            0
+          ]
+        ],
+        [
+          [
+            "banana",
+            0
+          ],
+          [
+            "berry",
+            0
+          ],
+          [
+            "is",
+            0
+          ],
+          [
+            "list",
+            0
+          ],
+          [
+            "mango",
+            0
+          ],
+          [
+            "passion",
+            0
+          ],
+          [
+            "strawberry",
+            0
+          ],
+          [
+            "wild",
+            0
+          ]
+        ],
+        [
+          [
+            "banana",
+            0
+          ],
+          [
+            "berry",
+            0
+          ],
+          [
+            "is",
+            0
+          ],
+          [
+            "list",
+            0
+          ],
+          [
+            "strawberry",
+            0
+          ],
+          [
+            "wild",
+            0
+          ]
+        ],
+        [
+          [
+            "banana",
+            0
+          ],
+          [
+            "is",
+            0
+          ],
+          [
+            "list",
+            0
+          ],
+          [
+            "strawberry",
+            0
+          ]
+        ],
+        [
+          [
+            "is",
+            0
+          ],
+          [
+            "list",
+            0
+          ]
+        ],
+        [
+          [
+            "is",
+            0
+          ],
+          [
+            "list",
+            0
+          ],
+          [
+            "strawberry",
+            0
+          ]
+        ],
+        [
+          [
+            "is",
+            0
+          ],
+          [
+            "list",
+            1
+          ]
+        ]
+      ],
+      "learned_contextual_priorities": [],
+      "query": "strawberry guava mango passion wild berry and strawberry banana are smoothie ingredients",
+      "key": {
+        "query": "strawberry guava mango passion wild berry and strawberry banana are smoothie ingredients"
+      }
+    },
+    {
+      "hierarchy": [
+        [
+          "a",
+          "articlePOS"
+        ],
+        [
+          "adjective",
+          "adjective"
+        ],
+        [
+          "all",
+          "quantifier"
+        ],
+        [
+          "apple",
+          "fruit"
+        ],
+        [
+          "apple",
+          "hierarchyAble"
+        ],
+        [
+          "apple",
+          "isEdee"
+        ],
+        [
+          "apple",
+          "isEder"
+        ],
+        [
+          "apple",
+          "object"
+        ],
+        [
+          "apple",
+          "property"
+        ],
+        [
+          "apple",
+          "queryable"
+        ],
+        [
+          "apple",
+          "theAble"
+        ],
+        [
+          "articlePOS",
+          "articlePOS"
+        ],
+        [
+          "asiago",
+          "hierarchyAble"
+        ],
+        [
+          "asiago",
+          "isEdee"
+        ],
+        [
+          "asiago",
+          "isEder"
+        ],
+        [
+          "asiago",
+          "object"
+        ],
+        [
+          "asiago",
+          "property"
+        ],
+        [
+          "asiago",
+          "queryable"
+        ],
+        [
+          "asiago",
+          "theAble"
+        ],
+        [
+          "asiago_ranch_chicken_club",
+          "adjective"
+        ],
+        [
+          "asiago_ranch_chicken_club",
+          "club"
+        ],
+        [
+          "asiago_ranch_chicken_club",
+          "concept"
+        ],
+        [
+          "asiago_ranch_chicken_club",
+          "hierarchyAble"
+        ],
+        [
+          "asiago_ranch_chicken_club",
+          "isEdee"
+        ],
+        [
+          "asiago_ranch_chicken_club",
+          "isEder"
+        ],
+        [
+          "asiago_ranch_chicken_club",
+          "object"
+        ],
+        [
+          "asiago_ranch_chicken_club",
+          "property"
+        ],
+        [
+          "asiago_ranch_chicken_club",
+          "queryable"
+        ],
+        [
+          "asiago_ranch_chicken_club",
+          "theAble"
+        ],
+        [
+          "bacon",
+          "hierarchyAble"
+        ],
+        [
+          "bacon",
+          "isEdee"
+        ],
+        [
+          "bacon",
+          "isEder"
+        ],
+        [
+          "bacon",
+          "object"
+        ],
+        [
+          "bacon",
+          "property"
+        ],
+        [
+          "bacon",
+          "queryable"
+        ],
+        [
+          "bacon",
+          "theAble"
+        ],
+        [
+          "bacon_deluxe",
+          "adjective"
+        ],
+        [
+          "bacon_deluxe",
+          "concept"
+        ],
+        [
+          "bacon_deluxe",
+          "deluxe"
+        ],
+        [
+          "bacon_deluxe",
+          "hierarchyAble"
+        ],
+        [
+          "bacon_deluxe",
+          "isEdee"
+        ],
+        [
+          "bacon_deluxe",
+          "isEder"
+        ],
+        [
+          "bacon_deluxe",
+          "object"
+        ],
+        [
+          "bacon_deluxe",
+          "property"
+        ],
+        [
+          "bacon_deluxe",
+          "queryable"
+        ],
+        [
+          "bacon_deluxe",
+          "theAble"
+        ],
+        [
+          "banana",
+          "concept"
+        ],
+        [
+          "banana",
+          "fruit"
+        ],
+        [
+          "banana",
+          "hierarchyAble"
+        ],
+        [
+          "banana",
+          "isEdee"
+        ],
+        [
+          "banana",
+          "isEder"
+        ],
+        [
+          "banana",
+          "object"
+        ],
+        [
+          "banana",
+          "property"
+        ],
+        [
+          "banana",
+          "queryable"
+        ],
+        [
+          "banana",
+          "theAble"
+        ],
+        [
+          "berry",
+          "concept"
+        ],
+        [
+          "berry",
+          "hierarchyAble"
+        ],
+        [
+          "berry",
+          "isEdee"
+        ],
+        [
+          "berry",
+          "isEder"
+        ],
+        [
+          "berry",
+          "object"
+        ],
+        [
+          "berry",
+          "property"
+        ],
+        [
+          "berry",
+          "queryable"
+        ],
+        [
+          "berry",
+          "theAble"
+        ],
+        [
+          "between",
+          "preposition"
+        ],
+        [
+          "brocoli",
+          "hierarchyAble"
+        ],
+        [
+          "brocoli",
+          "isEdee"
+        ],
+        [
+          "brocoli",
+          "isEder"
+        ],
+        [
+          "brocoli",
+          "object"
+        ],
+        [
+          "brocoli",
+          "property"
+        ],
+        [
+          "brocoli",
+          "queryable"
+        ],
+        [
+          "brocoli",
+          "theAble"
+        ],
+        [
+          "brocoli",
+          "vegetable"
+        ],
+        [
+          "cabbage",
+          "hierarchyAble"
+        ],
+        [
+          "cabbage",
+          "isEdee"
+        ],
+        [
+          "cabbage",
+          "isEder"
+        ],
+        [
+          "cabbage",
+          "object"
+        ],
+        [
+          "cabbage",
+          "property"
+        ],
+        [
+          "cabbage",
+          "queryable"
+        ],
+        [
+          "cabbage",
+          "theAble"
+        ],
+        [
+          "cabbage",
+          "vegetable"
+        ],
+        [
+          "canBeDoQuestion",
+          "canBeDoQuestion"
+        ],
+        [
+          "canBeQuestion",
+          "canBeQuestion"
+        ],
+        [
+          "carrot",
+          "hierarchyAble"
+        ],
+        [
+          "carrot",
+          "isEdee"
+        ],
+        [
+          "carrot",
+          "isEder"
+        ],
+        [
+          "carrot",
+          "object"
+        ],
+        [
+          "carrot",
+          "property"
+        ],
+        [
+          "carrot",
+          "queryable"
+        ],
+        [
+          "carrot",
+          "theAble"
+        ],
+        [
+          "carrot",
+          "vegetable"
+        ],
+        [
+          "changes",
+          "event"
+        ],
+        [
+          "changes",
+          "verby"
+        ],
+        [
+          "chicken",
+          "hierarchyAble"
+        ],
+        [
+          "chicken",
+          "isEdee"
+        ],
+        [
+          "chicken",
+          "isEder"
+        ],
+        [
+          "chicken",
+          "object"
+        ],
+        [
+          "chicken",
+          "property"
+        ],
+        [
+          "chicken",
+          "queryable"
+        ],
+        [
+          "chicken",
+          "theAble"
+        ],
+        [
+          "chicken_sandwich",
+          "adjective"
+        ],
+        [
+          "chicken_sandwich",
+          "concept"
+        ],
+        [
+          "chicken_sandwich",
+          "hierarchyAble"
+        ],
+        [
+          "chicken_sandwich",
+          "isEdee"
+        ],
+        [
+          "chicken_sandwich",
+          "isEder"
+        ],
+        [
+          "chicken_sandwich",
+          "object"
+        ],
+        [
+          "chicken_sandwich",
+          "property"
+        ],
+        [
+          "chicken_sandwich",
+          "queryable"
+        ],
+        [
+          "chicken_sandwich",
+          "sandwich"
+        ],
+        [
+          "chicken_sandwich",
+          "theAble"
+        ],
+        [
+          "chicken_strip",
+          "adjective"
+        ],
+        [
+          "chicken_strip",
+          "concept"
+        ],
+        [
+          "chicken_strip",
+          "food"
+        ],
+        [
+          "chicken_strip",
+          "hierarchyAble"
+        ],
+        [
+          "chicken_strip",
+          "isEdee"
+        ],
+        [
+          "chicken_strip",
+          "isEder"
+        ],
+        [
+          "chicken_strip",
+          "object"
+        ],
+        [
+          "chicken_strip",
+          "property"
+        ],
+        [
+          "chicken_strip",
+          "queryable"
+        ],
+        [
+          "chicken_strip",
+          "strip"
+        ],
+        [
+          "chicken_strip",
+          "theAble"
+        ],
+        [
+          "club",
+          "concept"
+        ],
+        [
+          "club",
+          "hierarchyAble"
+        ],
+        [
+          "club",
+          "isEdee"
+        ],
+        [
+          "club",
+          "isEder"
+        ],
+        [
+          "club",
+          "object"
+        ],
+        [
+          "club",
+          "property"
+        ],
+        [
+          "club",
+          "queryable"
+        ],
+        [
+          "club",
+          "theAble"
+        ],
+        [
+          "cod",
+          "concept"
+        ],
+        [
+          "cod",
+          "hierarchyAble"
+        ],
+        [
+          "cod",
+          "isEdee"
+        ],
+        [
+          "cod",
+          "isEder"
+        ],
+        [
+          "cod",
+          "object"
+        ],
+        [
+          "cod",
+          "property"
+        ],
+        [
+          "cod",
+          "queryable"
+        ],
+        [
+          "cod",
+          "theAble"
+        ],
+        [
+          "concept",
+          "queryable"
+        ],
+        [
+          "concept",
+          "theAble"
+        ],
+        [
+          "countable",
+          "hierarchyAble"
+        ],
+        [
+          "deluxe",
+          "concept"
+        ],
+        [
+          "deluxe",
+          "hierarchyAble"
+        ],
+        [
+          "deluxe",
+          "isEdee"
+        ],
+        [
+          "deluxe",
+          "isEder"
+        ],
+        [
+          "deluxe",
+          "object"
+        ],
+        [
+          "deluxe",
+          "property"
+        ],
+        [
+          "deluxe",
+          "queryable"
+        ],
+        [
+          "deluxe",
+          "theAble"
+        ],
+        [
+          "dog",
+          "concept"
+        ],
+        [
+          "dog",
+          "hierarchyAble"
+        ],
+        [
+          "dog",
+          "isEdee"
+        ],
+        [
+          "dog",
+          "isEder"
+        ],
+        [
+          "dog",
+          "object"
+        ],
+        [
+          "dog",
+          "property"
+        ],
+        [
+          "dog",
+          "queryable"
+        ],
+        [
+          "dog",
+          "theAble"
+        ],
+        [
+          "drink",
+          "countable"
+        ],
+        [
+          "drink",
+          "edible"
+        ],
+        [
+          "drink",
+          "hierarchyAble"
+        ],
+        [
+          "drink",
+          "isEdee"
+        ],
+        [
+          "drink",
+          "isEder"
+        ],
+        [
+          "drink",
+          "object"
+        ],
+        [
+          "drink",
+          "property"
+        ],
+        [
+          "drink",
+          "queryable"
+        ],
+        [
+          "drink",
+          "theAble"
+        ],
+        [
+          "edible",
+          "hierarchyAble"
+        ],
+        [
+          "edible",
+          "isEdee"
+        ],
+        [
+          "edible",
+          "isEder"
+        ],
+        [
+          "edible",
+          "object"
+        ],
+        [
+          "edible",
+          "property"
+        ],
+        [
+          "edible",
+          "queryable"
+        ],
+        [
+          "edible",
+          "theAble"
+        ],
+        [
+          "event",
+          "event"
+        ],
+        [
+          "food",
+          "countable"
+        ],
+        [
+          "food",
+          "edible"
+        ],
+        [
+          "food",
+          "hierarchyAble"
+        ],
+        [
+          "food",
+          "isEdee"
+        ],
+        [
+          "food",
+          "isEder"
+        ],
+        [
+          "food",
+          "object"
+        ],
+        [
+          "food",
+          "property"
+        ],
+        [
+          "food",
+          "queryable"
+        ],
+        [
+          "food",
+          "theAble"
+        ],
+        [
+          "french",
+          "hierarchyAble"
+        ],
+        [
+          "french",
+          "isEdee"
+        ],
+        [
+          "french",
+          "isEder"
+        ],
+        [
+          "french",
+          "object"
+        ],
+        [
+          "french",
+          "property"
+        ],
+        [
+          "french",
+          "queryable"
+        ],
+        [
+          "french",
+          "theAble"
+        ],
+        [
+          "french_fry",
+          "adjective"
+        ],
+        [
+          "french_fry",
+          "concept"
+        ],
+        [
+          "french_fry",
+          "food"
+        ],
+        [
+          "french_fry",
+          "fry"
+        ],
+        [
+          "french_fry",
+          "hierarchyAble"
+        ],
+        [
+          "french_fry",
+          "isEdee"
+        ],
+        [
+          "french_fry",
+          "isEder"
+        ],
+        [
+          "french_fry",
+          "object"
+        ],
+        [
+          "french_fry",
+          "property"
+        ],
+        [
+          "french_fry",
+          "queryable"
+        ],
+        [
+          "french_fry",
+          "theAble"
+        ],
+        [
+          "fruit",
+          "food"
+        ],
+        [
+          "fruit",
+          "hierarchyAble"
+        ],
+        [
+          "fruit",
+          "isEdee"
+        ],
+        [
+          "fruit",
+          "isEder"
+        ],
+        [
+          "fruit",
+          "object"
+        ],
+        [
+          "fruit",
+          "property"
+        ],
+        [
+          "fruit",
+          "queryable"
+        ],
+        [
+          "fruit",
+          "theAble"
+        ],
+        [
+          "fry",
+          "concept"
+        ],
+        [
+          "fry",
+          "hierarchyAble"
+        ],
+        [
+          "fry",
+          "isEdee"
+        ],
+        [
+          "fry",
+          "isEder"
+        ],
+        [
+          "fry",
+          "object"
+        ],
+        [
+          "fry",
+          "property"
+        ],
+        [
+          "fry",
+          "queryable"
+        ],
+        [
+          "fry",
+          "theAble"
+        ],
+        [
+          "grill",
+          "concept"
+        ],
+        [
+          "grill",
+          "hierarchyAble"
+        ],
+        [
+          "grill",
+          "isEdee"
+        ],
+        [
+          "grill",
+          "isEder"
+        ],
+        [
+          "grill",
+          "object"
+        ],
+        [
+          "grill",
+          "property"
+        ],
+        [
+          "grill",
+          "queryable"
+        ],
+        [
+          "grill",
+          "theAble"
+        ],
+        [
+          "guava",
+          "countable"
+        ],
+        [
+          "guava",
+          "hierarchyAble"
+        ],
+        [
+          "guava",
+          "isEdee"
+        ],
+        [
+          "guava",
+          "isEder"
+        ],
+        [
+          "guava",
+          "object"
+        ],
+        [
+          "guava",
+          "property"
+        ],
+        [
+          "guava",
+          "queryable"
+        ],
+        [
+          "guava",
+          "smoothie_ingredient"
+        ],
+        [
+          "guava",
+          "theAble"
+        ],
+        [
+          "guava_smoothie",
+          "adjective"
+        ],
+        [
+          "guava_smoothie",
+          "concept"
+        ],
+        [
+          "guava_smoothie",
+          "hierarchyAble"
+        ],
+        [
+          "guava_smoothie",
+          "isEdee"
+        ],
+        [
+          "guava_smoothie",
+          "isEder"
+        ],
+        [
+          "guava_smoothie",
+          "object"
+        ],
+        [
+          "guava_smoothie",
+          "property"
+        ],
+        [
+          "guava_smoothie",
+          "queryable"
+        ],
+        [
+          "guava_smoothie",
+          "smoothie"
+        ],
+        [
+          "guava_smoothie",
+          "theAble"
+        ],
+        [
+          "hamburger",
+          "hierarchyAble"
+        ],
+        [
+          "hamburger",
+          "isEdee"
+        ],
+        [
+          "hamburger",
+          "isEder"
+        ],
+        [
+          "hamburger",
+          "object"
+        ],
+        [
+          "hamburger",
+          "property"
+        ],
+        [
+          "hamburger",
+          "queryable"
+        ],
+        [
+          "hamburger",
+          "sandwich"
+        ],
+        [
+          "hamburger",
+          "theAble"
+        ],
+        [
+          "have",
+          "canBeDoQuestion"
+        ],
+        [
+          "have",
+          "canBeQuestion"
+        ],
+        [
+          "hierarchyAble",
+          "queryable"
+        ],
+        [
+          "hot",
+          "hierarchyAble"
+        ],
+        [
+          "hot",
+          "isEdee"
+        ],
+        [
+          "hot",
+          "isEder"
+        ],
+        [
+          "hot",
+          "object"
+        ],
+        [
+          "hot",
+          "property"
+        ],
+        [
+          "hot",
+          "queryable"
+        ],
+        [
+          "hot",
+          "theAble"
+        ],
+        [
+          "hot_dog",
+          "adjective"
+        ],
+        [
+          "hot_dog",
+          "concept"
+        ],
+        [
+          "hot_dog",
+          "dog"
+        ],
+        [
+          "hot_dog",
+          "hierarchyAble"
+        ],
+        [
+          "hot_dog",
+          "isEdee"
+        ],
+        [
+          "hot_dog",
+          "isEder"
+        ],
+        [
+          "hot_dog",
+          "object"
+        ],
+        [
+          "hot_dog",
+          "property"
+        ],
+        [
+          "hot_dog",
+          "queryable"
+        ],
+        [
+          "hot_dog",
+          "sausage"
+        ],
+        [
+          "hot_dog",
+          "theAble"
+        ],
+        [
+          "ifAble",
+          "ifAble"
+        ],
+        [
+          "ingredient",
+          "concept"
+        ],
+        [
+          "ingredient",
+          "hierarchyAble"
+        ],
+        [
+          "ingredient",
+          "isEdee"
+        ],
+        [
+          "ingredient",
+          "isEder"
+        ],
+        [
+          "ingredient",
+          "object"
+        ],
+        [
+          "ingredient",
+          "property"
+        ],
+        [
+          "ingredient",
+          "queryable"
+        ],
+        [
+          "ingredient",
+          "theAble"
+        ],
+        [
+          "is",
+          "canBeQuestion"
+        ],
+        [
+          "is",
+          "verby"
+        ],
+        [
+          "isEdee",
+          "isEdee"
+        ],
+        [
+          "isEder",
+          "isEder"
+        ],
+        [
+          "it",
+          "pronoun"
+        ],
+        [
+          "it",
+          "queryable"
+        ],
+        [
+          "it",
+          "thisitthat"
+        ],
+        [
+          "it",
+          "toAble"
+        ],
+        [
+          "juice",
+          "drink"
+        ],
+        [
+          "juice",
+          "hierarchyAble"
+        ],
+        [
+          "juice",
+          "isEdee"
+        ],
+        [
+          "juice",
+          "isEder"
+        ],
+        [
+          "juice",
+          "object"
+        ],
+        [
+          "juice",
+          "property"
+        ],
+        [
+          "juice",
+          "queryable"
+        ],
+        [
+          "juice",
+          "theAble"
+        ],
+        [
+          "mango",
+          "hierarchyAble"
+        ],
+        [
+          "mango",
+          "isEdee"
+        ],
+        [
+          "mango",
+          "isEder"
+        ],
+        [
+          "mango",
+          "object"
+        ],
+        [
+          "mango",
+          "property"
+        ],
+        [
+          "mango",
+          "queryable"
+        ],
+        [
+          "mango",
+          "theAble"
+        ],
+        [
+          "mango_passion",
+          "adjective"
+        ],
+        [
+          "mango_passion",
+          "concept"
+        ],
+        [
+          "mango_passion",
+          "countable"
+        ],
+        [
+          "mango_passion",
+          "hierarchyAble"
+        ],
+        [
+          "mango_passion",
+          "isEdee"
+        ],
+        [
+          "mango_passion",
+          "isEder"
+        ],
+        [
+          "mango_passion",
+          "object"
+        ],
+        [
+          "mango_passion",
+          "passion"
+        ],
+        [
+          "mango_passion",
+          "property"
+        ],
+        [
+          "mango_passion",
+          "queryable"
+        ],
+        [
+          "mango_passion",
+          "smoothie_ingredient"
+        ],
+        [
+          "mango_passion",
+          "theAble"
+        ],
+        [
+          "mango_passion_smoothie",
+          "adjective"
+        ],
+        [
+          "mango_passion_smoothie",
+          "concept"
+        ],
+        [
+          "mango_passion_smoothie",
+          "hierarchyAble"
+        ],
+        [
+          "mango_passion_smoothie",
+          "isEdee"
+        ],
+        [
+          "mango_passion_smoothie",
+          "isEder"
+        ],
+        [
+          "mango_passion_smoothie",
+          "object"
+        ],
+        [
+          "mango_passion_smoothie",
+          "property"
+        ],
+        [
+          "mango_passion_smoothie",
+          "queryable"
+        ],
+        [
+          "mango_passion_smoothie",
+          "smoothie"
+        ],
+        [
+          "mango_passion_smoothie",
+          "theAble"
+        ],
+        [
+          "meat",
+          "food"
+        ],
+        [
+          "meat",
+          "hierarchyAble"
+        ],
+        [
+          "meat",
+          "isEdee"
+        ],
+        [
+          "meat",
+          "isEder"
+        ],
+        [
+          "meat",
+          "object"
+        ],
+        [
+          "meat",
+          "property"
+        ],
+        [
+          "meat",
+          "queryable"
+        ],
+        [
+          "meat",
+          "theAble"
+        ],
+        [
+          "modifies",
+          "verby"
+        ],
+        [
+          "notAble",
+          "notAble"
+        ],
+        [
+          "noun",
+          "theAble"
+        ],
+        [
+          "number",
+          "quantifier"
+        ],
+        [
+          "number",
+          "queryable"
+        ],
+        [
+          "object",
+          "queryable"
+        ],
+        [
+          "object",
+          "theAble"
+        ],
+        [
+          "orAble",
+          "ifAble"
+        ],
+        [
+          "orange",
+          "fruit"
+        ],
+        [
+          "orange",
+          "hierarchyAble"
+        ],
+        [
+          "orange",
+          "isEdee"
+        ],
+        [
+          "orange",
+          "isEder"
+        ],
+        [
+          "orange",
+          "object"
+        ],
+        [
+          "orange",
+          "property"
+        ],
+        [
+          "orange",
+          "queryable"
+        ],
+        [
+          "orange",
+          "theAble"
+        ],
+        [
+          "orderNoun",
+          "noun"
+        ],
+        [
+          "orderNoun",
+          "queryable"
+        ],
+        [
+          "passion",
+          "concept"
+        ],
+        [
+          "passion",
+          "hierarchyAble"
+        ],
+        [
+          "passion",
+          "isEdee"
+        ],
+        [
+          "passion",
+          "isEder"
+        ],
+        [
+          "passion",
+          "object"
+        ],
+        [
+          "passion",
+          "property"
+        ],
+        [
+          "passion",
+          "queryable"
+        ],
+        [
+          "passion",
+          "theAble"
+        ],
+        [
+          "pea",
+          "hierarchyAble"
+        ],
+        [
+          "pea",
+          "isEdee"
+        ],
+        [
+          "pea",
+          "isEder"
+        ],
+        [
+          "pea",
+          "object"
+        ],
+        [
+          "pea",
+          "property"
+        ],
+        [
+          "pea",
+          "queryable"
+        ],
+        [
+          "pea",
+          "theAble"
+        ],
+        [
+          "pea",
+          "vegetable"
+        ],
+        [
+          "pop",
+          "drink"
+        ],
+        [
+          "pop",
+          "hierarchyAble"
+        ],
+        [
+          "pop",
+          "isEdee"
+        ],
+        [
+          "pop",
+          "isEder"
+        ],
+        [
+          "pop",
+          "object"
+        ],
+        [
+          "pop",
+          "property"
+        ],
+        [
+          "pop",
+          "queryable"
+        ],
+        [
+          "pop",
+          "theAble"
+        ],
+        [
+          "premium",
+          "hierarchyAble"
+        ],
+        [
+          "premium",
+          "isEdee"
+        ],
+        [
+          "premium",
+          "isEder"
+        ],
+        [
+          "premium",
+          "object"
+        ],
+        [
+          "premium",
+          "property"
+        ],
+        [
+          "premium",
+          "queryable"
+        ],
+        [
+          "premium",
+          "theAble"
+        ],
+        [
+          "premium_cod",
+          "adjective"
+        ],
+        [
+          "premium_cod",
+          "cod"
+        ],
+        [
+          "premium_cod",
+          "concept"
+        ],
+        [
+          "premium_cod",
+          "hierarchyAble"
+        ],
+        [
+          "premium_cod",
+          "isEdee"
+        ],
+        [
+          "premium_cod",
+          "isEder"
+        ],
+        [
+          "premium_cod",
+          "object"
+        ],
+        [
+          "premium_cod",
+          "property"
+        ],
+        [
+          "premium_cod",
+          "queryable"
+        ],
+        [
+          "premium_cod",
+          "theAble"
+        ],
+        [
+          "preposition",
+          "preposition"
+        ],
+        [
+          "pronoun",
+          "pronoun"
+        ],
+        [
+          "property",
+          "queryable"
+        ],
+        [
+          "property",
+          "theAble"
+        ],
+        [
+          "property",
+          "unknown"
+        ],
+        [
+          "punctuation",
+          "punctuation"
+        ],
+        [
+          "quantifier",
+          "quantifier"
+        ],
+        [
+          "queryable",
+          "queryable"
+        ],
+        [
+          "questionMark",
+          "punctuation"
+        ],
+        [
+          "ranch",
+          "hierarchyAble"
+        ],
+        [
+          "ranch",
+          "isEdee"
+        ],
+        [
+          "ranch",
+          "isEder"
+        ],
+        [
+          "ranch",
+          "object"
+        ],
+        [
+          "ranch",
+          "property"
+        ],
+        [
+          "ranch",
+          "queryable"
+        ],
+        [
+          "ranch",
+          "theAble"
+        ],
+        [
+          "readonly",
+          "queryable"
+        ],
+        [
+          "reason",
+          "queryable"
+        ],
+        [
+          "reason",
+          "theAble"
+        ],
+        [
+          "sandwich",
+          "concept"
+        ],
+        [
+          "sandwich",
+          "food"
+        ],
+        [
+          "sandwich",
+          "hierarchyAble"
+        ],
+        [
+          "sandwich",
+          "isEdee"
+        ],
+        [
+          "sandwich",
+          "isEder"
+        ],
+        [
+          "sandwich",
+          "object"
+        ],
+        [
+          "sandwich",
+          "property"
+        ],
+        [
+          "sandwich",
+          "queryable"
+        ],
+        [
+          "sandwich",
+          "theAble"
+        ],
+        [
+          "sausage",
+          "hierarchyAble"
+        ],
+        [
+          "sausage",
+          "isEdee"
+        ],
+        [
+          "sausage",
+          "isEder"
+        ],
+        [
+          "sausage",
+          "meat"
+        ],
+        [
+          "sausage",
+          "object"
+        ],
+        [
+          "sausage",
+          "property"
+        ],
+        [
+          "sausage",
+          "queryable"
+        ],
+        [
+          "sausage",
+          "theAble"
+        ],
+        [
+          "showOrder",
+          "verby"
+        ],
+        [
+          "smoothie",
+          "concept"
+        ],
+        [
+          "smoothie",
+          "hierarchyAble"
+        ],
+        [
+          "smoothie",
+          "isEdee"
+        ],
+        [
+          "smoothie",
+          "isEder"
+        ],
+        [
+          "smoothie",
+          "object"
+        ],
+        [
+          "smoothie",
+          "property"
+        ],
+        [
+          "smoothie",
+          "queryable"
+        ],
+        [
+          "smoothie",
+          "theAble"
+        ],
+        [
+          "smoothie_ingredient",
+          "adjective"
+        ],
+        [
+          "smoothie_ingredient",
+          "concept"
+        ],
+        [
+          "smoothie_ingredient",
+          "hierarchyAble"
+        ],
+        [
+          "smoothie_ingredient",
+          "ingredient"
+        ],
+        [
+          "smoothie_ingredient",
+          "isEdee"
+        ],
+        [
+          "smoothie_ingredient",
+          "isEder"
+        ],
+        [
+          "smoothie_ingredient",
+          "object"
+        ],
+        [
+          "smoothie_ingredient",
+          "property"
+        ],
+        [
+          "smoothie_ingredient",
+          "queryable"
+        ],
+        [
+          "smoothie_ingredient",
+          "theAble"
+        ],
+        [
+          "soda",
+          "drink"
+        ],
+        [
+          "soda",
+          "hierarchyAble"
+        ],
+        [
+          "soda",
+          "isEdee"
+        ],
+        [
+          "soda",
+          "isEder"
+        ],
+        [
+          "soda",
+          "object"
+        ],
+        [
+          "soda",
+          "property"
+        ],
+        [
+          "soda",
+          "queryable"
+        ],
+        [
+          "soda",
+          "theAble"
+        ],
+        [
+          "strawberry",
+          "countable"
+        ],
+        [
+          "strawberry",
+          "hierarchyAble"
+        ],
+        [
+          "strawberry",
+          "isEdee"
+        ],
+        [
+          "strawberry",
+          "isEder"
+        ],
+        [
+          "strawberry",
+          "object"
+        ],
+        [
+          "strawberry",
+          "property"
+        ],
+        [
+          "strawberry",
+          "queryable"
+        ],
+        [
+          "strawberry",
+          "smoothie_ingredient"
+        ],
+        [
+          "strawberry",
+          "theAble"
+        ],
+        [
+          "strawberry_banana",
+          "adjective"
+        ],
+        [
+          "strawberry_banana",
+          "banana"
+        ],
+        [
+          "strawberry_banana",
+          "concept"
+        ],
+        [
+          "strawberry_banana",
+          "countable"
+        ],
+        [
+          "strawberry_banana",
+          "hierarchyAble"
+        ],
+        [
+          "strawberry_banana",
+          "isEdee"
+        ],
+        [
+          "strawberry_banana",
+          "isEder"
+        ],
+        [
+          "strawberry_banana",
+          "object"
+        ],
+        [
+          "strawberry_banana",
+          "property"
+        ],
+        [
+          "strawberry_banana",
+          "queryable"
+        ],
+        [
+          "strawberry_banana",
+          "smoothie_ingredient"
+        ],
+        [
+          "strawberry_banana",
+          "theAble"
+        ],
+        [
+          "strawberry_banana_smoothie",
+          "adjective"
+        ],
+        [
+          "strawberry_banana_smoothie",
+          "concept"
+        ],
+        [
+          "strawberry_banana_smoothie",
+          "hierarchyAble"
+        ],
+        [
+          "strawberry_banana_smoothie",
+          "isEdee"
+        ],
+        [
+          "strawberry_banana_smoothie",
+          "isEder"
+        ],
+        [
+          "strawberry_banana_smoothie",
+          "object"
+        ],
+        [
+          "strawberry_banana_smoothie",
+          "property"
+        ],
+        [
+          "strawberry_banana_smoothie",
+          "queryable"
+        ],
+        [
+          "strawberry_banana_smoothie",
+          "smoothie"
+        ],
+        [
+          "strawberry_banana_smoothie",
+          "theAble"
+        ],
+        [
+          "strawberry_smoothie",
+          "adjective"
+        ],
+        [
+          "strawberry_smoothie",
+          "concept"
+        ],
+        [
+          "strawberry_smoothie",
+          "hierarchyAble"
+        ],
+        [
+          "strawberry_smoothie",
+          "isEdee"
+        ],
+        [
+          "strawberry_smoothie",
+          "isEder"
+        ],
+        [
+          "strawberry_smoothie",
+          "object"
+        ],
+        [
+          "strawberry_smoothie",
+          "property"
+        ],
+        [
+          "strawberry_smoothie",
+          "queryable"
+        ],
+        [
+          "strawberry_smoothie",
+          "smoothie"
+        ],
+        [
+          "strawberry_smoothie",
+          "theAble"
+        ],
+        [
+          "strip",
+          "concept"
+        ],
+        [
+          "strip",
+          "hierarchyAble"
+        ],
+        [
+          "strip",
+          "isEdee"
+        ],
+        [
+          "strip",
+          "isEder"
+        ],
+        [
+          "strip",
+          "object"
+        ],
+        [
+          "strip",
+          "property"
+        ],
+        [
+          "strip",
+          "queryable"
+        ],
+        [
+          "strip",
+          "theAble"
+        ],
+        [
+          "sushi",
+          "food"
+        ],
+        [
+          "sushi",
+          "hierarchyAble"
+        ],
+        [
+          "sushi",
+          "isEdee"
+        ],
+        [
+          "sushi",
+          "isEder"
+        ],
+        [
+          "sushi",
+          "object"
+        ],
+        [
+          "sushi",
+          "property"
+        ],
+        [
+          "sushi",
+          "queryable"
+        ],
+        [
+          "sushi",
+          "theAble"
+        ],
+        [
+          "that",
+          "thisitthat"
+        ],
+        [
+          "the",
+          "articlePOS"
+        ],
+        [
+          "theAble",
+          "theAble"
+        ],
+        [
+          "this",
+          "pronoun"
+        ],
+        [
+          "this",
+          "queryable"
+        ],
+        [
+          "this",
+          "thisitthat"
+        ],
+        [
+          "thisitthat",
+          "queryable"
+        ],
+        [
+          "toAble",
+          "toAble"
+        ],
+        [
+          "type",
+          "property"
+        ],
+        [
+          "type",
+          "whatAble"
+        ],
+        [
+          "ultimate",
+          "hierarchyAble"
+        ],
+        [
+          "ultimate",
+          "isEdee"
+        ],
+        [
+          "ultimate",
+          "isEder"
+        ],
+        [
+          "ultimate",
+          "object"
+        ],
+        [
+          "ultimate",
+          "property"
+        ],
+        [
+          "ultimate",
+          "queryable"
+        ],
+        [
+          "ultimate",
+          "theAble"
+        ],
+        [
+          "ultimate_chicken_grill",
+          "adjective"
+        ],
+        [
+          "ultimate_chicken_grill",
+          "concept"
+        ],
+        [
+          "ultimate_chicken_grill",
+          "grill"
+        ],
+        [
+          "ultimate_chicken_grill",
+          "hierarchyAble"
+        ],
+        [
+          "ultimate_chicken_grill",
+          "isEdee"
+        ],
+        [
+          "ultimate_chicken_grill",
+          "isEder"
+        ],
+        [
+          "ultimate_chicken_grill",
+          "object"
+        ],
+        [
+          "ultimate_chicken_grill",
+          "property"
+        ],
+        [
+          "ultimate_chicken_grill",
+          "queryable"
+        ],
+        [
+          "ultimate_chicken_grill",
+          "theAble"
+        ],
+        [
+          "unknown",
+          "hierarchyAble"
+        ],
+        [
+          "unknown",
+          "notAble"
+        ],
+        [
+          "unknown",
+          "object"
+        ],
+        [
+          "unknown",
+          "queryable"
+        ],
+        [
+          "unknown",
+          "theAble"
+        ],
+        [
+          "vegetable",
+          "food"
+        ],
+        [
+          "vegetable",
+          "hierarchyAble"
+        ],
+        [
+          "vegetable",
+          "isEdee"
+        ],
+        [
+          "vegetable",
+          "isEder"
+        ],
+        [
+          "vegetable",
+          "object"
+        ],
+        [
+          "vegetable",
+          "property"
+        ],
+        [
+          "vegetable",
+          "queryable"
+        ],
+        [
+          "vegetable",
+          "theAble"
+        ],
+        [
+          "verby",
+          "verby"
+        ],
+        [
+          "waffle",
+          "hierarchyAble"
+        ],
+        [
+          "waffle",
+          "isEdee"
+        ],
+        [
+          "waffle",
+          "isEder"
+        ],
+        [
+          "waffle",
+          "object"
+        ],
+        [
+          "waffle",
+          "property"
+        ],
+        [
+          "waffle",
+          "queryable"
+        ],
+        [
+          "waffle",
+          "theAble"
+        ],
+        [
+          "waffle_fry",
+          "adjective"
+        ],
+        [
+          "waffle_fry",
+          "concept"
+        ],
+        [
+          "waffle_fry",
+          "french_fry"
+        ],
+        [
+          "waffle_fry",
+          "fry"
+        ],
+        [
+          "waffle_fry",
+          "hierarchyAble"
+        ],
+        [
+          "waffle_fry",
+          "isEdee"
+        ],
+        [
+          "waffle_fry",
+          "isEder"
+        ],
+        [
+          "waffle_fry",
+          "object"
+        ],
+        [
+          "waffle_fry",
+          "property"
+        ],
+        [
+          "waffle_fry",
+          "queryable"
+        ],
+        [
+          "waffle_fry",
+          "theAble"
+        ],
+        [
+          "what",
+          "object"
+        ],
+        [
+          "what",
+          "queryable"
+        ],
+        [
+          "whatAble",
+          "queryable"
+        ],
+        [
+          "whose",
+          "object"
+        ],
+        [
+          "wild",
+          "hierarchyAble"
+        ],
+        [
+          "wild",
+          "isEdee"
+        ],
+        [
+          "wild",
+          "isEder"
+        ],
+        [
+          "wild",
+          "object"
+        ],
+        [
+          "wild",
+          "property"
+        ],
+        [
+          "wild",
+          "queryable"
+        ],
+        [
+          "wild",
+          "theAble"
+        ],
+        [
+          "wild_berry",
+          "adjective"
+        ],
+        [
+          "wild_berry",
+          "berry"
+        ],
+        [
+          "wild_berry",
+          "concept"
+        ],
+        [
+          "wild_berry",
+          "countable"
+        ],
+        [
+          "wild_berry",
+          "hierarchyAble"
+        ],
+        [
+          "wild_berry",
+          "isEdee"
+        ],
+        [
+          "wild_berry",
+          "isEder"
+        ],
+        [
+          "wild_berry",
+          "object"
+        ],
+        [
+          "wild_berry",
+          "property"
+        ],
+        [
+          "wild_berry",
+          "queryable"
+        ],
+        [
+          "wild_berry",
+          "smoothie_ingredient"
+        ],
+        [
+          "wild_berry",
+          "theAble"
+        ],
+        [
+          "wild_berry_smoothie",
+          "adjective"
+        ],
+        [
+          "wild_berry_smoothie",
+          "concept"
+        ],
+        [
+          "wild_berry_smoothie",
+          "hierarchyAble"
+        ],
+        [
+          "wild_berry_smoothie",
+          "isEdee"
+        ],
+        [
+          "wild_berry_smoothie",
+          "isEder"
+        ],
+        [
+          "wild_berry_smoothie",
+          "object"
+        ],
+        [
+          "wild_berry_smoothie",
+          "property"
+        ],
+        [
+          "wild_berry_smoothie",
+          "queryable"
+        ],
+        [
+          "wild_berry_smoothie",
+          "smoothie"
+        ],
+        [
+          "wild_berry_smoothie",
+          "theAble"
+        ],
+        [
+          "xfx",
+          "queryable"
+        ]
+      ],
+      "metadata": {
+        "opChoices": [
+          {
+            "op": [
               "smoothie",
               0
             ],
@@ -30673,6 +36484,10 @@
         ],
         [
           "guava",
+          "smoothie_ingredient"
+        ],
+        [
+          "guava",
           "theAble"
         ],
         [
@@ -30836,6 +36651,38 @@
           "ifAble"
         ],
         [
+          "ingredient",
+          "concept"
+        ],
+        [
+          "ingredient",
+          "hierarchyAble"
+        ],
+        [
+          "ingredient",
+          "isEdee"
+        ],
+        [
+          "ingredient",
+          "isEder"
+        ],
+        [
+          "ingredient",
+          "object"
+        ],
+        [
+          "ingredient",
+          "property"
+        ],
+        [
+          "ingredient",
+          "queryable"
+        ],
+        [
+          "ingredient",
+          "theAble"
+        ],
+        [
           "is",
           "canBeQuestion"
         ],
@@ -30966,6 +36813,10 @@
         [
           "mango_passion",
           "queryable"
+        ],
+        [
+          "mango_passion",
+          "smoothie_ingredient"
         ],
         [
           "mango_passion",
@@ -31464,6 +37315,46 @@
           "theAble"
         ],
         [
+          "smoothie_ingredient",
+          "adjective"
+        ],
+        [
+          "smoothie_ingredient",
+          "concept"
+        ],
+        [
+          "smoothie_ingredient",
+          "hierarchyAble"
+        ],
+        [
+          "smoothie_ingredient",
+          "ingredient"
+        ],
+        [
+          "smoothie_ingredient",
+          "isEdee"
+        ],
+        [
+          "smoothie_ingredient",
+          "isEder"
+        ],
+        [
+          "smoothie_ingredient",
+          "object"
+        ],
+        [
+          "smoothie_ingredient",
+          "property"
+        ],
+        [
+          "smoothie_ingredient",
+          "queryable"
+        ],
+        [
+          "smoothie_ingredient",
+          "theAble"
+        ],
+        [
           "soda",
           "drink"
         ],
@@ -31525,6 +37416,10 @@
         ],
         [
           "strawberry",
+          "smoothie_ingredient"
+        ],
+        [
+          "strawberry",
           "theAble"
         ],
         [
@@ -31566,6 +37461,10 @@
         [
           "strawberry_banana",
           "queryable"
+        ],
+        [
+          "strawberry_banana",
+          "smoothie_ingredient"
         ],
         [
           "strawberry_banana",
@@ -32034,6 +37933,10 @@
         [
           "wild_berry",
           "queryable"
+        ],
+        [
+          "wild_berry",
+          "smoothie_ingredient"
         ],
         [
           "wild_berry",
@@ -33367,6 +39270,10 @@
         ],
         [
           "guava",
+          "smoothie_ingredient"
+        ],
+        [
+          "guava",
           "theAble"
         ],
         [
@@ -33530,6 +39437,38 @@
           "ifAble"
         ],
         [
+          "ingredient",
+          "concept"
+        ],
+        [
+          "ingredient",
+          "hierarchyAble"
+        ],
+        [
+          "ingredient",
+          "isEdee"
+        ],
+        [
+          "ingredient",
+          "isEder"
+        ],
+        [
+          "ingredient",
+          "object"
+        ],
+        [
+          "ingredient",
+          "property"
+        ],
+        [
+          "ingredient",
+          "queryable"
+        ],
+        [
+          "ingredient",
+          "theAble"
+        ],
+        [
           "is",
           "canBeQuestion"
         ],
@@ -33660,6 +39599,10 @@
         [
           "mango_passion",
           "queryable"
+        ],
+        [
+          "mango_passion",
+          "smoothie_ingredient"
         ],
         [
           "mango_passion",
@@ -34158,6 +40101,46 @@
           "theAble"
         ],
         [
+          "smoothie_ingredient",
+          "adjective"
+        ],
+        [
+          "smoothie_ingredient",
+          "concept"
+        ],
+        [
+          "smoothie_ingredient",
+          "hierarchyAble"
+        ],
+        [
+          "smoothie_ingredient",
+          "ingredient"
+        ],
+        [
+          "smoothie_ingredient",
+          "isEdee"
+        ],
+        [
+          "smoothie_ingredient",
+          "isEder"
+        ],
+        [
+          "smoothie_ingredient",
+          "object"
+        ],
+        [
+          "smoothie_ingredient",
+          "property"
+        ],
+        [
+          "smoothie_ingredient",
+          "queryable"
+        ],
+        [
+          "smoothie_ingredient",
+          "theAble"
+        ],
+        [
           "soda",
           "drink"
         ],
@@ -34219,6 +40202,10 @@
         ],
         [
           "strawberry",
+          "smoothie_ingredient"
+        ],
+        [
+          "strawberry",
           "theAble"
         ],
         [
@@ -34260,6 +40247,10 @@
         [
           "strawberry_banana",
           "queryable"
+        ],
+        [
+          "strawberry_banana",
+          "smoothie_ingredient"
         ],
         [
           "strawberry_banana",
@@ -34728,6 +40719,10 @@
         [
           "wild_berry",
           "queryable"
+        ],
+        [
+          "wild_berry",
+          "smoothie_ingredient"
         ],
         [
           "wild_berry",
@@ -36404,6 +42399,10 @@
         ],
         [
           "guava",
+          "smoothie_ingredient"
+        ],
+        [
+          "guava",
           "theAble"
         ],
         [
@@ -36567,6 +42566,38 @@
           "ifAble"
         ],
         [
+          "ingredient",
+          "concept"
+        ],
+        [
+          "ingredient",
+          "hierarchyAble"
+        ],
+        [
+          "ingredient",
+          "isEdee"
+        ],
+        [
+          "ingredient",
+          "isEder"
+        ],
+        [
+          "ingredient",
+          "object"
+        ],
+        [
+          "ingredient",
+          "property"
+        ],
+        [
+          "ingredient",
+          "queryable"
+        ],
+        [
+          "ingredient",
+          "theAble"
+        ],
+        [
           "is",
           "canBeQuestion"
         ],
@@ -36697,6 +42728,10 @@
         [
           "mango_passion",
           "queryable"
+        ],
+        [
+          "mango_passion",
+          "smoothie_ingredient"
         ],
         [
           "mango_passion",
@@ -37227,6 +43262,46 @@
           "theAble"
         ],
         [
+          "smoothie_ingredient",
+          "adjective"
+        ],
+        [
+          "smoothie_ingredient",
+          "concept"
+        ],
+        [
+          "smoothie_ingredient",
+          "hierarchyAble"
+        ],
+        [
+          "smoothie_ingredient",
+          "ingredient"
+        ],
+        [
+          "smoothie_ingredient",
+          "isEdee"
+        ],
+        [
+          "smoothie_ingredient",
+          "isEder"
+        ],
+        [
+          "smoothie_ingredient",
+          "object"
+        ],
+        [
+          "smoothie_ingredient",
+          "property"
+        ],
+        [
+          "smoothie_ingredient",
+          "queryable"
+        ],
+        [
+          "smoothie_ingredient",
+          "theAble"
+        ],
+        [
           "soda",
           "drink"
         ],
@@ -37288,6 +43363,10 @@
         ],
         [
           "strawberry",
+          "smoothie_ingredient"
+        ],
+        [
+          "strawberry",
           "theAble"
         ],
         [
@@ -37329,6 +43408,10 @@
         [
           "strawberry_banana",
           "queryable"
+        ],
+        [
+          "strawberry_banana",
+          "smoothie_ingredient"
         ],
         [
           "strawberry_banana",
@@ -37832,6 +43915,10 @@
         ],
         [
           "wild_berry",
+          "smoothie_ingredient"
+        ],
+        [
+          "wild_berry",
           "theAble"
         ],
         [
@@ -37940,7 +44027,7 @@
                 0
               ],
               [
-                "premium_cod",
+                "asiago_ranch_chicken_club",
                 0
               ],
               [
@@ -37948,7 +44035,7 @@
                 0
               ],
               [
-                "asiago_ranch_chicken_club",
+                "premium_cod",
                 0
               ]
             ],
@@ -38009,7 +44096,7 @@
                 0
               ],
               [
-                "premium_cod",
+                "asiago_ranch_chicken_club",
                 0
               ],
               [
@@ -38017,7 +44104,7 @@
                 0
               ],
               [
-                "asiago_ranch_chicken_club",
+                "premium_cod",
                 0
               ]
             ],
@@ -39850,6 +45937,10 @@
         ],
         [
           "guava",
+          "smoothie_ingredient"
+        ],
+        [
+          "guava",
           "theAble"
         ],
         [
@@ -40045,6 +46136,38 @@
           "ifAble"
         ],
         [
+          "ingredient",
+          "concept"
+        ],
+        [
+          "ingredient",
+          "hierarchyAble"
+        ],
+        [
+          "ingredient",
+          "isEdee"
+        ],
+        [
+          "ingredient",
+          "isEder"
+        ],
+        [
+          "ingredient",
+          "object"
+        ],
+        [
+          "ingredient",
+          "property"
+        ],
+        [
+          "ingredient",
+          "queryable"
+        ],
+        [
+          "ingredient",
+          "theAble"
+        ],
+        [
           "is",
           "canBeQuestion"
         ],
@@ -40175,6 +46298,10 @@
         [
           "mango_passion",
           "queryable"
+        ],
+        [
+          "mango_passion",
+          "smoothie_ingredient"
         ],
         [
           "mango_passion",
@@ -40709,6 +46836,46 @@
           "theAble"
         ],
         [
+          "smoothie_ingredient",
+          "adjective"
+        ],
+        [
+          "smoothie_ingredient",
+          "concept"
+        ],
+        [
+          "smoothie_ingredient",
+          "hierarchyAble"
+        ],
+        [
+          "smoothie_ingredient",
+          "ingredient"
+        ],
+        [
+          "smoothie_ingredient",
+          "isEdee"
+        ],
+        [
+          "smoothie_ingredient",
+          "isEder"
+        ],
+        [
+          "smoothie_ingredient",
+          "object"
+        ],
+        [
+          "smoothie_ingredient",
+          "property"
+        ],
+        [
+          "smoothie_ingredient",
+          "queryable"
+        ],
+        [
+          "smoothie_ingredient",
+          "theAble"
+        ],
+        [
           "soda",
           "drink"
         ],
@@ -40802,6 +46969,10 @@
         ],
         [
           "strawberry",
+          "smoothie_ingredient"
+        ],
+        [
+          "strawberry",
           "theAble"
         ],
         [
@@ -40843,6 +47014,10 @@
         [
           "strawberry_banana",
           "queryable"
+        ],
+        [
+          "strawberry_banana",
+          "smoothie_ingredient"
         ],
         [
           "strawberry_banana",
@@ -41347,6 +47522,10 @@
         [
           "wild_berry",
           "queryable"
+        ],
+        [
+          "wild_berry",
+          "smoothie_ingredient"
         ],
         [
           "wild_berry",
@@ -42635,6 +48814,10 @@
         ],
         [
           "guava",
+          "smoothie_ingredient"
+        ],
+        [
+          "guava",
           "theAble"
         ],
         [
@@ -42830,6 +49013,38 @@
           "ifAble"
         ],
         [
+          "ingredient",
+          "concept"
+        ],
+        [
+          "ingredient",
+          "hierarchyAble"
+        ],
+        [
+          "ingredient",
+          "isEdee"
+        ],
+        [
+          "ingredient",
+          "isEder"
+        ],
+        [
+          "ingredient",
+          "object"
+        ],
+        [
+          "ingredient",
+          "property"
+        ],
+        [
+          "ingredient",
+          "queryable"
+        ],
+        [
+          "ingredient",
+          "theAble"
+        ],
+        [
           "is",
           "canBeQuestion"
         ],
@@ -42960,6 +49175,10 @@
         [
           "mango_passion",
           "queryable"
+        ],
+        [
+          "mango_passion",
+          "smoothie_ingredient"
         ],
         [
           "mango_passion",
@@ -43526,6 +49745,46 @@
           "theAble"
         ],
         [
+          "smoothie_ingredient",
+          "adjective"
+        ],
+        [
+          "smoothie_ingredient",
+          "concept"
+        ],
+        [
+          "smoothie_ingredient",
+          "hierarchyAble"
+        ],
+        [
+          "smoothie_ingredient",
+          "ingredient"
+        ],
+        [
+          "smoothie_ingredient",
+          "isEdee"
+        ],
+        [
+          "smoothie_ingredient",
+          "isEder"
+        ],
+        [
+          "smoothie_ingredient",
+          "object"
+        ],
+        [
+          "smoothie_ingredient",
+          "property"
+        ],
+        [
+          "smoothie_ingredient",
+          "queryable"
+        ],
+        [
+          "smoothie_ingredient",
+          "theAble"
+        ],
+        [
           "soda",
           "drink"
         ],
@@ -43619,6 +49878,10 @@
         ],
         [
           "strawberry",
+          "smoothie_ingredient"
+        ],
+        [
+          "strawberry",
           "theAble"
         ],
         [
@@ -43660,6 +49923,10 @@
         [
           "strawberry_banana",
           "queryable"
+        ],
+        [
+          "strawberry_banana",
+          "smoothie_ingredient"
         ],
         [
           "strawberry_banana",
@@ -44164,6 +50431,10 @@
         [
           "wild_berry",
           "queryable"
+        ],
+        [
+          "wild_berry",
+          "smoothie_ingredient"
         ],
         [
           "wild_berry",
@@ -45529,6 +51800,10 @@
         ],
         [
           "guava",
+          "smoothie_ingredient"
+        ],
+        [
+          "guava",
           "theAble"
         ],
         [
@@ -45724,6 +51999,38 @@
           "ifAble"
         ],
         [
+          "ingredient",
+          "concept"
+        ],
+        [
+          "ingredient",
+          "hierarchyAble"
+        ],
+        [
+          "ingredient",
+          "isEdee"
+        ],
+        [
+          "ingredient",
+          "isEder"
+        ],
+        [
+          "ingredient",
+          "object"
+        ],
+        [
+          "ingredient",
+          "property"
+        ],
+        [
+          "ingredient",
+          "queryable"
+        ],
+        [
+          "ingredient",
+          "theAble"
+        ],
+        [
           "is",
           "canBeQuestion"
         ],
@@ -45854,6 +52161,10 @@
         [
           "mango_passion",
           "queryable"
+        ],
+        [
+          "mango_passion",
+          "smoothie_ingredient"
         ],
         [
           "mango_passion",
@@ -46420,6 +52731,46 @@
           "theAble"
         ],
         [
+          "smoothie_ingredient",
+          "adjective"
+        ],
+        [
+          "smoothie_ingredient",
+          "concept"
+        ],
+        [
+          "smoothie_ingredient",
+          "hierarchyAble"
+        ],
+        [
+          "smoothie_ingredient",
+          "ingredient"
+        ],
+        [
+          "smoothie_ingredient",
+          "isEdee"
+        ],
+        [
+          "smoothie_ingredient",
+          "isEder"
+        ],
+        [
+          "smoothie_ingredient",
+          "object"
+        ],
+        [
+          "smoothie_ingredient",
+          "property"
+        ],
+        [
+          "smoothie_ingredient",
+          "queryable"
+        ],
+        [
+          "smoothie_ingredient",
+          "theAble"
+        ],
+        [
           "soda",
           "drink"
         ],
@@ -46513,6 +52864,10 @@
         ],
         [
           "strawberry",
+          "smoothie_ingredient"
+        ],
+        [
+          "strawberry",
           "theAble"
         ],
         [
@@ -46554,6 +52909,10 @@
         [
           "strawberry_banana",
           "queryable"
+        ],
+        [
+          "strawberry_banana",
+          "smoothie_ingredient"
         ],
         [
           "strawberry_banana",
@@ -47058,6 +53417,10 @@
         [
           "wild_berry",
           "queryable"
+        ],
+        [
+          "wild_berry",
+          "smoothie_ingredient"
         ],
         [
           "wild_berry",
@@ -48289,6 +54652,20 @@
             "meal",
             0
           ]
+        ],
+        [
+          [
+            "is",
+            0
+          ],
+          [
+            "list",
+            1
+          ],
+          [
+            "meal",
+            0
+          ]
         ]
       ],
       "learned_contextual_priorities": [],
@@ -48299,7 +54676,7 @@
     },
     {
       "extraConfig": true,
-      "where": "/home/dev/code/theprogrammablemind/kms/common/fastfood.js:64",
+      "where": "/home/dev/code/theprogrammablemind/kms/common/fastfood.js:66",
       "operators": [
         "((meal/* && context.comboNumber == undefined) [comboMeal] (combo/*))",
         "((combo/*) [comboNumber] (number/* || numberNumberCombo/*))",
@@ -48384,7 +54761,7 @@
               0
             ],
             [
-              "mango_passion",
+              "smoothie_ingredient",
               0
             ],
             [
@@ -48396,7 +54773,7 @@
               0
             ],
             [
-              "strawberry",
+              "smoothie_ingredient",
               0
             ],
             [
@@ -48415,7 +54792,7 @@
         {
           "context": [
             [
-              "mango_passion",
+              "smoothie_ingredient",
               1
             ],
             [
@@ -48427,7 +54804,7 @@
               1
             ],
             [
-              "strawberry",
+              "smoothie_ingredient",
               1
             ],
             [
@@ -48444,7 +54821,7 @@
         {
           "context": [
             [
-              "mango_passion",
+              "smoothie_ingredient",
               1
             ],
             [
@@ -48452,7 +54829,7 @@
               0
             ],
             [
-              "strawberry",
+              "smoothie_ingredient",
               1
             ],
             [
@@ -48493,7 +54870,7 @@
       ],
       "generators": [
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/fastfood.js:125"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/fastfood.js:127"
         }
       ],
       "bridges": [
@@ -49417,6 +55794,184 @@
         0
       ],
       [
+        "guava",
+        0
+      ],
+      [
+        "ingredient",
+        0
+      ],
+      [
+        "is",
+        0
+      ],
+      [
+        "list",
+        0
+      ],
+      [
+        "mango",
+        0
+      ],
+      [
+        "passion",
+        0
+      ],
+      [
+        "smoothie",
+        0
+      ],
+      [
+        "strawberry",
+        0
+      ],
+      [
+        "wild",
+        0
+      ]
+    ],
+    [
+      [
+        "banana",
+        0
+      ],
+      [
+        "berry",
+        0
+      ],
+      [
+        "guava",
+        0
+      ],
+      [
+        "is",
+        0
+      ],
+      [
+        "list",
+        0
+      ],
+      [
+        "mango",
+        0
+      ],
+      [
+        "passion",
+        0
+      ],
+      [
+        "strawberry",
+        0
+      ],
+      [
+        "wild",
+        0
+      ]
+    ],
+    [
+      [
+        "banana",
+        0
+      ],
+      [
+        "berry",
+        0
+      ],
+      [
+        "guava",
+        0
+      ],
+      [
+        "mango",
+        0
+      ],
+      [
+        "passion",
+        0
+      ],
+      [
+        "smoothie",
+        0
+      ],
+      [
+        "strawberry",
+        0
+      ],
+      [
+        "wild",
+        0
+      ]
+    ],
+    [
+      [
+        "banana",
+        0
+      ],
+      [
+        "berry",
+        0
+      ],
+      [
+        "is",
+        0
+      ],
+      [
+        "list",
+        0
+      ],
+      [
+        "mango",
+        0
+      ],
+      [
+        "passion",
+        0
+      ],
+      [
+        "strawberry",
+        0
+      ],
+      [
+        "wild",
+        0
+      ]
+    ],
+    [
+      [
+        "banana",
+        0
+      ],
+      [
+        "berry",
+        0
+      ],
+      [
+        "is",
+        0
+      ],
+      [
+        "list",
+        0
+      ],
+      [
+        "strawberry",
+        0
+      ],
+      [
+        "wild",
+        0
+      ]
+    ],
+    [
+      [
+        "banana",
+        0
+      ],
+      [
+        "berry",
+        0
+      ],
+      [
         "list",
         0
       ],
@@ -49613,6 +56168,24 @@
         0
       ],
       [
+        "is",
+        0
+      ],
+      [
+        "list",
+        0
+      ],
+      [
+        "strawberry",
+        0
+      ]
+    ],
+    [
+      [
+        "banana",
+        0
+      ],
+      [
         "list",
         0
       ],
@@ -49735,6 +56308,24 @@
       [
         "unknown",
         0
+      ]
+    ],
+    [
+      [
+        "chicken",
+        0
+      ],
+      [
+        "modifies",
+        0
+      ],
+      [
+        "unknown",
+        0
+      ],
+      [
+        "unknown",
+        1
       ]
     ],
     [
@@ -50205,6 +56796,16 @@
       [
         "list",
         0
+      ]
+    ],
+    [
+      [
+        "is",
+        0
+      ],
+      [
+        "list",
+        0
       ],
       [
         "meal",
@@ -50236,7 +56837,11 @@
       ],
       [
         "list",
-        1
+        0
+      ],
+      [
+        "strawberry",
+        0
       ]
     ],
     [
@@ -50277,6 +56882,40 @@
       [
         "list",
         1
+      ]
+    ],
+    [
+      [
+        "is",
+        0
+      ],
+      [
+        "list",
+        1
+      ]
+    ],
+    [
+      [
+        "is",
+        0
+      ],
+      [
+        "list",
+        1
+      ]
+    ],
+    [
+      [
+        "is",
+        0
+      ],
+      [
+        "list",
+        1
+      ],
+      [
+        "meal",
+        0
       ]
     ],
     [
@@ -50407,6 +57046,34 @@
         0
       ],
       [
+        "smoothie",
+        0
+      ],
+      [
+        "unknown",
+        0
+      ]
+    ],
+    [
+      [
+        "modifies",
+        0
+      ],
+      [
+        "smoothie",
+        0
+      ],
+      [
+        "unknown",
+        1
+      ]
+    ],
+    [
+      [
+        "modifies",
+        0
+      ],
+      [
         "unknown",
         0
       ]
@@ -50500,6 +57167,16 @@
       ],
       [
         "unknown",
+        0
+      ],
+      [
+        "unknown",
+        1
+      ]
+    ],
+    [
+      [
+        "modifies",
         0
       ],
       [

@@ -52,6 +52,8 @@ const template ={
     "strawberry modifies banana",
     "strawberry guava mango passion wild berry and strawberry banana modify smoothie",
     "strawberry guava mango passion wild berry and strawberry banana are countable",
+    "smoothie modifies ingredients",
+    "strawberry guava mango passion wild berry and strawberry banana are smoothie ingredients",
     "a smoothie is a drink",
     "french fries and waffle fries are fries",
     "single double triple baconater and bacon deluxe are hamburgers",
@@ -76,10 +78,10 @@ const template ={
 
        // TODO take this out make the server side learn if from "(combo one) and (two combo twos)" .   (prioritized1) 'and' (prioritized2) where 1+2 came from and build the cp that way
        { "context": [['combo',0], ['number', 0], ['list', 0], ['number', 0],['combo', 0],['number',0]], ordered: true, choose: [0,1,3,4,5] },
-       { "context": [['number',0], ['mango_passion', 0], ['list', 0], ['number', 0],['strawberry', 0],['smoothie',0]], ordered: true, choose: [0,1,3,4] },
+       { "context": [['number',0], ['smoothie_ingredient', 0], ['list', 0], ['number', 0],['smoothie_ingredient', 0],['smoothie',0]], ordered: true, choose: [0,1,3,4] },
 
-       { "context": [['mango_passion', 1], ['list', 0], ['number', 1], ['strawberry', 1], ['smoothie', 1]], ordered: true, choose: [2,3] },
-       { "context": [['mango_passion', 1], ['list', 0], ['strawberry', 1], ['smoothie', 1]], ordered: true, choose: [1] },
+       { "context": [['smoothie_ingredient', 1], ['list', 0], ['number', 1], ['smoothie_ingredient', 1], ['smoothie', 1]], ordered: true, choose: [2,3] },
+       { "context": [['smoothie_ingredient', 1], ['list', 0], ['smoothie_ingredient', 1], ['smoothie', 1]], ordered: true, choose: [1] },
 
        { "context": [['list', 0], ['number', 1], ['combo', 1], ['number', 1]], ordered: true, choose: [2,3] },
       /*
