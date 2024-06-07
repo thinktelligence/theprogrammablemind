@@ -57,12 +57,12 @@ const template ={
     "strawberry guava mango passion wild berry and strawberry banana are smoothie ingredients",
     "a smoothie is a drink",
     "french fries and waffle fries are fries",
-    "single double triple baconater and bacon deluxe are hamburgers",
+    "single double triple baconator and bacon deluxe are hamburgers",
     // "spicy homestyle asiago ranch chicken club 10 piece nuggets ultimate chicken grill and premium cod are sandwiches",
     "spicy homestyle asiago ranch chicken club ultimate chicken grill and premium cod are sandwiches",
     "a meals is food",
     "a combo is a meal",
-    "single double triple baconater bacon deluxe spicy homestyle and premium cod are meals",
+    "single double triple baconator bacon deluxe spicy homestyle and premium cod are meals",
     {
       where: where(),
       operators: [
@@ -212,13 +212,12 @@ class API {
   }
 
   isAvailable(id) {
-    debugger
     return [
       "double",
       "french_fry",
       "single",
       "triple",
-      'baconater',
+      'baconator',
       'bacon_deluxe',
       'spicy',
       'homestyle',
@@ -240,7 +239,7 @@ class API {
       1: 'single',
       2: 'double',
       3: 'triple',
-      4: 'baconater',
+      4: 'baconator',
       5: 'bacon_deluxe',
       6: 'spicy',
       7: 'homestyle',
@@ -290,7 +289,6 @@ class State {
     }
 
     if (!this.api.isAvailable(name)) {
-      debugger
       this.api.addAskedForButNotAvailable(food)
       return
     }
@@ -368,7 +366,6 @@ const createConfig = () => {
         where: where(),
         match: ({context, api}) => context.marker == 'controlEnd' && api.hasAskedForButNotAvailable(),
         apply: ({context, insert, api, gp, toContext}) => {
-          debugger
           const naArray = api.getAskedForButNotAvailable()
           naArray.forEach((f) => f.paraphrase = true)
           const naContext = toContext(naArray)
