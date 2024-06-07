@@ -667,5 +667,6 @@ fi
 # $NODE fastfood -q "(combo one) and (two combo twos)" -g -d -daa -cl '[["list", 0]]' --parenthesized
 # $NODE fastfood -q "(2 mango passion and (3 strawberry)) smoothies" -g -d -daa -cl '[["list", 0]]' --parenthesized
 # $NODE fastfood -q "2 mango passion and 3 strawberry smoothies" -g -d -daa -cl '[["list", 0]]' --parenthesized
-$NODE fastfood -q "combo one and two combo twos" -g -d -daa -cl '[["list", 0]]' --parenthesized
+# $NODE fastfood -q "combo one and two combo twos" -g -d -daa -cl '[["list", 0]]' --parenthesized
 # TODO ask for smoothie it replies which ones. they are the flavours... expectation for smooth
+$NODE fastfood -q "hamburger\ncombo 1" -g -d -daa -cl '[["list", 0]]' -s

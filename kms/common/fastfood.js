@@ -25,6 +25,7 @@ const fastfood_instance = require('./fastfood.instance.json')
   single combo
   combo one and two
 
+  double hamburger
   number 1 and 2
   number 1 2 and 3
 */
@@ -280,6 +281,7 @@ class State {
     }
 
     if (!this.api.isAvailable(name)) {
+      debugger
       this.api.addAskedForButNotAvailable(food)
       return
     }
@@ -346,7 +348,7 @@ const createConfig = () => {
       },
       {
         where: where(),
-        match: ({context, isAListable}) => isAListable(context, 'edible') && context.marker !== 'edible' && !context.same,
+        match: ({context, isAListable}) => isAListable(context, 'edible') && context.marker !== 'edible' && !context.same && !context.isResponse,
         apply: ({context, km, api, instance}) => {
           for (const element of propertyToArray(context)) {
             km('fastfood').api.state.add(element)
@@ -357,6 +359,7 @@ const createConfig = () => {
         where: where(),
         match: ({context, api}) => context.marker == 'controlEnd' && api.hasAskedForButNotAvailable(),
         apply: ({context, insert, api, gp, toContext}) => {
+          debugger
           const naArray = api.getAskedForButNotAvailable()
           naArray.forEach((f) => f.paraphrase = true)
           const naContext = toContext(naArray)
