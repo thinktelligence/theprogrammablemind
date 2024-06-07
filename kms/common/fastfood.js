@@ -212,11 +212,20 @@ class API {
   }
 
   isAvailable(id) {
+    debugger
     return [
       "double",
       "french_fry",
       "single",
       "triple",
+      'baconater',
+      'bacon_deluxe',
+      'spicy',
+      'homestyle',
+      'asiago_range_chicken_club',
+      'ultimate_chicken_grill',
+      '10_peice_nuggets',
+      'premium_cod',
       "waffle_fry",
       "strawberry_smoothie",
       "guava_smoothie",
@@ -232,13 +241,13 @@ class API {
       2: 'double',
       3: 'triple',
       4: 'baconater',
-      5: 'bacon deluxe',
+      5: 'bacon_deluxe',
       6: 'spicy',
       7: 'homestyle',
-      8: 'asiago range chicken club',
-      9: 'ultimate chicken grill',
-      10: '10 peice nuggets',
-      11: 'premium cod',
+      8: 'asiago_range_chicken_club',
+      9: 'ultimate_chicken_grill',
+      10: '10_peice_nuggets',
+      11: 'premium_cod',
     }
     return map[number]
   }
@@ -260,7 +269,7 @@ class State {
     if (food.comboNumber?.marker == 'numberNumberCombo') {
       name = this.api.getCombo(food.comboNumber.comboNumber.value)
       if (!name) {
-        "some kind of error"
+        this.api.addAskedForButNotAvailable(food)
         return
       }
       combo = true
@@ -268,7 +277,7 @@ class State {
     else if (food.comboNumber) {
       name = this.api.getCombo(food.comboNumber.value)
       if (!name) {
-        "some kind of error"
+        this.api.addAskedForButNotAvailable(food)
         return
       }
       combo = true
