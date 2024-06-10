@@ -70,7 +70,7 @@ const template ={
         "((combo/*) [comboNumber] (number/* || numberNumberCombo/*))",
         "((numberNumberCombo/1) [numberNumberCombo_combo|] (combo/0))",
         "((number/0,1 && context.instance == undefined) [numberNumberCombo] (number/0,1))",
-        "((combo/*) [([withFries|with] (fry/*))])",
+        "((combo/*) [([withModification|with] ([modification]))])",
       ],
       floaters: ['instance'],
       priorities: [
@@ -131,15 +131,16 @@ const template ={
         }
       ],
       bridges: [
+        { id: 'modification' },
         { 
-          id: 'withFries',
+          id: 'withModification',
           level: 0,
           isA: ['preposition'],
           generatorp: ({context, gp}) => `with ${gp(context.modifications)}`,
           bridge: "{ ...next(operator), modifications: after[0] }",
         },
         { 
-          id: 'withFries',
+          id: 'withModification',
           level: 1,
           isA: ['preposition'],
           bridge: "{ ...next(before[0]), postModifiers: append(before[0].postModifiers, ['modifications']), modifications: operator }",
@@ -172,6 +173,7 @@ const template ={
         },
       ]
     },
+    "fries and smoothies are modifications",
     // TODO Future see above note { query: "(combo one) and (2 combo twos)", skipSemantics: true },
     // { query: "(2 mango passion and (3 strawberry)) smoothies", skipSemantics: true },
   ],

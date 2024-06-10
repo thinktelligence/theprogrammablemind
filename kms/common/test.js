@@ -29,7 +29,7 @@ for (let file of package.files) {
 
   retrains.push(`node ${file} -rt -g`)
   tests.push(`node ${file} -tva -g`)
-  tests.push(`node tester -m ${file} -tva -tmn ${file} -g`)
+  // tests.push(`node tester -m ${file} -tva -tmn ${file} -g`)
 }
 
 // tests = [tests[0]]

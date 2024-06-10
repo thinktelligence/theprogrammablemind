@@ -25,6 +25,8 @@ let configStruct = {
   priorities: [
     { "context": [['pronoun', 0], ['verby', 0], ], "choose": [0] },
     { "context": [['preposition', 0], ['verby', 0], ], "choose": [0] },
+    { "context": [['preposition', 0], ['adjective', 0], ], "choose": [1] },
+    { "context": [['preposition', 0], ['articlePOS', 0], ], "choose": [1] },
     { "context": [['adjective', 0], ['verby', 0], ], "choose": [0] },
     { "context": [['articlePOS', 0], ['verby', 0], ], "choose": [0] },
     { "context": [['punctuation', 0], ['verby', 0], ], "choose": [0] },
