@@ -193,8 +193,8 @@ class API {
     this._objects.show = this._objects.items
   }
 
-  add({ name, combo, modifications, size }) {
-    this._objects.items.push({ name, combo, modifications, size })
+  add({ id, combo, modifications, size }) {
+    this._objects.items.push({ id, combo, modifications, size })
   }
 
   say(response) {
@@ -269,31 +269,31 @@ class State {
     if (food.quantity) {
       quantity = food.quantity.value
     }
-    let name, combo
+    let id, combo
     if (food.comboNumber?.marker == 'numberNumberCombo') {
-      name = this.api.getCombo(food.comboNumber.comboNumber.value)
-      if (!name) {
+      id = this.api.getCombo(food.comboNumber.comboNumber.value)
+      if (!id) {
         this.api.addAskedForButNotAvailable(food)
         return
       }
       combo = true
     }
     else if (food.comboNumber) {
-      name = this.api.getCombo(food.comboNumber.value)
-      if (!name) {
+      id = this.api.getCombo(food.comboNumber.value)
+      if (!id) {
         this.api.addAskedForButNotAvailable(food)
         return
       }
       combo = true
     } else if (food.marker == 'combo') {
-      name = food.type.value
+      id = food.type.value
       combo = true
     } else {
-      name = food.value
+      id = food.value
       combo = !!food.combo
     }
 
-    if (!this.api.isAvailable(name)) {
+    if (!this.api.isAvailable(id)) {
       this.api.addAskedForButNotAvailable(food)
       return
     }
@@ -314,7 +314,7 @@ class State {
     }
 
     for (let i = 0; i < quantity; ++i) {
-      this.api.add(addSize(food, { name, combo, modifications }))
+      this.api.add(addSize(food, { id, combo, modifications }))
     }
   }
 
