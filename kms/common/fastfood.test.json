@@ -95644,6 +95644,10 @@
     "associations": [
       [
         [
+          "a",
+          0
+        ],
+        [
           "guava",
           0
         ],
@@ -95658,7 +95662,21 @@
       ],
       [
         [
+          "a",
+          0
+        ],
+        [
           "guava",
+          0
+        ],
+        [
+          "smoothie",
+          0
+        ]
+      ],
+      [
+        [
+          "a",
           0
         ],
         [
@@ -95671,21 +95689,20 @@
     },
     "contexts": [
       {
-        "dead": true,
-        "default": true,
-        "level": 0,
-        "marker": "a",
-        "range": {
-          "end": 0,
-          "start": 0
-        },
-        "text": "a",
-        "topLevel": true,
-        "word": "a"
-      },
-      {
         "atomic": true,
+        "concept": true,
         "dead": true,
+        "determiner": {
+          "default": true,
+          "level": 0,
+          "marker": "a",
+          "range": {
+            "end": 0,
+            "start": 0
+          },
+          "text": "a",
+          "word": "a"
+        },
         "guava": {
           "dead": true,
           "level": 1,
@@ -95704,12 +95721,15 @@
         "level": 1,
         "marker": "guava_smoothie",
         "modifiers": [
+          "determiner",
           "size",
           "guava"
         ],
+        "number": "one",
+        "pullFromContext": false,
         "range": {
           "end": 21,
-          "start": 2
+          "start": 0
         },
         "size": {
           "dead": true,
@@ -95726,22 +95746,22 @@
           "value": "large",
           "word": "large"
         },
-        "text": "large guava smoothie",
+        "text": "a large guava smoothie",
         "topLevel": true,
         "touchedBy": [
-          "fastfood#call6"
+          "fastfood#call2"
         ],
         "types": [
           "guava_smoothie",
           "smoothie"
         ],
         "value": "guava_smoothie",
+        "wantsValue": true,
         "word": "smoothie"
       }
     ],
     "developerTest": false,
     "generatedParenthesized": [
-      "",
       ""
     ],
     "metadata": {
@@ -95824,7 +95844,7 @@
         {
           "counter": 4,
           "op": [
-            "a",
+            "sizing",
             0
           ],
           "ops": [
@@ -95841,12 +95861,12 @@
         {
           "counter": 5,
           "op": [
-            "sizing",
+            "a",
             0
           ],
           "ops": [
             [
-              "sizing",
+              "a",
               0
             ]
           ]
@@ -96602,7 +96622,19 @@
         {
           "context": {
             "atomic": true,
+            "concept": true,
             "dead": true,
+            "determiner": {
+              "default": true,
+              "level": 0,
+              "marker": "a",
+              "range": {
+                "end": 0,
+                "start": 0
+              },
+              "text": "a",
+              "word": "a"
+            },
             "guava": {
               "dead": true,
               "level": 1,
@@ -96621,12 +96653,15 @@
             "level": 1,
             "marker": "guava_smoothie",
             "modifiers": [
+              "determiner",
               "size",
               "guava"
             ],
+            "number": "one",
+            "pullFromContext": false,
             "range": {
               "end": 21,
-              "start": 2
+              "start": 0
             },
             "size": {
               "dead": true,
@@ -96643,45 +96678,23 @@
               "value": "large",
               "word": "large"
             },
-            "text": "large guava smoothie",
+            "text": "a large guava smoothie",
             "topLevel": true,
             "touchedBy": [
-              "fastfood#call6"
+              "fastfood#call2"
             ],
             "types": [
               "guava_smoothie",
               "smoothie"
             ],
             "value": "guava_smoothie",
+            "wantsValue": true,
             "word": "smoothie"
           },
           "generatedParenthesized": "",
-          "paraphrases": "large guava smoothie",
-          "paraphrasesParenthesized": "((large) (guava) (smoothie))",
+          "paraphrases": "a large guava smoothie",
+          "paraphrasesParenthesized": "((a) (large) (guava) (smoothie))",
           "responses": [
-            "",
-            ""
-          ]
-        },
-        {
-          "context": {
-            "dead": true,
-            "default": true,
-            "level": 0,
-            "marker": "a",
-            "range": {
-              "end": 0,
-              "start": 0
-            },
-            "text": "a",
-            "topLevel": true,
-            "word": "a"
-          },
-          "generatedParenthesized": "",
-          "paraphrases": "a",
-          "paraphrasesParenthesized": "(a)",
-          "responses": [
-            "",
             ""
           ]
         },
@@ -97168,20 +97181,95 @@
           "responses": [
             ""
           ]
+        },
+        {
+          "context": {
+            "dead": true,
+            "level": 2,
+            "marker": "is",
+            "number": "one",
+            "one": {
+              "concept": true,
+              "dead": true,
+              "determiner": {
+                "default": true,
+                "level": 0,
+                "marker": "a",
+                "range": {
+                  "end": 0,
+                  "start": 0
+                },
+                "text": "a",
+                "word": "a"
+              },
+              "level": 1,
+              "marker": "unknown",
+              "modifiers": [
+                "determiner"
+              ],
+              "number": "one",
+              "pullFromContext": false,
+              "range": {
+                "end": 14,
+                "start": 0
+              },
+              "text": "a meals",
+              "types": [
+                "unknown"
+              ],
+              "unknown": true,
+              "value": "meals",
+              "wantsValue": true,
+              "word": "meals"
+            },
+            "range": {
+              "end": 14,
+              "start": 0
+            },
+            "text": "a meals is food",
+            "topLevel": true,
+            "touchedBy": [
+              "fastfood#call2",
+              "instance26#fastfood#call2"
+            ],
+            "two": {
+              "concept": true,
+              "dead": true,
+              "level": 1,
+              "marker": "food",
+              "number": "one",
+              "range": {
+                "end": 14,
+                "start": 11
+              },
+              "text": "food",
+              "types": [
+                "food"
+              ],
+              "value": "food",
+              "word": "food"
+            },
+            "word": "is"
+          },
+          "generatedParenthesized": [
+          ],
+          "paraphrases": "a meals is food",
+          "paraphrasesParenthesized": [
+          ],
+          "responses": [
+            ""
+          ]
         }
       ]
     },
     "paraphrases": [
-      "a",
-      "large guava smoothie"
+      "a large guava smoothie"
     ],
     "paraphrasesParenthesized": [
-      "(a)",
-      "((large) (guava) (smoothie))"
+      "((a) (large) (guava) (smoothie))"
     ],
     "query": "a large guava smoothie",
     "responses": [
-      "",
       ""
     ]
   }

@@ -21,6 +21,7 @@ let configStruct = {
     },
     { 
       id: "size", 
+      parents: ['adjective'],
       words: ['small', 'medium', 'large'],
       level: 0, 
       bridge: "{ ...next(operator) }" 
@@ -31,6 +32,10 @@ let configStruct = {
       isA: ['hierarchyAble'],
       bridge: "{ ...next(operator) }" 
     },
+  ],
+
+  priorities: [
+    { context: [['articlePOS', 0], ['sizing', 0]], choose: [1] },
   ],
 
   generators: [
