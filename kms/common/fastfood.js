@@ -193,8 +193,8 @@ class API {
     this._objects.show = this._objects.items
   }
 
-  add({ name, combo, modifications }) {
-    this._objects.items.push({ name, combo, modifications })
+  add({ name, combo, modifications, size }) {
+    this._objects.items.push({ name, combo, modifications, size })
   }
 
   say(response) {
@@ -298,16 +298,23 @@ class State {
       return
     }
 
+    const addSize = (item, data) => {
+      if (item.size) {
+        data.size = item.size.value
+      }
+      return data
+    }
+
     let modifications
     if (food.modifications) {
       modifications = []
-      for (const addition of propertyToArray(food.modifications.modifications)) {
-        modifications.push(addition.value)
+      for (const modification of propertyToArray(food.modifications.modifications)) {
+        modifications.push(addSize(modification, { id: modification.value }))
       }
     }
 
     for (let i = 0; i < quantity; ++i) {
-      this.api.add({ name, combo, modifications })
+      this.api.add(addSize(food, { name, combo, modifications }))
     }
   }
 
