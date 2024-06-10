@@ -36,7 +36,8 @@ const template ={
     "carrots peas cabbage and brocoli are vegetables",
     "vegetables are food",
     "a hamburger is a sandwich",
-    "pop soda and juice are drinks",
+    "pop, soda, coffee, tea, shakes and juice are drinks",
+    "lemonade is a drink",
   ],
 }
 
