@@ -2,6 +2,7 @@ const { Config, knowledgeModule, ensureTestFile, where } = require('./runtime').
 const { defaultContextCheck, propertyToArray } = require('./helpers')
 const edible = require('./edible')
 const events = require('./events')
+const sizeable = require('./sizeable')
 const countable = require('./countable')
 ensureTestFile(module, 'fastfood', 'test')
 ensureTestFile(module, 'fastfood', 'instance')
@@ -175,6 +176,7 @@ const template ={
       ]
     },
     "fries and smoothies are modifications",
+    "fries and smoothies are sizeable",
     // TODO Future see above note { query: "(combo one) and (2 combo twos)", skipSemantics: true },
     // { query: "(2 mango passion and (3 strawberry)) smoothies", skipSemantics: true },
   ],
@@ -402,6 +404,7 @@ const createConfig = () => {
   config.add(edible())
   config.add(countable())
   config.add(events())
+  config.add(sizeable())
   config.api = api
   config.initializer( ({api}) => {
     api.state = new State(api)

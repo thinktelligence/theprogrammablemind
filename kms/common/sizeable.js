@@ -17,7 +17,7 @@ let configStruct = {
       level: 0, 
       convolution: true, 
       before: ['verby'],
-      bridge: "{ ...after, size: before[0], modifiers: append(after.modifiers, ['size']) }" 
+      bridge: "{ ...after, size: before[0], modifiers: append(['size'], after.modifiers) }" 
     },
     { 
       id: "size", 
