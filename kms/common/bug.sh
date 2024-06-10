@@ -673,5 +673,7 @@ fi
 # $NODE tester -m fastfood -tva -tmn fastfood -g
 # $NODE tester -m fastfood -q 'combo 1 with waffle fries' -g -d
 # $NODE fastfood -q 'combo 1 with waffle fries' -g -d 
-$NODE fastfood -q 'combo 1 with a guava smoothie' -g -d
+# $NODE fastfood -q 'combo 1 with a guava smoothie' -g -d
+#$NODE fastfood -q 'combo 1 with waffle fries and a guava smoothie' -g -d -s
+$NODE fastfood -q 'a large guava smoothie' -g -d -s
 

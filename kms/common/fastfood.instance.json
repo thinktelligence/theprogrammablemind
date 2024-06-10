@@ -328,11 +328,35 @@
             2,
             3
           ]
+        },
+        {
+          "context": [
+            [
+              "withModification",
+              0
+            ],
+            [
+              "modification",
+              1
+            ],
+            [
+              "list",
+              0
+            ],
+            [
+              "modification",
+              1
+            ]
+          ],
+          "ordered": true,
+          "choose": [
+            2
+          ]
         }
       ],
       "generators": [
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/fastfood.js:128",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/fastfood.js:129",
           "match": "({context}) => false && context.marker == 'combo' && context.comboNumber",
           "apply": "({context, g}) => g(context.comboNumber)"
         }
@@ -348,7 +372,7 @@
             "preposition"
           ],
           "generatorp": "({context, gp}) => `with ${gp(context.modifications)}`",
-          "bridge": "{ ...next(operator), modifications: after[0] }"
+          "bridge": "{ ...next(operator), modifications: after[0], flatten: false }"
         },
         {
           "id": "withModification",
@@ -54870,11 +54894,35 @@
             2,
             3
           ]
+        },
+        {
+          "context": [
+            [
+              "withModification",
+              0
+            ],
+            [
+              "modification",
+              1
+            ],
+            [
+              "list",
+              0
+            ],
+            [
+              "modification",
+              1
+            ]
+          ],
+          "ordered": true,
+          "choose": [
+            2
+          ]
         }
       ],
       "generators": [
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/fastfood.js:128"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/fastfood.js:129"
         }
       ],
       "bridges": [
@@ -54887,7 +54935,7 @@
           "isA": [
             "preposition"
           ],
-          "bridge": "{ ...next(operator), modifications: after[0] }"
+          "bridge": "{ ...next(operator), modifications: after[0], flatten: false }"
         },
         {
           "id": "withModification",

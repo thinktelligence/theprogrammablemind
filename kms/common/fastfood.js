@@ -85,6 +85,7 @@ const template ={
        { "context": [['smoothie_ingredient', 1], ['list', 0], ['smoothie_ingredient', 1], ['smoothie', 1]], ordered: true, choose: [1] },
 
        { "context": [['list', 0], ['number', 1], ['combo', 1], ['number', 1]], ordered: true, choose: [2,3] },
+       { "context": [['withModification', 0], ['modification', 1], ['list', 0], ['modification', 1]], ordered: true, choose: [2] },
       /*
 
         { "context": [['number', 0], ['numberNumberCombo', 0], ], "choose": [0] },
@@ -137,7 +138,7 @@ const template ={
           level: 0,
           isA: ['preposition'],
           generatorp: ({context, gp}) => `with ${gp(context.modifications)}`,
-          bridge: "{ ...next(operator), modifications: after[0] }",
+          bridge: "{ ...next(operator), modifications: after[0], flatten: false }",
         },
         { 
           id: 'withModification',
