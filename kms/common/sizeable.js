@@ -22,7 +22,7 @@ let configStruct = {
     { 
       id: "size", 
       parents: ['adjective'],
-      words: ['small', 'medium', 'large'],
+      words: ['small', 'medium', 'large', 'half', 'full'],
       level: 0, 
       bridge: "{ ...next(operator) }" 
     },
