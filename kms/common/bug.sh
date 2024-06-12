@@ -677,5 +677,7 @@ fi
 #$NODE fastfood -q 'combo 1 with waffle fries and a guava smoothie' -g -d
 #$NODE fastfood -q 'a large guava smoothie' -g -d --parenthesized
 # $NODE fastfood -q 'spicy modifies caesar salad' -g -d --parenthesized -po
-$NODE fastfood -q 'spicy modifies caesar salad\nspicy caesar salad' -g -d --parenthesized
-
+# $NODE fastfood -q 'spicy modifies caesar salad\nspicy caesar salad' -g -d --parenthesized
+# $NODE countable -q '2 piece hasCountOfPieces' -g -d
+# $NODE countable -q '10 2 piece hasCountOfPieces' -g -d --parenthesized
+$NODE edible -q '2 piece nuggets' -g -d -s

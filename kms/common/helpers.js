@@ -122,8 +122,7 @@ const defaultContextCheck = [
   'marker',
   'text',
   { property: 'value', filter: ['marker', 'text', 'value'] },
-  'modifiers',
-  { property: 'modifiers', filter: ['marker', 'text', 'value'] }
+  { property: 'modifiers', isPropertyList: true, filter: ['marker', 'text', 'value'] }
 ]
 
 module.exports = {

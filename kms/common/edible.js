@@ -1,6 +1,7 @@
 const { Config, knowledgeModule, ensureTestFile, where } = require('./runtime').theprogrammablemind
 const { defaultContextCheck } = require('./helpers')
 const hierarchy = require('./hierarchy')
+const countable = require('./countable')
 ensureTestFile(module, 'edible', 'test')
 ensureTestFile(module, 'edible', 'instance')
 
@@ -22,7 +23,8 @@ const template ={
   "queries": [
     "food and drinks are edible",
     "chicken modifies strips",
-    "chicken strips are food",
+    "chicken modifies nugget",
+    "chicken strips and chicken nuggets are food",
     "sushi is food",
     "apples oranges and bananas are fruit",
     "hot modifies dog",
@@ -40,11 +42,17 @@ const template ={
     "a hamburger is a sandwich",
     "pop, soda, coffee, tea, shakes and juice are drinks",
     "lemonade is a drink",
+    {
+      hierarchy: [
+        ['chicken_nugget', 'hasCountOfPieces'],
+      ]
+    }
   ],
 }
 
 const createConfig = () => {
   const config = new Config({ name: 'edible' }, module)
+  config.add(countable())
   config.add(hierarchy())
   return config
 }

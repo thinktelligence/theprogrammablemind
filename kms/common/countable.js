@@ -4,41 +4,56 @@ const dialogues = require("./hierarchy")
 const numbers = require("./numbers")
 const countable_tests = require('./countable.test.json')
 
-// TODO 1 to 2 countables
+
+/* 
+    TODO 1 to 2 countables
+    10 piece nuggets vs 10 pieces of chicken
+    2 6 and 3 10 piece nuggets
+ */
 
 let configStruct = {
   name: 'countable',
   operators: [
     "(([quantifier|]) [counting] ([countable]))",
+    "(([number|]) [countOfPieces|] ([piece]))",
+    "((countOfPieces/*) [countingPieces] ([hasCountOfPieces]))",
     "([all])",
     // everything
   ],
   bridges: [
     { 
       id: "counting", 
-      level: 0, 
       convolution: true, 
       before: ['verby'],
       bridge: "{ ...after, modifiers: append(['quantity'], after[0].modifiers), quantity: before[0], number: default(before[0].number, before[0].value), instance: true }" 
-      // bridge: "{ ...after, modifiers: append(['quantity'], after[0].modifiers), quantity: before[0], number: default(before[0].number, before[0].value) }" 
-      // bridge: "{ ...after, quantity: before[0], number: default(before[0].number, before[0].value) }" 
+    },
+    { 
+      id: "countOfPieces", 
+      convolution: true,
+      bridge: "{ ...next(operator), modifiers: append(['count'], after[0].modifiers), count: before[0], word: after.word, instance: true }" 
+    },
+    { 
+      id: "countingPieces", 
+      convolution: true,
+      bridge: "{ ...after, modifiers: append(['pieces'], after[0].modifiers), pieces: before[0], instance: true }" 
+    },
+    { 
+      id: "hasCountOfPieces", 
+      isA: ['countable']
+    },
+    { 
+      id: "piece", 
     },
     { 
       id: "quantifier", 
       children: ['number', 'all'],
-      level: 0, 
-      bridge: "{ ...next(operator) }" 
     },
     { 
       id: "countable", 
-      level: 0, 
-      // isA: ['type'],
       isA: ['hierarchyAble'],
-      bridge: "{ ...next(operator) }" 
     },
     { 
       id: "all", 
-      level: 0, 
       generatorp: ({context}) => 'all',
       bridge: "{ ...next(operator), number: 'many' }" 
     },
@@ -74,7 +89,19 @@ knowledgeModule({
     name: './countable.test.json',
     contents: countable_tests,
     checks: {
-            context: defaultContextCheck,
+            context: [
+              ...defaultContextCheck, 
+              { 
+                property: 'quantity', 
+                filter: ['marker', 'value'],
+              },
+              { 
+                property: 'pieces', 
+                filter: [
+                  'marker', 'text',
+                  { property: 'count', filter: ['marker', 'value'] },
+                ] 
+              }]
           },
   },
 })
