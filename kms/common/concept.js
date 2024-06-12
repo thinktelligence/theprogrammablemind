@@ -97,7 +97,7 @@ const createConfig = () => {
       {
         where: where(),
         match: ({context}) => context.marker == 'modifies' && context.paraphrase,
-        apply: ({context, gp, gw}) => `${context.modifiers.map(gp).join(" ")} ${gw(context, { number: context.modifiers[context.modifiers.length - 1] })} ${context.concept.word}`,
+        apply: ({context, gp, gw}) => `${context.modifiers.map(gp).join(" ")} ${gw(context, { number: context.modifiers[context.modifiers.length - 1] })} ${gp(context.concept)}`,
         // const chosen = chooseNumber(context, word.singular, word.plural)
       },
     ],

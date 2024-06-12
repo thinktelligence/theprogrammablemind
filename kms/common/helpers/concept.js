@@ -42,15 +42,13 @@ class API {
     // config.addOperator({ pattern: `(<${modifierId}|> ([${objectId}|]))`, allowDups: true })
     // config.addOperator({ pattern: `([${modifierObjectId}|])`, allowDups: true })
     modifierIds.forEach((modifierId) => {
-      try{
       if (!config.exists(modifierId)) {
         config.addOperator({ pattern: `([${modifierId}|])`, allowDups: true })
       } 
-      } catch( e ) {
-        debugger
-      }
     })
-    config.addOperator({ pattern: `([${objectId}|])`, allowDups: true })
+    if (!config.exists(objectId)) {
+      config.addOperator({ pattern: `([${objectId}|])`, allowDups: true })
+    }
 
     config.addWord(objectSingular, { id: objectId, initial: `{ value: '${objectId}', number: 'one' }`})
     config.addWord(objectPlural, { id: objectId, initial: `{ value: '${objectId}', number: 'many' }`})

@@ -675,5 +675,7 @@ fi
 # $NODE fastfood -q 'combo 1 with waffle fries' -g -d 
 # $NODE fastfood -q 'combo 1 with a guava smoothie' -g -d
 #$NODE fastfood -q 'combo 1 with waffle fries and a guava smoothie' -g -d
-$NODE fastfood -q 'a large guava smoothie' -g -d --parenthesized
+#$NODE fastfood -q 'a large guava smoothie' -g -d --parenthesized
+# $NODE fastfood -q 'spicy modifies caesar salad' -g -d --parenthesized -po
+$NODE fastfood -q 'spicy modifies caesar salad\nspicy caesar salad' -g -d --parenthesized
 
