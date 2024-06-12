@@ -63,14 +63,13 @@ knowledgeModule( {
       createConfig,
       test: {
               name: './edible.test.json',
-              contents: edible_tests
+              contents: edible_tests,
+              checks: {
+                  context: defaultContextCheck,
+              },
             },
       template: {
         template,
         instance: edible_instance,
-        checks: {
-            context: defaultContextCheck,
-          },
-
       },
 })
