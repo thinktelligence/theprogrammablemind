@@ -118,11 +118,12 @@ const toEValue = (context) => {
 	return context;
 }
 
+const defaultContextProperties = ['marker', 'text', 'verbatim'] 
 const defaultContextCheck = [
   'marker',
   'text',
-  { property: 'value', filter: ['marker', 'text', 'value'] },
-  { property: 'modifiers', isPropertyList: true, filter: ['marker', 'text', 'value'] }
+  { property: 'value', filter: defaultContextProperties },
+  { property: 'modifiers', isPropertyList: true, filter: defaultContextProperties }
 ]
 
 module.exports = {

@@ -226,8 +226,8 @@ class API {
     this._objects.show = this._objects.items
   }
 
-  add({ id, combo, modifications, size }) {
-    this._objects.items.push({ id, combo, modifications, size })
+  add({ id, combo, modifications, size, pieces }) {
+    this._objects.items.push({ id, combo, modifications, size, pieces })
   }
 
   say(response) {
@@ -251,6 +251,7 @@ class API {
 
   isAvailable(id) {
     return [
+      "chicken_nugget",
       "double",
       "french_fry",
       "single",
@@ -317,7 +318,7 @@ class API {
       7: 'homestyle',
       8: 'asiago_range_chicken_club',
       9: 'ultimate_chicken_grill',
-      10: '10_peice_nuggets',
+      10: 'chicken_nugget',
       11: 'premium_cod',
     }
     return map[number]
@@ -380,8 +381,12 @@ class State {
       }
     }
 
+    let pieces
+    if (food.pieces) {
+      pieces = food.pieces.count.value
+    }
     for (let i = 0; i < quantity; ++i) {
-      this.api.add(addSize(food, { id, combo, modifications }))
+      this.api.add(addSize(food, { id, combo, modifications, pieces }))
     }
   }
 

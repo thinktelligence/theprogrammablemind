@@ -680,4 +680,6 @@ fi
 # $NODE fastfood -q 'spicy modifies caesar salad\nspicy caesar salad' -g -d --parenthesized
 # $NODE countable -q '2 piece hasCountOfPieces' -g -d
 # $NODE countable -q '10 2 piece hasCountOfPieces' -g -d --parenthesized
-$NODE edible -q '2 piece nuggets' -g -d -s
+# $NODE edible -q '2 piece nuggets' -g -d
+# $NODE edible -q '5 2 piece nuggets' -g -d
+$NODE fastfood -q '3 10 piece chicken nuggets' -g -d
