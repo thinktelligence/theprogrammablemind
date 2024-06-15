@@ -682,4 +682,8 @@ fi
 # $NODE countable -q '10 2 piece hasCountOfPieces' -g -d --parenthesized
 # $NODE edible -q '2 piece nuggets' -g -d
 # $NODE edible -q '5 2 piece nuggets' -g -d
-$NODE fastfood -q '3 10 piece chicken nuggets' -g -d
+# $NODE fastfood -q '3 10 piece chicken nuggets' -g -d
+# $NODE fastfood -q "breakfast baconator, french toast sandwich, egg muffin, chicken on french toast, pancake platter, double sausage muffin, pancakes, french toast and oatmeal are breakfast meals" -g -d
+# $NODE countable -q '1 countable' -g -d
+# $NODE pipboy -q 'equip the highest damage pistol' -g -d
+$NODE fastfood -q 'french toast sandwich' -g -d
