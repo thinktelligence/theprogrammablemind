@@ -504,7 +504,7 @@ let configStruct = {
       where: where(),
       notes: 'is with a response defined',
       match: ({context, hierarchy}) => hierarchy.isA(context.marker, 'is') && context.evalue,
-      apply: ({context, g}) => {
+      apply: ({context, g, gs}) => {
         const response = context.evalue;
         const concept = response.concept;
         if (concept) {
@@ -513,7 +513,11 @@ let configStruct = {
           const instance = g(response.instance)
           return `${g(concept)} ${context.word} ${instance}` 
         } else {
-          return `${g(response)}` 
+          if (Array.isArray(response)) {
+            return `${gs(response)}` 
+          } else {
+            return `${g(response)}` 
+          }
         }
       }
     },

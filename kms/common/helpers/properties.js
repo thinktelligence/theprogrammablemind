@@ -251,7 +251,7 @@ class API {
         notes: `generator for who/what is X owned by`,
         // match: ({context, hierarchy}) => hierarchy.isA(context.marker, 'is') && context.one && context.one.marker == 'ownee' && context.one.constraints && context.one.constraints[0] && context.one.constraints[0].constraint.marker == 'owned' && context.one.constraints[0].constraint.owner.implicit,
         match: ({context, hierarchy}) => hierarchy.isA(context.marker, 'is') && context.one && context.one.marker == after[0].tag && context.one.constraints && context.one.constraints[0] && context.one.constraints[0].constraint.marker == edAble.operator && context.one.constraints[0].constraint[before[0].tag].implicit,
-        apply: ({context, g, callId}) => {
+        apply: ({context, g, gs, callId}) => {
           const isToFromM = [{"from":["one"],"to":["two"]},{"from":["two"],"to":["one"]}]
           const fromF = config.fragment(whoIsWhatVerbedBy).contexts()[0]
           // const fromF = config.fragment[before[0].tag]"ownerVar is owneeVar owned by").contexts()[0]
@@ -271,7 +271,11 @@ class API {
           const from = context
           const im = translationMappingToInstantiatorMappings(tmPrime, from, to)
           const translation = toF.instantiate(im)
-          return g(translation)
+          if (Array.isArray(translation)) {
+            return gs(translation)
+          } else {
+            return g(translation)
+          }
         }
       }
       config.addGenerator(generator)
