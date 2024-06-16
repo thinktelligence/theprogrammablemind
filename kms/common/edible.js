@@ -46,6 +46,7 @@ const template ={
     "oatmeal is a cereal grain",
     "sausage is a meat",
     "a hamburger is a sandwich",
+    "a cheeseburger is a hamburger",
     "pop, soda, coffee, tea, shakes and juice are drinks",
     "lemonade is a drink",
     {

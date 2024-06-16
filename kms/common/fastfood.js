@@ -44,7 +44,11 @@ const template ={
     "ultimate chicken modifies grill",
     { priorities: [ { "context": [['ultimate_chicken_grill', 0], ['list', 0]], "choose": [0] } ] },
     // "10 piece modifies nuggets",
-    "asiago ranch chicken modifies club",
+    "chicken modifies club",
+    "asiago ranch modifies chicken club",
+    "crispy modifies chicken club",
+    "chicken club is a sandwich",
+    "junior modifies crispy chicken club",
     { priorities: [ { "context": [['asiago_ranch_chicken_club', 0], ['list', 0]], "choose": [0] } ] },
     "waffle modifies fries",
     { priorities: [ { "context": [['waffle_fry', 0], ['list', 0]], "choose": [0] } ] },
@@ -92,6 +96,11 @@ const template ={
     "southwest avacado modifies salad",
     "breakfast modifies meals",
     "breakfast modifies baconator",
+    "bacon modifies cheeseburger",
+    "junior modifies bacon cheeseburger",
+    "go modifies wrap",
+    "a go wrap is a sandwich",
+    "chicken modifies go wrap",
     "breakfast baconator, french toast sandwich, egg muffin, chicken on french toast, pancake platter, double sausage muffin, pancakes, french toast and oatmeal are breakfast meals",
     "single, double, triple, baconator, bacon deluxe, spicy homestyle and premium cod are meals",
     "coca modifies cola",
@@ -117,6 +126,7 @@ const template ={
       ],
       floaters: ['instance'],
       priorities: [
+       // { "context": [['chicken_go_wrap', 0], ['chicken_sandwich', 0], ], "choose": [0] },
        { "context": [['number', 0], ['numberNumberCombo', 0], ], "choose": [0] },
        { "context": [['list', 0], ['numberNumberCombo', 0], ], "choose": [0] },
 
@@ -221,6 +231,7 @@ const template ={
     "fries and smoothies are sizeable",
     // TODO Future see above note { query: "(combo one) and (2 combo twos)", skipSemantics: true },
     // { query: "(2 mango passion and (3 strawberry)) smoothies", skipSemantics: true },
+    { query: "(2 mango passion and (3 strawberry)) smoothies", skipSemantics: true },
   ],
 }
 
@@ -260,7 +271,17 @@ class API {
 
   isAvailable(id) {
     return [
+      "junior_bacon_cheeseburger",
+      "junior_crispy_chicken_club",
       "breakfast_baconator",
+      "french_toast_sandwich",
+      "egg_muffin",
+      "chicken_on_french_toast",
+      "pancake_platter",
+      "double_sausage_muffin",
+      "pancake",
+      "french_toast",
+      "oatmeal",
       "chicken_nugget",
       "double",
       "french_fry",

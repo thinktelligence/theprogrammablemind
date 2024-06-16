@@ -386,7 +386,7 @@ class API {
       match: ({context}) => context.marker == operator && context.paraphrase && !context.query,
       apply: ({context, gp, g}) => {
         const beforeGenerator = before.map( (arg) => g(context[arg.tag]) )
-        const afterGenerator = after.map( (arg) => g(context[arg.tag], { assumed: { paraphrase: true } }) )
+        const afterGenerator = after.map( (arg) => gp(context[arg.tag]) )
         const word = context.word
         // return beforeGenerator.concat([`${context.word}`]).concat(afterGenerator).join(' ')
         const sub = []

@@ -525,13 +525,13 @@ let configStruct = {
       where: where(),
       notes: 'x is y (not a response)',
       match: ({context, hierarchy}) => hierarchy.isA(context.marker, 'is') && !context.evalue,
-      apply: ({context, g, callId}) => {
+      apply: ({context, g, gp, callId}) => {
         if ((context.two.evalue || {}).marker == 'answerNotKnown') {
           return g(context.two.evalue)
         }
 
         if (!context.isResponse) {
-          return `${g({...context.one, paraphrase: true}, { assumed: {subphrase: true} })} ${isMany(context.one) || isMany(context.two) || isMany(context) ? "are" : "is"} ${g(context.two)}`
+          return `${gp(context.one)} ${isMany(context.one) || isMany(context.two) || isMany(context) ? "are" : "is"} ${g(context.two)}`
         }
 
         const hasFocus = (property) => {
@@ -556,9 +556,9 @@ let configStruct = {
         }
         // greg101
         if (focus == 'one') {
-          return `${g(context.two)} ${isMany(context.one) || isMany(context.two) || isMany(context) ? "are" : "is"} ${g({...context.one, paraphrase: true}, { assumed: { subphrase: true } })}`
+          return `${g(context.two)} ${isMany(context.one) || isMany(context.two) || isMany(context) ? "are" : "is"} ${gp(context.one)}`
         } else {
-          return `${g({...context.one, paraphrase: true}, { assumed: {subphrase: true} })} ${isMany(context.one) || isMany(context.two) || isMany(context) ? "are" : "is"} ${g(context.two)}`
+          return `${g(context.one)} ${isMany(context.one) || isMany(context.two) || isMany(context) ? "are" : "is"} ${g(context.two)}`
         }
         // return `${g({...context.one})} ${isMany(context.one) || isMany(context.two) || isMany(context) ? "are" : "is"} ${g(context.two)}`
       },
