@@ -126,7 +126,7 @@ const template ={
       ],
       floaters: ['instance'],
       priorities: [
-       // { "context": [['chicken_go_wrap', 0], ['chicken_sandwich', 0], ], "choose": [0] },
+       { "context": [['chicken_go_wrap', 0], ['chicken_sandwich', 0], ], "choose": [0] },
        { "context": [['number', 0], ['numberNumberCombo', 0], ], "choose": [0] },
        { "context": [['list', 0], ['numberNumberCombo', 0], ], "choose": [0] },
 
@@ -271,6 +271,7 @@ class API {
 
   isAvailable(id) {
     return [
+      "chicken_go_wrap",
       "junior_bacon_cheeseburger",
       "junior_crispy_chicken_club",
       "breakfast_baconator",

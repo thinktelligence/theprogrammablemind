@@ -686,4 +686,5 @@ fi
 # $NODE fastfood -q "breakfast baconator, french toast sandwich, egg muffin, chicken on french toast, pancake platter, double sausage muffin, pancakes, french toast and oatmeal are breakfast meals" -g -d
 # $NODE countable -q '1 countable' -g -d
 # $NODE pipboy -q 'equip the highest damage pistol' -g -d
-$NODE fastfood -q 'french toast sandwich combo' -g -d
+# $NODE fastfood -q 'french toast sandwich combo' -g -d
+$NODE fastfood -q 'chicken go wrap' -g -d
