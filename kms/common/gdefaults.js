@@ -82,6 +82,12 @@ let configStruct = {
 
     {
       where: where(),
+      match: ({context}) => context.value && Array.isArray(context.value),
+      apply: ({context, gs}) => gs(context.value)
+    },
+
+    {
+      where: where(),
       match: ({context}) => context.value,
       apply: ({context, g}) => g(context.value)
     },
