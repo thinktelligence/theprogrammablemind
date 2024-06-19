@@ -124,7 +124,7 @@
           "level": 0
         },
         {
-          "bridge": "{ ...next(operator), modifiers: before, concept: after[0], flatten: true }",
+          "bridge": "{ ...next(operator), modifiers: before, concept: after[0] }",
           "id": "modifies",
           "isA": [
             "verby"
@@ -132,14 +132,21 @@
           "level": 0,
           "words": [
             {
+              "flatten": false,
               "number": "one",
               "word": "modifies"
             },
             {
+              "flatten": true,
               "number": "many",
               "word": "modify"
             }
           ]
+        },
+        {
+          "bridge": "{ ...after[0], flatten: false, literally: true }",
+          "id": "literally",
+          "level": 0
         },
         {
           "bridge": "{ ...next(operator) }",
@@ -616,6 +623,9 @@
           "pattern": "([concept])"
         },
         {
+          "pattern": "([literally] (modifies/0))"
+        },
+        {
           "pattern": "(([queryable]) [is|] ([queryable|]))"
         },
         {
@@ -856,14 +866,14 @@
         "modifies": [
           {
             "id": "modifies",
-            "initial": "{\"word\":\"modifies\",\"number\":\"one\"}",
+            "initial": "{\"word\":\"modifies\",\"number\":\"one\",\"flatten\":false}",
             "word": "modifies"
           }
         ],
         "modify": [
           {
             "id": "modifies",
-            "initial": "{\"word\":\"modify\",\"number\":\"many\"}",
+            "initial": "{\"word\":\"modify\",\"number\":\"many\",\"flatten\":true}",
             "word": "modify"
           }
         ],
@@ -927,7 +937,7 @@
           "word": "strips"
         },
         "dead": true,
-        "flatten": true,
+        "flatten": false,
         "level": 1,
         "marker": "modifies",
         "modifiers": [
@@ -1368,7 +1378,7 @@
               "word": "strips"
             },
             "dead": true,
-            "flatten": true,
+            "flatten": false,
             "level": 1,
             "marker": "modifies",
             "modifiers": [
@@ -1509,7 +1519,7 @@
           "level": 0
         },
         {
-          "bridge": "{ ...next(operator), modifiers: before, concept: after[0], flatten: true }",
+          "bridge": "{ ...next(operator), modifiers: before, concept: after[0] }",
           "id": "modifies",
           "isA": [
             "verby"
@@ -1517,14 +1527,21 @@
           "level": 0,
           "words": [
             {
+              "flatten": false,
               "number": "one",
               "word": "modifies"
             },
             {
+              "flatten": true,
               "number": "many",
               "word": "modify"
             }
           ]
+        },
+        {
+          "bridge": "{ ...after[0], flatten: false, literally: true }",
+          "id": "literally",
+          "level": 0
         },
         {
           "bridge": "{ ...next(operator) }",
@@ -2001,6 +2018,9 @@
           "pattern": "([concept])"
         },
         {
+          "pattern": "([literally] (modifies/0))"
+        },
+        {
           "pattern": "(([queryable]) [is|] ([queryable|]))"
         },
         {
@@ -2241,14 +2261,14 @@
         "modifies": [
           {
             "id": "modifies",
-            "initial": "{\"word\":\"modifies\",\"number\":\"one\"}",
+            "initial": "{\"word\":\"modifies\",\"number\":\"one\",\"flatten\":false}",
             "word": "modifies"
           }
         ],
         "modify": [
           {
             "id": "modifies",
-            "initial": "{\"word\":\"modify\",\"number\":\"many\"}",
+            "initial": "{\"word\":\"modify\",\"number\":\"many\",\"flatten\":true}",
             "word": "modify"
           }
         ],
@@ -2312,7 +2332,7 @@
           "word": "strips"
         },
         "dead": true,
-        "flatten": true,
+        "flatten": false,
         "level": 1,
         "marker": "modifies",
         "modifiers": [
@@ -2855,7 +2875,7 @@
               "word": "strips"
             },
             "dead": true,
-            "flatten": true,
+            "flatten": false,
             "level": 1,
             "marker": "modifies",
             "modifiers": [
@@ -3055,7 +3075,7 @@
           "level": 0
         },
         {
-          "bridge": "{ ...next(operator), modifiers: before, concept: after[0], flatten: true }",
+          "bridge": "{ ...next(operator), modifiers: before, concept: after[0] }",
           "id": "modifies",
           "isA": [
             "verby"
@@ -3063,14 +3083,21 @@
           "level": 0,
           "words": [
             {
+              "flatten": false,
               "number": "one",
               "word": "modifies"
             },
             {
+              "flatten": true,
               "number": "many",
               "word": "modify"
             }
           ]
+        },
+        {
+          "bridge": "{ ...after[0], flatten: false, literally: true }",
+          "id": "literally",
+          "level": 0
         },
         {
           "bridge": "{ ...next(operator) }",
@@ -3507,6 +3534,9 @@
           "pattern": "([concept])"
         },
         {
+          "pattern": "([literally] (modifies/0))"
+        },
+        {
           "pattern": "(([queryable]) [is|] ([queryable|]))"
         },
         {
@@ -3741,14 +3771,14 @@
         "modifies": [
           {
             "id": "modifies",
-            "initial": "{\"word\":\"modifies\",\"number\":\"one\"}",
+            "initial": "{\"word\":\"modifies\",\"number\":\"one\",\"flatten\":false}",
             "word": "modifies"
           }
         ],
         "modify": [
           {
             "id": "modifies",
-            "initial": "{\"word\":\"modify\",\"number\":\"many\"}",
+            "initial": "{\"word\":\"modify\",\"number\":\"many\",\"flatten\":true}",
             "word": "modify"
           }
         ],
@@ -3793,7 +3823,8 @@
             "end": 21,
             "start": 0
           },
-          "right": "property"
+          "right": "property",
+          "text": "greg doesnt have wings"
         },
         "doesable": true,
         "is_compound": true,
@@ -3839,7 +3870,7 @@
           "start": 0
         },
         "sameWasProcessed": true,
-        "text": "greg have wings",
+        "text": "greg doesnt have wings",
         "topLevel": true,
         "touchedBy": [
           "properties#call2"
@@ -4298,7 +4329,8 @@
                 "end": 21,
                 "start": 0
               },
-              "right": "property"
+              "right": "property",
+              "text": "greg doesnt have wings"
             },
             "doesable": true,
             "is_compound": true,
@@ -4344,7 +4376,7 @@
               "start": 0
             },
             "sameWasProcessed": true,
-            "text": "greg have wings",
+            "text": "greg doesnt have wings",
             "topLevel": true,
             "touchedBy": [
               "properties#call2"
@@ -4577,7 +4609,7 @@
           "level": 0
         },
         {
-          "bridge": "{ ...next(operator), modifiers: before, concept: after[0], flatten: true }",
+          "bridge": "{ ...next(operator), modifiers: before, concept: after[0] }",
           "id": "modifies",
           "isA": [
             "verby"
@@ -4585,14 +4617,21 @@
           "level": 0,
           "words": [
             {
+              "flatten": false,
               "number": "one",
               "word": "modifies"
             },
             {
+              "flatten": true,
               "number": "many",
               "word": "modify"
             }
           ]
+        },
+        {
+          "bridge": "{ ...after[0], flatten: false, literally: true }",
+          "id": "literally",
+          "level": 0
         },
         {
           "bridge": "{ ...next(operator) }",
@@ -5029,6 +5068,9 @@
           "pattern": "([concept])"
         },
         {
+          "pattern": "([literally] (modifies/0))"
+        },
+        {
           "pattern": "(([queryable]) [is|] ([queryable|]))"
         },
         {
@@ -5263,14 +5305,14 @@
         "modifies": [
           {
             "id": "modifies",
-            "initial": "{\"word\":\"modifies\",\"number\":\"one\"}",
+            "initial": "{\"word\":\"modifies\",\"number\":\"one\",\"flatten\":false}",
             "word": "modifies"
           }
         ],
         "modify": [
           {
             "id": "modifies",
-            "initial": "{\"word\":\"modify\",\"number\":\"many\"}",
+            "initial": "{\"word\":\"modify\",\"number\":\"many\",\"flatten\":true}",
             "word": "modify"
           }
         ],
@@ -5315,7 +5357,8 @@
             "end": 21,
             "start": 0
           },
-          "right": "property"
+          "right": "property",
+          "text": "greg doesnt have wings"
         },
         "doesable": true,
         "is_compound": true,
@@ -5361,7 +5404,7 @@
           "start": 0
         },
         "sameWasProcessed": true,
-        "text": "greg have wings",
+        "text": "greg doesnt have wings",
         "topLevel": true,
         "touchedBy": [
           "properties#call2"
@@ -5379,7 +5422,8 @@
             "end": 42,
             "start": 28
           },
-          "right": "property"
+          "right": "property",
+          "text": ""
         },
         "doesable": true,
         "evalue": {
@@ -6059,7 +6103,8 @@
                 "end": 42,
                 "start": 28
               },
-              "right": "property"
+              "right": "property",
+              "text": ""
             },
             "doesable": true,
             "evalue": {
@@ -6137,7 +6182,8 @@
                 "end": 21,
                 "start": 0
               },
-              "right": "property"
+              "right": "property",
+              "text": "greg doesnt have wings"
             },
             "doesable": true,
             "is_compound": true,
@@ -6183,7 +6229,7 @@
               "start": 0
             },
             "sameWasProcessed": true,
-            "text": "greg have wings",
+            "text": "greg doesnt have wings",
             "topLevel": true,
             "touchedBy": [
               "properties#call2"
@@ -6342,7 +6388,7 @@
           "level": 0
         },
         {
-          "bridge": "{ ...next(operator), modifiers: before, concept: after[0], flatten: true }",
+          "bridge": "{ ...next(operator), modifiers: before, concept: after[0] }",
           "id": "modifies",
           "isA": [
             "verby"
@@ -6350,14 +6396,21 @@
           "level": 0,
           "words": [
             {
+              "flatten": false,
               "number": "one",
               "word": "modifies"
             },
             {
+              "flatten": true,
               "number": "many",
               "word": "modify"
             }
           ]
+        },
+        {
+          "bridge": "{ ...after[0], flatten: false, literally: true }",
+          "id": "literally",
+          "level": 0
         },
         {
           "bridge": "{ ...next(operator) }",
@@ -6794,6 +6847,9 @@
           "pattern": "([concept])"
         },
         {
+          "pattern": "([literally] (modifies/0))"
+        },
+        {
           "pattern": "(([queryable]) [is|] ([queryable|]))"
         },
         {
@@ -7028,14 +7084,14 @@
         "modifies": [
           {
             "id": "modifies",
-            "initial": "{\"word\":\"modifies\",\"number\":\"one\"}",
+            "initial": "{\"word\":\"modifies\",\"number\":\"one\",\"flatten\":false}",
             "word": "modifies"
           }
         ],
         "modify": [
           {
             "id": "modifies",
-            "initial": "{\"word\":\"modify\",\"number\":\"many\"}",
+            "initial": "{\"word\":\"modify\",\"number\":\"many\",\"flatten\":true}",
             "word": "modify"
           }
         ],
@@ -7080,7 +7136,8 @@
             "end": 12,
             "start": 0
           },
-          "right": "property"
+          "right": "property",
+          "text": "greg has eyes"
         },
         "doesable": true,
         "level": 2,
@@ -7555,7 +7612,8 @@
                 "end": 12,
                 "start": 0
               },
-              "right": "property"
+              "right": "property",
+              "text": "greg has eyes"
             },
             "doesable": true,
             "level": 2,
@@ -7807,7 +7865,7 @@
           "level": 0
         },
         {
-          "bridge": "{ ...next(operator), modifiers: before, concept: after[0], flatten: true }",
+          "bridge": "{ ...next(operator), modifiers: before, concept: after[0] }",
           "id": "modifies",
           "isA": [
             "verby"
@@ -7815,14 +7873,21 @@
           "level": 0,
           "words": [
             {
+              "flatten": false,
               "number": "one",
               "word": "modifies"
             },
             {
+              "flatten": true,
               "number": "many",
               "word": "modify"
             }
           ]
+        },
+        {
+          "bridge": "{ ...after[0], flatten: false, literally: true }",
+          "id": "literally",
+          "level": 0
         },
         {
           "bridge": "{ ...next(operator) }",
@@ -8259,6 +8324,9 @@
           "pattern": "([concept])"
         },
         {
+          "pattern": "([literally] (modifies/0))"
+        },
+        {
           "pattern": "(([queryable]) [is|] ([queryable|]))"
         },
         {
@@ -8493,14 +8561,14 @@
         "modifies": [
           {
             "id": "modifies",
-            "initial": "{\"word\":\"modifies\",\"number\":\"one\"}",
+            "initial": "{\"word\":\"modifies\",\"number\":\"one\",\"flatten\":false}",
             "word": "modifies"
           }
         ],
         "modify": [
           {
             "id": "modifies",
-            "initial": "{\"word\":\"modify\",\"number\":\"many\"}",
+            "initial": "{\"word\":\"modify\",\"number\":\"many\",\"flatten\":true}",
             "word": "modify"
           }
         ],
@@ -8545,7 +8613,8 @@
             "end": 12,
             "start": 0
           },
-          "right": "property"
+          "right": "property",
+          "text": "greg has eyes"
         },
         "doesable": true,
         "level": 2,
@@ -8604,7 +8673,8 @@
             "end": 26,
             "start": 14
           },
-          "right": "property"
+          "right": "property",
+          "text": ""
         },
         "doesable": true,
         "evalue": {
@@ -8655,7 +8725,7 @@
           "end": 27,
           "start": 14
         },
-        "text": "greg has eyes ?",
+        "text": "greg has eyes?",
         "topLevel": true,
         "touchedBy": [
           "properties#call10"
@@ -9243,7 +9313,8 @@
                 "end": 26,
                 "start": 14
               },
-              "right": "property"
+              "right": "property",
+              "text": ""
             },
             "doesable": true,
             "evalue": {
@@ -9294,7 +9365,7 @@
               "end": 27,
               "start": 14
             },
-            "text": "greg has eyes ?",
+            "text": "greg has eyes?",
             "topLevel": true,
             "touchedBy": [
               "properties#call10"
@@ -9321,7 +9392,8 @@
                 "end": 12,
                 "start": 0
               },
-              "right": "property"
+              "right": "property",
+              "text": "greg has eyes"
             },
             "doesable": true,
             "level": 2,
@@ -9543,7 +9615,7 @@
           "level": 0
         },
         {
-          "bridge": "{ ...next(operator), modifiers: before, concept: after[0], flatten: true }",
+          "bridge": "{ ...next(operator), modifiers: before, concept: after[0] }",
           "id": "modifies",
           "isA": [
             "verby"
@@ -9551,14 +9623,21 @@
           "level": 0,
           "words": [
             {
+              "flatten": false,
               "number": "one",
               "word": "modifies"
             },
             {
+              "flatten": true,
               "number": "many",
               "word": "modify"
             }
           ]
+        },
+        {
+          "bridge": "{ ...after[0], flatten: false, literally: true }",
+          "id": "literally",
+          "level": 0
         },
         {
           "bridge": "{ ...next(operator) }",
@@ -9995,6 +10074,9 @@
           "pattern": "([concept])"
         },
         {
+          "pattern": "([literally] (modifies/0))"
+        },
+        {
           "pattern": "(([queryable]) [is|] ([queryable|]))"
         },
         {
@@ -10229,14 +10311,14 @@
         "modifies": [
           {
             "id": "modifies",
-            "initial": "{\"word\":\"modifies\",\"number\":\"one\"}",
+            "initial": "{\"word\":\"modifies\",\"number\":\"one\",\"flatten\":false}",
             "word": "modifies"
           }
         ],
         "modify": [
           {
             "id": "modifies",
-            "initial": "{\"word\":\"modify\",\"number\":\"many\"}",
+            "initial": "{\"word\":\"modify\",\"number\":\"many\",\"flatten\":true}",
             "word": "modify"
           }
         ],
@@ -10281,7 +10363,8 @@
             "end": 12,
             "start": 0
           },
-          "right": "property"
+          "right": "property",
+          "text": "greg has eyes"
         },
         "doesable": true,
         "isResponse": true,
@@ -10328,7 +10411,7 @@
           "end": 13,
           "start": 0
         },
-        "text": "greg has eyes ?",
+        "text": "greg has eyes?",
         "topLevel": true,
         "touchedBy": [
           "properties#call2"
@@ -10785,7 +10868,8 @@
                 "end": 12,
                 "start": 0
               },
-              "right": "property"
+              "right": "property",
+              "text": "greg has eyes"
             },
             "doesable": true,
             "isResponse": true,
@@ -10832,7 +10916,7 @@
               "end": 13,
               "start": 0
             },
-            "text": "greg has eyes ?",
+            "text": "greg has eyes?",
             "topLevel": true,
             "touchedBy": [
               "properties#call2"
@@ -11044,7 +11128,7 @@
           "level": 0
         },
         {
-          "bridge": "{ ...next(operator), modifiers: before, concept: after[0], flatten: true }",
+          "bridge": "{ ...next(operator), modifiers: before, concept: after[0] }",
           "id": "modifies",
           "isA": [
             "verby"
@@ -11052,14 +11136,21 @@
           "level": 0,
           "words": [
             {
+              "flatten": false,
               "number": "one",
               "word": "modifies"
             },
             {
+              "flatten": true,
               "number": "many",
               "word": "modify"
             }
           ]
+        },
+        {
+          "bridge": "{ ...after[0], flatten: false, literally: true }",
+          "id": "literally",
+          "level": 0
         },
         {
           "bridge": "{ ...next(operator) }",
@@ -11496,6 +11587,9 @@
           "pattern": "([concept])"
         },
         {
+          "pattern": "([literally] (modifies/0))"
+        },
+        {
           "pattern": "(([queryable]) [is|] ([queryable|]))"
         },
         {
@@ -11730,14 +11824,14 @@
         "modifies": [
           {
             "id": "modifies",
-            "initial": "{\"word\":\"modifies\",\"number\":\"one\"}",
+            "initial": "{\"word\":\"modifies\",\"number\":\"one\",\"flatten\":false}",
             "word": "modifies"
           }
         ],
         "modify": [
           {
             "id": "modifies",
-            "initial": "{\"word\":\"modify\",\"number\":\"many\"}",
+            "initial": "{\"word\":\"modify\",\"number\":\"many\",\"flatten\":true}",
             "word": "modify"
           }
         ],
@@ -11782,7 +11876,8 @@
             "end": 12,
             "start": 0
           },
-          "right": "property"
+          "right": "property",
+          "text": "greg has toes"
         },
         "doesable": true,
         "level": 2,
@@ -11841,7 +11936,8 @@
             "end": 26,
             "start": 14
           },
-          "right": "property"
+          "right": "property",
+          "text": ""
         },
         "doesable": true,
         "evalue": {
@@ -11892,7 +11988,7 @@
           "end": 27,
           "start": 14
         },
-        "text": "greg has eyes ?",
+        "text": "greg has eyes?",
         "topLevel": true,
         "touchedBy": [
           "properties#call10"
@@ -12480,7 +12576,8 @@
                 "end": 26,
                 "start": 14
               },
-              "right": "property"
+              "right": "property",
+              "text": ""
             },
             "doesable": true,
             "evalue": {
@@ -12531,7 +12628,7 @@
               "end": 27,
               "start": 14
             },
-            "text": "greg has eyes ?",
+            "text": "greg has eyes?",
             "topLevel": true,
             "touchedBy": [
               "properties#call10"
@@ -12558,7 +12655,8 @@
                 "end": 12,
                 "start": 0
               },
-              "right": "property"
+              "right": "property",
+              "text": "greg has toes"
             },
             "doesable": true,
             "level": 2,
@@ -12782,7 +12880,7 @@
           "level": 0
         },
         {
-          "bridge": "{ ...next(operator), modifiers: before, concept: after[0], flatten: true }",
+          "bridge": "{ ...next(operator), modifiers: before, concept: after[0] }",
           "id": "modifies",
           "isA": [
             "verby"
@@ -12790,14 +12888,21 @@
           "level": 0,
           "words": [
             {
+              "flatten": false,
               "number": "one",
               "word": "modifies"
             },
             {
+              "flatten": true,
               "number": "many",
               "word": "modify"
             }
           ]
+        },
+        {
+          "bridge": "{ ...after[0], flatten: false, literally: true }",
+          "id": "literally",
+          "level": 0
         },
         {
           "bridge": "{ ...next(operator) }",
@@ -13234,6 +13339,9 @@
           "pattern": "([concept])"
         },
         {
+          "pattern": "([literally] (modifies/0))"
+        },
+        {
           "pattern": "(([queryable]) [is|] ([queryable|]))"
         },
         {
@@ -13468,14 +13576,14 @@
         "modifies": [
           {
             "id": "modifies",
-            "initial": "{\"word\":\"modifies\",\"number\":\"one\"}",
+            "initial": "{\"word\":\"modifies\",\"number\":\"one\",\"flatten\":false}",
             "word": "modifies"
           }
         ],
         "modify": [
           {
             "id": "modifies",
-            "initial": "{\"word\":\"modify\",\"number\":\"many\"}",
+            "initial": "{\"word\":\"modify\",\"number\":\"many\",\"flatten\":true}",
             "word": "modify"
           }
         ],
@@ -13587,7 +13695,7 @@
           "end": 18,
           "start": 0
         },
-        "text": "greg 's car 's bumper",
+        "text": "greg's car's bumper",
         "topLevel": true,
         "types": [
           "property"
@@ -14155,7 +14263,7 @@
               "end": 18,
               "start": 0
             },
-            "text": "greg 's car 's bumper",
+            "text": "greg's car's bumper",
             "topLevel": true,
             "types": [
               "property"
@@ -14355,7 +14463,7 @@
           "level": 0
         },
         {
-          "bridge": "{ ...next(operator), modifiers: before, concept: after[0], flatten: true }",
+          "bridge": "{ ...next(operator), modifiers: before, concept: after[0] }",
           "id": "modifies",
           "isA": [
             "verby"
@@ -14363,14 +14471,21 @@
           "level": 0,
           "words": [
             {
+              "flatten": false,
               "number": "one",
               "word": "modifies"
             },
             {
+              "flatten": true,
               "number": "many",
               "word": "modify"
             }
           ]
+        },
+        {
+          "bridge": "{ ...after[0], flatten: false, literally: true }",
+          "id": "literally",
+          "level": 0
         },
         {
           "bridge": "{ ...next(operator) }",
@@ -14807,6 +14922,9 @@
           "pattern": "([concept])"
         },
         {
+          "pattern": "([literally] (modifies/0))"
+        },
+        {
           "pattern": "(([queryable]) [is|] ([queryable|]))"
         },
         {
@@ -15041,14 +15159,14 @@
         "modifies": [
           {
             "id": "modifies",
-            "initial": "{\"word\":\"modifies\",\"number\":\"one\"}",
+            "initial": "{\"word\":\"modifies\",\"number\":\"one\",\"flatten\":false}",
             "word": "modifies"
           }
         ],
         "modify": [
           {
             "id": "modifies",
-            "initial": "{\"word\":\"modify\",\"number\":\"many\"}",
+            "initial": "{\"word\":\"modify\",\"number\":\"many\",\"flatten\":true}",
             "word": "modify"
           }
         ],
@@ -15162,7 +15280,7 @@
           "end": 22,
           "start": 0
         },
-        "text": "alice 's sister is wendy",
+        "text": "alice's sister is wendy",
         "topLevel": true,
         "touchedBy": [
           "properties#call2"
@@ -15794,7 +15912,7 @@
               "end": 22,
               "start": 0
             },
-            "text": "alice 's sister is wendy",
+            "text": "alice's sister is wendy",
             "topLevel": true,
             "touchedBy": [
               "properties#call2"
@@ -16052,7 +16170,7 @@
           "level": 0
         },
         {
-          "bridge": "{ ...next(operator), modifiers: before, concept: after[0], flatten: true }",
+          "bridge": "{ ...next(operator), modifiers: before, concept: after[0] }",
           "id": "modifies",
           "isA": [
             "verby"
@@ -16060,14 +16178,21 @@
           "level": 0,
           "words": [
             {
+              "flatten": false,
               "number": "one",
               "word": "modifies"
             },
             {
+              "flatten": true,
               "number": "many",
               "word": "modify"
             }
           ]
+        },
+        {
+          "bridge": "{ ...after[0], flatten: false, literally: true }",
+          "id": "literally",
+          "level": 0
         },
         {
           "bridge": "{ ...next(operator) }",
@@ -16504,6 +16629,9 @@
           "pattern": "([concept])"
         },
         {
+          "pattern": "([literally] (modifies/0))"
+        },
+        {
           "pattern": "(([queryable]) [is|] ([queryable|]))"
         },
         {
@@ -16738,14 +16866,14 @@
         "modifies": [
           {
             "id": "modifies",
-            "initial": "{\"word\":\"modifies\",\"number\":\"one\"}",
+            "initial": "{\"word\":\"modifies\",\"number\":\"one\",\"flatten\":false}",
             "word": "modifies"
           }
         ],
         "modify": [
           {
             "id": "modifies",
-            "initial": "{\"word\":\"modify\",\"number\":\"many\"}",
+            "initial": "{\"word\":\"modify\",\"number\":\"many\",\"flatten\":true}",
             "word": "modify"
           }
         ],
@@ -16859,7 +16987,7 @@
           "end": 22,
           "start": 0
         },
-        "text": "alice 's sister is wendy",
+        "text": "alice's sister is wendy",
         "topLevel": true,
         "touchedBy": [
           "properties#call2"
@@ -16959,7 +17087,7 @@
           "end": 42,
           "start": 24
         },
-        "text": "wendy 's cat is cleo",
+        "text": "wendy's cat is cleo",
         "topLevel": true,
         "touchedBy": [
           "properties#call18"
@@ -17200,7 +17328,7 @@
           "end": 26,
           "start": 0
         },
-        "text": "who is alice 's sister 's cat",
+        "text": "who is alice's sister's cat",
         "topLevel": true,
         "touchedBy": [
           "properties#call2"
@@ -17294,7 +17422,7 @@
     "generatedParenthesized": [
       "",
       "",
-      "(((((alice)'s) ((sister)'s) (cat)) is ((cleo))))"
+      "((((alice) (sister) (cat)) is ((cleo))))"
     ],
     "metadata": {
       "opChoices": [
@@ -18580,7 +18708,7 @@
               "end": 26,
               "start": 0
             },
-            "text": "who is alice 's sister 's cat",
+            "text": "who is alice's sister's cat",
             "topLevel": true,
             "touchedBy": [
               "properties#call2"
@@ -18670,11 +18798,11 @@
             },
             "word": "is"
           },
-          "generatedParenthesized": "(((((alice)'s) ((sister)'s) (cat)) is ((cleo))))",
+          "generatedParenthesized": "((((alice) (sister) (cat)) is ((cleo))))",
           "paraphrases": "who is alice's sister's cat?",
           "paraphrasesParenthesized": "((((who)) is (((alice)'s) ((sister)'s) (cat)))?)",
           "responses": [
-            "alice's sister's cat is cleo"
+            "alice sister cat is cleo"
           ]
         },
         {
@@ -18755,7 +18883,7 @@
               "end": 42,
               "start": 24
             },
-            "text": "wendy 's cat is cleo",
+            "text": "wendy's cat is cleo",
             "topLevel": true,
             "touchedBy": [
               "properties#call18"
@@ -18864,7 +18992,7 @@
               "end": 22,
               "start": 0
             },
-            "text": "alice 's sister is wendy",
+            "text": "alice's sister is wendy",
             "topLevel": true,
             "touchedBy": [
               "properties#call2"
@@ -18911,7 +19039,7 @@
     "responses": [
       "",
       "",
-      "alice's sister's cat is cleo"
+      "alice sister cat is cleo"
     ]
   },
   {
@@ -19163,7 +19291,7 @@
           "level": 0
         },
         {
-          "bridge": "{ ...next(operator), modifiers: before, concept: after[0], flatten: true }",
+          "bridge": "{ ...next(operator), modifiers: before, concept: after[0] }",
           "id": "modifies",
           "isA": [
             "verby"
@@ -19171,14 +19299,21 @@
           "level": 0,
           "words": [
             {
+              "flatten": false,
               "number": "one",
               "word": "modifies"
             },
             {
+              "flatten": true,
               "number": "many",
               "word": "modify"
             }
           ]
+        },
+        {
+          "bridge": "{ ...after[0], flatten: false, literally: true }",
+          "id": "literally",
+          "level": 0
         },
         {
           "bridge": "{ ...next(operator) }",
@@ -19615,6 +19750,9 @@
           "pattern": "([concept])"
         },
         {
+          "pattern": "([literally] (modifies/0))"
+        },
+        {
           "pattern": "(([queryable]) [is|] ([queryable|]))"
         },
         {
@@ -19849,14 +19987,14 @@
         "modifies": [
           {
             "id": "modifies",
-            "initial": "{\"word\":\"modifies\",\"number\":\"one\"}",
+            "initial": "{\"word\":\"modifies\",\"number\":\"one\",\"flatten\":false}",
             "word": "modifies"
           }
         ],
         "modify": [
           {
             "id": "modifies",
-            "initial": "{\"word\":\"modify\",\"number\":\"many\"}",
+            "initial": "{\"word\":\"modify\",\"number\":\"many\",\"flatten\":true}",
             "word": "modify"
           }
         ],
@@ -19970,7 +20108,7 @@
           "end": 22,
           "start": 0
         },
-        "text": "alice 's sister is wendy",
+        "text": "alice's sister is wendy",
         "topLevel": true,
         "touchedBy": [
           "properties#call2"
@@ -20070,7 +20208,7 @@
           "end": 42,
           "start": 24
         },
-        "text": "wendy 's cat is cleo",
+        "text": "wendy's cat is cleo",
         "topLevel": true,
         "touchedBy": [
           "properties#call18"
@@ -20480,7 +20618,7 @@
     "generatedParenthesized": [
       "",
       "",
-      "((((the (cat)) of (the (sister)) of (alice)) is ((cleo))))"
+      "(((cat) is ((cleo))))"
     ],
     "metadata": {
       "opChoices": [
@@ -22017,11 +22155,11 @@
             },
             "word": "is"
           },
-          "generatedParenthesized": "((((the (cat)) of (the (sister)) of (alice)) is ((cleo))))",
+          "generatedParenthesized": "(((cat) is ((cleo))))",
           "paraphrases": "who is the cat of the sister of alice?",
           "paraphrasesParenthesized": "((((who)) is ((the (cat)) of (the (sister)) of (alice)))?)",
           "responses": [
-            "the cat of the sister of alice is cleo"
+            "cat is cleo"
           ]
         },
         {
@@ -22102,7 +22240,7 @@
               "end": 42,
               "start": 24
             },
-            "text": "wendy 's cat is cleo",
+            "text": "wendy's cat is cleo",
             "topLevel": true,
             "touchedBy": [
               "properties#call18"
@@ -22211,7 +22349,7 @@
               "end": 22,
               "start": 0
             },
-            "text": "alice 's sister is wendy",
+            "text": "alice's sister is wendy",
             "topLevel": true,
             "touchedBy": [
               "properties#call2"
@@ -22258,7 +22396,7 @@
     "responses": [
       "",
       "",
-      "the cat of the sister of alice is cleo"
+      "cat is cleo"
     ]
   },
   {
@@ -22386,7 +22524,7 @@
           "level": 0
         },
         {
-          "bridge": "{ ...next(operator), modifiers: before, concept: after[0], flatten: true }",
+          "bridge": "{ ...next(operator), modifiers: before, concept: after[0] }",
           "id": "modifies",
           "isA": [
             "verby"
@@ -22394,14 +22532,21 @@
           "level": 0,
           "words": [
             {
+              "flatten": false,
               "number": "one",
               "word": "modifies"
             },
             {
+              "flatten": true,
               "number": "many",
               "word": "modify"
             }
           ]
+        },
+        {
+          "bridge": "{ ...after[0], flatten: false, literally: true }",
+          "id": "literally",
+          "level": 0
         },
         {
           "bridge": "{ ...next(operator) }",
@@ -22838,6 +22983,9 @@
           "pattern": "([concept])"
         },
         {
+          "pattern": "([literally] (modifies/0))"
+        },
+        {
           "pattern": "(([queryable]) [is|] ([queryable|]))"
         },
         {
@@ -23072,14 +23220,14 @@
         "modifies": [
           {
             "id": "modifies",
-            "initial": "{\"word\":\"modifies\",\"number\":\"one\"}",
+            "initial": "{\"word\":\"modifies\",\"number\":\"one\",\"flatten\":false}",
             "word": "modifies"
           }
         ],
         "modify": [
           {
             "id": "modifies",
-            "initial": "{\"word\":\"modify\",\"number\":\"many\"}",
+            "initial": "{\"word\":\"modify\",\"number\":\"many\",\"flatten\":true}",
             "word": "modify"
           }
         ],
@@ -23803,6 +23951,24 @@
         [
           "unknown",
           1
+        ]
+      ],
+      [
+        [
+          "is",
+          0
+        ],
+        [
+          "propertyOf",
+          0
+        ],
+        [
+          "the",
+          0
+        ],
+        [
+          "unknown",
+          1
         ],
         [
           "what",
@@ -23817,20 +23983,6 @@
         [
           "propertyOf",
           0
-        ],
-        [
-          "unknown",
-          1
-        ]
-      ],
-      [
-        [
-          "is",
-          0
-        ],
-        [
-          "propertyOf",
-          1
         ],
         [
           "unknown",
@@ -23978,7 +24130,7 @@
           "level": 0
         },
         {
-          "bridge": "{ ...next(operator), modifiers: before, concept: after[0], flatten: true }",
+          "bridge": "{ ...next(operator), modifiers: before, concept: after[0] }",
           "id": "modifies",
           "isA": [
             "verby"
@@ -23986,14 +24138,21 @@
           "level": 0,
           "words": [
             {
+              "flatten": false,
               "number": "one",
               "word": "modifies"
             },
             {
+              "flatten": true,
               "number": "many",
               "word": "modify"
             }
           ]
+        },
+        {
+          "bridge": "{ ...after[0], flatten: false, literally: true }",
+          "id": "literally",
+          "level": 0
         },
         {
           "bridge": "{ ...next(operator) }",
@@ -24430,6 +24589,9 @@
           "pattern": "([concept])"
         },
         {
+          "pattern": "([literally] (modifies/0))"
+        },
+        {
           "pattern": "(([queryable]) [is|] ([queryable|]))"
         },
         {
@@ -24664,14 +24826,14 @@
         "modifies": [
           {
             "id": "modifies",
-            "initial": "{\"word\":\"modifies\",\"number\":\"one\"}",
+            "initial": "{\"word\":\"modifies\",\"number\":\"one\",\"flatten\":false}",
             "word": "modifies"
           }
         ],
         "modify": [
           {
             "id": "modifies",
-            "initial": "{\"word\":\"modify\",\"number\":\"many\"}",
+            "initial": "{\"word\":\"modify\",\"number\":\"many\",\"flatten\":true}",
             "word": "modify"
           }
         ],
@@ -25249,7 +25411,7 @@
     "generatedParenthesized": [
       "",
       "",
-      "((((the (properties)) of (greg)) are ((age: 23 and profession: programmer))))"
+      "(((properties) are ((age: 23 and profession: programmer))))"
     ],
     "metadata": {
       "opChoices": [
@@ -25792,7 +25954,7 @@
         {
           "counter": 9,
           "op": [
-            "the",
+            "what",
             0
           ],
           "ops": [
@@ -25878,7 +26040,7 @@
               0
             ],
             [
-              "what",
+              "the",
               0
             ]
           ]
@@ -25886,7 +26048,7 @@
         {
           "counter": 11,
           "op": [
-            "what",
+            "the",
             0
           ],
           "ops": [
@@ -25919,7 +26081,7 @@
               0
             ],
             [
-              "what",
+              "the",
               0
             ]
           ]
@@ -27004,13 +27166,13 @@
             },
             "word": "are"
           },
-          "generatedParenthesized": "((((the (properties)) of (greg)) are ((age: 23 and profession: programmer))))",
+          "generatedParenthesized": "(((properties) are ((age: 23 and profession: programmer))))",
           "paraphrases": "what are the properties of greg?",
           "paraphrasesParenthesized": "(((what) are ((the (properties)) of (greg)))?)",
           "responses": [
             "",
             "",
-            "the properties of greg are age: 23 and profession: programmer"
+            "properties are age: 23 and profession: programmer"
           ]
         },
         {
@@ -27137,7 +27299,7 @@
           "responses": [
             "",
             "",
-            "the properties of greg are age: 23 and profession: programmer"
+            "properties are age: 23 and profession: programmer"
           ]
         },
         {
@@ -27264,7 +27426,7 @@
           "responses": [
             "",
             "",
-            "the properties of greg are age: 23 and profession: programmer"
+            "properties are age: 23 and profession: programmer"
           ]
         }
       ]
@@ -27283,7 +27445,7 @@
     "responses": [
       "",
       "",
-      "the properties of greg are age: 23 and profession: programmer"
+      "properties are age: 23 and profession: programmer"
     ]
   },
   {
@@ -27587,7 +27749,7 @@
           "level": 0
         },
         {
-          "bridge": "{ ...next(operator), modifiers: before, concept: after[0], flatten: true }",
+          "bridge": "{ ...next(operator), modifiers: before, concept: after[0] }",
           "id": "modifies",
           "isA": [
             "verby"
@@ -27595,14 +27757,21 @@
           "level": 0,
           "words": [
             {
+              "flatten": false,
               "number": "one",
               "word": "modifies"
             },
             {
+              "flatten": true,
               "number": "many",
               "word": "modify"
             }
           ]
+        },
+        {
+          "bridge": "{ ...after[0], flatten: false, literally: true }",
+          "id": "literally",
+          "level": 0
         },
         {
           "bridge": "{ ...next(operator) }",
@@ -28039,6 +28208,9 @@
           "pattern": "([concept])"
         },
         {
+          "pattern": "([literally] (modifies/0))"
+        },
+        {
           "pattern": "(([queryable]) [is|] ([queryable|]))"
         },
         {
@@ -28273,14 +28445,14 @@
         "modifies": [
           {
             "id": "modifies",
-            "initial": "{\"word\":\"modifies\",\"number\":\"one\"}",
+            "initial": "{\"word\":\"modifies\",\"number\":\"one\",\"flatten\":false}",
             "word": "modifies"
           }
         ],
         "modify": [
           {
             "id": "modifies",
-            "initial": "{\"word\":\"modify\",\"number\":\"many\"}",
+            "initial": "{\"word\":\"modify\",\"number\":\"many\",\"flatten\":true}",
             "word": "modify"
           }
         ],
@@ -28620,7 +28792,7 @@
           "end": 39,
           "start": 22
         },
-        "text": "what is greg 's age",
+        "text": "what is greg's age",
         "topLevel": true,
         "touchedBy": [
           "properties#call18"
@@ -28697,7 +28869,7 @@
     ],
     "generatedParenthesized": [
       "",
-      "(((((greg)'s) (age)) is ((23))))"
+      "((((greg) (age)) is ((23))))"
     ],
     "metadata": {
       "opChoices": [
@@ -28929,7 +29101,7 @@
         {
           "counter": 6,
           "op": [
-            "the",
+            "what",
             0
           ],
           "ops": [
@@ -28962,7 +29134,7 @@
         {
           "counter": 7,
           "op": [
-            "what",
+            "the",
             0
           ],
           "ops": [
@@ -28983,7 +29155,7 @@
               0
             ],
             [
-              "what",
+              "the",
               0
             ]
           ]
@@ -29721,7 +29893,7 @@
               "end": 39,
               "start": 22
             },
-            "text": "what is greg 's age",
+            "text": "what is greg's age",
             "topLevel": true,
             "touchedBy": [
               "properties#call18"
@@ -29795,12 +29967,12 @@
             },
             "word": "is"
           },
-          "generatedParenthesized": "(((((greg)'s) (age)) is ((23))))",
+          "generatedParenthesized": "((((greg) (age)) is ((23))))",
           "paraphrases": "what is greg's age?",
           "paraphrasesParenthesized": "(((what) is (((greg)'s) (age)))?)",
           "responses": [
             "",
-            "greg's age is 23"
+            "greg age is 23"
           ]
         },
         {
@@ -29926,7 +30098,7 @@
           "paraphrasesParenthesized": "(((the (age)) of (greg)) is (23))",
           "responses": [
             "",
-            "greg's age is 23"
+            "greg age is 23"
           ]
         }
       ]
@@ -29942,7 +30114,7 @@
     "query": "the age of greg is 23 what is greg's age",
     "responses": [
       "",
-      "greg's age is 23"
+      "greg age is 23"
     ]
   },
   {
@@ -30069,6 +30241,24 @@
         [
           "unknown",
           1
+        ]
+      ],
+      [
+        [
+          "is",
+          0
+        ],
+        [
+          "propertyOf",
+          0
+        ],
+        [
+          "the",
+          0
+        ],
+        [
+          "unknown",
+          1
         ],
         [
           "what",
@@ -30083,20 +30273,6 @@
         [
           "propertyOf",
           0
-        ],
-        [
-          "unknown",
-          1
-        ]
-      ],
-      [
-        [
-          "is",
-          0
-        ],
-        [
-          "propertyOf",
-          1
         ],
         [
           "unknown",
@@ -30248,7 +30424,7 @@
           "level": 0
         },
         {
-          "bridge": "{ ...next(operator), modifiers: before, concept: after[0], flatten: true }",
+          "bridge": "{ ...next(operator), modifiers: before, concept: after[0] }",
           "id": "modifies",
           "isA": [
             "verby"
@@ -30256,14 +30432,21 @@
           "level": 0,
           "words": [
             {
+              "flatten": false,
               "number": "one",
               "word": "modifies"
             },
             {
+              "flatten": true,
               "number": "many",
               "word": "modify"
             }
           ]
+        },
+        {
+          "bridge": "{ ...after[0], flatten: false, literally: true }",
+          "id": "literally",
+          "level": 0
         },
         {
           "bridge": "{ ...next(operator) }",
@@ -30700,6 +30883,9 @@
           "pattern": "([concept])"
         },
         {
+          "pattern": "([literally] (modifies/0))"
+        },
+        {
           "pattern": "(([queryable]) [is|] ([queryable|]))"
         },
         {
@@ -30934,14 +31120,14 @@
         "modifies": [
           {
             "id": "modifies",
-            "initial": "{\"word\":\"modifies\",\"number\":\"one\"}",
+            "initial": "{\"word\":\"modifies\",\"number\":\"one\",\"flatten\":false}",
             "word": "modifies"
           }
         ],
         "modify": [
           {
             "id": "modifies",
-            "initial": "{\"word\":\"modify\",\"number\":\"many\"}",
+            "initial": "{\"word\":\"modify\",\"number\":\"many\",\"flatten\":true}",
             "word": "modify"
           }
         ],
@@ -31409,7 +31595,7 @@
     ],
     "generatedParenthesized": [
       "",
-      "((((the (age)) of (greg)) is ((23))))"
+      "(((age) is ((23))))"
     ],
     "metadata": {
       "opChoices": [
@@ -31661,7 +31847,7 @@
         {
           "counter": 6,
           "op": [
-            "the",
+            "what",
             0
           ],
           "ops": [
@@ -31698,7 +31884,7 @@
         {
           "counter": 7,
           "op": [
-            "what",
+            "the",
             0
           ],
           "ops": [
@@ -31723,7 +31909,7 @@
               0
             ],
             [
-              "what",
+              "the",
               0
             ]
           ]
@@ -32619,12 +32805,12 @@
             },
             "word": "is"
           },
-          "generatedParenthesized": "((((the (age)) of (greg)) is ((23))))",
+          "generatedParenthesized": "(((age) is ((23))))",
           "paraphrases": "what is the age of greg?",
           "paraphrasesParenthesized": "(((what) is ((the (age)) of (greg)))?)",
           "responses": [
             "",
-            "the age of greg is 23"
+            "age is 23"
           ]
         },
         {
@@ -32750,7 +32936,7 @@
           "paraphrasesParenthesized": "(((the (age)) of (greg)) is (23))",
           "responses": [
             "",
-            "the age of greg is 23"
+            "age is 23"
           ]
         }
       ]
@@ -32766,7 +32952,7 @@
     "query": "the age of greg is 23 what is the age of greg",
     "responses": [
       "",
-      "the age of greg is 23"
+      "age is 23"
     ]
   },
   {
@@ -32994,7 +33180,7 @@
           "level": 0
         },
         {
-          "bridge": "{ ...next(operator), modifiers: before, concept: after[0], flatten: true }",
+          "bridge": "{ ...next(operator), modifiers: before, concept: after[0] }",
           "id": "modifies",
           "isA": [
             "verby"
@@ -33002,14 +33188,21 @@
           "level": 0,
           "words": [
             {
+              "flatten": false,
               "number": "one",
               "word": "modifies"
             },
             {
+              "flatten": true,
               "number": "many",
               "word": "modify"
             }
           ]
+        },
+        {
+          "bridge": "{ ...after[0], flatten: false, literally: true }",
+          "id": "literally",
+          "level": 0
         },
         {
           "bridge": "{ ...next(operator) }",
@@ -33446,6 +33639,9 @@
           "pattern": "([concept])"
         },
         {
+          "pattern": "([literally] (modifies/0))"
+        },
+        {
           "pattern": "(([queryable]) [is|] ([queryable|]))"
         },
         {
@@ -33680,14 +33876,14 @@
         "modifies": [
           {
             "id": "modifies",
-            "initial": "{\"word\":\"modifies\",\"number\":\"one\"}",
+            "initial": "{\"word\":\"modifies\",\"number\":\"one\",\"flatten\":false}",
             "word": "modifies"
           }
         ],
         "modify": [
           {
             "id": "modifies",
-            "initial": "{\"word\":\"modify\",\"number\":\"many\"}",
+            "initial": "{\"word\":\"modify\",\"number\":\"many\",\"flatten\":true}",
             "word": "modify"
           }
         ],
@@ -34155,7 +34351,7 @@
     ],
     "generatedParenthesized": [
       "",
-      "((((the (age)) of (greg)) is ((23))))"
+      "(((age) is ((23))))"
     ],
     "metadata": {
       "opChoices": [
@@ -35197,11 +35393,11 @@
             },
             "word": "is"
           },
-          "generatedParenthesized": "((((the (age)) of (greg)) is ((23))))",
+          "generatedParenthesized": "(((age) is ((23))))",
           "paraphrases": "what is the age of greg?",
           "paraphrasesParenthesized": "(((what) is ((the (age)) of (greg)))?)",
           "responses": [
-            "the age of greg is 23"
+            "age is 23"
           ]
         },
         {
@@ -35342,7 +35538,7 @@
     "query": "the age of greg is 23\\nwhat is the age of greg",
     "responses": [
       "",
-      "the age of greg is 23"
+      "age is 23"
     ]
   },
   {
@@ -35574,7 +35770,7 @@
           "level": 0
         },
         {
-          "bridge": "{ ...next(operator), modifiers: before, concept: after[0], flatten: true }",
+          "bridge": "{ ...next(operator), modifiers: before, concept: after[0] }",
           "id": "modifies",
           "isA": [
             "verby"
@@ -35582,14 +35778,21 @@
           "level": 0,
           "words": [
             {
+              "flatten": false,
               "number": "one",
               "word": "modifies"
             },
             {
+              "flatten": true,
               "number": "many",
               "word": "modify"
             }
           ]
+        },
+        {
+          "bridge": "{ ...after[0], flatten: false, literally: true }",
+          "id": "literally",
+          "level": 0
         },
         {
           "bridge": "{ ...next(operator) }",
@@ -36026,6 +36229,9 @@
           "pattern": "([concept])"
         },
         {
+          "pattern": "([literally] (modifies/0))"
+        },
+        {
           "pattern": "(([queryable]) [is|] ([queryable|]))"
         },
         {
@@ -36260,14 +36466,14 @@
         "modifies": [
           {
             "id": "modifies",
-            "initial": "{\"word\":\"modifies\",\"number\":\"one\"}",
+            "initial": "{\"word\":\"modifies\",\"number\":\"one\",\"flatten\":false}",
             "word": "modifies"
           }
         ],
         "modify": [
           {
             "id": "modifies",
-            "initial": "{\"word\":\"modify\",\"number\":\"many\"}",
+            "initial": "{\"word\":\"modify\",\"number\":\"many\",\"flatten\":true}",
             "word": "modify"
           }
         ],
@@ -37615,7 +37821,7 @@
           "level": 0
         },
         {
-          "bridge": "{ ...next(operator), modifiers: before, concept: after[0], flatten: true }",
+          "bridge": "{ ...next(operator), modifiers: before, concept: after[0] }",
           "id": "modifies",
           "isA": [
             "verby"
@@ -37623,14 +37829,21 @@
           "level": 0,
           "words": [
             {
+              "flatten": false,
               "number": "one",
               "word": "modifies"
             },
             {
+              "flatten": true,
               "number": "many",
               "word": "modify"
             }
           ]
+        },
+        {
+          "bridge": "{ ...after[0], flatten: false, literally: true }",
+          "id": "literally",
+          "level": 0
         },
         {
           "bridge": "{ ...next(operator) }",
@@ -38067,6 +38280,9 @@
           "pattern": "([concept])"
         },
         {
+          "pattern": "([literally] (modifies/0))"
+        },
+        {
           "pattern": "(([queryable]) [is|] ([queryable|]))"
         },
         {
@@ -38301,14 +38517,14 @@
         "modifies": [
           {
             "id": "modifies",
-            "initial": "{\"word\":\"modifies\",\"number\":\"one\"}",
+            "initial": "{\"word\":\"modifies\",\"number\":\"one\",\"flatten\":false}",
             "word": "modifies"
           }
         ],
         "modify": [
           {
             "id": "modifies",
-            "initial": "{\"word\":\"modify\",\"number\":\"many\"}",
+            "initial": "{\"word\":\"modify\",\"number\":\"many\",\"flatten\":true}",
             "word": "modify"
           }
         ],
@@ -40454,7 +40670,7 @@
           "level": 0
         },
         {
-          "bridge": "{ ...next(operator), modifiers: before, concept: after[0], flatten: true }",
+          "bridge": "{ ...next(operator), modifiers: before, concept: after[0] }",
           "id": "modifies",
           "isA": [
             "verby"
@@ -40462,14 +40678,21 @@
           "level": 0,
           "words": [
             {
+              "flatten": false,
               "number": "one",
               "word": "modifies"
             },
             {
+              "flatten": true,
               "number": "many",
               "word": "modify"
             }
           ]
+        },
+        {
+          "bridge": "{ ...after[0], flatten: false, literally: true }",
+          "id": "literally",
+          "level": 0
         },
         {
           "bridge": "{ ...next(operator) }",
@@ -40906,6 +41129,9 @@
           "pattern": "([concept])"
         },
         {
+          "pattern": "([literally] (modifies/0))"
+        },
+        {
           "pattern": "(([queryable]) [is|] ([queryable|]))"
         },
         {
@@ -41140,14 +41366,14 @@
         "modifies": [
           {
             "id": "modifies",
-            "initial": "{\"word\":\"modifies\",\"number\":\"one\"}",
+            "initial": "{\"word\":\"modifies\",\"number\":\"one\",\"flatten\":false}",
             "word": "modifies"
           }
         ],
         "modify": [
           {
             "id": "modifies",
-            "initial": "{\"word\":\"modify\",\"number\":\"many\"}",
+            "initial": "{\"word\":\"modify\",\"number\":\"many\",\"flatten\":true}",
             "word": "modify"
           }
         ],
@@ -41786,7 +42012,7 @@
           "level": 0
         },
         {
-          "bridge": "{ ...next(operator), modifiers: before, concept: after[0], flatten: true }",
+          "bridge": "{ ...next(operator), modifiers: before, concept: after[0] }",
           "id": "modifies",
           "isA": [
             "verby"
@@ -41794,14 +42020,21 @@
           "level": 0,
           "words": [
             {
+              "flatten": false,
               "number": "one",
               "word": "modifies"
             },
             {
+              "flatten": true,
               "number": "many",
               "word": "modify"
             }
           ]
+        },
+        {
+          "bridge": "{ ...after[0], flatten: false, literally: true }",
+          "id": "literally",
+          "level": 0
         },
         {
           "bridge": "{ ...next(operator) }",
@@ -42238,6 +42471,9 @@
           "pattern": "([concept])"
         },
         {
+          "pattern": "([literally] (modifies/0))"
+        },
+        {
           "pattern": "(([queryable]) [is|] ([queryable|]))"
         },
         {
@@ -42472,14 +42708,14 @@
         "modifies": [
           {
             "id": "modifies",
-            "initial": "{\"word\":\"modifies\",\"number\":\"one\"}",
+            "initial": "{\"word\":\"modifies\",\"number\":\"one\",\"flatten\":false}",
             "word": "modifies"
           }
         ],
         "modify": [
           {
             "id": "modifies",
-            "initial": "{\"word\":\"modify\",\"number\":\"many\"}",
+            "initial": "{\"word\":\"modify\",\"number\":\"many\",\"flatten\":true}",
             "word": "modify"
           }
         ],
@@ -43203,6 +43439,16 @@
           "the",
           0
         ]
+      ],
+      [
+        [
+          "propertyOf",
+          0
+        ],
+        [
+          "the",
+          0
+        ]
       ]
     ],
     "config": {
@@ -43293,7 +43539,7 @@
           "level": 0
         },
         {
-          "bridge": "{ ...next(operator), modifiers: before, concept: after[0], flatten: true }",
+          "bridge": "{ ...next(operator), modifiers: before, concept: after[0] }",
           "id": "modifies",
           "isA": [
             "verby"
@@ -43301,14 +43547,21 @@
           "level": 0,
           "words": [
             {
+              "flatten": false,
               "number": "one",
               "word": "modifies"
             },
             {
+              "flatten": true,
               "number": "many",
               "word": "modify"
             }
           ]
+        },
+        {
+          "bridge": "{ ...after[0], flatten: false, literally: true }",
+          "id": "literally",
+          "level": 0
         },
         {
           "bridge": "{ ...next(operator) }",
@@ -43745,6 +43998,9 @@
           "pattern": "([concept])"
         },
         {
+          "pattern": "([literally] (modifies/0))"
+        },
+        {
           "pattern": "(([queryable]) [is|] ([queryable|]))"
         },
         {
@@ -43979,14 +44235,14 @@
         "modifies": [
           {
             "id": "modifies",
-            "initial": "{\"word\":\"modifies\",\"number\":\"one\"}",
+            "initial": "{\"word\":\"modifies\",\"number\":\"one\",\"flatten\":false}",
             "word": "modifies"
           }
         ],
         "modify": [
           {
             "id": "modifies",
-            "initial": "{\"word\":\"modify\",\"number\":\"many\"}",
+            "initial": "{\"word\":\"modify\",\"number\":\"many\",\"flatten\":true}",
             "word": "modify"
           }
         ],
@@ -44939,7 +45195,7 @@
           "level": 0
         },
         {
-          "bridge": "{ ...next(operator), modifiers: before, concept: after[0], flatten: true }",
+          "bridge": "{ ...next(operator), modifiers: before, concept: after[0] }",
           "id": "modifies",
           "isA": [
             "verby"
@@ -44947,14 +45203,21 @@
           "level": 0,
           "words": [
             {
+              "flatten": false,
               "number": "one",
               "word": "modifies"
             },
             {
+              "flatten": true,
               "number": "many",
               "word": "modify"
             }
           ]
+        },
+        {
+          "bridge": "{ ...after[0], flatten: false, literally: true }",
+          "id": "literally",
+          "level": 0
         },
         {
           "bridge": "{ ...next(operator) }",
@@ -45391,6 +45654,9 @@
           "pattern": "([concept])"
         },
         {
+          "pattern": "([literally] (modifies/0))"
+        },
+        {
           "pattern": "(([queryable]) [is|] ([queryable|]))"
         },
         {
@@ -45625,14 +45891,14 @@
         "modifies": [
           {
             "id": "modifies",
-            "initial": "{\"word\":\"modifies\",\"number\":\"one\"}",
+            "initial": "{\"word\":\"modifies\",\"number\":\"one\",\"flatten\":false}",
             "word": "modifies"
           }
         ],
         "modify": [
           {
             "id": "modifies",
-            "initial": "{\"word\":\"modify\",\"number\":\"many\"}",
+            "initial": "{\"word\":\"modify\",\"number\":\"many\",\"flatten\":true}",
             "word": "modify"
           }
         ],
@@ -46671,7 +46937,7 @@
           "level": 0
         },
         {
-          "bridge": "{ ...next(operator), modifiers: before, concept: after[0], flatten: true }",
+          "bridge": "{ ...next(operator), modifiers: before, concept: after[0] }",
           "id": "modifies",
           "isA": [
             "verby"
@@ -46679,14 +46945,21 @@
           "level": 0,
           "words": [
             {
+              "flatten": false,
               "number": "one",
               "word": "modifies"
             },
             {
+              "flatten": true,
               "number": "many",
               "word": "modify"
             }
           ]
+        },
+        {
+          "bridge": "{ ...after[0], flatten: false, literally: true }",
+          "id": "literally",
+          "level": 0
         },
         {
           "bridge": "{ ...next(operator) }",
@@ -47123,6 +47396,9 @@
           "pattern": "([concept])"
         },
         {
+          "pattern": "([literally] (modifies/0))"
+        },
+        {
           "pattern": "(([queryable]) [is|] ([queryable|]))"
         },
         {
@@ -47357,14 +47633,14 @@
         "modifies": [
           {
             "id": "modifies",
-            "initial": "{\"word\":\"modifies\",\"number\":\"one\"}",
+            "initial": "{\"word\":\"modifies\",\"number\":\"one\",\"flatten\":false}",
             "word": "modifies"
           }
         ],
         "modify": [
           {
             "id": "modifies",
-            "initial": "{\"word\":\"modify\",\"number\":\"many\"}",
+            "initial": "{\"word\":\"modify\",\"number\":\"many\",\"flatten\":true}",
             "word": "modify"
           }
         ],
@@ -48287,7 +48563,7 @@
           "level": 0
         },
         {
-          "bridge": "{ ...next(operator), modifiers: before, concept: after[0], flatten: true }",
+          "bridge": "{ ...next(operator), modifiers: before, concept: after[0] }",
           "id": "modifies",
           "isA": [
             "verby"
@@ -48295,14 +48571,21 @@
           "level": 0,
           "words": [
             {
+              "flatten": false,
               "number": "one",
               "word": "modifies"
             },
             {
+              "flatten": true,
               "number": "many",
               "word": "modify"
             }
           ]
+        },
+        {
+          "bridge": "{ ...after[0], flatten: false, literally: true }",
+          "id": "literally",
+          "level": 0
         },
         {
           "bridge": "{ ...next(operator) }",
@@ -48739,6 +49022,9 @@
           "pattern": "([concept])"
         },
         {
+          "pattern": "([literally] (modifies/0))"
+        },
+        {
           "pattern": "(([queryable]) [is|] ([queryable|]))"
         },
         {
@@ -48973,14 +49259,14 @@
         "modifies": [
           {
             "id": "modifies",
-            "initial": "{\"word\":\"modifies\",\"number\":\"one\"}",
+            "initial": "{\"word\":\"modifies\",\"number\":\"one\",\"flatten\":false}",
             "word": "modifies"
           }
         ],
         "modify": [
           {
             "id": "modifies",
-            "initial": "{\"word\":\"modify\",\"number\":\"many\"}",
+            "initial": "{\"word\":\"modify\",\"number\":\"many\",\"flatten\":true}",
             "word": "modify"
           }
         ],
@@ -49643,7 +49929,7 @@
           "level": 0
         },
         {
-          "bridge": "{ ...next(operator), modifiers: before, concept: after[0], flatten: true }",
+          "bridge": "{ ...next(operator), modifiers: before, concept: after[0] }",
           "id": "modifies",
           "isA": [
             "verby"
@@ -49651,14 +49937,21 @@
           "level": 0,
           "words": [
             {
+              "flatten": false,
               "number": "one",
               "word": "modifies"
             },
             {
+              "flatten": true,
               "number": "many",
               "word": "modify"
             }
           ]
+        },
+        {
+          "bridge": "{ ...after[0], flatten: false, literally: true }",
+          "id": "literally",
+          "level": 0
         },
         {
           "bridge": "{ ...next(operator) }",
@@ -50095,6 +50388,9 @@
           "pattern": "([concept])"
         },
         {
+          "pattern": "([literally] (modifies/0))"
+        },
+        {
           "pattern": "(([queryable]) [is|] ([queryable|]))"
         },
         {
@@ -50329,14 +50625,14 @@
         "modifies": [
           {
             "id": "modifies",
-            "initial": "{\"word\":\"modifies\",\"number\":\"one\"}",
+            "initial": "{\"word\":\"modifies\",\"number\":\"one\",\"flatten\":false}",
             "word": "modifies"
           }
         ],
         "modify": [
           {
             "id": "modifies",
-            "initial": "{\"word\":\"modify\",\"number\":\"many\"}",
+            "initial": "{\"word\":\"modify\",\"number\":\"many\",\"flatten\":true}",
             "word": "modify"
           }
         ],
@@ -51133,7 +51429,7 @@
           "level": 0
         },
         {
-          "bridge": "{ ...next(operator), modifiers: before, concept: after[0], flatten: true }",
+          "bridge": "{ ...next(operator), modifiers: before, concept: after[0] }",
           "id": "modifies",
           "isA": [
             "verby"
@@ -51141,14 +51437,21 @@
           "level": 0,
           "words": [
             {
+              "flatten": false,
               "number": "one",
               "word": "modifies"
             },
             {
+              "flatten": true,
               "number": "many",
               "word": "modify"
             }
           ]
+        },
+        {
+          "bridge": "{ ...after[0], flatten: false, literally: true }",
+          "id": "literally",
+          "level": 0
         },
         {
           "bridge": "{ ...next(operator) }",
@@ -51596,6 +51899,9 @@
           "pattern": "([concept])"
         },
         {
+          "pattern": "([literally] (modifies/0))"
+        },
+        {
           "pattern": "(([queryable]) [is|] ([queryable|]))"
         },
         {
@@ -51830,14 +52136,14 @@
         "modifies": [
           {
             "id": "modifies",
-            "initial": "{\"word\":\"modifies\",\"number\":\"one\"}",
+            "initial": "{\"word\":\"modifies\",\"number\":\"one\",\"flatten\":false}",
             "word": "modifies"
           }
         ],
         "modify": [
           {
             "id": "modifies",
-            "initial": "{\"word\":\"modify\",\"number\":\"many\"}",
+            "initial": "{\"word\":\"modify\",\"number\":\"many\",\"flatten\":true}",
             "word": "modify"
           }
         ],

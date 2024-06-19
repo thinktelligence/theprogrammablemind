@@ -20,15 +20,21 @@ const createConfig = () => {
     operators: [
       "((context.punctuation != true)* [modifies|] (concept))",
       "([concept])",
+      "([literally] (modifies/0))",
     ],
     bridges: [
       {
         id: "modifies",
         isA: ['verby'],
-        words: [{ word: 'modifies', number: 'one' }, { word: 'modify', number: 'many' }],
-        bridge: "{ ...next(operator), modifiers: before, concept: after[0], flatten: true }"
+        words: [{ word: 'modifies', number: 'one', flatten: false }, { word: 'modify', number: 'many', flatten: true }],
+        // bridge: "{ ...next(operator), modifiers: before, concept: after[0], flatten: true }"
+        bridge: "{ ...next(operator), modifiers: before, concept: after[0] }"
       },
-      { id: "concept", level: 0, bridge: "{ ...next(operator) }" },
+      { id: "literally", bridge: "{ ...after[0], flatten: false, literally: true }" },
+      { id: "concept", bridge: "{ ...next(operator) }" },
+    ],
+    priorities: [
+      { "context": [['literally', 0], ['modifies', 0], ], "choose": [0] },
     ],
     hierarchy: [
       ['concept', 'theAble'],
@@ -97,7 +103,13 @@ const createConfig = () => {
       {
         where: where(),
         match: ({context}) => context.marker == 'modifies' && context.paraphrase,
-        apply: ({context, gp, gw}) => `${context.modifiers.map(gp).join(" ")} ${gw(context, { number: context.modifiers[context.modifiers.length - 1] })} ${gp(context.concept)}`,
+        apply: ({context, gp, gw}) => {
+          if (context.literally) {
+            return `${context.modifiers.map(gp).join(" ")} literally ${gw(context, { number: context.modifiers[context.modifiers.length - 1] })} ${gp(context.concept)}`
+          } else {
+            return `${context.modifiers.map(gp).join(" ")} ${gw(context, { number: context.modifiers[context.modifiers.length - 1] })} ${gp(context.concept)}`
+          }
+        }
         // const chosen = chooseNumber(context, word.singular, word.plural)
       },
     ],
@@ -106,8 +118,17 @@ const createConfig = () => {
         notes: 'define a modifier',
         where: where(),
         match: ({context}) => context.marker == 'modifies',
-        apply: ({config, km, context}) => {
-          km('concept').api.kindOfConcept({ config, modifiers: context.modifiers.map(modifier => modifier.value), object: context.concept.value || context.concept.marker })
+        apply: ({config, query, km, context}) => {
+          let modifiers
+          if (context.literally) {
+            debugger
+            literalModifiers = context.modifiers[0]
+            modifiers = literalModifiers.value.map(modifier => modifier.value)
+            modifiers = modifiers.slice(0, -1).concat([literalModifiers.marker]).concat(modifiers.slice(-1))
+          } else {
+            modifiers = context.modifiers.map(modifier => modifier.value)
+          }
+          km('concept').api.kindOfConcept({ config, modifiers, object: context.concept.value || context.concept.marker })
         }
       },
     ],

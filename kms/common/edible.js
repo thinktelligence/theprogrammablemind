@@ -37,7 +37,7 @@ const template ={
     "pie and salad are foods",
     "apple modifies pie",
     "sandwiches are food",
-    "carrots, peas, cabbage, potatoes and brocoli are vegetables",
+    "carrots, peas, cabbage, potatoes and broccoli are vegetables",
     "vegetables and bread are food",
     "french modifies toast",
     "muffins, french toast and pancakes are bread",
@@ -47,12 +47,26 @@ const template ={
     "sausage is a meat",
     "a hamburger is a sandwich",
     "a cheeseburger is a hamburger",
+    "cheese is a food",
+    "cheddar is a cheese",
     "pop, soda, coffee, tea, shakes and juice are drinks",
     "lemonade is a drink",
     {
       hierarchy: [
         ['chicken_nugget', 'hasCountOfPieces'],
+      ],
+      /* save for later?
+      operators: [
+        "((food/1) [compoundFood] (food/1))",
+      ],
+      bridges: [
+        {
+          id: 'compoundFood',
+          convolution: true,
+          bridge: "{ ...after, compound: before, modifiers: ['compound'] }",
+        }
       ]
+      */
     }
   ],
 }

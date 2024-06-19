@@ -687,4 +687,9 @@ fi
 # $NODE countable -q '1 countable' -g -d
 # $NODE pipboy -q 'equip the highest damage pistol' -g -d
 # $NODE fastfood -q 'french toast sandwich combo' -g -d
-$NODE fastfood -q 'chicken go wrap' -g -d
+# $NODE fastfood -q 'broccoli and cheddar modifies potato\nbroccoli and cheddar potato' -g -d
+# $NODE fastfood -q 'broccoli and cheddar modifies potato' -g -d
+$NODE concept -q 'apple and cheddar literally modifies pie\napple and cheddar pie' -g -d
+# $NODE concept -q 'apple and cheddar literally modifies pie' -g -d -pw
+# $NODE fastfood -q 'chicken go wrap' -g -d -cl '[["chicken_go_wrap", 0]]' 
+# $NODE fastfood -q 'chicken go wrap' -g -d

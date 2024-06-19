@@ -122,7 +122,13 @@ const defaultContextProperties = ['marker', 'text', 'verbatim']
 const defaultContextCheck = [
   'marker',
   'text',
-  { property: 'value', filter: defaultContextProperties },
+  (object) => {
+    if (typeof object.value == 'object') {
+      return { property: 'value', filter: defaultContextProperties }
+    } else {
+      return 'value'
+    }
+  },
   { property: 'modifiers', isPropertyList: true, filter: defaultContextProperties }
 ]
 
