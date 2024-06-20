@@ -689,7 +689,11 @@ fi
 # $NODE fastfood -q 'french toast sandwich combo' -g -d
 # $NODE fastfood -q 'broccoli and cheddar modifies potato\nbroccoli and cheddar potato' -g -d
 # $NODE fastfood -q 'broccoli and cheddar modifies potato' -g -d
-$NODE concept -q 'apple and cheddar literally modifies pie\napple and cheddar pie' -g -d
+# $NODE concept -q 'apple and cheddar literally modifies pie\napple and cheddar pie' -g -d
 # $NODE concept -q 'apple and cheddar literally modifies pie' -g -d -pw
 # $NODE fastfood -q 'chicken go wrap' -g -d -cl '[["chicken_go_wrap", 0]]' 
 # $NODE fastfood -q 'chicken go wrap' -g -d
+# $NODE fastfood -q 'broccoli and cheddar literally modifies potato\nbroccoli and cheddar potato' -g -d -po -dic broccoli_list_cheddar_potato
+# $NODE fastfood -q 'broccoli and cheddar potato' -g -d -dic broccoli_list_cheddar_potato
+# $NODE fastfood -q 'combo one and two combo twos' -g -d
+$NODE fastfood -q 'single and double combo' -g -d --parenthesized

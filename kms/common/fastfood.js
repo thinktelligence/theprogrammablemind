@@ -57,6 +57,8 @@ const template ={
     "garden modifies salad",
     "caesar modifies salad",
     "cheese modifies potato",
+    "cheese modifies potato",
+    "broccoli and cheddar literally modifies potato",
     "waffle fries are french fries",
     "mango modifies passion",
     "wild modifies berry",
@@ -126,6 +128,7 @@ const template ={
       ],
       floaters: ['instance'],
       priorities: [
+       { "context": [['cheese_potato', 0], ['broccoli_list_cheddar_potato', 0]], "choose": [1] },
        { "context": [['chicken_go_wrap', 0], ['chicken_sandwich', 0], ], "choose": [0] },
        { "context": [['number', 0], ['numberNumberCombo', 0], ], "choose": [0] },
        { "context": [['list', 0], ['numberNumberCombo', 0], ], "choose": [0] },
@@ -133,6 +136,8 @@ const template ={
        // TODO take this out make the server side learn if from "(combo one) and (two combo twos)" .   (prioritized1) 'and' (prioritized2) where 1+2 came from and build the cp that way
        { "context": [['combo',0], ['number', 0], ['list', 0], ['number', 0],['combo', 0],['number',0]], ordered: true, choose: [0,1,3,4,5] },
        { "context": [['number',0], ['smoothie_ingredient', 0], ['list', 0], ['number', 0],['smoothie_ingredient', 0],['smoothie',0]], ordered: true, choose: [0,1,3,4] },
+       // { "context": [['single',0], ['list', 0], ['double', 0],['combo', 0]], ordered: true, choose: [0,1,2] },
+       { "context": [['list', 0], ['comboMeal', 0]], choose: [0] },
 
        { "context": [['smoothie_ingredient', 1], ['list', 0], ['number', 1], ['smoothie_ingredient', 1], ['smoothie', 1]], ordered: true, choose: [2,3] },
        { "context": [['smoothie_ingredient', 1], ['list', 0], ['smoothie_ingredient', 1], ['smoothie', 1]], ordered: true, choose: [1] },
@@ -271,6 +276,7 @@ class API {
 
   isAvailable(id) {
     return [
+      "broccoli_list_cheddar_potato",
       "chicken_go_wrap",
       "junior_bacon_cheeseburger",
       "junior_crispy_chicken_club",
@@ -443,6 +449,7 @@ const createConfig = () => {
     // TODO use node naming not python
     priorities: [
       // { context: [['list', 0], ['bacon',0], ['deluxe', 0]], choose: [1,2] },
+      { context: [['comboNumber', 0], ['counting',0]], choose: [0] },
       { context: [['list', 0], ['food',0], ['combo', 0]], ordered: true, choose: [0,1] },
       { context: [['combo', 0], ['number', 0], ['list',0], ['number', 0]], ordered: true, choose: [1,2,3] },
       { context: [['combo', 0], ['comboNumber', 0], ['list', 1]], ordered: true, choose: [1] },
