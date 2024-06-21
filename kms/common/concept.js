@@ -121,7 +121,6 @@ const createConfig = () => {
         apply: ({config, query, km, context}) => {
           let modifiers
           if (context.literally) {
-            debugger
             literalModifiers = context.modifiers[0]
             modifiers = literalModifiers.value.map(modifier => modifier.value)
             modifiers = modifiers.slice(0, -1).concat([literalModifiers.marker]).concat(modifiers.slice(-1))
