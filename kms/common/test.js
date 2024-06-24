@@ -40,7 +40,7 @@ const loop = async (tests, failed) => {
       console.log("FAILED Tests", JSON.stringify(failed, null, 2))
     }
     console.timeEnd('tests time')
-    for (let i = 0; i < 20; ++i) {
+    for (let i = 0; i < 7; ++i) {
       console.log('\u0007')
       await sleep(1000)
     }
