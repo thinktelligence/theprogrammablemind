@@ -128,12 +128,12 @@ const template ={
       ],
       floaters: ['instance'],
       priorities: [
+       // { "context": [['counting', 0], ['strawberry_smoothie', 0], ], "choose": [0] },
        { "context": [['cheese_potato', 0], ['broccoli_list_cheddar_potato', 0]], "choose": [1] },
        { "context": [['chicken_go_wrap', 0], ['chicken_sandwich', 0], ], "choose": [0] },
        { "context": [['strawberry_banana', 0], ['smoothie', 0], ], "choose": [0] },
        { "context": [['number', 0], ['numberNumberCombo', 0], ], "choose": [0] },
        { "context": [['list', 0], ['numberNumberCombo', 0], ], "choose": [0] },
-       { "context": [['list', 0], ['number', 0], ['smoothie_ingredient', 0], ], ordered: true, "choose": [1,2] },
 
        // TODO take this out make the server side learn if from "(combo one) and (two combo twos)" .   (prioritized1) 'and' (prioritized2) where 1+2 came from and build the cp that way
        { "context": [['combo',0], ['number', 0], ['list', 0], ['number', 0],['combo', 0],['number',0]], ordered: true, choose: [0,1,3,4,5] },
@@ -159,6 +159,7 @@ const template ={
        { context: [['number', 1], ['numberNumberCombo', 1], ['combo', 0]], ordered: true, choose: [2] },
        { context: [['combo', 1], ['list', 0], ['number', 1], ['combo', 1]], ordered: true, choose: [2,3] },
        { context: [['list', 0], ['number', 1], ['combo', 1]], ordered: true, choose: [1,2] },
+       { context: [['list', 0], ['number', 1], ['smoothie_ingredient', 1], ['smoothie', 0]], ordered: true, choose: [1,2] },
 
       /*
 
