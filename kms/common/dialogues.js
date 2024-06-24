@@ -348,11 +348,19 @@ let configStruct = {
               text.push(g(m))
             }
           } else {
-            text.push(g(context[modifier]))
+            text.push(g(context[modifier], { isModifier: true }))
           }
         }
+        if (callId == 'fastfood#call9') {
+          debugger
+        }
         // text.push(context.word)
-        const number = isMany(context) ? 'many' : 'one'
+        let number
+        if (context.isModifier) {
+          number = 'one'
+        } else {
+          number = isMany(context) ? 'many' : 'one'
+        }
         if (context.postModifiers) {
           text.push(g({...context, number: 'one', postModifiers: undefined, modifiers: undefined}))
         } else {
