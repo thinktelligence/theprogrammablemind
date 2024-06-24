@@ -57,7 +57,6 @@ const template ={
     "garden modifies salad",
     "caesar modifies salad",
     "cheese modifies potato",
-    "broccoli and cheddar literally modifies potato",
     "waffle fries are french fries",
     "mango modifies passion",
     "wild modifies berry",
@@ -254,6 +253,10 @@ const template ={
     // TODO Future see above note { query: "(combo one) and (2 combo twos)", skipSemantics: true },
     // { query: "(2 mango passion and (3 strawberry)) smoothies", skipSemantics: true },
     { query: "(2 mango passion and (3 strawberry)) smoothies", skipSemantics: true },
+    "broccoli and cheddar literally modifies potato",
+    "bacon and cheddar literally modifies potato",
+    "chili and cheese literally modifies potato",
+    // "sour cream and literally modifies chives",
   ],
 }
 
@@ -294,6 +297,8 @@ class API {
   isAvailable(id) {
     return [
       "broccoli_list_cheddar_potato",
+      "bacon_list_cheddar_potato",
+      "chili_list_cheese_potato",
       "chicken_go_wrap",
       "junior_bacon_cheeseburger",
       "junior_crispy_chicken_club",

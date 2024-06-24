@@ -351,9 +351,6 @@ let configStruct = {
             text.push(g(context[modifier], { isModifier: true }))
           }
         }
-        if (callId == 'fastfood#call9') {
-          debugger
-        }
         // text.push(context.word)
         let number
         if (context.isModifier) {
