@@ -699,6 +699,7 @@ fi
 # $NODE fastfood -q 'single and double combo' -g -d --parenthesized
 # $NODE fastfood -q '2 mango passion and 3 strawberry smoothies' -g -d --parenthesized -cl '[["strawberry_smoothie", 0]]' 
 # $NODE fastfood -q '(2 mango passion and 3 strawberry) smoothies' -g -d --parenthesized
-$NODE fastfood -q '2 mango passion and 3 strawberry smoothies' -g -d
+# $NODE fastfood -q '2 mango passion and 3 strawberry smoothies' -g -d
 # $NODE fastfood -q 'strawberry, guava, mango passion, wild berry and strawberry banana modify smoothie' -g -d --parenthesized -cl '[["strawberry_banana", 0]]' 
 # $NODE fastfood -q 'strawberry, guava, mango passion, wild berry and strawberry banana modify smoothie' -g -d --parenthesized
+$NODE fastfood -q 'bacon and cheddar potato' -g -d

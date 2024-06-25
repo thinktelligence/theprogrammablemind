@@ -257,6 +257,11 @@ const template ={
     "bacon and cheddar literally modifies potato",
     "chili and cheese literally modifies potato",
     // "sour cream and literally modifies chives",
+    {
+      priorities: [
+        { context: [['bacon_list_cheddar_potato', 0], ['cheese_potato', 0]], choose: [0] },
+      ]
+    }
   ],
 }
 
