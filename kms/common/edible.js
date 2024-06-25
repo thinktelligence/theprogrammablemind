@@ -24,7 +24,7 @@ const template ={
     "food and drinks are edible",
     "chicken modifies strips",
     "chicken modifies nugget",
-    "chicken strips and chicken nuggets are food",
+    "nuggets, chicken strips and chicken nuggets are food",
     "sushi is food",
     "apples oranges and bananas are fruit",
     "hot modifies dog",
@@ -54,6 +54,7 @@ const template ={
     {
       hierarchy: [
         ['chicken_nugget', 'hasCountOfPieces'],
+        ['nugget', 'hasCountOfPieces'],
       ],
       /* save for later?
       operators: [

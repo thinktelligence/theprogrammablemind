@@ -248,8 +248,8 @@ const template ={
         },
       ]
     },
-    "fries and smoothies are modifications",
-    "fries and smoothies are sizeable",
+    "fries and drinks are modifications",
+    "combos, fries and drinks are sizeable",
     // TODO Future see above note { query: "(combo one) and (2 combo twos)", skipSemantics: true },
     // { query: "(2 mango passion and (3 strawberry)) smoothies", skipSemantics: true },
     { query: "(2 mango passion and (3 strawberry)) smoothies", skipSemantics: true },
@@ -299,7 +299,13 @@ class API {
     this._objects.notAvailable.push(item)
   }
 
-  isAvailable(id) {
+  isAvailable(item) {
+    if (item.id == 'chicken_nugget') {
+      if (![4,5,6,10].includes(item.pieces)) {
+        return false
+      }
+    }
+
     return [
       "broccoli_list_cheddar_potato",
       "bacon_list_cheddar_potato",
@@ -369,7 +375,7 @@ class API {
       "spicy_caesar_salad",
       "taco_salad",
       "southwest_avacado_salad",
-    ].includes(id)
+    ].includes(item.id)
   }
 
   getCombo(number) {
@@ -426,9 +432,8 @@ class State {
       combo = !!food.combo
     }
 
-    if (!this.api.isAvailable(id)) {
-      this.api.addAskedForButNotAvailable(food)
-      return
+    if (id == 'nugget') {
+      id = 'chicken_nugget'
     }
 
     const addSize = (item, data) => {
@@ -442,6 +447,10 @@ class State {
     if (food.modifications) {
       modifications = []
       for (const modification of propertyToArray(food.modifications.modifications)) {
+        if (modification.size) {
+          food.size = modification.size
+        }
+        addSize(modification, { id: modification.value })
         modifications.push(addSize(modification, { id: modification.value }))
       }
     }
@@ -449,9 +458,18 @@ class State {
     let pieces
     if (food.pieces) {
       pieces = food.pieces.count.value
+    } else {
+      if (id == 'chicken_nugget') {
+        pieces = 10
+      }
     }
     for (let i = 0; i < quantity; ++i) {
-      this.api.add(addSize(food, { id, combo, modifications, pieces }))
+      const item = addSize(food, { id, combo, modifications, pieces })
+      if (!this.api.isAvailable(item)) {
+        this.api.addAskedForButNotAvailable(food)
+        return
+      }
+      this.api.add(item)
     }
   }
 
@@ -553,9 +571,11 @@ knowledgeModule( {
                 'changes', 
                 { property: 'notAvailable', filter: [ 'marker', 'value', 'text' ] }, 
                 { property: 'quantity', filter: ['marker', 'value', 'text' ] },
+                { property: 'pieces', filter: ['marker', 'value', 'text' ] },
               ],
               context: [
                 ...defaultContextCheck,
+                // TODO some kind of conditional selector { match: (value) => value.marker == 'count', filter: ['marker', 'value', 'text'] },
                 { property: 'comboNumber', filter: ['marker', 'value', 'text' ] },
               ],
             },

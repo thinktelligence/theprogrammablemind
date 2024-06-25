@@ -3,7 +3,7 @@
     "food and drinks are edible",
     "chicken modifies strips",
     "chicken modifies nugget",
-    "chicken strips and chicken nuggets are food",
+    "nuggets, chicken strips and chicken nuggets are food",
     "sushi is food",
     "apples oranges and bananas are fruit",
     "hot modifies dog",
@@ -34,6 +34,10 @@
       "hierarchy": [
         [
           "chicken_nugget",
+          "hasCountOfPieces"
+        ],
+        [
+          "nugget",
           "hasCountOfPieces"
         ]
       ]
@@ -2224,10 +2228,18 @@
         "opChoices": [
           {
             "op": [
-              "chicken_strip",
+              "comma",
               0
             ],
             "ops": [
+              [
+                "nugget",
+                0
+              ],
+              [
+                "comma",
+                0
+              ],
               [
                 "chicken",
                 0
@@ -2237,7 +2249,7 @@
                 0
               ],
               [
-                "chicken_strip",
+                "chicken",
                 0
               ],
               [
@@ -2249,11 +2261,15 @@
                 0
               ],
               [
+                "food",
+                0
+              ],
+              [
                 "chicken_nugget",
                 0
               ],
               [
-                "food",
+                "chicken_strip",
                 0
               ]
             ],
@@ -2261,16 +2277,24 @@
           },
           {
             "op": [
-              "chicken_nugget",
+              "chicken_strip",
               0
             ],
             "ops": [
+              [
+                "nugget",
+                0
+              ],
               [
                 "chicken",
                 0
               ],
               [
-                "nugget",
+                "strip",
+                0
+              ],
+              [
+                "chicken_strip",
                 0
               ],
               [
@@ -2287,6 +2311,60 @@
               ]
             ],
             "counter": 2
+          },
+          {
+            "op": [
+              "chicken_nugget",
+              0
+            ],
+            "ops": [
+              [
+                "nugget",
+                0
+              ],
+              [
+                "chicken",
+                0
+              ],
+              [
+                "is",
+                0
+              ],
+              [
+                "chicken_nugget",
+                0
+              ],
+              [
+                "food",
+                0
+              ]
+            ],
+            "counter": 3
+          },
+          {
+            "op": [
+              "nugget",
+              0
+            ],
+            "ops": [
+              [
+                "nugget",
+                0
+              ],
+              [
+                "is",
+                0
+              ],
+              [
+                "food",
+                0
+              ],
+              [
+                "list",
+                0
+              ]
+            ],
+            "counter": 4
           },
           {
             "op": [
@@ -2307,7 +2385,28 @@
                 0
               ]
             ],
-            "counter": 3
+            "counter": 5
+          },
+          {
+            "op": [
+              "list",
+              1
+            ],
+            "ops": [
+              [
+                "is",
+                0
+              ],
+              [
+                "food",
+                0
+              ],
+              [
+                "list",
+                1
+              ]
+            ],
+            "counter": 6
           },
           {
             "op": [
@@ -2324,7 +2423,7 @@
                 0
               ]
             ],
-            "counter": 4
+            "counter": 7
           },
           {
             "op": [
@@ -2337,7 +2436,7 @@
                 0
               ]
             ],
-            "counter": 5
+            "counter": 8
           },
           {
             "op": [
@@ -2350,7 +2449,7 @@
                 1
               ]
             ],
-            "counter": 6
+            "counter": 9
           }
         ]
       },
@@ -2358,30 +2457,57 @@
       "contexts": [
         {
           "number": "many",
-          "text": "chicken strips and chicken nuggets are food",
+          "text": "nuggets, chicken strips and chicken nuggets are food",
           "marker": "is",
           "word": "are",
           "range": {
             "start": 0,
-            "end": 42
+            "end": 51
           },
           "one": {
             "number": "many",
             "marker": "list",
             "default": true,
             "word": "and",
-            "text": "chicken strips and chicken nuggets",
+            "text": "nuggets , chicken strips and chicken nuggets",
             "range": {
               "start": 0,
-              "end": 42
+              "end": 51
             },
             "types": [
-              "chicken_strip",
-              "list"
+              "list",
+              "nugget"
             ],
             "listable": true,
             "isList": true,
             "value": [
+              {
+                "value": "nugget",
+                "number": "many",
+                "text": "nuggets ,",
+                "marker": "nugget",
+                "word": "nuggets",
+                "range": {
+                  "start": 0,
+                  "end": 7
+                },
+                "decorators": {
+                  "after": {
+                    "word": ",",
+                    "value": ",",
+                    "depth": "+",
+                    "text": ",",
+                    "marker": "comma",
+                    "range": {
+                      "start": 7,
+                      "end": 7
+                    },
+                    "level": 0
+                  }
+                },
+                "dead": true,
+                "level": 1
+              },
               {
                 "value": "chicken_strip",
                 "number": "many",
@@ -2389,8 +2515,8 @@
                 "marker": "chicken_strip",
                 "word": "strips",
                 "range": {
-                  "start": 0,
-                  "end": 13
+                  "start": 9,
+                  "end": 22
                 },
                 "types": [
                   "chicken_strip",
@@ -2402,8 +2528,8 @@
                   "marker": "chicken",
                   "word": "chicken",
                   "range": {
-                    "start": 0,
-                    "end": 6
+                    "start": 9,
+                    "end": 15
                   },
                   "types": [
                     "chicken"
@@ -2424,8 +2550,8 @@
                 "marker": "chicken_nugget",
                 "word": "nuggets",
                 "range": {
-                  "start": 19,
-                  "end": 33
+                  "start": 28,
+                  "end": 42
                 },
                 "types": [
                   "chicken_nugget",
@@ -2437,8 +2563,8 @@
                   "marker": "chicken",
                   "word": "chicken",
                   "range": {
-                    "start": 19,
-                    "end": 25
+                    "start": 28,
+                    "end": 34
                   },
                   "types": [
                     "chicken"
@@ -2462,8 +2588,8 @@
             "marker": "food",
             "word": "food",
             "range": {
-              "start": 39,
-              "end": 42
+              "start": 48,
+              "end": 51
             },
             "dead": true,
             "types": [
@@ -2484,7 +2610,7 @@
         ""
       ],
       "paraphrases": [
-        "chicken strips and chicken nuggets are food"
+        "nuggets, chicken strips and chicken nuggets are food"
       ],
       "paraphrasesParenthesized": [],
       "generatedParenthesized": [],
@@ -2492,6 +2618,36 @@
         ""
       ],
       "associations": [
+        [
+          [
+            "chicken",
+            0
+          ],
+          [
+            "comma",
+            0
+          ],
+          [
+            "food",
+            0
+          ],
+          [
+            "is",
+            0
+          ],
+          [
+            "list",
+            0
+          ],
+          [
+            "nugget",
+            0
+          ],
+          [
+            "strip",
+            0
+          ]
+        ],
         [
           [
             "chicken",
@@ -2575,6 +2731,24 @@
           ],
           [
             "list",
+            0
+          ],
+          [
+            "nugget",
+            0
+          ]
+        ],
+        [
+          [
+            "food",
+            0
+          ],
+          [
+            "is",
+            0
+          ],
+          [
+            "list",
             1
           ]
         ],
@@ -2590,9 +2764,9 @@
         ]
       ],
       "learned_contextual_priorities": [],
-      "query": "chicken strips and chicken nuggets are food",
+      "query": "nuggets, chicken strips and chicken nuggets are food",
       "key": {
-        "query": "chicken strips and chicken nuggets are food"
+        "query": "nuggets, chicken strips and chicken nuggets are food"
       }
     },
     {
@@ -41623,6 +41797,10 @@
         [
           "chicken_nugget",
           "hasCountOfPieces"
+        ],
+        [
+          "nugget",
+          "hasCountOfPieces"
         ]
       ]
     }
@@ -42238,6 +42416,36 @@
         0
       ],
       [
+        "comma",
+        0
+      ],
+      [
+        "food",
+        0
+      ],
+      [
+        "is",
+        0
+      ],
+      [
+        "list",
+        0
+      ],
+      [
+        "nugget",
+        0
+      ],
+      [
+        "strip",
+        0
+      ]
+    ],
+    [
+      [
+        "chicken",
+        0
+      ],
+      [
         "food",
         0
       ]
@@ -42601,6 +42809,24 @@
       ],
       [
         "list",
+        0
+      ]
+    ],
+    [
+      [
+        "food",
+        0
+      ],
+      [
+        "is",
+        0
+      ],
+      [
+        "list",
+        0
+      ],
+      [
+        "nugget",
         0
       ]
     ],
