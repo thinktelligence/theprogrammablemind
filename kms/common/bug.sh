@@ -702,4 +702,8 @@ fi
 # $NODE fastfood -q '2 mango passion and 3 strawberry smoothies' -g -d
 # $NODE fastfood -q 'strawberry, guava, mango passion, wild berry and strawberry banana modify smoothie' -g -d --parenthesized -cl '[["strawberry_banana", 0]]' 
 # $NODE fastfood -q 'strawberry, guava, mango passion, wild berry and strawberry banana modify smoothie' -g -d --parenthesized
-$NODE fastfood -q 'bacon and cheddar potato' -g -d
+# $NODE fastfood -q 'bacon and cheddar potato' -g -d
+# $NODE fastfood -q 'kids hamburger' -g -d
+# $NODE fastfood -q 'hamburgers, cheeseburgers, crispy chicken and nuggets are kids meals' -g -d
+$NODE concept -q 'kids modifies meal\nkids meal' -g -d
+# $NODE concept -q 'kids modifies meal' -g -d

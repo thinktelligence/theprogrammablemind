@@ -256,6 +256,15 @@ const template ={
     "broccoli and cheddar literally modifies potato",
     "bacon and cheddar literally modifies potato",
     "chili and cheese literally modifies potato",
+    // "kids modifies meal",
+    "value modifies meal",
+    "bottled modifies water",
+    "bottled water is a drink",
+    "apple modifies slice",
+    "natural cut modifies fries",
+    "crispy modifies chicken",
+    // "hamburgers, cheeseburgers, crispy chicken and nuggets are kids meals",
+    // "nuggets, junior bacon cheeseburgers, chicken go wraps and junior crispy chicken clubs are value meals",
     // "sour cream and literally modifies chives",
     {
       priorities: [
@@ -299,14 +308,24 @@ class API {
     this._objects.notAvailable.push(item)
   }
 
-  isAvailable(item) {
+  isAvailable(item, defaultProps) {
     if (item.id == 'chicken_nugget') {
       if (![4,5,6,10].includes(item.pieces)) {
         return false
       }
+      if ([4,6].includes(item.pieces)) {
+        item.combo = true
+      }
+    }
+
+    if (['hamburger', 'cheeseburger'].includes(item.id)) {
+      item.combo = true
     }
 
     return [
+      "hamburger",
+      "cheeseburger",
+      "crispy_chicken",
       "broccoli_list_cheddar_potato",
       "bacon_list_cheddar_potato",
       "chili_list_cheese_potato",

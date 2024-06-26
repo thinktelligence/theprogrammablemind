@@ -49,7 +49,9 @@ const template ={
     "a cheeseburger is a hamburger",
     "cheese is a food",
     "cheddar is a cheese",
-    "pop, soda, coffee, tea, shakes and juice are drinks",
+    "milk, pop, soda, coffee, tea, shakes and juice are drinks",
+    "apple modifies juice",
+    "chocolate modifies milk",
     "lemonade is a drink",
     {
       hierarchy: [

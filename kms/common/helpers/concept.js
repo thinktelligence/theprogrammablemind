@@ -32,7 +32,8 @@ class API {
   // TODO account for modifier a complex phrase for example "hot (chicken strips)"
   kindOfConcept({ config, modifiers, object }) {
     const objectId = pluralize.singular(object)
-    const modifierIds = modifiers.map( (modifier) => pluralize.singular(modifier) )
+    // const modifierIds = modifiers.map( (modifier) => pluralize.singular(modifier) )
+    const modifierIds = modifiers
     const modifiersObjectId = `${modifierIds.join("_")}_${objectId}`
 
     const objectSingular = pluralize.singular(object)
