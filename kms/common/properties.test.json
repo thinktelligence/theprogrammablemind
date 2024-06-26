@@ -566,7 +566,7 @@
           "before": [
             "verby"
           ],
-          "bridge": "{ ...after[0], 'chicken': before[0], atomic: true, dead: true, marker: next(operator('chicken_strip')), value: 'chicken_strip', modifiers: append(['chicken'], after[0].modifiers)}",
+          "bridge": "{ ...after[0], 'modifier_chicken': before[0], atomic: true, dead: true, marker: next(operator('chicken_strip')), value: 'chicken_strip', modifiers: append(['modifier_chicken'], after[0].modifiers)}",
           "convolution": true,
           "id": "chicken_strip",
           "isA": [
@@ -1961,7 +1961,7 @@
           "before": [
             "verby"
           ],
-          "bridge": "{ ...after[0], 'chicken': before[0], atomic: true, dead: true, marker: next(operator('chicken_strip')), value: 'chicken_strip', modifiers: append(['chicken'], after[0].modifiers)}",
+          "bridge": "{ ...after[0], 'modifier_chicken': before[0], atomic: true, dead: true, marker: next(operator('chicken_strip')), value: 'chicken_strip', modifiers: append(['modifier_chicken'], after[0].modifiers)}",
           "convolution": true,
           "id": "chicken_strip",
           "isA": [
@@ -2364,7 +2364,10 @@
       },
       {
         "atomic": true,
-        "chicken": {
+        "dead": true,
+        "level": 1,
+        "marker": "chicken_strip",
+        "modifier_chicken": {
           "level": 0,
           "marker": "chicken",
           "range": {
@@ -2378,11 +2381,8 @@
           "value": "chicken",
           "word": "chicken"
         },
-        "dead": true,
-        "level": 1,
-        "marker": "chicken_strip",
         "modifiers": [
-          "chicken"
+          "modifier_chicken"
         ],
         "number": "many",
         "range": {
@@ -2818,7 +2818,10 @@
         {
           "context": {
             "atomic": true,
-            "chicken": {
+            "dead": true,
+            "level": 1,
+            "marker": "chicken_strip",
+            "modifier_chicken": {
               "level": 0,
               "marker": "chicken",
               "range": {
@@ -2832,11 +2835,8 @@
               "value": "chicken",
               "word": "chicken"
             },
-            "dead": true,
-            "level": 1,
-            "marker": "chicken_strip",
             "modifiers": [
-              "chicken"
+              "modifier_chicken"
             ],
             "number": "many",
             "range": {
@@ -23951,24 +23951,6 @@
         [
           "unknown",
           1
-        ]
-      ],
-      [
-        [
-          "is",
-          0
-        ],
-        [
-          "propertyOf",
-          0
-        ],
-        [
-          "the",
-          0
-        ],
-        [
-          "unknown",
-          1
         ],
         [
           "what",
@@ -30205,24 +30187,6 @@
         [
           "what",
           0
-        ]
-      ],
-      [
-        [
-          "is",
-          0
-        ],
-        [
-          "propertyOf",
-          0
-        ],
-        [
-          "the",
-          0
-        ],
-        [
-          "unknown",
-          1
         ]
       ],
       [
@@ -43421,16 +43385,6 @@
           "object",
           0
         ],
-        [
-          "propertyOf",
-          0
-        ],
-        [
-          "the",
-          0
-        ]
-      ],
-      [
         [
           "propertyOf",
           0

@@ -58,8 +58,8 @@ class API {
     modifierIds.forEach((modifierId) => config.addBridge({ id: modifierId, level: 0, bridge: `{ ...next(operator), value: '${modifierId}' }`,  allowDups: true }))
     config.addBridge({ id: objectId, level: 0, bridge: `{ ...next(operator), value: '${objectId}' }`,  allowDups: true })
     // config.addBridge({ id: modifierObjectId, level: 0, bridge: `{ ...next(operator), value: '${modifierObjectId}' }`, allowDups: true })
-    const modifierProperties = modifierIds.map((modifierId, index) => `'${modifierId}': before[${index}]`).join(', ')
-    const modifierList = modifierIds.map((modifierId) => `'${modifierId}'`).join(', ')
+    const modifierProperties = modifierIds.map((modifierId, index) => `'modifier_${modifierId}': before[${index}]`).join(', ')
+    const modifierList = modifierIds.map((modifierId) => `'modifier_${modifierId}'`).join(', ')
 
     config.addBridge({ 
       id: modifiersObjectId, 
@@ -67,7 +67,6 @@ class API {
       convolution: true,
       isA: ['adjective'],
       before: ['verby'],
-      // bridge: `{ ...after[0], ${modifierProperties}, atomic: true, dead: true, marker: next(operator(concat(before.value, '_', after.value))), value: concat(before.value, '_', after.value), modifiers: append([${modifierList}], after[0].modifiers)}`, 
       bridge: `{ ...after[0], ${modifierProperties}, atomic: true, dead: true, marker: next(operator('${modifiersObjectId}')), value: '${modifiersObjectId}', modifiers: append([${modifierList}], after[0].modifiers)}`, 
       allowDups: true })
     {

@@ -129,6 +129,7 @@ const defaultContextCheck = [
       return 'value'
     }
   },
+  'modifiers',
   { property: 'modifiers', isPropertyList: true, filter: defaultContextProperties }
 ]
 
