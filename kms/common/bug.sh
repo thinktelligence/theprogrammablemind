@@ -707,6 +707,8 @@ fi
 # $NODE fastfood -q 'hamburgers, cheeseburgers, crispy chicken and nuggets are kids meals' -g -d
 # $NODE concept -q 'kids modifies meal\nkids meal' -g -d
 # $NODE concept -q 'kids modifies meal' -g -d
-# $NODE concept -q 'nuggets, junior bacon cheeseburgers, chicken go wraps and junior crispy chicken clubs are value meals' -g -d
-$NODE fastfood -q 'chicken go wraps and junior crispy chicken clubs are value meals' -g -d
+# $NODE fastfood -q 'nuggets, junior bacon cheeseburgers, chicken go wraps and junior crispy chicken clubs are value meals' -g -d
+# $NODE fastfood -q 'junior modifies crispy chicken club' -g -d
+# $NODE fastfood -q 'chicken go wraps and junior crispy chicken clubs are value meals' -g -d -cl '[["is", 0]]' 
+$NODE fastfood -q 'hi' -g -d -cl '[["is", 0]]' 
 # $NODE fastfood -q 'chicken go wraps are value meals' -g -d

@@ -46,9 +46,9 @@ const template ={
     // "10 piece modifies nuggets",
     "chicken modifies club",
     "asiago ranch modifies chicken club",
-    "crispy modifies chicken club",
-    "chicken club is a sandwich",
-    "junior modifies crispy chicken club",
+    "crispy modifies chicken",
+    "crispy chicken modifies club",
+    "club is a sandwich",
     { priorities: [ { "context": [['asiago_ranch_chicken_club', 0], ['list', 0]], "choose": [0] } ] },
     "waffle modifies fries",
     { priorities: [ { "context": [['waffle_fry', 0], ['list', 0]], "choose": [0] } ] },
@@ -262,15 +262,18 @@ const template ={
     "bottled water is a drink",
     "apple modifies slice",
     "natural cut modifies fries",
-    "crispy modifies chicken",
     "hamburgers, cheeseburgers, crispy chicken and nuggets are kids meals",
     // "nuggets, junior bacon cheeseburgers, chicken go wraps and junior crispy chicken clubs are value meals",
     // "sour cream and literally modifies chives",
     {
       priorities: [
         { context: [['bacon_list_cheddar_potato', 0], ['cheese_potato', 0]], choose: [0] },
+        // TODO make this automatic
+        { context: [['crispy_chicken', 0], ['chicken_sandwich', 0], ['chicken_club', 0]], choose: [0] },
+        { context: [['list', 0], ['junior', 0], ['crispy', 0], ['chicken', 0], ['club', 0]], ordered: true, choose: [1,2,3,4] },
       ]
-    }
+    },
+    "junior modifies crispy chicken club",
   ],
 }
 
