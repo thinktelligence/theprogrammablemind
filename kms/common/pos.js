@@ -30,7 +30,7 @@ let configStruct = {
     { "context": [['adjective', 0], ['verby', 0], ], "choose": [0] },
     { "context": [['articlePOS', 0], ['verby', 0], ], "choose": [0] },
     { "context": [['articlePOS', 0], ['adjective', 0], ], "choose": [1] },
-    { "context": [['punctuation', 0], ['verby', 0], ], "choose": [0] },
+    { "context": [['punctuation', 0], ['verby', 0], ], "choose": [1] },
     { "context": [['noun', 0], ['verby', 0], ], "choose": [0] },
   ],
 

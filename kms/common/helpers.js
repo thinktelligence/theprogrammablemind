@@ -129,7 +129,16 @@ const defaultContextCheck = [
       return 'value'
     }
   },
-  'modifiers',
+  (object) => {
+    if (!Array.isArray(object.modifiers)) {
+      return
+    }
+    if (typeof object.modifiers[0] == 'object') {
+      return { property: 'modifiers', filter: defaultContextProperties }
+    } else {
+      return 'modifiers'
+    }
+  },
   { property: 'modifiers', isPropertyList: true, filter: defaultContextProperties }
 ]
 

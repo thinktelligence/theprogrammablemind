@@ -31,7 +31,7 @@ const fastfood_instance = require('./fastfood.instance.json')
   number 1 2 and 3
 */
 
-const template ={
+const template = {
   "queries": [
     "food is countable",
     "drinks are countable",
@@ -270,6 +270,8 @@ const template ={
         { context: [['bacon_list_cheddar_potato', 0], ['cheese_potato', 0]], choose: [0] },
         // TODO make this automatic
         { context: [['crispy_chicken', 0], ['chicken_sandwich', 0], ['chicken_club', 0]], choose: [0] },
+        // TODO maybe prefer the one that takes more arguments?
+        { context: [['chili_list_cheese_potato', 0], ['cheese_potato', 0]], choose: [0] },
         { context: [['list', 0], ['junior', 0], ['crispy', 0], ['chicken', 0], ['club', 0]], ordered: true, choose: [1,2,3,4] },
       ]
     },

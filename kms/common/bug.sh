@@ -710,5 +710,8 @@ fi
 # $NODE fastfood -q 'nuggets, junior bacon cheeseburgers, chicken go wraps and junior crispy chicken clubs are value meals' -g -d
 # $NODE fastfood -q 'junior modifies crispy chicken club' -g -d
 # $NODE fastfood -q 'chicken go wraps and junior crispy chicken clubs are value meals' -g -d -cl '[["is", 0]]' 
-$NODE fastfood -q 'hi' -g -d -cl '[["is", 0]]' 
+# $NODE fastfood -q 'hi' -g -d -cl '[["is", 0]]' 
 # $NODE fastfood -q 'chicken go wraps are value meals' -g -d
+# $NODE concept -q 'mango modifies passion\nmango passion modifies smoothie\nmango passion smoothie' -g -d
+# $NODE edible -q "nuggets, chicken strips and chicken nuggets are food" -g -d --parenthesized
+$NODE fastfood -q "chili and cheese potato" -g -d -r

@@ -39,7 +39,7 @@ class API {
     const objectSingular = pluralize.singular(object)
     const objectPlural = pluralize.plural(object)
     // config.addOperator({ pattern: `(${modifierIds.map((modifierId) => `(${modifierId}/*)`).join(' ')} [${modifiersObjectId}] (${objectId}/0))`, allowDups: true })
-    config.addOperator({ pattern: `(${modifierIds.map((modifierId) => `(${modifierId}/*)`).join(' ')} [${modifiersObjectId}^] (${objectId}/*))`, allowDups: true })
+    config.addOperator({ pattern: `(${modifierIds.map((modifierId) => `(${modifierId}/*)`).join(' ')} [${modifiersObjectId}] (${objectId}/*))`, allowDups: true })
     // config.addOperator({ pattern: `(<${modifierId}|> ([${objectId}|]))`, allowDups: true })
     // config.addOperator({ pattern: `([${modifierObjectId}|])`, allowDups: true })
     modifierIds.forEach((modifierId) => {
@@ -100,7 +100,7 @@ class API {
     modifierIds.forEach((modifierId) => config.addPriority({ "context": [[modifierId, 0], ['articlePOS', 0]], "choose": [0] }))
     config.addPriority({ "context": [[objectId, 0], ['articlePOS', 0], ], "choose": [0] })
     // maybe remove the next line
-    // modifierIds.forEach((modifierId) => config.addPriority({ "context": [[modifiersObjectId, 0], [modifierId, 0], ], "choose": [0] }))
+    modifierIds.forEach((modifierId) => config.addPriority({ "context": [[modifiersObjectId, 0], [modifierId, 0], ], "choose": [0] }))
     config.addPriority({ "context": [[modifiersObjectId, 0], [objectId, 0], ], "choose": [0] })
     config.addPriority({ context: [['list', 0]].concat(modifierIds.map((id) => [id, 0])).concat([[objectId, 0]]), ordered: true, choose: [1,2] })
     if (config.exists('number')) {
