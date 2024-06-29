@@ -116,6 +116,21 @@ const template = {
     "strawberry modifies lemonade",
     "wild berry modifies lemonade",
     "plain modifies lemonade",
+    "fries and drinks are modifications",
+    "combos, fries and drinks are sizeable",
+    // TODO Future see above note { query: "(combo one) and (2 combo twos)", skipSemantics: true },
+    // { query: "(2 mango passion and (3 strawberry)) smoothies", skipSemantics: true },
+    { query: "(2 mango passion and (3 strawberry)) smoothies", skipSemantics: true },
+    "broccoli and cheddar literally modifies potato",
+    "bacon and cheddar literally modifies potato",
+    "chili and cheese literally modifies potato",
+    "kids modifies meal",
+    "value modifies meal",
+    "bottled modifies water",
+    "bottled water is a drink",
+    "apple modifies slice",
+    "natural cut modifies fries",
+    "hamburgers, cheeseburgers, crispy chicken and nuggets are kids meals",
     {
       where: where(),
       operators: [
@@ -138,7 +153,7 @@ const template = {
        { "context": [['combo',0], ['number', 0], ['list', 0], ['number', 0],['combo', 0],['number',0]], ordered: true, choose: [0,1,3,4,5] },
        { "context": [['number',0], ['smoothie_ingredient', 0], ['list', 0], ['number', 0],['smoothie_ingredient', 0],['smoothie',0]], ordered: true, choose: [0,1,3,4] },
        // { "context": [['single',0], ['list', 0], ['double', 0],['combo', 0]], ordered: true, choose: [0,1,2] },
-       { "context": [['list', 0], ['comboMeal', 0]], choose: [0] },
+       // { "context": [['list', 0], ['comboMeal', 0]], choose: [0] },
        { "context": [['list', 0], ['smoothie', 0]], choose: [0] },
        { "context": [['list', 0], ['smoothie', 1]], choose: [0] },
 
@@ -248,22 +263,7 @@ const template = {
         },
       ]
     },
-    "fries and drinks are modifications",
-    "combos, fries and drinks are sizeable",
-    // TODO Future see above note { query: "(combo one) and (2 combo twos)", skipSemantics: true },
-    // { query: "(2 mango passion and (3 strawberry)) smoothies", skipSemantics: true },
-    { query: "(2 mango passion and (3 strawberry)) smoothies", skipSemantics: true },
-    "broccoli and cheddar literally modifies potato",
-    "bacon and cheddar literally modifies potato",
-    "chili and cheese literally modifies potato",
-    "kids modifies meal",
-    "value modifies meal",
-    "bottled modifies water",
-    "bottled water is a drink",
-    "apple modifies slice",
-    "natural cut modifies fries",
-    "hamburgers, cheeseburgers, crispy chicken and nuggets are kids meals",
-    // "nuggets, junior bacon cheeseburgers, chicken go wraps and junior crispy chicken clubs are value meals",
+    // TODO "sour cream and chives" is a phrase or maybe just "sour cream and chives"
     // "sour cream and literally modifies chives",
     {
       priorities: [
@@ -271,11 +271,14 @@ const template = {
         // TODO make this automatic
         { context: [['crispy_chicken', 0], ['chicken_sandwich', 0], ['chicken_club', 0]], choose: [0] },
         // TODO maybe prefer the one that takes more arguments?
-        { context: [['chili_list_cheese_potato', 0], ['cheese_potato', 0]], choose: [0] },
+        // { context: [['chili_list_cheese_potato', 0], ['cheese_potato', 0]], choose: [0] },
         { context: [['list', 0], ['junior', 0], ['crispy', 0], ['chicken', 0], ['club', 0]], ordered: true, choose: [1,2,3,4] },
+        { context: [['meal', 0], ['list', 0], ['meal', 0], ['comboMeal', 0]], ordered: true, choose: [0,1,2] },
+        // { context: [['crispy_chicken_club', 0], ['chicken_club', 0], ['chicken_sandwich', 0]], choose: [0] },
       ]
     },
     "junior modifies crispy chicken club",
+    "nuggets, junior bacon cheeseburgers, chicken go wraps and junior crispy chicken clubs are value meals",
   ],
 }
 

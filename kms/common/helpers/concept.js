@@ -100,8 +100,8 @@ class API {
     modifierIds.forEach((modifierId) => config.addPriority({ "context": [[modifierId, 0], ['articlePOS', 0]], "choose": [0] }))
     config.addPriority({ "context": [[objectId, 0], ['articlePOS', 0], ], "choose": [0] })
     // maybe remove the next line
-    modifierIds.forEach((modifierId) => config.addPriority({ "context": [[modifiersObjectId, 0], [modifierId, 0], ], "choose": [0] }))
-    config.addPriority({ "context": [[modifiersObjectId, 0], [objectId, 0], ], "choose": [0] })
+    modifierIds.forEach((modifierId) => config.addPriority({ context: [[modifiersObjectId, 0], [modifierId, 0], ], generalize: false, choose: [0] }))
+    config.addPriority({ "context": [[modifiersObjectId, 0], [objectId, 0], ], choose: [0] })
     config.addPriority({ context: [['list', 0]].concat(modifierIds.map((id) => [id, 0])).concat([[objectId, 0]]), ordered: true, choose: [1,2] })
     if (config.exists('number')) {
       // config.addPriority({ context: [['list', 0], ['number', 0]].concat(modifierIds.map((id) => [id, 0])).concat([[objectId, 0]]), ordered: true, choose: [2,3] })
