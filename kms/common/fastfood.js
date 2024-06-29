@@ -316,7 +316,7 @@ class API {
     this._objects.notAvailable.push(item)
   }
 
-  isAvailable(item, defaultProps) {
+  isAvailable(item) {
     if (item.id == 'chicken_nugget') {
       if (![4,5,6,10].includes(item.pieces)) {
         return false
@@ -360,7 +360,6 @@ class API {
       'homestyle',
       'asiago_range_chicken_club',
       'ultimate_chicken_grill',
-      '10_peice_nuggets',
       'premium_cod',
       "waffle_fry",
       "strawberry_smoothie",
