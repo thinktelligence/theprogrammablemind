@@ -326,7 +326,7 @@ class API {
       }
     }
 
-    if (['hamburger', 'cheeseburger'].includes(item.id)) {
+    if (['hamburger', 'cheeseburger', 'junior_bacon_cheeseburger', 'junior_crispy_chicken_club', 'chicken_go_wrap'].includes(item.id)) {
       item.combo = true
     }
 

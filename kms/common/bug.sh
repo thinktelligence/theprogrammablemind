@@ -716,5 +716,8 @@ fi
 # $NODE edible -q "nuggets, chicken strips and chicken nuggets are food" -g -d --parenthesized -cl
 # $NODE fastfood -q "single and double combo" -g -d
 # $NODE fastfood -q "junior crispy chicken club" -g -d
-$NODE fastfood -q "nuggets, junior bacon cheeseburgers, chicken go wraps and junior crispy chicken clubs are value meals" -g -d
+# $NODE fastfood -q "nuggets, junior bacon cheeseburgers, chicken go wraps and junior crispy chicken clubs are value meals" -g -d
 # $NODE fastfood -q "chicken go wraps and junior crispy chicken clubs are value meals" -g -d -cl
+node fastfood -q 'junior bacon cheeseburger' -g -d
+# TODO node fastfood -q 'junior bacon cheeseburger combo' -g -d
+
