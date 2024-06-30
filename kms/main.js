@@ -49,6 +49,7 @@ const testing = require('./common/testing')
 const time = require('./common/time')
 const ui = require('./common/ui')
 const weight = require('./common/weight')
+const yesno = require('./common/yesno')
 
 module.exports = {
   Config: tpm.Config,
@@ -102,4 +103,5 @@ module.exports = {
   time,
   ui,
   weight,
+  yesno,
 }
