@@ -85,7 +85,7 @@ const template = {
     "frosty is a drink",
     "vanilla modifies frosty",
     "chocolate modifies frosty",
-    "breakast modifies baconator",
+    "breakfast modifies baconator",
     "french toast modifies sandwich",
     "egg modifies muffin",
     "chicken on modifies french toast",
@@ -96,7 +96,6 @@ const template = {
     "taco modifies salad",
     "southwest avacado modifies salad",
     "breakfast modifies meals",
-    "breakfast modifies baconator",
     "bacon modifies cheeseburger",
     "junior modifies bacon cheeseburger",
     "go modifies wrap",
@@ -107,7 +106,7 @@ const template = {
     "coca modifies cola",
     "diet modifies coke",
     "iced modifies tea",
-    "coca cola, diet coke, sprite, fanta, barqs and iced tea are pop",
+    "coke, coca cola, diet coke, sprite, fanta, barqs and iced tea are pop",
     "sweet black modifies coffee",
     "french vanilla modifies coffee",
     "cappuccino modifies coffee",
@@ -117,7 +116,6 @@ const template = {
     "wild berry modifies lemonade",
     "plain modifies lemonade",
     "fries and drinks are modifications",
-    "combos, fries and drinks are sizeable",
     // TODO Future see above note { query: "(combo one) and (2 combo twos)", skipSemantics: true },
     // { query: "(2 mango passion and (3 strawberry)) smoothies", skipSemantics: true },
     { query: "(2 mango passion and (3 strawberry)) smoothies", skipSemantics: true },
@@ -271,7 +269,7 @@ const template = {
         // TODO make this automatic
         { context: [['crispy_chicken', 0], ['chicken_sandwich', 0], ['chicken_club', 0]], choose: [0] },
         // TODO maybe prefer the one that takes more arguments?
-        // { context: [['chili_list_cheese_potato', 0], ['cheese_potato', 0]], choose: [0] },
+        { context: [['chili_list_cheese_potato', 0], ['cheese_potato', 0]], choose: [0] },
         { context: [['list', 0], ['junior', 0], ['crispy', 0], ['chicken', 0], ['club', 0]], ordered: true, choose: [1,2,3,4] },
         { context: [['meal', 0], ['list', 0], ['meal', 0], ['comboMeal', 0]], ordered: true, choose: [0,1,2] },
         // { context: [['crispy_chicken_club', 0], ['chicken_club', 0], ['chicken_sandwich', 0]], choose: [0] },
@@ -279,6 +277,7 @@ const template = {
     },
     "junior modifies crispy chicken club",
     "nuggets, junior bacon cheeseburgers, chicken go wraps and junior crispy chicken clubs are value meals",
+    "combos, chili, fries and drinks are sizeable",
   ],
 }
 
@@ -293,8 +292,23 @@ class API {
     this._objects.show = this._objects.items
   }
 
-  add({ id, combo, modifications, size, pieces }) {
-    this._objects.items.push({ id, combo, modifications, size, pieces })
+  // returns an item id so things can be updated if needed
+  add(item) {
+    item.item_id = this._objects.items.length
+    if (!item.modifications) {
+      item.modifications = []
+    }
+    this._objects.items.push(item)
+    return item.item_id 
+  }
+
+  get(item_id) {
+    return this._objects.items[item_id]
+  }
+
+  addDrink(item_id, drink) {
+    this._objects.items[item_id].modifications.push(drink)
+    this._objects.items[item_id].needsDrink = false
   }
 
   say(response) {
@@ -328,6 +342,14 @@ class API {
 
     if (['hamburger', 'cheeseburger', 'junior_bacon_cheeseburger', 'junior_crispy_chicken_club', 'chicken_go_wrap'].includes(item.id)) {
       item.combo = true
+    }
+
+    if (item.combo) {
+      item.needsDrink = true 
+    }
+
+    if (item.id == 'coke') {
+      item.id = 'coca_cola'
     }
 
     return [
@@ -486,16 +508,54 @@ class State {
       pieces = food.pieces.count.value
     } else {
       if (id == 'chicken_nugget') {
+        // TODO ask how many pieces
         pieces = 10
       }
     }
+
     for (let i = 0; i < quantity; ++i) {
       const item = addSize(food, { id, combo, modifications, pieces })
       if (!this.api.isAvailable(item)) {
         this.api.addAskedForButNotAvailable(food)
         return
       }
-      this.api.add(item)
+
+      const item_id = this.api.add(item)
+
+      // see if followup for drink is needed
+
+      const hasDrink = (item_id) => {
+        const item = this.api.get(item_id)
+        let hasDrink = false
+        for (let modification of (item.modifications || [])) {
+          if (!this.api.args.isA(modification.id, 'drink')) {
+            hasDrink = true
+            break
+          }
+        }
+        return hasDrink
+      }
+      const needsDrink = (item_id) => {
+        const item = this.api.get(item_id)
+        return item.needsDrink
+      }
+
+      if (!hasDrink(item_id) && needsDrink(item_id)) {
+        this.api.args.ask([
+            {
+              where: where(),
+              matchq: ({objects}) => !hasDrink(item_id) && needsDrink(item_id),
+              applyq: () => `What drink do you want?`,
+              matchr: ({context, isA}) => isA(context.marker, 'drink'),
+              applyr: ({context, objects, api}) => {
+                // TODO check for is available for all modifications
+                this.api.addDrink(item_id, { id: context.value }) 
+              }
+            },
+          ]
+        )
+      }
+
     }
   }
 

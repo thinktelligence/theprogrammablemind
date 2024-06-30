@@ -14,7 +14,7 @@ let configStruct = {
     {
       id: "comma",
       level: 0,
-      bridge: "{ ...before[0], decorators.after: operator }",      // css :after decoration
+      bridge: "{ ...before[0], decorators.after: operator, no_convolutions: true }",      // css :after decoration
       words: [{ word: ",", value: ',', depth: '+' }],
     },
     {

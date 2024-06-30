@@ -718,6 +718,8 @@ fi
 # $NODE fastfood -q "junior crispy chicken club" -g -d
 # $NODE fastfood -q "nuggets, junior bacon cheeseburgers, chicken go wraps and junior crispy chicken clubs are value meals" -g -d
 # $NODE fastfood -q "chicken go wraps and junior crispy chicken clubs are value meals" -g -d -cl
-node fastfood -q 'junior bacon cheeseburger' -g -d
+# node fastfood -q 'junior bacon cheeseburger' -g -d
 # TODO node fastfood -q 'junior bacon cheeseburger combo' -g -d
-
+# node fastfood -q 'large chili' -g -d
+# node fastfood -q 'breakfast baconator' -g -d
+$NODE fastfood -q 'combo 1\ncoca cola' -g -d
