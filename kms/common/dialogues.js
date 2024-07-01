@@ -333,46 +333,6 @@ let configStruct = {
       apply: ({context}) => context.evalue.value ? 'yes' : 'no',
       priority: -1,
     },
-    /*
-     * modifiers = <list of properties>
-     */
-    {
-      where: where(),
-      //({context}) => context.paraphrase && context.modifiers,
-      match: ({context}) => context.paraphrase && (context.modifiers || context.postModifiers),
-      apply: ({context, g, gs, callId}) => {
-        const text = []
-        for (modifier of (context.modifiers || [])) {
-          if (Array.isArray(context[modifier])) {
-            for (let m of context[modifier]) {
-              text.push(g(m))
-            }
-          } else {
-            text.push(g(context[modifier], { isModifier: true }))
-          }
-        }
-        // text.push(context.word)
-        let number
-        if (context.isModifier) {
-          number = 'one'
-        } else {
-          number = isMany(context) ? 'many' : 'one'
-        }
-        if (context.postModifiers) {
-          text.push(g({...context, number: 'one', postModifiers: undefined, modifiers: undefined}))
-        } else {
-          text.push(g({...context, number, postModifiers: undefined, modifiers: undefined}))
-        }
-        for ([index, modifier] of (context.postModifiers || []).entries()) {
-          if (index == context.postModifiers.length - 1) {
-            text.push(g({...context[modifier], number}))
-          } else {
-            text.push(g(context[modifier]))
-          }
-        }
-        return text.join(' ')
-      }
-    },
 
     {
       where: where(),
@@ -465,19 +425,6 @@ let configStruct = {
       where: where(),
       match: ({context, hierarchy}) => hierarchy.isA(context.marker, 'queryable') && !context.isQuery && context.subject,
       apply: ({context}) => `${context.subject} ${context.word}`
-    },
-    { 
-      where: where(),
-      match: ({context}) => context.marker == 'unknown', 
-      apply: ({context}) => {
-        if (typeof context.marker === 'string' && context.value) {
-          return context.value
-        } else if (context.value) {
-          return JSON.stringify(context.value)
-        } else {
-          return context.word
-        }
-      }
     },
     { 
       where: where(),

@@ -514,7 +514,7 @@ class State {
     }
 
     for (let i = 0; i < quantity; ++i) {
-      const item = addSize(food, { id, combo, modifications, pieces })
+      const item = addSize(food, { id, combo, modifications, pieces, food })
       if (!this.api.isAvailable(item)) {
         this.api.addAskedForButNotAvailable(food)
         return
@@ -653,7 +653,7 @@ knowledgeModule( {
             checks: {
               objects: [
                 'show', 
-                'items', 
+                { property: 'items', filter: ['combo', 'item_id', 'id', 'modifications', 'needsDrink'] },
                 'changes', 
                 { property: 'notAvailable', filter: [ 'marker', 'value', 'text' ] }, 
                 { property: 'quantity', filter: ['marker', 'value', 'text' ] },

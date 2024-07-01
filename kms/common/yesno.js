@@ -8,10 +8,17 @@ let configStruct = {
   operators: [
     "([yes])",
     "([no])",
+    "((no/*) [cancel] ([cancellable]))",
   ],
   bridges: [
     { id: 'yes', words: [{ word: 'yep', value: 'yes' }] },
     { id: 'no', words: [{ word: 'nope', value: 'no' }] },
+    { id: 'cancellable' },
+    { 
+      id: 'cancel',
+      convolution: true,
+      bridge: "{ ...operator, cancel: after[0], postModifiers: ['cancel'] }",
+    },
   ],
 };
 

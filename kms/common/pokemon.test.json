@@ -455,7 +455,7 @@
       }
     ],
     "generatedParenthesized": [
-      "((((the (type)) of (pikachu)) is ((((electric) (type))))))"
+      "(((type) is ((((electric) (type))))))"
     ],
     "metadata": {
       "opChoices": [
@@ -711,6 +711,9 @@
               "electric_type",
               "earth_type"
             ],
+            "preposition": [
+              "between"
+            ],
             "pronoun": [
               "it",
               "this"
@@ -775,6 +778,8 @@
             "have",
             "canBeDoQuestion",
             "canBeQuestion",
+            "between",
+            "preposition",
             "concept",
             "modifies",
             "verby",
@@ -812,6 +817,9 @@
           "parents": {
             "a": [
               "articlePOS"
+            ],
+            "between": [
+              "preposition"
             ],
             "charmander": [
               "fire_type"
@@ -938,6 +946,8 @@
               },
               "articlePOS": {
               },
+              "between": {
+              },
               "canBeDoQuestion": {
               },
               "canBeQuestion": {
@@ -979,6 +989,8 @@
               "pokemon": {
               },
               "pokemon_type": {
+              },
+              "preposition": {
               },
               "pronoun": {
               },
@@ -1374,11 +1386,11 @@
             },
             "word": "is"
           },
-          "generatedParenthesized": "((((the (type)) of (pikachu)) is ((((electric) (type))))))",
+          "generatedParenthesized": "(((type) is ((((electric) (type))))))",
           "paraphrases": "what is the type of pikachu?",
           "paraphrasesParenthesized": "(((what) is ((the (type)) of (pikachu)))?)",
           "responses": [
-            "the type of pikachu is electric type"
+            "type is electric type"
           ]
         },
         {
@@ -1429,7 +1441,9 @@
                 "text": "a",
                 "word": "a"
               },
-              "fire": {
+              "level": 1,
+              "marker": "fire_type",
+              "modifier_fire": {
                 "level": 0,
                 "marker": "fire",
                 "range": {
@@ -1437,14 +1451,15 @@
                   "start": 16
                 },
                 "text": "fire",
+                "types": [
+                  "fire"
+                ],
                 "value": "fire",
                 "word": "fire"
               },
-              "level": 1,
-              "marker": "fire_type",
               "modifiers": [
                 "determiner",
-                "fire"
+                "modifier_fire"
               ],
               "number": "one",
               "pullFromContext": false,
@@ -1454,7 +1469,8 @@
               },
               "text": "a fire type",
               "types": [
-                "fire_type"
+                "fire_type",
+                "type"
               ],
               "value": "fire_type",
               "wantsValue": true,
@@ -1518,7 +1534,9 @@
                 "text": "an",
                 "word": "an"
               },
-              "electric": {
+              "level": 1,
+              "marker": "electric_type",
+              "modifier_electric": {
                 "level": 0,
                 "marker": "electric",
                 "range": {
@@ -1526,14 +1544,15 @@
                   "start": 14
                 },
                 "text": "electric",
+                "types": [
+                  "electric"
+                ],
                 "value": "electric",
                 "word": "electric"
               },
-              "level": 1,
-              "marker": "electric_type",
               "modifiers": [
                 "determiner",
-                "electric"
+                "modifier_electric"
               ],
               "number": "one",
               "pullFromContext": false,
@@ -1543,7 +1562,8 @@
               },
               "text": "an electric type",
               "types": [
-                "electric_type"
+                "electric_type",
+                "type"
               ],
               "value": "electric_type",
               "wantsValue": true,
@@ -1569,7 +1589,9 @@
             "one": {
               "atomic": true,
               "dead": true,
-              "earth": {
+              "level": 1,
+              "marker": "earth_type",
+              "modifier_earth": {
                 "level": 0,
                 "marker": "earth",
                 "range": {
@@ -1577,13 +1599,14 @@
                   "start": 0
                 },
                 "text": "earth",
+                "types": [
+                  "earth"
+                ],
                 "value": "earth",
                 "word": "earth"
               },
-              "level": 1,
-              "marker": "earth_type",
               "modifiers": [
-                "earth"
+                "modifier_earth"
               ],
               "number": "one",
               "range": {
@@ -1592,7 +1615,8 @@
               },
               "text": "earth type",
               "types": [
-                "earth_type"
+                "earth_type",
+                "type"
               ],
               "value": "earth_type",
               "word": "type"
@@ -1624,12 +1648,7 @@
               },
               "level": 1,
               "marker": "pokemon_type",
-              "modifiers": [
-                "determiner",
-                "pokemon"
-              ],
-              "number": "one",
-              "pokemon": {
+              "modifier_pokemon": {
                 "level": 0,
                 "marker": "pokemon",
                 "range": {
@@ -1637,9 +1656,17 @@
                   "start": 16
                 },
                 "text": "pokemon",
+                "types": [
+                  "pokemon"
+                ],
                 "value": "pokemon",
                 "word": "pokemon"
               },
+              "modifiers": [
+                "determiner",
+                "modifier_pokemon"
+              ],
+              "number": "one",
               "pullFromContext": false,
               "range": {
                 "end": 27,
@@ -1647,7 +1674,8 @@
               },
               "text": "a pokemon type",
               "types": [
-                "pokemon_type"
+                "pokemon_type",
+                "type"
               ],
               "value": "pokemon_type",
               "wantsValue": true,
@@ -1673,7 +1701,9 @@
             "one": {
               "atomic": true,
               "dead": true,
-              "electric": {
+              "level": 1,
+              "marker": "electric_type",
+              "modifier_electric": {
                 "level": 0,
                 "marker": "electric",
                 "range": {
@@ -1681,13 +1711,14 @@
                   "start": 0
                 },
                 "text": "electric",
+                "types": [
+                  "electric"
+                ],
                 "value": "electric",
                 "word": "electric"
               },
-              "level": 1,
-              "marker": "electric_type",
               "modifiers": [
-                "electric"
+                "modifier_electric"
               ],
               "number": "one",
               "range": {
@@ -1696,7 +1727,8 @@
               },
               "text": "electric type",
               "types": [
-                "electric_type"
+                "electric_type",
+                "type"
               ],
               "value": "electric_type",
               "word": "type"
@@ -1728,12 +1760,7 @@
               },
               "level": 1,
               "marker": "pokemon_type",
-              "modifiers": [
-                "determiner",
-                "pokemon"
-              ],
-              "number": "one",
-              "pokemon": {
+              "modifier_pokemon": {
                 "level": 0,
                 "marker": "pokemon",
                 "range": {
@@ -1741,9 +1768,17 @@
                   "start": 19
                 },
                 "text": "pokemon",
+                "types": [
+                  "pokemon"
+                ],
                 "value": "pokemon",
                 "word": "pokemon"
               },
+              "modifiers": [
+                "determiner",
+                "modifier_pokemon"
+              ],
+              "number": "one",
               "pullFromContext": false,
               "range": {
                 "end": 30,
@@ -1751,7 +1786,8 @@
               },
               "text": "a pokemon type",
               "types": [
-                "pokemon_type"
+                "pokemon_type",
+                "type"
               ],
               "value": "pokemon_type",
               "wantsValue": true,
@@ -1779,8 +1815,22 @@
               "dead": true,
               "level": 1,
               "marker": "water_type",
+              "modifier_water": {
+                "level": 0,
+                "marker": "water",
+                "range": {
+                  "end": 4,
+                  "start": 0
+                },
+                "text": "water",
+                "types": [
+                  "water"
+                ],
+                "value": "water",
+                "word": "water"
+              },
               "modifiers": [
-                "water"
+                "modifier_water"
               ],
               "number": "one",
               "range": {
@@ -1789,20 +1839,10 @@
               },
               "text": "water type",
               "types": [
+                "type",
                 "water_type"
               ],
               "value": "water_type",
-              "water": {
-                "level": 0,
-                "marker": "water",
-                "range": {
-                  "end": 4,
-                  "start": 0
-                },
-                "text": "water",
-                "value": "water",
-                "word": "water"
-              },
               "word": "type"
             },
             "range": {
@@ -1832,12 +1872,7 @@
               },
               "level": 1,
               "marker": "pokemon_type",
-              "modifiers": [
-                "determiner",
-                "pokemon"
-              ],
-              "number": "one",
-              "pokemon": {
+              "modifier_pokemon": {
                 "level": 0,
                 "marker": "pokemon",
                 "range": {
@@ -1845,9 +1880,17 @@
                   "start": 16
                 },
                 "text": "pokemon",
+                "types": [
+                  "pokemon"
+                ],
                 "value": "pokemon",
                 "word": "pokemon"
               },
+              "modifiers": [
+                "determiner",
+                "modifier_pokemon"
+              ],
+              "number": "one",
               "pullFromContext": false,
               "range": {
                 "end": 27,
@@ -1855,7 +1898,8 @@
               },
               "text": "a pokemon type",
               "types": [
-                "pokemon_type"
+                "pokemon_type",
+                "type"
               ],
               "value": "pokemon_type",
               "wantsValue": true,
@@ -1882,7 +1926,7 @@
     ],
     "query": "what is the type of pikachu",
     "responses": [
-      "the type of pikachu is electric type"
+      "type is electric type"
     ]
   },
   {
@@ -2231,6 +2275,9 @@
               "electric_type",
               "earth_type"
             ],
+            "preposition": [
+              "between"
+            ],
             "pronoun": [
               "it",
               "this"
@@ -2295,6 +2342,8 @@
             "have",
             "canBeDoQuestion",
             "canBeQuestion",
+            "between",
+            "preposition",
             "concept",
             "modifies",
             "verby",
@@ -2332,6 +2381,9 @@
           "parents": {
             "a": [
               "articlePOS"
+            ],
+            "between": [
+              "preposition"
             ],
             "charmander": [
               "fire_type"
@@ -2458,6 +2510,8 @@
               },
               "articlePOS": {
               },
+              "between": {
+              },
               "canBeDoQuestion": {
               },
               "canBeQuestion": {
@@ -2499,6 +2553,8 @@
               "pokemon": {
               },
               "pokemon_type": {
+              },
+              "preposition": {
               },
               "pronoun": {
               },
@@ -2742,7 +2798,9 @@
                 "text": "a",
                 "word": "a"
               },
-              "fire": {
+              "level": 1,
+              "marker": "fire_type",
+              "modifier_fire": {
                 "level": 0,
                 "marker": "fire",
                 "range": {
@@ -2750,14 +2808,15 @@
                   "start": 16
                 },
                 "text": "fire",
+                "types": [
+                  "fire"
+                ],
                 "value": "fire",
                 "word": "fire"
               },
-              "level": 1,
-              "marker": "fire_type",
               "modifiers": [
                 "determiner",
-                "fire"
+                "modifier_fire"
               ],
               "number": "one",
               "pullFromContext": false,
@@ -2767,7 +2826,8 @@
               },
               "text": "a fire type",
               "types": [
-                "fire_type"
+                "fire_type",
+                "type"
               ],
               "value": "fire_type",
               "wantsValue": true,
@@ -2831,7 +2891,9 @@
                 "text": "an",
                 "word": "an"
               },
-              "electric": {
+              "level": 1,
+              "marker": "electric_type",
+              "modifier_electric": {
                 "level": 0,
                 "marker": "electric",
                 "range": {
@@ -2839,14 +2901,15 @@
                   "start": 14
                 },
                 "text": "electric",
+                "types": [
+                  "electric"
+                ],
                 "value": "electric",
                 "word": "electric"
               },
-              "level": 1,
-              "marker": "electric_type",
               "modifiers": [
                 "determiner",
-                "electric"
+                "modifier_electric"
               ],
               "number": "one",
               "pullFromContext": false,
@@ -2856,7 +2919,8 @@
               },
               "text": "an electric type",
               "types": [
-                "electric_type"
+                "electric_type",
+                "type"
               ],
               "value": "electric_type",
               "wantsValue": true,
@@ -2882,7 +2946,9 @@
             "one": {
               "atomic": true,
               "dead": true,
-              "earth": {
+              "level": 1,
+              "marker": "earth_type",
+              "modifier_earth": {
                 "level": 0,
                 "marker": "earth",
                 "range": {
@@ -2890,13 +2956,14 @@
                   "start": 0
                 },
                 "text": "earth",
+                "types": [
+                  "earth"
+                ],
                 "value": "earth",
                 "word": "earth"
               },
-              "level": 1,
-              "marker": "earth_type",
               "modifiers": [
-                "earth"
+                "modifier_earth"
               ],
               "number": "one",
               "range": {
@@ -2905,7 +2972,8 @@
               },
               "text": "earth type",
               "types": [
-                "earth_type"
+                "earth_type",
+                "type"
               ],
               "value": "earth_type",
               "word": "type"
@@ -2937,12 +3005,7 @@
               },
               "level": 1,
               "marker": "pokemon_type",
-              "modifiers": [
-                "determiner",
-                "pokemon"
-              ],
-              "number": "one",
-              "pokemon": {
+              "modifier_pokemon": {
                 "level": 0,
                 "marker": "pokemon",
                 "range": {
@@ -2950,9 +3013,17 @@
                   "start": 16
                 },
                 "text": "pokemon",
+                "types": [
+                  "pokemon"
+                ],
                 "value": "pokemon",
                 "word": "pokemon"
               },
+              "modifiers": [
+                "determiner",
+                "modifier_pokemon"
+              ],
+              "number": "one",
               "pullFromContext": false,
               "range": {
                 "end": 27,
@@ -2960,7 +3031,8 @@
               },
               "text": "a pokemon type",
               "types": [
-                "pokemon_type"
+                "pokemon_type",
+                "type"
               ],
               "value": "pokemon_type",
               "wantsValue": true,
@@ -2986,7 +3058,9 @@
             "one": {
               "atomic": true,
               "dead": true,
-              "electric": {
+              "level": 1,
+              "marker": "electric_type",
+              "modifier_electric": {
                 "level": 0,
                 "marker": "electric",
                 "range": {
@@ -2994,13 +3068,14 @@
                   "start": 0
                 },
                 "text": "electric",
+                "types": [
+                  "electric"
+                ],
                 "value": "electric",
                 "word": "electric"
               },
-              "level": 1,
-              "marker": "electric_type",
               "modifiers": [
-                "electric"
+                "modifier_electric"
               ],
               "number": "one",
               "range": {
@@ -3009,7 +3084,8 @@
               },
               "text": "electric type",
               "types": [
-                "electric_type"
+                "electric_type",
+                "type"
               ],
               "value": "electric_type",
               "word": "type"
@@ -3041,12 +3117,7 @@
               },
               "level": 1,
               "marker": "pokemon_type",
-              "modifiers": [
-                "determiner",
-                "pokemon"
-              ],
-              "number": "one",
-              "pokemon": {
+              "modifier_pokemon": {
                 "level": 0,
                 "marker": "pokemon",
                 "range": {
@@ -3054,9 +3125,17 @@
                   "start": 19
                 },
                 "text": "pokemon",
+                "types": [
+                  "pokemon"
+                ],
                 "value": "pokemon",
                 "word": "pokemon"
               },
+              "modifiers": [
+                "determiner",
+                "modifier_pokemon"
+              ],
+              "number": "one",
               "pullFromContext": false,
               "range": {
                 "end": 30,
@@ -3064,7 +3143,8 @@
               },
               "text": "a pokemon type",
               "types": [
-                "pokemon_type"
+                "pokemon_type",
+                "type"
               ],
               "value": "pokemon_type",
               "wantsValue": true,
@@ -3092,8 +3172,22 @@
               "dead": true,
               "level": 1,
               "marker": "water_type",
+              "modifier_water": {
+                "level": 0,
+                "marker": "water",
+                "range": {
+                  "end": 4,
+                  "start": 0
+                },
+                "text": "water",
+                "types": [
+                  "water"
+                ],
+                "value": "water",
+                "word": "water"
+              },
               "modifiers": [
-                "water"
+                "modifier_water"
               ],
               "number": "one",
               "range": {
@@ -3102,20 +3196,10 @@
               },
               "text": "water type",
               "types": [
+                "type",
                 "water_type"
               ],
               "value": "water_type",
-              "water": {
-                "level": 0,
-                "marker": "water",
-                "range": {
-                  "end": 4,
-                  "start": 0
-                },
-                "text": "water",
-                "value": "water",
-                "word": "water"
-              },
               "word": "type"
             },
             "range": {
@@ -3145,12 +3229,7 @@
               },
               "level": 1,
               "marker": "pokemon_type",
-              "modifiers": [
-                "determiner",
-                "pokemon"
-              ],
-              "number": "one",
-              "pokemon": {
+              "modifier_pokemon": {
                 "level": 0,
                 "marker": "pokemon",
                 "range": {
@@ -3158,9 +3237,17 @@
                   "start": 16
                 },
                 "text": "pokemon",
+                "types": [
+                  "pokemon"
+                ],
                 "value": "pokemon",
                 "word": "pokemon"
               },
+              "modifiers": [
+                "determiner",
+                "modifier_pokemon"
+              ],
+              "number": "one",
               "pullFromContext": false,
               "range": {
                 "end": 27,
@@ -3168,7 +3255,8 @@
               },
               "text": "a pokemon type",
               "types": [
-                "pokemon_type"
+                "pokemon_type",
+                "type"
               ],
               "value": "pokemon_type",
               "wantsValue": true,
@@ -3258,7 +3346,9 @@
           "one": {
             "atomic": true,
             "dead": true,
-            "electric": {
+            "level": 1,
+            "marker": "electric_type",
+            "modifier_electric": {
               "level": 0,
               "marker": "electric",
               "range": {
@@ -3266,13 +3356,14 @@
                 "start": 7
               },
               "text": "electric",
+              "types": [
+                "electric"
+              ],
               "value": "electric",
               "word": "electric"
             },
-            "level": 1,
-            "marker": "electric_type",
             "modifiers": [
-              "electric"
+              "modifier_electric"
             ],
             "number": "one",
             "range": {
@@ -3281,7 +3372,8 @@
             },
             "text": "electric type",
             "types": [
-              "electric_type"
+              "electric_type",
+              "type"
             ],
             "value": "electric_type",
             "word": "type"
@@ -3289,17 +3381,6 @@
           "two": {
             "atomic": true,
             "dead": true,
-            "electric": {
-              "level": 0,
-              "marker": "electric",
-              "range": {
-                "end": 14,
-                "start": 7
-              },
-              "text": "electric",
-              "value": "electric",
-              "word": "electric"
-            },
             "evalue": {
               "marker": "list",
               "value": [
@@ -3316,8 +3397,22 @@
             "instance": true,
             "level": 1,
             "marker": "electric_type",
+            "modifier_electric": {
+              "level": 0,
+              "marker": "electric",
+              "range": {
+                "end": 14,
+                "start": 7
+              },
+              "text": "electric",
+              "types": [
+                "electric"
+              ],
+              "value": "electric",
+              "word": "electric"
+            },
             "modifiers": [
-              "electric"
+              "modifier_electric"
             ],
             "number": "one",
             "range": {
@@ -3330,7 +3425,8 @@
               "pokemon#call2"
             ],
             "types": [
-              "electric_type"
+              "electric_type",
+              "type"
             ],
             "value": "electric_type",
             "word": "type"
@@ -3377,7 +3473,9 @@
         "two": {
           "atomic": true,
           "dead": true,
-          "electric": {
+          "level": 1,
+          "marker": "electric_type",
+          "modifier_electric": {
             "level": 0,
             "marker": "electric",
             "range": {
@@ -3385,13 +3483,14 @@
               "start": 7
             },
             "text": "electric",
+            "types": [
+              "electric"
+            ],
             "value": "electric",
             "word": "electric"
           },
-          "level": 1,
-          "marker": "electric_type",
           "modifiers": [
-            "electric"
+            "modifier_electric"
           ],
           "number": "one",
           "range": {
@@ -3400,7 +3499,8 @@
           },
           "text": "electric type",
           "types": [
-            "electric_type"
+            "electric_type",
+            "type"
           ],
           "value": "electric_type",
           "word": "type"
@@ -3569,6 +3669,9 @@
               "electric_type",
               "earth_type"
             ],
+            "preposition": [
+              "between"
+            ],
             "pronoun": [
               "it",
               "this"
@@ -3633,6 +3736,8 @@
             "have",
             "canBeDoQuestion",
             "canBeQuestion",
+            "between",
+            "preposition",
             "concept",
             "modifies",
             "verby",
@@ -3670,6 +3775,9 @@
           "parents": {
             "a": [
               "articlePOS"
+            ],
+            "between": [
+              "preposition"
             ],
             "charmander": [
               "fire_type"
@@ -3796,6 +3904,8 @@
               },
               "articlePOS": {
               },
+              "between": {
+              },
               "canBeDoQuestion": {
               },
               "canBeQuestion": {
@@ -3837,6 +3947,8 @@
               "pokemon": {
               },
               "pokemon_type": {
+              },
+              "preposition": {
               },
               "pronoun": {
               },
@@ -3918,7 +4030,9 @@
               "one": {
                 "atomic": true,
                 "dead": true,
-                "electric": {
+                "level": 1,
+                "marker": "electric_type",
+                "modifier_electric": {
                   "level": 0,
                   "marker": "electric",
                   "range": {
@@ -3926,13 +4040,14 @@
                     "start": 7
                   },
                   "text": "electric",
+                  "types": [
+                    "electric"
+                  ],
                   "value": "electric",
                   "word": "electric"
                 },
-                "level": 1,
-                "marker": "electric_type",
                 "modifiers": [
-                  "electric"
+                  "modifier_electric"
                 ],
                 "number": "one",
                 "range": {
@@ -3941,7 +4056,8 @@
                 },
                 "text": "electric type",
                 "types": [
-                  "electric_type"
+                  "electric_type",
+                  "type"
                 ],
                 "value": "electric_type",
                 "word": "type"
@@ -3949,17 +4065,6 @@
               "two": {
                 "atomic": true,
                 "dead": true,
-                "electric": {
-                  "level": 0,
-                  "marker": "electric",
-                  "range": {
-                    "end": 14,
-                    "start": 7
-                  },
-                  "text": "electric",
-                  "value": "electric",
-                  "word": "electric"
-                },
                 "evalue": {
                   "marker": "list",
                   "value": [
@@ -3976,8 +4081,22 @@
                 "instance": true,
                 "level": 1,
                 "marker": "electric_type",
+                "modifier_electric": {
+                  "level": 0,
+                  "marker": "electric",
+                  "range": {
+                    "end": 14,
+                    "start": 7
+                  },
+                  "text": "electric",
+                  "types": [
+                    "electric"
+                  ],
+                  "value": "electric",
+                  "word": "electric"
+                },
                 "modifiers": [
-                  "electric"
+                  "modifier_electric"
                 ],
                 "number": "one",
                 "range": {
@@ -3990,7 +4109,8 @@
                   "pokemon#call2"
                 ],
                 "types": [
-                  "electric_type"
+                  "electric_type",
+                  "type"
                 ],
                 "value": "electric_type",
                 "word": "type"
@@ -4037,7 +4157,9 @@
             "two": {
               "atomic": true,
               "dead": true,
-              "electric": {
+              "level": 1,
+              "marker": "electric_type",
+              "modifier_electric": {
                 "level": 0,
                 "marker": "electric",
                 "range": {
@@ -4045,13 +4167,14 @@
                   "start": 7
                 },
                 "text": "electric",
+                "types": [
+                  "electric"
+                ],
                 "value": "electric",
                 "word": "electric"
               },
-              "level": 1,
-              "marker": "electric_type",
               "modifiers": [
-                "electric"
+                "modifier_electric"
               ],
               "number": "one",
               "range": {
@@ -4060,7 +4183,8 @@
               },
               "text": "electric type",
               "types": [
-                "electric_type"
+                "electric_type",
+                "type"
               ],
               "value": "electric_type",
               "word": "type"
@@ -4069,7 +4193,7 @@
           },
           "generatedParenthesized": "(((((pikachu))) is ((electric) (type))))",
           "paraphrases": "who is electric type?",
-          "paraphrasesParenthesized": "((((who)) is ((electric) (type)))?)",
+          "paraphrasesParenthesized": "(((who) is ((electric) (type)))?)",
           "responses": [
             "pikachu is electric type"
           ]
@@ -4122,7 +4246,9 @@
                 "text": "a",
                 "word": "a"
               },
-              "fire": {
+              "level": 1,
+              "marker": "fire_type",
+              "modifier_fire": {
                 "level": 0,
                 "marker": "fire",
                 "range": {
@@ -4130,14 +4256,15 @@
                   "start": 16
                 },
                 "text": "fire",
+                "types": [
+                  "fire"
+                ],
                 "value": "fire",
                 "word": "fire"
               },
-              "level": 1,
-              "marker": "fire_type",
               "modifiers": [
                 "determiner",
-                "fire"
+                "modifier_fire"
               ],
               "number": "one",
               "pullFromContext": false,
@@ -4147,7 +4274,8 @@
               },
               "text": "a fire type",
               "types": [
-                "fire_type"
+                "fire_type",
+                "type"
               ],
               "value": "fire_type",
               "wantsValue": true,
@@ -4211,7 +4339,9 @@
                 "text": "an",
                 "word": "an"
               },
-              "electric": {
+              "level": 1,
+              "marker": "electric_type",
+              "modifier_electric": {
                 "level": 0,
                 "marker": "electric",
                 "range": {
@@ -4219,14 +4349,15 @@
                   "start": 14
                 },
                 "text": "electric",
+                "types": [
+                  "electric"
+                ],
                 "value": "electric",
                 "word": "electric"
               },
-              "level": 1,
-              "marker": "electric_type",
               "modifiers": [
                 "determiner",
-                "electric"
+                "modifier_electric"
               ],
               "number": "one",
               "pullFromContext": false,
@@ -4236,7 +4367,8 @@
               },
               "text": "an electric type",
               "types": [
-                "electric_type"
+                "electric_type",
+                "type"
               ],
               "value": "electric_type",
               "wantsValue": true,
@@ -4262,7 +4394,9 @@
             "one": {
               "atomic": true,
               "dead": true,
-              "earth": {
+              "level": 1,
+              "marker": "earth_type",
+              "modifier_earth": {
                 "level": 0,
                 "marker": "earth",
                 "range": {
@@ -4270,13 +4404,14 @@
                   "start": 0
                 },
                 "text": "earth",
+                "types": [
+                  "earth"
+                ],
                 "value": "earth",
                 "word": "earth"
               },
-              "level": 1,
-              "marker": "earth_type",
               "modifiers": [
-                "earth"
+                "modifier_earth"
               ],
               "number": "one",
               "range": {
@@ -4285,7 +4420,8 @@
               },
               "text": "earth type",
               "types": [
-                "earth_type"
+                "earth_type",
+                "type"
               ],
               "value": "earth_type",
               "word": "type"
@@ -4317,12 +4453,7 @@
               },
               "level": 1,
               "marker": "pokemon_type",
-              "modifiers": [
-                "determiner",
-                "pokemon"
-              ],
-              "number": "one",
-              "pokemon": {
+              "modifier_pokemon": {
                 "level": 0,
                 "marker": "pokemon",
                 "range": {
@@ -4330,9 +4461,17 @@
                   "start": 16
                 },
                 "text": "pokemon",
+                "types": [
+                  "pokemon"
+                ],
                 "value": "pokemon",
                 "word": "pokemon"
               },
+              "modifiers": [
+                "determiner",
+                "modifier_pokemon"
+              ],
+              "number": "one",
               "pullFromContext": false,
               "range": {
                 "end": 27,
@@ -4340,7 +4479,8 @@
               },
               "text": "a pokemon type",
               "types": [
-                "pokemon_type"
+                "pokemon_type",
+                "type"
               ],
               "value": "pokemon_type",
               "wantsValue": true,
@@ -4366,7 +4506,9 @@
             "one": {
               "atomic": true,
               "dead": true,
-              "electric": {
+              "level": 1,
+              "marker": "electric_type",
+              "modifier_electric": {
                 "level": 0,
                 "marker": "electric",
                 "range": {
@@ -4374,13 +4516,14 @@
                   "start": 0
                 },
                 "text": "electric",
+                "types": [
+                  "electric"
+                ],
                 "value": "electric",
                 "word": "electric"
               },
-              "level": 1,
-              "marker": "electric_type",
               "modifiers": [
-                "electric"
+                "modifier_electric"
               ],
               "number": "one",
               "range": {
@@ -4389,7 +4532,8 @@
               },
               "text": "electric type",
               "types": [
-                "electric_type"
+                "electric_type",
+                "type"
               ],
               "value": "electric_type",
               "word": "type"
@@ -4421,12 +4565,7 @@
               },
               "level": 1,
               "marker": "pokemon_type",
-              "modifiers": [
-                "determiner",
-                "pokemon"
-              ],
-              "number": "one",
-              "pokemon": {
+              "modifier_pokemon": {
                 "level": 0,
                 "marker": "pokemon",
                 "range": {
@@ -4434,9 +4573,17 @@
                   "start": 19
                 },
                 "text": "pokemon",
+                "types": [
+                  "pokemon"
+                ],
                 "value": "pokemon",
                 "word": "pokemon"
               },
+              "modifiers": [
+                "determiner",
+                "modifier_pokemon"
+              ],
+              "number": "one",
               "pullFromContext": false,
               "range": {
                 "end": 30,
@@ -4444,7 +4591,8 @@
               },
               "text": "a pokemon type",
               "types": [
-                "pokemon_type"
+                "pokemon_type",
+                "type"
               ],
               "value": "pokemon_type",
               "wantsValue": true,
@@ -4472,8 +4620,22 @@
               "dead": true,
               "level": 1,
               "marker": "water_type",
+              "modifier_water": {
+                "level": 0,
+                "marker": "water",
+                "range": {
+                  "end": 4,
+                  "start": 0
+                },
+                "text": "water",
+                "types": [
+                  "water"
+                ],
+                "value": "water",
+                "word": "water"
+              },
               "modifiers": [
-                "water"
+                "modifier_water"
               ],
               "number": "one",
               "range": {
@@ -4482,20 +4644,10 @@
               },
               "text": "water type",
               "types": [
+                "type",
                 "water_type"
               ],
               "value": "water_type",
-              "water": {
-                "level": 0,
-                "marker": "water",
-                "range": {
-                  "end": 4,
-                  "start": 0
-                },
-                "text": "water",
-                "value": "water",
-                "word": "water"
-              },
               "word": "type"
             },
             "range": {
@@ -4525,12 +4677,7 @@
               },
               "level": 1,
               "marker": "pokemon_type",
-              "modifiers": [
-                "determiner",
-                "pokemon"
-              ],
-              "number": "one",
-              "pokemon": {
+              "modifier_pokemon": {
                 "level": 0,
                 "marker": "pokemon",
                 "range": {
@@ -4538,9 +4685,17 @@
                   "start": 16
                 },
                 "text": "pokemon",
+                "types": [
+                  "pokemon"
+                ],
                 "value": "pokemon",
                 "word": "pokemon"
               },
+              "modifiers": [
+                "determiner",
+                "modifier_pokemon"
+              ],
+              "number": "one",
               "pullFromContext": false,
               "range": {
                 "end": 27,
@@ -4548,7 +4703,8 @@
               },
               "text": "a pokemon type",
               "types": [
-                "pokemon_type"
+                "pokemon_type",
+                "type"
               ],
               "value": "pokemon_type",
               "wantsValue": true,
@@ -4571,7 +4727,7 @@
       "who is electric type?"
     ],
     "paraphrasesParenthesized": [
-      "((((who)) is ((electric) (type)))?)"
+      "(((who) is ((electric) (type)))?)"
     ],
     "query": "who is electric type",
     "responses": [

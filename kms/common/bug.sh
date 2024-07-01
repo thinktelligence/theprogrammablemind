@@ -722,4 +722,5 @@ fi
 # TODO node fastfood -q 'junior bacon cheeseburger combo' -g -d
 # node fastfood -q 'large chili' -g -d
 # node fastfood -q 'breakfast baconator' -g -d
-$NODE fastfood -q 'combo 1\ncoca cola' -g -d
+# $NODE fastfood -q 'combo 1\ncoca cola' -g -d
+$NODE dialogues -q 'what is the worth' -g -d
