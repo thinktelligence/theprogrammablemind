@@ -723,4 +723,9 @@ fi
 # node fastfood -q 'large chili' -g -d
 # node fastfood -q 'breakfast baconator' -g -d
 # $NODE fastfood -q 'combo 1\ncoca cola' -g -d
-$NODE dialogues -q 'what is the worth' -g -d
+# $NODE dialogues -q 'what is the worth' -g -d
+# $NODE fastfood -q '2 combo ones\nsprite\nbarqs' -g -d
+# $NODE  fastfood -q '2 combo ones\nsprite\nfanta' -g -d
+$NODE  fastfood -q '2 combo ones\nsprite and fanta' -g -d
+# $NODE fastfood -q '2 combo ones\n2 sprites' -g -d
+# $NODE fastfood -q '2 combo ones\nsprites' -g -d

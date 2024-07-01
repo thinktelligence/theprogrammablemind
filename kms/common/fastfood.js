@@ -278,6 +278,68 @@ const template = {
     "junior modifies crispy chicken club",
     "nuggets, junior bacon cheeseburgers, chicken go wraps and junior crispy chicken clubs are value meals",
     "combos, chili, fries and drinks are sizeable",
+    ({ask, api}) => {
+      // see if followup for drink is needed
+
+      const hasDrink = (isA, item) => {
+        let hasDrink = false
+        for (let modification of (item.modifications || [])) {
+          if (!isA(modification.id, 'drink')) {
+            hasDrink = true
+            break
+          }
+        }
+        return hasDrink
+      }
+
+      const needsDrink = (item) => {
+        return item.needsDrink
+      }
+
+      const askAbout = ({api, isA}) => {
+        const items = []
+        for (const item of api.items()) {
+          if (needsDrink(item) && !hasDrink(isA, item)) {
+            items.push(item)
+          }
+        }
+        return items
+      }
+
+      ask([
+        {
+          where: where(),
+          oneShot: false,
+          matchq: (args) => askAbout(args).length > 0,
+          applyq: (args) => {
+            const needsDrink = askAbout(args)
+            if (needsDrink.length > 1) {
+              return `What drinks do you want?`
+            } else {
+              return `What drink do you want?`
+            }
+          },
+          matchr: ({context, isA}) => isA(context.marker, 'drink'),
+          applyr: (args) => {
+            // TODO check for is available for all modifications
+            const needsDrink = askAbout(args)
+            const { api, context } = args
+            const item_id = needsDrink[0].item_id
+            api.addDrink(item_id, { id: context.value }) 
+          }
+        },
+      ])
+    },
+    {
+      semantics: [
+        {
+          match: ({context}) => context.marker == 'list' && context.topLevel && !context.flatten,
+          apply: ({context, s}) => {
+            s({...context, flatten: true})
+          }
+        },
+      ]
+    },
   ],
 }
 
@@ -304,6 +366,10 @@ class API {
 
   get(item_id) {
     return this._objects.items[item_id]
+  }
+
+  items() {
+    return this._objects.items
   }
 
   addDrink(item_id, drink) {
@@ -522,40 +588,41 @@ class State {
 
       const item_id = this.api.add(item)
 
-      // see if followup for drink is needed
+      if (false) {
+        // see if followup for drink is needed
 
-      const hasDrink = (item_id) => {
-        const item = this.api.get(item_id)
-        let hasDrink = false
-        for (let modification of (item.modifications || [])) {
-          if (!this.api.args.isA(modification.id, 'drink')) {
-            hasDrink = true
-            break
+        const hasDrink = (item_id) => {
+          const item = this.api.get(item_id)
+          let hasDrink = false
+          for (let modification of (item.modifications || [])) {
+            if (!this.api.args.isA(modification.id, 'drink')) {
+              hasDrink = true
+              break
+            }
           }
+          return hasDrink
         }
-        return hasDrink
-      }
-      const needsDrink = (item_id) => {
-        const item = this.api.get(item_id)
-        return item.needsDrink
-      }
+        const needsDrink = (item_id) => {
+          const item = this.api.get(item_id)
+          return item.needsDrink
+        }
 
-      if (!hasDrink(item_id) && needsDrink(item_id)) {
-        this.api.args.ask([
-            {
-              where: where(),
-              matchq: ({objects}) => !hasDrink(item_id) && needsDrink(item_id),
-              applyq: () => `What drink do you want?`,
-              matchr: ({context, isA}) => isA(context.marker, 'drink'),
-              applyr: ({context, objects, api}) => {
-                // TODO check for is available for all modifications
-                this.api.addDrink(item_id, { id: context.value }) 
-              }
-            },
-          ]
-        )
+        if (!hasDrink(item_id) && needsDrink(item_id)) {
+          this.api.args.ask([
+              {
+                where: where(),
+                matchq: ({objects}) => !hasDrink(item_id) && needsDrink(item_id),
+                applyq: () => `What drink do you want?`,
+                matchr: ({context, isA}) => isA(context.marker, 'drink'),
+                applyr: ({context, objects, api}) => {
+                  // TODO check for is available for all modifications
+                  this.api.addDrink(item_id, { id: context.value }) 
+                }
+              },
+            ]
+          )
+        }
       }
-
     }
   }
 
