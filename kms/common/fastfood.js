@@ -346,6 +346,18 @@ const template = {
             s({...context, flatten: true})
           }
         },
+        {
+          where: where(),
+          match: ({context, api}) => context.marker == 'controlEnd' && api.hasAskedForButNotAvailable(),
+          apply: ({context, insert, api, gp, toContext}) => {
+            const naArray = api.getAskedForButNotAvailable()
+            naArray.forEach((f) => f.paraphrase = true)
+            const naContext = toContext(naArray)
+            naContext.isResponse = true
+            naContext.verbatim = `The following are not menu items: ${gp(naContext)}`
+            insert(naContext)
+          }
+        },
       ]
     },
   ],
@@ -673,18 +685,6 @@ const createConfig = () => {
           }
         }
       },
-      {
-        where: where(),
-        match: ({context, api}) => context.marker == 'controlEnd' && api.hasAskedForButNotAvailable(),
-        apply: ({context, insert, api, gp, toContext}) => {
-          const naArray = api.getAskedForButNotAvailable()
-          naArray.forEach((f) => f.paraphrase = true)
-          const naContext = toContext(naArray)
-          naContext.isResponse = true
-          naContext.verbatim = `The following are not menu items: ${gp(naContext)}`
-          insert(naContext)
-        }
-      }
     ],
     floaters: ['quantity'],
     bridges: [
@@ -730,6 +730,7 @@ knowledgeModule( {
                 'show', 
                 { property: 'items', filter: ['combo', 'item_id', 'id', 'modifications', 'needsDrink'] },
                 'changes', 
+                'response', 
                 { property: 'notAvailable', filter: [ 'marker', 'value', 'text' ] }, 
                 { property: 'quantity', filter: ['marker', 'value', 'text' ] },
                 { property: 'pieces', filter: ['marker', 'value', 'text' ] },

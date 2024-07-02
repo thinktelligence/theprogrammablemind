@@ -120,8 +120,7 @@ const toEValue = (context) => {
 
 const defaultContextProperties = ['marker', 'text', 'verbatim'] 
 const defaultContextCheck = [
-  'marker',
-  'text',
+  ...defaultContextProperties,
   (object) => {
     if (typeof object.value == 'object') {
       return { property: 'value', filter: defaultContextProperties }
