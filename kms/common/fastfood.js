@@ -4,6 +4,7 @@ const edible = require('./edible')
 const events = require('./events')
 const sizeable = require('./sizeable')
 const countable = require('./countable')
+const { isMany } = require('./helpers')
 ensureTestFile(module, 'fastfood', 'test')
 ensureTestFile(module, 'fastfood', 'instance')
 
@@ -319,13 +320,19 @@ const template = {
               return `What drink do you want?`
             }
           },
-          matchr: ({context, isA}) => isA(context.marker, 'drink'),
+          matchr: (args) => args.isA(args.context.marker, 'drink') && askAbout(args).length > 0,
           applyr: (args) => {
             // TODO check for is available for all modifications
             const needsDrink = askAbout(args)
             const { api, context } = args
-            const item_id = needsDrink[0].item_id
-            api.addDrink(item_id, { id: context.value }) 
+            if (isMany(context)) {
+              for (let item of needsDrink) {
+                api.addDrink(item.item_id, { id: context.value }) 
+              }
+            } else {
+              const item_id = needsDrink[0].item_id
+              api.addDrink(item_id, { id: context.value }) 
+            }
           }
         },
       ])
@@ -333,6 +340,7 @@ const template = {
     {
       semantics: [
         {
+          // split "sprite and fanta" into separate things so the ask will pick them up
           match: ({context}) => context.marker == 'list' && context.topLevel && !context.flatten,
           apply: ({context, s}) => {
             s({...context, flatten: true})
