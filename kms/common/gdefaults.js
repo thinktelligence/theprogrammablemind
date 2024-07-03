@@ -191,7 +191,7 @@ const createConfig = () => {
           return args.gp( { ...context, evaluateWord: true, number } )
         },
         verbatim: (text) => {
-          args.insert({ marker: 'verbatim', verbatim: text })
+          args.insert({ marker: 'verbatim', verbatim: text, isResponse: true })
         },
       }
     })
