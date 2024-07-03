@@ -274,6 +274,7 @@ const template = {
         { context: [['list', 0], ['junior', 0], ['crispy', 0], ['chicken', 0], ['club', 0]], ordered: true, choose: [1,2,3,4] },
         { context: [['meal', 0], ['list', 0], ['meal', 0], ['comboMeal', 0]], ordered: true, choose: [0,1,2] },
         // { context: [['crispy_chicken_club', 0], ['chicken_club', 0], ['chicken_sandwich', 0]], choose: [0] },
+        { context: [['breakfast_baconator', 0], ['breakfast_meal', 0]], choose: [0] },
       ]
     },
     "junior modifies crispy chicken club",
