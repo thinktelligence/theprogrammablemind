@@ -291,12 +291,7 @@ const template = {
         },
         {
           where: where(),
-          match: ({context, api}) => {
-            if (context.marker == 'controlEnd') {
-              debugger
-            }
-            return context.marker == 'controlEnd' && api.hasAskedForButNotAvailable()
-          },
+          match: ({context, api}) => context.marker == 'controlEnd' && api.hasAskedForButNotAvailable(),
           apply: ({context, api, gp, toContext, verbatim}) => {
             const naArray = api.getAskedForButNotAvailable()
             naArray.forEach((f) => f.paraphrase = true)
@@ -320,7 +315,7 @@ const template = {
       const hasDrink = (isA, item) => {
         let hasDrink = false
         for (let modification of (item.modifications || [])) {
-          if (!isA(modification.id, 'drink')) {
+          if (isA(modification.id, 'drink')) {
             hasDrink = true
             break
           }
