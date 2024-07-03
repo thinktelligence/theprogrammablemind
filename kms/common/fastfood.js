@@ -445,6 +445,12 @@ class API {
 
     if (item.combo) {
       item.needsDrink = true 
+      for (let modification of item.modifications || []) {
+        // TODO check for awailable
+        if (this.args.isA(modification.id, 'drink')) {
+          item.needsDrink = false
+        }
+      }
     }
 
     if (item.id == 'coke') {

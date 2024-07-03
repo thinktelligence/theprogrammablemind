@@ -731,4 +731,6 @@ fi
 # $NODE fastfood -q '2 combo ones\nsprites' -g -d
 # $NODE fastfood -q '2 bananas\ncombo 1\nfanta' -g -d
 # $NODE fastfood -q 'combo 1\n2 bananas\nfanta' -g -d
-$NODE fastfood -q '2 bananas' -g -d
+# $NODE fastfood -q '2 bananas' -g -d
+# $NODE fastfood -q 'combo 1 with sprite' -g -d
+$NODE fastfood -q 'combo 1 with large sprite' -g -d
