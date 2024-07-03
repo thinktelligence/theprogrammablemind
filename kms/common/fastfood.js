@@ -354,6 +354,7 @@ const template = {
             naArray.forEach((f) => f.paraphrase = true)
             const naContext = toContext(naArray)
             naContext.isResponse = true
+            naContext.marker = 'verbatim'
             naContext.verbatim = `The following are not menu items: ${gp(naContext)}`
             insert(naContext)
           }
@@ -413,6 +414,7 @@ class API {
   }
 
   addAskedForButNotAvailable(item) {
+    debugger
     this._objects.notAvailable.push(item)
   }
 
