@@ -280,6 +280,40 @@ const template = {
     "junior modifies crispy chicken club",
     "nuggets, junior bacon cheeseburgers, chicken go wraps and junior crispy chicken clubs are value meals",
     "combos, chili, fries and drinks are sizeable",
+    {
+      semantics: [
+        {
+          // split "sprite and fanta" into separate things so the ask will pick them up
+          match: ({context}) => context.marker == 'list' && context.topLevel && !context.flatten,
+          apply: ({context, s}) => {
+            s({...context, flatten: true})
+          }
+        },
+        {
+          where: where(),
+          match: ({context, api}) => {
+            if (context.marker == 'controlEnd') {
+              debugger
+            }
+            return context.marker == 'controlEnd' && api.hasAskedForButNotAvailable()
+          },
+          apply: ({context, api, gp, toContext, verbatim}) => {
+            const naArray = api.getAskedForButNotAvailable()
+            naArray.forEach((f) => f.paraphrase = true)
+            const naContext = toContext(naArray)
+            /*
+            naContext.isResponse = true
+            naContext.marker = 'verbatim'
+            naContext.verbatim = `The following are not menu items: ${gp(naContext)}`
+            insert(naContext)
+            */
+            verbatim(`The following are not menu items: ${gp(naContext)}`)
+            // allow other motivation to run
+            context.cascade = true
+          }
+        },
+      ]
+    },
     ({ask, api}) => {
       // see if followup for drink is needed
 
@@ -314,6 +348,7 @@ const template = {
           oneShot: false,
           matchq: (args) => askAbout(args).length > 0,
           applyq: (args) => {
+            args.context.cascade = true
             const needsDrink = askAbout(args)
             if (needsDrink.length > 1) {
               return `What drinks do you want?`
@@ -337,30 +372,6 @@ const template = {
           }
         },
       ])
-    },
-    {
-      semantics: [
-        {
-          // split "sprite and fanta" into separate things so the ask will pick them up
-          match: ({context}) => context.marker == 'list' && context.topLevel && !context.flatten,
-          apply: ({context, s}) => {
-            s({...context, flatten: true})
-          }
-        },
-        {
-          where: where(),
-          match: ({context, api}) => context.marker == 'controlEnd' && api.hasAskedForButNotAvailable(),
-          apply: ({context, insert, api, gp, toContext}) => {
-            const naArray = api.getAskedForButNotAvailable()
-            naArray.forEach((f) => f.paraphrase = true)
-            const naContext = toContext(naArray)
-            naContext.isResponse = true
-            naContext.marker = 'verbatim'
-            naContext.verbatim = `The following are not menu items: ${gp(naContext)}`
-            insert(naContext)
-          }
-        },
-      ]
     },
   ],
 }
@@ -415,7 +426,6 @@ class API {
   }
 
   addAskedForButNotAvailable(item) {
-    debugger
     this._objects.notAvailable.push(item)
   }
 

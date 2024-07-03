@@ -189,7 +189,10 @@ const createConfig = () => {
         gw: (context, { number: numberContext }) => {
           const number = numberContext ? args.number(numberContext) : context.number;
           return args.gp( { ...context, evaluateWord: true, number } )
-        }
+        },
+        verbatim: (text) => {
+          args.insert({ marker: 'verbatim', verbatim: text })
+        },
       }
     })
   })
