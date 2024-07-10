@@ -24,6 +24,15 @@ const indent = (string, indent) => {
   return string.replace(/^/gm, ' '.repeat(indent));
 }
 
+const getCount = (context) => {
+  if (context.quantity) {
+    return context.quantity.value
+  }
+  if (context.determined) {
+    return 1
+  }
+}
+
 const isMany = (context) => {
   if (((context || {}).value || {}).marker == 'list' && (((context || {}).value || {}).value || []).length > 1) {
     return true
@@ -147,6 +156,7 @@ module.exports = {
   millisecondsUntilHourOfDay,
   indent,
   isMany,
+  getCount,
   chooseNumber,
   zip,
   focus,

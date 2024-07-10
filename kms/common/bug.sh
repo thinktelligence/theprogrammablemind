@@ -736,4 +736,22 @@ fi
 # $NODE fastfood -q 'combo 1 with large sprite' -g -d
 # $NODE fastfood -q 'combo 1 with waffle fries' -g -d
 # $NODE tester -m fastfood -q '2 bananas' -tmn fastfood -g
-$NODE tester -m fastfood -tva -tmn fastfood -g
+# $NODE tester -m fastfood -tva -tmn fastfood -g
+# $NODE fastfood -q 'combo 2 and 2 combo threes\n2 sprites and a fanta' -g -d
+# $NODE fastfood -q 'a guava and strawberry banana smoothie' -g -d
+# $NODE fastfood -q '2 10 piece chicken nuggets' -g -d
+# $NODE fastfood -q 'combo 1 with waffle fries and a guava smoothie' -g -d
+# $NODE fastfood -q '2 sprites and a fanta' -g -d
+# $NODE fastfood -q 'combo 1 with waffle fries and a guava smoothie' -g -d
+# nuggets, junior bacon cheeseburgers, chicken go wraps and junior crispy chicken clubs are value meals
+# TODO $NODE weight -q '(troy ounces) and ounces' -g -d
+
+# combo 1 with waffle fries and a guava smoothie
+# 2 sprites and a fanta
+# combo 1 with waffle fries and a guava smoothie
+# nuggets, junior bacon cheeseburgers, chicken go wraps and junior crispy chicken clubs are value meals
+# $NODE fastfood -q 'combo 1 and combo 2' -g -d
+# $NODE fastfood -q 'combo 1 with waffle fries and a guava smoothie' -g -d
+# $NODE fastfood -q 'combo one and combo two and three' -g -d
+# $NODE fastfood -q '(2 mango passion and (3 strawberry)) smoothies' -g -d
+$NODE weight -q '(troy ounces) and ounces' -g -d

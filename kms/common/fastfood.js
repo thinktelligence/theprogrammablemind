@@ -4,7 +4,7 @@ const edible = require('./edible')
 const events = require('./events')
 const sizeable = require('./sizeable')
 const countable = require('./countable')
-const { isMany } = require('./helpers')
+const { isMany, getCount } = require('./helpers')
 ensureTestFile(module, 'fastfood', 'test')
 ensureTestFile(module, 'fastfood', 'instance')
 
@@ -275,6 +275,7 @@ const template = {
         { context: [['meal', 0], ['list', 0], ['meal', 0], ['comboMeal', 0]], ordered: true, choose: [0,1,2] },
         // { context: [['crispy_chicken_club', 0], ['chicken_club', 0], ['chicken_sandwich', 0]], choose: [0] },
         { context: [['breakfast_baconator', 0], ['breakfast_meal', 0]], choose: [0] },
+        { context: [['list', 0], ['articlePOS',0], ['smoothie_ingredient', 0], ['smoothie', 0]], ordered: true, choose: [1,2] },
       ]
     },
     "junior modifies crispy chicken club",
@@ -357,7 +358,12 @@ const template = {
             const needsDrink = askAbout(args)
             const { api, context } = args
             if (isMany(context)) {
+              let count = getCount(context) || Number.MAX_SAFE_INTEGER
               for (let item of needsDrink) {
+                if (count < 1) {
+                  break
+                }
+                count -= 1
                 api.addDrink(item.item_id, { id: context.value }) 
               }
             } else {
@@ -367,6 +373,16 @@ const template = {
           }
         },
       ])
+    },
+    {
+      priorities: [
+        { context: [['combo', 0], ['number',1], ['list', 0], ['combo', 0]], ordered: true, choose: [0,1] },
+        { context: [['list', 0], ['combo',0], ['number',1]], ordered: true, choose: [1,2] },
+        { context: [['list', 0], ['combo',0], ['list',1]], ordered: true, choose: [1,2] },
+        { context: [['mango', 0], ['passion',0], ['list', 0]], ordered: true, choose: [0,1] },
+        { context: [['number', 1], ['mango_passion',1], ['list', 0]], ordered: true, choose: [0,1] },
+        { context: [['mango', 0], ['mango_passion',0], ['passion',0], ['list', 0]], ordered: true, choose: [0,1,2] },
+      ],
     },
   ],
 }
@@ -742,7 +758,7 @@ knowledgeModule( {
             checks: {
               objects: [
                 'show', 
-                { property: 'items', filter: ['combo', 'item_id', 'id', 'modifications', 'needsDrink'] },
+                { property: 'items', filter: ['combo', 'pieces', 'size', 'item_id', 'id', 'modifications', 'needsDrink'] },
                 'changes', 
                 'response', 
                 { property: 'notAvailable', filter: [ 'marker', 'value', 'text' ] }, 

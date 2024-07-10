@@ -2,6 +2,7 @@ const { Config, knowledgeModule, where, Digraph } = require('./runtime').theprog
 const { defaultContextCheck } = require('./helpers')
 const base_km = require('./pipboyTemplate')
 const countable = require('./countable')
+const math = require('./math')
 const comparable = require('./comparable')
 const help = require('./help')
 const pipboy_tests = require('./pipboy.test.json')
@@ -503,7 +504,7 @@ addWeapon('rifle')
 const createConfig = () => {
   const config = new Config(configStruct, module)
   //console.log('base_km.config.hierarchy', JSON.stringify(base_km.config.hierarchy, null, 2))
-  config.add(base_km()).add(countable()).add(comparable()).add(help())
+  config.add(base_km()).add(countable()).add(comparable()).add(help()).add(math())
   // console.log('config.config.hierarchy', JSON.stringify(config.config.hierarchy, null, 2))
   // console.log('config.hierarchy', config.hierarchy)
   config.api = api
