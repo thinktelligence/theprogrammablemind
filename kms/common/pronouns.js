@@ -18,8 +18,8 @@ let configStruct = {
   ],
 
   words: {
-    "my": [{ id: 'objectPrefix', initial: "{ variable: true, value: 'other' }" }],
-    "your": [{ id: 'objectPrefix', initial: "{ variable: true, value: 'self' }" }],
+    "my": [{ id: 'objectPrefix', initial: "{ variable: true, value: 'other', possessive: true }" }],
+    "your": [{ id: 'objectPrefix', initial: "{ variable: true, value: 'self', possessive: true }" }],
     "you": [{ id: 'self', initial: "{ variable: true, value: 'self' }" }],
     "i": [{ id: 'self', initial: "{ variable: true, value: 'speaker' }" }],
   },

@@ -22,8 +22,9 @@ let configStruct = {
   ],
 
   words: {
-    "my": [{ id: 'objectPrefix', initial: "{ variable: true, value: 'other' }" }],
-    "your": [{ id: 'objectPrefix', initial: "{ variable: true, value: 'self' }" }],
+    // TODO use pronoun 
+    "my": [{ id: 'objectPrefix', initial: "{ variable: true, value: 'other', possessive: true }" }],
+    "your": [{ id: 'objectPrefix', initial: "{ variable: true, value: 'self', possessive: true }" }],
     "you": [{ id: 'self', initial: "{ variable: true, value: 'self' }" }],
     "i": [{ id: 'self', initial: "{ variable: true, value: 'speaker' }" }],
   },
@@ -39,14 +40,14 @@ let configStruct = {
        notes: 'paraphrase: add possession ending for your/my',
        priority: -1,
        where: where(),
-       match: ({context}) => !context.isResponse && context.possessive && ['self', 'other'].includes(context.value),
+       match: ({context}) => !(context.isResponse || context.audience == 'other' || context.responding) && context.possessive && ['self', 'other'].includes(context.value),
        apply: ({context, g}) => { return { "self": "your", "other": "my" }[context.value] },
     },
     {
        notes: 'not paraphrase: add possession ending for your/my',
        priority: -1,
        where: where(),
-       match: ({context}) => context.isResponse && context.possessive && ['self', 'other'].includes(context.value),
+       match: ({context}) => (context.isResponse || context.audience == 'other' || context.responding) && context.possessive && ['self', 'other'].includes(context.value),
        apply: ({context, g}) => { return { "self": "my", "other": "your" }[context.value] },
     },
   ],

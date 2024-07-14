@@ -754,4 +754,15 @@ fi
 # $NODE fastfood -q 'combo 1 with waffle fries and a guava smoothie' -g -d
 # $NODE fastfood -q 'combo one and combo two and three' -g -d
 # $NODE fastfood -q '(2 mango passion and (3 strawberry)) smoothies' -g -d
-$NODE weight -q '(troy ounces) and ounces' -g -d
+# $NODE weight -q '(troy ounces) and ounces' -g -d
+# $NODE time -q 'what is the time' -g -d
+# $NODE length -q 'what is 36 inches in feet' -g -d
+# $NODE avatar -q 'my name is greg what is my name' -g -d
+# $NODE length -q 'what is 10 centimeters in centimeters' -g -d
+# $NODE formulas -q 'fahrenheit = celcius*(9/5) + 32 what are the formulas for fahrenheit' -g -d
+# $NODE math -q '4 + x' -g -d
+# $NODE pokemon -q 'what type is pikachu' -g -d
+# $NODE avatar -q 'your name is greg what is your name' -g -d
+# $NODE edible -q 'what are the types of food' -g -d
+# $NODE weight -q 'what is 10 pounds in kilograms' -g -d
+$NODE pipboy -q ' what are the types of item properties' -g -d

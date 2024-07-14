@@ -270,12 +270,12 @@ let configStruct = {
       notes: 'types of type', // what are the types of animals
       where: where(),
       match: ({context}) => context.marker == 'type' && context.evaluate && context.object,
-      apply: ({context, objects, gs, km}) => {
+      apply: ({context, objects, gs, km, isA}) => {
         const api = km('properties').api
         const conceptApi = km('concept').api
         const type = pluralize.singular(context.object.value);
         const children = api.children(type)
-        const values = children.map( (t) => conceptApi.getWordForValue(t, { number: 'many'}))
+        const values = children.map( (t) => conceptApi.getWordForValue(t, { number: isA(type, 'concept') ? 'one' : 'many'}))
         context.evalue = {
           marker: 'list',
           value: values,

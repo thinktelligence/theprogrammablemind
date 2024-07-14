@@ -47,10 +47,21 @@ const mathematicalOperator = (name, words, apply, before = []) => [
         const x = toValue(e(context.x)) 
         const y = toValue(e(context.y))
         if (!x || !y) {
-          context.evalue = { ...context, paraphrase: true, x: { ...context.x, value: x }, y: { ...context.y, value: y } }
+          // context.evalue = { ...context, paraphrase: true, x: { ...context.x, value: x }, y: { ...context.y, value: y } }
+          context.isResponse = false
         } else {
           context.evalue = apply(x, y)
+          context.evalue.isResponse = true
+          context.evalue.paraphrase = false
+          // context.paraphrase = false
+          // context.isResponse = true
         }
+        /*
+        if (!context.value) {
+          context.isResponse = false
+          context.paraphrase = true
+        }
+        */
       }
   }
 ]

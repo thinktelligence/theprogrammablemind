@@ -490,7 +490,7 @@ let configStruct = {
       where: where(),
       notes: 'x is y (not a response)',
       match: ({context, hierarchy}) => hierarchy.isA(context.marker, 'is') && !context.evalue,
-      apply: ({context, g, gp, callId}) => {
+      apply: ({context, g, gp, gr, callId}) => {
         if ((context.two.evalue || {}).marker == 'answerNotKnown') {
           return g(context.two.evalue)
         }
@@ -523,7 +523,13 @@ let configStruct = {
         if (focus == 'one') {
           return `${g(context.two)} ${isMany(context.one) || isMany(context.two) || isMany(context) ? "are" : "is"} ${gp(context.one)}`
         } else {
-          return `${g(context.one)} ${isMany(context.one) || isMany(context.two) || isMany(context) ? "are" : "is"} ${g(context.two)}`
+          // TODO fix this using the assumed and that whole mess. change isResponse to useValue
+          if (context.isResponse) {
+            return `${gp(context.one, { responding: true })} ${isMany(context.one) || isMany(context.two) || isMany(context) ? "are" : "is"} ${g(context.two)}`
+          } else {
+            return `${gp(context.one)} ${isMany(context.one) || isMany(context.two) || isMany(context) ? "are" : "is"} ${gr(context.two)}`
+          }
+          // return `${gp(context.one)} ${isMany(context.one) || isMany(context.two) || isMany(context) ? "are" : "is"} ${g(context.two)}`
         }
         // return `${g({...context.one})} ${isMany(context.one) || isMany(context.two) || isMany(context) ? "are" : "is"} ${g(context.two)}`
       },

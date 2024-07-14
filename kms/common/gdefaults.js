@@ -25,7 +25,8 @@ let configStruct = {
     {
       where: where(),
       //({context}) => context.paraphrase && context.modifiers,
-      match: ({context}) => context.paraphrase && (context.modifiers || context.postModifiers),
+      // match: ({context}) => context.paraphrase && (context.modifiers || context.postModifiers),
+      match: ({context}) => (context.modifiers || context.postModifiers),
       apply: ({context, g, gs, callId}) => {
         const text = []
         for (modifier of (context.modifiers || [])) {

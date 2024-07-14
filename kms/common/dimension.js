@@ -85,7 +85,7 @@ let configStruct = {
       isA: [],
       generatorpr: {
         match: ({context}) => context.amount,
-        apply: ({context, g, gp}) => `${g(context.amount)} ${gp(context.unit)}`,
+        apply: ({context, g, gp, gr}) => `${gr(context.amount)} ${gp(context.unit)}`,
       },
     },
     { id: "length", isA: ['dimension'], development: true },
@@ -134,7 +134,7 @@ let configStruct = {
           efrom = e(from).evalue
         }
         if (to.value == efrom.unit.value) {
-          evalue = efrom
+          evalue = efrom.amount
         } else {
           const formula = kms.formulas.api.get(to, [efrom.unit])
           if (!formula) {
