@@ -37,8 +37,8 @@ const template = {
 
 const createConfig = () => {
   const config = new Config({ name: 'crew', }, module)
-  config.add(avatar())
-  config.add(animals())
+  config.stop_auto_rebuild()
+  config.add(avatar(), animals())
   crew_instance.base = 'avatar'
   config.initializer( ({config, apis}) => {
     const api = apis('properties')
@@ -73,6 +73,7 @@ const createConfig = () => {
                   after: [{tag: 'weapon', id: 'weapon'}],
                   config }) 
   })
+  config.restart_auto_rebuild()
   return config
 }
 

@@ -737,14 +737,13 @@ const createConfig = () => {
       },
     ],
   }, module)
-  config.add(edible())
-  config.add(countable())
-  config.add(events())
-  config.add(sizeable())
+  config.stop_auto_rebuild()
+  config.add(edible(), countable(), events(), sizeable())
   config.api = api
   config.initializer( ({api}) => {
     api.state = new State(api)
   })
+  config.restart_auto_rebuild()
   return config
 }
 

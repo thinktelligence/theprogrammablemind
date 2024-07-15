@@ -604,7 +604,9 @@ const initializeApi = (config, api, km) => {
  }
 
 const createConfig = () => {
-  const config = new Config(configStruct, module).add(currencyKM()).add(helpKM()).add(math()).add(events())
+  const config = new Config(configStruct, module).
+  config.stop_auto_rebuild()
+  config.add(currencyKM(), helpKM(), math(), events())
   config.multiApi = initializeApi
   // mode this to non-module init only
   config.initializer(({config, objects, km, isModule}) => {
@@ -622,6 +624,7 @@ const createConfig = () => {
       objects.listings[id].api = 'clothes'
     }
   })
+  config.restart_auto_rebuild()
   return config
 }
 

@@ -39,6 +39,7 @@ const createConfig = () => {
       // ['pokemon', 'whatAble'],
     ],
   })
+  config.stop_auto_rebuild()
   config.add(hierarchy())
   config.initializer( ({config, apis}) => {
     const api = apis('properties')
@@ -61,6 +62,7 @@ const createConfig = () => {
                 config 
               })
   })
+  config.restart_auto_rebuild()
   // config.load(template, pokemon_instance)
   return config
 }

@@ -156,6 +156,7 @@ const configStruct = {
 
 const createConfig = () => {
   const config = new Config(configStruct, module)
+  config.stop_auto_rebuild()
   config.add(tell())
   config.api = api
   config.initializer( ({config, objects, kms, isModule}) => {
@@ -170,6 +171,7 @@ const createConfig = () => {
         apply: api.semantics
     })
   })
+  config.restart_auto_rebuild()
   return config
 }
 

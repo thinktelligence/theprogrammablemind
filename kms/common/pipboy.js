@@ -503,11 +503,13 @@ addWeapon('rifle')
 
 const createConfig = () => {
   const config = new Config(configStruct, module)
+  config.stop_auto_rebuild()
   //console.log('base_km.config.hierarchy', JSON.stringify(base_km.config.hierarchy, null, 2))
-  config.add(base_km()).add(countable()).add(comparable()).add(help()).add(math())
+  config.add(base_km(), countable(), comparable(), help(), math())
   // console.log('config.config.hierarchy', JSON.stringify(config.config.hierarchy, null, 2))
   // console.log('config.hierarchy', config.hierarchy)
   config.api = api
+  config.restart_auto_rebuild()
   return config
 }
 

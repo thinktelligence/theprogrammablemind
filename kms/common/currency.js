@@ -94,6 +94,7 @@ let configStruct = {
 
 const createConfig = () => {
   const config = new Config(configStruct, module)
+  config.stop_auto_rebuild()
   config.add(numbersKM())
   config.api = api
   config.initializer( ({config, objects, apis, addWord, addGenerator, baseConfig, uuid}) => {
@@ -129,6 +130,7 @@ const createConfig = () => {
         })
     }
   })
+  config.restart_auto_rebuild()
   return config
 }
 

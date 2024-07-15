@@ -12,7 +12,7 @@ const template = {
   ] 
 }
 
-const createConfig = () => new Config({ name: 'formulasTemplate' }, module).add(base_km()).add(countable()).add(comparable())
+const createConfig = () => new Config({ name: 'formulasTemplate' }, module).add(base_km(), countable(), comparable())
 
 knowledgeModule({ 
   module,

@@ -104,10 +104,7 @@ let configStruct = {
 
 const createConfig = () => {
   const config = new Config(configStruct, module)
-  config.add(numbers());
-  config.add(dialogues());
-  config.add(punctuation());
-  config.add(mathTemplate());
+  config.add(numbers(), dialogues(), punctuation(), mathTemplate());
   return config
 }
 

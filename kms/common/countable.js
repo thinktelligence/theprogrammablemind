@@ -77,7 +77,7 @@ let configStruct = {
 
 const createConfig = () => {
   const config = new Config(configStruct, module)
-  config.add(dialogues()).add(numbers())
+  config.add(dialogues(), numbers())
   return config
 }
 

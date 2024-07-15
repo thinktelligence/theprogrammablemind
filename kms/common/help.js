@@ -79,6 +79,7 @@ const configStruct = {
 
 const createConfig = () => {
   const config = new Config(configStruct, module)
+  config.stop_auto_rebuild()
   config.add(dialogues())
 
   config.initializer( ({ config, addWord, kms }) => {
@@ -90,6 +91,7 @@ const createConfig = () => {
       addWord(name, {id: "km", initial: `{ value: '${name}', word: '${name}' }`})
     }
   })
+  config.restart_auto_rebuild()
   return config
 }
 

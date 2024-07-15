@@ -168,8 +168,10 @@ let configStruct = {
 
 const createConfig = () => {
   const config = new Config(configStruct, module)
-  config.add(base()).add(formulas()).add(testing())
+  config.stop_auto_rebuild()
+  config.add(base(), formulas(), testing())
   config.api = api
+  config.restart_auto_rebuild()
   return config
 }
 

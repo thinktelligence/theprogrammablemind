@@ -687,10 +687,10 @@ let configStruct = {
 
 const createConfig = () => {
   const config = new Config(configStruct, module)
+  config.stop_auto_rebuild()
   config.api = api
-  config.add(concept())
-  config.add(meta())
-  config.add(dialogues())
+  config.add(concept(), meta(), dialogues())
+  config.restart_auto_rebuild()
   return config
 }
 

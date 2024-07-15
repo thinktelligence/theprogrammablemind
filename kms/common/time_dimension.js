@@ -119,6 +119,7 @@ const createConfig = () => {
       },
     ],
   }, module)
+  config.stop_auto_rebuild()
   config.add(dimension())
   config.api = api
 
@@ -130,6 +131,7 @@ const createConfig = () => {
       format: 12  // or 24
     });
   })
+  config.restart_auto_rebuild()
 
   return config
 }

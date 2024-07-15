@@ -34,6 +34,7 @@ const api = new API();
 */
 const createConfig = () => {
   const config = new Config({ name: 'ordering' }, module)
+  config.stop_auto_rebuild()
   config.api = api
   config.add(hierarchy())
 // config.load(template, ordering_instance)
@@ -113,6 +114,7 @@ const createConfig = () => {
               })
     */
   })
+  config.restart_auto_rebuild()
   return config
 }
 

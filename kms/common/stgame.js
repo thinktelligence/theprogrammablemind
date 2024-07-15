@@ -74,8 +74,10 @@ const createConfig = () => {
       bridges: [ { id: 'a', level: 0, bridge: "{ ...next(operator) }" } ],
       words: {"?": [{"id": "a", "initial": "{}" }]},
   }, module)
+  config.stop_auto_rebuild()
   config.api = api
   config.add(characters)
+  config.restart_auto_rebuild()
   return config
 }
 

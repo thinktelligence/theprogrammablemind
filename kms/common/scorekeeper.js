@@ -350,9 +350,8 @@ let configStruct = {
 
 const createConfig = () => {
   const config = new Config(configStruct, module)
-  config.add(dialogues())
-  config.add(numbers())
-  config.add(properties())
+  config.stop_auto_rebuild()
+  config.add(dialogues(), numbers(), properties())
   config.initializer( ({objects, km, isModule}) => {
     objects.players = []
     objects.nextPlayer = undefined;
@@ -361,6 +360,7 @@ const createConfig = () => {
     objects.winningScore = null
     objects.allPlayersAreKnown = false;
   })
+  config.restart_auto_rebuild()
   return config
 }
 

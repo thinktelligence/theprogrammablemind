@@ -183,8 +183,10 @@ let configStruct = {
 const createConfig = () => {
   const api = new API()
   config = new Config(configStruct, module)
-  config.add(dialogues()).add(pos()).add(math()).add(formulasTemplate())
+  config.stop_auto_rebuild()
+  config.add(dialogues(), pos(), math(), formulasTemplate())
   config.api = api
+  config.restart_auto_rebuild()
   return config
 }
 

@@ -290,12 +290,14 @@ let configStruct = {
 
 const createConfig = () => {
   const config = new Config(configStruct, module)
+  config.stop_auto_rebuild()
   config.add(properties())
   config.initializer( ({apis, hierarchy}) => {
     apis('stm').addIsA( (child, parent) => {
       return hierarchy.isA(child, parent) 
     })
   })
+  config.restart_auto_rebuild()
   return config
 }
 

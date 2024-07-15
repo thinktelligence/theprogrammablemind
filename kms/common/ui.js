@@ -186,8 +186,10 @@ const template = {
 
 const createConfig = () => {
   const config = new Config(configStruct, module)
-  config.add(dialogues()).add(math())
+  config.stop_auto_rebuild()
+  config.add(dialogues(), math())
   config.api = new API()
+  config.restart_auto_rebuild()
   return config
 }
 

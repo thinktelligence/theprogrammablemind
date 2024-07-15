@@ -45,6 +45,7 @@ const createConfig = () => {
       ['sentientBeing', 'unknown'],
     ]
   }, module)
+  config.stop_auto_rebuild()
   config.add(hierarchy())
   config.initializer( ({config, apis}) => {
     const api = apis('properties')
@@ -56,6 +57,7 @@ const createConfig = () => {
                   doAble: true,
                   config })
   })
+  config.restart_auto_rebuild()
   //config.load(template, emotions_instance)
   return config
 }

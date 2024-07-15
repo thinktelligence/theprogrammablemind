@@ -14,7 +14,7 @@ const template = {
 }
 
 const createConfig = () => {
-  return new Config({ name: 'mathTemplate' }, module).add(base_km()).add(countable()).add(comparable())
+  return new Config({ name: 'mathTemplate' }, module).add(base_km(), countable(), comparable())
 }
 
 knowledgeModule({ 

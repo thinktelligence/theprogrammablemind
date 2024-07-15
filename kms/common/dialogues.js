@@ -853,8 +853,9 @@ let configStruct = {
 
 const createConfig = () => {
   const config = new Config(configStruct, module)
+  config.stop_auto_rebuild()
   config.api = api
-  config.add(gdefaults()).add(sdefaults()).add(pos()).add(stm()).add(meta()).add(punctuation())
+  config.add(gdefaults(), sdefaults(), pos(), stm(), meta(), punctuation())
   config.initializer( ({objects, config, isModule}) => {
     /* TODO add this beck in. some stuff from config needs to be here
     config.addArgs((args) => ({ 
@@ -888,6 +889,7 @@ const createConfig = () => {
       config.addWord("doesable", { id: "doesAble", "initial": "{}" })
     }
   })
+  config.restart_auto_rebuild()
   return config
 }
 

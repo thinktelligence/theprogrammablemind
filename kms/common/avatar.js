@@ -68,8 +68,7 @@ let configStruct = {
 
 const createConfig = () => {
   const config = new Config(configStruct, module)
-  config.add(hierarchy())
-  config.add(emotions())
+  config.add(hierarchy(), emotions())
   return config
 }
 
