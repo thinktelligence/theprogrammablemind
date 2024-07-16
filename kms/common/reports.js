@@ -604,7 +604,7 @@ const initializeApi = (config, api, km) => {
  }
 
 const createConfig = () => {
-  const config = new Config(configStruct, module).
+  const config = new Config(configStruct, module)
   config.stop_auto_rebuild()
   config.add(currencyKM(), helpKM(), math(), events())
   config.multiApi = initializeApi
