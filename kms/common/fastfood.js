@@ -686,7 +686,7 @@ class State {
   }
 }
 
-const createConfig = () => {
+const createConfig = (additionalConfig) => {
   const config = new Config({ 
     name: 'fastfood',
     operators: [
@@ -743,6 +743,9 @@ const createConfig = () => {
   config.initializer( ({api}) => {
     api.state = new State(api)
   })
+  if (additionalConfig) {
+    additionalConfig(config)
+  }
   config.restart_auto_rebuild()
   return config
 }
@@ -751,6 +754,7 @@ knowledgeModule( {
     module,
     description: 'fastfood related concepts',
     createConfig,
+    acceptsAdditionalConfig: true,
     test: {
             name: './fastfood.test.json',
             contents: fastfood_tests,
