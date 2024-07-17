@@ -116,7 +116,7 @@ const template = {
     "strawberry modifies lemonade",
     "wild berry modifies lemonade",
     "plain modifies lemonade",
-    "fries and drinks are modifications",
+    "food and drinks are modifications",
     // TODO Future see above note { query: "(combo one) and (2 combo twos)", skipSemantics: true },
     // { query: "(2 mango passion and (3 strawberry)) smoothies", skipSemantics: true },
     { query: "(2 mango passion and (3 strawberry)) smoothies", skipSemantics: true },
@@ -297,13 +297,20 @@ const template = {
             const naArray = api.getAskedForButNotAvailable()
             naArray.forEach((f) => f.paraphrase = true)
             const naContext = toContext(naArray)
-            /*
-            naContext.isResponse = true
-            naContext.marker = 'verbatim'
-            naContext.verbatim = `The following are not menu items: ${gp(naContext)}`
-            insert(naContext)
-            */
             verbatim(`The following are not menu items: ${gp(naContext)}`)
+            // allow other motivation to run
+            context.cascade = true
+          }
+        },
+        {
+          where: where(),
+          match: ({context, api}) => context.marker == 'controlEnd' && api.hasAskedForButNotAvailableModification(),
+          apply: ({context, api, gp, toContext, verbatim}) => {
+            const naArray = api.getAskedForButNotAvailableModification().map(({ item, modification }) => {
+              // return `${gp(item)} can not be modified with ${gp(modification)}.`
+              return `XXX can not be modified with ${gp(modification)}.`
+            })
+            verbatim(naArray.join(' '))
             // allow other motivation to run
             context.cascade = true
           }
@@ -392,6 +399,7 @@ class API {
     this._objects = objects
     this._objects.items = []
     this._objects.notAvailable = []
+    this._objects.notAvailableModification = []
   }
 
   show() {
@@ -430,14 +438,32 @@ class API {
     return this._objects.notAvailable.length > 0
   }
 
+  hasAskedForButNotAvailableModification(item) {
+    return this._objects.notAvailableModification.length > 0
+  }
+
   getAskedForButNotAvailable(item) {
     const na = this._objects.notAvailable
     this._objects.notAvailable = []
     return na
   }
 
+  getAskedForButNotAvailableModification(item) {
+    const na = this._objects.notAvailableModification
+    this._objects.notAvailableModification = []
+    return na
+  }
+
   addAskedForButNotAvailable(item) {
     this._objects.notAvailable.push(item)
+  }
+
+  addAskedForButNotAvailableModification(item, modification) {
+    this._objects.notAvailableModification.push({item, modification})
+  }
+
+  isAvailableModification(food, modification) {
+    return this.isAvailable(modification)
   }
 
   isAvailable(item) {
@@ -466,6 +492,10 @@ class API {
 
     if (item.id == 'coke') {
       item.id = 'coca_cola'
+    }
+
+    if (item.id == 'fry') {
+      item.id = 'french_fry'
     }
 
     return [
@@ -614,8 +644,14 @@ class State {
         if (modification.size) {
           food.size = modification.size
         }
-        addSize(modification, { id: modification.value })
-        modifications.push(addSize(modification, { id: modification.value }))
+     
+        // if not a modification treat as top level request 
+        if (!this.api.isAvailableModification(food, { ...modification, id: modification.value })) {
+          this.api.addAskedForButNotAvailable(modification)
+        } else {
+          addSize(modification, { id: modification.value })
+          modifications.push(addSize(modification, { id: modification.value }))
+        }
       }
     }
 
@@ -627,6 +663,18 @@ class State {
         // TODO ask how many pieces
         pieces = 10
       }
+    }
+
+    const getAvailableChildren = (item) => {
+      // see if this is a categories of items 
+      const descendants = this.api.args.hierarchy.descendants(item.id)
+      const available = []
+      for (const descendant of descendants) {
+        if (this.api.isAvailable({ id: descendant})) {
+          available.push(descendant)
+        }
+      }
+      return available
     }
 
     for (let i = 0; i < quantity; ++i) {

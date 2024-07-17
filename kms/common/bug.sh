@@ -765,4 +765,7 @@ fi
 # $NODE avatar -q 'your name is greg what is your name' -g -d
 # $NODE edible -q 'what are the types of food' -g -d
 # $NODE weight -q 'what is 10 pounds in kilograms' -g -d
-$NODE pipboy -q ' what are the types of item properties' -g -d
+# $NODE pipboy -q ' what are the types of item properties' -g -d
+# TODO $NODE fastfood -q 'combo 1 and a smoothie' -g -d
+# TODO $NODE fastfood -q 'combo 1 with a smoothie' -g -d
+$NODE fastfood -q 'combo 1 with a banana' -g -d
