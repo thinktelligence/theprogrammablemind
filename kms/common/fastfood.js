@@ -350,7 +350,6 @@ const template = {
           oneShot: false,
           matchq: (args) => askAbout(args).length > 0 && args.context.marker == 'controlEnd',
           applyq: (args) => {
-            debugger
             args.context.cascade = true
             const needsDrink = askAbout(args)
             if (needsDrink.length > 1) {
@@ -359,7 +358,15 @@ const template = {
               return `What drink do you want?`
             }
           },
-          matchr: (args) => args.isA(args.context.marker, 'drink') && askAbout(args).length > 0,
+          matchr: (args) => {
+            if (args.isA(args.context.marker, 'drink') && askAbout(args).length > 0) {
+              const needsDrink = askAbout(args)
+              if (args.api.isAvailableModification(needsDrink[0].food, { ...args.context , id: args.context.value })) {
+                return true
+              }
+            }
+            return false
+          },
           applyr: (args) => {
             // TODO check for is available for all modifications
             const needsDrink = askAbout(args)
@@ -469,10 +476,15 @@ class API {
   }
 
   isAvailableModification(food, modification) {
-    return this.isAvailable(modification)
+    if (this.isAvailable(modification)) {
+      if (this.args.isA(modification.id, 'fry') || this.args.isA(modification.id, 'pop')) {
+        return true
+      }
+    }
   }
 
   isAvailable(item) {
+    item.id = item.id || item.value
     if (item.id == 'chicken_nugget') {
       if (![4,5,6,10].includes(item.pieces)) {
         return false
@@ -656,6 +668,7 @@ class State {
     }
 
     let modifications
+    const addsInsteadOfModifications = []
     if (food.modifications) {
       modifications = []
       for (const modification of propertyToArray(food.modifications.modifications)) {
@@ -665,8 +678,12 @@ class State {
      
         // if not a modification treat as top level request 
         if (!this.api.isAvailableModification(food, { ...modification, id: modification.value })) {
-          this.api.addAskedForButNotAvailable(modification)
-          // greg24
+          if (this.api.isAvailable(modification)) {
+            //this.add(modification)
+            addsInsteadOfModifications.push(modification)
+          } else {
+            this.api.addAskedForButNotAvailable(modification)
+          }
         } else {
           addSize(modification, { id: modification.value })
           modifications.push(addSize(modification, { id: modification.value }))
@@ -693,6 +710,9 @@ class State {
 
       const item_id = this.api.add(item)
 
+      for (const addIt of addsInsteadOfModifications) {
+        this.add(addIt)
+      }
       if (false) {
         // see if followup for drink is needed
 
