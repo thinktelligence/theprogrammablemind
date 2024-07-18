@@ -223,7 +223,7 @@ const template = {
         { 
           id: 'withModification',
           level: 0,
-          isA: ['preposition'],
+          before: ['preposition'],
           generatorp: ({context, gp}) => `with ${gp(context.modifications)}`,
           bridge: "{ ...next(operator), modifications: after[0], flatten: false }",
         },
@@ -249,7 +249,7 @@ const template = {
         { 
           id: 'comboNumber',
           convolution: true,
-          before: ['combo'],
+          before: ['combo', 'preposition'],
           bridge: "{ ...next(before[0]), postModifiers: append(before[0].postModifiers, ['comboNumber']), comboNumber: after[0], instance: true, flatten: true }",
         },
         { 
@@ -352,6 +352,7 @@ const template = {
           applyq: (args) => {
             args.context.cascade = true
             const needsDrink = askAbout(args)
+            // const details = args.gp({ marker: 'list', value: needsDrink.map((item) => item.food)})
             if (needsDrink.length > 1) {
               return `What drinks do you want?`
             } else {
@@ -389,6 +390,31 @@ const template = {
       ])
     },
     {
+      operators: [
+        "([change] (meal/*) (to/1))",
+      ],
+      hierarchy: [
+        ['meal', 'toAble'],
+      ],
+      bridges: [
+        { 
+          id: "change",
+          isA: ['verby'],
+          generatorp: ({context, gp}) => `change ${gp(context.from)} to ${gp(context.to)}`,
+          bridge: "{ ...next(operator), from: after[0], to: after[1].toObject }",
+          semantic: ({context, api}) => {
+            const state = api.state
+            for (const item of api.items()) {
+              const from = state.getIdCombo(context.from)
+              const to = state.getIdCombo(context.to)
+              if (item.id == from.id) {
+                debugger
+                api.modify(item, { id: to.id })
+              }
+            }
+          }
+        },
+      ],
       priorities: [
         { context: [['combo', 0], ['number',1], ['list', 0], ['combo', 0]], ordered: true, choose: [0,1] },
         { context: [['list', 0], ['combo',0], ['number',1]], ordered: true, choose: [1,2] },
@@ -431,6 +457,10 @@ class API {
 
   get(item_id) {
     return this._objects.items[item_id]
+  }
+
+  modify(item, changes) {
+    Object.assign(this._objects.items[item.item_id], changes)
   }
 
   items() {
@@ -615,17 +645,13 @@ class State {
     this.api = api
   }
 
-  add(food) {
-    let quantity = 1
-    if (food.quantity) {
-      quantity = food.quantity.value
-    }
+  getIdCombo(food) {
     let id, combo
     if (food.comboNumber?.marker == 'numberNumberCombo') {
       id = this.api.getCombo(food.comboNumber.comboNumber.value)
       if (!id) {
         this.api.addAskedForButNotAvailable(food)
-        return
+        return { done: true }
       }
       combo = true
     }
@@ -633,7 +659,7 @@ class State {
       id = this.api.getCombo(food.comboNumber.value)
       if (!id) {
         this.api.addAskedForButNotAvailable(food)
-        return
+        return { done: true }
       }
       combo = true
     } else if (food.marker == 'combo') {
@@ -646,6 +672,20 @@ class State {
 
     if (id == 'nugget') {
       id = 'chicken_nugget'
+    }
+
+    return { id, combo }
+  }
+
+  add(food) {
+    let quantity = 1
+    if (food.quantity) {
+      quantity = food.quantity.value
+    }
+
+    const { id, combo, done } = this.getIdCombo(food)
+    if (done) {
+      return
     }
 
     const addSize = (item, data) => {
@@ -712,41 +752,6 @@ class State {
 
       for (const addIt of addsInsteadOfModifications) {
         this.add(addIt)
-      }
-      if (false) {
-        // see if followup for drink is needed
-
-        const hasDrink = (item_id) => {
-          const item = this.api.get(item_id)
-          let hasDrink = false
-          for (let modification of (item.modifications || [])) {
-            if (!this.api.args.isA(modification.id, 'drink')) {
-              hasDrink = true
-              break
-            }
-          }
-          return hasDrink
-        }
-        const needsDrink = (item_id) => {
-          const item = this.api.get(item_id)
-          return item.needsDrink
-        }
-
-        if (!hasDrink(item_id) && needsDrink(item_id)) {
-          this.api.args.ask([
-              {
-                where: where(),
-                matchq: ({objects}) => !hasDrink(item_id) && needsDrink(item_id),
-                applyq: () => `What drink do you want?`,
-                matchr: ({context, isA}) => isA(context.marker, 'drink'),
-                applyr: ({context, objects, api}) => {
-                  // TODO check for is available for all modifications
-                  this.api.addDrink(item_id, { id: context.value }) 
-                }
-              },
-            ]
-          )
-        }
       }
     }
   }

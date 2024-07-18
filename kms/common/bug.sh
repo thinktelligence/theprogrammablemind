@@ -772,4 +772,7 @@ fi
 # TODO node fastfood -q 'combo 1 with combo 2' -g -d
 # $NODE fastfood -q 'combo 1 with iced tea and combo 2 with fanta' -g -d
 # $NODE fastfood -q 'combo 1 and a guava smoothie' -g -s
-$NODE fastfood -q 'combo 1 with a guava smoothie' -g
+# $NODE fastfood -q 'combo 1 with a guava smoothie' -g
+# change combo 1 to combo 2
+# change the sprite to coke
+$NODE  fastfood -q 'combo 1 with iced tea change combo 1 to combo 2' -g -d -s

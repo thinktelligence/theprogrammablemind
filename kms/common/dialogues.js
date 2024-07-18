@@ -131,6 +131,7 @@ let configStruct = {
         where: where(),
         id: "to", 
         level: 0, 
+        isA: ['preposition'],
         bridge: "{ ...next(operator), toObject: after[0] }",
         generatorp: ({context, gp}) => {
           return `to ${gp(context.toObject)}`
