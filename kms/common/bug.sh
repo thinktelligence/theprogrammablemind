@@ -769,3 +769,5 @@ fi
 # TODO $NODE fastfood -q 'combo 1 and a smoothie' -g -d
 # TODO $NODE fastfood -q 'combo 1 with a smoothie' -g -d
 $NODE fastfood -q 'combo 1 with a banana' -g -d
+# TODO node fastfood -q 'combo 1 with combo 2' -g -d
+# $NODE fastfood -q 'combo 1 with iced tea and combo 2 with fanta' -g -d -s

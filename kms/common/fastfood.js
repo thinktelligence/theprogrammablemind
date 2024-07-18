@@ -116,7 +116,7 @@ const template = {
     "strawberry modifies lemonade",
     "wild berry modifies lemonade",
     "plain modifies lemonade",
-    "food and drinks are modifications",
+    "fries and drinks are modifications",
     // TODO Future see above note { query: "(combo one) and (2 combo twos)", skipSemantics: true },
     // { query: "(2 mango passion and (3 strawberry)) smoothies", skipSemantics: true },
     { query: "(2 mango passion and (3 strawberry)) smoothies", skipSemantics: true },
@@ -160,7 +160,6 @@ const template = {
        { "context": [['smoothie_ingredient', 1], ['list', 0], ['smoothie_ingredient', 1], ['smoothie', 1]], ordered: true, choose: [1] },
 
        { "context": [['list', 0], ['number', 1], ['combo', 1], ['number', 1]], ordered: true, choose: [2,3] },
-       { "context": [['withModification', 0], ['modification', 1], ['list', 0], ['modification', 1]], ordered: true, choose: [2] },
 
 
        { context: [['comboNumber', 0], ['counting',0]], choose: [0] },
@@ -349,8 +348,9 @@ const template = {
         {
           where: where(),
           oneShot: false,
-          matchq: (args) => askAbout(args).length > 0,
+          matchq: (args) => askAbout(args).length > 0 && args.context.marker == 'controlEnd',
           applyq: (args) => {
+            debugger
             args.context.cascade = true
             const needsDrink = askAbout(args)
             if (needsDrink.length > 1) {
@@ -389,6 +389,12 @@ const template = {
         { context: [['mango', 0], ['passion',0], ['list', 0]], ordered: true, choose: [0,1] },
         { context: [['number', 1], ['mango_passion',1], ['list', 0]], ordered: true, choose: [0,1] },
         { context: [['mango', 0], ['mango_passion',0], ['passion',0], ['list', 0]], ordered: true, choose: [0,1,2] },
+
+        { context: [['drink', 0], ['list',0], ['combo',0], ['number', 0]], ordered: true, choose: [2,3] },
+        { context: [['drink', 1], ['list',0], ['combo',0], ['number', 0]], ordered: true, choose: [2,3] },
+        { context: [['withModification', 0], ['modification', 1], ['list', 0], ['modification', 1]], ordered: true, choose: [2] },
+        { context: [['withModification', 0], ['modification', 1], ['list', 0], ['combo', 1]], ordered: true, choose: [0] },
+        { context: [['combo', 2], ['list', 0], ['combo', 1], ['withModification', 1]], ordered: true, choose: [3] },
       ],
     },
   ],
@@ -637,6 +643,18 @@ class State {
       return data
     }
 
+    const getAvailableChildren = (item) => {
+      // see if this is a categories of items 
+      const descendants = this.api.args.hierarchy.descendants(item.id)
+      const available = []
+      for (const descendant of descendants) {
+        if (this.api.isAvailable({ id: descendant})) {
+          available.push(descendant)
+        }
+      }
+      return available
+    }
+
     let modifications
     if (food.modifications) {
       modifications = []
@@ -648,6 +666,7 @@ class State {
         // if not a modification treat as top level request 
         if (!this.api.isAvailableModification(food, { ...modification, id: modification.value })) {
           this.api.addAskedForButNotAvailable(modification)
+          // greg24
         } else {
           addSize(modification, { id: modification.value })
           modifications.push(addSize(modification, { id: modification.value }))
@@ -663,18 +682,6 @@ class State {
         // TODO ask how many pieces
         pieces = 10
       }
-    }
-
-    const getAvailableChildren = (item) => {
-      // see if this is a categories of items 
-      const descendants = this.api.args.hierarchy.descendants(item.id)
-      const available = []
-      for (const descendant of descendants) {
-        if (this.api.isAvailable({ id: descendant})) {
-          available.push(descendant)
-        }
-      }
-      return available
     }
 
     for (let i = 0; i < quantity; ++i) {
