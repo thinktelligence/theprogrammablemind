@@ -391,24 +391,25 @@ const template = {
     },
     {
       operators: [
-        "([change] (meal/*) (to/1))",
+        "([change] (meal/* || drink/*) (to/1))",
       ],
       hierarchy: [
         ['meal', 'toAble'],
+        ['drink', 'toAble'],
       ],
       bridges: [
         { 
           id: "change",
           isA: ['verby'],
-          localHierarchy: [  ['thisitthat', 'meal'] ],
+          localHierarchy: [ ['thisitthat', 'meal'] ],
           generatorp: ({context, gp}) => `change ${gp(context.from)} to ${gp(context.to)}`,
           bridge: "{ ...next(operator), from: after[0], to: after[1].toObject }",
           semantic: ({context, api, e}) => {
             const state = api.state
+            debugger
             const eFrom = e(context.from).evalue
             const from = state.getIdCombo(eFrom.fromSTM ? eFrom : context.from)
             const to = state.getIdCombo(context.to)
-            debugger
             for (const item of api.items()) {
               if (item.id == from.id) {
                 api.modify(item, { id: to.id })

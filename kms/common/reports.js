@@ -329,7 +329,7 @@ let configStruct = {
       bridge: "{ ...next(operator), namee: after[0], name: after[1] }",
       generatorp: ({g, context}) => `call ${g(context.namee)} ${g(context.name)}`,
       semantic: ({g, context, objects, e, config, km}) => {
-        const namee = e(context.namee)
+        const namee = e(context.namee).evalue
         const id = namee.value
         const listing = objects.listings[id]
         const name = context.name.text
@@ -504,11 +504,12 @@ let configStruct = {
           const responses = []
           for (let value of values) {
             if (!value.value || value.pullFromContext) {
+              debugger
               value = e(value)
             }
             let id = value.value
             if (value.evalue) {
-              id = value.evalue
+              id = value.evalue.value || value.evalue
             }
             const listing = objects.listings[id]
             const api = apis[listing.api]

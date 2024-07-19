@@ -570,8 +570,8 @@ let configStruct = {
       where: where(),
       notes: 'pull from context',
       // match: ({context}) => context.marker == 'it' && context.pullFromContext, // && context.value,
-      match: ({context}) => context.pullFromContext && !context.same, // && context.value,
-      apply: ({context, s, kms, e, log, retry}) => {
+      match: ({context, callId}) => context.pullFromContext && !context.same, // && context.value,
+      apply: ({callId, context, s, kms, e, log, retry}) => {
         if (true) {
           /*
                    {
@@ -804,6 +804,7 @@ let configStruct = {
     {
       where: where(),
       notes: 'get variable from stm',
+      // match: ({context, kms}) => !context.determiner && context.evaluate && kms.stm.api.getVariable(context.value) != context.value,
       match: ({context, kms}) => context.evaluate && kms.stm.api.getVariable(context.value) != context.value,
       // match: ({context, kms}) => context.evaluate,
       priority: -1,

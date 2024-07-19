@@ -776,9 +776,17 @@ fi
 # change combo 1 to combo 2
 # change the sprite to coke
 # $NODE fastfood -q 'combo 1 with iced tea change combo 1 to combo 2' -g -d
-$NODE fastfood -q 'combo 1 with iced tea change combo 1 to combo 2' -g -d
+# $NODE fastfood -q 'combo 1 with iced tea change combo 1 to combo 2' -g -d
+# $NODE fastfood -q 'combo 1 with iced tea change the drink to sprite' -g -d
+# $NODE fastfood -q 'combo 1 with iced tea change the combo to combo 2' -g -d
 # $NODE fastfood -q 'combo 1 with iced tea change it to combo 2' -g -d
 # change the double combo to a baconator combo
 # add waffle fries
 # remove waffle fries
 # waffle fries instead
+$NODE fastfood -q 'a large sprite change the pop to coke' -g -d
+# $NODE dialogues -q 'x is 3 what is x' -g -d
+# $NODE math -q 'the price is 20 what is the price' -g -d
+# $NODE reports -q 'call this report1\nshow report1' -g -d
+# $NODE reports -q 'call this report1\nshow it' -g -d
+

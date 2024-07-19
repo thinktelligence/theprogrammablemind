@@ -40,12 +40,16 @@ class API {
     this._objects.mentioned.unshift(concept)
   }
 
-  mentions(context) {
+  mentions(context, useHierarchy=true) {
     // care about value first
     for (let m of this._objects.mentioned) {
       if (context.value && context.value == m.marker) {
         return { ...m, fromSTM: true }
       }
+    }
+
+    if (!useHierarchy) {
+      return
     }
     // care about marker second
     for (let m of this._objects.mentioned) {
@@ -74,7 +78,7 @@ class API {
     if (!name) {
       return
     }
-    let valueNew = this.mentions({ marker: name, value: name }) || name
+    let valueNew = this.mentions({ marker: name, value: name }, false) || name
     if (valueNew && valueNew.value) {
       valueNew = valueNew.value
     }
