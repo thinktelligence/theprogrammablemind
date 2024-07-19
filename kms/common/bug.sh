@@ -784,7 +784,8 @@ fi
 # add waffle fries
 # remove waffle fries
 # waffle fries instead
-$NODE fastfood -q 'a large sprite change the pop to coke' -g -d
+# $NODE fastfood -q 'a large sprite change the pop to coke' -g -d
+$NODE fastfood -q 'a large sprite change the drink to coke' -g -d
 # $NODE dialogues -q 'x is 3 what is x' -g -d
 # $NODE math -q 'the price is 20 what is the price' -g -d
 # $NODE reports -q 'call this report1\nshow report1' -g -d
