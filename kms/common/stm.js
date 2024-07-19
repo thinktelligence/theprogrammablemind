@@ -44,19 +44,19 @@ class API {
     // care about value first
     for (let m of this._objects.mentioned) {
       if (context.value && context.value == m.marker) {
-        return m
+        return { ...m, fromSTM: true }
       }
     }
     // care about marker second
     for (let m of this._objects.mentioned) {
       if (context.marker != 'unknown' && this.isA(m.marker, context.marker)) {
-        return m
+        return { ...m, fromSTM: true }
       }
       // if (context.types && context.types.includes(m.marker)) {
       if (context.types) {
         for (let parent of context.types) {
           if (parent != 'unknown' && this.isA(m.marker, parent)) {
-            return m
+            return { ...m, fromSTM: true }
           }
         }
       }
@@ -64,7 +64,7 @@ class API {
     if (context.types && context.types.length == 1) {
       for (let m of this._objects.mentioned) {
         if (context.unknown) {
-          return m
+          return { ...m, fromSTM: true }
         }
       }
     }
@@ -90,7 +90,18 @@ const api = new API()
 
 let createConfig = () => {
   const config = new Config({ name: 'stm' }, module)
+  config.stop_auto_rebuild()
+
+  config.initializer( ({config}) => {
+    config.addArgs(({kms}) => ({
+      mentioned: (context) => {
+        kms.stm.api.mentioned(context)
+      },
+    }))
+  })
   config.api = api
+
+  config.restart_auto_rebuild()
   return config
 }
 

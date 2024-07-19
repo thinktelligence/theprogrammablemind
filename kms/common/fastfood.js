@@ -400,15 +400,17 @@ const template = {
         { 
           id: "change",
           isA: ['verby'],
+          localHierarchy: [  ['thisitthat', 'meal'] ],
           generatorp: ({context, gp}) => `change ${gp(context.from)} to ${gp(context.to)}`,
           bridge: "{ ...next(operator), from: after[0], to: after[1].toObject }",
-          semantic: ({context, api}) => {
+          semantic: ({context, api, e}) => {
             const state = api.state
+            const eFrom = e(context.from).evalue
+            const from = state.getIdCombo(eFrom.fromSTM ? eFrom : context.from)
+            const to = state.getIdCombo(context.to)
+            debugger
             for (const item of api.items()) {
-              const from = state.getIdCombo(context.from)
-              const to = state.getIdCombo(context.to)
               if (item.id == from.id) {
-                debugger
                 api.modify(item, { id: to.id })
               }
             }
@@ -464,7 +466,7 @@ class API {
   }
 
   items() {
-    return this._objects.items
+    return [...this._objects.items]
   }
 
   addDrink(item_id, drink) {
@@ -748,7 +750,8 @@ class State {
         return
       }
 
-      const item_id = this.api.add(item)
+      this.api.add(item)
+      this.api.args.mentioned(food)
 
       for (const addIt of addsInsteadOfModifications) {
         this.add(addIt)
@@ -788,7 +791,7 @@ const createConfig = (additionalConfig) => {
       },
       {
         where: where(),
-        match: ({context, isAListable}) => isAListable(context, 'edible') && context.marker !== 'edible' && !context.same && !context.isResponse,
+        match: ({context, isAListable}) => isAListable(context, 'edible') && context.marker !== 'edible' && !context.same && !context.isResponse && !context.evaluate,
         apply: ({context, km, api, instance}) => {
           for (const element of propertyToArray(context)) {
             km('fastfood').api.state.add(element)
