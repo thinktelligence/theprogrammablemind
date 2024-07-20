@@ -406,7 +406,6 @@ const template = {
           bridge: "{ ...next(operator), from: after[0], to: after[1].toObject }",
           semantic: ({context, api, e}) => {
             const state = api.state
-            debugger
             const eFrom = e(context.from).evalue
             const from = state.getIdCombo(eFrom.fromSTM ? eFrom : context.from)
             const to = state.getIdCombo(context.to)
@@ -849,6 +848,7 @@ knowledgeModule( {
                 'changes', 
                 'response', 
                 { property: 'notAvailable', filter: [ 'marker', 'value', 'text' ] }, 
+                { property: 'notAvailableModification', filter: [ 'marker', 'value', 'text' ] }, 
                 { property: 'quantity', filter: ['marker', 'value', 'text' ] },
                 { property: 'pieces', filter: ['marker', 'value', 'text' ] },
               ],
