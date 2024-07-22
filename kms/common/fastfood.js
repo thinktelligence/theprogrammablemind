@@ -813,7 +813,32 @@ class State {
     for (let i = 0; i < quantity; ++i) {
       const item = addSize(food, { id, combo, modifications, pieces, food })
       if (!this.api.isAvailable(item)) {
-        this.api.addAskedForButNotAvailable(food)
+        const available = []
+        for (const descendant of this.api.args.hierarchy.descendants(food.marker)) {
+          if (this.api.isAvailable({ id: descendant })) {
+            available.push(descendant)
+          }
+        }
+        if (available.length > 0) {
+          this.api.args.ask([
+            {
+              where: where(),
+              oneShot: true,
+              matchq: ({context}) => context.marker == 'controlEnd',
+              applyq: () => {
+                // args.context.cascade = true
+                const word = food.word
+                return `What kind of ${word}?`
+              },
+              matchr: ({context, isA}) => isA(context.marker, food.marker),
+              applyr: ({context}) => {
+                this.add(Object.assign(food, context))
+              }
+            },
+          ])
+        } else {
+          this.api.addAskedForButNotAvailable(food)
+        }
         return
       }
 
