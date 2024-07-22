@@ -411,7 +411,7 @@ const template = {
             const to = state.getIdCombo(context.to)
             for (const item of api.items()) {
               if (item.id == from.id) {
-                api.modify(item, { id: to.id })
+                api.modify(item, { id: to.id, food: context.to })
               }
             }
           }
@@ -432,6 +432,35 @@ const template = {
         { context: [['combo', 2], ['list', 0], ['combo', 1], ['withModification', 1]], ordered: true, choose: [3] },
       ],
     },
+    {
+      operators: [
+        "([remove|remove,delete,drop,ditch,forget,no] (food/*))",
+        "([reset|reset,restart,clear])",
+      ],
+      bridges: [
+        {
+          id: 'remove',
+          isA: ['verby'],
+          bridge: "{ ...next(operator), remove: after[0], postModifiers: ['remove'] }",
+          semantic: ({context, api}) => {
+            const state = api.state
+            for (const item of api.items()) {
+              if (state.match(context.remove, item)) {
+                api.remove(item)
+              }
+            }
+          }
+        },
+        {
+          id: 'reset',
+          isA: ['verby'],
+          bridge: "{ ...next(operator) }",
+          semantic: ({context, api}) => {
+            api.reset()
+          }
+        },
+      ],
+    },
   ],
 }
 
@@ -441,28 +470,53 @@ class API {
     this._objects.items = []
     this._objects.notAvailable = []
     this._objects.notAvailableModification = []
+    this._objects.item_id_counter = 0
   }
 
   show() {
     this._objects.show = this._objects.items
   }
 
+  toItem(item_id) {
+    if (Array.isArray(item_id)) {
+      return this._objects.items[item_id[0]].modifications[item_id[1]]
+    } else {
+      return this._objects.items[item_id]
+    }
+  }
+
+  new_item_id() {
+    const item_id = this._objects.item_id_counter
+    this._objects.item_id_counter += 1
+    return item_id
+  }
+
   // returns an item id so things can be updated if needed
   add(item) {
-    item.item_id = this._objects.items.length
+    item.item_id = this.new_item_id()
     if (!item.modifications) {
       item.modifications = []
     }
+    item.modifications.forEach((modification, index) => {
+      modification.item_id = [item.item_id, index]
+    })
     this._objects.items.push(item)
-    return item.item_id 
+  }
+
+  reset() {
+    this._objects.items = []
   }
 
   get(item_id) {
-    return this._objects.items[item_id]
+    return this.toItem(item_id)
   }
 
   modify(item, changes) {
-    Object.assign(this._objects.items[item.item_id], changes)
+    Object.assign(this.toItem(item.item_id), changes)
+  }
+
+  remove(item) {
+    this._objects.items = this._objects.items.filter( (i) => i.item_id !== item.item_id )
   }
 
   items() {
@@ -470,8 +524,9 @@ class API {
   }
 
   addDrink(item_id, drink) {
-    this._objects.items[item_id].modifications.push(drink)
-    this._objects.items[item_id].needsDrink = false
+    const item = this.toItem(item_id)
+    item.modifications.push(drink)
+    item.needsDrink = false
   }
 
   say(response) {
@@ -665,7 +720,7 @@ class State {
       }
       combo = true
     } else if (food.marker == 'combo') {
-      id = food.type.value
+      id = food.type?.value
       combo = true
     } else {
       id = food.value
@@ -677,6 +732,18 @@ class State {
     }
 
     return { id, combo }
+  }
+
+  match(pattern, item) {
+    Object.assign(pattern, this.getIdCombo(pattern))
+    if (pattern.id == item.id) {
+      return true
+    }
+    if (!pattern.id) {
+      if (pattern.combo == item.combo) {
+        return true
+      }
+    }
   }
 
   add(food) {
@@ -844,7 +911,19 @@ knowledgeModule( {
             checks: {
               objects: [
                 'show', 
-                { property: 'items', filter: ['combo', 'pieces', 'size', 'item_id', 'id', 'modifications', 'needsDrink'] },
+                { 
+                  property: 'items', 
+                  filter: [
+                      'combo', 
+                      'pieces', 
+                      'size', 
+                      'item_id', 
+                      'id', 
+                      { property: 'food', filter: [ 'marker', 'value', 'text' ] }, 
+                      { property: 'modifications', filter: [ 'id', 'item_id', 'food' ] }, 
+                      'needsDrink'
+                  ],
+                },
                 'changes', 
                 'response', 
                 { property: 'notAvailable', filter: [ 'marker', 'value', 'text' ] }, 

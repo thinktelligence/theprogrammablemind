@@ -790,8 +790,17 @@ fi
 # $NODE math -q 'the price is 20 what is the price' -g -d
 # $NODE reports -q 'call this report1\nshow report1' -g -d
 # $NODE reports -q 'call this report1\nshow it' -g -d
-# $NODE fastfood -q 'combo 1 with iced tea change the drink to coke' -g -d
+# TODO $NODE fastfood -q 'combo 1 with iced tea change the drink to coke' -g -d
+# TODO $NODE fastfood -q 'combo with iced tea' -g -d
 # $NODE tester -m pipboy -tva -tmn pipboy -g
-$NODE tester -m fastfood -tva -tmn fastfood -g
+# $NODE tester -m fastfood -tva -tmn fastfood -g
 # $NODE tester -m pipboy -tva -tmn pipboy -g
 # $NODE tester -m fastfood -tmn fastfood -g -q 'a large sprite change the drink to coke' -d
+# a large sprite combo 2 iced tea change the sprite to a coke
+# remove combo 1 / no combo 1 / get rid of combo 1 etc
+# restart
+# $NODE fastfood -q 'combo 1\nremove combo 1' -g -d
+# $NODE fastfood -q 'combo 1\nremove the combo' -g -d
+# TODO $NODE fastfood -q 'combo with iced tea' -g -d
+# $NODE fastfood -q 'a large sprite change the drink to coke' -g -d
+
