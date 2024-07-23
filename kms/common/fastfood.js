@@ -832,6 +832,7 @@ class State {
               },
               matchr: ({context, isA}) => isA(context.marker, food.marker),
               applyr: ({context}) => {
+                debugger
                 this.add(Object.assign(food, context))
               }
             },

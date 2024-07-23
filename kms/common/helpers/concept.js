@@ -42,14 +42,23 @@ class API {
     config.addOperator({ pattern: `(${modifierIds.map((modifierId) => `(${modifierId}/*)`).join(' ')} [${modifiersObjectId}] (${objectId}/*))`, allowDups: true })
     // config.addOperator({ pattern: `(<${modifierId}|> ([${objectId}|]))`, allowDups: true })
     // config.addOperator({ pattern: `([${modifierObjectId}|])`, allowDups: true })
+
+    const objectModifierConcept = `${objectId}_modifier`
+    if (!config.exists(objectModifierConcept)) {
+      config.addOperator({ pattern: `([${objectModifierConcept}|])`, allowDups: true })
+      config.addBridge({ id: objectModifierConcept, bridge: `{ ...next(operator) }`,  allowDups: true })
+    }
+
     modifierIds.forEach((modifierId) => {
       if (!config.exists(modifierId)) {
         config.addOperator({ pattern: `([${modifierId}|])`, allowDups: true })
-      } 
+      }
+      config.addHierarchy(modifierId, objectModifierConcept)
     })
     if (!config.exists(objectId)) {
       config.addOperator({ pattern: `([${objectId}|])`, allowDups: true })
     }
+
 
     config.addWord(objectSingular, { id: objectId, initial: `{ value: '${objectId}', number: 'one' }`})
     config.addWord(objectPlural, { id: objectId, initial: `{ value: '${objectId}', number: 'many' }`})
