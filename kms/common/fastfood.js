@@ -30,6 +30,7 @@ const fastfood_instance = require('./fastfood.instance.json')
   double hamburger
   number 1 and 2
   number 1 2 and 3
+  combo 1 through 5
 */
 
 const template = {
@@ -819,6 +820,7 @@ class State {
             available.push(descendant)
           }
         }
+        debugger
         if (available.length > 0) {
           this.api.args.ask([
             {
@@ -830,11 +832,23 @@ class State {
                 const word = food.word
                 return `What kind of ${word}?`
               },
-              matchr: ({context, isA}) => isA(context.marker, food.marker),
-              applyr: ({context}) => {
-                debugger
-                this.add(Object.assign(food, context))
-              }
+              semanticsr: [
+                {
+                  where: where(),
+                  match: ({context, isA}) => isA(context.marker, food.marker),
+                  apply: ({context}) => {
+                    this.add(Object.assign(food, context))
+                  }
+                },
+                {
+                  where: where(),
+                  match: ({context, isA}) => isA(context.marker, `${food.marker}_modifier`),
+                  apply: ({context}) => {
+                    const value = `${context.value}_${food.value}`
+                    this.add(Object.assign(food, { value }))
+                  }
+                }
+              ]
             },
           ])
         } else {

@@ -806,7 +806,8 @@ fi
 # $NODE fastfood -q 'a pop' -g -d
 # $NODE fastfood -q 'a large pop\nsprite' -g -d
 # $NODE fastfood -q '2 large pop\nsprite' -g -d
-# $NODE fastfood -q '2 large pop\nsprite and coke' -g -d
-# $NODE fastfood -q 'a combo with iced tea' -g -d
-# $NODE fastfood -q 'a combo' -g -d
-$NODE fastfood -q 'a shake\nvanilla' -g -d
+# TODO $NODE fastfood -q '2 large pop\nsprite and coke' -g -d
+# TODO $NODE fastfood -q 'a combo with iced tea' -g -d
+$NODE fastfood -q 'a combo' -g -d
+# $NODE fastfood -q 'a shake\nvanilla' -g -d
+# $NODE fastfood -q 'a shake\na chocolate shake' -g -d
