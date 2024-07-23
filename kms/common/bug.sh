@@ -790,8 +790,6 @@ fi
 # $NODE math -q 'the price is 20 what is the price' -g -d
 # $NODE reports -q 'call this report1\nshow report1' -g -d
 # $NODE reports -q 'call this report1\nshow it' -g -d
-# TODO $NODE fastfood -q 'combo 1 with iced tea change the drink to coke' -g -d
-# TODO $NODE fastfood -q 'combo with iced tea' -g -d
 # $NODE tester -m pipboy -tva -tmn pipboy -g
 # $NODE tester -m fastfood -tva -tmn fastfood -g
 # $NODE tester -m pipboy -tva -tmn pipboy -g
@@ -801,13 +799,21 @@ fi
 # restart
 # $NODE fastfood -q 'combo 1\nremove combo 1' -g -d
 # $NODE fastfood -q 'combo 1\nremove the combo' -g -d
-# TODO $NODE fastfood -q 'combo with iced tea' -g -d
 # $NODE fastfood -q 'a large sprite change the drink to coke' -g -d
 # $NODE fastfood -q 'a pop' -g -d
 # $NODE fastfood -q 'a large pop\nsprite' -g -d
 # $NODE fastfood -q '2 large pop\nsprite' -g -d
-# TODO $NODE fastfood -q '2 large pop\nsprite and coke' -g -d
-# TODO $NODE fastfood -q 'a combo with iced tea' -g -d
-$NODE fastfood -q 'a combo' -g -d
+# $NODE fastfood -q 'a combo with iced tea\ntriple' -g -d
+# $NODE fastfood -q 'a combo' -g -d
+# $NODE fastfood -q 'a combo\na single combo' -g -d
+# $NODE fastfood -q 'a combo\nbaconator' -g -d
 # $NODE fastfood -q 'a shake\nvanilla' -g -d
 # $NODE fastfood -q 'a shake\na chocolate shake' -g -d
+# TODO $NODE fastfood -q 'combo 1 with iced tea change the drink to coke' -g -d
+# TODO $NODE fastfood -q '2 large pop\nsprite and coke' -g -d
+# TODO nevermind -> stops all questions.
+# $NODE dialogues -q 'nevermindTestSetup accept nevermind hi' -g -d -s
+# $NODE dialogues -q 'nevermindTestSetup reject nevermind hi' -g -d
+# $NODE fastfood -q 'a shake\nnevermind' -g -d
+# $NODE fastfood -q 'a combo\nnevermind' -g -d
+$NODE fastfood -q 'a combo 1\nnevermind' -g -d -s

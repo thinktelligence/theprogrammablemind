@@ -249,7 +249,7 @@ let configStruct = {
        
         return listable(context, 'hierarchyAble') && context.same && context.same.concept && !context.query
       },
-      apply: ({config, objects, km, context, asList, listable}) => {
+      apply: ({callId, config, objects, km, context, asList, listable}) => {
         const api = km('properties').api
         const oneConcepts = asList(context);
         const twoConcepts = asList(context.same);

@@ -31,6 +31,7 @@ const fastfood_instance = require('./fastfood.instance.json')
   number 1 and 2
   number 1 2 and 3
   combo 1 through 5
+
 */
 
 const template = {
@@ -349,6 +350,18 @@ const template = {
         {
           where: where(),
           oneShot: false,
+          onNevermind: ({verbatim, ...args}) => {
+            // this is cross km boundaries from the dialogues km to this one so the api if for dialogs. 
+            // i need to get the one for fastfood here.
+            const api = args.kms.fastfood.api
+            const needsDrink = askAbout({ args, api })
+            if (needsDrink.length > 1) {
+              verbatim("The drinks must be specified")
+            } else {
+              verbatim("The drink must be specified")
+            }
+            return false
+          },
           matchq: (args) => askAbout(args).length > 0 && args.context.marker == 'controlEnd',
           applyq: (args) => {
             args.context.cascade = true
@@ -694,6 +707,27 @@ class API {
     }
     return map[number]
   }
+
+  canBeCombo(id) {
+    return this.getComboNumber(id) > 0
+  }
+
+  getComboNumber(id) {
+    const combos = [
+       'single',
+       'double',
+       'triple',
+       'baconator',
+       'bacon_deluxe',
+       'spicy',
+       'homestyle',
+       'asiago_range_chicken_club',
+       'ultimate_chicken_grill',
+       'chicken_nugget',
+       'premium_cod',
+       ]
+    return combos.findIndex((e) => e == id) + 1
+  }
 }
 
 const api = new API()
@@ -820,8 +854,14 @@ class State {
             available.push(descendant)
           }
         }
-        debugger
-        if (available.length > 0) {
+
+          // this sentence runs but it doesnt setup the hierarchy: 'combo 1, 2, 3, 4, 5, 6, 7, 9, 10, and 11 are combos'
+          // i made a wrong design choice when i setup the phrase 'combo 1 etc'. I should have mapped that to the 'single_combo'
+          // but instead had it be a combo with a comboNumber property. That means the language layer doesnt know about the mapping
+          // so that phrase doesnt work. if I set it up the other way that phrase would work. This is just a demo and I have other
+          // demoes to write so i am not fixin that and instead will do || is a combo
+
+        if (available.length > 0 || food.marker == 'combo') {
           this.api.args.ask([
             {
               where: where(),
@@ -833,6 +873,18 @@ class State {
                 return `What kind of ${word}?`
               },
               semanticsr: [
+                // stuipid hack one because i didnt put combo fully into the NLI layer
+                {
+                  where: where(),
+                  match: ({context, callId, isA, api}) => api.canBeCombo(context.marker),
+                  apply: ({context}) => {
+                    const comboNumber = {
+                      value: api.getComboNumber(context.marker)
+                    }
+                    food.comboNumber = comboNumber
+                    this.add(food)
+                  }
+                },
                 {
                   where: where(),
                   match: ({context, isA}) => isA(context.marker, food.marker),
@@ -847,7 +899,7 @@ class State {
                     const value = `${context.value}_${food.value}`
                     this.add(Object.assign(food, { value }))
                   }
-                }
+                },
               ]
             },
           ])

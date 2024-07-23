@@ -41,6 +41,8 @@ let configStruct = {
     // "(([queryable]) [is:isEdBridge|is,are] ([isEdAble|]))",
     "(([queryable]) [(<isEd|> ([isEdAble|]))])",
 
+    "([nevermind])",
+    { pattern: "([nevermindTestSetup] (allowed))", development: true },
     "([why])",
     "([reason])",
     "([thisitthat|])",
@@ -203,6 +205,47 @@ let configStruct = {
       isA: ['queryable'], 
       before: ['verby'],
       bridge: "{ ...next(operator) }" 
+    },
+    { 
+      id: "nevermind", 
+      bridge: "{ ...next(operator) }",
+      semantic: (args) => {
+        const {config, context} = args
+        // stop asking all questions
+        for (const semantic of config.semantics) {
+          if (semantic.isQuestion) {
+            let doRemove = true
+            if (semantic.onNevermind) {
+              debugger
+            }
+            if (semantic.onNevermind && semantic.getWasAsked() && !semantic.getWasApplied()) {
+              doRemove = semantic.onNevermind(args)
+            }
+            if (doRemove) {
+              config.removeSemantic(semantic)
+            }
+          }
+        }
+      }
+    },
+    { 
+      id: "nevermindTestSetup", 
+      development: true,
+      bridge: "{ ...next(operator), type: after[0], postModifiers: ['type'] }",
+      semantic: ({ask, context}) => {
+        const nevermindType = context.type.value
+        ask({
+          applyq: () => 'the test question?',
+          onNevermind: ({objects, context}) => {
+            objects.onNevermindWasCalled = true
+            debugger
+            objects.nevermindType = nevermindType
+            return nevermindType == 'accept'
+          },
+          matchr: () => false,
+          applyr: () => {},
+        })
+      }
     },
     { 
       id: "why", 
@@ -903,6 +946,7 @@ knowledgeModule( {
     name: './dialogues.test.json',
     contents: dialogues_tests,
     checks: {
+            objects: ['onNevermindWasCalled', 'nevermindType'],
             context: defaultContextCheck,
           },
 
