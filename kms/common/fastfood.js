@@ -889,6 +889,14 @@ class State {
                 },
                 {
                   where: where(),
+                  match: ({context, isA}) => isA(context.marker, 'number') && !context.evaluate,
+                  apply: ({context, e}) => {
+                    food.comboNumber = { value: e(context).value }
+                    this.add(Object.assign(food, context))
+                  }
+                },
+                {
+                  where: where(),
                   match: ({context, isA}) => isA(context.marker, food.marker),
                   apply: ({context}) => {
                     this.add(Object.assign(food, context))
