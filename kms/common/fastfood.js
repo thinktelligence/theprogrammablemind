@@ -876,7 +876,9 @@ class State {
                 // stuipid hack one because i didnt put combo fully into the NLI layer
                 {
                   where: where(),
-                  match: ({context, callId, isA, api}) => api.canBeCombo(context.marker),
+                  match: ({context, callId, isA, api}) => {
+                    return api.canBeCombo(context.marker)
+                  },
                   apply: ({context}) => {
                     const comboNumber = {
                       value: api.getComboNumber(context.marker)

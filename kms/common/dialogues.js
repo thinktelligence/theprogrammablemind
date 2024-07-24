@@ -215,9 +215,6 @@ let configStruct = {
         for (const semantic of config.semantics) {
           if (semantic.isQuestion) {
             let doRemove = true
-            if (semantic.onNevermind) {
-              debugger
-            }
             if (semantic.onNevermind && semantic.getWasAsked() && !semantic.getWasApplied()) {
               doRemove = semantic.onNevermind(args)
             }

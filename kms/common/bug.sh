@@ -816,4 +816,5 @@ fi
 # $NODE dialogues -q 'nevermindTestSetup reject nevermind hi' -g -d
 # $NODE fastfood -q 'a shake\nnevermind' -g -d
 # $NODE fastfood -q 'a combo\nnevermind' -g -d
-$NODE fastfood -q 'a combo 1\nnevermind' -g -d -s
+# $NODE fastfood -q 'a combo 1\nnevermind' -g -d -s
+$NODE tester -m fastfood -tmn fastfood -g -q 'a pop' -d
