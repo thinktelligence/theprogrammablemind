@@ -818,4 +818,4 @@ fi
 # $NODE fastfood -q 'a combo\nnevermind' -g -d
 # $NODE fastfood -q 'a combo 1\nnevermind' -g -d -s
 # $NODE tester -m fastfood -tmn fastfood -g -q 'a pop' -d
-$NODE fastfood -q 'a combo\n4' -g -d
+$NODE fastfood -q 'combo 4\nnevermind' -g -d

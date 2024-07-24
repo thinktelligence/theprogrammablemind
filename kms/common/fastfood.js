@@ -355,12 +355,9 @@ const template = {
             // i need to get the one for fastfood here.
             const api = args.kms.fastfood.api
             const needsDrink = askAbout({ args, api })
-            if (needsDrink.length > 1) {
-              verbatim("The drinks must be specified")
-            } else {
-              verbatim("The drink must be specified")
+            for (const item of needsDrink) {
+              api.remove(item)
             }
-            return false
           },
           matchq: (args) => askAbout(args).length > 0 && args.context.marker == 'controlEnd',
           applyq: (args) => {
