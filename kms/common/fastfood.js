@@ -478,10 +478,7 @@ const template = {
 class API {
   initialize({ objects, config }) {
     this._objects = objects
-    this._objects.items = []
-    this._objects.notAvailable = []
-    this._objects.notAvailableModification = []
-    this._objects.item_id_counter = 0
+    this.reset()
   }
 
   show() {
@@ -516,6 +513,9 @@ class API {
 
   reset() {
     this._objects.items = []
+    this._objects.notAvailable = []
+    this._objects.notAvailableModification = []
+    this._objects.item_id_counter = 0
   }
 
   get(item_id) {

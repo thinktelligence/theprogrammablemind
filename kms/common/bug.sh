@@ -777,7 +777,7 @@ fi
 # change the sprite to coke
 # $NODE fastfood -q 'combo 1 with iced tea change combo 1 to combo 2' -g -d
 # $NODE fastfood -q 'combo 1 with iced tea change combo 1 to combo 2' -g -d
-# $NODE fastfood -q 'combo 1 with iced tea change the drink to sprite' -g -d
+# TODO $NODE fastfood -q 'combo 1 with iced tea change the drink to sprite' -g -d
 # $NODE fastfood -q 'combo 1 with iced tea change the combo to combo 2' -g -d
 # $NODE fastfood -q 'combo 1 with iced tea change it to combo 2' -g -d
 # change the double combo to a baconator combo
@@ -812,10 +812,11 @@ fi
 # TODO $NODE fastfood -q 'combo 1 with iced tea change the drink to coke' -g -d
 # TODO $NODE fastfood -q '2 large pop\nsprite and coke' -g -d
 # TODO nevermind -> stops all questions.
-# $NODE dialogues -q 'nevermindTestSetup accept nevermind hi' -g -d -s
+# $NODE dialogues -q 'nevermindTestSetup accept nevermind hi' -g -d
 # $NODE dialogues -q 'nevermindTestSetup reject nevermind hi' -g -d
 # $NODE fastfood -q 'a shake\nnevermind' -g -d
 # $NODE fastfood -q 'a combo\nnevermind' -g -d
-# $NODE fastfood -q 'a combo 1\nnevermind' -g -d -s
+# $NODE fastfood -q 'a combo 1\nnevermind' -g -d
 # $NODE tester -m fastfood -tmn fastfood -g -q 'a pop' -d
-$NODE fastfood -q 'combo 4\nnevermind' -g -d
+# $NODE fastfood -q 'combo 4\nnevermind' -g -d
+$NODE fastfood -q 'fanta\nreset\ncombo 1 with iced tea\nchange combo 1 to combo 2' -g -d
