@@ -1,4 +1,4 @@
-const { Config, knowledgeModule, where } = require('./runtime').theprogrammablemind
+const { Config, knowledgeModule, where, stableId } = require('./runtime').theprogrammablemind
 const meta = require('./meta.js')
 const gdefaults = require('./gdefaults.js')
 const sdefaults = require('./sdefaults.js')
@@ -893,6 +893,105 @@ let configStruct = {
   ],
 };
 
+// move ask to the KM's since verbatim is called probably in dialogues?
+const getAsk = (config) => (uuid) => {
+    // if (!uuid) {
+    //  debugger
+    //}
+    return (asks) => {
+    const ask = (ask) => {
+      let oneShot = true // default
+      if (ask.oneShot === false) {
+        oneShot = false
+      }
+
+      const id_q = stableId('semantic')
+      const id_rs = []
+      let wasAsked = false
+      let wasApplied = false
+      const getWasAsked = () => {
+        return wasAsked
+      }
+      const setWasAsked = (value) => {
+        wasAsked = value
+      }
+      const getWasApplied = () => {
+        return wasApplied
+      }
+      const setWasApplied = (value) => {
+        wasApplied = value
+      }
+
+      const semanticsr = ask.semanticsr || []
+      if (semanticsr.length == 0) {
+        semanticsr.push({ match: ask.matchr, apply: ask.applyr })
+      }
+      for (const semantic of semanticsr) {
+        const id_r = stableId('semantic')
+        id_rs.push(id_r)
+        config.addSemantic({
+          uuid,
+          id: id_r,
+          tied_ids: [id_q],
+          oneShot,
+          where: semantic.where || ask.where || where(2),
+          source: 'response',
+          match: (args) => semantic.match(args),
+          apply: (args) => {
+            setWasApplied(true)
+            semantic.apply(args)
+          },
+        })
+      }
+
+      config.addSemantic({
+        uuid,
+        oneShot,
+        id: id_q,
+        tied_ids: id_rs,
+        where: ask.where,
+        isQuestion: true,  // do one question at a time
+        getWasAsked,
+        getWasApplied,
+        onNevermind: ask.onNevermind,
+        source: 'question',
+        match: ({ context }) => context.marker == 'controlEnd' || context.marker == 'controlBetween',
+        apply: (args) => {
+          let matchq = ask.matchq
+          let applyq = ask.applyq
+          if (!matchq) {
+            let wasAsked = false
+            matchq = () => !wasAsked,
+            applyq = (args) => {
+              wasAsked = true
+              return ask.applyq(args)
+            }
+          }
+          if (matchq(args)) {
+            setWasAsked(true)
+            setWasApplied(false)
+            // args.context.motivationKeep = true
+            args.verbatim(applyq(args))
+            /*
+              args.context.verbatim = applyq(args)
+              args.context.isResponse = true;
+              delete args.context.controlRemove;
+              */
+            args.context.controlKeepMotivation = true
+          }
+          args.context.cascade = true
+        }
+      })
+    }
+    if (!Array.isArray(asks)) {
+      asks = [asks]
+    }
+
+    [...asks].reverse().forEach( (a) => ask(a) )
+  }
+}
+
+
 const createConfig = () => {
   const config = new Config(configStruct, module)
   config.stop_auto_rebuild()
@@ -904,7 +1003,7 @@ const createConfig = () => {
       e: (context) => config.api.getEvaluator(args.s, args.log, context),
     }))
     */
-    config.addArgs(({isA}) => ({ 
+    config.addArgs(({config, isA}) => ({ 
       isAListable: (context, type) => {
         if (context.marker == 'list' || context.listable) {
           return context.value.every( (element) => isA(element.marker, type) )
@@ -912,7 +1011,7 @@ const createConfig = () => {
           return isA(context.marker, type)
         } 
       },
-      toContext(v) {
+      toContext: (v) => {
         if (Array.isArray(v)) {
           return { marker: 'list', level: 1, value: v }
         }
@@ -920,6 +1019,10 @@ const createConfig = () => {
           return v
         }
         return v
+      },
+      getUUIDScoped: (uuid) => { return {
+          ask: getAsk(config)(uuid),
+        } 
       },
     }))
     objects.mentioned = []
