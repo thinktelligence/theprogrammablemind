@@ -23,7 +23,6 @@ const javascript = require('./common/javascript')
 const kirk = require('./common/kirk')
 const length = require('./common/length')
 const math = require('./common/math')
-const mathTemplate = require('./common/mathTemplate')
 const meta = require('./common/meta')
 const numbers = require('./common/numbers')
 const ordering = require('./common/ordering')
@@ -77,7 +76,6 @@ module.exports = {
   kirk,
   length,
   math,
-  mathTemplate,
   meta,
   numbers,
   ordering,

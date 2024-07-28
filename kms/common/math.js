@@ -3,8 +3,11 @@ const { defaultContextCheck } = require('./helpers')
 const dialogues = require('./dialogues')
 const numbers = require('./numbers')
 const punctuation = require('./punctuation')
-const mathTemplate = require('./mathTemplate')
-const math_tests = require('./math.test.json')
+const countable = require('./countable')
+const comparable = require('./comparable')
+const tests = require('./math.test.json')
+const instance = require('./math.instance.json')
+
 
 // TODO 10 dollars times 20
 /*
@@ -102,9 +105,17 @@ let configStruct = {
   ],
 };
 
+const template = {
+  queries: [
+    "mathematical modifies operator",
+    "* + / and - are mathematical operators",
+    configStruct,
+  ]
+}
+
 const createConfig = () => {
-  const config = new Config(configStruct, module)
-  config.add(numbers(), dialogues(), punctuation(), mathTemplate());
+  const config = new Config({ name: 'math' }, module)
+  config.add(numbers(), dialogues(), punctuation(), countable(), comparable())
   return config
 }
 
@@ -112,9 +123,10 @@ knowledgeModule( {
   module,
   createConfig,
   description: 'talking about math',
+  template: { template, instance },
   test: {
     name: './math.test.json',
-    contents: math_tests,
+    contents: tests,
     checks: {
             context: defaultContextCheck,
           },

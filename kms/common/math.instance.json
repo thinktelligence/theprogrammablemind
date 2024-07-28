@@ -1,2 +1,1980 @@
 {
+  "queries": [
+    "mathematical modifies operator",
+    "* + / and - are mathematical operators",
+    {
+      "name": "math",
+      "operators": [
+        "([mathematicalExpression])",
+        "([mathematicalOperator])",
+        "(([number|]) [plusOperator] ([number|]))",
+        "(([number|]) [minusOperator] ([number|]))",
+        "(([number|]) [timesOperator] ([number|]))",
+        "(([number|]) [divideByOperator|] ([number|]))",
+        "([plusExpression|])",
+        "([minusExpression|])",
+        "([timesExpression|])",
+        "([divideByExpression|])",
+        {
+          "pattern": "([x])",
+          "development": true
+        },
+        {
+          "pattern": "([y])",
+          "development": true
+        }
+      ],
+      "bridges": [
+        {
+          "id": "mathematicalExpression",
+          "isA": [
+            "concept",
+            "number"
+          ]
+        },
+        {
+          "id": "mathematicalOperator",
+          "before": [
+            "verby"
+          ],
+          "after": [
+            "adjective"
+          ]
+        },
+        {
+          "id": "x",
+          "isA": [
+            "number"
+          ],
+          "level": 0,
+          "bridge": "{ ...next(operator) }",
+          "development": true
+        },
+        {
+          "id": "y",
+          "isA": [
+            "number"
+          ],
+          "level": 0,
+          "bridge": "{ ...next(operator) }",
+          "development": true
+        },
+        {
+          "where": "/home/dev/code/theprogrammablemind/kms/common/math.js:32",
+          "id": "plusOperator",
+          "level": 0,
+          "bridge": "{ ...next(operator), marker: next(operator('plusExpression')), types: lub(append(['mathematicalExpression'], operator.types, before[0].types, after[0].types)), value: null, x: before[0], y: after[0], number: 'one', isResponse: true, evaluate: true }",
+          "isA": [
+            "mathematicalOperator"
+          ],
+          "before": [],
+          "localHierarchy": [
+            [
+              "unknown",
+              "number"
+            ]
+          ],
+          "words": [
+            "plus",
+            "+"
+          ],
+          "generatorp": "({gp, context}) => context.word"
+        },
+        {
+          "where": "/home/dev/code/theprogrammablemind/kms/common/math.js:44",
+          "id": "plusExpression",
+          "level": 0,
+          "bridge": "{ ...next(operator) }",
+          "isA": [
+            "mathematicalExpression"
+          ],
+          "generatorp": "({gp, context}) => `${gp(context.x)} ${context.word} ${gp(context.y)}`",
+          "evaluator": "({e, context}) => {\n        const x = toValue(e(context.x)) \n        const y = toValue(e(context.y))\n        if (!x || !y) {\n          // context.evalue = { ...context, paraphrase: true, x: { ...context.x, value: x }, y: { ...context.y, value: y } }\n          context.isResponse = false\n        } else {\n          context.evalue = apply(x, y)\n          context.evalue.isResponse = true\n          context.evalue.paraphrase = false\n          // context.paraphrase = false\n          // context.isResponse = true\n        }\n        /*\n        if (!context.value) {\n          context.isResponse = false\n          context.paraphrase = true\n        }\n        */\n      }"
+        },
+        {
+          "where": "/home/dev/code/theprogrammablemind/kms/common/math.js:32",
+          "id": "minusOperator",
+          "level": 0,
+          "bridge": "{ ...next(operator), marker: next(operator('minusExpression')), types: lub(append(['mathematicalExpression'], operator.types, before[0].types, after[0].types)), value: null, x: before[0], y: after[0], number: 'one', isResponse: true, evaluate: true }",
+          "isA": [
+            "mathematicalOperator"
+          ],
+          "before": [],
+          "localHierarchy": [
+            [
+              "unknown",
+              "number"
+            ]
+          ],
+          "words": [
+            "minus",
+            "-"
+          ],
+          "generatorp": "({gp, context}) => context.word"
+        },
+        {
+          "where": "/home/dev/code/theprogrammablemind/kms/common/math.js:44",
+          "id": "minusExpression",
+          "level": 0,
+          "bridge": "{ ...next(operator) }",
+          "isA": [
+            "mathematicalExpression"
+          ],
+          "generatorp": "({gp, context}) => `${gp(context.x)} ${context.word} ${gp(context.y)}`",
+          "evaluator": "({e, context}) => {\n        const x = toValue(e(context.x)) \n        const y = toValue(e(context.y))\n        if (!x || !y) {\n          // context.evalue = { ...context, paraphrase: true, x: { ...context.x, value: x }, y: { ...context.y, value: y } }\n          context.isResponse = false\n        } else {\n          context.evalue = apply(x, y)\n          context.evalue.isResponse = true\n          context.evalue.paraphrase = false\n          // context.paraphrase = false\n          // context.isResponse = true\n        }\n        /*\n        if (!context.value) {\n          context.isResponse = false\n          context.paraphrase = true\n        }\n        */\n      }"
+        },
+        {
+          "where": "/home/dev/code/theprogrammablemind/kms/common/math.js:32",
+          "id": "timesOperator",
+          "level": 0,
+          "bridge": "{ ...next(operator), marker: next(operator('timesExpression')), types: lub(append(['mathematicalExpression'], operator.types, before[0].types, after[0].types)), value: null, x: before[0], y: after[0], number: 'one', isResponse: true, evaluate: true }",
+          "isA": [
+            "mathematicalOperator"
+          ],
+          "before": [
+            [
+              "plusOperator",
+              0
+            ],
+            [
+              "minusOperator",
+              0
+            ]
+          ],
+          "localHierarchy": [
+            [
+              "unknown",
+              "number"
+            ]
+          ],
+          "words": [
+            "times",
+            "*"
+          ],
+          "generatorp": "({gp, context}) => context.word"
+        },
+        {
+          "where": "/home/dev/code/theprogrammablemind/kms/common/math.js:44",
+          "id": "timesExpression",
+          "level": 0,
+          "bridge": "{ ...next(operator) }",
+          "isA": [
+            "mathematicalExpression"
+          ],
+          "generatorp": "({gp, context}) => `${gp(context.x)} ${context.word} ${gp(context.y)}`",
+          "evaluator": "({e, context}) => {\n        const x = toValue(e(context.x)) \n        const y = toValue(e(context.y))\n        if (!x || !y) {\n          // context.evalue = { ...context, paraphrase: true, x: { ...context.x, value: x }, y: { ...context.y, value: y } }\n          context.isResponse = false\n        } else {\n          context.evalue = apply(x, y)\n          context.evalue.isResponse = true\n          context.evalue.paraphrase = false\n          // context.paraphrase = false\n          // context.isResponse = true\n        }\n        /*\n        if (!context.value) {\n          context.isResponse = false\n          context.paraphrase = true\n        }\n        */\n      }"
+        },
+        {
+          "where": "/home/dev/code/theprogrammablemind/kms/common/math.js:32",
+          "id": "divideByOperator",
+          "level": 0,
+          "bridge": "{ ...next(operator), marker: next(operator('divideByExpression')), types: lub(append(['mathematicalExpression'], operator.types, before[0].types, after[0].types)), value: null, x: before[0], y: after[0], number: 'one', isResponse: true, evaluate: true }",
+          "isA": [
+            "mathematicalOperator"
+          ],
+          "before": [
+            [
+              "plusOperator",
+              0
+            ],
+            [
+              "minusOperator",
+              0
+            ]
+          ],
+          "localHierarchy": [
+            [
+              "unknown",
+              "number"
+            ]
+          ],
+          "words": [
+            "/"
+          ],
+          "generatorp": "({gp, context}) => context.word"
+        },
+        {
+          "where": "/home/dev/code/theprogrammablemind/kms/common/math.js:44",
+          "id": "divideByExpression",
+          "level": 0,
+          "bridge": "{ ...next(operator) }",
+          "isA": [
+            "mathematicalExpression"
+          ],
+          "generatorp": "({gp, context}) => `${gp(context.x)} ${context.word} ${gp(context.y)}`",
+          "evaluator": "({e, context}) => {\n        const x = toValue(e(context.x)) \n        const y = toValue(e(context.y))\n        if (!x || !y) {\n          // context.evalue = { ...context, paraphrase: true, x: { ...context.x, value: x }, y: { ...context.y, value: y } }\n          context.isResponse = false\n        } else {\n          context.evalue = apply(x, y)\n          context.evalue.isResponse = true\n          context.evalue.paraphrase = false\n          // context.paraphrase = false\n          // context.isResponse = true\n        }\n        /*\n        if (!context.value) {\n          context.isResponse = false\n          context.paraphrase = true\n        }\n        */\n      }"
+        }
+      ]
+    }
+  ],
+  "resultss": [
+    {
+      "hierarchy": [
+        [
+          "a",
+          "articlePOS"
+        ],
+        [
+          "all",
+          "quantifier"
+        ],
+        [
+          "articlePOS",
+          "articlePOS"
+        ],
+        [
+          "between",
+          "preposition"
+        ],
+        [
+          "canBeDoQuestion",
+          "canBeDoQuestion"
+        ],
+        [
+          "canBeQuestion",
+          "canBeQuestion"
+        ],
+        [
+          "concept",
+          "queryable"
+        ],
+        [
+          "concept",
+          "theAble"
+        ],
+        [
+          "condition",
+          "condition"
+        ],
+        [
+          "countable",
+          "hierarchyAble"
+        ],
+        [
+          "hasCountOfPieces",
+          "countable"
+        ],
+        [
+          "have",
+          "canBeDoQuestion"
+        ],
+        [
+          "have",
+          "canBeQuestion"
+        ],
+        [
+          "hierarchyAble",
+          "queryable"
+        ],
+        [
+          "highest",
+          "condition"
+        ],
+        [
+          "ifAble",
+          "ifAble"
+        ],
+        [
+          "is",
+          "canBeQuestion"
+        ],
+        [
+          "is",
+          "verby"
+        ],
+        [
+          "it",
+          "pronoun"
+        ],
+        [
+          "it",
+          "queryable"
+        ],
+        [
+          "it",
+          "thisitthat"
+        ],
+        [
+          "it",
+          "toAble"
+        ],
+        [
+          "lowest",
+          "condition"
+        ],
+        [
+          "modifies",
+          "verby"
+        ],
+        [
+          "notAble",
+          "notAble"
+        ],
+        [
+          "noun",
+          "theAble"
+        ],
+        [
+          "number",
+          "quantifier"
+        ],
+        [
+          "number",
+          "queryable"
+        ],
+        [
+          "object",
+          "queryable"
+        ],
+        [
+          "object",
+          "theAble"
+        ],
+        [
+          "orAble",
+          "ifAble"
+        ],
+        [
+          "preposition",
+          "preposition"
+        ],
+        [
+          "pronoun",
+          "pronoun"
+        ],
+        [
+          "property",
+          "queryable"
+        ],
+        [
+          "property",
+          "theAble"
+        ],
+        [
+          "property",
+          "unknown"
+        ],
+        [
+          "punctuation",
+          "punctuation"
+        ],
+        [
+          "quantifier",
+          "quantifier"
+        ],
+        [
+          "queryable",
+          "queryable"
+        ],
+        [
+          "questionMark",
+          "punctuation"
+        ],
+        [
+          "readonly",
+          "queryable"
+        ],
+        [
+          "reason",
+          "queryable"
+        ],
+        [
+          "reason",
+          "theAble"
+        ],
+        [
+          "that",
+          "thisitthat"
+        ],
+        [
+          "the",
+          "articlePOS"
+        ],
+        [
+          "theAble",
+          "theAble"
+        ],
+        [
+          "this",
+          "pronoun"
+        ],
+        [
+          "this",
+          "queryable"
+        ],
+        [
+          "this",
+          "thisitthat"
+        ],
+        [
+          "thisitthat",
+          "queryable"
+        ],
+        [
+          "to",
+          "preposition"
+        ],
+        [
+          "toAble",
+          "toAble"
+        ],
+        [
+          "type",
+          "property"
+        ],
+        [
+          "type",
+          "whatAble"
+        ],
+        [
+          "unknown",
+          "hierarchyAble"
+        ],
+        [
+          "unknown",
+          "notAble"
+        ],
+        [
+          "unknown",
+          "object"
+        ],
+        [
+          "unknown",
+          "queryable"
+        ],
+        [
+          "unknown",
+          "theAble"
+        ],
+        [
+          "verby",
+          "verby"
+        ],
+        [
+          "what",
+          "object"
+        ],
+        [
+          "what",
+          "queryable"
+        ],
+        [
+          "whatAble",
+          "queryable"
+        ],
+        [
+          "whose",
+          "object"
+        ],
+        [
+          "xfx",
+          "queryable"
+        ]
+      ],
+      "metadata": {
+        "opChoices": [
+          {
+            "op": [
+              "unknown",
+              0
+            ],
+            "ops": [
+              [
+                "unknown",
+                0
+              ],
+              [
+                "modifies",
+                0
+              ],
+              [
+                "unknown",
+                0
+              ]
+            ],
+            "counter": 1
+          },
+          {
+            "op": [
+              "unknown",
+              0
+            ],
+            "ops": [
+              [
+                "modifies",
+                0
+              ],
+              [
+                "unknown",
+                0
+              ]
+            ],
+            "counter": 2
+          },
+          {
+            "op": [
+              "modifies",
+              0
+            ],
+            "ops": [
+              [
+                "modifies",
+                0
+              ]
+            ],
+            "counter": 3
+          }
+        ]
+      },
+      "trace": "undefined",
+      "contexts": [
+        {
+          "word": "modifies",
+          "number": "one",
+          "flatten": false,
+          "text": "mathematical modifies operator",
+          "marker": "modifies",
+          "range": {
+            "start": 0,
+            "end": 29
+          },
+          "dead": true,
+          "modifiers": [
+            {
+              "marker": "unknown",
+              "range": {
+                "start": 0,
+                "end": 11
+              },
+              "word": "mathematical",
+              "text": "mathematical",
+              "value": "mathematical",
+              "unknown": true,
+              "dead": true,
+              "level": 1
+            }
+          ],
+          "concept": {
+            "marker": "unknown",
+            "range": {
+              "start": 22,
+              "end": 29
+            },
+            "word": "operator",
+            "text": "operator",
+            "value": "operator",
+            "unknown": true,
+            "dead": true,
+            "level": 1
+          },
+          "level": 1,
+          "topLevel": true,
+          "touchedBy": [
+            "math#call2"
+          ]
+        }
+      ],
+      "generated": [
+        ""
+      ],
+      "paraphrases": [
+        "mathematical modifies operator"
+      ],
+      "paraphrasesParenthesized": [],
+      "generatedParenthesized": [],
+      "responses": [
+        ""
+      ],
+      "associations": [
+        [
+          [
+            "modifies",
+            0
+          ],
+          [
+            "unknown",
+            0
+          ]
+        ],
+        [
+          [
+            "modifies",
+            0
+          ],
+          [
+            "unknown",
+            0
+          ],
+          [
+            "unknown",
+            1
+          ]
+        ],
+        [
+          [
+            "modifies",
+            0
+          ],
+          [
+            "unknown",
+            1
+          ]
+        ]
+      ],
+      "learned_contextual_priorities": [],
+      "query": "mathematical modifies operator",
+      "key": {
+        "query": "mathematical modifies operator"
+      }
+    },
+    {
+      "hierarchy": [
+        [
+          "a",
+          "articlePOS"
+        ],
+        [
+          "adjective",
+          "adjective"
+        ],
+        [
+          "all",
+          "quantifier"
+        ],
+        [
+          "articlePOS",
+          "articlePOS"
+        ],
+        [
+          "between",
+          "preposition"
+        ],
+        [
+          "canBeDoQuestion",
+          "canBeDoQuestion"
+        ],
+        [
+          "canBeQuestion",
+          "canBeQuestion"
+        ],
+        [
+          "concept",
+          "queryable"
+        ],
+        [
+          "concept",
+          "theAble"
+        ],
+        [
+          "condition",
+          "condition"
+        ],
+        [
+          "countable",
+          "hierarchyAble"
+        ],
+        [
+          "hasCountOfPieces",
+          "countable"
+        ],
+        [
+          "have",
+          "canBeDoQuestion"
+        ],
+        [
+          "have",
+          "canBeQuestion"
+        ],
+        [
+          "hierarchyAble",
+          "queryable"
+        ],
+        [
+          "highest",
+          "condition"
+        ],
+        [
+          "ifAble",
+          "ifAble"
+        ],
+        [
+          "is",
+          "canBeQuestion"
+        ],
+        [
+          "is",
+          "verby"
+        ],
+        [
+          "isEdee",
+          "isEdee"
+        ],
+        [
+          "isEder",
+          "isEder"
+        ],
+        [
+          "it",
+          "pronoun"
+        ],
+        [
+          "it",
+          "queryable"
+        ],
+        [
+          "it",
+          "thisitthat"
+        ],
+        [
+          "it",
+          "toAble"
+        ],
+        [
+          "lowest",
+          "condition"
+        ],
+        [
+          "mathematical",
+          "hierarchyAble"
+        ],
+        [
+          "mathematical",
+          "isEdee"
+        ],
+        [
+          "mathematical",
+          "isEder"
+        ],
+        [
+          "mathematical",
+          "object"
+        ],
+        [
+          "mathematical",
+          "operator_modifier"
+        ],
+        [
+          "mathematical",
+          "property"
+        ],
+        [
+          "mathematical",
+          "queryable"
+        ],
+        [
+          "mathematical",
+          "theAble"
+        ],
+        [
+          "mathematical_operator",
+          "adjective"
+        ],
+        [
+          "mathematical_operator",
+          "concept"
+        ],
+        [
+          "mathematical_operator",
+          "hierarchyAble"
+        ],
+        [
+          "mathematical_operator",
+          "isEdee"
+        ],
+        [
+          "mathematical_operator",
+          "isEder"
+        ],
+        [
+          "mathematical_operator",
+          "object"
+        ],
+        [
+          "mathematical_operator",
+          "operator"
+        ],
+        [
+          "mathematical_operator",
+          "property"
+        ],
+        [
+          "mathematical_operator",
+          "queryable"
+        ],
+        [
+          "mathematical_operator",
+          "theAble"
+        ],
+        [
+          "modifies",
+          "verby"
+        ],
+        [
+          "notAble",
+          "notAble"
+        ],
+        [
+          "noun",
+          "theAble"
+        ],
+        [
+          "number",
+          "quantifier"
+        ],
+        [
+          "number",
+          "queryable"
+        ],
+        [
+          "object",
+          "queryable"
+        ],
+        [
+          "object",
+          "theAble"
+        ],
+        [
+          "operator",
+          "concept"
+        ],
+        [
+          "operator",
+          "hierarchyAble"
+        ],
+        [
+          "operator",
+          "isEdee"
+        ],
+        [
+          "operator",
+          "isEder"
+        ],
+        [
+          "operator",
+          "object"
+        ],
+        [
+          "operator",
+          "property"
+        ],
+        [
+          "operator",
+          "queryable"
+        ],
+        [
+          "operator",
+          "theAble"
+        ],
+        [
+          "operator_modifier",
+          "operator_modifier"
+        ],
+        [
+          "orAble",
+          "ifAble"
+        ],
+        [
+          "preposition",
+          "preposition"
+        ],
+        [
+          "pronoun",
+          "pronoun"
+        ],
+        [
+          "property",
+          "queryable"
+        ],
+        [
+          "property",
+          "theAble"
+        ],
+        [
+          "property",
+          "unknown"
+        ],
+        [
+          "punctuation",
+          "punctuation"
+        ],
+        [
+          "quantifier",
+          "quantifier"
+        ],
+        [
+          "queryable",
+          "queryable"
+        ],
+        [
+          "questionMark",
+          "punctuation"
+        ],
+        [
+          "readonly",
+          "queryable"
+        ],
+        [
+          "reason",
+          "queryable"
+        ],
+        [
+          "reason",
+          "theAble"
+        ],
+        [
+          "that",
+          "thisitthat"
+        ],
+        [
+          "the",
+          "articlePOS"
+        ],
+        [
+          "theAble",
+          "theAble"
+        ],
+        [
+          "this",
+          "pronoun"
+        ],
+        [
+          "this",
+          "queryable"
+        ],
+        [
+          "this",
+          "thisitthat"
+        ],
+        [
+          "thisitthat",
+          "queryable"
+        ],
+        [
+          "to",
+          "preposition"
+        ],
+        [
+          "toAble",
+          "toAble"
+        ],
+        [
+          "type",
+          "property"
+        ],
+        [
+          "type",
+          "whatAble"
+        ],
+        [
+          "unknown",
+          "hierarchyAble"
+        ],
+        [
+          "unknown",
+          "notAble"
+        ],
+        [
+          "unknown",
+          "object"
+        ],
+        [
+          "unknown",
+          "queryable"
+        ],
+        [
+          "unknown",
+          "theAble"
+        ],
+        [
+          "verby",
+          "verby"
+        ],
+        [
+          "what",
+          "object"
+        ],
+        [
+          "what",
+          "queryable"
+        ],
+        [
+          "whatAble",
+          "queryable"
+        ],
+        [
+          "whose",
+          "object"
+        ],
+        [
+          "xfx",
+          "queryable"
+        ]
+      ],
+      "metadata": {
+        "opChoices": [
+          {
+            "op": [
+              "unknown",
+              0
+            ],
+            "ops": [
+              [
+                "unknown",
+                0
+              ],
+              [
+                "unknown",
+                0
+              ],
+              [
+                "unknown",
+                0
+              ],
+              [
+                "unknown",
+                0
+              ],
+              [
+                "is",
+                0
+              ],
+              [
+                "mathematical",
+                0
+              ],
+              [
+                "operator",
+                0
+              ],
+              [
+                "mathematical_operator",
+                0
+              ],
+              [
+                "list",
+                0
+              ]
+            ],
+            "counter": 1
+          },
+          {
+            "op": [
+              "unknown",
+              0
+            ],
+            "ops": [
+              [
+                "unknown",
+                0
+              ],
+              [
+                "unknown",
+                0
+              ],
+              [
+                "unknown",
+                0
+              ],
+              [
+                "is",
+                0
+              ],
+              [
+                "mathematical",
+                0
+              ],
+              [
+                "operator",
+                0
+              ],
+              [
+                "mathematical_operator",
+                0
+              ],
+              [
+                "list",
+                0
+              ]
+            ],
+            "counter": 2
+          },
+          {
+            "op": [
+              "unknown",
+              0
+            ],
+            "ops": [
+              [
+                "unknown",
+                0
+              ],
+              [
+                "unknown",
+                0
+              ],
+              [
+                "is",
+                0
+              ],
+              [
+                "mathematical",
+                0
+              ],
+              [
+                "operator",
+                0
+              ],
+              [
+                "mathematical_operator",
+                0
+              ],
+              [
+                "list",
+                0
+              ]
+            ],
+            "counter": 3
+          },
+          {
+            "op": [
+              "unknown",
+              0
+            ],
+            "ops": [
+              [
+                "unknown",
+                0
+              ],
+              [
+                "is",
+                0
+              ],
+              [
+                "mathematical",
+                0
+              ],
+              [
+                "operator",
+                0
+              ],
+              [
+                "mathematical_operator",
+                0
+              ],
+              [
+                "list",
+                0
+              ]
+            ],
+            "counter": 4
+          },
+          {
+            "op": [
+              "list",
+              0
+            ],
+            "ops": [
+              [
+                "is",
+                0
+              ],
+              [
+                "mathematical",
+                0
+              ],
+              [
+                "operator",
+                0
+              ],
+              [
+                "mathematical_operator",
+                0
+              ],
+              [
+                "list",
+                0
+              ]
+            ],
+            "counter": 5
+          },
+          {
+            "op": [
+              "list",
+              1
+            ],
+            "ops": [
+              [
+                "list",
+                1
+              ],
+              [
+                "is",
+                0
+              ],
+              [
+                "mathematical",
+                0
+              ],
+              [
+                "operator",
+                0
+              ],
+              [
+                "mathematical_operator",
+                0
+              ],
+              [
+                "list",
+                1
+              ]
+            ],
+            "counter": 6
+          },
+          {
+            "op": [
+              "list",
+              1
+            ],
+            "ops": [
+              [
+                "is",
+                0
+              ],
+              [
+                "mathematical",
+                0
+              ],
+              [
+                "operator",
+                0
+              ],
+              [
+                "mathematical_operator",
+                0
+              ],
+              [
+                "list",
+                1
+              ]
+            ],
+            "counter": 7
+          },
+          {
+            "op": [
+              "list",
+              1
+            ],
+            "ops": [
+              [
+                "is",
+                0
+              ],
+              [
+                "mathematical",
+                0
+              ],
+              [
+                "operator",
+                0
+              ],
+              [
+                "mathematical_operator",
+                0
+              ],
+              [
+                "list",
+                1
+              ]
+            ],
+            "counter": 8
+          },
+          {
+            "op": [
+              "mathematical_operator",
+              0
+            ],
+            "ops": [
+              [
+                "is",
+                0
+              ],
+              [
+                "mathematical",
+                0
+              ],
+              [
+                "operator",
+                0
+              ],
+              [
+                "mathematical_operator",
+                0
+              ]
+            ],
+            "counter": 9
+          },
+          {
+            "op": [
+              "is",
+              0
+            ],
+            "ops": [
+              [
+                "is",
+                0
+              ]
+            ],
+            "counter": 10
+          },
+          {
+            "op": [
+              "is",
+              1
+            ],
+            "ops": [
+              [
+                "is",
+                1
+              ]
+            ],
+            "counter": 11
+          }
+        ]
+      },
+      "trace": "undefined",
+      "contexts": [
+        {
+          "number": "many",
+          "text": "* + / and - are mathematical operators",
+          "marker": "is",
+          "word": "are",
+          "range": {
+            "start": 0,
+            "end": 37
+          },
+          "one": {
+            "number": "many",
+            "marker": "list",
+            "listable": true,
+            "value": [
+              {
+                "marker": "unknown",
+                "range": {
+                  "start": 0,
+                  "end": 0
+                },
+                "word": "*",
+                "text": "*",
+                "value": "*",
+                "unknown": true,
+                "dead": true,
+                "level": 1
+              },
+              {
+                "marker": "unknown",
+                "range": {
+                  "start": 2,
+                  "end": 2
+                },
+                "word": "+",
+                "text": "+",
+                "value": "+",
+                "unknown": true,
+                "dead": true,
+                "level": 1
+              },
+              {
+                "marker": "unknown",
+                "range": {
+                  "start": 4,
+                  "end": 4
+                },
+                "word": "/",
+                "text": "/",
+                "value": "/",
+                "unknown": true,
+                "dead": true,
+                "level": 2
+              },
+              {
+                "marker": "unknown",
+                "range": {
+                  "start": 10,
+                  "end": 10
+                },
+                "word": "-",
+                "text": "-",
+                "value": "-",
+                "unknown": true,
+                "dead": true,
+                "level": 2
+              }
+            ],
+            "range": {
+              "start": 0,
+              "end": 37
+            },
+            "types": [
+              "list",
+              "unknown"
+            ],
+            "text": "* +",
+            "level": 1
+          },
+          "two": {
+            "value": "mathematical_operator",
+            "number": "many",
+            "text": "mathematical operators",
+            "marker": "mathematical_operator",
+            "word": "operators",
+            "range": {
+              "start": 16,
+              "end": 37
+            },
+            "types": [
+              "mathematical_operator",
+              "operator"
+            ],
+            "modifier_mathematical": {
+              "value": "mathematical",
+              "text": "mathematical",
+              "marker": "mathematical",
+              "word": "mathematical",
+              "range": {
+                "start": 16,
+                "end": 27
+              },
+              "types": [
+                "mathematical"
+              ],
+              "level": 0
+            },
+            "atomic": true,
+            "dead": true,
+            "modifiers": [
+              "modifier_mathematical"
+            ],
+            "level": 1,
+            "concept": true
+          },
+          "dead": true,
+          "level": 2,
+          "topLevel": true,
+          "touchedBy": [
+            "math#call2"
+          ]
+        }
+      ],
+      "generated": [
+        ""
+      ],
+      "paraphrases": [
+        "*, +, / and - are mathematical operators"
+      ],
+      "paraphrasesParenthesized": [],
+      "generatedParenthesized": [],
+      "responses": [
+        ""
+      ],
+      "associations": [
+        [
+          [
+            "is",
+            0
+          ],
+          [
+            "list",
+            0
+          ],
+          [
+            "mathematical",
+            0
+          ],
+          [
+            "operator",
+            0
+          ],
+          [
+            "unknown",
+            0
+          ]
+        ],
+        [
+          [
+            "is",
+            0
+          ],
+          [
+            "list",
+            0
+          ],
+          [
+            "mathematical",
+            0
+          ],
+          [
+            "operator",
+            0
+          ],
+          [
+            "unknown",
+            0
+          ],
+          [
+            "unknown",
+            1
+          ]
+        ],
+        [
+          [
+            "is",
+            0
+          ],
+          [
+            "list",
+            0
+          ],
+          [
+            "mathematical",
+            0
+          ],
+          [
+            "operator",
+            0
+          ],
+          [
+            "unknown",
+            1
+          ]
+        ],
+        [
+          [
+            "is",
+            0
+          ],
+          [
+            "list",
+            1
+          ]
+        ],
+        [
+          [
+            "is",
+            0
+          ],
+          [
+            "list",
+            1
+          ],
+          [
+            "mathematical",
+            0
+          ],
+          [
+            "operator",
+            0
+          ]
+        ],
+        [
+          [
+            "is",
+            0
+          ],
+          [
+            "list",
+            1
+          ],
+          [
+            "mathematical",
+            0
+          ],
+          [
+            "operator",
+            0
+          ],
+          [
+            "unknown",
+            1
+          ]
+        ],
+        [
+          [
+            "mathematical",
+            0
+          ],
+          [
+            "unknown",
+            0
+          ]
+        ]
+      ],
+      "learned_contextual_priorities": [],
+      "query": "* + / and - are mathematical operators",
+      "key": {
+        "query": "* + / and - are mathematical operators"
+      }
+    },
+    {
+      "extraConfig": true,
+      "name": "math",
+      "operators": [
+        "([mathematicalExpression])",
+        "([mathematicalOperator])",
+        "(([number|]) [plusOperator] ([number|]))",
+        "(([number|]) [minusOperator] ([number|]))",
+        "(([number|]) [timesOperator] ([number|]))",
+        "(([number|]) [divideByOperator|] ([number|]))",
+        "([plusExpression|])",
+        "([minusExpression|])",
+        "([timesExpression|])",
+        "([divideByExpression|])",
+        {
+          "pattern": "([x])",
+          "development": true
+        },
+        {
+          "pattern": "([y])",
+          "development": true
+        }
+      ],
+      "bridges": [
+        {
+          "id": "mathematicalExpression",
+          "isA": [
+            "concept",
+            "number"
+          ]
+        },
+        {
+          "id": "mathematicalOperator",
+          "before": [
+            "verby"
+          ],
+          "after": [
+            "adjective"
+          ]
+        },
+        {
+          "id": "x",
+          "isA": [
+            "number"
+          ],
+          "level": 0,
+          "bridge": "{ ...next(operator) }",
+          "development": true
+        },
+        {
+          "id": "y",
+          "isA": [
+            "number"
+          ],
+          "level": 0,
+          "bridge": "{ ...next(operator) }",
+          "development": true
+        },
+        {
+          "where": "/home/dev/code/theprogrammablemind/kms/common/math.js:32",
+          "id": "plusOperator",
+          "level": 0,
+          "bridge": "{ ...next(operator), marker: next(operator('plusExpression')), types: lub(append(['mathematicalExpression'], operator.types, before[0].types, after[0].types)), value: null, x: before[0], y: after[0], number: 'one', isResponse: true, evaluate: true }",
+          "isA": [
+            "mathematicalOperator"
+          ],
+          "before": [],
+          "localHierarchy": [
+            [
+              "unknown",
+              "number"
+            ]
+          ],
+          "words": [
+            "plus",
+            "+"
+          ]
+        },
+        {
+          "where": "/home/dev/code/theprogrammablemind/kms/common/math.js:44",
+          "id": "plusExpression",
+          "level": 0,
+          "bridge": "{ ...next(operator) }",
+          "isA": [
+            "mathematicalExpression"
+          ]
+        },
+        {
+          "where": "/home/dev/code/theprogrammablemind/kms/common/math.js:32",
+          "id": "minusOperator",
+          "level": 0,
+          "bridge": "{ ...next(operator), marker: next(operator('minusExpression')), types: lub(append(['mathematicalExpression'], operator.types, before[0].types, after[0].types)), value: null, x: before[0], y: after[0], number: 'one', isResponse: true, evaluate: true }",
+          "isA": [
+            "mathematicalOperator"
+          ],
+          "before": [],
+          "localHierarchy": [
+            [
+              "unknown",
+              "number"
+            ]
+          ],
+          "words": [
+            "minus",
+            "-"
+          ]
+        },
+        {
+          "where": "/home/dev/code/theprogrammablemind/kms/common/math.js:44",
+          "id": "minusExpression",
+          "level": 0,
+          "bridge": "{ ...next(operator) }",
+          "isA": [
+            "mathematicalExpression"
+          ]
+        },
+        {
+          "where": "/home/dev/code/theprogrammablemind/kms/common/math.js:32",
+          "id": "timesOperator",
+          "level": 0,
+          "bridge": "{ ...next(operator), marker: next(operator('timesExpression')), types: lub(append(['mathematicalExpression'], operator.types, before[0].types, after[0].types)), value: null, x: before[0], y: after[0], number: 'one', isResponse: true, evaluate: true }",
+          "isA": [
+            "mathematicalOperator"
+          ],
+          "before": [
+            [
+              "plusOperator",
+              0
+            ],
+            [
+              "minusOperator",
+              0
+            ]
+          ],
+          "localHierarchy": [
+            [
+              "unknown",
+              "number"
+            ]
+          ],
+          "words": [
+            "times",
+            "*"
+          ]
+        },
+        {
+          "where": "/home/dev/code/theprogrammablemind/kms/common/math.js:44",
+          "id": "timesExpression",
+          "level": 0,
+          "bridge": "{ ...next(operator) }",
+          "isA": [
+            "mathematicalExpression"
+          ]
+        },
+        {
+          "where": "/home/dev/code/theprogrammablemind/kms/common/math.js:32",
+          "id": "divideByOperator",
+          "level": 0,
+          "bridge": "{ ...next(operator), marker: next(operator('divideByExpression')), types: lub(append(['mathematicalExpression'], operator.types, before[0].types, after[0].types)), value: null, x: before[0], y: after[0], number: 'one', isResponse: true, evaluate: true }",
+          "isA": [
+            "mathematicalOperator"
+          ],
+          "before": [
+            [
+              "plusOperator",
+              0
+            ],
+            [
+              "minusOperator",
+              0
+            ]
+          ],
+          "localHierarchy": [
+            [
+              "unknown",
+              "number"
+            ]
+          ],
+          "words": [
+            "/"
+          ]
+        },
+        {
+          "where": "/home/dev/code/theprogrammablemind/kms/common/math.js:44",
+          "id": "divideByExpression",
+          "level": 0,
+          "bridge": "{ ...next(operator) }",
+          "isA": [
+            "mathematicalExpression"
+          ]
+        }
+      ]
+    }
+  ],
+  "fragments": [],
+  "semantics": [],
+  "associations": [
+    [
+      [
+        "is",
+        0
+      ],
+      [
+        "list",
+        0
+      ],
+      [
+        "mathematical",
+        0
+      ],
+      [
+        "operator",
+        0
+      ],
+      [
+        "unknown",
+        0
+      ]
+    ],
+    [
+      [
+        "is",
+        0
+      ],
+      [
+        "list",
+        0
+      ],
+      [
+        "mathematical",
+        0
+      ],
+      [
+        "operator",
+        0
+      ],
+      [
+        "unknown",
+        0
+      ],
+      [
+        "unknown",
+        1
+      ]
+    ],
+    [
+      [
+        "is",
+        0
+      ],
+      [
+        "list",
+        0
+      ],
+      [
+        "mathematical",
+        0
+      ],
+      [
+        "operator",
+        0
+      ],
+      [
+        "unknown",
+        1
+      ]
+    ],
+    [
+      [
+        "is",
+        0
+      ],
+      [
+        "list",
+        1
+      ]
+    ],
+    [
+      [
+        "is",
+        0
+      ],
+      [
+        "list",
+        1
+      ],
+      [
+        "mathematical",
+        0
+      ],
+      [
+        "operator",
+        0
+      ]
+    ],
+    [
+      [
+        "is",
+        0
+      ],
+      [
+        "list",
+        1
+      ],
+      [
+        "mathematical",
+        0
+      ],
+      [
+        "operator",
+        0
+      ],
+      [
+        "unknown",
+        1
+      ]
+    ],
+    [
+      [
+        "mathematical",
+        0
+      ],
+      [
+        "unknown",
+        0
+      ]
+    ],
+    [
+      [
+        "modifies",
+        0
+      ],
+      [
+        "unknown",
+        0
+      ]
+    ],
+    [
+      [
+        "modifies",
+        0
+      ],
+      [
+        "unknown",
+        0
+      ],
+      [
+        "unknown",
+        1
+      ]
+    ],
+    [
+      [
+        "modifies",
+        0
+      ],
+      [
+        "unknown",
+        1
+      ]
+    ]
+  ],
+  "learned_contextual_priorities": []
 }
