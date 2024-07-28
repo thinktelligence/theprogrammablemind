@@ -3,15 +3,20 @@ const { defaultContextCheck } = require('./helpers')
 const dialogues = require('./dialogues.js')
 const pos = require('./pos.js')
 const math = require('./math.js')
-const formulasTemplate = require('./formulasTemplate.js')
+const hierarchy = require('./hierarchy.js')
+const comparable = require('./comparable.js')
+const countable = require('./countable.js')
 const { API, getVariables, solveFor } = require('./helpers/formulas.js')
-const formulas_tests = require('./formulas.test.json')
+const tests = require('./formulas.test.json')
+const instance = require('./formulas.instance.json')
 
+/*
 const template = {
   queries: [
     // { query: "x equals y + 4", development: true },
   ]
 }
+*/
 /* TODO
   10 feet in inches  -> 1 foot equals 12 inches => 120 inches
 
@@ -180,11 +185,18 @@ let configStruct = {
   ]
 };
 
+const template = {
+  queries: [
+    "formulas are concepts",
+    configStruct,
+  ]
+}
+
 const createConfig = () => {
   const api = new API()
-  config = new Config(configStruct, module)
+  config = new Config({ name: 'formulas' }, module)
   config.stop_auto_rebuild()
-  config.add(dialogues(), pos(), math(), formulasTemplate())
+  config.add(dialogues(), pos(), math(), hierarchy(), comparable(), countable())
   config.api = api
   config.restart_auto_rebuild()
   return config
@@ -194,9 +206,10 @@ knowledgeModule({
   module,
   description: 'Formulas using math',
   createConfig,
+  template: { template, instance },
   test: {
     name: './formulas.test.json',
-    contents: formulas_tests,
+    contents: tests,
     checks: {
       objects: ['formulas'],
       context: defaultContextCheck,

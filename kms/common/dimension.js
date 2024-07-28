@@ -1,9 +1,10 @@
 const { Config, knowledgeModule, where, Digraph } = require('./runtime').theprogrammablemind
 const { defaultContextCheck } = require('./helpers')
-const base = require('./dimensionTemplate.js')
+const hierarchy = require('./hierarchy.js')
 const formulas = require('./formulas.js')
 const testing = require('./testing.js')
-const dimension_tests = require('./dimension.test.json')
+const tests = require('./dimension.test.json')
+const instance = require('./dimension.instance.json')
 
 /*
   x celcius equals x*9/5 + 32 fahrenheit
@@ -166,10 +167,17 @@ let configStruct = {
   ]
 };
 
+const template = {
+  queries: [
+    "dimension and unit are concepts",
+    configStruct,
+  ],
+}
+
 const createConfig = () => {
-  const config = new Config(configStruct, module)
+  const config = new Config({ name: 'dimension' }, module)
   config.stop_auto_rebuild()
-  config.add(base(), formulas(), testing())
+  config.add(hierarchy(), formulas(), testing())
   config.api = api
   config.restart_auto_rebuild()
   return config
@@ -179,15 +187,15 @@ knowledgeModule({
   module,
   description: 'Used to define numeric temperature such as currency, temperature or weight',
   createConfig,
+  template: { template, instance },
   test: {
     name: './dimension.test.json',
-    contents: dimension_tests,
+    contents: tests,
     checks: {
       objects: [{ km: 'properties' }],
       checks: {
             context: defaultContextCheck,
           },
-
-    }
+    },
   },
 })

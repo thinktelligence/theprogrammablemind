@@ -9,13 +9,11 @@ const crew = require('./common/crew')
 const currency = require('./common/currency')
 const dialogues = require('./common/dialogues')
 const dimension = require('./common/dimension')
-const dimensionTemplate = require('./common/dimensionTemplate')
 const edible = require('./common/edible')
 const emotions = require('./common/emotions')
 const events = require('./common/events')
 const fastfood = require('./common/fastfood')
 const formulas = require('./common/formulas')
-const formulasTemplate = require('./common/formulasTemplate')
 const gdefaults = require('./common/gdefaults')
 const help = require('./common/help')
 const hierarchy = require('./common/hierarchy')
@@ -28,7 +26,6 @@ const numbers = require('./common/numbers')
 const ordering = require('./common/ordering')
 const people = require('./common/people')
 const pipboy = require('./common/pipboy')
-const pipboyTemplate = require('./common/pipboyTemplate')
 const pokemon = require('./common/pokemon')
 const pos = require('./common/pos')
 const pressure = require('./common/pressure')
@@ -62,13 +59,11 @@ module.exports = {
   currency,
   dialogues,
   dimension,
-  dimensionTemplate,
   edible,
   emotions,
   events,
   fastfood,
   formulas,
-  formulasTemplate,
   gdefaults,
   help,
   hierarchy,
@@ -81,7 +76,6 @@ module.exports = {
   ordering,
   people,
   pipboy,
-  pipboyTemplate,
   pokemon,
   pos,
   pressure,

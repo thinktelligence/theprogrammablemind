@@ -1,11 +1,12 @@
 const { Config, knowledgeModule, where, Digraph } = require('./runtime').theprogrammablemind
 const { defaultContextCheck } = require('./helpers')
-const base_km = require('./pipboyTemplate')
+const hierarchy = require('./hierarchy')
 const countable = require('./countable')
 const math = require('./math')
 const comparable = require('./comparable')
 const help = require('./help')
 const pipboy_tests = require('./pipboy.test.json')
+const instance = require('./pipboy.instance.json')
 
 // start/stop listening
 class API {
@@ -501,11 +502,36 @@ addWeapon('pistol')
 addWeapon('rifle')
 */
 
+const template = {
+  queries: [
+    "pistols rifles grenades mines and shotguns are weapons",
+    "mines and grenades are explosives",
+    "explosives are weapons",
+    "pistols rifles and shotguns are firearms",
+    "firearms are weapons",
+    "hats armor and suits are clothes",
+    // "a rifle is a weapon",
+    //"a weapon is equipable and changeable"
+    "a weapon is equipable",
+    "clothes are wearable",
+    // "weapons are countable",  TODO fix this
+    "edible is a concept",
+    "food is edible",
+    "drinks are drinkable",
+    "meat is food",
+    "vegetables and fruit are food",
+    "cola and pop are drinks",
+    "medicine and stimpaks are takeable",
+    "item modifies properties",
+    "damage luck hp rads value ap charisma range and accuracy are item properties",
+    configStruct,
+  ]
+}
+
 const createConfig = () => {
-  const config = new Config(configStruct, module)
+  const config = new Config({ name: 'pipboy' }, module)
   config.stop_auto_rebuild()
-  //console.log('base_km.config.hierarchy', JSON.stringify(base_km.config.hierarchy, null, 2))
-  config.add(base_km(), countable(), comparable(), help(), math())
+  config.add(hierarchy(), countable(), comparable(), help(), math())
   // console.log('config.config.hierarchy', JSON.stringify(config.config.hierarchy, null, 2))
   // console.log('config.hierarchy', config.hierarchy)
   config.api = api
@@ -517,6 +543,7 @@ knowledgeModule({
   module,
   description: 'Control a pipboy with speech',
   createConfig,
+  template: { template, instance },
   test: {
     name: './pipboy.test.json',
     contents: pipboy_tests,

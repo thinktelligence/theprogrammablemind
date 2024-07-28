@@ -1,29 +1,24 @@
 {
   "queries": [
-    "dimension and unit are concepts",
+    "formulas are concepts",
     {
-      "name": "dimension",
+      "name": "formulas",
       "operators": [
-        "([dimension])",
-        "([unit])",
-        "((amount/1 || number/1) [amountOfDimension|] ([unit]))",
-        "(([amount]) [unit])",
-        "((dimension/1) [convertToUnits|in] (unit/1))",
-        "(([number]) [degree])",
-        {
-          "pattern": "([length])",
-          "development": true
-        }
+        "([formula])",
+        "([solve] (equals/1) ([forVariable|for]) (variable))",
+        "(([formula]) [formulaForVariable|] ([forVariable|]) (variable))",
+        "([calculate] ([expression]))",
+        "(([expression]) [equals] ([expression]))"
       ],
       "priorities": [
         {
           "context": [
             [
-              "amountOfDimension",
+              "mathematicalOperator",
               0
             ],
             [
-              "convertToUnits",
+              "number",
               0
             ]
           ],
@@ -32,80 +27,86 @@
           ]
         }
       ],
-      "hierarchy": [
+      "semantics": [
         {
-          "child": "convertToUnits",
-          "parent": "testingValue",
-          "development": true
-        }
-      ],
-      "generators": [
-        {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:77",
-          "match": "({context}) => context.marker == 'noconversion'",
-          "apply": "({context, gp}) => `there is no conversion between ${gp(context.from)} and ${gp(context.to)}`"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/formulas.js:109",
+          "match": "({context, api}) => context.evaluate && api.get(context)",
+          "apply": "({context, api, e}) => {\n        const { formula } = api.get(context)\n        // console.log('greg24 -----------', JSON.stringify(formula, null, 2))\n        context.evalue = e(formula) \n      }"
         }
       ],
       "bridges": [
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:84",
-          "id": "dimension",
-          "isA": [],
-          "generatorpr": {}
-        },
-        {
-          "id": "length",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/formulas.js:120",
+          "id": "formulaForVariable",
           "isA": [
-            "dimension"
-          ],
-          "development": true
-        },
-        {
-          "id": "amount"
-        },
-        {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:104",
-          "id": "degree",
-          "words": [
-            {
-              "word": "degrees",
-              "number": "many"
-            }
-          ],
-          "isA": [
-            "amount"
-          ],
-          "generatorp": "({context, g}) => (context.amount) ? `${g(context.amount)} ${context.word}` : context.word",
-          "bridge": "{ ...next(operator), value: before[0].value, amount: before[0] }"
-        },
-        {
-          "id": "amountOfDimension",
-          "convolution": true,
-          "bridge": "{ marker: operator('dimension'), unit: after[0], value: before[0].value, amount: before[0] }"
-        },
-        {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:117",
-          "id": "convertToUnits",
-          "bridge": "{ ...next(operator), from: before[0], to: after[0] }",
-          "isA": [
-            "expression",
+            "preposition",
             "queryable"
           ],
-          "after": [
-            [
-              "possession",
-              0
-            ],
-            [
-              "possession",
-              1
-            ]
-          ],
-          "generatorp": "({context, g}) => `${g(context.from)} ${context.word} ${g(context.to)}`",
-          "evaluator": "({context, kms, e, error}) => {\n        /*\n        error(({context, e}) => {\n          context.evalue = 'dont know...'\n        })\n        */\n        const from = context.from;\n        const to = context.to;\n        let evalue;\n        let efrom = from\n        if (!from.unit) {\n          efrom = e(from).evalue\n        }\n        if (to.value == efrom.unit.value) {\n          evalue = efrom.amount\n        } else {\n          const formula = kms.formulas.api.get(to, [efrom.unit])\n          if (!formula) {\n            const reason = { marker: 'reason', focusableForPhrase: true, evalue: { marker: 'noconversion', from: efrom.unit, to } }\n            kms.stm.api.mentioned(reason)\n            error(reason)\n          }\n          kms.stm.api.setVariable(efrom.unit.value, efrom.amount)\n          evalue = e(formula)\n        }\n        /*\n        '{\n            \"marker\":\"dimension\",\n            \"unit\":{\"marker\":\"unit\",\"range\":{\"start\":19,\"end\":25},\"word\":\"celcius\",\"text\":\"celcius\",\"value\":\"celcius\",\"unknown\":true,\"types\":[\"unit\",\"unknown\"]},\n            \"value\":10,\n            \"amount\":{\"word\":\"degrees\",\"number\":\"many\",\"text\":\"10 degrees\",\"marker\":\"degree\",\"range\":{\"start\":8,\"end\":17},\"value\":10,\"amount\":{\"value\":10,\"text\":\"10\",\"marker\":\"number\",\"word\":\"10\",\"range\":{\"start\":8,\"end\":9},\"types\":[\"number\"]}},\n              \"text\":\"10 degrees celcius\",\"range\":{\"start\":8,\"end\":25}}'\n        */\n        context.evalue = { \n          paraphrase: true,\n          marker: 'dimension',\n          level: 1,\n          unit: to,\n          amount: { evalue, paraphrase: undefined }\n        }\n      }"
+          "convolution": true,
+          "bridge": "{ number: before[0].number, ...next(operator), what: before[0], equality: after[0], variable: after[1] }",
+          "generatorp": "({context, g}) => `${g(context.what)} ${g(context.equality)} ${g(context.variable)}`",
+          "evaluator": "({context, api, objects}) => {\n        const formulas = api.gets(context.variable).map((f) => { return { ...f.equality, paraphrase: true } })\n        context.evalue = { marker: 'list', value: formulas }\n      }"
         },
         {
-          "id": "unit"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/formulas.js:132",
+          "id": "solve",
+          "bridge": "{ ...next(operator), equality: after[0], variable: after[2] }",
+          "generatorp": "({context, gp}) => `${context.word} ${gp(context.equality)} for ${gp(context.variable)}`",
+          "semantic": "({context}) => {\n        context.response = solveFor(context.equality, context.variable)\n        context.isResponse = true\n        context.value = null\n        if (!context.response) {\n          // TODO some KM for talking to the user wrt brief+avatar\n          context.verbatim = `Solving failed`\n        }\n      }"
+        },
+        {
+          "id": "forVariable",
+          "isA": [
+            "preposition"
+          ]
+        },
+        {
+          "id": "formula"
+        },
+        {
+          "id": "expression",
+          "children": [
+            "mathematicalExpression",
+            "number"
+          ],
+          "before": [
+            "verby"
+          ]
+        },
+        {
+          "where": "/home/dev/code/theprogrammablemind/kms/common/formulas.js:159",
+          "id": "calculate",
+          "isA": [
+            "verby"
+          ],
+          "bridge": "{ ...next(operator), expression: after[0] }",
+          "generatorp": "({context, g}) => `${context.word} ${g(context.expression)}`",
+          "localHierarchy": [
+            [
+              "unknown",
+              "expression"
+            ]
+          ],
+          "semantic": "({context, e}) => {\n        context.evalue = e(context.expression)\n        context.isResponse = true\n      }"
+        },
+        {
+          "where": "/home/dev/code/theprogrammablemind/kms/common/formulas.js:171",
+          "id": "equals",
+          "bridge": "{ ...next(operator), left: before[0], right: after[0] }",
+          "words": [
+            "="
+          ],
+          "after": [
+            "mathematicalOperator"
+          ],
+          "localHierarchy": [
+            [
+              "unknown",
+              "expression"
+            ]
+          ],
+          "generatorp": "({context, gp}) => `${gp(context.left)} ${context.word} ${gp(context.right)}`",
+          "semantic": "({context, api}) => {\n        // TODO make sure left is a single name\n        // TODO calculate invertable formulas?\n        api.add(context.left, context.right, context)\n      }"
         }
       ]
     }
@@ -262,10 +263,6 @@
           "preposition"
         ],
         [
-          "calculate",
-          "verby"
-        ],
-        [
           "canBeDoQuestion",
           "canBeDoQuestion"
         ],
@@ -296,54 +293,6 @@
         [
           "divideByOperator",
           "mathematicalOperator"
-        ],
-        [
-          "expression",
-          "expression"
-        ],
-        [
-          "forVariable",
-          "preposition"
-        ],
-        [
-          "formula",
-          "concept"
-        ],
-        [
-          "formula",
-          "hierarchyAble"
-        ],
-        [
-          "formula",
-          "isEdee"
-        ],
-        [
-          "formula",
-          "isEder"
-        ],
-        [
-          "formula",
-          "object"
-        ],
-        [
-          "formula",
-          "property"
-        ],
-        [
-          "formula",
-          "queryable"
-        ],
-        [
-          "formula",
-          "theAble"
-        ],
-        [
-          "formulaForVariable",
-          "preposition"
-        ],
-        [
-          "formulaForVariable",
-          "queryable"
         ],
         [
           "hasCountOfPieces",
@@ -443,10 +392,6 @@
         ],
         [
           "mathematicalExpression",
-          "expression"
-        ],
-        [
-          "mathematicalExpression",
           "number"
         ],
         [
@@ -512,10 +457,6 @@
         [
           "noun",
           "theAble"
-        ],
-        [
-          "number",
-          "expression"
         ],
         [
           "number",
@@ -747,19 +688,11 @@
                 0
               ],
               [
-                "unknown",
-                0
-              ],
-              [
                 "is",
                 0
               ],
               [
                 "unknown",
-                0
-              ],
-              [
-                "list",
                 0
               ]
             ],
@@ -772,19 +705,11 @@
             ],
             "ops": [
               [
-                "unknown",
-                0
-              ],
-              [
                 "is",
                 0
               ],
               [
                 "unknown",
-                0
-              ],
-              [
-                "list",
                 0
               ]
             ],
@@ -792,20 +717,12 @@
           },
           {
             "op": [
-              "unknown",
+              "is",
               0
             ],
             "ops": [
               [
                 "is",
-                0
-              ],
-              [
-                "unknown",
-                0
-              ],
-              [
-                "list",
                 0
               ]
             ],
@@ -813,63 +730,16 @@
           },
           {
             "op": [
-              "list",
-              0
+              "is",
+              1
             ],
             "ops": [
               [
                 "is",
-                0
-              ],
-              [
-                "list",
-                0
+                1
               ]
             ],
             "counter": 4
-          },
-          {
-            "op": [
-              "list",
-              1
-            ],
-            "ops": [
-              [
-                "list",
-                1
-              ],
-              [
-                "is",
-                0
-              ]
-            ],
-            "counter": 5
-          },
-          {
-            "op": [
-              "is",
-              0
-            ],
-            "ops": [
-              [
-                "is",
-                0
-              ]
-            ],
-            "counter": 6
-          },
-          {
-            "op": [
-              "is",
-              1
-            ],
-            "ops": [
-              [
-                "is",
-                1
-              ]
-            ],
-            "counter": 7
           }
         ]
       },
@@ -877,61 +747,35 @@
       "contexts": [
         {
           "number": "many",
-          "text": "dimension and unit are concepts",
+          "text": "formulas are concepts",
           "marker": "is",
           "word": "are",
           "range": {
             "start": 0,
-            "end": 30
+            "end": 20
           },
           "one": {
             "number": "many",
-            "marker": "list",
-            "listable": true,
-            "value": [
-              {
-                "marker": "unknown",
-                "range": {
-                  "start": 0,
-                  "end": 8
-                },
-                "word": "dimension",
-                "text": "dimension",
-                "value": "dimension",
-                "unknown": true,
-                "dead": true,
-                "level": 2
-              },
-              {
-                "marker": "unknown",
-                "range": {
-                  "start": 14,
-                  "end": 17
-                },
-                "word": "unit",
-                "text": "unit",
-                "value": "unit",
-                "unknown": true,
-                "dead": true,
-                "level": 2
-              }
-            ],
+            "marker": "unknown",
             "range": {
               "start": 0,
-              "end": 30
+              "end": 20
             },
+            "word": "formulas",
+            "text": "formulas",
+            "value": "formulas",
+            "unknown": true,
+            "dead": true,
             "types": [
-              "list",
               "unknown"
             ],
-            "text": "dimension and unit are concepts",
             "level": 1
           },
           "two": {
             "marker": "unknown",
             "range": {
-              "start": 23,
-              "end": 30
+              "start": 13,
+              "end": 20
             },
             "word": "concepts",
             "text": "concepts",
@@ -948,7 +792,7 @@
           "level": 2,
           "topLevel": true,
           "touchedBy": [
-            "dimension#call2"
+            "formulas#call2"
           ]
         }
       ],
@@ -956,7 +800,7 @@
         ""
       ],
       "paraphrases": [
-        "dimension and unit are concepts"
+        "formulas are concepts"
       ],
       "paraphrasesParenthesized": [],
       "generatedParenthesized": [],
@@ -970,10 +814,6 @@
             0
           ],
           [
-            "list",
-            0
-          ],
-          [
             "unknown",
             0
           ]
@@ -981,10 +821,6 @@
         [
           [
             "is",
-            0
-          ],
-          [
-            "list",
             0
           ],
           [
@@ -1000,24 +836,6 @@
           [
             "is",
             0
-          ],
-          [
-            "list",
-            0
-          ],
-          [
-            "unknown",
-            1
-          ]
-        ],
-        [
-          [
-            "is",
-            0
-          ],
-          [
-            "list",
-            1
           ],
           [
             "unknown",
@@ -1026,35 +844,30 @@
         ]
       ],
       "learned_contextual_priorities": [],
-      "query": "dimension and unit are concepts",
+      "query": "formulas are concepts",
       "key": {
-        "query": "dimension and unit are concepts"
+        "query": "formulas are concepts"
       }
     },
     {
       "extraConfig": true,
-      "name": "dimension",
+      "name": "formulas",
       "operators": [
-        "([dimension])",
-        "([unit])",
-        "((amount/1 || number/1) [amountOfDimension|] ([unit]))",
-        "(([amount]) [unit])",
-        "((dimension/1) [convertToUnits|in] (unit/1))",
-        "(([number]) [degree])",
-        {
-          "pattern": "([length])",
-          "development": true
-        }
+        "([formula])",
+        "([solve] (equals/1) ([forVariable|for]) (variable))",
+        "(([formula]) [formulaForVariable|] ([forVariable|]) (variable))",
+        "([calculate] ([expression]))",
+        "(([expression]) [equals] ([expression]))"
       ],
       "priorities": [
         {
           "context": [
             [
-              "amountOfDimension",
+              "mathematicalOperator",
               0
             ],
             [
-              "convertToUnits",
+              "number",
               0
             ]
           ],
@@ -1063,75 +876,76 @@
           ]
         }
       ],
-      "hierarchy": [
+      "semantics": [
         {
-          "child": "convertToUnits",
-          "parent": "testingValue",
-          "development": true
-        }
-      ],
-      "generators": [
-        {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:77"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/formulas.js:109"
         }
       ],
       "bridges": [
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:84",
-          "id": "dimension",
-          "isA": [],
-          "generatorpr": {}
-        },
-        {
-          "id": "length",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/formulas.js:120",
+          "id": "formulaForVariable",
           "isA": [
-            "dimension"
-          ],
-          "development": true
-        },
-        {
-          "id": "amount"
-        },
-        {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:104",
-          "id": "degree",
-          "words": [
-            {
-              "word": "degrees",
-              "number": "many"
-            }
-          ],
-          "isA": [
-            "amount"
-          ],
-          "bridge": "{ ...next(operator), value: before[0].value, amount: before[0] }"
-        },
-        {
-          "id": "amountOfDimension",
-          "convolution": true,
-          "bridge": "{ marker: operator('dimension'), unit: after[0], value: before[0].value, amount: before[0] }"
-        },
-        {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:117",
-          "id": "convertToUnits",
-          "bridge": "{ ...next(operator), from: before[0], to: after[0] }",
-          "isA": [
-            "expression",
+            "preposition",
             "queryable"
           ],
-          "after": [
+          "convolution": true,
+          "bridge": "{ number: before[0].number, ...next(operator), what: before[0], equality: after[0], variable: after[1] }"
+        },
+        {
+          "where": "/home/dev/code/theprogrammablemind/kms/common/formulas.js:132",
+          "id": "solve",
+          "bridge": "{ ...next(operator), equality: after[0], variable: after[2] }"
+        },
+        {
+          "id": "forVariable",
+          "isA": [
+            "preposition"
+          ]
+        },
+        {
+          "id": "formula"
+        },
+        {
+          "id": "expression",
+          "children": [
+            "mathematicalExpression",
+            "number"
+          ],
+          "before": [
+            "verby"
+          ]
+        },
+        {
+          "where": "/home/dev/code/theprogrammablemind/kms/common/formulas.js:159",
+          "id": "calculate",
+          "isA": [
+            "verby"
+          ],
+          "bridge": "{ ...next(operator), expression: after[0] }",
+          "localHierarchy": [
             [
-              "possession",
-              0
-            ],
-            [
-              "possession",
-              1
+              "unknown",
+              "expression"
             ]
           ]
         },
         {
-          "id": "unit"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/formulas.js:171",
+          "id": "equals",
+          "bridge": "{ ...next(operator), left: before[0], right: after[0] }",
+          "words": [
+            "="
+          ],
+          "after": [
+            "mathematicalOperator"
+          ],
+          "localHierarchy": [
+            [
+              "unknown",
+              "expression"
+            ]
+          ]
         }
       ]
     }
@@ -1145,10 +959,6 @@
         0
       ],
       [
-        "list",
-        0
-      ],
-      [
         "unknown",
         0
       ]
@@ -1156,10 +966,6 @@
     [
       [
         "is",
-        0
-      ],
-      [
-        "list",
         0
       ],
       [
@@ -1175,24 +981,6 @@
       [
         "is",
         0
-      ],
-      [
-        "list",
-        0
-      ],
-      [
-        "unknown",
-        1
-      ]
-    ],
-    [
-      [
-        "is",
-        0
-      ],
-      [
-        "list",
-        1
       ],
       [
         "unknown",
