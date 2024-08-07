@@ -5,7 +5,7 @@ const pressure_tests = require('./pressure.test.json')
 const pressure_instance = require('./pressure.instance.json')
 
 const template = {
-  "queries": [
+  configs: [
     "pressure is a dimension",
     "pascals and atmospheres are units of pressure",
 

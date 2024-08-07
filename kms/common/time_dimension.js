@@ -21,7 +21,7 @@ const pad = (v, l) => {
     what day is today
 */
 const template = {
-  "queries": [
+  configs: [
     "years hours minutes and seconds are units of time",
     "hours = minutes / 60",
     "minutes = hours * 60",

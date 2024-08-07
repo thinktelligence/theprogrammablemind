@@ -12,7 +12,7 @@ const instance = require('./formulas.instance.json')
 
 /*
 const template = {
-  queries: [
+  configs: [
     // { query: "x equals y + 4", development: true },
   ]
 }
@@ -186,7 +186,7 @@ let configStruct = {
 };
 
 const template = {
-  queries: [
+  configs: [
     "formulas are concepts",
     configStruct,
   ]

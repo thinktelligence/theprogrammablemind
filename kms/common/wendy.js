@@ -8,7 +8,7 @@ const wendy_tests = require('./wendy.test.json')
 const wendy_instance = require('./wendy.instance.json')
 
 const template = {
-  "queries": [
+  configs: [
     "you are wendy",
   ]
 };

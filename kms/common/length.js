@@ -5,7 +5,7 @@ const length_tests = require('./length.test.json')
 const length_instance = require('./length.instance.json')
 
 const template = {
-  "queries": [
+  configs: [
     "length is a dimension",
     "meter centimeter foot and inch are units of length",
     "meters = centimeters / 100",

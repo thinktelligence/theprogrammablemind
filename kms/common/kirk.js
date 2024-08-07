@@ -5,7 +5,7 @@ const kirk_tests = require('./kirk.test.json')
 const kirk_instance = require('./kirk.instance.json')
 
 const template = {
-  "queries": [
+  configs: [
     "you are kirk",
   ]
 };

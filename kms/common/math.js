@@ -106,7 +106,7 @@ let configStruct = {
 };
 
 const template = {
-  queries: [
+  configs: [
     "mathematical modifies operator",
     "* + / and - are mathematical operators",
     configStruct,

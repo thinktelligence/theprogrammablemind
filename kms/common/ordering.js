@@ -6,7 +6,7 @@ const ordering_instance = require('./ordering.instance.json')
 const { API } = require('./helpers/ordering')
 
 const template ={
-  "queries": [
+  configs: [
     "wants is xfx between wanter and wantee",
     // "if a likes or loves b then a wants b",
     "if x likes y or x loves y then x wants y",

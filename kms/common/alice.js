@@ -8,7 +8,7 @@ const alice_tests = require('./alice.test.json')
 const alice_instance = require('./alice.instance.json')
 
 const template = {
-  "queries": [
+  configs: [
     "you are alice",
   ]
 };

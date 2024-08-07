@@ -12,7 +12,7 @@ const reports_instance = require('./reports.instance.json')
 const { v4 : uuidv4, validate : validatev4 } = require('uuid');
 
 const template ={
-  "queries": [
+  configs: [
       "price and quantity are properties",
       "worth means price times quantity"
   ],

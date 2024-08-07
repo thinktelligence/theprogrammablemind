@@ -168,7 +168,7 @@ let configStruct = {
 };
 
 const template = {
-  queries: [
+  configs: [
     "dimension and unit are concepts",
     configStruct,
   ],

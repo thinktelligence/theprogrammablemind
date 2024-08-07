@@ -12,7 +12,7 @@ const { hashIndexesGet, hashIndexesSet, translationMapping, translationMappings,
 // TODO who is the person that owns cleo
 
 const template = {
-    queries: [
+    configs: [
       "first modifies name",
       "last modifies name",
       "surname means last name",

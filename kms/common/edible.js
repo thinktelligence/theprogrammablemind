@@ -20,7 +20,7 @@ const edible_instance = require('./edible.instance.json')
 // the value of x is 20 | fruit is a kind of food
 
 const template ={
-  "queries": [
+  configs: [
     "food and drinks are edible",
     "chicken modifies strips",
     "chicken modifies nugget",

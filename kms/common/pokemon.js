@@ -6,7 +6,7 @@ const pokemon_instance = require('./pokemon.instance.json')
 const pluralize = require('pluralize')
 
 const template = {
-  queries: [
+  configs: [
     "pokemon modifies type",
     "pokemon type is a type",
     "pikachu squirtle weedle and pidgeot are pokemon",

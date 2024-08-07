@@ -5,7 +5,7 @@ const animals_tests = require('./places.test.json')
 const animals_instance = require('./places.instance.json')
 
 const template ={
-  "queries": [
+  configs: [
     "regina, saskatoon and vancouver are cities",
     "regina and saskatoon are in saskatchewan",
     "british modifies columbia",

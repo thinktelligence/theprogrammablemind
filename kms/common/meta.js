@@ -9,7 +9,7 @@ const { hashIndexesGet, hashIndexesSet, translationMapping, translationMappings 
 const { zip, words } = require('./helpers.js')
 
 const template = {
-    queries: [
+    configs: [
 //      "if f then g",
       //"if e or f then g",
     ]

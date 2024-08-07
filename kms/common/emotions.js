@@ -14,7 +14,7 @@ boredom/bored
 */
 
 const template ={
-  "queries": [
+  configs: [
     // "neutral anger happiness and boredom are concepts",
     // "neutral anger happiness and boredom are emotions",
     // TODO add an invert for mapping generator to "sb feels e"

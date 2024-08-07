@@ -7,7 +7,7 @@ const crew_instance = require('./crew.instance.json')
 const pluralize = require('pluralize')
 
 const template = {
-  queries: [
+  configs: [
       "kirk's name is jim",
       "kirk's rank is captain",
       "kirk's eyes are blue",

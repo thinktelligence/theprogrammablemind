@@ -503,7 +503,7 @@ addWeapon('rifle')
 */
 
 const template = {
-  queries: [
+  configs: [
     "pistols rifles grenades mines and shotguns are weapons",
     "mines and grenades are explosives",
     "explosives are weapons",

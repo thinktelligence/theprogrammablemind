@@ -11,7 +11,7 @@ const kid_instance = require('./kid.instance.json')
 const pluralize = require('pluralize')
 
 const template = {
-  queries: [
+  configs: [
     // TODO "owns is relation between owner and owned",
     // TODO how old is alice
     "wendy's sister is alice",

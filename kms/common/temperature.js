@@ -5,7 +5,7 @@ const temperature_tests = require('./temperature.test.json')
 const temperature_instance = require('./temperature.instance.json')
 
 const template = {
-  "queries": [
+  configs: [
     "temperature is a dimension",
     "celcius fahrenheit and kelvin are units of temperature",
 

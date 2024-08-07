@@ -5,7 +5,7 @@ const spock_tests = require('./spock.test.json')
 const spock_instance = require('./spock.instance.json')
 
 const template = {
-  "queries": [
+  configs: [
     "you are spock",
   ]
 };

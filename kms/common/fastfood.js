@@ -35,7 +35,7 @@ const fastfood_instance = require('./fastfood.instance.json')
 */
 
 const template = {
-  "queries": [
+  configs: [
     "food is countable",
     "drinks are countable",
     "bacon modifies deluxe",

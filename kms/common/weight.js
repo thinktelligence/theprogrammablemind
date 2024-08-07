@@ -16,7 +16,7 @@ const weight_instance = require('./weight.instance.json')
   troy ounce is an ounce
 */
 const template = {
-  "queries": [
+  configs: [
     "troy modifies ounces",
     "weight is a dimension",
     // "kilograms grams pounds ounces and tons are units of weight",
