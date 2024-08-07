@@ -33,6 +33,10 @@ const getCount = (context) => {
   }
 }
 
+const words = (base) => {
+  return [{ word: pluralize.singular(base), number: 'one'}, { word: pluralize.plural(base), number: 'many' }]
+}
+
 const isMany = (context) => {
   if (((context || {}).value || {}).marker == 'list' && (((context || {}).value || {}).value || []).length > 1) {
     return true
@@ -160,6 +164,7 @@ module.exports = {
   chooseNumber,
   zip,
   focus,
+  words,
   propertyToArray,
   wordNumber,
 }

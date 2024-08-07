@@ -819,4 +819,6 @@ fi
 # $NODE fastfood -q 'a combo 1\nnevermind' -g -d
 # $NODE tester -m fastfood -tmn fastfood -g -q 'a pop' -d
 # $NODE fastfood -q 'combo 4\nnevermind' -g -d
-$NODE fastfood -q 'fanta\nreset\ncombo 1 with iced tea\nchange combo 1 to combo 2' -g -d
+# $NODE fastfood -q 'fanta\nreset\ncombo 1 with iced tea\nchange combo 1 to combo 2' -g -d
+# $NODE tester -m fastfood -tmn fastfood -g -q 'a pop' -d
+$NODE meta -q 'evaluate synonym of greg' -g -d

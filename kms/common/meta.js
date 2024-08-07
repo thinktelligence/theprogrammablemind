@@ -6,7 +6,7 @@ ensureTestFile(module, 'meta', 'instance')
 const meta_tests = require('./meta.test.json')
 const meta_instance = require('./meta.instance.json')
 const { hashIndexesGet, hashIndexesSet, translationMapping, translationMappings } = require('./helpers/meta.js')
-const { zip } = require('./helpers.js')
+const { zip, words } = require('./helpers.js')
 
 const template = {
     queries: [
@@ -59,6 +59,23 @@ let configStruct = {
     { child: 'orAble', parent: 'ifAble' },
   ],
   bridges: [
+  /*
+    {
+      id: "synonym",
+      // implicit words in singular/plural
+      words: words('synonym'),
+      operator: "([synonym])",
+    },
+    {
+      id: 'synonymOfWord',
+      operator: "((synonym/*) [synonymOfWord|of] (word))",
+      bridge: "{ ...next(operator), word: after[0] }",
+      evaluator: ({context}) => {
+        debugger
+        debugger
+      }
+    },
+    */
     {id: "orList", level: 0, selector: {left: [{ marker: 'orAble' }], right: [{ marker: 'orAble' }], passthrough: true}, bridge: "{ ...next(operator), value: append(before, after) }"},
     {id: "orList", level: 1, selector: {left: [{ marker: 'orAble' }], passthrough: true}, bridge: "{ ...operator, value: append(before, operator.value) }"},
 
