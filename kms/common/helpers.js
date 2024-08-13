@@ -33,8 +33,8 @@ const getCount = (context) => {
   }
 }
 
-const words = (base) => {
-  return [{ word: pluralize.singular(base), number: 'one'}, { word: pluralize.plural(base), number: 'many' }]
+const words = (base, additional = {}) => {
+  return [{ word: pluralize.singular(base), number: 'one', ...additional }, { word: pluralize.plural(base), number: 'many', ...additional }]
 }
 
 const isMany = (context) => {

@@ -334,7 +334,7 @@ let configStruct = {
         const listing = objects.listings[id]
         const name = context.name.text
         objects.listings[name] = {...listing}
-        config.addWord(` ${name}`,  { id: 'report', initial: `{ value: "${name}" }` })
+        config.addWord(`${name}`,  { id: 'report', initial: `{ value: "${name}" }` })
         km('stm').api.mentioned({
                   marker: "report",
                   text: name,

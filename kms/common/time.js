@@ -1,6 +1,8 @@
 const { Config, knowledgeModule, where } = require('./runtime').theprogrammablemind
 const { defaultContextCheck } = require('./helpers')
 const tell = require('./tell')
+const countable = require('./countable')
+const numbers = require('./numbers')
 const helpers = require('./helpers')
 const time_tests = require('./time.test.json')
 
@@ -40,8 +42,8 @@ const configStruct = {
   name: 'time',
   operators: [
     "([time])",
-    "([use] ((<count> ([timeUnit])) [timeFormat|format]))",
-    "(([hourUnits|]) [ampm|])"
+    "([use] (([timeUnit]) [timeFormat|format]))",
+    "(([number|]) [ampm|])"
     //"(([anyConcept]) [equals|is] ([anyConcept]))",
     //"(([what0|what]) [equals] (<the> ([timeConcept])))",
     //"(<whatP|what> ([anyConcept]))",
@@ -54,40 +56,57 @@ const configStruct = {
   bridges: [
     { "id": "time", "level": 0, "bridge": "{ ...next(operator) }" },
 
-    { "id": "hourUnits", "level": 0, "bridge": "{ ...next(operator) }" },
+    // { "id": "hourUnits", "level": 0, "bridge": "{ ...next(operator) }" },
     { "id": "ampm", "level": 0, "bridge": "{ ...next(operator), hour: before[0] }" },
 
     { "id": "timeFormat", "level": 0, "bridge": "{ ...before[0], ...next(operator) }" },
-    { "id": "count", "level": 0, "bridge": "{ ...after, count: operator.value }" },
-    { "id": "timeUnit", "level": 0, "bridge": "{ ...next(operator) }" },
+    // { "id": "count", "level": 0, "bridge": "{ ...after, count: operator.value }" },
+    { 
+      "id": "timeUnit", 
+      "level": 0, 
+      words: [ 
+        ...helpers.words('hour', { initial: "{ units: 'hour' }" }),
+        ...helpers.words('minute', { initial: "{ units: 'minute' }" }),
+        ...helpers.words('second', { initial: "{ units: 'second' }" }),
+      ],
+      "bridge": "{ ...next(operator) }" 
+    },
     { "id": "use", "level": 0, 
             bridge: "{ ...next(operator), format: after[0] }",
-            generatorp: ({g, context}) => `use ${context.format.count} hour time` 
+            generatorp: ({g, context}) => `use ${context.format.quantity.value} hour time` 
     },
   ],
   hierarchy: [
     ['time', 'queryable'],
     ['ampm', 'queryable'],
     ['time', 'theAble'],
+    ['timeUnit', 'countable'],
+  ],
+
+  trie: [
+    // { "pattern": [{ type: 'digit' }, { repeat: true }], defs: [{id: "number", uuid: '1', initial: "{ value: int(text), instance: true }" }]},
+    // { "pattern": [{ type: 'digit' }, { repeat: true }], defs: [{id: "count", uuid: '1', initial: "{ hour: int(text) }" }]},
   ],
 
   "words": {
-    " ([0-9]+)": [{"id": "count", "initial": "{ value: int(group[0]) }" }],
-    " (1[0-2]|[1-9])": [{"id": "hourUnits", "initial": "{ hour: int(group[0]) }" }],
+    // " ([0-9]+)": [{"id": "count", "initial": "{ value: int(group[0]) }" }],
+    // " (1[0-2]|[1-9])": [{"id": "hourUnits", "initial": "{ hour: int(group[0]) }" }],
     "am": [{"id": "ampm", "initial": "{ ampm: 'am', determined: true }" }],
     "pm": [{"id": "ampm", "initial": "{ ampm: 'pm', determined: true }" }],
     //" (1[0-2]|[1-9]) ?pm": [{"id": "count", "initial": "{ hour: int(group[0]), part: 'pm' }" }],
     //" (1[0-2]|[1-9]) ?am": [{"id": "count", "initial": "{ hour: int(group[0]), part: 'am' }" }],
+    /*
     " hours?": [{"id": "timeUnit", "initial": "{ units: 'hour' }" }],
     " minutes?": [{"id": "timeUnit", "initial": "{ units: 'hour' }" }],
     " seconds?": [{"id": "timeUnit", "initial": "{ units: 'seconds' }" }],
+    */
   },
 
   generators: [
     { 
       where: where(),
       match: ({context}) => context.marker == 'ampm' && context.paraphrase, 
-      apply: ({g, context}) => `${context.hour.hour} ${context.ampm}` 
+      apply: ({g, context, gp}) => `${gp(context.hour)} ${context.ampm}` 
     },
     { 
       where: where(),
@@ -137,15 +156,15 @@ const configStruct = {
     {
       notes: 'use time format working case',
       where: where(),
-      match: ({objects, context}) => context.marker == 'use' && context.format && (context.format.count == 12 || context.format.count == 24), 
+      match: ({objects, context}) => context.marker == 'use' && context.format && (context.format.quantity.value == 12 || context.format.quantity.value == 24), 
       apply: ({objects, context}) => {
-        objects.format = context.format.count
+        objects.format = context.format.quantity.value
       }
     },
     {
       notes: 'use time format error case',
       where: where(),
-      match: ({objects, context}) => context.marker == 'use' && context.format && (context.format.count != 12 && context.format.count != 24), 
+      match: ({objects, context}) => context.marker == 'use' && context.format && (context.format.quantity.value != 12 && context.format.quantity.value != 24), 
       apply: ({objects, context}) => {
         context.marker = 'response'
         context.text = 'The hour format is 12 hour or 24 hour'
@@ -157,7 +176,7 @@ const configStruct = {
 const createConfig = () => {
   const config = new Config(configStruct, module)
   config.stop_auto_rebuild()
-  config.add(tell())
+  config.add(tell()).add(numbers()).add(countable())
   config.api = api
   config.initializer( ({config, objects, kms, isModule}) => {
     if (!isModule) {

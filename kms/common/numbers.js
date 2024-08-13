@@ -19,6 +19,11 @@ let configStruct = {
   ],
   debug: false,
   version: '3',
+  trie: [
+    { "pattern": [{ type: 'digit' }, { repeat: true }], defs: [{id: "number", uuid: '1', initial: "{ value: int(text), instance: true }" }]},
+    { "pattern": [{ type: 'digit' }, { repeat: true }, '.', { type: 'digit' }, { repeat: true }], defs: [{id: "number", uuid: '1', initial: "{ value: float(text), instance: true }" }]},
+    { "pattern": ['.', { type: 'digit' }, { repeat: true }], defs: [{id: "number", uuid: '1', initial: "{ value: float(text), instance: true }" }]},
+  ],
   words: {
     // start with a space for regular expressions
     " ([0-9]+$)": [{"id": "number", "initial": "{ value: int(group[0]), instance: true }" }],
