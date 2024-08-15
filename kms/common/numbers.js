@@ -19,11 +19,6 @@ let configStruct = {
   ],
   debug: false,
   version: '3',
-  trie: [
-    { "pattern": [{ type: 'digit' }, { repeat: true }], defs: [{id: "number", uuid: '1', initial: "{ value: int(text), instance: true }" }]},
-    { "pattern": [{ type: 'digit' }, { repeat: true }, '.', { type: 'digit' }, { repeat: true }], defs: [{id: "number", uuid: '1', initial: "{ value: float(text), instance: true }" }]},
-    { "pattern": ['.', { type: 'digit' }, { repeat: true }], defs: [{id: "number", uuid: '1', initial: "{ value: float(text), instance: true }" }]},
-  ],
   words: {
     "literals": {
       // start with a space for regular expressions
@@ -50,7 +45,12 @@ let configStruct = {
       "nines": [{"id": "number", "initial": "{ value: 9, number: 'many', instance:true }" }],
       "ten": [{"id": "number", "initial": "{ value: 10, instance:true }" }],
       "tens": [{"id": "number", "initial": "{ value: 10, number: 'many', instance:true }" }],
-    }
+    },
+    patterns: [
+      { "pattern": [{ type: 'digit' }, { repeat: true }], defs: [{id: "number", uuid: '1', initial: "{ value: int(text), instance: true }" }]},
+      { "pattern": [{ type: 'digit' }, { repeat: true }, '.', { type: 'digit' }, { repeat: true }], defs: [{id: "number", uuid: '1', initial: "{ value: float(text), instance: true }" }]},
+      { "pattern": ['.', { type: 'digit' }, { repeat: true }], defs: [{id: "number", uuid: '1', initial: "{ value: float(text), instance: true }" }]},
+    ],
   },
 
   hierarchy: [

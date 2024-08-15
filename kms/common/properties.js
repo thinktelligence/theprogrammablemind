@@ -171,11 +171,8 @@ let configStruct = {
     { id: "whose", level: 0, bridge: '{ ...after[0], query: true, whose: "whose", modifiers: append(["whose"], after[0].modifiers)}' },
     { id: "objectPrefix", level: 0, bridge: '{ ...after[0], object: operator, objects: [after[0], operator] }' },
   ],
-  trie: [
-    { "pattern": ["'s"], defs: [{id: "possession", uuid: '1', initial: "{ value: 'possession' }" }]},
-  ],
   words: {
-    "literals": {
+    literals: {
       "<<possession>>": [{ id: 'possession', initial: "{ value: 'possession' }" }],
       " 's": [{ id: 'possession', initial: "{ value: 'possession' }" }],
       "have": [{ id: 'have', initial: "{ doesable: true, number: 'many' }" }],
@@ -184,7 +181,10 @@ let configStruct = {
       "doesnt": [{ id: 'doesnt', initial: "{ number: 'one' }" }],
       // "my": [{ id: 'objectPrefix', initial: "{ value: 'other' }" }],
       // "your": [{ id: 'objectPrefix', initial: "{ value: 'self' }" }],
-    }
+    },
+    patterns: [
+      { "pattern": ["'s"], defs: [{id: "possession", uuid: '1', initial: "{ value: 'possession' }" }]},
+    ],
   },
   priorities: [
     { "context": [['list', 0], ['between', 0], ], "choose": [0] }, 

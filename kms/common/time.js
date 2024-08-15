@@ -83,11 +83,6 @@ const configStruct = {
     ['timeUnit', 'countable'],
   ],
 
-  trie: [
-    // { "pattern": [{ type: 'digit' }, { repeat: true }], defs: [{id: "number", uuid: '1', initial: "{ value: int(text), instance: true }" }]},
-    // { "pattern": [{ type: 'digit' }, { repeat: true }], defs: [{id: "count", uuid: '1', initial: "{ hour: int(text) }" }]},
-  ],
-
   "words": {
     "literals": {
       // " ([0-9]+)": [{"id": "count", "initial": "{ value: int(group[0]) }" }],
