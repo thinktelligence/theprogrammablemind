@@ -91,12 +91,14 @@ let configStruct = {
     { id: "point", level: 0, bridge: "{ ...next(operator), amount: before[0], modifiers: append(['amount']) }" },
   ],
   words: {
-    "winning": [{"id": "winning", "initial": "{ modifiers: [] }" }],
-    /*
-    " ([0-9]+)": [{"id": "number", "initial": "{ value: int(group[0]) }" }],
-    "one": [{"id": "number", "initial": "{ value: 1 }" }],
-    "ten": [{"id": "number", "initial": "{ value: 10 }" }],
-    */
+    "literals": {
+      "winning": [{"id": "winning", "initial": "{ modifiers: [] }" }],
+      /*
+      " ([0-9]+)": [{"id": "number", "initial": "{ value: int(group[0]) }" }],
+      "one": [{"id": "number", "initial": "{ value: 1 }" }],
+      "ten": [{"id": "number", "initial": "{ value: 10 }" }],
+      */
+    }
   },
   priorities: [
     { "context": [['winning', 0], ['is', 0], ['the', 0], ], "choose": [0] },

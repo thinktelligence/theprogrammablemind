@@ -175,14 +175,16 @@ let configStruct = {
     { "pattern": ["'s"], defs: [{id: "possession", uuid: '1', initial: "{ value: 'possession' }" }]},
   ],
   words: {
-    "<<possession>>": [{ id: 'possession', initial: "{ value: 'possession' }" }],
-    " 's": [{ id: 'possession', initial: "{ value: 'possession' }" }],
-    "have": [{ id: 'have', initial: "{ doesable: true, number: 'many' }" }],
-    "has": [{ id: 'have', initial: "{ doesable: true, number: 'one' }" }],
-    "dont": [{ id: 'doesnt', initial: "{ number: 'many' }" }],
-    "doesnt": [{ id: 'doesnt', initial: "{ number: 'one' }" }],
-    // "my": [{ id: 'objectPrefix', initial: "{ value: 'other' }" }],
-    // "your": [{ id: 'objectPrefix', initial: "{ value: 'self' }" }],
+    "literals": {
+      "<<possession>>": [{ id: 'possession', initial: "{ value: 'possession' }" }],
+      " 's": [{ id: 'possession', initial: "{ value: 'possession' }" }],
+      "have": [{ id: 'have', initial: "{ doesable: true, number: 'many' }" }],
+      "has": [{ id: 'have', initial: "{ doesable: true, number: 'one' }" }],
+      "dont": [{ id: 'doesnt', initial: "{ number: 'many' }" }],
+      "doesnt": [{ id: 'doesnt', initial: "{ number: 'one' }" }],
+      // "my": [{ id: 'objectPrefix', initial: "{ value: 'other' }" }],
+      // "your": [{ id: 'objectPrefix', initial: "{ value: 'self' }" }],
+    }
   },
   priorities: [
     { "context": [['list', 0], ['between', 0], ], "choose": [0] }, 

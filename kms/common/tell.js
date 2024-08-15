@@ -54,8 +54,10 @@ let configStruct = {
     { id: 'tell', level: 0, bridge: '{ ...next(operator), target: after[0], info: after[1], event: after[2] }' },
   ],
   words: {
-    "when": [{ id: 'info', level: 0, initial: "{ info: 'when' }" }],
-    "me": [{ id: 'person', level: 0, initial: "{ target: 'me' }" }],
+    "literals": {
+      "when": [{ id: 'info', level: 0, initial: "{ info: 'when' }" }],
+      "me": [{ id: 'person', level: 0, initial: "{ target: 'me' }" }],
+    }
   },
   hierarchy: [
     ['is', 'event'],

@@ -28,8 +28,6 @@ let configStruct = {
   ],
   debug: false,
   version: '3',
-  words: {
-  },
 
   generators: [
     {

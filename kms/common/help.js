@@ -72,8 +72,10 @@ const configStruct = {
   debug: false,
   version: '3',
   words: {
-    // "km1": { "the": [{"id": "the", "initial": "{ modifiers: [] }" }],
-    'km1': [{id: "km", initial: "{ value: 'km1', word: 'km1' }", development: true }],
+    "literals": {
+      // "km1": { "the": [{"id": "the", "initial": "{ modifiers: [] }" }],
+      'km1': [{id: "km", initial: "{ value: 'km1', word: 'km1' }", development: true }],
+    }
   },
 };
 

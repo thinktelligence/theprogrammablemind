@@ -55,8 +55,6 @@ let configStruct = {
   floaters: ['isQuery'],
   debug: true,
   "version": '3',
-  "words": {
-  },
 
   generators: [
     { 

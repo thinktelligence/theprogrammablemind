@@ -98,14 +98,16 @@ let configStruct = {
   ],
   version: '3',
   words: {
-    //  'testWord2': [{"id": "testWord2", "initial": "{ value: 'testWord2Value' }" }],
-    // TODO make this development and select out for module
-    // 'x': [{id: "x", initial: "{ value: 'x' }", development: true }],
-    // 'f': [{id: "ifAble", initial: "{ word: 'f' }", development: true }],
-    // 'g': [{id: "ifAble", initial: "{ word: 'g' }", development: true }],
-    'f': [{id: "f", initial: "{ value: 'f', word: 'f' }", development: true }],
-    'x': [{id: "x", initial: "{ value: 'x', word: 'x' }", development: true }],
-    'gq': [{id: "g", initial: "{ word: 'gq', query: true }", development: true }],
+    "literals": {
+      //  'testWord2': [{"id": "testWord2", "initial": "{ value: 'testWord2Value' }" }],
+      // TODO make this development and select out for module
+      // 'x': [{id: "x", initial: "{ value: 'x' }", development: true }],
+      // 'f': [{id: "ifAble", initial: "{ word: 'f' }", development: true }],
+      // 'g': [{id: "ifAble", initial: "{ word: 'g' }", development: true }],
+      'f': [{id: "f", initial: "{ value: 'f', word: 'f' }", development: true }],
+      'x': [{id: "x", initial: "{ value: 'x', word: 'x' }", development: true }],
+      'gq': [{id: "g", initial: "{ word: 'gq', query: true }", development: true }],
+    }
   },
   generators: [
     {
