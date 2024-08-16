@@ -22,9 +22,6 @@ let configStruct = {
   words: {
     "literals": {
       // start with a space for regular expressions
-      " ([0-9]+$)": [{"id": "number", "initial": "{ value: int(group[0]), instance: true }" }],
-      " ([0-9]+[.][0-9]+$)": [{"id": "number", "initial": "{ value: float(group[0]), instance: true }" }],
-      " ([.][0-9]+$)": [{"id": "number", "initial": "{ value: float(group[0]), instance: true }" }],
       "one": [{"id": "number", "initial": "{ value: 1, instance:true }" }],
       "ones": [{"id": "number", "initial": "{ value: 1, number: 'many', instance:true }" }],
       "two": [{"id": "number", "initial": "{ value: 2 , instance:true}" }],

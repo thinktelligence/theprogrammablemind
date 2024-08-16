@@ -14,6 +14,7 @@ let configStruct = {
   words: {
     patterns: [
       { pattern: [{ type: 'space' }, { repeat: true }], defs: [ { remove: true } ] },
+      // { pattern: [{ type: 'alphanumeric' }, { repeat: true }], defs: [ { id: 'unknown', initial: "{ unknown: true }" } ] },
       { pattern: [{ type: 'alphanumeric' }, { repeat: true }], defs: [ { id: 'unknown', initial: "{ value: text, unknown: true }" } ] },
     ],
     hierarchy: [
