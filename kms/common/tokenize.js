@@ -4,10 +4,18 @@ const tokenize_tests = require('./tokenize.test.json')
 
 let configStruct = {
   name: 'tokenize',
+  operators: [
+    "([unknown])",
+  ],
+  bridges: [
+    { id: "unknown", level: 0, bridge: "{ ...next(operator), unknown: true, dead: true }" },
+    { id: "unknown", level: 1, bridge: "{ ...next(operator) }" },
+  ],
   words: {
     patterns: [
       { pattern: [{ type: 'space' }, { repeat: true }], defs: [ { remove: true } ] },
-    // self.add_trie_pattern(['space', Repeat()], TrieDef('remove', 'remove'))
+      { pattern: [{ type: 'alphanumeric' }, { repeat: true }], defs: [ { id: 'unknown', initial: "{ value: text, unknown: true }" } ] },
+
 /*
     if ('unknown', 0) in self.operator_key_to_operator:
       unknown = self.operator_key_to_operator[('unknown', 0)]
