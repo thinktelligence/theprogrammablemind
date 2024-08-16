@@ -15,15 +15,6 @@ let configStruct = {
     patterns: [
       { pattern: [{ type: 'space' }, { repeat: true }], defs: [ { remove: true } ] },
       { pattern: [{ type: 'alphanumeric' }, { repeat: true }], defs: [ { id: 'unknown', initial: "{ value: text, unknown: true }" } ] },
-
-/*
-    if ('unknown', 0) in self.operator_key_to_operator:
-      unknown = self.operator_key_to_operator[('unknown', 0)]
-      self.add_trie_pattern(['alphanumeric', Repeat()], TrieDef('unknown', 'unknown', unknown))
-    else:
-      self.add_trie_pattern(['alphanumeric', Repeat()], TrieDef('unknown', 'unknown'))
-    self.add_trie_pattern(['space', Repeat()], TrieDef('remove', 'remove'))
-*/
     ],
     hierarchy: [
       { child: ' ', parent: 'space' },
