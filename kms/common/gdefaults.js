@@ -1,6 +1,7 @@
 const pluralize = require('pluralize')
 const { defaultContextCheck } = require('./helpers')
 const { Config, knowledgeModule, where } = require('./runtime').theprogrammablemind
+const tokenize = require('./tokenize.js')
 const gdefaults_tests = require('./gdefaults.test.json')
 const { isMany } = require('./helpers.js')
 
@@ -182,6 +183,7 @@ let configStruct = {
 
 const createConfig = () => {
   const config = new Config(configStruct, module)
+  config.add(tokenize())
   config.initializer( ({config}) => {
     config.addArgs((args) => {
       return {

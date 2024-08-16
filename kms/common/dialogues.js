@@ -2,7 +2,6 @@ const { Config, knowledgeModule, where, stableId } = require('./runtime').thepro
 const meta = require('./meta.js')
 const gdefaults = require('./gdefaults.js')
 const sdefaults = require('./sdefaults.js')
-const tokenize = require('./tokenize.js')
 const pos = require('./pos.js')
 const punctuation = require('./punctuation.js')
 const stm = require('./stm.js')
@@ -999,7 +998,7 @@ const createConfig = () => {
   const config = new Config(configStruct, module)
   config.stop_auto_rebuild()
   config.api = api
-  config.add(tokenize(), gdefaults(), sdefaults(), pos(), stm(), meta(), punctuation())
+  config.add(gdefaults(), sdefaults(), pos(), stm(), meta(), punctuation())
   config.initializer( ({objects, config, isModule}) => {
     /* TODO add this beck in. some stuff from config needs to be here
     config.addArgs((args) => ({ 
