@@ -7,6 +7,9 @@ const helpers = require('./helpers')
 const getHelp = (config, indent=2) => {
   indent = ' '.repeat(indent)
   let help = ''
+  if (config.tests.length == 0) {
+    return ''
+  }
   help += `${indent}NAME: ${config.name}\n`
   help += `${indent}DESCRIPTION: ${config.description}\n\n`
   help += `${indent}SAMPLE SENTENCES\n\n`

@@ -1,6 +1,7 @@
 const { Config, knowledgeModule, ensureTestFile, where, unflatten, flattens } = require('./runtime').theprogrammablemind
 const { defaultContextCheck } = require('./helpers')
 const _ = require('lodash')
+const gdefaults = require('./gdefaults.js')
 ensureTestFile(module, 'meta', 'test')
 ensureTestFile(module, 'meta', 'instance')
 const meta_tests = require('./meta.test.json')
@@ -381,6 +382,9 @@ let configStruct = {
 
 const createConfig = () => {
   const config = new Config(configStruct, module)
+  config.stop_auto_rebuild()
+  config.add(gdefaults())
+
   config.initializer( ({config, addGenerator, isModule}) => {
     if (!isModule) {
       addGenerator({
@@ -390,6 +394,8 @@ const createConfig = () => {
       })
     }
   })
+  
+  config.restart_auto_rebuild()
   return config
 }
 

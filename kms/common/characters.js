@@ -1,5 +1,6 @@
 const { Config, knowledgeModule, where } = require('./runtime').theprogrammablemind
 const { defaultContextCheck } = require('./helpers')
+const gdefaults = require('./gdefaults.js')
 const createCurrencyKM = require('./currency.js')
 const createTimeKM = require('./time.js')
 const { table } = require('table')
@@ -180,6 +181,9 @@ const createConfig = () => {
   const api2 = new Bob(currencyKM)
 
   const config = new Config(configStruct, module)
+  config.stop_auto_rebuild()
+  config.add(gdefaults())
+
   config.multiApi = initializeApi
   config.initializer( ({isModule, config, km}) => {
     if (!isModule) {
@@ -190,6 +194,7 @@ const createConfig = () => {
       config.api = api
     }
   })
+  config.restart_auto_rebuild()
   return config
 }
 
