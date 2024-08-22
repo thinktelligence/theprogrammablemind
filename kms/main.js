@@ -43,6 +43,7 @@ const temperature = require('./common/temperature')
 const tester = require('./common/tester')
 const testing = require('./common/testing')
 const time = require('./common/time')
+const tokenize = require('./common/tokenize')
 const ui = require('./common/ui')
 const weight = require('./common/weight')
 const yesno = require('./common/yesno')
@@ -93,6 +94,7 @@ module.exports = {
   tester,
   testing,
   time,
+  tokenize,
   ui,
   weight,
   yesno,
