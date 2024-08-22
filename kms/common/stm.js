@@ -28,7 +28,7 @@ class API {
   }
 
   mentioned(concept, value = undefined) {
-    concept = { ...concept, pullFromContext: false }
+    concept.pullFromContext = false
     if (value) {
       if (concept.marker == 'unknown') {
         if (concept.value) {
@@ -37,6 +37,7 @@ class API {
       }
       concept.value = value
     }
+    concept.fromSTM = true
     this._objects.mentioned.unshift(concept)
   }
 
@@ -44,7 +45,7 @@ class API {
     // care about value first
     for (let m of this._objects.mentioned) {
       if (context.value && context.value == m.marker) {
-        return { ...m, fromSTM: true }
+        return m
       }
     }
 
@@ -54,21 +55,22 @@ class API {
     // care about marker second
     for (let m of this._objects.mentioned) {
       if (context.marker != 'unknown' && this.isA(m.marker, context.marker)) {
-        return { ...m, fromSTM: true }
+        return m
       }
       // if (context.types && context.types.includes(m.marker)) {
       if (context.types) {
         for (let parent of context.types) {
           if (parent != 'unknown' && this.isA(m.marker, parent)) {
-            return { ...m, fromSTM: true }
+            return m
           }
         }
       }
     }
+
     if (context.types && context.types.length == 1) {
       for (let m of this._objects.mentioned) {
         if (context.unknown) {
-          return { ...m, fromSTM: true }
+          return m
         }
       }
     }
@@ -101,6 +103,9 @@ let createConfig = () => {
       mentioned: (context) => {
         kms.stm.api.mentioned(context)
       },
+      mentions: (context) => {
+        return kms.stm.api.mentions(context)
+      },
     }))
   })
   config.api = api
@@ -118,6 +123,7 @@ knowledgeModule( {
     contents: stm_tests,
     checks: {
             context: defaultContextCheck,
+            objects: ['mentioned'],
           },
   },
 })
