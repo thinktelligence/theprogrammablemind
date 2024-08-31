@@ -9,6 +9,7 @@ let configStruct = {
     "([leftParenthesis|] (phrase) ([rightParenthesis|]))",
     "((before) [comma|])", // comma applies if before is dead
     "([colon|])",
+    "([doubleQuote|] (!doubleQuote/*)* (doubleQuote/*))",
   ],
   bridges: [
     {
@@ -30,6 +31,13 @@ let configStruct = {
       words: [{ word: ")", value: ')', depth: '-' }],
     },
     { id: "colon", words: [':'],  },
+    {
+      id: "doubleQuote",
+      level: 0,
+      bridge: "{ ...next(operator), quote: 'double' }",
+      generatorp: ({context}) => context.text,
+      words: [{ word: '"', depth: '+' }],
+    },
   ],
 
   generators: [
