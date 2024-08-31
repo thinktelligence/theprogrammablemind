@@ -25,7 +25,8 @@ let configStruct = {
       ...'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split("").map((letter) => { return { child: letter, parent: 'upper' } }),
       { child: 'letter', parent: 'alphanumeric' },
       { child: 'digit', parent: 'alphanumeric' },
-      ...`~!@#$%^&*()_+-=[]{}\\|;:,<>/?'"`.split("").map((punctuation) => { return { child: punctuation, parent: 'punctuation' } }),
+      { child: '_', parent: 'alphanumeric' },
+      ...`~!@#$%^&*()+-=[]{}\\|;:,<>/?'"`.split("").map((punctuation) => { return { child: punctuation, parent: 'punctuation' } }),
     ],
   },
 };
