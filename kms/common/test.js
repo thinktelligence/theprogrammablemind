@@ -55,6 +55,8 @@ const loop = async (tests, failed) => {
       if (error !== null) {
           console.log(`exec error: ${error}`);
           failed.push(test)
+      } else if (stdout.includes('ERROR')) {
+          failed.push(test)
       }
       loop(tests, failed)
     });
