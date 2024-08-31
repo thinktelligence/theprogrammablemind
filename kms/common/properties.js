@@ -708,7 +708,7 @@ knowledgeModule( {
     contents: properties_tests,
     checks: {
       context: defaultContextCheck,
-      xobjects: [
+      objects: [
         'children', 
         'concept', 
         'parents', 
