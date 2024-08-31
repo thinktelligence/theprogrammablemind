@@ -28,7 +28,12 @@ class API {
   }
 
   mentioned(concept, value = undefined) {
-    concept.pullFromContext = false
+    // TODO value should perhaps have been called id as in concept id and then value could be value
+    if (value) {
+      concept = { ...concept, pullFromContext: false }
+    } else {
+      concept.pullFromContext = false
+    }
     if (value) {
       if (concept.marker == 'unknown') {
         if (concept.value) {
