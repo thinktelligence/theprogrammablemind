@@ -36,6 +36,10 @@ const warningSameNotEvaluated = (log, one) => {
 let configStruct = {
   name: 'dialogues',
   operators: [
+    "([makeObject] (word))",
+    "([setIdSuffix] (word))",
+    "([resetIdSuffix])",
+
     "(([queryable]) [is|] ([queryable|]))",
     "([is:queryBridge|] ([queryable]) ([queryable]))",
     // "(([queryable]) [is:isEdBridge|is,are] ([isEdAble|]))",
@@ -98,6 +102,30 @@ let configStruct = {
     ]
   },
   bridges: [
+    {
+      id: 'makeObject',
+      bridge: "{ ...next(operator), object: after[0] }",
+      generatorp: ({context, gp}) => `${context.word} ${gp(context.object)}`,
+      semantic: ({config, context, api}) => {
+			  api.makeObject({ context: context.object, config, types: [] })
+      }
+    },
+    {
+      id: 'setIdSuffix',
+      bridge: "{ ...next(operator), suffix: after[0] }",
+      generatorp: ({context, gp}) => `${context.word} ${gp(context.suffix)}`,
+      semantic: ({context, api}) => {
+        api.setIdSuffix(context.suffix.text)
+      }
+    },
+    {
+      id: 'resetIdSuffix',
+      bridge: "{ ...next(operator) }",
+      semantic: ({context, api}) => {
+        api.setIdSuffix('')
+      }
+    },
+
     { id: "by", level: 0, bridge: "{ ...next(operator), object: after[0] }", optional: { 'isEder': "{ marker: 'unknown', implicit: true, concept: true }", }, },
 
     { id: "debug23", level: 0, bridge: "{ ...next(operator) }" },
@@ -1005,7 +1033,7 @@ const createConfig = () => {
       e: (context) => config.api.getEvaluator(args.s, args.log, context),
     }))
     */
-    config.addArgs(({config, isA}) => ({ 
+    config.addArgs(({config, api, isA}) => ({ 
       isAListable: (context, type) => {
         if (context.marker == 'list' || context.listable) {
           return context.value.every( (element) => isA(element.marker, type) )
@@ -1025,6 +1053,9 @@ const createConfig = () => {
       getUUIDScoped: (uuid) => { return {
           ask: getAsk(config)(uuid),
         } 
+      },
+      toScopedId: (context) => {
+        return api('dialogues').toScopedId(context)
       },
     }))
     objects.mentioned = []
@@ -1048,7 +1079,7 @@ knowledgeModule( {
     name: './dialogues.test.json',
     contents: dialogues_tests,
     checks: {
-            objects: ['onNevermindWasCalled', 'nevermindType'],
+            objects: ['onNevermindWasCalled', 'nevermindType', 'idSuffix'],
             context: defaultContextCheck,
           },
 

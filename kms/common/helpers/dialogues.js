@@ -4,6 +4,20 @@ const { indent, focus } = require('../helpers')
 class API {
   initialize({ objects }) {
     this._objects = objects
+    this._objects.idSuffix = ''
+  }
+
+  setIdSuffix(idSuffix) {
+    this._objects.idSuffix = idSuffix
+  }
+
+  toScopedId(context) {
+    if (typeof context == 'string') {
+      return pluralize.singular(context) + this._objects.idSuffix
+    } else {
+      const { unknown, value, word } = context;
+      return unknown ? pluralize.singular(word) + this._objects.idSuffix : pluralize.singular(value || word)
+    }
   }
 
   warningNotEvaluated(log, value) {
