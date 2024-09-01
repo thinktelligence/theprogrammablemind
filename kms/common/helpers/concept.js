@@ -31,13 +31,25 @@ class API {
   // for example, "crew member" or "photon torpedo"
   // TODO account for modifier a complex phrase for example "hot (chicken strips)"
   kindOfConcept({ config, modifiers, object }) {
-    const objectId = pluralize.singular(object)
+    // const objectId = pluralize.singular(object)
+    debugger
+    const objectId = this.args.kms.dialogues.api.toScopedId(object)
+
     // const modifierIds = modifiers.map( (modifier) => pluralize.singular(modifier) )
     const modifierIds = modifiers
     const modifiersObjectId = `${modifierIds.join("_")}_${objectId}`
 
-    const objectSingular = pluralize.singular(object)
-    const objectPlural = pluralize.plural(object)
+    const toWord = (object) => {
+      if (typeof object == 'string') {
+        return object
+      }
+      return object.text
+    }
+    const objectWord = toWord(object)
+    // const objectWord = object
+    // TODO call evaluator to pick up overrides
+    const objectSingular = pluralize.singular(objectWord)
+    const objectPlural = pluralize.plural(objectWord)
     // config.addOperator({ pattern: `(${modifierIds.map((modifierId) => `(${modifierId}/*)`).join(' ')} [${modifiersObjectId}] (${objectId}/0))`, allowDups: true })
     config.addOperator({ pattern: `(${modifierIds.map((modifierId) => `(${modifierId}/*)`).join(' ')} [${modifiersObjectId}] (${objectId}/*))`, allowDups: true })
     // config.addOperator({ pattern: `(<${modifierId}|> ([${objectId}|]))`, allowDups: true })

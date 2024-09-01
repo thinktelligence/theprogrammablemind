@@ -821,4 +821,7 @@ fi
 # $NODE fastfood -q 'combo 4\nnevermind' -g -d
 # $NODE fastfood -q 'fanta\nreset\ncombo 1 with iced tea\nchange combo 1 to combo 2' -g -d
 # $NODE tester -m fastfood -tmn fastfood -g -q 'a pop' -d
-$NODE meta -q 'evaluate synonym of greg' -g -d
+# $NODE meta -q 'evaluate synonym of greg' -g -d
+# $NODE dimension -q 'c1 is a dimension\na1 and b1 are units of d1\nwhat are 10 a1 in b1' -g -d
+node colors -rtf -g
+node colors -q 'red' -g -d
