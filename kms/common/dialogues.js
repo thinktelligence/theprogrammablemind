@@ -330,6 +330,7 @@ let configStruct = {
     { "context": [['isEdAble', 0], ['is', 1], ], "choose": [0] },
   ],
   hierarchy: [
+    ['doubleQuote', 'queryable'],
     ['it', 'pronoun'],
     ['this', 'pronoun'],
     ['questionMark', 'punctuation'],

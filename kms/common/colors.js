@@ -18,7 +18,28 @@ const template = {
     "snow, azure, beige and ivory are a white",
     "silver and black are a gray",
     "brightness modifies colors",
-    // "resetIdSuffix",
+    "resetIdSuffix",
+    // '"hex color" is a color',
+    {
+      operators: [
+        "([hexColor|])",
+      ],
+      bridges: [
+        { 
+          id: 'hexColor',
+          words: ['hex color'],
+        },
+      ],
+      words: {
+        patterns: [
+          { "pattern": ["#", { type: 'hexDigit' }, { repeat: true, exactly: 6 }], defs: [{id: "hexColor", uuid: '1', initial: "{ value: text, instance: true }" }]},
+        ],
+        hierarchy: [
+          ..."0123456789abcdefABCDEF".split("").map((digit) => { return { child: digit, parent: 'hexDigit' } })
+        ],
+      }
+    },
+    // "hex color is a color",
   ],
 }
 

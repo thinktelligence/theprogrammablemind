@@ -3,24 +3,6 @@
     "associations": [
       [
         [
-          "+",
-          0
-        ],
-        [
-          "equals",
-          0
-        ],
-        [
-          "x",
-          0
-        ],
-        [
-          "y",
-          0
-        ]
-      ],
-      [
-        [
           "equals",
           0
         ],
@@ -291,7 +273,6 @@
         "countable": "countable2",
         "dialogues": "dialogues2",
         "formulas": "formulas1",
-        "formulasTemplate": "formulasTemplate2",
         "gdefaults": "gdefaults2",
         "hierarchy": "hierarchy2",
         "math": "math2",
@@ -301,7 +282,8 @@
         "properties": "properties2",
         "punctuation": "punctuation2",
         "sdefaults": "sdefaults2",
-        "stm": "stm2"
+        "stm": "stm2",
+        "tokenize": "tokenize2"
       },
       "namespaced": {
         "comparable2": {
@@ -315,6 +297,7 @@
         "countable2": {
         },
         "dialogues2": {
+          "idSuffix": "",
           "mentioned": [
           ],
           "variables": {
@@ -479,8 +462,6 @@
             ]
           }
         },
-        "formulasTemplate2": {
-        },
         "gdefaults2": {
         },
         "hierarchy2": {
@@ -498,6 +479,9 @@
             "concept": [
               "formula"
             ],
+            "hierarchyAble": [
+              "unknown"
+            ],
             "ifAble": [
               "orAble"
             ],
@@ -508,10 +492,14 @@
               "-"
             ],
             "object": [
+              "unknown",
               "whose"
             ],
             "preposition": [
               "between"
+            ],
+            "unknown": [
+              "property"
             ],
             "verby": [
               "modifies"
@@ -519,21 +507,24 @@
           },
           "concepts": [
             "properties",
-            "whose",
+            "unknown",
+            "hierarchyAble",
             "object",
+            "property",
+            "whose",
             "between",
             "preposition",
             "modifies",
             "verby",
             "orAble",
             "ifAble",
-            "formula",
-            "concept",
             "*",
             "mathematical_operator",
             "+",
             "/",
-            "-"
+            "-",
+            "formula",
+            "concept"
           ],
           "parents": {
             "*": [
@@ -560,6 +551,13 @@
             "orAble": [
               "ifAble"
             ],
+            "property": [
+              "unknown"
+            ],
+            "unknown": [
+              "hierarchyAble",
+              "object"
+            ],
             "whose": [
               "object"
             ]
@@ -584,6 +582,8 @@
               },
               "formula": {
               },
+              "hierarchyAble": {
+              },
               "ifAble": {
               },
               "mathematical_operator": {
@@ -595,6 +595,10 @@
               "orAble": {
               },
               "preposition": {
+              },
+              "property": {
+              },
+              "unknown": {
               },
               "verby": {
               },
@@ -618,6 +622,8 @@
           ],
           "variables": {
           }
+        },
+        "tokenize2": {
         }
       },
       "processed": [
@@ -709,6 +715,67 @@
           "generatedParenthesized": "",
           "paraphrases": "x equals y + 10",
           "paraphrasesParenthesized": "((x) equals ((y) + (10)))",
+          "responses": [
+            ""
+          ]
+        },
+        {
+          "context": {
+            "dead": true,
+            "level": 2,
+            "marker": "is",
+            "number": "many",
+            "one": {
+              "dead": true,
+              "level": 1,
+              "marker": "unknown",
+              "number": "many",
+              "range": {
+                "end": 20,
+                "start": 0
+              },
+              "text": "formulas",
+              "types": [
+                "unknown"
+              ],
+              "unknown": true,
+              "value": "formulas",
+              "word": "formulas"
+            },
+            "range": {
+              "end": 20,
+              "start": 0
+            },
+            "text": "formulas are concepts",
+            "topLevel": true,
+            "touchedBy": [
+              "formulas#call2",
+              "instance0#formulas#call2"
+            ],
+            "two": {
+              "concept": true,
+              "dead": true,
+              "level": 1,
+              "marker": "unknown",
+              "range": {
+                "end": 20,
+                "start": 13
+              },
+              "text": "concepts",
+              "types": [
+                "unknown"
+              ],
+              "unknown": true,
+              "value": "concepts",
+              "word": "concepts"
+            },
+            "word": "are"
+          },
+          "generatedParenthesized": [
+          ],
+          "paraphrases": "formulas are concepts",
+          "paraphrasesParenthesized": [
+          ],
           "responses": [
             ""
           ]
@@ -902,68 +969,6 @@
           "responses": [
             ""
           ]
-        },
-        {
-          "context": {
-            "dead": true,
-            "level": 2,
-            "marker": "is",
-            "number": "many",
-            "one": {
-              "dead": true,
-              "level": 1,
-              "marker": "unknown",
-              "number": "many",
-              "range": {
-                "end": 20,
-                "start": 0
-              },
-              "text": "formulas",
-              "types": [
-                "unknown"
-              ],
-              "unknown": true,
-              "value": "formulas",
-              "word": "formulas"
-            },
-            "range": {
-              "end": 20,
-              "start": 0
-            },
-            "text": "formulas are concepts",
-            "topLevel": true,
-            "touchedBy": [
-              "formulasTemplate#call2",
-              "instance0#formulasTemplate#call2",
-              "instance0#formulas#call2"
-            ],
-            "two": {
-              "concept": true,
-              "dead": true,
-              "level": 1,
-              "marker": "unknown",
-              "range": {
-                "end": 20,
-                "start": 13
-              },
-              "text": "concepts",
-              "types": [
-                "unknown"
-              ],
-              "unknown": true,
-              "value": "concepts",
-              "word": "concepts"
-            },
-            "word": "are"
-          },
-          "generatedParenthesized": [
-          ],
-          "paraphrases": "formulas are concepts",
-          "paraphrasesParenthesized": [
-          ],
-          "responses": [
-            ""
-          ]
         }
       ]
     },
@@ -997,16 +1002,6 @@
         ],
         [
           "number",
-          0
-        ],
-        [
-          "y",
-          0
-        ]
-      ],
-      [
-        [
-          "equals",
           0
         ],
         [
@@ -1133,7 +1128,6 @@
         "countable": "countable2",
         "dialogues": "dialogues2",
         "formulas": "formulas1",
-        "formulasTemplate": "formulasTemplate2",
         "gdefaults": "gdefaults2",
         "hierarchy": "hierarchy2",
         "math": "math2",
@@ -1143,7 +1137,8 @@
         "properties": "properties2",
         "punctuation": "punctuation2",
         "sdefaults": "sdefaults2",
-        "stm": "stm2"
+        "stm": "stm2",
+        "tokenize": "tokenize2"
       },
       "namespaced": {
         "comparable2": {
@@ -1157,6 +1152,7 @@
         "countable2": {
         },
         "dialogues2": {
+          "idSuffix": "",
           "mentioned": [
           ],
           "variables": {
@@ -1251,8 +1247,6 @@
             ]
           }
         },
-        "formulasTemplate2": {
-        },
         "gdefaults2": {
         },
         "hierarchy2": {
@@ -1270,6 +1264,9 @@
             "concept": [
               "formula"
             ],
+            "hierarchyAble": [
+              "unknown"
+            ],
             "ifAble": [
               "orAble"
             ],
@@ -1280,10 +1277,14 @@
               "-"
             ],
             "object": [
+              "unknown",
               "whose"
             ],
             "preposition": [
               "between"
+            ],
+            "unknown": [
+              "property"
             ],
             "verby": [
               "modifies"
@@ -1291,21 +1292,24 @@
           },
           "concepts": [
             "properties",
-            "whose",
+            "unknown",
+            "hierarchyAble",
             "object",
+            "property",
+            "whose",
             "between",
             "preposition",
             "modifies",
             "verby",
             "orAble",
             "ifAble",
-            "formula",
-            "concept",
             "*",
             "mathematical_operator",
             "+",
             "/",
-            "-"
+            "-",
+            "formula",
+            "concept"
           ],
           "parents": {
             "*": [
@@ -1332,6 +1336,13 @@
             "orAble": [
               "ifAble"
             ],
+            "property": [
+              "unknown"
+            ],
+            "unknown": [
+              "hierarchyAble",
+              "object"
+            ],
             "whose": [
               "object"
             ]
@@ -1356,6 +1367,8 @@
               },
               "formula": {
               },
+              "hierarchyAble": {
+              },
               "ifAble": {
               },
               "mathematical_operator": {
@@ -1367,6 +1380,10 @@
               "orAble": {
               },
               "preposition": {
+              },
+              "property": {
+              },
+              "unknown": {
               },
               "verby": {
               },
@@ -1390,6 +1407,8 @@
           ],
           "variables": {
           }
+        },
+        "tokenize2": {
         }
       },
       "processed": [
@@ -1446,6 +1465,67 @@
           "generatedParenthesized": "",
           "paraphrases": "y equals 4",
           "paraphrasesParenthesized": "((y) equals (4))",
+          "responses": [
+            ""
+          ]
+        },
+        {
+          "context": {
+            "dead": true,
+            "level": 2,
+            "marker": "is",
+            "number": "many",
+            "one": {
+              "dead": true,
+              "level": 1,
+              "marker": "unknown",
+              "number": "many",
+              "range": {
+                "end": 20,
+                "start": 0
+              },
+              "text": "formulas",
+              "types": [
+                "unknown"
+              ],
+              "unknown": true,
+              "value": "formulas",
+              "word": "formulas"
+            },
+            "range": {
+              "end": 20,
+              "start": 0
+            },
+            "text": "formulas are concepts",
+            "topLevel": true,
+            "touchedBy": [
+              "formulas#call2",
+              "instance0#formulas#call2"
+            ],
+            "two": {
+              "concept": true,
+              "dead": true,
+              "level": 1,
+              "marker": "unknown",
+              "range": {
+                "end": 20,
+                "start": 13
+              },
+              "text": "concepts",
+              "types": [
+                "unknown"
+              ],
+              "unknown": true,
+              "value": "concepts",
+              "word": "concepts"
+            },
+            "word": "are"
+          },
+          "generatedParenthesized": [
+          ],
+          "paraphrases": "formulas are concepts",
+          "paraphrasesParenthesized": [
+          ],
           "responses": [
             ""
           ]
@@ -1634,68 +1714,6 @@
           "generatedParenthesized": [
           ],
           "paraphrases": "mathematical modifies operator",
-          "paraphrasesParenthesized": [
-          ],
-          "responses": [
-            ""
-          ]
-        },
-        {
-          "context": {
-            "dead": true,
-            "level": 2,
-            "marker": "is",
-            "number": "many",
-            "one": {
-              "dead": true,
-              "level": 1,
-              "marker": "unknown",
-              "number": "many",
-              "range": {
-                "end": 20,
-                "start": 0
-              },
-              "text": "formulas",
-              "types": [
-                "unknown"
-              ],
-              "unknown": true,
-              "value": "formulas",
-              "word": "formulas"
-            },
-            "range": {
-              "end": 20,
-              "start": 0
-            },
-            "text": "formulas are concepts",
-            "topLevel": true,
-            "touchedBy": [
-              "formulasTemplate#call2",
-              "instance0#formulasTemplate#call2",
-              "instance0#formulas#call2"
-            ],
-            "two": {
-              "concept": true,
-              "dead": true,
-              "level": 1,
-              "marker": "unknown",
-              "range": {
-                "end": 20,
-                "start": 13
-              },
-              "text": "concepts",
-              "types": [
-                "unknown"
-              ],
-              "unknown": true,
-              "value": "concepts",
-              "word": "concepts"
-            },
-            "word": "are"
-          },
-          "generatedParenthesized": [
-          ],
-          "paraphrases": "formulas are concepts",
           "paraphrasesParenthesized": [
           ],
           "responses": [
@@ -2000,7 +2018,6 @@
         "countable": "countable2",
         "dialogues": "dialogues2",
         "formulas": "formulas1",
-        "formulasTemplate": "formulasTemplate2",
         "gdefaults": "gdefaults2",
         "hierarchy": "hierarchy2",
         "math": "math2",
@@ -2010,7 +2027,8 @@
         "properties": "properties2",
         "punctuation": "punctuation2",
         "sdefaults": "sdefaults2",
-        "stm": "stm2"
+        "stm": "stm2",
+        "tokenize": "tokenize2"
       },
       "namespaced": {
         "comparable2": {
@@ -2024,6 +2042,7 @@
         "countable2": {
         },
         "dialogues2": {
+          "idSuffix": "",
           "mentioned": [
           ],
           "variables": {
@@ -2117,8 +2136,6 @@
             ]
           }
         },
-        "formulasTemplate2": {
-        },
         "gdefaults2": {
         },
         "hierarchy2": {
@@ -2136,6 +2153,9 @@
             "concept": [
               "formula"
             ],
+            "hierarchyAble": [
+              "unknown"
+            ],
             "ifAble": [
               "orAble"
             ],
@@ -2146,10 +2166,14 @@
               "-"
             ],
             "object": [
+              "unknown",
               "whose"
             ],
             "preposition": [
               "between"
+            ],
+            "unknown": [
+              "property"
             ],
             "verby": [
               "modifies"
@@ -2157,21 +2181,24 @@
           },
           "concepts": [
             "properties",
-            "whose",
+            "unknown",
+            "hierarchyAble",
             "object",
+            "property",
+            "whose",
             "between",
             "preposition",
             "modifies",
             "verby",
             "orAble",
             "ifAble",
-            "formula",
-            "concept",
             "*",
             "mathematical_operator",
             "+",
             "/",
-            "-"
+            "-",
+            "formula",
+            "concept"
           ],
           "parents": {
             "*": [
@@ -2198,6 +2225,13 @@
             "orAble": [
               "ifAble"
             ],
+            "property": [
+              "unknown"
+            ],
+            "unknown": [
+              "hierarchyAble",
+              "object"
+            ],
             "whose": [
               "object"
             ]
@@ -2222,6 +2256,8 @@
               },
               "formula": {
               },
+              "hierarchyAble": {
+              },
               "ifAble": {
               },
               "mathematical_operator": {
@@ -2233,6 +2269,10 @@
               "orAble": {
               },
               "preposition": {
+              },
+              "property": {
+              },
+              "unknown": {
               },
               "verby": {
               },
@@ -2256,6 +2296,8 @@
           ],
           "variables": {
           }
+        },
+        "tokenize2": {
         }
       },
       "processed": [
@@ -2399,6 +2441,67 @@
           "responses": [
             "",
             "4"
+          ]
+        },
+        {
+          "context": {
+            "dead": true,
+            "level": 2,
+            "marker": "is",
+            "number": "many",
+            "one": {
+              "dead": true,
+              "level": 1,
+              "marker": "unknown",
+              "number": "many",
+              "range": {
+                "end": 20,
+                "start": 0
+              },
+              "text": "formulas",
+              "types": [
+                "unknown"
+              ],
+              "unknown": true,
+              "value": "formulas",
+              "word": "formulas"
+            },
+            "range": {
+              "end": 20,
+              "start": 0
+            },
+            "text": "formulas are concepts",
+            "topLevel": true,
+            "touchedBy": [
+              "formulas#call2",
+              "instance0#formulas#call2"
+            ],
+            "two": {
+              "concept": true,
+              "dead": true,
+              "level": 1,
+              "marker": "unknown",
+              "range": {
+                "end": 20,
+                "start": 13
+              },
+              "text": "concepts",
+              "types": [
+                "unknown"
+              ],
+              "unknown": true,
+              "value": "concepts",
+              "word": "concepts"
+            },
+            "word": "are"
+          },
+          "generatedParenthesized": [
+          ],
+          "paraphrases": "formulas are concepts",
+          "paraphrasesParenthesized": [
+          ],
+          "responses": [
+            ""
           ]
         },
         {
@@ -2590,68 +2693,6 @@
           "responses": [
             ""
           ]
-        },
-        {
-          "context": {
-            "dead": true,
-            "level": 2,
-            "marker": "is",
-            "number": "many",
-            "one": {
-              "dead": true,
-              "level": 1,
-              "marker": "unknown",
-              "number": "many",
-              "range": {
-                "end": 20,
-                "start": 0
-              },
-              "text": "formulas",
-              "types": [
-                "unknown"
-              ],
-              "unknown": true,
-              "value": "formulas",
-              "word": "formulas"
-            },
-            "range": {
-              "end": 20,
-              "start": 0
-            },
-            "text": "formulas are concepts",
-            "topLevel": true,
-            "touchedBy": [
-              "formulasTemplate#call2",
-              "instance0#formulasTemplate#call2",
-              "instance0#formulas#call2"
-            ],
-            "two": {
-              "concept": true,
-              "dead": true,
-              "level": 1,
-              "marker": "unknown",
-              "range": {
-                "end": 20,
-                "start": 13
-              },
-              "text": "concepts",
-              "types": [
-                "unknown"
-              ],
-              "unknown": true,
-              "value": "concepts",
-              "word": "concepts"
-            },
-            "word": "are"
-          },
-          "generatedParenthesized": [
-          ],
-          "paraphrases": "formulas are concepts",
-          "paraphrasesParenthesized": [
-          ],
-          "responses": [
-            ""
-          ]
         }
       ]
     },
@@ -2671,20 +2712,6 @@
   },
   {
     "associations": [
-      [
-        [
-          "+",
-          0
-        ],
-        [
-          "x",
-          0
-        ],
-        [
-          "y",
-          0
-        ]
-      ],
       [
         [
           "calculate",
@@ -2780,16 +2807,6 @@
         ],
         [
           "plusOperator",
-          0
-        ]
-      ],
-      [
-        [
-          "equals",
-          0
-        ],
-        [
-          "y",
           0
         ]
       ]
@@ -3367,7 +3384,6 @@
         "countable": "countable2",
         "dialogues": "dialogues2",
         "formulas": "formulas1",
-        "formulasTemplate": "formulasTemplate2",
         "gdefaults": "gdefaults2",
         "hierarchy": "hierarchy2",
         "math": "math2",
@@ -3377,7 +3393,8 @@
         "properties": "properties2",
         "punctuation": "punctuation2",
         "sdefaults": "sdefaults2",
-        "stm": "stm2"
+        "stm": "stm2",
+        "tokenize": "tokenize2"
       },
       "namespaced": {
         "comparable2": {
@@ -3391,6 +3408,7 @@
         "countable2": {
         },
         "dialogues2": {
+          "idSuffix": "",
           "mentioned": [
           ],
           "variables": {
@@ -3639,8 +3657,6 @@
             ]
           }
         },
-        "formulasTemplate2": {
-        },
         "gdefaults2": {
         },
         "hierarchy2": {
@@ -3658,6 +3674,9 @@
             "concept": [
               "formula"
             ],
+            "hierarchyAble": [
+              "unknown"
+            ],
             "ifAble": [
               "orAble"
             ],
@@ -3668,10 +3687,14 @@
               "-"
             ],
             "object": [
+              "unknown",
               "whose"
             ],
             "preposition": [
               "between"
+            ],
+            "unknown": [
+              "property"
             ],
             "verby": [
               "modifies"
@@ -3679,21 +3702,24 @@
           },
           "concepts": [
             "properties",
-            "whose",
+            "unknown",
+            "hierarchyAble",
             "object",
+            "property",
+            "whose",
             "between",
             "preposition",
             "modifies",
             "verby",
             "orAble",
             "ifAble",
-            "formula",
-            "concept",
             "*",
             "mathematical_operator",
             "+",
             "/",
-            "-"
+            "-",
+            "formula",
+            "concept"
           ],
           "parents": {
             "*": [
@@ -3720,6 +3746,13 @@
             "orAble": [
               "ifAble"
             ],
+            "property": [
+              "unknown"
+            ],
+            "unknown": [
+              "hierarchyAble",
+              "object"
+            ],
             "whose": [
               "object"
             ]
@@ -3744,6 +3777,8 @@
               },
               "formula": {
               },
+              "hierarchyAble": {
+              },
               "ifAble": {
               },
               "mathematical_operator": {
@@ -3755,6 +3790,10 @@
               "orAble": {
               },
               "preposition": {
+              },
+              "property": {
+              },
+              "unknown": {
               },
               "verby": {
               },
@@ -3778,6 +3817,8 @@
           ],
           "variables": {
           }
+        },
+        "tokenize2": {
         }
       },
       "processed": [
@@ -4061,6 +4102,67 @@
             "marker": "is",
             "number": "many",
             "one": {
+              "dead": true,
+              "level": 1,
+              "marker": "unknown",
+              "number": "many",
+              "range": {
+                "end": 20,
+                "start": 0
+              },
+              "text": "formulas",
+              "types": [
+                "unknown"
+              ],
+              "unknown": true,
+              "value": "formulas",
+              "word": "formulas"
+            },
+            "range": {
+              "end": 20,
+              "start": 0
+            },
+            "text": "formulas are concepts",
+            "topLevel": true,
+            "touchedBy": [
+              "formulas#call2",
+              "instance0#formulas#call2"
+            ],
+            "two": {
+              "concept": true,
+              "dead": true,
+              "level": 1,
+              "marker": "unknown",
+              "range": {
+                "end": 20,
+                "start": 13
+              },
+              "text": "concepts",
+              "types": [
+                "unknown"
+              ],
+              "unknown": true,
+              "value": "concepts",
+              "word": "concepts"
+            },
+            "word": "are"
+          },
+          "generatedParenthesized": [
+          ],
+          "paraphrases": "formulas are concepts",
+          "paraphrasesParenthesized": [
+          ],
+          "responses": [
+            ""
+          ]
+        },
+        {
+          "context": {
+            "dead": true,
+            "level": 2,
+            "marker": "is",
+            "number": "many",
+            "one": {
               "level": 1,
               "listable": true,
               "marker": "list",
@@ -4243,68 +4345,6 @@
           "responses": [
             ""
           ]
-        },
-        {
-          "context": {
-            "dead": true,
-            "level": 2,
-            "marker": "is",
-            "number": "many",
-            "one": {
-              "dead": true,
-              "level": 1,
-              "marker": "unknown",
-              "number": "many",
-              "range": {
-                "end": 20,
-                "start": 0
-              },
-              "text": "formulas",
-              "types": [
-                "unknown"
-              ],
-              "unknown": true,
-              "value": "formulas",
-              "word": "formulas"
-            },
-            "range": {
-              "end": 20,
-              "start": 0
-            },
-            "text": "formulas are concepts",
-            "topLevel": true,
-            "touchedBy": [
-              "formulasTemplate#call2",
-              "instance0#formulasTemplate#call2",
-              "instance0#formulas#call2"
-            ],
-            "two": {
-              "concept": true,
-              "dead": true,
-              "level": 1,
-              "marker": "unknown",
-              "range": {
-                "end": 20,
-                "start": 13
-              },
-              "text": "concepts",
-              "types": [
-                "unknown"
-              ],
-              "unknown": true,
-              "value": "concepts",
-              "word": "concepts"
-            },
-            "word": "are"
-          },
-          "generatedParenthesized": [
-          ],
-          "paraphrases": "formulas are concepts",
-          "paraphrasesParenthesized": [
-          ],
-          "responses": [
-            ""
-          ]
         }
       ]
     },
@@ -4388,20 +4428,6 @@
         ],
         [
           "x",
-          0
-        ]
-      ],
-      [
-        [
-          "solve",
-          0
-        ],
-        [
-          "x",
-          0
-        ],
-        [
-          "y",
           0
         ]
       ]
@@ -4687,7 +4713,6 @@
         "countable": "countable2",
         "dialogues": "dialogues2",
         "formulas": "formulas1",
-        "formulasTemplate": "formulasTemplate2",
         "gdefaults": "gdefaults2",
         "hierarchy": "hierarchy2",
         "math": "math2",
@@ -4697,7 +4722,8 @@
         "properties": "properties2",
         "punctuation": "punctuation2",
         "sdefaults": "sdefaults2",
-        "stm": "stm2"
+        "stm": "stm2",
+        "tokenize": "tokenize2"
       },
       "namespaced": {
         "comparable2": {
@@ -4711,6 +4737,7 @@
         "countable2": {
         },
         "dialogues2": {
+          "idSuffix": "",
           "mentioned": [
           ],
           "variables": {
@@ -4719,8 +4746,6 @@
         "formulas1": {
           "formulas": {
           }
-        },
-        "formulasTemplate2": {
         },
         "gdefaults2": {
         },
@@ -4739,6 +4764,9 @@
             "concept": [
               "formula"
             ],
+            "hierarchyAble": [
+              "unknown"
+            ],
             "ifAble": [
               "orAble"
             ],
@@ -4749,10 +4777,14 @@
               "-"
             ],
             "object": [
+              "unknown",
               "whose"
             ],
             "preposition": [
               "between"
+            ],
+            "unknown": [
+              "property"
             ],
             "verby": [
               "modifies"
@@ -4760,21 +4792,24 @@
           },
           "concepts": [
             "properties",
-            "whose",
+            "unknown",
+            "hierarchyAble",
             "object",
+            "property",
+            "whose",
             "between",
             "preposition",
             "modifies",
             "verby",
             "orAble",
             "ifAble",
-            "formula",
-            "concept",
             "*",
             "mathematical_operator",
             "+",
             "/",
-            "-"
+            "-",
+            "formula",
+            "concept"
           ],
           "parents": {
             "*": [
@@ -4801,6 +4836,13 @@
             "orAble": [
               "ifAble"
             ],
+            "property": [
+              "unknown"
+            ],
+            "unknown": [
+              "hierarchyAble",
+              "object"
+            ],
             "whose": [
               "object"
             ]
@@ -4825,6 +4867,8 @@
               },
               "formula": {
               },
+              "hierarchyAble": {
+              },
               "ifAble": {
               },
               "mathematical_operator": {
@@ -4836,6 +4880,10 @@
               "orAble": {
               },
               "preposition": {
+              },
+              "property": {
+              },
+              "unknown": {
               },
               "verby": {
               },
@@ -4859,6 +4907,8 @@
           ],
           "variables": {
           }
+        },
+        "tokenize2": {
         }
       },
       "processed": [
@@ -4993,6 +5043,67 @@
           "paraphrasesParenthesized": "(solve ((x) = (y)) for (x))",
           "responses": [
             "x = y"
+          ]
+        },
+        {
+          "context": {
+            "dead": true,
+            "level": 2,
+            "marker": "is",
+            "number": "many",
+            "one": {
+              "dead": true,
+              "level": 1,
+              "marker": "unknown",
+              "number": "many",
+              "range": {
+                "end": 20,
+                "start": 0
+              },
+              "text": "formulas",
+              "types": [
+                "unknown"
+              ],
+              "unknown": true,
+              "value": "formulas",
+              "word": "formulas"
+            },
+            "range": {
+              "end": 20,
+              "start": 0
+            },
+            "text": "formulas are concepts",
+            "topLevel": true,
+            "touchedBy": [
+              "formulas#call2",
+              "instance0#formulas#call2"
+            ],
+            "two": {
+              "concept": true,
+              "dead": true,
+              "level": 1,
+              "marker": "unknown",
+              "range": {
+                "end": 20,
+                "start": 13
+              },
+              "text": "concepts",
+              "types": [
+                "unknown"
+              ],
+              "unknown": true,
+              "value": "concepts",
+              "word": "concepts"
+            },
+            "word": "are"
+          },
+          "generatedParenthesized": [
+          ],
+          "paraphrases": "formulas are concepts",
+          "paraphrasesParenthesized": [
+          ],
+          "responses": [
+            ""
           ]
         },
         {
@@ -5184,68 +5295,6 @@
           "responses": [
             ""
           ]
-        },
-        {
-          "context": {
-            "dead": true,
-            "level": 2,
-            "marker": "is",
-            "number": "many",
-            "one": {
-              "dead": true,
-              "level": 1,
-              "marker": "unknown",
-              "number": "many",
-              "range": {
-                "end": 20,
-                "start": 0
-              },
-              "text": "formulas",
-              "types": [
-                "unknown"
-              ],
-              "unknown": true,
-              "value": "formulas",
-              "word": "formulas"
-            },
-            "range": {
-              "end": 20,
-              "start": 0
-            },
-            "text": "formulas are concepts",
-            "topLevel": true,
-            "touchedBy": [
-              "formulasTemplate#call2",
-              "instance0#formulasTemplate#call2",
-              "instance0#formulas#call2"
-            ],
-            "two": {
-              "concept": true,
-              "dead": true,
-              "level": 1,
-              "marker": "unknown",
-              "range": {
-                "end": 20,
-                "start": 13
-              },
-              "text": "concepts",
-              "types": [
-                "unknown"
-              ],
-              "unknown": true,
-              "value": "concepts",
-              "word": "concepts"
-            },
-            "word": "are"
-          },
-          "generatedParenthesized": [
-          ],
-          "paraphrases": "formulas are concepts",
-          "paraphrasesParenthesized": [
-          ],
-          "responses": [
-            ""
-          ]
         }
       ]
     },
@@ -5319,20 +5368,6 @@
         ],
         [
           "solve",
-          0
-        ],
-        [
-          "y",
-          0
-        ]
-      ],
-      [
-        [
-          "solve",
-          0
-        ],
-        [
-          "x",
           0
         ],
         [
@@ -5622,7 +5657,6 @@
         "countable": "countable2",
         "dialogues": "dialogues2",
         "formulas": "formulas1",
-        "formulasTemplate": "formulasTemplate2",
         "gdefaults": "gdefaults2",
         "hierarchy": "hierarchy2",
         "math": "math2",
@@ -5632,7 +5666,8 @@
         "properties": "properties2",
         "punctuation": "punctuation2",
         "sdefaults": "sdefaults2",
-        "stm": "stm2"
+        "stm": "stm2",
+        "tokenize": "tokenize2"
       },
       "namespaced": {
         "comparable2": {
@@ -5646,6 +5681,7 @@
         "countable2": {
         },
         "dialogues2": {
+          "idSuffix": "",
           "mentioned": [
           ],
           "variables": {
@@ -5654,8 +5690,6 @@
         "formulas1": {
           "formulas": {
           }
-        },
-        "formulasTemplate2": {
         },
         "gdefaults2": {
         },
@@ -5674,6 +5708,9 @@
             "concept": [
               "formula"
             ],
+            "hierarchyAble": [
+              "unknown"
+            ],
             "ifAble": [
               "orAble"
             ],
@@ -5684,10 +5721,14 @@
               "-"
             ],
             "object": [
+              "unknown",
               "whose"
             ],
             "preposition": [
               "between"
+            ],
+            "unknown": [
+              "property"
             ],
             "verby": [
               "modifies"
@@ -5695,21 +5736,24 @@
           },
           "concepts": [
             "properties",
-            "whose",
+            "unknown",
+            "hierarchyAble",
             "object",
+            "property",
+            "whose",
             "between",
             "preposition",
             "modifies",
             "verby",
             "orAble",
             "ifAble",
-            "formula",
-            "concept",
             "*",
             "mathematical_operator",
             "+",
             "/",
-            "-"
+            "-",
+            "formula",
+            "concept"
           ],
           "parents": {
             "*": [
@@ -5736,6 +5780,13 @@
             "orAble": [
               "ifAble"
             ],
+            "property": [
+              "unknown"
+            ],
+            "unknown": [
+              "hierarchyAble",
+              "object"
+            ],
             "whose": [
               "object"
             ]
@@ -5760,6 +5811,8 @@
               },
               "formula": {
               },
+              "hierarchyAble": {
+              },
               "ifAble": {
               },
               "mathematical_operator": {
@@ -5771,6 +5824,10 @@
               "orAble": {
               },
               "preposition": {
+              },
+              "property": {
+              },
+              "unknown": {
               },
               "verby": {
               },
@@ -5794,6 +5851,8 @@
           ],
           "variables": {
           }
+        },
+        "tokenize2": {
         }
       },
       "processed": [
@@ -5928,6 +5987,67 @@
           "paraphrasesParenthesized": "(solve ((x) = (y)) for (y))",
           "responses": [
             "y = x"
+          ]
+        },
+        {
+          "context": {
+            "dead": true,
+            "level": 2,
+            "marker": "is",
+            "number": "many",
+            "one": {
+              "dead": true,
+              "level": 1,
+              "marker": "unknown",
+              "number": "many",
+              "range": {
+                "end": 20,
+                "start": 0
+              },
+              "text": "formulas",
+              "types": [
+                "unknown"
+              ],
+              "unknown": true,
+              "value": "formulas",
+              "word": "formulas"
+            },
+            "range": {
+              "end": 20,
+              "start": 0
+            },
+            "text": "formulas are concepts",
+            "topLevel": true,
+            "touchedBy": [
+              "formulas#call2",
+              "instance0#formulas#call2"
+            ],
+            "two": {
+              "concept": true,
+              "dead": true,
+              "level": 1,
+              "marker": "unknown",
+              "range": {
+                "end": 20,
+                "start": 13
+              },
+              "text": "concepts",
+              "types": [
+                "unknown"
+              ],
+              "unknown": true,
+              "value": "concepts",
+              "word": "concepts"
+            },
+            "word": "are"
+          },
+          "generatedParenthesized": [
+          ],
+          "paraphrases": "formulas are concepts",
+          "paraphrasesParenthesized": [
+          ],
+          "responses": [
+            ""
           ]
         },
         {
@@ -6119,68 +6239,6 @@
           "responses": [
             ""
           ]
-        },
-        {
-          "context": {
-            "dead": true,
-            "level": 2,
-            "marker": "is",
-            "number": "many",
-            "one": {
-              "dead": true,
-              "level": 1,
-              "marker": "unknown",
-              "number": "many",
-              "range": {
-                "end": 20,
-                "start": 0
-              },
-              "text": "formulas",
-              "types": [
-                "unknown"
-              ],
-              "unknown": true,
-              "value": "formulas",
-              "word": "formulas"
-            },
-            "range": {
-              "end": 20,
-              "start": 0
-            },
-            "text": "formulas are concepts",
-            "topLevel": true,
-            "touchedBy": [
-              "formulasTemplate#call2",
-              "instance0#formulasTemplate#call2",
-              "instance0#formulas#call2"
-            ],
-            "two": {
-              "concept": true,
-              "dead": true,
-              "level": 1,
-              "marker": "unknown",
-              "range": {
-                "end": 20,
-                "start": 13
-              },
-              "text": "concepts",
-              "types": [
-                "unknown"
-              ],
-              "unknown": true,
-              "value": "concepts",
-              "word": "concepts"
-            },
-            "word": "are"
-          },
-          "generatedParenthesized": [
-          ],
-          "paraphrases": "formulas are concepts",
-          "paraphrasesParenthesized": [
-          ],
-          "responses": [
-            ""
-          ]
         }
       ]
     },
@@ -6197,24 +6255,6 @@
   },
   {
     "associations": [
-      [
-        [
-          "+",
-          0
-        ],
-        [
-          "solve",
-          0
-        ],
-        [
-          "x",
-          0
-        ],
-        [
-          "y",
-          0
-        ]
-      ],
       [
         [
           "equals",
@@ -6765,7 +6805,6 @@
         "countable": "countable2",
         "dialogues": "dialogues2",
         "formulas": "formulas1",
-        "formulasTemplate": "formulasTemplate2",
         "gdefaults": "gdefaults2",
         "hierarchy": "hierarchy2",
         "math": "math2",
@@ -6775,7 +6814,8 @@
         "properties": "properties2",
         "punctuation": "punctuation2",
         "sdefaults": "sdefaults2",
-        "stm": "stm2"
+        "stm": "stm2",
+        "tokenize": "tokenize2"
       },
       "namespaced": {
         "comparable2": {
@@ -6789,6 +6829,7 @@
         "countable2": {
         },
         "dialogues2": {
+          "idSuffix": "",
           "mentioned": [
           ],
           "variables": {
@@ -6797,8 +6838,6 @@
         "formulas1": {
           "formulas": {
           }
-        },
-        "formulasTemplate2": {
         },
         "gdefaults2": {
         },
@@ -6817,6 +6856,9 @@
             "concept": [
               "formula"
             ],
+            "hierarchyAble": [
+              "unknown"
+            ],
             "ifAble": [
               "orAble"
             ],
@@ -6827,10 +6869,14 @@
               "-"
             ],
             "object": [
+              "unknown",
               "whose"
             ],
             "preposition": [
               "between"
+            ],
+            "unknown": [
+              "property"
             ],
             "verby": [
               "modifies"
@@ -6838,21 +6884,24 @@
           },
           "concepts": [
             "properties",
-            "whose",
+            "unknown",
+            "hierarchyAble",
             "object",
+            "property",
+            "whose",
             "between",
             "preposition",
             "modifies",
             "verby",
             "orAble",
             "ifAble",
-            "formula",
-            "concept",
             "*",
             "mathematical_operator",
             "+",
             "/",
-            "-"
+            "-",
+            "formula",
+            "concept"
           ],
           "parents": {
             "*": [
@@ -6879,6 +6928,13 @@
             "orAble": [
               "ifAble"
             ],
+            "property": [
+              "unknown"
+            ],
+            "unknown": [
+              "hierarchyAble",
+              "object"
+            ],
             "whose": [
               "object"
             ]
@@ -6903,6 +6959,8 @@
               },
               "formula": {
               },
+              "hierarchyAble": {
+              },
               "ifAble": {
               },
               "mathematical_operator": {
@@ -6914,6 +6972,10 @@
               "orAble": {
               },
               "preposition": {
+              },
+              "property": {
+              },
+              "unknown": {
               },
               "verby": {
               },
@@ -6937,6 +6999,8 @@
           ],
           "variables": {
           }
+        },
+        "tokenize2": {
         }
       },
       "processed": [
@@ -7150,6 +7214,67 @@
             "marker": "is",
             "number": "many",
             "one": {
+              "dead": true,
+              "level": 1,
+              "marker": "unknown",
+              "number": "many",
+              "range": {
+                "end": 20,
+                "start": 0
+              },
+              "text": "formulas",
+              "types": [
+                "unknown"
+              ],
+              "unknown": true,
+              "value": "formulas",
+              "word": "formulas"
+            },
+            "range": {
+              "end": 20,
+              "start": 0
+            },
+            "text": "formulas are concepts",
+            "topLevel": true,
+            "touchedBy": [
+              "formulas#call2",
+              "instance0#formulas#call2"
+            ],
+            "two": {
+              "concept": true,
+              "dead": true,
+              "level": 1,
+              "marker": "unknown",
+              "range": {
+                "end": 20,
+                "start": 13
+              },
+              "text": "concepts",
+              "types": [
+                "unknown"
+              ],
+              "unknown": true,
+              "value": "concepts",
+              "word": "concepts"
+            },
+            "word": "are"
+          },
+          "generatedParenthesized": [
+          ],
+          "paraphrases": "formulas are concepts",
+          "paraphrasesParenthesized": [
+          ],
+          "responses": [
+            ""
+          ]
+        },
+        {
+          "context": {
+            "dead": true,
+            "level": 2,
+            "marker": "is",
+            "number": "many",
+            "one": {
               "level": 1,
               "listable": true,
               "marker": "list",
@@ -7332,68 +7457,6 @@
           "responses": [
             ""
           ]
-        },
-        {
-          "context": {
-            "dead": true,
-            "level": 2,
-            "marker": "is",
-            "number": "many",
-            "one": {
-              "dead": true,
-              "level": 1,
-              "marker": "unknown",
-              "number": "many",
-              "range": {
-                "end": 20,
-                "start": 0
-              },
-              "text": "formulas",
-              "types": [
-                "unknown"
-              ],
-              "unknown": true,
-              "value": "formulas",
-              "word": "formulas"
-            },
-            "range": {
-              "end": 20,
-              "start": 0
-            },
-            "text": "formulas are concepts",
-            "topLevel": true,
-            "touchedBy": [
-              "formulasTemplate#call2",
-              "instance0#formulasTemplate#call2",
-              "instance0#formulas#call2"
-            ],
-            "two": {
-              "concept": true,
-              "dead": true,
-              "level": 1,
-              "marker": "unknown",
-              "range": {
-                "end": 20,
-                "start": 13
-              },
-              "text": "concepts",
-              "types": [
-                "unknown"
-              ],
-              "unknown": true,
-              "value": "concepts",
-              "word": "concepts"
-            },
-            "word": "are"
-          },
-          "generatedParenthesized": [
-          ],
-          "paraphrases": "formulas are concepts",
-          "paraphrasesParenthesized": [
-          ],
-          "responses": [
-            ""
-          ]
         }
       ]
     },
@@ -7410,24 +7473,6 @@
   },
   {
     "associations": [
-      [
-        [
-          "*",
-          0
-        ],
-        [
-          "+",
-          0
-        ],
-        [
-          "/",
-          0
-        ],
-        [
-          "unknown",
-          0
-        ]
-      ],
       [
         [
           "divideByOperator",
@@ -7658,7 +7703,7 @@
             "end": 30,
             "start": 13
           },
-          "text": "celcius * ( 9 / 5 ) + 32",
+          "text": "celcius*(9/5) + 32",
           "types": [
             "number",
             "plusExpression"
@@ -7676,7 +7721,7 @@
               "end": 25,
               "start": 13
             },
-            "text": "celcius * ( 9 / 5 )",
+            "text": "celcius*(9/5)",
             "types": [
               "number",
               "timesExpression"
@@ -7712,7 +7757,7 @@
                 "end": 25,
                 "start": 21
               },
-              "text": "( 9 / 5 )",
+              "text": "(9/5)",
               "types": [
                 "divideByExpression",
                 "number"
@@ -8012,7 +8057,6 @@
         "countable": "countable2",
         "dialogues": "dialogues2",
         "formulas": "formulas1",
-        "formulasTemplate": "formulasTemplate2",
         "gdefaults": "gdefaults2",
         "hierarchy": "hierarchy2",
         "math": "math2",
@@ -8022,7 +8066,8 @@
         "properties": "properties2",
         "punctuation": "punctuation2",
         "sdefaults": "sdefaults2",
-        "stm": "stm2"
+        "stm": "stm2",
+        "tokenize": "tokenize2"
       },
       "namespaced": {
         "comparable2": {
@@ -8036,6 +8081,7 @@
         "countable2": {
         },
         "dialogues2": {
+          "idSuffix": "",
           "mentioned": [
           ],
           "variables": {
@@ -8081,7 +8127,7 @@
                       "end": 30,
                       "start": 13
                     },
-                    "text": "celcius * ( 9 / 5 ) + 32",
+                    "text": "celcius*(9/5) + 32",
                     "types": [
                       "number",
                       "plusExpression"
@@ -8099,7 +8145,7 @@
                         "end": 25,
                         "start": 13
                       },
-                      "text": "celcius * ( 9 / 5 )",
+                      "text": "celcius*(9/5)",
                       "types": [
                         "number",
                         "timesExpression"
@@ -8135,7 +8181,7 @@
                           "end": 25,
                           "start": 21
                         },
-                        "text": "( 9 / 5 )",
+                        "text": "(9/5)",
                         "types": [
                           "divideByExpression",
                           "number"
@@ -8212,7 +8258,7 @@
                     "end": 30,
                     "start": 13
                   },
-                  "text": "celcius * ( 9 / 5 ) + 32",
+                  "text": "celcius*(9/5) + 32",
                   "types": [
                     "number",
                     "plusExpression"
@@ -8230,7 +8276,7 @@
                       "end": 25,
                       "start": 13
                     },
-                    "text": "celcius * ( 9 / 5 )",
+                    "text": "celcius*(9/5)",
                     "types": [
                       "number",
                       "timesExpression"
@@ -8266,7 +8312,7 @@
                         "end": 25,
                         "start": 21
                       },
-                      "text": "( 9 / 5 )",
+                      "text": "(9/5)",
                       "types": [
                         "divideByExpression",
                         "number"
@@ -8345,8 +8391,6 @@
             ]
           }
         },
-        "formulasTemplate2": {
-        },
         "gdefaults2": {
         },
         "hierarchy2": {
@@ -8364,6 +8408,9 @@
             "concept": [
               "formula"
             ],
+            "hierarchyAble": [
+              "unknown"
+            ],
             "ifAble": [
               "orAble"
             ],
@@ -8374,10 +8421,14 @@
               "-"
             ],
             "object": [
+              "unknown",
               "whose"
             ],
             "preposition": [
               "between"
+            ],
+            "unknown": [
+              "property"
             ],
             "verby": [
               "modifies"
@@ -8385,21 +8436,24 @@
           },
           "concepts": [
             "properties",
-            "whose",
+            "unknown",
+            "hierarchyAble",
             "object",
+            "property",
+            "whose",
             "between",
             "preposition",
             "modifies",
             "verby",
             "orAble",
             "ifAble",
-            "formula",
-            "concept",
             "*",
             "mathematical_operator",
             "+",
             "/",
-            "-"
+            "-",
+            "formula",
+            "concept"
           ],
           "parents": {
             "*": [
@@ -8426,6 +8480,13 @@
             "orAble": [
               "ifAble"
             ],
+            "property": [
+              "unknown"
+            ],
+            "unknown": [
+              "hierarchyAble",
+              "object"
+            ],
             "whose": [
               "object"
             ]
@@ -8450,6 +8511,8 @@
               },
               "formula": {
               },
+              "hierarchyAble": {
+              },
               "ifAble": {
               },
               "mathematical_operator": {
@@ -8461,6 +8524,10 @@
               "orAble": {
               },
               "preposition": {
+              },
+              "property": {
+              },
+              "unknown": {
               },
               "verby": {
               },
@@ -8484,6 +8551,8 @@
           ],
           "variables": {
           }
+        },
+        "tokenize2": {
         }
       },
       "processed": [
@@ -8524,7 +8593,7 @@
                 "end": 30,
                 "start": 13
               },
-              "text": "celcius * ( 9 / 5 ) + 32",
+              "text": "celcius*(9/5) + 32",
               "types": [
                 "number",
                 "plusExpression"
@@ -8542,7 +8611,7 @@
                   "end": 25,
                   "start": 13
                 },
-                "text": "celcius * ( 9 / 5 )",
+                "text": "celcius*(9/5)",
                 "types": [
                   "number",
                   "timesExpression"
@@ -8578,7 +8647,7 @@
                     "end": 25,
                     "start": 21
                   },
-                  "text": "( 9 / 5 )",
+                  "text": "(9/5)",
                   "types": [
                     "divideByExpression",
                     "number"
@@ -8647,6 +8716,67 @@
           "generatedParenthesized": "",
           "paraphrases": "fahrenheit = celcius * (9 / 5) + 32",
           "paraphrasesParenthesized": "((fahrenheit) = (((celcius) * ((((9) / (5))))) + (32)))",
+          "responses": [
+            ""
+          ]
+        },
+        {
+          "context": {
+            "dead": true,
+            "level": 2,
+            "marker": "is",
+            "number": "many",
+            "one": {
+              "dead": true,
+              "level": 1,
+              "marker": "unknown",
+              "number": "many",
+              "range": {
+                "end": 20,
+                "start": 0
+              },
+              "text": "formulas",
+              "types": [
+                "unknown"
+              ],
+              "unknown": true,
+              "value": "formulas",
+              "word": "formulas"
+            },
+            "range": {
+              "end": 20,
+              "start": 0
+            },
+            "text": "formulas are concepts",
+            "topLevel": true,
+            "touchedBy": [
+              "formulas#call2",
+              "instance0#formulas#call2"
+            ],
+            "two": {
+              "concept": true,
+              "dead": true,
+              "level": 1,
+              "marker": "unknown",
+              "range": {
+                "end": 20,
+                "start": 13
+              },
+              "text": "concepts",
+              "types": [
+                "unknown"
+              ],
+              "unknown": true,
+              "value": "concepts",
+              "word": "concepts"
+            },
+            "word": "are"
+          },
+          "generatedParenthesized": [
+          ],
+          "paraphrases": "formulas are concepts",
+          "paraphrasesParenthesized": [
+          ],
           "responses": [
             ""
           ]
@@ -8840,68 +8970,6 @@
           "responses": [
             ""
           ]
-        },
-        {
-          "context": {
-            "dead": true,
-            "level": 2,
-            "marker": "is",
-            "number": "many",
-            "one": {
-              "dead": true,
-              "level": 1,
-              "marker": "unknown",
-              "number": "many",
-              "range": {
-                "end": 20,
-                "start": 0
-              },
-              "text": "formulas",
-              "types": [
-                "unknown"
-              ],
-              "unknown": true,
-              "value": "formulas",
-              "word": "formulas"
-            },
-            "range": {
-              "end": 20,
-              "start": 0
-            },
-            "text": "formulas are concepts",
-            "topLevel": true,
-            "touchedBy": [
-              "formulasTemplate#call2",
-              "instance0#formulasTemplate#call2",
-              "instance0#formulas#call2"
-            ],
-            "two": {
-              "concept": true,
-              "dead": true,
-              "level": 1,
-              "marker": "unknown",
-              "range": {
-                "end": 20,
-                "start": 13
-              },
-              "text": "concepts",
-              "types": [
-                "unknown"
-              ],
-              "unknown": true,
-              "value": "concepts",
-              "word": "concepts"
-            },
-            "word": "are"
-          },
-          "generatedParenthesized": [
-          ],
-          "paraphrases": "formulas are concepts",
-          "paraphrasesParenthesized": [
-          ],
-          "responses": [
-            ""
-          ]
         }
       ]
     },
@@ -8976,16 +9044,6 @@
         [
           "unknown",
           1
-        ]
-      ],
-      [
-        [
-          "the",
-          0
-        ],
-        [
-          "unknown",
-          0
         ]
       ]
     ],
@@ -9176,7 +9234,6 @@
         "countable": "countable2",
         "dialogues": "dialogues2",
         "formulas": "formulas1",
-        "formulasTemplate": "formulasTemplate2",
         "gdefaults": "gdefaults2",
         "hierarchy": "hierarchy2",
         "math": "math2",
@@ -9186,7 +9243,8 @@
         "properties": "properties2",
         "punctuation": "punctuation2",
         "sdefaults": "sdefaults2",
-        "stm": "stm2"
+        "stm": "stm2",
+        "tokenize": "tokenize2"
       },
       "namespaced": {
         "comparable2": {
@@ -9200,6 +9258,7 @@
         "countable2": {
         },
         "dialogues2": {
+          "idSuffix": "",
           "mentioned": [
           ],
           "variables": {
@@ -9208,8 +9267,6 @@
         "formulas1": {
           "formulas": {
           }
-        },
-        "formulasTemplate2": {
         },
         "gdefaults2": {
         },
@@ -9228,6 +9285,9 @@
             "concept": [
               "formula"
             ],
+            "hierarchyAble": [
+              "unknown"
+            ],
             "ifAble": [
               "orAble"
             ],
@@ -9238,10 +9298,14 @@
               "-"
             ],
             "object": [
+              "unknown",
               "whose"
             ],
             "preposition": [
               "between"
+            ],
+            "unknown": [
+              "property"
             ],
             "verby": [
               "modifies"
@@ -9249,21 +9313,24 @@
           },
           "concepts": [
             "properties",
-            "whose",
+            "unknown",
+            "hierarchyAble",
             "object",
+            "property",
+            "whose",
             "between",
             "preposition",
             "modifies",
             "verby",
             "orAble",
             "ifAble",
-            "formula",
-            "concept",
             "*",
             "mathematical_operator",
             "+",
             "/",
-            "-"
+            "-",
+            "formula",
+            "concept"
           ],
           "parents": {
             "*": [
@@ -9290,6 +9357,13 @@
             "orAble": [
               "ifAble"
             ],
+            "property": [
+              "unknown"
+            ],
+            "unknown": [
+              "hierarchyAble",
+              "object"
+            ],
             "whose": [
               "object"
             ]
@@ -9314,6 +9388,8 @@
               },
               "formula": {
               },
+              "hierarchyAble": {
+              },
               "ifAble": {
               },
               "mathematical_operator": {
@@ -9325,6 +9401,10 @@
               "orAble": {
               },
               "preposition": {
+              },
+              "property": {
+              },
+              "unknown": {
               },
               "verby": {
               },
@@ -9348,6 +9428,8 @@
           ],
           "variables": {
           }
+        },
+        "tokenize2": {
         }
       },
       "processed": [
@@ -9419,6 +9501,67 @@
           "generatedParenthesized": "",
           "paraphrases": "the formulas for fahrenheit",
           "paraphrasesParenthesized": "((the (formulas)) (for) (fahrenheit))",
+          "responses": [
+            ""
+          ]
+        },
+        {
+          "context": {
+            "dead": true,
+            "level": 2,
+            "marker": "is",
+            "number": "many",
+            "one": {
+              "dead": true,
+              "level": 1,
+              "marker": "unknown",
+              "number": "many",
+              "range": {
+                "end": 20,
+                "start": 0
+              },
+              "text": "formulas",
+              "types": [
+                "unknown"
+              ],
+              "unknown": true,
+              "value": "formulas",
+              "word": "formulas"
+            },
+            "range": {
+              "end": 20,
+              "start": 0
+            },
+            "text": "formulas are concepts",
+            "topLevel": true,
+            "touchedBy": [
+              "formulas#call2",
+              "instance0#formulas#call2"
+            ],
+            "two": {
+              "concept": true,
+              "dead": true,
+              "level": 1,
+              "marker": "unknown",
+              "range": {
+                "end": 20,
+                "start": 13
+              },
+              "text": "concepts",
+              "types": [
+                "unknown"
+              ],
+              "unknown": true,
+              "value": "concepts",
+              "word": "concepts"
+            },
+            "word": "are"
+          },
+          "generatedParenthesized": [
+          ],
+          "paraphrases": "formulas are concepts",
+          "paraphrasesParenthesized": [
+          ],
           "responses": [
             ""
           ]
@@ -9612,68 +9755,6 @@
           "responses": [
             ""
           ]
-        },
-        {
-          "context": {
-            "dead": true,
-            "level": 2,
-            "marker": "is",
-            "number": "many",
-            "one": {
-              "dead": true,
-              "level": 1,
-              "marker": "unknown",
-              "number": "many",
-              "range": {
-                "end": 20,
-                "start": 0
-              },
-              "text": "formulas",
-              "types": [
-                "unknown"
-              ],
-              "unknown": true,
-              "value": "formulas",
-              "word": "formulas"
-            },
-            "range": {
-              "end": 20,
-              "start": 0
-            },
-            "text": "formulas are concepts",
-            "topLevel": true,
-            "touchedBy": [
-              "formulasTemplate#call2",
-              "instance0#formulasTemplate#call2",
-              "instance0#formulas#call2"
-            ],
-            "two": {
-              "concept": true,
-              "dead": true,
-              "level": 1,
-              "marker": "unknown",
-              "range": {
-                "end": 20,
-                "start": 13
-              },
-              "text": "concepts",
-              "types": [
-                "unknown"
-              ],
-              "unknown": true,
-              "value": "concepts",
-              "word": "concepts"
-            },
-            "word": "are"
-          },
-          "generatedParenthesized": [
-          ],
-          "paraphrases": "formulas are concepts",
-          "paraphrasesParenthesized": [
-          ],
-          "responses": [
-            ""
-          ]
         }
       ]
     },
@@ -9690,24 +9771,6 @@
   },
   {
     "associations": [
-      [
-        [
-          "*",
-          0
-        ],
-        [
-          "+",
-          0
-        ],
-        [
-          "/",
-          0
-        ],
-        [
-          "unknown",
-          0
-        ]
-      ],
       [
         [
           "divideByOperator",
@@ -10013,20 +10076,6 @@
           "unknown",
           1
         ]
-      ],
-      [
-        [
-          "the",
-          0
-        ],
-        [
-          "unknown",
-          0
-        ],
-        [
-          "what",
-          0
-        ]
       ]
     ],
     "config": {
@@ -10068,7 +10117,7 @@
             "end": 30,
             "start": 13
           },
-          "text": "celcius * ( 9 / 5 ) + 32",
+          "text": "celcius*(9/5) + 32",
           "types": [
             "number",
             "plusExpression"
@@ -10086,7 +10135,7 @@
               "end": 25,
               "start": 13
             },
-            "text": "celcius * ( 9 / 5 )",
+            "text": "celcius*(9/5)",
             "types": [
               "number",
               "timesExpression"
@@ -10122,7 +10171,7 @@
                 "end": 25,
                 "start": 21
               },
-              "text": "( 9 / 5 )",
+              "text": "(9/5)",
               "types": [
                 "divideByExpression",
                 "number"
@@ -10321,7 +10370,7 @@
                       "end": 30,
                       "start": 13
                     },
-                    "text": "celcius * ( 9 / 5 ) + 32",
+                    "text": "celcius*(9/5) + 32",
                     "types": [
                       "number",
                       "plusExpression"
@@ -10339,7 +10388,7 @@
                         "end": 25,
                         "start": 13
                       },
-                      "text": "celcius * ( 9 / 5 )",
+                      "text": "celcius*(9/5)",
                       "types": [
                         "number",
                         "timesExpression"
@@ -10375,7 +10424,7 @@
                           "end": 25,
                           "start": 21
                         },
-                        "text": "( 9 / 5 )",
+                        "text": "(9/5)",
                         "types": [
                           "divideByExpression",
                           "number"
@@ -11196,7 +11245,6 @@
         "countable": "countable2",
         "dialogues": "dialogues2",
         "formulas": "formulas1",
-        "formulasTemplate": "formulasTemplate2",
         "gdefaults": "gdefaults2",
         "hierarchy": "hierarchy2",
         "math": "math2",
@@ -11206,7 +11254,8 @@
         "properties": "properties2",
         "punctuation": "punctuation2",
         "sdefaults": "sdefaults2",
-        "stm": "stm2"
+        "stm": "stm2",
+        "tokenize": "tokenize2"
       },
       "namespaced": {
         "comparable2": {
@@ -11220,6 +11269,7 @@
         "countable2": {
         },
         "dialogues2": {
+          "idSuffix": "",
           "mentioned": [
           ],
           "variables": {
@@ -11265,7 +11315,7 @@
                       "end": 30,
                       "start": 13
                     },
-                    "text": "celcius * ( 9 / 5 ) + 32",
+                    "text": "celcius*(9/5) + 32",
                     "types": [
                       "number",
                       "plusExpression"
@@ -11283,7 +11333,7 @@
                         "end": 25,
                         "start": 13
                       },
-                      "text": "celcius * ( 9 / 5 )",
+                      "text": "celcius*(9/5)",
                       "types": [
                         "number",
                         "timesExpression"
@@ -11319,7 +11369,7 @@
                           "end": 25,
                           "start": 21
                         },
-                        "text": "( 9 / 5 )",
+                        "text": "(9/5)",
                         "types": [
                           "divideByExpression",
                           "number"
@@ -11396,7 +11446,7 @@
                     "end": 30,
                     "start": 13
                   },
-                  "text": "celcius * ( 9 / 5 ) + 32",
+                  "text": "celcius*(9/5) + 32",
                   "types": [
                     "number",
                     "plusExpression"
@@ -11414,7 +11464,7 @@
                       "end": 25,
                       "start": 13
                     },
-                    "text": "celcius * ( 9 / 5 )",
+                    "text": "celcius*(9/5)",
                     "types": [
                       "number",
                       "timesExpression"
@@ -11450,7 +11500,7 @@
                         "end": 25,
                         "start": 21
                       },
-                      "text": "( 9 / 5 )",
+                      "text": "(9/5)",
                       "types": [
                         "divideByExpression",
                         "number"
@@ -11529,8 +11579,6 @@
             ]
           }
         },
-        "formulasTemplate2": {
-        },
         "gdefaults2": {
         },
         "hierarchy2": {
@@ -11548,6 +11596,9 @@
             "concept": [
               "formula"
             ],
+            "hierarchyAble": [
+              "unknown"
+            ],
             "ifAble": [
               "orAble"
             ],
@@ -11558,10 +11609,14 @@
               "-"
             ],
             "object": [
+              "unknown",
               "whose"
             ],
             "preposition": [
               "between"
+            ],
+            "unknown": [
+              "property"
             ],
             "verby": [
               "modifies"
@@ -11569,21 +11624,24 @@
           },
           "concepts": [
             "properties",
-            "whose",
+            "unknown",
+            "hierarchyAble",
             "object",
+            "property",
+            "whose",
             "between",
             "preposition",
             "modifies",
             "verby",
             "orAble",
             "ifAble",
-            "formula",
-            "concept",
             "*",
             "mathematical_operator",
             "+",
             "/",
-            "-"
+            "-",
+            "formula",
+            "concept"
           ],
           "parents": {
             "*": [
@@ -11610,6 +11668,13 @@
             "orAble": [
               "ifAble"
             ],
+            "property": [
+              "unknown"
+            ],
+            "unknown": [
+              "hierarchyAble",
+              "object"
+            ],
             "whose": [
               "object"
             ]
@@ -11634,6 +11699,8 @@
               },
               "formula": {
               },
+              "hierarchyAble": {
+              },
               "ifAble": {
               },
               "mathematical_operator": {
@@ -11645,6 +11712,10 @@
               "orAble": {
               },
               "preposition": {
+              },
+              "property": {
+              },
+              "unknown": {
               },
               "verby": {
               },
@@ -11668,6 +11739,8 @@
           ],
           "variables": {
           }
+        },
+        "tokenize2": {
         }
       },
       "processed": [
@@ -11805,7 +11878,7 @@
                           "end": 30,
                           "start": 13
                         },
-                        "text": "celcius * ( 9 / 5 ) + 32",
+                        "text": "celcius*(9/5) + 32",
                         "types": [
                           "number",
                           "plusExpression"
@@ -11823,7 +11896,7 @@
                             "end": 25,
                             "start": 13
                           },
-                          "text": "celcius * ( 9 / 5 )",
+                          "text": "celcius*(9/5)",
                           "types": [
                             "number",
                             "timesExpression"
@@ -11859,7 +11932,7 @@
                               "end": 25,
                               "start": 21
                             },
-                            "text": "( 9 / 5 )",
+                            "text": "(9/5)",
                             "types": [
                               "divideByExpression",
                               "number"
@@ -12134,7 +12207,7 @@
                 "end": 30,
                 "start": 13
               },
-              "text": "celcius * ( 9 / 5 ) + 32",
+              "text": "celcius*(9/5) + 32",
               "types": [
                 "number",
                 "plusExpression"
@@ -12152,7 +12225,7 @@
                   "end": 25,
                   "start": 13
                 },
-                "text": "celcius * ( 9 / 5 )",
+                "text": "celcius*(9/5)",
                 "types": [
                   "number",
                   "timesExpression"
@@ -12188,7 +12261,7 @@
                     "end": 25,
                     "start": 21
                   },
-                  "text": "( 9 / 5 )",
+                  "text": "(9/5)",
                   "types": [
                     "divideByExpression",
                     "number"
@@ -12260,6 +12333,67 @@
           "responses": [
             "",
             "the formulas for fahrenheit are fahrenheit = celcius * (9 / 5) + 32"
+          ]
+        },
+        {
+          "context": {
+            "dead": true,
+            "level": 2,
+            "marker": "is",
+            "number": "many",
+            "one": {
+              "dead": true,
+              "level": 1,
+              "marker": "unknown",
+              "number": "many",
+              "range": {
+                "end": 20,
+                "start": 0
+              },
+              "text": "formulas",
+              "types": [
+                "unknown"
+              ],
+              "unknown": true,
+              "value": "formulas",
+              "word": "formulas"
+            },
+            "range": {
+              "end": 20,
+              "start": 0
+            },
+            "text": "formulas are concepts",
+            "topLevel": true,
+            "touchedBy": [
+              "formulas#call2",
+              "instance0#formulas#call2"
+            ],
+            "two": {
+              "concept": true,
+              "dead": true,
+              "level": 1,
+              "marker": "unknown",
+              "range": {
+                "end": 20,
+                "start": 13
+              },
+              "text": "concepts",
+              "types": [
+                "unknown"
+              ],
+              "unknown": true,
+              "value": "concepts",
+              "word": "concepts"
+            },
+            "word": "are"
+          },
+          "generatedParenthesized": [
+          ],
+          "paraphrases": "formulas are concepts",
+          "paraphrasesParenthesized": [
+          ],
+          "responses": [
+            ""
           ]
         },
         {
@@ -12446,68 +12580,6 @@
           "generatedParenthesized": [
           ],
           "paraphrases": "mathematical modifies operator",
-          "paraphrasesParenthesized": [
-          ],
-          "responses": [
-            ""
-          ]
-        },
-        {
-          "context": {
-            "dead": true,
-            "level": 2,
-            "marker": "is",
-            "number": "many",
-            "one": {
-              "dead": true,
-              "level": 1,
-              "marker": "unknown",
-              "number": "many",
-              "range": {
-                "end": 20,
-                "start": 0
-              },
-              "text": "formulas",
-              "types": [
-                "unknown"
-              ],
-              "unknown": true,
-              "value": "formulas",
-              "word": "formulas"
-            },
-            "range": {
-              "end": 20,
-              "start": 0
-            },
-            "text": "formulas are concepts",
-            "topLevel": true,
-            "touchedBy": [
-              "formulasTemplate#call2",
-              "instance0#formulasTemplate#call2",
-              "instance0#formulas#call2"
-            ],
-            "two": {
-              "concept": true,
-              "dead": true,
-              "level": 1,
-              "marker": "unknown",
-              "range": {
-                "end": 20,
-                "start": 13
-              },
-              "text": "concepts",
-              "types": [
-                "unknown"
-              ],
-              "unknown": true,
-              "value": "concepts",
-              "word": "concepts"
-            },
-            "word": "are"
-          },
-          "generatedParenthesized": [
-          ],
-          "paraphrases": "formulas are concepts",
           "paraphrasesParenthesized": [
           ],
           "responses": [
