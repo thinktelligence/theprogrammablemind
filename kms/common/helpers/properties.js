@@ -81,7 +81,6 @@ class API {
         match: ({context}) => context[tm.to],
         apply: ({context}) => {
           // Object.assign(context[tm.to], from[tm.from])
-          // debugger;
           context[tm.to] = from[tm.from]
           if (context[tm.to]) {
             context[tm.to].instantiated = true
@@ -501,12 +500,6 @@ class API {
           for (let argument of context.focusable || []) {
             const value = api.toValue(context[argument])
             if (value) {
-              /*
-              if (value == 'cleo') {
-                debugger;
-                hierarchy.isA()
-              }
-              */
               const minimas = hierarchy.minima(context[argument].types)
               for (let type of minimas) {
                 if (config.exists(value)) {
@@ -916,7 +909,6 @@ class API {
   }
 
   set config(config) {
-    debugger
     this._config = config
     /*
     const toJSON = (h) => {

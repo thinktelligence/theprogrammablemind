@@ -98,7 +98,6 @@ let configStruct = {
         const words = context.words.map( (context) => context.word )
         const utterance = words.join(' ')
         const config = km('characters')
-        debugger
         const api = config._api.apis[context.value]
         api.process(config, utterance).then( (result) => {
           if (!api.response) {

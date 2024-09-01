@@ -72,8 +72,6 @@ let configStruct = {
       operator: "((synonym/*) [synonymOfWord|of] (word))",
       bridge: "{ ...next(operator), word: after[0] }",
       evaluator: ({context}) => {
-        debugger
-        debugger
       }
     },
     */

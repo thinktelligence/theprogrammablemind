@@ -16,9 +16,6 @@ class API {
       return pluralize.singular(context) + this._objects.idSuffix
     } else {
       const { unknown, value, word } = context;
-      if (word == 'red') {
-        debugger
-      }
       // return unknown ? pluralize.singular(word) + this._objects.idSuffix : pluralize.singular(value || word)
       return unknown ? pluralize.singular(word) + this._objects.idSuffix : value || pluralize.singular(word)
     }

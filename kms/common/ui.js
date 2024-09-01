@@ -119,7 +119,6 @@ const configStruct = {
        bridge: "{ ...next(operator), action: after[0] }",
        generatorp: ({context, g}) => `stop ${g(context.action)}`,
        semantic: ({api, context}) => {
-         debugger
          api.stop(context.action.value)
        }
     },

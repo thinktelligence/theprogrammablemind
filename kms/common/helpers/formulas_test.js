@@ -114,7 +114,6 @@ describe('helpers', () => {
 
   describe('solveFor', () => {
     it('no solution', async () => {
-      debugger
       expect(solveFor({}, x)).toStrictEqual(undefined)
     })
 

@@ -15,7 +15,6 @@ let configStruct = {
       id: 'testingEvaluate',
       generatorp: ({context, g}) => `${context.word} ${g(context.value)}`,
       semantic: ({context, e}) => {
-        debugger
         context.evalue = e(context.value)
         context.isResponse = true
       },

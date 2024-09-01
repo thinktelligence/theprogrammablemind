@@ -266,7 +266,6 @@ let configStruct = {
 //     */
 //     where: where(),
 //     match: ({context}) => {
-//       // debugger;
 //       if (!context.paraphrase) {
 //         return
 //       }
@@ -565,15 +564,12 @@ let configStruct = {
         /*
         const propertyId = context.marker
         if (context.marker != context.value) {
-          debugger
-          debugger // target
         }
         */
         // const propertyId = context.marker
         /*
         // greg HERE
         */
-        // debugger;
         propertyContext[`disable${uuid}`] = true
         const propertyId = km("dialogues").api.evaluateToConcept(propertyContext, context, log, s).evalue;
         try{
@@ -661,7 +657,6 @@ let configStruct = {
             // TODO maybe this I aware so it can say "I don't know about blah..." and below
             // if (currentContext.unknown || !currentContext.value) {
             if (!api.conceptExists(currentContext.value)) {
-              // debugger;
               // api.conceptExists(currentContext)
               const objectPhrase = g({...currentContext, paraphrase: true})
               context.verbatim = `What "${objectPhrase}" means is unknown`

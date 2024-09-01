@@ -42,11 +42,9 @@ const unify = (rule, value) => {
 
 const f = (values, variable) => (value) => {
   if (!value) {
-    debugger
     throw new Error("Value not present")
   }
   if (values[variable] && values[variable] != value) {
-    debugger
     throw new Error("Variable already set to different value")
   }
   values[variable] = value
@@ -79,18 +77,6 @@ function solveFor(expression, variable, isVariable = (expression) => typeof expr
   const sameVar = (c1, c2) => {
     return c1.value == c2.value
   }
-
-  /*
-  for (let rule of rules) {
-    debugger
-    const body = unify(rule, expression)
-    const lVars = getVariables(body.left, isVariable)
-    const rVars = getVariables(body.right, isVariable)
-    if (lVars.length == 1 && sameVar(lVars[0], variable) && !rVars.some((c) => sameVar(c, variable))) {
-      return body
-    }
-  }
-  */
 
   const lVars = getVariables(expression.left, isVariable)
   const rVars = getVariables(expression.right, isVariable)

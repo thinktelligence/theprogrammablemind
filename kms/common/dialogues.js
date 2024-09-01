@@ -263,7 +263,6 @@ let configStruct = {
           applyq: () => 'the test question?',
           onNevermind: ({objects, context}) => {
             objects.onNevermindWasCalled = true
-            debugger
             objects.nevermindType = nevermindType
             return nevermindType == 'accept'
           },
@@ -709,7 +708,6 @@ let configStruct = {
 
           */
           context.value = kms.stm.api.mentions(context)
-          // debugger;
           if (!context.value) {
             // retry()
             context.value = { marker: 'answerNotKnown' }
@@ -925,9 +923,6 @@ let configStruct = {
 
 // move ask to the KM's since verbatim is called probably in dialogues?
 const getAsk = (config) => (uuid) => {
-    // if (!uuid) {
-    //  debugger
-    //}
     return (asks) => {
     const ask = (ask) => {
       let oneShot = true // default

@@ -64,7 +64,6 @@ const createConfig = () => {
         */
         where: where(),
         match: ({context}) => {
-          // debugger;
           if (!context.paraphrase) {
             return
           }

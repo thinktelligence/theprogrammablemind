@@ -460,7 +460,6 @@ let configStruct = {
         const products = context.listing
         const columns = objects.listings[context.id].columns
         if (false) {
-          debugger;
           kms.stm.api.setVariable('price', { marker: 'price', value: 23 })
           kms.stm.api.setVariable('quantity', { marker: 'quantity', value: 3 })
           const c1 = { marker: 'worth', value: 'worth' }
@@ -506,7 +505,6 @@ let configStruct = {
           const responses = []
           for (let value of values) {
             if (!value.value || value.pullFromContext) {
-              debugger
               value = e(value)
             }
             let id = value.value
