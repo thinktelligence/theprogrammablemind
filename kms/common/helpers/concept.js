@@ -32,7 +32,6 @@ class API {
   // TODO account for modifier a complex phrase for example "hot (chicken strips)"
   kindOfConcept({ config, modifiers, object }) {
     // const objectId = pluralize.singular(object)
-    debugger
     const objectId = this.args.kms.dialogues.api.toScopedId(object)
 
     // const modifierIds = modifiers.map( (modifier) => pluralize.singular(modifier) )
