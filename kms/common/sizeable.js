@@ -22,7 +22,12 @@ let configStruct = {
     { 
       id: "size", 
       parents: ['adjective'],
-      words: ['small', 'medium', 'large', 'half', 'full'],
+      words: [
+                { word: 'small', value: 'small' }, 
+                { word: 'medium', value: 'medium' }, 
+                { word: 'large', value: 'large' },
+                { word: 'half', value: 'half' }, 
+                { word: 'full', value: 'full' }],
       level: 0, 
       bridge: "{ ...next(operator) }" 
     },
@@ -61,7 +66,7 @@ knowledgeModule({
     name: './sizeable.test.json',
     contents: sizeable_tests,
     checks: {
-            context: defaultContextCheck,
+            context: [ ...defaultContextCheck, { property: 'size', filter: ['value'] } ],
           },
   },
 })
