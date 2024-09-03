@@ -73,7 +73,13 @@ class API {
 
     config.addWord(objectSingular, { id: objectId, initial: `{ value: '${objectId}', number: 'one' }`})
     config.addWord(objectPlural, { id: objectId, initial: `{ value: '${objectId}', number: 'many' }`})
-    modifierIds.forEach((modifierId) => config.addWord(modifierId, { id: modifierId, initial: `{ value: '${modifierId}' }`}))
+    modifierIds.forEach((modifierId) => {
+      // config.addWord(modifier, { id: modifierId, initial: `{ value: '${modifierId}' }`})
+      // TODO call evaluator to pick up overrides
+      config.addWord(pluralize.singular(modifierId), { id: modifierId, initial: `{ value: '${modifierId}', number: 'one' }`})
+      config.addWord(pluralize.plural(modifierId), { id: modifierId, initial: `{ value: '${modifierId}', number: 'many' }`})
+    })
+    // modifierds.forEach((modifierId) => config.addWord(modifierId, { id: modifierId, initial: `{ value: '${modifierId}' }`}))
 
     modifierIds.forEach((modifierId) => config.addBridge({ id: modifierId, level: 0, bridge: `{ ...next(operator), value: '${modifierId}' }`,  allowDups: true }))
     config.addBridge({ id: objectId, level: 0, bridge: `{ ...next(operator), value: '${objectId}' }`,  allowDups: true })
