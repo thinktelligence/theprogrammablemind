@@ -682,7 +682,7 @@ class API {
   }
 
   getPropertyDirectly(object, property, g) {
-    if (property == 'properties') {
+    if (property == 'property') {
       const objectProps = this.propertiesFH.getValue([object])
       const values = []
       for (let key of Object.keys(objectProps)) {
@@ -727,7 +727,7 @@ class API {
   }
 
   knownObject(object) {
-    if (object == 'properties') {
+    if (object == 'property') {
       return object
     }
     if ((object || {}).value) {
@@ -739,7 +739,7 @@ class API {
   }
 
   hasProperty(object, property) {
-    if (property == 'properties') {
+    if (property == 'property') {
       return true;
     }
 
@@ -766,8 +766,9 @@ class API {
   knownProperty(object, property) {
     object = this.toValue(object)
     property = this.toValue(property)
-    if (property == 'properties') {
-      return true;
+    if (property == 'property') {
+      const objectProps = this.propertiesFH.getValue([object])
+      return !_.isEmpty(objectProps)
     }
 
     // go up the hierarchy

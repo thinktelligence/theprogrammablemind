@@ -153,7 +153,12 @@ let configStruct = {
     { id: "doesnt", level: 0, bridge: "{ ...context, number: operator.number, object.number: operator.number, negation: true }*" },
     { id: "have", level: 0, bridge: "{ ...next(operator), object: { number: operator.number, ...before }, property: after[0], do: { left: 'object', right: 'property' } }" },
     { id: "have", level: 1, bridge: "{ ...next(operator) }" },
-    { id: "property", level: 0, bridge: "{ ...next(operator) }" },
+    { 
+      id: "property", 
+      words: ['properties'],
+      level: 0, 
+      bridge: "{ ...next(operator) }" 
+    },
     { id: "object", level: 0, bridge: "{ ...next(operator) }" },
 
     // old
