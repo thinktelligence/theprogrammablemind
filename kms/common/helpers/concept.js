@@ -1,6 +1,6 @@
 const pluralize = require('pluralize')
 const deepEqual = require('deep-equal')
-const { chooseNumber } = require('../helpers.js')
+const { chooseNumber, zip } = require('../helpers.js')
 const { compose, translationMapping, translationMappingToInstantiatorMappings } = require('./meta.js')
 
 class API {
@@ -31,12 +31,13 @@ class API {
   // for example, "crew member" or "photon torpedo"
   // TODO account for modifier a complex phrase for example "hot (chicken strips)"
   kindOfConcept({ config, modifiers, object }) {
+    // TODO make the modifiers objects then below for add words for modifiers only do if !unknown
     // const objectId = pluralize.singular(object)
     const objectId = this.args.kms.dialogues.api.toScopedId(object)
 
     // const modifierIds = modifiers.map( (modifier) => pluralize.singular(modifier) )
-    const modifierIds = modifiers
-    const modifiersObjectId = `${modifierIds.join("_")}_${objectId}`
+    const modifierIds = modifiers.map( (modifier) => this.args.kms.dialogues.api.toScopedId(modifier) )
+    const modifiersObjectId = `${modifiers.join("_")}_${objectId}`
 
     const toWord = (object) => {
       if (typeof object == 'string') {
@@ -70,14 +71,16 @@ class API {
       config.addOperator({ pattern: `([${objectId}|])`, allowDups: true })
     }
 
+    if (object.unknown) {
+      config.addWord(objectSingular, { id: objectId, initial: `{ value: '${objectId}', number: 'one' }`})
+      config.addWord(objectPlural, { id: objectId, initial: `{ value: '${objectId}', number: 'many' }`})
+    }
 
-    config.addWord(objectSingular, { id: objectId, initial: `{ value: '${objectId}', number: 'one' }`})
-    config.addWord(objectPlural, { id: objectId, initial: `{ value: '${objectId}', number: 'many' }`})
-    modifierIds.forEach((modifierId) => {
+    zip(modifiers, modifierIds).forEach(([modifierWord, modifierId]) => {
       // config.addWord(modifier, { id: modifierId, initial: `{ value: '${modifierId}' }`})
       // TODO call evaluator to pick up overrides
-      config.addWord(pluralize.singular(modifierId), { id: modifierId, initial: `{ value: '${modifierId}', number: 'one' }`})
-      config.addWord(pluralize.plural(modifierId), { id: modifierId, initial: `{ value: '${modifierId}', number: 'many' }`})
+      config.addWord(pluralize.singular(modifierWord), { id: modifierId, initial: `{ value: '${modifierId}', number: 'one' }`})
+      config.addWord(pluralize.plural(modifierWord), { id: modifierId, initial: `{ value: '${modifierId}', number: 'many' }`})
     })
     // modifierds.forEach((modifierId) => config.addWord(modifierId, { id: modifierId, initial: `{ value: '${modifierId}' }`}))
 

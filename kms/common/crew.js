@@ -8,6 +8,7 @@ const pluralize = require('pluralize')
 
 const template = {
   configs: [
+      "crew modifies member",
       "kirk's name is jim",
       "kirk's rank is captain",
       "kirk's eyes are blue",
@@ -24,6 +25,7 @@ const template = {
       "mccoy is a crew member",
       "mccoy is a doctor",
       "the status of the phasers is armed",
+      "photon modifies torpedoes",
       "the status of the photon torpedoes is armed",
       "phasers are weapons",
       "torpedoes are weapons",
@@ -43,8 +45,8 @@ const createConfig = () => {
   config.initializer( ({config, apis}) => {
     const api = apis('properties')
     const conceptApi = apis('concept')
-    conceptApi.kindOfConcept({ config, modifiers: ['photon'], object: 'torpedo' })
-    conceptApi.kindOfConcept({ config, modifiers: ['crew'], object: 'member' })
+    // conceptApi.kindOfConcept({ config, modifiers: ['photon'], object: 'torpedo' })
+    // conceptApi.kindOfConcept({ config, modifiers: ['crew'], object: 'member' })
     api.createActionPrefix({ 
                   operator: 'arm', 
                   create: ['arm', 'weapon'], 

@@ -126,8 +126,8 @@ const createConfig = () => {
           } else {
             modifiers = context.modifiers.map(modifier => modifier.value)
           }
-          km('concept').api.kindOfConcept({ config, modifiers, object: context.concept.value || context.concept.marker })
-          // km('concept').api.kindOfConcept({ config, modifiers, object: context.concept })
+          // km('concept').api.kindOfConcept({ config, modifiers, object: context.concept.value || context.concept.marker })
+          km('concept').api.kindOfConcept({ config, modifiers, object: context.concept })
         }
       },
     ],

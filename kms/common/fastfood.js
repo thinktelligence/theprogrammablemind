@@ -68,7 +68,6 @@ const template = {
     "strawberry, guava, mango passion, wild berry, and strawberry banana are countable",
     "smoothie modifies ingredients",
     "strawberry, guava, mango passion, wild berry, and strawberry banana are smoothie ingredients",
-    // { stop: true },
     "a smoothie is a drink",
     "french fries and waffle fries are fries",
     "single, double, triple, baconator, and bacon deluxe are hamburgers",
@@ -279,6 +278,7 @@ const template = {
         { context: [['list', 0], ['articlePOS',0], ['smoothie_ingredient', 0], ['smoothie', 0]], ordered: true, choose: [1,2] },
       ]
     },
+    // { stop: true },
     "junior modifies crispy chicken club",
     "nuggets, junior bacon cheeseburgers, chicken go wraps and junior crispy chicken clubs are value meals",
     "combos, chili, fries and drinks are sizeable",

@@ -1352,22 +1352,55 @@
   },
   {
     "associations": [
+      [
+        [
+          "color_colors",
+          0
+        ],
+        [
+          "hex_colors",
+          0
+        ]
+      ]
     ],
     "config": {
     },
     "contexts": [
       {
+        "atomic": true,
         "dead": true,
         "level": 1,
-        "marker": "hexColor",
+        "marker": "hex_color_colors",
+        "modifier_hex_colors": {
+          "level": 0,
+          "marker": "hex_colors",
+          "range": {
+            "end": 2,
+            "start": 0
+          },
+          "text": "hex",
+          "types": [
+            "hex_colors"
+          ],
+          "value": "hex_colors",
+          "word": "hex"
+        },
+        "modifiers": [
+          "modifier_hex_colors"
+        ],
+        "number": "one",
         "range": {
           "end": 8,
           "start": 0
         },
         "text": "hex color",
         "topLevel": true,
-        "value": "hex color",
-        "word": "hex color"
+        "types": [
+          "color_colors",
+          "hex_color_colors"
+        ],
+        "value": "hex_color_colors",
+        "word": "color"
       }
     ],
     "developerTest": false,
@@ -1379,12 +1412,20 @@
         {
           "counter": 1,
           "op": [
-            "hexColor",
+            "hex_color_colors",
             0
           ],
           "ops": [
             [
-              "hexColor",
+              "color_colors",
+              0
+            ],
+            [
+              "hex_color_colors",
+              0
+            ],
+            [
+              "hex_colors",
               0
             ]
           ]
@@ -1519,6 +1560,7 @@
               "object",
               "xfx",
               "concept",
+              "doubleQuote",
               "unknown",
               "it",
               "what",
@@ -1584,6 +1626,7 @@
             "concept",
             "modifies",
             "verby",
+            "doubleQuote",
             "it",
             "pronoun",
             "this",
@@ -1686,6 +1729,9 @@
             ],
             "dark_colors": [
               "brightness_colors"
+            ],
+            "doubleQuote": [
+              "queryable"
             ],
             "gold_colors": [
               "yellow_colors"
@@ -1892,6 +1938,8 @@
               },
               "dark_colors": {
               },
+              "doubleQuote": {
+              },
               "gold_colors": {
               },
               "gray_colors": {
@@ -2031,21 +2079,44 @@
       "processed": [
         {
           "context": {
+            "atomic": true,
             "dead": true,
             "level": 1,
-            "marker": "hexColor",
+            "marker": "hex_color_colors",
+            "modifier_hex_colors": {
+              "level": 0,
+              "marker": "hex_colors",
+              "range": {
+                "end": 2,
+                "start": 0
+              },
+              "text": "hex",
+              "types": [
+                "hex_colors"
+              ],
+              "value": "hex_colors",
+              "word": "hex"
+            },
+            "modifiers": [
+              "modifier_hex_colors"
+            ],
+            "number": "one",
             "range": {
               "end": 8,
               "start": 0
             },
             "text": "hex color",
             "topLevel": true,
-            "value": "hex color",
-            "word": "hex color"
+            "types": [
+              "color_colors",
+              "hex_color_colors"
+            ],
+            "value": "hex_color_colors",
+            "word": "color"
           },
           "generatedParenthesized": "",
           "paraphrases": "hex color",
-          "paraphrasesParenthesized": "(hex color)",
+          "paraphrasesParenthesized": "((hex) (color))",
           "responses": [
             ""
           ]
@@ -2064,8 +2135,7 @@
             "topLevel": true,
             "touchedBy": [
               "colors#call2",
-              "instance0#colors#call2",
-              "instance12#colors#call2"
+              "instance14#colors#call2"
             ],
             "value": "resetIdSuffix",
             "word": "resetidsuffix"
@@ -2073,6 +2143,62 @@
           "generatedParenthesized": [
           ],
           "paraphrases": "resetidsuffix",
+          "paraphrasesParenthesized": [
+          ],
+          "responses": [
+            ""
+          ]
+        },
+        {
+          "context": {
+            "concept": {
+              "dead": true,
+              "level": 1,
+              "marker": "color_colors",
+              "number": "one",
+              "range": {
+                "end": 17,
+                "start": 13
+              },
+              "text": "color",
+              "value": "color_colors",
+              "word": "color"
+            },
+            "dead": true,
+            "flatten": false,
+            "level": 1,
+            "marker": "modifies",
+            "modifiers": [
+              {
+                "dead": true,
+                "level": 1,
+                "marker": "unknown",
+                "range": {
+                  "end": 2,
+                  "start": 0
+                },
+                "text": "hex",
+                "unknown": true,
+                "value": "hex",
+                "word": "hex"
+              }
+            ],
+            "number": "one",
+            "range": {
+              "end": 17,
+              "start": 0
+            },
+            "text": "hex modifies color",
+            "topLevel": true,
+            "touchedBy": [
+              "colors#call2",
+              "instance12#colors#call2"
+            ],
+            "word": "modifies"
+          },
+          "generatedParenthesized": [
+          ],
+          "paraphrases": "hex modifies color",
           "paraphrasesParenthesized": [
           ],
           "responses": [
@@ -2122,7 +2248,6 @@
             "topLevel": true,
             "touchedBy": [
               "colors#call2",
-              "instance0#colors#call2",
               "instance11#colors#call2"
             ],
             "word": "modifies"
@@ -2193,7 +2318,6 @@
             "topLevel": true,
             "touchedBy": [
               "colors#call2",
-              "instance0#colors#call2",
               "instance10#colors#call2"
             ],
             "two": {
@@ -2255,7 +2379,7 @@
                 "end": 39,
                 "start": 0
               },
-              "text": "snow , azure ,",
+              "text": "snow, azure,",
               "types": [
                 "list",
                 "unknown"
@@ -2284,7 +2408,7 @@
                     "end": 4,
                     "start": 0
                   },
-                  "text": "snow ,",
+                  "text": "snow,",
                   "unknown": true,
                   "value": "snow",
                   "word": "snow"
@@ -2312,7 +2436,7 @@
                     "end": 11,
                     "start": 6
                   },
-                  "text": "azure ,",
+                  "text": "azure,",
                   "unknown": true,
                   "value": "azure",
                   "word": "azure"
@@ -2353,7 +2477,6 @@
             "topLevel": true,
             "touchedBy": [
               "colors#call2",
-              "instance0#colors#call2",
               "instance9#colors#call2"
             ],
             "two": {
@@ -2399,138 +2522,6 @@
           "responses": [
             ""
           ]
-        },
-        {
-          "context": {
-            "dead": true,
-            "level": 2,
-            "marker": "is",
-            "number": "many",
-            "one": {
-              "level": 1,
-              "listable": true,
-              "marker": "list",
-              "number": "many",
-              "range": {
-                "end": 33,
-                "start": 0
-              },
-              "text": "tan ,",
-              "types": [
-                "list",
-                "unknown"
-              ],
-              "value": [
-                {
-                  "dead": true,
-                  "decorators": {
-                    "after": {
-                      "depth": "+",
-                      "level": 0,
-                      "marker": "comma",
-                      "range": {
-                        "end": 3,
-                        "start": 3
-                      },
-                      "text": ",",
-                      "value": ",",
-                      "word": ","
-                    }
-                  },
-                  "level": 1,
-                  "marker": "unknown",
-                  "no_convolutions": true,
-                  "range": {
-                    "end": 3,
-                    "start": 0
-                  },
-                  "text": "tan ,",
-                  "unknown": true,
-                  "value": "tan",
-                  "word": "tan"
-                },
-                {
-                  "dead": true,
-                  "level": 2,
-                  "marker": "unknown",
-                  "range": {
-                    "end": 10,
-                    "start": 5
-                  },
-                  "text": "sienna",
-                  "unknown": true,
-                  "value": "sienna",
-                  "word": "sienna"
-                },
-                {
-                  "dead": true,
-                  "level": 2,
-                  "marker": "unknown",
-                  "range": {
-                    "end": 21,
-                    "start": 16
-                  },
-                  "text": "maroon",
-                  "unknown": true,
-                  "value": "maroon",
-                  "word": "maroon"
-                }
-              ]
-            },
-            "range": {
-              "end": 33,
-              "start": 0
-            },
-            "text": "tan, sienna and maroon are a brown",
-            "topLevel": true,
-            "touchedBy": [
-              "colors#call2",
-              "instance0#colors#call2",
-              "instance8#colors#call2"
-            ],
-            "two": {
-              "concept": true,
-              "dead": true,
-              "determiner": {
-                "default": true,
-                "level": 0,
-                "marker": "a",
-                "range": {
-                  "end": 27,
-                  "start": 27
-                },
-                "text": "a",
-                "word": "a"
-              },
-              "level": 1,
-              "marker": "brown_colors",
-              "modifiers": [
-                "determiner"
-              ],
-              "number": "one",
-              "pullFromContext": false,
-              "range": {
-                "end": 33,
-                "start": 27
-              },
-              "text": "a brown",
-              "types": [
-                "brown_colors"
-              ],
-              "value": "brown_colors",
-              "wantsValue": true,
-              "word": "brown"
-            },
-            "word": "are"
-          },
-          "generatedParenthesized": [
-          ],
-          "paraphrases": "tan, sienna and maroon are a brown",
-          "paraphrasesParenthesized": [
-          ],
-          "responses": [
-            ""
-          ]
         }
       ]
     },
@@ -2538,7 +2529,7 @@
       "hex color"
     ],
     "paraphrasesParenthesized": [
-      "(hex color)"
+      "((hex) (color))"
     ],
     "query": "hex color",
     "responses": [

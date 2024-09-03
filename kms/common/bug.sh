@@ -825,5 +825,6 @@ fi
 # $NODE dimension -q 'c1 is a dimension\na1 and b1 are units of d1\nwhat are 10 a1 in b1' -g -d
 # node colors -rtf -g
 # node colors -q 'red' -g -d
-node colors -q '"hex color"' -g -d
+# $NODE colors -q '"hex color" is a color' -g -d
+$NODE fastfood -q "chicken on french toast" -g -d
 
