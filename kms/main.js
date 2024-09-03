@@ -2,6 +2,7 @@ const tpm = require('./common/runtime').theprogrammablemind
 const animals = require('./common/animals')
 const avatar = require('./common/avatar')
 const characters = require('./common/characters')
+const colors = require('./common/colors')
 const comparable = require('./common/comparable')
 const concept = require('./common/concept')
 const countable = require('./common/countable')
@@ -53,6 +54,7 @@ module.exports = {
   animals,
   avatar,
   characters,
+  colors,
   comparable,
   concept,
   countable,
