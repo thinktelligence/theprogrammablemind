@@ -1,0 +1,63 @@
+{
+  "configs": [
+    {
+      "operators": [
+        "([undo_undo|undo])",
+        "([action_undo])"
+      ],
+      "bridges": [
+        {
+          "id": "undo_undo",
+          "semantic": "(args) => {\n            const { mentions } = args\n            const action = mentions({ marker: 'action_undo' })\n            action.undo(args)\n          }"
+        },
+        {
+          "id": "action_undo",
+          "words": [
+            {
+              "word": "action",
+              "number": "one"
+            },
+            {
+              "word": "actions",
+              "number": "many"
+            }
+          ],
+          "development": true,
+          "semantic": "({ context, mentioned, isModule }) => {\n            if (!isModule) {\n              mentioned(context)\n              context.undo = ({objects}) => objects.undone = context\n            }\n          }"
+        }
+      ]
+    }
+  ],
+  "resultss": [
+    {
+      "extraConfig": true,
+      "operators": [
+        "([undo_undo|undo])",
+        "([action_undo])"
+      ],
+      "bridges": [
+        {
+          "id": "undo_undo"
+        },
+        {
+          "id": "action_undo",
+          "words": [
+            {
+              "word": "action",
+              "number": "one"
+            },
+            {
+              "word": "actions",
+              "number": "many"
+            }
+          ],
+          "development": true
+        }
+      ]
+    }
+  ],
+  "fragments": [],
+  "semantics": [],
+  "associations": [],
+  "learned_contextual_priorities": []
+}

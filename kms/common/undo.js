@@ -1,0 +1,64 @@
+const { Config, knowledgeModule, where, Digraph } = require('./runtime').theprogrammablemind
+const { defaultContextCheck, words } = require('./helpers')
+const stm = require('./stm')
+const undo_tests = require('./undo.test.json')
+const instance = require('./undo.instance.json')
+
+const template = {
+  configs: [
+    {
+      operators: [
+        "([undo_undo|undo])",
+        "([action_undo])",
+      ],
+      bridges: [
+        // TODO needs work around multiple undo calls and not calling already undon stuff
+        {
+          id: 'undo_undo',
+          semantic: (args) => {
+            const { mentions } = args
+            const action = mentions({ marker: 'action_undo' })
+            action.undo(args)
+          }
+        },
+        {
+          id: 'action_undo',
+          words: words('action'),
+          development: true,
+          semantic: ({ context, mentioned, isModule }) => {
+            if (!isModule) {
+              mentioned(context)
+              context.undo = ({objects}) => objects.undone = context
+            }
+          }
+        }
+      ],
+    }
+  ]
+}
+
+const createConfig = () => {
+  const config = new Config({ name: 'undo' }, module)
+  config.stop_auto_rebuild()
+    config.add(stm())
+  config.restart_auto_rebuild()
+  return config
+}
+
+knowledgeModule({ 
+  module,
+  description: 'Control a undo/redos',
+  createConfig,
+  template: { template, instance },
+  test: {
+    name: './undo.test.json',
+    contents: undo_tests,
+    checks: {
+      objects: [
+        'undone',
+        { km: 'stm' },
+      ],
+      context: defaultContextCheck,
+    },
+  },
+})
