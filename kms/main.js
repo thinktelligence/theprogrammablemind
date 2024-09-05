@@ -23,6 +23,7 @@ const kirk = require('./common/kirk')
 const length = require('./common/length')
 const math = require('./common/math')
 const meta = require('./common/meta')
+const negation = require('./common/negation')
 const numbers = require('./common/numbers')
 const ordering = require('./common/ordering')
 const people = require('./common/people')
@@ -75,6 +76,7 @@ module.exports = {
   length,
   math,
   meta,
+  negation,
   numbers,
   ordering,
   people,
