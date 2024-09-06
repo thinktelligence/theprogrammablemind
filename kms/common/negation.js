@@ -1,23 +1,27 @@
 const { Config, knowledgeModule, where } = require('./runtime').theprogrammablemind
 const { words, defaultContextCheck } = require('./helpers')
 const gdefaults = require('./gdefaults')
+const pos = require('./pos')
 const negation_tests = require('./negation.test.json')
 
 let configStruct = {
   name: 'negation',
   operators: [
-    "([not] ([negatable]))",
+    "([negatable])",
+    "([not] (negatable/*))",
   ],
   bridges: [
     { 
       id: 'not', 
       bridge: '{ ...after[0], negated: operator, modifiers: append(["negated"], after[0].modifiers) }',
+      before: ['verby'],
+      localHierarchy: [['unknown', 'negatable']],
     },
     { id: 'negatable', words: words('negatable') },
   ],
 };
 
-const createConfig = () => new Config(configStruct, module).add(gdefaults())
+const createConfig = () => new Config(configStruct, module).add(gdefaults(), pos())
 
 knowledgeModule( {
   module,

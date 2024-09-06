@@ -102,7 +102,7 @@ let configStruct = {
     "(([expression]) [equals] ([expression]))",
   ],
   priorities: [
-    { "context": [['mathematicalOperator', 0], ['number', 0], ], "choose": [0] },
+    { "context": [['mathematical_operator', 0], ['number', 0], ], "choose": [0] },
   ],
   semantics: [
     {
@@ -172,7 +172,7 @@ let configStruct = {
       id: 'equals',
       bridge: "{ ...next(operator), left: before[0], right: after[0] }",
       words: ['='],
-      after: ['mathematicalOperator'],
+      after: ['mathematical_operator'],
       // TODO have this be per argument then 'is' can map to equals where this only applied to before[0] and not after[0]
       localHierarchy: [ ['unknown', 'expression'] ],
       generatorp: ({context, gp}) => `${gp(context.left)} ${context.word} ${gp(context.right)}`,

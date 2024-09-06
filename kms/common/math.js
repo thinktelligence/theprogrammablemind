@@ -33,7 +33,7 @@ const mathematicalOperator = (name, words, apply, before = []) => [
       id: `${name}Operator`, level: 0, 
       bridge: `{ ...next(operator), marker: next(operator('${name}Expression')), types: lub(append(['mathematicalExpression'], operator.types, before[0].types, after[0].types)), value: null, x: before[0], y: after[0], number: 'one', isResponse: true, evaluate: true }` ,
       // bridge: `{ ...next(operator), marker: next(operator('${name}Expression')), value: null, x: before[0], y: after[0], number: 'one', isResponse: true, evaluate: true }` ,
-      isA: ['mathematicalOperator'],
+      isA: ['mathematical_operator'],
       before,
       localHierarchy: [ ['unknown', 'number'] ],
       // levelSpecificHierarchy: [[1, 'mathematicalExpression']],
@@ -73,7 +73,7 @@ let configStruct = {
   name: 'math',
   operators: [
     "([mathematicalExpression])",
-    "([mathematicalOperator])",
+    "([mathematical_operator])",
     "(([number|]) [plusOperator] ([number|]))",
     "(([number|]) [minusOperator] ([number|]))",
     "(([number|]) [timesOperator] ([number|]))",
@@ -92,7 +92,7 @@ let configStruct = {
       isA: ['concept', 'number'],
     },
     { 
-      id: "mathematicalOperator", 
+      id: "mathematical_operator", 
       before: ['verby'],
       after: ['adjective'],
     },
@@ -108,8 +108,8 @@ let configStruct = {
 const template = {
   configs: [
     "mathematical modifies operator",
-    "* + / and - are mathematical operators",
     configStruct,
+    // "* + / and - are mathematical operators",
   ]
 }
 

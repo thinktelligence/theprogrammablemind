@@ -826,5 +826,9 @@ fi
 # node colors -rtf -g
 # node colors -q 'red' -g -d
 # $NODE colors -q '"hex color" is a color' -g -d
-$NODE fastfood -q "chicken on french toast" -g -d
-
+# $NODE fastfood -q "chicken on french toast" -g -d
+# $NODE math -q "* + / and - are mathematical operators" -g -d
+# $NODE weight -q "what is 1 troy ounce in ounces" -g -d
+# $NODE weight -q "what is 1 ounce in troy ounces" -g -d
+$NODE weight -q "ounces = 1.097 * troy ounces" -g -d
+# $NODE formulas -q "fahrenheit = celcius*(9/5) + 32 what are the formulas for fahrenheit" -g -d

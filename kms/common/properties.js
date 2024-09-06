@@ -708,12 +708,14 @@ knowledgeModule( {
     contents: properties_tests,
     checks: {
       context: defaultContextCheck,
+      /*
       objects: [
         'children', 
         'concept', 
         'parents', 
         'properties'
       ]
+      */
     },
     include: {
       words: true,

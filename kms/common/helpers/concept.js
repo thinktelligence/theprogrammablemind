@@ -94,7 +94,8 @@ class API {
       id: modifiersObjectId, 
       level: 0, 
       convolution: true,
-      isA: ['adjective'],
+      isA: [{ parent: 'adjective', instance: true }],
+      // isA: ['adjective'],
       before: ['verby'],
       bridge: `{ ...after[0], ${modifierProperties}, atomic: true, dead: true, marker: next(operator('${modifiersObjectId}')), value: '${modifiersObjectId}', modifiers: append([${modifierList}], after[0].modifiers)}`, 
       allowDups: true })
