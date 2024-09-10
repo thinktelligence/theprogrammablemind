@@ -27,6 +27,7 @@ const negation = require('./common/negation')
 const numbers = require('./common/numbers')
 const ordering = require('./common/ordering')
 const people = require('./common/people')
+const percentages = require('./common/percentages')
 const pipboy = require('./common/pipboy')
 const pokemon = require('./common/pokemon')
 const pos = require('./common/pos')
@@ -80,6 +81,7 @@ module.exports = {
   numbers,
   ordering,
   people,
+  percentages,
   pipboy,
   pokemon,
   pos,
