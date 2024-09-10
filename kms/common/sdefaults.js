@@ -19,6 +19,16 @@ let configStruct = {
         }
       }
     },
+    {
+      notes: 'semanticIsEvaluate',
+      where: where(),
+      priority: -1,
+      match: ({context}) => context.semanticIsEvaluate,
+      apply: ({context, e}) => {
+        context.value = e({ ...context, semanticIsEvaluate: false })
+        context.isResponse
+      }
+    },
   ],
 };
 

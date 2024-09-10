@@ -9,27 +9,25 @@ const { hashIndexesGet, hashIndexesSet, translationMapping, translationMappings 
 const { zip, words } = require('./helpers.js')
 
 const template = {
-    configs: [
-//      "if f then g",
-      //"if e or f then g",
-    ]
-};
-
-// TODO -> if a car's top speed is over 200 mph then the car is fast
-let configStruct = {
-  name: 'evaluate',
-  bridges: [
-    {
-      id: "synonym",
-      // implicit words in singular/plural
-      words: words('synonym'),
-      operator: "([synonym])",
-    },
-  ],
+  configs: [
+     {
+       operators: [
+         "([evaluate] (value))",
+       ],
+       bridges: [
+         {
+           id: 'evaluate',
+           bridge: "{ ...next(operator), value: after[1] ",
+           semantic: ({context, e)}) => {
+           }
+         }
+       ],
+     },
+  ]
 };
 
 const createConfig = () => {
-  return new Config(configStruct, module)
+  return new Config({ name: 'evaluate' }, module)
 }
 
 knowledgeModule({ 

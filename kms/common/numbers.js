@@ -2,6 +2,7 @@ const { Config, knowledgeModule, where } = require('./runtime').theprogrammablem
 const { defaultContextCheck } = require('./helpers')
 const numbers_tests = require('./numbers.test.json')
 const gdefaults = require('./gdefaults')
+const sdefaults = require('./sdefaults')
 
 /*
   TODO 
@@ -21,7 +22,6 @@ let configStruct = {
   version: '3',
   words: {
     "literals": {
-      // start with a space for regular expressions
       "one": [{"id": "number", "initial": "{ value: 1, instance:true }" }],
       "ones": [{"id": "number", "initial": "{ value: 1, number: 'many', instance:true }" }],
       "two": [{"id": "number", "initial": "{ value: 2 , instance:true}" }],
@@ -85,7 +85,7 @@ let configStruct = {
 
 const createConfig = () => {
   const config = new Config(configStruct, module)
-  config.add(gdefaults())
+  config.add(gdefaults(), sdefaults())
   return config
 }
 
