@@ -34,10 +34,9 @@ class API {
     // TODO make the modifiers objects then below for add words for modifiers only do if !unknown
     // const objectId = pluralize.singular(object)
     const objectId = this.args.kms.dialogues.api.toScopedId(object)
-
     // const modifierIds = modifiers.map( (modifier) => pluralize.singular(modifier) )
     const modifierIds = modifiers.map( (modifier) => this.args.kms.dialogues.api.toScopedId(modifier) )
-    const modifiersObjectId = `${modifiers.join("_")}_${objectId}`
+    const modifiersObjectId = `${modifierIds.join("_")}_${objectId}`
 
     const toWord = (object) => {
       if (typeof object == 'string') {
@@ -76,14 +75,18 @@ class API {
       config.addWord(objectPlural, { id: objectId, initial: `{ value: '${objectId}', number: 'many' }`})
     }
 
-    zip(modifiers, modifierIds).forEach(([modifierWord, modifierId]) => {
+    zip(modifiers, modifierIds).forEach(([modifier, modifierId]) => {
       // config.addWord(modifier, { id: modifierId, initial: `{ value: '${modifierId}' }`})
       // TODO call evaluator to pick up overrides
-      config.addWord(pluralize.singular(modifierWord), { id: modifierId, initial: `{ value: '${modifierId}', number: 'one' }`})
-      config.addWord(pluralize.plural(modifierWord), { id: modifierId, initial: `{ value: '${modifierId}', number: 'many' }`})
+      if (modifier.unknown) {
+        const modifierWord = modifier.text
+        config.addWord(pluralize.singular(modifierWord), { id: modifierId, initial: `{ value: '${modifierId}', number: 'one' }`})
+        config.addWord(pluralize.plural(modifierWord), { id: modifierId, initial: `{ value: '${modifierId}', number: 'many' }`})
+      }
     })
     // modifierds.forEach((modifierId) => config.addWord(modifierId, { id: modifierId, initial: `{ value: '${modifierId}' }`}))
 
+    debugger
     modifierIds.forEach((modifierId) => config.addBridge({ id: modifierId, level: 0, bridge: `{ ...next(operator), value: '${modifierId}' }`,  allowDups: true }))
     config.addBridge({ id: objectId, level: 0, bridge: `{ ...next(operator), value: '${objectId}' }`,  allowDups: true })
     // config.addBridge({ id: modifierObjectId, level: 0, bridge: `{ ...next(operator), value: '${modifierObjectId}' }`, allowDups: true })

@@ -121,10 +121,13 @@ const createConfig = () => {
           let modifiers
           if (context.literally) {
             literalModifiers = context.modifiers[0]
-            modifiers = literalModifiers.value.map(modifier => modifier.value)
+            debugger
+            // modifiers = literalModifiers.value.map(modifier => modifier.value)
+            modifiers = literalModifiers.value
             modifiers = modifiers.slice(0, -1).concat([literalModifiers.marker]).concat(modifiers.slice(-1))
           } else {
-            modifiers = context.modifiers.map(modifier => modifier.value)
+            modifiers = context.modifiers
+            // modifiers = context.modifiers.map(modifier => modifier.value)
           }
           // km('concept').api.kindOfConcept({ config, modifiers, object: context.concept.value || context.concept.marker })
           km('concept').api.kindOfConcept({ config, modifiers, object: context.concept })
