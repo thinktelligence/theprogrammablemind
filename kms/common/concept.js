@@ -121,7 +121,6 @@ const createConfig = () => {
           let modifiers
           if (context.literally) {
             literalModifiers = context.modifiers[0]
-            debugger
             // modifiers = literalModifiers.value.map(modifier => modifier.value)
             modifiers = literalModifiers.value
             modifiers = modifiers.slice(0, -1).concat([literalModifiers.marker]).concat(modifiers.slice(-1))
