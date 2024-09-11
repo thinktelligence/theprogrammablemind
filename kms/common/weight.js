@@ -36,7 +36,7 @@ const template = {
 
 const createConfig = () => {
   const config = new Config({ name: 'weight' }, module)
-  config.add(dimension())
+  config.add(dimension)
   return config
 }
 

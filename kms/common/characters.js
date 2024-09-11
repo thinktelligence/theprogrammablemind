@@ -181,7 +181,7 @@ const createConfig = () => {
 
   const config = new Config(configStruct, module)
   config.stop_auto_rebuild()
-  config.add(gdefaults())
+  config.add(gdefaults)
 
   config.multiApi = initializeApi
   config.initializer( ({isModule, config, km}) => {

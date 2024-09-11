@@ -531,7 +531,7 @@ const template = {
 const createConfig = () => {
   const config = new Config({ name: 'pipboy' }, module)
   config.stop_auto_rebuild()
-  config.add(hierarchy(), countable(), comparable(), help(), math())
+  config.add(hierarchy, countable, comparable, help, math)
   // console.log('config.config.hierarchy', JSON.stringify(config.config.hierarchy, null, 2))
   // console.log('config.hierarchy', config.hierarchy)
   config.api = api

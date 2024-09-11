@@ -63,20 +63,24 @@ class SpockAPI {
 
 
 const createConfig = () => {
-  const characters = createCharacters()
-  const kirk = createKirk()
-  const spock = createSpock()
-  characters.api = new KirkAPI(kirk);
-  characters.api = new SpockAPI(spock);
   const config = new Config({ 
       name: 'stgame', 
       operators: [ "([a])" ],
       bridges: [ { id: 'a', level: 0, bridge: "{ ...next(operator) }" } ],
       words: {"?": [{"id": "a", "initial": "{}" }]},
   }, module)
+
+  const createCharactersHelper = () => {
+    const characters = createCharacters()
+    const kirk = createKirk()
+    const spock = createSpock()
+    characters.api = new KirkAPI(kirk);
+    characters.api = new SpockAPI(spock);
+    return characters
+  }
   config.stop_auto_rebuild()
   config.api = api
-  config.add(characters)
+  config.add(createCharactersHelper)
   config.restart_auto_rebuild()
   return config
 }

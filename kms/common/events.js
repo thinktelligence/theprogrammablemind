@@ -120,7 +120,7 @@ let configStruct = {
 const createConfig = () => {
   const config = new Config(configStruct, module)
   config.api = new API()
-  config.add(dialogues())
+  config.add(dialogues)
   return config
 }
 

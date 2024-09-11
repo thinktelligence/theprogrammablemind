@@ -16,7 +16,7 @@ const template = {
 
 const createConfig = () => {
   const config = new Config({ name: 'temperature' }, module)
-  config.add(dimension())
+  config.add(dimension)
   return config
 }
 

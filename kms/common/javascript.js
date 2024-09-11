@@ -63,7 +63,7 @@ let configStruct = {
 const createConfig = () => {
   const config = new Config(configStruct, module)
   config.stop_auto_rebuild()
-  config.add(dialogues())
+  config.add(dialogues)
 
   config.initializer( ({objects, uuid}) => {
     objects.variables = {}

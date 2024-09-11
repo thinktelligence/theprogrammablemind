@@ -17,7 +17,7 @@ const template ={
 
 const createConfig = () => {
   const config = new Config({ name: 'places' }, module)
-  config.add(hierarchy())
+  config.add(hierarchy)
   return config
 }
 

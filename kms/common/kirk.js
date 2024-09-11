@@ -16,7 +16,7 @@ const template = {
 
 const createConfig = () => {
   const config = new Config({ name: 'kirk', }, module)
-  config.add(crew())
+  config.add(crew)
   return config
 }
 

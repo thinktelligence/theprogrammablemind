@@ -38,7 +38,7 @@ const template = {
 
 const createConfig = () => {
   const config = new Config({ name: 'length' }, module)
-  config.add(dimension())
+  config.add(dimension)
   return config
 }
 

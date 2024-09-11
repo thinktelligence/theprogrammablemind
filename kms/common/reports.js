@@ -607,7 +607,7 @@ const initializeApi = (config, api, km) => {
 const createConfig = () => {
   const config = new Config(configStruct, module)
   config.stop_auto_rebuild()
-  config.add(currencyKM(), helpKM(), math(), events())
+  config.add(currencyKM, helpKM, math, events)
   config.multiApi = initializeApi
   // mode this to non-module init only
   config.initializer(({config, objects, km, isModule}) => {

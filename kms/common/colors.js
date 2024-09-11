@@ -48,7 +48,7 @@ const template = {
 
 const createConfig = () => {
   const config = new Config({ name: 'colors' }, module)
-  config.add(hierarchy())
+  config.add(hierarchy)
   return config
 }
 

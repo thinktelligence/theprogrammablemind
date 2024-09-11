@@ -85,7 +85,7 @@ let configStruct = {
 
 const createConfig = () => {
   const config = new Config(configStruct, module)
-  config.add(gdefaults(), sdefaults())
+  config.add(gdefaults, sdefaults)
   return config
 }
 

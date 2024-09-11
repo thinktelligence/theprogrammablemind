@@ -102,7 +102,7 @@ const createConfig = () => {
   const config = new Config(configStruct, module)
   config.stop_auto_rebuild() 
   config.api = api
-  config.add(dialogues())
+  config.add(dialogues)
   config.initializer( ({config, isModule}) => {
       if (!isModule) {
         config.addSemantic({

@@ -46,7 +46,7 @@ const createConfig = () => {
     ]
   }, module)
   config.stop_auto_rebuild()
-  config.add(hierarchy())
+  config.add(hierarchy)
   config.initializer( ({config, apis}) => {
     const api = apis('properties')
     api.createActionPrefix({

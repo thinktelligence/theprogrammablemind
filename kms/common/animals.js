@@ -27,7 +27,7 @@ const template = {
 
 const createConfig = () => {
   const config = new Config({ name: 'animals' }, module)
-  config.add(hierarchy())
+  config.add(hierarchy)
   return config
 }
 

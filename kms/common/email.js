@@ -57,7 +57,7 @@ let configStruct = {
 };
 
 config = new Config(configStruct)
-config.add(dialogues())
+config.add(dialogues)
 knowledgeModule({
   module,
   description: 'Help the user with the current knowledge modules',

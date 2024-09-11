@@ -76,7 +76,7 @@ const template ={
 
 const createConfig = () => {
   const config = new Config({ name: 'edible' }, module)
-  config.add(countable(), hierarchy())
+  config.add(countable, hierarchy)
   return config
 }
 

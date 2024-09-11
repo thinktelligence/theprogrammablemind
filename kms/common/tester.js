@@ -21,7 +21,7 @@ const createConfig = () => {
     global.theprogrammablemind.loadForTesting[module] = true
     const km = require(`./${module}`)
     // km.rebuild({ isModule: false }) // load the usually defaults
-    config.add(km())
+    config.add(km)
   }
   return config
 }

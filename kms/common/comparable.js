@@ -62,7 +62,7 @@ let configStruct = {
 
 const createConfig = () => {
   const config = new Config(configStruct, module)
-  config.add(dialogues(), numbers())
+  config.add(dialogues, numbers)
   return config
 }
 

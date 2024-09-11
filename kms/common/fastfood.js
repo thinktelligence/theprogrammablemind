@@ -987,7 +987,7 @@ const createConfig = (additionalConfig) => {
     ],
   }, module)
   config.stop_auto_rebuild()
-  config.add(edible(), countable(), events(), sizeable())
+  config.add(edible, countable, events, sizeable)
   config.api = api
   config.initializer( ({api}) => {
     api.state = new State(api)

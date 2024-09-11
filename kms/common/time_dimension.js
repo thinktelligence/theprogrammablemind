@@ -120,7 +120,7 @@ const createConfig = () => {
     ],
   }, module)
   config.stop_auto_rebuild()
-  config.add(dimension())
+  config.add(dimension)
   config.api = api
 
   config.initializer( ({api, config, objects, isModule}) => {

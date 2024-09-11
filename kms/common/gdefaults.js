@@ -183,7 +183,7 @@ let configStruct = {
 
 const createConfig = () => {
   const config = new Config(configStruct, module)
-  config.add(tokenize())
+  config.add(tokenize)
   config.initializer( ({config}) => {
     config.addArgs((args) => {
       return {

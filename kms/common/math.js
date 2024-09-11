@@ -115,7 +115,7 @@ const template = {
 
 const createConfig = () => {
   const config = new Config({ name: 'math' }, module)
-  config.add(numbers(), dialogues(), punctuation(), countable(), comparable())
+  config.add(numbers, dialogues, punctuation, countable, comparable)
   return config
 }
 

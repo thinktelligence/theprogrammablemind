@@ -173,7 +173,7 @@ const configStruct = {
 const createConfig = () => {
   const config = new Config(configStruct, module)
   config.stop_auto_rebuild()
-  config.add(tell()).add(numbers()).add(countable())
+  config.add(tell).add(numbers).add(countable)
   config.api = api
   config.initializer( ({config, objects, kms, isModule}) => {
     if (!isModule) {

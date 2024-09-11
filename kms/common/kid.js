@@ -31,7 +31,7 @@ const template = {
 
 const createConfig = () => {
   const config = new Config({ name: 'kid', }, module)
-  config.add(avatar(), animals(), edible(), ordering())
+  config.add(avatar, animals, edible, ordering)
   // config.load(template, kid_instance)
   return config
 }

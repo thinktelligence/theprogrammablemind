@@ -80,7 +80,7 @@ const template = {
 
 const createConfig = () => {
   const config = new Config(configStruct, module)
-  config.add(tokenize())
+  config.add(tokenize)
   return config
 }
 

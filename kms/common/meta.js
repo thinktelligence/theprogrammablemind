@@ -381,7 +381,7 @@ let configStruct = {
 const createConfig = () => {
   const config = new Config(configStruct, module)
   config.stop_auto_rebuild()
-  config.add(gdefaults())
+  config.add(gdefaults)
 
   config.initializer( ({config, addGenerator, isModule}) => {
     if (!isModule) {

@@ -40,7 +40,7 @@ const template = {
 const createConfig = () => {
   const config = new Config({ name: 'crew', }, module)
   config.stop_auto_rebuild()
-  config.add(avatar(), animals())
+  config.add(avatar, animals)
   crew_instance.base = 'avatar'
   config.initializer( ({config, apis}) => {
     const api = apis('properties')

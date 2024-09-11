@@ -136,7 +136,7 @@ const createConfig = () => {
   }, module)
   config.stop_auto_rebuild()
   config.api = new API()
-  config.add(dialogues())
+  config.add(dialogues)
   config.restart_auto_rebuild()
   return config
 }

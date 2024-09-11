@@ -21,7 +21,7 @@ let configStruct = {
   ],
 };
 
-const createConfig = () => new Config(configStruct, module).add(gdefaults(), pos())
+const createConfig = () => new Config(configStruct, module).add(gdefaults, pos)
 
 knowledgeModule( {
   module,
