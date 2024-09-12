@@ -103,7 +103,7 @@ const createConfig = async () => {
   config.stop_auto_rebuild() 
   await config.setApi(api)
   await config.add(dialogues)
-  config.initializer( ({config, isModule}) => {
+  await config.initializer( ({config, isModule}) => {
       if (!isModule) {
         config.addSemantic({
           match: ({context, hierarchy}) => context.happening && hierarchy.isA(context.marker, 'event'),

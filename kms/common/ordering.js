@@ -39,7 +39,7 @@ const createConfig = async () => {
   await config.add(hierarchy)
 // config.load(template, ordering_instance)
 
-  config.initializer(({config, km}) => {
+  await config.initializer(({config, km}) => {
     const oapi = km('ordering').api
     oapi.createOrdering({ name: 'preference', categories: [ ['love', 'like'], ['hate', 'dislike'] ], ordering: [ ['love', 'like'], ['like', 'dislike'], ['dislike', 'hate'] ] })
     const papi = km('properties').api

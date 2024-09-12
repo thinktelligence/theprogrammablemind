@@ -103,7 +103,7 @@ let createConfig = async () => {
   const config = new Config({ name: 'stm' }, module)
   config.stop_auto_rebuild()
 
-  config.initializer( ({config}) => {
+  await config.initializer( ({config}) => {
     config.addArgs(({kms}) => ({
       mentioned: (context) => {
         kms.stm.api.mentioned(context)

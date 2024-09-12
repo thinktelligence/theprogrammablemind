@@ -87,7 +87,7 @@ const createConfig = async () => {
   config.stop_auto_rebuild()
   await config.add(dialogues)
 
-  config.initializer( ({ config, addWord, kms }) => {
+  await config.initializer( ({ config, addWord, kms }) => {
     const names = new Set()
     for (let name in kms) {
       names.add(name);

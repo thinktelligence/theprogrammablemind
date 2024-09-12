@@ -616,7 +616,7 @@ const createConfig = async () => {
     // config.addAPI(api1)
     // config.addAPI(api2)
   }
-  config.initializer(({config, objects, km, isModule}) => {
+  await config.initializer(({config, objects, km, isModule}) => {
     objects.tempReportId = 0
     objects.listings = {
     }

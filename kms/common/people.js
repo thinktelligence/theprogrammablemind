@@ -49,7 +49,7 @@ const createConfig = async () => {
   const config = new Config(configStruct, module)
   config.stop_auto_rebuild()
   await config.add(hierarchy)
-  config.initializer( ({baseConfig, context, apis, isModule}) => {
+  await config.initializer( ({baseConfig, context, apis, isModule}) => {
     // const api = km('properties').api
     const api = apis('properties')
     // setup paraphrase

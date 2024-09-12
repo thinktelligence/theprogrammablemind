@@ -42,7 +42,7 @@ const createConfig = async () => {
   config.stop_auto_rebuild()
   await config.add(avatar, animals)
   crew_instance.base = 'avatar'
-  config.initializer( ({config, apis}) => {
+  await config.initializer( ({config, apis}) => {
     const api = apis('properties')
     const conceptApi = apis('concept')
     // conceptApi.kindOfConcept({ config, modifiers: ['photon'], object: 'torpedo' })

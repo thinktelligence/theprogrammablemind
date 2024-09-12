@@ -41,7 +41,7 @@ const createConfig = async () => {
   })
   config.stop_auto_rebuild()
   await config.add(hierarchy)
-  config.initializer( ({config, apis}) => {
+  await config.initializer( ({config, apis}) => {
     const api = apis('properties')
     /*
     api.createActionPrefix({

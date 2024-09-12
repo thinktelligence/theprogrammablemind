@@ -1007,7 +1007,7 @@ const createConfig = async () => {
   config.stop_auto_rebuild()
   await config.setApi(api)
   await config.add(gdefaults, sdefaults, pos, negation, stm, meta, punctuation)
-  config.initializer( ({objects, config, isModule}) => {
+  await config.initializer( ({objects, config, isModule}) => {
     /* TODO add this beck in. some stuff from config needs to be here
     config.addArgs((args) => ({ 
       e: (context) => config.api.getEvaluator(args.s, args.log, context),

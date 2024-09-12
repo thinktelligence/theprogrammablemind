@@ -95,7 +95,7 @@ const createConfig = async () => {
   config.stop_auto_rebuild()
   await config.add(numbersKM)
   await config.setApi(api)
-  config.initializer( ({config, objects, apis, addWord, addGenerator, baseConfig, uuid}) => {
+  await config.initializer( ({config, objects, apis, addWord, addGenerator, baseConfig, uuid}) => {
     // const api = config.km('currency').api
     // const api = kms.currency.api
     const api = apis('currency')

@@ -184,7 +184,7 @@ let configStruct = {
 const createConfig = async () => {
   const config = new Config(configStruct, module)
   await config.add(tokenize)
-  config.initializer( ({config}) => {
+  await config.initializer( ({config}) => {
     config.addArgs((args) => {
       return {
         number: (context) => isMany(context) ? "many" : "one",

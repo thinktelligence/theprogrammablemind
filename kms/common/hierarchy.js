@@ -292,7 +292,7 @@ const createConfig = async () => {
   const config = new Config(configStruct, module)
   config.stop_auto_rebuild()
   await config.add(properties)
-  config.initializer( ({apis, hierarchy}) => {
+  await config.initializer( ({apis, hierarchy}) => {
     apis('stm').addIsA( (child, parent) => {
       return hierarchy.isA(child, parent) 
     })

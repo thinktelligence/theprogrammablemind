@@ -383,7 +383,7 @@ const createConfig = async () => {
   config.stop_auto_rebuild()
   await config.add(gdefaults)
 
-  config.initializer( ({config, addGenerator, isModule}) => {
+  await config.initializer( ({config, addGenerator, isModule}) => {
     if (!isModule) {
       addGenerator({
         where: where(),

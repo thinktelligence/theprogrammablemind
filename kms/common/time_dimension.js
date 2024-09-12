@@ -123,7 +123,7 @@ const createConfig = async () => {
   await config.add(dimension)
   await config.setApi(api)
 
-  config.initializer( ({api, config, objects, isModule}) => {
+  await config.initializer( ({api, config, objects, isModule}) => {
     if (!isModule) {
       api.newDate = () => new Date("December 25, 1995 1:59:58 pm" )
     }

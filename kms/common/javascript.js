@@ -65,7 +65,7 @@ const createConfig = async () => {
   config.stop_auto_rebuild()
   await config.add(dialogues)
 
-  config.initializer( ({objects, uuid}) => {
+  await config.initializer( ({objects, uuid}) => {
     objects.variables = {}
   })
   await config.restart_auto_rebuild()

@@ -175,7 +175,7 @@ const createConfig = async () => {
   config.stop_auto_rebuild()
   await config.add(tell, numbers, countable)
   await config.setApi(api)
-  config.initializer( ({config, objects, kms, isModule}) => {
+  await config.initializer( ({config, objects, kms, isModule}) => {
     if (!isModule) {
       kms.time.api.newDate = () => new Date("December 25, 1995 1:59:58 pm" )
     }
