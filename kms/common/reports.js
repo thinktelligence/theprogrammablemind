@@ -465,7 +465,6 @@ let configStruct = {
           const c1 = { marker: 'worth', value: 'worth' }
           r1 = toEValue(e(c1));
           r2 = e({ marker: 'supplier', value: 'supplier' })
-          // api.listing.api = context.what.api
         }
         const data = products.map( (product) => {
           const row = []

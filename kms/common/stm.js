@@ -113,7 +113,7 @@ let createConfig = async () => {
       },
     }))
   })
-  config.api = api
+  await config.setApi(api)
 
   await config.restart_auto_rebuild()
   return config

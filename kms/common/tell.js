@@ -101,7 +101,7 @@ let configStruct = {
 const createConfig = async () => {
   const config = new Config(configStruct, module)
   config.stop_auto_rebuild() 
-  config.api = api
+  await config.setApi(api)
   await config.add(dialogues)
   config.initializer( ({config, isModule}) => {
       if (!isModule) {

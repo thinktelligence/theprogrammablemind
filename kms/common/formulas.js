@@ -197,7 +197,7 @@ const createConfig = async () => {
   config = new Config({ name: 'formulas' }, module)
   config.stop_auto_rebuild()
   await config.add(dialogues, pos, math, hierarchy, comparable, countable)
-  config.api = api
+  await config.setApi(api)
   await config.restart_auto_rebuild()
   return config
 }

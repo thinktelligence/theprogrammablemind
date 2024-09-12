@@ -1005,7 +1005,7 @@ const getAsk = (config) => (uuid) => {
 const createConfig = async () => {
   const config = new Config(configStruct, module)
   config.stop_auto_rebuild()
-  config.api = api
+  await config.setApi(api)
   await config.add(gdefaults, sdefaults, pos, negation, stm, meta, punctuation)
   config.initializer( ({objects, config, isModule}) => {
     /* TODO add this beck in. some stuff from config needs to be here

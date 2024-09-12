@@ -178,7 +178,7 @@ const createConfig = async () => {
   const config = new Config({ name: 'dimension' }, module)
   config.stop_auto_rebuild()
   await config.add(hierarchy, formulas, testing)
-  config.api = api
+  await config.setApi(api)
   await config.restart_auto_rebuild()
   return config
 }

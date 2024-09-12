@@ -35,7 +35,7 @@ const api = new API();
 const createConfig = async () => {
   const config = new Config({ name: 'ordering' }, module)
   config.stop_auto_rebuild()
-  config.api = api
+  await config.setApi(api)
   await config.add(hierarchy)
 // config.load(template, ordering_instance)
 

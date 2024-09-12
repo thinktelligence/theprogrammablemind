@@ -74,12 +74,12 @@ const createConfig = async () => {
     const characters = await createCharacters()
     const kirk = await createKirk()
     const spock = await createSpock()
-    characters.api = new KirkAPI(kirk);
-    characters.api = new SpockAPI(spock);
+    await characters.setApi(new KirkAPI(kirk))
+    await characters.setApi(new SpockAPI(spock))
     return characters
   }
   config.stop_auto_rebuild()
-  config.api = api
+  await config.setApi(api)
   await config.add(createCharactersHelper)
   await config.restart_auto_rebuild()
   return config

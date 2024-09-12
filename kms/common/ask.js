@@ -36,7 +36,7 @@ let configStruct = {
 };
 
 config = new Config(configStruct)
-config.api = api
+config.setApi(api)
 
 config.initializer( (args) => {
   const {objects, isModule, config, addBridge} = args;

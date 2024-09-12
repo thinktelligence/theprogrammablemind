@@ -121,7 +121,7 @@ const createConfig = async () => {
   }, module)
   config.stop_auto_rebuild()
   await config.add(dimension)
-  config.api = api
+  await config.setApi(api)
 
   config.initializer( ({api, config, objects, isModule}) => {
     if (!isModule) {
