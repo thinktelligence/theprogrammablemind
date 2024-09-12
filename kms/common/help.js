@@ -96,7 +96,7 @@ const createConfig = async () => {
       addWord(name, {id: "km", initial: `{ value: '${name}', word: '${name}' }`})
     }
   })
-  config.restart_auto_rebuild()
+  await config.restart_auto_rebuild()
   return config
 }
 

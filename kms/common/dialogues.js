@@ -1047,7 +1047,7 @@ const createConfig = async () => {
       config.addWord("doesable", { id: "doesAble", "initial": "{}" })
     }
   })
-  config.restart_auto_rebuild()
+  await config.restart_auto_rebuild()
   return config
 }
 

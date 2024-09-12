@@ -179,7 +179,7 @@ const createConfig = async () => {
   config.stop_auto_rebuild()
   await config.add(hierarchy, formulas, testing)
   config.api = api
-  config.restart_auto_rebuild()
+  await config.restart_auto_rebuild()
   return config
 }
 

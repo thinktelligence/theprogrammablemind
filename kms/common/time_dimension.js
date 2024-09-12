@@ -131,7 +131,7 @@ const createConfig = async () => {
       format: 12  // or 24
     });
   })
-  config.restart_auto_rebuild()
+  await config.restart_auto_rebuild()
 
   return config
 }

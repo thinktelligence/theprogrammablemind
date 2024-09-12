@@ -67,7 +67,7 @@ const createConfig = async () => {
             })
 
   })
-  config.restart_auto_rebuild()
+  await config.restart_auto_rebuild()
   return config
 }
 

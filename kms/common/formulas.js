@@ -198,7 +198,7 @@ const createConfig = async () => {
   config.stop_auto_rebuild()
   await config.add(dialogues, pos, math, hierarchy, comparable, countable)
   config.api = api
-  config.restart_auto_rebuild()
+  await config.restart_auto_rebuild()
   return config
 }
 

@@ -535,7 +535,7 @@ const createConfig = async () => {
   // console.log('config.config.hierarchy', JSON.stringify(config.config.hierarchy, null, 2))
   // console.log('config.hierarchy', config.hierarchy)
   config.api = api
-  config.restart_auto_rebuild()
+  await config.restart_auto_rebuild()
   return config
 }
 

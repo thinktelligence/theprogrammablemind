@@ -68,7 +68,7 @@ const createConfig = async () => {
   config.initializer( ({objects, uuid}) => {
     objects.variables = {}
   })
-  config.restart_auto_rebuild()
+  await config.restart_auto_rebuild()
   return config
 }
 

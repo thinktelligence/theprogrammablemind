@@ -57,7 +57,7 @@ const createConfig = async () => {
                   doAble: true,
                   config })
   })
-  config.restart_auto_rebuild()
+  await config.restart_auto_rebuild()
   //config.load(template, emotions_instance)
   return config
 }

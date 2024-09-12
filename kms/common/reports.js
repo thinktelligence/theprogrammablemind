@@ -625,7 +625,7 @@ const createConfig = async () => {
       objects.listings[id].api = 'clothes'
     }
   })
-  config.restart_auto_rebuild()
+  await config.restart_auto_rebuild()
   return config
 }
 

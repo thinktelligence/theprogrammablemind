@@ -62,7 +62,7 @@ const createConfig = async () => {
                 config 
               })
   })
-  config.restart_auto_rebuild()
+  await config.restart_auto_rebuild()
   // config.load(template, pokemon_instance)
   return config
 }

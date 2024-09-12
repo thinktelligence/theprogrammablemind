@@ -41,7 +41,7 @@ const createConfig = async () => {
   const config = new Config({ name: 'undo' }, module)
   config.stop_auto_rebuild()
     await config.add(stm)
-  config.restart_auto_rebuild()
+  await config.restart_auto_rebuild()
   return config
 }
 

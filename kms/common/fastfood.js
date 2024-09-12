@@ -995,7 +995,7 @@ const createConfig = async (additionalConfig) => {
   if (additionalConfig) {
     additionalConfig(config)
   }
-  config.restart_auto_rebuild()
+  await config.restart_auto_rebuild()
   return config
 }
 

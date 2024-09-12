@@ -362,7 +362,7 @@ const createConfig = async () => {
     objects.winningScore = null
     objects.allPlayersAreKnown = false;
   })
-  config.restart_auto_rebuild()
+  await config.restart_auto_rebuild()
   return config
 }
 
