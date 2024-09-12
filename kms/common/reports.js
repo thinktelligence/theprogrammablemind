@@ -608,7 +608,7 @@ const createConfig = async () => {
   const config = new Config(configStruct, module)
   config.stop_auto_rebuild()
   await config.add(currencyKM, helpKM, math, events)
-  config.multiApi = initializeApi
+  await config.setMultiApi(initializeApi)
   // mode this to non-module init only
   config.initializer(({config, objects, km, isModule}) => {
     if (!isModule) {

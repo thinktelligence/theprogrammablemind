@@ -183,7 +183,7 @@ const createConfig = async () => {
   config.stop_auto_rebuild()
   await config.add(gdefaults)
 
-  config.multiApi = initializeApi
+  await config.setMultiApi(initializeApi)
   config.initializer( ({isModule, config, km}) => {
     if (!isModule) {
       // config.api = api2
