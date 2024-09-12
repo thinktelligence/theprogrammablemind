@@ -50,7 +50,7 @@ let configStruct = {
   ],
 };
 
-const createConfig = () => new Config(configStruct, module).add(gdefaults)
+const createConfig = async () => new Config(configStruct, module).add(gdefaults)
 
 knowledgeModule( {
   module,

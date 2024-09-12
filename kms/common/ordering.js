@@ -32,11 +32,11 @@ const api = new API();
 
   if a likes b then a wants b
 */
-const createConfig = () => {
+const createConfig = async () => {
   const config = new Config({ name: 'ordering' }, module)
   config.stop_auto_rebuild()
   config.api = api
-  config.add(hierarchy)
+  await config.add(hierarchy)
 // config.load(template, ordering_instance)
 
   config.initializer(({config, km}) => {

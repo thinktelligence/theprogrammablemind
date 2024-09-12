@@ -170,10 +170,10 @@ const configStruct = {
   ],
 };
 
-const createConfig = () => {
+const createConfig = async () => {
   const config = new Config(configStruct, module)
   config.stop_auto_rebuild()
-  config.add(tell).add(numbers).add(countable)
+  await config.add(tell, numbers, countable)
   config.api = api
   config.initializer( ({config, objects, kms, isModule}) => {
     if (!isModule) {

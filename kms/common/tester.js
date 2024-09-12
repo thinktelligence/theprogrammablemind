@@ -12,7 +12,7 @@ const [args, unknown] = parser.parse_known_args()
 
 process.argv = [process.argv[0], process.argv[1], ...unknown]
 
-const createConfig = () => {
+const createConfig = async () => {
   const config = new Config({ name: 'tester' })
   global.theprogrammablemind = {
     loadForTesting: {}
@@ -21,7 +21,7 @@ const createConfig = () => {
     global.theprogrammablemind.loadForTesting[module] = true
     const km = require(`./${module}`)
     // km.rebuild({ isModule: false }) // load the usually defaults
-    config.add(km)
+    await config.add(km)
   }
   return config
 }

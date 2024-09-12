@@ -57,7 +57,7 @@ class API {
 }
 const api = new API()
 
-const createConfig = () => {
+const createConfig = async () => {
   const config = new Config({ 
     name: 'time_dimension',
     operators: [
@@ -120,7 +120,7 @@ const createConfig = () => {
     ],
   }, module)
   config.stop_auto_rebuild()
-  config.add(dimension)
+  await config.add(dimension)
   config.api = api
 
   config.initializer( ({api, config, objects, isModule}) => {

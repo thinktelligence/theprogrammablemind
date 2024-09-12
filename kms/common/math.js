@@ -113,9 +113,9 @@ const template = {
   ]
 }
 
-const createConfig = () => {
+const createConfig = async () => {
   const config = new Config({ name: 'math' }, module)
-  config.add(numbers, dialogues, punctuation, countable, comparable)
+  await config.add(numbers, dialogues, punctuation, countable, comparable)
   return config
 }
 

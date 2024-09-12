@@ -36,9 +36,9 @@ let configStruct = {
   version: '3',
 };
 
-const createConfig = () => {
+const createConfig = async () => {
   const config = new Config(configStruct, module)
-  config.add(numbers)
+  await config.add(numbers)
   return config
 }
 

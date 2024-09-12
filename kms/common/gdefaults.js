@@ -181,9 +181,9 @@ let configStruct = {
   ],
 };
 
-const createConfig = () => {
+const createConfig = async () => {
   const config = new Config(configStruct, module)
-  config.add(tokenize)
+  await config.add(tokenize)
   config.initializer( ({config}) => {
     config.addArgs((args) => {
       return {

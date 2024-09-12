@@ -690,11 +690,11 @@ let configStruct = {
   ]
 };
 
-const createConfig = () => {
+const createConfig = async () => {
   const config = new Config(configStruct, module)
   config.stop_auto_rebuild()
   config.api = api
-  config.add(concept, meta, dialogues)
+  await config.add(concept, meta, dialogues)
   config.restart_auto_rebuild()
   return config
 }

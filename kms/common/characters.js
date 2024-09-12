@@ -173,15 +173,15 @@ const initializeApi = (config, api) => {
 }
 
 
-const createConfig = () => {
-  const timeKM = createTimeKM()
-  const currencyKM = createCurrencyKM()
+const createConfig = async () => {
+  const timeKM = await createTimeKM()
+  const currencyKM = await createCurrencyKM()
   const api = new Sally(timeKM)
   const api2 = new Bob(currencyKM)
 
   const config = new Config(configStruct, module)
   config.stop_auto_rebuild()
-  config.add(gdefaults)
+  await config.add(gdefaults)
 
   config.multiApi = initializeApi
   config.initializer( ({isModule, config, km}) => {

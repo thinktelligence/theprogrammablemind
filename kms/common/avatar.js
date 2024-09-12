@@ -68,9 +68,9 @@ let configStruct = {
 
 };
 
-const createConfig = () => {
+const createConfig = async () => {
   const config = new Config(configStruct, module)
-  config.add(hierarchy, emotions)
+  await config.add(hierarchy, emotions)
   return config
 }
 

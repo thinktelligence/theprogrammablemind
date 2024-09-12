@@ -183,10 +183,10 @@ const template = {
   ],
 }
 
-const createConfig = () => {
+const createConfig = async () => {
   const config = new Config(configStruct, module)
   config.stop_auto_rebuild()
-  config.add(dialogues, math)
+  await config.add(dialogues, math)
   config.api = new API()
   config.restart_auto_rebuild()
   return config

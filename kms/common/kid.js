@@ -29,9 +29,9 @@ const template = {
   ]
 };
 
-const createConfig = () => {
+const createConfig = async () => {
   const config = new Config({ name: 'kid', }, module)
-  config.add(avatar, animals, edible, ordering)
+  await config.add(avatar, animals, edible, ordering)
   // config.load(template, kid_instance)
   return config
 }

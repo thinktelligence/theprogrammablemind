@@ -45,10 +45,10 @@ let configStruct = {
   ],
 };
 
-const createConfig = () => {
+const createConfig = async () => {
   const config = new Config(configStruct, module)
   config.stop_auto_rebuild()
-  config.add(hierarchy)
+  await config.add(hierarchy)
   config.initializer( ({baseConfig, context, apis, isModule}) => {
     // const api = km('properties').api
     const api = apis('properties')

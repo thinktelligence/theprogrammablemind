@@ -174,10 +174,10 @@ const template = {
   ],
 }
 
-const createConfig = () => {
+const createConfig = async () => {
   const config = new Config({ name: 'dimension' }, module)
   config.stop_auto_rebuild()
-  config.add(hierarchy, formulas, testing)
+  await config.add(hierarchy, formulas, testing)
   config.api = api
   config.restart_auto_rebuild()
   return config

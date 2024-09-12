@@ -29,7 +29,7 @@ const template = {
 // 'ashe owns pikachu who owns pikachu'
 // TODO does ashe own pikachu / ash owns pikachu? / 'ashe likes pikachu does ashe like pikachu'
 
-const createConfig = () => {
+const createConfig = async () => {
   const config = new Config({ 
     name: 'pokemon',
     hierarchy: [
@@ -40,7 +40,7 @@ const createConfig = () => {
     ],
   })
   config.stop_auto_rebuild()
-  config.add(hierarchy)
+  await config.add(hierarchy)
   config.initializer( ({config, apis}) => {
     const api = apis('properties')
     /*

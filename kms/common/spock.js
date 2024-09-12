@@ -10,9 +10,9 @@ const template = {
   ]
 };
 
-const createConfig = () => {
+const createConfig = async () => {
   const config = new Config({ name: 'spock', }, module)
-  config.add(crew)
+  await config.add(crew)
   return config
 }
 

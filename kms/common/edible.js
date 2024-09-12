@@ -74,9 +74,9 @@ const template ={
   ],
 }
 
-const createConfig = () => {
+const createConfig = async () => {
   const config = new Config({ name: 'edible' }, module)
-  config.add(countable, hierarchy)
+  await config.add(countable, hierarchy)
   return config
 }
 

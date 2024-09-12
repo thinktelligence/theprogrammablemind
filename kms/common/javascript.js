@@ -60,10 +60,10 @@ let configStruct = {
   ],
 };
 
-const createConfig = () => {
+const createConfig = async () => {
   const config = new Config(configStruct, module)
   config.stop_auto_rebuild()
-  config.add(dialogues)
+  await config.add(dialogues)
 
   config.initializer( ({objects, uuid}) => {
     objects.variables = {}

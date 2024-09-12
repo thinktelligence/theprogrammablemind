@@ -90,10 +90,10 @@ let configStruct = {
   ],
 };
 
-const createConfig = () => {
+const createConfig = async () => {
   const config = new Config(configStruct, module)
   config.stop_auto_rebuild()
-  config.add(numbersKM)
+  await config.add(numbersKM)
   config.api = api
   config.initializer( ({config, objects, apis, addWord, addGenerator, baseConfig, uuid}) => {
     // const api = config.km('currency').api

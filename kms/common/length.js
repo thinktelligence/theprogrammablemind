@@ -36,9 +36,9 @@ const template = {
   ],
 }
 
-const createConfig = () => {
+const createConfig = async () => {
   const config = new Config({ name: 'length' }, module)
-  config.add(dimension)
+  await config.add(dimension)
   return config
 }
 

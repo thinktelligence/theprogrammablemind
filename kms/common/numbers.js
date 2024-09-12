@@ -83,9 +83,9 @@ let configStruct = {
   ],
 };
 
-const createConfig = () => {
+const createConfig = async () => {
   const config = new Config(configStruct, module)
-  config.add(gdefaults, sdefaults)
+  await config.add(gdefaults, sdefaults)
   return config
 }
 

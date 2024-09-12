@@ -26,7 +26,7 @@ const template = {
   ]
 };
 
-const createConfig = () => {
+const createConfig = async () => {
   return new Config({ name: 'evaluate' }, module)
 }
 

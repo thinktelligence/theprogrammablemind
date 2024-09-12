@@ -350,10 +350,10 @@ let configStruct = {
   ],
 };
 
-const createConfig = () => {
+const createConfig = async () => {
   const config = new Config(configStruct, module)
   config.stop_auto_rebuild()
-  config.add(dialogues, numbers, properties)
+  await config.add(dialogues, numbers, properties)
   config.initializer( ({objects, km, isModule}) => {
     objects.players = []
     objects.nextPlayer = undefined;

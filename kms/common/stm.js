@@ -99,7 +99,7 @@ class API {
 
 const api = new API()
 
-let createConfig = () => {
+let createConfig = async () => {
   const config = new Config({ name: 'stm' }, module)
   config.stop_auto_rebuild()
 

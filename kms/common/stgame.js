@@ -62,7 +62,7 @@ class SpockAPI {
 }
 
 
-const createConfig = () => {
+const createConfig = async () => {
   const config = new Config({ 
       name: 'stgame', 
       operators: [ "([a])" ],
@@ -70,17 +70,17 @@ const createConfig = () => {
       words: {"?": [{"id": "a", "initial": "{}" }]},
   }, module)
 
-  const createCharactersHelper = () => {
-    const characters = createCharacters()
-    const kirk = createKirk()
-    const spock = createSpock()
+  const createCharactersHelper = async () => {
+    const characters = await createCharacters()
+    const kirk = await createKirk()
+    const spock = await createSpock()
     characters.api = new KirkAPI(kirk);
     characters.api = new SpockAPI(spock);
     return characters
   }
   config.stop_auto_rebuild()
   config.api = api
-  config.add(createCharactersHelper)
+  await config.add(createCharactersHelper)
   config.restart_auto_rebuild()
   return config
 }

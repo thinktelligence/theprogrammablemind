@@ -63,7 +63,7 @@ let configStruct = {
 
 };
 
-const createConfig = () => config = new Config(configStruct, module)
+const createConfig = async () => config = new Config(configStruct, module)
 
 knowledgeModule( { 
   module,

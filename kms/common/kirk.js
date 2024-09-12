@@ -14,9 +14,9 @@ const template = {
 // TODO what is the name of you
 // TODO crew members -> who are the crew members
 
-const createConfig = () => {
+const createConfig = async () => {
   const config = new Config({ name: 'kirk', }, module)
-  config.add(crew)
+  await config.add(crew)
   return config
 }
 

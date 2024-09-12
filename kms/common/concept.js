@@ -14,7 +14,7 @@ const concept_instance = require('./concept.instance.json')
   plain and regular fries mean the same thing
 */
 
-const createConfig = () => {
+const createConfig = async () => {
   const config = new Config({
     name: 'concept',
     operators: [
@@ -136,7 +136,7 @@ const createConfig = () => {
   }, module)
   config.stop_auto_rebuild()
   config.api = new API()
-  config.add(dialogues)
+  await config.add(dialogues)
   config.restart_auto_rebuild()
   return config
 }

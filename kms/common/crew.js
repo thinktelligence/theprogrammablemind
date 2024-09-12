@@ -37,10 +37,10 @@ const template = {
   ],
 };
 
-const createConfig = () => {
+const createConfig = async () => {
   const config = new Config({ name: 'crew', }, module)
   config.stop_auto_rebuild()
-  config.add(avatar, animals)
+  await config.add(avatar, animals)
   crew_instance.base = 'avatar'
   config.initializer( ({config, apis}) => {
     const api = apis('properties')

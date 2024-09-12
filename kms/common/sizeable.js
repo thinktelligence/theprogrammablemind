@@ -52,9 +52,9 @@ let configStruct = {
   ]
 };
 
-const createConfig = () => {
+const createConfig = async () => {
   const config = new Config(configStruct, module)
-  config.add(dialogues, numbers)
+  await config.add(dialogues, numbers)
   return config
 }
 

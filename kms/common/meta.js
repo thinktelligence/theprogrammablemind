@@ -378,10 +378,10 @@ let configStruct = {
   ],
 };
 
-const createConfig = () => {
+const createConfig = async () => {
   const config = new Config(configStruct, module)
   config.stop_auto_rebuild()
-  config.add(gdefaults)
+  await config.add(gdefaults)
 
   config.initializer( ({config, addGenerator, isModule}) => {
     if (!isModule) {

@@ -935,7 +935,7 @@ class State {
   }
 }
 
-const createConfig = (additionalConfig) => {
+const createConfig = async (additionalConfig) => {
   const config = new Config({ 
     name: 'fastfood',
     operators: [
@@ -987,7 +987,7 @@ const createConfig = (additionalConfig) => {
     ],
   }, module)
   config.stop_auto_rebuild()
-  config.add(edible, countable, events, sizeable)
+  await config.add(edible, countable, events, sizeable)
   config.api = api
   config.initializer( ({api}) => {
     api.state = new State(api)

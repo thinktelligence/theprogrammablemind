@@ -23,7 +23,7 @@ const template ={
   ],
 }
 
-const createConfig = () => {
+const createConfig = async () => {
   const config = new Config({ 
     name: 'emotions',
     operators: [
@@ -46,7 +46,7 @@ const createConfig = () => {
     ]
   }, module)
   config.stop_auto_rebuild()
-  config.add(hierarchy)
+  await config.add(hierarchy)
   config.initializer( ({config, apis}) => {
     const api = apis('properties')
     api.createActionPrefix({

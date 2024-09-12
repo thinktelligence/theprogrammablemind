@@ -192,11 +192,11 @@ const template = {
   ]
 }
 
-const createConfig = () => {
+const createConfig = async () => {
   const api = new API()
   config = new Config({ name: 'formulas' }, module)
   config.stop_auto_rebuild()
-  config.add(dialogues, pos, math, hierarchy, comparable, countable)
+  await config.add(dialogues, pos, math, hierarchy, comparable, countable)
   config.api = api
   config.restart_auto_rebuild()
   return config

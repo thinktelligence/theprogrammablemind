@@ -13,9 +13,9 @@ const template = {
   ]
 };
 
-const createConfig = () => {
+const createConfig = async () => {
   const config = new Config({ name: 'alice', }, module)
-  config.add(kid)
+  await config.add(kid)
   return config
 }
 

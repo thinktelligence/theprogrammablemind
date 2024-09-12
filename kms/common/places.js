@@ -15,9 +15,9 @@ const template ={
   ],
 }
 
-const createConfig = () => {
+const createConfig = async () => {
   const config = new Config({ name: 'places' }, module)
-  config.add(hierarchy)
+  await config.add(hierarchy)
   return config
 }
 

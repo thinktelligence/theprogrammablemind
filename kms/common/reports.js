@@ -604,10 +604,10 @@ const initializeApi = (config, api, km) => {
   // config.addWord(type, {"id": "report", "initial": `${open} value: '${type}' ${close}` })
  }
 
-const createConfig = () => {
+const createConfig = async () => {
   const config = new Config(configStruct, module)
   config.stop_auto_rebuild()
-  config.add(currencyKM, helpKM, math, events)
+  await config.add(currencyKM, helpKM, math, events)
   config.multiApi = initializeApi
   // mode this to non-module init only
   config.initializer(({config, objects, km, isModule}) => {

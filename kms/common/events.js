@@ -117,10 +117,10 @@ let configStruct = {
   ],
 };
 
-const createConfig = () => {
+const createConfig = async () => {
   const config = new Config(configStruct, module)
   config.api = new API()
-  config.add(dialogues)
+  await config.add(dialogues)
   return config
 }
 
