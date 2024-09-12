@@ -609,13 +609,14 @@ const createConfig = async () => {
   await config.add(currencyKM, helpKM, math, events)
   await config.setMultiApi(initializeApi)
   // mode this to non-module init only
+  const isModule = require.main !== module
+  if (!isModule) {
+    await config.addAPI(api1)
+    await config.addAPI(api2)
+    // config.addAPI(api1)
+    // config.addAPI(api2)
+  }
   config.initializer(({config, objects, km, isModule}) => {
-    if (!isModule) {
-      km('reports').addAPI(api1)
-      km('reports').addAPI(api2)
-      // config.addAPI(api1)
-      // config.addAPI(api2)
-    }
     objects.tempReportId = 0
     objects.listings = {
     }
