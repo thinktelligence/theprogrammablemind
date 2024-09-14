@@ -837,5 +837,5 @@ fi
 # $NODE reports -q "call this report1\nshow report1" -g -d
 # $NODE scorekeeper -q "whose turn is it" -g -d
 # $NODE dimension -q "c1 is a dimension\na1 and b1 are units of d1\nwhat are 10 a1 in b1\nwhy" -g -d
-$NODE people -q "given name means first name the first name of greg is greg23 what is the given name of greg" -g -d
-
+#$NODE people -q "given name means first name the first name of greg is greg23 what is the given name of greg" -g -d
+$NODE tester -m reports -q 'list the models' -tmn reports -g
