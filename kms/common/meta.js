@@ -130,8 +130,8 @@ let configStruct = {
     {
       where: where(),
       match: ({context}) => context.marker == 'orList' && context.paraphrase,
-      apply: ({context, gs}) => {
-        return gs(context.value, ', ', ' or ')
+      apply: async ({context, gs}) => {
+        return await gs(context.value, ', ', ' or ')
       },
       priority: -1,
     },
@@ -139,10 +139,8 @@ let configStruct = {
       priority: -1,
       where: where(),
       match: ({context}) => context.marker == 'means' && context.paraphrase,
-      apply: ({context, g}) => {
-        // const before = g({ ...context.from, paraphrase: true, debug: true})
-        const before = g({ ...context.from, paraphrase: true})
-        return `${g({ ...context.from, paraphrase: true})} means ${g(context.to)}`
+      apply: async ({context, g}) => {
+        return `${await g({ ...context.from, paraphrase: true})} means ${await g(context.to)}`
       }
     },
     { 
@@ -160,8 +158,8 @@ let configStruct = {
     {
       where: where(),
       match: ({context}) => context.marker === 'if',
-      apply: ({context, g}) => {
-        return `if ${g(context.antecedant)} then ${g(context.consequence)}`
+      apply: async ({context, g}) => {
+        return `if ${await g(context.antecedant)} then ${await g(context.consequence)}`
       },
       priority: -1,
     },
@@ -182,10 +180,10 @@ let configStruct = {
     {
       where: where(),
       match: ({context}) => context.marker == 'orList',
-      apply: ({context, s}) => {
+      apply: async ({context, s}) => {
         const response = []
         for (const value of context.value) {
-          response.push(s(value))
+          response.push(await s(value))
         }
         context.evalue = {
           marker: 'orList', 
@@ -205,7 +203,7 @@ let configStruct = {
           const apply = (DEFINITIONs, DERIVED) => {
             const mappingss = translationMappings(DEFINITIONs, DERIVED)
             const invertMappings = (mappings) => mappings.map( ({ from, to }) => { return { to: from, from: to } } )
-            return ({context, s, g, config}) => { 
+            return async ({context, s, config}) => { 
               DEFINITIONs = _.cloneDeep(DEFINITIONs)
               //const mappings = mappingss[0]
               let toPrimes = []
@@ -215,8 +213,7 @@ let configStruct = {
                 }
                 // next move add debug arg to s and g
                 TO.query = true
-                toPrimes.push([s(TO), mappings])
-                // toPrime = s(TO, { debug: { apply: true } })
+                toPrimes.push([await s(TO), mappings])
               }
 
               let hasResponse = false
@@ -271,7 +268,7 @@ let configStruct = {
             // match: match(context), 
             where: where(),
             match: match(context),
-            apply: apply(antecedants, _.cloneDeep(context.consequence)) ,
+            apply: apply(antecedants, _.cloneDeep(context.consequence)),
           }
           config.addSemantic(semantic)
       }
@@ -280,17 +277,14 @@ let configStruct = {
       notes: 'from means to where from is unknown',
       where: where(),
       match: ({context}) => context.marker == 'means' && context.from.marker == 'unknown',
-      apply: ({config, context, kms, e, isTest}) => {
+      apply: async ({config, context, kms, e, isTest}) => {
         if (false && isTest) {
           return
         } else if (kms.dialogues) {
           if (context.to.value) {
             kms.stm.api.setVariable(context.from.value, context.to.value)
           } else {
-            // config.addWord(context.from.word, 
             kms.dialogues.api.makeObject({ context: context.from, types: context.to.types || [], config });
-            // kms.dialogues.api.makeObject({ context: context.from, types: [], config });
-            // const r = e(context.to)
             kms.stm.api.setVariable(context.from.value, context.to)
           }
         }
@@ -300,17 +294,17 @@ let configStruct = {
       notes: 'x means y where x and y have known markers',
       where: where(),
       match: ({context}) => context.marker == 'means',
-      apply: ({config, context, g}) => {
+      apply: async ({config, context, g}) => {
         // setup the write semantic
         {
           const matchByMarker = (defContext) => ({context}) => context.marker == defContext.from.marker && !context.query && !context.objects
           const matchByValue = (defContext) => ({context}) => context.evalue == defContext.from.value && !context.query && !context.objects
-          const apply = (mappings, TO) => ({context, s}) => {
+          const apply = (mappings, TO) => async ({context, s}) => {
             TO = _.cloneDeep(TO)
             for (let { from, to } of mappings) {
               hashIndexesSet(TO, to, hashIndexesGet(context, from))
             }
-            toPrime = s(TO)
+            toPrime = await s(TO)
             context.result = toPrime.result
           }
           const mappings = translationMapping(context.from, context.to)
@@ -332,7 +326,7 @@ let configStruct = {
         {
           const matchByMarker = (defContext) => ({context, uuid}) => context.marker == defContext.from.marker && (context.query || context.evaluate) && !context[`disable${uuid}`]
           const matchByValue = (defContext) => ({context, uuid}) => context.value == defContext.from.value && (context.query || context.evaluate) && !context[`disable${uuid}`]
-          const apply = (mappings, TO) => ({uuid, context, s, g, config}) => {
+          const apply = (mappings, TO) => async ({uuid, context, s, g, config}) => {
             TO = _.cloneDeep(TO)
             for (let { from, to } of mappings) {
               hashIndexesSet(TO, to, hashIndexesGet(context, from))
@@ -345,8 +339,7 @@ let configStruct = {
               TO.evaluate = context.evaluate
             }
             TO[`disable${uuid}`] = true
-            // toPrime = s(TO, { debug: { apply: true } })
-            toPrime = s(TO)
+            toPrime = await s(TO)
             if (context.query) {
               if (toPrime.evalue) {
                 context.evalue = toPrime.evalue
@@ -359,7 +352,7 @@ let configStruct = {
           }
           const mappings = translationMapping(context.from, context.to)
           let match = matchByMarker(context)
-          context.metaInfo = `The mapping from from the expression being defined "${g({...context.from, paraphrase: true})}" to the definition phrase "${g({...context.to, paraphrase: true})}" is ${JSON.stringify(mappings)}`
+          context.metaInfo = `The mapping from from the expression being defined "${await g({...context.from, paraphrase: true})}" to the definition phrase "${await g({...context.to, paraphrase: true})}" is ${JSON.stringify(mappings)}`
           if (context.from.value) {
             match = matchByValue(context)
           }

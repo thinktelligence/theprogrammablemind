@@ -221,7 +221,7 @@ let configStruct = {
       notes: 'expression with constraints',
       where: where(),
       match: ({context}) => context.constraints && context.paraphrase,
-      apply: ({context, g}) => {
+      apply: async ({context, g}) => {
         // TODO assume one constaints deal with more in the future
         const constraint = context.constraints[0]
         const constrained = Object.assign({}, constraint.constraint)
@@ -234,86 +234,25 @@ let configStruct = {
         paraphrase.paraphrase = true;
         paraphrase[constraint.property] = property
         if (false && context.isResponse) {
-          return g({...constraint.paraphrase, paraphrase: true})
+          return await g({...constraint.paraphrase, paraphrase: true})
         } else {
-          return g(constrained)
+          return await g(constrained)
         }
       },
     },
     {
       where: where(),
       match: ({context}) => context.marker == 'xfx',
-      apply: ({context, g}) => `${context.word} between ${g(context.arguments)}`
+      apply: async ({context, g}) => `${context.word} between ${await g(context.arguments)}`
     },
-//   {
-//     notes: '"fire type, water type and earth type" to "fire water and earth type"',
-//     tests: [
-//       'chicken modifies strips',
-//     ],
-//     /*
-//       {
-//         "water": {
-//           "marker": "water",
-//           "value": "water",
-//           "word": "water"
-//         },
-//         "marker": "water_type",
-//         "modifiers": [
-//           "water"
-//         ],
-//         "types": [
-//           "water_type"
-//         ],
-//         "value": "water_type",
-//         "word": "type",
-//         "paraphrase": true
-//       },
-//     */
-//     where: where(),
-//     match: ({context}) => {
-//       if (!context.paraphrase) {
-//         return
-//       }
-//       if (context.marker !== 'list') {
-//         return
-//       }
-//       if ((context.value || []).length < 2) {
-//         return
-//       }
-//       if (!context.value[0].word) {
-//         return
-//       }
-//       const word = context.value[0].word
-
-//       for (let value of context.value) {
-//         if (!(value.modifiers && value.modifiers.length == 1 && value.word == word)) {
-//           return
-//         }
-//       }
-//       return true
-//     },
-//     apply: ({g, context}) => {
-//       const modifiers = context.value.map( (p) => p[p.modifiers[0]] )
-//       context.word = context.value[0].word
-//       context.value = null
-//       context.modifiers = ['modifier']
-//       context.modifier = {
-//         marker: 'list',
-//         paraphrase: true,
-//         value: modifiers
-//       }
-//       context.paraphrase = true
-//       return g(context)
-//     }
-//   },
     {
       notes: 'add possession ending',
       priority: -1, 
       where: where(),
       match: ({context}) => context.paraphrase && context.possessive,
-      apply: ({context, g}) => {
+      apply: async ({context, g}) => {
         context.possessive = false
-        const phrase = g(context)
+        const phrase = await g(context)
         context.possessive = true
         if (phrase.endsWith('s')) {
           return `${phrase}'`
@@ -322,13 +261,6 @@ let configStruct = {
         }
       }
     },
-    /*
-    {
-      where: where(),
-      match: ({context}) => context.marker == 'modifies' && context.paraphrase,
-      apply: ({context}) => `${context.modifier.word} modifies ${context.concept.word}`,
-    },
-    */
     {
       where: where(),
       match: ({context}) => context.marker == 'objectPrefix' && context.value == 'other' && context.paraphrase,
@@ -353,15 +285,8 @@ let configStruct = {
       notes: 'negative do questions',
       where: where(),
       match: ({context, hierarchy}) => hierarchy.isA(context.marker, 'canBeDoQuestion') && context.paraphrase && context.negation,
-      apply: ({context, g}) => {
-        /*
-        let query = ''
-        if (context.query) {
-          query = "?"
-        }
-        return `${g(context.object)} ${context.word} ${g(context.property)}${query}`
-        */
-        return `${g(context[context.do.left])} doesnt ${pluralize.plural(context.word)} ${g(context[context.do.right])}`
+      apply: async ({context, g}) => {
+        return `${await g(context[context.do.left])} doesnt ${pluralize.plural(context.word)} ${await g(context[context.do.right])}`
       },
     },
     {
@@ -369,23 +294,22 @@ let configStruct = {
       // debug: 'call9',
       where: where(),
       match: ({context, hierarchy}) => hierarchy.isA(context.marker, 'canBeDoQuestion') && context.paraphrase && context.query && context.do,
-      apply: ({context, g}) => {
+      apply: async ({context, g}) => {
         const right = context['do'].right
         if (context[right].query) {
             const left = context['do'].left
-            return `${g(context[right])} ${chooseNumber(context[right], "does", "do")} ${g(context[left])} ${context.word}`
+            return `${await g(context[right])} ${chooseNumber(context[right], "does", "do")} ${await g(context[left])} ${context.word}`
         } else {
-          // return `does ${g(context[context.do.left])} ${pluralize.singular(context.word)} ${g(context[context.do.right])}`
           // the marker is the infinite form
-          return `${chooseNumber(context[context.do.left], "does", "do")} ${g(context[context.do.left])} ${context.marker} ${g(context[context.do.right])}`
+          return `${chooseNumber(context[context.do.left], "does", "do")} ${await g(context[context.do.left])} ${context.marker} ${await g(context[context.do.right])}`
         }
       },
     },
     {
       where: where(),
       match: ({context, hierarchy}) => hierarchy.isA(context.marker, 'canBeDoQuestion') && context.paraphrase && !context.query,
-      apply: ({context, g}) => {
-        return `${g(context.object)} ${context.word} ${g(context.property)}`
+      apply: async ({context, g}) => {
+        return `${await g(context.object)} ${context.word} ${await g(context.property)}`
       }
     },
     {
@@ -393,17 +317,21 @@ let configStruct = {
       where: where(),
       // match: ({context}) => context.paraphrase && context.modifiers && context.object, 
       match: ({context}) => context.paraphrase && !context.possession && context.object, 
-      apply: ({context, g, gs}) => {
+      apply: async ({context, g, gs}) => {
                const base = { ...context }
                base.object = undefined;
                if (context.object.marker == 'objectPrefix') {
-                 return `${g(context.object)} ${g(base)}`
+                 return `${await g(context.object)} ${await g(base)}`
                } else {
                  if (context.objects) {
-                   return gs(context.objects.map( (c) => g({...c, paraphrase: true}) ), ' of ')
+                   const gObjects = []
+                   for (const object of context.objects) {
+                     gObjects.push(await g({...object, paraphrase: true}))
+                   }
+                   return await gs(gObjects, ' of ')
                  } else {
                    // TODO make paraphrase be a default when paraphrasing?
-                   return `${g(base)} of ${g({...context.object, paraphrase: true})}`
+                   return `${await g(base)} of ${await g({...context.object, paraphrase: true})}`
                  }
                }
              },
@@ -412,9 +340,9 @@ let configStruct = {
       // ({context, hierarchy}) => hierarchy.isA(context.marker, 'property') && context.object && !context.value && !context.evaluate,
       where: where(),
       match: ({context, hierarchy}) => hierarchy.isA(context.marker, 'property') && context.object && !context.possession && !context.evaluate && !context.object.marker == 'objectPrefix',
-      apply: ({context, g}) => {
+      apply: async ({context, g}) => {
         const property = Object.assign({}, context, { object: undefined })
-        return `${g(property)} of ${g({ ...context.object, paraphrase: true })}`
+        return `${await g(property)} of ${await g({ ...context.object, paraphrase: true })}`
       }
     },
     {
@@ -422,25 +350,25 @@ let configStruct = {
       where: where(),
       // match: ({context}) => context.paraphrase && !context.modifiers && context.object, 
       match: ({context}) => !context.modifiers && context.object, 
-      apply: ({context, g, gs}) => {
+      apply: async ({context, g, gs}) => {
                if (context.objects) {
                  const objects = [ ...context.objects ]
                  objects.reverse()
                  let phrase = ''
                  let separator = ''
                  for (let i = 0; i < objects.length-1; ++i) {
-                   phrase = phrase + separator + g({...objects[i], paraphrase: context.paraphrase, possessive: true})
+                   phrase = phrase + separator + await g({...objects[i], paraphrase: context.paraphrase, possessive: true})
                    separator = ' '
                  }
-                 phrase = phrase + separator + g({...objects[objects.length-1], paraphrase: context.paraphrase})
+                 phrase = phrase + separator + await g({...objects[objects.length-1], paraphrase: context.paraphrase})
                  return phrase
                } else {
                  const base = { ...context }
                  base.object = undefined; // TODO make paraphrase be a default when paraphrasing?
                  if (context.object.marker == 'objectPrefix') {
-                   return `${g(context.object)} ${g(base)}`
+                   return `${await g(context.object)} ${await g(base)}`
                  } else {
-                   return `${g({...context.object, paraphrase: context.paraphrase})}'s ${g(base)}`
+                   return `${await g({...context.object, paraphrase: context.paraphrase})}'s ${await g(base)}`
                  }
                }  
              },
@@ -534,15 +462,15 @@ let configStruct = {
       notes: 'greg has eyes?',
       where: where(),
       match: ({context, hierarchy}) => hierarchy.isA(context.marker, 'have') && context.query,
-      apply: ({context, g, api, objects}) => {
+      apply: async ({context, g, api, objects}) => {
         const object = pluralize.singular(context.object.value);
         const property = pluralize.singular(context.property.value);
         context.isResponse = true
-        if (!api.knownObject(object)) {
-          context.verbatim = `There is no object named ${g({...context.object, paraphrase: true})}`
+        if (!await api.knownObject(object)) {
+          context.verbatim = `There is no object named ${await g({...context.object, paraphrase: true})}`
           return
         }
-        if (!api.hasProperty(object, property)) {
+        if (!await api.hasProperty(object, property)) {
           context.evalue = {
             marker: 'yesno', 
             value: false,
@@ -561,7 +489,7 @@ let configStruct = {
       where: where(),
       // match: ({context}) => context.marker == 'property' && context.same && context.object,
       match: ({context, hierarchy, uuid}) => hierarchy.isA(context.marker, 'property') && context.same && context.objects && !context[`disable${uuid}`],
-      apply: ({context, objects, km, api, log, s, uuid}) => {
+      apply: async ({context, objects, km, api, log, s, uuid}) => {
         const objectContext = context.object;
         const propertyContext = context;
         const objectId = context.object.value
@@ -576,7 +504,7 @@ let configStruct = {
         // greg HERE
         */
         propertyContext[`disable${uuid}`] = true
-        const propertyId = km("dialogues").api.evaluateToConcept(propertyContext, context, log, s).evalue;
+        const propertyId = (await km("dialogues").api.evaluateToConcept(propertyContext, context, log, s)).evalue;
         try{
           // greg
           // api.makeObject({config, context: objectContext, doPluralize: false})
@@ -589,7 +517,7 @@ let configStruct = {
           log(`Error processing set property of an object: ${e}`)
           const config = km('properties')
           const fragment = config.fragment("the property1 of object1 is value1")
-          const value = api.getProperty(objectId, propertyId)
+          const value = await api.getProperty(objectId, propertyId)
           if (value.value == context.same.value) {
             context.evalue = [
               { marker: 'yesno', value: true, paraphrase: true },
@@ -620,7 +548,7 @@ let configStruct = {
             context.evalue = [
               { marker: 'yesno', value: false, paraphrase: true },
             ]
-            context.evalue = context.evalue.concat(fragment.instantiate(mappings))
+            context.evalue = context.evalue.concat(await fragment.instantiate(mappings))
             context.evalue.forEach( (r) => r.paraphrase = true )
             context.isResponse = true
             context.sameWasProcessed = true
@@ -638,48 +566,47 @@ let configStruct = {
                       !context.evaluate.toConcept, // && !context.value,
                       // greghere
       // match: ({context, hierarchy}) => hierarchy.isA(context.marker, 'property') && context.evaluate,
-      apply: ({context, api, kms, objects, g, s, log}) => {
+      apply: async ({context, api, kms, objects, g, s, log}) => {
         const toDo = [ ...context.objects ]
 
-        const toValue = (objectContext) => {
+        const toValue = async (objectContext) => {
           if (!objectContext.value) {
             return objectContext;
           }
           let objectValue = kms.stm.api.getVariable(objectContext.value);
-          if (!api.knownObject(objectValue)) {
-            context.verbatim = `There is no object named "${g({...objectContext, paraphrase: true})}"`
+          if (!await api.knownObject(objectValue)) {
+            context.verbatim = `There is no object named "${await g({...objectContext, paraphrase: true})}"`
             return
           }
           return objectValue
         }
 
         let currentContext = toDo.pop()
-        let currentValue = toValue(currentContext)
+        let currentValue = await toValue(currentContext)
         while (toDo.length > 0) {
           const nextContext = toDo.pop()
-          const nextValue = toValue(nextContext)
+          const nextValue = await toValue(nextContext)
           if (!nextValue) {
             // TODO maybe this I aware so it can say "I don't know about blah..." and below
             // if (currentContext.unknown || !currentContext.value) {
             if (!api.conceptExists(currentContext.value)) {
               // api.conceptExists(currentContext)
-              const objectPhrase = g({...currentContext, paraphrase: true})
+              const objectPhrase = await g({...currentContext, paraphrase: true})
               context.verbatim = `What "${objectPhrase}" means is unknown`
               return
             }
 
-            const propertyPhrase = g({...nextContext, paraphrase: true})
-            const objectPhrase = g({...currentContext, paraphrase: true})
+            const propertyPhrase = await g({...nextContext, paraphrase: true})
+            const objectPhrase = await g({...currentContext, paraphrase: true})
             context.verbatim = `There is no interpretation for "${propertyPhrase} of ${objectPhrase}"`
             return
           }
 
-          if (!api.knownProperty(currentContext, nextContext)) {
-            api.knownProperty(currentContext, nextContext)
-            context.verbatim = `There is no property ${g({...nextContext, paraphrase: true})} of ${g({...currentContext, paraphrase: true})}`
+          if (!await api.knownProperty(currentContext, nextContext)) {
+            context.verbatim = `There is no property ${await g({...nextContext, paraphrase: true})} of ${await g({...currentContext, paraphrase: true})}`
             return
           }
-          currentContext = api.getProperty(currentValue, nextValue, g)
+          currentContext = await api.getProperty(currentValue, nextValue, g)
           currentValue = currentContext.value
         }
         context.focusable = ['object[0]']

@@ -28,15 +28,15 @@ let configStruct = {
       //({context}) => context.paraphrase && context.modifiers,
       // match: ({context}) => context.paraphrase && (context.modifiers || context.postModifiers),
       match: ({context}) => (context.modifiers || context.postModifiers),
-      apply: ({context, g, gs, callId}) => {
+      apply: async ({context, g, callId}) => {
         const text = []
         for (modifier of (context.modifiers || [])) {
           if (Array.isArray(context[modifier])) {
             for (let m of context[modifier]) {
-              text.push(g(m))
+              text.push(await g(m))
             }
           } else {
-            text.push(g(context[modifier], { isModifier: true }))
+            text.push(await g(context[modifier], { isModifier: true }))
           }
         }
         // text.push(context.word)
@@ -47,15 +47,15 @@ let configStruct = {
           number = isMany(context) ? 'many' : 'one'
         }
         if (context.postModifiers) {
-          text.push(g({...context, number: 'one', postModifiers: undefined, modifiers: undefined}))
+          text.push(await g({...context, number: 'one', postModifiers: undefined, modifiers: undefined}))
         } else {
-          text.push(g({...context, number, postModifiers: undefined, modifiers: undefined}))
+          text.push(await g({...context, number, postModifiers: undefined, modifiers: undefined}))
         }
         for ([index, modifier] of (context.postModifiers || []).entries()) {
           if (index == context.postModifiers.length - 1) {
-            text.push(g({...context[modifier], number}))
+            text.push(await g({...context[modifier], number}))
           } else {
-            text.push(g(context[modifier]))
+            text.push(await g(context[modifier]))
           }
         }
         return text.join(' ')
@@ -134,19 +134,19 @@ let configStruct = {
     {
       where: where(),
       match: ({context}) => context.evalue,
-      apply: ({context, g}) => g(context.evalue)
+      apply: async ({context, g}) => await g(context.evalue)
     },
 
     {
       where: where(),
       match: ({context}) => context.value && Array.isArray(context.value),
-      apply: ({context, gs}) => gs(context.value)
+      apply: async ({context, gs}) => await gs(context.value)
     },
 
     {
       where: where(),
       match: ({context}) => context.value,
-      apply: ({context, g}) => g(context.value)
+      apply: async ({context, g}) => await g(context.value)
     },
 
     {

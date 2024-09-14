@@ -66,25 +66,25 @@ let configStruct = {
     {
       where: where(),
       match: ({context}) => context.marker == 'tell',
-      apply: ({context, g}) => `tell ${g(context.target)} ${g(context.info.info)} ${g(context.event)}`
+      apply: async ({context, g}) => `tell ${await g(context.target)} ${await g(context.info.info)} ${await g(context.event)}`
     },
     {
       where: where(),
       match: ({context}) => context.marker == 'info',
-      apply: ({context, g}) => context.info
+      apply: ({context}) => context.info
     },
     {
       where: where(),
       match: ({context}) => context.marker == 'event' && context.paraphrase,
-      apply: ({context, g}) => 'event'
+      apply: ({context}) => 'event'
     },
   ],
   semantics: [
     {
       where: where(),
       match: ({context, hierarchy}) => !context.happening && hierarchy.isA(context.marker, 'tell'),
-      apply: ({context, api, s, config}) => {
-        const result = config.processContext({ ...context.event, happening: true })
+      apply: async ({context, api, config}) => {
+        const result = await config.processContext({ ...context.event, happening: true })
         const event = result.context.event
         if (event) {
           event.then( (result) => {

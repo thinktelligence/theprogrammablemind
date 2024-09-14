@@ -122,36 +122,29 @@ let configStruct = {
     {
       where: where(),
       match: ({context, hierarchy}) => hierarchy.isA(context.marker, 'is') && context.isResponse && context.two && context.two.marker == 'next',
-      apply: ({context, g}) => {
+      apply: async ({context, g}) => {
                 const response = context.evalue;
                 const concept = response.two;
                 concept.paraphrase = true
                 concept.isSelf = true
-                const instance = g(concept.evalue)
+                const instance = await g(concept.evalue)
                 return instance
              }
     },
     {
       where: where(),
       match: ({context}) => context.marker == 'point' && context.isResponse && context.amount,
-      apply: ({context, g}) => `${g(context.amount)} points` 
+      apply: async ({context, g}) => `${await g(context.amount)} points` 
     },
     {
       where: where(),
       match: ({context}) => context.marker == 'scored' && context.paraphrase,
-      apply: ({context, g}) => `${g(context.player)} got ${g(context.points)}`
+      apply: async ({context, g}) => `${await g(context.player)} got ${await g(context.points)}`
     },
-    /*
-    {
-      where: where(),
-      match: ({context}) => context.marker == 'enumeration' && context.paraphrase,
-      apply: ({context, g}) => `${g(context.concept)} are ${g(context.items)}`
-    },
-    */
     {
       where: where(),
       match: ({context}) => context.marker == 'start' && context.paraphrase,
-      apply: ({context, g}) => `start ${g(context.arg)}`
+      apply: async ({context, g}) => `start ${await g(context.arg)}`
     },
 
   ],
@@ -161,7 +154,6 @@ let configStruct = {
       where: where(),
       match: ({context}) => context.marker == 'player' && context.same,
       apply: ({context, objects, config, km}) => {
-        //objects.players = context.same.value.map( (props) => props.value )
         const players = context.same.value.map( (props) => props.value )
         setPlayers(objects, config, players)
         for (let player of objects.players) {
@@ -205,11 +197,11 @@ let configStruct = {
               matchq: ({objects}) => objects.players.length == 0,
               applyq: () => 'who are the players?',
               matchr: ({context}) => context.marker == 'list',
-              applyr: ({context, gs, objects, config}) => {
+              applyr: async ({context, gs, objects, config}) => {
                         const players = context.value.map( (player) => player.value )
                         setPlayers(objects, config, players)
                         objects.allPlayersAreKnown = true;
-                        context.verbatim = `The players are ${gs(objects.players, ' ', ' and ')}`
+                        context.verbatim = `The players are ${await gs(objects.players, ' ', ' and ')}`
                         context.isResponse = true;
                       }
             }
@@ -242,12 +234,12 @@ let configStruct = {
     {
       where: where(),
       match: ({context}) => context.marker == 'player' && context.evaluate && context.pullFromContext,
-      apply: ({context, objects, gs}) => {
+      apply: async ({context, objects, gs}) => {
         const players = objects.players
         if (players.length == 0) {
           context.evalue = 'no one'
         } else {
-          context.evalue = gs(players, ' ', ' and ')
+          context.evalue = await gs(players, ' ', ' and ')
         }
       }
     },

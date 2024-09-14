@@ -63,13 +63,13 @@ let configStruct = {
     { 
       where: where(),
       match: ({context}) => false && context.quantity,
-      apply: ({context, g}) => {
+      apply: async ({context, g}) => {
         let number = context.quantity.number || 'one'
         if (context.quantity.value > 1) {
           number = 'many'
         }
-        const countable = g({ ...context, quantity: undefined, number})
-        return `${g(context.quantity)} ${countable}`
+        const countable = await g({ ...context, quantity: undefined, number})
+        return `${await g(context.quantity)} ${countable}`
       }
     },
   ]

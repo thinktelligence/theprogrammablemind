@@ -50,10 +50,9 @@ class API {
     return this._objects.brief
   }
 
-  evaluateToConcept(value, context, log, s) {
+  async evaluateToConcept(value, context, log, s) {
     value.evaluate = { toConcept: true }
-    // const concept = s(value, { debug: { apply: true } }) 
-    const concept = s(value)
+    const concept = await s(value)
     if (!concept.evalue && !concept.verbatim) {
       this.warningNotEvaluated(log, value);
       concept.evalue = concept.value

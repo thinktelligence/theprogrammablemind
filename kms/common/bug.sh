@@ -830,5 +830,12 @@ fi
 # $NODE math -q "* + / and - are mathematical operators" -g -d
 # $NODE weight -q "what is 1 troy ounce in ounces" -g -d
 # $NODE weight -q "what is 1 ounce in troy ounces" -g -d
-$NODE weight -q "ounces = 1.097 * troy ounces" -g -d
+# $NODE weight -q "ounces = 1.097 * troy ounces" -g -d
 # $NODE formulas -q "fahrenheit = celcius*(9/5) + 32 what are the formulas for fahrenheit" -g -d
+# $NODE  properties -q "alice's sister is wendy" -g -d
+# $NODE reports -q "answer with tables list the products" -g -d
+# $NODE reports -q "call this report1\nshow report1" -g -d
+# $NODE scorekeeper -q "whose turn is it" -g -d
+# $NODE dimension -q "c1 is a dimension\na1 and b1 are units of d1\nwhat are 10 a1 in b1\nwhy" -g -d
+$NODE people -q "given name means first name the first name of greg is greg23 what is the given name of greg" -g -d
+

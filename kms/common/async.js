@@ -33,7 +33,9 @@ let configStruct = {
       semantic: async ({context, e}) => {
         context.valueFromE = await e(context.arg)
       },
-      generatorp: ({context}) => `${context.word} arg == ${JSON.stringify(context.valueFromE)}`,
+      generatorp: ({context}) => {
+        return `${context.word} arg == ${JSON.stringify(context.valueFromE)}`
+      },
     },
   ],
   generators: [

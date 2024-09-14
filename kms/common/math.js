@@ -38,17 +38,17 @@ const mathematicalOperator = (name, words, apply, before = []) => [
       localHierarchy: [ ['unknown', 'number'] ],
       // levelSpecificHierarchy: [[1, 'mathematicalExpression']],
       words,
-      generatorp: ({gp, context}) => context.word,
+      generatorp: ({context}) => context.word,
   },
   { 
       where: where(),
       id: `${name}Expression`, level: 0, 
       bridge: "{ ...next(operator) }" ,
       isA: ['mathematicalExpression'],
-      generatorp: ({gp, context}) => `${gp(context.x)} ${context.word} ${gp(context.y)}`,
-      evaluator: ({e, context}) => {
-        const x = toValue(e(context.x)) 
-        const y = toValue(e(context.y))
+      generatorp: async ({gp, context}) => `${await gp(context.x)} ${context.word} ${await gp(context.y)}`,
+      evaluator: async ({e, context}) => {
+        const x = toValue(await e(context.x)) 
+        const y = toValue(await e(context.y))
         if (!x || !y) {
           // context.evalue = { ...context, paraphrase: true, x: { ...context.x, value: x }, y: { ...context.y, value: y } }
           context.isResponse = false

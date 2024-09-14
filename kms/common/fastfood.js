@@ -216,7 +216,7 @@ const template = {
         {
           where: where(),
           match: ({context}) => false && context.marker == 'combo' && context.comboNumber,
-          apply: ({context, g}) => g(context.comboNumber),
+          apply: async ({context, g}) => await g(context.comboNumber),
         }
       ],
       bridges: [
@@ -225,7 +225,7 @@ const template = {
           id: 'withModification',
           level: 0,
           before: ['preposition'],
-          generatorp: ({context, gp}) => `with ${gp(context.modifications)}`,
+          generatorp: async ({context, gp}) => `with ${await gp(context.modifications)}`,
           bridge: "{ ...next(operator), modifications: after[0], flatten: false }",
         },
         { 
@@ -287,18 +287,16 @@ const template = {
         {
           // split "sprite and fanta" into separate things so the ask will pick them up
           match: ({context}) => context.marker == 'list' && context.topLevel && !context.flatten,
-          apply: ({context, s}) => {
-            s({...context, flatten: true})
-          }
+          apply: async ({context, s}) => await s({...context, flatten: true}),
         },
         {
           where: where(),
           match: ({context, api}) => context.marker == 'controlEnd' && api.hasAskedForButNotAvailable(),
-          apply: ({context, api, gp, toContext, verbatim}) => {
+          apply: async ({context, api, gp, toContext, verbatim}) => {
             const naArray = api.getAskedForButNotAvailable()
             naArray.forEach((f) => f.paraphrase = true)
             const naContext = toContext(naArray)
-            verbatim(`The following are not menu items: ${gp(naContext)}`)
+            verbatim(`The following are not menu items: ${await gp(naContext)}`)
             // allow other motivation to run
             context.cascade = true
           }
@@ -306,11 +304,13 @@ const template = {
         {
           where: where(),
           match: ({context, api}) => context.marker == 'controlEnd' && api.hasAskedForButNotAvailableModification(),
-          apply: ({context, api, gp, toContext, verbatim}) => {
-            const naArray = api.getAskedForButNotAvailableModification().map(({ item, modification }) => {
+          apply: async ({context, api, gp, toContext, verbatim}) => {
+            const naArray = []
+            for (const args of api.getAskedForButNotAvailableModification()) {
+              const args = { item, modification }
               // return `${gp(item)} can not be modified with ${gp(modification)}.`
-              return `XXX can not be modified with ${gp(modification)}.`
-            })
+              naArray.push(`XXX can not be modified with ${await gp(modification)}.`)
+            }
             verbatim(naArray.join(' '))
             // allow other motivation to run
             context.cascade = true
@@ -413,11 +413,11 @@ const template = {
           id: "change",
           isA: ['verby'],
           localHierarchy: [ ['thisitthat', 'meal'] ],
-          generatorp: ({context, gp}) => `change ${gp(context.from)} to ${gp(context.to)}`,
+          generatorp: async ({context, gp}) => `change ${await gp(context.from)} to ${await gp(context.to)}`,
           bridge: "{ ...next(operator), from: after[0], to: after[1].toObject }",
-          semantic: ({context, api, e}) => {
+          semantic: async ({context, api, e}) => {
             const state = api.state
-            const eFrom = e(context.from).evalue
+            const eFrom = (await e(context.from)).evalue
             const from = state.getIdCombo(eFrom.fromSTM ? eFrom : context.from)
             const to = state.getIdCombo(context.to)
             for (const item of api.items()) {
@@ -887,8 +887,8 @@ class State {
                 {
                   where: where(),
                   match: ({context, isA}) => isA(context.marker, 'number') && !context.evaluate,
-                  apply: ({context, e}) => {
-                    food.comboNumber = { value: e(context).value }
+                  apply: async ({context, e}) => {
+                    food.comboNumber = { value: (await e(context)).value }
                     this.add(Object.assign(food, context))
                   }
                 },
@@ -949,10 +949,10 @@ const createConfig = async (additionalConfig) => {
         where: where(),
         priority: -10,
         match: ({context}) => context.marker == 'compound_operator',
-        apply: ({context, s}) => {
+        apply: async ({context, s}) => {
           context.marker = 'list'
           context.flatten = true
-          s(context)
+          await s(context)
         }
       },
       {
@@ -979,7 +979,7 @@ const createConfig = async (additionalConfig) => {
         id: 'showOrder',
         parents: ['verby'],
         bridge: "{ ...next(operator), order: after[0] }",
-        generatorp: ({context, g}) => `show ${g(context.order)}`,
+        generatorp: async ({context, g}) => `show ${await g(context.order)}`,
         semantic: ({api}) => {
           api.state.show()
         },

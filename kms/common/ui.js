@@ -58,7 +58,7 @@ const configStruct = {
     {
       where: where(),
       match: ({context, isA}) => isA(context, 'direction'),
-      apply: ({context, insert, s, fragments}) => {
+      apply: async ({context, insert, s, fragments}) => {
         const direction = context
         const fragment = fragments("move direction")
         const mappings = [{
@@ -66,8 +66,8 @@ const configStruct = {
           match: ({context}) => context.value == 'direction',
           apply: ({context}) => Object.assign(context, direction),
         }]
-        const instantiation = fragment.instantiate(mappings)
-        s(instantiation)
+        const instantiation = await fragment.instantiate(mappings)
+        await s(instantiation)
       }
     },
   ],
@@ -117,7 +117,7 @@ const configStruct = {
        isA: ['verby'],
        level: 0, 
        bridge: "{ ...next(operator), action: after[0] }",
-       generatorp: ({context, g}) => `stop ${g(context.action)}`,
+       generatorp: async ({context, g}) => `stop ${await g(context.action)}`,
        semantic: ({api, context}) => {
          api.stop(context.action.value)
        }
@@ -128,7 +128,7 @@ const configStruct = {
        isA: ['verby'],
        level: 0, 
        bridge: "{ ...next(operator), direction: after[0] }",
-       generatorp: ({context, g}) => `move ${g(context.direction)}`,
+       generatorp: async ({context, g}) => `move ${await g(context.direction)}`,
        semantic: ({api, context}) => {
          api.move(context.direction.value, context.direction.steps ? context.direction.steps.value : 1)
        }

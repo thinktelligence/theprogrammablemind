@@ -45,7 +45,7 @@ let configStruct = {
       where: where(),
       priority: -1,
       match: ({context}) => context.parenthesis == '(',
-      apply: ({context, g}) => `(${g({ ...context, parenthesis: null })})` 
+      apply: async ({context, g}) => `(${await g({ ...context, parenthesis: null })})` 
     },
   ],
 };

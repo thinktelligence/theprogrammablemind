@@ -155,7 +155,7 @@ let configStruct = {
        isA: ['verby'],
        level: 0, 
        bridge: "{ ...next(operator) }",
-       generatorp: ({context, g}) => `put on`,
+       generatorp: ({context}) => `put on`,
     },
     { 
        where: where(),
@@ -171,7 +171,7 @@ let configStruct = {
        isA: ['preposition'],
        level: 0, 
        bridge: "{ ...before, marker: operator('putOn', 0), dead: false }",
-       generatorp: ({context, g}) => `put on ${g(context.item)}`,
+       generatorp: async ({context, g}) => `put on ${await g(context.item)}`,
        semantic: ({api, context}) => {
          api.change(context.item.marker)
        }
@@ -183,7 +183,7 @@ let configStruct = {
        level: 0, 
        bridge: "{ ...next(operator), item: after[0] }",
        localHierarchy: [ ['weapon', 'changeable'] ],
-       generatorp: ({context, g}) => `change ${g(context.item)}`,
+       generatorp: async ({context, g}) => `change ${await g(context.item)}`,
        semantic: ({api, context}) => {
          api.change(context.item.marker)
        }
@@ -194,7 +194,7 @@ let configStruct = {
        isA: ['verby'],
        level: 0, 
        bridge: "{ ...next(operator) }",
-       generatorp: ({context, g}) => `disarm`,
+       generatorp: ({context}) => `disarm`,
        semantic: ({api, context}) => {
          api.disarm()
        }
@@ -205,7 +205,7 @@ let configStruct = {
        isA: ['verby'],
        level: 0, 
        bridge: "{ ...next(operator) }",
-       generatorp: ({context, g}) => `strip`,
+       generatorp: ({context}) => `strip`,
        semantic: ({api, context}) => {
          api.strip()
        }
@@ -216,7 +216,7 @@ let configStruct = {
        isA: ['verby'],
        level: 0, 
        bridge: "{ ...next(operator), item: after[0], name: after[1] }",
-       generatorp: ({context, g}) => `call ${g(context.item)} ${g(context.name)}`,
+       generatorp: async ({context, g}) => `call ${await g(context.item)} ${await g(context.name)}`,
        semantic: ({api, context}) => {
          api.setName(context.item, context.name.name.value)
        }
@@ -227,7 +227,7 @@ let configStruct = {
        isA: ['verby'],
        level: 0, 
        bridge: "{ ...next(operator), item: after[0] }",
-       generatorp: ({context, g}) => `put on ${g(context.item)}`,
+       generatorp: async ({context, g}) => `put on ${await g(context.item)}`,
        semantic: ({api, context}) => {
          if (context.item.name) {
            api.wear({ name: context.item.name.value, type: 'outfit' })
@@ -243,7 +243,7 @@ let configStruct = {
        words: ['where'], // the speech recognizer hears 'where' not 'wear'
        level: 0, 
        bridge: "{ ...next(operator), item: after[0] }",
-       generatorp: ({context, g}) => `wear ${g(context.item)}`,
+       generatorp: async ({context, g}) => `wear ${await g(context.item)}`,
        semantic: ({api, context}) => {
          if (context.item.name) {
            api.wear({ name: context.item.name.value, type: 'outfit' })
@@ -259,9 +259,8 @@ let configStruct = {
        level: 0, 
        localHierarchy: [ ['weapon', 'equipable'], ['thisitthat', 'equipable'] ],
        bridge: "{ ...next(operator), item: after[0] }",
-       generatorp: ({context, g}) => `equip ${g(context.item)}`,
-       semantic: ({api, context, e}) => {
-         // const value = e(context.item)
+       generatorp: async ({context, g}) => `equip ${await g(context.item)}`,
+       semantic: async ({api, context}) => {
          let condition
          if (context.item.condition) {
            condition = { selector: context.item.condition.marker, property: context.item.condition.property[0].marker }
@@ -275,9 +274,9 @@ let configStruct = {
        isA: ['verby'],
        level: 0, 
        bridge: "{ ...next(operator), item: after[0] }",
-       generatorp: ({context, g}) => `drink ${g(context.item)}`,
-       semantic: ({api, context, e}) => {
-         const value = e(context.item)
+       generatorp: async ({context, g}) => `drink ${await g(context.item)}`,
+       semantic: async ({api, context, e}) => {
+         const value = await e(context.item)
          api.drink(value.value)
        }
     },
@@ -287,10 +286,8 @@ let configStruct = {
        isA: ['verby'],
        level: 0, 
        bridge: "{ ...next(operator), item: after[0] }",
-       generatorp: ({context, g}) => `eat ${g(context.item)}`,
-       semantic: ({api, context, e}) => {
-         // const value = e(context.item)
-         // api.eat(value.value)
+       generatorp: async ({context, g}) => `eat ${await g(context.item)}`,
+       semantic: async ({api, context}) => {
          api.eat(context.item.value)
        }
     },
@@ -300,9 +297,9 @@ let configStruct = {
        isA: ['verby'],
        level: 0, 
        bridge: "{ ...next(operator), item: after[0] }",
-       generatorp: ({context, g}) => `take ${g(context.item)}`,
-       semantic: ({api, context, e}) => {
-         const value = e(context.item)
+       generatorp: async ({context, g}) => `take ${await g(context.item)}`,
+       semantic: async ({api, context, e}) => {
+         const value = await e(context.item)
          api.take(value.value)
        }
     },
@@ -374,10 +371,10 @@ let configStruct = {
        isA: ['verby'],
        level: 0, 
        bridge: "{ ...next(operator), item: after[0] }",
-       generatorp: ({context, g}) => `apply ${g(context.item)}`,
-       semantic: ({api, context, e}) => {
+       generatorp: async ({context, g}) => `apply ${await g(context.item)}`,
+       semantic: async ({api, context, e}) => {
           // { item: 'stimpak', quantity: <number>, to?: [ { part: ['arm', 'leg', 'torso', head'], side?: ['left', 'right'] } ] }
-         const quantity = context.item.quantity ? e(context.item.quantity).value : 1
+         const quantity = context.item.quantity ? (await e(context.item.quantity)).value : 1
          api.apply({ item: 'stimpak', quantity })
        }
     },
@@ -386,7 +383,7 @@ let configStruct = {
        isA: ['verby'],
        level: 0, 
        bridge: "{ ...next(operator), showable: after[0].showable }",
-       generatorp: ({context, g}) => `go to ${g(context.showable)}`,
+       generatorp: async ({context, g}) => `go to ${await g(context.showable)}`,
        semantic: ({api, context}) => {
          api.setDisplay(context.showable.value)
        }
@@ -396,14 +393,14 @@ let configStruct = {
        isA: ['preposition'],
        level: 0, 
        bridge: "{ ...next(operator), showable: after[0] }",
-       generatorp: ({context, g}) => `to ${g(context.showable)}`,
+       generatorp: async ({context, g}) => `to ${await g(context.showable)}`,
     },
     { 
        id: "showWeapons", 
        isA: ['verby'],
        level: 0, 
        bridge: "{ ...next(operator), showable: after[0] }",
-       generatorp: ({context, g}) => `show ${g(context.showable)}`,
+       generatorp: async ({context, g}) => `show ${await g(context.showable)}`,
        semantic: ({api, context}) => {
          if (context.showable.quantity && context.showable.quantity.value == 'all') {
            api.showWeapons('all')
@@ -417,7 +414,7 @@ let configStruct = {
        isA: ['verby'],
        level: 0, 
        bridge: "{ ...next(operator), showable: after[0] }",
-       generatorp: ({context, g}) => `show ${g(context.showable)}`,
+       generatorp: async ({context, g}) => `show ${await g(context.showable)}`,
        semantic: ({api, context}) => {
          api.setDisplay(context.showable.value)
        }

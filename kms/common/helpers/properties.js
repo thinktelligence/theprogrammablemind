@@ -136,7 +136,7 @@ class API {
       notes: 'semantic for setting value with constraint',
       match: ({context, isA}) => isA(context.marker, after[0].tag) && context.evaluate && context.constraints,
       // match: ({context, isA}) => context.marker == after[0].tag && context.evaluate,
-      apply: ({km, context, e, log, isA, s}) => {
+      apply: async ({km, context, e, log, isA}) => {
         const constraint = context.constraints[0];
         const value = constraint.constraint;
         let property = constraint.property;
@@ -151,7 +151,7 @@ class API {
         // value.greg = true
         // value.ownee.query = true
         value.query = true
-        let instance = e(value)
+        let instance = await e(value)
         if (instance.verbatim) {
           context.evalue = { verbatim: instance.verbatim }
           return
@@ -168,13 +168,13 @@ class API {
     config.addGenerator({
       notes: 'generator for constraint',
       match: ({context}) => context.marker == edAble.operator && context.paraphrase && context.constrained,
-      apply: ({context, g}) => {
+      apply: async ({context, g}) => {
         if (context[before[0].tag].marker == 'by') {
           // the cat wendy owned
-          return `${g({...context[after[0].tag], paraphrase: true})} ${edAble.word} ${g({...context[before[0].tag], paraphrase: true})}`
+          return `${await g({...context[after[0].tag], paraphrase: true})} ${edAble.word} ${await g({...context[before[0].tag], paraphrase: true})}`
         } else {
           // the cat owned by wendy
-          return `${g({...context[after[0].tag], paraphrase: true})} ${edAble.word} ${['by', g({...context[before[0].tag], paraphrase: true})].filter((t) => t).join(' ')}`
+          return `${await g({...context[after[0].tag], paraphrase: true})} ${edAble.word} ${['by', await g({...context[before[0].tag], paraphrase: true})].filter((t) => t).join(' ')}`
         }
       },
     })
@@ -194,19 +194,19 @@ class API {
 
         return false;
       },
-      apply: ({context, g}) => {
+      apply: async ({context, g}) => {
         const chosen = chooseNumber(context, word.singular, word.plural)
-        return `${g(context[before[0].tag])} ${chosen} ${g(context[after[0].tag])}`
+        return `${await g(context[before[0].tag])} ${chosen} ${await g(context[after[0].tag])}`
       }
     })
     config.addGenerator({
       match: ({context}) => context.marker == edAble.operator && context.isEd,
-      apply: ({context, g}) => {
+      apply: async ({context, g}) => {
         const chosen = chooseNumber(context[after[0].tag], 'is', 'are')
         if (context[before[0].tag].evalue && context[before[0].tag].evalue.marker == 'answerNotKnown') {
-          return g(context[before[0].tag])
+          return await g(context[before[0].tag])
         }
-        return `${g(context[after[0].tag])} ${chosen} ${edAble.word} by ${g(context[before[0].tag])}`
+        return `${await g(context[after[0].tag])} ${chosen} ${edAble.word} by ${await g(context[before[0].tag])}`
       }
     })
     /*
@@ -250,7 +250,7 @@ class API {
         notes: `generator for who/what is X owned by`,
         // match: ({context, hierarchy}) => hierarchy.isA(context.marker, 'is') && context.one && context.one.marker == 'ownee' && context.one.constraints && context.one.constraints[0] && context.one.constraints[0].constraint.marker == 'owned' && context.one.constraints[0].constraint.owner.implicit,
         match: ({context, hierarchy}) => hierarchy.isA(context.marker, 'is') && context.one && context.one.marker == after[0].tag && context.one.constraints && context.one.constraints[0] && context.one.constraints[0].constraint.marker == edAble.operator && context.one.constraints[0].constraint[before[0].tag].implicit,
-        apply: ({context, g, gs, callId}) => {
+        apply: async ({context, g, gs, callId}) => {
           const isToFromM = [{"from":["one"],"to":["two"]},{"from":["two"],"to":["one"]}]
           const fromF = config.fragment(whoIsWhatVerbedBy).contexts()[0]
           // const fromF = config.fragment[before[0].tag]"ownerVar is owneeVar owned by").contexts()[0]
@@ -269,11 +269,11 @@ class API {
           // const from = context.one.constraints[0].constraint
           const from = context
           const im = translationMappingToInstantiatorMappings(tmPrime, from, to)
-          const translation = toF.instantiate(im)
+          const translation = await toF.instantiate(im)
           if (Array.isArray(translation)) {
-            return gs(translation)
+            return await gs(translation)
           } else {
-            return g(translation)
+            return await g(translation)
           }
         }
       }
@@ -383,11 +383,16 @@ class API {
     config.addGenerator({
       notes: 'ordering generator for paraphrase',
       match: ({context}) => context.marker == operator && context.paraphrase && !context.query,
-      apply: ({context, gp, g}) => {
-        const beforeGenerator = before.map( (arg) => g(context[arg.tag]) )
-        const afterGenerator = after.map( (arg) => gp(context[arg.tag]) )
+      apply: async ({context, gp, g}) => {
+        const beforeGenerator = []
+        for (const arg of before) {
+          beforeGenerator.push(await g(context[arg.tag]))
+        }
+        const afterGenerator = []
+        for (const arg of after) {
+          afterGenerator.push(await gp(context[arg.tag]))
+        }
         const word = context.word
-        // return beforeGenerator.concat([`${context.word}`]).concat(afterGenerator).join(' ')
         const sub = []
         if (context.subphrase) {
           sub.push(['that'])
@@ -399,7 +404,7 @@ class API {
     config.addGenerator({
       notes: 'ordering generator for response',
       match: ({context}) => context.marker == operator && context.evalue && context.isResponse,
-      apply: ({context, g, km}) => {
+      apply: async ({context, g, km}) => {
         const brief = km("dialogues").api.getBrief()
 
         const { evalue } = context 
@@ -414,7 +419,7 @@ class API {
         if (evalue.truthValueOnly || brief) {
           return `${yesno}`
         } else {
-          return `${yesno} ${g(Object.assign({}, evalue, { paraphrase: true }))}`
+          return `${yesno} ${await g(Object.assign({}, evalue, { paraphrase: true }))}`
         }
       }
     })
@@ -628,8 +633,8 @@ class API {
         setValue: ([object, property], value, has) => {
           return this.setProperty(object, property, value, has, true)
         },
-        getValue: ([object, property]) => {
-          return this.getPropertyDirectly(object, property)
+        getValue: async ([object, property]) => {
+          return await this.getPropertyDirectly(object, property)
         },
       })
     }
@@ -645,16 +650,18 @@ class API {
         error.code = 'ReadOnly'
         throw error
       },
-      getValue: ([object, property]) => {
-        return this.getPropertyDirectly(object, property)
+      getValue: async ([object, property]) => {
+        return await this.getPropertyDirectly(object, property)
       },
     })
     this.propertiesFH.setHandler(path, handler)
   }
 
-  getObject(object) {
+  /*
+  async getObject(object) {
     return this.propertiesFH.getValue([object])
   }
+  */
 
   getHandler(object, property) {
     return this.propertiesFH.getHandler([object, property])
@@ -671,34 +678,33 @@ class API {
     // return context.value
   }
 
-  getProperty(object, property, g) {
+  async getProperty(object, property, g) {
     object = this.toValue(object)
     property = this.toValue(property)
     const handler = this.propertiesFH.getHandler([object, property])
     if (handler) {
-      return handler.getValue([object, property])
+      return await handler.getValue([object, property])
     }
-    return this.getPropertyDirectly(object, property, g)
+    return await this.getPropertyDirectly(object, property, g)
   }
 
-  getPropertyDirectly(object, property, g) {
+  async getPropertyDirectly(object, property, g) {
     if (property == 'property') {
-      const objectProps = this.propertiesFH.getValue([object])
+      const objectProps = await this.propertiesFH.getValue([object])
       const values = []
       for (let key of Object.keys(objectProps)) {
         if (objectProps[key].has) {
-          // values.push(`${g(key)}: ${g({ ...objectProps[key].value, evaluate: true })}`)
-          values.push(`${g(key)}: ${g({ ...objectProps[key].value, paraphrase: true })}`)
+          values.push(`${await g(key)}: ${await g({ ...objectProps[key].value, paraphrase: true })}`)
         }
       }
       return { marker: 'list', value: values }
     } else {
-      return this.propertiesFH.getValue([object, property]).value
+      return (await this.propertiesFH.getValue([object, property])).value
     }
   }
 
-  hasProperty(object, property, has) {
-    return this.propertiesFH.getValue([object, property]).has
+  async hasProperty(object, property, has) {
+    return (await this.propertiesFH.getValue([object, property])).has
   }
 
   setProperty(object, property, value, has, skipHandler) {
@@ -726,7 +732,7 @@ class API {
     }
   }
 
-  knownObject(object) {
+  async knownObject(object) {
     if (object == 'property') {
       return object
     }
@@ -735,10 +741,10 @@ class API {
     }
     const path = [object]
     // return this.knownPropertyNew(path)
-    return this.propertiesFH.knownProperty(path)
+    return await this.propertiesFH.knownProperty(path)
   }
 
-  hasProperty(object, property) {
+  async hasProperty(object, property) {
     if (property == 'property') {
       return true;
     }
@@ -748,7 +754,7 @@ class API {
     const seen = [object];
     while (todo.length > 0) {
       const next = todo.pop();
-      if ((this.propertiesFH.getValue([next, property], false) || {}).has) {
+      if ((await this.propertiesFH.getValue([next, property], false) || {}).has) {
         return true
       }
       const parents = this._objects.parents[next] || [];
@@ -763,11 +769,11 @@ class API {
   }
 
   // NOT DONE
-  knownProperty(object, property) {
+  async knownProperty(object, property) {
     object = this.toValue(object)
     property = this.toValue(property)
     if (property == 'property') {
-      const objectProps = this.propertiesFH.getValue([object])
+      const objectProps = await this.propertiesFH.getValue([object])
       return !_.isEmpty(objectProps)
     }
 
@@ -776,7 +782,7 @@ class API {
     const seen = [object];
     while (todo.length > 0) {
       const next = todo.pop();
-      if ((this.propertiesFH.getValue([next, property], false) || {}).has) {
+      if ((await this.propertiesFH.getValue([next, property], false) || {}).has) {
         return true
       }
       const parents = this._objects.parents[next] || [];
@@ -911,22 +917,6 @@ class API {
 
   set config(config) {
     this._config = config
-    /*
-    const toJSON = (h) => {
-      if (h.child && h.parent) {
-        return h
-      } else {
-        return { child: h[0], parent: h[1] }
-      }
-    }
-    for (const tuple of [...config().config.hierarchy]) {
-      const h = toJSON(tuple);
-      // TODO should this notice development flag?
-      if (this.isOperator(h.child) && this.isOperator(h.parent)) {
-        this.rememberIsA(h.child, h.parent)
-      }
-    }
-    */
   }
 
   get config() {

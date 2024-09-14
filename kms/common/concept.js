@@ -85,7 +85,7 @@ const createConfig = async () => {
           }
           return true
         },
-        apply: ({g, context}) => {
+        apply: async ({g, context}) => {
           const modifiers = context.value.map( (p) => p[p.modifiers[0]] )
           context.word = context.value[0].word
           context.value = null
@@ -96,17 +96,21 @@ const createConfig = async () => {
             value: modifiers
           }
           context.paraphrase = true
-          return g(context)
+          return await g(context)
         }
       },
       {
         where: where(),
         match: ({context}) => context.marker == 'modifies' && context.paraphrase,
-        apply: ({context, gp, gw}) => {
+        apply: async ({context, gp, gw}) => {
+          const modifiers = []
+          for (modifier of context.modifiers) {
+            modifiers.push(await gp(modifier))
+          }
           if (context.literally) {
-            return `${context.modifiers.map(gp).join(" ")} literally ${gw(context, { number: context.modifiers[context.modifiers.length - 1] })} ${gp(context.concept)}`
+            return `${modifiers.join(" ")} literally ${await gw(context, { number: context.modifiers[context.modifiers.length - 1] })} ${await gp(context.concept)}`
           } else {
-            return `${context.modifiers.map(gp).join(" ")} ${gw(context, { number: context.modifiers[context.modifiers.length - 1] })} ${gp(context.concept)}`
+            return `${modifiers.join(" ")} ${await gw(context, { number: context.modifiers[context.modifiers.length - 1] })} ${await gp(context.concept)}`
           }
         }
         // const chosen = chooseNumber(context, word.singular, word.plural)

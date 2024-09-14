@@ -112,7 +112,7 @@
           ],
           "level": 0,
           "bridge": "{ ...next(operator) }",
-          "generatorp": "({context, g}) => `put on`"
+          "generatorp": "({context}) => `put on`"
         },
         {
           "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:161",
@@ -134,7 +134,7 @@
           ],
           "level": 0,
           "bridge": "{ ...before, marker: operator('putOn', 0), dead: false }",
-          "generatorp": "({context, g}) => `put on ${g(context.item)}`",
+          "generatorp": "async ({context, g}) => `put on ${await g(context.item)}`",
           "semantic": "({api, context}) => {\n         api.change(context.item.marker)\n       }"
         },
         {
@@ -151,7 +151,7 @@
               "changeable"
             ]
           ],
-          "generatorp": "({context, g}) => `change ${g(context.item)}`",
+          "generatorp": "async ({context, g}) => `change ${await g(context.item)}`",
           "semantic": "({api, context}) => {\n         api.change(context.item.marker)\n       }"
         },
         {
@@ -162,7 +162,7 @@
           ],
           "level": 0,
           "bridge": "{ ...next(operator) }",
-          "generatorp": "({context, g}) => `disarm`",
+          "generatorp": "({context}) => `disarm`",
           "semantic": "({api, context}) => {\n         api.disarm()\n       }"
         },
         {
@@ -173,7 +173,7 @@
           ],
           "level": 0,
           "bridge": "{ ...next(operator) }",
-          "generatorp": "({context, g}) => `strip`",
+          "generatorp": "({context}) => `strip`",
           "semantic": "({api, context}) => {\n         api.strip()\n       }"
         },
         {
@@ -184,7 +184,7 @@
           ],
           "level": 0,
           "bridge": "{ ...next(operator), item: after[0], name: after[1] }",
-          "generatorp": "({context, g}) => `call ${g(context.item)} ${g(context.name)}`",
+          "generatorp": "async ({context, g}) => `call ${await g(context.item)} ${await g(context.name)}`",
           "semantic": "({api, context}) => {\n         api.setName(context.item, context.name.name.value)\n       }"
         },
         {
@@ -195,7 +195,7 @@
           ],
           "level": 0,
           "bridge": "{ ...next(operator), item: after[0] }",
-          "generatorp": "({context, g}) => `put on ${g(context.item)}`",
+          "generatorp": "async ({context, g}) => `put on ${await g(context.item)}`",
           "semantic": "({api, context}) => {\n         if (context.item.name) {\n           api.wear({ name: context.item.name.value, type: 'outfit' })\n         } else {\n           api.wear({ type: context.item.value })\n         }\n       }"
         },
         {
@@ -209,7 +209,7 @@
           ],
           "level": 0,
           "bridge": "{ ...next(operator), item: after[0] }",
-          "generatorp": "({context, g}) => `wear ${g(context.item)}`",
+          "generatorp": "async ({context, g}) => `wear ${await g(context.item)}`",
           "semantic": "({api, context}) => {\n         if (context.item.name) {\n           api.wear({ name: context.item.name.value, type: 'outfit' })\n         } else {\n           api.wear({ type: context.item.value })\n         }\n       }"
         },
         {
@@ -230,44 +230,44 @@
             ]
           ],
           "bridge": "{ ...next(operator), item: after[0] }",
-          "generatorp": "({context, g}) => `equip ${g(context.item)}`",
-          "semantic": "({api, context, e}) => {\n         // const value = e(context.item)\n         let condition\n         if (context.item.condition) {\n           condition = { selector: context.item.condition.marker, property: context.item.condition.property[0].marker }\n         }\n         api.equip({ type: context.item.value, condition })\n       }"
+          "generatorp": "async ({context, g}) => `equip ${await g(context.item)}`",
+          "semantic": "async ({api, context}) => {\n         let condition\n         if (context.item.condition) {\n           condition = { selector: context.item.condition.marker, property: context.item.condition.property[0].marker }\n         }\n         api.equip({ type: context.item.value, condition })\n       }"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:273",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:272",
           "id": "toDrink",
           "isA": [
             "verby"
           ],
           "level": 0,
           "bridge": "{ ...next(operator), item: after[0] }",
-          "generatorp": "({context, g}) => `drink ${g(context.item)}`",
-          "semantic": "({api, context, e}) => {\n         const value = e(context.item)\n         api.drink(value.value)\n       }"
+          "generatorp": "async ({context, g}) => `drink ${await g(context.item)}`",
+          "semantic": "async ({api, context, e}) => {\n         const value = await e(context.item)\n         api.drink(value.value)\n       }"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:285",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:284",
           "id": "eat",
           "isA": [
             "verby"
           ],
           "level": 0,
           "bridge": "{ ...next(operator), item: after[0] }",
-          "generatorp": "({context, g}) => `eat ${g(context.item)}`",
-          "semantic": "({api, context, e}) => {\n         // const value = e(context.item)\n         // api.eat(value.value)\n         api.eat(context.item.value)\n       }"
+          "generatorp": "async ({context, g}) => `eat ${await g(context.item)}`",
+          "semantic": "async ({api, context}) => {\n         api.eat(context.item.value)\n       }"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:298",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:295",
           "id": "take",
           "isA": [
             "verby"
           ],
           "level": 0,
           "bridge": "{ ...next(operator), item: after[0] }",
-          "generatorp": "({context, g}) => `take ${g(context.item)}`",
-          "semantic": "({api, context, e}) => {\n         const value = e(context.item)\n         api.take(value.value)\n       }"
+          "generatorp": "async ({context, g}) => `take ${await g(context.item)}`",
+          "semantic": "async ({api, context, e}) => {\n         const value = await e(context.item)\n         api.take(value.value)\n       }"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:310",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:307",
           "id": "nameable",
           "isA": [
             "theAble"
@@ -327,8 +327,8 @@
           ],
           "level": 0,
           "bridge": "{ ...next(operator), item: after[0] }",
-          "generatorp": "({context, g}) => `apply ${g(context.item)}`",
-          "semantic": "({api, context, e}) => {\n          // { item: 'stimpak', quantity: <number>, to?: [ { part: ['arm', 'leg', 'torso', head'], side?: ['left', 'right'] } ] }\n         const quantity = context.item.quantity ? e(context.item.quantity).value : 1\n         api.apply({ item: 'stimpak', quantity })\n       }"
+          "generatorp": "async ({context, g}) => `apply ${await g(context.item)}`",
+          "semantic": "async ({api, context, e}) => {\n          // { item: 'stimpak', quantity: <number>, to?: [ { part: ['arm', 'leg', 'torso', head'], side?: ['left', 'right'] } ] }\n         const quantity = context.item.quantity ? (await e(context.item.quantity)).value : 1\n         api.apply({ item: 'stimpak', quantity })\n       }"
         },
         {
           "id": "go",
@@ -337,7 +337,7 @@
           ],
           "level": 0,
           "bridge": "{ ...next(operator), showable: after[0].showable }",
-          "generatorp": "({context, g}) => `go to ${g(context.showable)}`",
+          "generatorp": "async ({context, g}) => `go to ${await g(context.showable)}`",
           "semantic": "({api, context}) => {\n         api.setDisplay(context.showable.value)\n       }"
         },
         {
@@ -347,7 +347,7 @@
           ],
           "level": 0,
           "bridge": "{ ...next(operator), showable: after[0] }",
-          "generatorp": "({context, g}) => `to ${g(context.showable)}`"
+          "generatorp": "async ({context, g}) => `to ${await g(context.showable)}`"
         },
         {
           "id": "showWeapons",
@@ -356,7 +356,7 @@
           ],
           "level": 0,
           "bridge": "{ ...next(operator), showable: after[0] }",
-          "generatorp": "({context, g}) => `show ${g(context.showable)}`",
+          "generatorp": "async ({context, g}) => `show ${await g(context.showable)}`",
           "semantic": "({api, context}) => {\n         if (context.showable.quantity && context.showable.quantity.value == 'all') {\n           api.showWeapons('all')\n         } else {\n           api.showWeapons(context.showable.value)\n         }\n       }"
         },
         {
@@ -366,7 +366,7 @@
           ],
           "level": 0,
           "bridge": "{ ...next(operator), showable: after[0] }",
-          "generatorp": "({context, g}) => `show ${g(context.showable)}`",
+          "generatorp": "async ({context, g}) => `show ${await g(context.showable)}`",
           "semantic": "({api, context}) => {\n         api.setDisplay(context.showable.value)\n       }"
         },
         {
@@ -1471,20 +1471,6 @@
           [
             "list",
             0
-          ],
-          [
-            "unknown",
-            1
-          ]
-        ],
-        [
-          [
-            "is",
-            0
-          ],
-          [
-            "list",
-            1
           ],
           [
             "unknown",
@@ -6952,20 +6938,6 @@
           [
             "list",
             0
-          ],
-          [
-            "unknown",
-            1
-          ]
-        ],
-        [
-          [
-            "is",
-            0
-          ],
-          [
-            "list",
-            1
           ],
           [
             "unknown",
@@ -24723,7 +24695,7 @@
           "bridge": "{ ...next(operator), item: after[0] }"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:273",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:272",
           "id": "toDrink",
           "isA": [
             "verby"
@@ -24732,7 +24704,7 @@
           "bridge": "{ ...next(operator), item: after[0] }"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:285",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:284",
           "id": "eat",
           "isA": [
             "verby"
@@ -24741,7 +24713,7 @@
           "bridge": "{ ...next(operator), item: after[0] }"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:298",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:295",
           "id": "take",
           "isA": [
             "verby"
@@ -24750,7 +24722,7 @@
           "bridge": "{ ...next(operator), item: after[0] }"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:310",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:307",
           "id": "nameable",
           "isA": [
             "theAble"
@@ -25742,34 +25714,6 @@
       ],
       [
         "list",
-        1
-      ]
-    ],
-    [
-      [
-        "is",
-        0
-      ],
-      [
-        "list",
-        1
-      ],
-      [
-        "unknown",
-        1
-      ]
-    ],
-    [
-      [
-        "is",
-        0
-      ],
-      [
-        "list",
-        1
-      ],
-      [
-        "unknown",
         1
       ]
     ],

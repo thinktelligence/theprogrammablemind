@@ -108,10 +108,10 @@ let configStruct = {
     {
       where: where(),
       match: ({context, api}) => context.evaluate && api.get(context),
-      apply: ({context, api, e}) => {
+      apply: async ({context, api, e}) => {
         const { formula } = api.get(context)
         // console.log('greg24 -----------', JSON.stringify(formula, null, 2))
-        context.evalue = e(formula) 
+        context.evalue = await e(formula) 
       }    
     },
   ],
@@ -122,7 +122,7 @@ let configStruct = {
       isA: ['preposition', 'queryable'],
       convolution: true,
       bridge: "{ number: before[0].number, ...next(operator), what: before[0], equality: after[0], variable: after[1] }",
-      generatorp: ({context, g}) => `${g(context.what)} ${g(context.equality)} ${g(context.variable)}`,
+      generatorp: async ({context, g}) => `${await g(context.what)} ${await g(context.equality)} ${await g(context.variable)}`,
       evaluator: ({context, api, objects}) => {
         const formulas = api.gets(context.variable).map((f) => { return { ...f.equality, paraphrase: true } })
         context.evalue = { marker: 'list', value: formulas }
@@ -132,7 +132,7 @@ let configStruct = {
       where: where(),
       id: 'solve', 
       bridge: "{ ...next(operator), equality: after[0], variable: after[2] }",
-      generatorp: ({context, gp}) => `${context.word} ${gp(context.equality)} for ${gp(context.variable)}`,
+      generatorp: async ({context, gp}) => `${context.word} ${await gp(context.equality)} for ${await gp(context.variable)}`,
       semantic: ({context}) => {
         context.response = solveFor(context.equality, context.variable)
         context.isResponse = true
@@ -160,10 +160,10 @@ let configStruct = {
       id: 'calculate',
       isA: ['verby'],
       bridge: "{ ...next(operator), expression: after[0] }",
-      generatorp: ({context, g}) => `${context.word} ${g(context.expression)}`,
+      generatorp: async ({context, g}) => `${context.word} ${await g(context.expression)}`,
       localHierarchy: [ ['unknown', 'expression'] ],
-      semantic: ({context, e}) => {
-        context.evalue = e(context.expression)
+      semantic: async ({context, e}) => {
+        context.evalue = await e(context.expression)
         context.isResponse = true
       } 
     },
@@ -175,7 +175,7 @@ let configStruct = {
       after: ['mathematical_operator'],
       // TODO have this be per argument then 'is' can map to equals where this only applied to before[0] and not after[0]
       localHierarchy: [ ['unknown', 'expression'] ],
-      generatorp: ({context, gp}) => `${gp(context.left)} ${context.word} ${gp(context.right)}`,
+      generatorp: async ({context, gp}) => `${await gp(context.left)} ${context.word} ${await gp(context.right)}`,
       semantic: ({context, api}) => {
         // TODO make sure left is a single name
         // TODO calculate invertable formulas?

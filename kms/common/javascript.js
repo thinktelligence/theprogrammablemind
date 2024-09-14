@@ -36,14 +36,14 @@ let configStruct = {
     { 
       where: where(),
       match: ({context}) => context.marker == 'assignment' && context.paraphrase, 
-      apply: ({context, g}) => `let ${g(context.variable)} = ${g(context.value)}` 
+      apply: async ({context, g}) => `let ${await g(context.variable)} = ${await g(context.value)}` 
     },
     { 
       where: where(),
       match: ({context}) => context.marker == 'assignment' && context.isResponse, 
-      apply: ({context, g}) => {
-        const value = g(context.variable)
-        return `${g(context.variable)} == ${g(context.value)}` 
+      apply: async ({context, g}) => {
+        // const value = await g(context.variable)
+        return `${await g(context.variable)} == ${await g(context.value)}` 
       }
     },
   ],

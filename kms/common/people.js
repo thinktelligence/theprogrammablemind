@@ -65,7 +65,6 @@ const createConfig = async () => {
               edAble: { operator: 'owned', word: 'owned' },
               config: baseConfig
             })
-
   })
   await config.restart_auto_rebuild()
   return config

@@ -32,7 +32,7 @@ let configStruct = {
       where: where(),
       id: "after", level: 0, 
       bridge: "{ ...next(operator), event: after[0], action: after[1] }",
-      generatorp: ({context, gp}) => `after ${gp(context.event)} ${gp(context.action)}`,
+      generatorp: async ({context, gp}) => `after ${await gp(context.event)} ${await gp(context.action)}`,
     },
     { id: "action", level: 0, bridge: "{ ...next(operator) }" },
     { id: "changeable", level: 0, bridge: "{ ...next(operator) }" },
@@ -42,11 +42,11 @@ let configStruct = {
       level: 0, 
       isA: ['verby'],
       bridge: "{ ...next(operator), changeable: before[0] }",
-      generatorp: ({context, g}) => {
+      generatorp: async ({context, g}) => {
         if (!context.changeable) {
           return 'undefined changes'
         }
-        return `${g(context.changeable)} changes`
+        return `${await g(context.changeable)} changes`
       }
     },
     { 

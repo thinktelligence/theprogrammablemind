@@ -13,9 +13,9 @@ let configStruct = {
     {
       where: where(),
       id: 'testingEvaluate',
-      generatorp: ({context, g}) => `${context.word} ${g(context.value)}`,
-      semantic: ({context, e}) => {
-        context.evalue = e(context.value)
+      generatorp: async ({context, g}) => `${context.word} ${await g(context.value)}`,
+      semantic: async ({context, e}) => {
+        context.evalue = await e(context.value)
         context.isResponse = true
       },
       bridge: "{ ...next(operator), value: after[0] }",

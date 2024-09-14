@@ -61,7 +61,7 @@ let configStruct = {
       notes: 'what type is pikachu',
       where: where(),
       match: ({context, hierarchy}) => hierarchy.isA(context.marker, 'is') && context.query && !['what'].includes(context.one.marker) && !['what'].includes(context.two.marker) && (context.one.query || context.two.query),
-      apply: ({context, hierarchy, km, log, e, s}) => {
+      apply: async ({context, hierarchy, km, log, e}) => {
         const one = context.one;
         const two = context.two;
         let concept, value;
@@ -72,7 +72,7 @@ let configStruct = {
           concept = two;
           value = one;
         }
-        let instance = e(value)
+        let instance = await e(value)
         if (instance.verbatim) {
           context.evalue = { verbatim: instance.verbatim }
           context.isResponse = true
@@ -80,9 +80,6 @@ let configStruct = {
         }
         instance = getTypes(km, concept, instance)
 
-        // instance.focusable = ['one', 'two']
-        // concept = JSON.parse(JSON.stringify(value)) 
-        // greg
         concept = _.cloneDeep(value)
         concept.isQuery = undefined
 
@@ -106,10 +103,10 @@ let configStruct = {
       notes: 'type of pikachu',  // the types of type is the next one
       where: where(),
       match: ({context}) => context.marker == 'type' && context.evaluate && context.object && context.objects[context.objects.length-1].number == 'one' && pluralize.isSingular(context.objects[0].word),
-      apply: ({context, objects, e, gs, km, log, s}) => {
+      apply: async ({context, objects, e, gs, km, log}) => {
         const concept = context.objects[0];
         const value = context.objects[1];
-        let instance = e(value)
+        let instance = await e(value)
         if (instance.verbatim) {
           context.evalue = { verbatim: instance.verbatim }
           return
@@ -135,14 +132,14 @@ let configStruct = {
         }
         return hierarchy.isA(context.marker, 'is') && context.query && args( { types: ['hierarchyAble', 'hierarchyAble'], properties: ['one', 'two'] } )
       },
-      apply: ({context, km, objects, g}) => {
+      apply: async ({context, km, objects, g}) => {
         const api = km('properties').api
         const one = context.one
         const two = context.two
         const oneId = pluralize.singular(one.value);
         if (!api.conceptExists(oneId)) {
           context.evalue = {
-            verbatim: `I don't know about ${g({ ...one, paraphrase: true})}` 
+            verbatim: `I don't know about ${await g({ ...one, paraphrase: true})}` 
           }
           context.isResponse = true
           return
@@ -150,7 +147,7 @@ let configStruct = {
         const twoId = pluralize.singular(two.value);
         if (!api.conceptExists(twoId)) {
           context.evalue = {
-            verbatim: `I don't know about ${g({ ...two, paraphrase: true})}` 
+            verbatim: `I don't know about ${await g({ ...two, paraphrase: true})}` 
           }
           context.isResponse = true
           return
@@ -201,7 +198,6 @@ let configStruct = {
     },
     {
       notes: 'humans are mammels',
-      // match: ({context, listable}) => listable(context, 'unknown') && context.same,
       where: where(),
       match: ({context, listable, hierarchy, isA, callId}) => {
         if (!context.same) {
@@ -270,7 +266,7 @@ let configStruct = {
       notes: 'types of type', // what are the types of animals
       where: where(),
       match: ({context}) => context.marker == 'type' && context.evaluate && context.object,
-      apply: ({context, objects, gs, km, isA}) => {
+      apply: ({context, objects, km, isA}) => {
         const api = km('properties').api
         const conceptApi = km('concept').api
         const type = pluralize.singular(context.object.value);

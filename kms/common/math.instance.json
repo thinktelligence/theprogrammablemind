@@ -77,7 +77,7 @@
             "plus",
             "+"
           ],
-          "generatorp": "({gp, context}) => context.word"
+          "generatorp": "({context}) => context.word"
         },
         {
           "where": "/home/dev/code/theprogrammablemind/kms/common/math.js:44",
@@ -87,8 +87,8 @@
           "isA": [
             "mathematicalExpression"
           ],
-          "generatorp": "({gp, context}) => `${gp(context.x)} ${context.word} ${gp(context.y)}`",
-          "evaluator": "({e, context}) => {\n        const x = toValue(e(context.x)) \n        const y = toValue(e(context.y))\n        if (!x || !y) {\n          // context.evalue = { ...context, paraphrase: true, x: { ...context.x, value: x }, y: { ...context.y, value: y } }\n          context.isResponse = false\n        } else {\n          context.evalue = apply(x, y)\n          context.evalue.isResponse = true\n          context.evalue.paraphrase = false\n          // context.paraphrase = false\n          // context.isResponse = true\n        }\n        /*\n        if (!context.value) {\n          context.isResponse = false\n          context.paraphrase = true\n        }\n        */\n      }"
+          "generatorp": "async ({gp, context}) => `${await gp(context.x)} ${context.word} ${await gp(context.y)}`",
+          "evaluator": "async ({e, context}) => {\n        const x = toValue(await e(context.x)) \n        const y = toValue(await e(context.y))\n        if (!x || !y) {\n          // context.evalue = { ...context, paraphrase: true, x: { ...context.x, value: x }, y: { ...context.y, value: y } }\n          context.isResponse = false\n        } else {\n          context.evalue = apply(x, y)\n          context.evalue.isResponse = true\n          context.evalue.paraphrase = false\n          // context.paraphrase = false\n          // context.isResponse = true\n        }\n        /*\n        if (!context.value) {\n          context.isResponse = false\n          context.paraphrase = true\n        }\n        */\n      }"
         },
         {
           "where": "/home/dev/code/theprogrammablemind/kms/common/math.js:32",
@@ -109,7 +109,7 @@
             "minus",
             "-"
           ],
-          "generatorp": "({gp, context}) => context.word"
+          "generatorp": "({context}) => context.word"
         },
         {
           "where": "/home/dev/code/theprogrammablemind/kms/common/math.js:44",
@@ -119,8 +119,8 @@
           "isA": [
             "mathematicalExpression"
           ],
-          "generatorp": "({gp, context}) => `${gp(context.x)} ${context.word} ${gp(context.y)}`",
-          "evaluator": "({e, context}) => {\n        const x = toValue(e(context.x)) \n        const y = toValue(e(context.y))\n        if (!x || !y) {\n          // context.evalue = { ...context, paraphrase: true, x: { ...context.x, value: x }, y: { ...context.y, value: y } }\n          context.isResponse = false\n        } else {\n          context.evalue = apply(x, y)\n          context.evalue.isResponse = true\n          context.evalue.paraphrase = false\n          // context.paraphrase = false\n          // context.isResponse = true\n        }\n        /*\n        if (!context.value) {\n          context.isResponse = false\n          context.paraphrase = true\n        }\n        */\n      }"
+          "generatorp": "async ({gp, context}) => `${await gp(context.x)} ${context.word} ${await gp(context.y)}`",
+          "evaluator": "async ({e, context}) => {\n        const x = toValue(await e(context.x)) \n        const y = toValue(await e(context.y))\n        if (!x || !y) {\n          // context.evalue = { ...context, paraphrase: true, x: { ...context.x, value: x }, y: { ...context.y, value: y } }\n          context.isResponse = false\n        } else {\n          context.evalue = apply(x, y)\n          context.evalue.isResponse = true\n          context.evalue.paraphrase = false\n          // context.paraphrase = false\n          // context.isResponse = true\n        }\n        /*\n        if (!context.value) {\n          context.isResponse = false\n          context.paraphrase = true\n        }\n        */\n      }"
         },
         {
           "where": "/home/dev/code/theprogrammablemind/kms/common/math.js:32",
@@ -150,7 +150,7 @@
             "times",
             "*"
           ],
-          "generatorp": "({gp, context}) => context.word"
+          "generatorp": "({context}) => context.word"
         },
         {
           "where": "/home/dev/code/theprogrammablemind/kms/common/math.js:44",
@@ -160,8 +160,8 @@
           "isA": [
             "mathematicalExpression"
           ],
-          "generatorp": "({gp, context}) => `${gp(context.x)} ${context.word} ${gp(context.y)}`",
-          "evaluator": "({e, context}) => {\n        const x = toValue(e(context.x)) \n        const y = toValue(e(context.y))\n        if (!x || !y) {\n          // context.evalue = { ...context, paraphrase: true, x: { ...context.x, value: x }, y: { ...context.y, value: y } }\n          context.isResponse = false\n        } else {\n          context.evalue = apply(x, y)\n          context.evalue.isResponse = true\n          context.evalue.paraphrase = false\n          // context.paraphrase = false\n          // context.isResponse = true\n        }\n        /*\n        if (!context.value) {\n          context.isResponse = false\n          context.paraphrase = true\n        }\n        */\n      }"
+          "generatorp": "async ({gp, context}) => `${await gp(context.x)} ${context.word} ${await gp(context.y)}`",
+          "evaluator": "async ({e, context}) => {\n        const x = toValue(await e(context.x)) \n        const y = toValue(await e(context.y))\n        if (!x || !y) {\n          // context.evalue = { ...context, paraphrase: true, x: { ...context.x, value: x }, y: { ...context.y, value: y } }\n          context.isResponse = false\n        } else {\n          context.evalue = apply(x, y)\n          context.evalue.isResponse = true\n          context.evalue.paraphrase = false\n          // context.paraphrase = false\n          // context.isResponse = true\n        }\n        /*\n        if (!context.value) {\n          context.isResponse = false\n          context.paraphrase = true\n        }\n        */\n      }"
         },
         {
           "where": "/home/dev/code/theprogrammablemind/kms/common/math.js:32",
@@ -190,7 +190,7 @@
           "words": [
             "/"
           ],
-          "generatorp": "({gp, context}) => context.word"
+          "generatorp": "({context}) => context.word"
         },
         {
           "where": "/home/dev/code/theprogrammablemind/kms/common/math.js:44",
@@ -200,8 +200,8 @@
           "isA": [
             "mathematicalExpression"
           ],
-          "generatorp": "({gp, context}) => `${gp(context.x)} ${context.word} ${gp(context.y)}`",
-          "evaluator": "({e, context}) => {\n        const x = toValue(e(context.x)) \n        const y = toValue(e(context.y))\n        if (!x || !y) {\n          // context.evalue = { ...context, paraphrase: true, x: { ...context.x, value: x }, y: { ...context.y, value: y } }\n          context.isResponse = false\n        } else {\n          context.evalue = apply(x, y)\n          context.evalue.isResponse = true\n          context.evalue.paraphrase = false\n          // context.paraphrase = false\n          // context.isResponse = true\n        }\n        /*\n        if (!context.value) {\n          context.isResponse = false\n          context.paraphrase = true\n        }\n        */\n      }"
+          "generatorp": "async ({gp, context}) => `${await gp(context.x)} ${context.word} ${await gp(context.y)}`",
+          "evaluator": "async ({e, context}) => {\n        const x = toValue(await e(context.x)) \n        const y = toValue(await e(context.y))\n        if (!x || !y) {\n          // context.evalue = { ...context, paraphrase: true, x: { ...context.x, value: x }, y: { ...context.y, value: y } }\n          context.isResponse = false\n        } else {\n          context.evalue = apply(x, y)\n          context.evalue.isResponse = true\n          context.evalue.paraphrase = false\n          // context.paraphrase = false\n          // context.isResponse = true\n        }\n        /*\n        if (!context.value) {\n          context.isResponse = false\n          context.paraphrase = true\n        }\n        */\n      }"
         }
       ]
     }

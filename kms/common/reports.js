@@ -100,7 +100,7 @@ const apiTemplate = (marker, testData) => {
     },
     productGenerator: {
       match: ({context}) => context.marker == marker && context.isInstance, 
-      apply: ({g, context}) => `${context.name}`,
+      apply: ({context}) => `${context.name}`,
     }
   }
 }
@@ -190,9 +190,9 @@ let configStruct = {
         bridge: "{ ...next(operator), on: { marker: 'report', pullFromContext: true }, from: after[0], to: after[1] }",
         directionBridge: "{ ...next(operator), on: { marker: 'report', pullFromContext: true }, directionBridge: true, from: after[0], to: after[1] }",
 
-        generatorp: ({context, gp}) => `move ${gp(context.from)} ${gp(context.to)}`,
-        semantic: ({context, e, objects, kms, insert}) => {
-          const report = e(context.on)
+        generatorp: async ({context, gp}) => `move ${await gp(context.from)} ${await gp(context.to)}`,
+        semantic: async ({context, e, objects, kms, insert}) => {
+          const report = await e(context.on)
           const id = report.value.value
           const listing = objects.listings[id]
 
@@ -218,9 +218,9 @@ let configStruct = {
         where: where(),
         id: "remove", level: 0, 
         bridge: "{ ...next(operator), on: { marker: 'report', pullFromContext: true }, removee: after[0] }",
-        generatorp: ({context, gp}) => `remove ${gp(context.removee)}`,
-        semantic: ({context, e, kms, insert, objects}) => {
-          const report = e(context.on)
+        generatorp: async ({context, gp}) => `remove ${await gp(context.removee)}`,
+        semantic: async ({context, e, kms, insert, objects}) => {
+          const report = await e(context.on)
           const id = report.value.value
           const listing = objects.listings[id]
           const column = context.removee.index.value
@@ -232,7 +232,7 @@ let configStruct = {
         where: where(),
         id: "column", level: 0, 
         bridge: "{ ...next(operator), index: after[0] }",
-        generatorp: ({context, gp}) => `column ${gp(context.index)}`,
+        generatorp: async ({context, gp}) => `column ${await gp(context.index)}`,
     },
     { id: "ordering", level: 0, bridge: "{ ...next(operator) }" },
     { id: "direction", level: 0, bridge: "{ ...next(operator) }" },
@@ -248,10 +248,10 @@ let configStruct = {
           {
             where: where(),
             match: ({context}) => context.marker == 'report' && context.describe,
-            apply: ({context, apis, gp, gs, objects}) => {
+            apply: async ({context, apis, gs, objects}) => {
               const listings = objects.listings[context.value]
               // {"type":"tables","columns":["name"],"ordering":[]}
-              return `for ${listings.api}, showing the ${wordNumber('property', listings.columns.length > 1)} ${gs(listings.columns, ' ', ' and ')} as ${listings.type}`
+              return `for ${listings.api}, showing the ${wordNumber('property', listings.columns.length > 1)} ${await gs(listings.columns, ' ', ' and ')} as ${listings.type}`
             }
           },
           {
@@ -297,8 +297,8 @@ let configStruct = {
       level: 0,
       isA: ['verby'],
       bridge: "{ ...next(operator), report: after[0] }",
-      "generatorp": ({g, context}) => `describe ${g(context.report)}`,
-      "generatorr": ({gp, context, apis, objects, config}) => {
+      "generatorp": async ({g, context}) => `describe ${await g(context.report)}`,
+      "generatorr": async ({gp, context, apis, objects, config}) => {
                     const reports = propertyToArray(context.report)
                     let response = ''
                     for (let report of reports) {
@@ -308,11 +308,11 @@ let configStruct = {
                             continue
                           }
                           const description = {describe: true, word: reportId, types:["report"], value: reportId, text: reportId, marker: "report"}
-                          response += `${reportId}: ${gp(description)}\n`
+                          response += `${reportId}: ${await gp(description)}\n`
                         }
                       } else {
                         // response += `${gp(report)}: ${describe(report.value)}\n`
-                        response += `${gp(report)}: ${gp({ ...report, describe: true })}\n`
+                        response += `${await gp(report)}: ${await gp({ ...report, describe: true })}\n`
                       }
                     }
                     return response
@@ -327,9 +327,9 @@ let configStruct = {
       id: "call", 
       level: 0, 
       bridge: "{ ...next(operator), namee: after[0], name: after[1] }",
-      generatorp: ({g, context}) => `call ${g(context.namee)} ${g(context.name)}`,
-      semantic: ({g, context, objects, e, config, km}) => {
-        const namee = e(context.namee).evalue
+      generatorp: async ({g, context}) => `call ${await g(context.namee)} ${await g(context.name)}`,
+      semantic: async ({context, objects, e, config, km}) => {
+        const namee = (await e(context.namee)).evalue
         const id = namee.value
         const listing = objects.listings[id]
         const name = context.name.text
@@ -383,41 +383,23 @@ let configStruct = {
 
   priorities: [
     { "context": [['ordering', 0], ['articlePOS', 0], ], "choose": [0] },
-  /*
-    [['the', 0], ['ordering', 0]],
-    [['listAction', 0], ['cost', 1]],
-    [['answer', 0], ['listAction', 0], ['the', 0]],
-    [['answer', 0], ['listAction', 0], ['the', 0], ['with', 0]],
-  */
   ],
   generators: [
     { 
       notes: 'paraphrase show',
       where: where(),
       match: ({context, objects}) => context.marker == 'show' && context.paraphrase,
-      apply: ({gs, gsp, gp, e, apis, objects, context}) => {
+      apply: async ({gs, gp, e, apis, objects, context}) => {
         if (context.report) {
-          return `show ${gp(context.report)}`
+          return `show ${await gp(context.report)}`
         } else {
-          const report = e(context.on)
+          const report = await e(context.on)
           const id = report.value.value
           const listing = objects.listings[id]
-          return `the properties being shown are ${gs(listing.columns, ', ', ' and ')}`
+          return `the properties being shown are ${await gs(listing.columns, ', ', ' and ')}`
         }
       }
     },
-    /*
-    { 
-      where: where(),
-      match: ({context, isA}) => isA(context.marker, 'reportAction') && context.on && context.isResponse, 
-      apply: ({context, g}) => `${g({...context, on: undefined})} on ${g(context.on)}` 
-    },
-    { 
-      where: where(),
-      match: ({context, isA}) => isA(context.marker, 'reportAction') && context.on && context.paraphrase, 
-      apply: ({context, g}) => `${g({...context, on: undefined})} on ${g(context.on)}` 
-    },
-    */
     { 
       where: where(),
       match: ({context}) => context.marker == 'product' && !context.isInstance, 
@@ -426,12 +408,12 @@ let configStruct = {
     { 
       where: where(),
       match: ({context}) => context.marker == 'listAction' && context.paraphrase, 
-      apply: ({g, context}) => `list ${g(context.what)}` 
+      apply: async ({g, context}) => `list ${await g(context.what)}` 
     },
     { 
       notes: 'show the results as a sentence',
       where: where(),
-      match: ({context, objects, apis}) => {
+      match: ({context, objects}) => {
         if (!(context.marker == 'listAction' && context.isResponse)) {
           return false
         }
@@ -439,15 +421,15 @@ let configStruct = {
           return true
         }
       },
-      apply: ({g, gs, context, objects}) => {
+      apply: async ({g, gs, context, objects}) => {
         const listing = objects.listings[context.id]
-        return `the ${g(listing.api)} are ${gs(context.listing, ' ', ' and ')}` 
+        return `the ${await g(listing.api)} are ${await gs(context.listing, ' ', ' and ')}` 
       }
     },
     { 
       notes: 'show the results as a table',
       where: where(),
-      match: ({context, objects, apis}) => {
+      match: ({context, objects}) => {
         if (!(context.marker == 'listAction' && context.isResponse && !context.paraphrase)) {
           return false
         }
@@ -455,7 +437,7 @@ let configStruct = {
           return true
         }
       }, 
-      apply: ({g, gs, objects, context, e, kms, apis}) => {
+      apply: async ({objects, context, e, kms}) => {
         let report = '';
         const products = context.listing
         const columns = objects.listings[context.id].columns
@@ -463,20 +445,21 @@ let configStruct = {
           kms.stm.api.setVariable('price', { marker: 'price', value: 23 })
           kms.stm.api.setVariable('quantity', { marker: 'quantity', value: 3 })
           const c1 = { marker: 'worth', value: 'worth' }
-          r1 = toEValue(e(c1));
-          r2 = e({ marker: 'supplier', value: 'supplier' })
+          r1 = toEValue(await e(c1));
+          r2 = await e({ marker: 'supplier', value: 'supplier' })
         }
-        const data = products.map( (product) => {
+        const data = []
+        for (const product of products) {
           const row = []
           for (let p of Object.keys(product)) {
             kms.stm.api.setVariable(p, { marker: p, value: product[p] })
           }
           for (let property of columns) {
-            const value = toEValue(e({ marker: property, value: property }));
+            const value = toEValue(await e({ marker: property, value: property }));
             row.push(value)
           }
-          return row
-        });
+          data.push(row)
+        };
         report += table([columns].concat(data))
         return report
       }
@@ -484,12 +467,12 @@ let configStruct = {
     { 
       where: where(),
       match: ({context}) => context.marker == 'answer' && context.paraphrase, 
-      apply: ({g, context}) => `answer with ${context.type}` 
+      apply: ({context}) => `answer with ${context.type}` 
     },
     { 
       where: where(),
       match: ({context}) => context.marker == 'answer' && !context.paraphrase, 
-      apply: ({g, context}) => `answering with ${context.type}` 
+      apply: ({context}) => `answering with ${context.type}` 
     },
   ],
 
@@ -498,13 +481,13 @@ let configStruct = {
       where: where(),
       notes: 'handle show semantic',
       match: ({context}) => context.marker == 'show',
-      apply: ({context, e, km, kms, apis, insert, config, objects}) => {
+      apply: async ({context, e, km, kms, apis, insert, config, objects}) => {
         if (context.report) {
           const values = propertyToArray(context.report)
           const responses = []
           for (let value of values) {
             if (!value.value || value.pullFromContext) {
-              value = e(value)
+              value = await e(value)
             }
             let id = value.value
             if (value.evalue) {
@@ -527,7 +510,7 @@ let configStruct = {
           }
           context.isResponse = true
         } else {
-          const report = e(context.on)
+          const report = await e(context.on)
           const id = report.value.value
           const listing = objects.listings[id]
           const values = propertyToArray(context.properties)
@@ -550,11 +533,11 @@ let configStruct = {
       notes: 'get the report data',
       where: where(),
       match: ({context}) => context.marker == 'listAction', 
-      apply: ({context, e, objects, apis, km, config}) => {
+      apply: async ({context, e, objects, apis, km, config}) => {
         //const name = '***current***'
         if (context.api) {
           // id = newReport({km, objects})
-          const report = e({ marker: 'report', pullFromContext: true })
+          const report = await e({ marker: 'report', pullFromContext: true })
           const id = report.value.value
           const listing = objects.listings[id]
           listing.api = context.api
@@ -562,7 +545,7 @@ let configStruct = {
           context.id = id
           context.listing = apis[listing.api].getAllProducts(listing)
         } else {
-          const report = e({ marker: 'report', pullFromContext: true })
+          const report = await e({ marker: 'report', pullFromContext: true })
           const id = report.evalue.value
           const listing = objects.listings[id]
           const api = apis[listing.api]
@@ -572,16 +555,16 @@ let configStruct = {
         context.isResponse = true
       },
     },
-    [
-      ({context}) => context.marker == 'answer', 
-      ({e, context, objects, kms, insert}) => {
-        const report = e({ marker: 'report', pullFromContext: true })
+    {
+      match: ({context}) => context.marker == 'answer', 
+      apply: async ({e, context, objects, kms, insert}) => {
+        const report = await e({ marker: 'report', pullFromContext: true })
         const id = report.value.value
         const listing = objects.listings[id]
         listing.type = context.type
         kms.events.api.happens(insert, { marker: "changes", level: 1, changeable: { marker: 'report', pullFromContext: true } })
       }
-    ],
+    },
   ],
 };
 

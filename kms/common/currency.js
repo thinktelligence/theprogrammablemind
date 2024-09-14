@@ -60,14 +60,14 @@ let configStruct = {
     { 
       where: where(),
       match: ({context}) => context.marker == 'currency' && !context.isAbstract, 
-      apply: ({context, g}) => {
+      apply: async ({context, g}) => {
         word = Object.assign({}, context.amount)
         word.isAbstract = true
         word.marker = 'currency'
         word.units = context.units
         word.value = context.amount.value
         // generator = [({context}) => context.marker == 'currency' && context.units == words.units && context.value > 1 && context.isAbstract, ({context, g}) => words.many ]
-        return `${g(context.amount.value)} ${g(word)}`
+        return `${await g(context.amount.value)} ${await g(word)}`
       } 
     },
   ],

@@ -105,7 +105,7 @@ let configStruct = {
     {
       id: 'makeObject',
       bridge: "{ ...next(operator), object: after[0] }",
-      generatorp: ({context, gp}) => `${context.word} ${gp(context.object)}`,
+      generatorp: async ({context, gp}) => `${context.word} ${await gp(context.object)}`,
       semantic: ({config, context, api}) => {
 			  api.makeObject({ context: context.object, config, types: [] })
       }
@@ -113,7 +113,7 @@ let configStruct = {
     {
       id: 'setIdSuffix',
       bridge: "{ ...next(operator), suffix: after[0] }",
-      generatorp: ({context, gp}) => `${context.word} ${gp(context.suffix)}`,
+      generatorp: async ({context, gp}) => `${context.word} ${await gp(context.suffix)}`,
       semantic: ({context, api}) => {
         api.setIdSuffix(context.suffix.text)
       }
@@ -163,8 +163,8 @@ let configStruct = {
         level: 0, 
         isA: ['preposition'],
         bridge: "{ ...next(operator), toObject: after[0] }",
-        generatorp: ({context, gp}) => {
-          return `to ${gp(context.toObject)}`
+        generatorp: async ({context, gp}) => {
+          return `to ${await gp(context.toObject)}`
         },
     },
     { id: "toAble", level: 0, bridge: "{ ...next(operator) }" },
@@ -350,10 +350,10 @@ let configStruct = {
       where: where(),
       notes: "handle making responses brief",
       match: ({context, objects}) => (context.topLevel || context.isResponse) && objects.brief && !context.briefWasRun,
-      apply: ({context, g}) => {
+      apply: async ({context, g}) => {
         const focussed = focus(context)
         context.briefWasRun = true
-        return g(focussed)
+        return await g(focussed)
       },
       priority: -2,
     },
@@ -414,8 +414,8 @@ let configStruct = {
       // ({context, hierarchy}) => context.marker == 'list' && context.paraphrase && context.value,
       // ({context, hierarchy}) => context.marker == 'list' && context.value,
       match: ({context, hierarchy}) => context.marker == 'list' && context.paraphrase && context.value && context.value.length > 0 && context.value[0].marker == 'yesno',
-      apply: ({context, g, gs}) => {
-        return `${g(context.value[0])} ${gs(context.value.slice(1), ', ', ' and ')}`
+      apply: async ({context, g, gs}) => {
+        return `${await g(context.value[0])} ${await gs(context.value.slice(1), ', ', ' and ')}`
       }
     },
 
@@ -425,11 +425,11 @@ let configStruct = {
       // ({context, hierarchy}) => context.marker == 'list' && context.paraphrase && context.value,
       // ({context, hierarchy}) => context.marker == 'list' && context.value,
       match: ({context, hierarchy}) => context.marker == 'list' && context.value,
-      apply: ({context, gs}) => {
+      apply: async ({context, gs}) => {
         if (context.newLinesOnly) {
-          return gs(context.value, '\n')
+          return await gs(context.value, '\n')
         } else {
-          return gs(context.value, ', ', ' and ')
+          return await gs(context.value, ', ', ' and ')
         }
       }
     },
@@ -439,23 +439,10 @@ let configStruct = {
       notes: 'paraphrase a queryable response',
       // || context.evalue.paraphrase -> when the evalue acts as a paraphrase value
       match: ({context, hierarchy}) => hierarchy.isA(context.marker, 'queryable') && !context.isQuery && context.evalue && (!context.paraphrase || context.evalue.paraphrase),
-      apply: ({context, g}) => {
-        return g(context.evalue)
+      apply: async ({context, g}) => {
+        return await g(context.evalue)
       }
     },
-    /* dup of one above
-    {
-      where: where(),
-      notes: 'paraphrase a queryable',
-      match: ({context, hierarchy}) => hierarchy.isA(context.marker, 'queryable') && !context.isQuery && !context.paraphrase && context.evalue,
-      apply: ({context, g}) => {
-        const oldValue = context.evalue.paraphrase
-        const result = g(context.evalue)
-        context.evalue.paraphrase = oldValue
-        return result
-      }
-    },
-    */
     {
       where: where(),
       match: ({context, hierarchy}) => hierarchy.isA(context.marker, 'queryable') && !context.isQuery && context.isSelf && context.subject == 'my',
@@ -464,7 +451,7 @@ let configStruct = {
     { 
       where: where(),
       match: ({context, hierarchy}) => ['it', 'what'].includes(context.marker) && context.paraphrase, 
-      apply: ({g, context}) => `${context.word}`
+      apply: ({context}) => `${context.word}`
     },
     {
       where: where(),
@@ -474,15 +461,8 @@ let configStruct = {
     { 
       where: where(),
       match: ({context, hierarchy}) => ['my', 'your'].includes(context.subject) && hierarchy.isA(context.marker, 'queryable') && context.paraphrase, 
-      apply: ({g, context}) => `${context.subject} ${context.marker}`
+      apply: ({context}) => `${context.subject} ${context.marker}`
     },
-    /*
-    { 
-      where: where(),
-      match: ({context, hierarchy}) => hierarchy.isA(context.marker, 'theAble') && context.paraphrase && context.wantsValue && !context.pullFromContext, 
-      apply: ({g, context}) => `a ${context.word}`
-    },
-    */
     {
       where: where(),
       match: ({context, hierarchy}) => hierarchy.isA(context.marker, 'queryable') && !context.isQuery && context.subject,
@@ -507,8 +487,8 @@ let configStruct = {
     { 
       where: where(),
       match: ({context, hierarchy}) => hierarchy.isA(context.marker, 'canBeQuestion') && context.paraphrase && context.topLevel && context.query,
-      apply: ({context, gp}) => {
-        return `${gp({...context, topLevel: undefined})}?` 
+      apply: async ({context, gp}) => {
+        return `${await gp({...context, topLevel: undefined})}?` 
       },
       priority: -1,
     },
@@ -516,27 +496,27 @@ let configStruct = {
       where: where(),
       notes: "x is y",
       match: ({context, hierarchy}) => { return hierarchy.isA(context.marker, 'is') && context.paraphrase },
-      apply: ({context, g, gp}) => {
-        return `${g({ ...context.one, paraphrase: true })} ${context.word} ${gp(context.two)}` 
+      apply: async ({context, g, gp}) => {
+        return `${await g({ ...context.one, paraphrase: true })} ${context.word} ${await gp(context.two)}` 
       }
     },
     { 
       where: where(),
       notes: 'is with a response defined',
       match: ({context, hierarchy}) => hierarchy.isA(context.marker, 'is') && context.evalue,
-      apply: ({context, g, gs}) => {
+      apply: async ({context, g, gs}) => {
         const response = context.evalue;
         const concept = response.concept;
         if (concept) {
           concept.paraphrase = true
           concept.isSelf = true
-          const instance = g(response.instance)
-          return `${g(concept)} ${context.word} ${instance}` 
+          const instance = await g(response.instance)
+          return `${await g(concept)} ${context.word} ${instance}` 
         } else {
           if (Array.isArray(response)) {
-            return `${gs(response)}` 
+            return `${await gs(response)}` 
           } else {
-            return `${g(response)}` 
+            return `${await g(response)}` 
           }
         }
       }
@@ -545,13 +525,13 @@ let configStruct = {
       where: where(),
       notes: 'x is y (not a response)',
       match: ({context, hierarchy}) => hierarchy.isA(context.marker, 'is') && !context.evalue,
-      apply: ({context, g, gp, gr, callId}) => {
+      apply: async ({context, g, gp, gr, callId}) => {
         if ((context.two.evalue || {}).marker == 'answerNotKnown') {
-          return g(context.two.evalue)
+          return await g(context.two.evalue)
         }
 
         if (!context.isResponse) {
-          return `${gp(context.one)} ${isMany(context.one) || isMany(context.two) || isMany(context) ? "are" : "is"} ${g(context.two)}`
+          return `${await gp(context.one)} ${isMany(context.one) || isMany(context.two) || isMany(context) ? "are" : "is"} ${await g(context.two)}`
         }
 
         const hasFocus = (property) => {
@@ -576,17 +556,15 @@ let configStruct = {
         }
         // greg101
         if (focus == 'one') {
-          return `${g(context.two)} ${isMany(context.one) || isMany(context.two) || isMany(context) ? "are" : "is"} ${gp(context.one)}`
+          return `${await g(context.two)} ${isMany(context.one) || isMany(context.two) || isMany(context) ? "are" : "is"} ${await gp(context.one)}`
         } else {
           // TODO fix this using the assumed and that whole mess. change isResponse to useValue
           if (context.isResponse) {
-            return `${gp(context.one, { responding: true })} ${isMany(context.one) || isMany(context.two) || isMany(context) ? "are" : "is"} ${g(context.two)}`
+            return `${await gp(context.one, { responding: true })} ${isMany(context.one) || isMany(context.two) || isMany(context) ? "are" : "is"} ${await g(context.two)}`
           } else {
-            return `${gp(context.one)} ${isMany(context.one) || isMany(context.two) || isMany(context) ? "are" : "is"} ${gr(context.two)}`
+            return `${await gp(context.one)} ${isMany(context.one) || isMany(context.two) || isMany(context) ? "are" : "is"} ${await gr(context.two)}`
           }
-          // return `${gp(context.one)} ${isMany(context.one) || isMany(context.two) || isMany(context) ? "are" : "is"} ${g(context.two)}`
         }
-        // return `${g({...context.one})} ${isMany(context.one) || isMany(context.two) || isMany(context) ? "are" : "is"} ${g(context.two)}`
       },
     },
   ],
@@ -612,10 +590,10 @@ let configStruct = {
     {
       where: where(),
       match: ({context}) => context.marker === 'error',
-      apply: ({context, gp}) => {
+      apply: async ({context, gp}) => {
         context.evalue = "That is not known"
         if (context.reason) {
-          context.evalue += ` because ${gp(context.reason)}`
+          context.evalue += ` because ${await gp(context.reason)}`
         }
         context.isResponse = true
       }
@@ -625,7 +603,7 @@ let configStruct = {
       notes: 'pull from context',
       // match: ({context}) => context.marker == 'it' && context.pullFromContext, // && context.value,
       match: ({context, callId}) => context.pullFromContext && !context.same, // && context.value,
-      apply: ({callId, context, s, kms, e, log, retry}) => {
+      apply: async ({callId, context, kms, e, log, retry}) => {
         if (true) {
           /*
                    {
@@ -659,7 +637,7 @@ let configStruct = {
             return
           }
           
-          const instance = e(context.value)
+          const instance = await e(context.value)
           if (instance.evalue && !instance.edefault) {
             context.value = instance.evalue
           }
@@ -701,7 +679,7 @@ let configStruct = {
           // avoid loops
           if (context.marker != 'unknown') {
             if (context.value.marker != context.marker) {
-              const instance = e(context.value)
+              const instance = await e(context.value)
               if (instance.evalue && !instance.edefault) {
                 context.value = instance.evalue
               }
@@ -723,7 +701,7 @@ let configStruct = {
       */
 
       match: ({context, hierarchy}) => hierarchy.isA(context.marker, 'is') && context.query,
-      apply: ({context, s, log, km, objects, e}) => {
+      apply: async ({context, s, log, km, objects, e}) => {
         const one = context.one;
         const two = context.two;
         let concept, value;
@@ -737,7 +715,7 @@ let configStruct = {
         // km('dialogues').api.mentioned(concept)
         // TODO wtf is the next line?
         value = JSON.parse(JSON.stringify(value))
-        let instance = e(value)
+        let instance = await e(value)
         if (false && instance.evalue) {
           km('stm').api.mentioned(value)
         }
@@ -801,14 +779,14 @@ let configStruct = {
       where: where(),
       notes: 'x is y. handles x is a kind of y or x = y in the stm',
       match: ({context}) => context.marker == 'is' && !context.query && context.one && context.two,
-      apply: ({context, s, log, api, kms, config}) => {
+      apply: async ({context, s, log, api, kms, config}) => {
         // const oneZero = { ...context.one }
         // const twoZero = { ...context.two }
 
         const one = context.one;
         const two = context.two;
         one.same = two;
-        const onePrime = s(one)
+        const onePrime = await s(one)
         if (!onePrime.sameWasProcessed) {
           warningSameNotEvaluated(log, one)
         } else {
@@ -821,7 +799,7 @@ let configStruct = {
         let twoPrime;
         if (!onePrime.sameWasProcessed) {
           two.same = one
-          twoPrime = s(two)
+          twoPrime = await s(two)
           if (!twoPrime.sameWasProcessed) {
             warningSameNotEvaluated(log, two)
           } else {
@@ -840,20 +818,6 @@ let configStruct = {
         }
       }
     },
-    /*
-    {
-      where: where(),
-      notes: 'x = y in the stm',
-      match: ({context}) => context.marker == 'is' && !context.query && context.one && context.two,
-      apply: ({context, s, log, api, kms, config}) => {
-        const one = context.one;
-        const two = context.two;
-        api.makeObject({ context: one, config, types: context.two.types || [] })
-        kms.stm.api.setVariable(one.value, two)
-        kms.stm.api.mentioned(one, two)
-      }
-    },
-    */
     {
       where: where(),
       notes: 'get variable from stm',
@@ -861,48 +825,15 @@ let configStruct = {
       match: ({context, kms}) => context.evaluate && kms.stm.api.getVariable(context.value) != context.value,
       // match: ({context, kms}) => context.evaluate,
       priority: -1,
-      apply: ({context, kms, e}) => {
+      apply: async ({context, kms, e}) => {
         const api = kms.stm.api
         context.value = api.getVariable(context.value)
-        /*
-        if (!context.value && context.marker !== 'unknown') {
-          context.value = api.getVariable(context.marker)
-        }
-        */
         if (context.value && context.value.marker) {
-          context.evalue = e(context.value)
+          context.evalue = await e(context.value)
         }
         context.focusableForPhrase = true
       }
     },
-/*
-    {
-      where: where(),
-      notes: 'default handle evaluate',
-      match: ({context, kms}) => context.evaluate && context.value,
-      // match: ({context, kms}) => context.evaluate,
-      // priority: -1,
-      apply: ({context, kms, e}) => {
-        if (context.value && context.value.marker) {
-          context.evalue = e(context.value)
-        }
-      }
-    },
-*/
-    /*
-    {
-      priority: 2,
-      notes: 'evaluate top level not already done',
-      match: ({context}) => false && context.topLevel && !context.evalue,
-      apply: ({context, e}) => {
-        const instance = e({ ...context, value: undefined, topLevel: undefined })
-        if (instance.evalue && !instance.edefault) {
-          context.evalue = instance
-          context.isResponse = true
-        }
-      }
-    },
-    */
   ],
 };
 
@@ -947,9 +878,9 @@ const getAsk = (config) => (uuid) => {
           where: semantic.where || ask.where || where(2),
           source: 'response',
           match: (args) => semantic.match(args),
-          apply: (args) => {
+          apply: async (args) => {
             setWasApplied(true)
-            semantic.apply(args)
+            await semantic.apply(args)
           },
         })
       }
@@ -966,7 +897,7 @@ const getAsk = (config) => (uuid) => {
         onNevermind: ask.onNevermind,
         source: 'question',
         match: ({ context }) => context.marker == 'controlEnd' || context.marker == 'controlBetween',
-        apply: (args) => {
+        apply: async (args) => {
           let matchq = ask.matchq
           let applyq = ask.applyq
           if (!matchq) {
@@ -977,11 +908,11 @@ const getAsk = (config) => (uuid) => {
               return ask.applyq(args)
             }
           }
-          if (matchq(args)) {
+          if (await matchq(args)) {
             setWasAsked(true)
             setWasApplied(false)
             // args.context.motivationKeep = true
-            args.verbatim(applyq(args))
+            args.verbatim(await applyq(args))
             /*
               args.context.verbatim = applyq(args)
               args.context.isResponse = true;

@@ -36,7 +36,7 @@ class API {
     config.addBridge({ 
       id: dimension,
       isA: ['dimension'],
-      generatorp: ({context, g}) => context.amount ? `${g(context.amount)} ${g(context.unit)}` : context.word,
+      generatorp: async ({context, g}) => context.amount ? `${await g(context.amount)} ${await g(context.unit)}` : context.word,
     })
 
     // for example, celcius and fahrenheit
@@ -76,7 +76,7 @@ let configStruct = {
     {
       where: where(),
       match: ({context}) => context.marker == 'noconversion',
-      apply: ({context, gp}) => `there is no conversion between ${gp(context.from)} and ${gp(context.to)}`,
+      apply: async ({context, gp}) => `there is no conversion between ${await gp(context.from)} and ${await gp(context.to)}`,
     },
   ],
   bridges: [
@@ -86,7 +86,7 @@ let configStruct = {
       isA: [],
       generatorpr: {
         match: ({context}) => context.amount,
-        apply: ({context, g, gp, gr}) => `${gr(context.amount)} ${gp(context.unit)}`,
+        apply: async ({context, gp, gr}) => `${await gr(context.amount)} ${await gp(context.unit)}`,
       },
     },
     { id: "length", isA: ['dimension'], development: true },
@@ -105,7 +105,7 @@ let configStruct = {
       id: "degree", 
       words: [{ word: 'degrees', number: 'many' }],
       isA: ['amount'],
-      generatorp: ({context, g}) => (context.amount) ? `${g(context.amount)} ${context.word}` : context.word,
+      generatorp: async ({context, g}) => (context.amount) ? `${await g(context.amount)} ${context.word}` : context.word,
       bridge: "{ ...next(operator), value: before[0].value, amount: before[0] }",
     },
     { 
@@ -119,9 +119,9 @@ let configStruct = {
       bridge: "{ ...next(operator), from: before[0], to: after[0] }",
       isA: ['expression', 'queryable'],
       after: [['possession', 0], ['possession', 1]],
-      generatorp: ({context, g}) => `${g(context.from)} ${context.word} ${g(context.to)}`,
+      generatorp: async ({context, g}) => `${await g(context.from)} ${context.word} ${await g(context.to)}`,
       // evaluator: ({context, kms, error}) => {
-      evaluator: ({context, kms, e, error}) => {
+      evaluator: async ({context, kms, e, error}) => {
         /*
         error(({context, e}) => {
           context.evalue = 'dont know...'
@@ -132,7 +132,7 @@ let configStruct = {
         let evalue;
         let efrom = from
         if (!from.unit) {
-          efrom = e(from).evalue
+          efrom = (await e(from)).evalue
         }
         if (to.value == efrom.unit.value) {
           evalue = efrom.amount
@@ -144,7 +144,7 @@ let configStruct = {
             error(reason)
           }
           kms.stm.api.setVariable(efrom.unit.value, efrom.amount)
-          evalue = e(formula)
+          evalue = await e(formula)
         }
         /*
         '{

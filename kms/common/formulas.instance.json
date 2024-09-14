@@ -31,7 +31,7 @@
         {
           "where": "/home/dev/code/theprogrammablemind/kms/common/formulas.js:109",
           "match": "({context, api}) => context.evaluate && api.get(context)",
-          "apply": "({context, api, e}) => {\n        const { formula } = api.get(context)\n        // console.log('greg24 -----------', JSON.stringify(formula, null, 2))\n        context.evalue = e(formula) \n      }"
+          "apply": "async ({context, api, e}) => {\n        const { formula } = api.get(context)\n        // console.log('greg24 -----------', JSON.stringify(formula, null, 2))\n        context.evalue = await e(formula) \n      }"
         }
       ],
       "bridges": [
@@ -44,14 +44,14 @@
           ],
           "convolution": true,
           "bridge": "{ number: before[0].number, ...next(operator), what: before[0], equality: after[0], variable: after[1] }",
-          "generatorp": "({context, g}) => `${g(context.what)} ${g(context.equality)} ${g(context.variable)}`",
+          "generatorp": "async ({context, g}) => `${await g(context.what)} ${await g(context.equality)} ${await g(context.variable)}`",
           "evaluator": "({context, api, objects}) => {\n        const formulas = api.gets(context.variable).map((f) => { return { ...f.equality, paraphrase: true } })\n        context.evalue = { marker: 'list', value: formulas }\n      }"
         },
         {
           "where": "/home/dev/code/theprogrammablemind/kms/common/formulas.js:132",
           "id": "solve",
           "bridge": "{ ...next(operator), equality: after[0], variable: after[2] }",
-          "generatorp": "({context, gp}) => `${context.word} ${gp(context.equality)} for ${gp(context.variable)}`",
+          "generatorp": "async ({context, gp}) => `${context.word} ${await gp(context.equality)} for ${await gp(context.variable)}`",
           "semantic": "({context}) => {\n        context.response = solveFor(context.equality, context.variable)\n        context.isResponse = true\n        context.value = null\n        if (!context.response) {\n          // TODO some KM for talking to the user wrt brief+avatar\n          context.verbatim = `Solving failed`\n        }\n      }"
         },
         {
@@ -80,14 +80,14 @@
             "verby"
           ],
           "bridge": "{ ...next(operator), expression: after[0] }",
-          "generatorp": "({context, g}) => `${context.word} ${g(context.expression)}`",
+          "generatorp": "async ({context, g}) => `${context.word} ${await g(context.expression)}`",
           "localHierarchy": [
             [
               "unknown",
               "expression"
             ]
           ],
-          "semantic": "({context, e}) => {\n        context.evalue = e(context.expression)\n        context.isResponse = true\n      }"
+          "semantic": "async ({context, e}) => {\n        context.evalue = await e(context.expression)\n        context.isResponse = true\n      }"
         },
         {
           "where": "/home/dev/code/theprogrammablemind/kms/common/formulas.js:171",
@@ -105,7 +105,7 @@
               "expression"
             ]
           ],
-          "generatorp": "({context, gp}) => `${gp(context.left)} ${context.word} ${gp(context.right)}`",
+          "generatorp": "async ({context, gp}) => `${await gp(context.left)} ${context.word} ${await gp(context.right)}`",
           "semantic": "({context, api}) => {\n        // TODO make sure left is a single name\n        // TODO calculate invertable formulas?\n        api.add(context.left, context.right, context)\n      }"
         }
       ]

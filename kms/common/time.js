@@ -103,12 +103,12 @@ const configStruct = {
     { 
       where: where(),
       match: ({context}) => context.marker == 'ampm' && context.paraphrase, 
-      apply: ({g, context, gp}) => `${gp(context.hour)} ${context.ampm}` 
+      apply: async ({g, context, gp}) => `${await gp(context.hour)} ${context.ampm}` 
     },
     { 
       where: where(),
       match: ({context}) => context.marker == 'time' && context.evalue && context.format == 12, 
-      apply: ({g, context}) => {
+      apply: ({context}) => {
         let hh = context.evalue.getHours();
         let ampm = 'am'
         if (hh > 12) {
