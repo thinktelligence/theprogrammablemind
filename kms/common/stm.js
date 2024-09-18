@@ -1,7 +1,7 @@
 const { Config, knowledgeModule, where } = require('./runtime').theprogrammablemind
 const { defaultContextCheck } = require('./helpers')
 const helpers = require('./helpers')
-const gdefaults = require('./gdefaults')
+const articles = require('./articles')
 const evaluate = require('./evaluate')
 const stm_tests = require('./stm.test.json')
 
@@ -130,7 +130,6 @@ const configStruct = {
     "([stm_previous|previous] ([memorable]))",
     "(([memorable]) [stm_before|before])",
     "([remember] (memorable/*))",
-    { pattern: "([testPullFromContext] ([memorable]))", development: true }
   ],
   words: {
     literals: {
@@ -141,6 +140,7 @@ const configStruct = {
   bridges: [
     { 
       id: 'memorable', 
+      isA: ['theAble'],
       words: helpers.words('memorable') 
     },
     { 
@@ -156,18 +156,8 @@ const configStruct = {
     },  
     { 
       id: 'stm_before',
+      isA: ['adjective'],
       bridge: '{ ...before[0], postModifiers: ["stm_previous"], stm_previous: operator, pullFromContext: true }',
-    },  
-    { 
-      id: 'testPullFromContext',
-      bridge: '{ ...operator, postModifiers: ["reference"], reference: after[0] }',
-      after: ['stm_previous', 'stm_before'],
-      development: true,
-      semantic: ({context, api}) => {
-        debugger
-        context.response = api.mentions(context.reference)
-        context.isResponse = true
-      }
     },  
   ],
   semantics: [
@@ -236,7 +226,7 @@ let createConfig = async () => {
     }))
   })
   await config.setApi(api)
-  await config.add(evaluate, gdefaults)
+  await config.add(evaluate, articles)
 
   await config.restart_auto_rebuild()
   return config
