@@ -35,6 +35,10 @@ class API {
     return false
   }
 
+  getByType(type) {
+    return this._objects.mentioned.filter( (context) => this.isA(context.marker, type) )
+  }
+
   mentioned(concept, value = undefined) {
     // TODO value should perhaps have been called id as in concept id and then value could be value
     if (value) {

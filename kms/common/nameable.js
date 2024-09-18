@@ -5,22 +5,35 @@ const stm = require('./stm')
 const nameable_tests = require('./nameable.test.json')
 
 class API {
-  initialize({ objects }) {
+  initialize({ objects, km, kms }) {
     this.objects = objects
     this.objects.named = {}
   }
 
   // report is a context
-  setName(name, context) {
-    this.objects.named[name] = context
-    if (!report.nameable_names) {
-      report.nameable_names = []
+  setName(context, name) {
+    if (!context.nameable_names) {
+      context.nameable_names = []
     }
-    report.nameable_names.push(name)
+    context.nameable_names.push(name)
   }
 
   get(name) {
     return this.objects.named[name]
+  }
+
+  getNamesByType(type) {
+    debugger
+    const contexts = this.args.kms.stm.api.getByType(type)
+    const names = new Set()
+    for (const context of contexts) {
+      if (context.nameable_names) {
+        for (const name of context.nameable_names) {
+          names.add(name)
+        }
+      }
+    }
+    return [...names]
   }
 
   getNames() {
@@ -46,6 +59,8 @@ const configStruct = {
   name: 'nameable',
   operators: [
     "([call] ([nameable]) (name))",
+    { pattern: "([getNamesByType] (type))", development: true },
+    { pattern: "([m1])", development: true },
 //    { pattern: "([testPullFromContext] ([memorable]))", development: true }
   ],
   words: {
@@ -56,22 +71,30 @@ const configStruct = {
   },
   bridges: [
     {
+      id: 'm1',
+      isA: ['memorable', 'nameable'],
+    },
+    {
+      id: 'getNamesByType',
+      development: true,
+      isA: ['verby'],
+      bridge: "{ ...next(operator), type: after[0] }",
+      semantic: async ({context, api}) => {
+        context.response = api.getNamesByType(context.type.value).join(" ")
+        context.isResponse = true
+      }
+    },
+    {
       id: 'call',
       isA: ['verby'],
       bridge: "{ ...next(operator), nameable: after[0], name: after[1] }",
       generatorp: async ({context, g}) => `call ${await g(context.nameable)} ${await g(context.name)}`,
-      evaluator: {
-        match: ({context}) => context.nameable_named,
-        apply: ({context, api}) => {
-          context.evalue = api.get(context.value)
-        }
-      },
       semantic: async ({config, context, api, e}) => {
         // TODO find report being referred to
-        const nameable = await e(context.nameable)
+        const nameable = (await e(context.nameable)).evalue
         const name = context.name.text
-        config.addWord(name, { id: 'report', initial: `{ value: "${nameable.marker}", nameable_named: true }` })
-        api.nameReport(report, name)
+        config.addWord(name, { id: nameable.marker, initial: `{ value: "${nameable.marker}", nameable_named: true }` })
+        api.setName(nameable, name)
       }
     },
     { id: 'nameable', words: helpers.words('nameable')},
@@ -108,7 +131,7 @@ knowledgeModule( {
     contents: nameable_tests,
     checks: {
             context: [...defaultContextCheck, 'pullFromContext'],
-            objects: ['mentioned'],
+            objects: ['mentioned', { km: 'stm' }],
           },
   },
 })
