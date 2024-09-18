@@ -1,33 +1,40 @@
 const { Config, knowledgeModule, ensureTestFile, where, unflatten, flattens } = require('./runtime').theprogrammablemind
 const { defaultContextCheck } = require('./helpers')
-const _ = require('lodash')
-ensureTestFile(module, 'meta', 'test')
-ensureTestFile(module, 'meta', 'instance')
-const meta_tests = require('./meta.test.json')
-const meta_instance = require('./meta.instance.json')
-const { hashIndexesGet, hashIndexesSet, translationMapping, translationMappings } = require('./helpers/meta.js')
-const { zip, words } = require('./helpers.js')
+const tests = require('./evaluate.test.json')
+const gdefaults = require('./gdefaults')
 
-const template = {
-  configs: [
-     {
-       operators: [
-         "([evaluate] (value))",
-       ],
-       bridges: [
-         {
-           id: 'evaluate',
-           bridge: "{ ...next(operator), value: after[1] ",
-           semantic: ({context, e)}) => {
-           }
-         }
-       ],
-     },
-  ]
+const configStruct = {
+  name: 'evaluate', 
+  operators: [
+    "([evaluate] (value))",
+    { pattern: "([value1])", development: true },
+  ],
+  bridges: [
+    {
+      id: 'value1',
+      evaluator: ({context}) => {
+        debugger
+        context.evalue = 'value1 after evaluation'
+      },
+      development: true,
+    },
+    {
+      id: 'evaluate',
+      bridge: "{ ...next(operator), value: after[0] }",
+      semantic: async ({context, e}) => {
+        context.response = (await e(context.value)).evalue
+        context.isResponse = true
+      }
+    }
+  ],
 };
 
 const createConfig = async () => {
-  return new Config({ name: 'evaluate' }, module)
+  const config = new Config(configStruct, module)
+  config.stop_auto_rebuild()
+  await config.add(gdefaults)
+  await config.restart_auto_rebuild()
+  return config
 }
 
 knowledgeModule({ 
@@ -35,18 +42,13 @@ knowledgeModule({
   description: 'Explicit handling of evaluate',
   createConfig,
   test: {
-    name: './meta.test.json',
-    contents: meta_tests,
+    name: './evaluate.test.json',
+    contents: tests,
     include: {
       words: true,
     },
     checks: {
-            context: defaultContextCheck,
-          },
-
-  },
-  template: {
-    template,
-    instance: meta_instance,
+      context: defaultContextCheck,
+    },
   },
 })
