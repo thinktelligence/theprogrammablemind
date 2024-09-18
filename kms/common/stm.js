@@ -2,6 +2,7 @@ const { Config, knowledgeModule, where } = require('./runtime').theprogrammablem
 const { defaultContextCheck } = require('./helpers')
 const helpers = require('./helpers')
 const gdefaults = require('./gdefaults')
+const evaluate = require('./evaluate')
 const stm_tests = require('./stm.test.json')
 
 class API {
@@ -168,7 +169,56 @@ const configStruct = {
         context.isResponse = true
       }
     },  
-  ]
+  ],
+  semantics: [
+    { 
+      where: where(),
+      notes: 'pull from context',
+      // match: ({context}) => context.marker == 'it' && context.pullFromContext, // && context.value,
+      match: ({context, callId}) => context.pullFromContext && !context.same, // && context.value,
+      apply: async ({callId, context, kms, e, log, retry}) => {
+        /*
+                 {
+                    "marker": "unknown",
+                    "range": {
+                      "start": 65,
+                      "end": 73
+                    },
+                    "word": "worth",
+                    "text": "the worth",
+                    "value": "worth",
+                    "unknown": true,
+                    "types": [
+                      "unknown"
+                    ],
+                    "pullFromContext": true,
+                    "concept": true,
+                    "wantsValue": true,
+                    "determiner": "the",
+                    "modifiers": [
+                      "determiner"
+                    ],
+                    "evaluate": true
+                  }
+
+        */
+        context.value = kms.stm.api.mentions(context)
+        if (!context.value) {
+          // retry()
+          context.value = { marker: 'answerNotKnown' }
+          return
+        }
+        
+        const instance = await e(context.value)
+        if (instance.evalue && !instance.edefault) {
+          context.value = instance.evalue
+        }
+        if (context.evaluate) {
+          context.evalue = context.value
+        }
+      },
+    },
+  ],
 }
 
 let createConfig = async () => {
@@ -186,7 +236,7 @@ let createConfig = async () => {
     }))
   })
   await config.setApi(api)
-  await config.add(gdefaults)
+  await config.add(evaluate, gdefaults)
 
   await config.restart_auto_rebuild()
   return config

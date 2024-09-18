@@ -2,6 +2,7 @@ const { Config, knowledgeModule, where, stableId } = require('./runtime').thepro
 const meta = require('./meta.js')
 const gdefaults = require('./gdefaults.js')
 const sdefaults = require('./sdefaults.js')
+const articles = require('./articles.js')
 const pos = require('./pos.js')
 const negation = require('./negation.js')
 const punctuation = require('./punctuation.js')
@@ -50,15 +51,15 @@ let configStruct = {
     { pattern: "([nevermindTestSetup] (allowed))", development: true },
     "([why])",
     "([reason])",
-    "([thisitthat|])",
-    "([it])",
-    "([this])",
-    "([that])",
+    // "([thisitthat|])",
+    // "([it])",
+    // "([this])",
+    // "([that])",
 
     "(<what> ([whatAble|]))",
     "([what:optional])",
-    "(<the|> ([theAble|]))",
-    "(<a|a,an> ([theAble|]))",
+    // "(<the|> ([theAble|]))",
+    // "(<a|a,an> ([theAble|]))",
     // "([unknown])",
 
     "([be] ([briefOrWordy|]))",
@@ -177,7 +178,7 @@ let configStruct = {
     { id: "canBeQuestion", level: 1, bridge: "{ ...next(operator) }" },
     // { id: "unknown", level: 0, bridge: "{ ...next(operator), unknown: true, dead: true }" },
     // { id: "unknown", level: 1, bridge: "{ ...next(operator) }" },
-    { id: "queryable", level: 0, bridge: "{ ...next(operator) }" },
+    // { id: "queryable", level: 0, bridge: "{ ...next(operator) }" },
     { id: "questionMark", level: 0, bridge: "{ ...before[0], query: [before.marker] }" },
     // { id: "isEd", level: 0, bridge: "{ ...context, query: true }" },
     // gregbug
@@ -206,6 +207,7 @@ let configStruct = {
     { id: "doesAble", level: 1, bridge: "{ ...next(operator), before: before[0] }" },
     { id: "does", level: 0, bridge: "{ query: true, what: operator.marker, ...context, number: operator.number, object.number: operator.number }*" },
 
+    /*
     { 
       id: 'the', 
       level: 0, 
@@ -217,13 +219,17 @@ let configStruct = {
       // bridge: "{ ...after[0], pullFromContext: false, instance: true, concept: true, number: 'one', wantsValue: true, determiner: operator, modifiers: append(['determiner'], after[0].modifiers) }" 
       bridge: "{ ...after[0], pullFromContext: false, concept: true, number: 'one', wantsValue: true, determiner: operator, modifiers: append(['determiner'], after[0].modifiers) }" 
     },
+    */
+    /*
     { 
       id: "theAble", 
       children: ['noun'],
       bridge: "{ ...next(operator) }" 
     },
+    */
 
     // TODO make this hierarchy thing work
+    /*
     { 
       id: "thisitthat", 
       level: 0, 
@@ -231,6 +237,7 @@ let configStruct = {
       before: ['verby'],
       bridge: "{ ...next(operator) }" 
     },
+    */
     { 
       id: "nevermind", 
       bridge: "{ ...next(operator) }",
@@ -279,6 +286,7 @@ let configStruct = {
       isA: ['theAble', 'queryable'], 
       bridge: "{ ...next(operator) }" 
     },
+    /*
     { 
       id: "it", 
       level: 0, 
@@ -297,11 +305,12 @@ let configStruct = {
       isA: ['thisitthat'], 
       bridge: "{ ...next(operator), unknown: true, pullFromContext: true }" 
     },
+    */
   ],
   words: {
     "literals": {
       "?": [{"id": "questionMark", "initial": "{}" }],
-      "the": [{"id": "the", "initial": "{ modifiers: [] }" }],
+      // "the": [{"id": "the", "initial": "{ modifiers: [] }" }],
       "who": [{"id": "what", "initial": "{ modifiers: [], query: true }" }],
       "yes": [{"id": "yesno", "initial": "{ value: true }" }],
       "no": [{"id": "yesno", "initial": "{ value: false }" }],
@@ -598,99 +607,54 @@ let configStruct = {
         context.isResponse = true
       }
     },
-    { 
-      where: where(),
-      notes: 'pull from context',
-      // match: ({context}) => context.marker == 'it' && context.pullFromContext, // && context.value,
-      match: ({context, callId}) => context.pullFromContext && !context.same, // && context.value,
-      apply: async ({callId, context, kms, e, log, retry}) => {
-        if (true) {
-          /*
-                   {
-                      "marker": "unknown",
-                      "range": {
-                        "start": 65,
-                        "end": 73
-                      },
-                      "word": "worth",
-                      "text": "the worth",
-                      "value": "worth",
-                      "unknown": true,
-                      "types": [
-                        "unknown"
-                      ],
-                      "pullFromContext": true,
-                      "concept": true,
-                      "wantsValue": true,
-                      "determiner": "the",
-                      "modifiers": [
-                        "determiner"
-                      ],
-                      "evaluate": true
-                    }
+//  { 
+//    where: where(),
+//    notes: 'pull from context',
+//    // match: ({context}) => context.marker == 'it' && context.pullFromContext, // && context.value,
+//    match: ({context, callId}) => false && context.pullFromContext && !context.same, // && context.value,
+//    apply: async ({callId, context, kms, e, log, retry}) => {
+//      if (true) {
+//        /*
+//                 {
+//                    "marker": "unknown",
+//                    "range": {
+//                      "start": 65,
+//                      "end": 73
+//                    },
+//                    "word": "worth",
+//                    "text": "the worth",
+//                    "value": "worth",
+//                    "unknown": true,
+//                    "types": [
+//                      "unknown"
+//                    ],
+//                    "pullFromContext": true,
+//                    "concept": true,
+//                    "wantsValue": true,
+//                    "determiner": "the",
+//                    "modifiers": [
+//                      "determiner"
+//                    ],
+//                    "evaluate": true
+//                  }
 
-          */
-          context.value = kms.stm.api.mentions(context)
-          if (!context.value) {
-            // retry()
-            context.value = { marker: 'answerNotKnown' }
-            return
-          }
-          
-          const instance = await e(context.value)
-          if (instance.evalue && !instance.edefault) {
-            context.value = instance.evalue
-          }
-          if (context.evaluate) {
-            context.evalue = context.value
-          }
-        } else {
-          /*
-                    {
-                      "marker": "unknown",
-                      "range": {
-                        "start": 24,
-                        "end": 32
-                      },
-                      "word": "price",
-                      "text": "the price",
-                      "value": "price",
-                      "unknown": true,
-                      "types": [
-                        "unknown"
-                      ],
-                      "pullFromContext": true,
-                      "concept": true,
-                      "wantsValue": true,
-                      "determiner": "the",
-                      "modifiers": [
-                        "determiner"
-                      ],
-                      "evaluate": true
-                    }
-
-          */
-          context.value = kms.stm.api.mentions(context)
-          if (!context.value) {
-            // retry()
-            context.value = { marker: 'answerNotKnown' }
-            return
-          }
-          // avoid loops
-          if (context.marker != 'unknown') {
-            if (context.value.marker != context.marker) {
-              const instance = await e(context.value)
-              if (instance.evalue && !instance.edefault) {
-                context.value = instance.evalue
-              }
-            }
-          }
-          if (context.evaluate) {
-            context.evalue = context.value
-          }
-        }
-      },
-    },
+//        */
+//        context.value = kms.stm.api.mentions(context)
+//        if (!context.value) {
+//          // retry()
+//          context.value = { marker: 'answerNotKnown' }
+//          return
+//        }
+//        
+//        const instance = await e(context.value)
+//        if (instance.evalue && !instance.edefault) {
+//          context.value = instance.evalue
+//        }
+//        if (context.evaluate) {
+//          context.evalue = context.value
+//        }
+//    },
+//  },
     { 
       where: where(),
       notes: 'what x is y?',
@@ -937,7 +901,7 @@ const createConfig = async () => {
   const config = new Config(configStruct, module)
   config.stop_auto_rebuild()
   await config.setApi(api)
-  await config.add(gdefaults, sdefaults, pos, negation, stm, meta, punctuation)
+  await config.add(articles, gdefaults, sdefaults, pos, negation, stm, meta, punctuation)
   await config.initializer( ({objects, config, isModule}) => {
     /* TODO add this beck in. some stuff from config needs to be here
     config.addArgs((args) => ({ 

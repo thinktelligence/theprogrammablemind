@@ -1,6 +1,7 @@
 const { Config, knowledgeModule, ensureTestFile, where, unflatten, flattens } = require('./runtime').theprogrammablemind
 const { defaultContextCheck } = require('./helpers')
 const tests = require('./evaluate.test.json')
+const pos = require('./pos')
 const gdefaults = require('./gdefaults')
 
 const configStruct = {
@@ -13,14 +14,14 @@ const configStruct = {
     {
       id: 'value1',
       evaluator: ({context}) => {
-        debugger
         context.evalue = 'value1 after evaluation'
       },
       development: true,
     },
     {
       id: 'evaluate',
-      bridge: "{ ...next(operator), value: after[0] }",
+      isA: ['verby'],
+      bridge: "{ ...next(operator), postModifiers: ['value'], value: after[0] }",
       semantic: async ({context, e}) => {
         context.response = (await e(context.value)).evalue
         context.isResponse = true
@@ -32,7 +33,7 @@ const configStruct = {
 const createConfig = async () => {
   const config = new Config(configStruct, module)
   config.stop_auto_rebuild()
-  await config.add(gdefaults)
+  await config.add(pos, gdefaults)
   await config.restart_auto_rebuild()
   return config
 }
