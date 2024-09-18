@@ -13,6 +13,11 @@ class API {
     ]
     this._objects.mentioned = []
     this._objects.variables = {}
+    this.idCounter = 0
+  }
+
+  getId() {
+    return ++this.idCounter
   }
 
   addIsA(isA) {
@@ -46,6 +51,10 @@ class API {
       concept.value = value
     }
     concept.fromSTM = true
+    if (!concept.stm_uuid) {
+      concept.stm_uuid = this.getId()
+    }
+    this._objects.mentioned = this._objects.mentioned.filter( (context) => context.stm_uuid != concept.stm_uuid )
     this._objects.mentioned.unshift(concept)
   }
 
@@ -55,7 +64,7 @@ class API {
     // care about value first
     let findCounter = 0
     for (let m of this._objects.mentioned) {
-      if (context.value && context.value == m.marker) {
+      if (context.value && (context.value == m.marker || context.value == m.value)) {
         if (findPrevious && findCounter < 1) {
           findCounter += 1
           continue
@@ -146,8 +155,13 @@ const configStruct = {
     { 
       id: 'remember', 
       bridge: "{ ...next(operator), postModifiers: ['rememberee'], rememberee: after[0] }",
-      semantic: ({context, api}) => {
-        api.mentioned(context.rememberee)
+      isA: ['verby'],
+      semantic: async ({context, api, e}) => {
+        let value = (await e(context.rememberee)).evalue
+        if (value == context.rememberee.value) {
+          value = context.rememberee
+        }
+        api.mentioned(value)
       },
     },
     { 
@@ -167,31 +181,6 @@ const configStruct = {
       // match: ({context}) => context.marker == 'it' && context.pullFromContext, // && context.value,
       match: ({context, callId}) => context.pullFromContext && !context.same, // && context.value,
       apply: async ({callId, context, kms, e, log, retry}) => {
-        /*
-                 {
-                    "marker": "unknown",
-                    "range": {
-                      "start": 65,
-                      "end": 73
-                    },
-                    "word": "worth",
-                    "text": "the worth",
-                    "value": "worth",
-                    "unknown": true,
-                    "types": [
-                      "unknown"
-                    ],
-                    "pullFromContext": true,
-                    "concept": true,
-                    "wantsValue": true,
-                    "determiner": "the",
-                    "modifiers": [
-                      "determiner"
-                    ],
-                    "evaluate": true
-                  }
-
-        */
         context.value = kms.stm.api.mentions(context)
         if (!context.value) {
           // retry()
@@ -240,7 +229,7 @@ knowledgeModule( {
     name: './stm.test.json',
     contents: stm_tests,
     checks: {
-            context: [...defaultContextCheck, 'pullFromContext'],
+            context: [...defaultContextCheck, 'pullFromContext', 'stm_uuid'],
             objects: ['mentioned'],
           },
   },

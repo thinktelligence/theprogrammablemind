@@ -65,12 +65,12 @@ const configStruct = {
         apply: ({context, api}) => {
           context.evalue = api.get(context.value)
         }
-      }
-      semantic: async ({config, context, api}) => {
+      },
+      semantic: async ({config, context, api, e}) => {
         // TODO find report being referred to
-        const report = api.current()
+        const nameable = await e(context.nameable)
         const name = context.name.text
-        config.addWord(name, { id: 'report', initial: `{ value: "${name}", nameable_named: true }` })
+        config.addWord(name, { id: 'report', initial: `{ value: "${nameable.marker}", nameable_named: true }` })
         api.nameReport(report, name)
       }
     },
