@@ -131,7 +131,7 @@ const toEValue = (context) => {
 	return context;
 }
 
-const defaultContextProperties = ['marker', 'text', 'verbatim', 'isResponse'] 
+const defaultContextProperties = ['marker', 'text', 'verbatim', 'isResponse', { property: 'response', filter: ['marker', 'text', 'verbatim'] }] 
 const defaultContextCheck = [
   ...defaultContextProperties,
   (object) => {

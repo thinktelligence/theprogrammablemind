@@ -25,6 +25,12 @@ let configStruct = {
      */
     {
       where: where(),
+      match: ({context}) => context.isResponse && context.response,
+      apply: ({context, gp}) => gp(context.response),
+    },
+
+    {
+      where: where(),
       //({context}) => context.paraphrase && context.modifiers,
       // match: ({context}) => context.paraphrase && (context.modifiers || context.postModifiers),
       match: ({context}) => (context.modifiers || context.postModifiers),
@@ -153,12 +159,6 @@ let configStruct = {
       where: where(),
       match: ({context}) => context.evalue,
       apply: ({context}) => `the ${context.word}` 
-    },
-
-    {
-      where: where(),
-      match: ({context}) => context.isResponse && context.response,
-      apply: ({context, gp}) => gp(context.response),
     },
 
     {
