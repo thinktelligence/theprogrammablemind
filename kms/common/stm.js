@@ -39,7 +39,7 @@ class API {
     return this._objects.mentioned.filter( (context) => this.isA(context.marker, type) )
   }
 
-  mentioned(concept, value = undefined) {
+  mentioned({ context:concept, value=null } = {}) {
     // TODO value should perhaps have been called id as in concept id and then value could be value
     if (value) {
       concept = { ...concept, pullFromContext: false }
@@ -65,7 +65,7 @@ class API {
     this._objects.mentioned.unshift(concept)
   }
 
-  mentions(context, useHierarchy=true) {
+  mentions({ context, useHierarchy=true } = {}) {
     const findPrevious = !!context.stm_previous
 
     // care about value first
@@ -126,7 +126,7 @@ class API {
     if (!name) {
       return
     }
-    let valueNew = this.mentions({ marker: name, value: name }, false) || name
+    let valueNew = this.mentions({ context: { marker: name, value: name }, useHierarchy: false }) || name
     if (valueNew && valueNew.value) {
       valueNew = valueNew.value
     }
@@ -134,7 +134,7 @@ class API {
   }
 
   setVariable(name, value) {
-    this.mentioned({ marker: name }, value)
+    this.mentioned({ context: { marker: name }, value })
   }
 }
 
@@ -168,7 +168,7 @@ const configStruct = {
         if (value == context.rememberee.value) {
           value = context.rememberee
         }
-        api.mentioned(value)
+        api.mentioned({ context: value })
       },
     },
     { 
@@ -188,7 +188,7 @@ const configStruct = {
       // match: ({context}) => context.marker == 'it' && context.pullFromContext, // && context.value,
       match: ({context, callId}) => context.pullFromContext && !context.same, // && context.value,
       apply: async ({callId, context, kms, e, log, retry}) => {
-        context.value = kms.stm.api.mentions(context)
+        context.value = kms.stm.api.mentions({ context })
         if (!context.value) {
           // retry()
           context.value = { marker: 'answerNotKnown' }
@@ -213,11 +213,11 @@ let createConfig = async () => {
 
   await config.initializer( ({config}) => {
     config.addArgs(({kms}) => ({
-      mentioned: (context) => {
-        kms.stm.api.mentioned(context)
+      mentioned: ({ context }) => {
+        kms.stm.api.mentioned({ context })
       },
-      mentions: (context) => {
-        return kms.stm.api.mentions(context)
+      mentions: ({ context }) => {
+        return kms.stm.api.mentions({ context })
       },
     }))
   })

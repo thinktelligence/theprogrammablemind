@@ -681,7 +681,7 @@ let configStruct = {
         value = JSON.parse(JSON.stringify(value))
         let instance = await e(value)
         if (false && instance.evalue) {
-          km('stm').api.mentioned(value)
+          km('stm').api.mentioned({ context: value })
         }
         if (instance.verbatim) {
           context.evalue = { verbatim: instance.verbatim }
@@ -778,7 +778,7 @@ let configStruct = {
         if (!onePrime.sameWasProcessed && !twoPrime.sameWasProcessed) {
 					api.makeObject({ context: one, config, types: context.two.types || [] })
 					kms.stm.api.setVariable(one.value, two)
-					kms.stm.api.mentioned(one, two)
+					kms.stm.api.mentioned({ context: one, value: two })
         }
       }
     },

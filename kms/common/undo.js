@@ -17,7 +17,7 @@ const template = {
           id: 'undo_undo',
           semantic: (args) => {
             const { mentions } = args
-            const action = mentions({ marker: 'action_undo' })
+            const action = mentions({ context: { marker: 'action_undo' } })
             action.undo(args)
           }
         },
@@ -27,7 +27,7 @@ const template = {
           development: true,
           semantic: ({ context, mentioned, isModule }) => {
             if (!isModule) {
-              mentioned(context)
+              mentioned({ context })
               context.undo = ({objects}) => objects.undone = context
             }
           }

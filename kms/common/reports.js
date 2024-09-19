@@ -38,7 +38,7 @@ const compareValue = (property, v1, v2) => {
 const newReport = ({km, objects}) => {
   objects.tempReportId += 1
   const reportId = `tempReport${objects.tempReportId}`
-  km('stm').api.mentioned({ marker: "report", text: reportId, types: [ "report" ], value: reportId, word: reportId })
+  km('stm').api.mentioned({ context: { marker: "report", text: reportId, types: [ "report" ], value: reportId, word: reportId } })
   // name to listing
   objects.listings[reportId] = {
       columns: ['name', 'supplier'],
@@ -336,12 +336,14 @@ let configStruct = {
         objects.listings[name] = {...listing}
         config.addWord(`${name}`,  { id: 'report', initial: `{ value: "${name}" }` })
         km('stm').api.mentioned({
+          context: {
                   marker: "report",
                   text: name,
                   types: [ "report" ],
                   value: id,
                   word: name
-               })
+               }
+        })
       }
     },
   ],

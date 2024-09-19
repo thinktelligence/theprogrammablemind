@@ -43,7 +43,7 @@ const setNextPlayer = (km, objects) => {
         word: "turn"
       }
   const api = km('stm').api
-  api.mentioned(turn)
+  api.mentioned({ context: turn })
 }
 
 const addPlayer = (objects, config, player) => {

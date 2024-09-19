@@ -140,7 +140,7 @@ let configStruct = {
           const formula = kms.formulas.api.get(to, [efrom.unit])
           if (!formula) {
             const reason = { marker: 'reason', focusableForPhrase: true, evalue: { marker: 'noconversion', from: efrom.unit, to } }
-            kms.stm.api.mentioned(reason)
+            kms.stm.api.mentioned({ context: reason })
             error(reason)
           }
           kms.stm.api.setVariable(efrom.unit.value, efrom.amount)

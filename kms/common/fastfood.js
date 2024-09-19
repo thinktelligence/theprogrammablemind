@@ -917,7 +917,7 @@ class State {
       }
 
       this.api.add(item)
-      this.api.args.mentioned(food)
+      this.api.args.mentioned({ context: food })
 
       for (const addIt of addsInsteadOfModifications) {
         this.add(addIt)

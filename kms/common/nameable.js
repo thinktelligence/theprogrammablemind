@@ -50,7 +50,7 @@ class API {
   setCurrent(name) {
     const context = this.objects.named[name]
     if (context) {
-      this.args.km('stm').api.mentioned(context)
+      this.args.km('stm').api.mentioned({ context })
     }
   }
 }
