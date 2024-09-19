@@ -12,13 +12,13 @@ class API {
 
   // report is a context
   setName(context, name) {
-    if (!context.nameable) {
-      context.nameable = {}
+    if (!context.stm) {
+      context.stm = {}
     }
-    if (!context.nameable.names) {
-      context.nameable.names = []
+    if (!context.stm.names) {
+      context.stm.names = []
     }
-    context.nameable.names.push(name)
+    context.stm.names.push(name)
   }
 
   get(name) {
@@ -29,8 +29,8 @@ class API {
     const contexts = this.args.kms.stm.api.getByType(type)
     const names = new Set()
     for (const context of contexts) {
-      if (context.nameable.names) {
-        for (const name of context.nameable.names) {
+      if (context.stm.names) {
+        for (const name of context.stm.names) {
           names.add(name)
         }
       }
