@@ -55,10 +55,10 @@ class API {
       concept.value = value
     }
     concept.fromSTM = true
-    if (!concept.stm_uuid) {
-      concept.stm_uuid = this.getId()
+    if (!concept.stm_id) {
+      concept.stm_id = this.getId()
     }
-    this._objects.mentioned = this._objects.mentioned.filter( (context) => context.stm_uuid != concept.stm_uuid )
+    this._objects.mentioned = this._objects.mentioned.filter( (context) => context.stm_id != concept.stm_id )
     this._objects.mentioned.unshift(concept)
   }
 
@@ -233,7 +233,7 @@ knowledgeModule( {
     name: './stm.test.json',
     contents: stm_tests,
     checks: {
-            context: [...defaultContextCheck, 'pullFromContext', 'stm_uuid'],
+            context: [...defaultContextCheck, 'pullFromContext', 'stm_id'],
             objects: ['mentioned'],
           },
   },
