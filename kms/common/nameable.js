@@ -21,8 +21,15 @@ class API {
     context.stm.names.push(name)
   }
 
-  get(name) {
-    return this.objects.named[name]
+  get(type, name) {
+    return this.args.kms.stm.api.mentions({ 
+      context: type, 
+      condition: (context) => {
+        if (context.stm && context.stm.names) {
+          return context.stm.names.includes(name)
+        }
+      }
+    })
   }
 
   getNamesByType(type) {
@@ -96,7 +103,7 @@ const configStruct = {
         // TODO find report being referred to
         const nameable = (await e(context.nameable)).evalue
         const name = context.name.text
-        config.addWord(name, { id: nameable.marker, initial: `{ value: "${nameable.marker}", pullFromContext: true, nameable_named: true }` })
+        config.addWord(name, { id: nameable.marker, initial: `{ value: "${name}", pullFromContext: true, nameable_named: true }` })
         api.setName(nameable, name)
       }
     },

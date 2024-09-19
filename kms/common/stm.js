@@ -65,18 +65,20 @@ class API {
     this._objects.mentioned.unshift(concept)
   }
 
-  mentions({ context, useHierarchy=true } = {}) {
+  mentions({ context, useHierarchy=true, condition = (() => true) } = {}) {
     const findPrevious = !!context.stm_previous
 
     // care about value first
     let findCounter = 0
     for (let m of this._objects.mentioned) {
       if (context.value && (context.value == m.marker || context.value == m.value)) {
-        if (findPrevious && findCounter < 1) {
-          findCounter += 1
+        findCounter += 1
+        if (findPrevious && findCounter < 2) {
           continue
         }
-        return m
+        if (condition()) {
+          return m
+        }
       }
     }
 
@@ -88,21 +90,25 @@ class API {
     findCounter = 0
     for (let m of this._objects.mentioned) {
       if (context.marker != 'unknown' && this.isA(m.marker, context.marker)) {
-        if (findPrevious && findCounter < 1) {
-          findCounter += 1
+        findCounter += 1
+        if (findPrevious && findCounter < 2) {
           continue
         }
-        return m
+        if (condition(m)) {
+          return m
+        }
       }
       // if (context.types && context.types.includes(m.marker)) {
       if (context.types) {
         for (let parent of context.types) {
           if (parent != 'unknown' && this.isA(m.marker, parent)) {
-            if (findPrevious && findCounter < 1) {
-              findCounter += 1
+            findCounter += 1
+            if (findPrevious && findCounter < 2) {
               continue
             }
-            return m
+            if (condition(m)) {
+              return m
+            }
           }
         }
       }
@@ -112,11 +118,13 @@ class API {
     if (context.types && context.types.length == 1) {
       for (let m of this._objects.mentioned) {
         if (context.unknown) {
-          if (findPrevious && findCounter < 1) {
-            findCounter += 1
+          findCounter += 1
+          if (findPrevious && findCounter < 2) {
             continue
           }
-          return m
+          if (condition(m)) {
+            return m
+          }
         }
       }
     }
