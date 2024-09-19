@@ -55,10 +55,13 @@ class API {
       concept.value = value
     }
     concept.fromSTM = true
-    if (!concept.stm_id) {
-      concept.stm_id = this.getId()
+    if (!concept.stm) {
+      concept.stm = {}
     }
-    this._objects.mentioned = this._objects.mentioned.filter( (context) => context.stm_id != concept.stm_id )
+    if (!concept.stm.id) {
+      concept.stm.id = this.getId()
+    }
+    this._objects.mentioned = this._objects.mentioned.filter( (context) => context.stm && context.stm.id != concept.stm.id )
     this._objects.mentioned.unshift(concept)
   }
 
