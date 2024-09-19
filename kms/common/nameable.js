@@ -107,17 +107,6 @@ const configStruct = {
 let createConfig = async () => {
   const config = new Config(configStruct, module)
   config.stop_auto_rebuild()
-
-  await config.initializer( ({config}) => {
-    config.addArgs(({kms}) => ({
-      mentioned: (context) => {
-        kms.nameable.api.mentioned(context)
-      },
-      mentions: (context) => {
-        return kms.nameable.api.mentions(context)
-      },
-    }))
-  })
   await config.setApi(api)
   await config.add(stm)
 
