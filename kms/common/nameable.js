@@ -73,6 +73,7 @@ const configStruct = {
     {
       id: 'm1',
       isA: ['memorable', 'nameable'],
+      development: true,
     },
     {
       id: 'getNamesByType',
