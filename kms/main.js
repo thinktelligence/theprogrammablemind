@@ -1,5 +1,6 @@
 const tpm = require('./common/runtime').theprogrammablemind
 const animals = require('./common/animals')
+const articles = require('./common/articles')
 const avatar = require('./common/avatar')
 const characters = require('./common/characters')
 const colors = require('./common/colors')
@@ -12,6 +13,7 @@ const dialogues = require('./common/dialogues')
 const dimension = require('./common/dimension')
 const edible = require('./common/edible')
 const emotions = require('./common/emotions')
+const evaluate = require('./common/evaluate')
 const events = require('./common/events')
 const fastfood = require('./common/fastfood')
 const formulas = require('./common/formulas')
@@ -23,6 +25,7 @@ const kirk = require('./common/kirk')
 const length = require('./common/length')
 const math = require('./common/math')
 const meta = require('./common/meta')
+const nameable = require('./common/nameable')
 const negation = require('./common/negation')
 const numbers = require('./common/numbers')
 const ordering = require('./common/ordering')
@@ -54,6 +57,7 @@ const yesno = require('./common/yesno')
 module.exports = {
   Config: tpm.Config,
   animals,
+  articles,
   avatar,
   characters,
   colors,
@@ -66,6 +70,7 @@ module.exports = {
   dimension,
   edible,
   emotions,
+  evaluate,
   events,
   fastfood,
   formulas,
@@ -77,6 +82,7 @@ module.exports = {
   length,
   math,
   meta,
+  nameable,
   negation,
   numbers,
   ordering,
