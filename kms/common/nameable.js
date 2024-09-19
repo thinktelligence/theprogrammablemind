@@ -94,7 +94,7 @@ const configStruct = {
         // TODO find report being referred to
         const nameable = (await e(context.nameable)).evalue
         const name = context.name.text
-        config.addWord(name, { id: nameable.marker, initial: `{ value: "${nameable.marker}", nameable_named: true }` })
+        config.addWord(name, { id: nameable.marker, initial: `{ value: "${nameable.marker}", pullFromContext: true, nameable_named: true }` })
         api.setName(nameable, name)
       }
     },
