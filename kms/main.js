@@ -23,6 +23,7 @@ const hierarchy = require('./common/hierarchy')
 const javascript = require('./common/javascript')
 const kirk = require('./common/kirk')
 const length = require('./common/length')
+const listener = require('./common/listener')
 const math = require('./common/math')
 const meta = require('./common/meta')
 const nameable = require('./common/nameable')
@@ -80,6 +81,7 @@ module.exports = {
   javascript,
   kirk,
   length,
+  listener,
   math,
   meta,
   nameable,
