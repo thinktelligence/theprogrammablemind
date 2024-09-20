@@ -65,8 +65,14 @@ class API {
     this._objects.mentioned.unshift(concept)
   }
 
-  mentions({ context, useHierarchy=true, condition = (() => true) } = {}) {
+  mentions({ context, useHierarchy=true, all, condition = (() => true) } = {}) {
     const findPrevious = !!context.stm_previous
+    const forAll = []
+    const addForAll = (context) => {
+      if (!forAll.find( (c) => c.stm.id == context.stm.id)) {
+        forAll.push(context)
+      }
+    }
 
     // care about value first
     let findCounter = 0
@@ -77,7 +83,11 @@ class API {
           continue
         }
         if (condition()) {
-          return m
+          if (all) {
+            allForAll(m)
+          } else {
+            return m
+          }
         }
       }
     }
@@ -95,7 +105,11 @@ class API {
           continue
         }
         if (condition(m)) {
-          return m
+          if (all) {
+            addForAll(m)
+          } else {
+            return m
+          }
         }
       }
       // if (context.types && context.types.includes(m.marker)) {
@@ -107,7 +121,11 @@ class API {
               continue
             }
             if (condition(m)) {
-              return m
+              if (all) {
+                addForAll(m)
+              } else {
+                return m
+              }
             }
           }
         }
@@ -123,10 +141,18 @@ class API {
             continue
           }
           if (condition(m)) {
-            return m
+            if (all) {
+              addForAll(m)
+            } else {
+              return m
+            }
           }
         }
       }
+    }
+
+    if (all) {
+      return forAll
     }
   }
 

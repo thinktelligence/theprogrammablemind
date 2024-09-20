@@ -45,6 +45,11 @@ class API {
     return [...names]
   }
 
+  getNames(nameable) {
+    return (nameable.stm && nameable.stm.names) || []
+  }
+
+  /*
   getNames() {
     const current = this.current()
     console.log('getReportNames current', JSON.stringify(current, null, 2))
@@ -53,6 +58,7 @@ class API {
       return { name, selected, id: name }
     })
   }
+  */
 
   setCurrent(name) {
     const context = this.objects.named[name]
