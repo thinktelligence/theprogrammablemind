@@ -900,7 +900,7 @@ const getAsk = (config) => (uuid) => {
 const createConfig = async () => {
   const config = new Config(configStruct, module)
   config.stop_auto_rebuild()
-  await config.setApi(api)
+  await config.setApi(new API())
   await config.add(articles, gdefaults, sdefaults, pos, negation, stm, meta, punctuation)
   await config.initializer( ({objects, config, isModule}) => {
     /* TODO add this beck in. some stuff from config needs to be here
@@ -946,10 +946,57 @@ const createConfig = async () => {
   return config
 }
 
+const initializer = ({objects, config, isModule}) => {
+  /* TODO add this beck in. some stuff from config needs to be here
+  config.addArgs((args) => ({ 
+    e: (context) => config.api.getEvaluator(args.s, args.log, context),
+  }))
+  */
+  config.addArgs(({config, api, isA}) => ({ 
+    isAListable: (context, type) => {
+      if (context.marker == 'list' || context.listable) {
+        return context.value.every( (element) => isA(element.marker, type) )
+      } else {
+        return isA(context.marker, type)
+      } 
+    },
+    toContext: (v) => {
+      if (Array.isArray(v)) {
+        return { marker: 'list', level: 1, value: v }
+      }
+      if (v.marker == 'list') {
+        return v
+      }
+      return v
+    },
+    getUUIDScoped: (uuid) => { return {
+        ask: getAsk(config)(uuid),
+      } 
+    },
+    toScopedId: (context) => {
+      return api('dialogues').toScopedId(context)
+    },
+  }))
+  objects.mentioned = []
+  objects.variables = {
+  }
+  if (isModule) {
+  } else {
+    config.addWord("canbedoquestion", { id: "canBeDoQuestion", "initial": "{}" })
+    config.addWord("doesable", { id: "doesAble", "initial": "{}" })
+  }
+}
+
 knowledgeModule( { 
+  config: configStruct,
+  includes: [articles, gdefaults, sdefaults, pos, negation, stm, meta, punctuation],
+  initializer,
+  api: () => new API(),
+
+  createConfig,
   module,
   description: 'framework for dialogues',
-  createConfig, newWay: true,
+  newWay: true,
   test: {
     name: './dialogues.test.json',
     contents: dialogues_tests,

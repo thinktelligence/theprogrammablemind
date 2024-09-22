@@ -113,15 +113,11 @@ const template = {
   ]
 }
 
-const createConfig = async () => {
-  const config = new Config({ name: 'math' }, module)
-  await config.add(numbers, dialogues, punctuation, countable, comparable)
-  return config
-}
-
 knowledgeModule( { 
+  config: { name: 'math' },
+  includes: [numbers, dialogues, punctuation, countable, comparable],
+
   module,
-  createConfig,
   description: 'talking about math',
   template: { template, instance },
   test: {

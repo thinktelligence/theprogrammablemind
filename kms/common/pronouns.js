@@ -63,12 +63,12 @@ let configStruct = {
 
 };
 
-const createConfig = async () => config = new Config(configStruct, module)
 
 knowledgeModule( { 
+  config: configStruct,
+
   module,
   description: 'pronouns',
-  createConfig,
   test: {
     name: './pronouns.test.json',
     contents: pronouns_tests,

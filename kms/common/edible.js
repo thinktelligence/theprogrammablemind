@@ -74,16 +74,11 @@ const template ={
   ],
 }
 
-const createConfig = async () => {
-  const config = new Config({ name: 'edible' }, module)
-  await config.add(countable, hierarchy)
-  return config
-}
-
 knowledgeModule( {
+    config: { name: 'edible' },
+    includes: [countable, hierarchy],
     module,
       description: 'Edible things',
-      createConfig,
       test: {
               name: './edible.test.json',
               contents: edible_tests,

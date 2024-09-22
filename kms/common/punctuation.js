@@ -50,11 +50,11 @@ let configStruct = {
   ],
 };
 
-const createConfig = async () => new Config(configStruct, module).add(gdefaults)
-
 knowledgeModule( {
+  config: configStruct,
+  includes: [gdefaults],
+
   module,
-  createConfig,
   description: 'punctuation',
   test: {
     name: './punctuation.test.json',

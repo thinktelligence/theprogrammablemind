@@ -2,7 +2,7 @@ const { Config, knowledgeModule, where } = require('./runtime').theprogrammablem
 const { defaultContextCheck } = require('./helpers')
 const tokenize_tests = require('./tokenize.test.json')
 
-let configStruct = {
+const config = {
   name: 'tokenize',
   operators: [
     "([unknown])",
@@ -31,11 +31,10 @@ let configStruct = {
   },
 };
 
-createConfig = async () => new Config(configStruct, module)
-
 knowledgeModule( { 
+  config,
+
   module,
-  createConfig,
   description: 'tokenize',
   test: {
     name: './tokenize.test.json',

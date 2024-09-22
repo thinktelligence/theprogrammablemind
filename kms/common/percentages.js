@@ -36,15 +36,11 @@ let configStruct = {
   version: '3',
 };
 
-const createConfig = async () => {
-  const config = new Config(configStruct, module)
-  await config.add(numbers)
-  return config
-}
-
 knowledgeModule( { 
+  config:configStruct,
+  includes: [numbers],
+
   module,
-  createConfig,
   description: 'talking about percentages',
   test: {
     name: './percentages.test.json',

@@ -181,10 +181,7 @@ let configStruct = {
   ],
 };
 
-const createConfig = async () => {
-  const config = new Config(configStruct, module)
-  await config.add(tokenize)
-  await config.initializer( ({config}) => {
+const initializer = ({config}) => {
     config.addArgs((args) => {
       return {
         number: (context) => isMany(context) ? "many" : "one",
@@ -198,14 +195,15 @@ const createConfig = async () => {
         },
       }
     })
-  })
-  return config
-}
+  }
 
 knowledgeModule({ 
+  config: configStruct,
+  includes: [tokenize],
+  initializer,
+
   module,
   description: 'defaults for generators',
-  createConfig,
   test: {
     name: './gdefaults.test.json',
     contents: gdefaults_tests,

@@ -46,15 +46,11 @@ const template = {
   ],
 }
 
-const createConfig = async () => {
-  const config = new Config({ name: 'colors' }, module)
-  await config.add(hierarchy)
-  return config
-}
-
 knowledgeModule( { 
+  config: { name: 'colors' },
+  includes: [hierarchy],
+
   module,
-  createConfig,
   description: 'talking about colors',
   test: {
     name: './colors.test.json',

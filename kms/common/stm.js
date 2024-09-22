@@ -262,7 +262,23 @@ let createConfig = async () => {
   return config
 }
 
+const initializer = ({config}) => {
+    config.addArgs(({kms}) => ({
+      mentioned: ({ context }) => {
+        kms.stm.api.mentioned({ context })
+      },
+      mentions: ({ context }) => {
+        return kms.stm.api.mentions({ context })
+      },
+    }))
+  }
+
 knowledgeModule( { 
+  config: configStruct,
+  api: () => new API(),
+  includes: [evaluate, articles],
+  initializer,
+
   module,
   description: 'short term memory',
   createConfig,

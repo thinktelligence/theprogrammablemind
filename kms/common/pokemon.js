@@ -29,19 +29,7 @@ const template = {
 // 'ashe owns pikachu who owns pikachu'
 // TODO does ashe own pikachu / ash owns pikachu? / 'ashe likes pikachu does ashe like pikachu'
 
-const createConfig = async () => {
-  const config = new Config({ 
-    name: 'pokemon',
-    hierarchy: [
-      // ['pokemon', 'theAble'],
-      // ['pokemon', 'theAble'],
-      // ['pokemon', 'queryable'],
-      // ['pokemon', 'whatAble'],
-    ],
-  })
-  config.stop_auto_rebuild()
-  await config.add(hierarchy)
-  await config.initializer( ({config, apis}) => {
+const initializer = ({config, apis}) => {
     const api = apis('properties')
     /*
     api.createActionPrefix({
@@ -61,16 +49,15 @@ const createConfig = async () => {
                 relation: true,
                 config 
               })
-  })
-  await config.restart_auto_rebuild()
-  // config.load(template, pokemon_instance)
-  return config
-}
+  }
 
 knowledgeModule( {
+  config: { name: 'pokemon' },
+  includes: [hierarchy],
+  initializer,
+
   module,
   description: 'Knowledge about the pokemon using a KM template',
-  createConfig,
   test: {
           name: './pokemon.test.json',
           contents: pokemon_tests,

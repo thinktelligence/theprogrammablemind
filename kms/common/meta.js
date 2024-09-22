@@ -391,6 +391,9 @@ const createConfig = async () => {
 }
 
 knowledgeModule({ 
+  config: configStruct,
+  includes: [gdefaults],
+
   module,
   description: 'Ways of defining new language elements',
   createConfig,

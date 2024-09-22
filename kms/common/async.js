@@ -80,15 +80,11 @@ const template = {
   ]
 }
 
-const createConfig = async () => {
-  const config = new Config(configStruct, module)
-  await config.add(tokenize)
-  return config
-}
-
 knowledgeModule( { 
+  config: configStruct,
+  includes: [tokenize],
+
   module,
-  createConfig,
   description: 'testing that async works',
   template: { template, instance },
   test: {

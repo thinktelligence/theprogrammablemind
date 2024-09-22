@@ -10,18 +10,15 @@ const template = {
   ]
 };
 
-const createConfig = async () => {
-  const config = new Config({ name: 'spock', }, module)
-  await config.add(crew)
-  return config
-}
-
 spock_instance.base = 'crew'
 // config.load(template, spock_instance)
+
 knowledgeModule( {
+  config: { name: 'spock', },
+  includes: [crew],
+
   module,
   description: 'Spock Simulator using a KM template',
-  createConfig,
   test: {
           name: './spock.test.json',
           contents: spock_tests,

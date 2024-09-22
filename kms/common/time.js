@@ -191,7 +191,25 @@ const createConfig = async () => {
   return config
 }
 
+const initializer = ({config, objects, kms, isModule}) => {
+    if (!isModule) {
+      kms.time.api.newDate = () => new Date("December 25, 1995 1:59:58 pm" )
+    }
+    Object.assign(objects, {
+      format: 12  // or 24
+    });
+    config.addSemantic({
+        match: ({context, hierarchy, args}) => context.happening && context.marker == 'is' && args({ types: ['ampm', 'time'], properties: ['one', 'two'] }),
+        apply: api.semantics
+    })
+  }
+
 knowledgeModule({
+  config: configStruct,
+  includes: [tell, numbers, countable],
+  api: () => new API(),
+  initializer,
+
   module,
   description: 'Time related concepts',
   createConfig,

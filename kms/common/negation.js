@@ -21,11 +21,11 @@ let configStruct = {
   ],
 };
 
-const createConfig = async () => new Config(configStruct, module).add(gdefaults, pos)
-
 knowledgeModule( {
+  config: configStruct,
+  includes: [gdefaults, pos],
+
   module,
-  createConfig,
   description: 'negation',
   test: {
     name: './negation.test.json',

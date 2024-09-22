@@ -39,6 +39,9 @@ const createConfig = async () => {
 }
 
 knowledgeModule({ 
+  config: configStruct,
+  includes: [pos, gdefaults],
+
   module,
   description: 'Explicit handling of evaluate',
   createConfig,

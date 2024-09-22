@@ -47,16 +47,12 @@ let configStruct = {
   ],
 };
 
-const createConfig = async () => {
-  const config = new Config(configStruct, module)
-  await config.add(dialogues, numbers)
-  return config
-}
-
 knowledgeModule({ 
+  config: configStruct,
+  includes: [dialogues, numbers],
+
   module,
   description: 'Comparable things',
-  createConfig,
   test: {
     name: './comparable.test.json',
     contents: comparable_tests,

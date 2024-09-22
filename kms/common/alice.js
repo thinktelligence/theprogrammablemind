@@ -23,6 +23,9 @@ const config = createConfig()
 
 // config.load(template, alice_instance)
 knowledgeModule( {
+  config: { name: 'alice', },
+  includes: [kid],
+
   module,
   description: 'Kia Simulator using a KM template',
   config,

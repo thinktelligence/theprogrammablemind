@@ -14,16 +14,12 @@ const template = {
   ],
 }
 
-const createConfig = async () => {
-  const config = new Config({ name: 'temperature' }, module)
-  await config.add(dimension)
-  return config
-}
-
 knowledgeModule({ 
+  config: { name: 'temperature' },
+  includes: [dimension],
+
   module,
   description: 'Weight dimension',
-  createConfig,
   test: {
     name: './temperature.test.json',
     contents: temperature_tests,

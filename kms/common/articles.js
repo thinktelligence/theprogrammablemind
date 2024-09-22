@@ -84,18 +84,13 @@ let configStruct = {
 
 };
 
-const createConfig = async () => {
-  const config = new Config(configStruct, module)
-  config.stop_auto_rebuild()
-  await config.add(pos, gdefaults)
-  await config.restart_auto_rebuild()
-  return config
-}
-
 knowledgeModule( { 
+  config: configStruct,
+  includes: [pos, gdefaults],
+
   module,
   description: 'articles',
-  createConfig, newWay: true,
+  newWay: true,
   test: {
     name: './articles.test.json',
     contents: tests,

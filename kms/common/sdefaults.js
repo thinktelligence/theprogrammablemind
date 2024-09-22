@@ -2,7 +2,7 @@ const { Config, flatten, knowledgeModule, where } = require('./runtime').theprog
 const { defaultContextCheck } = require('./helpers')
 const sdefaults_tests = require('./sdefaults.test.json')
 
-let configStruct = {
+let config = {
   name: 'sdefaults',
   semantics: [
     {
@@ -32,12 +32,11 @@ let configStruct = {
   ],
 };
 
-const createConfig = async () => new Config(configStruct, module)
-
 knowledgeModule({ 
+  config,
+
   module,
   description: 'defaults for semantics',
-  createConfig,
   test: {
     name: './sdefaults.test.json',
     contents: sdefaults_tests,

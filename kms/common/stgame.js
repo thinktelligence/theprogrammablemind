@@ -1,4 +1,4 @@
-const { Config, knowledgeModule, where } = require('./runtime').theprogrammablemind
+const { Config, knowledgeModule, where, process : clientProcess } = require('./runtime').theprogrammablemind
 const { defaultContextCheck } = require('./helpers')
 const createCharacters = require('./characters')
 const stgame_tests = require('./stgame.test.json')
@@ -31,7 +31,8 @@ class KirkAPI {
 
   process(config, utterance) {
     this.kirk.server(config.getServer(), config.getAPIKey())
-    return this.kirk.process(utterance, { credentials: this.credentials })
+    // return this.kirk.process(utterance, { credentials: this.credentials })
+    return clientProcess(this.kirk, utterance, { credentials: this.credentials })
   }
   
   response({km, context, result}) {
@@ -53,7 +54,8 @@ class SpockAPI {
 
   process(config, utterance) {
     this.spock.server(config.getServer(), config.getAPIKey())
-    return this.spock.process(utterance, { credentials: this.credentials })
+    // return this.spock.process(utterance, { credentials: this.credentials })
+    return clientProcess(this.spock, utterance, { credentials: this.credentials })
   }
   
   response({km, context, result}) {

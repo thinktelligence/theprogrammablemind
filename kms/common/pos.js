@@ -36,11 +36,10 @@ let configStruct = {
 
 };
 
-createConfig = async () => new Config(configStruct, module)
-
 knowledgeModule( { 
+  config: configStruct,
+
   module,
-  createConfig,
   description: 'parts of speech',
   test: {
     name: './pos.test.json',

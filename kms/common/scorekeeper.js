@@ -342,21 +342,14 @@ let configStruct = {
   ],
 };
 
-const createConfig = async () => {
-  const config = new Config(configStruct, module)
-  config.stop_auto_rebuild()
-  await config.add(dialogues, numbers, properties)
-  await config.initializer( ({objects, km, isModule}) => {
+const initializer = ({objects, km, isModule}) => {
     objects.players = []
     objects.nextPlayer = undefined;
     setNextPlayer(km, objects);
     objects.scores = {};
     objects.winningScore = null
     objects.allPlayersAreKnown = false;
-  })
-  await config.restart_auto_rebuild()
-  return config
-}
+  }
 
 startWithDefault20 = [
   "greg got 1 point alice got 2 points greg got 1 point start a new game who is next",
@@ -374,9 +367,12 @@ startWithDefault20 = [
 ]
 
 knowledgeModule( { 
+  config:configStruct,
+  includes: [dialogues, numbers, properties],
+  initializer,
+
   module,
   description: 'scorekeeper for card or dice games',
-  createConfig,
   test: {
     name: './scorekeeper.test.json',
     contents: scorekeeper_tests,

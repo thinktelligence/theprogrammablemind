@@ -40,7 +40,7 @@ class API {
 
 const api = new API()
 
-let configStruct = {
+let config = {
   name: 'tell',
   operators: [
     "([tell] ([person]) ([info|]) ([event]))"
@@ -98,12 +98,7 @@ let configStruct = {
   ],
 };
 
-const createConfig = async () => {
-  const config = new Config(configStruct, module)
-  config.stop_auto_rebuild() 
-  await config.setApi(api)
-  await config.add(dialogues)
-  await config.initializer( ({config, isModule}) => {
+const initializer = ({config, isModule}) => {
       if (!isModule) {
         config.addSemantic({
           match: ({context, hierarchy}) => context.happening && hierarchy.isA(context.marker, 'event'),
@@ -112,15 +107,16 @@ const createConfig = async () => {
           }
         })
       }
-    })
-  await config.restart_auto_rebuild()
-  return config
-}
+    }
 
 knowledgeModule( { 
+  config,
+  api: () => new API(),
+  includes: [dialogues],
+  initializer,
+
   module,
   description: 'telling entities things',
-  createConfig,
   test: {
     name: './tell.test.json',
     contents: tell_tests,

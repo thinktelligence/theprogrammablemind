@@ -83,15 +83,11 @@ let configStruct = {
   ],
 };
 
-const createConfig = async () => {
-  const config = new Config(configStruct, module)
-  await config.add(gdefaults, sdefaults)
-  return config
-}
-
 knowledgeModule( { 
+  config: configStruct,
+  includes: [gdefaults, sdefaults],
+
   module,
-  createConfig,
   description: 'talking about numbers',
   test: {
     name: './numbers.test.json',

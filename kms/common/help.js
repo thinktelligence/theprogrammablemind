@@ -82,12 +82,7 @@ const configStruct = {
   },
 };
 
-const createConfig = async () => {
-  const config = new Config(configStruct, module)
-  config.stop_auto_rebuild()
-  await config.add(dialogues)
-
-  await config.initializer( ({ config, addWord, kms }) => {
+const initializer = ({ config, addWord, kms }) => {
     const names = new Set()
     for (let name in kms) {
       names.add(name);
@@ -95,15 +90,15 @@ const createConfig = async () => {
     for (let name of names) {
       addWord(name, {id: "km", initial: `{ value: '${name}', word: '${name}' }`})
     }
-  })
-  await config.restart_auto_rebuild()
-  return config
-}
+  }
 
 knowledgeModule({
+  config: configStruct,
+  includes: [dialogues],
+  initializer,
+
   module,
   description: 'Help the user with the current knowledge modules',
-  createConfig,
   test: {
     name: './help.test.json',
     contents: help_tests,

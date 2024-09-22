@@ -40,6 +40,9 @@ let createConfig = async () => {
 }
 
 knowledgeModule( { 
+  config: configStruct,
+  includes: [gdefaults],
+
   module,
   description: 'test of listeners',
   createConfig,

@@ -617,19 +617,13 @@ let configStruct = {
   ]
 };
 
-const createConfig = async () => {
-  const config = new Config(configStruct, module)
-  config.stop_auto_rebuild()
-  await config.setApi(api)
-  await config.add(concept, meta, dialogues)
-  await config.restart_auto_rebuild()
-  return config
-}
-
 knowledgeModule( { 
+  config: configStruct,
+  api: () => new API(),
+  includes: [concept, meta, dialogues],
+
   module,
   description: 'properties of objects',
-  createConfig,
   test: {
     name: './properties.test.json',
     contents: properties_tests,

@@ -8,7 +8,7 @@
       "bridges": [
         {
           "id": "undo_undo",
-          "semantic": "(args) => {\n            const { mentions } = args\n            const action = mentions({ marker: 'action_undo' })\n            action.undo(args)\n          }"
+          "semantic": "(args) => {\n            const { mentions } = args\n            const action = mentions({ context: { marker: 'action_undo' } })\n            action.undo(args)\n          }"
         },
         {
           "id": "action_undo",
@@ -23,7 +23,7 @@
             }
           ],
           "development": true,
-          "semantic": "({ context, mentioned, isModule }) => {\n            if (!isModule) {\n              mentioned(context)\n              context.undo = ({objects}) => objects.undone = context\n            }\n          }"
+          "semantic": "({ context, mentioned, isModule }) => {\n            if (!isModule) {\n              mentioned({ context })\n              context.undo = ({objects}) => objects.undone = context\n            }\n          }"
         }
       ]
     }

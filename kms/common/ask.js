@@ -37,7 +37,6 @@ let configStruct = {
 
 config = new Config(configStruct)
 config.setApi(api)
-
 config.initializer( (args) => {
   const {objects, isModule, config, addBridge} = args;
   objects.ask = []
@@ -80,6 +79,10 @@ config.initializer( (args) => {
 })
 
 knowledgeModule( { 
+  config: configStruct, 
+  api,
+  initializer,
+
   module,
   description: 'framework for character ask',
   config,

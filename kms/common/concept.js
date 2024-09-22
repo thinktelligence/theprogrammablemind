@@ -14,141 +14,137 @@ const concept_instance = require('./concept.instance.json')
   plain and regular fries mean the same thing
 */
 
-const createConfig = async () => {
-  const config = new Config({
-    name: 'concept',
-    operators: [
-      "((context.punctuation != true)* [modifies|] (concept))",
-      "([concept])",
-      "([literally] (modifies/0))",
-    ],
-    bridges: [
-      {
-        id: "modifies",
-        isA: ['verby'],
-        words: [{ word: 'modifies', number: 'one', flatten: false }, { word: 'modify', number: 'many', flatten: true }],
-        // bridge: "{ ...next(operator), modifiers: before, concept: after[0], flatten: true }"
-        bridge: "{ ...next(operator), modifiers: before, concept: after[0] }"
-      },
-      { id: "literally", bridge: "{ ...after[0], flatten: false, literally: true }" },
-      { id: "concept", bridge: "{ ...next(operator) }" },
-    ],
-    priorities: [
-      { "context": [['literally', 0], ['modifies', 0], ], "choose": [0] },
-    ],
-    hierarchy: [
-      ['concept', 'theAble'],
-      ['concept', 'queryable'],
-    ],
-    generators: [
-      {
-        notes: '"fire type, water type and earth type" to "fire water and earth type"',
-        /*
-          {
-            "water": {
-              "marker": "water",
-              "value": "water",
-              "word": "water"
-            },
-            "marker": "water_type",
-            "modifiers": [
-              "water"
-            ],
-            "types": [
-              "water_type"
-            ],
-            "value": "water_type",
-            "word": "type",
-            "paraphrase": true
+configStruct = {
+  name: 'concept',
+  operators: [
+    "((context.punctuation != true)* [modifies|] (concept))",
+    "([concept])",
+    "([literally] (modifies/0))",
+  ],
+  bridges: [
+    {
+      id: "modifies",
+      isA: ['verby'],
+      words: [{ word: 'modifies', number: 'one', flatten: false }, { word: 'modify', number: 'many', flatten: true }],
+      // bridge: "{ ...next(operator), modifiers: before, concept: after[0], flatten: true }"
+      bridge: "{ ...next(operator), modifiers: before, concept: after[0] }"
+    },
+    { id: "literally", bridge: "{ ...after[0], flatten: false, literally: true }" },
+    { id: "concept", bridge: "{ ...next(operator) }" },
+  ],
+  priorities: [
+    { "context": [['literally', 0], ['modifies', 0], ], "choose": [0] },
+  ],
+  hierarchy: [
+    ['concept', 'theAble'],
+    ['concept', 'queryable'],
+  ],
+  generators: [
+    {
+      notes: '"fire type, water type and earth type" to "fire water and earth type"',
+      /*
+        {
+          "water": {
+            "marker": "water",
+            "value": "water",
+            "word": "water"
           },
-        */
-        where: where(),
-        match: ({context}) => {
-          if (!context.paraphrase) {
-            return
-          }
-          if (context.marker !== 'list') {
-            return
-          }
-          if ((context.value || []).length < 2) {
-            return
-          }
-          if (!context.value[0].word) {
-            return
-          }
-          const word = context.value[0].word
-
-          for (let value of context.value) {
-            if (!(value.modifiers && value.modifiers.length == 1 && value.word == word)) {
-              return
-            }
-          }
-          return true
+          "marker": "water_type",
+          "modifiers": [
+            "water"
+          ],
+          "types": [
+            "water_type"
+          ],
+          "value": "water_type",
+          "word": "type",
+          "paraphrase": true
         },
-        apply: async ({g, context}) => {
-          const modifiers = context.value.map( (p) => p[p.modifiers[0]] )
-          context.word = context.value[0].word
-          context.value = null
-          context.modifiers = ['modifier']
-          context.modifier = {
-            marker: 'list',
-            paraphrase: true,
-            value: modifiers
-          }
-          context.paraphrase = true
-          return await g(context)
+      */
+      where: where(),
+      match: ({context}) => {
+        if (!context.paraphrase) {
+          return
         }
-      },
-      {
-        where: where(),
-        match: ({context}) => context.marker == 'modifies' && context.paraphrase,
-        apply: async ({context, gp, gw}) => {
-          const modifiers = []
-          for (modifier of context.modifiers) {
-            modifiers.push(await gp(modifier))
-          }
-          if (context.literally) {
-            return `${modifiers.join(" ")} literally ${await gw(context, { number: context.modifiers[context.modifiers.length - 1] })} ${await gp(context.concept)}`
-          } else {
-            return `${modifiers.join(" ")} ${await gw(context, { number: context.modifiers[context.modifiers.length - 1] })} ${await gp(context.concept)}`
+        if (context.marker !== 'list') {
+          return
+        }
+        if ((context.value || []).length < 2) {
+          return
+        }
+        if (!context.value[0].word) {
+          return
+        }
+        const word = context.value[0].word
+
+        for (let value of context.value) {
+          if (!(value.modifiers && value.modifiers.length == 1 && value.word == word)) {
+            return
           }
         }
-        // const chosen = chooseNumber(context, word.singular, word.plural)
+        return true
       },
-    ],
-    semantics: [
-      {
-        notes: 'define a modifier',
-        where: where(),
-        match: ({context}) => context.marker == 'modifies',
-        apply: ({config, query, km, context}) => {
-          let modifiers
-          if (context.literally) {
-            literalModifiers = context.modifiers[0]
-            // modifiers = literalModifiers.value.map(modifier => modifier.value)
-            modifiers = literalModifiers.value
-            modifiers = modifiers.slice(0, -1).concat([literalModifiers.marker]).concat(modifiers.slice(-1))
-          } else {
-            modifiers = context.modifiers
-            // modifiers = context.modifiers.map(modifier => modifier.value)
-          }
-          // km('concept').api.kindOfConcept({ config, modifiers, object: context.concept.value || context.concept.marker })
-          km('concept').api.kindOfConcept({ config, modifiers, object: context.concept })
+      apply: async ({g, context}) => {
+        const modifiers = context.value.map( (p) => p[p.modifiers[0]] )
+        context.word = context.value[0].word
+        context.value = null
+        context.modifiers = ['modifier']
+        context.modifier = {
+          marker: 'list',
+          paraphrase: true,
+          value: modifiers
         }
-      },
-    ],
-  }, module)
-  config.stop_auto_rebuild()
-  await config.setApi(new API())
-  await config.add(dialogues)
-  await config.restart_auto_rebuild()
-  return config
+        context.paraphrase = true
+        return await g(context)
+      }
+    },
+    {
+      where: where(),
+      match: ({context}) => context.marker == 'modifies' && context.paraphrase,
+      apply: async ({context, gp, gw}) => {
+        const modifiers = []
+        for (modifier of context.modifiers) {
+          modifiers.push(await gp(modifier))
+        }
+        if (context.literally) {
+          return `${modifiers.join(" ")} literally ${await gw(context, { number: context.modifiers[context.modifiers.length - 1] })} ${await gp(context.concept)}`
+        } else {
+          return `${modifiers.join(" ")} ${await gw(context, { number: context.modifiers[context.modifiers.length - 1] })} ${await gp(context.concept)}`
+        }
+      }
+      // const chosen = chooseNumber(context, word.singular, word.plural)
+    },
+  ],
+  semantics: [
+    {
+      notes: 'define a modifier',
+      where: where(),
+      match: ({context}) => context.marker == 'modifies',
+      apply: ({config, query, km, context}) => {
+        let modifiers
+        if (context.literally) {
+          literalModifiers = context.modifiers[0]
+          // modifiers = literalModifiers.value.map(modifier => modifier.value)
+          modifiers = literalModifiers.value
+          modifiers = modifiers.slice(0, -1).concat([literalModifiers.marker]).concat(modifiers.slice(-1))
+        } else {
+          modifiers = context.modifiers
+          // modifiers = context.modifiers.map(modifier => modifier.value)
+        }
+        // km('concept').api.kindOfConcept({ config, modifiers, object: context.concept.value || context.concept.marker })
+        km('concept').api.kindOfConcept({ config, modifiers, object: context.concept })
+      }
+    },
+  ],
 }
 
 knowledgeModule({ 
+  config: configStruct,
+  includes: [dialogues],
+  api: () => new API(),
+
   module,
   description: 'The idea of a concept whatever that might end up being',
-  createConfig,
   test: {
     name: './concept.test.json',
     contents: concept_tests,

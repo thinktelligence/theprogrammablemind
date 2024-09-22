@@ -60,22 +60,15 @@ let configStruct = {
   ],
 };
 
-const createConfig = async () => {
-  const config = new Config(configStruct, module)
-  config.stop_auto_rebuild()
-  await config.add(dialogues)
-
-  await config.initializer( ({objects, uuid}) => {
-    objects.variables = {}
-  })
-  await config.restart_auto_rebuild()
-  return config
-}
-
 knowledgeModule( { 
+  config: configStruct,
+  includes: [dialogues],
+  initializer: ({objects, uuid}) => {
+    objects.variables = {}
+  },
+
   module,
   description: 'javascript interpreter',
-  createConfig,
   test: {
     name: './javascript.test.json',
     contents: javascript_tests,

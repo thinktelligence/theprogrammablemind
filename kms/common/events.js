@@ -125,9 +125,13 @@ const createConfig = async () => {
 }
 
 knowledgeModule({ 
+  config: configStruct,
+  api: () => new API(),
+  includes: [dialogues],
+
+  createConfig,
   module,
   description: 'do stuff after events',
-  createConfig,
   test: {
     name: './events.test.json',
     contents: events_tests,

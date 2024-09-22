@@ -75,16 +75,12 @@ let configStruct = {
   ]
 };
 
-const createConfig = async () => {
-  const config = new Config(configStruct, module)
-  await config.add(dialogues, numbers)
-  return config
-}
-
 knowledgeModule({ 
+  config: configStruct,
+  includes: [dialogues, numbers],
+
   module,
   description: 'Countable things',
-  createConfig,
   test: {
     name: './countable.test.json',
     contents: countable_tests,

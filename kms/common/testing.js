@@ -3,7 +3,7 @@ const { defaultContextCheck } = require('./helpers')
 const testing_tests = require('./testing.test.json')
 const gdefaults = require('./gdefaults')
 
-let configStruct = {
+const config = {
   name: 'testing',
   operators: [
     { pattern: "([testingEvaluate] ([testingValue]))" },
@@ -30,16 +30,12 @@ let configStruct = {
   ],
 };
 
-const createConfig = async () => {
-  const config = new Config(configStruct, module)
-  await config.add(gdefaults)
-  return config
-}
-
 knowledgeModule({ 
+  config,
+  includes: [gdefaults],
+
   module,
   description: 'code for testing',
-  createConfig,
   test: {
     name: './testing.test.json',
     contents: testing_tests

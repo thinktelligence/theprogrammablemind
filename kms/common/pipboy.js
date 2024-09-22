@@ -525,21 +525,13 @@ const template = {
   ]
 }
 
-const createConfig = async () => {
-  const config = new Config({ name: 'pipboy' }, module)
-  config.stop_auto_rebuild()
-  await config.add(hierarchy, countable, comparable, help, math)
-  // console.log('config.config.hierarchy', JSON.stringify(config.config.hierarchy, null, 2))
-  // console.log('config.hierarchy', config.hierarchy)
-  await config.setApi(api)
-  await config.restart_auto_rebuild()
-  return config
-}
-
 knowledgeModule({ 
+  config: { name: 'pipboy' },
+  includes: [hierarchy, countable, comparable, help, math],
+  api: () => new API(),
+
   module,
   description: 'Control a pipboy with speech',
-  createConfig,
   template: { template, instance },
   test: {
     name: './pipboy.test.json',

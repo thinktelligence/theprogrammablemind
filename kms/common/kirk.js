@@ -14,18 +14,15 @@ const template = {
 // TODO what is the name of you
 // TODO crew members -> who are the crew members
 
-const createConfig = async () => {
-  const config = new Config({ name: 'kirk', }, module)
-  await config.add(crew)
-  return config
-}
-
 kirk_instance.base = 'crew'
+
 // config.load(template, kirk_instance)
 knowledgeModule( {
+  config: { name: 'kirk', },
+  includes: [crew],
+
   module,
   description: 'Captain Kirk Simulator using a KM template',
-  createConfig,
   test: {
           name: './kirk.test.json',
           contents: kirk_tests,

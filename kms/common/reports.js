@@ -611,7 +611,26 @@ const createConfig = async () => {
   return config
 }
 
+const initializer = async ({config, objects, km, kms, isModule}) => {
+    if (!isModule) {
+      await kms.reports.addAPI(api1)
+      await kms.reports.addAPI(api2)
+    }
+    objects.tempReportId = 0
+    objects.listings = {
+    }
+    const id = newReport({km, objects})
+    if (!isModule) {
+      objects.listings[id].api = 'clothes'
+    }
+  }
+
 knowledgeModule({
+  config: configStruct,
+  includes: [currencyKM, helpKM, math, events],
+  multiApiInitializer: initializeApi,
+  initializer,
+  
   module,
   description: 'this module is for getting info about a concept with properties',
   createConfig,

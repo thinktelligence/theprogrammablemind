@@ -1,4 +1,4 @@
-const { Config, knowledgeModule, where } = require('./runtime').theprogrammablemind
+const { Config, knowledgeModule, where, process:clientProcess } = require('./runtime').theprogrammablemind
 const { defaultContextCheck } = require('./helpers')
 const gdefaults = require('./gdefaults.js')
 const createCurrencyKM = require('./currency.js')
@@ -126,7 +126,8 @@ class Sally {
     }
     */
     this.timeKM.server(config.getServer(), config.getAPIKey())
-    return this.timeKM.process(utterance)
+    // return this.timeKM.process(utterance)
+    return clientProcess(this.timeKM, utterance)
   }
 
   response({context, result}) {
@@ -150,7 +151,9 @@ class Bob {
 
   process(config, utterance) {
     this.currencyKM.server(config.getServer(), config.getAPIKey())
-    return this.currencyKM.process(utterance, { credentials: this.credentials })
+    // return this.currencyKM.process(utterance, { credentials: this.credentials })
+    // return clientProcess(this.currencyKM.process, utterance, { credentials: this.credentials })
+    return clientProcess(this.currencyKM, utterance)
   }
 
   response({context, result}) {
@@ -174,10 +177,6 @@ const initializeApi = (config, api) => {
 
 
 const createConfig = async () => {
-  const timeKM = await createTimeKM()
-  const currencyKM = await createCurrencyKM()
-  const api = new Sally(timeKM)
-  const api2 = new Bob(currencyKM)
 
   const config = new Config(configStruct, module)
   config.stop_auto_rebuild()
@@ -186,6 +185,10 @@ const createConfig = async () => {
   await config.setMultiApi(initializeApi)
   config.initializer( async ({isModule, km}) => {
     if (!isModule) {
+      const timeKM = await createTimeKM()
+      const currencyKM = await createCurrencyKM()
+      const api = new Sally(timeKM)
+      const api2 = new Bob(currencyKM)
       const config = km('characters')
       await config.setApi(api2)
       await config.setApi(api)
@@ -195,8 +198,24 @@ const createConfig = async () => {
   return config
 }
 
+const initializer = async ({isModule, km}) => {
+  if (!isModule) {
+    const timeKM = await createTimeKM()
+    const currencyKM = await createCurrencyKM()
+    const config = km('characters')
+    const api = new Sally(timeKM)
+    const api2 = new Bob(currencyKM)
+    await config.setApi(api2)
+    await config.setApi(api)
+  }
+}
 // mode this to non-module init only
 knowledgeModule({
+  config: configStruct,
+  includes: [gdefaults],
+  initializer,
+  multiApiInitializer: initializeApi,
+
   module,
   description: 'this module is for creating a team of characters that can respond to commands',
   demo: "https://youtu.be/eA25GZ0ZAHo",

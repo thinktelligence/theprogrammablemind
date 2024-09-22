@@ -39,7 +39,7 @@ class API {
   again
   stop/start listening
 */
-const configStruct = {
+const config = {
   name: 'ui',
   operators: [
     "([select])",
@@ -183,21 +183,15 @@ const template = {
   ],
 }
 
-const createConfig = async () => {
-  const config = new Config(configStruct, module)
-  config.stop_auto_rebuild()
-  await config.add(dialogues, math)
-  await config.setApi(new API())
-  await config.restart_auto_rebuild()
-  return config
-}
-
 // const config = createConfig()
 
 knowledgeModule({ 
+  config,
+  includes: [dialogues, math],
+  api: () => new API(),
+
   module,
   description: 'Control a ui with speech',
-  createConfig,
   test: {
     name: './ui.test.json',
     contents: ui_tests,

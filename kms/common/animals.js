@@ -25,26 +25,23 @@ const template = {
   ],
 }
 
-const createConfig = async () => {
-  const config = new Config({ name: 'animals' }, module)
-  await config.add(hierarchy)
-  return config
-}
-
 knowledgeModule( {
-    module,
-      description: 'animals related concepts',
-      createConfig, newWay: true,
-      test: {
-              name: './animals.test.json',
-              contents: animals_tests,
-              checks: {
-                context: defaultContextCheck,
-              },
+    config: { name: 'animals' },
+    includes: [hierarchy],
 
+    module,
+    description: 'animals related concepts',
+    newWay: true,
+    test: {
+            name: './animals.test.json',
+            contents: animals_tests,
+            checks: {
+              context: defaultContextCheck,
             },
-      template: {
-        template,
-        instance: animals_instance
-      }
+
+          },
+    template: {
+      template,
+      instance: animals_instance
+    }
 })

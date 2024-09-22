@@ -174,19 +174,13 @@ const template = {
   ],
 }
 
-const createConfig = async () => {
-  const config = new Config({ name: 'dimension' }, module)
-  config.stop_auto_rebuild()
-  await config.add(hierarchy, formulas, testing)
-  await config.setApi(api)
-  await config.restart_auto_rebuild()
-  return config
-}
-
 knowledgeModule({ 
+  config: { name: 'dimension' },
+  includes: [hierarchy, formulas, testing],
+  api: () => new API(),
+
   module,
   description: 'Used to define numeric temperature such as currency, temperature or weight',
-  createConfig,
   template: { template, instance },
   test: {
     name: './dimension.test.json',

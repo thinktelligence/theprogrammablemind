@@ -128,9 +128,13 @@ let createConfig = async () => {
 }
 
 knowledgeModule( { 
+  config: configStruct,
+  api: () => new API(),
+  includes: [stm],
+
+  createConfig,
   module,
   description: 'namable objects',
-  createConfig,
   test: {
     name: './nameable.test.json',
     contents: nameable_tests,

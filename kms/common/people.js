@@ -45,11 +45,7 @@ let configStruct = {
   ],
 };
 
-const createConfig = async () => {
-  const config = new Config(configStruct, module)
-  config.stop_auto_rebuild()
-  await config.add(hierarchy)
-  await config.initializer( ({baseConfig, context, apis, isModule}) => {
+const initializer = ({baseConfig, context, apis, isModule}) => {
     // const api = km('properties').api
     const api = apis('properties')
     // setup paraphrase
@@ -65,15 +61,15 @@ const createConfig = async () => {
               edAble: { operator: 'owned', word: 'owned' },
               config: baseConfig
             })
-  })
-  await config.restart_auto_rebuild()
-  return config
-}
+  }
 
 knowledgeModule( { 
+  config: configStruct,
+  includes: [hierarchy],
+  initializer,
+
   module,
   description: 'about people',
-  createConfig,
   test: {
     name: './people.test.json',
     contents: people_tests,

@@ -192,20 +192,13 @@ const template = {
   ]
 }
 
-const createConfig = async () => {
-  const api = new API()
-  config = new Config({ name: 'formulas' }, module)
-  config.stop_auto_rebuild()
-  await config.add(dialogues, pos, math, hierarchy, comparable, countable)
-  await config.setApi(api)
-  await config.restart_auto_rebuild()
-  return config
-}
-
 knowledgeModule({ 
+  config: { name: 'formulas' },
+  includes: [dialogues, pos, math, hierarchy, comparable, countable],
+  api: () => new API(),
+
   module,
   description: 'Formulas using math',
-  createConfig,
   template: { template, instance },
   test: {
     name: './formulas.test.json',

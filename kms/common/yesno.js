@@ -3,7 +3,7 @@ const { defaultContextCheck } = require('./helpers')
 const gdefaults = require('./gdefaults')
 const yesno_tests = require('./yesno.test.json')
 
-let configStruct = {
+let config = {
   name: 'yesno',
   operators: [
     "([yes])",
@@ -22,11 +22,11 @@ let configStruct = {
   ],
 };
 
-const createConfig = async () => new Config(configStruct, module).add(gdefaults)
-
 knowledgeModule( {
+  config,
+  includes: [gdefaults],
+
   module,
-  createConfig,
   description: 'yesno',
   test: {
     name: './yesno.test.json',

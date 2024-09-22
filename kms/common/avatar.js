@@ -68,16 +68,12 @@ let configStruct = {
 
 };
 
-const createConfig = async () => {
-  const config = new Config(configStruct, module)
-  await config.add(hierarchy, emotions)
-  return config
-}
-
 knowledgeModule( { 
+  config: configStruct,
+  includes: [hierarchy, emotions],
+
   module,
   description: 'avatar for dialogues',
-  createConfig,
   test: {
     name: './avatar.test.json',
     contents: avatar_tests,

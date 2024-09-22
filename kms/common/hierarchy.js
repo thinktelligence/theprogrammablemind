@@ -284,23 +284,19 @@ let configStruct = {
   ]
 };
 
-const createConfig = async () => {
-  const config = new Config(configStruct, module)
-  config.stop_auto_rebuild()
-  await config.add(properties)
-  await config.initializer( ({apis, hierarchy}) => {
+const initializer = ({apis, hierarchy}) => {
     apis('stm').addIsA( (child, parent) => {
       return hierarchy.isA(child, parent) 
     })
-  })
-  await config.restart_auto_rebuild()
-  return config
-}
+  }
 
 knowledgeModule( { 
+  config: configStruct,
+  includes: [properties],
+  initializer,
+
   module,
   description: 'hierarchy of objects',
-  createConfig,
   test: {
     name: './hierarchy.test.json',
     contents: hierarchy_tests,

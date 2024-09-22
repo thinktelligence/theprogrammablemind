@@ -23,49 +23,46 @@ const template ={
   ],
 }
 
-const createConfig = async () => {
-  const config = new Config({ 
-    name: 'emotions',
-    operators: [
-      "([sentientBeing|])",
-      "([emotion|])",
-    ],
-    bridges: [
-      { id: 'sentientBeing', level: 0, bridge: '{ ...next(operator) }' },
-      // just here so it loads and the sentence can make the semantics
-      // { id: 'feel', level: 0, bridge: '{ ...next(operator) }' },
-      { id: 'emotion', level: 0, bridge: '{ ...next(operator) }' },
-    ],
-    priorities: [
-      { "context": [['feel', 0], ['means', 0], ], "choose": [0] },
-    ],
+const configStruct = { 
+  name: 'emotions',
+  operators: [
+    "([sentientBeing|])",
+    "([emotion|])",
+  ],
+  bridges: [
+    { id: 'sentientBeing', level: 0, bridge: '{ ...next(operator) }' },
+    // just here so it loads and the sentence can make the semantics
+    // { id: 'feel', level: 0, bridge: '{ ...next(operator) }' },
+    { id: 'emotion', level: 0, bridge: '{ ...next(operator) }' },
+  ],
+  priorities: [
+    { "context": [['feel', 0], ['means', 0], ], "choose": [0] },
+  ],
 
-    hierarchy: [
-      ['emotion', 'unknown'],
-      ['sentientBeing', 'unknown'],
-    ]
-  }, module)
-  config.stop_auto_rebuild()
-  await config.add(hierarchy)
-  await config.initializer( ({config, apis}) => {
-    const api = apis('properties')
-    api.createActionPrefix({
-                  operator: 'feel',
-                  create: ['feel'/*, 'emotion'*/],
-                  before: [{tag: 'sentientBeing', id: 'sentientBeing'}],
-                  after: [{tag: 'emotion', id: 'emotion'}],
-                  doAble: true,
-                  config })
-  })
-  await config.restart_auto_rebuild()
-  //config.load(template, emotions_instance)
-  return config
+  hierarchy: [
+    ['emotion', 'unknown'],
+    ['sentientBeing', 'unknown'],
+  ]
+}
+
+const initializer = ({config, apis}) => {
+  const api = apis('properties')
+  api.createActionPrefix({
+                operator: 'feel',
+                create: ['feel'/*, 'emotion'*/],
+                before: [{tag: 'sentientBeing', id: 'sentientBeing'}],
+                after: [{tag: 'emotion', id: 'emotion'}],
+                doAble: true,
+                config })
 }
 
 knowledgeModule( {
+    config: configStruct,
+    includes: [hierarchy],
+    initializer,
+
     module,
       description: 'emotions related concepts',
-      createConfig,
       test: {
               name: './emotions.test.json',
               contents: emotions_tests
