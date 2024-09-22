@@ -994,7 +994,6 @@ knowledgeModule( {
 
     module,
     description: 'fastfood related concepts',
-    acceptsAdditionalConfig: true,
     test: {
             name: './fastfood.test.json',
             contents: fastfood_tests,
