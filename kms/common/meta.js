@@ -1,4 +1,4 @@
-const { Config, knowledgeModule, ensureTestFile, where, unflatten, flattens } = require('./runtime').theprogrammablemind
+const { knowledgeModule, ensureTestFile, where, unflatten, flattens } = require('./runtime').theprogrammablemind
 const { defaultContextCheck } = require('./helpers')
 const _ = require('lodash')
 const gdefaults = require('./gdefaults.js')

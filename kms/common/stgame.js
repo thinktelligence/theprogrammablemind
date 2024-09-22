@@ -1,4 +1,4 @@
-const { Config, knowledgeModule, where, process : clientProcess } = require('./runtime').theprogrammablemind
+const { knowledgeModule, where, process : clientProcess } = require('./runtime').theprogrammablemind
 const { defaultContextCheck } = require('./helpers')
 const createCharacters = require('./characters')
 const stgame_tests = require('./stgame.test.json')

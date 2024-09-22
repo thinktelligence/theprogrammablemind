@@ -1,4 +1,4 @@
-const { Config, knowledgeModule, flatten, where, Digraph } = require('./runtime').theprogrammablemind
+const { knowledgeModule, flatten, where, Digraph } = require('./runtime').theprogrammablemind
 const { defaultContextCheck } = require('./helpers')
 const { API }= require('./helpers/concept')
 const dialogues = require('./dialogues.js')

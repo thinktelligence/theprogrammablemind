@@ -1,4 +1,4 @@
-const { Config, knowledgeModule, ensureTestFile, where } = require('./runtime').theprogrammablemind
+const { knowledgeModule, ensureTestFile, where } = require('./runtime').theprogrammablemind
 const { defaultContextCheck, propertyToArray } = require('./helpers')
 const edible = require('./edible')
 const events = require('./events')

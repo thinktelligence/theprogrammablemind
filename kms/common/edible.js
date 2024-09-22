@@ -1,4 +1,4 @@
-const { Config, knowledgeModule, ensureTestFile, where } = require('./runtime').theprogrammablemind
+const { knowledgeModule, ensureTestFile, where } = require('./runtime').theprogrammablemind
 const { defaultContextCheck } = require('./helpers')
 const hierarchy = require('./hierarchy')
 const countable = require('./countable')

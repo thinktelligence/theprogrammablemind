@@ -1,4 +1,4 @@
-const { Config, knowledgeModule, where, Digraph } = require('./runtime').theprogrammablemind
+const { knowledgeModule, where, Digraph } = require('./runtime').theprogrammablemind
 const { defaultContextCheck } = require('./helpers')
 const dimension = require('./dimension.js')
 const length_tests = require('./length.test.json')

@@ -1,4 +1,4 @@
-const { Config, flatten, knowledgeModule, where } = require('./runtime').theprogrammablemind
+const { flatten, knowledgeModule, where } = require('./runtime').theprogrammablemind
 const { defaultContextCheck } = require('./helpers')
 const sdefaults_tests = require('./sdefaults.test.json')
 

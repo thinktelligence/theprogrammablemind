@@ -1,4 +1,4 @@
-const { Config, knowledgeModule, where, Digraph } = require('./runtime').theprogrammablemind
+const { knowledgeModule, where, Digraph } = require('./runtime').theprogrammablemind
 const { defaultContextCheck } = require('./helpers')
 const hierarchy = require('./hierarchy.js')
 const formulas = require('./formulas.js')

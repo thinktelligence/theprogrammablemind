@@ -1,4 +1,4 @@
-const { Config, knowledgeModule, ensureTestFile, where } = require('./runtime').theprogrammablemind
+const { knowledgeModule, ensureTestFile, where } = require('./runtime').theprogrammablemind
 const { defaultContextCheck } = require('./helpers')
 ensureTestFile(module, 'wendy', 'test')
 ensureTestFile(module, 'wendy', 'instance')

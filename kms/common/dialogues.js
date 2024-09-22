@@ -1,4 +1,4 @@
-const { Config, knowledgeModule, where, stableId } = require('./runtime').theprogrammablemind
+const { knowledgeModule, where, stableId } = require('./runtime').theprogrammablemind
 const meta = require('./meta.js')
 const gdefaults = require('./gdefaults.js')
 const sdefaults = require('./sdefaults.js')

@@ -1,4 +1,4 @@
-const { Config, knowledgeModule, where, process:clientProcess } = require('./runtime').theprogrammablemind
+const { knowledgeModule, where, process:clientProcess } = require('./runtime').theprogrammablemind
 const { defaultContextCheck } = require('./helpers')
 const gdefaults = require('./gdefaults.js')
 const createCurrencyKM = require('./currency.js')

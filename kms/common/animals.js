@@ -1,5 +1,5 @@
 const { defaultContextCheck } = require('./helpers')
-const { Config, knowledgeModule, where } = require('./runtime').theprogrammablemind
+const { knowledgeModule, where } = require('./runtime').theprogrammablemind
 const hierarchy = require('./hierarchy')
 const animals_tests = require('./animals.test.json')
 const animals_instance = require('./animals.instance.json')

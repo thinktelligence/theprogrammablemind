@@ -1,4 +1,4 @@
-const { Config, knowledgeModule, where, stableId } = require('./runtime').theprogrammablemind
+const { knowledgeModule, where, stableId } = require('./runtime').theprogrammablemind
 const gdefaults = require('./gdefaults.js')
 const pos = require('./pos.js')
 const { defaultContextCheck } = require('./helpers')
