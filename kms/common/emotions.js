@@ -23,7 +23,7 @@ const template ={
   ],
 }
 
-const configStruct = { 
+const config = { 
   name: 'emotions',
   operators: [
     "([sentientBeing|])",
@@ -57,7 +57,7 @@ const initializer = ({config, apis}) => {
 }
 
 knowledgeModule( {
-    config: configStruct,
+    config,
     includes: [hierarchy],
     initializer,
 

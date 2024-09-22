@@ -5,7 +5,7 @@ const tokenize = require('./tokenize.js')
 const gdefaults_tests = require('./gdefaults.test.json')
 const { isMany } = require('./helpers.js')
 
-let configStruct = {
+let config = {
   name: 'gdefaults',
   generators: [
   /* TODO save for later
@@ -198,7 +198,7 @@ const initializer = ({config}) => {
   }
 
 knowledgeModule({ 
-  config: configStruct,
+  config,
   includes: [tokenize],
   initializer,
 

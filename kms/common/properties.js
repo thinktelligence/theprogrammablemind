@@ -79,7 +79,7 @@ const template = {
 
 const api = new API();
 
-let configStruct = {
+let config = {
   name: 'properties',
   operators: [
     "([hierarchyAble|])",
@@ -618,7 +618,7 @@ let configStruct = {
 };
 
 knowledgeModule( { 
-  config: configStruct,
+  config,
   api: () => new API(),
   includes: [concept, meta, dialogues],
 

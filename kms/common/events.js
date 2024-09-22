@@ -19,7 +19,7 @@ class API {
   }
 }
 
-let configStruct = {
+let config = {
   name: 'events',
   operators: [
     "([after] ([event]) ([action]))",
@@ -117,19 +117,11 @@ let configStruct = {
   ],
 };
 
-const createConfig = async () => {
-  const config = new Config(configStruct, module)
-  await config.setApi(new API())
-  await config.add(dialogues)
-  return config
-}
-
 knowledgeModule({ 
-  config: configStruct,
+  config,
   api: () => new API(),
   includes: [dialogues],
 
-  createConfig,
   module,
   description: 'do stuff after events',
   test: {

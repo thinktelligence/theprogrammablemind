@@ -25,7 +25,7 @@ const template = {
 //      "wendy owns cleo",
     ],
 }
-let configStruct = {
+let config = {
   name: 'people',
   operators: [
     "([person|person,people])",
@@ -64,7 +64,7 @@ const initializer = ({baseConfig, context, apis, isModule}) => {
   }
 
 knowledgeModule( { 
-  config: configStruct,
+  config,
   includes: [hierarchy],
   initializer,
 

@@ -52,7 +52,7 @@ class API {
 
 const api = new API()
 
-let configStruct = {
+let config = {
   name: 'dimension',
   operators: [
     "([dimension])",
@@ -170,7 +170,7 @@ let configStruct = {
 const template = {
   configs: [
     "dimension and unit are concepts",
-    configStruct,
+    config,
   ],
 }
 

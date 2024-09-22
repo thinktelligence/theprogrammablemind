@@ -14,7 +14,7 @@ const concept_instance = require('./concept.instance.json')
   plain and regular fries mean the same thing
 */
 
-configStruct = {
+config = {
   name: 'concept',
   operators: [
     "((context.punctuation != true)* [modifies|] (concept))",
@@ -139,7 +139,7 @@ configStruct = {
 }
 
 knowledgeModule({ 
-  config: configStruct,
+  config,
   includes: [dialogues],
   api: () => new API(),
 

@@ -3,7 +3,7 @@ const { defaultContextCheck } = require('./helpers')
 const dialogues = require('./dialogues')
 const javascript_tests = require('./javascript.test.json')
 
-let configStruct = {
+let config = {
   name: 'javascript',
   operators: [
     "((<let> ([variable|])) [assignment|] (value))",
@@ -61,7 +61,7 @@ let configStruct = {
 };
 
 knowledgeModule( { 
-  config: configStruct,
+  config,
   includes: [dialogues],
   initializer: ({objects, uuid}) => {
     objects.variables = {}

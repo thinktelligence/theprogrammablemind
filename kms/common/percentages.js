@@ -3,7 +3,7 @@ const { defaultContextCheck } = require('./helpers')
 const percentages_tests = require('./percentages.test.json')
 const numbers = require('./numbers')
 
-let configStruct = {
+let config = {
   name: 'percentages',
   operators: [
     "((number/*) [percent])",
@@ -37,7 +37,7 @@ let configStruct = {
 };
 
 knowledgeModule( { 
-  config:configStruct,
+  config,
   includes: [numbers],
 
   module,

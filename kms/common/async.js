@@ -11,7 +11,7 @@ function sleep(ms) {
 }
 
 // i told the times so that the tests would fail
-let configStruct = {
+let config = {
   name: 'async',
   operators: [
     "([a])",
@@ -81,7 +81,7 @@ const template = {
 }
 
 knowledgeModule( { 
-  config: configStruct,
+  config,
   includes: [tokenize],
 
   module,

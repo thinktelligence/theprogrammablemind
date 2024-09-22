@@ -3,7 +3,7 @@ const { defaultContextCheck } = require('./helpers')
 const gdefaults = require('./gdefaults')
 const punctuation_tests = require('./punctuation.test.json')
 
-let configStruct = {
+let config = {
   name: 'punctuation',
   operators: [
     "([leftParenthesis|] (phrase) ([rightParenthesis|]))",
@@ -51,7 +51,7 @@ let configStruct = {
 };
 
 knowledgeModule( {
-  config: configStruct,
+  config,
   includes: [gdefaults],
 
   module,

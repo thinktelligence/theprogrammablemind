@@ -11,7 +11,7 @@ const countable_tests = require('./countable.test.json')
     2 6 and 3 10 piece nuggets
  */
 
-let configStruct = {
+let config = {
   name: 'countable',
   operators: [
     "(([quantifier|]) [counting] ([countable]))",
@@ -76,7 +76,7 @@ let configStruct = {
 };
 
 knowledgeModule({ 
-  config: configStruct,
+  config,
   includes: [dialogues, numbers],
 
   module,

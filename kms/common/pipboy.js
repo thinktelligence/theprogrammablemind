@@ -100,7 +100,7 @@ class API {
 }
 const api = new API()
 
-let configStruct = {
+let config = {
   name: 'pipboy',
   // TODO mark default as local scope
   operators: [
@@ -521,7 +521,7 @@ const template = {
     "medicine and stimpaks are takeable",
     "item modifies properties",
     "damage luck hp rads value ap charisma range and accuracy are item properties",
-    configStruct,
+    config,
   ]
 }
 

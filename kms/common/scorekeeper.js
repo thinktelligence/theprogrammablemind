@@ -51,7 +51,7 @@ const addPlayer = (objects, config, player) => {
   objects.players.push(player);
 }
 
-let configStruct = {
+let config = {
   name: 'scorekeeper',
   operators: [
     "([next])",
@@ -367,7 +367,7 @@ startWithDefault20 = [
 ]
 
 knowledgeModule( { 
-  config:configStruct,
+  config,
   includes: [dialogues, numbers, properties],
   initializer,
 

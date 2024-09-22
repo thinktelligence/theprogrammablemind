@@ -2,7 +2,7 @@ const { Config, knowledgeModule, where } = require('./runtime').theprogrammablem
 const { defaultContextCheck } = require('./helpers')
 const pos_tests = require('./pos.test.json')
 
-let configStruct = {
+let config = {
   name: 'pos',
   operators: [
     "([adjective])",
@@ -37,7 +37,7 @@ let configStruct = {
 };
 
 knowledgeModule( { 
-  config: configStruct,
+  config,
 
   module,
   description: 'parts of speech',

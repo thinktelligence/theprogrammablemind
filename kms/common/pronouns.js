@@ -2,7 +2,7 @@ const { Config, knowledgeModule, where } = require('./runtime').theprogrammablem
 const { defaultContextCheck } = require('./helpers')
 const pronouns_tests = require('./pronouns.test.json')
  
-let configStruct = {
+let config = {
   name: 'pronouns',
 
   operators: [
@@ -65,7 +65,7 @@ let configStruct = {
 
 
 knowledgeModule( { 
-  config: configStruct,
+  config,
 
   module,
   description: 'pronouns',

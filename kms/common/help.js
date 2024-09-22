@@ -22,7 +22,7 @@ const getHelp = (config, indent=2) => {
   return help
 }
 
-const configStruct = {
+const config = {
   name: 'help',
   operators: [
     "([help] ([withKM|with] ([km]))?)",
@@ -93,7 +93,7 @@ const initializer = ({ config, addWord, kms }) => {
   }
 
 knowledgeModule({
-  config: configStruct,
+  config,
   includes: [dialogues],
   initializer,
 

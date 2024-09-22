@@ -32,7 +32,7 @@ const getTypes = ( km, concept, instance ) => {
 
 // TODO the types of rank are x y z ....
 // TODO x is a kind of y
-let configStruct = {
+let config = {
   name: 'hierarchy',
   operators: [
     // "([hierarchyAble|])",
@@ -291,7 +291,7 @@ const initializer = ({apis, hierarchy}) => {
   }
 
 knowledgeModule( { 
-  config: configStruct,
+  config,
   includes: [properties],
   initializer,
 

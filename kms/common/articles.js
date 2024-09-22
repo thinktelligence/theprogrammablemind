@@ -4,7 +4,7 @@ const pos = require('./pos.js')
 const { defaultContextCheck } = require('./helpers')
 const tests = require('./articles.test.json')
 
-let configStruct = {
+let config = {
   name: 'articles',
   operators: [
     "([thisitthat|])",
@@ -85,7 +85,7 @@ let configStruct = {
 };
 
 knowledgeModule( { 
-  config: configStruct,
+  config,
   includes: [pos, gdefaults],
 
   module,

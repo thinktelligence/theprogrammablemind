@@ -10,7 +10,7 @@ const sdefaults = require('./sdefaults')
     10 million 300 hundred and fifty
 */
 
-let configStruct = {
+let config = {
   name: 'numbers',
   operators: [
     "([number])",
@@ -84,7 +84,7 @@ let configStruct = {
 };
 
 knowledgeModule( { 
-  config: configStruct,
+  config,
   includes: [gdefaults, sdefaults],
 
   module,

@@ -4,7 +4,7 @@ const dialogues = require("./dialogues")
 const numbers = require("./numbers")
 const comparable_tests = require('./comparable.test.json')
 
-let configStruct = {
+let config = {
   name: 'comparable',
   operators: [
     "([condition|])",
@@ -48,7 +48,7 @@ let configStruct = {
 };
 
 knowledgeModule({ 
-  config: configStruct,
+  config,
   includes: [dialogues, numbers],
 
   module,

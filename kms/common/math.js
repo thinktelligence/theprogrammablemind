@@ -69,7 +69,7 @@ const mathematicalOperator = (name, words, apply, before = []) => [
   }
 ]
     
-let configStruct = {
+let config = {
   name: 'math',
   operators: [
     "([mathematicalExpression])",
@@ -108,7 +108,7 @@ let configStruct = {
 const template = {
   configs: [
     "mathematical modifies operator",
-    configStruct,
+    config,
     // "* + / and - are mathematical operators",
   ]
 }

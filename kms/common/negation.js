@@ -4,7 +4,7 @@ const gdefaults = require('./gdefaults')
 const pos = require('./pos')
 const negation_tests = require('./negation.test.json')
 
-let configStruct = {
+let config = {
   name: 'negation',
   operators: [
     "([negatable])",
@@ -22,7 +22,7 @@ let configStruct = {
 };
 
 knowledgeModule( {
-  config: configStruct,
+  config,
   includes: [gdefaults, pos],
 
   module,

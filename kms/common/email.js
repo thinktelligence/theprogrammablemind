@@ -15,7 +15,7 @@ const getHelp = (config, indent=2) => {
   return help
 }
 
-let configStruct = {
+let config = {
   name: 'help',
   operators: [
     "([help])",
@@ -57,7 +57,7 @@ let configStruct = {
 };
 
 knowledgeModule({
-  config: configStruct,
+  config,
   includes: [dialogues],
   module,
   description: 'Help the user with the current knowledge modules',

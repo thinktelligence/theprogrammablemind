@@ -40,7 +40,7 @@ class API {
 
 const api = new API()
 
-let configStruct = {
+let config = {
   name: 'currency',
   operators: [
     "(([number]) [currency])",
@@ -111,7 +111,7 @@ const initializer = ({config, objects, apis, addWord, addGenerator, baseConfig, 
 }
 
 knowledgeModule({ 
-  config: configStruct,
+  config,
   includes: [numbersKM],
   api: () => api, 
   initializer,
