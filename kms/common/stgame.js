@@ -63,34 +63,27 @@ class SpockAPI {
   }
 }
 
+const createCharactersHelper = async () => {
+  const characters = await createCharacters()
+  const kirk = await createKirk()
+  const spock = await createSpock()
+  await characters.setApi(new KirkAPI(kirk))
+  await characters.setApi(new SpockAPI(spock))
+  return characters
+}
 
-const createConfig = async () => {
-  const config = new Config({ 
+knowledgeModule( {
+  config: { 
       name: 'stgame', 
       operators: [ "([a])" ],
       bridges: [ { id: 'a', level: 0, bridge: "{ ...next(operator) }" } ],
       words: {"?": [{"id": "a", "initial": "{}" }]},
-  }, module)
+  },
+  api: () => api,
+  includes: [createCharactersHelper],
 
-  const createCharactersHelper = async () => {
-    const characters = await createCharacters()
-    const kirk = await createKirk()
-    const spock = await createSpock()
-    await characters.setApi(new KirkAPI(kirk))
-    await characters.setApi(new SpockAPI(spock))
-    return characters
-  }
-  config.stop_auto_rebuild()
-  await config.setApi(api)
-  await config.add(createCharactersHelper)
-  await config.restart_auto_rebuild()
-  return config
-}
-
-knowledgeModule( {
   module,
   description: 'Game simulator for trek-like characters',
-  createConfig,
   test: {
           name: './stgame.test.json',
           contents: stgame_tests,
