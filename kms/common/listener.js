@@ -4,7 +4,7 @@ const helpers = require('./helpers')
 const gdefaults = require('./gdefaults')
 const listener_tests = require('./listener.test.json')
 
-const configStruct = {
+const config = {
   name: 'listener',
   operators: [
     { pattern: "([call])", development: true },
@@ -31,21 +31,12 @@ const configStruct = {
   ],
 }
 
-let createConfig = async () => {
-  const config = new Config(configStruct, module)
-  config.stop_auto_rebuild()
-  await config.add(gdefaults)
-  await config.restart_auto_rebuild()
-  return config
-}
-
 knowledgeModule( { 
-  config: configStruct,
+  config,
   includes: [gdefaults],
 
   module,
   description: 'test of listeners',
-  createConfig,
   test: {
     name: './listener.test.json',
     contents: listener_tests,

@@ -32,96 +32,90 @@ const api = new API();
 
   if a likes b then a wants b
 */
-const createConfig = async () => {
-  const config = new Config({ name: 'ordering' }, module)
-  config.stop_auto_rebuild()
-  await config.setApi(api)
-  await config.add(hierarchy)
-// config.load(template, ordering_instance)
-
-  await config.initializer(({config, km}) => {
-    const oapi = km('ordering').api
-    oapi.createOrdering({ name: 'preference', categories: [ ['love', 'like'], ['hate', 'dislike'] ], ordering: [ ['love', 'like'], ['like', 'dislike'], ['dislike', 'hate'] ] })
-    const papi = km('properties').api
-    // want is xfx between wanter and wantee
-    // papi.createBinaryRelation(config, 'want', ['want', 'wants'], 'wanter', 'wantee')
-    papi.createActionPrefix({
-                operator: 'love',
-                create: ['love'],
-                before: [{tag: 'lover', id: 'object'}],
-                after: [{tag: 'lovee', id: 'object'}],
-                ordering: {
-                  name: 'preference',
-                  marker: 'love',
-                  object: 'lover',
-                  category: 'lovee',
-                },
-                doAble: true,
-                config
-              })
-    papi.createActionPrefix({
-                operator: 'like',
-                create: ['like'],
-                before: [{tag: 'liker', id: 'object'}],
-                after: [{tag: 'likee', id: 'object'}],
-                ordering: {
-                  name: 'preference',
-                  marker: 'like',
-                  object: 'liker',
-                  category: 'likee',
-                },
-                doAble: true,
-                config
-              })
-    papi.createActionPrefix({
-                operator: 'dislike',
-                create: ['dislike'],
-                before: [{tag: 'disliker', id: 'object'}],
-                after: [{tag: 'dislikee', id: 'object'}],
-                ordering: {
-                  name: 'preference',
-                  marker: 'dislike',
-                  object: 'disliker',
-                  category: 'dislikee',
-                },
-                doAble: true,
-                config
-              })
-    papi.createActionPrefix({
-                // pattern: [ {tag: 'hater', id: 'object'}, { operator, create: true, relation: true }, {tag: 'hatee', id: 'object'} ],
-                operator: 'hate',
-                create: ['hate'],
-                before: [{tag: 'hater', id: 'object'}],
-                after: [{tag: 'hatee', id: 'object'}],
-                ordering: {
-                  name: 'preference',
-                  marker: 'hate',
-                  object: 'hater',
-                  category: 'hatee',
-                },
-                doAble: true,
-                // negation: 'likes',
-                config
-              })
-    /* 
-    papi.createActionPrefix({
-                operator: 'own',
-                create: ['own'],
-                before: [{tag: 'owner', id: 'object'}],
-                after: [{tag: 'ownee', id: 'object'}],
-                relation: true,
-                config
-              })
-    */
-  })
-  await config.restart_auto_rebuild()
-  return config
+const initializer = ({config, km}) => {
+  const oapi = km('ordering').api
+  oapi.createOrdering({ name: 'preference', categories: [ ['love', 'like'], ['hate', 'dislike'] ], ordering: [ ['love', 'like'], ['like', 'dislike'], ['dislike', 'hate'] ] })
+  const papi = km('properties').api
+  // want is xfx between wanter and wantee
+  // papi.createBinaryRelation(config, 'want', ['want', 'wants'], 'wanter', 'wantee')
+  papi.createActionPrefix({
+              operator: 'love',
+              create: ['love'],
+              before: [{tag: 'lover', id: 'object'}],
+              after: [{tag: 'lovee', id: 'object'}],
+              ordering: {
+                name: 'preference',
+                marker: 'love',
+                object: 'lover',
+                category: 'lovee',
+              },
+              doAble: true,
+              config
+            })
+  papi.createActionPrefix({
+              operator: 'like',
+              create: ['like'],
+              before: [{tag: 'liker', id: 'object'}],
+              after: [{tag: 'likee', id: 'object'}],
+              ordering: {
+                name: 'preference',
+                marker: 'like',
+                object: 'liker',
+                category: 'likee',
+              },
+              doAble: true,
+              config
+            })
+  papi.createActionPrefix({
+              operator: 'dislike',
+              create: ['dislike'],
+              before: [{tag: 'disliker', id: 'object'}],
+              after: [{tag: 'dislikee', id: 'object'}],
+              ordering: {
+                name: 'preference',
+                marker: 'dislike',
+                object: 'disliker',
+                category: 'dislikee',
+              },
+              doAble: true,
+              config
+            })
+  papi.createActionPrefix({
+              // pattern: [ {tag: 'hater', id: 'object'}, { operator, create: true, relation: true }, {tag: 'hatee', id: 'object'} ],
+              operator: 'hate',
+              create: ['hate'],
+              before: [{tag: 'hater', id: 'object'}],
+              after: [{tag: 'hatee', id: 'object'}],
+              ordering: {
+                name: 'preference',
+                marker: 'hate',
+                object: 'hater',
+                category: 'hatee',
+              },
+              doAble: true,
+              // negation: 'likes',
+              config
+            })
+  /* 
+  papi.createActionPrefix({
+              operator: 'own',
+              create: ['own'],
+              before: [{tag: 'owner', id: 'object'}],
+              after: [{tag: 'ownee', id: 'object'}],
+              relation: true,
+              config
+            })
+  */
 }
 
 knowledgeModule( {
+    config: { name: 'ordering' },
+    api: () => new API(),
+    includes: [hierarchy],
+    initializer,
+
     module,
     description: 'ordering related concepts',
-    createConfig,
     test: {
             name: './ordering.test.json',
             heck: ['children', 'concept', 'parents', 'properties'],

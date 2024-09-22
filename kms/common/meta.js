@@ -17,7 +17,7 @@ const template = {
 };
 
 // TODO -> if a car's top speed is over 200 mph then the car is fast
-let configStruct = {
+let config = {
   name: 'meta',
   operators: [
     "((phrase) [means] (phrase))",
@@ -371,32 +371,12 @@ let configStruct = {
   ],
 };
 
-const createConfig = async () => {
-  const config = new Config(configStruct, module)
-  config.stop_auto_rebuild()
-  await config.add(gdefaults)
-
-  await config.initializer( ({config, addGenerator, isModule}) => {
-    if (!isModule) {
-      addGenerator({
-        where: where(),
-        match: ({context}) => context.marker == 'unknown',
-        apply: ({context}) => `${context.word}`
-      })
-    }
-  })
-  
-  await config.restart_auto_rebuild()
-  return config
-}
-
 knowledgeModule({ 
-  config: configStruct,
+  config,
   includes: [gdefaults],
 
   module,
   description: 'Ways of defining new language elements',
-  createConfig,
   test: {
     name: './meta.test.json',
     contents: meta_tests,

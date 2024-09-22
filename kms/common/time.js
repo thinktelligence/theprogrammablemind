@@ -14,7 +14,7 @@ const pad = (v, l) => {
 
 class API {
   // gets the contexts for doing the happening
-  semantics({context, isModule, args, kms}) {
+  semantics({context, args, kms}) {
     const api = kms.time.api
     const values = args({ types: ['ampm', 'time'], properties: ['one', 'two']  })
     const ampm = context[values[0]]
@@ -36,9 +36,8 @@ class API {
   initialize() {
   }
 }
-const api = new API()
 
-const configStruct = {
+const config = {
   name: 'time',
   operators: [
     "([time])",
@@ -170,49 +169,27 @@ const configStruct = {
   ],
 };
 
-const createConfig = async () => {
-  const config = new Config(configStruct, module)
-  config.stop_auto_rebuild()
-  await config.add(tell, numbers, countable)
-  await config.setApi(api)
-  await config.initializer( ({config, objects, kms, isModule}) => {
-    if (!isModule) {
-      kms.time.api.newDate = () => new Date("December 25, 1995 1:59:58 pm" )
-    }
-    Object.assign(objects, {
-      format: 12  // or 24
-    });
-    config.addSemantic({
-        match: ({context, hierarchy, args}) => context.happening && context.marker == 'is' && args({ types: ['ampm', 'time'], properties: ['one', 'two'] }),
-        apply: api.semantics
-    })
+const initializer = ({api, config, objects, kms, isModule}) => {
+  if (!isModule) {
+    kms.time.api.newDate = () => new Date("December 25, 1995 1:59:58 pm" )
+  }
+  Object.assign(objects, {
+    format: 12  // or 24
+  });
+  config.addSemantic({
+      match: ({context, hierarchy, args}) => context.happening && context.marker == 'is' && args({ types: ['ampm', 'time'], properties: ['one', 'two'] }),
+      apply: api.semantics
   })
-  await config.restart_auto_rebuild()
-  return config
 }
 
-const initializer = ({config, objects, kms, isModule}) => {
-    if (!isModule) {
-      kms.time.api.newDate = () => new Date("December 25, 1995 1:59:58 pm" )
-    }
-    Object.assign(objects, {
-      format: 12  // or 24
-    });
-    config.addSemantic({
-        match: ({context, hierarchy, args}) => context.happening && context.marker == 'is' && args({ types: ['ampm', 'time'], properties: ['one', 'two'] }),
-        apply: api.semantics
-    })
-  }
-
 knowledgeModule({
-  config: configStruct,
+  config,
   includes: [tell, numbers, countable],
   api: () => new API(),
   initializer,
 
   module,
   description: 'Time related concepts',
-  createConfig,
   test: {
     name: './time.test.json',
     contents: time_tests,

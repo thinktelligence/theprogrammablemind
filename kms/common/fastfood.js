@@ -935,74 +935,65 @@ class State {
   }
 }
 
-const createConfig = async (additionalConfig) => {
-  const config = new Config({ 
-    name: 'fastfood',
-    operators: [
-      "([orderNoun|order])",
-      "([showOrder|show] ([orderNoun/1]))",
-    ],
-    // flatten: ['list'],
-    // TODO use node naming not python
-    semantics: [
-      {
-        where: where(),
-        priority: -10,
-        match: ({context}) => context.marker == 'compound_operator',
-        apply: async ({context, s}) => {
-          context.marker = 'list'
-          context.flatten = true
-          await s(context)
+const config = { 
+  name: 'fastfood',
+  operators: [
+    "([orderNoun|order])",
+    "([showOrder|show] ([orderNoun/1]))",
+  ],
+  // flatten: ['list'],
+  // TODO use node naming not python
+  semantics: [
+    {
+      where: where(),
+      priority: -10,
+      match: ({context}) => context.marker == 'compound_operator',
+      apply: async ({context, s}) => {
+        context.marker = 'list'
+        context.flatten = true
+        await s(context)
+      }
+    },
+    {
+      where: where(),
+      match: ({context, isAListable}) => isAListable(context, 'edible') && context.marker !== 'edible' && !context.same && !context.isResponse && !context.evaluate,
+      apply: ({context, km, api, instance}) => {
+        for (const element of propertyToArray(context)) {
+          km('fastfood').api.state.add(element)
         }
+      }
+    },
+  ],
+  floaters: ['quantity'],
+  bridges: [
+    { 
+      id: 'orderNoun',
+      parents: ['noun', 'queryable'],
+      evaluator: ({context, api}) => {
+        context.evalue = { marker: 'list', value: api.objects.items }
+        api.show()
+      }
+    },
+    { 
+      id: 'showOrder',
+      parents: ['verby'],
+      bridge: "{ ...next(operator), order: after[0] }",
+      generatorp: async ({context, g}) => `show ${await g(context.order)}`,
+      semantic: ({api}) => {
+        api.state.show()
       },
-      {
-        where: where(),
-        match: ({context, isAListable}) => isAListable(context, 'edible') && context.marker !== 'edible' && !context.same && !context.isResponse && !context.evaluate,
-        apply: ({context, km, api, instance}) => {
-          for (const element of propertyToArray(context)) {
-            km('fastfood').api.state.add(element)
-          }
-        }
-      },
-    ],
-    floaters: ['quantity'],
-    bridges: [
-      { 
-        id: 'orderNoun',
-        parents: ['noun', 'queryable'],
-        evaluator: ({context, api}) => {
-          context.evalue = { marker: 'list', value: api.objects.items }
-          api.show()
-        }
-      },
-      { 
-        id: 'showOrder',
-        parents: ['verby'],
-        bridge: "{ ...next(operator), order: after[0] }",
-        generatorp: async ({context, g}) => `show ${await g(context.order)}`,
-        semantic: ({api}) => {
-          api.state.show()
-        },
-      },
-    ],
-  }, module)
-  config.stop_auto_rebuild()
-  await config.add(edible, countable, events, sizeable)
-  await config.setApi(api)
-  await config.initializer( ({api}) => {
-    api.state = new State(api)
-  })
-  if (additionalConfig) {
-    additionalConfig(config)
-  }
-  await config.restart_auto_rebuild()
-  return config
+    },
+  ],
 }
 
 knowledgeModule( {
+    config,
+    includes: [edible, countable, events, sizeable],
+    api: () => new API(),
+    initializer: ({api}) => { api.state = new State(api) },
+
     module,
     description: 'fastfood related concepts',
-    createConfig,
     acceptsAdditionalConfig: true,
     test: {
             name: './fastfood.test.json',

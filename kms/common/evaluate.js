@@ -4,7 +4,7 @@ const tests = require('./evaluate.test.json')
 const pos = require('./pos')
 const gdefaults = require('./gdefaults')
 
-const configStruct = {
+const config = {
   name: 'evaluate', 
   operators: [
     "([evaluate] (value))",
@@ -30,21 +30,12 @@ const configStruct = {
   ],
 };
 
-const createConfig = async () => {
-  const config = new Config(configStruct, module)
-  config.stop_auto_rebuild()
-  await config.add(pos, gdefaults)
-  await config.restart_auto_rebuild()
-  return config
-}
-
 knowledgeModule({ 
-  config: configStruct,
+  config,
   includes: [pos, gdefaults],
 
   module,
   description: 'Explicit handling of evaluate',
-  createConfig,
   test: {
     name: './evaluate.test.json',
     contents: tests,

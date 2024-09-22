@@ -110,7 +110,7 @@ const apiTemplate = (marker, testData) => {
 const api1 = apiTemplate('models', testData2)
 const api2 = apiTemplate('clothes', testData)
 
-let configStruct = {
+let config = {
   name: 'reports',
   operators: [
     //"(([type]) [([(<less> ([than]))] ([amount]))])",
@@ -588,29 +588,6 @@ const initializeApi = (config, api, km) => {
   // config.addWord(type, {"id": "report", "initial": `${open} value: '${type}' ${close}` })
  }
 
-const createConfig = async () => {
-  const config = new Config(configStruct, module)
-  config.stop_auto_rebuild()
-  await config.add(currencyKM, helpKM, math, events)
-  await config.setMultiApi(initializeApi)
-  // mode this to non-module init only
-  await config.initializer(async ({config, objects, km, kms, isModule}) => {
-    if (!isModule) {
-      await kms.reports.addAPI(api1)
-      await kms.reports.addAPI(api2)
-    }
-    objects.tempReportId = 0
-    objects.listings = {
-    }
-    const id = newReport({km, objects})
-    if (!isModule) {
-      objects.listings[id].api = 'clothes'
-    }
-  })
-  await config.restart_auto_rebuild()
-  return config
-}
-
 const initializer = async ({config, objects, km, kms, isModule}) => {
     if (!isModule) {
       await kms.reports.addAPI(api1)
@@ -626,14 +603,13 @@ const initializer = async ({config, objects, km, kms, isModule}) => {
   }
 
 knowledgeModule({
-  config: configStruct,
+  config,
   includes: [currencyKM, helpKM, math, events],
   multiApiInitializer: initializeApi,
   initializer,
   
   module,
   description: 'this module is for getting info about a concept with properties',
-  createConfig,
   test: {
     name: './reports.test.json',
     contents: reports_tests,

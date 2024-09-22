@@ -35,7 +35,7 @@ const warningSameNotEvaluated = (log, one) => {
 }
 
 // TODO implement what / what did you say ...
-let configStruct = {
+let config = {
   name: 'dialogues',
   operators: [
     "([makeObject] (word))",
@@ -897,55 +897,6 @@ const getAsk = (config) => (uuid) => {
 }
 
 
-const createConfig = async () => {
-  const config = new Config(configStruct, module)
-  config.stop_auto_rebuild()
-  await config.setApi(new API())
-  await config.add(articles, gdefaults, sdefaults, pos, negation, stm, meta, punctuation)
-  await config.initializer( ({objects, config, isModule}) => {
-    /* TODO add this beck in. some stuff from config needs to be here
-    config.addArgs((args) => ({ 
-      e: (context) => config.api.getEvaluator(args.s, args.log, context),
-    }))
-    */
-    config.addArgs(({config, api, isA}) => ({ 
-      isAListable: (context, type) => {
-        if (context.marker == 'list' || context.listable) {
-          return context.value.every( (element) => isA(element.marker, type) )
-        } else {
-          return isA(context.marker, type)
-        } 
-      },
-      toContext: (v) => {
-        if (Array.isArray(v)) {
-          return { marker: 'list', level: 1, value: v }
-        }
-        if (v.marker == 'list') {
-          return v
-        }
-        return v
-      },
-      getUUIDScoped: (uuid) => { return {
-          ask: getAsk(config)(uuid),
-        } 
-      },
-      toScopedId: (context) => {
-        return api('dialogues').toScopedId(context)
-      },
-    }))
-    objects.mentioned = []
-    objects.variables = {
-    }
-    if (isModule) {
-    } else {
-      config.addWord("canbedoquestion", { id: "canBeDoQuestion", "initial": "{}" })
-      config.addWord("doesable", { id: "doesAble", "initial": "{}" })
-    }
-  })
-  await config.restart_auto_rebuild()
-  return config
-}
-
 const initializer = ({objects, config, isModule}) => {
   /* TODO add this beck in. some stuff from config needs to be here
   config.addArgs((args) => ({ 
@@ -988,12 +939,11 @@ const initializer = ({objects, config, isModule}) => {
 }
 
 knowledgeModule( { 
-  config: configStruct,
+  config,
   includes: [articles, gdefaults, sdefaults, pos, negation, stm, meta, punctuation],
   initializer,
   api: () => new API(),
 
-  createConfig,
   module,
   description: 'framework for dialogues',
   newWay: true,

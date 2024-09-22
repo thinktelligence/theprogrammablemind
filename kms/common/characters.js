@@ -28,7 +28,7 @@ const getHelp = (config, indent=2) => {
     -> get response back: sally said: blah
 */
 
-let configStruct = {
+let config = {
   name: 'characters',
 
   operators: [
@@ -176,28 +176,6 @@ const initializeApi = (config, api) => {
 }
 
 
-const createConfig = async () => {
-
-  const config = new Config(configStruct, module)
-  config.stop_auto_rebuild()
-  await config.add(gdefaults)
-
-  await config.setMultiApi(initializeApi)
-  config.initializer( async ({isModule, km}) => {
-    if (!isModule) {
-      const timeKM = await createTimeKM()
-      const currencyKM = await createCurrencyKM()
-      const api = new Sally(timeKM)
-      const api2 = new Bob(currencyKM)
-      const config = km('characters')
-      await config.setApi(api2)
-      await config.setApi(api)
-    }
-  })
-  await config.restart_auto_rebuild()
-  return config
-}
-
 const initializer = async ({isModule, km}) => {
   if (!isModule) {
     const timeKM = await createTimeKM()
@@ -211,7 +189,7 @@ const initializer = async ({isModule, km}) => {
 }
 // mode this to non-module init only
 knowledgeModule({
-  config: configStruct,
+  config,
   includes: [gdefaults],
   initializer,
   multiApiInitializer: initializeApi,
@@ -219,7 +197,6 @@ knowledgeModule({
   module,
   description: 'this module is for creating a team of characters that can respond to commands',
   demo: "https://youtu.be/eA25GZ0ZAHo",
-  createConfig,
   test: {
     name: './characters.test.json',
     contents: characters_tests,

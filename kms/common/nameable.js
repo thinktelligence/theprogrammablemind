@@ -70,7 +70,7 @@ class API {
 
 const api = new API()
 
-const configStruct = {
+const config = {
   name: 'nameable',
   operators: [
     "([call] ([nameable]) (name))",
@@ -117,22 +117,11 @@ const configStruct = {
   ]
 }
 
-let createConfig = async () => {
-  const config = new Config(configStruct, module)
-  config.stop_auto_rebuild()
-  await config.setApi(api)
-  await config.add(stm)
-
-  await config.restart_auto_rebuild()
-  return config
-}
-
 knowledgeModule( { 
-  config: configStruct,
+  config,
   api: () => new API(),
   includes: [stm],
 
-  createConfig,
   module,
   description: 'namable objects',
   test: {

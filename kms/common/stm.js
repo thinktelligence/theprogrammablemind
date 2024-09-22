@@ -174,7 +174,7 @@ class API {
 
 const api = new API()
 
-const configStruct = {
+const config = {
   name: 'stm',
   operators: [
     "([stm_previous|previous] ([memorable]))",
@@ -241,27 +241,6 @@ const configStruct = {
   ],
 }
 
-let createConfig = async () => {
-  const config = new Config(configStruct, module)
-  config.stop_auto_rebuild()
-
-  await config.initializer( ({config}) => {
-    config.addArgs(({kms}) => ({
-      mentioned: ({ context }) => {
-        kms.stm.api.mentioned({ context })
-      },
-      mentions: ({ context }) => {
-        return kms.stm.api.mentions({ context })
-      },
-    }))
-  })
-  await config.setApi(api)
-  await config.add(evaluate, articles)
-
-  await config.restart_auto_rebuild()
-  return config
-}
-
 const initializer = ({config}) => {
     config.addArgs(({kms}) => ({
       mentioned: ({ context }) => {
@@ -274,14 +253,13 @@ const initializer = ({config}) => {
   }
 
 knowledgeModule( { 
-  config: configStruct,
+  config,
   api: () => new API(),
   includes: [evaluate, articles],
   initializer,
 
   module,
   description: 'short term memory',
-  createConfig,
   test: {
     name: './stm.test.json',
     contents: stm_tests,

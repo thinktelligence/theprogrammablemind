@@ -37,53 +37,48 @@ const template = {
   ],
 };
 
-const createConfig = async () => {
-  const config = new Config({ name: 'crew', }, module)
-  config.stop_auto_rebuild()
-  await config.add(avatar, animals)
-  crew_instance.base = 'avatar'
-  await config.initializer( ({config, apis}) => {
-    const api = apis('properties')
-    const conceptApi = apis('concept')
-    // conceptApi.kindOfConcept({ config, modifiers: ['photon'], object: 'torpedo' })
-    // conceptApi.kindOfConcept({ config, modifiers: ['crew'], object: 'member' })
-    api.createActionPrefix({ 
-                  operator: 'arm', 
-                  create: ['arm', 'weapon'], 
-                  after: [{tag: 'weapon', id: 'weapon'}],
-                  config }, 
-                  /*
-                  ({context, km}) => {
-                    const value = {
-                            "marker": "unknown",
-                            "types": [
-                              "unknown"
-                            ],
-                            "unknown": true,
-                            "value": "armed",
-                            "word": "armed",
-                            "response": true
-                    }
-                    km("properties").api.setProperty(context.weapon.value, 'status', value, true) 
+const initializer = ({config, apis}) => {
+  const api = apis('properties')
+  const conceptApi = apis('concept')
+  // conceptApi.kindOfConcept({ config, modifiers: ['photon'], object: 'torpedo' })
+  // conceptApi.kindOfConcept({ config, modifiers: ['crew'], object: 'member' })
+  api.createActionPrefix({ 
+                operator: 'arm', 
+                create: ['arm', 'weapon'], 
+                after: [{tag: 'weapon', id: 'weapon'}],
+                config }, 
+                /*
+                ({context, km}) => {
+                  const value = {
+                          "marker": "unknown",
+                          "types": [
+                            "unknown"
+                          ],
+                          "unknown": true,
+                          "value": "armed",
+                          "word": "armed",
+                          "response": true
                   }
-                  */
-            )
-    
-    api.createActionPrefix({ 
-                  operator: 'disarm', 
-                  create: ['disarm'/*, 'weapon'*/], 
-                  after: [{tag: 'weapon', id: 'weapon'}],
-                  config }) 
-  })
-  await config.restart_auto_rebuild()
-  return config
+                  km("properties").api.setProperty(context.weapon.value, 'status', value, true) 
+                }
+                */
+          )
+  
+  api.createActionPrefix({ 
+                operator: 'disarm', 
+                create: ['disarm'/*, 'weapon'*/], 
+                after: [{tag: 'weapon', id: 'weapon'}],
+                config }) 
 }
 
 // config.load(template, crew_instance)
 knowledgeModule( {
+  config: { name: 'crew', },
+  includes: [avatar, animals],
+  initializer,
+
   module,
   description: 'Knowledge about the enterprise and crew using a KM template',
-  createConfig,
   test: {
           name: './crew.test.json',
           contents: crew_tests,
