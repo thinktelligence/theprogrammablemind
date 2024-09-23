@@ -17,6 +17,8 @@ let config = {
     "(([quantifier|]) [counting] ([countable]))",
     "(([number|]) [countOfPieces|] ([piece]))",
     "((countOfPieces/*) [countingPieces] ([hasCountOfPieces]))",
+    "([more] (countable/*))",
+    "([less] (countable/*))",
     "([all])",
     // everything
   ],
@@ -43,6 +45,14 @@ let config = {
     },
     { 
       id: "piece", 
+    },
+    { 
+      id: "more", 
+      bridge: "{ ...next(after[0]), more: operator, modifiers: append(['more'], after[0].modifiers) }",
+    },
+    { 
+      id: "less", 
+      bridge: "{ ...next(after[0]), less: operator, modifiers: append(['less'], after[0].modifiers) }",
     },
     { 
       id: "quantifier", 
