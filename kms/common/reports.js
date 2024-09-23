@@ -377,9 +377,6 @@ let config = {
     "literals": {
       "tables": [{"id": "listingType", "initial": "{ value: 'tables' }" }],
       "sentences": [{"id": "listingType", "initial": "{ value: 'sentences' }" }],
-      //"product1": [{"id": "reportObject", "initial": "{ value: 'api1' }" }],
-      //"api2": [{"id": "reportObject", "initial": "{ value: 'api2' }" }],
-      //" ([0-9]+)": [{"id": "amount", "initial": "{ value: int(group[0]) }" }],
     }
   },
 
@@ -570,7 +567,7 @@ let config = {
   ],
 };
 
-const initializeApi = (config, api, km) => {
+const initializeApi = (config, api) => {
   const type = api.getName();
   config.addWord(type, {"id": "product", "initial": "{ value: '" + type + `', api: '${type}'}` })
   /*
@@ -590,6 +587,7 @@ const initializeApi = (config, api, km) => {
 
 const initializer = async ({config, objects, km, kms, isModule}) => {
     if (!isModule) {
+      debugger
       await kms.reports.addAPI(api1)
       await kms.reports.addAPI(api2)
     }

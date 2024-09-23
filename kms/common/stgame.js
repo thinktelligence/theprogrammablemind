@@ -53,6 +53,7 @@ class SpockAPI {
   }
 
   process(config, utterance) {
+    debugger
     this.spock.server(config.getServer(), config.getAPIKey())
     // return this.spock.process(utterance, { credentials: this.credentials })
     return clientProcess(this.spock, utterance, { credentials: this.credentials })
@@ -67,8 +68,8 @@ const createCharactersHelper = async () => {
   const characters = await createCharacters()
   const kirk = await createKirk()
   const spock = await createSpock()
-  await characters.setApi(new KirkAPI(kirk))
-  await characters.setApi(new SpockAPI(spock))
+  await characters.setApi(() => new KirkAPI(kirk))
+  await characters.setApi(() => new SpockAPI(spock))
   return characters
 }
 

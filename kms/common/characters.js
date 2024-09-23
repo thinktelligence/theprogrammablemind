@@ -183,8 +183,8 @@ const initializer = async ({isModule, km}) => {
     const config = km('characters')
     const api = new Sally(timeKM)
     const api2 = new Bob(currencyKM)
-    await config.setApi(api2)
-    await config.setApi(api)
+    await config.setApi(() => api2)
+    await config.setApi(() => api)
   }
 }
 // mode this to non-module init only

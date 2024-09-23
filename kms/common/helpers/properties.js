@@ -45,6 +45,10 @@ class API {
     }
 
     if (km('concept')) {
+      if (!km('concept').api) {
+        debugger
+        debugger
+      }
       km('concept').api.addDefaultTypesForObjectHierarchy([
         'theAble',
         'queryable',
