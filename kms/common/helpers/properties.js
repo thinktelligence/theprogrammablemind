@@ -254,12 +254,10 @@ class API {
         notes: `generator for who/what is X owned by`,
         // match: ({context, hierarchy}) => hierarchy.isA(context.marker, 'is') && context.one && context.one.marker == 'ownee' && context.one.constraints && context.one.constraints[0] && context.one.constraints[0].constraint.marker == 'owned' && context.one.constraints[0].constraint.owner.implicit,
         match: ({context, hierarchy}) => hierarchy.isA(context.marker, 'is') && context.one && context.one.marker == after[0].tag && context.one.constraints && context.one.constraints[0] && context.one.constraints[0].constraint.marker == edAble.operator && context.one.constraints[0].constraint[before[0].tag].implicit,
-        apply: async ({context, g, gs, callId}) => {
+        apply: async ({context, fragments, g, gs, callId}) => {
           const isToFromM = [{"from":["one"],"to":["two"]},{"from":["two"],"to":["one"]}]
-          const fromF = config.fragment(whoIsWhatVerbedBy).contexts()[0]
-          // const fromF = config.fragment[before[0].tag]"ownerVar is owneeVar owned by").contexts()[0]
-          // const toF = config.fragment("owneeVar is owned by ownerVar")
-          const toF = config.fragment(thisIsVerbedByThat)
+          const fromF = fragments(whoIsWhatVerbedBy).contexts()[0]
+          const toF = fragments(thisIsVerbedByThat)
           const to = toF.contexts()[0]
           const tm = translationMapping(fromF, to)
           /*

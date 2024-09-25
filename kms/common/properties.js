@@ -489,7 +489,7 @@ let config = {
       where: where(),
       // match: ({context}) => context.marker == 'property' && context.same && context.object,
       match: ({context, hierarchy, uuid}) => hierarchy.isA(context.marker, 'property') && context.same && context.objects && !context[`disable${uuid}`],
-      apply: async ({context, objects, km, api, log, s, uuid}) => {
+      apply: async ({context, fragments, objects, km, api, log, s, uuid}) => {
         const objectContext = context.object;
         const propertyContext = context;
         const objectId = context.object.value
@@ -516,7 +516,7 @@ let config = {
         } catch (e) {
           log(`Error processing set property of an object: ${e}`)
           const config = km('properties')
-          const fragment = config.fragment("the property1 of object1 is value1")
+          const fragment = fragments("the property1 of object1 is value1")
           const value = await api.getProperty(objectId, propertyId)
           if (value.value == context.same.value) {
             context.evalue = [
