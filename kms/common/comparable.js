@@ -1,8 +1,11 @@
 const { knowledgeModule, where, Digraph } = require('./runtime').theprogrammablemind
 const { defaultContextCheck } = require('./helpers')
 const dialogues = require("./dialogues")
+const concept = require("./concept")
 const numbers = require("./numbers")
 const comparable_tests = require('./comparable.test.json')
+const comparable_instance = require('./comparable.instance.json')
+
 
 let config = {
   name: 'comparable',
@@ -11,8 +14,7 @@ let config = {
     "(([condition/1]) <compare|> ([comparable]))",
     "([highest])",
     "([lowest])",
-    "((comparable/*) <ascending>)",
-    "((comparable/*) <descending>)",
+    // "((comparable/*) <sortOrdering|>)",
   ],
   bridges: [
     { 
@@ -41,8 +43,9 @@ let config = {
       id: "highest", 
       bridge: "{ ...next(operator) }" 
     },
+    /*
     { 
-      id: "ascending", 
+      id: "sortOrdering", 
       isA: ['adjective'],
       bridge: "{ ...next(before[0]), ordering: 'ascending', ascending: operator, postModifiers: append(['ascending'], before[0].postModifiers) }" 
     },
@@ -51,12 +54,38 @@ let config = {
       isA: ['adjective'],
       bridge: "{ ...next(before[0]), ordering: 'descending', descending: operator, postModifiers: append(['descending'], before[0].postModifiers) }" 
     },
+    */
   ],
 };
 
+const template = {
+  configs: [
+    "sort modifies ordering",
+    "ascending is a sort ordering",
+    "descending is a sort ordering",
+    {
+      operators: [
+        "((comparable/*) [sortOrdering] (<sort_ordering/*))",
+      ],
+      bridges: [
+        {
+          id: 'sortOrdering',
+          convolution: true,
+          before: ['verb'],
+          bridge: "{ ...next(before[0]), ordering: after[0].value, sortOrder: after[0], postModifiers: append(['sortOrder'], before[0].postModifiers) }",
+        },
+      ],
+    }
+  ],
+}
+
 knowledgeModule({ 
   config,
-  includes: [dialogues, numbers],
+  includes: [dialogues, numbers, concept],
+  template: {
+    template,
+    instance: comparable_instance
+  },
 
   module,
   description: 'Comparable things',
