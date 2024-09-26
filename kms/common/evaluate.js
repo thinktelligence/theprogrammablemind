@@ -20,7 +20,7 @@ const config = {
     },
     {
       id: 'evaluate',
-      isA: ['verby'],
+      isA: ['verb'],
       bridge: "{ ...next(operator), postModifiers: ['value'], value: after[0] }",
       semantic: async ({context, e}) => {
         context.response = (await e(context.value)).evalue

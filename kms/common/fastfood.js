@@ -411,7 +411,7 @@ const template = {
       bridges: [
         { 
           id: "change",
-          isA: ['verby'],
+          isA: ['verb'],
           localHierarchy: [ ['thisitthat', 'meal'] ],
           generatorp: async ({context, gp}) => `change ${await gp(context.from)} to ${await gp(context.to)}`,
           bridge: "{ ...next(operator), from: after[0], to: after[1].toObject }",
@@ -451,7 +451,7 @@ const template = {
       bridges: [
         {
           id: 'remove',
-          isA: ['verby'],
+          isA: ['verb'],
           bridge: "{ ...next(operator), remove: after[0], postModifiers: ['remove'] }",
           semantic: ({context, api}) => {
             const state = api.state
@@ -464,7 +464,7 @@ const template = {
         },
         {
           id: 'reset',
-          isA: ['verby'],
+          isA: ['verb'],
           bridge: "{ ...next(operator) }",
           semantic: ({context, api}) => {
             api.reset()
@@ -976,7 +976,7 @@ const config = {
     },
     { 
       id: 'showOrder',
-      parents: ['verby'],
+      parents: ['verb'],
       bridge: "{ ...next(operator), order: after[0] }",
       generatorp: async ({context, g}) => `show ${await g(context.order)}`,
       semantic: ({api}) => {

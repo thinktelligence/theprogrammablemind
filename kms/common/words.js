@@ -9,7 +9,7 @@ let configStruct = {
     "([articlePOS])",
     "([prewordsition])",
     "([pronoun])",
-    "([verby])",
+    "([verb])",
     "([punctuation])",
   ],
   bridges: [
@@ -17,15 +17,15 @@ let configStruct = {
     { "id": "articlePOS" },
     { "id": "prewordsition" },
     { "id": "pronoun" },
-    { "id": "verby" },
+    { "id": "verb" },
     { "id": "punctuation" },
   ],
   priorities: [
-    { "choose": [['pronoun', 0], ['verby', 0], ], "choose": [0] },
-    { "choose": [['prewordsition', 0], ['verby', 0], ], "choose": [0] },
-    { "choose": [['adjective', 0], ['verby', 0], ], "choose": [0] },
-    { "choose": [['articlePOS', 0], ['verby', 0], ], "choose": [0] },
-    { "choose": [['punctuation', 0], ['verby', 0], ], "choose": [0] },
+    { "choose": [['pronoun', 0], ['verb', 0], ], "choose": [0] },
+    { "choose": [['prewordsition', 0], ['verb', 0], ], "choose": [0] },
+    { "choose": [['adjective', 0], ['verb', 0], ], "choose": [0] },
+    { "choose": [['articlePOS', 0], ['verb', 0], ], "choose": [0] },
+    { "choose": [['punctuation', 0], ['verb', 0], ], "choose": [0] },
   ],
 
 };

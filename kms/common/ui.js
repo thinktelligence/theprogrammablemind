@@ -75,7 +75,7 @@ const config = {
     { 
        where: where(),
        id: "select", 
-       isA: ['verby'],
+       isA: ['verb'],
        level: 0, 
        bridge: "{ ...next(operator) }",
        semantic: ({api, context}) => {
@@ -85,7 +85,7 @@ const config = {
     { 
        where: where(),
        id: "unselect", 
-       isA: ['verby'],
+       isA: ['verb'],
        level: 0, 
        bridge: "{ ...next(operator) }",
        semantic: ({api, context}) => {
@@ -103,7 +103,7 @@ const config = {
     { 
        where: where(),
        id: "cancel", 
-       isA: ['verby'],
+       isA: ['verb'],
        level: 0, 
        words: ['close'],
        bridge: "{ ...next(operator) }",
@@ -114,7 +114,7 @@ const config = {
     { 
        where: where(),
        id: "stop", 
-       isA: ['verby'],
+       isA: ['verb'],
        level: 0, 
        bridge: "{ ...next(operator), action: after[0] }",
        generatorp: async ({context, g}) => `stop ${await g(context.action)}`,
@@ -125,7 +125,7 @@ const config = {
     { 
        where: where(),
        id: "move", 
-       isA: ['verby'],
+       isA: ['verb'],
        level: 0, 
        bridge: "{ ...next(operator), direction: after[0] }",
        generatorp: async ({context, g}) => `move ${await g(context.direction)}`,

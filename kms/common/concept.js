@@ -24,7 +24,7 @@ config = {
   bridges: [
     {
       id: "modifies",
-      isA: ['verby'],
+      isA: ['verb'],
       words: [{ word: 'modifies', number: 'one', flatten: false }, { word: 'modify', number: 'many', flatten: true }],
       // bridge: "{ ...next(operator), modifiers: before, concept: after[0], flatten: true }"
       bridge: "{ ...next(operator), modifiers: before, concept: after[0] }"

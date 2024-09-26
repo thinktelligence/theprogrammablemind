@@ -44,7 +44,7 @@ let config = {
       id: "thisitthat", 
       level: 0, 
       isA: ['queryable'], 
-      before: ['verby'],
+      before: ['verb'],
       bridge: "{ ...next(operator) }" 
     },
     { 

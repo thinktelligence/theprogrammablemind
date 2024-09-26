@@ -93,7 +93,7 @@ const config = {
     {
       id: 'getNamesByType',
       development: true,
-      isA: ['verby'],
+      isA: ['verb'],
       bridge: "{ ...next(operator), type: after[0] }",
       semantic: async ({context, api}) => {
         context.response = api.getNamesByType(context.type.value).join(" ")
@@ -102,7 +102,7 @@ const config = {
     },
     {
       id: 'call',
-      isA: ['verby'],
+      isA: ['verb'],
       bridge: "{ ...next(operator), nameable: after[0], name: after[1] }",
       generatorp: async ({context, g}) => `call ${await g(context.nameable)} ${await g(context.name)}`,
       semantic: async ({config, context, api, e}) => {

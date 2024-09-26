@@ -14,7 +14,7 @@ let config = {
     { 
       id: 'not', 
       bridge: '{ ...after[0], negated: operator, modifiers: append(["negated"], after[0].modifiers) }',
-      before: ['verby'],
+      before: ['verb'],
       localHierarchy: [['unknown', 'negatable']],
     },
     { id: 'negatable', words: words('negatable') },

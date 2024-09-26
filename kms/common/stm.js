@@ -196,7 +196,7 @@ const config = {
     { 
       id: 'remember', 
       bridge: "{ ...next(operator), postModifiers: ['rememberee'], rememberee: after[0] }",
-      isA: ['verby'],
+      isA: ['verb'],
       semantic: async ({context, api, e}) => {
         let value = (await e(context.rememberee)).evalue
         if (value == context.rememberee.value) {

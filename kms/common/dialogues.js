@@ -195,7 +195,7 @@ let config = {
     { id: "isEder", level: 0, bridge: "{ ...next(operator) }" },
     { id: "is", level: 0, 
             bridge: "{ ...next(operator), one: { number: operator.number, ...before[0] }, two: after[0] }", 
-            isA: ['verby'],
+            isA: ['verb'],
             queryBridge: "{ ...next(operator), one: after[0], two: after[1], query: true }" ,
     },
     { id: "is", level: 1, bridge: "{ ...next(operator) }" },

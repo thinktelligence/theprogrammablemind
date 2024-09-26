@@ -40,7 +40,7 @@ let config = {
       where: where(),
       id: "changes", 
       level: 0, 
-      isA: ['verby'],
+      isA: ['verb'],
       bridge: "{ ...next(operator), changeable: before[0] }",
       generatorp: async ({context, g}) => {
         if (!context.changeable) {

@@ -16,7 +16,7 @@ let config = {
       id: "sizing", 
       level: 0, 
       convolution: true, 
-      before: ['verby'],
+      before: ['verb'],
       bridge: "{ ...after, size: before[0], modifiers: append(['size'], after.modifiers) }" 
     },
     { 

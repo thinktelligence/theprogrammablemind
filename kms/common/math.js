@@ -93,7 +93,7 @@ let config = {
     },
     { 
       id: "mathematical_operator", 
-      before: ['verby'],
+      before: ['verb'],
       after: ['adjective'],
     },
     { id: "x", isA: ['number'], level: 0, bridge: '{ ...next(operator) }', development: true},

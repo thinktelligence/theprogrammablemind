@@ -117,7 +117,7 @@ let config = {
     // "([weapon])",
     // "([44_pistol|])",
     "([apparel])",
-    "((!articlePOS/0 && !verby/0) [outfit|outfit])",
+    "((!articlePOS/0 && !verb/0) [outfit|outfit])",
     // this doesnt work because the speech recognizer hears 'where'
     "([wear] ([wearable]))",
     "([strip])",
@@ -152,7 +152,7 @@ let config = {
     {
        where: where(),
        id: "put", 
-       isA: ['verby'],
+       isA: ['verb'],
        level: 0, 
        bridge: "{ ...next(operator) }",
        generatorp: ({context}) => `put on`,
@@ -179,7 +179,7 @@ let config = {
     { 
        where: where(),
        id: "change", 
-       isA: ['verby'],
+       isA: ['verb'],
        level: 0, 
        bridge: "{ ...next(operator), item: after[0] }",
        localHierarchy: [ ['weapon', 'changeable'] ],
@@ -191,7 +191,7 @@ let config = {
     { 
        where: where(),
        id: "disarm", 
-       isA: ['verby'],
+       isA: ['verb'],
        level: 0, 
        bridge: "{ ...next(operator) }",
        generatorp: ({context}) => `disarm`,
@@ -202,7 +202,7 @@ let config = {
     { 
        where: where(),
        id: "strip", 
-       isA: ['verby'],
+       isA: ['verb'],
        level: 0, 
        bridge: "{ ...next(operator) }",
        generatorp: ({context}) => `strip`,
@@ -213,7 +213,7 @@ let config = {
     { 
        where: where(),
        id: "call", 
-       isA: ['verby'],
+       isA: ['verb'],
        level: 0, 
        bridge: "{ ...next(operator), item: after[0], name: after[1] }",
        generatorp: async ({context, g}) => `call ${await g(context.item)} ${await g(context.name)}`,
@@ -224,7 +224,7 @@ let config = {
     { 
        where: where(),
        id: "putOn", 
-       isA: ['verby'],
+       isA: ['verb'],
        level: 0, 
        bridge: "{ ...next(operator), item: after[0] }",
        generatorp: async ({context, g}) => `put on ${await g(context.item)}`,
@@ -239,7 +239,7 @@ let config = {
     { 
        where: where(),
        id: "wear", 
-       isA: ['verby'],
+       isA: ['verb'],
        words: ['where'], // the speech recognizer hears 'where' not 'wear'
        level: 0, 
        bridge: "{ ...next(operator), item: after[0] }",
@@ -255,7 +255,7 @@ let config = {
     { 
        where: where(),
        id: "equip", 
-       isA: ['verby'],
+       isA: ['verb'],
        level: 0, 
        localHierarchy: [ ['weapon', 'equipable'], ['thisitthat', 'equipable'] ],
        bridge: "{ ...next(operator), item: after[0] }",
@@ -271,7 +271,7 @@ let config = {
     { 
        where: where(),
        id: "toDrink", 
-       isA: ['verby'],
+       isA: ['verb'],
        level: 0, 
        bridge: "{ ...next(operator), item: after[0] }",
        generatorp: async ({context, g}) => `drink ${await g(context.item)}`,
@@ -283,7 +283,7 @@ let config = {
     { 
        where: where(),
        id: "eat", 
-       isA: ['verby'],
+       isA: ['verb'],
        level: 0, 
        bridge: "{ ...next(operator), item: after[0] }",
        generatorp: async ({context, g}) => `eat ${await g(context.item)}`,
@@ -294,7 +294,7 @@ let config = {
     { 
        where: where(),
        id: "take", 
-       isA: ['verby'],
+       isA: ['verb'],
        level: 0, 
        bridge: "{ ...next(operator), item: after[0] }",
        generatorp: async ({context, g}) => `take ${await g(context.item)}`,
@@ -368,7 +368,7 @@ let config = {
     */
     { 
        id: "apply", 
-       isA: ['verby'],
+       isA: ['verb'],
        level: 0, 
        bridge: "{ ...next(operator), item: after[0] }",
        generatorp: async ({context, g}) => `apply ${await g(context.item)}`,
@@ -380,7 +380,7 @@ let config = {
     },
     { 
        id: "go", 
-       isA: ['verby'],
+       isA: ['verb'],
        level: 0, 
        bridge: "{ ...next(operator), showable: after[0].showable }",
        generatorp: async ({context, g}) => `go to ${await g(context.showable)}`,
@@ -397,7 +397,7 @@ let config = {
     },
     { 
        id: "showWeapons", 
-       isA: ['verby'],
+       isA: ['verb'],
        level: 0, 
        bridge: "{ ...next(operator), showable: after[0] }",
        generatorp: async ({context, g}) => `show ${await g(context.showable)}`,
@@ -411,7 +411,7 @@ let config = {
     },
     { 
        id: "show", 
-       isA: ['verby'],
+       isA: ['verb'],
        level: 0, 
        bridge: "{ ...next(operator), showable: after[0] }",
        generatorp: async ({context, g}) => `show ${await g(context.showable)}`,
