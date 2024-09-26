@@ -11,6 +11,8 @@ let config = {
     "(([condition/1]) <compare|> ([comparable]))",
     "([highest])",
     "([lowest])",
+    "((comparable/*) <ascending>)",
+    "((comparable/*) <descending>)",
   ],
   bridges: [
     { 
@@ -44,6 +46,16 @@ let config = {
       level: 0, 
       bridge: "{ ...next(operator) }" 
     },
+    { 
+      id: "ascending", 
+      level: 0, 
+      bridge: "{ ...next(before[0]), ordering: 'ascending', ascending: operator, postModifiers: append(['ascending'], before[0].postModifiers) }" 
+    },
+    { 
+      id: "descending", 
+      level: 0, 
+      bridge: "{ ...next(before[0]), ordering: 'descending', descending: operator, postModifiers: append(['descending'], before[0].postModifiers) }" 
+    },
   ],
 };
 
@@ -57,7 +69,7 @@ knowledgeModule({
     name: './comparable.test.json',
     contents: comparable_tests,
     checks: {
-            context: defaultContextCheck,
-          },
+      context: [...defaultContextCheck, 'ordering'],
+    },
   },
 })

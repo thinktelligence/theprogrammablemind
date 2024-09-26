@@ -123,8 +123,8 @@ let config = {
     "([answer] ([with] ([listingType|])))",
     "([show] (<the> ([property|property,properties])))",
     "([call] ([report|]) (rest))",
-    "(([property]) <ascending>)",
-    "(([property]) <descending>)",
+    // "(([property]) <ascending>)",
+    // "(([property]) <descending>)",
     "([describe] ([report]))",
     "([price])",
     "([quantity])",
@@ -262,8 +262,8 @@ let config = {
         ],
     },
 
-    { id: "ascending", level: 0, bridge: "{ ...before[0], ordering: 'ascending' }" },
-    { id: "descending", level: 0, bridge: "{ ...before[0], ordering: 'descending', modifiers: append(['ordering'], before[0].modifiers) }" },
+    // { id: "ascending", level: 0, bridge: "{ ...before[0], ordering: 'ascending' }" },
+    // { id: "descending", level: 0, bridge: "{ ...before[0], ordering: 'descending', modifiers: append(['ordering'], before[0].modifiers) }" },
 
     { id: "product", level: 0, bridge: "{ ...next(operator) }" },
     { id: "listAction", level: 0, bridge: "{ ...next(operator), what: after[0]}" },
@@ -348,6 +348,7 @@ let config = {
     },
   ],
   hierarchy: [
+    ['property', 'comparable'],
     ['ascending', 'ordering'],
     ['descending', 'ordering'],
     ['property', 'theAble'],
