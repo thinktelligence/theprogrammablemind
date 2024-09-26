@@ -71,7 +71,7 @@ const template = {
         {
           id: 'sortOrdering',
           convolution: true,
-          before: ['verb'],
+          isA: ['adjective'],
           bridge: "{ ...next(before[0]), ordering: after[0].value, sortOrder: after[0], postModifiers: append(['sortOrder'], before[0].postModifiers) }",
         },
       ],
