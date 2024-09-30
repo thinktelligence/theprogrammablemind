@@ -131,12 +131,12 @@ const toEValue = (context) => {
 	return context;
 }
 
-const defaultContextProperties = ['marker', 'text', 'verbatim', 'isResponse', { property: 'response', filter: ['marker', 'text', 'verbatim'] }] 
+const defaultContextCheckProperties = ['marker', 'text', 'verbatim', 'isResponse', { property: 'response', filter: ['marker', 'text', 'verbatim'] }] 
 const defaultContextCheck = [
-  ...defaultContextProperties,
+  ...defaultContextCheckProperties,
   (object) => {
     if (typeof object.value == 'object') {
-      return { property: 'value', filter: defaultContextProperties }
+      return { property: 'value', filter: defaultContextCheckProperties }
     } else {
       return 'value'
     }
@@ -146,16 +146,17 @@ const defaultContextCheck = [
       return
     }
     if (typeof object.modifiers[0] == 'object') {
-      return { property: 'modifiers', filter: defaultContextProperties }
+      return { property: 'modifiers', filter: defaultContextCheckProperties }
     } else {
       return 'modifiers'
     }
   },
-  { property: 'modifiers', isPropertyList: true, filter: defaultContextProperties }
+  { property: 'modifiers', isPropertyList: true, filter: defaultContextCheckProperties }
 ]
 
 module.exports = {
   defaultContextCheck,
+  defaultContextCheckProperties,
 	toEValue,
   millisecondsUntilHourOfDay,
   indent,
