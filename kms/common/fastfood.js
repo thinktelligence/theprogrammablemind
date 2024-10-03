@@ -137,7 +137,7 @@ const template = {
         "((meal/* && context.comboNumber == undefined) [comboMeal] (combo/*))",
         "((combo/*) [comboNumber] (number/* || numberNumberCombo/*))",
         "((numberNumberCombo/1) [numberNumberCombo_combo|] (combo/0))",
-        "((number/0,1 && context.instance == undefined) [numberNumberCombo] (number/0,1))",
+        "((number/0,1 && context.instance == false) [numberNumberCombo] (number/0,1 && instance == true))",
         "((combo/*) [([withModification|with] ([modification]))])",
       ],
       floaters: ['instance'],
