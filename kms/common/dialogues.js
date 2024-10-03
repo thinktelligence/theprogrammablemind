@@ -142,8 +142,8 @@ let config = {
           match: "same", 
           left: [ { pattern: '($type && context.instance == variables.instance)' } ], 
           right: [ { pattern: '($type && context.instance == variables.instance)' } ], 
-          left: [ { pattern: '($type)' } ], 
-          right: [ { pattern: '($type)' } ], 
+          // left: [ { pattern: '($type)' } ], 
+          // right: [ { pattern: '($type)' } ], 
           passthrough: true
       }, 
       bridge: "{ ...next(operator), listable: true, isList: true, value: append(before, after) }"
