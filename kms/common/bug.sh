@@ -840,4 +840,5 @@ fi
 #$NODE people -q "given name means first name the first name of greg is greg23 what is the given name of greg" -g -d
 # $NODE tester -m reports -q 'list the models' -tmn reports -g
 # $NODE stm -q 'remember m1\nremember m2\ntestpullfromcontext previous memorable' -g -d
-$NODE time -q 'what is the time' -g -d
+# $NODE time -q 'what is the time' -g -d
+$NODE fastfood -q 'a large sprite change it to coke' -g -d

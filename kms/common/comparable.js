@@ -43,18 +43,6 @@ let config = {
       id: "highest", 
       bridge: "{ ...next(operator) }" 
     },
-    /*
-    { 
-      id: "sortOrdering", 
-      isA: ['adjective'],
-      bridge: "{ ...next(before[0]), ordering: 'ascending', ascending: operator, postModifiers: append(['ascending'], before[0].postModifiers) }" 
-    },
-    { 
-      id: "descending", 
-      isA: ['adjective'],
-      bridge: "{ ...next(before[0]), ordering: 'descending', descending: operator, postModifiers: append(['descending'], before[0].postModifiers) }" 
-    },
-    */
   ],
 };
 
@@ -72,6 +60,7 @@ const template = {
           id: 'sortOrdering',
           convolution: true,
           isA: ['adjective'],
+          localHierarchy: [['unknown', 'comparable']],
           bridge: "{ ...next(before[0]), ordering: after[0].value, sortOrder: after[0], postModifiers: append(['sortOrder'], before[0].postModifiers) }",
         },
       ],

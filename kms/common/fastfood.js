@@ -412,7 +412,7 @@ const template = {
         { 
           id: "change",
           isA: ['verb'],
-          localHierarchy: [ ['thisitthat', 'meal'] ],
+          localHierarchy: [ ['thisitthat', 'meal'], ['thisitthat', 'drink'] ],
           generatorp: async ({context, gp}) => `change ${await gp(context.from)} to ${await gp(context.to)}`,
           bridge: "{ ...next(operator), from: after[0], to: after[1].toObject }",
           semantic: async ({context, api, e}) => {
