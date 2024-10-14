@@ -4,6 +4,8 @@ const helpers = require('./helpers')
 const stm = require('./stm')
 const nameable_tests = require('./nameable.test.json')
 
+// TODO but "remember the m1\n call the m1 banana" <- the on the first one
+
 class API {
   initialize({ objects, km, kms }) {
     this.objects = objects
@@ -73,7 +75,8 @@ const api = new API()
 const config = {
   name: 'nameable',
   operators: [
-    "([call] ([nameable]) (name))",
+    // "([call] ([nameable]) (name))",
+    "([call] ([nameable]) (name)*)",
     { pattern: "([getNamesByType] (type))", development: true },
     { pattern: "([m1])", development: true },
 //    { pattern: "([testPullFromContext] ([memorable]))", development: true }
@@ -103,12 +106,15 @@ const config = {
     {
       id: 'call',
       isA: ['verb'],
-      bridge: "{ ...next(operator), nameable: after[0], name: after[1] }",
-      generatorp: async ({context, g}) => `call ${await g(context.nameable)} ${await g(context.name)}`,
+      bridge: "{ ...next(operator), nameable: after[0], name: after[1:] }",
+      // bridge: "{ ...next(operator), nameable: after[0], name: after[1] }",
+      // generatorp: async ({context, g}) => `call ${await g(context.nameable)} ${await g(context.name)}`,
+      generatorp: async ({context, g, gs}) => `call ${await g(context.nameable)} ${await gs(context.name)}`,
       semantic: async ({config, context, api, e}) => {
         // TODO find report being referred to
         const nameable = (await e(context.nameable)).evalue
-        const name = context.name.text
+        const name = context.name.map((n) => n.text).join(' ')
+        // const name = context.name.text
         config.addWord(name, { id: nameable.marker, initial: `{ value: "${name}", pullFromContext: true, nameable_named: true }` })
         api.setName(nameable, name)
       }
@@ -131,5 +137,8 @@ knowledgeModule( {
             context: [...defaultContextCheck, 'pullFromContext'],
             objects: ['mentioned', { km: 'stm' }],
           },
+    include: {
+      words: [ "peter james chunkington", "banana" ],
+    }
   },
 })

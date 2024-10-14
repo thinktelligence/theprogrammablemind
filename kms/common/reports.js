@@ -122,7 +122,7 @@ let config = {
     "(([product]) <(<that> ([cost] ([price])))>)",
     "([answer] ([with] ([listingType|])))",
     "([show] (<the> ([property|property,properties])))",
-    "([call] ([report|]) (rest))",
+    "([call] ([report|]) (rest)*)",
     // "(([property]) <ascending>)",
     // "(([property]) <descending>)",
     "([describe] ([report]))",
@@ -326,13 +326,14 @@ let config = {
       where: where(),
       id: "call", 
       level: 0, 
-      bridge: "{ ...next(operator), namee: after[0], name: after[1] }",
-      generatorp: async ({g, context}) => `call ${await g(context.namee)} ${await g(context.name)}`,
+      bridge: "{ ...next(operator), namee: after[0], name: after[1:] }",
+      generatorp: async ({g, gs, context}) => `call ${await g(context.namee)} ${await gs(context.name)}`,
       semantic: async ({context, objects, e, config, km}) => {
         const namee = (await e(context.namee)).evalue
         const id = namee.value
         const listing = objects.listings[id]
-        const name = context.name.text
+        // const name = context.name.text
+        const name = context.name.map((n) => n.text).join('')
         objects.listings[name] = {...listing}
         config.addWord(`${name}`,  { id: 'report', initial: `{ value: "${name}" }` })
         km('stm').api.mentioned({

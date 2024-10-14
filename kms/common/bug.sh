@@ -841,4 +841,6 @@ fi
 # $NODE tester -m reports -q 'list the models' -tmn reports -g
 # $NODE stm -q 'remember m1\nremember m2\ntestpullfromcontext previous memorable' -g -d
 # $NODE time -q 'what is the time' -g -d
-$NODE fastfood -q 'a large sprite change it to coke' -g -d
+# $NODE fastfood -q 'a large sprite change it to coke' -g -d
+# $NODE math -q "x is 3 y is 4 what is x" -g -d
+$NODE math -q "x is 3 y is 4 what is x" -g -d
