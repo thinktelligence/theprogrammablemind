@@ -9,6 +9,7 @@ let config = {
     "([leftParenthesis|] (phrase) ([rightParenthesis|]))",
     "((before) [comma|])", // comma applies if before is dead
     "([colon|])",
+    "((sentence) <endOfSentence|>)",
     "([doubleQuote|] (!doubleQuote/*)* (doubleQuote/*))",
   ],
   bridges: [
@@ -30,7 +31,14 @@ let config = {
       bridge: "{ ...next(operator) }",
       words: [{ word: ")", value: ')', depth: '-' }],
     },
-    { id: "colon", words: [':'],  },
+    { 
+      id: "colon", 
+      words: [':'],  
+    },
+    { 
+      id: "endOfSentence", words: ['.'],  
+      bridge: "{ ...before, postModifiers: append(before.postModifiers, ['endOfSentence']), endOfSentence: operator }",
+    },
     {
       id: "doubleQuote",
       level: 0,

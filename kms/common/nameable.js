@@ -76,7 +76,7 @@ const config = {
   name: 'nameable',
   operators: [
     // "([call] ([nameable]) (name))",
-    "([call] ([nameable]) (name)*)",
+    "([call] ([nameable]) (!@<=endOfSentence)*)",
     { pattern: "([getNamesByType] (type))", development: true },
     { pattern: "([m1])", development: true },
 //    { pattern: "([testPullFromContext] ([memorable]))", development: true }

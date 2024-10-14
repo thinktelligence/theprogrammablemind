@@ -1,5 +1,6 @@
 const { knowledgeModule, where } = require('./runtime').theprogrammablemind
 const { defaultContextCheck } = require('./helpers')
+const punctuation = require("./punctuation")
 const pos_tests = require('./pos.test.json')
 
 let config = {
@@ -23,6 +24,7 @@ let config = {
     { "id": "noun" },
   ],
   priorities: [
+    { "context": [['endOfSentence', 0], ['verb', 0], ], "choose": [1] },
     { "context": [['pronoun', 0], ['verb', 0], ], "choose": [0] },
     { "context": [['preposition', 0], ['verb', 0], ], "choose": [0] },
     { "context": [['preposition', 0], ['adjective', 0], ], "choose": [1] },
@@ -38,6 +40,7 @@ let config = {
 
 knowledgeModule( { 
   config,
+  includes: [punctuation],
 
   module,
   description: 'parts of speech',
