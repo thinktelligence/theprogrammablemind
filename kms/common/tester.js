@@ -26,10 +26,21 @@ const createConfig = async () => {
   return config
 }
 
+global.theprogrammablemind = {
+  loadForTesting: {}
+}
+const includes = args.modules.split(',').map((module) => {
+  global.theprogrammablemind.loadForTesting[module] = true
+  const km = require(`./${module}`)
+  return km
+})
+
 knowledgeModule({
+  config: { name: 'tester' },
+  includes,
+
   module,
   description: 'Testing modules loaded together',
-  createConfig,
   test: {
     name: './tester.test.json',
     contents: tester_tests
