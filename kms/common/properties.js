@@ -114,22 +114,27 @@ let config = {
     ['unknown', 'hierarchyAble'],
     ['unknown', 'object'],
     ['what', 'object'],
-    ['hierarchyAble', 'queryable'],
-    ['readonly', 'queryable'],
-    ['object', 'queryable'],
-    ['xfx', 'queryable'],
+    // ['hierarchyAble', 'queryable'],
+    // ['readonly', 'queryable'],
+    // ['object', 'queryable'],
+    // ['xfx', 'queryable'],
   
     // ['property', 'queryable'],
     // ['property', 'theAble'],
     // ['property', 'unknown'],
  
-    ['object', 'theAble'],
-    ['whose', 'object'],
-    ['have', 'canBeDoQuestion'],
-    ['have', 'canBeQuestion'],
+    // ['object', 'theAble'],
+    // ['whose', 'object'],
+    // ['have', 'canBeDoQuestion'],
+    // ['have', 'canBeQuestion'],
   ],
   bridges: [
-    { id: 'xfx', level: 0, bridge: "{ ...next(operator) }" },
+    { 
+      id: 'xfx', 
+      level: 0, 
+      isA: ['queryable'],
+      bridge: "{ ...next(operator) }" 
+    },
     { 
       id: 'between', 
       isA: ['preposition'],
@@ -138,7 +143,12 @@ let config = {
     },
     { id: 'between', level: 1, bridge: "{ ...before[0], arguments: operator.arguments }" },
 
-    { id: 'hierarchyAble', level: 0, bridge: "{ ...next(operator) }" },
+    { 
+      id: 'hierarchyAble', 
+      level: 0, 
+      isA: ['queryable'],
+      bridge: "{ ...next(operator) }" 
+    },
     /*
     { 
       id: "modifies", 
@@ -146,7 +156,12 @@ let config = {
       bridge: "{ ...next(operator), modifier: before[0], concept: after[0] }" 
     },
     */
-    { id: "readonly", level: 0, bridge: "{ ...next(operator) }" },
+    { 
+      id: "readonly", 
+      level: 0, 
+      isA: ['queryable'],
+      bridge: "{ ...next(operator) }" 
+    },
     // { id: "concept", level: 0, bridge: "{ ...next(operator) }" },
     // the cars dont have wings
     // greg doesnt have wings 
@@ -156,6 +171,7 @@ let config = {
     { 
       id: "have", 
       level: 0, 
+      isA: ['canBeDoQuestion', 'canBeQuestion'],
       localHierarchy: [['property', 'queryable'], ['property', 'theAble'], ['property', 'unknown']],
       bridge: "{ ...next(operator), object: { number: operator.number, ...before }, property: after[0], do: { left: 'object', right: 'property' } }" 
     },
@@ -172,7 +188,12 @@ let config = {
       level: 0, 
       bridge: "{ ...next(operator) }" 
     },
-    { id: "object", level: 0, bridge: "{ ...next(operator) }" },
+    { 
+      id: "object", 
+      isA: ['queryable', 'theAble'],
+      level: 0, 
+      bridge: "{ ...next(operator) }" 
+    },
 
     // old
     // { id: "possession", level: 0, bridge: "{ ...next(operator), object: before[0] }" },
@@ -208,7 +229,12 @@ let config = {
       localHierarchy: [['property', 'queryable'], ['property', 'theAble'], ['property', 'unknown']],
       bridge: "{ ...before[0], object: operator.object, objects: append(default(before[0].objects, before), operator.objects) }" 
     },
-    { id: "whose", level: 0, bridge: '{ ...after[0], query: true, whose: "whose", modifiers: append(["whose"], after[0].modifiers)}' },
+    { 
+      id: "whose", 
+      level: 0, 
+      isA: ['object'],
+      bridge: '{ ...after[0], query: true, whose: "whose", modifiers: append(["whose"], after[0].modifiers)}' 
+    },
     { 
       id: "objectPrefix", 
       level: 0, 
