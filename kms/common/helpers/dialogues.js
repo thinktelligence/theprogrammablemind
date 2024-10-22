@@ -63,6 +63,9 @@ class API {
 
   setupObjectHierarchy(config, id, { types } = {}) {
     for (let type of types) {
+      if (typeof type !== 'string') {
+        type = type.word
+      }
       config.addHierarchy(id, type)
     }
   }

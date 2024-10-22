@@ -9,7 +9,7 @@ const punctuation = require('./punctuation.js')
 const stm = require('./stm.js')
 const _ = require('lodash')
 const { API } = require('./helpers/dialogues')
-const { isMany } = require('./helpers')
+const { isMany, propertyToArray } = require('./helpers')
 const dialogues_tests = require('./dialogues.test.json')
 const { defaultContextCheck, indent, focus } = require('./helpers')
 const pluralize = require('pluralize')
@@ -776,9 +776,11 @@ let config = {
 
         // if not isA add to stm
         if (!onePrime.sameWasProcessed && !twoPrime.sameWasProcessed) {
-					api.makeObject({ context: one, config, types: context.two.types || [] })
-					kms.stm.api.setVariable(one.value, two)
-					kms.stm.api.mentioned({ context: one, value: two })
+          for (const child of propertyToArray(one)) {
+            api.makeObject({ context: child, config, types: context.two.types || [] })
+            kms.stm.api.setVariable(child.value, two)
+            kms.stm.api.mentioned({ context: child, value: two })
+          }
         }
       }
     },

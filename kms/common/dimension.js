@@ -118,6 +118,7 @@ let config = {
       id: "convertToUnits", 
       bridge: "{ ...next(operator), from: before[0], to: after[0] }",
       isA: ['expression', 'queryable'],
+      localHierarchy: [['unknown', 'dimension']],
       after: [['possession', 0], ['possession', 1]],
       generatorp: async ({context, g}) => `${await g(context.from)} ${context.word} ${await g(context.to)}`,
       // evaluator: ({context, kms, error}) => {
@@ -163,7 +164,10 @@ let config = {
         }
       },
     },
-    { id: "unit", },
+    { 
+      id: "unit", 
+      isA: ['number'],
+    },
   ]
 };
 

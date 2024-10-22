@@ -41,14 +41,14 @@
       ],
       "generators": [
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/node_modules/theprogrammablemind/src/helpers.js:5",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:77",
           "match": "({context}) => context.marker == 'noconversion'",
           "apply": "async ({context, gp}) => `there is no conversion between ${await gp(context.from)} and ${await gp(context.to)}`"
         }
       ],
       "bridges": [
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/node_modules/theprogrammablemind/src/helpers.js:5",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:84",
           "id": "dimension",
           "isA": [],
           "generatorpr": {}
@@ -64,7 +64,7 @@
           "id": "amount"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/node_modules/theprogrammablemind/src/helpers.js:5",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:104",
           "id": "degree",
           "words": [
             {
@@ -84,12 +84,18 @@
           "bridge": "{ marker: operator('dimension'), unit: after[0], value: before[0].value, amount: before[0] }"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/node_modules/theprogrammablemind/src/helpers.js:5",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:117",
           "id": "convertToUnits",
           "bridge": "{ ...next(operator), from: before[0], to: after[0] }",
           "isA": [
             "expression",
             "queryable"
+          ],
+          "localHierarchy": [
+            [
+              "unknown",
+              "dimension"
+            ]
           ],
           "after": [
             [
@@ -105,7 +111,10 @@
           "evaluator": "async ({context, kms, e, error}) => {\n        /*\n        error(({context, e}) => {\n          context.evalue = 'dont know...'\n        })\n        */\n        const from = context.from;\n        const to = context.to;\n        let evalue;\n        let efrom = from\n        if (!from.unit) {\n          efrom = (await e(from)).evalue\n        }\n        if (to.value == efrom.unit.value) {\n          evalue = efrom.amount\n        } else {\n          const formula = kms.formulas.api.get(to, [efrom.unit])\n          if (!formula) {\n            const reason = { marker: 'reason', focusableForPhrase: true, evalue: { marker: 'noconversion', from: efrom.unit, to } }\n            kms.stm.api.mentioned({ context: reason })\n            error(reason)\n          }\n          kms.stm.api.setVariable(efrom.unit.value, efrom.amount)\n          evalue = await e(formula)\n        }\n        /*\n        '{\n            \"marker\":\"dimension\",\n            \"unit\":{\"marker\":\"unit\",\"range\":{\"start\":19,\"end\":25},\"word\":\"celcius\",\"text\":\"celcius\",\"value\":\"celcius\",\"unknown\":true,\"types\":[\"unit\",\"unknown\"]},\n            \"value\":10,\n            \"amount\":{\"word\":\"degrees\",\"number\":\"many\",\"text\":\"10 degrees\",\"marker\":\"degree\",\"range\":{\"start\":8,\"end\":17},\"value\":10,\"amount\":{\"value\":10,\"text\":\"10\",\"marker\":\"number\",\"word\":\"10\",\"range\":{\"start\":8,\"end\":9},\"types\":[\"number\"]}},\n              \"text\":\"10 degrees celcius\",\"range\":{\"start\":8,\"end\":25}}'\n        */\n        context.evalue = { \n          paraphrase: true,\n          marker: 'dimension',\n          level: 1,\n          unit: to,\n          amount: { evalue, paraphrase: undefined }\n        }\n      }"
         },
         {
-          "id": "unit"
+          "id": "unit",
+          "isA": [
+            "number"
+          ]
         }
       ]
     }
@@ -686,11 +695,6 @@
         [
           "property",
           "theAble",
-          false
-        ],
-        [
-          "property",
-          "unknown",
           false
         ],
         [
@@ -1283,12 +1287,12 @@
       ],
       "generators": [
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/node_modules/theprogrammablemind/src/helpers.js:5"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:77"
         }
       ],
       "bridges": [
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/node_modules/theprogrammablemind/src/helpers.js:5",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:84",
           "id": "dimension",
           "isA": [],
           "generatorpr": {}
@@ -1304,7 +1308,7 @@
           "id": "amount"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/node_modules/theprogrammablemind/src/helpers.js:5",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:104",
           "id": "degree",
           "words": [
             {
@@ -1323,12 +1327,18 @@
           "bridge": "{ marker: operator('dimension'), unit: after[0], value: before[0].value, amount: before[0] }"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/node_modules/theprogrammablemind/src/helpers.js:5",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:117",
           "id": "convertToUnits",
           "bridge": "{ ...next(operator), from: before[0], to: after[0] }",
           "isA": [
             "expression",
             "queryable"
+          ],
+          "localHierarchy": [
+            [
+              "unknown",
+              "dimension"
+            ]
           ],
           "after": [
             [
@@ -1342,7 +1352,10 @@
           ]
         },
         {
-          "id": "unit"
+          "id": "unit",
+          "isA": [
+            "number"
+          ]
         }
       ]
     }

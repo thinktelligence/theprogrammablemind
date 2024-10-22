@@ -589,7 +589,6 @@ const initializeApi = (config, api) => {
 
 const initializer = async ({config, objects, km, kms, isModule}) => {
     if (!isModule) {
-      debugger
       await kms.reports.addAPI(api1)
       await kms.reports.addAPI(api2)
     }

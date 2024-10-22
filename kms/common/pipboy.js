@@ -257,7 +257,7 @@ let config = {
        id: "equip", 
        isA: ['verb'],
        level: 0, 
-       localHierarchy: [ ['weapon', 'equipable'], ['thisitthat', 'equipable'] ],
+       localHierarchy: [ ['weapon', 'equipable'], ['thisitthat', 'equipable'], ['equipable', 'unknown'] ],
        bridge: "{ ...next(operator), item: after[0] }",
        generatorp: async ({context, g}) => `equip ${await g(context.item)}`,
        semantic: async ({api, context}) => {
@@ -519,7 +519,7 @@ const template = {
     "vegetables and fruit are food",
     "cola and pop are drinks",
     "medicine and stimpaks are takeable",
-    "item modifies properties",
+    "item modifies property",
     "damage luck hp rads value ap charisma range and accuracy are item properties",
     config,
   ]

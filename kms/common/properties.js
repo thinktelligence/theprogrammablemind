@@ -116,11 +116,13 @@ let config = {
     ['what', 'object'],
     ['hierarchyAble', 'queryable'],
     ['readonly', 'queryable'],
-    ['property', 'queryable'],
     ['object', 'queryable'],
     ['xfx', 'queryable'],
-    ['property', 'theAble'],
-    ['property', 'unknown'],
+  
+    // ['property', 'queryable'],
+    // ['property', 'theAble'],
+    // ['property', 'unknown'],
+ 
     ['object', 'theAble'],
     ['whose', 'object'],
     ['have', 'canBeDoQuestion'],
@@ -151,11 +153,22 @@ let config = {
     // { id: "doesnt", level: 0, bridge: "{ ...context, number: operator.number, negation: true }*" },
     // { id: "doesnt", level: 0, bridge: "{ ...context, number: 'one', negation: true }*" },
     { id: "doesnt", level: 0, bridge: "{ ...context, number: operator.number, object.number: operator.number, negation: true }*" },
-    { id: "have", level: 0, bridge: "{ ...next(operator), object: { number: operator.number, ...before }, property: after[0], do: { left: 'object', right: 'property' } }" },
-    { id: "have", level: 1, bridge: "{ ...next(operator) }" },
+    { 
+      id: "have", 
+      level: 0, 
+      localHierarchy: [['property', 'queryable'], ['property', 'theAble'], ['property', 'unknown']],
+      bridge: "{ ...next(operator), object: { number: operator.number, ...before }, property: after[0], do: { left: 'object', right: 'property' } }" 
+    },
+    { 
+      id: "have", 
+      level: 1, 
+      localHierarchy: [['property', 'queryable'], ['property', 'theAble'], ['property', 'unknown']],
+      bridge: "{ ...next(operator) }" 
+    },
     { 
       id: "property", 
       words: ['properties'],
+      isA: ['queryable', 'theAble'],
       level: 0, 
       bridge: "{ ...next(operator) }" 
     },
@@ -165,16 +178,43 @@ let config = {
     // { id: "possession", level: 0, bridge: "{ ...next(operator), object: before[0] }" },
     // { id: "possession", level: 1, bridge: "{ ...after[0], object: operator.object, marker: operator('property', 0) }" },
 
-    { id: "possession", level: 0, inverted: true, bridge: "{ ...next(operator), possession: true, object: before[0], objects: before }" },
+    { 
+      id: "possession", 
+      level: 0, 
+      localHierarchy: [['property', 'queryable'], ['property', 'theAble'], ['property', 'unknown']],
+      inverted: true, 
+      bridge: "{ ...next(operator), possession: true, object: before[0], objects: before }" 
+    },
     // greg44 { id: "possession", level: 1, inverted: true, bridge: "{ ...after[0], object: operator.object, possession: true, objects: append(default(after[0].objects, after), operator.objects), marker: operator('property', 0) }" },
-    { id: "possession", level: 1, inverted: true, bridge: "{ ...after[0], object: operator.object, possession: true, objects: append(default(after[0].objects, after), operator.objects), marker: after.marker, types: append(after[0].types, ['property']) }" },
+    { 
+      id: "possession", 
+      level: 1, 
+      localHierarchy: [['property', 'queryable'], ['property', 'theAble'], ['property', 'unknown']],
+      inverted: true, 
+      bridge: "{ ...after[0], object: operator.object, possession: true, objects: append(default(after[0].objects, after), operator.objects), marker: after.marker, types: append(after[0].types, ['property']) }" 
+    },
     // TODO make object be after[0] that makes more sense
     // { id: "possession", level: 1, inverted: true, bridge: "{ ...after[0], object: after[0], objects: append(default(after[0].objects, after), operator.objects), marker: operator('property', 0) }" },
 
-    { id: "propertyOf", level: 0, bridge: "{ ...next(operator), object: after[0], objects: after }" },
-    { id: "propertyOf", level: 1, bridge: "{ ...before[0], object: operator.object, objects: append(default(before[0].objects, before), operator.objects) }" },
+    { 
+      id: "propertyOf", 
+      level: 0, 
+      localHierarchy: [['property', 'queryable'], ['property', 'theAble'], ['property', 'unknown']],
+      bridge: "{ ...next(operator), object: after[0], objects: after }" 
+    },
+    { 
+      id: "propertyOf", 
+      level: 1, 
+      localHierarchy: [['property', 'queryable'], ['property', 'theAble'], ['property', 'unknown']],
+      bridge: "{ ...before[0], object: operator.object, objects: append(default(before[0].objects, before), operator.objects) }" 
+    },
     { id: "whose", level: 0, bridge: '{ ...after[0], query: true, whose: "whose", modifiers: append(["whose"], after[0].modifiers)}' },
-    { id: "objectPrefix", level: 0, bridge: '{ ...after[0], object: operator, objects: [after[0], operator] }' },
+    { 
+      id: "objectPrefix", 
+      level: 0, 
+      localHierarchy: [['property', 'queryable'], ['property', 'theAble'], ['property', 'unknown']],
+      bridge: '{ ...after[0], object: operator, objects: [after[0], operator] }' 
+    },
   ],
   words: {
     literals: {
