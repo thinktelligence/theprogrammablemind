@@ -112,7 +112,7 @@ let config = {
     // ['concept', 'theAble'],
     // ['concept', 'queryable'],
     ['unknown', 'hierarchyAble'],
-    ['unknown', 'object'],
+    // ['unknown', 'object'],
     ['what', 'object'],
     // ['hierarchyAble', 'queryable'],
     // ['readonly', 'queryable'],
@@ -172,7 +172,7 @@ let config = {
       id: "have", 
       level: 0, 
       isA: ['canBeDoQuestion', 'canBeQuestion'],
-      localHierarchy: [['property', 'queryable'], ['property', 'theAble'], ['property', 'unknown']],
+      localHierarchy: [['property', 'queryable'], ['property', 'theAble'], ['property', 'unknown'], ['object', 'unknown']],
       bridge: "{ ...next(operator), object: { number: operator.number, ...before }, property: after[0], do: { left: 'object', right: 'property' } }" 
     },
     { 
@@ -202,7 +202,7 @@ let config = {
     { 
       id: "possession", 
       level: 0, 
-      localHierarchy: [['property', 'queryable'], ['property', 'theAble'], ['property', 'unknown']],
+      localHierarchy: [['property', 'queryable'], ['property', 'theAble'], ['property', 'unknown'], ['object', 'unknown']],
       inverted: true, 
       bridge: "{ ...next(operator), possession: true, object: before[0], objects: before }" 
     },
@@ -210,7 +210,7 @@ let config = {
     { 
       id: "possession", 
       level: 1, 
-      localHierarchy: [['property', 'queryable'], ['property', 'theAble'], ['property', 'unknown']],
+      localHierarchy: [['property', 'queryable'], ['property', 'theAble'], ['property', 'unknown'], ['object', 'unknown']],
       inverted: true, 
       bridge: "{ ...after[0], object: operator.object, possession: true, objects: append(default(after[0].objects, after), operator.objects), marker: after.marker, types: append(after[0].types, ['property']) }" 
     },
@@ -220,7 +220,7 @@ let config = {
     { 
       id: "propertyOf", 
       level: 0, 
-      localHierarchy: [['property', 'queryable'], ['property', 'theAble'], ['property', 'unknown']],
+      localHierarchy: [['property', 'queryable'], ['property', 'theAble'], ['property', 'unknown'], ['object', 'unknown']],
       bridge: "{ ...next(operator), object: after[0], objects: after }" 
     },
     { 

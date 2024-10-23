@@ -316,7 +316,12 @@ class API {
         allowDups: true,
       })
       // config.addOperator({ id: operator, level: 1, words: [operator] })
-      config.addBridge({ id: operator, level: 1, bridge: '{ ...next(operator) }', allowDups: true })
+      config.addBridge({ 
+        id: operator, 
+        level: 1, 
+        bridge: '{ ...next(operator) }', 
+        allowDups: true,
+      })
       config.addPriority({ "context": [['does', 0], [operator, 1], ], "choose": [0] })
       config.addPriority({ "context": [['doesnt', 0], [operator, 1], ], "choose": [0] })
       config.addPriority({ "context": [[operator, 0], ['does', 0], ], "choose": [0] })
@@ -355,7 +360,13 @@ class API {
 
         const unflattenArgs = [ ...before.map( (arg) => arg.tag ), ...after.map( (arg) => arg.tag ) ] 
         const focusable = [ ...before.map( (arg) => arg.tag ), ...after.map( (arg) => arg.tag ) ] 
-        config.addBridge({ id: operator, level: 0, localHierarchy, bridge: `{ ... next(operator) ${doParams} ${beforeArgs} ${afterArgs}, unflatten: ${JSON.stringify(unflattenArgs)}, focusable: ${JSON.stringify(focusable)} }`, allowDups: true })
+        config.addBridge({ 
+          id: operator, 
+          level: 0, 
+          localHierarchy: [...localHierarchy, ['object', 'unknown']],
+          bridge: `{ ... next(operator) ${doParams} ${beforeArgs} ${afterArgs}, unflatten: ${JSON.stringify(unflattenArgs)}, focusable: ${JSON.stringify(focusable)} }`, 
+          allowDups: true 
+        })
         if (words.length > 0) {
           for (const word of words) {
             config.addWord(word, { id: operator, initial: `{ value: "${operator}" }` })
