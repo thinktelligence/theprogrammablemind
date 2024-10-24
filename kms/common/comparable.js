@@ -53,7 +53,7 @@ const template = {
     "descending is a sort ordering",
     {
       operators: [
-        "((comparable/*) [sortOrdering] (<sort_ordering/*))",
+        "((comparable/*) [sortOrdering] (sort_ordering/*))",
       ],
       bridges: [
         {

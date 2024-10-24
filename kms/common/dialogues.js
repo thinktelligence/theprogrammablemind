@@ -9,7 +9,7 @@ const punctuation = require('./punctuation.js')
 const stm = require('./stm.js')
 const _ = require('lodash')
 const { API } = require('./helpers/dialogues')
-const { isMany, propertyToArray } = require('./helpers')
+const { isMany, propertyToArray, words } = require('./helpers')
 const dialogues_tests = require('./dialogues.test.json')
 const { defaultContextCheck, indent, focus } = require('./helpers')
 const pluralize = require('pluralize')
@@ -929,6 +929,11 @@ const initializer = ({objects, config, isModule}) => {
     toScopedId: (context) => {
       return api('dialogues').toScopedId(context)
     },
+    addWords: (id, word, additional) => {
+      for (let props of words(word, additional)) {
+        config.addWord(id, props) 
+      }
+    }
   }))
   objects.mentioned = []
   objects.variables = {
