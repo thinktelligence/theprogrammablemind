@@ -930,8 +930,8 @@ const initializer = ({objects, config, isModule}) => {
       return api('dialogues').toScopedId(context)
     },
     addWords: (id, word, additional) => {
-      for (let props of words(word, { ...additional, id })) {
-        config.addWord(props.word, props) 
+      for (let props of words(word, { ...additional })) {
+        config.addWord(props.word, { id, initial: JSON.stringify(props) }) 
       }
     }
   }))
