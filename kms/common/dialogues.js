@@ -933,7 +933,8 @@ const initializer = ({objects, config, isModule}) => {
       for (let props of words(word, { ...additional })) {
         config.addWord(props.word, { id, initial: JSON.stringify(props) }) 
       }
-    }
+    },
+    values: propertyToArray,
   }))
   objects.mentioned = []
   objects.variables = {
