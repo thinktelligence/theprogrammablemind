@@ -2,6 +2,8 @@ const { knowledgeModule, where, stableId } = require('./runtime').theprogrammabl
 const meta = require('./meta.js')
 const gdefaults = require('./gdefaults.js')
 const sdefaults = require('./sdefaults.js')
+const asking = require('./asking.js')
+const conjunction = require('./conjunction.js')
 const articles = require('./articles.js')
 const pos = require('./pos.js')
 const negation = require('./negation.js')
@@ -47,8 +49,8 @@ let config = {
     // "(([queryable]) [is:isEdBridge|is,are] ([isEdAble|]))",
     "(([queryable]) [(<isEd|> ([isEdAble|]))])",
 
-    "([nevermind])",
-    { pattern: "([nevermindTestSetup] (allowed))", development: true },
+    // "([nevermind])",
+    // { pattern: "([nevermindTestSetup] (allowed))", development: true },
     "([why])",
     "([reason])",
     // "([thisitthat|])",
@@ -75,7 +77,6 @@ let config = {
     // joe is a person the age of joe ...
     //"arm them, what, the phasers"
     //greg is a first name
-    "(x [list|and] y)",
     "([yesno|])",
     "(([isEdee])^ <isEdAble|> ([by] ([isEder])?))",
     "([isEdee|])",
@@ -135,29 +136,6 @@ let config = {
     { id: "whatAble", level: 0, bridge: "{ ...next(operator) }" },
 
     // context.instance == variables.instance (unification)
-    {
-      id: "list", 
-      level: 0, 
-      selector: {
-          match: "same", 
-          left: [ { pattern: '($type && context.instance == variables.instance)' } ], 
-          right: [ { pattern: '($type && context.instance == variables.instance)' } ], 
-          // left: [ { pattern: '($type)' } ], 
-          // right: [ { pattern: '($type)' } ], 
-          passthrough: true
-      }, 
-      bridge: "{ ...next(operator), listable: true, isList: true, value: append(before, after) }"
-    },
-    {
-      id: "list", 
-      level: 1, 
-      selector: {
-          match: "same", 
-          left: [ { pattern: '($type && context.instance == variables.instance)' } ], 
-          passthrough: true
-     }, 
-      bridge: "{ ...operator, value: append(before, operator.value) }"
-    },
     {   
         where: where(),
         id: "to", 
@@ -238,6 +216,7 @@ let config = {
       bridge: "{ ...next(operator) }" 
     },
     */
+    /*
     { 
       id: "nevermind", 
       bridge: "{ ...next(operator) }",
@@ -257,6 +236,8 @@ let config = {
         }
       }
     },
+    */
+    /*
     { 
       id: "nevermindTestSetup", 
       development: true,
@@ -275,6 +256,7 @@ let config = {
         })
       }
     },
+    */
     { 
       id: "why", 
       level: 0, 
@@ -415,32 +397,6 @@ let config = {
       match: ({context}) => !context.paraphrase && context.evalue && context.evalue.marker == 'yesno',
       apply: ({context}) => context.evalue.value ? 'yes' : 'no',
       priority: -1,
-    },
-
-    {
-      where: where(),
-      notes: 'handle lists with yes no',
-      // ({context, hierarchy}) => context.marker == 'list' && context.paraphrase && context.value,
-      // ({context, hierarchy}) => context.marker == 'list' && context.value,
-      match: ({context, hierarchy}) => context.marker == 'list' && context.paraphrase && context.value && context.value.length > 0 && context.value[0].marker == 'yesno',
-      apply: async ({context, g, gs}) => {
-        return `${await g(context.value[0])} ${await gs(context.value.slice(1), ', ', ' and ')}`
-      }
-    },
-
-    {
-      where: where(),
-      notes: 'handle lists',
-      // ({context, hierarchy}) => context.marker == 'list' && context.paraphrase && context.value,
-      // ({context, hierarchy}) => context.marker == 'list' && context.value,
-      match: ({context, hierarchy}) => context.marker == 'list' && context.value,
-      apply: async ({context, gs}) => {
-        if (context.newLinesOnly) {
-          return await gs(context.value, '\n')
-        } else {
-          return await gs(context.value, ', ', ' and ')
-        }
-      }
     },
 
     {
@@ -803,102 +759,6 @@ let config = {
   ],
 };
 
-// move ask to the KM's since verbatim is called probably in dialogues?
-const getAsk = (config) => (uuid) => {
-    return (asks) => {
-    const ask = (ask) => {
-      let oneShot = true // default
-      if (ask.oneShot === false) {
-        oneShot = false
-      }
-
-      const id_q = stableId('semantic')
-      const id_rs = []
-      let wasAsked = false
-      let wasApplied = false
-      const getWasAsked = () => {
-        return wasAsked
-      }
-      const setWasAsked = (value) => {
-        wasAsked = value
-      }
-      const getWasApplied = () => {
-        return wasApplied
-      }
-      const setWasApplied = (value) => {
-        wasApplied = value
-      }
-
-      const semanticsr = ask.semanticsr || []
-      if (semanticsr.length == 0) {
-        semanticsr.push({ match: ask.matchr, apply: ask.applyr })
-      }
-      for (const semantic of semanticsr) {
-        const id_r = stableId('semantic')
-        id_rs.push(id_r)
-        config.addSemantic({
-          uuid,
-          id: id_r,
-          tied_ids: [id_q],
-          oneShot,
-          where: semantic.where || ask.where || where(2),
-          source: 'response',
-          match: (args) => semantic.match(args),
-          apply: async (args) => {
-            setWasApplied(true)
-            await semantic.apply(args)
-          },
-        })
-      }
-
-      config.addSemantic({
-        uuid,
-        oneShot,
-        id: id_q,
-        tied_ids: id_rs,
-        where: ask.where,
-        isQuestion: true,  // do one question at a time
-        getWasAsked,
-        getWasApplied,
-        onNevermind: ask.onNevermind,
-        source: 'question',
-        match: ({ context }) => context.marker == 'controlEnd' || context.marker == 'controlBetween',
-        apply: async (args) => {
-          let matchq = ask.matchq
-          let applyq = ask.applyq
-          if (!matchq) {
-            let wasAsked = false
-            matchq = () => !wasAsked,
-            applyq = (args) => {
-              wasAsked = true
-              return ask.applyq(args)
-            }
-          }
-          if (await matchq(args)) {
-            setWasAsked(true)
-            setWasApplied(false)
-            // args.context.motivationKeep = true
-            args.verbatim(await applyq(args))
-            /*
-              args.context.verbatim = applyq(args)
-              args.context.isResponse = true;
-              delete args.context.controlRemove;
-              */
-            args.context.controlKeepMotivation = true
-          }
-          args.context.cascade = true
-        }
-      })
-    }
-    if (!Array.isArray(asks)) {
-      asks = [asks]
-    }
-
-    [...asks].reverse().forEach( (a) => ask(a) )
-  }
-}
-
-
 const initializer = ({objects, config, isModule}) => {
   /* TODO add this beck in. some stuff from config needs to be here
   config.addArgs((args) => ({ 
@@ -906,26 +766,6 @@ const initializer = ({objects, config, isModule}) => {
   }))
   */
   config.addArgs(({config, api, isA}) => ({ 
-    isAListable: (context, type) => {
-      if (context.marker == 'list' || context.listable) {
-        return context.value.every( (element) => isA(element.marker, type) )
-      } else {
-        return isA(context.marker, type)
-      } 
-    },
-    toContext: (v) => {
-      if (Array.isArray(v)) {
-        return { marker: 'list', level: 1, value: v }
-      }
-      if (v.marker == 'list') {
-        return v
-      }
-      return v
-    },
-    getUUIDScoped: (uuid) => { return {
-        ask: getAsk(config)(uuid),
-      } 
-    },
     toScopedId: (context) => {
       return api('dialogues').toScopedId(context)
     },
@@ -948,7 +788,7 @@ const initializer = ({objects, config, isModule}) => {
 
 knowledgeModule( { 
   config,
-  includes: [articles, gdefaults, sdefaults, pos, negation, stm, meta, punctuation],
+  includes: [articles, gdefaults, sdefaults, conjunction, asking, pos, negation, stm, meta, punctuation],
   initializer,
   api: () => new API(),
 
@@ -959,7 +799,7 @@ knowledgeModule( {
     name: './dialogues.test.json',
     contents: dialogues_tests,
     checks: {
-            objects: ['onNevermindWasCalled', 'nevermindType', 'idSuffix'],
+            objects: ['idSuffix'],
             context: defaultContextCheck,
           },
 

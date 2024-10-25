@@ -63,6 +63,12 @@ const isMany = (context) => {
   return false
 }
 
+const requiredArgument = (value, name) => {
+  if (!value) {
+    throw new Error(`${name} is a required argument`)
+  }
+}
+
 const chooseNumber = (context, one, many) => {
   if (isMany(context)) {
     return many;
@@ -168,4 +174,5 @@ module.exports = {
   words,
   propertyToArray,
   wordNumber,
+  requiredArgument,
 }
