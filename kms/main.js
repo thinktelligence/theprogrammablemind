@@ -1,11 +1,13 @@
 const tpm = require('./common/runtime').theprogrammablemind
 const animals = require('./common/animals')
 const articles = require('./common/articles')
+const asking = require('./common/asking')
 const avatar = require('./common/avatar')
 const characters = require('./common/characters')
 const colors = require('./common/colors')
 const comparable = require('./common/comparable')
 const concept = require('./common/concept')
+const conjunction = require('./common/conjunction')
 const countable = require('./common/countable')
 const crew = require('./common/crew')
 const currency = require('./common/currency')
@@ -59,11 +61,13 @@ module.exports = {
   Config: tpm.Config,
   animals,
   articles,
+  asking,
   avatar,
   characters,
   colors,
   comparable,
   concept,
+  conjunction,
   countable,
   crew,
   currency,
