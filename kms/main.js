@@ -32,6 +32,7 @@ const nameable = require('./common/nameable')
 const negation = require('./common/negation')
 const numbers = require('./common/numbers')
 const ordering = require('./common/ordering')
+const ordinals = require('./common/ordinals')
 const people = require('./common/people')
 const percentages = require('./common/percentages')
 const pipboy = require('./common/pipboy')
@@ -92,6 +93,7 @@ module.exports = {
   negation,
   numbers,
   ordering,
+  ordinals,
   people,
   percentages,
   pipboy,
