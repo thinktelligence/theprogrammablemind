@@ -65,7 +65,9 @@ class API {
     this._objects.mentioned.unshift(concept)
   }
 
-  mentions({ context, useHierarchy=true, all, condition = (() => true) } = {}) {
+  mentions({ context, frameOfReference, useHierarchy=true, all, condition = (() => true) } = {}) {
+    let mentioned = frameOfReference?.mentioned || this._objects.mentioned
+
     const findPrevious = !!context.stm_previous
     const forAll = []
     const addForAll = (context) => {
@@ -76,7 +78,7 @@ class API {
 
     // care about value first
     let findCounter = 0
-    for (let m of this._objects.mentioned) {
+    for (let m of mentioned) {
       if (context.value && (context.value == m.marker || context.value == m.value)) {
         findCounter += 1
         if (findPrevious && findCounter < 2) {
@@ -98,7 +100,7 @@ class API {
 
     // care about marker second
     findCounter = 0
-    for (let m of this._objects.mentioned) {
+    for (let m of mentioned) {
       if (context.marker != 'unknown' && this.isA(m.marker, context.marker)) {
         findCounter += 1
         if (findPrevious && findCounter < 2) {
@@ -134,7 +136,7 @@ class API {
 
     findCounter = 0
     if (context.types && context.types.length == 1) {
-      for (let m of this._objects.mentioned) {
+      for (let m of mentioned) {
         if (context.unknown) {
           findCounter += 1
           if (findPrevious && findCounter < 2) {
@@ -246,8 +248,8 @@ const initializer = ({config}) => {
       mentioned: ({ context }) => {
         kms.stm.api.mentioned({ context })
       },
-      mentions: ({ context }) => {
-        return kms.stm.api.mentions({ context })
+      mentions: (args) => {
+        return kms.stm.api.mentions(args)
       },
     }))
   }
