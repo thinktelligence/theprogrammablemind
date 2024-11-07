@@ -67,7 +67,7 @@ const config = {
 
         return help
       },
-      optional: { withKM: "{ marker: 'km', kms: []}" },
+      optional: { 1: "{ marker: 'km', kms: []}" },
       bridge: "{ ...next(operator), kms: after[0].kms, isResponse: true }" 
     },
     { id: "withKM", level: 0, bridge: "{ ...next(operator), kms: after[0] }" },

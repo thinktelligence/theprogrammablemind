@@ -128,7 +128,7 @@ let config = {
       }
     },
 
-    { id: "by", level: 0, bridge: "{ ...next(operator), object: after[0] }", optional: { 'isEder': "{ marker: 'unknown', implicit: true, concept: true }", }, },
+    { id: "by", level: 0, bridge: "{ ...next(operator), object: after[0] }", optional: { 1: "{ marker: 'unknown', implicit: true, concept: true }", }, },
 
     { id: "debug23", level: 0, bridge: "{ ...next(operator) }" },
     // { id: "what", level: 0, bridge: "{ ...next(operator), ...after[0], query: ['what'], determined: true }" },
