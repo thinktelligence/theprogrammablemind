@@ -31,6 +31,12 @@ let config = {
 
     {
       where: where(),
+      match: ({context}) => context.generate,
+      apply: async ({context, gs}) => gs(context.generate.map((key) => context[key]))
+    },
+
+    {
+      where: where(),
       //({context}) => context.paraphrase && context.modifiers,
       // match: ({context}) => context.paraphrase && (context.modifiers || context.postModifiers),
       match: ({context}) => (context.modifiers || context.postModifiers),
