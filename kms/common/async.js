@@ -91,7 +91,7 @@ knowledgeModule( {
     name: './async.test.json',
     contents: tests,
     checks: {
-            context: defaultContextCheck,
+            context: defaultContextCheck(),
           },
 
   },

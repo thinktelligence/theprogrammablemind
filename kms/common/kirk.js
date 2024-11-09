@@ -27,7 +27,7 @@ knowledgeModule( {
           name: './kirk.test.json',
           contents: kirk_tests,
           checks: {
-            context: defaultContextCheck,
+            context: defaultContextCheck(),
           },
 
         },

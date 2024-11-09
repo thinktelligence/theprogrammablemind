@@ -103,7 +103,7 @@ knowledgeModule({
     name: './help.test.json',
     contents: help_tests,
     checks: {
-            context: defaultContextCheck,
+            context: defaultContextCheck(),
           },
   },
 })

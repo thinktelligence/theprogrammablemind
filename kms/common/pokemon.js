@@ -62,7 +62,7 @@ knowledgeModule( {
           name: './pokemon.test.json',
           contents: pokemon_tests,
           checks: {
-            context: defaultContextCheck,
+            context: defaultContextCheck(),
           },
 
         },

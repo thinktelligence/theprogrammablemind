@@ -36,7 +36,7 @@ knowledgeModule( {
             name: './animals.test.json',
             contents: animals_tests,
             checks: {
-              context: defaultContextCheck,
+              context: defaultContextCheck(),
             },
 
           },

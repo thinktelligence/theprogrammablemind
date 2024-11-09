@@ -138,27 +138,30 @@ const toEValue = (context) => {
 }
 
 const defaultContextCheckProperties = ['marker', 'text', 'verbatim', 'isResponse', { property: 'response', filter: ['marker', 'text', 'verbatim'] }] 
-const defaultContextCheck = [
-  ...defaultContextCheckProperties,
-  (object) => {
-    if (typeof object.value == 'object') {
-      return { property: 'value', filter: defaultContextCheckProperties }
-    } else {
-      return 'value'
-    }
-  },
-  (object) => {
-    if (!Array.isArray(object.modifiers)) {
-      return
-    }
-    if (typeof object.modifiers[0] == 'object') {
-      return { property: 'modifiers', filter: defaultContextCheckProperties }
-    } else {
-      return 'modifiers'
-    }
-  },
-  { property: 'modifiers', isPropertyList: true, filter: defaultContextCheckProperties }
-]
+const defaultContextCheck = (properties = []) => {
+  return [
+    ...defaultContextCheckProperties,
+    ...properties.map((property) => { return { property, filter: defaultContextCheckProperties } }),
+    (object) => {
+      if (typeof object.value == 'object') {
+        return { property: 'value', filter: defaultContextCheckProperties }
+      } else {
+        return 'value'
+      }
+    },
+    (object) => {
+      if (!Array.isArray(object.modifiers)) {
+        return
+      }
+      if (typeof object.modifiers[0] == 'object') {
+        return { property: 'modifiers', filter: defaultContextCheckProperties }
+      } else {
+        return 'modifiers'
+      }
+    },
+    { property: 'modifiers', isPropertyList: true, filter: defaultContextCheckProperties }
+  ]
+}
 
 module.exports = {
   defaultContextCheck,

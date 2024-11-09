@@ -1021,7 +1021,7 @@ knowledgeModule( {
                 { property: 'pieces', filter: ['marker', 'value', 'text' ] },
               ],
               context: [
-                ...defaultContextCheck,
+                ...defaultContextCheck(),
                 // TODO some kind of conditional selector { match: (value) => value.marker == 'count', filter: ['marker', 'value', 'text'] },
                 { property: 'comboNumber', filter: ['marker', 'value', 'text' ] },
               ],

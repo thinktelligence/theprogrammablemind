@@ -124,7 +124,7 @@ knowledgeModule( {
     name: './math.test.json',
     contents: tests,
     checks: {
-            context: defaultContextCheck,
+            context: defaultContextCheck(),
           },
 
   },

@@ -96,7 +96,7 @@ knowledgeModule({
     contents: countable_tests,
     checks: {
             context: [
-              ...defaultContextCheck, 
+              ...defaultContextCheck(), 
               { 
                 property: 'quantity', 
                 filter: ['marker', 'value'],

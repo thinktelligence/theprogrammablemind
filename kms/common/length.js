@@ -46,7 +46,7 @@ knowledgeModule({
     name: './length.test.json',
     contents: length_tests,
     checks: {
-            context: defaultContextCheck,
+            context: defaultContextCheck(),
           },
 
   },

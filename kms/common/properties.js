@@ -694,7 +694,7 @@ knowledgeModule( {
     name: './properties.test.json',
     contents: properties_tests,
     checks: {
-      context: defaultContextCheck,
+      context: defaultContextCheck(),
       /*
       objects: [
         'children', 

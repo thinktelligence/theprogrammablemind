@@ -205,7 +205,7 @@ knowledgeModule({
     contents: tests,
     checks: {
       objects: ['formulas'],
-      context: defaultContextCheck,
+      context: defaultContextCheck(),
     }
   },
 })

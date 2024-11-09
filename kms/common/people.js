@@ -74,7 +74,7 @@ knowledgeModule( {
     name: './people.test.json',
     contents: people_tests,
     checks: {
-            context: defaultContextCheck,
+            context: defaultContextCheck(),
           },
 
   },

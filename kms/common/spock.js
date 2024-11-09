@@ -23,7 +23,7 @@ knowledgeModule( {
           name: './spock.test.json',
           contents: spock_tests,
           checks: {
-            context: defaultContextCheck,
+            context: defaultContextCheck(),
           },
         },
   template: {

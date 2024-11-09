@@ -192,7 +192,7 @@ knowledgeModule({
     checks: {
       objects: [{ km: 'properties' }],
       checks: {
-            context: defaultContextCheck,
+            context: defaultContextCheck(),
           },
     },
   },

@@ -32,7 +32,16 @@ let config = {
     {
       where: where(),
       match: ({context}) => context.generate,
-      apply: async ({context, gs}) => gs(context.generate.map((key) => context[key]))
+      apply: async ({context, gs}) => {
+        const existing = context.generate.filter((key) => context[key] !== undefined)
+        const filtered = existing.filter((key) => {
+          if (context[key] && context[key].skipDefault) {
+            return false
+          }
+          return true
+        })
+        return gs(filtered.map((key) => context[key]))
+      }
     },
 
     {
@@ -214,7 +223,7 @@ knowledgeModule({
     name: './gdefaults.test.json',
     contents: gdefaults_tests,
     checks: {
-            context: defaultContextCheck,
+            context: defaultContextCheck(),
           },
 
   },

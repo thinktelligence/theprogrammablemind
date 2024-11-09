@@ -43,7 +43,7 @@ knowledgeModule({
       words: true,
     },
     checks: {
-      context: defaultContextCheck,
+      context: defaultContextCheck(),
     },
   },
 })

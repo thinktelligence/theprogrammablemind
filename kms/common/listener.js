@@ -41,7 +41,7 @@ knowledgeModule( {
     name: './listener.test.json',
     contents: listener_tests,
     checks: {
-            context: defaultContextCheck,
+            context: defaultContextCheck(),
             objects: ['mentioned', { km: 'gdefaults' }],
           },
   },

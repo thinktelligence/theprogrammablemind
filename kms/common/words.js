@@ -40,7 +40,7 @@ knowledgeModule( {
     name: './words.test.json',
     contents: words_tests,
     checks: {
-            context: defaultContextCheck,
+            context: defaultContextCheck(),
           },
   },
 })

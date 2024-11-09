@@ -31,7 +31,7 @@ knowledgeModule( {
     name: './negation.test.json',
     contents: negation_tests,
     checks: {
-      context: defaultContextCheck,
+      context: defaultContextCheck(),
     },
   },
 })

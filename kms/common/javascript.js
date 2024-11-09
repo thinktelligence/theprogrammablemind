@@ -73,7 +73,7 @@ knowledgeModule( {
     name: './javascript.test.json',
     contents: javascript_tests,
     checks: {
-            context: defaultContextCheck,
+            context: defaultContextCheck(),
           },
 
   },

@@ -89,7 +89,7 @@ knowledgeModule( {
           name: './stgame.test.json',
           contents: stgame_tests,
           checks: {
-            context: defaultContextCheck,
+            context: defaultContextCheck(),
           },
         },
 })

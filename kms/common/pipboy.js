@@ -540,7 +540,7 @@ knowledgeModule({
       objects: [
         'apply', 'change', 'disarm', 'drink', 'eat', 'equip', 'setName', 'strip', 'take', 'wear',
       ],
-      context: defaultContextCheck,
+      context: defaultContextCheck(),
     },
   },
 })

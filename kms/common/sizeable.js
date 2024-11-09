@@ -62,7 +62,7 @@ knowledgeModule({
     name: './sizeable.test.json',
     contents: sizeable_tests,
     checks: {
-            context: [ ...defaultContextCheck, { property: 'size', filter: ['value'] } ],
+            context: [ ...defaultContextCheck(), { property: 'size', filter: ['value'] } ],
           },
   },
 })

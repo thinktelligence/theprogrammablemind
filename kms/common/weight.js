@@ -44,7 +44,7 @@ knowledgeModule({
     name: './weight.test.json',
     contents: weight_tests,
     checks: {
-            context: defaultContextCheck,
+            context: defaultContextCheck(),
           },
   },
   template: {

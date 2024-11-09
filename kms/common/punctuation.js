@@ -68,7 +68,7 @@ knowledgeModule( {
     name: './punctuation.test.json',
     contents: punctuation_tests,
     checks: {
-            context: defaultContextCheck,
+            context: defaultContextCheck(),
           },
   },
 })

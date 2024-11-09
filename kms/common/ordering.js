@@ -121,7 +121,7 @@ knowledgeModule( {
             heck: ['children', 'concept', 'parents', 'properties'],
             contents: ordering_tests,
             checks: {
-              context: defaultContextCheck,
+              context: defaultContextCheck(),
             },
 
           },

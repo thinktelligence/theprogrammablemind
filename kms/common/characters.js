@@ -201,7 +201,7 @@ knowledgeModule({
     name: './characters.test.json',
     contents: characters_tests,
     checks: {
-        context: defaultContextCheck,
+        context: defaultContextCheck(),
           },
   },
 })

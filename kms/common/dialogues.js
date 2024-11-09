@@ -800,7 +800,7 @@ knowledgeModule( {
     contents: dialogues_tests,
     checks: {
             objects: ['idSuffix'],
-            context: defaultContextCheck,
+            context: defaultContextCheck(),
           },
 
   },

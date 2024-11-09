@@ -1,7 +1,7 @@
 const { knowledgeModule, where, Digraph } = require('./runtime').theprogrammablemind
 const { defaultContextCheck } = require('./helpers')
 const dialogues = require('./dialogues')
-const math = require('./math')
+const ordinals = require('./ordinals')
 const ui_tests = require('./ui.test.json')
 const ui_instance = require('./ui.instance.json')
 
@@ -45,7 +45,7 @@ const config = {
     "([select])",
     "([unselect])",
     "([cancel])",
-    "([move] ([direction]))",
+    "([move] ([moveable])? ([direction]))",
     "([down])",
     "([up])",
     "([left])",
@@ -127,22 +127,17 @@ const config = {
        id: "move", 
        isA: ['verb'],
        level: 0, 
-       bridge: "{ ...next(operator), direction: after[0] }",
-       generatorp: async ({context, g}) => `move ${await g(context.direction)}`,
+       optional: { 1: "{ marker: 'moveable', pullFromContext: true, default: true, skipDefault: true }" },
+       bridge: "{ ...next(operator), operator: operator, moveable: after[0], direction: after[1], generate: ['operator', 'moveable', 'direction' ] }",
        semantic: ({api, context}) => {
          api.move(context.direction.value, context.direction.steps ? context.direction.steps.value : 1)
        }
     },
-    { 
-       id: "direction", 
-       level: 0, 
-       bridge: "{ ...next(operator) }" 
-    },
+    { id: "moveable", },
+    { id: "direction", },
     { 
        id: "up", 
-       level: 0, 
        isA: ['direction'],
-       bridge: "{ ...next(operator) }" 
     },
     { 
        id: "down", 
@@ -187,7 +182,7 @@ const template = {
 
 knowledgeModule({ 
   config,
-  includes: [dialogues, math],
+  includes: [dialogues, ordinals],
   api: () => new API(),
 
   module,
@@ -197,7 +192,7 @@ knowledgeModule({
     contents: ui_tests,
     checks: {
       objects: ['move', 'select', 'unselect', 'cancel', 'stop'],
-      context: defaultContextCheck,
+      context: defaultContextCheck(['operator', 'direction', 'moveable']),
     },
   },
   template: {

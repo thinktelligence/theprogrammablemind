@@ -96,7 +96,7 @@ knowledgeModule( {
     contents: tests,
     checks: {
             objects: ['onNevermindWasCalled', 'nevermindType', 'idSuffix'],
-            context: defaultContextCheck,
+            context: defaultContextCheck(),
           },
 
   },

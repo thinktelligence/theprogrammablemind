@@ -71,7 +71,7 @@ knowledgeModule( {
         template,
         instance: emotions_instance,
         checks: {
-            context: defaultContextCheck,
+            context: defaultContextCheck(),
           },
 
       },

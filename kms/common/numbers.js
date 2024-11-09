@@ -93,7 +93,7 @@ knowledgeModule( {
     name: './numbers.test.json',
     contents: numbers_tests,
     checks: {
-            context: defaultContextCheck,
+            context: defaultContextCheck(),
           },
 
   },

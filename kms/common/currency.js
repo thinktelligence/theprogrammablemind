@@ -122,7 +122,7 @@ knowledgeModule({
     name: './currency.test.json',
     contents: currency_tests,
     checks: {
-            context: defaultContextCheck,
+            context: defaultContextCheck(),
           },
 
   },

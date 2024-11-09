@@ -33,7 +33,7 @@ knowledgeModule( {
           name: './alice.test.json',
           contents: alice_tests,
           checks: {
-            context: defaultContextCheck,
+            context: defaultContextCheck(),
           },
         },
   template: {

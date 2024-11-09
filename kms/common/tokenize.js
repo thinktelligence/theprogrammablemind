@@ -40,7 +40,7 @@ knowledgeModule( {
     name: './tokenize.test.json',
     contents: tokenize_tests,
     checks: {
-            context: defaultContextCheck,
+            context: defaultContextCheck(),
     },
   },
 })

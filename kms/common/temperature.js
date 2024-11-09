@@ -24,7 +24,7 @@ knowledgeModule({
     name: './temperature.test.json',
     contents: temperature_tests,
     checks: {
-            context: defaultContextCheck,
+            context: defaultContextCheck(),
           },
   },
   template: {
