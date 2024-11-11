@@ -12,6 +12,7 @@ const config = {
   ],
   bridges: [
     {
+      where: where(),
       id: 'value1',
       evaluator: ({context}) => {
         context.evalue = 'value1 after evaluation'
@@ -19,12 +20,15 @@ const config = {
       development: true,
     },
     {
+      where: where(),
       id: 'evaluate',
       isA: ['verb'],
       bridge: "{ ...next(operator), postModifiers: ['value'], value: after[0] }",
       semantic: async ({context, e}) => {
         context.response = (await e(context.value)).evalue
-        context.isResponse = true
+        if (context.response) {
+          context.isResponse = true
+        }
       }
     }
   ],
