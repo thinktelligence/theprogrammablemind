@@ -39,7 +39,10 @@ class API {
     return this._objects.mentioned.filter( (context) => this.isA(context.marker, type) )
   }
 
-  mentioned({ context:concept, value=null } = {}) {
+  mentioned({ context:concept, value=null, frameOfReference } = {}) {
+    if (!frameOfReference) {
+      frameOfReference = this._objects
+    }
     // TODO value should perhaps have been called id as in concept id and then value could be value
     if (value) {
       concept = { ...concept, pullFromContext: false }
@@ -61,8 +64,8 @@ class API {
     if (!concept.stm.id) {
       concept.stm.id = this.getId()
     }
-    this._objects.mentioned = this._objects.mentioned.filter( (context) => context.stm && context.stm.id != concept.stm.id )
-    this._objects.mentioned.unshift(concept)
+    frameOfReference.mentioned = (frameOfReference.mentioned || []).filter( (context) => context.stm && context.stm.id != concept.stm.id )
+    frameOfReference.mentioned.unshift(concept)
   }
 
   mentions({ context, frameOfReference, useHierarchy=true, all, condition = (() => true) } = {}) {
@@ -245,8 +248,8 @@ const config = {
 
 const initializer = ({config}) => {
     config.addArgs(({kms}) => ({
-      mentioned: ({ context }) => {
-        kms.stm.api.mentioned({ context })
+      mentioned: (args) => {
+        kms.stm.api.mentioned(args)
       },
       mentions: (args) => {
         return kms.stm.api.mentions(args)
