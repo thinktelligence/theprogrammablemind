@@ -241,6 +241,7 @@ let config = {
        id: "wear", 
        isA: ['verb'],
        words: ['where'], // the speech recognizer hears 'where' not 'wear'
+       localHierarchy: [ ['unknown', 'wearable'] ],
        level: 0, 
        bridge: "{ ...next(operator), item: after[0] }",
        generatorp: async ({context, g}) => `wear ${await g(context.item)}`,
