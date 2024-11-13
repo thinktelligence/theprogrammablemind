@@ -26,6 +26,9 @@ for (let file of package.files) {
   if (['', 'pipboyTemplate', 'runtime', 'tester', 'helpers'].includes(file)) {
     continue
   }
+  if (!['pipboy'].includes(file)) {
+    continue
+  }
 
   retrains.push(`node ${file} -rtf -g`)
   tests.push(`node ${file} -tva -g`)

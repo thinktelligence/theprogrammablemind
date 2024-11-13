@@ -283,6 +283,7 @@ let config = {
     { 
        where: where(),
        id: "eat", 
+       localHierarchy: [ ['unknown', 'edible'] ],
        isA: ['verb'],
        level: 0, 
        bridge: "{ ...next(operator), item: after[0] }",
