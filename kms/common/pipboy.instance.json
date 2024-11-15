@@ -207,13 +207,19 @@
           "words": [
             "where"
           ],
+          "localHierarchy": [
+            [
+              "unknown",
+              "wearable"
+            ]
+          ],
           "level": 0,
           "bridge": "{ ...next(operator), item: after[0] }",
           "generatorp": "async ({context, g}) => `wear ${await g(context.item)}`",
           "semantic": "({api, context}) => {\n         if (context.item.name) {\n           api.wear({ name: context.item.name.value, type: 'outfit' })\n         } else {\n           api.wear({ type: context.item.value })\n         }\n       }"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:256",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:257",
           "id": "equip",
           "isA": [
             "verb"
@@ -238,7 +244,7 @@
           "semantic": "async ({api, context}) => {\n         let condition\n         if (context.item.condition) {\n           condition = { selector: context.item.condition.marker, property: context.item.condition.property[0].marker }\n         }\n         api.equip({ type: context.item.value, condition })\n       }"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:272",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:273",
           "id": "toDrink",
           "isA": [
             "verb"
@@ -249,8 +255,14 @@
           "semantic": "async ({api, context, e}) => {\n         const value = await e(context.item)\n         api.drink(value.value)\n       }"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:284",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:285",
           "id": "eat",
+          "localHierarchy": [
+            [
+              "unknown",
+              "edible"
+            ]
+          ],
           "isA": [
             "verb"
           ],
@@ -260,7 +272,7 @@
           "semantic": "async ({api, context}) => {\n         api.eat(context.item.value)\n       }"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:295",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:297",
           "id": "take",
           "isA": [
             "verb"
@@ -271,7 +283,7 @@
           "semantic": "async ({api, context, e}) => {\n         const value = await e(context.item)\n         api.take(value.value)\n       }"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:307",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:309",
           "id": "nameable",
           "isA": [
             "theAble"
@@ -28589,11 +28601,17 @@
           "words": [
             "where"
           ],
+          "localHierarchy": [
+            [
+              "unknown",
+              "wearable"
+            ]
+          ],
           "level": 0,
           "bridge": "{ ...next(operator), item: after[0] }"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:256",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:257",
           "id": "equip",
           "isA": [
             "verb"
@@ -28616,7 +28634,7 @@
           "bridge": "{ ...next(operator), item: after[0] }"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:272",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:273",
           "id": "toDrink",
           "isA": [
             "verb"
@@ -28625,8 +28643,14 @@
           "bridge": "{ ...next(operator), item: after[0] }"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:284",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:285",
           "id": "eat",
+          "localHierarchy": [
+            [
+              "unknown",
+              "edible"
+            ]
+          ],
           "isA": [
             "verb"
           ],
@@ -28634,7 +28658,7 @@
           "bridge": "{ ...next(operator), item: after[0] }"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:295",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:297",
           "id": "take",
           "isA": [
             "verb"
@@ -28643,7 +28667,7 @@
           "bridge": "{ ...next(operator), item: after[0] }"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:307",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:309",
           "id": "nameable",
           "isA": [
             "theAble"

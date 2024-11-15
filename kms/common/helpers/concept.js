@@ -79,9 +79,13 @@ class API {
       // config.addWord(modifier, { id: modifierId, initial: `{ value: '${modifierId}' }`})
       // TODO call evaluator to pick up overrides
       if (modifier.unknown) {
-        const modifierWord = modifier.text
-        config.addWord(pluralize.singular(modifierWord), { id: modifierId, initial: `{ value: '${modifierId}', number: 'one' }`})
-        config.addWord(pluralize.plural(modifierWord), { id: modifierId, initial: `{ value: '${modifierId}', number: 'many' }`})
+        const modifierWord = modifier.word
+        if (pluralize.isSingular(modifierWord)) {
+          config.addWord(pluralize.singular(modifierWord), { id: modifierId, initial: `{ value: '${modifierId}', number: 'one' }`})
+        }
+        if (pluralize.isPlural(modifierWord)) {
+          config.addWord(pluralize.plural(modifierWord), { id: modifierId, initial: `{ value: '${modifierId}', number: 'many' }`})
+        }
       }
     })
     // modifierds.forEach((modifierId) => config.addWord(modifierId, { id: modifierId, initial: `{ value: '${modifierId}' }`}))
