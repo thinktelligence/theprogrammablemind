@@ -81,6 +81,14 @@ const api = new API();
 
 let config = {
   name: 'properties',
+  associations: {
+    negative: [],
+    positive: [
+      // [['isEdee', 0], ['isEd', 0], ['isEder', 0], ['by', 0]]
+      [['queryable', 0], ['is', 0], ['property', 0], ['propertyOf', 0], ['object', 0]]
+    ]
+  },
+
   operators: [
     "([hierarchyAble|])",
     "(([property]) <([propertyOf|of] ([object]))>)",

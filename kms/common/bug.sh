@@ -845,4 +845,5 @@ fi
 # $NODE math -q "x is 3 y is 4 what is x" -g -d
 # $NODE math -q "x is 3 y is 4 what is x" -g -d
 # $NODE dimension -q "temperature is a dimension\nfahrenheit celcuis and kelvin are units of temperature\n10 degrees celcius in fahrenheit" -g -d
-$NODE dimension -q "temperature is a dimension\nfahrenheit celcius and kelvin are units of temperature\nfahrenheit = celcius*9/5 + 32" -g -d
+# $NODE dimension -q "temperature is a dimension\nfahrenheit celcius and kelvin are units of temperature\nfahrenheit = celcius*9/5 + 32" -g -d
+$NODE hierarchy -q "a cat is a feline" -g -d

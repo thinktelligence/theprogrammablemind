@@ -52,6 +52,7 @@ let config = {
     ['have', 'canBeDoQuestion'],
   ],
   priorities: [
+    { "context": [['isEd', 0], ['is', 0], ], "choose": [1] },
     { "context": [['a', 0], ['questionMark', 0], ['is', 0], ], "choose": [0] },
     // [['is', 0], ['hierarchyAble', 0]],
     // [['a', 0], ['is', 0], ['hierarchyAble', 0]],

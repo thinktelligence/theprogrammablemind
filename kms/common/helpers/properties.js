@@ -104,6 +104,7 @@ class API {
              localHierarchy,
              bridge: `{ 
                ...before, 
+               marker: '${after[0].tag}',
                constraints: [ 
                     { 
                        property: '${after[0].tag}', 
@@ -329,14 +330,25 @@ class API {
     } else {
       config.addOperator({ pattern: `(${beforeOperators} [${operator}|] ${afterOperators})`, allowDups: true })
     }
- 
-    for (let argument of before.concat(after)) {
-      if (create.includes(argument.id)) {
-        // config.addHierarchy('unknown', argument.id)
-        // config.addHierarchy('what', argument.id)
-        // greg23 <<<<<<<<<<<< doing this
-        config.addHierarchy(argument.id, 'unknown')
-        config.addHierarchy(argument.id, 'what')
+
+    if (false) {
+      for (let argument of before.concat(after)) {
+        if (create.includes(argument.id)) {
+          // config.addHierarchy('unknown', argument.id)
+          // config.addHierarchy('what', argument.id)
+          // greg23 <<<<<<<<<<<< doing this
+          config.addHierarchy(argument.id, 'unknown')
+          config.addHierarchy(argument.id, 'what')
+        }
+      } 
+    } else {
+      for (let argument of before.concat(after)) {
+        if (create.includes(argument.id)) {
+          // config.addHierarchy(argument.id, 'unknown')
+          // config.addHierarchy(argument.id, 'what')
+          localHierarchy.push([argument.id, 'unknown'])
+          localHierarchy.push([argument.id, 'what'])
+        }
       }
     }
 

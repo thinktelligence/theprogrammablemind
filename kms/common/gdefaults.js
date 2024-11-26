@@ -46,6 +46,12 @@ let config = {
 
     {
       where: where(),
+      match: ({context}) => context.evalue,
+      apply: async ({context, g}) => await g(context.evalue)
+    },
+
+    {
+      where: where(),
       //({context}) => context.paraphrase && context.modifiers,
       // match: ({context}) => context.paraphrase && (context.modifiers || context.postModifiers),
       match: ({context}) => (context.modifiers || context.postModifiers),
@@ -150,12 +156,6 @@ let config = {
       where: where(),
       match: ({context}) => context.verbatim,
       apply: ({context}) => context.verbatim
-    },
-
-    {
-      where: where(),
-      match: ({context}) => context.evalue,
-      apply: async ({context, g}) => await g(context.evalue)
     },
 
     {

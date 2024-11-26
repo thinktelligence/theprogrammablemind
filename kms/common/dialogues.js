@@ -48,6 +48,9 @@ let config = {
     "([is:queryBridge|] ([queryable]) ([queryable]))",
     // "(([queryable]) [is:isEdBridge|is,are] ([isEdAble|]))",
     "(([queryable]) [(<isEd|> ([isEdAble|]))])",
+    "(([isEdee])^ <isEdAble|> ([by] ([isEder])?))",
+    "([isEdee|])",
+    "([isEder|])",
 
     // "([nevermind])",
     // { pattern: "([nevermindTestSetup] (allowed))", development: true },
@@ -78,9 +81,6 @@ let config = {
     //"arm them, what, the phasers"
     //greg is a first name
     "([yesno|])",
-    "(([isEdee])^ <isEdAble|> ([by] ([isEder])?))",
-    "([isEdee|])",
-    "([isEder|])",
     { pattern: "([debug23])" },
 
     "([to] ([toAble|]))",
@@ -128,7 +128,13 @@ let config = {
       }
     },
 
-    { id: "by", level: 0, bridge: "{ ...next(operator), object: after[0] }", optional: { 1: "{ marker: 'unknown', implicit: true, concept: true }", }, },
+    { 
+      id: "by", 
+      level: 0, 
+      bridge: "{ ...next(operator), object: after[0] }", 
+      localHierarchy: [['unknown', 'isEder']],
+      optional: { 1: "{ marker: 'unknown', implicit: true, concept: true }", }, 
+    },
 
     { id: "debug23", level: 0, bridge: "{ ...next(operator) }" },
     // { id: "what", level: 0, bridge: "{ ...next(operator), ...after[0], query: ['what'], determined: true }" },
@@ -326,6 +332,7 @@ let config = {
     ['a', 'articlePOS'],
     ['the', 'articlePOS'],
     ['unknown', 'theAble'],
+    ['theAble', 'queryable'],
     ['unknown', 'queryable'],
     ['it', 'queryable'],
     ['what', 'queryable'],
