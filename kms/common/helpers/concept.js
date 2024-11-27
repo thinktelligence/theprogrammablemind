@@ -70,7 +70,7 @@ class API {
       config.addOperator({ pattern: `([${objectId}|])`, allowDups: true })
     }
 
-    if (object.unknown) {
+    if (object.unknown || object.marker !== objectId) {
       config.addWord(objectSingular, { id: objectId, initial: `{ value: '${objectId}', number: 'one' }`})
       config.addWord(objectPlural, { id: objectId, initial: `{ value: '${objectId}', number: 'many' }`})
     }
