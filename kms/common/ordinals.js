@@ -31,6 +31,7 @@ let config = {
   words: {
     "literals": {
       "first": [{"id": "ordinal", "initial": "{ value: 1, ordinal: true, instance: true }" }],
+      "last": [{"id": "ordinal", "initial": "{ value: -1, ordinal: true, instance: true }" }],
       "1st": [{"id": "ordinal", "initial": "{ value: 1, ordinal: true, instance: true }" }],
       "second": [{"id": "ordinal", "initial": "{ value: 2, ordinal: true, instance: true }" }],
       "2nd": [{"id": "ordinal", "initial": "{ value: 2, ordinal: true, instance: true }" }],
