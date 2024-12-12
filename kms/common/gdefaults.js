@@ -33,14 +33,20 @@ let config = {
       where: where(),
       match: ({context}) => context.generate,
       apply: async ({context, gs}) => {
-        const existing = context.generate.filter((key) => context[key] !== undefined)
+        const existing = context.generate.filter((key) => context[key] !== undefined || key == 'this')
         const filtered = existing.filter((key) => {
           if (context[key] && context[key].skipDefault) {
             return false
           }
           return true
         })
-        return gs(filtered.map((key) => context[key]))
+        return gs(filtered.map((key) => {
+          if (key == 'this') {
+            return {...context, generate: null}
+          } else {
+            return context[key]
+          }
+        }))
       }
     },
 
