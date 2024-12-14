@@ -14,7 +14,6 @@ let config = {
   bridges: [
     { 
       id: "ordinal", 
-      isA: ['number'],
       bridge: "{ instance: false, ordinal: true, ...next(operator) }" 
     },
     { 
