@@ -31,7 +31,7 @@ let config = {
         context = context.context
         debugger
         const argument = contexts.find( (argument) => argument.argument_id == context.interpretation_error.argument_id )
-        verbatim(`Did not know how to ${await g(context)}, ${await gp(argument)}`)
+        verbatim(`Did not know how to ${await g(context)} ${await gp(argument)}`)
       }
     },
   ],
