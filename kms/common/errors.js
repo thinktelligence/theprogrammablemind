@@ -19,19 +19,17 @@ let config = {
   semantics: [
     {
       match: ({context}) => context.interpretation_error,
-      apply: async ({context, g, verbatim, contexts}) => {
-        debugger
+      apply: async ({context, g, gp, verbatim, contexts}) => {
         const argument = contexts.find( (argument) => argument.argument_id == context.interpretation_error.argument_id )
-        verbatim(`Did not know how to ${await g(context)}, ${await g(argument)}`)
+        verbatim(`Did not know how to understand "${await gp(argument)}" when applying "${await g(context)}"`)
       }
     },
     {
       match: ({context}) => context.context?.interpretation_error,
       apply: async ({context, g, gp, verbatim, contexts}) => {
         context = context.context
-        debugger
         const argument = contexts.find( (argument) => argument.argument_id == context.interpretation_error.argument_id )
-        verbatim(`Did not know how to ${await g(context)} ${await gp(argument)}`)
+        verbatim(`Did not know how to understand "${await gp(argument)}" when applying "${await g(context)}"`)
       }
     },
   ],
