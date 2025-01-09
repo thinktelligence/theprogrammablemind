@@ -51,9 +51,21 @@ let config = {
       "tens": [{"id": "integer", "initial": "{ value: 10, integer: 'many', instance: true }" }],
     },
     patterns: [
-      { "pattern": [{ type: 'digit' }, { repeat: true }], defs: [{id: "integer", uuid: '1', initial: "{ value: int(text), instance: true }" }]},
-      { "pattern": [{ type: 'digit' }, { repeat: true }, '.', { type: 'digit' }, { repeat: true }], defs: [{id: "number", uuid: '1', initial: "{ value: float(text), instance: true }" }]},
-      { "pattern": ['.', { type: 'digit' }, { repeat: true }], defs: [{id: "number", uuid: '1', initial: "{ value: float(text), instance: true }" }]},
+      { 
+        pattern: [{ type: 'digit' }, { repeat: true }], 
+        allow_partial_matches: false, 
+        defs: [{id: "integer", uuid: '1', initial: "{ value: int(text), instance: true }" }]
+      },
+      { 
+        pattern: [{ type: 'digit' }, { repeat: true }, '.', { type: 'digit' }, { repeat: true }], 
+        allow_partial_matches: false, 
+        defs: [{id: "number", uuid: '1', initial: "{ value: float(text), instance: true }" }]
+      },
+      { 
+        pattern: ['.', { type: 'digit' }, { repeat: true }], 
+        allow_partial_matches: false, 
+        defs: [{id: "number", uuid: '1', initial: "{ value: float(text), instance: true }" }]
+      },
     ],
   },
 

@@ -47,7 +47,13 @@ let config = {
     "(([queryable]) [is|] ([queryable|]))",
     "([is:queryBridge|] ([queryable]) ([queryable]))",
     // "(([queryable]) [is:isEdBridge|is,are] ([isEdAble|]))",
+    // who is the car owned by
     "(([queryable]) [(<isEd|> ([isEdAble|]))])",
+
+    /* TODO investigate this:
+      {"pattern":"(([ownee])^ <owned|owned> ([by] ([owner])?))","uuid":"people1"}
+      {"pattern":"(([isEdee])^ <isEdAble|> ([by] ([isEder])?))","uuid":"dialogues2"}
+    */
     "(([isEdee])^ <isEdAble|> ([by] ([isEder])?))",
     "([isEdee|])",
     "([isEder|])",
@@ -171,7 +177,12 @@ let config = {
     // { id: "isEd", level: 0, bridge: "{ number: operator.number, ...context, properties(subject).number: operator.number }" },
     // NO or symlink subject: link(current.ownee)  // any other operator...
     // NO { id: "isEd", level: 0, bridge: "{ number: operator.number, ...context, subject.number: operator.number }" },
-    { id: "isEd", level: 0, bridge: "{ number: operator.number, ...context, [context.subject].number: operator.number }" },
+    { 
+      id: "isEd", 
+      level: 0, 
+      localHierarchy: [['unknown', 'isEder'], ['unknown', 'isEdee']],
+      bridge: "{ number: operator.number, ...context, [context.subject].number: operator.number }" 
+    },
     // { id: "isEd", level: 0, bridge: "{ ...context }" },
     { id: "isEdAble", level: 0, bridge: "{ ...next(operator) }" },
     { id: "isEdAble", level: 1, bridge: "{ ...next(operator) }" },

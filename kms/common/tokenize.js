@@ -14,7 +14,7 @@ const config = {
   words: {
     patterns: [
       { pattern: [{ type: 'space' }, { repeat: true }], defs: [ { remove: true } ] },
-      { pattern: [{ type: 'alphanumeric' }, { repeat: true }], scale: 0.8, check_spelling: true, is_unknown: true, defs: [ { id: 'unknown', initial: "{ value: text, unknown: true }" } ] },
+      { pattern: [{ type: 'alphanumeric' }, { repeat: true }], scale: 0.8, check_spelling: true, is_unknown: true, allow_partial_matches: false, defs: [ { id: 'unknown', initial: "{ value: text, unknown: true }" } ] },
     ],
     hierarchy: [
       { child: ' ', parent: 'space' },

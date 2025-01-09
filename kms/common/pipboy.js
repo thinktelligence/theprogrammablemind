@@ -505,6 +505,7 @@ const template = {
   configs: [
     "pistols rifles grenades mines and shotguns are weapons",
     "mines and grenades are explosives",
+    // { stop: true },
     "explosives are weapons",
     "pistols rifles and shotguns are firearms",
     "firearms are weapons",
