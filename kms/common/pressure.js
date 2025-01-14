@@ -22,13 +22,13 @@ knowledgeModule({
   description: 'Pressure dimension',
   test: {
     name: './pressure.test.json',
-    contents: pressure_tests
+    contents: pressure_tests,
+    checks: {
+            context: defaultContextCheck(),
+          },
   },
   template: {
     template,
     instance: pressure_instance,
-    checks: {
-            context: defaultContextCheck(),
-          },
   }
 })

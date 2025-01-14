@@ -65,14 +65,14 @@ knowledgeModule( {
       description: 'emotions related concepts',
       test: {
               name: './emotions.test.json',
-              contents: emotions_tests
+              contents: emotions_tests,
+              checks: {
+                  context: defaultContextCheck(),
+                },
             },
       template: {
         template,
         instance: emotions_instance,
-        checks: {
-            context: defaultContextCheck(),
-          },
 
       },
 })
