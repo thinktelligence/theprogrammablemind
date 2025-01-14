@@ -228,6 +228,7 @@ let config = {
     { 
       id: "propertyOf", 
       level: 0, 
+      isA: ['preposition'],
       localHierarchy: [['property', 'queryable'], ['property', 'theAble'], ['property', 'unknown'], ['object', 'unknown']],
       bridge: "{ ...next(operator), object: after[0], objects: after }" 
     },
