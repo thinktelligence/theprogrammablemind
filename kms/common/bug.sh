@@ -847,4 +847,8 @@ fi
 # $NODE dimension -q "temperature is a dimension\nfahrenheit celcuis and kelvin are units of temperature\n10 degrees celcius in fahrenheit" -g -d
 # $NODE dimension -q "temperature is a dimension\nfahrenheit celcius and kelvin are units of temperature\nfahrenheit = celcius*9/5 + 32" -g -d
 # $NODE hierarchy -q "a cat is a feline" -g -d
-node dialogues -q 'x is 3 what is x' -g -d
+# node dialogues -q 'x is 3 what is x' -g -d
+# node dialogues -q 'x is 3 what is x what is it' -g -d
+node concept -q 'aa' -g -d
+node colors -q '#1234T6' -g -d
+node math -q 'x is 3 y is 4 what is x' -g -d

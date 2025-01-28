@@ -23,6 +23,7 @@ const template = {
       {
         associations: {
           positive: [
+            [['what', 0], ['is', 0], ['unknown', 0], ['owned', 0], ['by', 0]],
             [['unknown', 0], ['is', 0], ['unknown', 0], ['owned', 0], ['by', 0]],
             [['unknown', 1], ['is', 0], ['unknown', 0], ['owned', 0], ['by', 0]],
             [['unknown', 1], ['is', 0], ['unknown', 1], ['owned', 0], ['by', 0]],

@@ -34,7 +34,7 @@ const template = {
       */
       words: {
         patterns: [
-          { "pattern": ["#", { type: 'hexDigit' }, { repeat: true, exactly: 6 }], defs: [{id: "hexColor", uuid: '1', initial: "{ value: text, instance: true }" }]},
+          { "pattern": ["#", { type: 'hexDigit' }, { repeat: true, exactly: 6 }], allow_partial_matches: false, defs: [{id: "hexColor", uuid: '1', initial: "{ value: text, instance: true }" }]},
         ],
         hierarchy: [
           ..."0123456789abcdefABCDEF".split("").map((digit) => { return { child: digit, parent: 'hexDigit' } })
