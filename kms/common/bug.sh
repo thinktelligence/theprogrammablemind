@@ -852,3 +852,4 @@ fi
 node concept -q 'aa' -g -d
 node colors -q '#1234T6' -g -d
 node math -q 'x is 3 y is 4 what is x' -g -d
+node people -q 'given name means first name the first name of greg is greg23 what is the given name of greg' -g -d -tva -v

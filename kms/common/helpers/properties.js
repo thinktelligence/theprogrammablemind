@@ -104,7 +104,7 @@ class API {
              localHierarchy,
              bridge: `{ 
                ...before, 
-               marker: '${after[0].tag}',
+               marker: operator('${after[0].tag}'),
                constraints: [ 
                     { 
                        property: '${after[0].tag}', 
@@ -137,6 +137,7 @@ class API {
     config.addHierarchy(edAble.operator, 'isEdAble')
     config.addHierarchy(before[0].id, 'isEder')
     config.addHierarchy(after[0].id, 'isEdee')
+    config.addHierarchy('isEdee', 'queryable')
     config.addSemantic({
       notes: 'semantic for setting value with constraint',
       match: ({context, isA}) => isA(context.marker, after[0].tag) && context.evaluate && context.constraints,

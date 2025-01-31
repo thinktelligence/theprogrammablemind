@@ -613,8 +613,8 @@ knowledgeModule({
     name: './reports.test.json',
     contents: reports_tests,
     checks: {
-            context: defaultContextCheck(),
-          },
+      context: defaultContextCheck(['name']),
+    },
   },
   template: {
     template,
