@@ -2521,10 +2521,11 @@
         },
         "text": "stats",
         "topLevel": true,
-        "value": "stats",
+        "value": "stat",
         "word": "stats"
       }
     ],
+    "developerTest": false,
     "generatedParenthesized": [
       ""
     ],
@@ -2547,26 +2548,34 @@
     },
     "objects": {
       "nameToUUID": {
+        "articles": "articles2",
+        "asking": "asking2",
         "comparable": "comparable2",
         "concept": "concept2",
+        "conjunction": "conjunction2",
         "countable": "countable2",
         "dialogues": "dialogues2",
+        "evaluate": "evaluate2",
         "gdefaults": "gdefaults2",
         "help": "help2",
         "hierarchy": "hierarchy2",
         "math": "math2",
-        "mathTemplate": "mathTemplate2",
         "meta": "meta2",
+        "negation": "negation2",
         "numbers": "numbers2",
         "pipboy": "pipboy1",
-        "pipboyTemplate": "pipboyTemplate2",
         "pos": "pos2",
         "properties": "properties2",
         "punctuation": "punctuation2",
         "sdefaults": "sdefaults2",
-        "stm": "stm2"
+        "stm": "stm2",
+        "tokenize": "tokenize2"
       },
       "namespaced": {
+        "articles2": {
+        },
+        "asking2": {
+        },
         "comparable2": {
         },
         "concept2": {
@@ -2575,13 +2584,18 @@
           "valueToWords": [
           ]
         },
+        "conjunction2": {
+        },
         "countable2": {
         },
         "dialogues2": {
+          "idSuffix": "",
           "mentioned": [
           ],
           "variables": {
           }
+        },
+        "evaluate2": {
         },
         "gdefaults2": {
         },
@@ -2591,20 +2605,21 @@
         },
         "math2": {
         },
-        "mathTemplate2": {
-        },
         "meta2": {
+        },
+        "negation2": {
         },
         "numbers2": {
         },
         "pipboy1": {
         },
-        "pipboyTemplate2": {
-        },
         "pos2": {
         },
         "properties2": {
           "children": {
+            "adjective": [
+              "stm_before"
+            ],
             "articlePOS": [
               "a",
               "the"
@@ -2668,22 +2683,14 @@
               "range",
               "accuracy"
             ],
-            "mathematical_operator": [
-              "*",
-              "+",
-              "/",
-              "-"
-            ],
-            "notAble": [
-              "unknown"
-            ],
             "object": [
-              "unknown",
               "what",
               "whose"
             ],
             "preposition": [
-              "between"
+              "between",
+              "propertyOf",
+              "to"
             ],
             "pronoun": [
               "it",
@@ -2693,19 +2700,25 @@
               "questionMark"
             ],
             "queryable": [
+              "xfx",
               "hierarchyAble",
               "readonly",
               "property",
               "object",
-              "xfx",
               "concept",
+              "doubleQuote",
+              "theAble",
               "unknown",
               "it",
               "what",
               "whatAble",
               "this",
-              "thisitthat",
-              "reason"
+              "reason",
+              "thisitthat"
+            ],
+            "sort_ordering": [
+              "ascending",
+              "descending"
             ],
             "takeable": [
               "medicine",
@@ -2716,8 +2729,9 @@
               "object",
               "concept",
               "unknown",
-              "noun",
-              "reason"
+              "reason",
+              "memorable",
+              "noun"
             ],
             "thisitthat": [
               "it",
@@ -2727,12 +2741,11 @@
             "toAble": [
               "it"
             ],
-            "unknown": [
-              "property"
-            ],
-            "verby": [
+            "verb": [
               "modifies",
-              "is"
+              "is",
+              "remember",
+              "evaluate"
             ],
             "weapon": [
               "pistol",
@@ -2751,22 +2764,24 @@
             "properties",
             "unknown",
             "hierarchyAble",
-            "object",
             "what",
-            "queryable",
-            "readonly",
-            "property",
+            "object",
             "xfx",
-            "theAble",
-            "whose",
+            "queryable",
+            "between",
+            "preposition",
+            "readonly",
             "have",
             "canBeDoQuestion",
             "canBeQuestion",
-            "between",
-            "preposition",
+            "property",
+            "theAble",
+            "propertyOf",
+            "whose",
             "concept",
             "modifies",
-            "verby",
+            "verb",
+            "doubleQuote",
             "it",
             "pronoun",
             "this",
@@ -2775,21 +2790,24 @@
             "a",
             "articlePOS",
             "the",
-            "notAble",
             "whatAble",
             "is",
             "toAble",
-            "noun",
-            "thisitthat",
+            "to",
             "reason",
-            "that",
+            "memorable",
+            "remember",
+            "stm_before",
+            "adjective",
             "orAble",
             "ifAble",
-            "*",
-            "mathematical_operator",
-            "+",
-            "/",
-            "-",
+            "evaluate",
+            "noun",
+            "thisitthat",
+            "that",
+            "ascending",
+            "sort_ordering",
+            "descending",
             "pistol",
             "weapon",
             "rifle",
@@ -2828,18 +2846,6 @@
             "accuracy"
           ],
           "parents": {
-            "*": [
-              "mathematical_operator"
-            ],
-            "+": [
-              "mathematical_operator"
-            ],
-            "-": [
-              "mathematical_operator"
-            ],
-            "/": [
-              "mathematical_operator"
-            ],
             "a": [
               "articlePOS"
             ],
@@ -2851,6 +2857,9 @@
             ],
             "armor": [
               "clothe"
+            ],
+            "ascending": [
+              "sort_ordering"
             ],
             "between": [
               "preposition"
@@ -2871,11 +2880,20 @@
             "damage": [
               "item_property"
             ],
+            "descending": [
+              "sort_ordering"
+            ],
+            "doubleQuote": [
+              "queryable"
+            ],
             "drink": [
               "drinkable"
             ],
             "edible": [
               "concept"
+            ],
+            "evaluate": [
+              "verb"
             ],
             "explosive": [
               "weapon"
@@ -2908,7 +2926,7 @@
             ],
             "is": [
               "canBeQuestion",
-              "verby"
+              "verb"
             ],
             "it": [
               "pronoun",
@@ -2925,12 +2943,15 @@
             "medicine": [
               "takeable"
             ],
+            "memorable": [
+              "theAble"
+            ],
             "mine": [
               "weapon",
               "explosive"
             ],
             "modifies": [
-              "verby"
+              "verb"
             ],
             "noun": [
               "theAble"
@@ -2951,8 +2972,10 @@
             ],
             "property": [
               "queryable",
-              "theAble",
-              "unknown"
+              "theAble"
+            ],
+            "propertyOf": [
+              "preposition"
             ],
             "questionMark": [
               "punctuation"
@@ -2970,6 +2993,9 @@
               "theAble",
               "queryable"
             ],
+            "remember": [
+              "verb"
+            ],
             "rifle": [
               "weapon",
               "firearm"
@@ -2981,6 +3007,9 @@
             "stimpak": [
               "takeable"
             ],
+            "stm_before": [
+              "adjective"
+            ],
             "suit": [
               "clothe"
             ],
@@ -2990,6 +3019,9 @@
             "the": [
               "articlePOS"
             ],
+            "theAble": [
+              "queryable"
+            ],
             "this": [
               "pronoun",
               "queryable",
@@ -2998,10 +3030,11 @@
             "thisitthat": [
               "queryable"
             ],
+            "to": [
+              "preposition"
+            ],
             "unknown": [
               "hierarchyAble",
-              "object",
-              "notAble",
               "theAble",
               "queryable"
             ],
@@ -3034,23 +3067,19 @@
             "initHandlers": [
             ],
             "root": {
-              "*": {
-              },
-              "+": {
-              },
-              "-": {
-              },
-              "/": {
-              },
               "a": {
               },
               "accuracy": {
+              },
+              "adjective": {
               },
               "ap": {
               },
               "armor": {
               },
               "articlePOS": {
+              },
+              "ascending": {
               },
               "between": {
               },
@@ -3068,6 +3097,10 @@
               },
               "damage": {
               },
+              "descending": {
+              },
+              "doubleQuote": {
+              },
               "drink": {
               },
               "drinkable": {
@@ -3075,6 +3108,8 @@
               "edible": {
               },
               "equipable": {
+              },
+              "evaluate": {
               },
               "explosive": {
               },
@@ -3104,17 +3139,15 @@
               },
               "luck": {
               },
-              "mathematical_operator": {
-              },
               "meat": {
               },
               "medicine": {
               },
+              "memorable": {
+              },
               "mine": {
               },
               "modifies": {
-              },
-              "notAble": {
               },
               "noun": {
               },
@@ -3132,6 +3165,8 @@
               },
               "property": {
               },
+              "propertyOf": {
+              },
               "punctuation": {
               },
               "queryable": {
@@ -3146,11 +3181,17 @@
               },
               "reason": {
               },
+              "remember": {
+              },
               "rifle": {
               },
               "shotgun": {
               },
+              "sort_ordering": {
+              },
               "stimpak": {
+              },
+              "stm_before": {
               },
               "suit": {
               },
@@ -3166,6 +3207,8 @@
               },
               "thisitthat": {
               },
+              "to": {
+              },
               "toAble": {
               },
               "unknown": {
@@ -3174,7 +3217,7 @@
               },
               "vegetable": {
               },
-              "verby": {
+              "verb": {
               },
               "weapon": {
               },
@@ -3206,6 +3249,8 @@
           ],
           "variables": {
           }
+        },
+        "tokenize2": {
         }
       },
       "processed": [
@@ -3220,7 +3265,7 @@
             },
             "text": "stats",
             "topLevel": true,
-            "value": "stats",
+            "value": "stat",
             "word": "stats"
           },
           "generatedParenthesized": "",
@@ -3237,6 +3282,8 @@
             "marker": "is",
             "number": "many",
             "one": {
+              "default": true,
+              "isList": true,
               "level": 1,
               "listable": true,
               "marker": "list",
@@ -3245,148 +3292,189 @@
                 "end": 75,
                 "start": 0
               },
+              "text": "damage luck hp rads value ap charisma range and accuracy",
               "types": [
                 "list",
+                "queryable",
                 "unknown"
               ],
               "value": [
                 {
                   "dead": true,
-                  "level": 2,
+                  "level": 1,
                   "marker": "unknown",
                   "range": {
                     "end": 5,
                     "start": 0
                   },
                   "text": "damage",
+                  "types": [
+                    "queryable",
+                    "unknown"
+                  ],
                   "unknown": true,
                   "value": "damage",
                   "word": "damage"
                 },
                 {
                   "dead": true,
-                  "level": 2,
+                  "level": 1,
                   "marker": "unknown",
                   "range": {
                     "end": 10,
                     "start": 7
                   },
                   "text": "luck",
+                  "types": [
+                    "queryable",
+                    "unknown"
+                  ],
                   "unknown": true,
                   "value": "luck",
                   "word": "luck"
                 },
                 {
                   "dead": true,
-                  "level": 2,
+                  "level": 1,
                   "marker": "unknown",
                   "range": {
                     "end": 13,
                     "start": 12
                   },
                   "text": "hp",
+                  "types": [
+                    "queryable",
+                    "unknown"
+                  ],
                   "unknown": true,
                   "value": "hp",
                   "word": "hp"
                 },
                 {
                   "dead": true,
-                  "level": 2,
+                  "level": 1,
                   "marker": "unknown",
                   "range": {
                     "end": 18,
                     "start": 15
                   },
                   "text": "rads",
+                  "types": [
+                    "queryable",
+                    "unknown"
+                  ],
                   "unknown": true,
                   "value": "rads",
                   "word": "rads"
                 },
                 {
                   "dead": true,
-                  "level": 2,
+                  "level": 1,
                   "marker": "unknown",
                   "range": {
                     "end": 24,
                     "start": 20
                   },
                   "text": "value",
+                  "types": [
+                    "queryable",
+                    "unknown"
+                  ],
                   "unknown": true,
                   "value": "value",
                   "word": "value"
                 },
                 {
                   "dead": true,
-                  "level": 2,
+                  "level": 1,
                   "marker": "unknown",
                   "range": {
                     "end": 27,
                     "start": 26
                   },
                   "text": "ap",
+                  "types": [
+                    "queryable",
+                    "unknown"
+                  ],
                   "unknown": true,
                   "value": "ap",
                   "word": "ap"
                 },
                 {
                   "dead": true,
-                  "level": 2,
+                  "level": 1,
                   "marker": "unknown",
                   "range": {
                     "end": 36,
                     "start": 29
                   },
                   "text": "charisma",
+                  "types": [
+                    "queryable",
+                    "unknown"
+                  ],
                   "unknown": true,
                   "value": "charisma",
                   "word": "charisma"
                 },
                 {
                   "dead": true,
-                  "level": 2,
+                  "level": 1,
                   "marker": "unknown",
                   "range": {
                     "end": 42,
                     "start": 38
                   },
                   "text": "range",
+                  "types": [
+                    "queryable",
+                    "unknown"
+                  ],
                   "unknown": true,
                   "value": "range",
                   "word": "range"
                 },
                 {
                   "dead": true,
-                  "level": 2,
+                  "level": 1,
                   "marker": "unknown",
                   "range": {
                     "end": 55,
                     "start": 48
                   },
                   "text": "accuracy",
+                  "types": [
+                    "queryable",
+                    "unknown"
+                  ],
                   "unknown": true,
                   "value": "accuracy",
                   "word": "accuracy"
                 }
-              ]
+              ],
+              "word": "and"
             },
             "range": {
               "end": 75,
               "start": 0
             },
-            "text": " are item properties",
+            "text": "damage luck hp rads value ap charisma range and accuracy are item properties",
             "topLevel": true,
             "touchedBy": [
-              "pipboyTemplate#call2",
-              "instance16#pipboyTemplate#call2",
+              "pipboy#call2",
               "instance16#pipboy#call2"
             ],
             "two": {
               "atomic": true,
               "concept": true,
               "dead": true,
-              "item": {
+              "level": 1,
+              "marker": "item_property",
+              "modifier_item": {
                 "level": 0,
                 "marker": "item",
+                "number": "one",
                 "range": {
                   "end": 64,
                   "start": 61
@@ -3398,12 +3486,9 @@
                 "value": "item",
                 "word": "item"
               },
-              "level": 1,
-              "marker": "item_property",
               "modifiers": [
-                "item"
+                "modifier_item"
               ],
-              "number": "many",
               "range": {
                 "end": 75,
                 "start": 61
@@ -3431,19 +3516,19 @@
           "context": {
             "concept": {
               "dead": true,
+              "default": true,
               "level": 1,
-              "marker": "unknown",
+              "marker": "property",
               "range": {
-                "end": 23,
+                "end": 21,
                 "start": 14
               },
-              "text": "properties",
-              "unknown": true,
-              "value": "properties",
-              "word": "properties"
+              "text": "property",
+              "value": "property",
+              "word": "property"
             },
             "dead": true,
-            "flatten": true,
+            "flatten": false,
             "level": 1,
             "marker": "modifies",
             "modifiers": [
@@ -3463,21 +3548,20 @@
             ],
             "number": "one",
             "range": {
-              "end": 23,
+              "end": 21,
               "start": 0
             },
-            "text": "item modifies properties",
+            "text": "item modifies property",
             "topLevel": true,
             "touchedBy": [
-              "pipboyTemplate#call2",
-              "instance15#pipboyTemplate#call2",
+              "pipboy#call2",
               "instance15#pipboy#call2"
             ],
             "word": "modifies"
           },
           "generatedParenthesized": [
           ],
-          "paraphrases": "item modifies properties",
+          "paraphrases": "item modifies property",
           "paraphrasesParenthesized": [
           ],
           "responses": [
@@ -3491,6 +3575,8 @@
             "marker": "is",
             "number": "many",
             "one": {
+              "default": true,
+              "isList": true,
               "level": 1,
               "listable": true,
               "marker": "list",
@@ -3499,48 +3585,58 @@
                 "end": 33,
                 "start": 0
               },
+              "text": "medicine and stimpaks",
               "types": [
                 "list",
+                "queryable",
                 "unknown"
               ],
               "value": [
                 {
                   "dead": true,
-                  "level": 2,
+                  "level": 1,
                   "marker": "unknown",
                   "range": {
                     "end": 7,
                     "start": 0
                   },
                   "text": "medicine",
+                  "types": [
+                    "queryable",
+                    "unknown"
+                  ],
                   "unknown": true,
                   "value": "medicine",
                   "word": "medicine"
                 },
                 {
                   "dead": true,
-                  "level": 2,
+                  "level": 1,
                   "marker": "unknown",
                   "range": {
                     "end": 20,
                     "start": 13
                   },
                   "text": "stimpaks",
+                  "types": [
+                    "queryable",
+                    "unknown"
+                  ],
                   "unknown": true,
                   "value": "stimpaks",
                   "word": "stimpaks"
                 }
-              ]
+              ],
+              "word": "and"
             },
             "range": {
               "end": 33,
               "start": 0
             },
-            "text": " are takeable",
+            "text": "medicine and stimpaks are takeable",
             "topLevel": true,
             "touchedBy": [
-              "pipboyTemplate#call2",
-              "instance14#pipboyTemplate#call2",
+              "pipboy#call2",
               "instance14#pipboy#call2"
             ],
             "two": {
@@ -3578,6 +3674,8 @@
             "marker": "is",
             "number": "many",
             "one": {
+              "default": true,
+              "isList": true,
               "level": 1,
               "listable": true,
               "marker": "list",
@@ -3586,48 +3684,58 @@
                 "end": 22,
                 "start": 0
               },
+              "text": "cola and pop",
               "types": [
                 "list",
+                "queryable",
                 "unknown"
               ],
               "value": [
                 {
                   "dead": true,
-                  "level": 2,
+                  "level": 1,
                   "marker": "unknown",
                   "range": {
                     "end": 3,
                     "start": 0
                   },
                   "text": "cola",
+                  "types": [
+                    "queryable",
+                    "unknown"
+                  ],
                   "unknown": true,
                   "value": "cola",
                   "word": "cola"
                 },
                 {
                   "dead": true,
-                  "level": 2,
+                  "level": 1,
                   "marker": "unknown",
                   "range": {
                     "end": 11,
                     "start": 9
                   },
                   "text": "pop",
+                  "types": [
+                    "queryable",
+                    "unknown"
+                  ],
                   "unknown": true,
                   "value": "pop",
                   "word": "pop"
                 }
-              ]
+              ],
+              "word": "and"
             },
             "range": {
               "end": 22,
               "start": 0
             },
-            "text": " are drinks",
+            "text": "cola and pop are drinks",
             "topLevel": true,
             "touchedBy": [
-              "pipboyTemplate#call2",
-              "instance13#pipboyTemplate#call2",
+              "pipboy#call2",
               "instance13#pipboy#call2"
             ],
             "two": {
@@ -3665,6 +3773,8 @@
             "marker": "is",
             "number": "many",
             "one": {
+              "default": true,
+              "isList": true,
               "level": 1,
               "listable": true,
               "marker": "list",
@@ -3673,48 +3783,58 @@
                 "end": 28,
                 "start": 0
               },
+              "text": "vegetables and fruit",
               "types": [
                 "list",
+                "queryable",
                 "unknown"
               ],
               "value": [
                 {
                   "dead": true,
-                  "level": 2,
+                  "level": 1,
                   "marker": "unknown",
                   "range": {
                     "end": 9,
                     "start": 0
                   },
                   "text": "vegetables",
+                  "types": [
+                    "queryable",
+                    "unknown"
+                  ],
                   "unknown": true,
                   "value": "vegetables",
                   "word": "vegetables"
                 },
                 {
                   "dead": true,
-                  "level": 2,
+                  "level": 1,
                   "marker": "unknown",
                   "range": {
                     "end": 19,
                     "start": 15
                   },
                   "text": "fruit",
+                  "types": [
+                    "queryable",
+                    "unknown"
+                  ],
                   "unknown": true,
                   "value": "fruit",
                   "word": "fruit"
                 }
-              ]
+              ],
+              "word": "and"
             },
             "range": {
               "end": 28,
               "start": 0
             },
-            "text": " are food",
+            "text": "vegetables and fruit are food",
             "topLevel": true,
             "touchedBy": [
-              "pipboyTemplate#call2",
-              "instance12#pipboyTemplate#call2",
+              "pipboy#call2",
               "instance12#pipboy#call2"
             ],
             "two": {
@@ -25884,6 +26004,7 @@
           "types": [
             "outfit"
           ],
+          "value": "outfit",
           "word": "outfit"
         },
         "level": 1,
@@ -25938,6 +26059,7 @@
         "word": "call"
       }
     ],
+    "developerTest": false,
     "generatedParenthesized": [
       ""
     ],
@@ -26069,26 +26191,34 @@
     },
     "objects": {
       "nameToUUID": {
+        "articles": "articles2",
+        "asking": "asking2",
         "comparable": "comparable2",
         "concept": "concept2",
+        "conjunction": "conjunction2",
         "countable": "countable2",
         "dialogues": "dialogues2",
+        "evaluate": "evaluate2",
         "gdefaults": "gdefaults2",
         "help": "help2",
         "hierarchy": "hierarchy2",
         "math": "math2",
-        "mathTemplate": "mathTemplate2",
         "meta": "meta2",
+        "negation": "negation2",
         "numbers": "numbers2",
         "pipboy": "pipboy1",
-        "pipboyTemplate": "pipboyTemplate2",
         "pos": "pos2",
         "properties": "properties2",
         "punctuation": "punctuation2",
         "sdefaults": "sdefaults2",
-        "stm": "stm2"
+        "stm": "stm2",
+        "tokenize": "tokenize2"
       },
       "namespaced": {
+        "articles2": {
+        },
+        "asking2": {
+        },
         "comparable2": {
         },
         "concept2": {
@@ -26097,13 +26227,18 @@
           "valueToWords": [
           ]
         },
+        "conjunction2": {
+        },
         "countable2": {
         },
         "dialogues2": {
+          "idSuffix": "",
           "mentioned": [
           ],
           "variables": {
           }
+        },
+        "evaluate2": {
         },
         "gdefaults2": {
         },
@@ -26113,9 +26248,9 @@
         },
         "math2": {
         },
-        "mathTemplate2": {
-        },
         "meta2": {
+        },
+        "negation2": {
         },
         "numbers2": {
         },
@@ -26152,17 +26287,19 @@
               "types": [
                 "outfit"
               ],
+              "value": "outfit",
               "word": "outfit"
             },
             "name": "city"
           }
         },
-        "pipboyTemplate2": {
-        },
         "pos2": {
         },
         "properties2": {
           "children": {
+            "adjective": [
+              "stm_before"
+            ],
             "articlePOS": [
               "a",
               "the"
@@ -26226,22 +26363,14 @@
               "range",
               "accuracy"
             ],
-            "mathematical_operator": [
-              "*",
-              "+",
-              "/",
-              "-"
-            ],
-            "notAble": [
-              "unknown"
-            ],
             "object": [
-              "unknown",
               "what",
               "whose"
             ],
             "preposition": [
-              "between"
+              "between",
+              "propertyOf",
+              "to"
             ],
             "pronoun": [
               "it",
@@ -26251,19 +26380,25 @@
               "questionMark"
             ],
             "queryable": [
+              "xfx",
               "hierarchyAble",
               "readonly",
               "property",
               "object",
-              "xfx",
               "concept",
+              "doubleQuote",
+              "theAble",
               "unknown",
               "it",
               "what",
               "whatAble",
               "this",
-              "thisitthat",
-              "reason"
+              "reason",
+              "thisitthat"
+            ],
+            "sort_ordering": [
+              "ascending",
+              "descending"
             ],
             "takeable": [
               "medicine",
@@ -26274,8 +26409,9 @@
               "object",
               "concept",
               "unknown",
-              "noun",
-              "reason"
+              "reason",
+              "memorable",
+              "noun"
             ],
             "thisitthat": [
               "it",
@@ -26285,12 +26421,11 @@
             "toAble": [
               "it"
             ],
-            "unknown": [
-              "property"
-            ],
-            "verby": [
+            "verb": [
               "modifies",
-              "is"
+              "is",
+              "remember",
+              "evaluate"
             ],
             "weapon": [
               "pistol",
@@ -26309,22 +26444,24 @@
             "properties",
             "unknown",
             "hierarchyAble",
-            "object",
             "what",
-            "queryable",
-            "readonly",
-            "property",
+            "object",
             "xfx",
-            "theAble",
-            "whose",
+            "queryable",
+            "between",
+            "preposition",
+            "readonly",
             "have",
             "canBeDoQuestion",
             "canBeQuestion",
-            "between",
-            "preposition",
+            "property",
+            "theAble",
+            "propertyOf",
+            "whose",
             "concept",
             "modifies",
-            "verby",
+            "verb",
+            "doubleQuote",
             "it",
             "pronoun",
             "this",
@@ -26333,21 +26470,24 @@
             "a",
             "articlePOS",
             "the",
-            "notAble",
             "whatAble",
             "is",
             "toAble",
-            "noun",
-            "thisitthat",
+            "to",
             "reason",
-            "that",
+            "memorable",
+            "remember",
+            "stm_before",
+            "adjective",
             "orAble",
             "ifAble",
-            "*",
-            "mathematical_operator",
-            "+",
-            "/",
-            "-",
+            "evaluate",
+            "noun",
+            "thisitthat",
+            "that",
+            "ascending",
+            "sort_ordering",
+            "descending",
             "pistol",
             "weapon",
             "rifle",
@@ -26386,18 +26526,6 @@
             "accuracy"
           ],
           "parents": {
-            "*": [
-              "mathematical_operator"
-            ],
-            "+": [
-              "mathematical_operator"
-            ],
-            "-": [
-              "mathematical_operator"
-            ],
-            "/": [
-              "mathematical_operator"
-            ],
             "a": [
               "articlePOS"
             ],
@@ -26409,6 +26537,9 @@
             ],
             "armor": [
               "clothe"
+            ],
+            "ascending": [
+              "sort_ordering"
             ],
             "between": [
               "preposition"
@@ -26429,11 +26560,20 @@
             "damage": [
               "item_property"
             ],
+            "descending": [
+              "sort_ordering"
+            ],
+            "doubleQuote": [
+              "queryable"
+            ],
             "drink": [
               "drinkable"
             ],
             "edible": [
               "concept"
+            ],
+            "evaluate": [
+              "verb"
             ],
             "explosive": [
               "weapon"
@@ -26466,7 +26606,7 @@
             ],
             "is": [
               "canBeQuestion",
-              "verby"
+              "verb"
             ],
             "it": [
               "pronoun",
@@ -26483,12 +26623,15 @@
             "medicine": [
               "takeable"
             ],
+            "memorable": [
+              "theAble"
+            ],
             "mine": [
               "weapon",
               "explosive"
             ],
             "modifies": [
-              "verby"
+              "verb"
             ],
             "noun": [
               "theAble"
@@ -26509,8 +26652,10 @@
             ],
             "property": [
               "queryable",
-              "theAble",
-              "unknown"
+              "theAble"
+            ],
+            "propertyOf": [
+              "preposition"
             ],
             "questionMark": [
               "punctuation"
@@ -26528,6 +26673,9 @@
               "theAble",
               "queryable"
             ],
+            "remember": [
+              "verb"
+            ],
             "rifle": [
               "weapon",
               "firearm"
@@ -26539,6 +26687,9 @@
             "stimpak": [
               "takeable"
             ],
+            "stm_before": [
+              "adjective"
+            ],
             "suit": [
               "clothe"
             ],
@@ -26548,6 +26699,9 @@
             "the": [
               "articlePOS"
             ],
+            "theAble": [
+              "queryable"
+            ],
             "this": [
               "pronoun",
               "queryable",
@@ -26556,10 +26710,11 @@
             "thisitthat": [
               "queryable"
             ],
+            "to": [
+              "preposition"
+            ],
             "unknown": [
               "hierarchyAble",
-              "object",
-              "notAble",
               "theAble",
               "queryable"
             ],
@@ -26592,23 +26747,19 @@
             "initHandlers": [
             ],
             "root": {
-              "*": {
-              },
-              "+": {
-              },
-              "-": {
-              },
-              "/": {
-              },
               "a": {
               },
               "accuracy": {
+              },
+              "adjective": {
               },
               "ap": {
               },
               "armor": {
               },
               "articlePOS": {
+              },
+              "ascending": {
               },
               "between": {
               },
@@ -26626,6 +26777,10 @@
               },
               "damage": {
               },
+              "descending": {
+              },
+              "doubleQuote": {
+              },
               "drink": {
               },
               "drinkable": {
@@ -26633,6 +26788,8 @@
               "edible": {
               },
               "equipable": {
+              },
+              "evaluate": {
               },
               "explosive": {
               },
@@ -26662,17 +26819,15 @@
               },
               "luck": {
               },
-              "mathematical_operator": {
-              },
               "meat": {
               },
               "medicine": {
               },
+              "memorable": {
+              },
               "mine": {
               },
               "modifies": {
-              },
-              "notAble": {
               },
               "noun": {
               },
@@ -26690,6 +26845,8 @@
               },
               "property": {
               },
+              "propertyOf": {
+              },
               "punctuation": {
               },
               "queryable": {
@@ -26704,11 +26861,17 @@
               },
               "reason": {
               },
+              "remember": {
+              },
               "rifle": {
               },
               "shotgun": {
               },
+              "sort_ordering": {
+              },
               "stimpak": {
+              },
+              "stm_before": {
               },
               "suit": {
               },
@@ -26724,6 +26887,8 @@
               },
               "thisitthat": {
               },
+              "to": {
+              },
               "toAble": {
               },
               "unknown": {
@@ -26732,7 +26897,7 @@
               },
               "vegetable": {
               },
-              "verby": {
+              "verb": {
               },
               "weapon": {
               },
@@ -26764,6 +26929,8 @@
           ],
           "variables": {
           }
+        },
+        "tokenize2": {
         }
       },
       "processed": [
@@ -26802,6 +26969,7 @@
               "types": [
                 "outfit"
               ],
+              "value": "outfit",
               "word": "outfit"
             },
             "level": 1,
@@ -26869,6 +27037,8 @@
             "marker": "is",
             "number": "many",
             "one": {
+              "default": true,
+              "isList": true,
               "level": 1,
               "listable": true,
               "marker": "list",
@@ -26877,148 +27047,189 @@
                 "end": 75,
                 "start": 0
               },
+              "text": "damage luck hp rads value ap charisma range and accuracy",
               "types": [
                 "list",
+                "queryable",
                 "unknown"
               ],
               "value": [
                 {
                   "dead": true,
-                  "level": 2,
+                  "level": 1,
                   "marker": "unknown",
                   "range": {
                     "end": 5,
                     "start": 0
                   },
                   "text": "damage",
+                  "types": [
+                    "queryable",
+                    "unknown"
+                  ],
                   "unknown": true,
                   "value": "damage",
                   "word": "damage"
                 },
                 {
                   "dead": true,
-                  "level": 2,
+                  "level": 1,
                   "marker": "unknown",
                   "range": {
                     "end": 10,
                     "start": 7
                   },
                   "text": "luck",
+                  "types": [
+                    "queryable",
+                    "unknown"
+                  ],
                   "unknown": true,
                   "value": "luck",
                   "word": "luck"
                 },
                 {
                   "dead": true,
-                  "level": 2,
+                  "level": 1,
                   "marker": "unknown",
                   "range": {
                     "end": 13,
                     "start": 12
                   },
                   "text": "hp",
+                  "types": [
+                    "queryable",
+                    "unknown"
+                  ],
                   "unknown": true,
                   "value": "hp",
                   "word": "hp"
                 },
                 {
                   "dead": true,
-                  "level": 2,
+                  "level": 1,
                   "marker": "unknown",
                   "range": {
                     "end": 18,
                     "start": 15
                   },
                   "text": "rads",
+                  "types": [
+                    "queryable",
+                    "unknown"
+                  ],
                   "unknown": true,
                   "value": "rads",
                   "word": "rads"
                 },
                 {
                   "dead": true,
-                  "level": 2,
+                  "level": 1,
                   "marker": "unknown",
                   "range": {
                     "end": 24,
                     "start": 20
                   },
                   "text": "value",
+                  "types": [
+                    "queryable",
+                    "unknown"
+                  ],
                   "unknown": true,
                   "value": "value",
                   "word": "value"
                 },
                 {
                   "dead": true,
-                  "level": 2,
+                  "level": 1,
                   "marker": "unknown",
                   "range": {
                     "end": 27,
                     "start": 26
                   },
                   "text": "ap",
+                  "types": [
+                    "queryable",
+                    "unknown"
+                  ],
                   "unknown": true,
                   "value": "ap",
                   "word": "ap"
                 },
                 {
                   "dead": true,
-                  "level": 2,
+                  "level": 1,
                   "marker": "unknown",
                   "range": {
                     "end": 36,
                     "start": 29
                   },
                   "text": "charisma",
+                  "types": [
+                    "queryable",
+                    "unknown"
+                  ],
                   "unknown": true,
                   "value": "charisma",
                   "word": "charisma"
                 },
                 {
                   "dead": true,
-                  "level": 2,
+                  "level": 1,
                   "marker": "unknown",
                   "range": {
                     "end": 42,
                     "start": 38
                   },
                   "text": "range",
+                  "types": [
+                    "queryable",
+                    "unknown"
+                  ],
                   "unknown": true,
                   "value": "range",
                   "word": "range"
                 },
                 {
                   "dead": true,
-                  "level": 2,
+                  "level": 1,
                   "marker": "unknown",
                   "range": {
                     "end": 55,
                     "start": 48
                   },
                   "text": "accuracy",
+                  "types": [
+                    "queryable",
+                    "unknown"
+                  ],
                   "unknown": true,
                   "value": "accuracy",
                   "word": "accuracy"
                 }
-              ]
+              ],
+              "word": "and"
             },
             "range": {
               "end": 75,
               "start": 0
             },
-            "text": " are item properties",
+            "text": "damage luck hp rads value ap charisma range and accuracy are item properties",
             "topLevel": true,
             "touchedBy": [
-              "pipboyTemplate#call2",
-              "instance16#pipboyTemplate#call2",
+              "pipboy#call2",
               "instance16#pipboy#call2"
             ],
             "two": {
               "atomic": true,
               "concept": true,
               "dead": true,
-              "item": {
+              "level": 1,
+              "marker": "item_property",
+              "modifier_item": {
                 "level": 0,
                 "marker": "item",
+                "number": "one",
                 "range": {
                   "end": 64,
                   "start": 61
@@ -27030,12 +27241,9 @@
                 "value": "item",
                 "word": "item"
               },
-              "level": 1,
-              "marker": "item_property",
               "modifiers": [
-                "item"
+                "modifier_item"
               ],
-              "number": "many",
               "range": {
                 "end": 75,
                 "start": 61
@@ -27063,19 +27271,19 @@
           "context": {
             "concept": {
               "dead": true,
+              "default": true,
               "level": 1,
-              "marker": "unknown",
+              "marker": "property",
               "range": {
-                "end": 23,
+                "end": 21,
                 "start": 14
               },
-              "text": "properties",
-              "unknown": true,
-              "value": "properties",
-              "word": "properties"
+              "text": "property",
+              "value": "property",
+              "word": "property"
             },
             "dead": true,
-            "flatten": true,
+            "flatten": false,
             "level": 1,
             "marker": "modifies",
             "modifiers": [
@@ -27095,21 +27303,20 @@
             ],
             "number": "one",
             "range": {
-              "end": 23,
+              "end": 21,
               "start": 0
             },
-            "text": "item modifies properties",
+            "text": "item modifies property",
             "topLevel": true,
             "touchedBy": [
-              "pipboyTemplate#call2",
-              "instance15#pipboyTemplate#call2",
+              "pipboy#call2",
               "instance15#pipboy#call2"
             ],
             "word": "modifies"
           },
           "generatedParenthesized": [
           ],
-          "paraphrases": "item modifies properties",
+          "paraphrases": "item modifies property",
           "paraphrasesParenthesized": [
           ],
           "responses": [
@@ -27123,6 +27330,8 @@
             "marker": "is",
             "number": "many",
             "one": {
+              "default": true,
+              "isList": true,
               "level": 1,
               "listable": true,
               "marker": "list",
@@ -27131,48 +27340,58 @@
                 "end": 33,
                 "start": 0
               },
+              "text": "medicine and stimpaks",
               "types": [
                 "list",
+                "queryable",
                 "unknown"
               ],
               "value": [
                 {
                   "dead": true,
-                  "level": 2,
+                  "level": 1,
                   "marker": "unknown",
                   "range": {
                     "end": 7,
                     "start": 0
                   },
                   "text": "medicine",
+                  "types": [
+                    "queryable",
+                    "unknown"
+                  ],
                   "unknown": true,
                   "value": "medicine",
                   "word": "medicine"
                 },
                 {
                   "dead": true,
-                  "level": 2,
+                  "level": 1,
                   "marker": "unknown",
                   "range": {
                     "end": 20,
                     "start": 13
                   },
                   "text": "stimpaks",
+                  "types": [
+                    "queryable",
+                    "unknown"
+                  ],
                   "unknown": true,
                   "value": "stimpaks",
                   "word": "stimpaks"
                 }
-              ]
+              ],
+              "word": "and"
             },
             "range": {
               "end": 33,
               "start": 0
             },
-            "text": " are takeable",
+            "text": "medicine and stimpaks are takeable",
             "topLevel": true,
             "touchedBy": [
-              "pipboyTemplate#call2",
-              "instance14#pipboyTemplate#call2",
+              "pipboy#call2",
               "instance14#pipboy#call2"
             ],
             "two": {
@@ -27210,6 +27429,8 @@
             "marker": "is",
             "number": "many",
             "one": {
+              "default": true,
+              "isList": true,
               "level": 1,
               "listable": true,
               "marker": "list",
@@ -27218,48 +27439,58 @@
                 "end": 22,
                 "start": 0
               },
+              "text": "cola and pop",
               "types": [
                 "list",
+                "queryable",
                 "unknown"
               ],
               "value": [
                 {
                   "dead": true,
-                  "level": 2,
+                  "level": 1,
                   "marker": "unknown",
                   "range": {
                     "end": 3,
                     "start": 0
                   },
                   "text": "cola",
+                  "types": [
+                    "queryable",
+                    "unknown"
+                  ],
                   "unknown": true,
                   "value": "cola",
                   "word": "cola"
                 },
                 {
                   "dead": true,
-                  "level": 2,
+                  "level": 1,
                   "marker": "unknown",
                   "range": {
                     "end": 11,
                     "start": 9
                   },
                   "text": "pop",
+                  "types": [
+                    "queryable",
+                    "unknown"
+                  ],
                   "unknown": true,
                   "value": "pop",
                   "word": "pop"
                 }
-              ]
+              ],
+              "word": "and"
             },
             "range": {
               "end": 22,
               "start": 0
             },
-            "text": " are drinks",
+            "text": "cola and pop are drinks",
             "topLevel": true,
             "touchedBy": [
-              "pipboyTemplate#call2",
-              "instance13#pipboyTemplate#call2",
+              "pipboy#call2",
               "instance13#pipboy#call2"
             ],
             "two": {
@@ -27297,6 +27528,8 @@
             "marker": "is",
             "number": "many",
             "one": {
+              "default": true,
+              "isList": true,
               "level": 1,
               "listable": true,
               "marker": "list",
@@ -27305,48 +27538,58 @@
                 "end": 28,
                 "start": 0
               },
+              "text": "vegetables and fruit",
               "types": [
                 "list",
+                "queryable",
                 "unknown"
               ],
               "value": [
                 {
                   "dead": true,
-                  "level": 2,
+                  "level": 1,
                   "marker": "unknown",
                   "range": {
                     "end": 9,
                     "start": 0
                   },
                   "text": "vegetables",
+                  "types": [
+                    "queryable",
+                    "unknown"
+                  ],
                   "unknown": true,
                   "value": "vegetables",
                   "word": "vegetables"
                 },
                 {
                   "dead": true,
-                  "level": 2,
+                  "level": 1,
                   "marker": "unknown",
                   "range": {
                     "end": 19,
                     "start": 15
                   },
                   "text": "fruit",
+                  "types": [
+                    "queryable",
+                    "unknown"
+                  ],
                   "unknown": true,
                   "value": "fruit",
                   "word": "fruit"
                 }
-              ]
+              ],
+              "word": "and"
             },
             "range": {
               "end": 28,
               "start": 0
             },
-            "text": " are food",
+            "text": "vegetables and fruit are food",
             "topLevel": true,
             "touchedBy": [
-              "pipboyTemplate#call2",
-              "instance12#pipboyTemplate#call2",
+              "pipboy#call2",
               "instance12#pipboy#call2"
             ],
             "two": {
