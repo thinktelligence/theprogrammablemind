@@ -23,7 +23,7 @@ class API {
     this._objects = objects
   }
 
-  changeColor(unit, scope, color) {
+  changeColor({ unit, scope, color }) {
     this._objects.changeColor = { unit, scope, color }
   }
 }
