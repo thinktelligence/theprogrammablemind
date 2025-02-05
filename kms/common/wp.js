@@ -44,7 +44,7 @@ let config = {
       semantic: ({api, context}) => {
         const unit = context.element.marker
         const scope = context.element.quantity.quantity
-        const color = context.state.value
+        const color = context.state.value.split('_')[0]
         api.changeColor({ unit, scope, color })
       }
     },
