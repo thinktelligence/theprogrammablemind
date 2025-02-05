@@ -98,7 +98,6 @@ class API {
     this._objects.change = item
   }
 }
-const api = new API()
 
 let config = {
   name: 'pipboy',

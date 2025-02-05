@@ -6,11 +6,31 @@ const countable = require("./countable")
 const wp_tests = require('./wp.test.json')
 const instance = require('./wp.instance.json')
 
+/*
+  start inserting text until I say banana
+  ...
+  or 
+  stop inserting text
+
+  make the text of the 1st to 3rd paragraphs blue
+
+*/
+
+class API {
+  initialize({ objects }) {
+    this._objects = objects
+  }
+}
+
+const api = new API()
+
 let config = {
   name: 'wp',
   operators: [
   ],
   bridges: [
+  ],
+  semantics: [
   ]
 };
 
@@ -25,6 +45,7 @@ template = {
 knowledgeModule({ 
   config,
   includes: [ui, countable],
+  api: () => new API(),
 
   module,
   description: 'Word processor',
