@@ -20,6 +20,7 @@ let config = {
     "([more] (countable/*))",
     "([less] (countable/*))",
     "([all])",
+    "([every])",
     // everything
   ],
   bridges: [
@@ -56,7 +57,7 @@ let config = {
     },
     { 
       id: "quantifier", 
-      children: ['number', 'all'],
+      children: ['number', 'all', 'every'],
     },
     { 
       id: "countable", 
@@ -65,7 +66,12 @@ let config = {
     { 
       id: "all", 
       generatorp: ({context}) => 'all',
-      bridge: "{ ...next(operator), number: 'many' }" 
+      bridge: "{ ...next(operator), number: 'many', quantity: 'all' }" 
+    },
+    { 
+      id: "every", 
+      generatorp: ({context}) => 'every',
+      bridge: "{ ...next(operator), number: 'one', quantity: 'every' }" 
     },
   ],
 

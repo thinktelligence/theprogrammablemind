@@ -305,8 +305,8 @@ knowledgeModule( {
     checks: {
       objects: ['children', 'concept', 'parents', 'properties'],
       checks: {
-            context: defaultContextCheck(),
-          },
+        context: defaultContextCheck(),
+      },
 
     },
     includes: {
