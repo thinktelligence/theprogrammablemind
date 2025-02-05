@@ -250,7 +250,6 @@ let config = {
         const api = km('properties').api
         const oneConcepts = asList(context);
         const twoConcepts = asList(context.same);
-        debugger
         for (let oneConcept of oneConcepts.value) {
           for (let twoConcept of twoConcepts.value) {
             oneConceptId = api.makeObject({config, context: oneConcept})
