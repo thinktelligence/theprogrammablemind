@@ -250,11 +250,12 @@ let config = {
         const api = km('properties').api
         const oneConcepts = asList(context);
         const twoConcepts = asList(context.same);
+        debugger
         for (let oneConcept of oneConcepts.value) {
           for (let twoConcept of twoConcepts.value) {
-            oneConcept = api.makeObject({config, context: oneConcept})
-            twoConcept = api.makeObject({config, context: twoConcept})
-            api.rememberIsA(oneConcept, twoConcept)
+            oneConceptId = api.makeObject({config, context: oneConcept})
+            twoConceptId = api.makeObject({config, context: twoConcept})
+            api.rememberIsA(oneConceptId, twoConceptId)
             context.sameWasProcessed = true
           }
         }
