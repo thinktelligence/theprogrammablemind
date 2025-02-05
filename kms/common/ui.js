@@ -2,6 +2,7 @@ const { knowledgeModule, where, Digraph } = require('./runtime').theprogrammable
 const { defaultContextCheck } = require('./helpers')
 const dialogues = require('./dialogues')
 const ordinals = require('./ordinals')
+const countable = require('./countable')
 const ui_tests = require('./ui.test.json')
 const ui_instance = require('./ui.instance.json')
 
@@ -10,8 +11,8 @@ class API {
     this._objects = objects
   }
 
-  move(direction, steps = 1) {
-    this._objects.move = { direction, steps }
+  move(direction, steps = 1, units = undefined) {
+    this._objects.move = { direction, steps, units }
   }
 
   select(item) {
@@ -52,7 +53,7 @@ const config = {
     "([right])",
     "([stop] ([action]))",
     "([listening])",
-    "(([direction]) [moveAmount|] ([number]))"
+    "(([direction]) [moveAmount|] (number/* || context.quantity != null))"
   ],
   semantics: [
     {
@@ -96,6 +97,7 @@ const config = {
        where: where(),
        id: "moveAmount", 
        isA: ['preposition'],
+       after: ['counting'],
        convolution: true,
        level: 0, 
        bridge: "{ ...before[0], postModifiers: ['steps'], steps: after[0] }",
@@ -131,7 +133,12 @@ const config = {
        optional: { 1: "{ marker: 'moveable', pullFromContext: true, default: true, skipDefault: true }" },
        bridge: "{ ...next(operator), operator: operator, moveable: after[0], direction: after[1], generate: ['operator', 'moveable', 'direction' ] }",
        semantic: ({api, context}) => {
-         api.move(context.direction.value, context.direction.steps ? context.direction.steps.value : 1)
+         if (context.direction?.steps?.quantity) {
+           debugger
+           api.move(context.direction.value, context.direction.steps.quantity.value, context.direction.steps.marker)
+         } else {
+           api.move(context.direction.value, context.direction.steps ? context.direction.steps.value : 1)
+         }
        }
     },
     { id: "moveable", },
@@ -183,7 +190,7 @@ const template = {
 
 knowledgeModule({ 
   config,
-  includes: [dialogues, ordinals],
+  includes: [dialogues, ordinals, countable],
   api: () => new API(),
 
   module,
