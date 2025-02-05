@@ -42,7 +42,6 @@ let config = {
       parents: ['verb'],
       bridge: "{ ...next(operator), element: after[0], state: after[1], operator: operator, generate: ['operator', 'element', 'state'] }",
       semantic: ({api, context}) => {
-        debugger
         const unit = context.element.marker
         const scope = context.element.quantity.quantity
         const color = context.state.value
