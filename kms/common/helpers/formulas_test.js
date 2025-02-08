@@ -54,7 +54,7 @@ describe('helpers', () => {
   })
 
   describe('API', () => {
-    it('NEO23 add+get', async () => {
+    it('add+get', async () => {
       const name = { value: 'formula1' }
       const formula = x
       const api = new API()
@@ -81,7 +81,7 @@ describe('helpers', () => {
       expect(body).toStrictEqual(value)
     })
 
-    it('NEOS23 x = y => y = x', async () => {
+    it('x = y => y = x', async () => {
       const value = { marker: 'equals', left: 'x', right: 'y' }
       const body = unify(rules[0], { ...value, x: value.y, y: value.x })
       expect(body).toStrictEqual(value)

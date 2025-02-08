@@ -230,8 +230,8 @@ class API {
     // config.addBridge({ id: "owner", level: 0, bridge: "{ ...next(operator) }"})
 
     {
-      const whoIsWhatVerbedBy = `${before[0].tag}Var is ${after[0].tag}Var ${edAble.word} by`
-      const thisIsVerbedByThat = `${after[0].tag}Var is ${edAble.word} by ${before[0].tag}Var`
+      const whoIsWhatVerbedBy = `${before[0].tag}var is ${after[0].tag}var ${edAble.word} by`
+      const thisIsVerbedByThat = `${after[0].tag}var is ${edAble.word} by ${before[0].tag}var`
 
       // greg32 check this out
       // config.addFragments([whoIsWhatVerbedBy])

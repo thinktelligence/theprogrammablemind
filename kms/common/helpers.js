@@ -163,6 +163,34 @@ const defaultContextCheck = (properties = []) => {
   ]
 }
 
+const isA = (hierarchy) => (child, parent, { strict=false } = {}) => {
+  if (!child || !parent) {
+    return false
+  }
+
+  if (strict) {
+    if (child.marker) {
+      child = child.marker
+    }
+    if (parent.marker) {
+      parent = parent.marker
+    }
+    return hierarchy.isA(child, parent)
+  } else {
+    if (hierarchy.isA(child.marker || child, parent.marker || parent)) {
+      return true
+    }
+    for (const childT of child.types || [child]) {
+      for (const parentT of parent.types || [parent]) {
+        if (hierarchy.isA(childT, parentT)) {
+          return true
+        }
+      }
+    }
+    return false
+  }
+}
+
 module.exports = {
   defaultContextCheck,
   defaultContextCheckProperties,
@@ -178,4 +206,5 @@ module.exports = {
   propertyToArray,
   wordNumber,
   requiredArgument,
+  isA,
 }

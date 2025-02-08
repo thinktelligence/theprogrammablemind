@@ -15,9 +15,15 @@ class API {
     if (typeof context == 'string') {
       return pluralize.singular(context) + this._objects.idSuffix
     } else {
-      const { unknown, value, word } = context;
+      const { unknown, value, word, raw_text } = context;
       // return unknown ? pluralize.singular(word) + this._objects.idSuffix : pluralize.singular(value || word)
-      return unknown ? pluralize.singular(word) + this._objects.idSuffix : value || pluralize.singular(word)
+      return unknown ? pluralize.singular(raw_text || word) + this._objects.idSuffix : value || pluralize.singular(word)
+      /*
+      if (raw_text && raw_text !== word) {
+        debugger
+      }
+      */
+      //return unknown ? pluralize.singular(word) + this._objects.idSuffix : value || pluralize.singular(word)
     }
   }
 

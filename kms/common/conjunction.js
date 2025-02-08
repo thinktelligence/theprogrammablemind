@@ -2,6 +2,7 @@ const { knowledgeModule, where } = require('./runtime').theprogrammablemind
 const gdefaults = require('./gdefaults.js')
 const conjunction_tests = require('./conjunction.test.json')
 const { defaultContextCheck } = require('./helpers')
+const { isA, asList, listable } = require('./helpers/conjunction.js')
 
 let config = {
   name: 'conjunction',
@@ -64,24 +65,31 @@ let config = {
 };
 
 const initializer = ({objects, config, isModule}) => {
-  config.addArgs(({config, api, isA}) => ({ 
-    isAListable: (context, type) => {
-      if (context.marker == 'list' || context.listable) {
-        return context.value.every( (element) => isA(element.marker, type) )
-      } else {
-        return isA(context.marker, type)
-      } 
-    },
-    toContext: (v) => {
-      if (Array.isArray(v)) {
-        return { marker: 'list', level: 1, value: v }
-      }
-      if (v.marker == 'list') {
+  config.addArgs(({config, api, hierarchy}) => {
+    const isAI = isA(hierarchy);
+
+    return { 
+      isAListable: (context, type) => {
+        if (context.marker == 'list' || context.listable) {
+          return context.value.every( (element) => isAI(element.marker, type) )
+        } else {
+          return isAI(context.marker, type)
+        } 
+      },
+      asList,
+      listable: listable(hierarchy),
+      isA: isAI,
+      toContext: (v) => {
+        if (Array.isArray(v)) {
+          return { marker: 'list', level: 1, value: v }
+        }
+        if (v.marker == 'list') {
+          return v
+        }
         return v
-      }
-      return v
-    },
-  }))
+      },
+    }
+  })
 }
 
 knowledgeModule( { 

@@ -134,7 +134,6 @@ const config = {
        bridge: "{ ...next(operator), operator: operator, moveable: after[0], direction: after[1], generate: ['operator', 'moveable', 'direction' ] }",
        semantic: ({api, context}) => {
          if (context.direction?.steps?.quantity) {
-           debugger
            api.move(context.direction.value, context.direction.steps.quantity.value, context.direction.steps.marker)
          } else {
            api.move(context.direction.value, context.direction.steps ? context.direction.steps.value : 1)

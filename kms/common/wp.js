@@ -32,40 +32,46 @@ const api = new API()
 
 let config = {
   name: 'wp',
-  operators: [
-    // TODO write a parser for this so I can use statefulElement as the id
-    "([changeState|make] ([statefulelement]) ([stateValue|]))",
-  ],
-  bridges: [
-    { 
-      id: 'changeState',
-      parents: ['verb'],
-      bridge: "{ ...next(operator), element: after[0], state: after[1], operator: operator, generate: ['operator', 'element', 'state'] }",
-      semantic: ({api, context}) => {
-        const unit = context.element.marker
-        const scope = context.element.quantity.quantity
-        const color = context.state.value.split('_')[0]
-        api.changeColor({ unit, scope, color })
-      }
-    },
-    { 
-      id: 'statefulelement',
-    },
-    { 
-      id: 'stateValue',
-      children: ['color_colors'],
-    },
-  ],
-  semantics: [
-  ]
 };
 
 template = {
   configs: [
+    'setidsuffix _wp',
     'words are countable and statefulElements',
     'characters are countable',
     'paragraphs are countable',
-  ],
+    'bold, italic and underlined are styles',
+    "resetIdSuffix",
+    {
+      operators: [
+        // TODO write a parser for this so I can use statefulElement as the id
+        "([changeState_wp|make] ([statefulElement_wp]) ([stateValue_wp|]))",
+      ],
+      bridges: [
+        { 
+          id: 'changeState_wp',
+          parents: ['verb'],
+          bridge: "{ ...next(operator), element: after[0], state: after[1], operator: operator, generate: ['operator', 'element', 'state'] }",
+          localHierarchy: [
+            ['thisitthat', 'statefulElement'],
+          ],
+          semantic: ({api, context}) => {
+            const unit = context.element.marker
+            const scope = context.element.quantity.quantity
+            const color = context.state.value.split('_')[0]
+            api.changeColor({ unit, scope, color })
+          }
+        },
+        { 
+          id: 'stateValue_wp',
+          children: ['color_colors', 'style_wp'],
+        },
+      ],
+      priorities: [
+        { "context": [['changeState_wp',0], ['statefulElement_wp', 0], ['list', 0]], ordered: true, choose: [0] },
+      ],
+    },
+  ]
 }
 
 knowledgeModule({ 
