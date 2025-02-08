@@ -4,7 +4,7 @@
     "words are countable and statefulElements",
     "characters are countable",
     "paragraphs are countable",
-    "bold, italic and underlined are styles",
+    "bold, italic, code and underlined are styles",
     "resetIdSuffix",
     {
       "operators": [
@@ -23,7 +23,7 @@
               "statefulElement"
             ]
           ],
-          "semantic": "({api, context}) => {\n            const unit = context.element.marker\n            const scope = context.element.quantity.quantity\n            const color = context.state.value.split('_')[0]\n            api.changeColor({ unit, scope, color })\n          }"
+          "semantic": "({api, isA, context, toArray}) => {\n            const root = (id) => {\n              return id.split('_')[0]\n            }\n            const unit = root(context.element.marker)\n            const scope = context.element.quantity.quantity\n            let color;\n            const styles = []\n            const update = { unit, scope }\n            for (const state of toArray(context.state)) {\n              if (isA(state, 'style_wp')) {\n                if (!update.styles) {\n                  update.styles = []\n                }\n                let style = root(state.value)\n                if (style == 'underlined') {\n                  style = 'underline'\n                }\n                update.styles.push(root(state.value))\n              } else {\n                update.color = root(state.value)\n              }\n            }\n            api.changeState(update)\n          }"
         },
         {
           "id": "stateValue_wp",
@@ -2244,7 +2244,8 @@
           "level": 1,
           "topLevel": true,
           "touchedBy": [
-            "wp#call2"
+            "wp#call2",
+            "instance0#wp#call2"
           ]
         }
       ],
@@ -4620,7 +4621,8 @@
           "level": 2,
           "topLevel": true,
           "touchedBy": [
-            "wp#call2"
+            "wp#call2",
+            "instance0#wp#call2"
           ]
         }
       ],
@@ -7049,7 +7051,8 @@
           "level": 2,
           "topLevel": true,
           "touchedBy": [
-            "wp#call2"
+            "wp#call2",
+            "instance0#wp#call2"
           ]
         }
       ],
@@ -9470,7 +9473,8 @@
           "level": 2,
           "topLevel": true,
           "touchedBy": [
-            "wp#call2"
+            "wp#call2",
+            "instance0#wp#call2"
           ]
         }
       ],
@@ -11827,11 +11831,19 @@
                 0
               ],
               [
+                "comma",
+                0
+              ],
+              [
                 "is",
                 0
               ],
               [
                 "list",
+                0
+              ],
+              [
+                "unknown",
                 0
               ],
               [
@@ -11864,11 +11876,19 @@
                 0
               ],
               [
+                "comma",
+                0
+              ],
+              [
                 "is",
                 0
               ],
               [
                 "list",
+                0
+              ],
+              [
+                "unknown",
                 0
               ],
               [
@@ -11897,11 +11917,19 @@
                 0
               ],
               [
+                "comma",
+                0
+              ],
+              [
                 "is",
                 0
               ],
               [
                 "list",
+                0
+              ],
+              [
+                "unknown",
                 0
               ],
               [
@@ -11926,6 +11954,43 @@
                 0
               ],
               [
+                "comma",
+                0
+              ],
+              [
+                "is",
+                0
+              ],
+              [
+                "list",
+                0
+              ],
+              [
+                "unknown",
+                0
+              ],
+              [
+                "unknown",
+                0
+              ]
+            ],
+            "counter": 4
+          },
+          {
+            "op": [
+              "unknown",
+              0
+            ],
+            "ops": [
+              [
+                "comma",
+                0
+              ],
+              [
+                "comma",
+                0
+              ],
+              [
                 "is",
                 0
               ],
@@ -11938,7 +12003,7 @@
                 0
               ]
             ],
-            "counter": 4
+            "counter": 5
           },
           {
             "op": [
@@ -11946,6 +12011,10 @@
               0
             ],
             "ops": [
+              [
+                "comma",
+                0
+              ],
               [
                 "comma",
                 0
@@ -11959,7 +12028,28 @@
                 0
               ]
             ],
-            "counter": 5
+            "counter": 6
+          },
+          {
+            "op": [
+              "comma",
+              0
+            ],
+            "ops": [
+              [
+                "comma",
+                0
+              ],
+              [
+                "comma",
+                0
+              ],
+              [
+                "is",
+                0
+              ]
+            ],
+            "counter": 7
           },
           {
             "op": [
@@ -11976,7 +12066,7 @@
                 0
               ]
             ],
-            "counter": 6
+            "counter": 8
           },
           {
             "op": [
@@ -11993,7 +12083,24 @@
                 1
               ]
             ],
-            "counter": 7
+            "counter": 9
+          },
+          {
+            "op": [
+              "list",
+              1
+            ],
+            "ops": [
+              [
+                "is",
+                0
+              ],
+              [
+                "list",
+                1
+              ]
+            ],
+            "counter": 10
           },
           {
             "op": [
@@ -12006,7 +12113,7 @@
                 0
               ]
             ],
-            "counter": 8
+            "counter": 11
           },
           {
             "op": [
@@ -12019,7 +12126,7 @@
                 1
               ]
             ],
-            "counter": 9
+            "counter": 12
           }
         ]
       },
@@ -12027,22 +12134,22 @@
       "contexts": [
         {
           "number": "many",
-          "text": "bold, italic and underlined are styles",
+          "text": "bold, italic, code and underlined are styles",
           "marker": "is",
           "word": "are",
           "range": {
             "start": 0,
-            "end": 37
+            "end": 43
           },
           "one": {
             "number": "many",
             "marker": "list",
             "default": true,
             "word": "and",
-            "text": "bold, italic and underlined",
+            "text": "bold, italic, code and underlined",
             "range": {
               "start": 0,
-              "end": 37
+              "end": 43
             },
             "types": [
               "list",
@@ -12087,12 +12194,44 @@
               {
                 "value": "italic",
                 "unknown": true,
-                "text": "italic",
+                "text": "italic,",
                 "marker": "unknown",
                 "word": "italic",
                 "range": {
                   "start": 6,
-                  "end": 11
+                  "end": 12
+                },
+                "dead": true,
+                "decorators": {
+                  "after": {
+                    "word": ",",
+                    "value": ",",
+                    "depth": "+",
+                    "text": ",",
+                    "marker": "comma",
+                    "range": {
+                      "start": 12,
+                      "end": 12
+                    },
+                    "level": 0
+                  }
+                },
+                "no_convolutions": true,
+                "types": [
+                  "queryable",
+                  "unknown"
+                ],
+                "level": 1
+              },
+              {
+                "value": "code",
+                "unknown": true,
+                "text": "code",
+                "marker": "unknown",
+                "word": "code",
+                "range": {
+                  "start": 14,
+                  "end": 17
                 },
                 "types": [
                   "queryable",
@@ -12108,8 +12247,8 @@
                 "marker": "unknown",
                 "word": "underlined",
                 "range": {
-                  "start": 17,
-                  "end": 26
+                  "start": 23,
+                  "end": 32
                 },
                 "types": [
                   "queryable",
@@ -12128,8 +12267,8 @@
             "marker": "unknown",
             "word": "styles",
             "range": {
-              "start": 32,
-              "end": 37
+              "start": 38,
+              "end": 43
             },
             "dead": true,
             "types": [
@@ -12150,7 +12289,7 @@
         ""
       ],
       "paraphrases": [
-        "bold, italic and underlined are styles"
+        "bold, italic, code and underlined are styles"
       ],
       "paraphrasesParenthesized": [],
       "generatedParenthesized": [],
@@ -12250,9 +12389,9 @@
         ]
       ],
       "learned_contextual_priorities": [],
-      "query": "bold, italic and underlined are styles",
+      "query": "bold, italic, code and underlined are styles",
       "key": {
-        "query": "bold, italic and underlined are styles"
+        "query": "bold, italic, code and underlined are styles"
       }
     },
     {
@@ -12789,6 +12928,46 @@
         ],
         [
           "chartruese_colors",
+          "theAble",
+          false
+        ],
+        [
+          "code_wp",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "code_wp",
+          "isEdee",
+          false
+        ],
+        [
+          "code_wp",
+          "isEder",
+          false
+        ],
+        [
+          "code_wp",
+          "object",
+          false
+        ],
+        [
+          "code_wp",
+          "property",
+          false
+        ],
+        [
+          "code_wp",
+          "queryable",
+          false
+        ],
+        [
+          "code_wp",
+          "style_wp",
+          false
+        ],
+        [
+          "code_wp",
           "theAble",
           false
         ],

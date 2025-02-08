@@ -23,10 +23,34 @@ const instance = require('./wp.instance.json')
 class API {
   initialize({ objects }) {
     this._objects = objects
+    this._objects.changeState = []
   }
 
   changeState(value) {
-    this._objects.changeState = value
+    this._objects.changeState.push(value)
+  }
+}
+
+const root = (id) => {
+  return id.split('_')[0]
+}
+
+const setUpdate = (isA, update, states) => {
+  let color;
+  const styles = []
+  for (const state of states) {
+    if (isA(state, 'style_wp')) {
+      if (!update.styles) {
+        update.styles = []
+      }
+      let style = root(state.value)
+      if (style == 'underlined') {
+        style = 'underline'
+      }
+      update.styles.push(style)
+    } else {
+      update.color = root(state.value)
+    }
   }
 }
 
@@ -42,7 +66,7 @@ template = {
     'words are countable and statefulElements',
     'characters are countable',
     'paragraphs are countable',
-    'bold, italic and underlined are styles',
+    'bold, italic, code and underlined are styles',
     "resetIdSuffix",
     {
       operators: [
@@ -58,30 +82,39 @@ template = {
             ['thisitthat', 'statefulElement'],
           ],
           semantic: ({api, isA, context, toArray}) => {
-            const root = (id) => {
-              return id.split('_')[0]
-            }
             const unit = root(context.element.marker)
             const scope = context.element.quantity.quantity
-            let color;
-            const styles = []
             const update = { unit, scope }
-            for (const state of toArray(context.state)) {
-              if (isA(state, 'style_wp')) {
-                if (!update.styles) {
-                  update.styles = []
-                }
-                update.styles.push(root(state.value))
-              } else {
-                update.color = root(state.value)
-              }
-            }
+            setUpdate(isA, update, toArray(context.state))
             api.changeState(update)
           }
         },
         { 
           id: 'stateValue_wp',
           children: ['color_colors', 'style_wp'],
+        },
+      ],
+      semantics: [
+        {
+          where: where(),
+          match: ({context, isA}) => isA(context, 'style_wp') && !context.same && !context.isResponse && !context.evaluate,
+          apply: ({context, api, isA, toArray}) => {
+            const update = { scope: 'selection' }
+            setUpdate(isA, update, toArray(context))
+            api.changeState(update)
+          }
+        },
+        {
+          where: where(),
+          match: ({context, isA}) => isA(context, 'statefulElement_wp') && !context.same && !context.isResponse && !context.evaluate,
+          apply: ({context, api, isA, toArray}) => {
+            const unit = root(context.marker)
+            let scope
+            if (context.quantity) {
+              scope = context.quantity.quantity
+            }
+            // TODO set default scope for "every word bold underlined etc"
+          }
         },
       ],
       priorities: [
