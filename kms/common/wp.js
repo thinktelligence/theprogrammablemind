@@ -58,7 +58,10 @@ template = {
             ['thisitthat', 'statefulElement'],
           ],
           semantic: ({api, isA, context, toArray}) => {
-            const unit = context.element.marker
+            const root = (id) => {
+              return id.split('_')[0]
+            }
+            const unit = root(context.element.marker)
             const scope = context.element.quantity.quantity
             let color;
             const styles = []
@@ -68,9 +71,9 @@ template = {
                 if (!update.styles) {
                   update.styles = []
                 }
-                update.styles.push(state.value.split('_')[0])
+                update.styles.push(root(state.value))
               } else {
-                update.color = state.value.split('_')[0]
+                update.color = root(state.value)
               }
             }
             api.changeState(update)
