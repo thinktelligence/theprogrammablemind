@@ -34,7 +34,7 @@ describe('conjucntion helpers Tests', () => {
         const isAI = isA(hierarchy)
         expect(isAI('a', { marker: 'b'})).toBe(true)
       })
-      it('NEO23 child+parent has link, child is list', () => {
+      it('NEOS23 child+parent has link, child is list', () => {
         const child = {
           isList: true,
           level: 1,
@@ -51,7 +51,7 @@ describe('conjucntion helpers Tests', () => {
         expect(isAI(child, { marker: 'style'})).toBe(true)
       })
 
-      it('NEO23 child+parent no link, child is list', () => {
+      it('NEOS23 child+parent no link, child is list', () => {
         const child = {
           isList: true,
           level: 1,

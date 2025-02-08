@@ -5,7 +5,7 @@ describe('helpersOrdering', () => {
 
   it('create', async () => {
     api = new API()
-    api.objects = {}
+    api._objects = {}
     api.createOrdering({ name: 'speed'})
     // expect(objects).toStrictEqual(expected)
   })
