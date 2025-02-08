@@ -16,6 +16,8 @@ const instance = require('./wp.instance.json')
 
   make the text of the 1st to 3rd paragraphs blue
 
+
+  make every word bold and underlines and blue -> weirdly "bold underlined and blue" works
 */
 
 class API {
@@ -23,8 +25,8 @@ class API {
     this._objects = objects
   }
 
-  changeColor({ unit, scope, color }) {
-    this._objects.changeColor = { unit, scope, color }
+  changeState(value) {
+    this._objects.changeState = value
   }
 }
 
@@ -55,11 +57,23 @@ template = {
           localHierarchy: [
             ['thisitthat', 'statefulElement'],
           ],
-          semantic: ({api, context}) => {
+          semantic: ({api, isA, context, toArray}) => {
             const unit = context.element.marker
             const scope = context.element.quantity.quantity
-            const color = context.state.value.split('_')[0]
-            api.changeColor({ unit, scope, color })
+            let color;
+            const styles = []
+            const update = { unit, scope }
+            for (const state of toArray(context.state)) {
+              if (isA(state, 'style_wp')) {
+                if (!update.styles) {
+                  update.styles = []
+                }
+                update.styles.push(state.value.split('_')[0])
+              } else {
+                update.color = state.value.split('_')[0]
+              }
+            }
+            api.changeState(update)
           }
         },
         { 
@@ -89,7 +103,7 @@ knowledgeModule({
         ...defaultContextCheck(), 
       ],
       objects: [
-        'changeColor', 
+        'changeState', 
         { km: 'ui' },
       ],
     },

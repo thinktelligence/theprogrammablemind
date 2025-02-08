@@ -1,7 +1,7 @@
 const { knowledgeModule, where } = require('./runtime').theprogrammablemind
 const gdefaults = require('./gdefaults.js')
 const conjunction_tests = require('./conjunction.test.json')
-const { defaultContextCheck } = require('./helpers')
+const { defaultContextCheck, propertyToArray } = require('./helpers')
 const { isA, asList, listable } = require('./helpers/conjunction.js')
 
 let config = {
@@ -77,6 +77,7 @@ const initializer = ({objects, config, isModule}) => {
         } 
       },
       asList,
+      toArray: propertyToArray,
       listable: listable(hierarchy),
       isA: isAI,
       toContext: (v) => {
