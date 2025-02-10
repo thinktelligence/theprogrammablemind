@@ -20,10 +20,14 @@
           "localHierarchy": [
             [
               "thisitthat",
-              "statefulElement"
+              "statefulElement_wp"
+            ],
+            [
+              "everything",
+              "statefulElement_wp"
             ]
           ],
-          "semantic": "({api, isA, context, toArray}) => {\n            const root = (id) => {\n              return id.split('_')[0]\n            }\n            const unit = root(context.element.marker)\n            const scope = context.element.quantity.quantity\n            let color;\n            const styles = []\n            const update = { unit, scope }\n            for (const state of toArray(context.state)) {\n              if (isA(state, 'style_wp')) {\n                if (!update.styles) {\n                  update.styles = []\n                }\n                let style = root(state.value)\n                if (style == 'underlined') {\n                  style = 'underline'\n                }\n                update.styles.push(root(state.value))\n              } else {\n                update.color = root(state.value)\n              }\n            }\n            api.changeState(update)\n          }"
+          "semantic": "({api, isA, context, toArray}) => {\n            const unit = root(context.element.marker)\n            const scope = context.element.quantity.quantity\n            const update = { unit, scope }\n            setUpdate(isA, update, toArray(context.state))\n            api.changeState(update)\n          }"
         },
         {
           "id": "stateValue_wp",
@@ -31,6 +35,16 @@
             "color_colors",
             "style_wp"
           ]
+        }
+      ],
+      "semantics": [
+        {
+          "match": "({context, isA}) => isA(context, 'style_wp') && !context.same && !context.isResponse && !context.evaluate",
+          "apply": "({context, api, isA, toArray}) => {\n            const update = { scope: 'selection' }\n            setUpdate(isA, update, toArray(context))\n            api.changeState(update)\n          }"
+        },
+        {
+          "match": "({context, isA}) => isA(context, 'statefulElement_wp') && !context.same && !context.isResponse && !context.evaluate",
+          "apply": "({context, api, isA, toArray}) => {\n            const unit = root(context.marker)\n            let scope\n            if (context.quantity) {\n              scope = context.quantity.quantity\n            }\n            // TODO set default scope for \"every word bold underlined etc\"\n          }"
         }
       ],
       "priorities": [
@@ -1391,6 +1405,11 @@
           false
         ],
         [
+          "negatable",
+          "queryable",
+          false
+        ],
+        [
           "noun",
           "theAble",
           false
@@ -2244,8 +2263,7 @@
           "level": 1,
           "topLevel": true,
           "touchedBy": [
-            "wp#call2",
-            "instance0#wp#call2"
+            "wp#call2"
           ]
         }
       ],
@@ -3621,6 +3639,11 @@
           false
         ],
         [
+          "negatable",
+          "queryable",
+          false
+        ],
+        [
           "noun",
           "theAble",
           false
@@ -4621,8 +4644,7 @@
           "level": 2,
           "topLevel": true,
           "touchedBy": [
-            "wp#call2",
-            "instance0#wp#call2"
+            "wp#call2"
           ]
         }
       ],
@@ -6064,6 +6086,11 @@
           false
         ],
         [
+          "negatable",
+          "queryable",
+          false
+        ],
+        [
           "noun",
           "theAble",
           false
@@ -7051,8 +7078,7 @@
           "level": 2,
           "topLevel": true,
           "touchedBy": [
-            "wp#call2",
-            "instance0#wp#call2"
+            "wp#call2"
           ]
         }
       ],
@@ -8486,6 +8512,11 @@
           false
         ],
         [
+          "negatable",
+          "queryable",
+          false
+        ],
+        [
           "noun",
           "theAble",
           false
@@ -9473,8 +9504,7 @@
           "level": 2,
           "topLevel": true,
           "touchedBy": [
-            "wp#call2",
-            "instance0#wp#call2"
+            "wp#call2"
           ]
         }
       ],
@@ -10905,6 +10935,11 @@
         [
           "navy_colors",
           "theAble",
+          false
+        ],
+        [
+          "negatable",
+          "queryable",
           false
         ],
         [
@@ -13887,6 +13922,11 @@
           false
         ],
         [
+          "negatable",
+          "queryable",
+          false
+        ],
+        [
           "noun",
           "theAble",
           false
@@ -14943,7 +14983,11 @@
           "localHierarchy": [
             [
               "thisitthat",
-              "statefulElement"
+              "statefulElement_wp"
+            ],
+            [
+              "everything",
+              "statefulElement_wp"
             ]
           ]
         },
@@ -14953,6 +14997,14 @@
             "color_colors",
             "style_wp"
           ]
+        }
+      ],
+      "semantics": [
+        {
+          "where": "/home/dev/code/theprogrammablemind/kms/common/wp.js:111"
+        },
+        {
+          "where": "/home/dev/code/theprogrammablemind/kms/common/wp.js:120"
         }
       ],
       "priorities": [

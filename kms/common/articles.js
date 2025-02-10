@@ -11,6 +11,7 @@ let config = {
     "([it])",
     "([this])",
     "([that])",
+    "([everything])",
     "([queryable])",
   /*
     "(<what> ([whatAble|]))",
@@ -22,6 +23,9 @@ let config = {
   bridges: [
     // { id: "what", level: 0, optional: "{ ...next(operator), query: ['what'], determined: true }", bridge: "{ ...after, query: ['what'], modifiers: ['what'], what: operator }" },
     // { id: "whatAble", level: 0, bridge: "{ ...next(operator) }" },
+    {
+      id: 'everything',
+    },
     { 
       id: 'the', 
       level: 0, 

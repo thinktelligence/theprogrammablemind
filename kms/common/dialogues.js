@@ -98,7 +98,6 @@ let config = {
       // [['is', 0], ['means', 0]],
     ],
     positive: [
-      // [['is', 0], ['unknown', 0]],
       // [['is', 0], ['unknown', 1]],
       // [['isEd', 0], ['means', 0]],
       [['isEdee', 0], ['isEd', 0], ['isEder', 0], ['by', 0]],
@@ -110,6 +109,12 @@ let config = {
     ]
   },
   bridges: [
+    {
+      id: 'queryable',
+      children: [
+        'negatable'
+      ],
+    },
     {
       id: 'makeObject',
       bridge: "{ ...next(operator), object: after[0] }",
@@ -166,17 +171,7 @@ let config = {
     { id: "yesno", level: 0, bridge: "{ ...next(operator) }" },
     { id: "canBeQuestion", level: 0, bridge: "{ ...next(operator) }" },
     { id: "canBeQuestion", level: 1, bridge: "{ ...next(operator) }" },
-    // { id: "unknown", level: 0, bridge: "{ ...next(operator), unknown: true, dead: true }" },
-    // { id: "unknown", level: 1, bridge: "{ ...next(operator) }" },
-    // { id: "queryable", level: 0, bridge: "{ ...next(operator) }" },
     { id: "questionMark", level: 0, bridge: "{ ...before[0], query: [before.marker] }" },
-    // { id: "isEd", level: 0, bridge: "{ ...context, query: true }" },
-    // gregbug
-    // context.subject == ['owner'] but could be list of properties
-    // { id: "isEd", level: 0, bridge: "{ number: operator.number, ...context, [subject].number: operator.number }" },
-    // { id: "isEd", level: 0, bridge: "{ number: operator.number, ...context, properties(subject).number: operator.number }" },
-    // NO or symlink subject: link(current.ownee)  // any other operator...
-    // NO { id: "isEd", level: 0, bridge: "{ number: operator.number, ...context, subject.number: operator.number }" },
     { 
       id: "isEd", 
       level: 0, 
@@ -348,6 +343,7 @@ let config = {
     ['it', 'queryable'],
     ['what', 'queryable'],
     ['whatAble', 'queryable'],
+    ['negatable', 'queryable'],
     ['is', 'canBeQuestion'],
     ['it', 'toAble'],
     ['this', 'queryable'],

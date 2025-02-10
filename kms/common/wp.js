@@ -18,6 +18,16 @@ const instance = require('./wp.instance.json')
 
 
   make every word bold and underlines and blue -> weirdly "bold underlined and blue" works
+
+  make the font ... 
+  make the color blue
+  make the color of the first paragraph blue
+
+  4 letter word
+  4 to 6 letter word
+  word with 'a' in it
+  words containing a
+  every 5th word
 */
 
 class API {
@@ -67,6 +77,7 @@ template = {
     'characters are countable',
     'paragraphs are countable',
     'bold, italic, code and underlined are styles',
+    // 'styles are negatable',
     "resetIdSuffix",
     {
       operators: [
@@ -79,11 +90,17 @@ template = {
           parents: ['verb'],
           bridge: "{ ...next(operator), element: after[0], state: after[1], operator: operator, generate: ['operator', 'element', 'state'] }",
           localHierarchy: [
-            ['thisitthat', 'statefulElement'],
+            ['thisitthat', 'statefulElement_wp'],
+            ['everything', 'statefulElement_wp'],
           ],
           semantic: ({api, isA, context, toArray}) => {
-            const unit = root(context.element.marker)
-            const scope = context.element.quantity.quantity
+            let unit = root(context.element.marker)
+            let scope
+            if (isA(context.element, 'everything')) {
+              scope = 'all'
+            } else {
+              scope = context.element.quantity.quantity
+            }
             const update = { unit, scope }
             setUpdate(isA, update, toArray(context.state))
             api.changeState(update)
