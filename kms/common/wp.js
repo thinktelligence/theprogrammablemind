@@ -59,11 +59,13 @@ const setUpdate = (isA, update, states) => {
         update.styles = []
       }
       let style = root(state.value)
+      /*
       if (style == 'underlined') {
         style = 'underline'
       } else if (style == 'italicize') {
         style = 'italic'
       }
+      */
       update.styles.push(style)
     } else {
       update.color = root(state.value)
@@ -96,9 +98,11 @@ template = {
     'words are countable and statefulElements',
     'characters are countable',
     'paragraphs are countable',
-    'bold, italic, code and underline are styles',
+    'bold, italic, code, capitalize and underline are styles',
     'underlined means underline',
+    'capitalized means capitalize',
     'italicize means italic',
+    'italicized means italic',
     // 'styles are negatable',
     "resetIdSuffix",
     {

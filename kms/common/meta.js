@@ -280,7 +280,8 @@ let config = {
       apply: async ({config, context, kms, e, isTest}) => {
         if (kms.dialogues) {
           if (context.from.unknown && !context.to.unknown) {
-            kms.dialogues.api.makeObject({ context: context.from, types: [context.to.marker], config });
+            // kms.dialogues.api.makeObject({ context: context.from, types: [context.to.marker], source_value: context.to.value, config });
+            kms.dialogues.api.makeObject({ context: context.from, types: [context.to.marker], source_value: context.to.value, config });
           }
           if (context.to.value) {
             kms.stm.api.setVariable(context.from.value, context.to.value)

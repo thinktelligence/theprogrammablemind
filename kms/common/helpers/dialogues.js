@@ -77,7 +77,7 @@ class API {
   }
 
   // word is for one or many
-  makeObject({config, context, types=[], doPluralize=true} = {}) {
+  makeObject({config, context, types=[], source_value=undefined, doPluralize=true} = {}) {
     /*
     if (!context.unknown) {
       return context.value
@@ -89,9 +89,9 @@ class API {
     }
     // const concept = pluralize.singular(value)
     const concept = this.toScopedId(context)
-		if (config.exists(concept)) {
-			return concept
-		}
+    if (config.exists(concept)) {
+      return concept
+    }
 
     // TODO handle the general case
     const fixUps = (concept) => {
@@ -102,9 +102,9 @@ class API {
     }
     // config.addOperator({ pattern: `(["${fixUps(concept)}"])`, allowDups: true })
     config.addOperator({ pattern: `(["${concept}"])`, allowDups: true })
-    config.addBridge({ id: concept, level: 0, bridge: `{ ...next(operator), value: '${concept}' }` , allowDups: true })
+    config.addBridge({ id: concept, level: 0, bridge: `{ ...next(operator), value: '${source_value || concept}' }` , allowDups: true })
     const addConcept = (word, number) => {
-      config.addWord(word, { id: concept, initial: `{ value: "${concept}", number: "${number}" }` } )
+      config.addWord(word, { id: concept, initial: `{ value: "${source_value || concept}", number: "${number}" }` } )
       const baseTypes = [
         'theAble',
         'queryable',
