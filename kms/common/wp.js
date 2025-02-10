@@ -23,6 +23,11 @@ const instance = require('./wp.instance.json')
   make the color blue
   make the color of the first paragraph blue
 
+  words that start with a
+  make all the bold text uppercase
+  underline all the bold text
+  underline all the text
+  underline everything
   4 letter word
   4 to 6 letter word
   word with 'a' in it
@@ -70,21 +75,49 @@ let config = {
   name: 'wp',
 };
 
+const changeState = ({api, isA, context, toArray, element, state}) => {
+  let unit = root(context.element.marker)
+  let scope
+  if (isA(context.element, 'everything')) {
+    scope = 'all'
+  } else {
+    scope = context.element.quantity.quantity
+  }
+  const update = { unit, scope }
+  setUpdate(isA, update, toArray(context.state))
+  api.changeState(update)
+}
+
 template = {
   configs: [
     'setidsuffix _wp',
     'words are countable and statefulElements',
     'characters are countable',
     'paragraphs are countable',
-    'bold, italic, code and underlined are styles',
+    'bold, italic, code and underline are styles',
+    'underlined means underline',
     // 'styles are negatable',
     "resetIdSuffix",
     {
       operators: [
         // TODO write a parser for this so I can use statefulElement as the id
         "([changeState_wp|make] ([statefulElement_wp]) ([stateValue_wp|]))",
+        "((style_wp/*) [applyStyle_wp] ([statefulElement_wp|]))",
       ],
       bridges: [
+        { 
+          id: 'applyStyle_wp',
+          parents: ['verb'],
+          convolution: true,
+          bridge: "{ ...next(operator), element: after[0], state: before[0], operator: operator, generate: ['state', 'element'] }",
+          localHierarchy: [
+            ['thisitthat', 'statefulElement_wp'],
+            ['everything', 'statefulElement_wp'],
+          ],
+          semantic: (args) => {
+            changeState({...args, element: args.context.element, state: args.context.state})
+          }
+        },
         { 
           id: 'changeState_wp',
           parents: ['verb'],
@@ -93,17 +126,8 @@ template = {
             ['thisitthat', 'statefulElement_wp'],
             ['everything', 'statefulElement_wp'],
           ],
-          semantic: ({api, isA, context, toArray}) => {
-            let unit = root(context.element.marker)
-            let scope
-            if (isA(context.element, 'everything')) {
-              scope = 'all'
-            } else {
-              scope = context.element.quantity.quantity
-            }
-            const update = { unit, scope }
-            setUpdate(isA, update, toArray(context.state))
-            api.changeState(update)
+          semantic: (args) => {
+            changeState({...args, element: args.context.element, state: args.context.state})
           }
         },
         { 
@@ -138,6 +162,9 @@ template = {
         { "context": [['changeState_wp',0], ['statefulElement_wp', 0], ['list', 0]], ordered: true, choose: [0] },
       ],
     },
+    // "([changeState_wp|make] ([statefulElement_wp]) ([stateValue_wp|]))",
+    // "((style_wp/*) [applyStyle_wp] ([statefulElement_wp|]))",
+    // "x statefulElement_wp y means y changeState_wp x",
   ]
 }
 

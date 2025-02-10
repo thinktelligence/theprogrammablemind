@@ -278,9 +278,10 @@ let config = {
       where: where(),
       match: ({context}) => context.marker == 'means' && context.from.marker == 'unknown',
       apply: async ({config, context, kms, e, isTest}) => {
-        if (false && isTest) {
-          return
-        } else if (kms.dialogues) {
+        if (kms.dialogues) {
+          if (context.from.unknown && !context.to.unknown) {
+            kms.dialogues.api.makeObject({ context: context.from, types: [context.to.marker], config });
+          }
           if (context.to.value) {
             kms.stm.api.setVariable(context.from.value, context.to.value)
           } else {
