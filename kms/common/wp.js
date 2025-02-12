@@ -82,12 +82,19 @@ let config = {
 const changeState = ({api, isA, context, toArray, element, state}) => {
   let unit = root(context.element.marker)
   let scope
+  let conditions = []
   if (isA(context.element, 'everything')) {
     scope = 'all'
+  } else if (context.element.condition) {
+    const condition = context.element.condition
+    if (condition.marker == 'start_wp') {
+      const letters = condition.letters.letters.text
+      conditions.push({ comparision: 'prefix', letters })
+    }
   } else {
     scope = context.element.quantity.quantity
   }
-  const update = { unit, scope }
+  const update = { unit, scope, conditions }
   setUpdate(isA, update, toArray(context.state))
   api.changeState(update)
 }
