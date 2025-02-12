@@ -109,10 +109,41 @@ template = {
     {
       operators: [
         // TODO write a parser for this so I can use statefulElement as the id
+        "(<thatVerb|that> (verb/0))",
         "([changeState_wp|make] ([statefulElement_wp]) ([stateValue_wp|]))",
         "((style_wp/*) [applyStyle_wp] ([statefulElement_wp|]))",
+        "((word_wp/*) [start_wp] ([startsWith_wp|with] (a/0)? (letters)))",
       ],
       bridges: [
+        { 
+          id: 'thatVerb',
+          // before: ['verb'],
+          bridge: "{ ...after[0], verb: after[0], that: operator, generate: ['that', 'verb'], localPriorities: { before: [\"verb\"] }, bridge_override: { operator: after[0].marker, bridge: '{ ...bridge.subject, postModifiers: [\"condition\"], condition: bridge }' } }",
+          /*
+          semantic: (args) => {
+            changeState({...args, element: args.context.element, state: args.context.state})
+          }
+          */
+        },
+        { 
+          id: 'start_wp',
+          parents: ['verb'],
+          words: ['start', 'starts'],
+          bridge: "{ ...next(operator), element: before[0], subject: before[0], letters: after[0], verb: operator, generate: ['element', 'verb', 'letters'] }",
+          /*
+          semantic: (args) => {
+            changeState({...args, element: args.context.element, state: args.context.state})
+          }
+          */
+        },
+        { 
+          id: 'startsWith_wp',
+          parents: ['preposition'],
+          optional: {
+            1: "{ marker: 'a' }",
+          },
+          bridge: "{ ...next(operator), operator: operator, letters: after[1], generate: ['operator', 'letters'] }",
+        },
         { 
           id: 'applyStyle_wp',
           parents: ['verb'],
