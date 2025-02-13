@@ -33,6 +33,10 @@ const instance = require('./wp.instance.json')
   word with 'a' in it
   words containing a
   every 5th word
+
+  in the first paragraph make the words that start with abc bold
+  bold the first three words that start with t
+  bold much and many
 */
 
 class API {
@@ -89,7 +93,7 @@ const changeState = ({api, isA, context, toArray, element, state}) => {
     const condition = context.element.condition
     if (condition.marker == 'start_wp') {
       const letters = condition.letters.letters.text
-      conditions.push({ comparision: 'prefix', letters })
+      conditions.push({ comparison: 'prefix', letters })
     }
   } else {
     scope = context.element.quantity.quantity
