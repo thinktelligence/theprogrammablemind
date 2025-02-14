@@ -854,3 +854,4 @@ node colors -q '#1234T6' -g -d
 node math -q 'x is 3 y is 4 what is x' -g -d
 node people -q 'given name means first name the first name of greg is greg23 what is the given name of greg' -g -d -tva -v
 node wp -q 'bold the word that starts with abc' -g -d >out.txt
+node wp -q 'bold and underline the words that start with t' -g -d

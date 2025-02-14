@@ -40,6 +40,7 @@ const warningSameNotEvaluated = (log, one) => {
 let config = {
   name: 'dialogues',
   operators: [
+    "(<thatVerb|that> (verb/0))",
     "([makeObject] (word))",
     "([setIdSuffix] (word))",
     "([resetIdSuffix])",
@@ -109,6 +110,12 @@ let config = {
     ]
   },
   bridges: [
+    {
+      id: 'thatVerb',
+      // before: ['verb'],
+      bridge: "{ ...after[0], verb: after[0], that: operator, generate: ['that', 'verb'], localPriorities: { before: [\"verb\"] }, bridge_override: { operator: after[0].marker, bridge: '{ ...bridge.subject, postModifiers: [\"condition\"], condition: bridge }' } }",
+    },
+
     {
       id: 'queryable',
       children: [

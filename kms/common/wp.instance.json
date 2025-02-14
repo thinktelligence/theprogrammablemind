@@ -13,16 +13,11 @@
     "resetIdSuffix",
     {
       "operators": [
-        "(<thatVerb|that> (verb/0))",
         "([changeState_wp|make] ([statefulElement_wp]) ([stateValue_wp|]))",
         "((style_wp/*) [applyStyle_wp] ([statefulElement_wp|]))",
         "((word_wp/*) [start_wp] ([startsWith_wp|with] (a/0)? (letters)))"
       ],
       "bridges": [
-        {
-          "id": "thatVerb",
-          "bridge": "{ ...after[0], verb: after[0], that: operator, generate: ['that', 'verb'], localPriorities: { before: [\"verb\"] }, bridge_override: { operator: after[0].marker, bridge: '{ ...bridge.subject, postModifiers: [\"condition\"], condition: bridge }' } }"
-        },
         {
           "id": "start_wp",
           "parents": [
@@ -12765,20 +12760,6 @@
             "comma",
             0
           ],
-          [
-            "is",
-            0
-          ],
-          [
-            "list",
-            1
-          ],
-          [
-            "unknown",
-            1
-          ]
-        ],
-        [
           [
             "is",
             0
@@ -29415,16 +29396,11 @@
     {
       "extraConfig": true,
       "operators": [
-        "(<thatVerb|that> (verb/0))",
         "([changeState_wp|make] ([statefulElement_wp]) ([stateValue_wp|]))",
         "((style_wp/*) [applyStyle_wp] ([statefulElement_wp|]))",
         "((word_wp/*) [start_wp] ([startsWith_wp|with] (a/0)? (letters)))"
       ],
       "bridges": [
-        {
-          "id": "thatVerb",
-          "bridge": "{ ...after[0], verb: after[0], that: operator, generate: ['that', 'verb'], localPriorities: { before: [\"verb\"] }, bridge_override: { operator: after[0].marker, bridge: '{ ...bridge.subject, postModifiers: [\"condition\"], condition: bridge }' } }"
-        },
         {
           "id": "start_wp",
           "parents": [
@@ -29491,10 +29467,10 @@
       ],
       "semantics": [
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/wp.js:179"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/wp.js:188"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/wp.js:188"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/wp.js:197"
         }
       ],
       "priorities": [
@@ -29778,20 +29754,6 @@
       [
         "list",
         0
-      ],
-      [
-        "unknown",
-        1
-      ]
-    ],
-    [
-      [
-        "is",
-        0
-      ],
-      [
-        "list",
-        1
       ],
       [
         "unknown",
