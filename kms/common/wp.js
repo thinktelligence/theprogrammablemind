@@ -9,6 +9,8 @@ const wp_tests = require('./wp.test.json')
 const instance = require('./wp.instance.json')
 
 /*
+  the bolded words that start with t
+
   start inserting text until I say banana
   ...
   or 
@@ -17,11 +19,15 @@ const instance = require('./wp.instance.json')
   make the text of the 1st to 3rd paragraphs blue
 
 
+  make the words that start with a bold
+
   make every word bold and underlines and blue -> weirdly "bold underlined and blue" works
 
   make the font ... 
   make the color blue
   make the color of the first paragraph blue
+
+  undeline the bolded text / the text that is bolded
 
   words that start with a
   make all the bold text uppercase
@@ -38,6 +44,11 @@ const instance = require('./wp.instance.json')
   bold the first three words that start with t
   bold much and many
   make the words that start with t bold and underlined
+  make all the capital letters|punctuation bold
+
+  move this paragraph up 2
+  move the next paragraph up 1
+  move the last paragraph before this one
 */
 
 class API {
@@ -114,13 +125,16 @@ template = {
     'setidsuffix _wp',
     'words are countable and statefulElements',
     'characters are countable',
-    'paragraphs are countable',
+    'paragraphs are countable and statefulElement',
+    'text is a statefulElement',
     'bold, italic, code, capitalize, lowercase and underline are styles',
     'underlined means underline',
     'capitalized means capitalize',
     'uppercase means capitalize',
     'italicize means italic',
     'italicized means italic',
+    // TODO have a mode where I can stay this is a definition sentence then just say style modifies and it will do it right
+    'capitalized, bolded, italicized and underlined are styleModifiers',
     // 'start end and contain are wordComparisonWiths',
     // 'styles are negatable',
     "resetIdSuffix",
@@ -130,8 +144,15 @@ template = {
         "((style_wp/*) [applyStyle_wp] ([statefulElement_wp|]))",
         "((word_wp/*) [wordComparisonWith_wp] ([comparisonWith_wp|with] (a/0)? (letters)))",
         "((word_wp/*) [wordComparison_wp] (a/0)? (letters))",
+        "((styleModifier_wp/*) [modifiedByStyle_wp] (statefulElement_wp/*))",
       ],
       bridges: [
+        { 
+          id: 'modifiedByStyle_wp',
+          parents: ['adjective'],
+          convolution: true,
+          bridge: "{ ...after[0], style: before[0], target: after[0], generate: ['style', 'target'], condition: append(after[0].condition, [before[0]]) }",
+        },
         { 
           id: 'wordComparisonWith_wp',
           parents: ['verb'],
