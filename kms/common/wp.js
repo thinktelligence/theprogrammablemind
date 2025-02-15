@@ -92,7 +92,7 @@ const changeState = ({api, isA, context, toArray, element, state}) => {
     scope = 'all'
   } else if (context.element.condition) {
     const condition = context.element.condition
-    if (condition.marker == 'wordComparison_wp') {
+    if (condition.marker == 'wordComparisonWith_wp') {
       const letters = condition.letters.letters.text
       conditions.push({ comparison: condition.comparison, letters })
     }
@@ -116,18 +116,18 @@ template = {
     'uppercase means capitalize',
     'italicize means italic',
     'italicized means italic',
-    // 'start end and contain are wordComparisons',
+    // 'start end and contain are wordComparisonWiths',
     // 'styles are negatable',
     "resetIdSuffix",
     {
       operators: [
         "([changeState_wp|make] ([statefulElement_wp]) ([stateValue_wp|]))",
         "((style_wp/*) [applyStyle_wp] ([statefulElement_wp|]))",
-        "((word_wp/*) [wordComparison_wp] ([comparisonWith_wp|with] (a/0)? (letters)))",
+        "((word_wp/*) [wordComparisonWith_wp] ([comparisonWith_wp|with] (a/0)? (letters)))",
       ],
       bridges: [
         { 
-          id: 'wordComparison_wp',
+          id: 'wordComparisonWith_wp',
           parents: ['verb'],
           words: [ 
             { word: 'start', comparison: 'prefix' }, 
