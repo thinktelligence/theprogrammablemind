@@ -7,6 +7,7 @@ let config = {
   name: 'pos',
   operators: [
     "([adjective])",
+    "([adverb])",
     "([articlePOS])",
     "([preposition])",
     "([pronoun])",
@@ -17,6 +18,7 @@ let config = {
   ],
   bridges: [
     { "id": "adjective" },
+    { "id": "adverb" },
     { "id": "articlePOS" },
     { "id": "preposition" },
     { "id": "pronoun" },
@@ -30,6 +32,7 @@ let config = {
     { "context": [['endOfSentence', 0], ['verb', 0], ], "choose": [1] },
     { "context": [['pronoun', 0], ['ingVerb', 0], ], "choose": [0] },
     { "context": [['preposition', 0], ['ingVerb', 0], ], "choose": [0] },
+    { "context": [['adverb', 0], ['ingVerb', 0], ], "choose": [0] },
     { "context": [['preposition', 0], ['adjective', 0], ], "choose": [1] },
     { "context": [['preposition', 0], ['articlePOS', 0], ], "choose": [1] },
     { "context": [['adjective', 0], ['ingVerb', 0], ], "choose": [0] },
