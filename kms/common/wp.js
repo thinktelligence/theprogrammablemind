@@ -123,7 +123,7 @@ template = {
       operators: [
         "([changeState_wp|make] ([statefulElement_wp]) ([stateValue_wp|]))",
         "((style_wp/*) [applyStyle_wp] ([statefulElement_wp|]))",
-        "((word_wp/*) [wordComparison_wp] ([startsWith_wp|with] (a/0)? (letters)))",
+        "((word_wp/*) [wordComparison_wp] ([comparisonWith_wp|with] (a/0)? (letters)))",
       ],
       bridges: [
         { 
@@ -142,7 +142,7 @@ template = {
           bridge: "{ ...next(operator), element: before[0], subject: before[0], letters: after[0], verb: operator, generate: ['element', 'verb', 'letters'] }",
         },
         { 
-          id: 'startsWith_wp',
+          id: 'comparisonWith_wp',
           parents: ['preposition'],
           optional: {
             1: "{ marker: 'a' }",
@@ -204,7 +204,7 @@ template = {
       ],
       priorities: [
         { "context": [['changeState_wp',0], ['statefulElement_wp', 0], ['list', 0]], ordered: true, choose: [0] },
-        { "context": [['startsWith_wp',0], ['unknown', 0], ['list', 1]], ordered: true, choose: [0] },
+        { "context": [['comparisonWith_wp',0], ['unknown', 0], ['list', 1]], ordered: true, choose: [0] },
       ],
     },
     // "([changeState_wp|make] ([statefulElement_wp]) ([stateValue_wp|]))",
