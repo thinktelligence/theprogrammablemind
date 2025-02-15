@@ -93,7 +93,12 @@ const changeState = ({api, isA, context, toArray, element, state}) => {
   } else if (context.element.condition) {
     const condition = context.element.condition
     if (condition.marker == 'wordComparisonWith_wp') {
+      // with or not with that is the question
       const letters = condition.letters.letters.text
+      conditions.push({ comparison: condition.comparison, letters })
+    } else if (condition.marker == 'wordComparison_wp') {
+      // with or not with that is the question
+      const letters = condition.letters.text
       conditions.push({ comparison: condition.comparison, letters })
     }
   } else {
@@ -124,6 +129,7 @@ template = {
         "([changeState_wp|make] ([statefulElement_wp]) ([stateValue_wp|]))",
         "((style_wp/*) [applyStyle_wp] ([statefulElement_wp|]))",
         "((word_wp/*) [wordComparisonWith_wp] ([comparisonWith_wp|with] (a/0)? (letters)))",
+        "((word_wp/*) [wordComparison_wp] (a/0)? (letters))",
       ],
       bridges: [
         { 
@@ -134,12 +140,22 @@ template = {
             { word: 'starts', comparison: 'prefix', },
             { word: 'end', comparison: 'suffix' },
             { word: 'ends', comparison: 'suffix' },
+          ],
+          bridge: "{ ...next(operator), element: before[0], subject: before[0], letters: after[0], verb: operator, generate: ['element', 'verb', 'letters'] }",
+        },
+        { 
+          id: 'wordComparison_wp',
+          parents: ['verb'],
+          words: [ 
             { word: 'contain', comparison: 'include' }, 
             { word: 'contains', comparison: 'include' },
             { word: 'include', comparison: 'include' }, 
             { word: 'includes', comparison: 'include' },
           ],
-          bridge: "{ ...next(operator), element: before[0], subject: before[0], letters: after[0], verb: operator, generate: ['element', 'verb', 'letters'] }",
+          optional: {
+            1: "{ marker: 'a' }",
+          },
+          bridge: "{ ...next(operator), element: before[0], subject: before[0], letters: after[1], verb: operator, generate: ['element', 'verb', 'letters'] }",
         },
         { 
           id: 'comparisonWith_wp',

@@ -101,6 +101,7 @@ let config = {
     positive: [
       // [['is', 0], ['unknown', 1]],
       // [['isEd', 0], ['means', 0]],
+      [['thatVerb', 0], ['verb', 0]],
       [['isEdee', 0], ['isEd', 0], ['isEder', 0], ['by', 0]],
       [['isEdee', 0], ['isEd', 0], ['isEdAble', 0]],
       [['unknown', 1], ['isEd', 0], ['isEdAble', 0]],
@@ -112,7 +113,7 @@ let config = {
   bridges: [
     {
       id: 'thatVerb',
-      // before: ['verb'],
+      before: ['verb'],
       bridge: "{ ...after[0], verb: after[0], that: operator, generate: ['that', 'verb'], localPriorities: { before: [\"verb\"] }, bridge_override: { operator: after[0].marker, bridge: '{ ...bridge.subject, postModifiers: [\"condition\"], condition: bridge }' } }",
     },
 
@@ -326,6 +327,7 @@ let config = {
 
   floaters: ['query'],
   priorities: [
+    { "context": [['is', 0], ['means', 0], ], "choose": [0] },
     { "context": [['is', 0], ['means', 0], ], "choose": [0] },
     { "context": [["what",0], ["does",0],], "choose": [0] },
     { "context": [["is",0], ["is",1],], "choose": [0] },
