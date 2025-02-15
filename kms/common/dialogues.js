@@ -114,7 +114,7 @@ let config = {
     {
       id: 'thatVerb',
       before: ['verb'],
-      bridge: "{ ...after[0], verb: after[0], that: operator, generate: ['that', 'verb'], localPriorities: { before: [\"verb\"] }, bridge_override: { operator: after[0].marker, bridge: '{ ...bridge.subject, postModifiers: [\"condition\"], condition: bridge }' } }",
+      bridge: "{ ...after[0], verb: after[0], that: operator, generate: ['that', 'verb'], localPriorities: { before: [\"verb\"] }, bridge_override: { operator: after[0].marker, bridge: '{ ...bridge.subject, postModifiers: [\"conditions\"], conditions: append(after[0].conditions, [bridge]) }' } }",
     },
 
     {

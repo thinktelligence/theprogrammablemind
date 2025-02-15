@@ -18,9 +18,18 @@
         "([changeState_wp|make] ([statefulElement_wp]) ([stateValue_wp|]))",
         "((style_wp/*) [applyStyle_wp] ([statefulElement_wp|]))",
         "((word_wp/*) [wordComparisonWith_wp] ([comparisonWith_wp|with] (a/0)? (letters)))",
-        "((word_wp/*) [wordComparison_wp] (a/0)? (letters))"
+        "((word_wp/*) [wordComparison_wp] (a/0)? (letters))",
+        "((styleModifier_wp/*) [modifiedByStyle_wp] (statefulElement_wp/*))"
       ],
       "bridges": [
+        {
+          "id": "modifiedByStyle_wp",
+          "parents": [
+            "adjective"
+          ],
+          "convolution": true,
+          "bridge": "{ ...after[0], style: before[0], target: after[0], generate: ['style', 'target'], conditions: append(after[0].conditions, [before[0]]) }"
+        },
         {
           "id": "wordComparisonWith_wp",
           "parents": [
@@ -2375,8 +2384,7 @@
           "level": 1,
           "topLevel": true,
           "touchedBy": [
-            "wp#call2",
-            "instance0#wp#call2"
+            "wp#call2"
           ]
         }
       ],
@@ -4757,8 +4765,7 @@
           "level": 2,
           "topLevel": true,
           "touchedBy": [
-            "wp#call2",
-            "instance0#wp#call2"
+            "wp#call2"
           ]
         }
       ],
@@ -7192,8 +7199,7 @@
           "level": 2,
           "topLevel": true,
           "touchedBy": [
-            "wp#call2",
-            "instance0#wp#call2"
+            "wp#call2"
           ]
         }
       ],
@@ -9685,8 +9691,7 @@
           "level": 2,
           "topLevel": true,
           "touchedBy": [
-            "wp#call2",
-            "instance0#wp#call2"
+            "wp#call2"
           ]
         }
       ],
@@ -12238,8 +12243,7 @@
           "level": 2,
           "topLevel": true,
           "touchedBy": [
-            "wp#call2",
-            "instance0#wp#call2"
+            "wp#call2"
           ]
         }
       ],
@@ -15436,8 +15440,7 @@
           "level": 2,
           "topLevel": true,
           "touchedBy": [
-            "wp#call2",
-            "instance0#wp#call2"
+            "wp#call2"
           ]
         }
       ],
@@ -18269,8 +18272,7 @@
           "level": 1,
           "topLevel": true,
           "touchedBy": [
-            "wp#call2",
-            "instance0#wp#call2"
+            "wp#call2"
           ]
         }
       ],
@@ -21061,8 +21063,7 @@
           "level": 1,
           "topLevel": true,
           "touchedBy": [
-            "wp#call2",
-            "instance0#wp#call2"
+            "wp#call2"
           ]
         }
       ],
@@ -23878,8 +23879,7 @@
           "level": 1,
           "topLevel": true,
           "touchedBy": [
-            "wp#call2",
-            "instance0#wp#call2"
+            "wp#call2"
           ]
         }
       ],
@@ -26720,8 +26720,7 @@
           "level": 1,
           "topLevel": true,
           "touchedBy": [
-            "wp#call2",
-            "instance0#wp#call2"
+            "wp#call2"
           ]
         }
       ],
@@ -29587,8 +29586,7 @@
           "level": 1,
           "topLevel": true,
           "touchedBy": [
-            "wp#call2",
-            "instance0#wp#call2"
+            "wp#call2"
           ]
         }
       ],
@@ -35907,9 +35905,18 @@
         "([changeState_wp|make] ([statefulElement_wp]) ([stateValue_wp|]))",
         "((style_wp/*) [applyStyle_wp] ([statefulElement_wp|]))",
         "((word_wp/*) [wordComparisonWith_wp] ([comparisonWith_wp|with] (a/0)? (letters)))",
-        "((word_wp/*) [wordComparison_wp] (a/0)? (letters))"
+        "((word_wp/*) [wordComparison_wp] (a/0)? (letters))",
+        "((styleModifier_wp/*) [modifiedByStyle_wp] (statefulElement_wp/*))"
       ],
       "bridges": [
+        {
+          "id": "modifiedByStyle_wp",
+          "parents": [
+            "adjective"
+          ],
+          "convolution": true,
+          "bridge": "{ ...after[0], style: before[0], target: after[0], generate: ['style', 'target'], conditions: append(after[0].conditions, [before[0]]) }"
+        },
         {
           "id": "wordComparisonWith_wp",
           "parents": [
@@ -36018,10 +36025,10 @@
       ],
       "semantics": [
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/wp.js:211"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/wp.js:221"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/wp.js:220"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/wp.js:230"
         }
       ],
       "priorities": [

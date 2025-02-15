@@ -101,8 +101,8 @@ const changeState = ({api, isA, context, toArray, element, state}) => {
   let conditions = []
   if (isA(context.element, 'everything')) {
     scope = 'all'
-  } else if (context.element.condition) {
-    const condition = context.element.condition
+  } else if (context.element.conditions) {
+    const condition = context.element.conditions[0]
     if (condition.marker == 'wordComparisonWith_wp') {
       // with or not with that is the question
       const letters = condition.letters.letters.text
@@ -151,7 +151,7 @@ template = {
           id: 'modifiedByStyle_wp',
           parents: ['adjective'],
           convolution: true,
-          bridge: "{ ...after[0], style: before[0], target: after[0], generate: ['style', 'target'], condition: append(after[0].condition, [before[0]]) }",
+          bridge: "{ ...after[0], style: before[0], target: after[0], generate: ['style', 'target'], conditions: append(after[0].conditions, [before[0]]) }",
         },
         { 
           id: 'wordComparisonWith_wp',

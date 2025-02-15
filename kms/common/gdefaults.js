@@ -61,7 +61,7 @@ let config = {
       //({context}) => context.paraphrase && context.modifiers,
       // match: ({context}) => context.paraphrase && (context.modifiers || context.postModifiers),
       match: ({context}) => (context.modifiers || context.postModifiers),
-      apply: async ({context, g, callId}) => {
+      apply: async ({context, g, gs, callId}) => {
         const text = []
         for (modifier of (context.modifiers || [])) {
           if (Array.isArray(context[modifier])) {
@@ -86,9 +86,15 @@ let config = {
         }
         for ([index, modifier] of (context.postModifiers || []).entries()) {
           if (index == context.postModifiers.length - 1) {
-            text.push(await g({...context[modifier], number}))
+            const fn = Array.isArray(context[modifier]) ? gs: g;
+            if (Array.isArray(context[modifier])) {
+              text.push(await gs(context[modifier].map((c) => { return {...c , number} })))
+            } else {
+              text.push(await g({...context[modifier], number}))
+            }
           } else {
-            text.push(await g(context[modifier]))
+            const fn = Array.isArray(context[modifier]) ? gs: g;
+            text.push(await fn(context[modifier]))
           }
         }
         return text.join(' ')
