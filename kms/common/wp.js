@@ -92,9 +92,9 @@ const changeState = ({api, isA, context, toArray, element, state}) => {
     scope = 'all'
   } else if (context.element.condition) {
     const condition = context.element.condition
-    if (condition.marker == 'start_wp') {
+    if (condition.marker == 'wordComparison_wp') {
       const letters = condition.letters.letters.text
-      conditions.push({ comparison: 'prefix', letters })
+      conditions.push({ comparison: condition.comparison, letters })
     }
   } else {
     scope = context.element.quantity.quantity
@@ -116,34 +116,30 @@ template = {
     'uppercase means capitalize',
     'italicize means italic',
     'italicized means italic',
+    // 'start end and contain are wordComparisons',
     // 'styles are negatable',
     "resetIdSuffix",
     {
       operators: [
-        // TODO write a parser for this so I can use statefulElement as the id
-        // "(<thatVerb|that> (verb/0))",
         "([changeState_wp|make] ([statefulElement_wp]) ([stateValue_wp|]))",
         "((style_wp/*) [applyStyle_wp] ([statefulElement_wp|]))",
-        "((word_wp/*) [start_wp] ([startsWith_wp|with] (a/0)? (letters)))",
+        "((word_wp/*) [wordComparison_wp] ([startsWith_wp|with] (a/0)? (letters)))",
       ],
       bridges: [
-      /*
         { 
-          id: 'thatVerb',
-          // before: ['verb'],
-          bridge: "{ ...after[0], verb: after[0], that: operator, generate: ['that', 'verb'], localPriorities: { before: [\"verb\"] }, bridge_override: { operator: after[0].marker, bridge: '{ ...bridge.subject, postModifiers: [\"condition\"], condition: bridge }' } }",
-        },
-      */
-        { 
-          id: 'start_wp',
+          id: 'wordComparison_wp',
           parents: ['verb'],
-          words: ['start', 'starts'],
+          words: [ 
+            { word: 'start', comparison: 'prefix' }, 
+            { word: 'starts', comparison: 'prefix', },
+            { word: 'end', comparison: 'suffix' },
+            { word: 'ends', comparison: 'suffix' },
+            { word: 'contain', comparison: 'include' }, 
+            { word: 'contains', comparison: 'include' },
+            { word: 'include', comparison: 'include' }, 
+            { word: 'includes', comparison: 'include' },
+          ],
           bridge: "{ ...next(operator), element: before[0], subject: before[0], letters: after[0], verb: operator, generate: ['element', 'verb', 'letters'] }",
-          /*
-          semantic: (args) => {
-            changeState({...args, element: args.context.element, state: args.context.state})
-          }
-          */
         },
         { 
           id: 'startsWith_wp',
@@ -208,6 +204,7 @@ template = {
       ],
       priorities: [
         { "context": [['changeState_wp',0], ['statefulElement_wp', 0], ['list', 0]], ordered: true, choose: [0] },
+        { "context": [['startsWith_wp',0], ['unknown', 0], ['list', 1]], ordered: true, choose: [0] },
       ],
     },
     // "([changeState_wp|make] ([statefulElement_wp]) ([stateValue_wp|]))",

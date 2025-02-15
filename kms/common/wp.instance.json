@@ -15,17 +15,47 @@
       "operators": [
         "([changeState_wp|make] ([statefulElement_wp]) ([stateValue_wp|]))",
         "((style_wp/*) [applyStyle_wp] ([statefulElement_wp|]))",
-        "((word_wp/*) [start_wp] ([startsWith_wp|with] (a/0)? (letters)))"
+        "((word_wp/*) [wordComparison_wp] ([startsWith_wp|with] (a/0)? (letters)))"
       ],
       "bridges": [
         {
-          "id": "start_wp",
+          "id": "wordComparison_wp",
           "parents": [
             "verb"
           ],
           "words": [
-            "start",
-            "starts"
+            {
+              "word": "start",
+              "comparison": "prefix"
+            },
+            {
+              "word": "starts",
+              "comparison": "prefix"
+            },
+            {
+              "word": "end",
+              "comparison": "suffix"
+            },
+            {
+              "word": "ends",
+              "comparison": "suffix"
+            },
+            {
+              "word": "contain",
+              "comparison": "include"
+            },
+            {
+              "word": "contains",
+              "comparison": "include"
+            },
+            {
+              "word": "include",
+              "comparison": "include"
+            },
+            {
+              "word": "includes",
+              "comparison": "include"
+            }
           ],
           "bridge": "{ ...next(operator), element: before[0], subject: before[0], letters: after[0], verb: operator, generate: ['element', 'verb', 'letters'] }"
         },
@@ -108,6 +138,26 @@
             [
               "list",
               0
+            ]
+          ],
+          "ordered": true,
+          "choose": [
+            0
+          ]
+        },
+        {
+          "context": [
+            [
+              "startsWith_wp",
+              0
+            ],
+            [
+              "unknown",
+              0
+            ],
+            [
+              "list",
+              1
             ]
           ],
           "ordered": true,
@@ -29398,17 +29448,47 @@
       "operators": [
         "([changeState_wp|make] ([statefulElement_wp]) ([stateValue_wp|]))",
         "((style_wp/*) [applyStyle_wp] ([statefulElement_wp|]))",
-        "((word_wp/*) [start_wp] ([startsWith_wp|with] (a/0)? (letters)))"
+        "((word_wp/*) [wordComparison_wp] ([startsWith_wp|with] (a/0)? (letters)))"
       ],
       "bridges": [
         {
-          "id": "start_wp",
+          "id": "wordComparison_wp",
           "parents": [
             "verb"
           ],
           "words": [
-            "start",
-            "starts"
+            {
+              "word": "start",
+              "comparison": "prefix"
+            },
+            {
+              "word": "starts",
+              "comparison": "prefix"
+            },
+            {
+              "word": "end",
+              "comparison": "suffix"
+            },
+            {
+              "word": "ends",
+              "comparison": "suffix"
+            },
+            {
+              "word": "contain",
+              "comparison": "include"
+            },
+            {
+              "word": "contains",
+              "comparison": "include"
+            },
+            {
+              "word": "include",
+              "comparison": "include"
+            },
+            {
+              "word": "includes",
+              "comparison": "include"
+            }
           ],
           "bridge": "{ ...next(operator), element: before[0], subject: before[0], letters: after[0], verb: operator, generate: ['element', 'verb', 'letters'] }"
         },
@@ -29467,10 +29547,10 @@
       ],
       "semantics": [
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/wp.js:188"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/wp.js:184"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/wp.js:197"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/wp.js:193"
         }
       ],
       "priorities": [
@@ -29487,6 +29567,26 @@
             [
               "list",
               0
+            ]
+          ],
+          "ordered": true,
+          "choose": [
+            0
+          ]
+        },
+        {
+          "context": [
+            [
+              "startsWith_wp",
+              0
+            ],
+            [
+              "unknown",
+              0
+            ],
+            [
+              "list",
+              1
             ]
           ],
           "ordered": true,
