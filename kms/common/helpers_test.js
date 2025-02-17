@@ -11,6 +11,27 @@ newDateMock = (date) => {
 }
 
 describe('helpers', () => {
+  describe('getValue', () => {
+    it('null object', async () => {
+      expect(helpers.getValue('a')).toBe(undefined)
+    })
+    it('null path', async () => {
+      expect(helpers.getValue(undefined, 'dude')).toBe(undefined)
+    })
+    it('single', async () => {
+      expect(helpers.getValue('a', { a: 23 })).toBe(23)
+    })
+    it('missing', async () => {
+      expect(helpers.getValue('a', { notA: 23 })).toBe(undefined)
+    })
+    it('double', async () => {
+      expect(helpers.getValue('a.b', { a: { b: 23 } })).toBe(23)
+    })
+    it('double second is missing', async () => {
+      expect(helpers.getValue('a.b', { a: { notB: 23 } })).toBe(undefined)
+    })
+  })
+
   describe('millisecondsUntilHourOfDay', () => {
     it('time is same day', async () => {
       const newDate = newDateMock( new Date("Sun Aug 01 2021 01:00:00 GMT-0700 (Pacific Daylight Time)") )

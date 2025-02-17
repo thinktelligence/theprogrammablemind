@@ -40,6 +40,8 @@ const instance = require('./wp.instance.json')
   words containing a
   every 5th word
 
+  the words that are capitalized 
+
   in the first paragraph make the words that start with abc bold
   bold the first three words that start with t
   bold much and many
@@ -102,15 +104,20 @@ const changeState = ({api, isA, context, toArray, element, state}) => {
   if (isA(context.element, 'everything')) {
     scope = 'all'
   } else if (context.element.conditions) {
-    const condition = context.element.conditions[0]
-    if (condition.marker == 'wordComparisonWith_wp') {
-      // with or not with that is the question
-      const letters = condition.letters.letters.text
-      conditions.push({ comparison: condition.comparison, letters })
-    } else if (condition.marker == 'wordComparison_wp') {
-      // with or not with that is the question
-      const letters = condition.letters.text
-      conditions.push({ comparison: condition.comparison, letters })
+    for (const condition of context.element.conditions) {
+      if (condition.marker == 'wordComparisonWith_wp') {
+        // with or not with that is the question
+        const letters = condition.letters.letters.text
+        conditions.push({ comparison: condition.comparison, letters })
+      } else if (condition.marker == 'wordComparison_wp') {
+        // with or not with that is the question
+        const letters = condition.letters.text
+        conditions.push({ comparison: condition.comparison, letters })
+      } else if (isA(condition, 'styleModifier_wp')) {
+        for (const style of toArray(condition)) {
+          conditions.push({ hasStyle: style.marker })
+        }
+      }
     }
   } else {
     scope = context.element.quantity.quantity
@@ -144,11 +151,13 @@ template = {
         "((style_wp/*) [applyStyle_wp] ([statefulElement_wp|]))",
         "((word_wp/*) [wordComparisonWith_wp] ([comparisonWith_wp|with] (a/0)? (letters)))",
         "((word_wp/*) [wordComparison_wp] (a/0)? (letters))",
-        "((styleModifier_wp/*) [modifiedByStyle_wp] (statefulElement_wp/*))",
+        // this one is "the bolded/underlined/italized/... word"
+        "((styleModifier_wp/*) [modifiedByStyle_wp] (statefulElement_wp/* && context.determiner == undefined))",
       ],
       bridges: [
         { 
           id: 'modifiedByStyle_wp',
+          // parents: ['verb'],
           parents: ['adjective'],
           convolution: true,
           bridge: "{ ...after[0], style: before[0], target: after[0], generate: ['style', 'target'], conditions: append(after[0].conditions, [before[0]]) }",
@@ -240,6 +249,7 @@ template = {
         },
       ],
       priorities: [
+        // { "context": [['underline_wp',0], ['statefulElement_wp', 1], ['thatVerb', 0]], ordered: true, choose: [2] },
         { "context": [['changeState_wp',0], ['statefulElement_wp', 0], ['list', 0]], ordered: true, choose: [0] },
         { "context": [['comparisonWith_wp',0], ['unknown', 0], ['list', 1]], ordered: true, choose: [0] },
       ],

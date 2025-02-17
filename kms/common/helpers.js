@@ -191,7 +191,23 @@ const isA = (hierarchy) => (child, parent, { strict=false } = {}) => {
   }
 }
 
+const getValue = (propertyPath, object) => {
+  if (!propertyPath) {
+    return
+  }
+  const path = propertyPath.split('.')
+  let value = object
+  for (const name of path) {
+    if (!value) {
+      break
+    }
+    value = value[name]
+  }
+  return value
+}
+
 module.exports = {
+  getValue,
   defaultContextCheck,
   defaultContextCheckProperties,
 	toEValue,

@@ -3,7 +3,7 @@ const { defaultContextCheck } = require('./helpers')
 const { knowledgeModule, where } = require('./runtime').theprogrammablemind
 const tokenize = require('./tokenize.js')
 const gdefaults_tests = require('./gdefaults.test.json')
-const { isMany } = require('./helpers.js')
+const { getValue, isMany } = require('./helpers.js')
 
 let config = {
   name: 'gdefaults',
@@ -35,16 +35,17 @@ let config = {
       apply: async ({context, gs}) => {
         const contexts = []
         for (const key of context.generate) {
-          if (!(context[key] !== undefined || key == 'this')) {
+          const value = getValue(key, context)
+          if (!(value !== undefined || key == 'this')) {
             continue
           }
-          if (context[key] && context[key].skipDefault) {
+          if (value.skipDefault) {
             continue
           }
           if (key == 'this') {
             contexts.push({...context, generate: null})
           } else {
-            contexts.push(context[key])
+            contexts.push(value)
           }
         }
         return gs(contexts)
