@@ -9,6 +9,18 @@ const wp_tests = require('./wp.test.json')
 const instance = require('./wp.instance.json')
 
 /*
+  working on
+    bold the first word
+    bold the first paragraph 
+    bold the first letter
+
+    after
+    bold the first word of every paragraph
+    bold the first letter of every word
+
+    after
+    make the words that start with t blue
+
   the bolded words that start with t
 
   start inserting text until I say banana
@@ -17,7 +29,9 @@ const instance = require('./wp.instance.json')
   stop inserting text
 
   make the text of the 1st to 3rd paragraphs blue
-
+  
+  capitalize the words banana and word
+  capitalize banana and tree
 
   make the words that start with a bold
 
@@ -101,9 +115,16 @@ const changeState = ({api, isA, context, toArray, element, state}) => {
   let unit = root(context.element.marker)
   let scope
   let conditions = []
-  if (isA(context.element, 'everything')) {
+
+  if (context.element.ordinal) {
+    conditions.push({ ordinals: toArray(context.element.ordinal).map((context) => context.value)})
+  } else if (isA(context.element, 'everything')) {
     scope = 'all'
-  } else if (context.element.conditions) {
+  } else if (context.element.quantity) {
+    scope = context.element.quantity.quantity
+  }
+
+  if (context.element.conditions) {
     for (const condition of context.element.conditions) {
       if (condition.marker == 'wordComparisonWith_wp') {
         // with or not with that is the question
@@ -119,9 +140,8 @@ const changeState = ({api, isA, context, toArray, element, state}) => {
         }
       }
     }
-  } else {
-    scope = context.element.quantity.quantity
   }
+
   const update = { unit, scope, conditions }
   setUpdate(isA, update, toArray(context.state))
   api.changeState(update)
@@ -130,10 +150,11 @@ const changeState = ({api, isA, context, toArray, element, state}) => {
 template = {
   configs: [
     'setidsuffix _wp',
-    'words are countable and statefulElements',
-    'characters are countable',
-    'paragraphs are countable and statefulElement',
+    'words are countable orderable and statefulElements',
+    'characters are countable orderable and statefulElements',
+    'paragraphs are countable orderable and statefulElement',
     'text is a statefulElement',
+    'letters means characters',
     'bold, italic, code, capitalize, lowercase and underline are styles',
     'underlined means underline',
     'capitalized means capitalize',
@@ -141,7 +162,7 @@ template = {
     'italicize means italic',
     'italicized means italic',
     // TODO have a mode where I can stay this is a definition sentence then just say style modifies and it will do it right
-    'capitalized, bolded, italicized and underlined are styleModifiers',
+    'uppercased, lowercased, capitalized, bolded, italicized and underlined are styleModifiers',
     // 'start end and contain are wordComparisonWiths',
     // 'styles are negatable',
     "resetIdSuffix",

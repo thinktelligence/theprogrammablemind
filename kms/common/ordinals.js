@@ -1,6 +1,7 @@
 const { knowledgeModule, where } = require('./runtime').theprogrammablemind
 const { defaultContextCheck } = require('./helpers')
 const ordinals_tests = require('./ordinals.test.json')
+const articles = require('./articles')
 const numbers = require('./numbers')
 const pos = require('./pos')
 
@@ -18,7 +19,8 @@ let config = {
     },
     { 
       id: "orderable", 
-      bridge: "{ ...next(operator) }" 
+      bridge: "{ ...next(operator) }",
+      isA: ['queryable'],
     },
     { 
       id: "ordinalOnOrdered", 
@@ -45,7 +47,7 @@ let config = {
 
 knowledgeModule( { 
   config,
-  includes: [pos, numbers],
+  includes: [pos, numbers, articles],
 
   module,
   description: 'talking about ordinals',
