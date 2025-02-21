@@ -39,7 +39,7 @@ let config = {
           if (!(value !== undefined || key == 'this')) {
             continue
           }
-          if (value.skipDefault) {
+          if (value?.skipDefault) {
             continue
           }
           if (key == 'this') {
