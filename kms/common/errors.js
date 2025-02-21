@@ -21,6 +21,7 @@ let config = {
       match: ({context}) => context.interpretation_error,
       apply: async ({context, g, gp, verbatim, contexts}) => {
         const argument = contexts.find( (argument) => argument.argument_id == context.interpretation_error.argument_id )
+        debugger
         verbatim(`Did not know how to understand "${await gp(argument)}" when applying "${await g(context)}"`)
       }
     },
@@ -28,6 +29,7 @@ let config = {
       match: ({context}) => context.context?.interpretation_error,
       apply: async ({context, g, gp, verbatim, contexts}) => {
         context = context.context
+        debugger
         const argument = contexts.find( (argument) => argument.argument_id == context.interpretation_error.argument_id )
         verbatim(`Did not know how to understand "${await gp(argument)}" when applying "${await g(context)}"`)
       }

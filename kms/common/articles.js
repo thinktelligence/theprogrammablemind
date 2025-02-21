@@ -17,6 +17,8 @@ let config = {
     "(<what> ([whatAble|]))",
     "([what:optional])",
   */
+    "(<each> ([distributable]))",
+    "(<every> ([distributable]))",
     "(<the|> ([theAble]))",
     "(<a|a,an> ([theAble|]))",
   ],
@@ -25,6 +27,20 @@ let config = {
     // { id: "whatAble", level: 0, bridge: "{ ...next(operator) }" },
     {
       id: 'everything',
+    },
+    { 
+      id: 'each', 
+      isA: ['articlePOS'], 
+      bridge: '{ ...after[0], focusableForPhrase: true, pullFromContext: true, concept: true, wantsValue: true, distributer: operator, modifiers: append(["distributer"], after[0].modifiers)}' 
+    },
+    { 
+      id: 'every', 
+      isA: ['articlePOS'], 
+      bridge: '{ ...after[0], focusableForPhrase: true, pullFromContext: true, concept: true, wantsValue: true, distributer: operator, modifiers: append(["distributer"], after[0].modifiers)}' 
+    },
+    { 
+      id: 'distributable', 
+      isA: ['queryable'], 
     },
     { 
       id: 'the', 
@@ -100,7 +116,7 @@ knowledgeModule( {
     contents: tests,
     checks: {
             objects: ['onNevermindWasCalled', 'nevermindType', 'idSuffix'],
-            context: defaultContextCheck(),
+            context: defaultContextCheck(['distributer']),
           },
 
   },

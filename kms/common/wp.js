@@ -17,11 +17,17 @@ const instance = require('./wp.instance.json')
     after
     bold the first word of every paragraph
     bold the first letter of every word
+    bold the first letter of every word that starts with t
+    bold the first letter of the words that start with t in the third paragraph
 
     after
     make the words that start with t blue
 
   the bolded words that start with t
+
+  replace better with worse
+
+  change underlines to bolds
 
   start inserting text until I say banana
   ...
@@ -112,37 +118,54 @@ let config = {
 };
 
 const changeState = ({api, isA, context, toArray, element, state}) => {
-  let unit = root(context.element.marker)
   let scope
   let conditions = []
 
-  if (context.element.ordinal) {
-    conditions.push({ ordinals: toArray(context.element.ordinal).map((context) => context.value)})
-  } else if (isA(context.element, 'everything')) {
-    scope = 'all'
-  } else if (context.element.quantity) {
-    scope = context.element.quantity.quantity
-  }
+  const getElement = (selector, update) => {
+    const unit = root(selector.marker)
+    let scope;
+    const condition = []
+    if (selector.ordinal) {
+      conditions.push({ ordinals: toArray(selector.ordinal).map((context) => context.value)})
+    } else if (isA(selector, 'everything')) {
+      scope = 'all'
+    } else if (selector.quantity) {
+      scope = selector.quantity.quantity
+    } if (selector.distributer) {
+      scope = selector.distributer.value
+    }
 
-  if (context.element.conditions) {
-    for (const condition of context.element.conditions) {
-      if (condition.marker == 'wordComparisonWith_wp') {
-        // with or not with that is the question
-        const letters = condition.letters.letters.text
-        conditions.push({ comparison: condition.comparison, letters })
-      } else if (condition.marker == 'wordComparison_wp') {
-        // with or not with that is the question
-        const letters = condition.letters.text
-        conditions.push({ comparison: condition.comparison, letters })
-      } else if (isA(condition, 'styleModifier_wp')) {
-        for (const style of toArray(condition)) {
-          conditions.push({ hasStyle: style.marker })
+    if (selector.conditions) {
+      for (const condition of selector.conditions) {
+        if (condition.marker == 'wordComparisonWith_wp') {
+          // with or not with that is the question
+          const letters = condition.letters.letters.text
+          conditions.push({ comparison: condition.comparison, letters })
+        } else if (condition.marker == 'wordComparison_wp') {
+          // with or not with that is the question
+          const letters = condition.letters.text
+          conditions.push({ comparison: condition.comparison, letters })
+        } else if (isA(condition, 'styleModifier_wp')) {
+          for (const style of toArray(condition)) {
+            conditions.push({ hasStyle: style.marker })
+          }
         }
       }
     }
+
+    if (selector.context) {
+      debugger
+      for (const context of toArray(selector.context)) {
+        getElement(context, update)
+      }
+    }
+
+    update.selectors.push({ unit, scope, conditions })
   }
 
-  const update = { unit, scope, conditions }
+  const update = { selectors: [] }
+  getElement(context.element, update)
+
   setUpdate(isA, update, toArray(context.state))
   api.changeState(update)
 }
@@ -150,9 +173,9 @@ const changeState = ({api, isA, context, toArray, element, state}) => {
 template = {
   configs: [
     'setidsuffix _wp',
-    'words are countable orderable and statefulElements',
-    'characters are countable orderable and statefulElements',
-    'paragraphs are countable orderable and statefulElement',
+    'words are countable distributable orderable textContainers and statefulElements',
+    'characters are countable distributable orderable and statefulElements',
+    'paragraphs are countable distributable orderable textContainers and statefulElement',
     'text is a statefulElement',
     'letters means characters',
     'bold, italic, code, capitalize, lowercase and underline are styles',
@@ -174,8 +197,15 @@ template = {
         "((word_wp/*) [wordComparison_wp] (a/0)? (letters))",
         // this one is "the bolded/underlined/italized/... word"
         "((styleModifier_wp/*) [modifiedByStyle_wp] (statefulElement_wp/* && context.determiner == undefined))",
+        // the first letter of each paragraph 
+        "((statefulElement_wp/*) <statefulElementInContext_wp|of> (statefulElement_wp/*))",
       ],
       bridges: [
+        { 
+          id: 'statefulElementInContext_wp',
+          parents: ['preposition'],
+          bridge: "{ ...before[0], context: append(before[0].context, [after[0]]), generate: [before[0], operator, after[0]] }",
+        },
         { 
           id: 'modifiedByStyle_wp',
           // parents: ['verb'],
@@ -270,7 +300,7 @@ template = {
         },
       ],
       priorities: [
-        // { "context": [['underline_wp',0], ['statefulElement_wp', 1], ['thatVerb', 0]], ordered: true, choose: [2] },
+        { "context": [['changeState_wp',0], ['every', 0], ['word_wp', 1], ['list', 1]], ordered: true, choose: [1] },
         { "context": [['changeState_wp',0], ['statefulElement_wp', 0], ['list', 0]], ordered: true, choose: [0] },
         { "context": [['comparisonWith_wp',0], ['unknown', 0], ['list', 1]], ordered: true, choose: [0] },
       ],
@@ -293,7 +323,7 @@ knowledgeModule({
     contents: wp_tests,
     checks: {
       context: [
-        ...defaultContextCheck(), 
+        ...defaultContextCheck(['distributer', 'subject', 'element', 'letters', 'target', 'conditions' ]), 
       ],
       objects: [
         'changeState', 

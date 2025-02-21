@@ -34,15 +34,18 @@ let config = {
       match: ({context}) => context.generate,
       apply: async ({context, gs}) => {
         const contexts = []
-        for (const key of context.generate) {
-          const value = getValue(key, context)
-          if (!(value !== undefined || key == 'this')) {
+        for (const keyOrContext of context.generate) {
+          let value = keyOrContext
+          if (typeof keyOrContext == 'string') {
+            value = getValue(keyOrContext, context)
+          }
+          if (!(value !== undefined || keyOrContext == 'this')) {
             continue
           }
           if (value?.skipDefault) {
             continue
           }
-          if (key == 'this') {
+          if (keyOrContext == 'this') {
             contexts.push({...context, generate: null})
           } else {
             contexts.push(value)
