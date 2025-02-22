@@ -155,7 +155,6 @@ const changeState = ({api, isA, context, toArray, element, state}) => {
     }
 
     if (selector.context) {
-      debugger
       for (const context of toArray(selector.context)) {
         getElement(context, update)
       }
