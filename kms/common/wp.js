@@ -16,6 +16,8 @@ const instance = require('./wp.instance.json')
 
     after
     bold the first word of every paragraph
+    bold the first word of the second and third paragraph
+    bold the first word of the second paragraph and third paragraph
     bold the first letter of every word
     bold the first letter of every word that starts with t
     bold the first letter of the words that start with t in the third paragraph
@@ -120,10 +122,10 @@ let config = {
 
 const changeState = ({api, isA, context, toArray, element, state}) => {
   let scope
-  let conditions = []
 
   const getElement = (selector, update) => {
     const unit = root(selector.marker)
+    let conditions = []
     let scope;
     const condition = []
     if (selector.ordinal) {
