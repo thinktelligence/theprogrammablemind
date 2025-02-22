@@ -302,6 +302,7 @@ template = {
         },
       ],
       priorities: [
+        { "context": [['ordinal',1], ['list', 0], ['ordinal', 1], ['word_wp', 1]], ordered: true, choose: [1] },
         { "context": [['changeState_wp',0], ['every', 0], ['word_wp', 1], ['list', 1]], ordered: true, choose: [1] },
         { "context": [['changeState_wp',0], ['statefulElement_wp', 0], ['list', 0]], ordered: true, choose: [0] },
         { "context": [['comparisonWith_wp',0], ['unknown', 0], ['list', 1]], ordered: true, choose: [0] },
