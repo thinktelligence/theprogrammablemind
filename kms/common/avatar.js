@@ -5,7 +5,7 @@ const hierarchy = require('./hierarchy')
 const emotions = require('./emotions')
 const avatar_tests = require('./avatar.test.json')
  
-let config = {
+const config = {
   name: 'avatar',
 
   // TODO make different response for answerNotKnown based on emotions

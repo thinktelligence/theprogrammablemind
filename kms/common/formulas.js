@@ -91,7 +91,7 @@ class API {
 }
 */
 
-let config = {
+const config = {
   name: 'formulas',
   operators: [
     // TODO notations like (([arg1:]) [op] ([arg2:nameOfArg2}|word1])) -> just make the bridge + operators. put this in the bridge def / also calculate generators

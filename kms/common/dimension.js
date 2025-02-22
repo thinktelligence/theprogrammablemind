@@ -40,7 +40,7 @@ class API {
     })
 
     // for example, celcius and fahrenheit
-    for (let unit of units) {
+    for (const unit of units) {
       config.addOperator(`([${unit}])`)
       config.addBridge({ 
         id: unit,
@@ -52,7 +52,7 @@ class API {
 
 const api = new API()
 
-let config = {
+const config = {
   name: 'dimension',
   operators: [
     "([dimension])",

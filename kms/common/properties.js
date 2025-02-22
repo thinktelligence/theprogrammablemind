@@ -79,7 +79,7 @@ const template = {
 
 const api = new API();
 
-let config = {
+const config = {
   name: 'properties',
   associations: {
     negative: [],
@@ -648,7 +648,7 @@ let config = {
           if (!objectContext.value) {
             return objectContext;
           }
-          let objectValue = kms.stm.api.getVariable(objectContext.value);
+          const objectValue = kms.stm.api.getVariable(objectContext.value);
           if (!await api.knownObject(objectValue)) {
             context.verbatim = `There is no object named "${await g({...objectContext, paraphrase: true})}"`
             return

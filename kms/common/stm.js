@@ -27,7 +27,7 @@ class API {
   }
 
   isA(child, parent) {
-    for (let isA of this.isAs) {
+    for (const isA of this.isAs) {
       if (isA(child, parent)) {
         return true
       }
@@ -69,7 +69,7 @@ class API {
   }
 
   mentions({ context, frameOfReference, useHierarchy=true, all, condition = (() => true) } = {}) {
-    let mentioned = frameOfReference?.mentioned || this._objects.mentioned
+    const mentioned = frameOfReference?.mentioned || this._objects.mentioned
 
     const findPrevious = !!context.stm_previous
     const forAll = []
@@ -81,7 +81,7 @@ class API {
 
     // care about value first
     let findCounter = 0
-    for (let m of mentioned) {
+    for (const m of mentioned) {
       if (context.value && (context.value == m.marker || context.value == m.value)) {
         findCounter += 1
         if (findPrevious && findCounter < 2) {
@@ -103,7 +103,7 @@ class API {
 
     // care about marker second
     findCounter = 0
-    for (let m of mentioned) {
+    for (const m of mentioned) {
       if (context.marker != 'unknown' && this.isA(m.marker, context.marker)) {
         findCounter += 1
         if (findPrevious && findCounter < 2) {
@@ -119,7 +119,7 @@ class API {
       }
       // if (context.types && context.types.includes(m.marker)) {
       if (context.types) {
-        for (let parent of context.types) {
+        for (const parent of context.types) {
           if (parent != 'unknown' && this.isA(m.marker, parent)) {
             findCounter += 1
             if (findPrevious && findCounter < 2) {
@@ -139,7 +139,7 @@ class API {
 
     findCounter = 0
     if (context.types && context.types.length == 1) {
-      for (let m of mentioned) {
+      for (const m of mentioned) {
         if (context.unknown) {
           findCounter += 1
           if (findPrevious && findCounter < 2) {

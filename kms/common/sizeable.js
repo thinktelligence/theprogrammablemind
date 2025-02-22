@@ -6,7 +6,7 @@ const sizeable_tests = require('./sizeable.test.json')
 
 // TODO 1 to 2 sizeables
 
-let config = {
+const config = {
   name: 'sizeable',
   operators: [
     "(([size|]) [sizing] ([sizeable]))",

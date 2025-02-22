@@ -11,7 +11,7 @@ class API {
   }
 
   addDefaultTypesForObjectHierarchy(types) {
-    for (let type of types) {
+    for (const type of types) {
       this._objects.defaultTypesForHierarchy.add(type)
     }
   }
@@ -23,7 +23,7 @@ class API {
       types.push('concept');
     }
   
-    for (let type of types) {
+    for (const type of types) {
       config.addHierarchy(id, type)
     }
   }
@@ -142,7 +142,7 @@ class API {
     if (config.exists('number')) {
       // config.addPriority({ context: [['list', 0], ['number', 0]].concat(modifierIds.map((id) => [id, 0])).concat([[objectId, 0]]), ordered: true, choose: [2,3] })
       if (modifierIds.length > 1) {
-        let choose = []
+        const choose = []
         for (let i = 0; i < modifierIds.length; ++i) {
           choose.push(i+2)
         }

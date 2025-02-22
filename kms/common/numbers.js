@@ -10,7 +10,7 @@ const sdefaults = require('./sdefaults')
     10 million 300 hundred and fifty
 */
 
-let config = {
+const config = {
   name: 'numbers',
   operators: [
     "([number])",

@@ -49,7 +49,7 @@ const newReport = ({km, objects}) => {
 }
 
 const compareObject = (ordering) => (v1, v2) => {
-  for (let order of ordering) {
+  for (const order of ordering) {
     c = compareValue(order[0], v1, v2)
     if (c == 0) {
       continue
@@ -110,7 +110,7 @@ const apiTemplate = (marker, testData) => {
 const api1 = apiTemplate('models', testData2)
 const api2 = apiTemplate('clothes', testData)
 
-let config = {
+const config = {
   name: 'reports',
   operators: [
     //"(([type]) [([(<less> ([than]))] ([amount]))])",
@@ -301,9 +301,9 @@ let config = {
       "generatorr": async ({gp, context, apis, objects, config}) => {
                     const reports = propertyToArray(context.report)
                     let response = ''
-                    for (let report of reports) {
+                    for (const report of reports) {
                       if (report.number == 'many') {
-                        for (let reportId in objects.listings) {
+                        for (const reportId in objects.listings) {
                           if (reportId.startsWith('tempReport')) {
                             continue
                           }
@@ -452,10 +452,10 @@ let config = {
         const data = []
         for (const product of products) {
           const row = []
-          for (let p of Object.keys(product)) {
+          for (const p of Object.keys(product)) {
             kms.stm.api.setVariable(p, { marker: p, value: product[p] })
           }
-          for (let property of columns) {
+          for (const property of columns) {
             const value = toEValue(await e({ marker: property, value: property }));
             row.push(value)
           }
@@ -515,7 +515,7 @@ let config = {
           const id = report.value.value
           const listing = objects.listings[id]
           const values = propertyToArray(context.properties)
-          for (let value of values) {
+          for (const value of values) {
             let column = value.marker
             if (value.marker == 'unknown') {
               column = value.value

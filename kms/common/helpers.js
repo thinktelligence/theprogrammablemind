@@ -83,7 +83,7 @@ const zip = (...arrays) => {
   }
   const zipped = []
   for(let i = 0; i < arrays[0].length; i++){
-    let tuple = []
+    const tuple = []
     for (const array of arrays) {
       tuple.push(array[i])
     }

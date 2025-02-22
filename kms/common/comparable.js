@@ -7,7 +7,7 @@ const comparable_tests = require('./comparable.test.json')
 const comparable_instance = require('./comparable.instance.json')
 
 
-let config = {
+const config = {
   name: 'comparable',
   operators: [
     "([condition|])",

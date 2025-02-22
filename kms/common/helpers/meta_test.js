@@ -230,7 +230,7 @@ describe('helpersMeta', () => {
       // const apply = (mappings, _.cloneDeep(to)) => ({context}) => {
       const apply = (mappings, TO) => ({context}) => {
         TO = _.cloneDeep(TO)
-        for (let { from, to } of mappings) {
+        for (const { from, to } of mappings) {
           hashIndexesSet(TO, to, hashIndexesGet(context, from))
         }
         Object.assign(context, TO)

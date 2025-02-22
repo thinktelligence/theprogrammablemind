@@ -14,7 +14,7 @@ const scorekeeper = require('./scorekeeper');
     'what is the score',
     'joe got 200 points',
   ]
-  for (let input of inputs) {
+  for (const input of inputs) {
     const result = await scorekeeper.process(input)
     console.log('result', result.responses)
   }

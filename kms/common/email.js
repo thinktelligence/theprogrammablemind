@@ -15,7 +15,7 @@ const getHelp = (config, indent=2) => {
   return help
 }
 
-let config = {
+const config = {
   name: 'help',
   operators: [
     "([help])",

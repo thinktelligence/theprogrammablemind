@@ -14,7 +14,7 @@ function getVariables(expression, isVariable = (expression) => typeof expression
 }
 
 const match = (values, head, value) => {
-  for (let prop in head) {
+  for (const prop in head) {
     if (head[prop] instanceof Function) {
       if (!head[prop](value[prop])) {
         return
@@ -25,7 +25,7 @@ const match = (values, head, value) => {
       return
     }
   }
-  for (let prop in values) {
+  for (const prop in values) {
     if (!values[prop]) {
       return
     }
@@ -107,11 +107,11 @@ class API {
   get(name, expectedVars) {
     if (expectedVars) {
       const fs = this.gets(name);
-      for (let f of fs) {
+      for (const f of fs) {
         const foundVars = getVariables(f.formula)
         if (foundVars.length == expectedVars.length) {
           let failed = false
-          for (let ev of expectedVars) {
+          for (const ev of expectedVars) {
             if (!foundVars.find( (fv) => fv.value == ev.value )) {
               failed = true
               break

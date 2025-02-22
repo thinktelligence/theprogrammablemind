@@ -11,7 +11,7 @@ const countable_tests = require('./countable.test.json')
     2 6 and 3 10 piece nuggets
  */
 
-let config = {
+const config = {
   name: 'countable',
   operators: [
     "(([quantifier|]) [counting] ([countable]))",

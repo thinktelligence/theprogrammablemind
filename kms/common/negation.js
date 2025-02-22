@@ -4,7 +4,7 @@ const gdefaults = require('./gdefaults')
 const pos = require('./pos')
 const negation_tests = require('./negation.test.json')
 
-let config = {
+const config = {
   name: 'negation',
   operators: [
     "([negatable])",

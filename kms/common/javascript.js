@@ -3,7 +3,7 @@ const { defaultContextCheck } = require('./helpers')
 const dialogues = require('./dialogues')
 const javascript_tests = require('./javascript.test.json')
 
-let config = {
+const config = {
   name: 'javascript',
   operators: [
     "((<let> ([variable|])) [assignment|] (value))",

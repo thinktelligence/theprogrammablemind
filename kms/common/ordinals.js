@@ -5,7 +5,7 @@ const articles = require('./articles')
 const numbers = require('./numbers')
 const pos = require('./pos')
 
-let config = {
+const config = {
   name: 'ordinals',
   operators: [
     "([ordinal])",

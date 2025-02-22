@@ -5,7 +5,7 @@ const tokenize = require('./tokenize.js')
 const gdefaults_tests = require('./gdefaults.test.json')
 const { getValue, isMany } = require('./helpers.js')
 
-let config = {
+const config = {
   name: 'gdefaults',
   generators: [
   /* TODO save for later
@@ -70,7 +70,7 @@ let config = {
         const text = []
         for (modifier of (context.modifiers || [])) {
           if (Array.isArray(context[modifier])) {
-            for (let m of context[modifier]) {
+            for (const m of context[modifier]) {
               text.push(await g(m))
             }
           } else {

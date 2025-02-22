@@ -40,7 +40,7 @@ class API {
 
 const api = new API()
 
-let config = {
+const config = {
   name: 'tell',
   operators: [
     "([tell] ([person]) ([info|]) ([event]))"

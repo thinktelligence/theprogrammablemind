@@ -28,7 +28,7 @@ const getHelp = (config, indent=2) => {
     -> get response back: sally said: blah
 */
 
-let config = {
+const config = {
   name: 'characters',
 
   operators: [

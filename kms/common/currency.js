@@ -40,7 +40,7 @@ class API {
 
 const api = new API()
 
-let config = {
+const config = {
   name: 'currency',
   operators: [
     "(([number]) [currency])",
@@ -98,7 +98,7 @@ const initializer = ({config, objects, apis, addWord, addGenerator, baseConfig, 
     addWord(word, def)
   }
   unitWords = api.getUnitWords();
-  for (let words of unitWords) {
+  for (const words of unitWords) {
       addGenerator({
         match: ({context}) => context.marker == 'currency' && context.units == words.units && context.value == 1 && context.isAbstract, 
         apply: ({context, g}) => words.one, uuid

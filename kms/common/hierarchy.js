@@ -32,7 +32,7 @@ const getTypes = ( km, concept, instance ) => {
 
 // TODO the types of rank are x y z ....
 // TODO x is a kind of y
-let config = {
+const config = {
   name: 'hierarchy',
   operators: [
     // "([hierarchyAble|])",
@@ -250,8 +250,8 @@ let config = {
         const api = km('properties').api
         const oneConcepts = asList(context);
         const twoConcepts = asList(context.same);
-        for (let oneConcept of oneConcepts.value) {
-          for (let twoConcept of twoConcepts.value) {
+        for (const oneConcept of oneConcepts.value) {
+          for (const twoConcept of twoConcepts.value) {
             oneConceptId = api.makeObject({config, context: oneConcept})
             twoConceptId = api.makeObject({config, context: twoConcept})
             api.rememberIsA(oneConceptId, twoConceptId)

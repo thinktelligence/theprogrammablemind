@@ -147,7 +147,7 @@ class API {
         const value = constraint.constraint;
         let property = constraint.property;
         const properties = constraint.properties;
-        for (let p of properties) {
+        for (const p of properties) {
           if (value[p].concept) {
             property = p
             constraint.property = p; // set what is used
@@ -157,7 +157,7 @@ class API {
         // value.greg = true
         // value.ownee.query = true
         value.query = true
-        let instance = await e(value)
+        const instance = await e(value)
         if (instance.verbatim) {
           context.evalue = { verbatim: instance.verbatim }
           return
@@ -333,7 +333,7 @@ class API {
     }
 
     if (false) {
-      for (let argument of before.concat(after)) {
+      for (const argument of before.concat(after)) {
         if (create.includes(argument.id)) {
           // config.addHierarchy('unknown', argument.id)
           // config.addHierarchy('what', argument.id)
@@ -343,7 +343,7 @@ class API {
         }
       } 
     } else {
-      for (let argument of before.concat(after)) {
+      for (const argument of before.concat(after)) {
         if (create.includes(argument.id)) {
           // config.addHierarchy(argument.id, 'unknown')
           // config.addHierarchy(argument.id, 'what')
@@ -356,9 +356,9 @@ class API {
     create.map( (id) => {
       if (id === operator) {
         const tagsToProps = (where, args, suffix='') => {
-          let i = 0;
+          const i = 0;
           let r = ''
-          for (let arg of args) {
+          for (const arg of args) {
             r += `, ${arg.tag}${suffix}: ${where}[${i}] `
           }
           return r
@@ -528,11 +528,11 @@ class API {
         apply: ({context, km, hierarchy, config}) => {
           const api = km('properties').api
           // add types for arguments
-          for (let argument of context.focusable || []) {
+          for (const argument of context.focusable || []) {
             const value = api.toValue(context[argument])
             if (value) {
               const minimas = hierarchy.minima(context[argument].types)
-              for (let type of minimas) {
+              for (const type of minimas) {
                 if (config.exists(value)) {
                   config.addHierarchy(value, type);
                 }
@@ -586,7 +586,7 @@ class API {
     if (!Array.isArray(relations)) {
       relations = [relations]
     }
-    for (let relation of relations) {
+    for (const relation of relations) {
       this._objects.relations.push(relation)
     }
   }
@@ -622,7 +622,7 @@ class API {
       return t.value && v.value && t.value == v.value
     }
 
-    for (let arg of args) {
+    for (const arg of args) {
       if (!matches(template[arg], value[arg])) {
         return null
       }
@@ -632,7 +632,7 @@ class API {
 
   relation_get(context, args) {
     const andTheAnswerIs = []
-    for (let relation of this._objects.relations) {
+    for (const relation of this._objects.relations) {
       if (this.relation_match(args, context, relation)) {
         const queriedArgs = args.filter( (arg) => context[arg].query )
         if (queriedArgs.length == 1) {
@@ -718,7 +718,7 @@ class API {
     if (property == 'property') {
       const objectProps = await this.propertiesFH.getValue([object])
       const values = []
-      for (let key of Object.keys(objectProps)) {
+      for (const key of Object.keys(objectProps)) {
         if (objectProps[key].has) {
           values.push(`${await g(key)}: ${await g({ ...objectProps[key].value, paraphrase: true })}`)
         }
@@ -784,7 +784,7 @@ class API {
         return true
       }
       const parents = this._objects.parents[next] || [];
-      for (let parent of parents) {
+      for (const parent of parents) {
         if (!seen.includes(parent)) {
           todo.push(parent)
           seen.push(parent)
@@ -812,7 +812,7 @@ class API {
         return true
       }
       const parents = this._objects.parents[next] || [];
-      for (let parent of parents) {
+      for (const parent of parents) {
         if (!seen.includes(parent)) {
           todo.push(parent)
           seen.push(parent)
@@ -859,7 +859,7 @@ class API {
         return true
       }
       const parents = this._objects.parents[next] || [];
-      for (let parent of parents) {
+      for (const parent of parents) {
         if (!seen.includes(parent)) {
           todo.push(parent)
           seen.push(parent)
@@ -903,7 +903,7 @@ class API {
   }
 
   isOperator(id) {
-    for (let bridge of this.__config.getBridges()) {
+    for (const bridge of this.__config.getBridges()) {
       if (bridge.id == id) {
         return true
       }

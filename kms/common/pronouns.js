@@ -2,7 +2,7 @@ const { knowledgeModule, where } = require('./runtime').theprogrammablemind
 const { defaultContextCheck } = require('./helpers')
 const pronouns_tests = require('./pronouns.test.json')
  
-let config = {
+const config = {
   name: 'pronouns',
 
   operators: [

@@ -4,7 +4,7 @@ const pos = require('./pos.js')
 const { defaultContextCheck } = require('./helpers')
 const tests = require('./articles.test.json')
 
-let config = {
+const config = {
   name: 'articles',
   operators: [
     "([thisitthat|])",

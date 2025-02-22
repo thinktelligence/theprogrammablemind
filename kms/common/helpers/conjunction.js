@@ -43,7 +43,7 @@ const isA = (hierarchy) => (child, parent, { strict=false } = {}) => {
     return hierarchy.isA(child, parent)
   } else {
     const children = propertyToArray(child)
-    for (let child of children) {
+    for (const child of children) {
       let okay = false
       if (hierarchy.isA(child.marker || child, parent.marker || parent)) {
         okay = true

@@ -3,7 +3,7 @@ const { defaultContextCheck } = require('./helpers')
 const punctuation = require("./punctuation")
 const pos_tests = require('./pos.test.json')
 
-let config = {
+const config = {
   name: 'pos',
   operators: [
     "([adjective])",

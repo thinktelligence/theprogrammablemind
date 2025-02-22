@@ -77,7 +77,7 @@ config = {
         }
         const word = context.value[0].word
 
-        for (let value of context.value) {
+        for (const value of context.value) {
           if (!(value.modifiers && value.modifiers.length == 1 && value.word == word)) {
             return
           }

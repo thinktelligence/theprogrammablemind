@@ -3,7 +3,7 @@ const { defaultContextCheck } = require('./helpers')
 const gdefaults = require("./gdefaults")
 const tests = require('./errors.test.json')
 
-let config = {
+const config = {
   name: 'errors',
   operators: [
     { pattern: "([drop] ([dropable]))", development: true },

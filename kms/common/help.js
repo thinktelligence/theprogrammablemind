@@ -13,7 +13,7 @@ const getHelp = (config, indent=2) => {
   help += `${indent}NAME: ${config.name}\n`
   help += `${indent}DESCRIPTION: ${config.description}\n\n`
   help += `${indent}SAMPLE SENTENCES\n\n`
-  for (let test of config.tests) {
+  for (const test of config.tests) {
     if (test.developerTest) {
       continue
     }
@@ -43,7 +43,7 @@ const config = {
       level: 0, 
       generatorp: () => 'help',
       generatorr: ({context, config}) => {
-        let kms = helpers.propertyToArray(context.kms).map( (value) => value.value )
+        const kms = helpers.propertyToArray(context.kms).map( (value) => value.value )
         const isAll = kms.length == 0
         let help = '';
         let separator = ''
@@ -89,10 +89,10 @@ const config = {
 
 const initializer = ({ config, addWord, kms }) => {
     const names = new Set()
-    for (let name in kms) {
+    for (const name in kms) {
       names.add(name);
     }
-    for (let name of names) {
+    for (const name of names) {
       addWord(name, {id: "km", initial: `{ value: '${name}', word: '${name}' }`})
     }
   }

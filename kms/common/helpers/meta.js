@@ -2,7 +2,7 @@ const _ = require('lodash')
 
 const hashIndexesGet = (hash, indexes) => {
   let value = hash
-  for (let i of indexes) {
+  for (const i of indexes) {
     value = value[i]
   }
   return value
@@ -10,7 +10,7 @@ const hashIndexesGet = (hash, indexes) => {
 
 const hashIndexesSet = (hash, indexes, value) => {
   let currentValue = hash
-  for (let i of indexes.slice(0, -1)) {
+  for (const i of indexes.slice(0, -1)) {
     if (!currentValue[i]) {
       currentValue[i] = {}
     }
@@ -53,7 +53,7 @@ const translationMapping = (from, to) => {
   if (from.atomic) {
     return mappings
   }
-  for (let fkey of Object.keys(from)) {
+  for (const fkey of Object.keys(from)) {
     let matchField;
     if (from[fkey].value) {
       matchField = 'value'
@@ -75,7 +75,7 @@ const translationMapping = (from, to) => {
           break
         } else {
           if (typeof tvalue !== 'string' && typeof tvalue !== 'number') {
-            for (let key of Object.keys(tvalue)) {
+            for (const key of Object.keys(tvalue)) {
               todo.push(tkey.concat(key))
             }
           }

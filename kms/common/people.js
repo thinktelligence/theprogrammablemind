@@ -39,7 +39,7 @@ const template = {
 //      "wendy owns cleo",
     ],
 }
-let config = {
+const config = {
   name: 'people',
   operators: [
     "([person|person,people])",

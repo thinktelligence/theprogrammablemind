@@ -19,7 +19,7 @@ class API {
   }
 }
 
-let config = {
+const config = {
   name: 'events',
   operators: [
     "([after] ([event]) ([action]))",

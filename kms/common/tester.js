@@ -17,7 +17,7 @@ const createConfig = async () => {
   global.theprogrammablemind = {
     loadForTesting: {}
   }
-  for (let module of args.modules.split(',')) {
+  for (const module of args.modules.split(',')) {
     global.theprogrammablemind.loadForTesting[module] = true
     const km = require(`./${module}`)
     // km.rebuild({ isModule: false }) // load the usually defaults

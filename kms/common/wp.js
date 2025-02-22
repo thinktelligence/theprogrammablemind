@@ -99,7 +99,7 @@ const setUpdate = (isA, update, states) => {
       if (!update.styles) {
         update.styles = []
       }
-      let style = root(state.value)
+      const style = root(state.value)
       /*
       if (style == 'underlined') {
         style = 'underline'
@@ -116,7 +116,7 @@ const setUpdate = (isA, update, states) => {
 
 const api = new API()
 
-let config = {
+const config = {
   name: 'wp',
 };
 
@@ -125,7 +125,7 @@ const changeState = ({api, isA, context, toArray, element, state}) => {
 
   const getElement = (selector, update) => {
     const unit = root(selector.marker)
-    let conditions = []
+    const conditions = []
     let scope;
     const condition = []
     if (selector.ordinal) {

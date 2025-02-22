@@ -14,7 +14,7 @@ const reports = require('./reports');
     "move column 3 to column 1",
     "remove column 2"
   ]
-  for (let input of inputs) {
+  for (const input of inputs) {
     const result = await reports.process(input)
     console.log('query', input);
     console.log('    ', result.responses)

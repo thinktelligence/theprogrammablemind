@@ -323,7 +323,7 @@ const template = {
 
       const hasDrink = (isA, item) => {
         let hasDrink = false
-        for (let modification of (item.modifications || [])) {
+        for (const modification of (item.modifications || [])) {
           if (isA(modification.id, 'drink')) {
             hasDrink = true
             break
@@ -385,7 +385,7 @@ const template = {
             const { api, context } = args
             if (isMany(context)) {
               let count = getCount(context) || Number.MAX_SAFE_INTEGER
-              for (let item of needsDrink) {
+              for (const item of needsDrink) {
                 if (count < 1) {
                   break
                 }
@@ -598,7 +598,7 @@ class API {
 
     if (item.combo) {
       item.needsDrink = true 
-      for (let modification of item.modifications || []) {
+      for (const modification of item.modifications || []) {
         // TODO check for awailable
         if (this.args.isA(modification.id, 'drink')) {
           item.needsDrink = false

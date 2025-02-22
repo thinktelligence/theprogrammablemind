@@ -3,7 +3,7 @@ const { defaultContextCheck } = require('./helpers')
 const percentages_tests = require('./percentages.test.json')
 const numbers = require('./numbers')
 
-let config = {
+const config = {
   name: 'percentages',
   operators: [
     "((number/*) [percent])",

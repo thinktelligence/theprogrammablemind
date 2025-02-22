@@ -3,7 +3,7 @@ const { defaultContextCheck } = require('./helpers')
 const gdefaults = require('./gdefaults')
 const yesno_tests = require('./yesno.test.json')
 
-let config = {
+const config = {
   name: 'yesno',
   operators: [
     "([yes])",

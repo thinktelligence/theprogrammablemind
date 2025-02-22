@@ -4,7 +4,7 @@ const conjunction_tests = require('./conjunction.test.json')
 const { defaultContextCheck, propertyToArray } = require('./helpers')
 const { isA, asList, listable } = require('./helpers/conjunction.js')
 
-let config = {
+const config = {
   name: 'conjunction',
   operators: [
     "(x [list|and] y)",

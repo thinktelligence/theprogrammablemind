@@ -69,7 +69,7 @@ const mathematicalOperator = (name, words, apply, before = []) => [
   }
 ]
     
-let config = {
+const config = {
   name: 'math',
   operators: [
     "([mathematicalExpression])",

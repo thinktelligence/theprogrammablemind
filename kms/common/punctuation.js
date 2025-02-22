@@ -3,7 +3,7 @@ const { defaultContextCheck } = require('./helpers')
 const gdefaults = require('./gdefaults')
 const punctuation_tests = require('./punctuation.test.json')
 
-let config = {
+const config = {
   name: 'punctuation',
   operators: [
     "([leftParenthesis|] (phrase) ([rightParenthesis|]))",

@@ -37,7 +37,7 @@ const warningSameNotEvaluated = (log, one) => {
 }
 
 // TODO implement what / what did you say ...
-let config = {
+const config = {
   name: 'dialogues',
   operators: [
     "(<thatVerb|that> (verb/0))",
@@ -659,7 +659,7 @@ let config = {
         // km('dialogues').api.mentioned(concept)
         // TODO wtf is the next line?
         value = JSON.parse(JSON.stringify(value))
-        let instance = await e(value)
+        const instance = await e(value)
         if (false && instance.evalue) {
           km('stm').api.mentioned({ context: value })
         }
@@ -794,7 +794,7 @@ const initializer = ({objects, config, isModule}) => {
       return api('dialogues').toScopedId(context)
     },
     addWords: (id, word, additional) => {
-      for (let props of words(word, { ...additional })) {
+      for (const props of words(word, { ...additional })) {
         config.addWord(props.word, { id, initial: JSON.stringify(props) }) 
       }
     },

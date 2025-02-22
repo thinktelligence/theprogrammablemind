@@ -2,7 +2,7 @@ const { flatten, knowledgeModule, where } = require('./runtime').theprogrammable
 const { defaultContextCheck } = require('./helpers')
 const sdefaults_tests = require('./sdefaults.test.json')
 
-let config = {
+const config = {
   name: 'sdefaults',
   semantics: [
     {
@@ -14,7 +14,7 @@ let config = {
       // match: ({context}) => context.flatten || context.listable || (Array.isArray(context.value) && context.value.some((value) => value.flatten)),
       apply: async ({config, km, context, s}) => {
         const [flats, wf] = flatten(['list'], context)
-        for (let flat of flats) {
+        for (const flat of flats) {
           await s({ ...flat, flatten: false })
         }
       }

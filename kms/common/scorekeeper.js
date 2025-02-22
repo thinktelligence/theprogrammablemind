@@ -25,7 +25,7 @@ const template = {
 }
 
 const setPlayers = (objects, config, players) => {
-  for (let player of players) {
+  for (const player of players) {
     config.addWord(player, { "id": "player", "initial": `{ value: "${player}" }` })
   }
   objects.players = players;
@@ -51,7 +51,7 @@ const addPlayer = (objects, config, player) => {
   objects.players.push(player);
 }
 
-let config = {
+const config = {
   name: 'scorekeeper',
   operators: [
     "([next])",
@@ -156,7 +156,7 @@ let config = {
       apply: ({context, objects, config, km}) => {
         const players = context.same.value.map( (props) => props.value )
         setPlayers(objects, config, players)
-        for (let player of objects.players) {
+        for (const player of objects.players) {
           objects.scores[player] = 0
         }
         objects.nextPlayer = 0;
@@ -172,7 +172,7 @@ let config = {
         objects.scores = {}
         objects.nextPlayer = 0
         setNextPlayer(km, objects);
-        for (let player of objects.players) {
+        for (const player of objects.players) {
           objects.scores[player] = 0;
         }
         if (objects.winningScore) {
@@ -281,7 +281,7 @@ let config = {
       apply: ({context, objects}) => {
         const players = Object.keys(objects.scores);
         let allScoresAreZero = true
-        for (let player of players) {
+        for (const player of players) {
           if (objects.scores[player] != 0) {
             allScoresAreZero = false
             break;

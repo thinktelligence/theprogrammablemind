@@ -11,7 +11,7 @@ function sleep(ms) {
 }
 
 // i told the times so that the tests would fail
-let config = {
+const config = {
   name: 'async',
   operators: [
     "([a])",

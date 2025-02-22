@@ -99,7 +99,7 @@ class API {
   }
 }
 
-let config = {
+const config = {
   name: 'pipboy',
   // TODO mark default as local scope
   operators: [

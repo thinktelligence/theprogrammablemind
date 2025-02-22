@@ -14,7 +14,7 @@ class Frankenhash {
 
   setHandler(path, handler) {
     let where = this.data.handlers
-    for (let arg of path.slice(0, path.length-1)) {
+    for (const arg of path.slice(0, path.length-1)) {
       if (!where[arg]) {
         where[arg] = {}
       }
@@ -25,7 +25,7 @@ class Frankenhash {
 
   getValue(path, writeDefault=true) {
     let value = this.data.root
-    for (let property of path) {
+    for (const property of path) {
       if (!value[property]) {
         if (writeDefault) {
           value[property] = {}
@@ -44,7 +44,7 @@ class Frankenhash {
 
   getHandler(path) {
     let value = this.data.handlers
-    for (let property of path) {
+    for (const property of path) {
       if (this.isHandler(value)) {
         return value
       }
@@ -56,7 +56,7 @@ class Frankenhash {
 
   knownProperty(path) {
     let value = this.data.root;
-    for (let property of path) {
+    for (const property of path) {
       if (!value[property]) {
         return false
       }

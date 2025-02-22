@@ -17,7 +17,7 @@ const template = {
 };
 
 // TODO -> if a car's top speed is over 200 mph then the car is fast
-let config = {
+const config = {
   name: 'meta',
   operators: [
     "((phrase) [means] (phrase))",
@@ -208,7 +208,7 @@ let config = {
               //const mappings = mappingss[0]
               let toPrimes = []
               for (const [TO, mappings] of zip(DEFINITIONs, mappingss)) {
-                for (let { from, to } of invertMappings(mappings)) {
+                for (const { from, to } of invertMappings(mappings)) {
                   hashIndexesSet(TO, to, hashIndexesGet(context, from))
                 }
                 // next move add debug arg to s and g
@@ -236,7 +236,7 @@ let config = {
                   for (const [relations, mappings] of toPrimes) {
                     for (const relation of relations.evalue.value) {
                       valuePrime = _.cloneDeep(DERIVED)
-                      for (let { from, to } of mappings) {
+                      for (const { from, to } of mappings) {
                         hashIndexesSet(valuePrime, to, hashIndexesGet(relation, from))
                       }
                       valuePrime.paraphrase = true
@@ -303,7 +303,7 @@ let config = {
           const matchByValue = (defContext) => ({context}) => context.evalue == defContext.from.value && !context.query && !context.objects
           const apply = (mappings, TO) => async ({context, s}) => {
             TO = _.cloneDeep(TO)
-            for (let { from, to } of mappings) {
+            for (const { from, to } of mappings) {
               hashIndexesSet(TO, to, hashIndexesGet(context, from))
             }
             toPrime = await s(TO)
@@ -330,7 +330,7 @@ let config = {
           const matchByValue = (defContext) => ({context, uuid}) => context.value == defContext.from.value && (context.query || context.evaluate) && !context[`disable${uuid}`]
           const apply = (mappings, TO) => async ({uuid, context, s, g, config}) => {
             TO = _.cloneDeep(TO)
-            for (let { from, to } of mappings) {
+            for (const { from, to } of mappings) {
               hashIndexesSet(TO, to, hashIndexesGet(context, from))
             }
             // next move add debug arg to s and g

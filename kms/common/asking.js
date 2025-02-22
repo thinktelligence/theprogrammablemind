@@ -8,7 +8,7 @@ const { defaultContextCheck, indent, focus, requiredArgument } = require('./help
 const pluralize = require('pluralize')
 
 // TODO implement what / what did you say ...
-let config = {
+const config = {
   name: 'asking',
   operators: [
     "([nevermind])",
@@ -191,7 +191,7 @@ const initializer = ({objects, config, isModule}) => {
       return {
         ask,
         askWhich: ({ choices, chosen, question, isChoice, onNevermind }) => {
-          let state = {}
+          const state = {}
 
           requiredArgument(choices, 'choices')
           requiredArgument(chosen, 'chosen')

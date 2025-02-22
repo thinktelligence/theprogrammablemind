@@ -21,11 +21,11 @@ reports.rebuild({ isModule: false });
     "remove column 3",
     "show report1",
   ]
-  for (let input of inputs) {
+  for (const input of inputs) {
     try{
       const result = await reports.process(input);
       console.log("query", input)
-      for (let line of result.responses) {
+      for (const line of result.responses) {
         console.log(line)
       }
     } catch( e ){
