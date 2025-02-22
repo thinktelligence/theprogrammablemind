@@ -19,6 +19,7 @@ const instance = require('./wp.instance.json')
     bold the first letter of every word
     bold the first letter of every word that starts with t
     bold the first letter of the words that start with t in the third paragraph
+    bold the paragraph that contains words that start with t
 
     after
     make the words that start with t blue
