@@ -860,3 +860,4 @@ node wp -q 'bold and underline the words that start with t' -g -d
 node wp -q 'make every word bold and underlined' -g -d   bad: every, word, bold and underlined
 node wp -q 'bold the first and second word               bad
 node wp -q 'make every word bold and underlined' -g -d
+node wp -q 'underline the paragraphs that contain bolded words' -g -d

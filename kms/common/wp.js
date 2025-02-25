@@ -14,6 +14,11 @@ const instance = require('./wp.instance.json')
     bold the first paragraph 
     bold the first letter
 
+    current
+
+      underline the bolded paragraphs
+      underline the paragraphs that contain bolded words
+
     after
     bold the first word of every paragraph
     bold the first word of the second and third paragraph
@@ -22,6 +27,8 @@ const instance = require('./wp.instance.json')
     bold the first letter of every word that starts with t
     bold the first letter of the words that start with t in the third paragraph
     bold the paragraph that contains words that start with t
+    underline the paragraph that contains bolded words
+    bold the paragraph that contains three bolded words
 
     after
     make the words that start with t blue
@@ -148,6 +155,11 @@ const changeState = ({api, isA, context, toArray, element, state}) => {
           // with or not with that is the question
           const letters = condition.letters.text
           conditions.push({ comparison: condition.comparison, letters })
+        } else if (condition.marker == 'paragraphComparison_wp') {
+          // with or not with that is the question
+          const update = { selectors: [] }
+          const words = getElement(condition.words, update)
+          conditions.push({ comparison: condition.comparison, words: update})
         } else if (isA(condition, 'styleModifier_wp')) {
           for (const style of toArray(condition)) {
             conditions.push({ hasStyle: style.marker })
@@ -201,8 +213,32 @@ template = {
         "((styleModifier_wp/*) [modifiedByStyle_wp] (statefulElement_wp/* && context.determiner == undefined))",
         // the first letter of each paragraph 
         "((statefulElement_wp/*) <statefulElementInContext_wp|of> (statefulElement_wp/*))",
+        // the paragraph that contains words that start with t
+        "((paragraph_wp/*) [paragraphComparison_wp] (word_wp/*))",
       ],
+      associations: {
+        negative: [
+        ],
+        positive: [
+          // TODO remove these after crucible work done and fix the associator rules
+          [['paragraph_wp', 0], ['thatVerb', 0], ['paragraphComparison_wp', 0], ['word_wp', 0]],
+          [['paragraph_wp', 0], ['thatVerb', 0], ['paragraphComparison_wp', 0], ['styleModifier_wp', 0], ['word_wp', 0]],
+          [['word_wp', 0], ['thatVerb', 0], ['wordComparison_wp', 0]],
+        ]
+      },
+
       bridges: [
+        { 
+          id: 'paragraphComparison_wp',
+          parents: ['verb'],
+          words: [ 
+            { word: 'contain', comparison: 'include' }, 
+            { word: 'contains', comparison: 'include' },
+            { word: 'include', comparison: 'include' }, 
+            { word: 'includes', comparison: 'include' },
+          ],
+          bridge: "{ ...next(operator), element: before[0], subject: before[0], words: after[0], verb: operator, generate: ['element', 'verb', 'words'] }",
+        },
         { 
           id: 'statefulElementInContext_wp',
           parents: ['preposition'],
