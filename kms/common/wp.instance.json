@@ -21,9 +21,94 @@
         "((word_wp/*) [wordComparisonWith_wp] ([comparisonWith_wp|with] (a/0)? (letters)))",
         "((word_wp/*) [wordComparison_wp] (a/0)? (letters))",
         "((styleModifier_wp/*) [modifiedByStyle_wp] (statefulElement_wp/* && context.determiner == undefined))",
-        "((statefulElement_wp/*) <statefulElementInContext_wp|of> (statefulElement_wp/*))"
+        "((statefulElement_wp/*) <statefulElementInContext_wp|of> (statefulElement_wp/*))",
+        "((paragraph_wp/*) [paragraphComparison_wp] (word_wp/*))"
       ],
+      "associations": {
+        "negative": [],
+        "positive": [
+          [
+            [
+              "paragraph_wp",
+              0
+            ],
+            [
+              "thatVerb",
+              0
+            ],
+            [
+              "paragraphComparison_wp",
+              0
+            ],
+            [
+              "word_wp",
+              0
+            ]
+          ],
+          [
+            [
+              "paragraph_wp",
+              0
+            ],
+            [
+              "thatVerb",
+              0
+            ],
+            [
+              "paragraphComparison_wp",
+              0
+            ],
+            [
+              "styleModifier_wp",
+              0
+            ],
+            [
+              "word_wp",
+              0
+            ]
+          ],
+          [
+            [
+              "word_wp",
+              0
+            ],
+            [
+              "thatVerb",
+              0
+            ],
+            [
+              "wordComparison_wp",
+              0
+            ]
+          ]
+        ]
+      },
       "bridges": [
+        {
+          "id": "paragraphComparison_wp",
+          "parents": [
+            "verb"
+          ],
+          "words": [
+            {
+              "word": "contain",
+              "comparison": "include"
+            },
+            {
+              "word": "contains",
+              "comparison": "include"
+            },
+            {
+              "word": "include",
+              "comparison": "include"
+            },
+            {
+              "word": "includes",
+              "comparison": "include"
+            }
+          ],
+          "bridge": "{ ...next(operator), element: before[0], subject: before[0], words: after[0], verb: operator, generate: ['element', 'verb', 'words'] }"
+        },
         {
           "id": "statefulElementInContext_wp",
           "parents": [
@@ -19440,6 +19525,28 @@
           ],
           [
             "unknown",
+            0
+          ],
+          [
+            "unknown",
+            1
+          ]
+        ],
+        [
+          [
+            "comma",
+            0
+          ],
+          [
+            "is",
+            0
+          ],
+          [
+            "list",
+            0
+          ],
+          [
+            "unknown",
             1
           ]
         ],
@@ -37870,6 +37977,40 @@
           ],
           [
             "unknown",
+            0
+          ],
+          [
+            "unknown",
+            1
+          ]
+        ],
+        [
+          [
+            "capitalized_wp",
+            0
+          ],
+          [
+            "comma",
+            0
+          ],
+          [
+            "is",
+            0
+          ],
+          [
+            "italicized_wp",
+            0
+          ],
+          [
+            "list",
+            0
+          ],
+          [
+            "underlined_wp",
+            0
+          ],
+          [
+            "unknown",
             1
           ]
         ],
@@ -41047,9 +41188,94 @@
         "((word_wp/*) [wordComparisonWith_wp] ([comparisonWith_wp|with] (a/0)? (letters)))",
         "((word_wp/*) [wordComparison_wp] (a/0)? (letters))",
         "((styleModifier_wp/*) [modifiedByStyle_wp] (statefulElement_wp/* && context.determiner == undefined))",
-        "((statefulElement_wp/*) <statefulElementInContext_wp|of> (statefulElement_wp/*))"
+        "((statefulElement_wp/*) <statefulElementInContext_wp|of> (statefulElement_wp/*))",
+        "((paragraph_wp/*) [paragraphComparison_wp] (word_wp/*))"
       ],
+      "associations": {
+        "negative": [],
+        "positive": [
+          [
+            [
+              "paragraph_wp",
+              0
+            ],
+            [
+              "thatVerb",
+              0
+            ],
+            [
+              "paragraphComparison_wp",
+              0
+            ],
+            [
+              "word_wp",
+              0
+            ]
+          ],
+          [
+            [
+              "paragraph_wp",
+              0
+            ],
+            [
+              "thatVerb",
+              0
+            ],
+            [
+              "paragraphComparison_wp",
+              0
+            ],
+            [
+              "styleModifier_wp",
+              0
+            ],
+            [
+              "word_wp",
+              0
+            ]
+          ],
+          [
+            [
+              "word_wp",
+              0
+            ],
+            [
+              "thatVerb",
+              0
+            ],
+            [
+              "wordComparison_wp",
+              0
+            ]
+          ]
+        ]
+      },
       "bridges": [
+        {
+          "id": "paragraphComparison_wp",
+          "parents": [
+            "verb"
+          ],
+          "words": [
+            {
+              "word": "contain",
+              "comparison": "include"
+            },
+            {
+              "word": "contains",
+              "comparison": "include"
+            },
+            {
+              "word": "include",
+              "comparison": "include"
+            },
+            {
+              "word": "includes",
+              "comparison": "include"
+            }
+          ],
+          "bridge": "{ ...next(operator), element: before[0], subject: before[0], words: after[0], verb: operator, generate: ['element', 'verb', 'words'] }"
+        },
         {
           "id": "statefulElementInContext_wp",
           "parents": [
@@ -41173,10 +41399,10 @@
       ],
       "semantics": [
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/wp.js:283"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/wp.js:319"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/wp.js:292"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/wp.js:328"
         }
       ],
       "priorities": [
@@ -41471,6 +41697,40 @@
       ],
       [
         "unknown",
+        0
+      ],
+      [
+        "unknown",
+        1
+      ]
+    ],
+    [
+      [
+        "capitalized_wp",
+        0
+      ],
+      [
+        "comma",
+        0
+      ],
+      [
+        "is",
+        0
+      ],
+      [
+        "italicized_wp",
+        0
+      ],
+      [
+        "list",
+        0
+      ],
+      [
+        "underlined_wp",
+        0
+      ],
+      [
+        "unknown",
         1
       ]
     ],
@@ -41544,6 +41804,28 @@
       [
         "unknown",
         0
+      ]
+    ],
+    [
+      [
+        "comma",
+        0
+      ],
+      [
+        "is",
+        0
+      ],
+      [
+        "list",
+        0
+      ],
+      [
+        "unknown",
+        0
+      ],
+      [
+        "unknown",
+        1
       ]
     ],
     [

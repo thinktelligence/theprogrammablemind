@@ -115,7 +115,8 @@ const config = {
       id: 'thatVerb',
       before: ['verb'],
       // bridge: "{ ...after[0], verb: after[0], that: operator, generate: ['that', 'verb'], localPriorities: { before: [\"verb\"] }, bridge_override: { operator: after[0].marker, bridge: '{ ...bridge.subject, postModifiers: [\"conditions\"], generate: append(before[0].generate, concatm(\"thatClause.\", operator.generate)), thatClause: bridge, conditions: append(after[0].conditions, [bridge]) }' } }",
-      bridge: "{ ...after[0], verb: after[0], that: operator, generate: ['that', 'verb'], localPriorities: { before: [\"verb\"] }, bridge_override: { operator: after[0].marker, bridge: '{ ...bridge.subject, postModifiers: [\"conditions\"], generate: concatm(\"thatClause.\", bridge.generate), thatClause: bridge, conditions: append(bridge.subject.conditions, [bridge]) }' } }",
+      // bridge: "{ ...after[0], verb: after[0], that: operator, generate: ['that', 'verb'], localPriorities: { before: [\"verb\"] }, bridge_override: { operator: after[0].marker, bridge: '{ ...bridge.subject, postModifiers: [\"conditions\"], generate: concatm(\"thatClause.\", bridge.generate), thatClause: bridge, conditions: append(bridge.subject.conditions, [bridge]) }' } }",
+      bridge: "{ ...after[0], verb: after[0], that: operator, generate: ['that', 'verb'], localPriorities: { actLike: [\"subordinatedVerb\", 0] }, bridge_override: { operator: after[0].marker, bridge: '{ ...bridge.subject, postModifiers: [\"conditions\"], generate: concatm(\"thatClause.\", bridge.generate), thatClause: bridge, conditions: append(bridge.subject.conditions, [bridge]) }' } }",
     },
 
     {
