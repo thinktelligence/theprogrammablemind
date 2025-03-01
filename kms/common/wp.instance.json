@@ -18,11 +18,11 @@
       "operators": [
         "([changeState_wp|make] ([statefulElement_wp]) ([stateValue_wp|]))",
         "((style_wp/*) [applyStyle_wp] ([statefulElement_wp|]))",
-        "((word_wp/*) [wordComparisonWith_wp] ([comparisonWith_wp|with] (a/0)? (letters)))",
+        "((word_wp/*) [wordComparisonWithVerb_wp] ([comparisonWith_wp|with] (a/0)? (letters)))",
         "((word_wp/*) [wordComparison_wp] (a/0)? (letters))",
         "((styleModifier_wp/*) [modifiedByStyle_wp] (statefulElement_wp/* && context.determiner == undefined))",
         "((statefulElement_wp/*) <statefulElementInContext_wp|of> (statefulElement_wp/*))",
-        "((paragraph_wp/*) [paragraphComparison_wp] (word_wp/*))"
+        "((paragraph_wp/*) [paragraphComparisonVerb_wp] (word_wp/*))"
       ],
       "associations": {
         "negative": [],
@@ -37,7 +37,7 @@
               0
             ],
             [
-              "paragraphComparison_wp",
+              "paragraphComparisonVerb_wp",
               0
             ],
             [
@@ -55,7 +55,7 @@
               0
             ],
             [
-              "paragraphComparison_wp",
+              "paragraphComparisonVerb_wp",
               0
             ],
             [
@@ -85,7 +85,7 @@
       },
       "bridges": [
         {
-          "id": "paragraphComparison_wp",
+          "id": "paragraphComparisonVerb_wp",
           "parents": [
             "verb"
           ],
@@ -125,7 +125,7 @@
           "bridge": "{ ...after[0], style: before[0], target: after[0], generate: ['style', 'target'], conditions: append(after[0].conditions, [before[0]]) }"
         },
         {
-          "id": "wordComparisonWith_wp",
+          "id": "wordComparisonWithVerb_wp",
           "parents": [
             "verb"
           ],
@@ -243,6 +243,21 @@
         }
       ],
       "priorities": [
+        {
+          "context": [
+            [
+              "paragraphComparisonVerb_wp",
+              0
+            ],
+            [
+              "wordComparisonWithVerb_wp",
+              0
+            ]
+          ],
+          "choose": [
+            1
+          ]
+        },
         {
           "context": [
             [
@@ -19525,28 +19540,6 @@
           ],
           [
             "unknown",
-            0
-          ],
-          [
-            "unknown",
-            1
-          ]
-        ],
-        [
-          [
-            "comma",
-            0
-          ],
-          [
-            "is",
-            0
-          ],
-          [
-            "list",
-            0
-          ],
-          [
-            "unknown",
             1
           ]
         ],
@@ -37977,40 +37970,6 @@
           ],
           [
             "unknown",
-            0
-          ],
-          [
-            "unknown",
-            1
-          ]
-        ],
-        [
-          [
-            "capitalized_wp",
-            0
-          ],
-          [
-            "comma",
-            0
-          ],
-          [
-            "is",
-            0
-          ],
-          [
-            "italicized_wp",
-            0
-          ],
-          [
-            "list",
-            0
-          ],
-          [
-            "underlined_wp",
-            0
-          ],
-          [
-            "unknown",
             1
           ]
         ],
@@ -41185,11 +41144,11 @@
       "operators": [
         "([changeState_wp|make] ([statefulElement_wp]) ([stateValue_wp|]))",
         "((style_wp/*) [applyStyle_wp] ([statefulElement_wp|]))",
-        "((word_wp/*) [wordComparisonWith_wp] ([comparisonWith_wp|with] (a/0)? (letters)))",
+        "((word_wp/*) [wordComparisonWithVerb_wp] ([comparisonWith_wp|with] (a/0)? (letters)))",
         "((word_wp/*) [wordComparison_wp] (a/0)? (letters))",
         "((styleModifier_wp/*) [modifiedByStyle_wp] (statefulElement_wp/* && context.determiner == undefined))",
         "((statefulElement_wp/*) <statefulElementInContext_wp|of> (statefulElement_wp/*))",
-        "((paragraph_wp/*) [paragraphComparison_wp] (word_wp/*))"
+        "((paragraph_wp/*) [paragraphComparisonVerb_wp] (word_wp/*))"
       ],
       "associations": {
         "negative": [],
@@ -41204,7 +41163,7 @@
               0
             ],
             [
-              "paragraphComparison_wp",
+              "paragraphComparisonVerb_wp",
               0
             ],
             [
@@ -41222,7 +41181,7 @@
               0
             ],
             [
-              "paragraphComparison_wp",
+              "paragraphComparisonVerb_wp",
               0
             ],
             [
@@ -41252,7 +41211,7 @@
       },
       "bridges": [
         {
-          "id": "paragraphComparison_wp",
+          "id": "paragraphComparisonVerb_wp",
           "parents": [
             "verb"
           ],
@@ -41292,7 +41251,7 @@
           "bridge": "{ ...after[0], style: before[0], target: after[0], generate: ['style', 'target'], conditions: append(after[0].conditions, [before[0]]) }"
         },
         {
-          "id": "wordComparisonWith_wp",
+          "id": "wordComparisonWithVerb_wp",
           "parents": [
             "verb"
           ],
@@ -41399,13 +41358,28 @@
       ],
       "semantics": [
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/wp.js:319"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/wp.js:321"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/wp.js:328"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/wp.js:330"
         }
       ],
       "priorities": [
+        {
+          "context": [
+            [
+              "paragraphComparisonVerb_wp",
+              0
+            ],
+            [
+              "wordComparisonWithVerb_wp",
+              0
+            ]
+          ],
+          "choose": [
+            1
+          ]
+        },
         {
           "context": [
             [
@@ -41697,40 +41671,6 @@
       ],
       [
         "unknown",
-        0
-      ],
-      [
-        "unknown",
-        1
-      ]
-    ],
-    [
-      [
-        "capitalized_wp",
-        0
-      ],
-      [
-        "comma",
-        0
-      ],
-      [
-        "is",
-        0
-      ],
-      [
-        "italicized_wp",
-        0
-      ],
-      [
-        "list",
-        0
-      ],
-      [
-        "underlined_wp",
-        0
-      ],
-      [
-        "unknown",
         1
       ]
     ],
@@ -41804,28 +41744,6 @@
       [
         "unknown",
         0
-      ]
-    ],
-    [
-      [
-        "comma",
-        0
-      ],
-      [
-        "is",
-        0
-      ],
-      [
-        "list",
-        0
-      ],
-      [
-        "unknown",
-        0
-      ],
-      [
-        "unknown",
-        1
       ]
     ],
     [

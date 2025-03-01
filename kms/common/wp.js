@@ -30,6 +30,8 @@ const instance = require('./wp.instance.json')
     underline the paragraph that contains bolded words
     bold the paragraph that contains three bolded words
 
+    the paragraph that contains the word boobies
+
     after
     make the words that start with t blue
 
@@ -147,7 +149,7 @@ const changeState = ({api, isA, context, toArray, element, state}) => {
 
     if (selector.conditions) {
       for (const condition of selector.conditions) {
-        if (condition.marker == 'wordComparisonWith_wp') {
+        if (condition.marker == 'wordComparisonWithVerb_wp') {
           // with or not with that is the question
           const letters = condition.letters.letters.text
           conditions.push({ comparison: condition.comparison, letters })
@@ -155,7 +157,7 @@ const changeState = ({api, isA, context, toArray, element, state}) => {
           // with or not with that is the question
           const letters = condition.letters.text
           conditions.push({ comparison: condition.comparison, letters })
-        } else if (condition.marker == 'paragraphComparison_wp') {
+        } else if (condition.marker == 'paragraphComparisonVerb_wp') {
           // with or not with that is the question
           const update = { selectors: [] }
           const words = getElement(condition.words, update)
@@ -207,29 +209,29 @@ template = {
       operators: [
         "([changeState_wp|make] ([statefulElement_wp]) ([stateValue_wp|]))",
         "((style_wp/*) [applyStyle_wp] ([statefulElement_wp|]))",
-        "((word_wp/*) [wordComparisonWith_wp] ([comparisonWith_wp|with] (a/0)? (letters)))",
+        "((word_wp/*) [wordComparisonWithVerb_wp] ([comparisonWith_wp|with] (a/0)? (letters)))",
         "((word_wp/*) [wordComparison_wp] (a/0)? (letters))",
         // this one is "the bolded/underlined/italized/... word"
         "((styleModifier_wp/*) [modifiedByStyle_wp] (statefulElement_wp/* && context.determiner == undefined))",
         // the first letter of each paragraph 
         "((statefulElement_wp/*) <statefulElementInContext_wp|of> (statefulElement_wp/*))",
         // the paragraph that contains words that start with t
-        "((paragraph_wp/*) [paragraphComparison_wp] (word_wp/*))",
+        "((paragraph_wp/*) [paragraphComparisonVerb_wp] (word_wp/*))",
       ],
       associations: {
         negative: [
         ],
         positive: [
           // TODO remove these after crucible work done and fix the associator rules
-          [['paragraph_wp', 0], ['thatVerb', 0], ['paragraphComparison_wp', 0], ['word_wp', 0]],
-          [['paragraph_wp', 0], ['thatVerb', 0], ['paragraphComparison_wp', 0], ['styleModifier_wp', 0], ['word_wp', 0]],
+          [['paragraph_wp', 0], ['thatVerb', 0], ['paragraphComparisonVerb_wp', 0], ['word_wp', 0]],
+          [['paragraph_wp', 0], ['thatVerb', 0], ['paragraphComparisonVerb_wp', 0], ['styleModifier_wp', 0], ['word_wp', 0]],
           [['word_wp', 0], ['thatVerb', 0], ['wordComparison_wp', 0]],
         ]
       },
 
       bridges: [
         { 
-          id: 'paragraphComparison_wp',
+          id: 'paragraphComparisonVerb_wp',
           parents: ['verb'],
           words: [ 
             { word: 'contain', comparison: 'include' }, 
@@ -252,7 +254,7 @@ template = {
           bridge: "{ ...after[0], style: before[0], target: after[0], generate: ['style', 'target'], conditions: append(after[0].conditions, [before[0]]) }",
         },
         { 
-          id: 'wordComparisonWith_wp',
+          id: 'wordComparisonWithVerb_wp',
           parents: ['verb'],
           words: [ 
             { word: 'start', comparison: 'prefix' }, 
@@ -338,6 +340,8 @@ template = {
         },
       ],
       priorities: [
+        { "context": [['paragraphComparisonVerb_wp', 0], ['word_wp', 0], ['wordComparisonWithVerb_wp', 0]], ordered: true, choose: [2] },
+        { "context": [['paragraphComparisonVerb_wp', 0], ['wordComparisonWithVerb_wp', 0]], choose: [1] },
         { "context": [['ordinal',1], ['list', 0], ['ordinal', 1], ['word_wp', 1]], ordered: true, choose: [1] },
         { "context": [['changeState_wp',0], ['every', 0], ['word_wp', 1], ['list', 1]], ordered: true, choose: [1] },
         { "context": [['changeState_wp',0], ['statefulElement_wp', 0], ['list', 0]], ordered: true, choose: [0] },

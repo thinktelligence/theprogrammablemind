@@ -861,3 +861,5 @@ node wp -q 'make every word bold and underlined' -g -d   bad: every, word, bold 
 node wp -q 'bold the first and second word               bad
 node wp -q 'make every word bold and underlined' -g -d
 node wp -q 'underline the paragraphs that contain bolded words' -g -d
+node wp -q 'bold the paragraphs that contains words that start with mid' -g -d
+
