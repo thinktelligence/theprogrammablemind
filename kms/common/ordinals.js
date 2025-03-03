@@ -41,6 +41,9 @@ const config = {
     },
     patterns: [
       { "pattern": [{ type: 'digit' }, { repeat: true }, 'th'], defs: [{id: "ordinal", uuid: '1', initial: "{ value: int(substr(text, -2)), ordinal: true, instance: true }" }]},
+      { "pattern": [{ type: 'digit' }, { repeat: true }, '1st'], defs: [{id: "ordinal", uuid: '1', initial: "{ value: int(substr(text, -2)), ordinal: true, instance: true }" }]},
+      { "pattern": [{ type: 'digit' }, { repeat: true }, '2nd'], defs: [{id: "ordinal", uuid: '1', initial: "{ value: int(substr(text, -2)), ordinal: true, instance: true }" }]},
+      { "pattern": [{ type: 'digit' }, { repeat: true }, '3rd'], defs: [{id: "ordinal", uuid: '1', initial: "{ value: int(substr(text, -2)), ordinal: true, instance: true }" }]},
     ],
   },
 };

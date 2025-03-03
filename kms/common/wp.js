@@ -13,6 +13,10 @@ const instance = require('./wp.instance.json')
     bold the first word
     bold the first paragraph 
     bold the first letter
+    bold the first word of every paragraph
+    bold the first word of the second and third paragraph
+    bold the paragraph that contains words that start with t
+    underline the paragraph that contains bolded words
 
     current
 
@@ -20,16 +24,11 @@ const instance = require('./wp.instance.json')
       underline the paragraphs that contain bolded words
 
     after
-    bold the first word of every paragraph
-    bold the first word of the second and third paragraph
-    bold the first word of the second paragraph and third paragraph
     bold the first letter of every word
+    bold the first word of the second paragraph and third paragraph
     bold the first letter of every word that starts with t
     bold the first letter of the words that start with t in the third paragraph
-    bold the paragraph that contains words that start with t
-    underline the paragraph that contains bolded words
     bold the paragraph that contains three bolded words
-
     the paragraph that contains the word boobies
 
     after
