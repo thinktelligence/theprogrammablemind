@@ -22,14 +22,14 @@ const instance = require('./wp.instance.json')
     bold the first letter of every word
     bold the third letter of the second paragraph
     bold the first letter of every word that starts with t
+    underline the bolded words in the second paragraph
 
   current
 
-    underline the bolded words in the third paragraph
+    bold the words that start with t in the second paragraph
 
   todo
 
-    bold the words that start with t in the third paragraph
     bold the first letter of the words that start with t in the third paragraph
     underline the bolded paragraphs
     bold the paragraph that contains three bolded words
@@ -347,6 +347,7 @@ template = {
         },
       ],
       priorities: [
+        { "context": [['word_wp', 1], ['wordComparisonWithVerb_wp', 0], ['comparisonWith_wp', 1], ['statefulElementInContext_wp', 0]], ordered: true, choose: [1] },
         { "context": [['paragraphComparisonVerb_wp', 0], ['word_wp', 0], ['wordComparisonWithVerb_wp', 0]], ordered: true, choose: [2] },
         { "context": [['statefulElementInContext_wp', 0], ['word_wp', 0], ['wordComparisonWithVerb_wp', 0]], ordered: true, choose: [2] },
         { "context": [['statefulElementInContext_wp', 0], ['comparisonWith_wp', 0]], choose: [1] },
