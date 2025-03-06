@@ -10,6 +10,7 @@ const instance = require('./wp.instance.json')
 
 /*
   done
+
     bold the first word
     bold the first paragraph 
     bold the first letter
@@ -20,19 +21,22 @@ const instance = require('./wp.instance.json')
     underline the paragraphs that contain bolded words
     bold the first letter of every word
     bold the third letter of the second paragraph
+    bold the first letter of every word that starts with t
 
   current
 
-    bold the first letter of every word that starts with t
+    underline the bolded words in the third paragraph
 
   todo
-    bold the first word of the second paragraph and third paragraph
+
+    bold the words that start with t in the third paragraph
     bold the first letter of the words that start with t in the third paragraph
     underline the bolded paragraphs
     bold the paragraph that contains three bolded words
     capitalize the first letter of the words that start with t
     underline the first bolded word
     underline the first bolded word that start with t
+    bold the first word of the second paragraph and third paragraph
     the paragraph that contains the word boobies
 
     after
@@ -217,7 +221,7 @@ template = {
         // this one is "the bolded/underlined/italized/... word"
         "((styleModifier_wp/*) [modifiedByStyle_wp] (statefulElement_wp/* && context.determiner == undefined))",
         // the first letter of each paragraph 
-        "((statefulElement_wp/*) <statefulElementInContext_wp|of> (statefulElement_wp/*))",
+        "((statefulElement_wp/*) <statefulElementInContext_wp|of,in> (statefulElement_wp/*))",
         // the paragraph that contains words that start with t
         "((paragraph_wp/*) [paragraphComparisonVerb_wp] (word_wp/*))",
       ],
