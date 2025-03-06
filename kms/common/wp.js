@@ -9,7 +9,7 @@ const wp_tests = require('./wp.test.json')
 const instance = require('./wp.instance.json')
 
 /*
-  working on
+  done
     bold the first word
     bold the first paragraph 
     bold the first letter
@@ -17,18 +17,22 @@ const instance = require('./wp.instance.json')
     bold the first word of the second and third paragraph
     bold the paragraph that contains words that start with t
     underline the paragraph that contains bolded words
-
-    current
-
-      underline the bolded paragraphs
-      underline the paragraphs that contain bolded words
-
-    after
+    underline the paragraphs that contain bolded words
     bold the first letter of every word
-    bold the first word of the second paragraph and third paragraph
+    bold the third letter of the second paragraph
+
+  current
+
     bold the first letter of every word that starts with t
+
+  todo
+    bold the first word of the second paragraph and third paragraph
     bold the first letter of the words that start with t in the third paragraph
+    underline the bolded paragraphs
     bold the paragraph that contains three bolded words
+    capitalize the first letter of the words that start with t
+    underline the first bolded word
+    underline the first bolded word that start with t
     the paragraph that contains the word boobies
 
     after
@@ -340,6 +344,8 @@ template = {
       ],
       priorities: [
         { "context": [['paragraphComparisonVerb_wp', 0], ['word_wp', 0], ['wordComparisonWithVerb_wp', 0]], ordered: true, choose: [2] },
+        { "context": [['statefulElementInContext_wp', 0], ['word_wp', 0], ['wordComparisonWithVerb_wp', 0]], ordered: true, choose: [2] },
+        { "context": [['statefulElementInContext_wp', 0], ['comparisonWith_wp', 0]], choose: [1] },
         { "context": [['paragraphComparisonVerb_wp', 0], ['wordComparisonWithVerb_wp', 0]], choose: [1] },
         { "context": [['ordinal',1], ['list', 0], ['ordinal', 1], ['word_wp', 1]], ordered: true, choose: [1] },
         { "context": [['changeState_wp',0], ['every', 0], ['word_wp', 1], ['list', 1]], ordered: true, choose: [1] },
