@@ -36,6 +36,9 @@ const config = {
         const contexts = []
         for (const keyOrContext of context.generate) {
           let value = keyOrContext
+          if (keyOrContext.invisible) {
+            continue
+          }
           if (typeof keyOrContext == 'string') {
             value = getValue(keyOrContext, context)
           }

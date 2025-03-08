@@ -23,14 +23,15 @@ const instance = require('./wp.instance.json')
     bold the third letter of the second paragraph
     bold the first letter of every word that starts with t
     underline the bolded words in the second paragraph
+    bold the words that start with t in the second paragraph
 
   current
 
-    bold the words that start with t in the second paragraph
+    bold the first letter of the words that start with t in the third paragraph
 
   todo
 
-    bold the first letter of the words that start with t in the third paragraph
+    in the third paragraph bold the first letter of the words that start with t
     underline the bolded paragraphs
     bold the paragraph that contains three bolded words
     capitalize the first letter of the words that start with t
@@ -221,7 +222,7 @@ template = {
         // this one is "the bolded/underlined/italized/... word"
         "((styleModifier_wp/*) [modifiedByStyle_wp] (statefulElement_wp/* && context.determiner == undefined))",
         // the first letter of each paragraph 
-        "((statefulElement_wp/*) <statefulElementInContext_wp|of,in> (statefulElement_wp/*))",
+        "((statefulElement_wp/*)? <statefulElementInContext_wp|of,in> (statefulElement_wp/*))",
         // the paragraph that contains words that start with t
         "((paragraph_wp/*) [paragraphComparisonVerb_wp] (word_wp/*))",
       ],
@@ -251,6 +252,9 @@ template = {
         { 
           id: 'statefulElementInContext_wp',
           parents: ['preposition'],
+          optional: {
+            '-1': "{ ...operator, invisible: true }",
+          },
           bridge: "{ ...before[0], context: append(before[0].context, [after[0]]), generate: [before[0], operator, after[0]] }",
         },
         { 
@@ -350,6 +354,7 @@ template = {
         { "context": [['word_wp', 1], ['wordComparisonWithVerb_wp', 0], ['comparisonWith_wp', 1], ['statefulElementInContext_wp', 0]], ordered: true, choose: [1] },
         { "context": [['paragraphComparisonVerb_wp', 0], ['word_wp', 0], ['wordComparisonWithVerb_wp', 0]], ordered: true, choose: [2] },
         { "context": [['statefulElementInContext_wp', 0], ['word_wp', 0], ['wordComparisonWithVerb_wp', 0]], ordered: true, choose: [2] },
+        { "context": [['statefulElementInContext_wp', 0], ['word_wp', 1], ['wordComparisonWithVerb_wp', 0], ['comparisonWith_wp', 1]], ordered: true, choose: [2,3] },
         { "context": [['statefulElementInContext_wp', 0], ['comparisonWith_wp', 0]], choose: [1] },
         { "context": [['paragraphComparisonVerb_wp', 0], ['wordComparisonWithVerb_wp', 0]], choose: [1] },
         { "context": [['ordinal',1], ['list', 0], ['ordinal', 1], ['word_wp', 1]], ordered: true, choose: [1] },
