@@ -117,7 +117,27 @@
           "optional": {
             "-1": "{ ...operator, invisible: true }"
           },
-          "bridge": "{ ...before[0], context: append(before[0].context, [after[0]]), generate: [before[0], operator, after[0]] }"
+          "bridge": "{ ...next(before[0]), context: append(before[0].context, [after[0]]), generate: [before[0], operator, after[0]] }",
+          "semantic": "(args) => {\n            const { context, contexts } = args\n            for (let i = context.context_index + 1; i < contexts.length; ++i) {\n              if (contexts[i].marker == 'applyStyle_wp') {\n                debugger\n                debugger\n                const element = contexts[i].element\n                if (!element.context) {\n                  element.context = []\n                }\n                element.context = element.context.concat(context.context)\n              }\n            }\n            console.log(JSON.stringify(Object.keys(args)))\n          }"
+        },
+        {
+          "id": "applyStyle_wp",
+          "parents": [
+            "verb"
+          ],
+          "convolution": true,
+          "bridge": "{ ...next(operator), element: after[0], state: before[0], operator: operator, generate: ['state', 'element'] }",
+          "localHierarchy": [
+            [
+              "thisitthat",
+              "statefulElement_wp"
+            ],
+            [
+              "everything",
+              "statefulElement_wp"
+            ]
+          ],
+          "semantic": "(args) => {\n            changeState({...args, element: args.context.element, state: args.context.state})\n          }"
         },
         {
           "id": "modifiedByStyle_wp",
@@ -189,25 +209,6 @@
             "1": "{ marker: 'a' }"
           },
           "bridge": "{ ...next(operator), operator: operator, letters: after[1], generate: ['operator', 'letters'] }"
-        },
-        {
-          "id": "applyStyle_wp",
-          "parents": [
-            "verb"
-          ],
-          "convolution": true,
-          "bridge": "{ ...next(operator), element: after[0], state: before[0], operator: operator, generate: ['state', 'element'] }",
-          "localHierarchy": [
-            [
-              "thisitthat",
-              "statefulElement_wp"
-            ],
-            [
-              "everything",
-              "statefulElement_wp"
-            ]
-          ],
-          "semantic": "(args) => {\n            changeState({...args, element: args.context.element, state: args.context.state})\n          }"
         },
         {
           "id": "changeState_wp",
@@ -2661,6 +2662,7 @@
             "level": 1
           },
           "level": 1,
+          "context_index": 1,
           "topLevel": true,
           "touchedBy": [
             "wp#call2"
@@ -5282,6 +5284,7 @@
           },
           "dead": true,
           "level": 2,
+          "context_index": 1,
           "topLevel": true,
           "touchedBy": [
             "wp#call2"
@@ -8053,6 +8056,7 @@
           },
           "dead": true,
           "level": 2,
+          "context_index": 1,
           "topLevel": true,
           "touchedBy": [
             "wp#call2"
@@ -10929,6 +10933,7 @@
           },
           "dead": true,
           "level": 2,
+          "context_index": 1,
           "topLevel": true,
           "touchedBy": [
             "wp#call2"
@@ -13678,6 +13683,7 @@
           },
           "dead": true,
           "level": 2,
+          "context_index": 1,
           "topLevel": true,
           "touchedBy": [
             "wp#call2"
@@ -16286,6 +16292,7 @@
             "level": 1
           },
           "level": 1,
+          "context_index": 1,
           "topLevel": true,
           "touchedBy": [
             "wp#call2"
@@ -19574,6 +19581,7 @@
           },
           "dead": true,
           "level": 2,
+          "context_index": 1,
           "topLevel": true,
           "touchedBy": [
             "wp#call2"
@@ -19647,10 +19655,6 @@
           ],
           [
             "unknown",
-            0
-          ],
-          [
-            "unknown",
             1
           ]
         ],
@@ -19665,7 +19669,7 @@
           ],
           [
             "list",
-            0
+            1
           ],
           [
             "unknown",
@@ -19673,10 +19677,6 @@
           ]
         ],
         [
-          [
-            "comma",
-            0
-          ],
           [
             "is",
             0
@@ -22534,6 +22534,7 @@
             "level": 1
           },
           "level": 1,
+          "context_index": 1,
           "topLevel": true,
           "touchedBy": [
             "wp#call2"
@@ -25445,6 +25446,7 @@
             "level": 1
           },
           "level": 1,
+          "context_index": 1,
           "topLevel": true,
           "touchedBy": [
             "wp#call2"
@@ -28381,6 +28383,7 @@
             "level": 1
           },
           "level": 1,
+          "context_index": 1,
           "topLevel": true,
           "touchedBy": [
             "wp#call2"
@@ -31342,6 +31345,7 @@
             "level": 1
           },
           "level": 1,
+          "context_index": 1,
           "topLevel": true,
           "touchedBy": [
             "wp#call2"
@@ -34328,6 +34332,7 @@
             "level": 1
           },
           "level": 1,
+          "context_index": 1,
           "topLevel": true,
           "touchedBy": [
             "wp#call2"
@@ -37990,6 +37995,7 @@
           },
           "dead": true,
           "level": 2,
+          "context_index": 1,
           "topLevel": true,
           "touchedBy": [
             "wp#call2"
@@ -38162,6 +38168,20 @@
           [
             "underlined_wp",
             0
+          ],
+          [
+            "unknown",
+            1
+          ]
+        ],
+        [
+          [
+            "is",
+            0
+          ],
+          [
+            "list",
+            1
           ],
           [
             "unknown",
@@ -41244,6 +41264,7 @@
           },
           "dead": true,
           "level": 1,
+          "context_index": 1,
           "topLevel": true,
           "touchedBy": [
             "wp#call2"
@@ -41372,7 +41393,25 @@
           "optional": {
             "-1": "{ ...operator, invisible: true }"
           },
-          "bridge": "{ ...before[0], context: append(before[0].context, [after[0]]), generate: [before[0], operator, after[0]] }"
+          "bridge": "{ ...next(before[0]), context: append(before[0].context, [after[0]]), generate: [before[0], operator, after[0]] }"
+        },
+        {
+          "id": "applyStyle_wp",
+          "parents": [
+            "verb"
+          ],
+          "convolution": true,
+          "bridge": "{ ...next(operator), element: after[0], state: before[0], operator: operator, generate: ['state', 'element'] }",
+          "localHierarchy": [
+            [
+              "thisitthat",
+              "statefulElement_wp"
+            ],
+            [
+              "everything",
+              "statefulElement_wp"
+            ]
+          ]
         },
         {
           "id": "modifiedByStyle_wp",
@@ -41446,24 +41485,6 @@
           "bridge": "{ ...next(operator), operator: operator, letters: after[1], generate: ['operator', 'letters'] }"
         },
         {
-          "id": "applyStyle_wp",
-          "parents": [
-            "verb"
-          ],
-          "convolution": true,
-          "bridge": "{ ...next(operator), element: after[0], state: before[0], operator: operator, generate: ['state', 'element'] }",
-          "localHierarchy": [
-            [
-              "thisitthat",
-              "statefulElement_wp"
-            ],
-            [
-              "everything",
-              "statefulElement_wp"
-            ]
-          ]
-        },
-        {
           "id": "changeState_wp",
           "parents": [
             "verb"
@@ -41490,10 +41511,10 @@
       ],
       "semantics": [
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/wp.js:332"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/wp.js:349"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/wp.js:341"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/wp.js:358"
         }
       ],
       "priorities": [
@@ -42019,28 +42040,6 @@
       ],
       [
         "unknown",
-        0
-      ],
-      [
-        "unknown",
-        1
-      ]
-    ],
-    [
-      [
-        "comma",
-        0
-      ],
-      [
-        "is",
-        0
-      ],
-      [
-        "list",
-        0
-      ],
-      [
-        "unknown",
         1
       ]
     ],
@@ -42534,6 +42533,34 @@
       [
         "orderable",
         0
+      ],
+      [
+        "unknown",
+        1
+      ]
+    ],
+    [
+      [
+        "is",
+        0
+      ],
+      [
+        "list",
+        1
+      ],
+      [
+        "unknown",
+        1
+      ]
+    ],
+    [
+      [
+        "is",
+        0
+      ],
+      [
+        "list",
+        1
       ],
       [
         "unknown",

@@ -260,7 +260,7 @@ template = {
           bridge: "{ ...next(before[0]), context: append(before[0].context, [after[0]]), generate: [before[0], operator, after[0]] }",
           semantic: (args) => {
             const { context, contexts } = args
-            for (let i = context.index + 1; i < contexts.length; ++i) {
+            for (let i = context.context_index + 1; i < contexts.length; ++i) {
               if (contexts[i].marker == 'applyStyle_wp') {
                 debugger
                 debugger
