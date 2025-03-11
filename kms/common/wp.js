@@ -24,14 +24,16 @@ const instance = require('./wp.instance.json')
     bold the first letter of every word that starts with t
     underline the bolded words in the second paragraph
     bold the words that start with t in the second paragraph
+    bold the first letter of the words that start with t in the second paragraph
 
   current
 
-    bold the first letter of the words that start with t in the third paragraph
+    in the second paragraph bold the first word
 
   todo
 
-    in the third paragraph bold the first letter of the words that start with t
+    in the second paragraph bold the first letter of the words that start with t
+    in the second paragraph for the words that start with t bold the first letter
     underline the bolded paragraphs
     bold the paragraph that contains three bolded words
     capitalize the first letter of the words that start with t
@@ -255,7 +257,35 @@ template = {
           optional: {
             '-1': "{ ...operator, invisible: true }",
           },
-          bridge: "{ ...before[0], context: append(before[0].context, [after[0]]), generate: [before[0], operator, after[0]] }",
+          bridge: "{ ...next(before[0]), context: append(before[0].context, [after[0]]), generate: [before[0], operator, after[0]] }",
+          semantic: (args) => {
+            const { context, contexts } = args
+            for (let i = context.index + 1; i < contexts.length; ++i) {
+              if (contexts[i].marker == 'applyStyle_wp') {
+                debugger
+                debugger
+                const element = contexts[i].element
+                if (!element.context) {
+                  element.context = []
+                }
+                element.context = element.context.concat(context.context)
+              }
+            }
+            console.log(JSON.stringify(Object.keys(args)))
+          },
+        },
+        { 
+          id: 'applyStyle_wp',
+          parents: ['verb'],
+          convolution: true,
+          bridge: "{ ...next(operator), element: after[0], state: before[0], operator: operator, generate: ['state', 'element'] }",
+          localHierarchy: [
+            ['thisitthat', 'statefulElement_wp'],
+            ['everything', 'statefulElement_wp'],
+          ],
+          semantic: (args) => {
+            changeState({...args, element: args.context.element, state: args.context.state})
+          }
         },
         { 
           id: 'modifiedByStyle_wp',
@@ -296,19 +326,6 @@ template = {
             1: "{ marker: 'a' }",
           },
           bridge: "{ ...next(operator), operator: operator, letters: after[1], generate: ['operator', 'letters'] }",
-        },
-        { 
-          id: 'applyStyle_wp',
-          parents: ['verb'],
-          convolution: true,
-          bridge: "{ ...next(operator), element: after[0], state: before[0], operator: operator, generate: ['state', 'element'] }",
-          localHierarchy: [
-            ['thisitthat', 'statefulElement_wp'],
-            ['everything', 'statefulElement_wp'],
-          ],
-          semantic: (args) => {
-            changeState({...args, element: args.context.element, state: args.context.state})
-          }
         },
         { 
           id: 'changeState_wp',

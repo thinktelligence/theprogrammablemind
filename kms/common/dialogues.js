@@ -101,6 +101,7 @@ const config = {
     positive: [
       // [['is', 0], ['unknown', 1]],
       // [['isEd', 0], ['means', 0]],
+      // [['unknown', 0], ['list', 0], ['unknown', 0]],
       [['thatVerb', 0], ['verb', 0]],
       [['isEdee', 0], ['isEd', 0], ['isEder', 0], ['by', 0]],
       [['isEdee', 0], ['isEd', 0], ['isEdAble', 0]],
