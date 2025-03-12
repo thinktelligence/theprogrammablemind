@@ -117,7 +117,7 @@
           "optional": {
             "-1": "{ ...operator, invisible: true }"
           },
-          "bridge": "{ ...next(before[0]), context: append(before[0].context, [after[0]]), generate: [before[0], operator, after[0]] }",
+          "bridge": "{ ...next(before[0]), context: append(before[0].context, [after[0]]), generate: [before[0], operator, after[0]], modifiers: [] }",
           "semantic": "(args) => {\n            const { context, contexts } = args\n            for (let i = context.context_index + 1; i < contexts.length; ++i) {\n              if (contexts[i].marker == 'applyStyle_wp') {\n                debugger\n                debugger\n                const element = contexts[i].element\n                if (!element.context) {\n                  element.context = []\n                }\n                element.context = element.context.concat(context.context)\n              }\n            }\n            console.log(JSON.stringify(Object.keys(args)))\n          }"
         },
         {
@@ -19689,20 +19689,6 @@
             "unknown",
             1
           ]
-        ],
-        [
-          [
-            "is",
-            0
-          ],
-          [
-            "list",
-            1
-          ],
-          [
-            "unknown",
-            1
-          ]
         ]
       ],
       "learned_contextual_priorities": [],
@@ -38187,20 +38173,6 @@
             "unknown",
             1
           ]
-        ],
-        [
-          [
-            "is",
-            0
-          ],
-          [
-            "list",
-            1
-          ],
-          [
-            "unknown",
-            1
-          ]
         ]
       ],
       "learned_contextual_priorities": [],
@@ -41393,7 +41365,7 @@
           "optional": {
             "-1": "{ ...operator, invisible: true }"
           },
-          "bridge": "{ ...next(before[0]), context: append(before[0].context, [after[0]]), generate: [before[0], operator, after[0]] }"
+          "bridge": "{ ...next(before[0]), context: append(before[0].context, [after[0]]), generate: [before[0], operator, after[0]], modifiers: [] }"
         },
         {
           "id": "applyStyle_wp",
@@ -41511,10 +41483,10 @@
       ],
       "semantics": [
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/wp.js:349"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/wp.js:350"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/wp.js:358"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/wp.js:359"
         }
       ],
       "priorities": [
@@ -42533,34 +42505,6 @@
       [
         "orderable",
         0
-      ],
-      [
-        "unknown",
-        1
-      ]
-    ],
-    [
-      [
-        "is",
-        0
-      ],
-      [
-        "list",
-        1
-      ],
-      [
-        "unknown",
-        1
-      ]
-    ],
-    [
-      [
-        "is",
-        0
-      ],
-      [
-        "list",
-        1
       ],
       [
         "unknown",

@@ -34,7 +34,7 @@ const config = {
       match: ({context}) => context.generate,
       apply: async ({context, gs}) => {
         const contexts = []
-        for (const keyOrContext of context.generate) {
+        for (const keyOrContext of (context.modifiers || []).concat(context.generate)) {
           let value = keyOrContext
           if (keyOrContext.invisible) {
             continue

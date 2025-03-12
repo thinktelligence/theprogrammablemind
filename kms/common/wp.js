@@ -25,19 +25,20 @@ const instance = require('./wp.instance.json')
     underline the bolded words in the second paragraph
     bold the words that start with t in the second paragraph
     bold the first letter of the words that start with t in the second paragraph
+    in the second paragraph bold the first word
+    in the second paragraph bold the first letter of the words that start with t
 
   current
 
-    in the second paragraph bold the first word
+    underline the first bolded word
 
   todo
 
-    in the second paragraph bold the first letter of the words that start with t
     in the second paragraph for the words that start with t bold the first letter
     underline the bolded paragraphs
+    underline the words that start with t in the paragraph with 3 bolded words
     bold the paragraph that contains three bolded words
     capitalize the first letter of the words that start with t
-    underline the first bolded word
     underline the first bolded word that start with t
     bold the first word of the second paragraph and third paragraph
     the paragraph that contains the word boobies
@@ -257,7 +258,7 @@ template = {
           optional: {
             '-1': "{ ...operator, invisible: true }",
           },
-          bridge: "{ ...next(before[0]), context: append(before[0].context, [after[0]]), generate: [before[0], operator, after[0]] }",
+          bridge: "{ ...next(before[0]), context: append(before[0].context, [after[0]]), generate: [before[0], operator, after[0]], modifiers: [] }",
           semantic: (args) => {
             const { context, contexts } = args
             for (let i = context.context_index + 1; i < contexts.length; ++i) {

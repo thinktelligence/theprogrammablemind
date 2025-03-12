@@ -26,6 +26,7 @@ const config = {
       id: "ordinalOnOrdered", 
       isA: ['adjective'],
       convolution: true,
+      // bridge: "{ ...after[0], ordinal: before[0], modifiers: append(['ordinal'], after[0].modifiers), generate: append(['ordinal'], or(after[0].generate, after)) }" 
       bridge: "{ ...after[0], ordinal: before[0], modifiers: append(['ordinal'], after[0].modifiers) }" 
     },
   ],
