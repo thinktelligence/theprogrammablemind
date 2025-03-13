@@ -404,7 +404,7 @@ class API {
     }
 
     config.addPriority({ "context": [[operator, 0], ['means', 0], ], "choose": [0] })
-    config.addPriority({ "context": [['articlePOS', 0], [operator, 0], ], "choose": [0] })
+    config.addPriority({ "context": [['article', 0], [operator, 0], ], "choose": [0] })
 
     config.addGenerator({
       notes: 'ordering generator for paraphrase',

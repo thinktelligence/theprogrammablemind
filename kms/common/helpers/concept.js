@@ -133,8 +133,8 @@ class API {
     }
     config.addHierarchy(modifiersObjectId, objectId)
 
-    modifierIds.forEach((modifierId) => config.addPriority({ "context": [[modifierId, 0], ['articlePOS', 0]], "choose": [0] }))
-    config.addPriority({ "context": [[objectId, 0], ['articlePOS', 0], ], "choose": [0] })
+    modifierIds.forEach((modifierId) => config.addPriority({ "context": [[modifierId, 0], ['article', 0]], "choose": [0] }))
+    config.addPriority({ "context": [[objectId, 0], ['article', 0], ], "choose": [0] })
     // maybe remove the next line
     modifierIds.forEach((modifierId) => config.addPriority({ context: [[modifiersObjectId, 0], [modifierId, 0], ], generalize: false, choose: [0] }))
     config.addPriority({ "context": [[modifiersObjectId, 0], [objectId, 0], ], choose: [0] })

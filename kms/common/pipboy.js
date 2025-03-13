@@ -116,7 +116,7 @@ const config = {
     // "([weapon])",
     // "([44_pistol|])",
     "([apparel])",
-    "((!articlePOS/0 && !verb/0) [outfit|outfit])",
+    "((!article/0 && !verb/0) [outfit|outfit])",
     // this doesnt work because the speech recognizer hears 'where'
     "([wear] ([wearable]))",
     "([strip])",
@@ -142,9 +142,9 @@ const config = {
     // ['weapon', 'showable'],
   ],
   priorities: [
-    { context: [['articlePOS', 0], ['to2', 0], ], choose: [0] },
-    { context: [['tab', 0], ['articlePOS', 0], ], choose: [0] },
-    { context: [['articlePOS', 0], ['unknown', 1], ['outfit', 0]], ordered: true, choose: [1,2] },
+    { context: [['article', 0], ['to2', 0], ], choose: [0] },
+    { context: [['tab', 0], ['article', 0], ], choose: [0] },
+    { context: [['article', 0], ['unknown', 1], ['outfit', 0]], ordered: true, choose: [1,2] },
     // TODO this should trigger a circular warning or somethign [['put', 0], ['on', 0]],
   ],
   bridges: [
@@ -159,7 +159,7 @@ const config = {
     { 
        where: where(),
        id: "propertyCondition", 
-       before: ['adjective', 'articlePOS', 'the'],
+       before: ['adjective', 'article', 'the'],
        convolution: true,
        level: 0, 
        bridge: "{ ...next(after[0]), condition: before[0], modifiers: ['condition'] }",

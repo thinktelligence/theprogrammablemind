@@ -40,7 +40,7 @@ const config = {
   ],
 
   priorities: [
-    { context: [['articlePOS', 0], ['sizing', 0]], choose: [1] },
+    { context: [['article', 0], ['sizing', 0]], choose: [1] },
   ],
 
   generators: [

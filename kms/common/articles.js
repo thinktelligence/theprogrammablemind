@@ -30,12 +30,12 @@ const config = {
     },
     { 
       id: 'each', 
-      isA: ['articlePOS'], 
+      isA: ['article'], 
       bridge: '{ ...after[0], focusableForPhrase: true, pullFromContext: true, concept: true, wantsValue: true, distributer: operator, modifiers: append(["distributer"], after[0].modifiers)}' 
     },
     { 
       id: 'every', 
-      isA: ['articlePOS'], 
+      isA: ['article'], 
       bridge: '{ ...after[0], focusableForPhrase: true, pullFromContext: true, concept: true, wantsValue: true, distributer: operator, modifiers: append(["distributer"], after[0].modifiers)}' 
     },
     { 
@@ -95,8 +95,8 @@ const config = {
     ['it', 'pronoun'],
     ['this', 'pronoun'],
     // ['questionMark', 'isEd'],
-    ['a', 'articlePOS'],
-    ['the', 'articlePOS'],
+    ['a', 'article'],
+    ['the', 'article'],
     ['it', 'queryable'],
     // ['it', 'toAble'],
     ['this', 'queryable'],

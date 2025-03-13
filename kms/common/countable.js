@@ -26,7 +26,7 @@ const config = {
     { 
       id: "counting", 
       convolution: true, 
-      before: ['verb', 'articlePOS'],
+      before: ['verb', 'article'],
       bridge: "{ ...after, modifiers: append(['quantity'], after[0].modifiers), quantity: before[0], number: default(before[0].number, before[0].value), instance: true }" 
     },
     { 

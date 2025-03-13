@@ -6,7 +6,7 @@ const configStruct = {
   name: 'words',
   operators: [
     "([adjective])",
-    "([articlePOS])",
+    "([article])",
     "([prewordsition])",
     "([pronoun])",
     "([verb])",
@@ -14,7 +14,7 @@ const configStruct = {
   ],
   bridges: [
     { "id": "adjective" },
-    { "id": "articlePOS" },
+    { "id": "article" },
     { "id": "prewordsition" },
     { "id": "pronoun" },
     { "id": "verb" },
@@ -24,7 +24,7 @@ const configStruct = {
     { "choose": [['pronoun', 0], ['verb', 0], ], "choose": [0] },
     { "choose": [['prewordsition', 0], ['verb', 0], ], "choose": [0] },
     { "choose": [['adjective', 0], ['verb', 0], ], "choose": [0] },
-    { "choose": [['articlePOS', 0], ['verb', 0], ], "choose": [0] },
+    { "choose": [['article', 0], ['verb', 0], ], "choose": [0] },
     { "choose": [['punctuation', 0], ['verb', 0], ], "choose": [0] },
   ],
 

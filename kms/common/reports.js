@@ -383,7 +383,7 @@ const config = {
   },
 
   priorities: [
-    { "context": [['ordering', 0], ['articlePOS', 0], ], "choose": [0] },
+    { "context": [['ordering', 0], ['article', 0], ], "choose": [0] },
   ],
   generators: [
     { 
