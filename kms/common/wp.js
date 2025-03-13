@@ -35,9 +35,11 @@ const instance = require('./wp.instance.json')
 
   todo
 
+    underline the last three words
     underline the first three bolded words
     in the second paragraph for the words that start with t bold the first letter
     underline the bolded paragraphs
+    bold the first three words after the second bolded letter
     underline the words that start with t in the paragraph with 3 bolded words
     bold the paragraph that contains three bolded words
     capitalize the first letter of the words that start with t
@@ -151,7 +153,12 @@ const changeState = ({api, isA, context, toArray, element, state}) => {
     let scope;
     const condition = []
     if (selector.ordinal) {
-      conditions.push({ ordinals: toArray(selector.ordinal).map((context) => context.value)})
+      // TODO think this out better but its just POC so good enough for now
+      const condition = { ordinals: toArray(selector.ordinal).map((context) => context.value) }
+      if (selector.quantity) {
+        condition.count = selector.quantity.value
+      }
+      conditions.push(condition)
     } else if (isA(selector, 'everything')) {
       scope = 'all'
     } else if (selector.quantity) {
