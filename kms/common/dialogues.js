@@ -108,7 +108,7 @@ const config = {
       [['unknown', 1], ['isEd', 0], ['isEdAble', 0]],
       [['unknown', 0], ['isEd', 0], ['isEdAble', 0]],
       [["isEd",0],["unknown",1],["isEdAble",0]],
-
+      // { context: [['unknown', 0], ['list', 0], ['unknown', 0]], choose: 0 },
     ]
   },
   bridges: [

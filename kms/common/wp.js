@@ -27,13 +27,15 @@ const instance = require('./wp.instance.json')
     bold the first letter of the words that start with t in the second paragraph
     in the second paragraph bold the first word
     in the second paragraph bold the first letter of the words that start with t
+    underline the first bolded word
 
   current
 
-    underline the first bolded word
+    underline the first three words
 
   todo
 
+    underline the first three bolded words
     in the second paragraph for the words that start with t bold the first letter
     underline the bolded paragraphs
     underline the words that start with t in the paragraph with 3 bolded words
