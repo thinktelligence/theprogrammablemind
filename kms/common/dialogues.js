@@ -36,6 +36,15 @@ const warningSameNotEvaluated = (log, one) => {
   log(indent(message, 4))
 }
 
+const listorama = (type) => {
+  return [
+      { context: [[type, 0], ['list', 0], [type, 0]], choose: 0 },
+      { context: [[type, 1], ['list', 0], [type, 0]], choose: 0 },
+      { context: [[type, 1], ['list', 0], [type, 1]], choose: 0 },
+  ]
+}
+
+
 // TODO implement what / what did you say ...
 const config = {
   name: 'dialogues',
@@ -108,7 +117,8 @@ const config = {
       [['unknown', 1], ['isEd', 0], ['isEdAble', 0]],
       [['unknown', 0], ['isEd', 0], ['isEdAble', 0]],
       [["isEd",0],["unknown",1],["isEdAble",0]],
-      // { context: [['unknown', 0], ['list', 0], ['unknown', 0]], choose: 0 },
+      // ...listorama('unknown'),
+      // ...listorama('queryable'),
     ]
   },
   bridges: [
@@ -122,10 +132,14 @@ const config = {
 
     {
       id: 'queryable',
-      children: [
-        'negatable'
-      ],
+      children: [ 'negatable' ],
     },
+    /*
+    {
+      id: 'queryable',
+      level: 1,
+    },
+    */
     {
       id: 'makeObject',
       bridge: "{ ...next(operator), object: after[0] }",

@@ -28,15 +28,17 @@ const instance = require('./wp.instance.json')
     in the second paragraph bold the first word
     in the second paragraph bold the first letter of the words that start with t
     underline the first bolded word
+    underline the first three words
 
   current
 
-    underline the first three words
+    in the first and second paragraph bold the first word
 
   todo
 
     underline the last three words
     underline the first three bolded words
+    for paragraph 1 and 2 bold the first word
     in the second paragraph for the words that start with t bold the first letter
     underline the bolded paragraphs
     bold the first three words after the second bolded letter
@@ -272,8 +274,6 @@ template = {
             const { context, contexts } = args
             for (let i = context.context_index + 1; i < contexts.length; ++i) {
               if (contexts[i].marker == 'applyStyle_wp') {
-                debugger
-                debugger
                 const element = contexts[i].element
                 if (!element.context) {
                   element.context = []
@@ -378,6 +378,7 @@ template = {
         },
       ],
       priorities: [
+        { "context": [['ordinal', 1], ['list', 0], ['ordinal', 1], ['statefulElement_wp', 0]], ordered: true, choose: [1] },
         { "context": [['word_wp', 1], ['wordComparisonWithVerb_wp', 0], ['comparisonWith_wp', 1], ['statefulElementInContext_wp', 0]], ordered: true, choose: [1] },
         { "context": [['paragraphComparisonVerb_wp', 0], ['word_wp', 0], ['wordComparisonWithVerb_wp', 0]], ordered: true, choose: [2] },
         { "context": [['statefulElementInContext_wp', 0], ['word_wp', 0], ['wordComparisonWithVerb_wp', 0]], ordered: true, choose: [2] },
