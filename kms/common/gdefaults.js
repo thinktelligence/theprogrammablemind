@@ -51,7 +51,12 @@ const config = {
           if (keyOrContext == 'this') {
             contexts.push({...context, generate: null})
           } else {
-            contexts.push(value)
+            if (Array.isArray(value)) {
+              debugger
+              contexts.push(...value)
+            } else {
+              contexts.push(value)
+            }
           }
         }
         return gs(contexts)

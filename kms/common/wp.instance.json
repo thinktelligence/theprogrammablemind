@@ -16,6 +16,7 @@
     "resetIdSuffix",
     {
       "operators": [
+        "([change_wp|change] (text)*)",
         "([changeState_wp|make] ([statefulElement_wp]) ([stateValue_wp|]))",
         "((style_wp/*) [applyStyle_wp] ([statefulElement_wp|]))",
         "((word_wp/*) [wordComparisonWithVerb_wp] ([comparisonWith_wp|with] (a/0)? (letters)))",
@@ -85,6 +86,10 @@
       },
       "bridges": [
         {
+          "id": "change_wp",
+          "bridge": "{ ...next(operator), from: after, generate: [operator, 'from'] }"
+        },
+        {
           "id": "paragraphComparisonVerb_wp",
           "parents": [
             "verb"
@@ -118,7 +123,7 @@
             "-1": "{ ...operator, invisible: true }"
           },
           "bridge": "{ ...next(before[0]), context: append(before[0].context, [after[0]]), generate: [before[0], operator, after[0]], modifiers: [] }",
-          "semantic": "(args) => {\n            const { context, contexts } = args\n            for (let i = context.context_index + 1; i < contexts.length; ++i) {\n              if (contexts[i].marker == 'applyStyle_wp') {\n                debugger\n                debugger\n                const element = contexts[i].element\n                if (!element.context) {\n                  element.context = []\n                }\n                element.context = element.context.concat(context.context)\n              }\n            }\n            console.log(JSON.stringify(Object.keys(args)))\n          }"
+          "semantic": "(args) => {\n            const { context, contexts } = args\n            for (let i = context.context_index + 1; i < contexts.length; ++i) {\n              if (contexts[i].marker == 'applyStyle_wp') {\n                const element = contexts[i].element\n                if (!element.context) {\n                  element.context = []\n                }\n                element.context = element.context.concat(context.context)\n              }\n            }\n            console.log(JSON.stringify(Object.keys(args)))\n          }"
         },
         {
           "id": "applyStyle_wp",
@@ -247,6 +252,30 @@
         }
       ],
       "priorities": [
+        {
+          "context": [
+            [
+              "ordinal",
+              1
+            ],
+            [
+              "list",
+              0
+            ],
+            [
+              "ordinal",
+              1
+            ],
+            [
+              "statefulElement_wp",
+              0
+            ]
+          ],
+          "ordered": true,
+          "choose": [
+            1
+          ]
+        },
         {
           "context": [
             [
@@ -5464,6 +5493,20 @@
             "unknown",
             1
           ]
+        ],
+        [
+          [
+            "is",
+            0
+          ],
+          [
+            "list",
+            1
+          ],
+          [
+            "unknown",
+            1
+          ]
         ]
       ],
       "learned_contextual_priorities": [],
@@ -8195,6 +8238,20 @@
           [
             "statefulElement_wp",
             0
+          ],
+          [
+            "unknown",
+            1
+          ]
+        ],
+        [
+          [
+            "is",
+            0
+          ],
+          [
+            "list",
+            1
           ],
           [
             "unknown",
@@ -11110,6 +11167,20 @@
           [
             "statefulElement_wp",
             0
+          ],
+          [
+            "unknown",
+            1
+          ]
+        ],
+        [
+          [
+            "is",
+            0
+          ],
+          [
+            "list",
+            1
           ],
           [
             "unknown",
@@ -19663,6 +19734,20 @@
             "comma",
             0
           ],
+          [
+            "is",
+            0
+          ],
+          [
+            "list",
+            1
+          ],
+          [
+            "unknown",
+            1
+          ]
+        ],
+        [
           [
             "is",
             0
@@ -38173,6 +38258,20 @@
             "unknown",
             1
           ]
+        ],
+        [
+          [
+            "is",
+            0
+          ],
+          [
+            "list",
+            1
+          ],
+          [
+            "unknown",
+            1
+          ]
         ]
       ],
       "learned_contextual_priorities": [],
@@ -41264,6 +41363,7 @@
     {
       "extraConfig": true,
       "operators": [
+        "([change_wp|change] (text)*)",
         "([changeState_wp|make] ([statefulElement_wp]) ([stateValue_wp|]))",
         "((style_wp/*) [applyStyle_wp] ([statefulElement_wp|]))",
         "((word_wp/*) [wordComparisonWithVerb_wp] ([comparisonWith_wp|with] (a/0)? (letters)))",
@@ -41332,6 +41432,10 @@
         ]
       },
       "bridges": [
+        {
+          "id": "change_wp",
+          "bridge": "{ ...next(operator), from: after, generate: [operator, 'from'] }"
+        },
         {
           "id": "paragraphComparisonVerb_wp",
           "parents": [
@@ -41483,13 +41587,37 @@
       ],
       "semantics": [
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/wp.js:352"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/wp.js:366"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/wp.js:361"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/wp.js:375"
         }
       ],
       "priorities": [
+        {
+          "context": [
+            [
+              "ordinal",
+              1
+            ],
+            [
+              "list",
+              0
+            ],
+            [
+              "ordinal",
+              1
+            ],
+            [
+              "statefulElement_wp",
+              0
+            ]
+          ],
+          "ordered": true,
+          "choose": [
+            1
+          ]
+        },
         {
           "context": [
             [
@@ -42505,6 +42633,76 @@
       [
         "orderable",
         0
+      ],
+      [
+        "unknown",
+        1
+      ]
+    ],
+    [
+      [
+        "is",
+        0
+      ],
+      [
+        "list",
+        1
+      ],
+      [
+        "unknown",
+        1
+      ]
+    ],
+    [
+      [
+        "is",
+        0
+      ],
+      [
+        "list",
+        1
+      ],
+      [
+        "unknown",
+        1
+      ]
+    ],
+    [
+      [
+        "is",
+        0
+      ],
+      [
+        "list",
+        1
+      ],
+      [
+        "unknown",
+        1
+      ]
+    ],
+    [
+      [
+        "is",
+        0
+      ],
+      [
+        "list",
+        1
+      ],
+      [
+        "unknown",
+        1
+      ]
+    ],
+    [
+      [
+        "is",
+        0
+      ],
+      [
+        "list",
+        1
       ],
       [
         "unknown",

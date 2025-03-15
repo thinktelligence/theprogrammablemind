@@ -534,8 +534,19 @@ class API {
     return [...this._objects.items]
   }
 
+  fixUpItemId(item) {
+    if (item.id == 'coke') {
+      item.id = 'coca_cola'
+    }
+
+    if (item.id == 'fry') {
+      item.id = 'french_fry'
+    }
+  }
+
   addDrink(item_id, drink) {
     const item = this.toItem(item_id)
+    this.fixUpItemId(drink)
     item.modifications.push(drink)
     item.needsDrink = false
   }
@@ -606,13 +617,8 @@ class API {
       }
     }
 
-    if (item.id == 'coke') {
-      item.id = 'coca_cola'
-    }
 
-    if (item.id == 'fry') {
-      item.id = 'french_fry'
-    }
+    this.fixUpItemId(item)
 
     return [
       "hamburger",

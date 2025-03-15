@@ -29,22 +29,24 @@ const instance = require('./wp.instance.json')
     in the second paragraph bold the first letter of the words that start with t
     underline the first bolded word
     underline the first three words
+    in the first and second paragraph bold the second word
+    underline the first three bolded words
+    capitalize the first letter of the words that start with t
 
   current
-
-    in the first and second paragraph bold the first word
+ 
+    change is editable to is really editable 
 
   todo
 
+    the first to fifth word
     underline the last three words
-    underline the first three bolded words
     for paragraph 1 and 2 bold the first word
     in the second paragraph for the words that start with t bold the first letter
     underline the bolded paragraphs
     bold the first three words after the second bolded letter
     underline the words that start with t in the paragraph with 3 bolded words
-    bold the paragraph that contains three bolded words
-    capitalize the first letter of the words that start with t
+    underline the paragraph that contains three bolded words
     underline the first bolded word that start with t
     bold the first word of the second paragraph and third paragraph
     the paragraph that contains the word boobies
@@ -229,6 +231,7 @@ template = {
     "resetIdSuffix",
     {
       operators: [
+        "([change_wp|change] (context.text !== 'to')* (context.text == 'to'))",
         "([changeState_wp|make] ([statefulElement_wp]) ([stateValue_wp|]))",
         "((style_wp/*) [applyStyle_wp] ([statefulElement_wp|]))",
         "((word_wp/*) [wordComparisonWithVerb_wp] ([comparisonWith_wp|with] (a/0)? (letters)))",
@@ -252,6 +255,10 @@ template = {
       },
 
       bridges: [
+        {
+          id: 'change_wp',
+          bridge: "{ ...next(operator), from: after, generate: [operator, 'from'] }",
+        },
         { 
           id: 'paragraphComparisonVerb_wp',
           parents: ['verb'],
