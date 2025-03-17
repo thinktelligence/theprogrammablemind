@@ -40,7 +40,7 @@ const config = {
       id: "whichOnesTestSetup",
       development: true,
       generatorp: async ({context, gs}) => `${context.marker} ${await gs(context.choices)}`,
-      bridge: "{ ...next(operator), choices: after }",
+      bridge: "{ ...next(operator), choices: after[0] }",
       semantic: ({askWhich, context}) => {
         const choices = context.choices
         const chosen = ({ choice, objects }) => {

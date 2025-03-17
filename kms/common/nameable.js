@@ -106,7 +106,7 @@ const config = {
     {
       id: 'call',
       isA: ['verb'],
-      bridge: "{ ...next(operator), nameable: after[0], name: after[1:] }",
+      bridge: "{ ...next(operator), nameable: after[0], name: after[1:][0] }",
       // bridge: "{ ...next(operator), nameable: after[0], name: after[1] }",
       // generatorp: async ({context, g}) => `call ${await g(context.nameable)} ${await g(context.name)}`,
       generatorp: async ({context, g, gs}) => `call ${await g(context.nameable)} ${await gs(context.name)}`,

@@ -27,7 +27,7 @@ config = {
       isA: ['verb'],
       words: [{ word: 'modifies', number: 'one', flatten: false }, { word: 'modify', number: 'many', flatten: true }],
       // bridge: "{ ...next(operator), modifiers: before, concept: after[0], flatten: true }"
-      bridge: "{ ...next(operator), modifiers: before, concept: after[0] }"
+      bridge: "{ ...next(operator), modifiers: before[0], concept: after[0] }"
     },
     { id: "literally", bridge: "{ ...after[0], flatten: false, literally: true }" },
     { id: "concept", bridge: "{ ...next(operator) }" },

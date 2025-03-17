@@ -248,6 +248,10 @@ template = {
         ],
         positive: [
           // TODO remove these after crucible work done and fix the associator rules
+          // [['style_wp', 0], ['statefulElement_wp', 0], ['statefulElementInContext_wp', 0], ['every', 0], ['statefulElement_wp', 0]],
+          [['style_wp', 0], ['word_wp', 0], ['statefulElementInContext_wp', 0], ['paragraph_wp', 0]],
+          [['style_wp', 0], ['letter_wp', 0], ['statefulElementInContext_wp', 0], ['word_wp', 0]],
+          // [['statefulElement_wp', 1], ['statefulElementInContext_wp', 0], ['every', 0], ['statefulElement_wp', 1]],
           [['paragraph_wp', 0], ['thatVerb', 0], ['paragraphComparisonVerb_wp', 0], ['word_wp', 0]],
           [['paragraph_wp', 0], ['thatVerb', 0], ['paragraphComparisonVerb_wp', 0], ['styleModifier_wp', 0], ['word_wp', 0]],
           [['word_wp', 0], ['thatVerb', 0], ['wordComparison_wp', 0]],
@@ -257,7 +261,7 @@ template = {
       bridges: [
         {
           id: 'change_wp',
-          bridge: "{ ...next(operator), from: after, generate: [operator, 'from'] }",
+          bridge: "{ ...next(operator), from: after[0][0], generate: [operator, 'from', after[1]] }",
         },
         { 
           id: 'paragraphComparisonVerb_wp',

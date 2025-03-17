@@ -326,7 +326,7 @@ const config = {
       where: where(),
       id: "call", 
       level: 0, 
-      bridge: "{ ...next(operator), namee: after[0], name: after[1:] }",
+      bridge: "{ ...next(operator), namee: after[0], name: after[1:][0] }",
       generatorp: async ({g, gs, context}) => `call ${await g(context.namee)} ${await gs(context.name)}`,
       semantic: async ({context, objects, e, config, km}) => {
         const namee = (await e(context.namee)).evalue
