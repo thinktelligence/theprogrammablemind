@@ -471,7 +471,6 @@ const config = {
                 ['maps', 'map'], 
                 ['quest', 'quest'],
                 ['quests', 'quest'],
-                ['stats', 'stats'],
                 ['workshops', 'workshops'],
                 ['radio', 'radio'],
                 ['status', 'status'],
