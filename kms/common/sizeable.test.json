@@ -16,6 +16,7 @@
     },
     "contexts": [
       {
+        "context_index": 1,
         "dead": true,
         "default": true,
         "level": 1,
@@ -111,31 +112,46 @@
     },
     "objects": {
       "nameToUUID": {
+        "articles": "articles2",
+        "asking": "asking2",
         "concept": "concept2",
+        "conjunction": "conjunction2",
         "dialogues": "dialogues2",
+        "evaluate": "evaluate2",
         "gdefaults": "gdefaults2",
         "hierarchy": "hierarchy2",
         "meta": "meta2",
+        "negation": "negation2",
         "numbers": "numbers2",
         "pos": "pos2",
         "properties": "properties2",
         "punctuation": "punctuation2",
         "sdefaults": "sdefaults2",
         "sizeable": "sizeable1",
-        "stm": "stm2"
+        "stm": "stm2",
+        "tokenize": "tokenize2"
       },
       "namespaced": {
+        "articles2": {
+        },
+        "asking2": {
+        },
         "concept2": {
           "defaultTypesForHierarchy": {
           },
           "valueToWords": [
           ]
         },
+        "conjunction2": {
+        },
         "dialogues2": {
+          "idSuffix": "",
           "mentioned": [
           ],
           "variables": {
           }
+        },
+        "evaluate2": {
         },
         "gdefaults2": {
         },
@@ -143,15 +159,22 @@
         },
         "meta2": {
         },
+        "negation2": {
+        },
         "numbers2": {
         },
         "pos2": {
         },
         "properties2": {
           "children": {
-            "articlePOS": [
+            "adjective": [
+              "stm_before"
+            ],
+            "article": [
               "a",
-              "the"
+              "the",
+              "each",
+              "every"
             ],
             "canBeDoQuestion": [
               "have"
@@ -166,16 +189,14 @@
             "ifAble": [
               "orAble"
             ],
-            "notAble": [
-              "unknown"
-            ],
             "object": [
-              "unknown",
               "what",
               "whose"
             ],
             "preposition": [
-              "between"
+              "between",
+              "propertyOf",
+              "to"
             ],
             "pronoun": [
               "it",
@@ -185,27 +206,32 @@
               "questionMark"
             ],
             "queryable": [
+              "xfx",
               "hierarchyAble",
               "readonly",
               "property",
               "object",
-              "xfx",
               "concept",
+              "doubleQuote",
+              "theAble",
               "unknown",
               "it",
               "what",
               "whatAble",
+              "negatable",
               "this",
-              "thisitthat",
-              "reason"
+              "reason",
+              "distributable",
+              "thisitthat"
             ],
             "theAble": [
               "property",
               "object",
               "concept",
               "unknown",
-              "noun",
-              "reason"
+              "reason",
+              "memorable",
+              "noun"
             ],
             "thisitthat": [
               "it",
@@ -215,56 +241,66 @@
             "toAble": [
               "it"
             ],
-            "unknown": [
-              "property"
-            ],
-            "verby": [
+            "verb": [
               "modifies",
-              "is"
+              "is",
+              "remember",
+              "evaluate"
             ]
           },
           "concepts": [
             "properties",
             "unknown",
             "hierarchyAble",
-            "object",
             "what",
-            "queryable",
-            "readonly",
-            "property",
+            "object",
             "xfx",
-            "theAble",
-            "whose",
+            "queryable",
+            "between",
+            "preposition",
+            "readonly",
             "have",
             "canBeDoQuestion",
             "canBeQuestion",
-            "between",
-            "preposition",
+            "property",
+            "theAble",
+            "propertyOf",
+            "whose",
             "concept",
             "modifies",
-            "verby",
+            "verb",
+            "doubleQuote",
             "it",
             "pronoun",
             "this",
             "questionMark",
             "punctuation",
             "a",
-            "articlePOS",
+            "article",
             "the",
-            "notAble",
             "whatAble",
+            "negatable",
             "is",
             "toAble",
+            "to",
+            "reason",
+            "memorable",
+            "remember",
+            "stm_before",
+            "adjective",
+            "orAble",
+            "ifAble",
+            "evaluate",
+            "each",
+            "every",
+            "distributable",
             "noun",
             "thisitthat",
-            "reason",
-            "that",
-            "orAble",
-            "ifAble"
+            "that"
           ],
           "parents": {
             "a": [
-              "articlePOS"
+              "article"
             ],
             "between": [
               "preposition"
@@ -272,6 +308,21 @@
             "concept": [
               "theAble",
               "queryable"
+            ],
+            "distributable": [
+              "queryable"
+            ],
+            "doubleQuote": [
+              "queryable"
+            ],
+            "each": [
+              "article"
+            ],
+            "evaluate": [
+              "verb"
+            ],
+            "every": [
+              "article"
             ],
             "have": [
               "canBeDoQuestion",
@@ -282,7 +333,7 @@
             ],
             "is": [
               "canBeQuestion",
-              "verby"
+              "verb"
             ],
             "it": [
               "pronoun",
@@ -290,8 +341,14 @@
               "toAble",
               "thisitthat"
             ],
+            "memorable": [
+              "theAble"
+            ],
             "modifies": [
-              "verby"
+              "verb"
+            ],
+            "negatable": [
+              "queryable"
             ],
             "noun": [
               "theAble"
@@ -305,8 +362,10 @@
             ],
             "property": [
               "queryable",
-              "theAble",
-              "unknown"
+              "theAble"
+            ],
+            "propertyOf": [
+              "preposition"
             ],
             "questionMark": [
               "punctuation"
@@ -318,11 +377,20 @@
               "theAble",
               "queryable"
             ],
+            "remember": [
+              "verb"
+            ],
+            "stm_before": [
+              "adjective"
+            ],
             "that": [
               "thisitthat"
             ],
             "the": [
-              "articlePOS"
+              "article"
+            ],
+            "theAble": [
+              "queryable"
             ],
             "this": [
               "pronoun",
@@ -332,10 +400,11 @@
             "thisitthat": [
               "queryable"
             ],
+            "to": [
+              "preposition"
+            ],
             "unknown": [
               "hierarchyAble",
-              "object",
-              "notAble",
               "theAble",
               "queryable"
             ],
@@ -361,7 +430,9 @@
             "root": {
               "a": {
               },
-              "articlePOS": {
+              "adjective": {
+              },
+              "article": {
               },
               "between": {
               },
@@ -370,6 +441,16 @@
               "canBeQuestion": {
               },
               "concept": {
+              },
+              "distributable": {
+              },
+              "doubleQuote": {
+              },
+              "each": {
+              },
+              "evaluate": {
+              },
+              "every": {
               },
               "have": {
               },
@@ -381,9 +462,11 @@
               },
               "it": {
               },
+              "memorable": {
+              },
               "modifies": {
               },
-              "notAble": {
+              "negatable": {
               },
               "noun": {
               },
@@ -397,6 +480,8 @@
               },
               "property": {
               },
+              "propertyOf": {
+              },
               "punctuation": {
               },
               "queryable": {
@@ -406,6 +491,10 @@
               "readonly": {
               },
               "reason": {
+              },
+              "remember": {
+              },
+              "stm_before": {
               },
               "that": {
               },
@@ -417,11 +506,13 @@
               },
               "thisitthat": {
               },
+              "to": {
+              },
               "toAble": {
               },
               "unknown": {
               },
-              "verby": {
+              "verb": {
               },
               "what": {
               },
@@ -451,11 +542,14 @@
           ],
           "variables": {
           }
+        },
+        "tokenize2": {
         }
       },
       "processed": [
         {
           "context": {
+            "context_index": 1,
             "dead": true,
             "default": true,
             "level": 1,
@@ -508,6 +602,58 @@
     "query": "small sizeable",
     "responses": [
       ""
+    ],
+    "summaries": [
+      [
+        {
+          "counter": 1,
+          "operators": [
+            [
+              "size",
+              0
+            ],
+            [
+              "sizeable",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 2,
+          "operators": [
+            [
+              "size",
+              1
+            ],
+            [
+              "sizeable",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 3,
+          "operators": [
+            [
+              "size",
+              1
+            ],
+            [
+              "sizeable",
+              1
+            ]
+          ]
+        },
+        {
+          "counter": 4,
+          "operators": [
+            [
+              "sizeable",
+              1
+            ]
+          ]
+        }
+      ]
     ]
   },
   {
@@ -527,6 +673,7 @@
     },
     "contexts": [
       {
+        "context_index": 1,
         "dead": true,
         "default": true,
         "level": 1,
@@ -622,31 +769,46 @@
     },
     "objects": {
       "nameToUUID": {
+        "articles": "articles2",
+        "asking": "asking2",
         "concept": "concept2",
+        "conjunction": "conjunction2",
         "dialogues": "dialogues2",
+        "evaluate": "evaluate2",
         "gdefaults": "gdefaults2",
         "hierarchy": "hierarchy2",
         "meta": "meta2",
+        "negation": "negation2",
         "numbers": "numbers2",
         "pos": "pos2",
         "properties": "properties2",
         "punctuation": "punctuation2",
         "sdefaults": "sdefaults2",
         "sizeable": "sizeable1",
-        "stm": "stm2"
+        "stm": "stm2",
+        "tokenize": "tokenize2"
       },
       "namespaced": {
+        "articles2": {
+        },
+        "asking2": {
+        },
         "concept2": {
           "defaultTypesForHierarchy": {
           },
           "valueToWords": [
           ]
         },
+        "conjunction2": {
+        },
         "dialogues2": {
+          "idSuffix": "",
           "mentioned": [
           ],
           "variables": {
           }
+        },
+        "evaluate2": {
         },
         "gdefaults2": {
         },
@@ -654,15 +816,22 @@
         },
         "meta2": {
         },
+        "negation2": {
+        },
         "numbers2": {
         },
         "pos2": {
         },
         "properties2": {
           "children": {
-            "articlePOS": [
+            "adjective": [
+              "stm_before"
+            ],
+            "article": [
               "a",
-              "the"
+              "the",
+              "each",
+              "every"
             ],
             "canBeDoQuestion": [
               "have"
@@ -677,16 +846,14 @@
             "ifAble": [
               "orAble"
             ],
-            "notAble": [
-              "unknown"
-            ],
             "object": [
-              "unknown",
               "what",
               "whose"
             ],
             "preposition": [
-              "between"
+              "between",
+              "propertyOf",
+              "to"
             ],
             "pronoun": [
               "it",
@@ -696,27 +863,32 @@
               "questionMark"
             ],
             "queryable": [
+              "xfx",
               "hierarchyAble",
               "readonly",
               "property",
               "object",
-              "xfx",
               "concept",
+              "doubleQuote",
+              "theAble",
               "unknown",
               "it",
               "what",
               "whatAble",
+              "negatable",
               "this",
-              "thisitthat",
-              "reason"
+              "reason",
+              "distributable",
+              "thisitthat"
             ],
             "theAble": [
               "property",
               "object",
               "concept",
               "unknown",
-              "noun",
-              "reason"
+              "reason",
+              "memorable",
+              "noun"
             ],
             "thisitthat": [
               "it",
@@ -726,56 +898,66 @@
             "toAble": [
               "it"
             ],
-            "unknown": [
-              "property"
-            ],
-            "verby": [
+            "verb": [
               "modifies",
-              "is"
+              "is",
+              "remember",
+              "evaluate"
             ]
           },
           "concepts": [
             "properties",
             "unknown",
             "hierarchyAble",
-            "object",
             "what",
-            "queryable",
-            "readonly",
-            "property",
+            "object",
             "xfx",
-            "theAble",
-            "whose",
+            "queryable",
+            "between",
+            "preposition",
+            "readonly",
             "have",
             "canBeDoQuestion",
             "canBeQuestion",
-            "between",
-            "preposition",
+            "property",
+            "theAble",
+            "propertyOf",
+            "whose",
             "concept",
             "modifies",
-            "verby",
+            "verb",
+            "doubleQuote",
             "it",
             "pronoun",
             "this",
             "questionMark",
             "punctuation",
             "a",
-            "articlePOS",
+            "article",
             "the",
-            "notAble",
             "whatAble",
+            "negatable",
             "is",
             "toAble",
+            "to",
+            "reason",
+            "memorable",
+            "remember",
+            "stm_before",
+            "adjective",
+            "orAble",
+            "ifAble",
+            "evaluate",
+            "each",
+            "every",
+            "distributable",
             "noun",
             "thisitthat",
-            "reason",
-            "that",
-            "orAble",
-            "ifAble"
+            "that"
           ],
           "parents": {
             "a": [
-              "articlePOS"
+              "article"
             ],
             "between": [
               "preposition"
@@ -783,6 +965,21 @@
             "concept": [
               "theAble",
               "queryable"
+            ],
+            "distributable": [
+              "queryable"
+            ],
+            "doubleQuote": [
+              "queryable"
+            ],
+            "each": [
+              "article"
+            ],
+            "evaluate": [
+              "verb"
+            ],
+            "every": [
+              "article"
             ],
             "have": [
               "canBeDoQuestion",
@@ -793,7 +990,7 @@
             ],
             "is": [
               "canBeQuestion",
-              "verby"
+              "verb"
             ],
             "it": [
               "pronoun",
@@ -801,8 +998,14 @@
               "toAble",
               "thisitthat"
             ],
+            "memorable": [
+              "theAble"
+            ],
             "modifies": [
-              "verby"
+              "verb"
+            ],
+            "negatable": [
+              "queryable"
             ],
             "noun": [
               "theAble"
@@ -816,8 +1019,10 @@
             ],
             "property": [
               "queryable",
-              "theAble",
-              "unknown"
+              "theAble"
+            ],
+            "propertyOf": [
+              "preposition"
             ],
             "questionMark": [
               "punctuation"
@@ -829,11 +1034,20 @@
               "theAble",
               "queryable"
             ],
+            "remember": [
+              "verb"
+            ],
+            "stm_before": [
+              "adjective"
+            ],
             "that": [
               "thisitthat"
             ],
             "the": [
-              "articlePOS"
+              "article"
+            ],
+            "theAble": [
+              "queryable"
             ],
             "this": [
               "pronoun",
@@ -843,10 +1057,11 @@
             "thisitthat": [
               "queryable"
             ],
+            "to": [
+              "preposition"
+            ],
             "unknown": [
               "hierarchyAble",
-              "object",
-              "notAble",
               "theAble",
               "queryable"
             ],
@@ -872,7 +1087,9 @@
             "root": {
               "a": {
               },
-              "articlePOS": {
+              "adjective": {
+              },
+              "article": {
               },
               "between": {
               },
@@ -881,6 +1098,16 @@
               "canBeQuestion": {
               },
               "concept": {
+              },
+              "distributable": {
+              },
+              "doubleQuote": {
+              },
+              "each": {
+              },
+              "evaluate": {
+              },
+              "every": {
               },
               "have": {
               },
@@ -892,9 +1119,11 @@
               },
               "it": {
               },
+              "memorable": {
+              },
               "modifies": {
               },
-              "notAble": {
+              "negatable": {
               },
               "noun": {
               },
@@ -908,6 +1137,8 @@
               },
               "property": {
               },
+              "propertyOf": {
+              },
               "punctuation": {
               },
               "queryable": {
@@ -917,6 +1148,10 @@
               "readonly": {
               },
               "reason": {
+              },
+              "remember": {
+              },
+              "stm_before": {
               },
               "that": {
               },
@@ -928,11 +1163,13 @@
               },
               "thisitthat": {
               },
+              "to": {
+              },
               "toAble": {
               },
               "unknown": {
               },
-              "verby": {
+              "verb": {
               },
               "what": {
               },
@@ -962,11 +1199,14 @@
           ],
           "variables": {
           }
+        },
+        "tokenize2": {
         }
       },
       "processed": [
         {
           "context": {
+            "context_index": 1,
             "dead": true,
             "default": true,
             "level": 1,
@@ -1019,6 +1259,58 @@
     "query": "medium sizeable",
     "responses": [
       ""
+    ],
+    "summaries": [
+      [
+        {
+          "counter": 1,
+          "operators": [
+            [
+              "size",
+              0
+            ],
+            [
+              "sizeable",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 2,
+          "operators": [
+            [
+              "size",
+              1
+            ],
+            [
+              "sizeable",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 3,
+          "operators": [
+            [
+              "size",
+              1
+            ],
+            [
+              "sizeable",
+              1
+            ]
+          ]
+        },
+        {
+          "counter": 4,
+          "operators": [
+            [
+              "sizeable",
+              1
+            ]
+          ]
+        }
+      ]
     ]
   },
   {
@@ -1038,6 +1330,7 @@
     },
     "contexts": [
       {
+        "context_index": 1,
         "dead": true,
         "default": true,
         "level": 1,
@@ -1133,31 +1426,46 @@
     },
     "objects": {
       "nameToUUID": {
+        "articles": "articles2",
+        "asking": "asking2",
         "concept": "concept2",
+        "conjunction": "conjunction2",
         "dialogues": "dialogues2",
+        "evaluate": "evaluate2",
         "gdefaults": "gdefaults2",
         "hierarchy": "hierarchy2",
         "meta": "meta2",
+        "negation": "negation2",
         "numbers": "numbers2",
         "pos": "pos2",
         "properties": "properties2",
         "punctuation": "punctuation2",
         "sdefaults": "sdefaults2",
         "sizeable": "sizeable1",
-        "stm": "stm2"
+        "stm": "stm2",
+        "tokenize": "tokenize2"
       },
       "namespaced": {
+        "articles2": {
+        },
+        "asking2": {
+        },
         "concept2": {
           "defaultTypesForHierarchy": {
           },
           "valueToWords": [
           ]
         },
+        "conjunction2": {
+        },
         "dialogues2": {
+          "idSuffix": "",
           "mentioned": [
           ],
           "variables": {
           }
+        },
+        "evaluate2": {
         },
         "gdefaults2": {
         },
@@ -1165,15 +1473,22 @@
         },
         "meta2": {
         },
+        "negation2": {
+        },
         "numbers2": {
         },
         "pos2": {
         },
         "properties2": {
           "children": {
-            "articlePOS": [
+            "adjective": [
+              "stm_before"
+            ],
+            "article": [
               "a",
-              "the"
+              "the",
+              "each",
+              "every"
             ],
             "canBeDoQuestion": [
               "have"
@@ -1188,16 +1503,14 @@
             "ifAble": [
               "orAble"
             ],
-            "notAble": [
-              "unknown"
-            ],
             "object": [
-              "unknown",
               "what",
               "whose"
             ],
             "preposition": [
-              "between"
+              "between",
+              "propertyOf",
+              "to"
             ],
             "pronoun": [
               "it",
@@ -1207,27 +1520,32 @@
               "questionMark"
             ],
             "queryable": [
+              "xfx",
               "hierarchyAble",
               "readonly",
               "property",
               "object",
-              "xfx",
               "concept",
+              "doubleQuote",
+              "theAble",
               "unknown",
               "it",
               "what",
               "whatAble",
+              "negatable",
               "this",
-              "thisitthat",
-              "reason"
+              "reason",
+              "distributable",
+              "thisitthat"
             ],
             "theAble": [
               "property",
               "object",
               "concept",
               "unknown",
-              "noun",
-              "reason"
+              "reason",
+              "memorable",
+              "noun"
             ],
             "thisitthat": [
               "it",
@@ -1237,56 +1555,66 @@
             "toAble": [
               "it"
             ],
-            "unknown": [
-              "property"
-            ],
-            "verby": [
+            "verb": [
               "modifies",
-              "is"
+              "is",
+              "remember",
+              "evaluate"
             ]
           },
           "concepts": [
             "properties",
             "unknown",
             "hierarchyAble",
-            "object",
             "what",
-            "queryable",
-            "readonly",
-            "property",
+            "object",
             "xfx",
-            "theAble",
-            "whose",
+            "queryable",
+            "between",
+            "preposition",
+            "readonly",
             "have",
             "canBeDoQuestion",
             "canBeQuestion",
-            "between",
-            "preposition",
+            "property",
+            "theAble",
+            "propertyOf",
+            "whose",
             "concept",
             "modifies",
-            "verby",
+            "verb",
+            "doubleQuote",
             "it",
             "pronoun",
             "this",
             "questionMark",
             "punctuation",
             "a",
-            "articlePOS",
+            "article",
             "the",
-            "notAble",
             "whatAble",
+            "negatable",
             "is",
             "toAble",
+            "to",
+            "reason",
+            "memorable",
+            "remember",
+            "stm_before",
+            "adjective",
+            "orAble",
+            "ifAble",
+            "evaluate",
+            "each",
+            "every",
+            "distributable",
             "noun",
             "thisitthat",
-            "reason",
-            "that",
-            "orAble",
-            "ifAble"
+            "that"
           ],
           "parents": {
             "a": [
-              "articlePOS"
+              "article"
             ],
             "between": [
               "preposition"
@@ -1294,6 +1622,21 @@
             "concept": [
               "theAble",
               "queryable"
+            ],
+            "distributable": [
+              "queryable"
+            ],
+            "doubleQuote": [
+              "queryable"
+            ],
+            "each": [
+              "article"
+            ],
+            "evaluate": [
+              "verb"
+            ],
+            "every": [
+              "article"
             ],
             "have": [
               "canBeDoQuestion",
@@ -1304,7 +1647,7 @@
             ],
             "is": [
               "canBeQuestion",
-              "verby"
+              "verb"
             ],
             "it": [
               "pronoun",
@@ -1312,8 +1655,14 @@
               "toAble",
               "thisitthat"
             ],
+            "memorable": [
+              "theAble"
+            ],
             "modifies": [
-              "verby"
+              "verb"
+            ],
+            "negatable": [
+              "queryable"
             ],
             "noun": [
               "theAble"
@@ -1327,8 +1676,10 @@
             ],
             "property": [
               "queryable",
-              "theAble",
-              "unknown"
+              "theAble"
+            ],
+            "propertyOf": [
+              "preposition"
             ],
             "questionMark": [
               "punctuation"
@@ -1340,11 +1691,20 @@
               "theAble",
               "queryable"
             ],
+            "remember": [
+              "verb"
+            ],
+            "stm_before": [
+              "adjective"
+            ],
             "that": [
               "thisitthat"
             ],
             "the": [
-              "articlePOS"
+              "article"
+            ],
+            "theAble": [
+              "queryable"
             ],
             "this": [
               "pronoun",
@@ -1354,10 +1714,11 @@
             "thisitthat": [
               "queryable"
             ],
+            "to": [
+              "preposition"
+            ],
             "unknown": [
               "hierarchyAble",
-              "object",
-              "notAble",
               "theAble",
               "queryable"
             ],
@@ -1383,7 +1744,9 @@
             "root": {
               "a": {
               },
-              "articlePOS": {
+              "adjective": {
+              },
+              "article": {
               },
               "between": {
               },
@@ -1392,6 +1755,16 @@
               "canBeQuestion": {
               },
               "concept": {
+              },
+              "distributable": {
+              },
+              "doubleQuote": {
+              },
+              "each": {
+              },
+              "evaluate": {
+              },
+              "every": {
               },
               "have": {
               },
@@ -1403,9 +1776,11 @@
               },
               "it": {
               },
+              "memorable": {
+              },
               "modifies": {
               },
-              "notAble": {
+              "negatable": {
               },
               "noun": {
               },
@@ -1419,6 +1794,8 @@
               },
               "property": {
               },
+              "propertyOf": {
+              },
               "punctuation": {
               },
               "queryable": {
@@ -1428,6 +1805,10 @@
               "readonly": {
               },
               "reason": {
+              },
+              "remember": {
+              },
+              "stm_before": {
               },
               "that": {
               },
@@ -1439,11 +1820,13 @@
               },
               "thisitthat": {
               },
+              "to": {
+              },
               "toAble": {
               },
               "unknown": {
               },
-              "verby": {
+              "verb": {
               },
               "what": {
               },
@@ -1473,11 +1856,14 @@
           ],
           "variables": {
           }
+        },
+        "tokenize2": {
         }
       },
       "processed": [
         {
           "context": {
+            "context_index": 1,
             "dead": true,
             "default": true,
             "level": 1,
@@ -1530,6 +1916,58 @@
     "query": "large sizeable",
     "responses": [
       ""
+    ],
+    "summaries": [
+      [
+        {
+          "counter": 1,
+          "operators": [
+            [
+              "size",
+              0
+            ],
+            [
+              "sizeable",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 2,
+          "operators": [
+            [
+              "size",
+              1
+            ],
+            [
+              "sizeable",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 3,
+          "operators": [
+            [
+              "size",
+              1
+            ],
+            [
+              "sizeable",
+              1
+            ]
+          ]
+        },
+        {
+          "counter": 4,
+          "operators": [
+            [
+              "sizeable",
+              1
+            ]
+          ]
+        }
+      ]
     ]
   },
   {
@@ -1549,6 +1987,7 @@
     },
     "contexts": [
       {
+        "context_index": 1,
         "dead": true,
         "default": true,
         "level": 1,
@@ -1644,31 +2083,46 @@
     },
     "objects": {
       "nameToUUID": {
+        "articles": "articles2",
+        "asking": "asking2",
         "concept": "concept2",
+        "conjunction": "conjunction2",
         "dialogues": "dialogues2",
+        "evaluate": "evaluate2",
         "gdefaults": "gdefaults2",
         "hierarchy": "hierarchy2",
         "meta": "meta2",
+        "negation": "negation2",
         "numbers": "numbers2",
         "pos": "pos2",
         "properties": "properties2",
         "punctuation": "punctuation2",
         "sdefaults": "sdefaults2",
         "sizeable": "sizeable1",
-        "stm": "stm2"
+        "stm": "stm2",
+        "tokenize": "tokenize2"
       },
       "namespaced": {
+        "articles2": {
+        },
+        "asking2": {
+        },
         "concept2": {
           "defaultTypesForHierarchy": {
           },
           "valueToWords": [
           ]
         },
+        "conjunction2": {
+        },
         "dialogues2": {
+          "idSuffix": "",
           "mentioned": [
           ],
           "variables": {
           }
+        },
+        "evaluate2": {
         },
         "gdefaults2": {
         },
@@ -1676,15 +2130,22 @@
         },
         "meta2": {
         },
+        "negation2": {
+        },
         "numbers2": {
         },
         "pos2": {
         },
         "properties2": {
           "children": {
-            "articlePOS": [
+            "adjective": [
+              "stm_before"
+            ],
+            "article": [
               "a",
-              "the"
+              "the",
+              "each",
+              "every"
             ],
             "canBeDoQuestion": [
               "have"
@@ -1699,16 +2160,14 @@
             "ifAble": [
               "orAble"
             ],
-            "notAble": [
-              "unknown"
-            ],
             "object": [
-              "unknown",
               "what",
               "whose"
             ],
             "preposition": [
-              "between"
+              "between",
+              "propertyOf",
+              "to"
             ],
             "pronoun": [
               "it",
@@ -1718,27 +2177,32 @@
               "questionMark"
             ],
             "queryable": [
+              "xfx",
               "hierarchyAble",
               "readonly",
               "property",
               "object",
-              "xfx",
               "concept",
+              "doubleQuote",
+              "theAble",
               "unknown",
               "it",
               "what",
               "whatAble",
+              "negatable",
               "this",
-              "thisitthat",
-              "reason"
+              "reason",
+              "distributable",
+              "thisitthat"
             ],
             "theAble": [
               "property",
               "object",
               "concept",
               "unknown",
-              "noun",
-              "reason"
+              "reason",
+              "memorable",
+              "noun"
             ],
             "thisitthat": [
               "it",
@@ -1748,56 +2212,66 @@
             "toAble": [
               "it"
             ],
-            "unknown": [
-              "property"
-            ],
-            "verby": [
+            "verb": [
               "modifies",
-              "is"
+              "is",
+              "remember",
+              "evaluate"
             ]
           },
           "concepts": [
             "properties",
             "unknown",
             "hierarchyAble",
-            "object",
             "what",
-            "queryable",
-            "readonly",
-            "property",
+            "object",
             "xfx",
-            "theAble",
-            "whose",
+            "queryable",
+            "between",
+            "preposition",
+            "readonly",
             "have",
             "canBeDoQuestion",
             "canBeQuestion",
-            "between",
-            "preposition",
+            "property",
+            "theAble",
+            "propertyOf",
+            "whose",
             "concept",
             "modifies",
-            "verby",
+            "verb",
+            "doubleQuote",
             "it",
             "pronoun",
             "this",
             "questionMark",
             "punctuation",
             "a",
-            "articlePOS",
+            "article",
             "the",
-            "notAble",
             "whatAble",
+            "negatable",
             "is",
             "toAble",
+            "to",
+            "reason",
+            "memorable",
+            "remember",
+            "stm_before",
+            "adjective",
+            "orAble",
+            "ifAble",
+            "evaluate",
+            "each",
+            "every",
+            "distributable",
             "noun",
             "thisitthat",
-            "reason",
-            "that",
-            "orAble",
-            "ifAble"
+            "that"
           ],
           "parents": {
             "a": [
-              "articlePOS"
+              "article"
             ],
             "between": [
               "preposition"
@@ -1805,6 +2279,21 @@
             "concept": [
               "theAble",
               "queryable"
+            ],
+            "distributable": [
+              "queryable"
+            ],
+            "doubleQuote": [
+              "queryable"
+            ],
+            "each": [
+              "article"
+            ],
+            "evaluate": [
+              "verb"
+            ],
+            "every": [
+              "article"
             ],
             "have": [
               "canBeDoQuestion",
@@ -1815,7 +2304,7 @@
             ],
             "is": [
               "canBeQuestion",
-              "verby"
+              "verb"
             ],
             "it": [
               "pronoun",
@@ -1823,8 +2312,14 @@
               "toAble",
               "thisitthat"
             ],
+            "memorable": [
+              "theAble"
+            ],
             "modifies": [
-              "verby"
+              "verb"
+            ],
+            "negatable": [
+              "queryable"
             ],
             "noun": [
               "theAble"
@@ -1838,8 +2333,10 @@
             ],
             "property": [
               "queryable",
-              "theAble",
-              "unknown"
+              "theAble"
+            ],
+            "propertyOf": [
+              "preposition"
             ],
             "questionMark": [
               "punctuation"
@@ -1851,11 +2348,20 @@
               "theAble",
               "queryable"
             ],
+            "remember": [
+              "verb"
+            ],
+            "stm_before": [
+              "adjective"
+            ],
             "that": [
               "thisitthat"
             ],
             "the": [
-              "articlePOS"
+              "article"
+            ],
+            "theAble": [
+              "queryable"
             ],
             "this": [
               "pronoun",
@@ -1865,10 +2371,11 @@
             "thisitthat": [
               "queryable"
             ],
+            "to": [
+              "preposition"
+            ],
             "unknown": [
               "hierarchyAble",
-              "object",
-              "notAble",
               "theAble",
               "queryable"
             ],
@@ -1894,7 +2401,9 @@
             "root": {
               "a": {
               },
-              "articlePOS": {
+              "adjective": {
+              },
+              "article": {
               },
               "between": {
               },
@@ -1903,6 +2412,16 @@
               "canBeQuestion": {
               },
               "concept": {
+              },
+              "distributable": {
+              },
+              "doubleQuote": {
+              },
+              "each": {
+              },
+              "evaluate": {
+              },
+              "every": {
               },
               "have": {
               },
@@ -1914,9 +2433,11 @@
               },
               "it": {
               },
+              "memorable": {
+              },
               "modifies": {
               },
-              "notAble": {
+              "negatable": {
               },
               "noun": {
               },
@@ -1930,6 +2451,8 @@
               },
               "property": {
               },
+              "propertyOf": {
+              },
               "punctuation": {
               },
               "queryable": {
@@ -1939,6 +2462,10 @@
               "readonly": {
               },
               "reason": {
+              },
+              "remember": {
+              },
+              "stm_before": {
               },
               "that": {
               },
@@ -1950,11 +2477,13 @@
               },
               "thisitthat": {
               },
+              "to": {
+              },
               "toAble": {
               },
               "unknown": {
               },
-              "verby": {
+              "verb": {
               },
               "what": {
               },
@@ -1984,11 +2513,14 @@
           ],
           "variables": {
           }
+        },
+        "tokenize2": {
         }
       },
       "processed": [
         {
           "context": {
+            "context_index": 1,
             "dead": true,
             "default": true,
             "level": 1,
@@ -2041,6 +2573,58 @@
     "query": "half sizeable",
     "responses": [
       ""
+    ],
+    "summaries": [
+      [
+        {
+          "counter": 1,
+          "operators": [
+            [
+              "size",
+              0
+            ],
+            [
+              "sizeable",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 2,
+          "operators": [
+            [
+              "size",
+              1
+            ],
+            [
+              "sizeable",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 3,
+          "operators": [
+            [
+              "size",
+              1
+            ],
+            [
+              "sizeable",
+              1
+            ]
+          ]
+        },
+        {
+          "counter": 4,
+          "operators": [
+            [
+              "sizeable",
+              1
+            ]
+          ]
+        }
+      ]
     ]
   },
   {
@@ -2060,6 +2644,7 @@
     },
     "contexts": [
       {
+        "context_index": 1,
         "dead": true,
         "default": true,
         "level": 1,
@@ -2155,31 +2740,46 @@
     },
     "objects": {
       "nameToUUID": {
+        "articles": "articles2",
+        "asking": "asking2",
         "concept": "concept2",
+        "conjunction": "conjunction2",
         "dialogues": "dialogues2",
+        "evaluate": "evaluate2",
         "gdefaults": "gdefaults2",
         "hierarchy": "hierarchy2",
         "meta": "meta2",
+        "negation": "negation2",
         "numbers": "numbers2",
         "pos": "pos2",
         "properties": "properties2",
         "punctuation": "punctuation2",
         "sdefaults": "sdefaults2",
         "sizeable": "sizeable1",
-        "stm": "stm2"
+        "stm": "stm2",
+        "tokenize": "tokenize2"
       },
       "namespaced": {
+        "articles2": {
+        },
+        "asking2": {
+        },
         "concept2": {
           "defaultTypesForHierarchy": {
           },
           "valueToWords": [
           ]
         },
+        "conjunction2": {
+        },
         "dialogues2": {
+          "idSuffix": "",
           "mentioned": [
           ],
           "variables": {
           }
+        },
+        "evaluate2": {
         },
         "gdefaults2": {
         },
@@ -2187,15 +2787,22 @@
         },
         "meta2": {
         },
+        "negation2": {
+        },
         "numbers2": {
         },
         "pos2": {
         },
         "properties2": {
           "children": {
-            "articlePOS": [
+            "adjective": [
+              "stm_before"
+            ],
+            "article": [
               "a",
-              "the"
+              "the",
+              "each",
+              "every"
             ],
             "canBeDoQuestion": [
               "have"
@@ -2210,16 +2817,14 @@
             "ifAble": [
               "orAble"
             ],
-            "notAble": [
-              "unknown"
-            ],
             "object": [
-              "unknown",
               "what",
               "whose"
             ],
             "preposition": [
-              "between"
+              "between",
+              "propertyOf",
+              "to"
             ],
             "pronoun": [
               "it",
@@ -2229,27 +2834,32 @@
               "questionMark"
             ],
             "queryable": [
+              "xfx",
               "hierarchyAble",
               "readonly",
               "property",
               "object",
-              "xfx",
               "concept",
+              "doubleQuote",
+              "theAble",
               "unknown",
               "it",
               "what",
               "whatAble",
+              "negatable",
               "this",
-              "thisitthat",
-              "reason"
+              "reason",
+              "distributable",
+              "thisitthat"
             ],
             "theAble": [
               "property",
               "object",
               "concept",
               "unknown",
-              "noun",
-              "reason"
+              "reason",
+              "memorable",
+              "noun"
             ],
             "thisitthat": [
               "it",
@@ -2259,56 +2869,66 @@
             "toAble": [
               "it"
             ],
-            "unknown": [
-              "property"
-            ],
-            "verby": [
+            "verb": [
               "modifies",
-              "is"
+              "is",
+              "remember",
+              "evaluate"
             ]
           },
           "concepts": [
             "properties",
             "unknown",
             "hierarchyAble",
-            "object",
             "what",
-            "queryable",
-            "readonly",
-            "property",
+            "object",
             "xfx",
-            "theAble",
-            "whose",
+            "queryable",
+            "between",
+            "preposition",
+            "readonly",
             "have",
             "canBeDoQuestion",
             "canBeQuestion",
-            "between",
-            "preposition",
+            "property",
+            "theAble",
+            "propertyOf",
+            "whose",
             "concept",
             "modifies",
-            "verby",
+            "verb",
+            "doubleQuote",
             "it",
             "pronoun",
             "this",
             "questionMark",
             "punctuation",
             "a",
-            "articlePOS",
+            "article",
             "the",
-            "notAble",
             "whatAble",
+            "negatable",
             "is",
             "toAble",
+            "to",
+            "reason",
+            "memorable",
+            "remember",
+            "stm_before",
+            "adjective",
+            "orAble",
+            "ifAble",
+            "evaluate",
+            "each",
+            "every",
+            "distributable",
             "noun",
             "thisitthat",
-            "reason",
-            "that",
-            "orAble",
-            "ifAble"
+            "that"
           ],
           "parents": {
             "a": [
-              "articlePOS"
+              "article"
             ],
             "between": [
               "preposition"
@@ -2316,6 +2936,21 @@
             "concept": [
               "theAble",
               "queryable"
+            ],
+            "distributable": [
+              "queryable"
+            ],
+            "doubleQuote": [
+              "queryable"
+            ],
+            "each": [
+              "article"
+            ],
+            "evaluate": [
+              "verb"
+            ],
+            "every": [
+              "article"
             ],
             "have": [
               "canBeDoQuestion",
@@ -2326,7 +2961,7 @@
             ],
             "is": [
               "canBeQuestion",
-              "verby"
+              "verb"
             ],
             "it": [
               "pronoun",
@@ -2334,8 +2969,14 @@
               "toAble",
               "thisitthat"
             ],
+            "memorable": [
+              "theAble"
+            ],
             "modifies": [
-              "verby"
+              "verb"
+            ],
+            "negatable": [
+              "queryable"
             ],
             "noun": [
               "theAble"
@@ -2349,8 +2990,10 @@
             ],
             "property": [
               "queryable",
-              "theAble",
-              "unknown"
+              "theAble"
+            ],
+            "propertyOf": [
+              "preposition"
             ],
             "questionMark": [
               "punctuation"
@@ -2362,11 +3005,20 @@
               "theAble",
               "queryable"
             ],
+            "remember": [
+              "verb"
+            ],
+            "stm_before": [
+              "adjective"
+            ],
             "that": [
               "thisitthat"
             ],
             "the": [
-              "articlePOS"
+              "article"
+            ],
+            "theAble": [
+              "queryable"
             ],
             "this": [
               "pronoun",
@@ -2376,10 +3028,11 @@
             "thisitthat": [
               "queryable"
             ],
+            "to": [
+              "preposition"
+            ],
             "unknown": [
               "hierarchyAble",
-              "object",
-              "notAble",
               "theAble",
               "queryable"
             ],
@@ -2405,7 +3058,9 @@
             "root": {
               "a": {
               },
-              "articlePOS": {
+              "adjective": {
+              },
+              "article": {
               },
               "between": {
               },
@@ -2414,6 +3069,16 @@
               "canBeQuestion": {
               },
               "concept": {
+              },
+              "distributable": {
+              },
+              "doubleQuote": {
+              },
+              "each": {
+              },
+              "evaluate": {
+              },
+              "every": {
               },
               "have": {
               },
@@ -2425,9 +3090,11 @@
               },
               "it": {
               },
+              "memorable": {
+              },
               "modifies": {
               },
-              "notAble": {
+              "negatable": {
               },
               "noun": {
               },
@@ -2441,6 +3108,8 @@
               },
               "property": {
               },
+              "propertyOf": {
+              },
               "punctuation": {
               },
               "queryable": {
@@ -2450,6 +3119,10 @@
               "readonly": {
               },
               "reason": {
+              },
+              "remember": {
+              },
+              "stm_before": {
               },
               "that": {
               },
@@ -2461,11 +3134,13 @@
               },
               "thisitthat": {
               },
+              "to": {
+              },
               "toAble": {
               },
               "unknown": {
               },
-              "verby": {
+              "verb": {
               },
               "what": {
               },
@@ -2495,11 +3170,14 @@
           ],
           "variables": {
           }
+        },
+        "tokenize2": {
         }
       },
       "processed": [
         {
           "context": {
+            "context_index": 1,
             "dead": true,
             "default": true,
             "level": 1,
@@ -2552,6 +3230,58 @@
     "query": "full sizeable",
     "responses": [
       ""
+    ],
+    "summaries": [
+      [
+        {
+          "counter": 1,
+          "operators": [
+            [
+              "size",
+              0
+            ],
+            [
+              "sizeable",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 2,
+          "operators": [
+            [
+              "size",
+              1
+            ],
+            [
+              "sizeable",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 3,
+          "operators": [
+            [
+              "size",
+              1
+            ],
+            [
+              "sizeable",
+              1
+            ]
+          ]
+        },
+        {
+          "counter": 4,
+          "operators": [
+            [
+              "sizeable",
+              1
+            ]
+          ]
+        }
+      ]
     ]
   }
 ]

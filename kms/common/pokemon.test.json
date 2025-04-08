@@ -33,28 +33,6 @@
           0
         ],
         [
-          "pikachu",
-          0
-        ],
-        [
-          "the",
-          0
-        ],
-        [
-          "type",
-          0
-        ],
-        [
-          "what",
-          0
-        ]
-      ],
-      [
-        [
-          "is",
-          0
-        ],
-        [
           "propertyOf",
           0
         ]
@@ -128,6 +106,7 @@
     },
     "contexts": [
       {
+        "context_index": 1,
         "dead": true,
         "evalue": {
           "default": true,
@@ -139,6 +118,7 @@
           "one": {
             "concept": true,
             "dead": true,
+            "default": true,
             "determiner": "the",
             "focusableForPhrase": true,
             "level": 1,
@@ -146,7 +126,6 @@
             "modifiers": [
               "determiner"
             ],
-            "number": "one",
             "object": {
               "dead": true,
               "level": 1,
@@ -167,6 +146,7 @@
               {
                 "concept": true,
                 "dead": true,
+                "default": true,
                 "determiner": "the",
                 "focusableForPhrase": true,
                 "level": 1,
@@ -174,7 +154,6 @@
                 "modifiers": [
                   "determiner"
                 ],
-                "number": "one",
                 "pullFromContext": true,
                 "range": {
                   "end": 15,
@@ -184,7 +163,6 @@
                 "types": [
                   "type"
                 ],
-                "value": "type",
                 "wantsValue": true,
                 "word": "type"
               },
@@ -214,13 +192,13 @@
             "types": [
               "type"
             ],
-            "value": "type",
             "wantsValue": true,
             "word": "type"
           },
           "two": {
             "concept": true,
             "dead": true,
+            "default": true,
             "determiner": "the",
             "evalue": {
               "focus": true,
@@ -254,7 +232,6 @@
             "modifiers": [
               "determiner"
             ],
-            "number": "one",
             "object": {
               "dead": true,
               "level": 1,
@@ -275,6 +252,7 @@
               {
                 "concept": true,
                 "dead": true,
+                "default": true,
                 "determiner": "the",
                 "focusableForPhrase": true,
                 "level": 1,
@@ -282,7 +260,6 @@
                 "modifiers": [
                   "determiner"
                 ],
-                "number": "one",
                 "pullFromContext": true,
                 "range": {
                   "end": 15,
@@ -292,7 +269,6 @@
                 "types": [
                   "type"
                 ],
-                "value": "type",
                 "wantsValue": true,
                 "word": "type"
               },
@@ -326,7 +302,6 @@
             "types": [
               "type"
             ],
-            "value": "type",
             "wantsValue": true,
             "word": "type"
           },
@@ -372,6 +347,7 @@
         "two": {
           "concept": true,
           "dead": true,
+          "default": true,
           "determiner": "the",
           "focusableForPhrase": true,
           "level": 1,
@@ -379,7 +355,6 @@
           "modifiers": [
             "determiner"
           ],
-          "number": "one",
           "object": {
             "dead": true,
             "level": 1,
@@ -400,6 +375,7 @@
             {
               "concept": true,
               "dead": true,
+              "default": true,
               "determiner": "the",
               "focusableForPhrase": true,
               "level": 1,
@@ -407,7 +383,6 @@
               "modifiers": [
                 "determiner"
               ],
-              "number": "one",
               "pullFromContext": true,
               "range": {
                 "end": 15,
@@ -417,7 +392,6 @@
               "types": [
                 "type"
               ],
-              "value": "type",
               "wantsValue": true,
               "word": "type"
             },
@@ -447,7 +421,6 @@
           "types": [
             "type"
           ],
-          "value": "type",
           "wantsValue": true,
           "word": "type"
         },
@@ -631,30 +604,45 @@
     },
     "objects": {
       "nameToUUID": {
+        "articles": "articles2",
+        "asking": "asking2",
         "concept": "concept2",
+        "conjunction": "conjunction2",
         "dialogues": "dialogues2",
+        "evaluate": "evaluate2",
         "gdefaults": "gdefaults2",
         "hierarchy": "hierarchy2",
         "meta": "meta2",
+        "negation": "negation2",
         "pokemon": "pokemon1",
         "pos": "pos2",
         "properties": "properties2",
         "punctuation": "punctuation2",
         "sdefaults": "sdefaults2",
-        "stm": "stm2"
+        "stm": "stm2",
+        "tokenize": "tokenize2"
       },
       "namespaced": {
+        "articles2": {
+        },
+        "asking2": {
+        },
         "concept2": {
           "defaultTypesForHierarchy": {
           },
           "valueToWords": [
           ]
         },
+        "conjunction2": {
+        },
         "dialogues2": {
+          "idSuffix": "",
           "mentioned": [
           ],
           "variables": {
           }
+        },
+        "evaluate2": {
         },
         "gdefaults2": {
         },
@@ -662,15 +650,22 @@
         },
         "meta2": {
         },
+        "negation2": {
+        },
         "pokemon1": {
         },
         "pos2": {
         },
         "properties2": {
           "children": {
-            "articlePOS": [
+            "adjective": [
+              "stm_before"
+            ],
+            "article": [
               "a",
-              "the"
+              "the",
+              "each",
+              "every"
             ],
             "canBeDoQuestion": [
               "have"
@@ -691,11 +686,7 @@
             "ifAble": [
               "orAble"
             ],
-            "notAble": [
-              "unknown"
-            ],
             "object": [
-              "unknown",
               "what",
               "whose"
             ],
@@ -712,7 +703,9 @@
               "earth_type"
             ],
             "preposition": [
-              "between"
+              "between",
+              "propertyOf",
+              "to"
             ],
             "pronoun": [
               "it",
@@ -722,27 +715,32 @@
               "questionMark"
             ],
             "queryable": [
+              "xfx",
               "hierarchyAble",
               "readonly",
               "property",
               "object",
-              "xfx",
               "concept",
+              "doubleQuote",
+              "theAble",
               "unknown",
               "it",
               "what",
               "whatAble",
+              "negatable",
               "this",
-              "thisitthat",
-              "reason"
+              "reason",
+              "distributable",
+              "thisitthat"
             ],
             "theAble": [
               "property",
               "object",
               "concept",
               "unknown",
-              "noun",
-              "reason"
+              "reason",
+              "memorable",
+              "noun"
             ],
             "thisitthat": [
               "it",
@@ -752,57 +750,67 @@
             "toAble": [
               "it"
             ],
-            "type": [
+            "undefined": [
               "pokemon_type"
             ],
-            "unknown": [
-              "property"
-            ],
-            "verby": [
+            "verb": [
               "modifies",
-              "is"
+              "is",
+              "remember",
+              "evaluate"
             ]
           },
           "concepts": [
             "properties",
             "unknown",
             "hierarchyAble",
-            "object",
             "what",
-            "queryable",
-            "readonly",
-            "property",
+            "object",
             "xfx",
-            "theAble",
-            "whose",
+            "queryable",
+            "between",
+            "preposition",
+            "readonly",
             "have",
             "canBeDoQuestion",
             "canBeQuestion",
-            "between",
-            "preposition",
+            "property",
+            "theAble",
+            "propertyOf",
+            "whose",
             "concept",
             "modifies",
-            "verby",
+            "verb",
+            "doubleQuote",
             "it",
             "pronoun",
             "this",
             "questionMark",
             "punctuation",
             "a",
-            "articlePOS",
+            "article",
             "the",
-            "notAble",
             "whatAble",
+            "negatable",
             "is",
             "toAble",
-            "noun",
-            "thisitthat",
+            "to",
             "reason",
-            "that",
+            "memorable",
+            "remember",
+            "stm_before",
+            "adjective",
             "orAble",
             "ifAble",
+            "evaluate",
+            "each",
+            "every",
+            "distributable",
+            "noun",
+            "thisitthat",
+            "that",
             "pokemon_type",
-            "type",
+            null,
             "pikachu",
             "pokemon",
             "squirtle",
@@ -816,7 +824,7 @@
           ],
           "parents": {
             "a": [
-              "articlePOS"
+              "article"
             ],
             "between": [
               "preposition"
@@ -828,11 +836,26 @@
               "theAble",
               "queryable"
             ],
+            "distributable": [
+              "queryable"
+            ],
+            "doubleQuote": [
+              "queryable"
+            ],
+            "each": [
+              "article"
+            ],
             "earth_type": [
               "pokemon_type"
             ],
             "electric_type": [
               "pokemon_type"
+            ],
+            "evaluate": [
+              "verb"
+            ],
+            "every": [
+              "article"
             ],
             "fire_type": [
               "pokemon_type"
@@ -846,7 +869,7 @@
             ],
             "is": [
               "canBeQuestion",
-              "verby"
+              "verb"
             ],
             "it": [
               "pronoun",
@@ -854,8 +877,14 @@
               "toAble",
               "thisitthat"
             ],
+            "memorable": [
+              "theAble"
+            ],
             "modifies": [
-              "verby"
+              "verb"
+            ],
+            "negatable": [
+              "queryable"
             ],
             "noun": [
               "theAble"
@@ -875,12 +904,14 @@
               "electric_type"
             ],
             "pokemon_type": [
-              "type"
+              null
             ],
             "property": [
               "queryable",
-              "theAble",
-              "unknown"
+              "theAble"
+            ],
+            "propertyOf": [
+              "preposition"
             ],
             "questionMark": [
               "punctuation"
@@ -892,14 +923,23 @@
               "theAble",
               "queryable"
             ],
+            "remember": [
+              "verb"
+            ],
             "squirtle": [
               "pokemon"
+            ],
+            "stm_before": [
+              "adjective"
             ],
             "that": [
               "thisitthat"
             ],
             "the": [
-              "articlePOS"
+              "article"
+            ],
+            "theAble": [
+              "queryable"
             ],
             "this": [
               "pronoun",
@@ -909,10 +949,11 @@
             "thisitthat": [
               "queryable"
             ],
+            "to": [
+              "preposition"
+            ],
             "unknown": [
               "hierarchyAble",
-              "object",
-              "notAble",
               "theAble",
               "queryable"
             ],
@@ -944,7 +985,9 @@
             "root": {
               "a": {
               },
-              "articlePOS": {
+              "adjective": {
+              },
+              "article": {
               },
               "between": {
               },
@@ -956,9 +999,19 @@
               },
               "concept": {
               },
+              "distributable": {
+              },
+              "doubleQuote": {
+              },
+              "each": {
+              },
               "earth_type": {
               },
               "electric_type": {
+              },
+              "evaluate": {
+              },
+              "every": {
               },
               "fire_type": {
               },
@@ -972,9 +1025,11 @@
               },
               "it": {
               },
+              "memorable": {
+              },
               "modifies": {
               },
-              "notAble": {
+              "negatable": {
               },
               "noun": {
               },
@@ -996,6 +1051,8 @@
               },
               "property": {
               },
+              "propertyOf": {
+              },
               "punctuation": {
               },
               "queryable": {
@@ -1006,7 +1063,11 @@
               },
               "reason": {
               },
+              "remember": {
+              },
               "squirtle": {
+              },
+              "stm_before": {
               },
               "that": {
               },
@@ -1018,13 +1079,15 @@
               },
               "thisitthat": {
               },
+              "to": {
+              },
               "toAble": {
               },
-              "type": {
+              "undefined": {
               },
               "unknown": {
               },
-              "verby": {
+              "verb": {
               },
               "water_type": {
               },
@@ -1056,11 +1119,14 @@
           ],
           "variables": {
           }
+        },
+        "tokenize2": {
         }
       },
       "processed": [
         {
           "context": {
+            "context_index": 1,
             "dead": true,
             "evalue": {
               "default": true,
@@ -1072,6 +1138,7 @@
               "one": {
                 "concept": true,
                 "dead": true,
+                "default": true,
                 "determiner": "the",
                 "focusableForPhrase": true,
                 "level": 1,
@@ -1079,7 +1146,6 @@
                 "modifiers": [
                   "determiner"
                 ],
-                "number": "one",
                 "object": {
                   "dead": true,
                   "level": 1,
@@ -1100,6 +1166,7 @@
                   {
                     "concept": true,
                     "dead": true,
+                    "default": true,
                     "determiner": "the",
                     "focusableForPhrase": true,
                     "level": 1,
@@ -1107,7 +1174,6 @@
                     "modifiers": [
                       "determiner"
                     ],
-                    "number": "one",
                     "pullFromContext": true,
                     "range": {
                       "end": 15,
@@ -1117,7 +1183,6 @@
                     "types": [
                       "type"
                     ],
-                    "value": "type",
                     "wantsValue": true,
                     "word": "type"
                   },
@@ -1147,13 +1212,13 @@
                 "types": [
                   "type"
                 ],
-                "value": "type",
                 "wantsValue": true,
                 "word": "type"
               },
               "two": {
                 "concept": true,
                 "dead": true,
+                "default": true,
                 "determiner": "the",
                 "evalue": {
                   "focus": true,
@@ -1187,7 +1252,6 @@
                 "modifiers": [
                   "determiner"
                 ],
-                "number": "one",
                 "object": {
                   "dead": true,
                   "level": 1,
@@ -1208,6 +1272,7 @@
                   {
                     "concept": true,
                     "dead": true,
+                    "default": true,
                     "determiner": "the",
                     "focusableForPhrase": true,
                     "level": 1,
@@ -1215,7 +1280,6 @@
                     "modifiers": [
                       "determiner"
                     ],
-                    "number": "one",
                     "pullFromContext": true,
                     "range": {
                       "end": 15,
@@ -1225,7 +1289,6 @@
                     "types": [
                       "type"
                     ],
-                    "value": "type",
                     "wantsValue": true,
                     "word": "type"
                   },
@@ -1259,7 +1322,6 @@
                 "types": [
                   "type"
                 ],
-                "value": "type",
                 "wantsValue": true,
                 "word": "type"
               },
@@ -1305,6 +1367,7 @@
             "two": {
               "concept": true,
               "dead": true,
+              "default": true,
               "determiner": "the",
               "focusableForPhrase": true,
               "level": 1,
@@ -1312,7 +1375,6 @@
               "modifiers": [
                 "determiner"
               ],
-              "number": "one",
               "object": {
                 "dead": true,
                 "level": 1,
@@ -1333,6 +1395,7 @@
                 {
                   "concept": true,
                   "dead": true,
+                  "default": true,
                   "determiner": "the",
                   "focusableForPhrase": true,
                   "level": 1,
@@ -1340,7 +1403,6 @@
                   "modifiers": [
                     "determiner"
                   ],
-                  "number": "one",
                   "pullFromContext": true,
                   "range": {
                     "end": 15,
@@ -1350,7 +1412,6 @@
                   "types": [
                     "type"
                   ],
-                  "value": "type",
                   "wantsValue": true,
                   "word": "type"
                 },
@@ -1380,7 +1441,6 @@
               "types": [
                 "type"
               ],
-              "value": "type",
               "wantsValue": true,
               "word": "type"
             },
@@ -1395,6 +1455,7 @@
         },
         {
           "context": {
+            "context_index": 1,
             "dead": true,
             "level": 2,
             "marker": "is",
@@ -1430,6 +1491,7 @@
               "atomic": true,
               "concept": true,
               "dead": true,
+              "default": true,
               "determiner": {
                 "default": true,
                 "level": 0,
@@ -1441,11 +1503,13 @@
                 "text": "a",
                 "word": "a"
               },
+              "instance": true,
               "level": 1,
               "marker": "fire_type",
               "modifier_fire": {
                 "level": 0,
                 "marker": "fire",
+                "number": "one",
                 "range": {
                   "end": 19,
                   "start": 16
@@ -1489,6 +1553,7 @@
         },
         {
           "context": {
+            "context_index": 1,
             "dead": true,
             "level": 2,
             "marker": "is",
@@ -1523,6 +1588,7 @@
               "atomic": true,
               "concept": true,
               "dead": true,
+              "default": true,
               "determiner": {
                 "default": true,
                 "level": 0,
@@ -1534,11 +1600,13 @@
                 "text": "an",
                 "word": "an"
               },
+              "instance": true,
               "level": 1,
               "marker": "electric_type",
               "modifier_electric": {
                 "level": 0,
                 "marker": "electric",
+                "number": "one",
                 "range": {
                   "end": 21,
                   "start": 14
@@ -1582,6 +1650,7 @@
         },
         {
           "context": {
+            "context_index": 1,
             "dead": true,
             "level": 2,
             "marker": "is",
@@ -1589,11 +1658,13 @@
             "one": {
               "atomic": true,
               "dead": true,
+              "default": true,
               "level": 1,
               "marker": "earth_type",
               "modifier_earth": {
                 "level": 0,
                 "marker": "earth",
+                "number": "one",
                 "range": {
                   "end": 4,
                   "start": 0
@@ -1635,6 +1706,7 @@
               "atomic": true,
               "concept": true,
               "dead": true,
+              "default": true,
               "determiner": {
                 "default": true,
                 "level": 0,
@@ -1646,11 +1718,13 @@
                 "text": "a",
                 "word": "a"
               },
+              "instance": true,
               "level": 1,
               "marker": "pokemon_type",
               "modifier_pokemon": {
                 "level": 0,
                 "marker": "pokemon",
+                "number": "one",
                 "range": {
                   "end": 22,
                   "start": 16
@@ -1694,6 +1768,7 @@
         },
         {
           "context": {
+            "context_index": 1,
             "dead": true,
             "level": 2,
             "marker": "is",
@@ -1701,11 +1776,13 @@
             "one": {
               "atomic": true,
               "dead": true,
+              "default": true,
               "level": 1,
               "marker": "electric_type",
               "modifier_electric": {
                 "level": 0,
                 "marker": "electric",
+                "number": "one",
                 "range": {
                   "end": 7,
                   "start": 0
@@ -1747,6 +1824,7 @@
               "atomic": true,
               "concept": true,
               "dead": true,
+              "default": true,
               "determiner": {
                 "default": true,
                 "level": 0,
@@ -1758,11 +1836,13 @@
                 "text": "a",
                 "word": "a"
               },
+              "instance": true,
               "level": 1,
               "marker": "pokemon_type",
               "modifier_pokemon": {
                 "level": 0,
                 "marker": "pokemon",
+                "number": "one",
                 "range": {
                   "end": 25,
                   "start": 19
@@ -1806,6 +1886,7 @@
         },
         {
           "context": {
+            "context_index": 1,
             "dead": true,
             "level": 2,
             "marker": "is",
@@ -1813,11 +1894,13 @@
             "one": {
               "atomic": true,
               "dead": true,
+              "default": true,
               "level": 1,
               "marker": "water_type",
               "modifier_water": {
                 "level": 0,
                 "marker": "water",
+                "number": "one",
                 "range": {
                   "end": 4,
                   "start": 0
@@ -1859,6 +1942,7 @@
               "atomic": true,
               "concept": true,
               "dead": true,
+              "default": true,
               "determiner": {
                 "default": true,
                 "level": 0,
@@ -1870,11 +1954,13 @@
                 "text": "a",
                 "word": "a"
               },
+              "instance": true,
               "level": 1,
               "marker": "pokemon_type",
               "modifier_pokemon": {
                 "level": 0,
                 "marker": "pokemon",
+                "number": "one",
                 "range": {
                   "end": 22,
                   "start": 16
@@ -1927,6 +2013,207 @@
     "query": "what is the type of pikachu",
     "responses": [
       "the type of pikachu is electric type"
+    ],
+    "summaries": [
+      [
+        {
+          "counter": 1,
+          "operators": [
+            [
+              "what",
+              0
+            ],
+            [
+              "is",
+              0
+            ],
+            [
+              "the",
+              0
+            ],
+            [
+              "type",
+              0
+            ],
+            [
+              "propertyOf",
+              0
+            ],
+            [
+              "pikachu",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 2,
+          "operators": [
+            [
+              "what",
+              0
+            ],
+            [
+              "is",
+              0
+            ],
+            [
+              "the",
+              0
+            ],
+            [
+              "type",
+              0
+            ],
+            [
+              "propertyOf",
+              0
+            ],
+            [
+              "pikachu",
+              1
+            ]
+          ]
+        },
+        {
+          "counter": 3,
+          "operators": [
+            [
+              "what",
+              0
+            ],
+            [
+              "is",
+              0
+            ],
+            [
+              "the",
+              0
+            ],
+            [
+              "type",
+              1
+            ],
+            [
+              "propertyOf",
+              0
+            ],
+            [
+              "pikachu",
+              1
+            ]
+          ]
+        },
+        {
+          "counter": 4,
+          "operators": [
+            [
+              "what",
+              1
+            ],
+            [
+              "is",
+              0
+            ],
+            [
+              "the",
+              0
+            ],
+            [
+              "type",
+              1
+            ],
+            [
+              "propertyOf",
+              0
+            ],
+            [
+              "pikachu",
+              1
+            ]
+          ]
+        },
+        {
+          "counter": 5,
+          "operators": [
+            [
+              "what",
+              1
+            ],
+            [
+              "is",
+              0
+            ],
+            [
+              "type",
+              1
+            ],
+            [
+              "propertyOf",
+              0
+            ],
+            [
+              "pikachu",
+              1
+            ]
+          ]
+        },
+        {
+          "counter": 6,
+          "operators": [
+            [
+              "what",
+              1
+            ],
+            [
+              "is",
+              0
+            ],
+            [
+              "type",
+              1
+            ],
+            [
+              "propertyOf",
+              1
+            ]
+          ]
+        },
+        {
+          "counter": 7,
+          "operators": [
+            [
+              "what",
+              1
+            ],
+            [
+              "is",
+              0
+            ],
+            [
+              "type",
+              1
+            ]
+          ]
+        },
+        {
+          "counter": 8,
+          "operators": [
+            [
+              "is",
+              1
+            ]
+          ]
+        },
+        {
+          "counter": 9,
+          "operators": [
+            [
+              "is",
+              2
+            ]
+          ]
+        }
+      ]
     ]
   },
   {
@@ -1978,6 +2265,7 @@
     },
     "contexts": [
       {
+        "context_index": 1,
         "dead": true,
         "evalue": {
           "default": true,
@@ -2034,6 +2322,7 @@
         "number": "one",
         "one": {
           "dead": true,
+          "default": true,
           "level": 1,
           "marker": "type",
           "modifiers": [
@@ -2051,7 +2340,6 @@
           "types": [
             "type"
           ],
-          "value": "type",
           "what": {
             "default": true,
             "level": 0,
@@ -2195,30 +2483,45 @@
     },
     "objects": {
       "nameToUUID": {
+        "articles": "articles2",
+        "asking": "asking2",
         "concept": "concept2",
+        "conjunction": "conjunction2",
         "dialogues": "dialogues2",
+        "evaluate": "evaluate2",
         "gdefaults": "gdefaults2",
         "hierarchy": "hierarchy2",
         "meta": "meta2",
+        "negation": "negation2",
         "pokemon": "pokemon1",
         "pos": "pos2",
         "properties": "properties2",
         "punctuation": "punctuation2",
         "sdefaults": "sdefaults2",
-        "stm": "stm2"
+        "stm": "stm2",
+        "tokenize": "tokenize2"
       },
       "namespaced": {
+        "articles2": {
+        },
+        "asking2": {
+        },
         "concept2": {
           "defaultTypesForHierarchy": {
           },
           "valueToWords": [
           ]
         },
+        "conjunction2": {
+        },
         "dialogues2": {
+          "idSuffix": "",
           "mentioned": [
           ],
           "variables": {
           }
+        },
+        "evaluate2": {
         },
         "gdefaults2": {
         },
@@ -2226,15 +2529,22 @@
         },
         "meta2": {
         },
+        "negation2": {
+        },
         "pokemon1": {
         },
         "pos2": {
         },
         "properties2": {
           "children": {
-            "articlePOS": [
+            "adjective": [
+              "stm_before"
+            ],
+            "article": [
               "a",
-              "the"
+              "the",
+              "each",
+              "every"
             ],
             "canBeDoQuestion": [
               "have"
@@ -2255,11 +2565,7 @@
             "ifAble": [
               "orAble"
             ],
-            "notAble": [
-              "unknown"
-            ],
             "object": [
-              "unknown",
               "what",
               "whose"
             ],
@@ -2276,7 +2582,9 @@
               "earth_type"
             ],
             "preposition": [
-              "between"
+              "between",
+              "propertyOf",
+              "to"
             ],
             "pronoun": [
               "it",
@@ -2286,27 +2594,32 @@
               "questionMark"
             ],
             "queryable": [
+              "xfx",
               "hierarchyAble",
               "readonly",
               "property",
               "object",
-              "xfx",
               "concept",
+              "doubleQuote",
+              "theAble",
               "unknown",
               "it",
               "what",
               "whatAble",
+              "negatable",
               "this",
-              "thisitthat",
-              "reason"
+              "reason",
+              "distributable",
+              "thisitthat"
             ],
             "theAble": [
               "property",
               "object",
               "concept",
               "unknown",
-              "noun",
-              "reason"
+              "reason",
+              "memorable",
+              "noun"
             ],
             "thisitthat": [
               "it",
@@ -2316,57 +2629,67 @@
             "toAble": [
               "it"
             ],
-            "type": [
+            "undefined": [
               "pokemon_type"
             ],
-            "unknown": [
-              "property"
-            ],
-            "verby": [
+            "verb": [
               "modifies",
-              "is"
+              "is",
+              "remember",
+              "evaluate"
             ]
           },
           "concepts": [
             "properties",
             "unknown",
             "hierarchyAble",
-            "object",
             "what",
-            "queryable",
-            "readonly",
-            "property",
+            "object",
             "xfx",
-            "theAble",
-            "whose",
+            "queryable",
+            "between",
+            "preposition",
+            "readonly",
             "have",
             "canBeDoQuestion",
             "canBeQuestion",
-            "between",
-            "preposition",
+            "property",
+            "theAble",
+            "propertyOf",
+            "whose",
             "concept",
             "modifies",
-            "verby",
+            "verb",
+            "doubleQuote",
             "it",
             "pronoun",
             "this",
             "questionMark",
             "punctuation",
             "a",
-            "articlePOS",
+            "article",
             "the",
-            "notAble",
             "whatAble",
+            "negatable",
             "is",
             "toAble",
-            "noun",
-            "thisitthat",
+            "to",
             "reason",
-            "that",
+            "memorable",
+            "remember",
+            "stm_before",
+            "adjective",
             "orAble",
             "ifAble",
+            "evaluate",
+            "each",
+            "every",
+            "distributable",
+            "noun",
+            "thisitthat",
+            "that",
             "pokemon_type",
-            "type",
+            null,
             "pikachu",
             "pokemon",
             "squirtle",
@@ -2380,7 +2703,7 @@
           ],
           "parents": {
             "a": [
-              "articlePOS"
+              "article"
             ],
             "between": [
               "preposition"
@@ -2392,11 +2715,26 @@
               "theAble",
               "queryable"
             ],
+            "distributable": [
+              "queryable"
+            ],
+            "doubleQuote": [
+              "queryable"
+            ],
+            "each": [
+              "article"
+            ],
             "earth_type": [
               "pokemon_type"
             ],
             "electric_type": [
               "pokemon_type"
+            ],
+            "evaluate": [
+              "verb"
+            ],
+            "every": [
+              "article"
             ],
             "fire_type": [
               "pokemon_type"
@@ -2410,7 +2748,7 @@
             ],
             "is": [
               "canBeQuestion",
-              "verby"
+              "verb"
             ],
             "it": [
               "pronoun",
@@ -2418,8 +2756,14 @@
               "toAble",
               "thisitthat"
             ],
+            "memorable": [
+              "theAble"
+            ],
             "modifies": [
-              "verby"
+              "verb"
+            ],
+            "negatable": [
+              "queryable"
             ],
             "noun": [
               "theAble"
@@ -2439,12 +2783,14 @@
               "electric_type"
             ],
             "pokemon_type": [
-              "type"
+              null
             ],
             "property": [
               "queryable",
-              "theAble",
-              "unknown"
+              "theAble"
+            ],
+            "propertyOf": [
+              "preposition"
             ],
             "questionMark": [
               "punctuation"
@@ -2456,14 +2802,23 @@
               "theAble",
               "queryable"
             ],
+            "remember": [
+              "verb"
+            ],
             "squirtle": [
               "pokemon"
+            ],
+            "stm_before": [
+              "adjective"
             ],
             "that": [
               "thisitthat"
             ],
             "the": [
-              "articlePOS"
+              "article"
+            ],
+            "theAble": [
+              "queryable"
             ],
             "this": [
               "pronoun",
@@ -2473,10 +2828,11 @@
             "thisitthat": [
               "queryable"
             ],
+            "to": [
+              "preposition"
+            ],
             "unknown": [
               "hierarchyAble",
-              "object",
-              "notAble",
               "theAble",
               "queryable"
             ],
@@ -2508,7 +2864,9 @@
             "root": {
               "a": {
               },
-              "articlePOS": {
+              "adjective": {
+              },
+              "article": {
               },
               "between": {
               },
@@ -2520,9 +2878,19 @@
               },
               "concept": {
               },
+              "distributable": {
+              },
+              "doubleQuote": {
+              },
+              "each": {
+              },
               "earth_type": {
               },
               "electric_type": {
+              },
+              "evaluate": {
+              },
+              "every": {
               },
               "fire_type": {
               },
@@ -2536,9 +2904,11 @@
               },
               "it": {
               },
+              "memorable": {
+              },
               "modifies": {
               },
-              "notAble": {
+              "negatable": {
               },
               "noun": {
               },
@@ -2560,6 +2930,8 @@
               },
               "property": {
               },
+              "propertyOf": {
+              },
               "punctuation": {
               },
               "queryable": {
@@ -2570,7 +2942,11 @@
               },
               "reason": {
               },
+              "remember": {
+              },
               "squirtle": {
+              },
+              "stm_before": {
               },
               "that": {
               },
@@ -2582,13 +2958,15 @@
               },
               "thisitthat": {
               },
+              "to": {
+              },
               "toAble": {
               },
-              "type": {
+              "undefined": {
               },
               "unknown": {
               },
-              "verby": {
+              "verb": {
               },
               "water_type": {
               },
@@ -2620,11 +2998,14 @@
           ],
           "variables": {
           }
+        },
+        "tokenize2": {
         }
       },
       "processed": [
         {
           "context": {
+            "context_index": 1,
             "dead": true,
             "evalue": {
               "default": true,
@@ -2681,6 +3062,7 @@
             "number": "one",
             "one": {
               "dead": true,
+              "default": true,
               "level": 1,
               "marker": "type",
               "modifiers": [
@@ -2698,7 +3080,6 @@
               "types": [
                 "type"
               ],
-              "value": "type",
               "what": {
                 "default": true,
                 "level": 0,
@@ -2752,6 +3133,7 @@
         },
         {
           "context": {
+            "context_index": 1,
             "dead": true,
             "level": 2,
             "marker": "is",
@@ -2787,6 +3169,7 @@
               "atomic": true,
               "concept": true,
               "dead": true,
+              "default": true,
               "determiner": {
                 "default": true,
                 "level": 0,
@@ -2798,11 +3181,13 @@
                 "text": "a",
                 "word": "a"
               },
+              "instance": true,
               "level": 1,
               "marker": "fire_type",
               "modifier_fire": {
                 "level": 0,
                 "marker": "fire",
+                "number": "one",
                 "range": {
                   "end": 19,
                   "start": 16
@@ -2846,6 +3231,7 @@
         },
         {
           "context": {
+            "context_index": 1,
             "dead": true,
             "level": 2,
             "marker": "is",
@@ -2880,6 +3266,7 @@
               "atomic": true,
               "concept": true,
               "dead": true,
+              "default": true,
               "determiner": {
                 "default": true,
                 "level": 0,
@@ -2891,11 +3278,13 @@
                 "text": "an",
                 "word": "an"
               },
+              "instance": true,
               "level": 1,
               "marker": "electric_type",
               "modifier_electric": {
                 "level": 0,
                 "marker": "electric",
+                "number": "one",
                 "range": {
                   "end": 21,
                   "start": 14
@@ -2939,6 +3328,7 @@
         },
         {
           "context": {
+            "context_index": 1,
             "dead": true,
             "level": 2,
             "marker": "is",
@@ -2946,11 +3336,13 @@
             "one": {
               "atomic": true,
               "dead": true,
+              "default": true,
               "level": 1,
               "marker": "earth_type",
               "modifier_earth": {
                 "level": 0,
                 "marker": "earth",
+                "number": "one",
                 "range": {
                   "end": 4,
                   "start": 0
@@ -2992,6 +3384,7 @@
               "atomic": true,
               "concept": true,
               "dead": true,
+              "default": true,
               "determiner": {
                 "default": true,
                 "level": 0,
@@ -3003,11 +3396,13 @@
                 "text": "a",
                 "word": "a"
               },
+              "instance": true,
               "level": 1,
               "marker": "pokemon_type",
               "modifier_pokemon": {
                 "level": 0,
                 "marker": "pokemon",
+                "number": "one",
                 "range": {
                   "end": 22,
                   "start": 16
@@ -3051,6 +3446,7 @@
         },
         {
           "context": {
+            "context_index": 1,
             "dead": true,
             "level": 2,
             "marker": "is",
@@ -3058,11 +3454,13 @@
             "one": {
               "atomic": true,
               "dead": true,
+              "default": true,
               "level": 1,
               "marker": "electric_type",
               "modifier_electric": {
                 "level": 0,
                 "marker": "electric",
+                "number": "one",
                 "range": {
                   "end": 7,
                   "start": 0
@@ -3104,6 +3502,7 @@
               "atomic": true,
               "concept": true,
               "dead": true,
+              "default": true,
               "determiner": {
                 "default": true,
                 "level": 0,
@@ -3115,11 +3514,13 @@
                 "text": "a",
                 "word": "a"
               },
+              "instance": true,
               "level": 1,
               "marker": "pokemon_type",
               "modifier_pokemon": {
                 "level": 0,
                 "marker": "pokemon",
+                "number": "one",
                 "range": {
                   "end": 25,
                   "start": 19
@@ -3163,6 +3564,7 @@
         },
         {
           "context": {
+            "context_index": 1,
             "dead": true,
             "level": 2,
             "marker": "is",
@@ -3170,11 +3572,13 @@
             "one": {
               "atomic": true,
               "dead": true,
+              "default": true,
               "level": 1,
               "marker": "water_type",
               "modifier_water": {
                 "level": 0,
                 "marker": "water",
+                "number": "one",
                 "range": {
                   "end": 4,
                   "start": 0
@@ -3216,6 +3620,7 @@
               "atomic": true,
               "concept": true,
               "dead": true,
+              "default": true,
               "determiner": {
                 "default": true,
                 "level": 0,
@@ -3227,11 +3632,13 @@
                 "text": "a",
                 "word": "a"
               },
+              "instance": true,
               "level": 1,
               "marker": "pokemon_type",
               "modifier_pokemon": {
                 "level": 0,
                 "marker": "pokemon",
+                "number": "one",
                 "range": {
                   "end": 22,
                   "start": 16
@@ -3284,24 +3691,112 @@
     "query": "what type is pikachu",
     "responses": [
       "pikachu is electric type"
+    ],
+    "summaries": [
+      [
+        {
+          "counter": 1,
+          "operators": [
+            [
+              "what",
+              0
+            ],
+            [
+              "type",
+              0
+            ],
+            [
+              "is",
+              0
+            ],
+            [
+              "pikachu",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 2,
+          "operators": [
+            [
+              "what",
+              0
+            ],
+            [
+              "type",
+              0
+            ],
+            [
+              "is",
+              0
+            ],
+            [
+              "pikachu",
+              1
+            ]
+          ]
+        },
+        {
+          "counter": 3,
+          "operators": [
+            [
+              "what",
+              0
+            ],
+            [
+              "type",
+              1
+            ],
+            [
+              "is",
+              0
+            ],
+            [
+              "pikachu",
+              1
+            ]
+          ]
+        },
+        {
+          "counter": 4,
+          "operators": [
+            [
+              "type",
+              1
+            ],
+            [
+              "is",
+              0
+            ],
+            [
+              "pikachu",
+              1
+            ]
+          ]
+        },
+        {
+          "counter": 5,
+          "operators": [
+            [
+              "is",
+              1
+            ]
+          ]
+        },
+        {
+          "counter": 6,
+          "operators": [
+            [
+              "is",
+              2
+            ]
+          ]
+        }
+      ]
     ]
   },
   {
     "associations": [
-      [
-        [
-          "electric",
-          0
-        ],
-        [
-          "is",
-          0
-        ],
-        [
-          "type",
-          0
-        ]
-      ],
       [
         [
           "electric",
@@ -3335,6 +3830,7 @@
     },
     "contexts": [
       {
+        "context_index": 1,
         "dead": true,
         "evalue": {
           "default": true,
@@ -3346,11 +3842,13 @@
           "one": {
             "atomic": true,
             "dead": true,
+            "default": true,
             "level": 1,
             "marker": "electric_type",
             "modifier_electric": {
               "level": 0,
               "marker": "electric",
+              "number": "one",
               "range": {
                 "end": 14,
                 "start": 7
@@ -3365,7 +3863,6 @@
             "modifiers": [
               "modifier_electric"
             ],
-            "number": "one",
             "range": {
               "end": 19,
               "start": 7
@@ -3381,6 +3878,7 @@
           "two": {
             "atomic": true,
             "dead": true,
+            "default": true,
             "evalue": {
               "marker": "list",
               "value": [
@@ -3400,6 +3898,7 @@
             "modifier_electric": {
               "level": 0,
               "marker": "electric",
+              "number": "one",
               "range": {
                 "end": 14,
                 "start": 7
@@ -3414,7 +3913,6 @@
             "modifiers": [
               "modifier_electric"
             ],
-            "number": "one",
             "range": {
               "end": 19,
               "start": 7
@@ -3473,11 +3971,13 @@
         "two": {
           "atomic": true,
           "dead": true,
+          "default": true,
           "level": 1,
           "marker": "electric_type",
           "modifier_electric": {
             "level": 0,
             "marker": "electric",
+            "number": "one",
             "range": {
               "end": 14,
               "start": 7
@@ -3492,7 +3992,6 @@
           "modifiers": [
             "modifier_electric"
           ],
-          "number": "one",
           "range": {
             "end": 19,
             "start": 7
@@ -3589,30 +4088,45 @@
     },
     "objects": {
       "nameToUUID": {
+        "articles": "articles2",
+        "asking": "asking2",
         "concept": "concept2",
+        "conjunction": "conjunction2",
         "dialogues": "dialogues2",
+        "evaluate": "evaluate2",
         "gdefaults": "gdefaults2",
         "hierarchy": "hierarchy2",
         "meta": "meta2",
+        "negation": "negation2",
         "pokemon": "pokemon1",
         "pos": "pos2",
         "properties": "properties2",
         "punctuation": "punctuation2",
         "sdefaults": "sdefaults2",
-        "stm": "stm2"
+        "stm": "stm2",
+        "tokenize": "tokenize2"
       },
       "namespaced": {
+        "articles2": {
+        },
+        "asking2": {
+        },
         "concept2": {
           "defaultTypesForHierarchy": {
           },
           "valueToWords": [
           ]
         },
+        "conjunction2": {
+        },
         "dialogues2": {
+          "idSuffix": "",
           "mentioned": [
           ],
           "variables": {
           }
+        },
+        "evaluate2": {
         },
         "gdefaults2": {
         },
@@ -3620,15 +4134,22 @@
         },
         "meta2": {
         },
+        "negation2": {
+        },
         "pokemon1": {
         },
         "pos2": {
         },
         "properties2": {
           "children": {
-            "articlePOS": [
+            "adjective": [
+              "stm_before"
+            ],
+            "article": [
               "a",
-              "the"
+              "the",
+              "each",
+              "every"
             ],
             "canBeDoQuestion": [
               "have"
@@ -3649,11 +4170,7 @@
             "ifAble": [
               "orAble"
             ],
-            "notAble": [
-              "unknown"
-            ],
             "object": [
-              "unknown",
               "what",
               "whose"
             ],
@@ -3670,7 +4187,9 @@
               "earth_type"
             ],
             "preposition": [
-              "between"
+              "between",
+              "propertyOf",
+              "to"
             ],
             "pronoun": [
               "it",
@@ -3680,27 +4199,32 @@
               "questionMark"
             ],
             "queryable": [
+              "xfx",
               "hierarchyAble",
               "readonly",
               "property",
               "object",
-              "xfx",
               "concept",
+              "doubleQuote",
+              "theAble",
               "unknown",
               "it",
               "what",
               "whatAble",
+              "negatable",
               "this",
-              "thisitthat",
-              "reason"
+              "reason",
+              "distributable",
+              "thisitthat"
             ],
             "theAble": [
               "property",
               "object",
               "concept",
               "unknown",
-              "noun",
-              "reason"
+              "reason",
+              "memorable",
+              "noun"
             ],
             "thisitthat": [
               "it",
@@ -3710,57 +4234,67 @@
             "toAble": [
               "it"
             ],
-            "type": [
+            "undefined": [
               "pokemon_type"
             ],
-            "unknown": [
-              "property"
-            ],
-            "verby": [
+            "verb": [
               "modifies",
-              "is"
+              "is",
+              "remember",
+              "evaluate"
             ]
           },
           "concepts": [
             "properties",
             "unknown",
             "hierarchyAble",
-            "object",
             "what",
-            "queryable",
-            "readonly",
-            "property",
+            "object",
             "xfx",
-            "theAble",
-            "whose",
+            "queryable",
+            "between",
+            "preposition",
+            "readonly",
             "have",
             "canBeDoQuestion",
             "canBeQuestion",
-            "between",
-            "preposition",
+            "property",
+            "theAble",
+            "propertyOf",
+            "whose",
             "concept",
             "modifies",
-            "verby",
+            "verb",
+            "doubleQuote",
             "it",
             "pronoun",
             "this",
             "questionMark",
             "punctuation",
             "a",
-            "articlePOS",
+            "article",
             "the",
-            "notAble",
             "whatAble",
+            "negatable",
             "is",
             "toAble",
-            "noun",
-            "thisitthat",
+            "to",
             "reason",
-            "that",
+            "memorable",
+            "remember",
+            "stm_before",
+            "adjective",
             "orAble",
             "ifAble",
+            "evaluate",
+            "each",
+            "every",
+            "distributable",
+            "noun",
+            "thisitthat",
+            "that",
             "pokemon_type",
-            "type",
+            null,
             "pikachu",
             "pokemon",
             "squirtle",
@@ -3774,7 +4308,7 @@
           ],
           "parents": {
             "a": [
-              "articlePOS"
+              "article"
             ],
             "between": [
               "preposition"
@@ -3786,11 +4320,26 @@
               "theAble",
               "queryable"
             ],
+            "distributable": [
+              "queryable"
+            ],
+            "doubleQuote": [
+              "queryable"
+            ],
+            "each": [
+              "article"
+            ],
             "earth_type": [
               "pokemon_type"
             ],
             "electric_type": [
               "pokemon_type"
+            ],
+            "evaluate": [
+              "verb"
+            ],
+            "every": [
+              "article"
             ],
             "fire_type": [
               "pokemon_type"
@@ -3804,7 +4353,7 @@
             ],
             "is": [
               "canBeQuestion",
-              "verby"
+              "verb"
             ],
             "it": [
               "pronoun",
@@ -3812,8 +4361,14 @@
               "toAble",
               "thisitthat"
             ],
+            "memorable": [
+              "theAble"
+            ],
             "modifies": [
-              "verby"
+              "verb"
+            ],
+            "negatable": [
+              "queryable"
             ],
             "noun": [
               "theAble"
@@ -3833,12 +4388,14 @@
               "electric_type"
             ],
             "pokemon_type": [
-              "type"
+              null
             ],
             "property": [
               "queryable",
-              "theAble",
-              "unknown"
+              "theAble"
+            ],
+            "propertyOf": [
+              "preposition"
             ],
             "questionMark": [
               "punctuation"
@@ -3850,14 +4407,23 @@
               "theAble",
               "queryable"
             ],
+            "remember": [
+              "verb"
+            ],
             "squirtle": [
               "pokemon"
+            ],
+            "stm_before": [
+              "adjective"
             ],
             "that": [
               "thisitthat"
             ],
             "the": [
-              "articlePOS"
+              "article"
+            ],
+            "theAble": [
+              "queryable"
             ],
             "this": [
               "pronoun",
@@ -3867,10 +4433,11 @@
             "thisitthat": [
               "queryable"
             ],
+            "to": [
+              "preposition"
+            ],
             "unknown": [
               "hierarchyAble",
-              "object",
-              "notAble",
               "theAble",
               "queryable"
             ],
@@ -3902,7 +4469,9 @@
             "root": {
               "a": {
               },
-              "articlePOS": {
+              "adjective": {
+              },
+              "article": {
               },
               "between": {
               },
@@ -3914,9 +4483,19 @@
               },
               "concept": {
               },
+              "distributable": {
+              },
+              "doubleQuote": {
+              },
+              "each": {
+              },
               "earth_type": {
               },
               "electric_type": {
+              },
+              "evaluate": {
+              },
+              "every": {
               },
               "fire_type": {
               },
@@ -3930,9 +4509,11 @@
               },
               "it": {
               },
+              "memorable": {
+              },
               "modifies": {
               },
-              "notAble": {
+              "negatable": {
               },
               "noun": {
               },
@@ -3954,6 +4535,8 @@
               },
               "property": {
               },
+              "propertyOf": {
+              },
               "punctuation": {
               },
               "queryable": {
@@ -3964,7 +4547,11 @@
               },
               "reason": {
               },
+              "remember": {
+              },
               "squirtle": {
+              },
+              "stm_before": {
               },
               "that": {
               },
@@ -3976,13 +4563,15 @@
               },
               "thisitthat": {
               },
+              "to": {
+              },
               "toAble": {
               },
-              "type": {
+              "undefined": {
               },
               "unknown": {
               },
-              "verby": {
+              "verb": {
               },
               "water_type": {
               },
@@ -4014,11 +4603,14 @@
           ],
           "variables": {
           }
+        },
+        "tokenize2": {
         }
       },
       "processed": [
         {
           "context": {
+            "context_index": 1,
             "dead": true,
             "evalue": {
               "default": true,
@@ -4030,11 +4622,13 @@
               "one": {
                 "atomic": true,
                 "dead": true,
+                "default": true,
                 "level": 1,
                 "marker": "electric_type",
                 "modifier_electric": {
                   "level": 0,
                   "marker": "electric",
+                  "number": "one",
                   "range": {
                     "end": 14,
                     "start": 7
@@ -4049,7 +4643,6 @@
                 "modifiers": [
                   "modifier_electric"
                 ],
-                "number": "one",
                 "range": {
                   "end": 19,
                   "start": 7
@@ -4065,6 +4658,7 @@
               "two": {
                 "atomic": true,
                 "dead": true,
+                "default": true,
                 "evalue": {
                   "marker": "list",
                   "value": [
@@ -4084,6 +4678,7 @@
                 "modifier_electric": {
                   "level": 0,
                   "marker": "electric",
+                  "number": "one",
                   "range": {
                     "end": 14,
                     "start": 7
@@ -4098,7 +4693,6 @@
                 "modifiers": [
                   "modifier_electric"
                 ],
-                "number": "one",
                 "range": {
                   "end": 19,
                   "start": 7
@@ -4157,11 +4751,13 @@
             "two": {
               "atomic": true,
               "dead": true,
+              "default": true,
               "level": 1,
               "marker": "electric_type",
               "modifier_electric": {
                 "level": 0,
                 "marker": "electric",
+                "number": "one",
                 "range": {
                   "end": 14,
                   "start": 7
@@ -4176,7 +4772,6 @@
               "modifiers": [
                 "modifier_electric"
               ],
-              "number": "one",
               "range": {
                 "end": 19,
                 "start": 7
@@ -4200,6 +4795,7 @@
         },
         {
           "context": {
+            "context_index": 1,
             "dead": true,
             "level": 2,
             "marker": "is",
@@ -4235,6 +4831,7 @@
               "atomic": true,
               "concept": true,
               "dead": true,
+              "default": true,
               "determiner": {
                 "default": true,
                 "level": 0,
@@ -4246,11 +4843,13 @@
                 "text": "a",
                 "word": "a"
               },
+              "instance": true,
               "level": 1,
               "marker": "fire_type",
               "modifier_fire": {
                 "level": 0,
                 "marker": "fire",
+                "number": "one",
                 "range": {
                   "end": 19,
                   "start": 16
@@ -4294,6 +4893,7 @@
         },
         {
           "context": {
+            "context_index": 1,
             "dead": true,
             "level": 2,
             "marker": "is",
@@ -4328,6 +4928,7 @@
               "atomic": true,
               "concept": true,
               "dead": true,
+              "default": true,
               "determiner": {
                 "default": true,
                 "level": 0,
@@ -4339,11 +4940,13 @@
                 "text": "an",
                 "word": "an"
               },
+              "instance": true,
               "level": 1,
               "marker": "electric_type",
               "modifier_electric": {
                 "level": 0,
                 "marker": "electric",
+                "number": "one",
                 "range": {
                   "end": 21,
                   "start": 14
@@ -4387,6 +4990,7 @@
         },
         {
           "context": {
+            "context_index": 1,
             "dead": true,
             "level": 2,
             "marker": "is",
@@ -4394,11 +4998,13 @@
             "one": {
               "atomic": true,
               "dead": true,
+              "default": true,
               "level": 1,
               "marker": "earth_type",
               "modifier_earth": {
                 "level": 0,
                 "marker": "earth",
+                "number": "one",
                 "range": {
                   "end": 4,
                   "start": 0
@@ -4440,6 +5046,7 @@
               "atomic": true,
               "concept": true,
               "dead": true,
+              "default": true,
               "determiner": {
                 "default": true,
                 "level": 0,
@@ -4451,11 +5058,13 @@
                 "text": "a",
                 "word": "a"
               },
+              "instance": true,
               "level": 1,
               "marker": "pokemon_type",
               "modifier_pokemon": {
                 "level": 0,
                 "marker": "pokemon",
+                "number": "one",
                 "range": {
                   "end": 22,
                   "start": 16
@@ -4499,6 +5108,7 @@
         },
         {
           "context": {
+            "context_index": 1,
             "dead": true,
             "level": 2,
             "marker": "is",
@@ -4506,11 +5116,13 @@
             "one": {
               "atomic": true,
               "dead": true,
+              "default": true,
               "level": 1,
               "marker": "electric_type",
               "modifier_electric": {
                 "level": 0,
                 "marker": "electric",
+                "number": "one",
                 "range": {
                   "end": 7,
                   "start": 0
@@ -4552,6 +5164,7 @@
               "atomic": true,
               "concept": true,
               "dead": true,
+              "default": true,
               "determiner": {
                 "default": true,
                 "level": 0,
@@ -4563,11 +5176,13 @@
                 "text": "a",
                 "word": "a"
               },
+              "instance": true,
               "level": 1,
               "marker": "pokemon_type",
               "modifier_pokemon": {
                 "level": 0,
                 "marker": "pokemon",
+                "number": "one",
                 "range": {
                   "end": 25,
                   "start": 19
@@ -4611,6 +5226,7 @@
         },
         {
           "context": {
+            "context_index": 1,
             "dead": true,
             "level": 2,
             "marker": "is",
@@ -4618,11 +5234,13 @@
             "one": {
               "atomic": true,
               "dead": true,
+              "default": true,
               "level": 1,
               "marker": "water_type",
               "modifier_water": {
                 "level": 0,
                 "marker": "water",
+                "number": "one",
                 "range": {
                   "end": 4,
                   "start": 0
@@ -4664,6 +5282,7 @@
               "atomic": true,
               "concept": true,
               "dead": true,
+              "default": true,
               "determiner": {
                 "default": true,
                 "level": 0,
@@ -4675,11 +5294,13 @@
                 "text": "a",
                 "word": "a"
               },
+              "instance": true,
               "level": 1,
               "marker": "pokemon_type",
               "modifier_pokemon": {
                 "level": 0,
                 "marker": "pokemon",
+                "number": "one",
                 "range": {
                   "end": 22,
                   "start": 16
@@ -4732,6 +5353,83 @@
     "query": "who is electric type",
     "responses": [
       "pikachu is electric type"
+    ],
+    "summaries": [
+      [
+        {
+          "counter": 1,
+          "operators": [
+            [
+              "what",
+              0
+            ],
+            [
+              "is",
+              0
+            ],
+            [
+              "electric",
+              0
+            ],
+            [
+              "type",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 2,
+          "operators": [
+            [
+              "what",
+              0
+            ],
+            [
+              "is",
+              0
+            ],
+            [
+              "electric_type",
+              1
+            ]
+          ]
+        },
+        {
+          "counter": 3,
+          "operators": [
+            [
+              "what",
+              1
+            ],
+            [
+              "is",
+              0
+            ],
+            [
+              "electric_type",
+              1
+            ]
+          ]
+        },
+        {
+          "counter": 4,
+          "operators": [
+            [
+              "is",
+              1
+            ]
+          ]
+        },
+        {
+          "counter": 5,
+          "operators": [
+            [
+              "is",
+              2
+            ]
+          ]
+        }
+      ]
     ]
   },
   {
@@ -4781,26 +5479,13 @@
           "what",
           0
         ]
-      ],
-      [
-        [
-          "pokemon",
-          0
-        ],
-        [
-          "the",
-          0
-        ],
-        [
-          "what",
-          0
-        ]
       ]
     ],
     "config": {
     },
     "contexts": [
       {
+        "context_index": 1,
         "dead": true,
         "evalue": {
           "default": true,
@@ -4814,6 +5499,7 @@
             "atomic": true,
             "concept": true,
             "dead": true,
+            "default": true,
             "determiner": "the",
             "focusableForPhrase": true,
             "level": 1,
@@ -4821,6 +5507,7 @@
             "modifier_pokemon": {
               "level": 0,
               "marker": "pokemon",
+              "number": "one",
               "range": {
                 "end": 19,
                 "start": 13
@@ -4836,7 +5523,6 @@
               "determiner",
               "modifier_pokemon"
             ],
-            "number": "many",
             "pullFromContext": true,
             "range": {
               "end": 25,
@@ -4855,6 +5541,7 @@
             "atomic": true,
             "concept": true,
             "dead": true,
+            "default": true,
             "determiner": "the",
             "evalue": {
               "marker": "list",
@@ -4938,6 +5625,7 @@
             "modifier_pokemon": {
               "level": 0,
               "marker": "pokemon",
+              "number": "one",
               "range": {
                 "end": 19,
                 "start": 13
@@ -4953,7 +5641,6 @@
               "determiner",
               "modifier_pokemon"
             ],
-            "number": "many",
             "pullFromContext": true,
             "range": {
               "end": 25,
@@ -5015,6 +5702,7 @@
           "atomic": true,
           "concept": true,
           "dead": true,
+          "default": true,
           "determiner": "the",
           "focusableForPhrase": true,
           "level": 1,
@@ -5022,6 +5710,7 @@
           "modifier_pokemon": {
             "level": 0,
             "marker": "pokemon",
+            "number": "one",
             "range": {
               "end": 19,
               "start": 13
@@ -5037,7 +5726,6 @@
             "determiner",
             "modifier_pokemon"
           ],
-          "number": "many",
           "pullFromContext": true,
           "range": {
             "end": 25,
@@ -5055,7 +5743,6 @@
         "word": "are"
       }
     ],
-    "developerTest": false,
     "generatedParenthesized": [
       "(((the (pokemon) (types)) are ((((fire) (type)), ((water) (type)), ((electric) (type)) and ((earth) (type))))))"
     ],
@@ -5162,30 +5849,45 @@
     },
     "objects": {
       "nameToUUID": {
+        "articles": "articles2",
+        "asking": "asking2",
         "concept": "concept2",
+        "conjunction": "conjunction2",
         "dialogues": "dialogues2",
+        "evaluate": "evaluate2",
         "gdefaults": "gdefaults2",
         "hierarchy": "hierarchy2",
         "meta": "meta2",
+        "negation": "negation2",
         "pokemon": "pokemon1",
         "pos": "pos2",
         "properties": "properties2",
         "punctuation": "punctuation2",
         "sdefaults": "sdefaults2",
-        "stm": "stm2"
+        "stm": "stm2",
+        "tokenize": "tokenize2"
       },
       "namespaced": {
+        "articles2": {
+        },
+        "asking2": {
+        },
         "concept2": {
           "defaultTypesForHierarchy": {
           },
           "valueToWords": [
           ]
         },
+        "conjunction2": {
+        },
         "dialogues2": {
+          "idSuffix": "",
           "mentioned": [
           ],
           "variables": {
           }
+        },
+        "evaluate2": {
         },
         "gdefaults2": {
         },
@@ -5193,15 +5895,22 @@
         },
         "meta2": {
         },
+        "negation2": {
+        },
         "pokemon1": {
         },
         "pos2": {
         },
         "properties2": {
           "children": {
-            "articlePOS": [
+            "adjective": [
+              "stm_before"
+            ],
+            "article": [
               "a",
-              "the"
+              "the",
+              "each",
+              "every"
             ],
             "canBeDoQuestion": [
               "have"
@@ -5222,11 +5931,7 @@
             "ifAble": [
               "orAble"
             ],
-            "notAble": [
-              "unknown"
-            ],
             "object": [
-              "unknown",
               "what",
               "whose"
             ],
@@ -5243,7 +5948,9 @@
               "earth_type"
             ],
             "preposition": [
-              "between"
+              "between",
+              "propertyOf",
+              "to"
             ],
             "pronoun": [
               "it",
@@ -5253,27 +5960,32 @@
               "questionMark"
             ],
             "queryable": [
+              "xfx",
               "hierarchyAble",
               "readonly",
               "property",
               "object",
-              "xfx",
               "concept",
+              "doubleQuote",
+              "theAble",
               "unknown",
               "it",
               "what",
               "whatAble",
+              "negatable",
               "this",
-              "thisitthat",
-              "reason"
+              "reason",
+              "distributable",
+              "thisitthat"
             ],
             "theAble": [
               "property",
               "object",
               "concept",
               "unknown",
-              "noun",
-              "reason"
+              "reason",
+              "memorable",
+              "noun"
             ],
             "thisitthat": [
               "it",
@@ -5283,57 +5995,67 @@
             "toAble": [
               "it"
             ],
-            "type": [
+            "undefined": [
               "pokemon_type"
             ],
-            "unknown": [
-              "property"
-            ],
-            "verby": [
+            "verb": [
               "modifies",
-              "is"
+              "is",
+              "remember",
+              "evaluate"
             ]
           },
           "concepts": [
             "properties",
             "unknown",
             "hierarchyAble",
-            "object",
             "what",
-            "queryable",
-            "readonly",
-            "property",
+            "object",
             "xfx",
-            "theAble",
-            "whose",
+            "queryable",
+            "between",
+            "preposition",
+            "readonly",
             "have",
             "canBeDoQuestion",
             "canBeQuestion",
-            "between",
-            "preposition",
+            "property",
+            "theAble",
+            "propertyOf",
+            "whose",
             "concept",
             "modifies",
-            "verby",
+            "verb",
+            "doubleQuote",
             "it",
             "pronoun",
             "this",
             "questionMark",
             "punctuation",
             "a",
-            "articlePOS",
+            "article",
             "the",
-            "notAble",
             "whatAble",
+            "negatable",
             "is",
             "toAble",
-            "noun",
-            "thisitthat",
+            "to",
             "reason",
-            "that",
+            "memorable",
+            "remember",
+            "stm_before",
+            "adjective",
             "orAble",
             "ifAble",
+            "evaluate",
+            "each",
+            "every",
+            "distributable",
+            "noun",
+            "thisitthat",
+            "that",
             "pokemon_type",
-            "type",
+            null,
             "pikachu",
             "pokemon",
             "squirtle",
@@ -5347,7 +6069,7 @@
           ],
           "parents": {
             "a": [
-              "articlePOS"
+              "article"
             ],
             "between": [
               "preposition"
@@ -5359,11 +6081,26 @@
               "theAble",
               "queryable"
             ],
+            "distributable": [
+              "queryable"
+            ],
+            "doubleQuote": [
+              "queryable"
+            ],
+            "each": [
+              "article"
+            ],
             "earth_type": [
               "pokemon_type"
             ],
             "electric_type": [
               "pokemon_type"
+            ],
+            "evaluate": [
+              "verb"
+            ],
+            "every": [
+              "article"
             ],
             "fire_type": [
               "pokemon_type"
@@ -5377,7 +6114,7 @@
             ],
             "is": [
               "canBeQuestion",
-              "verby"
+              "verb"
             ],
             "it": [
               "pronoun",
@@ -5385,8 +6122,14 @@
               "toAble",
               "thisitthat"
             ],
+            "memorable": [
+              "theAble"
+            ],
             "modifies": [
-              "verby"
+              "verb"
+            ],
+            "negatable": [
+              "queryable"
             ],
             "noun": [
               "theAble"
@@ -5406,12 +6149,14 @@
               "electric_type"
             ],
             "pokemon_type": [
-              "type"
+              null
             ],
             "property": [
               "queryable",
-              "theAble",
-              "unknown"
+              "theAble"
+            ],
+            "propertyOf": [
+              "preposition"
             ],
             "questionMark": [
               "punctuation"
@@ -5423,14 +6168,23 @@
               "theAble",
               "queryable"
             ],
+            "remember": [
+              "verb"
+            ],
             "squirtle": [
               "pokemon"
+            ],
+            "stm_before": [
+              "adjective"
             ],
             "that": [
               "thisitthat"
             ],
             "the": [
-              "articlePOS"
+              "article"
+            ],
+            "theAble": [
+              "queryable"
             ],
             "this": [
               "pronoun",
@@ -5440,10 +6194,11 @@
             "thisitthat": [
               "queryable"
             ],
+            "to": [
+              "preposition"
+            ],
             "unknown": [
               "hierarchyAble",
-              "object",
-              "notAble",
               "theAble",
               "queryable"
             ],
@@ -5475,7 +6230,9 @@
             "root": {
               "a": {
               },
-              "articlePOS": {
+              "adjective": {
+              },
+              "article": {
               },
               "between": {
               },
@@ -5487,9 +6244,19 @@
               },
               "concept": {
               },
+              "distributable": {
+              },
+              "doubleQuote": {
+              },
+              "each": {
+              },
               "earth_type": {
               },
               "electric_type": {
+              },
+              "evaluate": {
+              },
+              "every": {
               },
               "fire_type": {
               },
@@ -5503,9 +6270,11 @@
               },
               "it": {
               },
+              "memorable": {
+              },
               "modifies": {
               },
-              "notAble": {
+              "negatable": {
               },
               "noun": {
               },
@@ -5527,6 +6296,8 @@
               },
               "property": {
               },
+              "propertyOf": {
+              },
               "punctuation": {
               },
               "queryable": {
@@ -5537,7 +6308,11 @@
               },
               "reason": {
               },
+              "remember": {
+              },
               "squirtle": {
+              },
+              "stm_before": {
               },
               "that": {
               },
@@ -5549,13 +6324,15 @@
               },
               "thisitthat": {
               },
+              "to": {
+              },
               "toAble": {
               },
-              "type": {
+              "undefined": {
               },
               "unknown": {
               },
-              "verby": {
+              "verb": {
               },
               "water_type": {
               },
@@ -5587,11 +6364,14 @@
           ],
           "variables": {
           }
+        },
+        "tokenize2": {
         }
       },
       "processed": [
         {
           "context": {
+            "context_index": 1,
             "dead": true,
             "evalue": {
               "default": true,
@@ -5605,6 +6385,7 @@
                 "atomic": true,
                 "concept": true,
                 "dead": true,
+                "default": true,
                 "determiner": "the",
                 "focusableForPhrase": true,
                 "level": 1,
@@ -5612,6 +6393,7 @@
                 "modifier_pokemon": {
                   "level": 0,
                   "marker": "pokemon",
+                  "number": "one",
                   "range": {
                     "end": 19,
                     "start": 13
@@ -5627,7 +6409,6 @@
                   "determiner",
                   "modifier_pokemon"
                 ],
-                "number": "many",
                 "pullFromContext": true,
                 "range": {
                   "end": 25,
@@ -5646,6 +6427,7 @@
                 "atomic": true,
                 "concept": true,
                 "dead": true,
+                "default": true,
                 "determiner": "the",
                 "evalue": {
                   "marker": "list",
@@ -5729,6 +6511,7 @@
                 "modifier_pokemon": {
                   "level": 0,
                   "marker": "pokemon",
+                  "number": "one",
                   "range": {
                     "end": 19,
                     "start": 13
@@ -5744,7 +6527,6 @@
                   "determiner",
                   "modifier_pokemon"
                 ],
-                "number": "many",
                 "pullFromContext": true,
                 "range": {
                   "end": 25,
@@ -5806,6 +6588,7 @@
               "atomic": true,
               "concept": true,
               "dead": true,
+              "default": true,
               "determiner": "the",
               "focusableForPhrase": true,
               "level": 1,
@@ -5813,6 +6596,7 @@
               "modifier_pokemon": {
                 "level": 0,
                 "marker": "pokemon",
+                "number": "one",
                 "range": {
                   "end": 19,
                   "start": 13
@@ -5828,7 +6612,6 @@
                 "determiner",
                 "modifier_pokemon"
               ],
-              "number": "many",
               "pullFromContext": true,
               "range": {
                 "end": 25,
@@ -5854,6 +6637,7 @@
         },
         {
           "context": {
+            "context_index": 1,
             "dead": true,
             "level": 2,
             "marker": "is",
@@ -5889,6 +6673,7 @@
               "atomic": true,
               "concept": true,
               "dead": true,
+              "default": true,
               "determiner": {
                 "default": true,
                 "level": 0,
@@ -5900,11 +6685,13 @@
                 "text": "a",
                 "word": "a"
               },
+              "instance": true,
               "level": 1,
               "marker": "fire_type",
               "modifier_fire": {
                 "level": 0,
                 "marker": "fire",
+                "number": "one",
                 "range": {
                   "end": 19,
                   "start": 16
@@ -5948,6 +6735,7 @@
         },
         {
           "context": {
+            "context_index": 1,
             "dead": true,
             "level": 2,
             "marker": "is",
@@ -5982,6 +6770,7 @@
               "atomic": true,
               "concept": true,
               "dead": true,
+              "default": true,
               "determiner": {
                 "default": true,
                 "level": 0,
@@ -5993,11 +6782,13 @@
                 "text": "an",
                 "word": "an"
               },
+              "instance": true,
               "level": 1,
               "marker": "electric_type",
               "modifier_electric": {
                 "level": 0,
                 "marker": "electric",
+                "number": "one",
                 "range": {
                   "end": 21,
                   "start": 14
@@ -6041,6 +6832,7 @@
         },
         {
           "context": {
+            "context_index": 1,
             "dead": true,
             "level": 2,
             "marker": "is",
@@ -6048,11 +6840,13 @@
             "one": {
               "atomic": true,
               "dead": true,
+              "default": true,
               "level": 1,
               "marker": "earth_type",
               "modifier_earth": {
                 "level": 0,
                 "marker": "earth",
+                "number": "one",
                 "range": {
                   "end": 4,
                   "start": 0
@@ -6094,6 +6888,7 @@
               "atomic": true,
               "concept": true,
               "dead": true,
+              "default": true,
               "determiner": {
                 "default": true,
                 "level": 0,
@@ -6105,11 +6900,13 @@
                 "text": "a",
                 "word": "a"
               },
+              "instance": true,
               "level": 1,
               "marker": "pokemon_type",
               "modifier_pokemon": {
                 "level": 0,
                 "marker": "pokemon",
+                "number": "one",
                 "range": {
                   "end": 22,
                   "start": 16
@@ -6153,6 +6950,7 @@
         },
         {
           "context": {
+            "context_index": 1,
             "dead": true,
             "level": 2,
             "marker": "is",
@@ -6160,11 +6958,13 @@
             "one": {
               "atomic": true,
               "dead": true,
+              "default": true,
               "level": 1,
               "marker": "electric_type",
               "modifier_electric": {
                 "level": 0,
                 "marker": "electric",
+                "number": "one",
                 "range": {
                   "end": 7,
                   "start": 0
@@ -6206,6 +7006,7 @@
               "atomic": true,
               "concept": true,
               "dead": true,
+              "default": true,
               "determiner": {
                 "default": true,
                 "level": 0,
@@ -6217,11 +7018,13 @@
                 "text": "a",
                 "word": "a"
               },
+              "instance": true,
               "level": 1,
               "marker": "pokemon_type",
               "modifier_pokemon": {
                 "level": 0,
                 "marker": "pokemon",
+                "number": "one",
                 "range": {
                   "end": 25,
                   "start": 19
@@ -6265,6 +7068,7 @@
         },
         {
           "context": {
+            "context_index": 1,
             "dead": true,
             "level": 2,
             "marker": "is",
@@ -6272,11 +7076,13 @@
             "one": {
               "atomic": true,
               "dead": true,
+              "default": true,
               "level": 1,
               "marker": "water_type",
               "modifier_water": {
                 "level": 0,
                 "marker": "water",
+                "number": "one",
                 "range": {
                   "end": 4,
                   "start": 0
@@ -6318,6 +7124,7 @@
               "atomic": true,
               "concept": true,
               "dead": true,
+              "default": true,
               "determiner": {
                 "default": true,
                 "level": 0,
@@ -6329,11 +7136,13 @@
                 "text": "a",
                 "word": "a"
               },
+              "instance": true,
               "level": 1,
               "marker": "pokemon_type",
               "modifier_pokemon": {
                 "level": 0,
                 "marker": "pokemon",
+                "number": "one",
                 "range": {
                   "end": 22,
                   "start": 16
@@ -6386,6 +7195,112 @@
     "query": "what are the pokemon types",
     "responses": [
       "the pokemon types are fire type, water type, electric type and earth type"
+    ],
+    "summaries": [
+      [
+        {
+          "counter": 1,
+          "operators": [
+            [
+              "what",
+              0
+            ],
+            [
+              "is",
+              0
+            ],
+            [
+              "the",
+              0
+            ],
+            [
+              "pokemon",
+              0
+            ],
+            [
+              "type",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 2,
+          "operators": [
+            [
+              "what",
+              0
+            ],
+            [
+              "is",
+              0
+            ],
+            [
+              "the",
+              0
+            ],
+            [
+              "pokemon_type",
+              1
+            ]
+          ]
+        },
+        {
+          "counter": 3,
+          "operators": [
+            [
+              "what",
+              1
+            ],
+            [
+              "is",
+              0
+            ],
+            [
+              "the",
+              0
+            ],
+            [
+              "pokemon_type",
+              1
+            ]
+          ]
+        },
+        {
+          "counter": 4,
+          "operators": [
+            [
+              "what",
+              1
+            ],
+            [
+              "is",
+              0
+            ],
+            [
+              "pokemon_type",
+              1
+            ]
+          ]
+        },
+        {
+          "counter": 5,
+          "operators": [
+            [
+              "is",
+              1
+            ]
+          ]
+        },
+        {
+          "counter": 6,
+          "operators": [
+            [
+              "is",
+              2
+            ]
+          ]
+        }
+      ]
     ]
   }
 ]

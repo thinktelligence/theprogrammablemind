@@ -6,6 +6,7 @@
     },
     "contexts": [
       {
+        "context_index": 1,
         "dead": true,
         "level": 1,
         "marker": "red_colors",
@@ -42,9 +43,13 @@
     },
     "objects": {
       "nameToUUID": {
+        "articles": "articles2",
+        "asking": "asking2",
         "colors": "colors1",
         "concept": "concept2",
+        "conjunction": "conjunction2",
         "dialogues": "dialogues2",
+        "evaluate": "evaluate2",
         "gdefaults": "gdefaults2",
         "hierarchy": "hierarchy2",
         "meta": "meta2",
@@ -57,6 +62,10 @@
         "tokenize": "tokenize2"
       },
       "namespaced": {
+        "articles2": {
+        },
+        "asking2": {
+        },
         "colors1": {
         },
         "concept2": {
@@ -65,12 +74,16 @@
           "valueToWords": [
           ]
         },
+        "conjunction2": {
+        },
         "dialogues2": {
           "idSuffix": "",
           "mentioned": [
           ],
           "variables": {
           }
+        },
+        "evaluate2": {
         },
         "gdefaults2": {
         },
@@ -84,9 +97,14 @@
         },
         "properties2": {
           "children": {
-            "articlePOS": [
+            "adjective": [
+              "stm_before"
+            ],
+            "article": [
               "a",
-              "the"
+              "the",
+              "each",
+              "every"
             ],
             "blue_colors": [
               "aqua_colors",
@@ -140,12 +158,12 @@
               "orAble"
             ],
             "object": [
-              "unknown",
               "what",
               "whose"
             ],
             "preposition": [
               "between",
+              "propertyOf",
               "to"
             ],
             "pronoun": [
@@ -162,20 +180,23 @@
               "indigo_colors"
             ],
             "queryable": [
+              "xfx",
               "hierarchyAble",
               "readonly",
               "property",
               "object",
-              "xfx",
               "concept",
               "doubleQuote",
+              "theAble",
               "unknown",
               "it",
               "what",
               "whatAble",
+              "negatable",
               "this",
-              "thisitthat",
-              "reason"
+              "reason",
+              "distributable",
+              "thisitthat"
             ],
             "red_colors": [
               "crimson_colors"
@@ -185,8 +206,9 @@
               "object",
               "concept",
               "unknown",
-              "noun",
-              "reason"
+              "reason",
+              "memorable",
+              "noun"
             ],
             "thisitthat": [
               "it",
@@ -196,12 +218,11 @@
             "toAble": [
               "it"
             ],
-            "unknown": [
-              "property"
-            ],
-            "verby": [
+            "verb": [
               "modifies",
-              "is"
+              "is",
+              "remember",
+              "evaluate"
             ],
             "white_colors": [
               "snow_colors",
@@ -218,22 +239,23 @@
             "properties",
             "unknown",
             "hierarchyAble",
-            "object",
             "what",
-            "queryable",
-            "readonly",
-            "property",
+            "object",
             "xfx",
-            "theAble",
-            "whose",
+            "queryable",
+            "between",
+            "preposition",
+            "readonly",
             "have",
             "canBeDoQuestion",
             "canBeQuestion",
-            "between",
-            "preposition",
+            "property",
+            "theAble",
+            "propertyOf",
+            "whose",
             "concept",
             "modifies",
-            "verby",
+            "verb",
             "doubleQuote",
             "it",
             "pronoun",
@@ -241,18 +263,27 @@
             "questionMark",
             "punctuation",
             "a",
-            "articlePOS",
+            "article",
             "the",
             "whatAble",
+            "negatable",
             "is",
             "toAble",
             "to",
-            "noun",
-            "thisitthat",
             "reason",
-            "that",
+            "memorable",
+            "remember",
+            "stm_before",
+            "adjective",
             "orAble",
             "ifAble",
+            "evaluate",
+            "each",
+            "every",
+            "distributable",
+            "noun",
+            "thisitthat",
+            "that",
             "dark_colors",
             "brightness_colors",
             "light_colors",
@@ -295,7 +326,7 @@
           ],
           "parents": {
             "a": [
-              "articlePOS"
+              "article"
             ],
             "aqua_colors": [
               "blue_colors"
@@ -337,8 +368,20 @@
             "dark_colors": [
               "brightness_colors"
             ],
+            "distributable": [
+              "queryable"
+            ],
             "doubleQuote": [
               "queryable"
+            ],
+            "each": [
+              "article"
+            ],
+            "evaluate": [
+              "verb"
+            ],
+            "every": [
+              "article"
             ],
             "gold_colors": [
               "yellow_colors"
@@ -361,7 +404,7 @@
             ],
             "is": [
               "canBeQuestion",
-              "verby"
+              "verb"
             ],
             "it": [
               "pronoun",
@@ -390,11 +433,17 @@
             "maroon_colors": [
               "brown_colors"
             ],
+            "memorable": [
+              "theAble"
+            ],
             "modifies": [
-              "verby"
+              "verb"
             ],
             "navy_colors": [
               "blue_colors"
+            ],
+            "negatable": [
+              "queryable"
             ],
             "noun": [
               "theAble"
@@ -417,8 +466,10 @@
             ],
             "property": [
               "queryable",
-              "theAble",
-              "unknown"
+              "theAble"
+            ],
+            "propertyOf": [
+              "preposition"
             ],
             "purple_colors": [
               "color_colors"
@@ -436,6 +487,9 @@
             "red_colors": [
               "color_colors"
             ],
+            "remember": [
+              "verb"
+            ],
             "sienna_colors": [
               "brown_colors"
             ],
@@ -444,6 +498,9 @@
             ],
             "snow_colors": [
               "white_colors"
+            ],
+            "stm_before": [
+              "adjective"
             ],
             "tan_colors": [
               "brown_colors"
@@ -455,7 +512,10 @@
               "thisitthat"
             ],
             "the": [
-              "articlePOS"
+              "article"
+            ],
+            "theAble": [
+              "queryable"
             ],
             "this": [
               "pronoun",
@@ -473,7 +533,6 @@
             ],
             "unknown": [
               "hierarchyAble",
-              "object",
               "theAble",
               "queryable"
             ],
@@ -508,11 +567,13 @@
             "root": {
               "a": {
               },
+              "adjective": {
+              },
               "aqua_colors": {
               },
               "aquamarine_colors": {
               },
-              "articlePOS": {
+              "article": {
               },
               "azure_colors": {
               },
@@ -544,7 +605,15 @@
               },
               "dark_colors": {
               },
+              "distributable": {
+              },
               "doubleQuote": {
+              },
+              "each": {
+              },
+              "evaluate": {
+              },
+              "every": {
               },
               "gold_colors": {
               },
@@ -578,9 +647,13 @@
               },
               "maroon_colors": {
               },
+              "memorable": {
+              },
               "modifies": {
               },
               "navy_colors": {
+              },
+              "negatable": {
               },
               "noun": {
               },
@@ -600,6 +673,8 @@
               },
               "property": {
               },
+              "propertyOf": {
+              },
               "punctuation": {
               },
               "purple_colors": {
@@ -614,11 +689,15 @@
               },
               "red_colors": {
               },
+              "remember": {
+              },
               "sienna_colors": {
               },
               "silver_colors": {
               },
               "snow_colors": {
+              },
+              "stm_before": {
               },
               "tan_colors": {
               },
@@ -642,7 +721,7 @@
               },
               "unknown": {
               },
-              "verby": {
+              "verb": {
               },
               "violet_colors": {
               },
@@ -683,6 +762,7 @@
       "processed": [
         {
           "context": {
+            "context_index": 1,
             "dead": true,
             "level": 1,
             "marker": "red_colors",
@@ -705,6 +785,7 @@
         },
         {
           "context": {
+            "context_index": 1,
             "dead": true,
             "default": true,
             "level": 1,
@@ -713,6 +794,7 @@
               "end": 12,
               "start": 0
             },
+            "raw_text": "resetIdSuffix",
             "text": "resetidsuffix",
             "topLevel": true,
             "touchedBy": [
@@ -746,6 +828,7 @@
               "value": "color_colors",
               "word": "color"
             },
+            "context_index": 1,
             "dead": true,
             "flatten": false,
             "level": 1,
@@ -802,6 +885,7 @@
               "value": "color_colors",
               "word": "colors"
             },
+            "context_index": 1,
             "dead": true,
             "flatten": false,
             "level": 1,
@@ -845,6 +929,7 @@
         },
         {
           "context": {
+            "context_index": 1,
             "dead": true,
             "level": 2,
             "marker": "is",
@@ -875,6 +960,9 @@
                     "start": 0
                   },
                   "text": "silver",
+                  "types": [
+                    "unknown"
+                  ],
                   "unknown": true,
                   "value": "silver",
                   "word": "silver"
@@ -888,6 +976,9 @@
                     "start": 11
                   },
                   "text": "black",
+                  "types": [
+                    "unknown"
+                  ],
                   "unknown": true,
                   "value": "black",
                   "word": "black"
@@ -919,6 +1010,7 @@
                 "text": "a",
                 "word": "a"
               },
+              "instance": true,
               "level": 1,
               "marker": "gray_colors",
               "modifiers": [
@@ -951,6 +1043,7 @@
         },
         {
           "context": {
+            "context_index": 1,
             "dead": true,
             "level": 2,
             "marker": "is",
@@ -996,6 +1089,9 @@
                     "start": 0
                   },
                   "text": "snow,",
+                  "types": [
+                    "unknown"
+                  ],
                   "unknown": true,
                   "value": "snow",
                   "word": "snow"
@@ -1024,6 +1120,9 @@
                     "start": 6
                   },
                   "text": "azure,",
+                  "types": [
+                    "unknown"
+                  ],
                   "unknown": true,
                   "value": "azure",
                   "word": "azure"
@@ -1037,6 +1136,9 @@
                     "start": 13
                   },
                   "text": "beige",
+                  "types": [
+                    "unknown"
+                  ],
                   "unknown": true,
                   "value": "beige",
                   "word": "beige"
@@ -1050,6 +1152,9 @@
                     "start": 23
                   },
                   "text": "ivory",
+                  "types": [
+                    "unknown"
+                  ],
                   "unknown": true,
                   "value": "ivory",
                   "word": "ivory"
@@ -1081,6 +1186,7 @@
                 "text": "a",
                 "word": "a"
               },
+              "instance": true,
               "level": 1,
               "marker": "white_colors",
               "modifiers": [
@@ -1122,6 +1228,28 @@
     "query": "red",
     "responses": [
       ""
+    ],
+    "summaries": [
+      [
+        {
+          "counter": 1,
+          "operators": [
+            [
+              "red_colors",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 2,
+          "operators": [
+            [
+              "red_colors",
+              1
+            ]
+          ]
+        }
+      ]
     ]
   },
   {
@@ -1142,6 +1270,7 @@
     "contexts": [
       {
         "atomic": true,
+        "context_index": 1,
         "dead": true,
         "level": 1,
         "marker": "hex_colors_color_colors",
@@ -1208,9 +1337,13 @@
     },
     "objects": {
       "nameToUUID": {
+        "articles": "articles2",
+        "asking": "asking2",
         "colors": "colors1",
         "concept": "concept2",
+        "conjunction": "conjunction2",
         "dialogues": "dialogues2",
+        "evaluate": "evaluate2",
         "gdefaults": "gdefaults2",
         "hierarchy": "hierarchy2",
         "meta": "meta2",
@@ -1223,6 +1356,10 @@
         "tokenize": "tokenize2"
       },
       "namespaced": {
+        "articles2": {
+        },
+        "asking2": {
+        },
         "colors1": {
         },
         "concept2": {
@@ -1231,12 +1368,16 @@
           "valueToWords": [
           ]
         },
+        "conjunction2": {
+        },
         "dialogues2": {
           "idSuffix": "",
           "mentioned": [
           ],
           "variables": {
           }
+        },
+        "evaluate2": {
         },
         "gdefaults2": {
         },
@@ -1250,9 +1391,14 @@
         },
         "properties2": {
           "children": {
-            "articlePOS": [
+            "adjective": [
+              "stm_before"
+            ],
+            "article": [
               "a",
-              "the"
+              "the",
+              "each",
+              "every"
             ],
             "blue_colors": [
               "aqua_colors",
@@ -1306,12 +1452,12 @@
               "orAble"
             ],
             "object": [
-              "unknown",
               "what",
               "whose"
             ],
             "preposition": [
               "between",
+              "propertyOf",
               "to"
             ],
             "pronoun": [
@@ -1328,20 +1474,23 @@
               "indigo_colors"
             ],
             "queryable": [
+              "xfx",
               "hierarchyAble",
               "readonly",
               "property",
               "object",
-              "xfx",
               "concept",
               "doubleQuote",
+              "theAble",
               "unknown",
               "it",
               "what",
               "whatAble",
+              "negatable",
               "this",
-              "thisitthat",
-              "reason"
+              "reason",
+              "distributable",
+              "thisitthat"
             ],
             "red_colors": [
               "crimson_colors"
@@ -1351,8 +1500,9 @@
               "object",
               "concept",
               "unknown",
-              "noun",
-              "reason"
+              "reason",
+              "memorable",
+              "noun"
             ],
             "thisitthat": [
               "it",
@@ -1362,12 +1512,11 @@
             "toAble": [
               "it"
             ],
-            "unknown": [
-              "property"
-            ],
-            "verby": [
+            "verb": [
               "modifies",
-              "is"
+              "is",
+              "remember",
+              "evaluate"
             ],
             "white_colors": [
               "snow_colors",
@@ -1384,22 +1533,23 @@
             "properties",
             "unknown",
             "hierarchyAble",
-            "object",
             "what",
-            "queryable",
-            "readonly",
-            "property",
+            "object",
             "xfx",
-            "theAble",
-            "whose",
+            "queryable",
+            "between",
+            "preposition",
+            "readonly",
             "have",
             "canBeDoQuestion",
             "canBeQuestion",
-            "between",
-            "preposition",
+            "property",
+            "theAble",
+            "propertyOf",
+            "whose",
             "concept",
             "modifies",
-            "verby",
+            "verb",
             "doubleQuote",
             "it",
             "pronoun",
@@ -1407,18 +1557,27 @@
             "questionMark",
             "punctuation",
             "a",
-            "articlePOS",
+            "article",
             "the",
             "whatAble",
+            "negatable",
             "is",
             "toAble",
             "to",
-            "noun",
-            "thisitthat",
             "reason",
-            "that",
+            "memorable",
+            "remember",
+            "stm_before",
+            "adjective",
             "orAble",
             "ifAble",
+            "evaluate",
+            "each",
+            "every",
+            "distributable",
+            "noun",
+            "thisitthat",
+            "that",
             "dark_colors",
             "brightness_colors",
             "light_colors",
@@ -1461,7 +1620,7 @@
           ],
           "parents": {
             "a": [
-              "articlePOS"
+              "article"
             ],
             "aqua_colors": [
               "blue_colors"
@@ -1503,8 +1662,20 @@
             "dark_colors": [
               "brightness_colors"
             ],
+            "distributable": [
+              "queryable"
+            ],
             "doubleQuote": [
               "queryable"
+            ],
+            "each": [
+              "article"
+            ],
+            "evaluate": [
+              "verb"
+            ],
+            "every": [
+              "article"
             ],
             "gold_colors": [
               "yellow_colors"
@@ -1527,7 +1698,7 @@
             ],
             "is": [
               "canBeQuestion",
-              "verby"
+              "verb"
             ],
             "it": [
               "pronoun",
@@ -1556,11 +1727,17 @@
             "maroon_colors": [
               "brown_colors"
             ],
+            "memorable": [
+              "theAble"
+            ],
             "modifies": [
-              "verby"
+              "verb"
             ],
             "navy_colors": [
               "blue_colors"
+            ],
+            "negatable": [
+              "queryable"
             ],
             "noun": [
               "theAble"
@@ -1583,8 +1760,10 @@
             ],
             "property": [
               "queryable",
-              "theAble",
-              "unknown"
+              "theAble"
+            ],
+            "propertyOf": [
+              "preposition"
             ],
             "purple_colors": [
               "color_colors"
@@ -1602,6 +1781,9 @@
             "red_colors": [
               "color_colors"
             ],
+            "remember": [
+              "verb"
+            ],
             "sienna_colors": [
               "brown_colors"
             ],
@@ -1610,6 +1792,9 @@
             ],
             "snow_colors": [
               "white_colors"
+            ],
+            "stm_before": [
+              "adjective"
             ],
             "tan_colors": [
               "brown_colors"
@@ -1621,7 +1806,10 @@
               "thisitthat"
             ],
             "the": [
-              "articlePOS"
+              "article"
+            ],
+            "theAble": [
+              "queryable"
             ],
             "this": [
               "pronoun",
@@ -1639,7 +1827,6 @@
             ],
             "unknown": [
               "hierarchyAble",
-              "object",
               "theAble",
               "queryable"
             ],
@@ -1674,11 +1861,13 @@
             "root": {
               "a": {
               },
+              "adjective": {
+              },
               "aqua_colors": {
               },
               "aquamarine_colors": {
               },
-              "articlePOS": {
+              "article": {
               },
               "azure_colors": {
               },
@@ -1710,7 +1899,15 @@
               },
               "dark_colors": {
               },
+              "distributable": {
+              },
               "doubleQuote": {
+              },
+              "each": {
+              },
+              "evaluate": {
+              },
+              "every": {
               },
               "gold_colors": {
               },
@@ -1744,9 +1941,13 @@
               },
               "maroon_colors": {
               },
+              "memorable": {
+              },
               "modifies": {
               },
               "navy_colors": {
+              },
+              "negatable": {
               },
               "noun": {
               },
@@ -1766,6 +1967,8 @@
               },
               "property": {
               },
+              "propertyOf": {
+              },
               "punctuation": {
               },
               "purple_colors": {
@@ -1780,11 +1983,15 @@
               },
               "red_colors": {
               },
+              "remember": {
+              },
               "sienna_colors": {
               },
               "silver_colors": {
               },
               "snow_colors": {
+              },
+              "stm_before": {
               },
               "tan_colors": {
               },
@@ -1808,7 +2015,7 @@
               },
               "unknown": {
               },
-              "verby": {
+              "verb": {
               },
               "violet_colors": {
               },
@@ -1850,6 +2057,7 @@
         {
           "context": {
             "atomic": true,
+            "context_index": 1,
             "dead": true,
             "level": 1,
             "marker": "hex_colors_color_colors",
@@ -1894,6 +2102,7 @@
         },
         {
           "context": {
+            "context_index": 1,
             "dead": true,
             "default": true,
             "level": 1,
@@ -1902,6 +2111,7 @@
               "end": 12,
               "start": 0
             },
+            "raw_text": "resetIdSuffix",
             "text": "resetidsuffix",
             "topLevel": true,
             "touchedBy": [
@@ -1935,6 +2145,7 @@
               "value": "color_colors",
               "word": "color"
             },
+            "context_index": 1,
             "dead": true,
             "flatten": false,
             "level": 1,
@@ -1991,6 +2202,7 @@
               "value": "color_colors",
               "word": "colors"
             },
+            "context_index": 1,
             "dead": true,
             "flatten": false,
             "level": 1,
@@ -2034,6 +2246,7 @@
         },
         {
           "context": {
+            "context_index": 1,
             "dead": true,
             "level": 2,
             "marker": "is",
@@ -2064,6 +2277,9 @@
                     "start": 0
                   },
                   "text": "silver",
+                  "types": [
+                    "unknown"
+                  ],
                   "unknown": true,
                   "value": "silver",
                   "word": "silver"
@@ -2077,6 +2293,9 @@
                     "start": 11
                   },
                   "text": "black",
+                  "types": [
+                    "unknown"
+                  ],
                   "unknown": true,
                   "value": "black",
                   "word": "black"
@@ -2108,6 +2327,7 @@
                 "text": "a",
                 "word": "a"
               },
+              "instance": true,
               "level": 1,
               "marker": "gray_colors",
               "modifiers": [
@@ -2140,6 +2360,7 @@
         },
         {
           "context": {
+            "context_index": 1,
             "dead": true,
             "level": 2,
             "marker": "is",
@@ -2185,6 +2406,9 @@
                     "start": 0
                   },
                   "text": "snow,",
+                  "types": [
+                    "unknown"
+                  ],
                   "unknown": true,
                   "value": "snow",
                   "word": "snow"
@@ -2213,6 +2437,9 @@
                     "start": 6
                   },
                   "text": "azure,",
+                  "types": [
+                    "unknown"
+                  ],
                   "unknown": true,
                   "value": "azure",
                   "word": "azure"
@@ -2226,6 +2453,9 @@
                     "start": 13
                   },
                   "text": "beige",
+                  "types": [
+                    "unknown"
+                  ],
                   "unknown": true,
                   "value": "beige",
                   "word": "beige"
@@ -2239,6 +2469,9 @@
                     "start": 23
                   },
                   "text": "ivory",
+                  "types": [
+                    "unknown"
+                  ],
                   "unknown": true,
                   "value": "ivory",
                   "word": "ivory"
@@ -2270,6 +2503,7 @@
                 "text": "a",
                 "word": "a"
               },
+              "instance": true,
               "level": 1,
               "marker": "white_colors",
               "modifiers": [
@@ -2311,6 +2545,32 @@
     "query": "hex color",
     "responses": [
       ""
+    ],
+    "summaries": [
+      [
+        {
+          "counter": 1,
+          "operators": [
+            [
+              "hex_colors",
+              0
+            ],
+            [
+              "color_colors",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 2,
+          "operators": [
+            [
+              "hex_colors_color_colors",
+              1
+            ]
+          ]
+        }
+      ]
     ]
   },
   {
@@ -2320,6 +2580,7 @@
     },
     "contexts": [
       {
+        "context_index": 1,
         "instance": true,
         "marker": "hexColor",
         "range": {
@@ -2341,9 +2602,13 @@
     },
     "objects": {
       "nameToUUID": {
+        "articles": "articles2",
+        "asking": "asking2",
         "colors": "colors1",
         "concept": "concept2",
+        "conjunction": "conjunction2",
         "dialogues": "dialogues2",
+        "evaluate": "evaluate2",
         "gdefaults": "gdefaults2",
         "hierarchy": "hierarchy2",
         "meta": "meta2",
@@ -2356,6 +2621,10 @@
         "tokenize": "tokenize2"
       },
       "namespaced": {
+        "articles2": {
+        },
+        "asking2": {
+        },
         "colors1": {
         },
         "concept2": {
@@ -2364,12 +2633,16 @@
           "valueToWords": [
           ]
         },
+        "conjunction2": {
+        },
         "dialogues2": {
           "idSuffix": "",
           "mentioned": [
           ],
           "variables": {
           }
+        },
+        "evaluate2": {
         },
         "gdefaults2": {
         },
@@ -2383,9 +2656,14 @@
         },
         "properties2": {
           "children": {
-            "articlePOS": [
+            "adjective": [
+              "stm_before"
+            ],
+            "article": [
               "a",
-              "the"
+              "the",
+              "each",
+              "every"
             ],
             "blue_colors": [
               "aqua_colors",
@@ -2439,12 +2717,12 @@
               "orAble"
             ],
             "object": [
-              "unknown",
               "what",
               "whose"
             ],
             "preposition": [
               "between",
+              "propertyOf",
               "to"
             ],
             "pronoun": [
@@ -2461,20 +2739,23 @@
               "indigo_colors"
             ],
             "queryable": [
+              "xfx",
               "hierarchyAble",
               "readonly",
               "property",
               "object",
-              "xfx",
               "concept",
               "doubleQuote",
+              "theAble",
               "unknown",
               "it",
               "what",
               "whatAble",
+              "negatable",
               "this",
-              "thisitthat",
-              "reason"
+              "reason",
+              "distributable",
+              "thisitthat"
             ],
             "red_colors": [
               "crimson_colors"
@@ -2484,8 +2765,9 @@
               "object",
               "concept",
               "unknown",
-              "noun",
-              "reason"
+              "reason",
+              "memorable",
+              "noun"
             ],
             "thisitthat": [
               "it",
@@ -2495,12 +2777,11 @@
             "toAble": [
               "it"
             ],
-            "unknown": [
-              "property"
-            ],
-            "verby": [
+            "verb": [
               "modifies",
-              "is"
+              "is",
+              "remember",
+              "evaluate"
             ],
             "white_colors": [
               "snow_colors",
@@ -2517,22 +2798,23 @@
             "properties",
             "unknown",
             "hierarchyAble",
-            "object",
             "what",
-            "queryable",
-            "readonly",
-            "property",
+            "object",
             "xfx",
-            "theAble",
-            "whose",
+            "queryable",
+            "between",
+            "preposition",
+            "readonly",
             "have",
             "canBeDoQuestion",
             "canBeQuestion",
-            "between",
-            "preposition",
+            "property",
+            "theAble",
+            "propertyOf",
+            "whose",
             "concept",
             "modifies",
-            "verby",
+            "verb",
             "doubleQuote",
             "it",
             "pronoun",
@@ -2540,18 +2822,27 @@
             "questionMark",
             "punctuation",
             "a",
-            "articlePOS",
+            "article",
             "the",
             "whatAble",
+            "negatable",
             "is",
             "toAble",
             "to",
-            "noun",
-            "thisitthat",
             "reason",
-            "that",
+            "memorable",
+            "remember",
+            "stm_before",
+            "adjective",
             "orAble",
             "ifAble",
+            "evaluate",
+            "each",
+            "every",
+            "distributable",
+            "noun",
+            "thisitthat",
+            "that",
             "dark_colors",
             "brightness_colors",
             "light_colors",
@@ -2594,7 +2885,7 @@
           ],
           "parents": {
             "a": [
-              "articlePOS"
+              "article"
             ],
             "aqua_colors": [
               "blue_colors"
@@ -2636,8 +2927,20 @@
             "dark_colors": [
               "brightness_colors"
             ],
+            "distributable": [
+              "queryable"
+            ],
             "doubleQuote": [
               "queryable"
+            ],
+            "each": [
+              "article"
+            ],
+            "evaluate": [
+              "verb"
+            ],
+            "every": [
+              "article"
             ],
             "gold_colors": [
               "yellow_colors"
@@ -2660,7 +2963,7 @@
             ],
             "is": [
               "canBeQuestion",
-              "verby"
+              "verb"
             ],
             "it": [
               "pronoun",
@@ -2689,11 +2992,17 @@
             "maroon_colors": [
               "brown_colors"
             ],
+            "memorable": [
+              "theAble"
+            ],
             "modifies": [
-              "verby"
+              "verb"
             ],
             "navy_colors": [
               "blue_colors"
+            ],
+            "negatable": [
+              "queryable"
             ],
             "noun": [
               "theAble"
@@ -2716,8 +3025,10 @@
             ],
             "property": [
               "queryable",
-              "theAble",
-              "unknown"
+              "theAble"
+            ],
+            "propertyOf": [
+              "preposition"
             ],
             "purple_colors": [
               "color_colors"
@@ -2735,6 +3046,9 @@
             "red_colors": [
               "color_colors"
             ],
+            "remember": [
+              "verb"
+            ],
             "sienna_colors": [
               "brown_colors"
             ],
@@ -2743,6 +3057,9 @@
             ],
             "snow_colors": [
               "white_colors"
+            ],
+            "stm_before": [
+              "adjective"
             ],
             "tan_colors": [
               "brown_colors"
@@ -2754,7 +3071,10 @@
               "thisitthat"
             ],
             "the": [
-              "articlePOS"
+              "article"
+            ],
+            "theAble": [
+              "queryable"
             ],
             "this": [
               "pronoun",
@@ -2772,7 +3092,6 @@
             ],
             "unknown": [
               "hierarchyAble",
-              "object",
               "theAble",
               "queryable"
             ],
@@ -2807,11 +3126,13 @@
             "root": {
               "a": {
               },
+              "adjective": {
+              },
               "aqua_colors": {
               },
               "aquamarine_colors": {
               },
-              "articlePOS": {
+              "article": {
               },
               "azure_colors": {
               },
@@ -2843,7 +3164,15 @@
               },
               "dark_colors": {
               },
+              "distributable": {
+              },
               "doubleQuote": {
+              },
+              "each": {
+              },
+              "evaluate": {
+              },
+              "every": {
               },
               "gold_colors": {
               },
@@ -2877,9 +3206,13 @@
               },
               "maroon_colors": {
               },
+              "memorable": {
+              },
               "modifies": {
               },
               "navy_colors": {
+              },
+              "negatable": {
               },
               "noun": {
               },
@@ -2899,6 +3232,8 @@
               },
               "property": {
               },
+              "propertyOf": {
+              },
               "punctuation": {
               },
               "purple_colors": {
@@ -2913,11 +3248,15 @@
               },
               "red_colors": {
               },
+              "remember": {
+              },
               "sienna_colors": {
               },
               "silver_colors": {
               },
               "snow_colors": {
+              },
+              "stm_before": {
               },
               "tan_colors": {
               },
@@ -2941,7 +3280,7 @@
               },
               "unknown": {
               },
-              "verby": {
+              "verb": {
               },
               "violet_colors": {
               },
@@ -2982,6 +3321,7 @@
       "processed": [
         {
           "context": {
+            "context_index": 1,
             "instance": true,
             "marker": "hexColor",
             "range": {
@@ -3002,6 +3342,7 @@
         },
         {
           "context": {
+            "context_index": 1,
             "dead": true,
             "default": true,
             "level": 1,
@@ -3010,6 +3351,7 @@
               "end": 12,
               "start": 0
             },
+            "raw_text": "resetIdSuffix",
             "text": "resetidsuffix",
             "topLevel": true,
             "touchedBy": [
@@ -3043,6 +3385,7 @@
               "value": "color_colors",
               "word": "color"
             },
+            "context_index": 1,
             "dead": true,
             "flatten": false,
             "level": 1,
@@ -3099,6 +3442,7 @@
               "value": "color_colors",
               "word": "colors"
             },
+            "context_index": 1,
             "dead": true,
             "flatten": false,
             "level": 1,
@@ -3142,6 +3486,7 @@
         },
         {
           "context": {
+            "context_index": 1,
             "dead": true,
             "level": 2,
             "marker": "is",
@@ -3172,6 +3517,9 @@
                     "start": 0
                   },
                   "text": "silver",
+                  "types": [
+                    "unknown"
+                  ],
                   "unknown": true,
                   "value": "silver",
                   "word": "silver"
@@ -3185,6 +3533,9 @@
                     "start": 11
                   },
                   "text": "black",
+                  "types": [
+                    "unknown"
+                  ],
                   "unknown": true,
                   "value": "black",
                   "word": "black"
@@ -3216,6 +3567,7 @@
                 "text": "a",
                 "word": "a"
               },
+              "instance": true,
               "level": 1,
               "marker": "gray_colors",
               "modifiers": [
@@ -3248,6 +3600,7 @@
         },
         {
           "context": {
+            "context_index": 1,
             "dead": true,
             "level": 2,
             "marker": "is",
@@ -3293,6 +3646,9 @@
                     "start": 0
                   },
                   "text": "snow,",
+                  "types": [
+                    "unknown"
+                  ],
                   "unknown": true,
                   "value": "snow",
                   "word": "snow"
@@ -3321,6 +3677,9 @@
                     "start": 6
                   },
                   "text": "azure,",
+                  "types": [
+                    "unknown"
+                  ],
                   "unknown": true,
                   "value": "azure",
                   "word": "azure"
@@ -3334,6 +3693,9 @@
                     "start": 13
                   },
                   "text": "beige",
+                  "types": [
+                    "unknown"
+                  ],
                   "unknown": true,
                   "value": "beige",
                   "word": "beige"
@@ -3347,6 +3709,9 @@
                     "start": 23
                   },
                   "text": "ivory",
+                  "types": [
+                    "unknown"
+                  ],
                   "unknown": true,
                   "value": "ivory",
                   "word": "ivory"
@@ -3378,6 +3743,7 @@
                 "text": "a",
                 "word": "a"
               },
+              "instance": true,
               "level": 1,
               "marker": "white_colors",
               "modifiers": [
@@ -3419,6 +3785,16 @@
     "query": "#123456",
     "responses": [
       ""
+    ],
+    "summaries": [
+      [
+        {
+          "counter": 1,
+          "operators": [
+            "hexColor"
+          ]
+        }
+      ]
     ]
   },
   {
@@ -3428,6 +3804,7 @@
     },
     "contexts": [
       {
+        "context_index": 1,
         "instance": true,
         "marker": "hexColor",
         "range": {
@@ -3440,6 +3817,7 @@
         "word": "#1234"
       },
       {
+        "context_index": 3,
         "dead": true,
         "level": 1,
         "marker": "unknown",
@@ -3447,6 +3825,7 @@
           "end": 6,
           "start": 5
         },
+        "raw_text": "T6",
         "text": "t6",
         "topLevel": true,
         "unknown": true,
@@ -3477,9 +3856,13 @@
     },
     "objects": {
       "nameToUUID": {
+        "articles": "articles2",
+        "asking": "asking2",
         "colors": "colors1",
         "concept": "concept2",
+        "conjunction": "conjunction2",
         "dialogues": "dialogues2",
+        "evaluate": "evaluate2",
         "gdefaults": "gdefaults2",
         "hierarchy": "hierarchy2",
         "meta": "meta2",
@@ -3492,6 +3875,10 @@
         "tokenize": "tokenize2"
       },
       "namespaced": {
+        "articles2": {
+        },
+        "asking2": {
+        },
         "colors1": {
         },
         "concept2": {
@@ -3500,12 +3887,16 @@
           "valueToWords": [
           ]
         },
+        "conjunction2": {
+        },
         "dialogues2": {
           "idSuffix": "",
           "mentioned": [
           ],
           "variables": {
           }
+        },
+        "evaluate2": {
         },
         "gdefaults2": {
         },
@@ -3519,9 +3910,14 @@
         },
         "properties2": {
           "children": {
-            "articlePOS": [
+            "adjective": [
+              "stm_before"
+            ],
+            "article": [
               "a",
-              "the"
+              "the",
+              "each",
+              "every"
             ],
             "blue_colors": [
               "aqua_colors",
@@ -3575,12 +3971,12 @@
               "orAble"
             ],
             "object": [
-              "unknown",
               "what",
               "whose"
             ],
             "preposition": [
               "between",
+              "propertyOf",
               "to"
             ],
             "pronoun": [
@@ -3597,20 +3993,23 @@
               "indigo_colors"
             ],
             "queryable": [
+              "xfx",
               "hierarchyAble",
               "readonly",
               "property",
               "object",
-              "xfx",
               "concept",
               "doubleQuote",
+              "theAble",
               "unknown",
               "it",
               "what",
               "whatAble",
+              "negatable",
               "this",
-              "thisitthat",
-              "reason"
+              "reason",
+              "distributable",
+              "thisitthat"
             ],
             "red_colors": [
               "crimson_colors"
@@ -3620,8 +4019,9 @@
               "object",
               "concept",
               "unknown",
-              "noun",
-              "reason"
+              "reason",
+              "memorable",
+              "noun"
             ],
             "thisitthat": [
               "it",
@@ -3631,12 +4031,11 @@
             "toAble": [
               "it"
             ],
-            "unknown": [
-              "property"
-            ],
-            "verby": [
+            "verb": [
               "modifies",
-              "is"
+              "is",
+              "remember",
+              "evaluate"
             ],
             "white_colors": [
               "snow_colors",
@@ -3653,22 +4052,23 @@
             "properties",
             "unknown",
             "hierarchyAble",
-            "object",
             "what",
-            "queryable",
-            "readonly",
-            "property",
+            "object",
             "xfx",
-            "theAble",
-            "whose",
+            "queryable",
+            "between",
+            "preposition",
+            "readonly",
             "have",
             "canBeDoQuestion",
             "canBeQuestion",
-            "between",
-            "preposition",
+            "property",
+            "theAble",
+            "propertyOf",
+            "whose",
             "concept",
             "modifies",
-            "verby",
+            "verb",
             "doubleQuote",
             "it",
             "pronoun",
@@ -3676,18 +4076,27 @@
             "questionMark",
             "punctuation",
             "a",
-            "articlePOS",
+            "article",
             "the",
             "whatAble",
+            "negatable",
             "is",
             "toAble",
             "to",
-            "noun",
-            "thisitthat",
             "reason",
-            "that",
+            "memorable",
+            "remember",
+            "stm_before",
+            "adjective",
             "orAble",
             "ifAble",
+            "evaluate",
+            "each",
+            "every",
+            "distributable",
+            "noun",
+            "thisitthat",
+            "that",
             "dark_colors",
             "brightness_colors",
             "light_colors",
@@ -3730,7 +4139,7 @@
           ],
           "parents": {
             "a": [
-              "articlePOS"
+              "article"
             ],
             "aqua_colors": [
               "blue_colors"
@@ -3772,8 +4181,20 @@
             "dark_colors": [
               "brightness_colors"
             ],
+            "distributable": [
+              "queryable"
+            ],
             "doubleQuote": [
               "queryable"
+            ],
+            "each": [
+              "article"
+            ],
+            "evaluate": [
+              "verb"
+            ],
+            "every": [
+              "article"
             ],
             "gold_colors": [
               "yellow_colors"
@@ -3796,7 +4217,7 @@
             ],
             "is": [
               "canBeQuestion",
-              "verby"
+              "verb"
             ],
             "it": [
               "pronoun",
@@ -3825,11 +4246,17 @@
             "maroon_colors": [
               "brown_colors"
             ],
+            "memorable": [
+              "theAble"
+            ],
             "modifies": [
-              "verby"
+              "verb"
             ],
             "navy_colors": [
               "blue_colors"
+            ],
+            "negatable": [
+              "queryable"
             ],
             "noun": [
               "theAble"
@@ -3852,8 +4279,10 @@
             ],
             "property": [
               "queryable",
-              "theAble",
-              "unknown"
+              "theAble"
+            ],
+            "propertyOf": [
+              "preposition"
             ],
             "purple_colors": [
               "color_colors"
@@ -3871,6 +4300,9 @@
             "red_colors": [
               "color_colors"
             ],
+            "remember": [
+              "verb"
+            ],
             "sienna_colors": [
               "brown_colors"
             ],
@@ -3879,6 +4311,9 @@
             ],
             "snow_colors": [
               "white_colors"
+            ],
+            "stm_before": [
+              "adjective"
             ],
             "tan_colors": [
               "brown_colors"
@@ -3890,7 +4325,10 @@
               "thisitthat"
             ],
             "the": [
-              "articlePOS"
+              "article"
+            ],
+            "theAble": [
+              "queryable"
             ],
             "this": [
               "pronoun",
@@ -3908,7 +4346,6 @@
             ],
             "unknown": [
               "hierarchyAble",
-              "object",
               "theAble",
               "queryable"
             ],
@@ -3943,11 +4380,13 @@
             "root": {
               "a": {
               },
+              "adjective": {
+              },
               "aqua_colors": {
               },
               "aquamarine_colors": {
               },
-              "articlePOS": {
+              "article": {
               },
               "azure_colors": {
               },
@@ -3979,7 +4418,15 @@
               },
               "dark_colors": {
               },
+              "distributable": {
+              },
               "doubleQuote": {
+              },
+              "each": {
+              },
+              "evaluate": {
+              },
+              "every": {
               },
               "gold_colors": {
               },
@@ -4013,9 +4460,13 @@
               },
               "maroon_colors": {
               },
+              "memorable": {
+              },
               "modifies": {
               },
               "navy_colors": {
+              },
+              "negatable": {
               },
               "noun": {
               },
@@ -4035,6 +4486,8 @@
               },
               "property": {
               },
+              "propertyOf": {
+              },
               "punctuation": {
               },
               "purple_colors": {
@@ -4049,11 +4502,15 @@
               },
               "red_colors": {
               },
+              "remember": {
+              },
               "sienna_colors": {
               },
               "silver_colors": {
               },
               "snow_colors": {
+              },
+              "stm_before": {
               },
               "tan_colors": {
               },
@@ -4077,7 +4534,7 @@
               },
               "unknown": {
               },
-              "verby": {
+              "verb": {
               },
               "violet_colors": {
               },
@@ -4118,6 +4575,7 @@
       "processed": [
         {
           "context": {
+            "context_index": 3,
             "dead": true,
             "level": 1,
             "marker": "unknown",
@@ -4125,6 +4583,7 @@
               "end": 6,
               "start": 5
             },
+            "raw_text": "T6",
             "text": "t6",
             "topLevel": true,
             "unknown": true,
@@ -4141,6 +4600,7 @@
         },
         {
           "context": {
+            "context_index": 1,
             "instance": true,
             "marker": "hexColor",
             "range": {
@@ -4162,6 +4622,7 @@
         },
         {
           "context": {
+            "context_index": 1,
             "dead": true,
             "default": true,
             "level": 1,
@@ -4170,6 +4631,7 @@
               "end": 12,
               "start": 0
             },
+            "raw_text": "resetIdSuffix",
             "text": "resetidsuffix",
             "topLevel": true,
             "touchedBy": [
@@ -4203,6 +4665,7 @@
               "value": "color_colors",
               "word": "color"
             },
+            "context_index": 1,
             "dead": true,
             "flatten": false,
             "level": 1,
@@ -4259,6 +4722,7 @@
               "value": "color_colors",
               "word": "colors"
             },
+            "context_index": 1,
             "dead": true,
             "flatten": false,
             "level": 1,
@@ -4302,6 +4766,7 @@
         },
         {
           "context": {
+            "context_index": 1,
             "dead": true,
             "level": 2,
             "marker": "is",
@@ -4332,6 +4797,9 @@
                     "start": 0
                   },
                   "text": "silver",
+                  "types": [
+                    "unknown"
+                  ],
                   "unknown": true,
                   "value": "silver",
                   "word": "silver"
@@ -4345,6 +4813,9 @@
                     "start": 11
                   },
                   "text": "black",
+                  "types": [
+                    "unknown"
+                  ],
                   "unknown": true,
                   "value": "black",
                   "word": "black"
@@ -4376,6 +4847,7 @@
                 "text": "a",
                 "word": "a"
               },
+              "instance": true,
               "level": 1,
               "marker": "gray_colors",
               "modifiers": [
@@ -4420,6 +4892,30 @@
     "responses": [
       "",
       ""
+    ],
+    "summaries": [
+      [
+        {
+          "counter": 1,
+          "operators": [
+            "hexColor",
+            [
+              "unknown",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 2,
+          "operators": [
+            "hexColor",
+            [
+              "unknown",
+              1
+            ]
+          ]
+        }
+      ]
     ]
   }
 ]

@@ -7,7 +7,7 @@
           0
         ],
         [
-          "number",
+          "integer",
           0
         ]
       ]
@@ -20,18 +20,19 @@
           "dead": true,
           "instance": true,
           "level": 1,
-          "marker": "number",
+          "marker": "integer",
           "range": {
             "end": 0,
             "start": 0
           },
           "text": "1",
           "types": [
-            "number"
+            "integer"
           ],
           "value": 1,
           "word": "1"
         },
+        "context_index": 1,
         "dead": true,
         "level": 1,
         "marker": "currency",
@@ -53,7 +54,7 @@
         {
           "counter": 1,
           "op": [
-            "number",
+            "integer",
             0
           ],
           "ops": [
@@ -62,7 +63,7 @@
               0
             ],
             [
-              "number",
+              "integer",
               0
             ]
           ]
@@ -86,7 +87,9 @@
       "nameToUUID": {
         "currency": "currency1",
         "gdefaults": "gdefaults2",
-        "numbers": "numbers2"
+        "numbers": "numbers2",
+        "sdefaults": "sdefaults2",
+        "tokenize": "tokenize2"
       },
       "namespaced": {
         "currency1": {
@@ -94,6 +97,10 @@
         "gdefaults2": {
         },
         "numbers2": {
+        },
+        "sdefaults2": {
+        },
+        "tokenize2": {
         }
       },
       "processed": [
@@ -103,18 +110,19 @@
               "dead": true,
               "instance": true,
               "level": 1,
-              "marker": "number",
+              "marker": "integer",
               "range": {
                 "end": 0,
                 "start": 0
               },
               "text": "1",
               "types": [
-                "number"
+                "integer"
               ],
               "value": 1,
               "word": "1"
             },
+            "context_index": 1,
             "dead": true,
             "level": 1,
             "marker": "currency",
@@ -145,6 +153,45 @@
     "query": "1 dollar",
     "responses": [
       ""
+    ],
+    "summaries": [
+      [
+        {
+          "counter": 1,
+          "operators": [
+            [
+              "integer",
+              0
+            ],
+            [
+              "currency",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 2,
+          "operators": [
+            [
+              "integer",
+              1
+            ],
+            [
+              "currency",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 3,
+          "operators": [
+            [
+              "currency",
+              1
+            ]
+          ]
+        }
+      ]
     ]
   },
   {
@@ -169,7 +216,7 @@
           0
         ],
         [
-          "number",
+          "integer",
           0
         ]
       ]
@@ -181,6 +228,7 @@
         "amount": {
           "value": 0.82
         },
+        "context_index": 1,
         "dead": true,
         "default": true,
         "from": {
@@ -188,14 +236,14 @@
             "dead": true,
             "instance": true,
             "level": 1,
-            "marker": "number",
+            "marker": "integer",
             "range": {
               "end": 0,
               "start": 0
             },
             "text": "1",
             "types": [
-              "number"
+              "integer"
             ],
             "value": 1,
             "word": "1"
@@ -208,6 +256,9 @@
             "start": 0
           },
           "text": "1 dollar",
+          "types": [
+            "currency"
+          ],
           "units": "dollar",
           "word": "dollar"
         },
@@ -229,6 +280,9 @@
             "start": 12
           },
           "text": "euros",
+          "types": [
+            "currency"
+          ],
           "units": "euro",
           "word": "euros"
         },
@@ -249,7 +303,7 @@
         {
           "counter": 1,
           "op": [
-            "number",
+            "integer",
             0
           ],
           "ops": [
@@ -266,7 +320,7 @@
               0
             ],
             [
-              "number",
+              "integer",
               0
             ]
           ]
@@ -328,7 +382,9 @@
       "nameToUUID": {
         "currency": "currency1",
         "gdefaults": "gdefaults2",
-        "numbers": "numbers2"
+        "numbers": "numbers2",
+        "sdefaults": "sdefaults2",
+        "tokenize": "tokenize2"
       },
       "namespaced": {
         "currency1": {
@@ -336,6 +392,10 @@
         "gdefaults2": {
         },
         "numbers2": {
+        },
+        "sdefaults2": {
+        },
+        "tokenize2": {
         }
       },
       "processed": [
@@ -344,6 +404,7 @@
             "amount": {
               "value": 0.82
             },
+            "context_index": 1,
             "dead": true,
             "default": true,
             "from": {
@@ -351,14 +412,14 @@
                 "dead": true,
                 "instance": true,
                 "level": 1,
-                "marker": "number",
+                "marker": "integer",
                 "range": {
                   "end": 0,
                   "start": 0
                 },
                 "text": "1",
                 "types": [
-                  "number"
+                  "integer"
                 ],
                 "value": 1,
                 "word": "1"
@@ -371,6 +432,9 @@
                 "start": 0
               },
               "text": "1 dollar",
+              "types": [
+                "currency"
+              ],
               "units": "dollar",
               "word": "dollar"
             },
@@ -392,6 +456,9 @@
                 "start": 12
               },
               "text": "euros",
+              "types": [
+                "currency"
+              ],
               "units": "euro",
               "word": "euros"
             },
@@ -421,6 +488,95 @@
     "query": "1 dollar in euros",
     "responses": [
       "0.82 euros"
+    ],
+    "summaries": [
+      [
+        {
+          "counter": 1,
+          "operators": [
+            [
+              "integer",
+              0
+            ],
+            [
+              "currency",
+              0
+            ],
+            [
+              "in",
+              0
+            ],
+            [
+              "currency",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 2,
+          "operators": [
+            [
+              "integer",
+              1
+            ],
+            [
+              "currency",
+              0
+            ],
+            [
+              "in",
+              0
+            ],
+            [
+              "currency",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 3,
+          "operators": [
+            [
+              "currency",
+              1
+            ],
+            [
+              "in",
+              0
+            ],
+            [
+              "currency",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 4,
+          "operators": [
+            [
+              "currency",
+              1
+            ],
+            [
+              "in",
+              0
+            ],
+            [
+              "currency",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 5,
+          "operators": [
+            [
+              "in",
+              1
+            ]
+          ]
+        }
+      ]
     ]
   },
   {
@@ -431,7 +587,7 @@
           0
         ],
         [
-          "number",
+          "integer",
           0
         ]
       ]
@@ -444,18 +600,19 @@
           "dead": true,
           "instance": true,
           "level": 1,
-          "marker": "number",
+          "marker": "integer",
           "range": {
             "end": 0,
             "start": 0
           },
           "text": "1",
           "types": [
-            "number"
+            "integer"
           ],
           "value": 1,
           "word": "1"
         },
+        "context_index": 1,
         "dead": true,
         "level": 1,
         "marker": "currency",
@@ -477,7 +634,7 @@
         {
           "counter": 1,
           "op": [
-            "number",
+            "integer",
             0
           ],
           "ops": [
@@ -486,7 +643,7 @@
               0
             ],
             [
-              "number",
+              "integer",
               0
             ]
           ]
@@ -510,7 +667,9 @@
       "nameToUUID": {
         "currency": "currency1",
         "gdefaults": "gdefaults2",
-        "numbers": "numbers2"
+        "numbers": "numbers2",
+        "sdefaults": "sdefaults2",
+        "tokenize": "tokenize2"
       },
       "namespaced": {
         "currency1": {
@@ -518,6 +677,10 @@
         "gdefaults2": {
         },
         "numbers2": {
+        },
+        "sdefaults2": {
+        },
+        "tokenize2": {
         }
       },
       "processed": [
@@ -527,18 +690,19 @@
               "dead": true,
               "instance": true,
               "level": 1,
-              "marker": "number",
+              "marker": "integer",
               "range": {
                 "end": 0,
                 "start": 0
               },
               "text": "1",
               "types": [
-                "number"
+                "integer"
               ],
               "value": 1,
               "word": "1"
             },
+            "context_index": 1,
             "dead": true,
             "level": 1,
             "marker": "currency",
@@ -569,6 +733,45 @@
     "query": "1 dollars",
     "responses": [
       ""
+    ],
+    "summaries": [
+      [
+        {
+          "counter": 1,
+          "operators": [
+            [
+              "integer",
+              0
+            ],
+            [
+              "currency",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 2,
+          "operators": [
+            [
+              "integer",
+              1
+            ],
+            [
+              "currency",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 3,
+          "operators": [
+            [
+              "currency",
+              1
+            ]
+          ]
+        }
+      ]
     ]
   },
   {
@@ -579,7 +782,7 @@
           0
         ],
         [
-          "number",
+          "integer",
           0
         ]
       ]
@@ -592,18 +795,19 @@
           "dead": true,
           "instance": true,
           "level": 1,
-          "marker": "number",
+          "marker": "integer",
           "range": {
             "end": 0,
             "start": 0
           },
           "text": "1",
           "types": [
-            "number"
+            "integer"
           ],
           "value": 1,
           "word": "1"
         },
+        "context_index": 1,
         "dead": true,
         "level": 1,
         "marker": "currency",
@@ -625,7 +829,7 @@
         {
           "counter": 1,
           "op": [
-            "number",
+            "integer",
             0
           ],
           "ops": [
@@ -634,7 +838,7 @@
               0
             ],
             [
-              "number",
+              "integer",
               0
             ]
           ]
@@ -658,7 +862,9 @@
       "nameToUUID": {
         "currency": "currency1",
         "gdefaults": "gdefaults2",
-        "numbers": "numbers2"
+        "numbers": "numbers2",
+        "sdefaults": "sdefaults2",
+        "tokenize": "tokenize2"
       },
       "namespaced": {
         "currency1": {
@@ -666,6 +872,10 @@
         "gdefaults2": {
         },
         "numbers2": {
+        },
+        "sdefaults2": {
+        },
+        "tokenize2": {
         }
       },
       "processed": [
@@ -675,18 +885,19 @@
               "dead": true,
               "instance": true,
               "level": 1,
-              "marker": "number",
+              "marker": "integer",
               "range": {
                 "end": 0,
                 "start": 0
               },
               "text": "1",
               "types": [
-                "number"
+                "integer"
               ],
               "value": 1,
               "word": "1"
             },
+            "context_index": 1,
             "dead": true,
             "level": 1,
             "marker": "currency",
@@ -717,6 +928,45 @@
     "query": "1 pound",
     "responses": [
       ""
+    ],
+    "summaries": [
+      [
+        {
+          "counter": 1,
+          "operators": [
+            [
+              "integer",
+              0
+            ],
+            [
+              "currency",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 2,
+          "operators": [
+            [
+              "integer",
+              1
+            ],
+            [
+              "currency",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 3,
+          "operators": [
+            [
+              "currency",
+              1
+            ]
+          ]
+        }
+      ]
     ]
   },
   {
@@ -727,7 +977,7 @@
           0
         ],
         [
-          "number",
+          "integer",
           0
         ]
       ]
@@ -740,18 +990,19 @@
           "dead": true,
           "instance": true,
           "level": 1,
-          "marker": "number",
+          "marker": "integer",
           "range": {
             "end": 1,
             "start": 0
           },
           "text": "20",
           "types": [
-            "number"
+            "integer"
           ],
           "value": 20,
           "word": "20"
         },
+        "context_index": 1,
         "dead": true,
         "level": 1,
         "marker": "currency",
@@ -773,7 +1024,7 @@
         {
           "counter": 1,
           "op": [
-            "number",
+            "integer",
             0
           ],
           "ops": [
@@ -782,7 +1033,7 @@
               0
             ],
             [
-              "number",
+              "integer",
               0
             ]
           ]
@@ -806,7 +1057,9 @@
       "nameToUUID": {
         "currency": "currency1",
         "gdefaults": "gdefaults2",
-        "numbers": "numbers2"
+        "numbers": "numbers2",
+        "sdefaults": "sdefaults2",
+        "tokenize": "tokenize2"
       },
       "namespaced": {
         "currency1": {
@@ -814,6 +1067,10 @@
         "gdefaults2": {
         },
         "numbers2": {
+        },
+        "sdefaults2": {
+        },
+        "tokenize2": {
         }
       },
       "processed": [
@@ -823,18 +1080,19 @@
               "dead": true,
               "instance": true,
               "level": 1,
-              "marker": "number",
+              "marker": "integer",
               "range": {
                 "end": 1,
                 "start": 0
               },
               "text": "20",
               "types": [
-                "number"
+                "integer"
               ],
               "value": 20,
               "word": "20"
             },
+            "context_index": 1,
             "dead": true,
             "level": 1,
             "marker": "currency",
@@ -865,6 +1123,45 @@
     "query": "20 dollar",
     "responses": [
       ""
+    ],
+    "summaries": [
+      [
+        {
+          "counter": 1,
+          "operators": [
+            [
+              "integer",
+              0
+            ],
+            [
+              "currency",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 2,
+          "operators": [
+            [
+              "integer",
+              1
+            ],
+            [
+              "currency",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 3,
+          "operators": [
+            [
+              "currency",
+              1
+            ]
+          ]
+        }
+      ]
     ]
   },
   {
@@ -875,7 +1172,7 @@
           0
         ],
         [
-          "number",
+          "integer",
           0
         ]
       ]
@@ -888,18 +1185,19 @@
           "dead": true,
           "instance": true,
           "level": 1,
-          "marker": "number",
+          "marker": "integer",
           "range": {
             "end": 1,
             "start": 0
           },
           "text": "20",
           "types": [
-            "number"
+            "integer"
           ],
           "value": 20,
           "word": "20"
         },
+        "context_index": 1,
         "dead": true,
         "level": 1,
         "marker": "currency",
@@ -921,7 +1219,7 @@
         {
           "counter": 1,
           "op": [
-            "number",
+            "integer",
             0
           ],
           "ops": [
@@ -930,7 +1228,7 @@
               0
             ],
             [
-              "number",
+              "integer",
               0
             ]
           ]
@@ -954,7 +1252,9 @@
       "nameToUUID": {
         "currency": "currency1",
         "gdefaults": "gdefaults2",
-        "numbers": "numbers2"
+        "numbers": "numbers2",
+        "sdefaults": "sdefaults2",
+        "tokenize": "tokenize2"
       },
       "namespaced": {
         "currency1": {
@@ -962,6 +1262,10 @@
         "gdefaults2": {
         },
         "numbers2": {
+        },
+        "sdefaults2": {
+        },
+        "tokenize2": {
         }
       },
       "processed": [
@@ -971,18 +1275,19 @@
               "dead": true,
               "instance": true,
               "level": 1,
-              "marker": "number",
+              "marker": "integer",
               "range": {
                 "end": 1,
                 "start": 0
               },
               "text": "20",
               "types": [
-                "number"
+                "integer"
               ],
               "value": 20,
               "word": "20"
             },
+            "context_index": 1,
             "dead": true,
             "level": 1,
             "marker": "currency",
@@ -1013,6 +1318,45 @@
     "query": "20 dollars",
     "responses": [
       ""
+    ],
+    "summaries": [
+      [
+        {
+          "counter": 1,
+          "operators": [
+            [
+              "integer",
+              0
+            ],
+            [
+              "currency",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 2,
+          "operators": [
+            [
+              "integer",
+              1
+            ],
+            [
+              "currency",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 3,
+          "operators": [
+            [
+              "currency",
+              1
+            ]
+          ]
+        }
+      ]
     ]
   },
   {
@@ -1037,7 +1381,7 @@
           0
         ],
         [
-          "number",
+          "integer",
           0
         ]
       ]
@@ -1049,6 +1393,7 @@
         "amount": {
           "value": 16.4
         },
+        "context_index": 1,
         "dead": true,
         "default": true,
         "from": {
@@ -1056,14 +1401,14 @@
             "dead": true,
             "instance": true,
             "level": 1,
-            "marker": "number",
+            "marker": "integer",
             "range": {
               "end": 1,
               "start": 0
             },
             "text": "20",
             "types": [
-              "number"
+              "integer"
             ],
             "value": 20,
             "word": "20"
@@ -1076,6 +1421,9 @@
             "start": 0
           },
           "text": "20 dollars",
+          "types": [
+            "currency"
+          ],
           "units": "dollar",
           "word": "dollars"
         },
@@ -1097,6 +1445,9 @@
             "start": 14
           },
           "text": "euros",
+          "types": [
+            "currency"
+          ],
           "units": "euro",
           "word": "euros"
         },
@@ -1117,7 +1468,7 @@
         {
           "counter": 1,
           "op": [
-            "number",
+            "integer",
             0
           ],
           "ops": [
@@ -1134,7 +1485,7 @@
               0
             ],
             [
-              "number",
+              "integer",
               0
             ]
           ]
@@ -1196,7 +1547,9 @@
       "nameToUUID": {
         "currency": "currency1",
         "gdefaults": "gdefaults2",
-        "numbers": "numbers2"
+        "numbers": "numbers2",
+        "sdefaults": "sdefaults2",
+        "tokenize": "tokenize2"
       },
       "namespaced": {
         "currency1": {
@@ -1204,6 +1557,10 @@
         "gdefaults2": {
         },
         "numbers2": {
+        },
+        "sdefaults2": {
+        },
+        "tokenize2": {
         }
       },
       "processed": [
@@ -1212,6 +1569,7 @@
             "amount": {
               "value": 16.4
             },
+            "context_index": 1,
             "dead": true,
             "default": true,
             "from": {
@@ -1219,14 +1577,14 @@
                 "dead": true,
                 "instance": true,
                 "level": 1,
-                "marker": "number",
+                "marker": "integer",
                 "range": {
                   "end": 1,
                   "start": 0
                 },
                 "text": "20",
                 "types": [
-                  "number"
+                  "integer"
                 ],
                 "value": 20,
                 "word": "20"
@@ -1239,6 +1597,9 @@
                 "start": 0
               },
               "text": "20 dollars",
+              "types": [
+                "currency"
+              ],
               "units": "dollar",
               "word": "dollars"
             },
@@ -1260,6 +1621,9 @@
                 "start": 14
               },
               "text": "euros",
+              "types": [
+                "currency"
+              ],
               "units": "euro",
               "word": "euros"
             },
@@ -1289,6 +1653,95 @@
     "query": "20 dollars in euros",
     "responses": [
       "16.4 euros"
+    ],
+    "summaries": [
+      [
+        {
+          "counter": 1,
+          "operators": [
+            [
+              "integer",
+              0
+            ],
+            [
+              "currency",
+              0
+            ],
+            [
+              "in",
+              0
+            ],
+            [
+              "currency",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 2,
+          "operators": [
+            [
+              "integer",
+              1
+            ],
+            [
+              "currency",
+              0
+            ],
+            [
+              "in",
+              0
+            ],
+            [
+              "currency",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 3,
+          "operators": [
+            [
+              "currency",
+              1
+            ],
+            [
+              "in",
+              0
+            ],
+            [
+              "currency",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 4,
+          "operators": [
+            [
+              "currency",
+              1
+            ],
+            [
+              "in",
+              0
+            ],
+            [
+              "currency",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 5,
+          "operators": [
+            [
+              "in",
+              1
+            ]
+          ]
+        }
+      ]
     ]
   },
   {
@@ -1299,7 +1752,7 @@
           0
         ],
         [
-          "number",
+          "integer",
           0
         ]
       ]
@@ -1312,18 +1765,19 @@
           "dead": true,
           "instance": true,
           "level": 1,
-          "marker": "number",
+          "marker": "integer",
           "range": {
             "end": 1,
             "start": 0
           },
           "text": "20",
           "types": [
-            "number"
+            "integer"
           ],
           "value": 20,
           "word": "20"
         },
+        "context_index": 1,
         "dead": true,
         "level": 1,
         "marker": "currency",
@@ -1345,7 +1799,7 @@
         {
           "counter": 1,
           "op": [
-            "number",
+            "integer",
             0
           ],
           "ops": [
@@ -1354,7 +1808,7 @@
               0
             ],
             [
-              "number",
+              "integer",
               0
             ]
           ]
@@ -1378,7 +1832,9 @@
       "nameToUUID": {
         "currency": "currency1",
         "gdefaults": "gdefaults2",
-        "numbers": "numbers2"
+        "numbers": "numbers2",
+        "sdefaults": "sdefaults2",
+        "tokenize": "tokenize2"
       },
       "namespaced": {
         "currency1": {
@@ -1386,6 +1842,10 @@
         "gdefaults2": {
         },
         "numbers2": {
+        },
+        "sdefaults2": {
+        },
+        "tokenize2": {
         }
       },
       "processed": [
@@ -1395,18 +1855,19 @@
               "dead": true,
               "instance": true,
               "level": 1,
-              "marker": "number",
+              "marker": "integer",
               "range": {
                 "end": 1,
                 "start": 0
               },
               "text": "20",
               "types": [
-                "number"
+                "integer"
               ],
               "value": 20,
               "word": "20"
             },
+            "context_index": 1,
             "dead": true,
             "level": 1,
             "marker": "currency",
@@ -1437,6 +1898,45 @@
     "query": "20 euros",
     "responses": [
       ""
+    ],
+    "summaries": [
+      [
+        {
+          "counter": 1,
+          "operators": [
+            [
+              "integer",
+              0
+            ],
+            [
+              "currency",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 2,
+          "operators": [
+            [
+              "integer",
+              1
+            ],
+            [
+              "currency",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 3,
+          "operators": [
+            [
+              "currency",
+              1
+            ]
+          ]
+        }
+      ]
     ]
   }
 ]

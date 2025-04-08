@@ -405,6 +405,46 @@
           }
         ],
         "literals": {
+          "\"": [
+            {
+              "id": "doubleQuote",
+              "initial": "{\"word\":\"\\\"\",\"depth\":\"+\"}",
+              "word": "\""
+            }
+          ],
+          "(": [
+            {
+              "id": "leftParenthesis",
+              "initial": "{\"word\":\"(\",\"value\":\"(\",\"depth\":\"+\"}",
+              "word": "("
+            }
+          ],
+          ")": [
+            {
+              "id": "rightParenthesis",
+              "initial": "{\"word\":\")\",\"value\":\")\",\"depth\":\"-\"}",
+              "word": ")"
+            }
+          ],
+          ",": [
+            {
+              "id": "comma",
+              "initial": "{\"word\":\",\",\"value\":\",\",\"depth\":\"+\"}",
+              "word": ","
+            }
+          ],
+          ".": [
+            {
+              "id": "endOfSentence",
+              "initial": "{ value: \"endOfSentence\"}"
+            }
+          ],
+          ":": [
+            {
+              "id": "colon",
+              "initial": "{ value: \"colon\"}"
+            }
+          ]
         },
         "patterns": [
           {
@@ -424,6 +464,8 @@
             ]
           },
           {
+            "allow_partial_matches": false,
+            "check_spelling": true,
             "defs": [
               {
                 "id": "unknown",
@@ -431,6 +473,7 @@
                 "uuid": "tokenize2"
               }
             ],
+            "is_unknown": true,
             "pattern": [
               {
                 "type": "alphanumeric"
@@ -438,13 +481,15 @@
               {
                 "repeat": true
               }
-            ]
+            ],
+            "scale": 0.8
           }
         ]
       }
     },
     "contexts": [
       {
+        "context_index": 1,
         "dead": true,
         "default": true,
         "isResponse": true,
@@ -506,6 +551,8 @@
       "nameToUUID": {
         "evaluate": "evaluate1",
         "gdefaults": "gdefaults2",
+        "pos": "pos2",
+        "punctuation": "punctuation2",
         "tokenize": "tokenize2"
       },
       "namespaced": {
@@ -513,12 +560,17 @@
         },
         "gdefaults2": {
         },
+        "pos2": {
+        },
+        "punctuation2": {
+        },
         "tokenize2": {
         }
       },
       "processed": [
         {
           "context": {
+            "context_index": 1,
             "dead": true,
             "default": true,
             "isResponse": true,
@@ -569,6 +621,32 @@
     "query": "evaluate value1",
     "responses": [
       "value1 after evaluation"
+    ],
+    "summaries": [
+      [
+        {
+          "counter": 1,
+          "operators": [
+            [
+              "evaluate",
+              0
+            ],
+            [
+              "value1",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 2,
+          "operators": [
+            [
+              "evaluate",
+              1
+            ]
+          ]
+        }
+      ]
     ]
   }
 ]

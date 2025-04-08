@@ -33,6 +33,30 @@
           0
         ],
         [
+          "propertyOf",
+          0
+        ],
+        [
+          "unknown",
+          1
+        ]
+      ],
+      [
+        [
+          "is",
+          0
+        ],
+        [
+          "propertyOf",
+          1
+        ],
+        [
+          "unknown",
+          1
+        ]
+      ],
+      [
+        [
           "kirk",
           0
         ],
@@ -55,32 +79,6 @@
       ],
       [
         [
-          "is",
-          0
-        ],
-        [
-          "kirk",
-          0
-        ],
-        [
-          "the",
-          0
-        ],
-        [
-          "unknown",
-          0
-        ],
-        [
-          "what",
-          0
-        ]
-      ],
-      [
-        [
-          "is",
-          0
-        ],
-        [
           "propertyOf",
           0
         ],
@@ -94,10 +92,6 @@
         ]
       ],
       [
-        [
-          "is",
-          0
-        ],
         [
           "propertyOf",
           0
@@ -113,34 +107,6 @@
         [
           "what",
           0
-        ]
-      ],
-      [
-        [
-          "is",
-          0
-        ],
-        [
-          "propertyOf",
-          0
-        ],
-        [
-          "unknown",
-          1
-        ]
-      ],
-      [
-        [
-          "is",
-          0
-        ],
-        [
-          "propertyOf",
-          1
-        ],
-        [
-          "unknown",
-          1
         ]
       ]
     ],
@@ -148,6 +114,7 @@
     },
     "contexts": [
       {
+        "context_index": 1,
         "dead": true,
         "evalue": {
           "default": true,
@@ -506,7 +473,7 @@
           ],
           "ops": [
             [
-              "is",
+              "isEd",
               0
             ],
             [
@@ -535,7 +502,7 @@
           ],
           "ops": [
             [
-              "is",
+              "isEd",
               0
             ],
             [
@@ -560,7 +527,7 @@
           ],
           "ops": [
             [
-              "is",
+              "isEd",
               0
             ],
             [
@@ -638,23 +605,33 @@
     "objects": {
       "nameToUUID": {
         "animals": "animals2",
+        "articles": "articles2",
+        "asking": "asking2",
         "avatar": "avatar2",
         "concept": "concept2",
+        "conjunction": "conjunction2",
         "crew": "crew2",
         "dialogues": "dialogues2",
         "emotions": "emotions2",
+        "evaluate": "evaluate2",
         "gdefaults": "gdefaults2",
         "hierarchy": "hierarchy2",
         "meta": "meta2",
+        "negation": "negation2",
         "pos": "pos2",
         "properties": "properties2",
         "punctuation": "punctuation2",
         "sdefaults": "sdefaults2",
         "spock": "spock1",
-        "stm": "stm2"
+        "stm": "stm2",
+        "tokenize": "tokenize2"
       },
       "namespaced": {
         "animals2": {
+        },
+        "articles2": {
+        },
+        "asking2": {
         },
         "avatar2": {
         },
@@ -664,9 +641,12 @@
           "valueToWords": [
           ]
         },
+        "conjunction2": {
+        },
         "crew2": {
         },
         "dialogues2": {
+          "idSuffix": "",
           "mentioned": [
           ],
           "variables": {
@@ -674,23 +654,32 @@
         },
         "emotions2": {
         },
+        "evaluate2": {
+        },
         "gdefaults2": {
         },
         "hierarchy2": {
         },
         "meta2": {
         },
+        "negation2": {
+        },
         "pos2": {
         },
         "properties2": {
           "children": {
+            "adjective": [
+              "stm_before"
+            ],
             "animal": [
               "bird",
               "mammal"
             ],
-            "articlePOS": [
+            "article": [
               "a",
-              "the"
+              "the",
+              "each",
+              "every"
             ],
             "bird": [
               "owl",
@@ -745,13 +734,14 @@
               "spock",
               "mccoy"
             ],
-            "notAble": [
-              "unknown"
-            ],
             "object": [
-              "unknown",
               "what",
               "whose"
+            ],
+            "preposition": [
+              "between",
+              "propertyOf",
+              "to"
             ],
             "pronoun": [
               "it",
@@ -761,19 +751,23 @@
               "questionMark"
             ],
             "queryable": [
+              "xfx",
               "hierarchyAble",
               "readonly",
               "property",
               "object",
-              "xfx",
               "concept",
+              "doubleQuote",
+              "theAble",
               "unknown",
               "it",
               "what",
               "whatAble",
+              "negatable",
               "this",
-              "thisitthat",
-              "reason"
+              "reason",
+              "distributable",
+              "thisitthat"
             ],
             "rank": [
               "captain",
@@ -788,8 +782,9 @@
               "object",
               "concept",
               "unknown",
-              "noun",
-              "reason"
+              "reason",
+              "memorable",
+              "noun"
             ],
             "thisitthat": [
               "it",
@@ -799,12 +794,11 @@
             "toAble": [
               "it"
             ],
-            "unknown": [
-              "property"
-            ],
-            "verby": [
+            "verb": [
               "modifies",
-              "is"
+              "is",
+              "remember",
+              "evaluate"
             ],
             "weapon": [
               "phaser",
@@ -815,38 +809,51 @@
             "properties",
             "unknown",
             "hierarchyAble",
-            "object",
             "what",
-            "queryable",
-            "readonly",
-            "property",
+            "object",
             "xfx",
-            "theAble",
-            "whose",
+            "queryable",
+            "between",
+            "preposition",
+            "readonly",
             "have",
             "canBeDoQuestion",
             "canBeQuestion",
+            "property",
+            "theAble",
+            "propertyOf",
+            "whose",
             "concept",
             "modifies",
-            "verby",
+            "verb",
+            "doubleQuote",
             "it",
             "pronoun",
             "this",
             "questionMark",
             "punctuation",
             "a",
-            "articlePOS",
+            "article",
             "the",
-            "notAble",
             "whatAble",
+            "negatable",
             "is",
             "toAble",
-            "noun",
-            "thisitthat",
+            "to",
             "reason",
-            "that",
+            "memorable",
+            "remember",
+            "stm_before",
+            "adjective",
             "orAble",
             "ifAble",
+            "evaluate",
+            "each",
+            "every",
+            "distributable",
+            "noun",
+            "thisitthat",
+            "that",
             "bird",
             "animal",
             "mammal",
@@ -883,13 +890,16 @@
           ],
           "parents": {
             "a": [
-              "articlePOS"
+              "article"
             ],
             "armed": [
               "status"
             ],
             "bat": [
               "mammal"
+            ],
+            "between": [
+              "preposition"
             ],
             "bird": [
               "animal"
@@ -913,14 +923,29 @@
               "theAble",
               "queryable"
             ],
+            "distributable": [
+              "queryable"
+            ],
             "doctor": [
               "rank"
             ],
             "dog": [
               "canine"
             ],
+            "doubleQuote": [
+              "queryable"
+            ],
+            "each": [
+              "article"
+            ],
             "eagle": [
               "bird"
+            ],
+            "evaluate": [
+              "verb"
+            ],
+            "every": [
+              "article"
             ],
             "feline": [
               "mammal"
@@ -937,7 +962,7 @@
             ],
             "is": [
               "canBeQuestion",
-              "verby"
+              "verb"
             ],
             "it": [
               "pronoun",
@@ -960,8 +985,14 @@
               "crew_member",
               "doctor"
             ],
+            "memorable": [
+              "theAble"
+            ],
             "modifies": [
-              "verby"
+              "verb"
+            ],
+            "negatable": [
+              "queryable"
             ],
             "noun": [
               "theAble"
@@ -987,8 +1018,10 @@
             ],
             "property": [
               "queryable",
-              "theAble",
-              "unknown"
+              "theAble"
+            ],
+            "propertyOf": [
+              "preposition"
             ],
             "questionMark": [
               "punctuation"
@@ -1000,6 +1033,9 @@
               "theAble",
               "queryable"
             ],
+            "remember": [
+              "verb"
+            ],
             "second": [
               "rank"
             ],
@@ -1008,11 +1044,17 @@
               "doctor",
               "crew_member"
             ],
+            "stm_before": [
+              "adjective"
+            ],
             "that": [
               "thisitthat"
             ],
             "the": [
-              "articlePOS"
+              "article"
+            ],
+            "theAble": [
+              "queryable"
             ],
             "this": [
               "pronoun",
@@ -1022,13 +1064,14 @@
             "thisitthat": [
               "queryable"
             ],
+            "to": [
+              "preposition"
+            ],
             "torpedo": [
               "weapon"
             ],
             "unknown": [
               "hierarchyAble",
-              "object",
-              "notAble",
               "theAble",
               "queryable"
             ],
@@ -1063,6 +1106,8 @@
             "root": {
               "a": {
               },
+              "adjective": {
+              },
               "animal": {
                 "eye": {
                   "has": true,
@@ -1075,13 +1120,15 @@
               },
               "armed": {
               },
-              "articlePOS": {
+              "article": {
               },
               "bat": {
                 "wing": {
                   "has": true,
                   "value": null
                 }
+              },
+              "between": {
               },
               "bird": {
                 "beak": {
@@ -1111,11 +1158,21 @@
               },
               "crew_member": {
               },
+              "distributable": {
+              },
               "doctor": {
               },
               "dog": {
               },
+              "doubleQuote": {
+              },
+              "each": {
+              },
               "eagle": {
+              },
+              "evaluate": {
+              },
+              "every": {
               },
               "eye": {
               },
@@ -1273,11 +1330,13 @@
                   }
                 }
               },
+              "memorable": {
+              },
               "modifies": {
               },
               "name": {
               },
-              "notAble": {
+              "negatable": {
               },
               "noun": {
               },
@@ -1335,9 +1394,13 @@
               },
               "pidgeon": {
               },
+              "preposition": {
+              },
               "pronoun": {
               },
               "property": {
+              },
+              "propertyOf": {
               },
               "punctuation": {
               },
@@ -1350,6 +1413,8 @@
               "readonly": {
               },
               "reason": {
+              },
+              "remember": {
               },
               "second": {
               },
@@ -1417,6 +1482,8 @@
               },
               "status": {
               },
+              "stm_before": {
+              },
               "that": {
               },
               "the": {
@@ -1427,13 +1494,15 @@
               },
               "thisitthat": {
               },
+              "to": {
+              },
               "toAble": {
               },
               "torpedo": {
               },
               "unknown": {
               },
-              "verby": {
+              "verb": {
               },
               "weapon": {
               },
@@ -1660,18 +1729,25 @@
         "stm2": {
           "mentioned": [
             {
+              "fromSTM": true,
               "marker": "self",
               "pullFromContext": false,
+              "stm": {
+                "id": 1
+              },
               "value": "spock"
             }
           ],
           "variables": {
           }
+        },
+        "tokenize2": {
         }
       },
       "processed": [
         {
           "context": {
+            "context_index": 1,
             "dead": true,
             "evalue": {
               "default": true,
@@ -1992,6 +2068,7 @@
         },
         {
           "context": {
+            "context_index": 1,
             "dead": true,
             "level": 2,
             "marker": "is",
@@ -2052,6 +2129,7 @@
         },
         {
           "context": {
+            "context_index": 1,
             "dead": true,
             "default": true,
             "from": {
@@ -2077,7 +2155,7 @@
                 "determiner": "the",
                 "focusableForPhrase": true,
                 "level": 1,
-                "marker": "weapon",
+                "marker": "unknown",
                 "modifiers": [
                   "determiner"
                 ],
@@ -2127,7 +2205,7 @@
                   "determiner": "the",
                   "focusableForPhrase": true,
                   "level": 1,
-                  "marker": "unknown",
+                  "marker": "object",
                   "modifiers": [
                     "determiner"
                   ],
@@ -2138,6 +2216,7 @@
                   },
                   "text": "the weapon",
                   "types": [
+                    "object",
                     "unknown"
                   ],
                   "unknown": true,
@@ -2177,7 +2256,7 @@
                     "determiner": "the",
                     "focusableForPhrase": true,
                     "level": 1,
-                    "marker": "unknown",
+                    "marker": "object",
                     "modifiers": [
                       "determiner"
                     ],
@@ -2188,6 +2267,7 @@
                     },
                     "text": "the weapon",
                     "types": [
+                      "object",
                       "unknown"
                     ],
                     "unknown": true,
@@ -2220,13 +2300,28 @@
                 "dead": true,
                 "level": 1,
                 "marker": "unknown",
-                "negated": true,
+                "modifiers": [
+                  "negated"
+                ],
+                "negated": {
+                  "default": true,
+                  "level": 0,
+                  "marker": "not",
+                  "range": {
+                    "end": 54,
+                    "start": 52
+                  },
+                  "text": "not",
+                  "value": "not",
+                  "word": "not"
+                },
                 "range": {
                   "end": 60,
                   "start": 52
                 },
                 "text": "not armed",
                 "types": [
+                  "negatable",
                   "unknown"
                 ],
                 "unknown": true,
@@ -2238,8 +2333,8 @@
             "topLevel": true,
             "touchedBy": [
               "crew#call2",
-              "instance23#crew#call2",
-              "instance23#spock#call2"
+              "instance25#crew#call2",
+              "instance25#spock#call2"
             ],
             "value": "means",
             "word": "means"
@@ -2255,6 +2350,7 @@
         },
         {
           "context": {
+            "context_index": 1,
             "dead": true,
             "default": true,
             "from": {
@@ -2330,7 +2426,7 @@
                   "determiner": "the",
                   "focusableForPhrase": true,
                   "level": 1,
-                  "marker": "unknown",
+                  "marker": "object",
                   "modifiers": [
                     "determiner"
                   ],
@@ -2341,6 +2437,7 @@
                   },
                   "text": "the weapon",
                   "types": [
+                    "object",
                     "unknown"
                   ],
                   "unknown": true,
@@ -2380,7 +2477,7 @@
                     "determiner": "the",
                     "focusableForPhrase": true,
                     "level": 1,
-                    "marker": "unknown",
+                    "marker": "object",
                     "modifiers": [
                       "determiner"
                     ],
@@ -2391,6 +2488,7 @@
                     },
                     "text": "the weapon",
                     "types": [
+                      "object",
                       "unknown"
                     ],
                     "unknown": true,
@@ -2440,8 +2538,8 @@
             "topLevel": true,
             "touchedBy": [
               "crew#call2",
-              "instance22#crew#call2",
-              "instance22#spock#call2"
+              "instance24#crew#call2",
+              "instance24#spock#call2"
             ],
             "value": "means",
             "word": "means"
@@ -2457,6 +2555,7 @@
         },
         {
           "context": {
+            "context_index": 1,
             "dead": true,
             "level": 2,
             "marker": "is",
@@ -2486,8 +2585,8 @@
             "topLevel": true,
             "touchedBy": [
               "crew#call2",
-              "instance21#crew#call2",
-              "instance21#spock#call2"
+              "instance23#crew#call2",
+              "instance23#spock#call2"
             ],
             "two": {
               "dead": true,
@@ -2518,6 +2617,7 @@
         },
         {
           "context": {
+            "context_index": 1,
             "dead": true,
             "level": 2,
             "marker": "is",
@@ -2547,8 +2647,8 @@
             "topLevel": true,
             "touchedBy": [
               "crew#call2",
-              "instance20#crew#call2",
-              "instance20#spock#call2"
+              "instance22#crew#call2",
+              "instance22#spock#call2"
             ],
             "two": {
               "dead": true,
@@ -2588,6 +2688,207 @@
     "query": "what is the name of kirk",
     "responses": [
       "the name of kirk is jim"
+    ],
+    "summaries": [
+      [
+        {
+          "counter": 1,
+          "operators": [
+            [
+              "what",
+              0
+            ],
+            [
+              "is",
+              0
+            ],
+            [
+              "the",
+              0
+            ],
+            [
+              "unknown",
+              0
+            ],
+            [
+              "propertyOf",
+              0
+            ],
+            [
+              "kirk",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 2,
+          "operators": [
+            [
+              "what",
+              0
+            ],
+            [
+              "isEd",
+              0
+            ],
+            [
+              "the",
+              0
+            ],
+            [
+              "unknown",
+              1
+            ],
+            [
+              "propertyOf",
+              0
+            ],
+            [
+              "kirk",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 3,
+          "operators": [
+            [
+              "what",
+              0
+            ],
+            [
+              "isEd",
+              0
+            ],
+            [
+              "the",
+              0
+            ],
+            [
+              "unknown",
+              1
+            ],
+            [
+              "propertyOf",
+              0
+            ],
+            [
+              "kirk",
+              1
+            ]
+          ]
+        },
+        {
+          "counter": 4,
+          "operators": [
+            [
+              "what",
+              1
+            ],
+            [
+              "isEd",
+              0
+            ],
+            [
+              "the",
+              0
+            ],
+            [
+              "unknown",
+              1
+            ],
+            [
+              "propertyOf",
+              0
+            ],
+            [
+              "kirk",
+              1
+            ]
+          ]
+        },
+        {
+          "counter": 5,
+          "operators": [
+            [
+              "what",
+              1
+            ],
+            [
+              "is",
+              0
+            ],
+            [
+              "unknown",
+              1
+            ],
+            [
+              "propertyOf",
+              0
+            ],
+            [
+              "kirk",
+              1
+            ]
+          ]
+        },
+        {
+          "counter": 6,
+          "operators": [
+            [
+              "what",
+              1
+            ],
+            [
+              "is",
+              0
+            ],
+            [
+              "unknown",
+              1
+            ],
+            [
+              "propertyOf",
+              1
+            ]
+          ]
+        },
+        {
+          "counter": 7,
+          "operators": [
+            [
+              "what",
+              1
+            ],
+            [
+              "is",
+              0
+            ],
+            [
+              "property",
+              1
+            ]
+          ]
+        },
+        {
+          "counter": 8,
+          "operators": [
+            [
+              "is",
+              1
+            ]
+          ]
+        },
+        {
+          "counter": 9,
+          "operators": [
+            [
+              "is",
+              2
+            ]
+          ]
+        }
+      ]
     ]
   },
   {
@@ -2641,26 +2942,13 @@
           "what",
           0
         ]
-      ],
-      [
-        [
-          "is",
-          0
-        ],
-        [
-          "unknown",
-          0
-        ],
-        [
-          "what",
-          0
-        ]
       ]
     ],
     "config": {
     },
     "contexts": [
       {
+        "context_index": 1,
         "dead": true,
         "evalue": {
           "default": true,
@@ -2676,6 +2964,7 @@
             "object": {
               "level": 0,
               "marker": "objectPrefix",
+              "possessive": true,
               "range": {
                 "end": 11,
                 "start": 8
@@ -2705,6 +2994,7 @@
               {
                 "level": 0,
                 "marker": "objectPrefix",
+                "possessive": true,
                 "range": {
                   "end": 11,
                   "start": 8
@@ -2773,6 +3063,7 @@
               {
                 "level": 0,
                 "marker": "objectPrefix",
+                "possessive": true,
                 "range": {
                   "end": 11,
                   "start": 8
@@ -2845,6 +3136,7 @@
           "object": {
             "level": 0,
             "marker": "objectPrefix",
+            "possessive": true,
             "range": {
               "end": 11,
               "start": 8
@@ -2874,6 +3166,7 @@
             {
               "level": 0,
               "marker": "objectPrefix",
+              "possessive": true,
               "range": {
                 "end": 11,
                 "start": 8
@@ -2998,23 +3291,33 @@
     "objects": {
       "nameToUUID": {
         "animals": "animals2",
+        "articles": "articles2",
+        "asking": "asking2",
         "avatar": "avatar2",
         "concept": "concept2",
+        "conjunction": "conjunction2",
         "crew": "crew2",
         "dialogues": "dialogues2",
         "emotions": "emotions2",
+        "evaluate": "evaluate2",
         "gdefaults": "gdefaults2",
         "hierarchy": "hierarchy2",
         "meta": "meta2",
+        "negation": "negation2",
         "pos": "pos2",
         "properties": "properties2",
         "punctuation": "punctuation2",
         "sdefaults": "sdefaults2",
         "spock": "spock1",
-        "stm": "stm2"
+        "stm": "stm2",
+        "tokenize": "tokenize2"
       },
       "namespaced": {
         "animals2": {
+        },
+        "articles2": {
+        },
+        "asking2": {
         },
         "avatar2": {
         },
@@ -3024,9 +3327,12 @@
           "valueToWords": [
           ]
         },
+        "conjunction2": {
+        },
         "crew2": {
         },
         "dialogues2": {
+          "idSuffix": "",
           "mentioned": [
           ],
           "variables": {
@@ -3034,23 +3340,32 @@
         },
         "emotions2": {
         },
+        "evaluate2": {
+        },
         "gdefaults2": {
         },
         "hierarchy2": {
         },
         "meta2": {
         },
+        "negation2": {
+        },
         "pos2": {
         },
         "properties2": {
           "children": {
+            "adjective": [
+              "stm_before"
+            ],
             "animal": [
               "bird",
               "mammal"
             ],
-            "articlePOS": [
+            "article": [
               "a",
-              "the"
+              "the",
+              "each",
+              "every"
             ],
             "bird": [
               "owl",
@@ -3105,13 +3420,14 @@
               "spock",
               "mccoy"
             ],
-            "notAble": [
-              "unknown"
-            ],
             "object": [
-              "unknown",
               "what",
               "whose"
+            ],
+            "preposition": [
+              "between",
+              "propertyOf",
+              "to"
             ],
             "pronoun": [
               "it",
@@ -3121,19 +3437,23 @@
               "questionMark"
             ],
             "queryable": [
+              "xfx",
               "hierarchyAble",
               "readonly",
               "property",
               "object",
-              "xfx",
               "concept",
+              "doubleQuote",
+              "theAble",
               "unknown",
               "it",
               "what",
               "whatAble",
+              "negatable",
               "this",
-              "thisitthat",
-              "reason"
+              "reason",
+              "distributable",
+              "thisitthat"
             ],
             "rank": [
               "captain",
@@ -3148,8 +3468,9 @@
               "object",
               "concept",
               "unknown",
-              "noun",
-              "reason"
+              "reason",
+              "memorable",
+              "noun"
             ],
             "thisitthat": [
               "it",
@@ -3159,12 +3480,11 @@
             "toAble": [
               "it"
             ],
-            "unknown": [
-              "property"
-            ],
-            "verby": [
+            "verb": [
               "modifies",
-              "is"
+              "is",
+              "remember",
+              "evaluate"
             ],
             "weapon": [
               "phaser",
@@ -3175,38 +3495,51 @@
             "properties",
             "unknown",
             "hierarchyAble",
-            "object",
             "what",
-            "queryable",
-            "readonly",
-            "property",
+            "object",
             "xfx",
-            "theAble",
-            "whose",
+            "queryable",
+            "between",
+            "preposition",
+            "readonly",
             "have",
             "canBeDoQuestion",
             "canBeQuestion",
+            "property",
+            "theAble",
+            "propertyOf",
+            "whose",
             "concept",
             "modifies",
-            "verby",
+            "verb",
+            "doubleQuote",
             "it",
             "pronoun",
             "this",
             "questionMark",
             "punctuation",
             "a",
-            "articlePOS",
+            "article",
             "the",
-            "notAble",
             "whatAble",
+            "negatable",
             "is",
             "toAble",
-            "noun",
-            "thisitthat",
+            "to",
             "reason",
-            "that",
+            "memorable",
+            "remember",
+            "stm_before",
+            "adjective",
             "orAble",
             "ifAble",
+            "evaluate",
+            "each",
+            "every",
+            "distributable",
+            "noun",
+            "thisitthat",
+            "that",
             "bird",
             "animal",
             "mammal",
@@ -3243,13 +3576,16 @@
           ],
           "parents": {
             "a": [
-              "articlePOS"
+              "article"
             ],
             "armed": [
               "status"
             ],
             "bat": [
               "mammal"
+            ],
+            "between": [
+              "preposition"
             ],
             "bird": [
               "animal"
@@ -3273,14 +3609,29 @@
               "theAble",
               "queryable"
             ],
+            "distributable": [
+              "queryable"
+            ],
             "doctor": [
               "rank"
             ],
             "dog": [
               "canine"
             ],
+            "doubleQuote": [
+              "queryable"
+            ],
+            "each": [
+              "article"
+            ],
             "eagle": [
               "bird"
+            ],
+            "evaluate": [
+              "verb"
+            ],
+            "every": [
+              "article"
             ],
             "feline": [
               "mammal"
@@ -3297,7 +3648,7 @@
             ],
             "is": [
               "canBeQuestion",
-              "verby"
+              "verb"
             ],
             "it": [
               "pronoun",
@@ -3320,8 +3671,14 @@
               "crew_member",
               "doctor"
             ],
+            "memorable": [
+              "theAble"
+            ],
             "modifies": [
-              "verby"
+              "verb"
+            ],
+            "negatable": [
+              "queryable"
             ],
             "noun": [
               "theAble"
@@ -3347,8 +3704,10 @@
             ],
             "property": [
               "queryable",
-              "theAble",
-              "unknown"
+              "theAble"
+            ],
+            "propertyOf": [
+              "preposition"
             ],
             "questionMark": [
               "punctuation"
@@ -3360,6 +3719,9 @@
               "theAble",
               "queryable"
             ],
+            "remember": [
+              "verb"
+            ],
             "second": [
               "rank"
             ],
@@ -3368,11 +3730,17 @@
               "doctor",
               "crew_member"
             ],
+            "stm_before": [
+              "adjective"
+            ],
             "that": [
               "thisitthat"
             ],
             "the": [
-              "articlePOS"
+              "article"
+            ],
+            "theAble": [
+              "queryable"
             ],
             "this": [
               "pronoun",
@@ -3382,13 +3750,14 @@
             "thisitthat": [
               "queryable"
             ],
+            "to": [
+              "preposition"
+            ],
             "torpedo": [
               "weapon"
             ],
             "unknown": [
               "hierarchyAble",
-              "object",
-              "notAble",
               "theAble",
               "queryable"
             ],
@@ -3423,6 +3792,8 @@
             "root": {
               "a": {
               },
+              "adjective": {
+              },
               "animal": {
                 "eye": {
                   "has": true,
@@ -3435,13 +3806,15 @@
               },
               "armed": {
               },
-              "articlePOS": {
+              "article": {
               },
               "bat": {
                 "wing": {
                   "has": true,
                   "value": null
                 }
+              },
+              "between": {
               },
               "bird": {
                 "beak": {
@@ -3471,11 +3844,21 @@
               },
               "crew_member": {
               },
+              "distributable": {
+              },
               "doctor": {
               },
               "dog": {
               },
+              "doubleQuote": {
+              },
+              "each": {
+              },
               "eagle": {
+              },
+              "evaluate": {
+              },
+              "every": {
               },
               "eye": {
               },
@@ -3633,11 +4016,13 @@
                   }
                 }
               },
+              "memorable": {
+              },
               "modifies": {
               },
               "name": {
               },
-              "notAble": {
+              "negatable": {
               },
               "noun": {
               },
@@ -3695,9 +4080,13 @@
               },
               "pidgeon": {
               },
+              "preposition": {
+              },
               "pronoun": {
               },
               "property": {
+              },
+              "propertyOf": {
               },
               "punctuation": {
               },
@@ -3710,6 +4099,8 @@
               "readonly": {
               },
               "reason": {
+              },
+              "remember": {
               },
               "second": {
               },
@@ -3777,6 +4168,8 @@
               },
               "status": {
               },
+              "stm_before": {
+              },
               "that": {
               },
               "the": {
@@ -3787,13 +4180,15 @@
               },
               "thisitthat": {
               },
+              "to": {
+              },
               "toAble": {
               },
               "torpedo": {
               },
               "unknown": {
               },
-              "verby": {
+              "verb": {
               },
               "weapon": {
               },
@@ -4020,18 +4415,25 @@
         "stm2": {
           "mentioned": [
             {
+              "fromSTM": true,
               "marker": "self",
               "pullFromContext": false,
+              "stm": {
+                "id": 1
+              },
               "value": "spock"
             }
           ],
           "variables": {
           }
+        },
+        "tokenize2": {
         }
       },
       "processed": [
         {
           "context": {
+            "context_index": 1,
             "dead": true,
             "evalue": {
               "default": true,
@@ -4047,6 +4449,7 @@
                 "object": {
                   "level": 0,
                   "marker": "objectPrefix",
+                  "possessive": true,
                   "range": {
                     "end": 11,
                     "start": 8
@@ -4076,6 +4479,7 @@
                   {
                     "level": 0,
                     "marker": "objectPrefix",
+                    "possessive": true,
                     "range": {
                       "end": 11,
                       "start": 8
@@ -4144,6 +4548,7 @@
                   {
                     "level": 0,
                     "marker": "objectPrefix",
+                    "possessive": true,
                     "range": {
                       "end": 11,
                       "start": 8
@@ -4216,6 +4621,7 @@
               "object": {
                 "level": 0,
                 "marker": "objectPrefix",
+                "possessive": true,
                 "range": {
                   "end": 11,
                   "start": 8
@@ -4245,6 +4651,7 @@
                 {
                   "level": 0,
                   "marker": "objectPrefix",
+                  "possessive": true,
                   "range": {
                     "end": 11,
                     "start": 8
@@ -4278,6 +4685,7 @@
         },
         {
           "context": {
+            "context_index": 1,
             "dead": true,
             "level": 2,
             "marker": "is",
@@ -4338,6 +4746,7 @@
         },
         {
           "context": {
+            "context_index": 1,
             "dead": true,
             "default": true,
             "from": {
@@ -4363,7 +4772,7 @@
                 "determiner": "the",
                 "focusableForPhrase": true,
                 "level": 1,
-                "marker": "weapon",
+                "marker": "unknown",
                 "modifiers": [
                   "determiner"
                 ],
@@ -4413,7 +4822,7 @@
                   "determiner": "the",
                   "focusableForPhrase": true,
                   "level": 1,
-                  "marker": "unknown",
+                  "marker": "object",
                   "modifiers": [
                     "determiner"
                   ],
@@ -4424,6 +4833,7 @@
                   },
                   "text": "the weapon",
                   "types": [
+                    "object",
                     "unknown"
                   ],
                   "unknown": true,
@@ -4463,7 +4873,7 @@
                     "determiner": "the",
                     "focusableForPhrase": true,
                     "level": 1,
-                    "marker": "unknown",
+                    "marker": "object",
                     "modifiers": [
                       "determiner"
                     ],
@@ -4474,6 +4884,7 @@
                     },
                     "text": "the weapon",
                     "types": [
+                      "object",
                       "unknown"
                     ],
                     "unknown": true,
@@ -4506,13 +4917,28 @@
                 "dead": true,
                 "level": 1,
                 "marker": "unknown",
-                "negated": true,
+                "modifiers": [
+                  "negated"
+                ],
+                "negated": {
+                  "default": true,
+                  "level": 0,
+                  "marker": "not",
+                  "range": {
+                    "end": 54,
+                    "start": 52
+                  },
+                  "text": "not",
+                  "value": "not",
+                  "word": "not"
+                },
                 "range": {
                   "end": 60,
                   "start": 52
                 },
                 "text": "not armed",
                 "types": [
+                  "negatable",
                   "unknown"
                 ],
                 "unknown": true,
@@ -4524,8 +4950,8 @@
             "topLevel": true,
             "touchedBy": [
               "crew#call2",
-              "instance23#crew#call2",
-              "instance23#spock#call2"
+              "instance25#crew#call2",
+              "instance25#spock#call2"
             ],
             "value": "means",
             "word": "means"
@@ -4541,6 +4967,7 @@
         },
         {
           "context": {
+            "context_index": 1,
             "dead": true,
             "default": true,
             "from": {
@@ -4616,7 +5043,7 @@
                   "determiner": "the",
                   "focusableForPhrase": true,
                   "level": 1,
-                  "marker": "unknown",
+                  "marker": "object",
                   "modifiers": [
                     "determiner"
                   ],
@@ -4627,6 +5054,7 @@
                   },
                   "text": "the weapon",
                   "types": [
+                    "object",
                     "unknown"
                   ],
                   "unknown": true,
@@ -4666,7 +5094,7 @@
                     "determiner": "the",
                     "focusableForPhrase": true,
                     "level": 1,
-                    "marker": "unknown",
+                    "marker": "object",
                     "modifiers": [
                       "determiner"
                     ],
@@ -4677,6 +5105,7 @@
                     },
                     "text": "the weapon",
                     "types": [
+                      "object",
                       "unknown"
                     ],
                     "unknown": true,
@@ -4726,8 +5155,8 @@
             "topLevel": true,
             "touchedBy": [
               "crew#call2",
-              "instance22#crew#call2",
-              "instance22#spock#call2"
+              "instance24#crew#call2",
+              "instance24#spock#call2"
             ],
             "value": "means",
             "word": "means"
@@ -4743,6 +5172,7 @@
         },
         {
           "context": {
+            "context_index": 1,
             "dead": true,
             "level": 2,
             "marker": "is",
@@ -4772,8 +5202,8 @@
             "topLevel": true,
             "touchedBy": [
               "crew#call2",
-              "instance21#crew#call2",
-              "instance21#spock#call2"
+              "instance23#crew#call2",
+              "instance23#spock#call2"
             ],
             "two": {
               "dead": true,
@@ -4804,6 +5234,7 @@
         },
         {
           "context": {
+            "context_index": 1,
             "dead": true,
             "level": 2,
             "marker": "is",
@@ -4833,8 +5264,8 @@
             "topLevel": true,
             "touchedBy": [
               "crew#call2",
-              "instance20#crew#call2",
-              "instance20#spock#call2"
+              "instance22#crew#call2",
+              "instance22#spock#call2"
             ],
             "two": {
               "dead": true,
@@ -4874,6 +5305,108 @@
     "query": "what is your name",
     "responses": [
       "my name is spock"
+    ],
+    "summaries": [
+      [
+        {
+          "counter": 1,
+          "operators": [
+            [
+              "what",
+              0
+            ],
+            [
+              "is",
+              0
+            ],
+            [
+              "objectPrefix",
+              0
+            ],
+            [
+              "unknown",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 2,
+          "operators": [
+            [
+              "what",
+              0
+            ],
+            [
+              "is",
+              0
+            ],
+            [
+              "objectPrefix",
+              0
+            ],
+            [
+              "unknown",
+              1
+            ]
+          ]
+        },
+        {
+          "counter": 3,
+          "operators": [
+            [
+              "what",
+              1
+            ],
+            [
+              "is",
+              0
+            ],
+            [
+              "objectPrefix",
+              0
+            ],
+            [
+              "unknown",
+              1
+            ]
+          ]
+        },
+        {
+          "counter": 4,
+          "operators": [
+            [
+              "what",
+              1
+            ],
+            [
+              "is",
+              0
+            ],
+            [
+              "property",
+              1
+            ]
+          ]
+        },
+        {
+          "counter": 5,
+          "operators": [
+            [
+              "is",
+              1
+            ]
+          ]
+        },
+        {
+          "counter": 6,
+          "operators": [
+            [
+              "is",
+              2
+            ]
+          ]
+        }
+      ]
     ]
   }
 ]
