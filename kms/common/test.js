@@ -28,8 +28,8 @@ for (let file of package.files) {
     continue
   }
 
-  // retrains.push(`node ${file} -rtf -g`)
-  tests.push(`node ${file} -tva -g -s`)
+  retrains.push(`node ${file} -rtf -g`)
+  tests.push(`node ${file} -tva -g`)
   // tests.push(`node tester -m ${file} -tva -tmn ${file} -g`)
   // tests.push(`node tester_rebuild -m ${file}`)
 }
