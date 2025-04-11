@@ -9,11 +9,23 @@ const config = {
   operators: [
     "(x [list|and] y)",
   ],
+  associations: {
+    positive: [
+      { context: [['listable', 0], ['list', 0], ['listable', 0]], choose: 0 },
+      { context: [['listable', 1], ['list', 0], ['listable', 0]], choose: 0 },
+      { context: [['listable', 1], ['list', 0], ['listable', 1]], choose: 0 },
+    ]
+  },
   bridges: [
     // context.instance == variables.instance (unification)
     {
       id: "list", 
       level: 0, 
+      /*
+      localHierarchy: [
+        ['unknown', 'listable'],
+      ],
+      */
       selector: {
           match: "same", 
           left: [ { pattern: '($type && context.instance == variables.instance)' } ], 

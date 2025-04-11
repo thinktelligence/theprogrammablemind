@@ -23,13 +23,29 @@ const template = {
       {
         associations: {
           positive: [
-            /*
-            [['what', 0], ['is', 0], ['unknown', 0], ['owned', 0], ['by', 0]],
-            [['unknown', 0], ['is', 0], ['unknown', 0], ['owned', 0], ['by', 0]],
-            [['unknown', 1], ['is', 0], ['unknown', 0], ['owned', 0], ['by', 0]],
-            [['unknown', 1], ['is', 0], ['unknown', 1], ['owned', 0], ['by', 0]],
-            */
-      //      [['unknown', 0], ['isEd', 0] , ['unknown', 0], ['owned', 0], ['by', 0]]
+            { context: [["the",0],["unknown",0],["owned",0],["by",0],["unknown",0]], choose: 1 },
+            { context: [["the",0],["unknown",1],["owned",0],["by",0],["unknown",0]], choose: 1 },
+            { context: [["the",0],["unknown",1],["owned",0],["by",0],["unknown",1]], choose: 1 },
+
+
+            { context: [["queryable",0],["is",0],["isEder",0],["isEdAble",0],["by",0]], choose: 1 },
+            { context: [["queryable",1],["is",0],["isEder",0],["isEdAble",0],["by",0]], choose: 1 },
+            { context: [["queryable",1],["is",0],["isEder",1],["isEdAble",0],["by",0]], choose: 1 },
+            { context: [["queryable",0],["is",0],["unknown",0],["isEdAble",0],["by",0]], choose: 1 },
+            { context: [["queryable",0],["is",0],["unknown",1],["isEdAble",0],["by",0]], choose: 1 },
+            { context: [["queryable",1],["is",0],["unknown",0],["isEdAble",0],["by",0]], choose: 1 },
+            { context: [["queryable",1],["is",0],["unknown",1],["isEdAble",0],["by",0]], choose: 1 },
+
+            { context: [["unknown",0],["isEd",0],["isEdAble",0],["by",0],["unknown",0]], choose: 1 },
+            { context: [["unknown",1],["isEd",0],["isEdAble",0],["by",0],["unknown",0]], choose: 1 },
+            { context: [["unknown",1],["isEd",0],["isEdAble",0],["by",0],["unknown",1]], choose: 1 },
+            { context: [["unknown",1],["isEd",0],["isEdAble",0],["by",1]], choose: 1 },
+
+            { context: [["isEdee",0],["isEd",0],["isEdAble",0],["by",0],["isEder",0]], choose: 1 },
+            { context: [["isEdee",1],["isEd",0],["isEdAble",0],["by",0],["isEder",0]], choose: 1 },
+            { context: [["isEdee",1],["isEd",0],["isEdAble",0],["by",0],["isEder",1]], choose: 1 },
+            { context: [["isEdee",0],["isEd",0],["isEdAble",0],["by",1]], choose: 1 },
+            { context: [["isEdee",1],["isEd",0],["isEdAble",0],["by",1]], choose: 1 },
           ]
         },
       },

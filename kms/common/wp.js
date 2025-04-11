@@ -249,12 +249,15 @@ template = {
         positive: [
           // TODO remove these after crucible work done and fix the associator rules
           // [['style_wp', 0], ['statefulElement_wp', 0], ['statefulElementInContext_wp', 0], ['every', 0], ['statefulElement_wp', 0]],
-          [['style_wp', 0], ['word_wp', 0], ['statefulElementInContext_wp', 0], ['paragraph_wp', 0]],
-          [['style_wp', 0], ['letter_wp', 0], ['statefulElementInContext_wp', 0], ['word_wp', 0]],
+          { "context": [['style_wp', 0], ['word_wp', 0], ['statefulElementInContext_wp', 0], ['paragraph_wp', 0]], choose: 0 },
+          { "context": [['style_wp', 0], ['letter_wp', 0], ['statefulElementInContext_wp', 0], ['word_wp', 0]], choose: 0 },
           // [['statefulElement_wp', 1], ['statefulElementInContext_wp', 0], ['every', 0], ['statefulElement_wp', 1]],
-          [['paragraph_wp', 0], ['thatVerb', 0], ['paragraphComparisonVerb_wp', 0], ['word_wp', 0]],
-          [['paragraph_wp', 0], ['thatVerb', 0], ['paragraphComparisonVerb_wp', 0], ['styleModifier_wp', 0], ['word_wp', 0]],
-          [['word_wp', 0], ['thatVerb', 0], ['wordComparison_wp', 0]],
+          { "context": [['paragraph_wp', 0], ['thatVerb', 0], ['paragraphComparisonVerb_wp', 0], ['word_wp', 0]], choose: 0 },
+          { "context": [['paragraph_wp', 0], ['thatVerb', 0], ['paragraphComparisonVerb_wp', 0], ['styleModifier_wp', 0], ['word_wp', 0]], choose: 0 },
+          { "context": [['word_wp', 0], ['thatVerb', 0], ['wordComparison_wp', 0]], choose: 0 },
+          { context: [["style_wp",1],["article",0],["statefulElement_wp",1],["thatVerb",0],["paragraphComparisonVerb_wp",0],["styleModifier_wp",0],["statefulElement_wp",0]], choose: 0 },
+          { context: [["style_wp",1],["article",0],["statefulElement_wp",1],["thatVerb",0],["paragraphComparisonVerb_wp",0],["word_wp",0],["thatVerb",0],["wordComparisonWithVerb_wp",0],["comparisonWith_wp",0],["unknown",1]], choose: 0 },
+          { context: [["article",0],["statefulElement_wp",1],["thatVerb",0],["paragraphComparisonVerb_wp",0],["styleModifier_wp",0],["statefulElement_wp",0]], choose: 0 },
         ]
       },
 

@@ -103,9 +103,211 @@
           ]
         }
       ],
+      "associations": {
+        "negative": [],
+        "positive": [
+          {
+            "context": [
+              [
+                "wear",
+                0
+              ],
+              [
+                "article",
+                0
+              ],
+              [
+                "unknown",
+                0
+              ],
+              [
+                "wearable",
+                0
+              ]
+            ],
+            "choose": 0
+          },
+          {
+            "context": [
+              [
+                "wear",
+                0
+              ],
+              [
+                "article",
+                0
+              ],
+              [
+                "unknown",
+                1
+              ],
+              [
+                "wearable",
+                0
+              ]
+            ],
+            "choose": 0
+          },
+          {
+            "context": [
+              [
+                "wear",
+                0
+              ],
+              [
+                "article",
+                0
+              ],
+              [
+                "wearable",
+                0
+              ]
+            ],
+            "choose": 0
+          },
+          {
+            "context": [
+              [
+                "wear",
+                0
+              ],
+              [
+                "article",
+                0
+              ],
+              [
+                "wearable",
+                1
+              ]
+            ],
+            "choose": 0
+          },
+          {
+            "context": [
+              [
+                "wear",
+                0
+              ],
+              [
+                "article",
+                0
+              ],
+              [
+                "unknown",
+                0
+              ]
+            ],
+            "choose": 0
+          },
+          {
+            "context": [
+              [
+                "wear",
+                0
+              ],
+              [
+                "article",
+                0
+              ],
+              [
+                "unknown",
+                1
+              ]
+            ],
+            "choose": 0
+          },
+          {
+            "context": [
+              [
+                "equip",
+                0
+              ],
+              [
+                "the",
+                0
+              ],
+              [
+                "condition",
+                0
+              ],
+              [
+                "item_property",
+                0
+              ],
+              [
+                "weapon",
+                0
+              ]
+            ],
+            "choose": 0
+          },
+          {
+            "context": [
+              [
+                "what",
+                0
+              ],
+              [
+                "is",
+                0
+              ],
+              [
+                "article",
+                0
+              ],
+              [
+                "type",
+                1
+              ],
+              [
+                "propertyOf",
+                0
+              ],
+              [
+                "item",
+                0
+              ],
+              [
+                "property",
+                0
+              ]
+            ],
+            "choose": 1
+          },
+          {
+            "context": [
+              [
+                "what",
+                0
+              ],
+              [
+                "is",
+                0
+              ],
+              [
+                "article",
+                0
+              ],
+              [
+                "type",
+                1
+              ],
+              [
+                "propertyOf",
+                0
+              ],
+              [
+                "object",
+                1
+              ]
+            ],
+            "choose": 1
+          }
+        ]
+      },
       "bridges": [
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:152",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:168",
           "id": "put",
           "isA": [
             "verb"
@@ -115,7 +317,7 @@
           "generatorp": "({context}) => `put on`"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:160",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:176",
           "id": "propertyCondition",
           "before": [
             "adjective",
@@ -127,7 +329,7 @@
           "bridge": "{ ...next(after[0]), condition: before[0], modifiers: ['condition'] }"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:168",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:184",
           "id": "on",
           "isA": [
             "preposition"
@@ -138,7 +340,7 @@
           "semantic": "({api, context}) => {\n         api.change(context.item.marker)\n       }"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:179",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:195",
           "id": "change",
           "isA": [
             "verb"
@@ -155,7 +357,7 @@
           "semantic": "({api, context}) => {\n         api.change(context.item.marker)\n       }"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:191",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:207",
           "id": "disarm",
           "isA": [
             "verb"
@@ -166,7 +368,7 @@
           "semantic": "({api, context}) => {\n         api.disarm()\n       }"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:202",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:218",
           "id": "strip",
           "isA": [
             "verb"
@@ -177,7 +379,7 @@
           "semantic": "({api, context}) => {\n         api.strip()\n       }"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:213",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:229",
           "id": "call",
           "isA": [
             "verb"
@@ -188,7 +390,7 @@
           "semantic": "({api, context}) => {\n         api.setName(context.item, context.name.name.value)\n       }"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:224",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:240",
           "id": "putOn",
           "isA": [
             "verb"
@@ -199,7 +401,7 @@
           "semantic": "({api, context}) => {\n         if (context.item.name) {\n           api.wear({ name: context.item.name.value, type: 'outfit' })\n         } else {\n           api.wear({ type: context.item.value })\n         }\n       }"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:239",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:255",
           "id": "wear",
           "isA": [
             "verb"
@@ -219,7 +421,7 @@
           "semantic": "({api, context}) => {\n         if (context.item.name) {\n           api.wear({ name: context.item.name.value, type: 'outfit' })\n         } else {\n           api.wear({ type: context.item.value })\n         }\n       }"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:256",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:272",
           "id": "equip",
           "isA": [
             "verb"
@@ -244,7 +446,7 @@
           "semantic": "async ({api, context}) => {\n         let condition\n         if (context.item.condition) {\n           condition = { selector: context.item.condition.marker, property: context.item.condition.property[0].marker }\n         }\n         api.equip({ type: context.item.value, condition })\n       }"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:272",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:288",
           "id": "toDrink",
           "isA": [
             "verb"
@@ -255,7 +457,7 @@
           "semantic": "async ({api, context, e}) => {\n         const value = await e(context.item)\n         api.drink(value.value)\n       }"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:284",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:300",
           "id": "eat",
           "localHierarchy": [
             [
@@ -272,7 +474,7 @@
           "semantic": "async ({api, context}) => {\n         api.eat(context.item.value)\n       }"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:296",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:312",
           "id": "take",
           "isA": [
             "verb"
@@ -283,7 +485,7 @@
           "semantic": "async ({api, context, e}) => {\n         const value = await e(context.item)\n         api.take(value.value)\n       }"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:308",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:324",
           "id": "nameable",
           "isA": [
             "theAble"
@@ -571,6 +773,11 @@
           false
         ],
         [
+          "comparable",
+          "theAble",
+          false
+        ],
+        [
           "concept",
           "queryable",
           false
@@ -721,6 +928,11 @@
           false
         ],
         [
+          "isQuery",
+          "verb",
+          false
+        ],
+        [
           "it",
           "pronoun",
           false
@@ -738,6 +950,11 @@
         [
           "it",
           "toAble",
+          false
+        ],
+        [
+          "listable",
+          "listable",
           false
         ],
         [
@@ -883,6 +1100,11 @@
         [
           "number",
           "queryable",
+          false
+        ],
+        [
+          "object",
+          "listable",
           false
         ],
         [
@@ -1037,7 +1259,7 @@
         ],
         [
           "queryable",
-          "queryable",
+          "listable",
           false
         ],
         [
@@ -1727,6 +1949,16 @@
           [
             "list",
             0
+          ]
+        ],
+        [
+          [
+            "is",
+            0
+          ],
+          [
+            "list",
+            0
           ],
           [
             "unknown",
@@ -1745,10 +1977,6 @@
           [
             "unknown",
             0
-          ],
-          [
-            "unknown",
-            1
           ]
         ],
         [
@@ -1758,24 +1986,6 @@
           ],
           [
             "list",
-            0
-          ],
-          [
-            "unknown",
-            1
-          ]
-        ],
-        [
-          [
-            "is",
-            0
-          ],
-          [
-            "list",
-            1
-          ],
-          [
-            "unknown",
             1
           ]
         ]
@@ -2696,6 +2906,11 @@
           false
         ],
         [
+          "comparable",
+          "theAble",
+          false
+        ],
+        [
           "concept",
           "queryable",
           false
@@ -2886,6 +3101,11 @@
           false
         ],
         [
+          "isQuery",
+          "verb",
+          false
+        ],
+        [
           "it",
           "pronoun",
           false
@@ -2903,6 +3123,11 @@
         [
           "it",
           "toAble",
+          false
+        ],
+        [
+          "listable",
+          "listable",
           false
         ],
         [
@@ -3088,6 +3313,11 @@
         [
           "number",
           "queryable",
+          false
+        ],
+        [
+          "object",
+          "listable",
           false
         ],
         [
@@ -3282,7 +3512,7 @@
         ],
         [
           "queryable",
-          "queryable",
+          "listable",
           false
         ],
         [
@@ -3857,13 +4087,23 @@
           [
             "list",
             0
-          ],
+          ]
+        ],
+        [
           [
-            "mine",
+            "grenade",
             0
           ],
           [
-            "unknown",
+            "is",
+            0
+          ],
+          [
+            "list",
+            0
+          ],
+          [
+            "mine",
             0
           ]
         ],
@@ -3886,25 +4126,7 @@
           ],
           [
             "unknown",
-            1
-          ]
-        ],
-        [
-          [
-            "grenade",
             0
-          ],
-          [
-            "is",
-            0
-          ],
-          [
-            "list",
-            0
-          ],
-          [
-            "unknown",
-            1
           ]
         ],
         [
@@ -3914,10 +4136,6 @@
           ],
           [
             "list",
-            1
-          ],
-          [
-            "unknown",
             1
           ]
         ]
@@ -4243,6 +4461,11 @@
           false
         ],
         [
+          "comparable",
+          "theAble",
+          false
+        ],
+        [
           "concept",
           "queryable",
           false
@@ -4473,6 +4696,11 @@
           false
         ],
         [
+          "isQuery",
+          "verb",
+          false
+        ],
+        [
           "it",
           "pronoun",
           false
@@ -4490,6 +4718,11 @@
         [
           "it",
           "toAble",
+          false
+        ],
+        [
+          "listable",
+          "listable",
           false
         ],
         [
@@ -4684,6 +4917,11 @@
         ],
         [
           "object",
+          "listable",
+          false
+        ],
+        [
+          "object",
           "queryable",
           false
         ],
@@ -4874,7 +5112,7 @@
         ],
         [
           "queryable",
-          "queryable",
+          "listable",
           false
         ],
         [
@@ -5622,6 +5860,11 @@
           false
         ],
         [
+          "comparable",
+          "theAble",
+          false
+        ],
+        [
           "concept",
           "queryable",
           false
@@ -5857,6 +6100,11 @@
           false
         ],
         [
+          "isQuery",
+          "verb",
+          false
+        ],
+        [
           "it",
           "pronoun",
           false
@@ -5874,6 +6122,11 @@
         [
           "it",
           "toAble",
+          false
+        ],
+        [
+          "listable",
+          "listable",
           false
         ],
         [
@@ -6068,6 +6321,11 @@
         ],
         [
           "object",
+          "listable",
+          false
+        ],
+        [
+          "object",
           "queryable",
           false
         ],
@@ -6258,7 +6516,7 @@
         ],
         [
           "queryable",
-          "queryable",
+          "listable",
           false
         ],
         [
@@ -6904,10 +7162,6 @@
           [
             "shotgun",
             0
-          ],
-          [
-            "unknown",
-            0
           ]
         ],
         [
@@ -6933,7 +7187,7 @@
           ],
           [
             "unknown",
-            1
+            0
           ]
         ],
         [
@@ -6952,10 +7206,6 @@
           [
             "shotgun",
             0
-          ],
-          [
-            "unknown",
-            1
           ]
         ],
         [
@@ -6970,10 +7220,6 @@
           [
             "shotgun",
             0
-          ],
-          [
-            "unknown",
-            1
           ]
         ],
         [
@@ -6983,10 +7229,6 @@
           ],
           [
             "list",
-            1
-          ],
-          [
-            "unknown",
             1
           ]
         ]
@@ -7452,6 +7694,11 @@
           false
         ],
         [
+          "comparable",
+          "theAble",
+          false
+        ],
+        [
           "concept",
           "queryable",
           false
@@ -7722,6 +7969,11 @@
           false
         ],
         [
+          "isQuery",
+          "verb",
+          false
+        ],
+        [
           "it",
           "pronoun",
           false
@@ -7739,6 +7991,11 @@
         [
           "it",
           "toAble",
+          false
+        ],
+        [
+          "listable",
+          "listable",
           false
         ],
         [
@@ -7929,6 +8186,11 @@
         [
           "number",
           "queryable",
+          false
+        ],
+        [
+          "object",
+          "listable",
           false
         ],
         [
@@ -8128,7 +8390,7 @@
         ],
         [
           "queryable",
-          "queryable",
+          "listable",
           false
         ],
         [
@@ -8886,6 +9148,11 @@
           false
         ],
         [
+          "comparable",
+          "theAble",
+          false
+        ],
+        [
           "concept",
           "queryable",
           false
@@ -9161,6 +9428,11 @@
           false
         ],
         [
+          "isQuery",
+          "verb",
+          false
+        ],
+        [
           "it",
           "pronoun",
           false
@@ -9178,6 +9450,11 @@
         [
           "it",
           "toAble",
+          false
+        ],
+        [
+          "listable",
+          "listable",
           false
         ],
         [
@@ -9368,6 +9645,11 @@
         [
           "number",
           "queryable",
+          false
+        ],
+        [
+          "object",
+          "listable",
           false
         ],
         [
@@ -9567,7 +9849,7 @@
         ],
         [
           "queryable",
-          "queryable",
+          "listable",
           false
         ],
         [
@@ -10238,6 +10520,16 @@
           [
             "list",
             0
+          ]
+        ],
+        [
+          [
+            "is",
+            0
+          ],
+          [
+            "list",
+            0
           ],
           [
             "unknown",
@@ -10256,10 +10548,6 @@
           [
             "unknown",
             0
-          ],
-          [
-            "unknown",
-            1
           ]
         ],
         [
@@ -10269,24 +10557,6 @@
           ],
           [
             "list",
-            0
-          ],
-          [
-            "unknown",
-            1
-          ]
-        ],
-        [
-          [
-            "is",
-            0
-          ],
-          [
-            "list",
-            1
-          ],
-          [
-            "unknown",
             1
           ]
         ]
@@ -10892,6 +11162,11 @@
           false
         ],
         [
+          "comparable",
+          "theAble",
+          false
+        ],
+        [
           "concept",
           "queryable",
           false
@@ -11207,6 +11482,11 @@
           false
         ],
         [
+          "isQuery",
+          "verb",
+          false
+        ],
+        [
           "it",
           "pronoun",
           false
@@ -11224,6 +11504,11 @@
         [
           "it",
           "toAble",
+          false
+        ],
+        [
+          "listable",
+          "listable",
           false
         ],
         [
@@ -11414,6 +11699,11 @@
         [
           "number",
           "queryable",
+          false
+        ],
+        [
+          "object",
+          "listable",
           false
         ],
         [
@@ -11613,7 +11903,7 @@
         ],
         [
           "queryable",
-          "queryable",
+          "listable",
           false
         ],
         [
@@ -12211,6 +12501,16 @@
           [
             "is",
             0
+          ]
+        ],
+        [
+          [
+            "a",
+            0
+          ],
+          [
+            "is",
+            0
           ],
           [
             "unknown",
@@ -12231,36 +12531,8 @@
             0
           ],
           [
-            "unknown",
-            1
-          ]
-        ],
-        [
-          [
-            "a",
-            0
-          ],
-          [
-            "is",
-            0
-          ],
-          [
-            "unknown",
-            1
-          ],
-          [
             "weapon",
             0
-          ]
-        ],
-        [
-          [
-            "is",
-            0
-          ],
-          [
-            "unknown",
-            1
           ]
         ]
       ],
@@ -12630,6 +12902,11 @@
           false
         ],
         [
+          "comparable",
+          "theAble",
+          false
+        ],
+        [
           "concept",
           "queryable",
           false
@@ -12980,6 +13257,11 @@
           false
         ],
         [
+          "isQuery",
+          "verb",
+          false
+        ],
+        [
           "it",
           "pronoun",
           false
@@ -12997,6 +13279,11 @@
         [
           "it",
           "toAble",
+          false
+        ],
+        [
+          "listable",
+          "listable",
           false
         ],
         [
@@ -13187,6 +13474,11 @@
         [
           "number",
           "queryable",
+          false
+        ],
+        [
+          "object",
+          "listable",
           false
         ],
         [
@@ -13386,7 +13678,7 @@
         ],
         [
           "queryable",
-          "queryable",
+          "listable",
           false
         ],
         [
@@ -13946,10 +14238,6 @@
           [
             "is",
             0
-          ],
-          [
-            "unknown",
-            0
           ]
         ],
         [
@@ -13963,17 +14251,7 @@
           ],
           [
             "unknown",
-            1
-          ]
-        ],
-        [
-          [
-            "is",
             0
-          ],
-          [
-            "unknown",
-            1
           ]
         ]
       ],
@@ -14280,6 +14558,11 @@
         [
           "clothe",
           "wearable",
+          false
+        ],
+        [
+          "comparable",
+          "theAble",
           false
         ],
         [
@@ -14633,6 +14916,11 @@
           false
         ],
         [
+          "isQuery",
+          "verb",
+          false
+        ],
+        [
           "it",
           "pronoun",
           false
@@ -14650,6 +14938,11 @@
         [
           "it",
           "toAble",
+          false
+        ],
+        [
+          "listable",
+          "listable",
           false
         ],
         [
@@ -14840,6 +15133,11 @@
         [
           "number",
           "queryable",
+          false
+        ],
+        [
+          "object",
+          "listable",
           false
         ],
         [
@@ -15039,7 +15337,7 @@
         ],
         [
           "queryable",
-          "queryable",
+          "listable",
           false
         ],
         [
@@ -15678,14 +15976,6 @@
           [
             "concept",
             0
-          ],
-          [
-            "is",
-            0
-          ],
-          [
-            "unknown",
-            0
           ]
         ],
         [
@@ -15698,36 +15988,8 @@
             0
           ],
           [
-            "is",
-            0
-          ],
-          [
             "unknown",
-            1
-          ]
-        ],
-        [
-          [
-            "a",
             0
-          ],
-          [
-            "is",
-            0
-          ],
-          [
-            "unknown",
-            1
-          ]
-        ],
-        [
-          [
-            "is",
-            0
-          ],
-          [
-            "unknown",
-            1
           ]
         ]
       ],
@@ -16099,6 +16361,11 @@
         [
           "clothe",
           "wearable",
+          false
+        ],
+        [
+          "comparable",
+          "theAble",
           false
         ],
         [
@@ -16492,6 +16759,11 @@
           false
         ],
         [
+          "isQuery",
+          "verb",
+          false
+        ],
+        [
           "it",
           "pronoun",
           false
@@ -16509,6 +16781,11 @@
         [
           "it",
           "toAble",
+          false
+        ],
+        [
+          "listable",
+          "listable",
           false
         ],
         [
@@ -16699,6 +16976,11 @@
         [
           "number",
           "queryable",
+          false
+        ],
+        [
+          "object",
+          "listable",
           false
         ],
         [
@@ -16898,7 +17180,7 @@
         ],
         [
           "queryable",
-          "queryable",
+          "listable",
           false
         ],
         [
@@ -17494,10 +17776,6 @@
           [
             "is",
             0
-          ],
-          [
-            "unknown",
-            0
           ]
         ],
         [
@@ -17511,17 +17789,7 @@
           ],
           [
             "unknown",
-            1
-          ]
-        ],
-        [
-          [
-            "is",
             0
-          ],
-          [
-            "unknown",
-            1
           ]
         ]
       ],
@@ -17828,6 +18096,11 @@
         [
           "clothe",
           "wearable",
+          false
+        ],
+        [
+          "comparable",
+          "theAble",
           false
         ],
         [
@@ -18261,6 +18534,11 @@
           false
         ],
         [
+          "isQuery",
+          "verb",
+          false
+        ],
+        [
           "it",
           "pronoun",
           false
@@ -18278,6 +18556,11 @@
         [
           "it",
           "toAble",
+          false
+        ],
+        [
+          "listable",
+          "listable",
           false
         ],
         [
@@ -18468,6 +18751,11 @@
         [
           "number",
           "queryable",
+          false
+        ],
+        [
+          "object",
+          "listable",
           false
         ],
         [
@@ -18667,7 +18955,7 @@
         ],
         [
           "queryable",
-          "queryable",
+          "listable",
           false
         ],
         [
@@ -19264,30 +19552,6 @@
             "unknown",
             0
           ]
-        ],
-        [
-          [
-            "is",
-            0
-          ],
-          [
-            "unknown",
-            0
-          ],
-          [
-            "unknown",
-            1
-          ]
-        ],
-        [
-          [
-            "is",
-            0
-          ],
-          [
-            "unknown",
-            1
-          ]
         ]
       ],
       "summaries": [
@@ -19593,6 +19857,11 @@
         [
           "clothe",
           "wearable",
+          false
+        ],
+        [
+          "comparable",
+          "theAble",
           false
         ],
         [
@@ -20101,6 +20370,11 @@
           false
         ],
         [
+          "isQuery",
+          "verb",
+          false
+        ],
+        [
           "it",
           "pronoun",
           false
@@ -20118,6 +20392,11 @@
         [
           "it",
           "toAble",
+          false
+        ],
+        [
+          "listable",
+          "listable",
           false
         ],
         [
@@ -20308,6 +20587,11 @@
         [
           "number",
           "queryable",
+          false
+        ],
+        [
+          "object",
+          "listable",
           false
         ],
         [
@@ -20507,7 +20791,7 @@
         ],
         [
           "queryable",
-          "queryable",
+          "listable",
           false
         ],
         [
@@ -21103,10 +21387,6 @@
           [
             "is",
             0
-          ],
-          [
-            "unknown",
-            0
           ]
         ],
         [
@@ -21120,17 +21400,7 @@
           ],
           [
             "unknown",
-            1
-          ]
-        ],
-        [
-          [
-            "is",
             0
-          ],
-          [
-            "unknown",
-            1
           ]
         ]
       ],
@@ -21437,6 +21707,11 @@
         [
           "clothe",
           "wearable",
+          false
+        ],
+        [
+          "comparable",
+          "theAble",
           false
         ],
         [
@@ -21945,6 +22220,11 @@
           false
         ],
         [
+          "isQuery",
+          "verb",
+          false
+        ],
+        [
           "it",
           "pronoun",
           false
@@ -21962,6 +22242,11 @@
         [
           "it",
           "toAble",
+          false
+        ],
+        [
+          "listable",
+          "listable",
           false
         ],
         [
@@ -22196,6 +22481,11 @@
         ],
         [
           "object",
+          "listable",
+          false
+        ],
+        [
+          "object",
           "queryable",
           false
         ],
@@ -22391,7 +22681,7 @@
         ],
         [
           "queryable",
-          "queryable",
+          "listable",
           false
         ],
         [
@@ -23080,6 +23370,20 @@
           [
             "list",
             0
+          ]
+        ],
+        [
+          [
+            "food",
+            0
+          ],
+          [
+            "is",
+            0
+          ],
+          [
+            "list",
+            0
           ],
           [
             "unknown",
@@ -23102,28 +23406,6 @@
           [
             "unknown",
             0
-          ],
-          [
-            "unknown",
-            1
-          ]
-        ],
-        [
-          [
-            "food",
-            0
-          ],
-          [
-            "is",
-            0
-          ],
-          [
-            "list",
-            0
-          ],
-          [
-            "unknown",
-            1
           ]
         ],
         [
@@ -23584,6 +23866,11 @@
         [
           "clothe",
           "wearable",
+          false
+        ],
+        [
+          "comparable",
+          "theAble",
           false
         ],
         [
@@ -24132,6 +24419,11 @@
           false
         ],
         [
+          "isQuery",
+          "verb",
+          false
+        ],
+        [
           "it",
           "pronoun",
           false
@@ -24149,6 +24441,11 @@
         [
           "it",
           "toAble",
+          false
+        ],
+        [
+          "listable",
+          "listable",
           false
         ],
         [
@@ -24383,6 +24680,11 @@
         ],
         [
           "object",
+          "listable",
+          false
+        ],
+        [
+          "object",
           "queryable",
           false
         ],
@@ -24578,7 +24880,7 @@
         ],
         [
           "queryable",
-          "queryable",
+          "listable",
           false
         ],
         [
@@ -25307,6 +25609,20 @@
           [
             "list",
             0
+          ]
+        ],
+        [
+          [
+            "drink",
+            0
+          ],
+          [
+            "is",
+            0
+          ],
+          [
+            "list",
+            0
           ],
           [
             "unknown",
@@ -25329,28 +25645,6 @@
           [
             "unknown",
             0
-          ],
-          [
-            "unknown",
-            1
-          ]
-        ],
-        [
-          [
-            "drink",
-            0
-          ],
-          [
-            "is",
-            0
-          ],
-          [
-            "list",
-            0
-          ],
-          [
-            "unknown",
-            1
           ]
         ],
         [
@@ -25850,6 +26144,11 @@
         ],
         [
           "cola",
+          "theAble",
+          false
+        ],
+        [
+          "comparable",
           "theAble",
           false
         ],
@@ -26399,6 +26698,11 @@
           false
         ],
         [
+          "isQuery",
+          "verb",
+          false
+        ],
+        [
           "it",
           "pronoun",
           false
@@ -26416,6 +26720,11 @@
         [
           "it",
           "toAble",
+          false
+        ],
+        [
+          "listable",
+          "listable",
           false
         ],
         [
@@ -26646,6 +26955,11 @@
         [
           "number",
           "queryable",
+          false
+        ],
+        [
+          "object",
+          "listable",
           false
         ],
         [
@@ -26885,7 +27199,7 @@
         ],
         [
           "queryable",
-          "queryable",
+          "listable",
           false
         ],
         [
@@ -27610,6 +27924,16 @@
           [
             "list",
             0
+          ]
+        ],
+        [
+          [
+            "is",
+            0
+          ],
+          [
+            "list",
+            0
           ],
           [
             "unknown",
@@ -27628,10 +27952,6 @@
           [
             "unknown",
             0
-          ],
-          [
-            "unknown",
-            1
           ]
         ],
         [
@@ -27641,24 +27961,6 @@
           ],
           [
             "list",
-            0
-          ],
-          [
-            "unknown",
-            1
-          ]
-        ],
-        [
-          [
-            "is",
-            0
-          ],
-          [
-            "list",
-            1
-          ],
-          [
-            "unknown",
             1
           ]
         ]
@@ -28155,6 +28457,11 @@
         ],
         [
           "cola",
+          "theAble",
+          false
+        ],
+        [
+          "comparable",
           "theAble",
           false
         ],
@@ -28704,6 +29011,11 @@
           false
         ],
         [
+          "isQuery",
+          "verb",
+          false
+        ],
+        [
           "it",
           "pronoun",
           false
@@ -28721,6 +29033,11 @@
         [
           "it",
           "toAble",
+          false
+        ],
+        [
+          "listable",
+          "listable",
           false
         ],
         [
@@ -28995,6 +29312,11 @@
         ],
         [
           "object",
+          "listable",
+          false
+        ],
+        [
+          "object",
           "queryable",
           false
         ],
@@ -29230,7 +29552,7 @@
         ],
         [
           "queryable",
-          "queryable",
+          "listable",
           false
         ],
         [
@@ -29923,10 +30245,6 @@
           [
             "property",
             0
-          ],
-          [
-            "unknown",
-            0
           ]
         ],
         [
@@ -29940,17 +30258,7 @@
           ],
           [
             "unknown",
-            1
-          ]
-        ],
-        [
-          [
-            "modifies",
             0
-          ],
-          [
-            "unknown",
-            1
           ]
         ]
       ],
@@ -30281,6 +30589,11 @@
         ],
         [
           "cola",
+          "theAble",
+          false
+        ],
+        [
+          "comparable",
           "theAble",
           false
         ],
@@ -30830,6 +31143,11 @@
           false
         ],
         [
+          "isQuery",
+          "verb",
+          false
+        ],
+        [
           "it",
           "pronoun",
           false
@@ -30932,6 +31250,11 @@
         [
           "item_property",
           "theAble",
+          false
+        ],
+        [
+          "listable",
+          "listable",
           false
         ],
         [
@@ -31206,6 +31529,11 @@
         ],
         [
           "object",
+          "listable",
+          false
+        ],
+        [
+          "object",
           "queryable",
           false
         ],
@@ -31476,7 +31804,7 @@
         ],
         [
           "queryable",
-          "queryable",
+          "listable",
           false
         ],
         [
@@ -33021,10 +33349,6 @@
           [
             "property",
             0
-          ],
-          [
-            "unknown",
-            0
           ]
         ],
         [
@@ -33047,32 +33371,6 @@
           [
             "unknown",
             0
-          ],
-          [
-            "unknown",
-            1
-          ]
-        ],
-        [
-          [
-            "is",
-            0
-          ],
-          [
-            "item",
-            0
-          ],
-          [
-            "list",
-            0
-          ],
-          [
-            "property",
-            0
-          ],
-          [
-            "unknown",
-            1
           ]
         ],
         [
@@ -33099,6 +33397,12 @@
             0
           ],
           [
+            "list",
+            1
+          ]
+        ],
+        [
+          [
             "item",
             0
           ],
@@ -33109,20 +33413,6 @@
           [
             "property",
             0
-          ],
-          [
-            "unknown",
-            1
-          ]
-        ],
-        [
-          [
-            "is",
-            0
-          ],
-          [
-            "list",
-            1
           ]
         ]
       ],
@@ -35281,9 +35571,211 @@
           ]
         }
       ],
+      "associations": {
+        "negative": [],
+        "positive": [
+          {
+            "context": [
+              [
+                "wear",
+                0
+              ],
+              [
+                "article",
+                0
+              ],
+              [
+                "unknown",
+                0
+              ],
+              [
+                "wearable",
+                0
+              ]
+            ],
+            "choose": 0
+          },
+          {
+            "context": [
+              [
+                "wear",
+                0
+              ],
+              [
+                "article",
+                0
+              ],
+              [
+                "unknown",
+                1
+              ],
+              [
+                "wearable",
+                0
+              ]
+            ],
+            "choose": 0
+          },
+          {
+            "context": [
+              [
+                "wear",
+                0
+              ],
+              [
+                "article",
+                0
+              ],
+              [
+                "wearable",
+                0
+              ]
+            ],
+            "choose": 0
+          },
+          {
+            "context": [
+              [
+                "wear",
+                0
+              ],
+              [
+                "article",
+                0
+              ],
+              [
+                "wearable",
+                1
+              ]
+            ],
+            "choose": 0
+          },
+          {
+            "context": [
+              [
+                "wear",
+                0
+              ],
+              [
+                "article",
+                0
+              ],
+              [
+                "unknown",
+                0
+              ]
+            ],
+            "choose": 0
+          },
+          {
+            "context": [
+              [
+                "wear",
+                0
+              ],
+              [
+                "article",
+                0
+              ],
+              [
+                "unknown",
+                1
+              ]
+            ],
+            "choose": 0
+          },
+          {
+            "context": [
+              [
+                "equip",
+                0
+              ],
+              [
+                "the",
+                0
+              ],
+              [
+                "condition",
+                0
+              ],
+              [
+                "item_property",
+                0
+              ],
+              [
+                "weapon",
+                0
+              ]
+            ],
+            "choose": 0
+          },
+          {
+            "context": [
+              [
+                "what",
+                0
+              ],
+              [
+                "is",
+                0
+              ],
+              [
+                "article",
+                0
+              ],
+              [
+                "type",
+                1
+              ],
+              [
+                "propertyOf",
+                0
+              ],
+              [
+                "item",
+                0
+              ],
+              [
+                "property",
+                0
+              ]
+            ],
+            "choose": 1
+          },
+          {
+            "context": [
+              [
+                "what",
+                0
+              ],
+              [
+                "is",
+                0
+              ],
+              [
+                "article",
+                0
+              ],
+              [
+                "type",
+                1
+              ],
+              [
+                "propertyOf",
+                0
+              ],
+              [
+                "object",
+                1
+              ]
+            ],
+            "choose": 1
+          }
+        ]
+      },
       "bridges": [
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:152",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:168",
           "id": "put",
           "isA": [
             "verb"
@@ -35292,7 +35784,7 @@
           "bridge": "{ ...next(operator) }"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:160",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:176",
           "id": "propertyCondition",
           "before": [
             "adjective",
@@ -35304,7 +35796,7 @@
           "bridge": "{ ...next(after[0]), condition: before[0], modifiers: ['condition'] }"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:168",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:184",
           "id": "on",
           "isA": [
             "preposition"
@@ -35313,7 +35805,7 @@
           "bridge": "{ ...before, marker: operator('putOn', 0), dead: false }"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:179",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:195",
           "id": "change",
           "isA": [
             "verb"
@@ -35328,7 +35820,7 @@
           ]
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:191",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:207",
           "id": "disarm",
           "isA": [
             "verb"
@@ -35337,7 +35829,7 @@
           "bridge": "{ ...next(operator) }"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:202",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:218",
           "id": "strip",
           "isA": [
             "verb"
@@ -35346,7 +35838,7 @@
           "bridge": "{ ...next(operator) }"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:213",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:229",
           "id": "call",
           "isA": [
             "verb"
@@ -35355,7 +35847,7 @@
           "bridge": "{ ...next(operator), item: after[0], name: after[1] }"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:224",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:240",
           "id": "putOn",
           "isA": [
             "verb"
@@ -35364,7 +35856,7 @@
           "bridge": "{ ...next(operator), item: after[0] }"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:239",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:255",
           "id": "wear",
           "isA": [
             "verb"
@@ -35382,7 +35874,7 @@
           "bridge": "{ ...next(operator), item: after[0] }"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:256",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:272",
           "id": "equip",
           "isA": [
             "verb"
@@ -35405,7 +35897,7 @@
           "bridge": "{ ...next(operator), item: after[0] }"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:272",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:288",
           "id": "toDrink",
           "isA": [
             "verb"
@@ -35414,7 +35906,7 @@
           "bridge": "{ ...next(operator), item: after[0] }"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:284",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:300",
           "id": "eat",
           "localHierarchy": [
             [
@@ -35429,7 +35921,7 @@
           "bridge": "{ ...next(operator), item: after[0] }"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:296",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:312",
           "id": "take",
           "isA": [
             "verb"
@@ -35438,7 +35930,7 @@
           "bridge": "{ ...next(operator), item: after[0] }"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:308",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:324",
           "id": "nameable",
           "isA": [
             "theAble"
@@ -35649,14 +36141,6 @@
       [
         "concept",
         0
-      ],
-      [
-        "is",
-        0
-      ],
-      [
-        "unknown",
-        0
       ]
     ],
     [
@@ -35669,12 +36153,18 @@
         0
       ],
       [
-        "is",
+        "unknown",
+        0
+      ]
+    ],
+    [
+      [
+        "a",
         0
       ],
       [
-        "unknown",
-        1
+        "is",
+        0
       ]
     ],
     [
@@ -35705,38 +36195,6 @@
         0
       ],
       [
-        "unknown",
-        1
-      ]
-    ],
-    [
-      [
-        "a",
-        0
-      ],
-      [
-        "is",
-        0
-      ],
-      [
-        "unknown",
-        1
-      ]
-    ],
-    [
-      [
-        "a",
-        0
-      ],
-      [
-        "is",
-        0
-      ],
-      [
-        "unknown",
-        1
-      ],
-      [
         "weapon",
         0
       ]
@@ -35749,10 +36207,6 @@
       [
         "is",
         0
-      ],
-      [
-        "unknown",
-        0
       ]
     ],
     [
@@ -35766,7 +36220,21 @@
       ],
       [
         "unknown",
-        1
+        0
+      ]
+    ],
+    [
+      [
+        "drink",
+        0
+      ],
+      [
+        "is",
+        0
+      ],
+      [
+        "list",
+        0
       ]
     ],
     [
@@ -35803,28 +36271,6 @@
       [
         "unknown",
         0
-      ],
-      [
-        "unknown",
-        1
-      ]
-    ],
-    [
-      [
-        "drink",
-        0
-      ],
-      [
-        "is",
-        0
-      ],
-      [
-        "list",
-        0
-      ],
-      [
-        "unknown",
-        1
       ]
     ],
     [
@@ -35849,10 +36295,6 @@
       [
         "is",
         0
-      ],
-      [
-        "unknown",
-        0
       ]
     ],
     [
@@ -35866,7 +36308,7 @@
       ],
       [
         "unknown",
-        1
+        0
       ]
     ],
     [
@@ -35905,6 +36347,30 @@
       [
         "is",
         0
+      ]
+    ],
+    [
+      [
+        "food",
+        0
+      ],
+      [
+        "is",
+        0
+      ],
+      [
+        "list",
+        0
+      ]
+    ],
+    [
+      [
+        "food",
+        0
+      ],
+      [
+        "is",
+        0
       ],
       [
         "list",
@@ -35931,28 +36397,6 @@
       [
         "unknown",
         0
-      ],
-      [
-        "unknown",
-        1
-      ]
-    ],
-    [
-      [
-        "food",
-        0
-      ],
-      [
-        "is",
-        0
-      ],
-      [
-        "list",
-        0
-      ],
-      [
-        "unknown",
-        1
       ]
     ],
     [
@@ -35985,7 +36429,7 @@
     ],
     [
       [
-        "food",
+        "grenade",
         0
       ],
       [
@@ -35993,8 +36437,26 @@
         0
       ],
       [
-        "unknown",
-        1
+        "list",
+        0
+      ]
+    ],
+    [
+      [
+        "grenade",
+        0
+      ],
+      [
+        "is",
+        0
+      ],
+      [
+        "list",
+        0
+      ],
+      [
+        "mine",
+        0
       ]
     ],
     [
@@ -36021,11 +36483,11 @@
     ],
     [
       [
-        "grenade",
+        "is",
         0
       ],
       [
-        "is",
+        "item",
         0
       ],
       [
@@ -36033,30 +36495,8 @@
         0
       ],
       [
-        "mine",
+        "property",
         0
-      ],
-      [
-        "unknown",
-        1
-      ]
-    ],
-    [
-      [
-        "grenade",
-        0
-      ],
-      [
-        "is",
-        0
-      ],
-      [
-        "list",
-        0
-      ],
-      [
-        "unknown",
-        1
       ]
     ],
     [
@@ -36092,54 +36532,6 @@
       ],
       [
         "list",
-        0
-      ],
-      [
-        "property",
-        0
-      ],
-      [
-        "unknown",
-        0
-      ],
-      [
-        "unknown",
-        1
-      ]
-    ],
-    [
-      [
-        "is",
-        0
-      ],
-      [
-        "item",
-        0
-      ],
-      [
-        "list",
-        0
-      ],
-      [
-        "property",
-        0
-      ],
-      [
-        "unknown",
-        1
-      ]
-    ],
-    [
-      [
-        "is",
-        0
-      ],
-      [
-        "item",
-        0
-      ],
-      [
-        "list",
         1
       ],
       [
@@ -36153,20 +36545,50 @@
         0
       ],
       [
-        "item",
+        "list",
+        0
+      ]
+    ],
+    [
+      [
+        "is",
         0
       ],
       [
         "list",
-        1
-      ],
+        0
+      ]
+    ],
+    [
       [
-        "property",
+        "is",
         0
       ],
       [
-        "unknown",
-        1
+        "list",
+        0
+      ]
+    ],
+    [
+      [
+        "is",
+        0
+      ],
+      [
+        "list",
+        0
+      ],
+      [
+        "pistol",
+        0
+      ],
+      [
+        "rifle",
+        0
+      ],
+      [
+        "shotgun",
+        0
       ]
     ],
     [
@@ -36205,42 +36627,12 @@
         0
       ],
       [
-        "pistol",
-        0
-      ],
-      [
         "rifle",
         0
       ],
       [
         "shotgun",
         0
-      ],
-      [
-        "unknown",
-        1
-      ]
-    ],
-    [
-      [
-        "is",
-        0
-      ],
-      [
-        "list",
-        0
-      ],
-      [
-        "rifle",
-        0
-      ],
-      [
-        "shotgun",
-        0
-      ],
-      [
-        "unknown",
-        1
       ]
     ],
     [
@@ -36255,10 +36647,6 @@
       [
         "shotgun",
         0
-      ],
-      [
-        "unknown",
-        1
       ]
     ],
     [
@@ -36315,10 +36703,6 @@
       [
         "unknown",
         0
-      ],
-      [
-        "unknown",
-        1
       ]
     ],
     [
@@ -36333,10 +36717,6 @@
       [
         "unknown",
         0
-      ],
-      [
-        "unknown",
-        1
       ]
     ],
     [
@@ -36351,9 +36731,15 @@
       [
         "unknown",
         0
+      ]
+    ],
+    [
+      [
+        "is",
+        0
       ],
       [
-        "unknown",
+        "list",
         1
       ]
     ],
@@ -36364,10 +36750,6 @@
       ],
       [
         "list",
-        0
-      ],
-      [
-        "unknown",
         1
       ]
     ],
@@ -36378,10 +36760,6 @@
       ],
       [
         "list",
-        0
-      ],
-      [
-        "unknown",
         1
       ]
     ],
@@ -36392,10 +36770,6 @@
       ],
       [
         "list",
-        0
-      ],
-      [
-        "unknown",
         1
       ]
     ],
@@ -36437,66 +36811,6 @@
       [
         "list",
         1
-      ],
-      [
-        "unknown",
-        1
-      ]
-    ],
-    [
-      [
-        "is",
-        0
-      ],
-      [
-        "list",
-        1
-      ],
-      [
-        "unknown",
-        1
-      ]
-    ],
-    [
-      [
-        "is",
-        0
-      ],
-      [
-        "list",
-        1
-      ],
-      [
-        "unknown",
-        1
-      ]
-    ],
-    [
-      [
-        "is",
-        0
-      ],
-      [
-        "list",
-        1
-      ],
-      [
-        "unknown",
-        1
-      ]
-    ],
-    [
-      [
-        "is",
-        0
-      ],
-      [
-        "list",
-        1
-      ],
-      [
-        "unknown",
-        1
       ]
     ],
     [
@@ -36507,80 +36821,6 @@
       [
         "unknown",
         0
-      ]
-    ],
-    [
-      [
-        "is",
-        0
-      ],
-      [
-        "unknown",
-        0
-      ],
-      [
-        "unknown",
-        1
-      ]
-    ],
-    [
-      [
-        "is",
-        0
-      ],
-      [
-        "unknown",
-        1
-      ]
-    ],
-    [
-      [
-        "is",
-        0
-      ],
-      [
-        "unknown",
-        1
-      ]
-    ],
-    [
-      [
-        "is",
-        0
-      ],
-      [
-        "unknown",
-        1
-      ]
-    ],
-    [
-      [
-        "is",
-        0
-      ],
-      [
-        "unknown",
-        1
-      ]
-    ],
-    [
-      [
-        "is",
-        0
-      ],
-      [
-        "unknown",
-        1
-      ]
-    ],
-    [
-      [
-        "is",
-        0
-      ],
-      [
-        "unknown",
-        1
       ]
     ],
     [
@@ -36605,15 +36845,25 @@
     ],
     [
       [
+        "item",
+        0
+      ],
+      [
+        "list",
+        1
+      ],
+      [
+        "property",
+        0
+      ]
+    ],
+    [
+      [
         "modifies",
         0
       ],
       [
         "property",
-        0
-      ],
-      [
-        "unknown",
         0
       ]
     ],
@@ -36628,17 +36878,7 @@
       ],
       [
         "unknown",
-        1
-      ]
-    ],
-    [
-      [
-        "modifies",
         0
-      ],
-      [
-        "unknown",
-        1
       ]
     ]
   ],

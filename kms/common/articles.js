@@ -44,11 +44,13 @@ const config = {
     },
     { 
       id: 'the', 
+      isA: ['article'], 
       level: 0, 
       bridge: '{ ...after[0], focusableForPhrase: true, pullFromContext: true, concept: true, wantsValue: true, determiner: "the", modifiers: append(["determiner"], after[0].modifiers)}' 
     },
     { 
       id: "a", 
+      isA: ['article'], 
       level: 0, 
       // bridge: "{ ...after[0], pullFromContext: false, instance: true, concept: true, number: 'one', wantsValue: true, determiner: operator, modifiers: append(['determiner'], after[0].modifiers) }" 
       bridge: "{ ...after[0], pullFromContext: false, instance: true, concept: true, number: 'one', wantsValue: true, determiner: operator, modifiers: append(['determiner'], after[0].modifiers) }" 
@@ -95,8 +97,8 @@ const config = {
     ['it', 'pronoun'],
     ['this', 'pronoun'],
     // ['questionMark', 'isEd'],
-    ['a', 'article'],
-    ['the', 'article'],
+    // ['a', 'article'],
+    // ['the', 'article'],
     ['it', 'queryable'],
     // ['it', 'toAble'],
     ['this', 'queryable'],

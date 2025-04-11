@@ -6,10 +6,11 @@ const config = {
   name: 'tokenize',
   operators: [
     "([unknown])",
+    "([listable])",
   ],
   bridges: [
     { id: "unknown", level: 0, bridge: "{ ...next(operator), unknown: true, dead: true }" },
-    { id: "unknown", level: 1, bridge: "{ ...next(operator) }" },
+    { id: "listable", },
   ],
   words: {
     patterns: [

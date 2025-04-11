@@ -33,6 +33,7 @@ const config = {
     },
     { 
       id: "comparable", 
+      isA: ['theAble'],
       bridge: "{ ...next(operator) }" 
     },
     { 
