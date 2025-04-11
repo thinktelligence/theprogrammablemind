@@ -867,3 +867,4 @@ node edible -q 'what are the types of food' -g -d
 node hierarchy -q "greg is a human a human is a mammel\nis greg a human" -g -d -tva
 node  hierarchy -q "greg is a human a human is a mammel\nis greg a human" -g -d -tva >out.txt
 node pipboy -q 'wear the city outfit' -g -d
+node people -q 'ownee23 is owned by owner23 who is ownee23 owned by' -g -d
