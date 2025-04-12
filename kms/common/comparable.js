@@ -50,6 +50,13 @@ const config = {
 const template = {
   configs: [
     "sort modifies ordering",
+    {
+      associations: {
+        positive: [
+          { context: [["unknown",1],["is",0],["article",0],["sort",0],["concept",0]], choose: 1 },
+        ]
+      },
+    },
     "ascending is a sort ordering",
     "descending is a sort ordering",
     {

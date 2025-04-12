@@ -24,6 +24,15 @@ const template ={
     "food and drinks are edible",
     "chicken modifies strips",
     "chicken modifies nugget",
+    {
+      associations: {
+        positive: [
+          { context: [["nugget",0],["comma",0],["chicken",0],["strip",0],["list",0],["chicken",0],["nugget",0],["is",0],["food",0]], choose: 7 },
+          { context: [["unknown",0],["is",0],["food",0]], choose: 1 },
+        ],
+      }
+    },
+    { stop: true },
     "nuggets, chicken strips and chicken nuggets are food",
     "sushi is food",
     "apples oranges and bananas are fruit",

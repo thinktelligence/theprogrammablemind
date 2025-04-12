@@ -471,6 +471,33 @@ const template = {
           }
         },
       ],
+      associations: {
+        positive: [
+          { context: [["article",0],["size",0],["drink",0]], choose: 2 },
+          { context: [["article",0],["size",0],["smoothie_modifier",0],["drink",0]], choose: 3 },
+          { context: [["integer",0],["drink",0]], choose: 1 },
+          { context: [["drink",0],["list",0],["article",0],["drink",0]], choose: 1 },
+          { context: [["drink",1],["list",0],["article",0],["drink",0]], choose: 1 },
+          { context: [["drink",1],["list",0],["article",0],["drink",1]], choose: 1 },
+
+          // { context: [["combo",0],["integer",0],["list",0],["a",0],["guava",0],["smoothie",0]], choose: <indexOfMainElement> },
+          { context: [["combo",0],["integer",0],["list",0],["article",0],["smoothie_modifier",0],["drink",0]], choose: 1 },
+          { context: [["combo",0],["integer",1],["list",0],["article",0],["smoothie_modifier",0],["drink",0]], choose: 1 },
+          { context: [["combo",1],["list",0],["article",0],["smoothie_modifier",0],["drink",0]], choose: 1 },
+          { context: [["combo",1],["list",0],["article",0],["smoothie_modifier",1],["drink",0]], choose: 1 },
+
+          { context: [["combo",0],["integer",0],["withModification",0],["object",0],["object",0],["list",0],["article",0],["smoothie_ingredient",0],["drink",0]], choose: 1 },
+          { context: [["combo",0],["integer",1],["withModification",0],["object",0],["object",0],["list",0],["article",0],["smoothie_ingredient",0],["drink",0]], choose: 1 },
+          { context: [["combo",0],["integer",1],["withModification",0],["object",1],["list",0],["article",0],["smoothie_ingredient",0],["drink",0]], choose: 1 },
+          { context: [["combo",1],["withModification",0],["object",1],["list",0],["article",0],["object",0],["drink",0]], choose: 1 },
+          { context: [["combo",1],["withModification",0],["object",1],["list",0],["article",0],["object",1],["drink",0]], choose: 1 },
+
+          { context: [["article",0],["object",0],["list",0],["article",0],["object",0],["object",0],["drink",0]], choose: 1 },
+          { context: [["article",0],["object",0],["list",0],["article",0],["object",1],["drink",0]], choose: 1 },
+          { context: [["article",0],["object",1],["list",0],["article",0],["object",1],["drink",0]], choose: 1 },
+          { context: [["object",1],["list",0],["article",0],["object",1],["drink",0]], choose: 1 },
+        ],
+      },
     },
   ],
 }

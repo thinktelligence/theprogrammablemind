@@ -103,7 +103,14 @@ const config = {
   priorities: [
     { "context": [['winning', 0], ['is', 0], ['the', 0], ], "choose": [0] },
   ],
-
+  associations: {
+    positive: [
+      { context: [["article",0],["winning",0],["score",0],["is",0],["integer",0],["point",0]], choose: 3 },
+      { context: [["article",0],["winning",0],["score",1],["is",0],["integer",0],["point",0]], choose: 3 },
+      { context: [["article",0],["winning",0],["score",1],["is",0],["integer",1],["point",0]], choose: 3 },
+      { context: [["article",0],["winning",0],["score",1],["is",0],["point",1]], choose: 3 },
+    ],
+  },
   hierarchy: [
     ['point', 'score'],
     ['game', 'theAble'],

@@ -348,6 +348,13 @@ const config = {
       }
     },
   ],
+  associations: {
+    positive: [
+      { context: [["show",0],["article",0],["property",0],["sort_ordering",0],["list",0],["article",0],["property",0],["sort_ordering",0]], choose: 0 },
+      { context: [["show",0],["article",0],["property",1],["sort_ordering",0],["list",0],["article",0],["property",0],["sort_ordering",0]], choose: 0 },
+      { context: [["show",0],["article",0],["property",1],["sort_ordering",1],["list",0],["article",0],["property",0],["sort_ordering",0]], choose: 0 },
+    ]
+  },
   hierarchy: [
     ['property', 'comparable'],
     ['ascending', 'ordering'],

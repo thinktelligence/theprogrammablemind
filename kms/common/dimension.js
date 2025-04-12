@@ -168,7 +168,13 @@ const config = {
       id: "unit", 
       isA: ['number'],
     },
-  ]
+  ],
+  associations: {
+    positive: [
+      { context: [["what",0],["is",0],["the",0],["unit",1],["propertyOf",0],["dimension",1]], choose: 1 },
+    ],
+  }
+
 };
 
 const template = {
