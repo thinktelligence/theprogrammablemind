@@ -28,11 +28,10 @@ const template ={
       associations: {
         positive: [
           { context: [["nugget",0],["comma",0],["chicken",0],["strip",0],["list",0],["chicken",0],["nugget",0],["is",0],["food",0]], choose: 7 },
-          { context: [["unknown",0],["is",0],["food",0]], choose: 1 },
+          { context: [["nugget",0],["chicken",0],["strip",0],["list",0],["chicken",0],["nugget",0],["is",0],["food",0]], choose: 6 },
         ],
       }
     },
-    { stop: true },
     "nuggets, chicken strips and chicken nuggets are food",
     "sushi is food",
     "apples oranges and bananas are fruit",
@@ -67,6 +66,11 @@ const template ={
         ['chicken_nugget', 'hasCountOfPieces'],
         ['nugget', 'hasCountOfPieces'],
       ],
+      associations: {
+        positive: [
+        //  { context: [["apple",0],["juice",0]], choose: 1 },
+        ],
+      }
       /* save for later?
       operators: [
         "((food/1) [compoundFood] (food/1))",

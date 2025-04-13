@@ -24,6 +24,17 @@ const template = {
       "mccoy's eyes are brown",
       "mccoy is a crew member",
       "mccoy is a doctor",
+      {
+        associations: {
+          positive: [
+            { context: [["article",0],["unknown",0],["propertyOf",0],["the",0],["unknown",0],["is",0],["unknown",0]], choose: 5 },
+            { context: [["article",0],["unknown",1],["propertyOf",0],["the",0],["unknown",0],["is",0],["unknown",0]], choose: 5 },
+            { context: [["article",0],["unknown",1],["propertyOf",0],["the",0],["unknown",1],["is",0],["unknown",0]], choose: 5 },
+            { context: [["article",0],["unknown",1],["propertyOf",0],["the",0],["unknown",1],["is",0],["unknown",1]], choose: 5 },
+            { context: [["what",0],["is",0],["the",0],["crew_member",1]], choose: 1 },
+          ]
+        },
+      },
       "the status of the phasers is armed",
       "photon modifies torpedoes",
       "the status of the photon torpedoes is armed",
@@ -33,6 +44,21 @@ const template = {
       "spock is readonly",
       "mccoy is readonly",
       "arm the weapon means the status of the weapon is armed",
+      {
+        associations: {
+          positive: [
+            { context: [["disarm",0],["the",0],["unknown",0],["means",0],["the",0],["unknown",0],["propertyOf",0],["the",0],["unknown",0],["isEd",0],["not",0],["unknown",0]], choose: 3 },
+            { context: [["disarm",0],["the",0],["unknown",1],["means",0],["the",0],["unknown",0],["propertyOf",0],["the",0],["unknown",0],["isEd",0],["not",0],["unknown",0]], choose: 3 },
+            { context: [["disarm",0],["the",0],["unknown",1],["means",0],["the",0],["unknown",1],["propertyOf",0],["the",0],["unknown",0],["isEd",0],["not",0],["unknown",0]], choose: 3 },
+            { context: [["disarm",0],["the",0],["unknown",1],["means",0],["the",0],["unknown",1],["propertyOf",0],["the",0],["unknown",1],["isEd",0],["not",0],["unknown",0]], choose: 3 },
+            { context: [["disarm",0],["the",0],["unknown",1],["means",0],["the",0],["unknown",1],["propertyOf",0],["the",0],["unknown",1],["isEd",0],["not",0],["unknown",1]], choose: 3 },
+            { context: [["disarm",0],["unknown",1],["means",0],["the",0],["unknown",1],["propertyOf",0],["the",0],["unknown",1],["isEd",0],["not",0],["unknown",1]], choose: 2 },
+            { context: [["disarm",0],["unknown",1],["means",0],["unknown",1],["propertyOf",0],["the",0],["unknown",1],["isEd",0],["not",0],["unknown",1]], choose: 2 },
+            { context: [["disarm",0],["unknown",1],["means",0],["unknown",1],["propertyOf",0],["unknown",1],["isEd",0],["not",0],["unknown",1]], choose: 2 },
+            { context: [["disarm",1],["means",0],["unknown",1],["propertyOf",0],["unknown",1],["isEd",0],["not",0],["unknown",1]], choose: 1 },
+          ]
+        },
+      },
       "disarm the weapon means the status of the weapon is not armed",
   ],
 };

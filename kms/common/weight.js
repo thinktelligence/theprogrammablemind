@@ -21,6 +21,15 @@ const template = {
     "weight is a dimension",
     // "kilograms grams pounds ounces and tons are units of weight",
     "kilograms grams pounds (troy ounces) ounces and tons are units of weight",
+    {
+      associations: {
+        positive: [
+          { context: [["ounce",0],["equals",0],["number",0],["mathematical_operator",0],["troy",0],["ounce",0]], choose: 1 },
+          { context: [["ounce",0],["equals",0],["number",1],["mathematical_operator",0],["troy",0],["ounce",0]], choose: 1 },
+        ],
+      },
+    },
+    // { stop: true },
     "ounces = 1.097 * troy ounces",
     "troy ounces = ounces / 1.097",
     "kilograms = pounds * 0.453592",

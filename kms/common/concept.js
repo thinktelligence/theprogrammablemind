@@ -32,6 +32,12 @@ config = {
     { id: "literally", bridge: "{ ...after[0], flatten: false, literally: true }" },
     { id: "concept", bridge: "{ ...next(operator) }" },
   ],
+  associations: {
+    positive: [
+      { context: [['unknown', 0], ['modifies', 0], ['unknown', 0]], choose: 1 },
+      { context: [['literally', 0], ['modifies', 0], ['unknown', 0]], choose: 1 },
+    ],
+  },
   priorities: [
     { "context": [['literally', 0], ['modifies', 0], ], "choose": [0] },
   ],

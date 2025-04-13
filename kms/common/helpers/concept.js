@@ -65,6 +65,7 @@ class API {
         config.addOperator({ pattern: `([${modifierId}|])`, allowDups: true })
       }
       config.addHierarchy(modifierId, objectModifierConcept)
+      config.addHierarchy(objectModifierConcept, 'adjective')
     })
     if (!config.exists(objectId)) {
       config.addOperator({ pattern: `([${objectId}|])`, allowDups: true })

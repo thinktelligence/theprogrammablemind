@@ -69,9 +69,33 @@ const template = {
     "smoothie modifies ingredients",
     "strawberry, guava, mango passion, wild berry, and strawberry banana are smoothie ingredients",
     "a smoothie is a drink",
+    {
+      associations: {
+        positive: [
+          { context: [["french",0],["fry",0],["list",0],["waffle",0],["fry",0],["is",0],["fry",0]], choose: 5 },
+        ]
+      },
+    },
     "french fries and waffle fries are fries",
     "single, double, triple, baconator, and bacon deluxe are hamburgers",
     // "spicy homestyle asiago ranch chicken club 10 piece nuggets ultimate chicken grill and premium cod are sandwiches",
+    {
+      associations: {
+        positive: [
+          { context: [["unknown",0],["comma",0],["unknown",0],["comma",0],["asiago",0],["ranch",0],["chicken",0],["club",0],["comma",0],["ultimate",0],["chicken",0],["grill",0],["list",0],["premium",0],["cod",0],["is",0],["sandwich",0]], choose: 15 },
+          { context: [["unknown",1],["comma",0],["unknown",0],["comma",0],["asiago",0],["ranch",0],["chicken",0],["club",0],["comma",0],["ultimate",0],["chicken",0],["grill",0],["list",0],["premium",0],["cod",0],["is",0],["sandwich",0]], choose: 15 },
+          { context: [["unknown",1],["comma",0],["unknown",1],["comma",0],["asiago",0],["ranch",0],["chicken",0],["club",0],["comma",0],["ultimate",0],["chicken",0],["grill",0],["list",0],["premium",0],["cod",0],["is",0],["sandwich",0]], choose: 15 },
+          { context: [["unknown",1],["unknown",1],["comma",0],["asiago",0],["ranch",0],["chicken",0],["club",0],["comma",0],["ultimate",0],["chicken",0],["grill",0],["list",0],["premium",0],["cod",0],["is",0],["sandwich",0]], choose: 14 },
+          { context: [["unknown",1],["unknown",1],["asiago",0],["ranch",0],["chicken",0],["club",0],["comma",0],["ultimate",0],["chicken",0],["grill",0],["list",0],["premium",0],["cod",0],["is",0],["sandwich",0]], choose: 13 },
+          { context: [["unknown",1],["unknown",1],["asiago",1],["ranch",0],["chicken",0],["club",0],["comma",0],["ultimate",0],["chicken",0],["grill",0],["list",0],["premium",0],["cod",0],["is",0],["sandwich",0]], choose: 13 },
+          { context: [["unknown",1],["unknown",1],["asiago",1],["ranch",1],["chicken",0],["club",0],["comma",0],["ultimate",0],["chicken",0],["grill",0],["list",0],["premium",0],["cod",0],["is",0],["sandwich",0]], choose: 13 },
+          { context: [["unknown",1],["unknown",1],["asiago",1],["ranch",1],["chicken",1],["club",0],["comma",0],["ultimate",0],["chicken",0],["grill",0],["list",0],["premium",0],["cod",0],["is",0],["sandwich",0]], choose: 13 },
+          { context: [["unknown",1],["unknown",1],["asiago",1],["ranch",1],["chicken_club",1],["comma",0],["ultimate",0],["chicken",0],["grill",0],["list",0],["premium",0],["cod",0],["is",0],["sandwich",0]], choose: 12 },
+          { context: [["unknown",1],["unknown",1],["asiago_ranch_chicken_club",1],["comma",0],["ultimate",0],["chicken",0],["grill",0],["list",0],["premium",0],["cod",0],["is",0],["sandwich",0]], choose: 10 },
+          { context: [["unknown",1],["unknown",1],["asiago_ranch_chicken_club",1],["ultimate",0],["chicken",0],["grill",0],["list",0],["premium",0],["cod",0],["is",0],["sandwich",0]], choose: 9 },
+        ]
+      },
+    },
     "spicy, homestyle, asiago ranch chicken club, ultimate chicken grill and premium cod are sandwiches",
     "meals are food",
     "a combo is a meal",
@@ -104,6 +128,24 @@ const template = {
     "a go wrap is a sandwich",
     "chicken modifies go wrap",
     "breakfast baconator, french toast sandwich, egg muffin, chicken on french toast, pancake platter, double sausage muffin, pancakes, french toast and oatmeal are breakfast meals",
+    {
+      associations: {
+        positive: [
+          { context: [["single",0],["comma",0],["double",0],["comma",0],["triple",0],["comma",0],["baconator",0],["comma",0],["bacon",0],["deluxe",0],["comma",0],["spicy",0],["homestyle",0],["list",0],["premium",0],["cod",0],["is",0],["meal",0]], choose: 16 },
+          { context: [["single",1],["comma",0],["double",0],["comma",0],["triple",0],["comma",0],["baconator",0],["comma",0],["bacon",0],["deluxe",0],["comma",0],["spicy",0],["homestyle",0],["list",0],["premium",0],["cod",0],["is",0],["meal",0]], choose: 16 },
+          { context: [["single",1],["double",0],["comma",0],["triple",0],["comma",0],["baconator",0],["comma",0],["bacon",0],["deluxe",0],["comma",0],["spicy",0],["homestyle",0],["list",0],["premium",0],["cod",0],["is",0],["meal",0]], choose: 15 },
+          { context: [["single",1],["double",1],["comma",0],["triple",0],["comma",0],["baconator",0],["comma",0],["bacon",0],["deluxe",0],["comma",0],["spicy",0],["homestyle",0],["list",0],["premium",0],["cod",0],["is",0],["meal",0]], choose: 15 },
+          { context: [["single",1],["double",1],["triple",0],["comma",0],["baconator",0],["comma",0],["bacon",0],["deluxe",0],["comma",0],["spicy",0],["homestyle",0],["list",0],["premium",0],["cod",0],["is",0],["meal",0]], choose: 14 },
+          { context: [["single",1],["double",1],["triple",1],["comma",0],["baconator",0],["comma",0],["bacon",0],["deluxe",0],["comma",0],["spicy",0],["homestyle",0],["list",0],["premium",0],["cod",0],["is",0],["meal",0]], choose: 14 },
+          { context: [["single",1],["double",1],["triple",1],["baconator",0],["comma",0],["bacon",0],["deluxe",0],["comma",0],["spicy",0],["homestyle",0],["list",0],["premium",0],["cod",0],["is",0],["meal",0]], choose: 13 },
+          { context: [["single",1],["double",1],["triple",1],["baconator",1],["comma",0],["bacon",0],["deluxe",0],["comma",0],["spicy",0],["homestyle",0],["list",0],["premium",0],["cod",0],["is",0],["meal",0]], choose: 13 },
+          { context: [["single",1],["double",1],["triple",1],["baconator",1],["bacon",0],["deluxe",0],["comma",0],["spicy",0],["homestyle",0],["list",0],["premium",0],["cod",0],["is",0],["meal",0]], choose: 12 },
+          { context: [["single",1],["double",1],["triple",1],["baconator",1],["bacon_deluxe",1],["comma",0],["spicy",0],["homestyle",0],["list",0],["premium",0],["cod",0],["is",0],["meal",0]], choose: 11 },
+          { context: [["single",1],["double",1],["triple",1],["baconator",1],["bacon_deluxe",1],["spicy",0],["homestyle",0],["list",0],["premium",0],["cod",0],["is",0],["meal",0]], choose: 10 },
+          { context: [["single",1],["double",1],["triple",1],["baconator",1],["bacon_deluxe",1],["spicy",1],["homestyle",0],["list",0],["premium",0],["cod",0],["is",0],["meal",0]], choose: 10 },
+        ]
+      }
+    },
     "single, double, triple, baconator, bacon deluxe, spicy homestyle and premium cod are meals",
     "coca modifies cola",
     "diet modifies coke",
