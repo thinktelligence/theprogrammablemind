@@ -77,8 +77,6 @@ const config = {
        where: where(),
        id: "select", 
        isA: ['verb'],
-       level: 0, 
-       bridge: "{ ...next(operator) }",
        semantic: ({api, context}) => {
          api.select()
        }
@@ -87,8 +85,6 @@ const config = {
        where: where(),
        id: "unselect", 
        isA: ['verb'],
-       level: 0, 
-       bridge: "{ ...next(operator) }",
        semantic: ({api, context}) => {
          api.unselect()
        }
@@ -106,9 +102,7 @@ const config = {
        where: where(),
        id: "cancel", 
        isA: ['verb'],
-       level: 0, 
        words: ['close'],
-       bridge: "{ ...next(operator) }",
        semantic: ({api, context}) => {
          api.cancel()
        }
@@ -148,33 +142,23 @@ const config = {
     },
     { 
        id: "down", 
-       level: 0, 
        isA: ['direction'],
-       bridge: "{ ...next(operator) }" 
     },
     { 
        id: "left", 
-       level: 0, 
        isA: ['direction'],
-       bridge: "{ ...next(operator) }" 
     },
     { 
        id: "right", 
-       level: 0, 
        isA: ['direction'],
-       bridge: "{ ...next(operator) }" 
     },
     { 
        id: "action", 
-       level: 0, 
        isA: ['action'],
-       bridge: "{ ...next(operator) }" 
     },
     { 
        id: "listening", 
-       level: 0, 
        isA: ['action'],
-       bridge: "{ ...next(operator) }" 
     },
   ],
 };
