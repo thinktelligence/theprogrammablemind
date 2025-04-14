@@ -75,15 +75,14 @@ const config = {
   ],
   bridges: [
     { id: 'start', level: 0, bridge: '{ ...next(operator), arg: after[0] }' },
-    { id: 'next', level: 0, bridge: '{ ...next(operator) }' },
-    { id: 'game', level: 0, bridge: '{ ...next(operator) }' },
-    { id: 'turn', level: 0, bridge: '{ ...next(operator) }' },
+    { id: 'next', level: 0, },
+    { id: 'game', level: 0, },
+    { id: 'turn', level: 0, },
     { id: 'new', level: 0, bridge: '{ ...operator, ...after, new: "new", modifiers: append(["new"], operator.modifiers)}' },
     { id: 'winning', level: 0, bridge: '{ ...after, winning: "winning", modifiers: append(["winning"], operator.modifiers)}' },
     //{ id: 'winning', level: 0, bridge: '{ ...after, winning23: "winning24"}' },
-    { id: 'score', level: 0, bridge: '{ ...next(operator) }' },
-    { id: 'player', level: 0, bridge: '{ ...next(operator) }' },
-    //{ id: 'person', level: 0, bridge: '{ ...next(operator) }' },
+    { id: 'score', level: 0, },
+    { id: 'player', level: 0, },
     { id: 'scored', level: 0, bridge: '{ ...next(operator), player: before[0], points: after[0] }' },
 
     // append will default undefineds to empty list
@@ -109,6 +108,10 @@ const config = {
       { context: [["article",0],["winning",0],["score",1],["is",0],["integer",0],["point",0]], choose: 3 },
       { context: [["article",0],["winning",0],["score",1],["is",0],["integer",1],["point",0]], choose: 3 },
       { context: [["article",0],["winning",0],["score",1],["is",0],["point",1]], choose: 3 },
+      { context: [["start",0],["a",0],["new",0],["game",0]], choose: 0 },
+      { context: [["the",0],["winning",0],["score",0],["is",0],["integer",0],["point",0]], choose: 3 },
+      { context: [["the",0],["winning",0],["score",0],["is",0],["integer",1],["point",0]], choose: 3 },
+      { context: [["the",0],["winning",0],["score",0],["is",0],["point",1]], choose: 3 },
     ],
   },
   hierarchy: [

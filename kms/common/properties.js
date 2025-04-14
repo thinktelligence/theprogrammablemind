@@ -87,14 +87,13 @@ const config = {
       // [['isEdee', 0], ['isEd', 0], ['isEder', 0], ['by', 0]]
       // [['queryable', 0], ['is', 0], ['property', 0], ['propertyOf', 0], ['object', 0]]
       { context: [["the",0],["unknown",0],["propertyOf",0],["unknown",0],["is",0],["unknown",0]], choose: 4 },
-      { context: [["the",0],["unknown",1],["propertyOf",0],["unknown",0],["is",0],["unknown",0]], choose: 4 },
 
       { context: [["what",0],["is",0],["the",0],["property",0],["propertyOf",0],["unknown",0]], choose: 1 },
+      { context: [["what",0],["is",0],["the",0],["property",1],["propertyOf",0],["unknown",0]], choose: 1 },
       { context: [["what",0],["is",0],["the",0],["property",1],["propertyOf",0],["object",0]], choose: 1 },
       { context: [["what",1],["is",0],["the",0],["property",1],["propertyOf",0],["unknown",0]], choose: 1 },
-      { context: [["what",1],["is",0],["the",0],["property",1],["propertyOf",0],["unknown",1]], choose: 1 },
-      { context: [["what",1],["is",0],["the",0],["property",1],["propertyOf",0],["unknown",1]], choose: 1 },
       { context: [["what",0],["is",0],["the",0],["property",0],["propertyOf",0],["object",0]], choose: 1 },
+      { context: [["what",0],["is",0],["the",0],["property",1],["propertyOf",0],["object",0]], choose: 1 },
       { context: [["what",1],["is",0],["the",0],["property",1],["propertyOf",0],["object",0]], choose: 1 },
       { context: [["what",1],["is",0],["the",0],["property",1],["propertyOf",0],["object",1]], choose: 1 },
       { context: [["what",1],["is",0],["the",0],["property",1],["propertyOf",0],["object",1]], choose: 1 },

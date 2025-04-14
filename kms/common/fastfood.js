@@ -77,22 +77,28 @@ const template = {
       },
     },
     "french fries and waffle fries are fries",
+    {
+      associations: {
+        positive: [
+          { context: [["is",0],["hamburger",0]], choose: 1 },
+        ]
+      },
+    },
     "single, double, triple, baconator, and bacon deluxe are hamburgers",
     // "spicy homestyle asiago ranch chicken club 10 piece nuggets ultimate chicken grill and premium cod are sandwiches",
     {
       associations: {
         positive: [
+          { context: [["unknown",0],["unknown",0],["comma",0],["asiago",0],["ranch",0],["chicken",0],["club",0],["comma",0],["ultimate",0],["chicken",0],["grill",0],["list",0],["premium",0],["cod",0],["is",0],["sandwich",0]], choose: 14 },
+          { context: [["unknown",0],["unknown",0],["asiago",0],["ranch",0],["chicken",0],["club",0],["comma",0],["ultimate",0],["chicken",0],["grill",0],["list",0],["premium",0],["cod",0],["is",0],["sandwich",0]], choose: 13 },
+          { context: [["unknown",0],["unknown",0],["asiago",1],["ranch",0],["chicken",0],["club",0],["comma",0],["ultimate",0],["chicken",0],["grill",0],["list",0],["premium",0],["cod",0],["is",0],["sandwich",0]], choose: 13 },
+          { context: [["unknown",0],["unknown",0],["asiago",1],["ranch",1],["chicken",0],["club",0],["comma",0],["ultimate",0],["chicken",0],["grill",0],["list",0],["premium",0],["cod",0],["is",0],["sandwich",0]], choose: 13 },
+          { context: [["unknown",0],["unknown",0],["asiago",1],["ranch",1],["chicken",1],["club",0],["comma",0],["ultimate",0],["chicken",0],["grill",0],["list",0],["premium",0],["cod",0],["is",0],["sandwich",0]], choose: 13 },
+          { context: [["unknown",0],["unknown",0],["asiago",1],["ranch",1],["chicken_club",1],["comma",0],["ultimate",0],["chicken",0],["grill",0],["list",0],["premium",0],["cod",0],["is",0],["sandwich",0]], choose: 12 },
+          { context: [["unknown",0],["unknown",0],["asiago_ranch_chicken_club",1],["comma",0],["ultimate",0],["chicken",0],["grill",0],["list",0],["premium",0],["cod",0],["is",0],["sandwich",0]], choose: 10 },
+          { context: [["unknown",0],["unknown",0],["asiago_ranch_chicken_club",1],["ultimate",0],["chicken",0],["grill",0],["list",0],["premium",0],["cod",0],["is",0],["sandwich",0]], choose: 9 },
+
           { context: [["unknown",0],["comma",0],["unknown",0],["comma",0],["asiago",0],["ranch",0],["chicken",0],["club",0],["comma",0],["ultimate",0],["chicken",0],["grill",0],["list",0],["premium",0],["cod",0],["is",0],["sandwich",0]], choose: 15 },
-          { context: [["unknown",1],["comma",0],["unknown",0],["comma",0],["asiago",0],["ranch",0],["chicken",0],["club",0],["comma",0],["ultimate",0],["chicken",0],["grill",0],["list",0],["premium",0],["cod",0],["is",0],["sandwich",0]], choose: 15 },
-          { context: [["unknown",1],["comma",0],["unknown",1],["comma",0],["asiago",0],["ranch",0],["chicken",0],["club",0],["comma",0],["ultimate",0],["chicken",0],["grill",0],["list",0],["premium",0],["cod",0],["is",0],["sandwich",0]], choose: 15 },
-          { context: [["unknown",1],["unknown",1],["comma",0],["asiago",0],["ranch",0],["chicken",0],["club",0],["comma",0],["ultimate",0],["chicken",0],["grill",0],["list",0],["premium",0],["cod",0],["is",0],["sandwich",0]], choose: 14 },
-          { context: [["unknown",1],["unknown",1],["asiago",0],["ranch",0],["chicken",0],["club",0],["comma",0],["ultimate",0],["chicken",0],["grill",0],["list",0],["premium",0],["cod",0],["is",0],["sandwich",0]], choose: 13 },
-          { context: [["unknown",1],["unknown",1],["asiago",1],["ranch",0],["chicken",0],["club",0],["comma",0],["ultimate",0],["chicken",0],["grill",0],["list",0],["premium",0],["cod",0],["is",0],["sandwich",0]], choose: 13 },
-          { context: [["unknown",1],["unknown",1],["asiago",1],["ranch",1],["chicken",0],["club",0],["comma",0],["ultimate",0],["chicken",0],["grill",0],["list",0],["premium",0],["cod",0],["is",0],["sandwich",0]], choose: 13 },
-          { context: [["unknown",1],["unknown",1],["asiago",1],["ranch",1],["chicken",1],["club",0],["comma",0],["ultimate",0],["chicken",0],["grill",0],["list",0],["premium",0],["cod",0],["is",0],["sandwich",0]], choose: 13 },
-          { context: [["unknown",1],["unknown",1],["asiago",1],["ranch",1],["chicken_club",1],["comma",0],["ultimate",0],["chicken",0],["grill",0],["list",0],["premium",0],["cod",0],["is",0],["sandwich",0]], choose: 12 },
-          { context: [["unknown",1],["unknown",1],["asiago_ranch_chicken_club",1],["comma",0],["ultimate",0],["chicken",0],["grill",0],["list",0],["premium",0],["cod",0],["is",0],["sandwich",0]], choose: 10 },
-          { context: [["unknown",1],["unknown",1],["asiago_ranch_chicken_club",1],["ultimate",0],["chicken",0],["grill",0],["list",0],["premium",0],["cod",0],["is",0],["sandwich",0]], choose: 9 },
         ]
       },
     },
@@ -173,6 +179,13 @@ const template = {
     "apple modifies slice",
     "natural cut modifies fries",
     "hamburgers, cheeseburgers, crispy chicken and nuggets are kids meals",
+    {
+      associations: {
+        positive: [
+          { context: [["showOrder",0],["the",0],["orderNoun",1]], choose: 0 },
+        ],
+      },
+    },
     {
       where: where(),
       operators: [
@@ -320,7 +333,6 @@ const template = {
         { context: [['list', 0], ['article',0], ['smoothie_ingredient', 0], ['smoothie', 0]], ordered: true, choose: [1,2] },
       ]
     },
-    // { stop: true },
     "junior modifies crispy chicken club",
     "nuggets, junior bacon cheeseburgers, chicken go wraps and junior crispy chicken clubs are value meals",
     "combos, chili, fries and drinks are sizeable",
@@ -1014,7 +1026,7 @@ const config = {
   name: 'fastfood',
   operators: [
     "([orderNoun|order])",
-    "([showOrder|show] ([orderNoun/1]))",
+    "([showOrder|show] ([orderNoun/0]))",
   ],
   // flatten: ['list'],
   // TODO use node naming not python

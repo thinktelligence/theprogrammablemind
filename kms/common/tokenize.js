@@ -9,7 +9,7 @@ const config = {
     "([listable])",
   ],
   bridges: [
-    { id: "unknown", level: 0, bridge: "{ ...next(operator), unknown: true, dead: true }" },
+    { id: "unknown", level: 0, bridge: "{ ...operator, unknown: true, dead: true }" },
     { id: "listable", },
   ],
   words: {

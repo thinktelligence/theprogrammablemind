@@ -53,7 +53,7 @@ const template = {
     {
       associations: {
         positive: [
-          { context: [["unknown",1],["is",0],["article",0],["sort",0],["concept",0]], choose: 1 },
+          { context: [["unknown",0],["is",0],["article",0],["sort",0],["concept",0]], choose: 1 },
         ]
       },
     },

@@ -18,39 +18,7 @@ const template = {
       "surname means last name",
       "given modifies name",
       "given name means first name",
-      // { stop: true },
       "ownee is owned by owner means owner owns ownee",
-      /*
-      {
-        associations: {
-          positive: [
-            { context: [["article",0],["unknown",0],["isEdAble",0],["by",0],["unknown",0]], choose: 1 },
-            { context: [["article",0],["unknown",1],["isEdAble",0],["by",0],["unknown",0]], choose: 1 },
-            { context: [["article",0],["unknown",1],["isEdAble",0],["by",0],["unknown",1]], choose: 1 },
-
-            { context: [["queryable",0],["is",0],["isEder",0],["isEdAble",0],["by",0]], choose: 1 },
-            { context: [["queryable",1],["is",0],["isEder",0],["isEdAble",0],["by",0]], choose: 1 },
-            { context: [["queryable",1],["is",0],["isEder",1],["isEdAble",0],["by",0]], choose: 1 },
-            { context: [["queryable",0],["is",0],["unknown",0],["isEdAble",0],["by",0]], choose: 1 },
-            { context: [["queryable",0],["is",0],["unknown",1],["isEdAble",0],["by",0]], choose: 1 },
-            { context: [["queryable",1],["is",0],["unknown",0],["isEdAble",0],["by",0]], choose: 1 },
-            { context: [["queryable",1],["is",0],["unknown",1],["isEdAble",0],["by",0]], choose: 1 },
-
-            { context: [["unknown",0],["isEd",0],["isEdAble",0],["by",0],["unknown",0]], choose: 1 },
-            { context: [["unknown",1],["isEd",0],["isEdAble",0],["by",0],["unknown",0]], choose: 1 },
-            { context: [["unknown",1],["isEd",0],["isEdAble",0],["by",0],["unknown",1]], choose: 1 },
-            { context: [["unknown",1],["isEd",0],["isEdAble",0],["by",1]], choose: 1 },
-            { context: [["unknown",1],["isEd",0],["isEdAble",0]], choose: 1 },
-
-            { context: [["isEdee",0],["isEd",0],["isEdAble",0],["by",0],["isEder",0]], choose: 1 },
-            { context: [["isEdee",1],["isEd",0],["isEdAble",0],["by",0],["isEder",0]], choose: 1 },
-            { context: [["isEdee",1],["isEd",0],["isEdAble",0],["by",0],["isEder",1]], choose: 1 },
-            { context: [["isEdee",0],["isEd",0],["isEdAble",0],["by",1]], choose: 1 },
-            { context: [["isEdee",1],["isEd",0],["isEdAble",0],["by",1]], choose: 1 },
-          ]
-        },
-      },
-      */
 //      "the first name of greg is greg23",
 //      "ownee23 is owned by owner23",
 //      "cleo is a cat",

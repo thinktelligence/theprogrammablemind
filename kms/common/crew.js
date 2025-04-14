@@ -28,9 +28,6 @@ const template = {
         associations: {
           positive: [
             { context: [["article",0],["unknown",0],["propertyOf",0],["the",0],["unknown",0],["is",0],["unknown",0]], choose: 5 },
-            { context: [["article",0],["unknown",1],["propertyOf",0],["the",0],["unknown",0],["is",0],["unknown",0]], choose: 5 },
-            { context: [["article",0],["unknown",1],["propertyOf",0],["the",0],["unknown",1],["is",0],["unknown",0]], choose: 5 },
-            { context: [["article",0],["unknown",1],["propertyOf",0],["the",0],["unknown",1],["is",0],["unknown",1]], choose: 5 },
             { context: [["what",0],["is",0],["the",0],["crew_member",1]], choose: 1 },
           ]
         },
@@ -48,14 +45,10 @@ const template = {
         associations: {
           positive: [
             { context: [["disarm",0],["the",0],["unknown",0],["means",0],["the",0],["unknown",0],["propertyOf",0],["the",0],["unknown",0],["isEd",0],["not",0],["unknown",0]], choose: 3 },
-            { context: [["disarm",0],["the",0],["unknown",1],["means",0],["the",0],["unknown",0],["propertyOf",0],["the",0],["unknown",0],["isEd",0],["not",0],["unknown",0]], choose: 3 },
-            { context: [["disarm",0],["the",0],["unknown",1],["means",0],["the",0],["unknown",1],["propertyOf",0],["the",0],["unknown",0],["isEd",0],["not",0],["unknown",0]], choose: 3 },
-            { context: [["disarm",0],["the",0],["unknown",1],["means",0],["the",0],["unknown",1],["propertyOf",0],["the",0],["unknown",1],["isEd",0],["not",0],["unknown",0]], choose: 3 },
-            { context: [["disarm",0],["the",0],["unknown",1],["means",0],["the",0],["unknown",1],["propertyOf",0],["the",0],["unknown",1],["isEd",0],["not",0],["unknown",1]], choose: 3 },
-            { context: [["disarm",0],["unknown",1],["means",0],["the",0],["unknown",1],["propertyOf",0],["the",0],["unknown",1],["isEd",0],["not",0],["unknown",1]], choose: 2 },
-            { context: [["disarm",0],["unknown",1],["means",0],["unknown",1],["propertyOf",0],["the",0],["unknown",1],["isEd",0],["not",0],["unknown",1]], choose: 2 },
-            { context: [["disarm",0],["unknown",1],["means",0],["unknown",1],["propertyOf",0],["unknown",1],["isEd",0],["not",0],["unknown",1]], choose: 2 },
-            { context: [["disarm",1],["means",0],["unknown",1],["propertyOf",0],["unknown",1],["isEd",0],["not",0],["unknown",1]], choose: 1 },
+            { context: [["disarm",0],["unknown",0],["means",0],["the",0],["unknown",0],["propertyOf",0],["the",0],["unknown",0],["isEd",0],["not",0],["unknown",0]], choose: 2 },
+            { context: [["disarm",0],["unknown",0],["means",0],["unknown",0],["propertyOf",0],["the",0],["unknown",0],["isEd",0],["not",0],["unknown",0]], choose: 2 },
+            { context: [["disarm",0],["unknown",0],["means",0],["unknown",0],["propertyOf",0],["unknown",0],["isEd",0],["not",0],["unknown",0]], choose: 2 },
+            { context: [["disarm",1],["means",0],["unknown",0],["propertyOf",0],["unknown",0],["isEd",0],["not",0],["unknown",0]], choose: 1 },
           ]
         },
       },

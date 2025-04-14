@@ -26,6 +26,7 @@ const template = {
         positive: [
           { context: [["ounce",0],["equals",0],["number",0],["mathematical_operator",0],["troy",0],["ounce",0]], choose: 1 },
           { context: [["ounce",0],["equals",0],["number",1],["mathematical_operator",0],["troy",0],["ounce",0]], choose: 1 },
+          { context: [["the",0],["weight",0],["propertyOf",0],["unknown",0],["is",0],["integer",0],["pound",0]], choose: 4 },
         ],
       },
     },
