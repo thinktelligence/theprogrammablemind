@@ -38,10 +38,10 @@ const config = {
     ]
   },
   bridges: [
-    { id: 'sentientBeing', level: 0, bridge: '{ ...next(operator) }' },
+    { id: 'sentientBeing' },
     // just here so it loads and the sentence can make the semantics
     // { id: 'feel', level: 0, bridge: '{ ...next(operator) }' },
-    { id: 'emotion', level: 0, bridge: '{ ...next(operator) }' },
+    { id: 'emotion' },
   ],
   priorities: [
     { "context": [['feel', 0], ['means', 0], ], "choose": [0] },

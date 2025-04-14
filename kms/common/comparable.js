@@ -11,7 +11,7 @@ const config = {
   name: 'comparable',
   operators: [
     "([condition|])",
-    "(([condition/1]) <compare|> ([comparable]))",
+    "(([condition/*]) <compare|> ([comparable]))",
     "([highest])",
     "([lowest])",
     // "((comparable/*) <sortOrdering|>)",
@@ -29,21 +29,13 @@ const config = {
     { 
       id: "condition", 
       children: ['highest', 'lowest'],
-      bridge: "{ ...next(operator) }" 
     },
     { 
       id: "comparable", 
       isA: ['theAble'],
-      bridge: "{ ...next(operator) }" 
     },
-    { 
-      id: "lowest", 
-      bridge: "{ ...next(operator) }" 
-    },
-    { 
-      id: "highest", 
-      bridge: "{ ...next(operator) }" 
-    },
+    { id: "lowest", },
+    { id: "highest", },
   ],
 };
 
