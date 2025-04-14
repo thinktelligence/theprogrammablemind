@@ -69,9 +69,39 @@ const template = {
     "smoothie modifies ingredients",
     "strawberry, guava, mango passion, wild berry, and strawberry banana are smoothie ingredients",
     "a smoothie is a drink",
+    {
+      associations: {
+        positive: [
+          { context: [["french",0],["fry",0],["list",0],["waffle",0],["fry",0],["is",0],["fry",0]], choose: 5 },
+        ]
+      },
+    },
     "french fries and waffle fries are fries",
+    {
+      associations: {
+        positive: [
+          { context: [["is",0],["hamburger",0]], choose: 1 },
+        ]
+      },
+    },
     "single, double, triple, baconator, and bacon deluxe are hamburgers",
     // "spicy homestyle asiago ranch chicken club 10 piece nuggets ultimate chicken grill and premium cod are sandwiches",
+    {
+      associations: {
+        positive: [
+          { context: [["unknown",0],["unknown",0],["comma",0],["asiago",0],["ranch",0],["chicken",0],["club",0],["comma",0],["ultimate",0],["chicken",0],["grill",0],["list",0],["premium",0],["cod",0],["is",0],["sandwich",0]], choose: 14 },
+          { context: [["unknown",0],["unknown",0],["asiago",0],["ranch",0],["chicken",0],["club",0],["comma",0],["ultimate",0],["chicken",0],["grill",0],["list",0],["premium",0],["cod",0],["is",0],["sandwich",0]], choose: 13 },
+          { context: [["unknown",0],["unknown",0],["asiago",1],["ranch",0],["chicken",0],["club",0],["comma",0],["ultimate",0],["chicken",0],["grill",0],["list",0],["premium",0],["cod",0],["is",0],["sandwich",0]], choose: 13 },
+          { context: [["unknown",0],["unknown",0],["asiago",1],["ranch",1],["chicken",0],["club",0],["comma",0],["ultimate",0],["chicken",0],["grill",0],["list",0],["premium",0],["cod",0],["is",0],["sandwich",0]], choose: 13 },
+          { context: [["unknown",0],["unknown",0],["asiago",1],["ranch",1],["chicken",1],["club",0],["comma",0],["ultimate",0],["chicken",0],["grill",0],["list",0],["premium",0],["cod",0],["is",0],["sandwich",0]], choose: 13 },
+          { context: [["unknown",0],["unknown",0],["asiago",1],["ranch",1],["chicken_club",1],["comma",0],["ultimate",0],["chicken",0],["grill",0],["list",0],["premium",0],["cod",0],["is",0],["sandwich",0]], choose: 12 },
+          { context: [["unknown",0],["unknown",0],["asiago_ranch_chicken_club",1],["comma",0],["ultimate",0],["chicken",0],["grill",0],["list",0],["premium",0],["cod",0],["is",0],["sandwich",0]], choose: 10 },
+          { context: [["unknown",0],["unknown",0],["asiago_ranch_chicken_club",1],["ultimate",0],["chicken",0],["grill",0],["list",0],["premium",0],["cod",0],["is",0],["sandwich",0]], choose: 9 },
+
+          { context: [["unknown",0],["comma",0],["unknown",0],["comma",0],["asiago",0],["ranch",0],["chicken",0],["club",0],["comma",0],["ultimate",0],["chicken",0],["grill",0],["list",0],["premium",0],["cod",0],["is",0],["sandwich",0]], choose: 15 },
+        ]
+      },
+    },
     "spicy, homestyle, asiago ranch chicken club, ultimate chicken grill and premium cod are sandwiches",
     "meals are food",
     "a combo is a meal",
@@ -104,6 +134,24 @@ const template = {
     "a go wrap is a sandwich",
     "chicken modifies go wrap",
     "breakfast baconator, french toast sandwich, egg muffin, chicken on french toast, pancake platter, double sausage muffin, pancakes, french toast and oatmeal are breakfast meals",
+    {
+      associations: {
+        positive: [
+          { context: [["single",0],["comma",0],["double",0],["comma",0],["triple",0],["comma",0],["baconator",0],["comma",0],["bacon",0],["deluxe",0],["comma",0],["spicy",0],["homestyle",0],["list",0],["premium",0],["cod",0],["is",0],["meal",0]], choose: 16 },
+          { context: [["single",1],["comma",0],["double",0],["comma",0],["triple",0],["comma",0],["baconator",0],["comma",0],["bacon",0],["deluxe",0],["comma",0],["spicy",0],["homestyle",0],["list",0],["premium",0],["cod",0],["is",0],["meal",0]], choose: 16 },
+          { context: [["single",1],["double",0],["comma",0],["triple",0],["comma",0],["baconator",0],["comma",0],["bacon",0],["deluxe",0],["comma",0],["spicy",0],["homestyle",0],["list",0],["premium",0],["cod",0],["is",0],["meal",0]], choose: 15 },
+          { context: [["single",1],["double",1],["comma",0],["triple",0],["comma",0],["baconator",0],["comma",0],["bacon",0],["deluxe",0],["comma",0],["spicy",0],["homestyle",0],["list",0],["premium",0],["cod",0],["is",0],["meal",0]], choose: 15 },
+          { context: [["single",1],["double",1],["triple",0],["comma",0],["baconator",0],["comma",0],["bacon",0],["deluxe",0],["comma",0],["spicy",0],["homestyle",0],["list",0],["premium",0],["cod",0],["is",0],["meal",0]], choose: 14 },
+          { context: [["single",1],["double",1],["triple",1],["comma",0],["baconator",0],["comma",0],["bacon",0],["deluxe",0],["comma",0],["spicy",0],["homestyle",0],["list",0],["premium",0],["cod",0],["is",0],["meal",0]], choose: 14 },
+          { context: [["single",1],["double",1],["triple",1],["baconator",0],["comma",0],["bacon",0],["deluxe",0],["comma",0],["spicy",0],["homestyle",0],["list",0],["premium",0],["cod",0],["is",0],["meal",0]], choose: 13 },
+          { context: [["single",1],["double",1],["triple",1],["baconator",1],["comma",0],["bacon",0],["deluxe",0],["comma",0],["spicy",0],["homestyle",0],["list",0],["premium",0],["cod",0],["is",0],["meal",0]], choose: 13 },
+          { context: [["single",1],["double",1],["triple",1],["baconator",1],["bacon",0],["deluxe",0],["comma",0],["spicy",0],["homestyle",0],["list",0],["premium",0],["cod",0],["is",0],["meal",0]], choose: 12 },
+          { context: [["single",1],["double",1],["triple",1],["baconator",1],["bacon_deluxe",1],["comma",0],["spicy",0],["homestyle",0],["list",0],["premium",0],["cod",0],["is",0],["meal",0]], choose: 11 },
+          { context: [["single",1],["double",1],["triple",1],["baconator",1],["bacon_deluxe",1],["spicy",0],["homestyle",0],["list",0],["premium",0],["cod",0],["is",0],["meal",0]], choose: 10 },
+          { context: [["single",1],["double",1],["triple",1],["baconator",1],["bacon_deluxe",1],["spicy",1],["homestyle",0],["list",0],["premium",0],["cod",0],["is",0],["meal",0]], choose: 10 },
+        ]
+      }
+    },
     "single, double, triple, baconator, bacon deluxe, spicy homestyle and premium cod are meals",
     "coca modifies cola",
     "diet modifies coke",
@@ -131,6 +179,13 @@ const template = {
     "apple modifies slice",
     "natural cut modifies fries",
     "hamburgers, cheeseburgers, crispy chicken and nuggets are kids meals",
+    {
+      associations: {
+        positive: [
+          { context: [["showOrder",0],["the",0],["orderNoun",1]], choose: 0 },
+        ],
+      },
+    },
     {
       where: where(),
       operators: [
@@ -278,7 +333,6 @@ const template = {
         { context: [['list', 0], ['article',0], ['smoothie_ingredient', 0], ['smoothie', 0]], ordered: true, choose: [1,2] },
       ]
     },
-    // { stop: true },
     "junior modifies crispy chicken club",
     "nuggets, junior bacon cheeseburgers, chicken go wraps and junior crispy chicken clubs are value meals",
     "combos, chili, fries and drinks are sizeable",
@@ -471,6 +525,33 @@ const template = {
           }
         },
       ],
+      associations: {
+        positive: [
+          { context: [["article",0],["size",0],["drink",0]], choose: 2 },
+          { context: [["article",0],["size",0],["smoothie_modifier",0],["drink",0]], choose: 3 },
+          { context: [["integer",0],["drink",0]], choose: 1 },
+          { context: [["drink",0],["list",0],["article",0],["drink",0]], choose: 1 },
+          { context: [["drink",1],["list",0],["article",0],["drink",0]], choose: 1 },
+          { context: [["drink",1],["list",0],["article",0],["drink",1]], choose: 1 },
+
+          // { context: [["combo",0],["integer",0],["list",0],["a",0],["guava",0],["smoothie",0]], choose: <indexOfMainElement> },
+          { context: [["combo",0],["integer",0],["list",0],["article",0],["smoothie_modifier",0],["drink",0]], choose: 1 },
+          { context: [["combo",0],["integer",1],["list",0],["article",0],["smoothie_modifier",0],["drink",0]], choose: 1 },
+          { context: [["combo",1],["list",0],["article",0],["smoothie_modifier",0],["drink",0]], choose: 1 },
+          { context: [["combo",1],["list",0],["article",0],["smoothie_modifier",1],["drink",0]], choose: 1 },
+
+          { context: [["combo",0],["integer",0],["withModification",0],["object",0],["object",0],["list",0],["article",0],["smoothie_ingredient",0],["drink",0]], choose: 1 },
+          { context: [["combo",0],["integer",1],["withModification",0],["object",0],["object",0],["list",0],["article",0],["smoothie_ingredient",0],["drink",0]], choose: 1 },
+          { context: [["combo",0],["integer",1],["withModification",0],["object",1],["list",0],["article",0],["smoothie_ingredient",0],["drink",0]], choose: 1 },
+          { context: [["combo",1],["withModification",0],["object",1],["list",0],["article",0],["object",0],["drink",0]], choose: 1 },
+          { context: [["combo",1],["withModification",0],["object",1],["list",0],["article",0],["object",1],["drink",0]], choose: 1 },
+
+          { context: [["article",0],["object",0],["list",0],["article",0],["object",0],["object",0],["drink",0]], choose: 1 },
+          { context: [["article",0],["object",0],["list",0],["article",0],["object",1],["drink",0]], choose: 1 },
+          { context: [["article",0],["object",1],["list",0],["article",0],["object",1],["drink",0]], choose: 1 },
+          { context: [["object",1],["list",0],["article",0],["object",1],["drink",0]], choose: 1 },
+        ],
+      },
     },
   ],
 }
@@ -945,7 +1026,7 @@ const config = {
   name: 'fastfood',
   operators: [
     "([orderNoun|order])",
-    "([showOrder|show] ([orderNoun/1]))",
+    "([showOrder|show] ([orderNoun/0]))",
   ],
   // flatten: ['list'],
   // TODO use node naming not python

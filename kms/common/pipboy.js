@@ -147,13 +147,28 @@ const config = {
     { context: [['article', 0], ['unknown', 1], ['outfit', 0]], ordered: true, choose: [1,2] },
     // TODO this should trigger a circular warning or somethign [['put', 0], ['on', 0]],
   ],
+  associations: {
+    negative: [],
+    positive: [
+      { context: [["wear",0],["article",0],["unknown",0],["wearable",0]], choose: 0 },
+      { context: [["wear",0],["article",0],["unknown",1],["wearable",0]], choose: 0 },
+      { context: [["wear",0],["article",0],["wearable",0]], choose: 0 },
+      { context: [["wear",0],["article",0],["wearable",1]], choose: 0 },
+      { context: [["wear",0],["article",0],["unknown",0]], choose: 0 },
+      { context: [["wear",0],["article",0],["unknown",1]], choose: 0 },
+
+      { context: [["equip",0],["the",0],["condition",0],["item_property",0],["weapon",0]], choose: 0 },
+      { context: [["equip",0],["the",0],["condition",0],["item_property",1],["weapon",0]], choose: 0 },
+
+      { context: [["what",0],["is",0],["article",0],["type",1],["propertyOf",0],["item",0],["property",0]], choose: 1 },
+      { context: [["what",0],["is",0],["article",0],["type",1],["propertyOf",0],["object",1]], choose: 1 },
+    ]
+  },
   bridges: [
     {
        where: where(),
        id: "put", 
        isA: ['verb'],
-       level: 0, 
-       bridge: "{ ...next(operator) }",
        generatorp: ({context}) => `put on`,
     },
     { 
@@ -191,8 +206,6 @@ const config = {
        where: where(),
        id: "disarm", 
        isA: ['verb'],
-       level: 0, 
-       bridge: "{ ...next(operator) }",
        generatorp: ({context}) => `disarm`,
        semantic: ({api, context}) => {
          api.disarm()
@@ -202,8 +215,6 @@ const config = {
        where: where(),
        id: "strip", 
        isA: ['verb'],
-       level: 0, 
-       bridge: "{ ...next(operator) }",
        generatorp: ({context}) => `strip`,
        semantic: ({api, context}) => {
          api.strip()
@@ -309,8 +320,6 @@ const config = {
        id: "nameable", 
        isA: ['theAble'],
        children: ['thisitthat'],
-       level: 0, 
-       bridge: "{ ...next(operator) }" 
     },
     { 
        id: "outfit", 
@@ -318,31 +327,11 @@ const config = {
        level: 0, 
        bridge: "{ ...next(operator), name: before[0], modifiers: ['name'] }" 
     },
-    { 
-       id: "equipable", 
-       level: 0, 
-       bridge: "{ ...next(operator) }" 
-    },
-    { 
-       id: "drinkable", 
-       level: 0, 
-       bridge: "{ ...next(operator) }" 
-    },
-    { 
-       id: "edible", 
-       level: 0, 
-       bridge: "{ ...next(operator) }" 
-    },
-    { 
-       id: "takeable", 
-       level: 0, 
-       bridge: "{ ...next(operator) }" 
-    },
-    { 
-       id: "changeable", 
-       level: 0, 
-       bridge: "{ ...next(operator) }" 
-    },
+    { id: "equipable", },
+    { id: "drinkable", },
+    { id: "edible", },
+    { id: "takeable", },
+    { id: "changeable", },
     /*
     { 
        id: "44_pistol", 
@@ -354,9 +343,7 @@ const config = {
     */
     { 
        id: "apparel", 
-       level: 0, 
        isA: ['changeable'],
-       bridge: "{ ...next(operator) }" 
     },
     /*
     { 
@@ -422,10 +409,8 @@ const config = {
     },
     { 
        id: "stimpak", 
-       level: 0, 
        words: ['stimpaks', 'stimpack', 'stimpacks'],
        isA: ['theAble', 'countable'],
-       bridge: "{ ...next(operator) }" 
     },
     { 
        id: "tab", 
@@ -435,9 +420,7 @@ const config = {
     },
     { 
        id: "showable", 
-       level: 0, 
        isA: ['theAble'],
-       bridge: "{ ...next(operator) }" ,
     },
     /*
     { 
@@ -458,9 +441,7 @@ const config = {
     */
     { 
        id: "content", 
-       level: 0, 
        isA: ['showable'],
-       bridge: "{ ...next(operator) }" ,
        words: [
                 ['stat', 'stat'], 
                 ['stats', 'stat'], 

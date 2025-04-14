@@ -30,8 +30,16 @@ config = {
       bridge: "{ ...next(operator), modifiers: before[0], concept: after[0] }"
     },
     { id: "literally", bridge: "{ ...after[0], flatten: false, literally: true }" },
-    { id: "concept", bridge: "{ ...next(operator) }" },
+    { id: "concept" },
   ],
+  associations: {
+    positive: [
+      { context: [['unknown', 0], ['modifies', 0], ['unknown', 0]], choose: 1 },
+      { context: [['unknown', 0], ['modifies', 0], ['adjective', 0], ['queryable', 0]], choose: 1 },
+      { context: [['unknown', 0], ['unknown', 0], ['modifies', 0], ['adjective', 0], ['queryable', 0]], choose: 2 },
+      { context: [['literally', 0], ['modifies', 0], ['unknown', 0]], choose: 1 },
+    ],
+  },
   priorities: [
     { "context": [['literally', 0], ['modifies', 0], ], "choose": [0] },
   ],

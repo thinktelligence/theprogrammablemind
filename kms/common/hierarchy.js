@@ -51,6 +51,15 @@ const config = {
     ['have', 'canBeQuestion'],
     ['have', 'canBeDoQuestion'],
   ],
+  associations: {
+    negative: [],
+    positive: [
+      { context: [["what",0],["is",0],["the",0],["type",1]], choose: 1 },
+      { context: [["what",0],["is",0],["the",0],["type",0],["propertyOf",0],["object",0]], choose: 1 },
+      { context: [["what",0],["is",0],["the",0],["type",1],["propertyOf",0],["object",0]], choose: 1 },
+      { context: [["what",0],["is",0],["the",0],["type",1],["propertyOf",0],["object",1]], choose: 1 },
+    ]
+  },
   priorities: [
     { "context": [['isEd', 0], ['is', 0], ], "choose": [1] },
     { "context": [['a', 0], ['questionMark', 0], ['is', 0], ], "choose": [0] },

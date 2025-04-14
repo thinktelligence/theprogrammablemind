@@ -29,11 +29,19 @@ const config = {
     "([sentientBeing|])",
     "([emotion|])",
   ],
+  associations: {
+    negative: [],
+    positive: [
+      { context: [["unknown",0],["feel",0],["unknown",0]], choose: 1 },
+      { context: [["unknown",1],["feel",0],["unknown",0]], choose: 1 },
+      { context: [["unknown",1],["feel",0],["unknown",1]], choose: 1 },
+    ]
+  },
   bridges: [
-    { id: 'sentientBeing', level: 0, bridge: '{ ...next(operator) }' },
+    { id: 'sentientBeing' },
     // just here so it loads and the sentence can make the semantics
     // { id: 'feel', level: 0, bridge: '{ ...next(operator) }' },
-    { id: 'emotion', level: 0, bridge: '{ ...next(operator) }' },
+    { id: 'emotion' },
   ],
   priorities: [
     { "context": [['feel', 0], ['means', 0], ], "choose": [0] },

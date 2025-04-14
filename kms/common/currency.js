@@ -49,7 +49,6 @@ const config = {
   ],
   bridges: [
     { "id": "currency", "level": 0, "bridge": "{ ...next(operator), amount: before[0] }" },
-    // { "id": "currency", "level": 1, "bridge": "{ ...next(operator) }" },
     { "id": "in", "level": 0, "bridge": "{ ...next(operator), from: before[0], to: after[0] }" },
   ],
   floaters: ['isQuery'],

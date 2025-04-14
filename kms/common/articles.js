@@ -23,8 +23,6 @@ const config = {
     "(<a|a,an> ([theAble|]))",
   ],
   bridges: [
-    // { id: "what", level: 0, optional: "{ ...next(operator), query: ['what'], determined: true }", bridge: "{ ...after, query: ['what'], modifiers: ['what'], what: operator }" },
-    // { id: "whatAble", level: 0, bridge: "{ ...next(operator) }" },
     {
       id: 'everything',
     },
@@ -44,11 +42,13 @@ const config = {
     },
     { 
       id: 'the', 
+      isA: ['article'], 
       level: 0, 
       bridge: '{ ...after[0], focusableForPhrase: true, pullFromContext: true, concept: true, wantsValue: true, determiner: "the", modifiers: append(["determiner"], after[0].modifiers)}' 
     },
     { 
       id: "a", 
+      isA: ['article'], 
       level: 0, 
       // bridge: "{ ...after[0], pullFromContext: false, instance: true, concept: true, number: 'one', wantsValue: true, determiner: operator, modifiers: append(['determiner'], after[0].modifiers) }" 
       bridge: "{ ...after[0], pullFromContext: false, instance: true, concept: true, number: 'one', wantsValue: true, determiner: operator, modifiers: append(['determiner'], after[0].modifiers) }" 
@@ -57,15 +57,12 @@ const config = {
     { 
       id: "theAble", 
       children: ['noun'],
-      bridge: "{ ...next(operator) }" 
     },
 
     { 
       id: "thisitthat", 
-      level: 0, 
       isA: ['queryable'], 
       before: ['verb'],
-      bridge: "{ ...next(operator) }" 
     },
     { 
       id: "it", 
@@ -95,8 +92,8 @@ const config = {
     ['it', 'pronoun'],
     ['this', 'pronoun'],
     // ['questionMark', 'isEd'],
-    ['a', 'article'],
-    ['the', 'article'],
+    // ['a', 'article'],
+    // ['the', 'article'],
     ['it', 'queryable'],
     // ['it', 'toAble'],
     ['this', 'queryable'],

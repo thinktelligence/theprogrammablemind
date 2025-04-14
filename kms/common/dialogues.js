@@ -55,7 +55,7 @@ const config = {
     "([resetIdSuffix])",
 
     "(([queryable]) [is|] ([queryable|]))",
-    "([is:queryBridge|] ([queryable]) ([queryable]))",
+    "([isQuery|] ([queryable]) ([queryable]))",
     // "(([queryable]) [is:isEdBridge|is,are] ([isEdAble|]))",
     // who is the car owned by
     "(([queryable]) [(<isEd|> ([isEdAble|]))])",
@@ -111,14 +111,55 @@ const config = {
       // [['is', 0], ['unknown', 1]],
       // [['isEd', 0], ['means', 0]],
       // [['unknown', 0], ['list', 0], ['unknown', 0]],
-      [['thatVerb', 0], ['verb', 0]],
-      [['isEdee', 0], ['isEd', 0], ['isEder', 0], ['by', 0]],
-      [['isEdee', 0], ['isEd', 0], ['isEdAble', 0]],
-      [['unknown', 1], ['isEd', 0], ['isEdAble', 0]],
-      [['unknown', 0], ['isEd', 0], ['isEdAble', 0]],
-      [["isEd",0],["unknown",1],["isEdAble",0]],
-      // ...listorama('unknown'),
-      // ...listorama('queryable'),
+      { context: [['the', 0], ['listable', 0], ['list', 0], ['listable', 0]], choose: 1 },
+
+      { context: [['queryable', 0], ['is', 0], ['article', 0], ['theAble', 0]], choose: 1 },
+      { context: [['queryable', 1], ['is', 0], ['article', 0], ['theAble', 0]], choose: 1 },
+      { context: [['queryable', 1], ['is', 0], ['article', 0], ['theAble', 1]], choose: 1 },
+
+
+      { context: [['isQuery', 0], ['a', 0], ['unknown', 0], ['a', 0], ['unknown', 0]], choose: 0 },
+
+      { context: [['isQuery', 0], ['unknown', 0], ['unknown', 0]], choose: 0 },
+
+      { context: [['isQuery', 0], ['unknown', 0], ['article', 0], ['unknown', 0]], choose: 0 },
+
+      { context: [['isQuery', 0], ['queryable', 0], ['article', 0], ['queryable', 0]], choose: 0 },
+      { context: [['isQuery', 0], ['queryable', 1], ['article', 0], ['queryable', 0]], choose: 0 },
+      { context: [['isQuery', 0], ['queryable', 1], ['article', 0], ['queryable', 1]], choose: 0 },
+
+      { context: [['unknown', 0], ['is', 0], ['unknown', 0]], choose: 1 },
+      { context: [["unknown",0],["is",0],["article",0],["queryable",0]], choose: 1 },
+      { context: [["unknown",0],["is",0],["article",0],["queryable",1]], choose: 1 },
+
+      { context: [["a",0],["unknown",0],["is",0],["a",0],["unknown",0]], choose: 2 },
+
+      { context: [['article', 0], ['unknown', 0], ['is', 0], ['article', 0], ['unknown', 0]], choose: 2 },
+      { context: [['queryable', 0], ['is', 0], ['article', 0], ['unknown', 1]], choose: 1 },
+      { context: [['queryable', 1], ['is', 0], ['article', 0], ['unknown', 1]], choose: 1 },
+
+      { context: [["article",0],["unknown",0],["isEdAble",0],["by",0],["unknown",0]], choose: 1 },
+
+      { context: [["queryable",0],["is",0],["isEder",0],["isEdAble",0],["by",0]], choose: 1 },
+      { context: [["queryable",1],["is",0],["isEder",0],["isEdAble",0],["by",0]], choose: 1 },
+      { context: [["queryable",1],["is",0],["isEder",1],["isEdAble",0],["by",0]], choose: 1 },
+      { context: [["queryable",0],["is",0],["unknown",0],["isEdAble",0],["by",0]], choose: 1 },
+      { context: [["queryable",1],["is",0],["unknown",0],["isEdAble",0],["by",0]], choose: 1 },
+
+      { context: [["unknown",0],["isEd",0],["isEdAble",0],["by",0],["unknown",0]], choose: 1 },
+      { context: [["unknown",0],["isEd",0],["isEdAble",0],["by",1]], choose: 1 },
+      { context: [["unknown",0],["isEd",0],["isEdAble",0]], choose: 1 },
+
+      { context: [["isEdee",0],["isEd",0],["isEdAble",0],["by",0],["isEder",0]], choose: 1 },
+      { context: [["isEdee",1],["isEd",0],["isEdAble",0],["by",0],["isEder",0]], choose: 1 },
+      { context: [["isEdee",1],["isEd",0],["isEdAble",0],["by",0],["isEder",1]], choose: 1 },
+      { context: [["isEdee",0],["isEd",0],["isEdAble",0],["by",1]], choose: 1 },
+      { context: [["isEdee",1],["isEd",0],["isEdAble",0],["by",1]], choose: 1 },
+
+
+      ...listorama('unknown'),
+      ...listorama('queryable'),
+      // ...listorama('listable'),
     ]
   },
   bridges: [
@@ -134,12 +175,11 @@ const config = {
       id: 'queryable',
       children: [ 'negatable' ],
     },
-    /*
     {
       id: 'queryable',
       level: 1,
+      isA: ['listable'],
     },
-    */
     {
       id: 'makeObject',
       bridge: "{ ...next(operator), object: after[0] }",
@@ -158,7 +198,6 @@ const config = {
     },
     {
       id: 'resetIdSuffix',
-      bridge: "{ ...next(operator) }",
       semantic: ({context, api}) => {
         api.setIdSuffix('')
       }
@@ -172,10 +211,9 @@ const config = {
       optional: { 1: "{ marker: 'unknown', implicit: true, concept: true }", }, 
     },
 
-    { id: "debug23", level: 0, bridge: "{ ...next(operator) }" },
-    // { id: "what", level: 0, bridge: "{ ...next(operator), ...after[0], query: ['what'], determined: true }" },
+    { id: "debug23" },
     { id: "what", level: 0, optional: "{ ...next(operator), query: ['what'], determined: true }", bridge: "{ ...after, query: ['what'], modifiers: ['what'], what: operator }" },
-    { id: "whatAble", level: 0, bridge: "{ ...next(operator) }" },
+    { id: "whatAble" },
 
     // context.instance == variables.instance (unification)
     {   
@@ -188,12 +226,12 @@ const config = {
           return `to ${await gp(context.toObject)}`
         },
     },
-    { id: "toAble", level: 0, bridge: "{ ...next(operator) }" },
+    { id: "toAble" },
 
     { id: "be", level: 0, bridge: "{ ...next(operator), type: after[0] }" },
-    { id: "briefOrWordy", level: 0, bridge: "{ ...next(operator) }" },
+    { id: "briefOrWordy" },
 
-    { id: "yesno", level: 0, bridge: "{ ...next(operator) }" },
+    { id: "yesno" },
     { id: "canBeQuestion", level: 0, bridge: "{ ...next(operator) }" },
     { id: "canBeQuestion", level: 1, bridge: "{ ...next(operator) }" },
     { id: "questionMark", level: 0, bridge: "{ ...before[0], query: [before.marker] }" },
@@ -206,14 +244,17 @@ const config = {
     // { id: "isEd", level: 0, bridge: "{ ...context }" },
     { id: "isEdAble", level: 0, bridge: "{ ...next(operator) }" },
     { id: "isEdAble", level: 1, bridge: "{ ...next(operator) }" },
-    { id: "isEdee", level: 0, bridge: "{ ...next(operator) }" },
-    { id: "isEder", level: 0, bridge: "{ ...next(operator) }" },
+    { id: "isEdee" },
+    { id: "isEder" },
     { id: "is", level: 0, 
-            bridge: "{ ...next(operator), one: { number: operator.number, ...before[0] }, two: after[0] }", 
-            isA: ['verb'],
-            queryBridge: "{ ...next(operator), one: after[0], two: after[1], query: true }" ,
+         bridge: "{ ...next(operator), one: { number: operator.number, ...before[0] }, two: after[0] }", 
+         isA: ['verb'],
     },
     { id: "is", level: 1, bridge: "{ ...next(operator) }" },
+    { id: "isQuery", level: 0, 
+            bridge: "{ ...operator, marker: operator('is', 1), one: after[0], two: after[1], query: true, generate: [operator, 'one', 'two'] }" ,
+            isA: ['verb'],
+    },
 
     { id: "canBeDoQuestion", level: 0, bridge: "{ ...next(operator) }" },
     { id: "canBeDoQuestion", level: 1, bridge: "{ ...next(operator) }" },
@@ -301,9 +342,7 @@ const config = {
     },
     { 
       id: "reason", 
-      level: 0, 
       isA: ['theAble', 'queryable'], 
-      bridge: "{ ...next(operator) }" 
     },
     /*
     { 
@@ -337,8 +376,16 @@ const config = {
       "wordy": [{"id": "briefOrWordy", "initial": "{ value: 'wordy' }" }],
       "does": [{"id": "does", "initial": "{ number: 'one' }" }],
       "do": [{"id": "does", "initial": "{ number: 'many' }" }],
-      "is": [{"id": "is", "initial": "{ number: 'one' }" }, {"id": "isEd", "initial": "{ number: 'one' }" }],
-      "are": [{"id": "is", "initial": "{ number: 'many' }" }, {"id": "isEd", "initial": "{ number: 'many' }" }],
+      "is": [
+        {"id": "is", "initial": "{ number: 'one' }" }, 
+        {"id": "isQuery", "initial": "{ number: 'one' }" }, 
+        {"id": "isEd", "initial": "{ number: 'one' }" }
+      ],
+      "are": [
+        {"id": "is", "initial": "{ number: 'many' }" }, 
+        {"id": "isQuery", "initial": "{ number: 'many' }" }, 
+        {"id": "isEd", "initial": "{ number: 'many' }" }
+      ],
     }
   },
 

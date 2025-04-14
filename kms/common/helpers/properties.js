@@ -119,20 +119,7 @@ class API {
                           } 
                     }
                ] }`,
-             // bridge: `{ ...before, constraints: [ { property: '${after[0].tag}', constraint: { ...next(operator), constrained: true, ${before[0].tag}: after[0].object, ${after[0].tag}: before[0] } } ] }`,
              deferred: `{ ...next(operator), 'isEd': true, subject: 'ownee', '${after[0].tag}': { operator: operator, number: operator.number, ...before[0] }, ${before[0].tag}: after[0].object }` })
-    // config.addBridge({ id: "by", level: 0, bridge: "{ ...next(operator), object: after[0] }", allowDups: true})
-    /*
-    config.addBridge({
-         id: "by",
-         level: 0,
-         bridge: "{ ...next(operator), object: after[0] }",
-         allowDups: true,
-         optional: {
-           [before[0].tag]: "{ marker: 'unknown', implicit: true, concept: true }",
-         },
-       })
-    */
     // TODO have a prepositions category and underPrep category
     config.addHierarchy(edAble.operator, 'isEdAble')
     config.addHierarchy(before[0].id, 'isEder')
@@ -215,19 +202,6 @@ class API {
         return `${await g(context[after[0].tag])} ${chosen} ${edAble.word} by ${await g(context[before[0].tag])}`
       }
     })
-    /*
-    config.addAssociations([
-      [['isEd', 0], ['unknown', 0], ['isEdAble', 0], ['by', 0]],
-      [['isEd', 0], ['unknown', 1], ['isEdAble', 0], ['by', 0]],
-      [['isEd', 0], ['what', 0], ['isEdAble', 0], ['by', 0]],
-    ])
-    */
-    //config.addAssociations({ 
-      //negative: [[['is', 0], [edAble.operator, 0]]],
-      // positive: [[['isEd', 0], [edAble.operator, 0]]],
-    //})
-    // config.addBridge({ id: "ownee", level: 0, bridge: "{ ...next(operator) }"})
-    // config.addBridge({ id: "owner", level: 0, bridge: "{ ...next(operator) }"})
 
     {
       const whoIsWhatVerbedBy = `${before[0].tag}var is ${after[0].tag}var ${edAble.word} by`
@@ -388,7 +362,7 @@ class API {
           // config.addWord(operator, { id: operator, initial: `{ value: "${operator}" }` })
         }
       } else {
-        config.addBridge({ id: id, level: 0, bridge: "{ ...next(operator) }", allowDups: true })
+        config.addBridge({ id: id, allowDups: true })
       }
     })
 

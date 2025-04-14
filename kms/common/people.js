@@ -18,21 +18,7 @@ const template = {
       "surname means last name",
       "given modifies name",
       "given name means first name",
-      // { stop: true },
       "ownee is owned by owner means owner owns ownee",
-      {
-        associations: {
-          positive: [
-            /*
-            [['what', 0], ['is', 0], ['unknown', 0], ['owned', 0], ['by', 0]],
-            [['unknown', 0], ['is', 0], ['unknown', 0], ['owned', 0], ['by', 0]],
-            [['unknown', 1], ['is', 0], ['unknown', 0], ['owned', 0], ['by', 0]],
-            [['unknown', 1], ['is', 0], ['unknown', 1], ['owned', 0], ['by', 0]],
-            */
-      //      [['unknown', 0], ['isEd', 0] , ['unknown', 0], ['owned', 0], ['by', 0]]
-          ]
-        },
-      },
 //      "the first name of greg is greg23",
 //      "ownee23 is owned by owner23",
 //      "cleo is a cat",

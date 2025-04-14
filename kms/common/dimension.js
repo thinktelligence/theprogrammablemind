@@ -83,13 +83,19 @@ const config = {
     { 
       where: where(),
       id: "dimension", 
+      bridge: "{ ...next(operator) }",
       isA: [],
       generatorpr: {
         match: ({context}) => context.amount,
         apply: async ({context, gp, gr}) => `${await gr(context.amount)} ${await gp(context.unit)}`,
       },
     },
-    { id: "length", isA: ['dimension'], development: true },
+    { 
+      id: "length", 
+      isA: ['dimension'], 
+      bridge: "{ ...next(operator) }",
+      development: true 
+    },
     { id: "amount", },
     /*
     { 
@@ -168,7 +174,15 @@ const config = {
       id: "unit", 
       isA: ['number'],
     },
-  ]
+  ],
+  associations: {
+    positive: [
+      { context: [["what",0],["is",0],["the",0],["unit",0],["propertyOf",0],["dimension",0]], choose: 1 },
+      { context: [["what",0],["is",0],["the",0],["unit",1],["propertyOf",0],["dimension",1]], choose: 1 },
+      // { context: [["integer",0],["degree",0],["fahrenheit",0]], choose: 1 },
+    ],
+  }
+
 };
 
 const template = {

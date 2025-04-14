@@ -11,7 +11,7 @@ const config = {
   name: 'comparable',
   operators: [
     "([condition|])",
-    "(([condition/1]) <compare|> ([comparable]))",
+    "(([condition/*]) <compare|> ([comparable]))",
     "([highest])",
     "([lowest])",
     // "((comparable/*) <sortOrdering|>)",
@@ -29,26 +29,26 @@ const config = {
     { 
       id: "condition", 
       children: ['highest', 'lowest'],
-      bridge: "{ ...next(operator) }" 
     },
     { 
       id: "comparable", 
-      bridge: "{ ...next(operator) }" 
+      isA: ['theAble'],
     },
-    { 
-      id: "lowest", 
-      bridge: "{ ...next(operator) }" 
-    },
-    { 
-      id: "highest", 
-      bridge: "{ ...next(operator) }" 
-    },
+    { id: "lowest", },
+    { id: "highest", },
   ],
 };
 
 const template = {
   configs: [
     "sort modifies ordering",
+    {
+      associations: {
+        positive: [
+          { context: [["unknown",0],["is",0],["article",0],["sort",0],["concept",0]], choose: 1 },
+        ]
+      },
+    },
     "ascending is a sort ordering",
     "descending is a sort ordering",
     {
