@@ -30,7 +30,7 @@ config = {
       bridge: "{ ...next(operator), modifiers: before[0], concept: after[0] }"
     },
     { id: "literally", bridge: "{ ...after[0], flatten: false, literally: true }" },
-    { id: "concept", bridge: "{ ...next(operator) }" },
+    { id: "concept" },
   ],
   associations: {
     positive: [

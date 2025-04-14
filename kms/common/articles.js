@@ -23,8 +23,6 @@ const config = {
     "(<a|a,an> ([theAble|]))",
   ],
   bridges: [
-    // { id: "what", level: 0, optional: "{ ...next(operator), query: ['what'], determined: true }", bridge: "{ ...after, query: ['what'], modifiers: ['what'], what: operator }" },
-    // { id: "whatAble", level: 0, bridge: "{ ...next(operator) }" },
     {
       id: 'everything',
     },
@@ -59,15 +57,12 @@ const config = {
     { 
       id: "theAble", 
       children: ['noun'],
-      bridge: "{ ...next(operator) }" 
     },
 
     { 
       id: "thisitthat", 
-      level: 0, 
       isA: ['queryable'], 
       before: ['verb'],
-      bridge: "{ ...next(operator) }" 
     },
     { 
       id: "it", 

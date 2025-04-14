@@ -198,7 +198,6 @@ const config = {
     },
     {
       id: 'resetIdSuffix',
-      bridge: "{ ...next(operator) }",
       semantic: ({context, api}) => {
         api.setIdSuffix('')
       }
@@ -212,10 +211,9 @@ const config = {
       optional: { 1: "{ marker: 'unknown', implicit: true, concept: true }", }, 
     },
 
-    { id: "debug23", level: 0, bridge: "{ ...next(operator) }" },
-    // { id: "what", level: 0, bridge: "{ ...next(operator), ...after[0], query: ['what'], determined: true }" },
+    { id: "debug23" },
     { id: "what", level: 0, optional: "{ ...next(operator), query: ['what'], determined: true }", bridge: "{ ...after, query: ['what'], modifiers: ['what'], what: operator }" },
-    { id: "whatAble", level: 0, bridge: "{ ...next(operator) }" },
+    { id: "whatAble" },
 
     // context.instance == variables.instance (unification)
     {   
@@ -228,12 +226,12 @@ const config = {
           return `to ${await gp(context.toObject)}`
         },
     },
-    { id: "toAble", level: 0, bridge: "{ ...next(operator) }" },
+    { id: "toAble" },
 
     { id: "be", level: 0, bridge: "{ ...next(operator), type: after[0] }" },
-    { id: "briefOrWordy", level: 0, bridge: "{ ...next(operator) }" },
+    { id: "briefOrWordy" },
 
-    { id: "yesno", level: 0, bridge: "{ ...next(operator) }" },
+    { id: "yesno" },
     { id: "canBeQuestion", level: 0, bridge: "{ ...next(operator) }" },
     { id: "canBeQuestion", level: 1, bridge: "{ ...next(operator) }" },
     { id: "questionMark", level: 0, bridge: "{ ...before[0], query: [before.marker] }" },
@@ -246,8 +244,8 @@ const config = {
     // { id: "isEd", level: 0, bridge: "{ ...context }" },
     { id: "isEdAble", level: 0, bridge: "{ ...next(operator) }" },
     { id: "isEdAble", level: 1, bridge: "{ ...next(operator) }" },
-    { id: "isEdee", level: 0, bridge: "{ ...next(operator) }" },
-    { id: "isEder", level: 0, bridge: "{ ...next(operator) }" },
+    { id: "isEdee" },
+    { id: "isEder" },
     { id: "is", level: 0, 
          bridge: "{ ...next(operator), one: { number: operator.number, ...before[0] }, two: after[0] }", 
          isA: ['verb'],
@@ -344,9 +342,7 @@ const config = {
     },
     { 
       id: "reason", 
-      level: 0, 
       isA: ['theAble', 'queryable'], 
-      bridge: "{ ...next(operator) }" 
     },
     /*
     { 
