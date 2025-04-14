@@ -151,36 +151,22 @@ const config = {
   bridges: [
     { 
       id: 'xfx', 
-      level: 0, 
       isA: ['queryable'],
-      bridge: "{ ...next(operator) }" 
     },
     { 
       id: 'between', 
       isA: ['preposition'],
-      level: 0, 
       bridge: "{ ...next(operator), arguments: after[0] }" 
     },
     { id: 'between', level: 1, bridge: "{ ...before[0], arguments: operator.arguments }" },
 
     { 
       id: 'hierarchyAble', 
-      level: 0, 
       isA: ['queryable'],
-      bridge: "{ ...next(operator) }" 
     },
-    /*
-    { 
-      id: "modifies", 
-      isA: ['verby'],
-      bridge: "{ ...next(operator), modifier: before[0], concept: after[0] }" 
-    },
-    */
     { 
       id: "readonly", 
-      level: 0, 
       isA: ['queryable'],
-      bridge: "{ ...next(operator) }" 
     },
     // { id: "concept", level: 0, bridge: "{ ...next(operator) }" },
     // the cars dont have wings
@@ -206,19 +192,12 @@ const config = {
       words: ['properties'],
       isA: ['queryable', 'theAble'],
       level: 0, 
-      bridge: "{ ...next(operator) }" 
     },
     { 
       id: "object", 
       isA: ['queryable', 'theAble', 'listable'],
       level: 0, 
-      bridge: "{ ...next(operator) }" 
     },
-
-    // old
-    // { id: "possession", level: 0, bridge: "{ ...next(operator), object: before[0] }" },
-    // { id: "possession", level: 1, bridge: "{ ...after[0], object: operator.object, marker: operator('property', 0) }" },
-
     { 
       id: "possession", 
       level: 0, 
