@@ -52,7 +52,6 @@ const config = {
             contexts.push({...context, generate: null})
           } else {
             if (Array.isArray(value)) {
-              debugger
               contexts.push(...value)
             } else {
               contexts.push(value)

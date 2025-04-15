@@ -627,8 +627,8 @@ const config = {
       todo: 'debug23',
       match: ({context}) => context.marker == 'debug23',
       apply: ({context, hierarchy}) => {
-        debugger
-        debugger
+        debugger // eslint-disable-line no-debugger
+        debugger // eslint-disable-line no-debugger
       },
     },
     { 

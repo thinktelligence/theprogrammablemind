@@ -12,6 +12,7 @@ const sleep = async (ms) => {
 const tests = []
 const retrains = []
 tests.push(`npm run test`)
+tests.push(`npm run lint`)
 for (let file of package_json.files) {
   if (!/^.*.js$/.exec(file)) {
     continue

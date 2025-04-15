@@ -53,7 +53,6 @@ class SpockAPI {
   }
 
   process(config, utterance) {
-    debugger
     this.spock.server(config.getServer(), config.getAPIKey())
     // return this.spock.process(utterance, { credentials: this.credentials })
     return clientProcess(this.spock, utterance, { credentials: this.credentials })
