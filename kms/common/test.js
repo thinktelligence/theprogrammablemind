@@ -1,4 +1,4 @@
-const package = require('../package.json')
+const package_json = require('../package.json')
 const { exec } = require('child_process');
 
 console.time('tests time')
@@ -9,10 +9,10 @@ const sleep = async (ms) => {
   });
 }
 
-let tests = []
-let retrains = []
+const tests = []
+const retrains = []
 tests.push(`npm run test`)
-for (let file of package.files) {
+for (let file of package_json.files) {
   if (!/^.*.js$/.exec(file)) {
     continue
   }
