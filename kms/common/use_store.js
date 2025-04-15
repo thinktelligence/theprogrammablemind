@@ -9,7 +9,7 @@ const testData = {
   ]
 }
 
-const interface = {
+const api_interface = {
   getTypes: () => testData.types,
   getAllProducts: () => testData.products,
   getByTypeAndCost: ({type, cost, comparison}) => {
@@ -24,7 +24,7 @@ const interface = {
   productGenerator: [({context}) => context.marker == 'product' && context.isInstance, ({g, context}) => `${context.name}`]
 };
 
-config.get('objects').interface = interface;
+config.get('objects').interface = api_interface;
 url = "http://184.67.27.82"
 key = "6804954f-e56d-471f-bbb8-08e3c54d9321"
 config.set("utterances", ['list products'])
