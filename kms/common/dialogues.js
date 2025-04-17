@@ -111,12 +111,13 @@ const config = {
       // [['is', 0], ['unknown', 1]],
       // [['isEd', 0], ['means', 0]],
       // [['unknown', 0], ['list', 0], ['unknown', 0]],
+      { context: [['unknown', 0], ['isEdAble', 0]], choose: 1 },
+
       { context: [['the', 0], ['listable', 0], ['list', 0], ['listable', 0]], choose: 1 },
 
       { context: [['queryable', 0], ['is', 0], ['article', 0], ['theAble', 0]], choose: 1 },
       { context: [['queryable', 1], ['is', 0], ['article', 0], ['theAble', 0]], choose: 1 },
       { context: [['queryable', 1], ['is', 0], ['article', 0], ['theAble', 1]], choose: 1 },
-
 
       { context: [['isQuery', 0], ['a', 0], ['unknown', 0], ['a', 0], ['unknown', 0]], choose: 0 },
 
