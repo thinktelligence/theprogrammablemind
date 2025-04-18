@@ -113,6 +113,7 @@ const config = {
       // [['unknown', 0], ['list', 0], ['unknown', 0]],
       { context: [['unknown', 0], ['isEdAble', 0]], choose: 1 },
 
+      { context: [['listable', 0], ['list', 0], ['listable', 0]], choose: 0 },
       { context: [['the', 0], ['listable', 0], ['list', 0], ['listable', 0]], choose: 1 },
       { context: [['the', 0], ['listable', 0], ['list', 0], ['the', 0], ['listable', 0]], choose: 1 },
 
