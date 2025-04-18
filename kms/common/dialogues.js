@@ -113,7 +113,8 @@ const config = {
       // [['unknown', 0], ['list', 0], ['unknown', 0]],
       { context: [['unknown', 0], ['isEdAble', 0]], choose: 1 },
 
-      { context: [['the', 0], ['listable', 0], ['list', 0], ['listable', 0]], choose: 1 },
+      // { context: [['the', 0], ['listable', 0], ['list', 0], ['listable', 0]], choose: 1 },
+      // { context: [['the', 0], ['listable', 0], ['list', 0], ['the', 0], ['listable', 0]], choose: 1 },
 
       { context: [['queryable', 0], ['is', 0], ['article', 0], ['theAble', 0]], choose: 1 },
       { context: [['queryable', 1], ['is', 0], ['article', 0], ['theAble', 0]], choose: 1 },
@@ -421,6 +422,8 @@ const config = {
     ['is', 'canBeQuestion'],
     ['it', 'toAble'],
     ['this', 'queryable'],
+
+    ['listable', 'theAble'],
   ],
   debug: false,
   version: '3',
