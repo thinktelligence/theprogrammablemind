@@ -25,7 +25,7 @@ module.exports =
     "([call] ([nameableConcept|]) ([name]))",
     "([appellez] ([nameableConcept|]) ([name]))",
     "([deplacez] ([tankConcept|char]) ([vers] batiment))",
-    "([bougez] (([tankConcept]) [([aFrench] ([buildingConcept]))]))",
+    "([bougez] ([tankConcept]) (<aFrench> ([buildingConcept])))",
     "(([tankConcept|char]) [conj|et] ([tankConcept]))",
     "([arreter] ([tankConcept|char]))",
     "([detruire] ([tankConcept|char]))",
@@ -61,7 +61,7 @@ module.exports =
     {"id": "stop", "level": 1, "bridge": "{ action: 'stop', marker: 'stop', thing: operator.thing }", "uuid": "1"},
     {"id": "position", "level": 0, "bridge": "{ ...next(operator), ...after }", "uuid": "1"},
     {"id": "number", "level": 0, "bridge": "{ ...next(operator), ...after }", "uuid": "1"},
-    {"id": "count", "level": 0, "bridge": "{ ...operator, ...after[0], number: operator.value }", "uuid": "1"},
+    {"id": "count", "level": 0, "canBeConsecutive": false, "bridge": "{ ...operator, ...after[0], number: operator.value }", "uuid": "1"},
     {"id": "aEnglish", "level": 0, "bridge": "{ ...after[0], number: 1 }", "uuid": "1"},
     {"id": "create", "level": 0, "selector": {"type": "prefix"}, "bridge": "{ klass: after[0], ...next(operator) }", "uuid": "1"},
     {"id": "create", "level": 1, "bridge": "{ action: 'create', marker: 'create', klass: operator.klass }", "uuid": "1"},
@@ -104,8 +104,8 @@ module.exports =
     {"context": [["conj", 1], ["to", 0]], "choose": [0]},
   ],
   "associations": {
-    "negative": [],
-    "positive": [],
+    "negative": [[["count", 0], ["aEnglish", 0]], [["aEnglish", 0], ["aFrench", 0]], [["aEnglish", 0], ["all", 0]], [["tankConcept", 0], ["aEnglish", 0]], [["count", 0], ["all", 0]], [["tankConcept", 0], ["count", 0]], [["buildingConcept", 0], ["count", 0]], [["buildingConcept", 0], ["number", 0]]],
+    "positive": [{"choose": 0, "context": [["move", 0], ["tankConcept", 0], ["conj", 0], ["tankConcept", 0]]}, {"choose": 0, "context": [["move", 0], ["all", 0], ["the", 0], ["tankConcept", 0], ["to", 0], ["buildingConcept", 0]]}, {"choose": 0, "context": [["move", 0], ["all", 0], ["the", 0], ["tankConcept", 1], ["to", 0], ["buildingConcept", 0]]}, {"choose": 0, "context": [["query", 0], ["equal", 0], ["la", 0], ["propertyConcept", 0], ["property", 0], ["tankConcept", 0]]}, {"choose": 0, "context": [["deplacez", 0], ["tankConcept", 1], ["vers", 1]]}, {"choose": 0, "context": [["move", 0], ["tankConcept", 0], ["to", 0], ["tankConcept", 0]]}, {"choose": 1, "context": [["i", 1], ["wantMcDonalds", 0], ["food", 1], ["fromM", 0], ["mcdonalds", 0]]}, {"choose": 1, "context": [["i", 1], ["wantWhitespot", 0], ["food", 1], ["fromW", 0], ["whitespot", 0]]}, {"choose": 1, "context": [["i", 1], ["wantMcDonalds", 0], ["food", 1], ["fromM", 0], ["mcdonalds", 1]]}, {"choose": 1, "context": [["i", 1], ["wantWhitespot", 0], ["food", 1], ["fromW", 0], ["whitespot", 1]]}],
   },
   "words": {
     "literals": {"+": [{"id": "plus", "uuid": "1"}], "a": [{"id": "aEnglish", "initial": {"language": "english"}, "uuid": "1"}], "buildings": [{"id": "buildingConcept", "uuid": "1"}], "et": [{"id": "conj", "initial": {"language": "english"}, "uuid": "1"}], "it": [{"id": "anyConcept", "initial": {"language": "english", "pullFromContext": true}, "uuid": "1"}], "plus": [{"id": "plus", "uuid": "1"}], "position": [{"id": "propertyConcept", "initial": {"name": "position"}, "uuid": "1"}], "speed": [{"id": "propertyConcept", "initial": {"language": "english", "name": "velocity"}, "uuid": "1"}], "tanks": [{"id": "tankConcept", "initial": {"language": "english"}, "uuid": "1"}], "vitesse": [{"id": "propertyConcept", "initial": {"language": "french", "name": "velocity"}, "uuid": "1"}]},
