@@ -520,9 +520,11 @@ knowledgeModule({
     contents: pipboy_tests,
     checks: {
       objects: [
-        'apply', 'change', 'disarm', 'drink', 'eat', 'equip', 'setName', 'strip', 'take', 'wear',
+        'apply', 'change', 'display', 'disarm', 'drink', 'eat', 'equip', 'setName', 'strip', 'take', 'wear',
+        'apply', 'change', 'display', 'disarm', 'drink', 'eat', 'equip', 'setName', 'strip', 'take', 'wear', 'showWeapons',
       ],
       context: defaultContextCheck(),
     },
   },
 })
+
