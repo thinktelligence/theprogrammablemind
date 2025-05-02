@@ -34,10 +34,6 @@ config = {
   ],
   associations: {
     positive: [
-      { context: [['unknown', 0], ['modifies', 0], ['unknown', 0]], choose: 1 },
-      { context: [['unknown', 0], ['modifies', 0], ['adjective', 0], ['queryable', 0]], choose: 1 },
-      { context: [['unknown', 0], ['unknown', 0], ['modifies', 0], ['adjective', 0], ['queryable', 0]], choose: 2 },
-      { context: [['literally', 0], ['modifies', 0], ['unknown', 0]], choose: 1 },
     ],
   },
   priorities: [
