@@ -396,12 +396,8 @@ const config = {
   priorities: [
     { "context": [['is', 0], ['means', 0], ], "choose": [0] },
     { "context": [['is', 0], ['means', 0], ], "choose": [0] },
-    { "context": [["what",0], ["does",0],], "choose": [0] },
-    { "context": [["is",0], ["is",1],], "choose": [0] },
     { "context": [["isEdAble",0], ["isEd",0],], "choose": [0] },
-    { "context": [['a', 0], ['is', 0], ['does', 0], ], "choose": [0] },
     { "context": [['isEd', 0], ['means', 0], ], "choose": [0] },
-    { "context": [['article', 0], ['isEdAble', 0], ], "choose": [0] },
     { "context": [['isEdAble', 0], ['is', 0], ], "choose": [0] },
     { "context": [['isEdAble', 0], ['is', 1], ], "choose": [0] },
   ],
