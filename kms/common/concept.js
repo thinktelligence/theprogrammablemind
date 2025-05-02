@@ -32,10 +32,6 @@ config = {
     { id: "literally", bridge: "{ ...after[0], flatten: false, literally: true }" },
     { id: "concept" },
   ],
-  associations: {
-    positive: [
-    ],
-  },
   priorities: [
     { "context": [['literally', 0], ['modifies', 0], ], "choose": [0] },
   ],

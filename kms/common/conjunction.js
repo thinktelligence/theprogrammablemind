@@ -11,9 +11,6 @@ const config = {
   ],
   associations: {
     positive: [
-      { context: [['listable', 0], ['list', 0], ['listable', 0]], choose: 0 },
-      { context: [['listable', 1], ['list', 0], ['listable', 0]], choose: 0 },
-      { context: [['listable', 1], ['list', 0], ['listable', 1]], choose: 0 },
     ]
   },
   bridges: [
