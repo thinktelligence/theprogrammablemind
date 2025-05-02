@@ -72,11 +72,6 @@ const config = {
     },
     { id: "withKM", level: 0, bridge: "{ ...next(operator), kms: after[0] }" },
   ],
-  associations: {
-    positive: [
-      [['help', 0]],
-    ]
-  },
   debug: false,
   version: '3',
   words: {
