@@ -135,13 +135,13 @@ const config = {
       { context: [["unknown",0],["is",0],["article",0],["queryable",0]], choose: 1 },
       { context: [["unknown",0],["is",0],["article",0],["queryable",1]], choose: 1 },
 
-      { context: [["a",0],["unknown",0],["is",0],["a",0],["unknown",0]], choose: 2 },
+      // { context: [["a",0],["unknown",0],["is",0],["a",0],["unknown",0]], choose: 2 },
 
-      { context: [['article', 0], ['unknown', 0], ['is', 0], ['article', 0], ['unknown', 0]], choose: 2 },
-      { context: [['queryable', 0], ['is', 0], ['article', 0], ['unknown', 1]], choose: 1 },
-      { context: [['queryable', 1], ['is', 0], ['article', 0], ['unknown', 1]], choose: 1 },
+      // { context: [['article', 0], ['unknown', 0], ['is', 0], ['article', 0], ['unknown', 0]], choose: 2 },
+      // { context: [['queryable', 0], ['is', 0], ['article', 0], ['unknown', 1]], choose: 1 },
+      // { context: [['queryable', 1], ['is', 0], ['article', 0], ['unknown', 1]], choose: 1 },
 
-      { context: [["article",0],["unknown",0],["isEdAble",0],["by",0],["unknown",0]], choose: 1 },
+      // { context: [["article",0],["unknown",0],["isEdAble",0],["by",0],["unknown",0]], choose: 1 },
 
       { context: [["queryable",0],["is",0],["isEder",0],["isEdAble",0],["by",0]], choose: 1 },
       { context: [["queryable",1],["is",0],["isEder",0],["isEdAble",0],["by",0]], choose: 1 },
