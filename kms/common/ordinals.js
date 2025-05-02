@@ -12,11 +12,6 @@ const config = {
     "([orderable])",
     "((ordinal/*) [ordinalOnOrdered|] (orderable/*))",
   ],
-  associations: {
-    positive: [
-      { context: [['article', 0], ['ordinal', 0]], choose: 1 },
-    ]
-  },
   bridges: [
     { 
       id: "ordinal", 

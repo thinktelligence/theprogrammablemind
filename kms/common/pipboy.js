@@ -157,11 +157,8 @@ const config = {
       { context: [["wear",0],["article",0],["unknown",0]], choose: 0 },
       { context: [["wear",0],["article",0],["unknown",1]], choose: 0 },
 
-      { context: [["equip",0],["the",0],["condition",0],["item_property",0],["weapon",0]], choose: 0 },
-      { context: [["equip",0],["the",0],["condition",0],["item_property",1],["weapon",0]], choose: 0 },
-
-      { context: [["what",0],["is",0],["article",0],["type",1],["propertyOf",0],["item",0],["property",0]], choose: 1 },
-      { context: [["what",0],["is",0],["article",0],["type",1],["propertyOf",0],["object",1]], choose: 1 },
+      { context: [["the",0],["condition",0],["item_property",0],["weapon",0]], choose: 1 },
+      { context: [["the",0],["condition",0],["item_property",1],["weapon",0]], choose: 1 },
     ]
   },
   bridges: [
