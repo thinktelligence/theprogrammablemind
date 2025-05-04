@@ -82,7 +82,6 @@ const api = new API();
 const config = {
   name: 'properties',
   associations: {
-    negative: [],
     positive: [
       { context: [["the",0],["unknown",0],["propertyOf",0],["unknown",0],["is",0],["unknown",0]], choose: 4 },
     ]

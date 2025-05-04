@@ -102,8 +102,6 @@ const config = {
     "([to] ([toAble|]))",
   ],
   associations: {
-    negative: [
-    ],
     positive: [
       { context: [['unknown', 0], ['isEdAble', 0]], choose: 1 },
       { context: [['isQuery', 0], ['a', 0], ['unknown', 0], ['a', 0], ['unknown', 0]], choose: 0 },

@@ -9,10 +9,6 @@ const config = {
   operators: [
     "(x [list|and] y)",
   ],
-  associations: {
-    positive: [
-    ]
-  },
   bridges: [
     // context.instance == variables.instance (unification)
     {

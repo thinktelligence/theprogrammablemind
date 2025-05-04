@@ -173,44 +173,6 @@ const template = {
        { context: [['combo', 1], ['list', 0], ['number', 1], ['combo', 1]], ordered: true, choose: [2,3] },
        { context: [['list', 0], ['number', 1], ['combo', 1]], ordered: true, choose: [1,2] },
        { context: [['list', 0], ['number', 1], ['smoothie_ingredient', 1], ['smoothie', 0]], ordered: true, choose: [1,2] },
-
-      /*
-
-        { "context": [['number', 0], ['numberNumberCombo', 0], ], "choose": [0] },
-        { "context": [['list', 0], ['numberNumberCombo', 0], ], "choose": [0] },
-        // [['list', 0], ['comboNumber', 0], ],
-        // [['comboNumber', 0], ['list', 0]],
-        // this is just to learn associations and contextual_priorities I don't want the semantic to actually run
-        // TODO make this learn cp#2 { query: "combo one and (2 combo twos)", skipSemantics: true },
-        // TODO make this learn cp#1 { query: "(single and double) combo", skipSemantics: true },
-        // cp#1
-        { context: [['meal', 0], ['list',0], ['meal', 0], ['combo', 0]], ordered: true, choose: [0,1,2] },
-        // cp#2
-        // have a way of specifing this
-        // { context: [['list',0], ['number', 0], ['combo', 0], ['number', 0]], ordered: true, choose: [comboNumber (in between 2 and 3)] },
-        { context: [['list',0], ['number', 0], ['combo', 0], ['number', 0]], ordered: true, choose: [2,3] },
-        { context: [['list',0], ['number', 1], ['combo', 0], ['number', 0]], ordered: true, choose: [2,3] },
-        { context: [['list',0], ['number', 1], ['combo', 0], ['number', 1]], ordered: true, choose: [2,3] },
-        {"context":[["mango_passion_smoothie",1],["list",0],["strawberry",1],['smoothie',1]],"ordered":true,"choose":[2,3]},
-        {"context":[["list",0],["number",0],["strawberry",0],['smoothie',0]],"ordered":true,"choose":[1,2]},
-        {"context":[["list",0],["number",1],["strawberry",1],['smoothie',0]],"ordered":true,"choose":[1,2]},
-        {"context":[["list",0],["number",1],["strawberry",1],['smoothie',1]],"ordered":true,"choose":[1,2]},
-
-        // {"context":[["list",0],["number",1],["strawberry",0],['smoothie',0]],"ordered":true,"choose":[1,2]},
-        // {"context":[["list",0],["number",1],["strawberry",0],['smoothie',1]],"ordered":true,"choose":[1,2]},
-
-        // 2 strawberry and 3 mange smoothies
-        // 2 strawberry smoothies and 3 mango smoothies
-        {"context":[['mango_passion_smoothie', 1],["list",0],["number",1],["strawberry",1],['smoothie',1]],"ordered":true,"choose":[3,4]},
-        {"context":[['smoothie', 0],["list",0],["number",1],["strawberry",0],['smoothie',0]],"ordered":true,"choose":[3,4]},
-        {"context":[['smoothie', 1],["list",0],["number",1],["strawberry",0],['smoothie',0]],"ordered":true,"choose":[3,4]},
-        {"context":[["list",0],["number",1],["strawberry",0],['smoothie',0]],"ordered":true,"choose":[1,2]},
-        {"context":[["list",0],["number",1],["strawberry",0],['smoothie',1]],"ordered":true,"choose":[1,2]},
-
-        {"context":[["mango_passion", 1],["list",0],["number",0],["strawberry",0],['smoothie',0]],"ordered":true,"choose":[0,2,3]},
-        {"context":[["mango_passion", 1],["list",0],["number",1],["strawberry",0],['smoothie',0]],"ordered":true,"choose":[0,2,3]},
-        {"context":[["mango_passion", 1],["list",0],["number",1],["strawberry",1],['smoothie',0]],"ordered":true,"choose":[0,2,3]},
-      */
       ],
       generators: [
         {
