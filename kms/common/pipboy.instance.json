@@ -109,116 +109,6 @@
           {
             "context": [
               [
-                "wear",
-                0
-              ],
-              [
-                "article",
-                0
-              ],
-              [
-                "unknown",
-                0
-              ],
-              [
-                "wearable",
-                0
-              ]
-            ],
-            "choose": 0
-          },
-          {
-            "context": [
-              [
-                "wear",
-                0
-              ],
-              [
-                "article",
-                0
-              ],
-              [
-                "unknown",
-                1
-              ],
-              [
-                "wearable",
-                0
-              ]
-            ],
-            "choose": 0
-          },
-          {
-            "context": [
-              [
-                "wear",
-                0
-              ],
-              [
-                "article",
-                0
-              ],
-              [
-                "wearable",
-                0
-              ]
-            ],
-            "choose": 0
-          },
-          {
-            "context": [
-              [
-                "wear",
-                0
-              ],
-              [
-                "article",
-                0
-              ],
-              [
-                "wearable",
-                1
-              ]
-            ],
-            "choose": 0
-          },
-          {
-            "context": [
-              [
-                "wear",
-                0
-              ],
-              [
-                "article",
-                0
-              ],
-              [
-                "unknown",
-                0
-              ]
-            ],
-            "choose": 0
-          },
-          {
-            "context": [
-              [
-                "wear",
-                0
-              ],
-              [
-                "article",
-                0
-              ],
-              [
-                "unknown",
-                1
-              ]
-            ],
-            "choose": 0
-          },
-          {
-            "context": [
-              [
                 "the",
                 0
               ],
@@ -262,7 +152,7 @@
       },
       "bridges": [
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:166",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:159",
           "id": "put",
           "isA": [
             "verb"
@@ -270,7 +160,7 @@
           "generatorp": "({context}) => `put on`"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:172",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:165",
           "id": "propertyCondition",
           "before": [
             "adjective",
@@ -282,7 +172,7 @@
           "bridge": "{ ...next(after[0]), condition: before[0], modifiers: ['condition'] }"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:180",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:173",
           "id": "on",
           "isA": [
             "preposition"
@@ -293,7 +183,7 @@
           "semantic": "({api, context}) => {\n         api.change(context.item.marker)\n       }"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:191",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:184",
           "id": "change",
           "isA": [
             "verb"
@@ -310,7 +200,7 @@
           "semantic": "({api, context}) => {\n         api.change(context.item.marker)\n       }"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:203",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:196",
           "id": "disarm",
           "isA": [
             "verb"
@@ -319,7 +209,7 @@
           "semantic": "({api, context}) => {\n         api.disarm()\n       }"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:212",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:205",
           "id": "strip",
           "isA": [
             "verb"
@@ -328,7 +218,7 @@
           "semantic": "({api, context}) => {\n         api.strip()\n       }"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:221",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:214",
           "id": "call",
           "isA": [
             "verb"
@@ -339,7 +229,7 @@
           "semantic": "({api, context}) => {\n         api.setName(context.item, context.name.name.value)\n       }"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:232",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:225",
           "id": "putOn",
           "isA": [
             "verb"
@@ -350,7 +240,7 @@
           "semantic": "({api, context}) => {\n         if (context.item.name) {\n           api.wear({ name: context.item.name.value, type: 'outfit' })\n         } else {\n           api.wear({ type: context.item.value })\n         }\n       }"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:247",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:240",
           "id": "wear",
           "isA": [
             "verb"
@@ -370,7 +260,7 @@
           "semantic": "({api, context}) => {\n         if (context.item.name) {\n           api.wear({ name: context.item.name.value, type: 'outfit' })\n         } else {\n           api.wear({ type: context.item.value })\n         }\n       }"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:264",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:257",
           "id": "equip",
           "isA": [
             "verb"
@@ -395,7 +285,7 @@
           "semantic": "async ({api, context}) => {\n         let condition\n         if (context.item.condition) {\n           condition = { selector: context.item.condition.marker, property: context.item.condition.property[0].marker }\n         }\n         api.equip({ type: context.item.value, condition })\n       }"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:280",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:273",
           "id": "toDrink",
           "isA": [
             "verb"
@@ -406,7 +296,7 @@
           "semantic": "async ({api, context, e}) => {\n         const value = await e(context.item)\n         api.drink(value.value)\n       }"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:292",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:285",
           "id": "eat",
           "localHierarchy": [
             [
@@ -423,7 +313,7 @@
           "semantic": "async ({api, context}) => {\n         api.eat(context.item.value)\n       }"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:304",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:297",
           "id": "take",
           "isA": [
             "verb"
@@ -434,7 +324,7 @@
           "semantic": "async ({api, context, e}) => {\n         const value = await e(context.item)\n         api.take(value.value)\n       }"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:316",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:309",
           "id": "nameable",
           "isA": [
             "theAble"
@@ -35152,116 +35042,6 @@
           {
             "context": [
               [
-                "wear",
-                0
-              ],
-              [
-                "article",
-                0
-              ],
-              [
-                "unknown",
-                0
-              ],
-              [
-                "wearable",
-                0
-              ]
-            ],
-            "choose": 0
-          },
-          {
-            "context": [
-              [
-                "wear",
-                0
-              ],
-              [
-                "article",
-                0
-              ],
-              [
-                "unknown",
-                1
-              ],
-              [
-                "wearable",
-                0
-              ]
-            ],
-            "choose": 0
-          },
-          {
-            "context": [
-              [
-                "wear",
-                0
-              ],
-              [
-                "article",
-                0
-              ],
-              [
-                "wearable",
-                0
-              ]
-            ],
-            "choose": 0
-          },
-          {
-            "context": [
-              [
-                "wear",
-                0
-              ],
-              [
-                "article",
-                0
-              ],
-              [
-                "wearable",
-                1
-              ]
-            ],
-            "choose": 0
-          },
-          {
-            "context": [
-              [
-                "wear",
-                0
-              ],
-              [
-                "article",
-                0
-              ],
-              [
-                "unknown",
-                0
-              ]
-            ],
-            "choose": 0
-          },
-          {
-            "context": [
-              [
-                "wear",
-                0
-              ],
-              [
-                "article",
-                0
-              ],
-              [
-                "unknown",
-                1
-              ]
-            ],
-            "choose": 0
-          },
-          {
-            "context": [
-              [
                 "the",
                 0
               ],
@@ -35305,14 +35085,14 @@
       },
       "bridges": [
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:166",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:159",
           "id": "put",
           "isA": [
             "verb"
           ]
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:172",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:165",
           "id": "propertyCondition",
           "before": [
             "adjective",
@@ -35324,7 +35104,7 @@
           "bridge": "{ ...next(after[0]), condition: before[0], modifiers: ['condition'] }"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:180",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:173",
           "id": "on",
           "isA": [
             "preposition"
@@ -35333,7 +35113,7 @@
           "bridge": "{ ...before, marker: operator('putOn', 0), dead: false }"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:191",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:184",
           "id": "change",
           "isA": [
             "verb"
@@ -35348,21 +35128,21 @@
           ]
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:203",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:196",
           "id": "disarm",
           "isA": [
             "verb"
           ]
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:212",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:205",
           "id": "strip",
           "isA": [
             "verb"
           ]
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:221",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:214",
           "id": "call",
           "isA": [
             "verb"
@@ -35371,7 +35151,7 @@
           "bridge": "{ ...next(operator), item: after[0], name: after[1] }"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:232",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:225",
           "id": "putOn",
           "isA": [
             "verb"
@@ -35380,7 +35160,7 @@
           "bridge": "{ ...next(operator), item: after[0] }"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:247",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:240",
           "id": "wear",
           "isA": [
             "verb"
@@ -35398,7 +35178,7 @@
           "bridge": "{ ...next(operator), item: after[0] }"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:264",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:257",
           "id": "equip",
           "isA": [
             "verb"
@@ -35421,7 +35201,7 @@
           "bridge": "{ ...next(operator), item: after[0] }"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:280",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:273",
           "id": "toDrink",
           "isA": [
             "verb"
@@ -35430,7 +35210,7 @@
           "bridge": "{ ...next(operator), item: after[0] }"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:292",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:285",
           "id": "eat",
           "localHierarchy": [
             [
@@ -35445,7 +35225,7 @@
           "bridge": "{ ...next(operator), item: after[0] }"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:304",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:297",
           "id": "take",
           "isA": [
             "verb"
@@ -35454,7 +35234,7 @@
           "bridge": "{ ...next(operator), item: after[0] }"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:316",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:309",
           "id": "nameable",
           "isA": [
             "theAble"

@@ -245,7 +245,53 @@ template = {
       ],
       associations: {
         positive: [
+          { context: [["word_wp",0],["thatVerb",0],["wordComparison_wp",0],["unknown",0]], choose: 0 },
           { context: [["word_wp",1],["thatVerb",0],["wordComparison_wp",0],["unknown",0]], choose: 0 },
+
+          { context: [["letter_wp", 1], ["statefulElementInContext_wp", 0],["every", 0], ["word_wp",0],["thatVerb",0],["wordComparisonWithVerb_wp",0], ['comparisonWith_wp', 0], ['unknown', 0]], choose: 0 },
+          { context: [["letter_wp", 1], ["statefulElementInContext_wp", 0],["every", 0], ["word_wp",1],["thatVerb",0],["wordComparisonWithVerb_wp",0], ['comparisonWith_wp', 0], ['unknown', 0]], choose: 0 },
+
+//    1.  the/0                                    - "the"
+//    2.  word_wp/0                                - "words"
+//    3.  thatVerb/0                               - "that"
+//    4.  wordComparisonWithVerb_wp/0              - "start"
+//    5.  comparisonWith_wp/0                      - "with"
+//    6.  unknown/0                                - "t"
+//    7.  statefulElementInContext_wp/0            - "in"
+//    8.  the/0                                    - "the"
+//    9.  ordinal/0                                - "third"
+//    10. paragraph_wp/0                           - "paragraph"
+
+          { context: [["word_wp",0],["thatVerb",0],["wordComparisonWithVerb_wp",0], ['comparisonWith_wp', 0], ['unknown', 0],['statefulElementInContext_wp', 0],['article', 0],['ordinal',0],['paragraph_wp',0]], choose: 0 },
+          { context: [["word_wp",1],["thatVerb",0],["wordComparisonWithVerb_wp",0], ['comparisonWith_wp', 0], ['unknown', 0],['statefulElementInContext_wp', 0],['article', 0],['ordinal',0],['paragraph_wp',0]], choose: 0 },
+
+          { context: [["word_wp",0],["thatVerb",0],["wordComparisonWithVerb_wp",0], ['comparisonWith_wp', 0], ['unknown', 0]], choose: 0 },
+          { context: [["word_wp",1],["thatVerb",0],["wordComparisonWithVerb_wp",0], ['comparisonWith_wp', 0], ['unknown', 0]], choose: 0 },
+
+          { context: [["paragraph_wp",0],["thatVerb",0],["paragraphComparisonVerb_wp",0],['word_wp', 0],['thatVerb', 0],['wordComparisonWithVerb_wp', 0],['comparisonWith_wp',0]], choose: 0 },
+          { context: [["paragraph_wp",1],["thatVerb",0],["paragraphComparisonVerb_wp",0],['word_wp', 0],['thatVerb', 0],['wordComparisonWithVerb_wp', 0],['comparisonWith_wp',0]], choose: 0 },
+
+          { context: [["paragraph_wp",0],["thatVerb",0],["paragraphComparisonVerb_wp",0], ['styleModifier_wp', 0], ['word_wp', 0]], choose: 0 },
+          { context: [["paragraph_wp",1],["thatVerb",0],["paragraphComparisonVerb_wp",0], ['styleModifier_wp', 0], ['word_wp', 0]], choose: 0 },
+
+          { context: [["word_wp",1],["statefulElementInContext_wp",0],["every",0], ['paragraph_wp', 0]], choose: 0 },
+          { context: [["word_wp",1],["statefulElementInContext_wp",0],["every",0], ['paragraph_wp', 1]], choose: 0 },
+
+          { context: [["letter_wp",1],["statefulElementInContext_wp",0],["every",0], ['paragraph_wp', 0]], choose: 0 },
+          { context: [["letter_wp",1],["statefulElementInContext_wp",0],["every",0], ['paragraph_wp', 1]], choose: 0 },
+
+          { context: [["article", 0],["letter_wp",1],["statefulElementInContext_wp",0],['article', 0],['word_wp',0],['thatVerb',0],['wordComparisonWithVerb_wp',0],['comparisonWith_wp',0]], choose: 1 },
+          { context: [["article", 0],["letter_wp",1],["statefulElementInContext_wp",0],['article', 0],['word_wp',1],['thatVerb',0],['wordComparisonWithVerb_wp',0],['comparisonWith_wp',0]], choose: 1 },
+          { context: [["article", 0],["letter_wp",1],["statefulElementInContext_wp",0],['article', 0],['word_wp',1],['wordComparisonWithVerb_wp',0],['comparisonWith_wp',0]], choose: 1 },
+
+          { context: [["letter_wp",1],["statefulElementInContext_wp",0],["every",0], ['word_wp', 0]], choose: 0 },
+          { context: [["letter_wp",1],["statefulElementInContext_wp",0],["every",0], ['word_wp', 1]], choose: 0 },
+
+          { context: [["word_wp",1],["statefulElementInContext_wp",0],["article",0],["ordinal",0],["paragraph_wp",0]], choose: 0 },
+          { context: [["word_wp",1],["statefulElementInContext_wp",0],["article",0],["ordinal",1],["paragraph_wp",0]], choose: 0 },
+          { context: [["word_wp",1],["statefulElementInContext_wp",0],["article",0],["ordinal",1],["paragraph_wp",1]], choose: 0 },
+
+          { context: [["word_wp",1],["statefulElementInContext_wp",0],["article",0],["paragraph_wp",1]], choose: 0 },
         ]
       },
 

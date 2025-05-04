@@ -150,13 +150,6 @@ const config = {
   associations: {
     negative: [],
     positive: [
-      { context: [["wear",0],["article",0],["unknown",0],["wearable",0]], choose: 0 },
-      { context: [["wear",0],["article",0],["unknown",1],["wearable",0]], choose: 0 },
-      { context: [["wear",0],["article",0],["wearable",0]], choose: 0 },
-      { context: [["wear",0],["article",0],["wearable",1]], choose: 0 },
-      { context: [["wear",0],["article",0],["unknown",0]], choose: 0 },
-      { context: [["wear",0],["article",0],["unknown",1]], choose: 0 },
-
       { context: [["the",0],["condition",0],["item_property",0],["weapon",0]], choose: 1 },
       { context: [["the",0],["condition",0],["item_property",1],["weapon",0]], choose: 1 },
     ]
