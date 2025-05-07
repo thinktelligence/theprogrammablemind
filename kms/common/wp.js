@@ -245,6 +245,14 @@ template = {
       ],
       associations: {
         positive: [
+          { context: [['bold_wp', 1], ['the', 0], ['letter_wp', 1], ['statefulElementInContext_wp', 0], ['the', 0], ['word_wp', 0], ['thatVerb', 0], ['wordComparisonWithVerb_wp', 0], ['comparisonWith_wp', 0], ['unknown', 0], ['statefulElementInContext_wp', 0], ['the', 0], ['ordinal', 0], ['paragraph_wp', 0] ], choose: 0 },
+          { context: [['bold_wp', 1], ['the', 0], ['letter_wp', 1], ['statefulElementInContext_wp', 0], ['the', 0], ['word_wp', 1], ['thatVerb', 0], ['wordComparisonWithVerb_wp', 0], ['comparisonWith_wp', 0], ['unknown', 0], ['statefulElementInContext_wp', 0], ['the', 0], ['ordinal', 0], ['paragraph_wp', 0] ], choose: 0 },
+          { context: [['bold_wp', 1], ['the', 0], ['letter_wp', 1], ['statefulElementInContext_wp', 0], ['the', 0], ['word_wp', 1], ['wordComparisonWithVerb_wp', 0], ['comparisonWith_wp', 0], ['unknown', 0], ['statefulElementInContext_wp', 0], ['the', 0], ['ordinal', 0], ['paragraph_wp', 0] ], choose: 0 },
+          { context: [['bold_wp', 1], ['the', 0], ['letter_wp', 1], ['statefulElementInContext_wp', 0], ['the', 0], ['word_wp', 1], ['wordComparisonWithVerb_wp', 0], ['comparisonWith_wp', 0], ['unknown', 0], ['statefulElementInContext_wp', 0], ['the', 0], ['ordinal', 1], ['paragraph_wp', 0] ], choose: 0 },
+          { context: [['bold_wp', 1], ['the', 0], ['letter_wp', 1], ['statefulElementInContext_wp', 0], ['the', 0], ['word_wp', 1], ['wordComparisonWithVerb_wp', 0], ['comparisonWith_wp', 0], ['unknown', 0], ['statefulElementInContext_wp', 0], ['the', 0], ['ordinal', 1], ['paragraph_wp', 1] ], choose: 0 },
+          { context: [['bold_wp', 1], ['the', 0], ['letter_wp', 1], ['statefulElementInContext_wp', 0], ['the', 0], ['word_wp', 1], ['wordComparisonWithVerb_wp', 0], ['comparisonWith_wp', 0], ['unknown', 0], ['statefulElementInContext_wp', 0], ['the', 0], ['paragraph_wp', 1] ], choose: 0 },
+
+
           { context: [["word_wp",0],["thatVerb",0],["wordComparison_wp",0],["unknown",0]], choose: 0 },
           { context: [["word_wp",1],["thatVerb",0],["wordComparison_wp",0],["unknown",0]], choose: 0 },
 
@@ -292,6 +300,8 @@ template = {
           { context: [["word_wp",1],["statefulElementInContext_wp",0],["article",0],["ordinal",1],["paragraph_wp",1]], choose: 0 },
 
           { context: [["word_wp",1],["statefulElementInContext_wp",0],["article",0],["paragraph_wp",1]], choose: 0 },
+
+          { context: [["*", 0], ["statefulElementInContext_wp",0],["article",0],["ordinal", 0], ["paragraph_wp",1]], choose: 0 },
         ]
       },
 

@@ -871,3 +871,8 @@ node people -q 'ownee23 is owned by owner23 who is ownee23 owned by' -g -d
 node fastfood -q "spicy, homestyle, asiago ranch chicken club, ultimate chicken grill and premium cod are sandwiches" -g -d
 node mongo -q 'graph the genre and the number of directors and movies' -g -d --server http://thinktelligence.com:81/entodicton
 node pipboy -q 'wear a glop' -g -d
+node dialogues -q 'x is 3 what' -g -d
+node   people -q "ownee is owned by owner means owner owns ownee" -g -d
+node people -q 'ownee23 is owned by owner23 who is ownee23 owned by' -g -d
+node wp -q 'bold the first letter of the words that start with t in the third paragraph' -g -d
+node properties -q "the age of greg is 23 what is greg's age" -g -d

@@ -111,7 +111,7 @@ class API {
                             ...next(operator), 
                             constrained: true, 
                             ${before[0].tag}: default(after[0].object, after[0]), 
-                            ${after[0].tag}: { greg: true, ...before[0] }
+                            ${after[0].tag}: { ...before[0] }
                           } 
                     }
                ] }`,

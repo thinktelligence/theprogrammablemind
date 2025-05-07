@@ -49,6 +49,13 @@ const config = {
     // forget (word)
     // what does (word) mean
   ],
+  associations: {
+    positive: [
+      { "context": [['*', 0], ['means', 0], ['*', 0]], "choose": 1 },
+      { "context": [['*', 1], ['means', 0], ['*', 0]], "choose": 1 },
+      { "context": [['*', 1], ['means', 0], ['*', 1]], "choose": 1 },
+    ]
+  },
   priorities: [
     { "context": [['orList', 0], ['if', 0], ['then', 0], ], "choose": [0] },
   //  [['means', 0], ['is', 0]],
