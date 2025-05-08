@@ -21,12 +21,6 @@ const config = {
     ['self', 'queryable'],
   ],
 
-  associations: {
-    positive: [
-      { context: [["objectPrefix",0],["unknown",0]], choose: 1 },
-    ]
-  },
-
   words: {
     "literals": {
       // TODO use pronoun 

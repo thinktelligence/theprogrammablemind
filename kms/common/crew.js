@@ -33,13 +33,6 @@ const template = {
       "spock is readonly",
       "mccoy is readonly",
       "arm the weapon means the status of the weapon is armed",
-      {
-        associations: {
-          positive: [
-            { context: [["not",0],["unknown",0]], choose: 1 },
-          ]
-        },
-      },
       "disarm the weapon means the status of the weapon is not armed",
   ],
 };

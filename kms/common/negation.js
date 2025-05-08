@@ -10,6 +10,11 @@ const config = {
     "([negatable])",
     "([not] (negatable/*))",
   ],
+  associations: {
+    positive: [
+      { context: [["not",0],["unknown",0]], choose: 1 },
+    ]
+  },
   bridges: [
     { 
       id: 'not', 

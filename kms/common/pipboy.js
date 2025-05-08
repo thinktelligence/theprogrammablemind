@@ -147,13 +147,6 @@ const config = {
     { context: [['article', 0], ['unknown', 1], ['outfit', 0]], ordered: true, choose: [1,2] },
     // TODO this should trigger a circular warning or somethign [['put', 0], ['on', 0]],
   ],
-  associations: {
-    negative: [],
-    positive: [
-      { context: [["the",0],["condition",0],["item_property",0],["weapon",0]], choose: 1 },
-      { context: [["the",0],["condition",0],["item_property",1],["weapon",0]], choose: 1 },
-    ]
-  },
   bridges: [
     {
        where: where(),
