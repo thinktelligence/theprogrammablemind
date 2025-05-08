@@ -106,12 +106,6 @@ const config = {
       { context: [['unknown', 0], ['isEdAble', 0]], choose: 1 },
       { context: [['isQuery', 0], ['a', 0], ['unknown', 0], ['a', 0], ['unknown', 0]], choose: 0 },
 
-      { context: [["queryable",0],["is",0],["isEder",0],["isEdAble",0],["by",0]], choose: 1 },
-      { context: [["queryable",1],["is",0],["isEder",0],["isEdAble",0],["by",0]], choose: 1 },
-      { context: [["queryable",1],["is",0],["isEder",1],["isEdAble",0],["by",0]], choose: 1 },
-      { context: [["queryable",0],["is",0],["unknown",0],["isEdAble",0],["by",0]], choose: 1 },
-      { context: [["queryable",1],["is",0],["unknown",0],["isEdAble",0],["by",0]], choose: 1 },
-
       { context: [["unknown",0],["isEd",0],["isEdAble",0],["by",0],["unknown",0]], choose: 1 },
       { context: [["unknown",0],["isEd",0],["isEdAble",0],["by",1]], choose: 1 },
       { context: [["unknown",0],["isEd",0],["isEdAble",0]], choose: 1 },
