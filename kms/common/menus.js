@@ -41,7 +41,7 @@ const template = {
 
 knowledgeModule({ 
   config,
-  includes: [dialogues, ordinals, countable],
+  includes: [ui],
   api: () => new API(),
 
   module,
