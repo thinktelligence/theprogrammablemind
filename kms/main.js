@@ -28,6 +28,7 @@ const kirk = require('./common/kirk')
 const length = require('./common/length')
 const listener = require('./common/listener')
 const math = require('./common/math')
+const menus = require('./common/menus')
 const meta = require('./common/meta')
 const nameable = require('./common/nameable')
 const negation = require('./common/negation')
@@ -91,6 +92,7 @@ module.exports = {
   length,
   listener,
   math,
+  menus,
   meta,
   nameable,
   negation,
