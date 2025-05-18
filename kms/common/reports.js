@@ -286,9 +286,12 @@ const config = {
     { id: "with", level: 0, bridge: "{ ...next(operator), type: after[0].value }" },
     { id: "answer", level: 0, bridge: "{ ...next(operator), type: after[0].type }" },
 
-    { id: "show", level: 0, 
-            bridge: "{ ...next(operator), on: { 'marker': 'report', types: ['report'], pullFromContext: true }, properties: after[0] }",
-            reportBridge: "{ ...next(operator), report: after[0] }" 
+    { 
+      id: "show", 
+      level: 0, 
+      localHierarchy: [['unknown', 'property']],
+      bridge: "{ ...next(operator), on: { 'marker': 'report', types: ['report'], pullFromContext: true }, properties: after[0] }",
+      reportBridge: "{ ...next(operator), report: after[0] }" 
     },
 
     {
@@ -385,6 +388,12 @@ const config = {
   priorities: [
     { "context": [['ordering', 0], ['article', 0], ], "choose": [0] },
   ],
+  associations: {
+    positive: [
+      { context: [['show', 0], ['article', 0], ['property', 2]], choose: 0 },
+      { context: [['show', 0], ['thisitthat', 0]], choose: 0 },
+    ]
+  },
   generators: [
     { 
       notes: 'paraphrase show',

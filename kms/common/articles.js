@@ -26,6 +26,7 @@ const config = {
     positive: [
       { context: [['article', 0], ['unknown', 0]], choose: 1 },
       { context: [['article', 0], ['unknown', 1]], choose: 1 },
+      { context: [['article', 0], ['theAble', 2]], choose: 1 },
     ]
   },
   bridges: [
