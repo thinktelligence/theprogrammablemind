@@ -58,7 +58,7 @@ const config = {
           notes: 'paraphrase for events',
           where: where(),
           match: ({context, isA}) => isA(context.marker, 'event') && context.event,
-          apply: ({context}) => `event happened: ${JSON.stringify(context)}`
+          apply: ({context}) => `event happened: ${context.marker}`
         }
       ]
     },
@@ -131,8 +131,8 @@ knowledgeModule({
       words: true,
     },
     checks: {
-          context: defaultContextCheck(),
-          },
+      context: defaultContextCheck(),
+    },
 
   },
 })

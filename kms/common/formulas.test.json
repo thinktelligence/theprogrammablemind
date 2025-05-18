@@ -70,6 +70,7 @@
     },
     "contexts": [
       {
+        "context_id": 2,
         "context_index": 1,
         "dead": true,
         "default": true,
@@ -322,6 +323,7 @@
             "x": [
               {
                 "equality": {
+                  "context_id": 2,
                   "context_index": 1,
                   "dead": true,
                   "default": true,
@@ -518,6 +520,10 @@
             "ifAble": [
               "orAble"
             ],
+            "listable": [
+              "object",
+              "queryable"
+            ],
             "object": [
               "what",
               "whose"
@@ -543,7 +549,6 @@
               "concept",
               "doubleQuote",
               "theAble",
-              "unknown",
               "it",
               "what",
               "whatAble",
@@ -561,7 +566,7 @@
               "property",
               "object",
               "concept",
-              "unknown",
+              "listable",
               "reason",
               "memorable",
               "noun"
@@ -577,6 +582,7 @@
             "verb": [
               "modifies",
               "is",
+              "isQuery",
               "remember",
               "evaluate"
             ]
@@ -597,6 +603,7 @@
             "canBeQuestion",
             "property",
             "theAble",
+            "listable",
             "propertyOf",
             "whose",
             "concept",
@@ -616,6 +623,7 @@
             "is",
             "toAble",
             "to",
+            "isQuery",
             "reason",
             "memorable",
             "remember",
@@ -681,11 +689,17 @@
               "canBeQuestion",
               "verb"
             ],
+            "isQuery": [
+              "verb"
+            ],
             "it": [
               "pronoun",
               "queryable",
               "toAble",
               "thisitthat"
+            ],
+            "listable": [
+              "theAble"
             ],
             "memorable": [
               "theAble"
@@ -701,7 +715,8 @@
             ],
             "object": [
               "queryable",
-              "theAble"
+              "theAble",
+              "listable"
             ],
             "orAble": [
               "ifAble"
@@ -712,6 +727,9 @@
             ],
             "propertyOf": [
               "preposition"
+            ],
+            "queryable": [
+              "listable"
             ],
             "questionMark": [
               "punctuation"
@@ -750,9 +768,7 @@
               "preposition"
             ],
             "unknown": [
-              "hierarchyAble",
-              "theAble",
-              "queryable"
+              "hierarchyAble"
             ],
             "what": [
               "object",
@@ -812,7 +828,11 @@
               },
               "is": {
               },
+              "isQuery": {
+              },
               "it": {
+              },
+              "listable": {
               },
               "memorable": {
               },
@@ -901,6 +921,7 @@
       "processed": [
         {
           "context": {
+            "context_id": 2,
             "context_index": 1,
             "dead": true,
             "default": true,
@@ -985,15 +1006,19 @@
             "value": "equals",
             "word": "equals"
           },
-          "generatedParenthesized": "",
-          "paraphrases": "x equals y + 10",
-          "paraphrasesParenthesized": "((x) equals ((y) + (10)))",
+          "generatedParenthesized": [
+          ],
+          "paraphrases": [
+          ],
+          "paraphrasesParenthesized": [
+          ],
           "responses": [
             ""
           ]
         },
         {
           "context": {
+            "context_id": 2,
             "context_index": 1,
             "dead": true,
             "level": 2,
@@ -1001,7 +1026,7 @@
             "number": "many",
             "one": {
               "dead": true,
-              "level": 1,
+              "level": 0,
               "marker": "unknown",
               "number": "many",
               "range": {
@@ -1029,7 +1054,7 @@
             "two": {
               "concept": true,
               "dead": true,
-              "level": 1,
+              "level": 0,
               "marker": "unknown",
               "range": {
                 "end": 20,
@@ -1047,18 +1072,18 @@
           },
           "generatedParenthesized": [
           ],
-          "paraphrases": "formulas are concepts",
+          "paraphrases": [
+          ],
           "paraphrasesParenthesized": [
           ],
           "responses": [
-            ""
           ]
         },
         {
           "context": {
             "concept": {
               "dead": true,
-              "level": 1,
+              "level": 0,
               "marker": "unknown",
               "range": {
                 "end": 29,
@@ -1069,6 +1094,7 @@
               "value": "operator",
               "word": "operator"
             },
+            "context_id": 2,
             "context_index": 1,
             "dead": true,
             "flatten": false,
@@ -1077,7 +1103,7 @@
             "modifiers": [
               {
                 "dead": true,
-                "level": 1,
+                "level": 0,
                 "marker": "unknown",
                 "range": {
                   "end": 11,
@@ -1105,15 +1131,16 @@
           },
           "generatedParenthesized": [
           ],
-          "paraphrases": "mathematical modifies operator",
+          "paraphrases": [
+          ],
           "paraphrasesParenthesized": [
           ],
           "responses": [
-            ""
           ]
         },
         {
           "context": {
+            "context_id": 2,
             "context_index": 1,
             "dead": true,
             "level": 2,
@@ -1121,7 +1148,7 @@
             "number": "one",
             "one": {
               "dead": true,
-              "level": 1,
+              "level": 0,
               "marker": "unknown",
               "number": "one",
               "range": {
@@ -1130,6 +1157,7 @@
               },
               "text": "descending",
               "types": [
+                "queryable",
                 "unknown"
               ],
               "unknown": true,
@@ -1204,15 +1232,16 @@
           },
           "generatedParenthesized": [
           ],
-          "paraphrases": "descending is a sort ordering",
+          "paraphrases": [
+          ],
           "paraphrasesParenthesized": [
           ],
           "responses": [
-            ""
           ]
         },
         {
           "context": {
+            "context_id": 2,
             "context_index": 1,
             "dead": true,
             "level": 2,
@@ -1220,7 +1249,7 @@
             "number": "one",
             "one": {
               "dead": true,
-              "level": 1,
+              "level": 0,
               "marker": "unknown",
               "number": "one",
               "range": {
@@ -1229,6 +1258,7 @@
               },
               "text": "ascending",
               "types": [
+                "queryable",
                 "unknown"
               ],
               "unknown": true,
@@ -1303,18 +1333,18 @@
           },
           "generatedParenthesized": [
           ],
-          "paraphrases": "ascending is a sort ordering",
+          "paraphrases": [
+          ],
           "paraphrasesParenthesized": [
           ],
           "responses": [
-            ""
           ]
         },
         {
           "context": {
             "concept": {
               "dead": true,
-              "level": 1,
+              "level": 0,
               "marker": "unknown",
               "range": {
                 "end": 21,
@@ -1325,6 +1355,7 @@
               "value": "ordering",
               "word": "ordering"
             },
+            "context_id": 2,
             "context_index": 1,
             "dead": true,
             "flatten": false,
@@ -1333,7 +1364,7 @@
             "modifiers": [
               {
                 "dead": true,
-                "level": 1,
+                "level": 0,
                 "marker": "unknown",
                 "range": {
                   "end": 3,
@@ -1362,11 +1393,11 @@
           },
           "generatedParenthesized": [
           ],
-          "paraphrases": "sort modifies ordering",
+          "paraphrases": [
+          ],
           "paraphrasesParenthesized": [
           ],
           "responses": [
-            ""
           ]
         }
       ]
@@ -1690,6 +1721,7 @@
     },
     "contexts": [
       {
+        "context_id": 2,
         "context_index": 1,
         "dead": true,
         "default": true,
@@ -1853,6 +1885,7 @@
             "y": [
               {
                 "equality": {
+                  "context_id": 2,
                   "context_index": 1,
                   "dead": true,
                   "default": true,
@@ -1979,6 +2012,10 @@
             "ifAble": [
               "orAble"
             ],
+            "listable": [
+              "object",
+              "queryable"
+            ],
             "object": [
               "what",
               "whose"
@@ -2004,7 +2041,6 @@
               "concept",
               "doubleQuote",
               "theAble",
-              "unknown",
               "it",
               "what",
               "whatAble",
@@ -2022,7 +2058,7 @@
               "property",
               "object",
               "concept",
-              "unknown",
+              "listable",
               "reason",
               "memorable",
               "noun"
@@ -2038,6 +2074,7 @@
             "verb": [
               "modifies",
               "is",
+              "isQuery",
               "remember",
               "evaluate"
             ]
@@ -2058,6 +2095,7 @@
             "canBeQuestion",
             "property",
             "theAble",
+            "listable",
             "propertyOf",
             "whose",
             "concept",
@@ -2077,6 +2115,7 @@
             "is",
             "toAble",
             "to",
+            "isQuery",
             "reason",
             "memorable",
             "remember",
@@ -2142,11 +2181,17 @@
               "canBeQuestion",
               "verb"
             ],
+            "isQuery": [
+              "verb"
+            ],
             "it": [
               "pronoun",
               "queryable",
               "toAble",
               "thisitthat"
+            ],
+            "listable": [
+              "theAble"
             ],
             "memorable": [
               "theAble"
@@ -2162,7 +2207,8 @@
             ],
             "object": [
               "queryable",
-              "theAble"
+              "theAble",
+              "listable"
             ],
             "orAble": [
               "ifAble"
@@ -2173,6 +2219,9 @@
             ],
             "propertyOf": [
               "preposition"
+            ],
+            "queryable": [
+              "listable"
             ],
             "questionMark": [
               "punctuation"
@@ -2211,9 +2260,7 @@
               "preposition"
             ],
             "unknown": [
-              "hierarchyAble",
-              "theAble",
-              "queryable"
+              "hierarchyAble"
             ],
             "what": [
               "object",
@@ -2273,7 +2320,11 @@
               },
               "is": {
               },
+              "isQuery": {
+              },
               "it": {
+              },
+              "listable": {
               },
               "memorable": {
               },
@@ -2362,6 +2413,7 @@
       "processed": [
         {
           "context": {
+            "context_id": 2,
             "context_index": 1,
             "dead": true,
             "default": true,
@@ -2411,15 +2463,19 @@
             "value": "equals",
             "word": "equals"
           },
-          "generatedParenthesized": "",
-          "paraphrases": "y equals 4",
-          "paraphrasesParenthesized": "((y) equals (4))",
+          "generatedParenthesized": [
+          ],
+          "paraphrases": [
+          ],
+          "paraphrasesParenthesized": [
+          ],
           "responses": [
             ""
           ]
         },
         {
           "context": {
+            "context_id": 2,
             "context_index": 1,
             "dead": true,
             "level": 2,
@@ -2427,7 +2483,7 @@
             "number": "many",
             "one": {
               "dead": true,
-              "level": 1,
+              "level": 0,
               "marker": "unknown",
               "number": "many",
               "range": {
@@ -2455,7 +2511,7 @@
             "two": {
               "concept": true,
               "dead": true,
-              "level": 1,
+              "level": 0,
               "marker": "unknown",
               "range": {
                 "end": 20,
@@ -2473,18 +2529,18 @@
           },
           "generatedParenthesized": [
           ],
-          "paraphrases": "formulas are concepts",
+          "paraphrases": [
+          ],
           "paraphrasesParenthesized": [
           ],
           "responses": [
-            ""
           ]
         },
         {
           "context": {
             "concept": {
               "dead": true,
-              "level": 1,
+              "level": 0,
               "marker": "unknown",
               "range": {
                 "end": 29,
@@ -2495,6 +2551,7 @@
               "value": "operator",
               "word": "operator"
             },
+            "context_id": 2,
             "context_index": 1,
             "dead": true,
             "flatten": false,
@@ -2503,7 +2560,7 @@
             "modifiers": [
               {
                 "dead": true,
-                "level": 1,
+                "level": 0,
                 "marker": "unknown",
                 "range": {
                   "end": 11,
@@ -2531,15 +2588,16 @@
           },
           "generatedParenthesized": [
           ],
-          "paraphrases": "mathematical modifies operator",
+          "paraphrases": [
+          ],
           "paraphrasesParenthesized": [
           ],
           "responses": [
-            ""
           ]
         },
         {
           "context": {
+            "context_id": 2,
             "context_index": 1,
             "dead": true,
             "level": 2,
@@ -2547,7 +2605,7 @@
             "number": "one",
             "one": {
               "dead": true,
-              "level": 1,
+              "level": 0,
               "marker": "unknown",
               "number": "one",
               "range": {
@@ -2556,6 +2614,7 @@
               },
               "text": "descending",
               "types": [
+                "queryable",
                 "unknown"
               ],
               "unknown": true,
@@ -2630,15 +2689,16 @@
           },
           "generatedParenthesized": [
           ],
-          "paraphrases": "descending is a sort ordering",
+          "paraphrases": [
+          ],
           "paraphrasesParenthesized": [
           ],
           "responses": [
-            ""
           ]
         },
         {
           "context": {
+            "context_id": 2,
             "context_index": 1,
             "dead": true,
             "level": 2,
@@ -2646,7 +2706,7 @@
             "number": "one",
             "one": {
               "dead": true,
-              "level": 1,
+              "level": 0,
               "marker": "unknown",
               "number": "one",
               "range": {
@@ -2655,6 +2715,7 @@
               },
               "text": "ascending",
               "types": [
+                "queryable",
                 "unknown"
               ],
               "unknown": true,
@@ -2729,18 +2790,18 @@
           },
           "generatedParenthesized": [
           ],
-          "paraphrases": "ascending is a sort ordering",
+          "paraphrases": [
+          ],
           "paraphrasesParenthesized": [
           ],
           "responses": [
-            ""
           ]
         },
         {
           "context": {
             "concept": {
               "dead": true,
-              "level": 1,
+              "level": 0,
               "marker": "unknown",
               "range": {
                 "end": 21,
@@ -2751,6 +2812,7 @@
               "value": "ordering",
               "word": "ordering"
             },
+            "context_id": 2,
             "context_index": 1,
             "dead": true,
             "flatten": false,
@@ -2759,7 +2821,7 @@
             "modifiers": [
               {
                 "dead": true,
-                "level": 1,
+                "level": 0,
                 "marker": "unknown",
                 "range": {
                   "end": 3,
@@ -2788,11 +2850,11 @@
           },
           "generatedParenthesized": [
           ],
-          "paraphrases": "sort modifies ordering",
+          "paraphrases": [
+          ],
           "paraphrasesParenthesized": [
           ],
           "responses": [
-            ""
           ]
         }
       ]
@@ -2976,6 +3038,7 @@
     },
     "contexts": [
       {
+        "context_id": 2,
         "context_index": 1,
         "dead": true,
         "left": {
@@ -3025,6 +3088,7 @@
         "word": "="
       },
       {
+        "context_id": 4,
         "context_index": 3,
         "dead": true,
         "default": true,
@@ -3270,6 +3334,7 @@
             "x": [
               {
                 "equality": {
+                  "context_id": 2,
                   "context_index": 1,
                   "dead": true,
                   "left": {
@@ -3395,6 +3460,10 @@
             "ifAble": [
               "orAble"
             ],
+            "listable": [
+              "object",
+              "queryable"
+            ],
             "object": [
               "what",
               "whose"
@@ -3420,7 +3489,6 @@
               "concept",
               "doubleQuote",
               "theAble",
-              "unknown",
               "it",
               "what",
               "whatAble",
@@ -3438,7 +3506,7 @@
               "property",
               "object",
               "concept",
-              "unknown",
+              "listable",
               "reason",
               "memorable",
               "noun"
@@ -3454,6 +3522,7 @@
             "verb": [
               "modifies",
               "is",
+              "isQuery",
               "remember",
               "evaluate"
             ]
@@ -3474,6 +3543,7 @@
             "canBeQuestion",
             "property",
             "theAble",
+            "listable",
             "propertyOf",
             "whose",
             "concept",
@@ -3493,6 +3563,7 @@
             "is",
             "toAble",
             "to",
+            "isQuery",
             "reason",
             "memorable",
             "remember",
@@ -3558,11 +3629,17 @@
               "canBeQuestion",
               "verb"
             ],
+            "isQuery": [
+              "verb"
+            ],
             "it": [
               "pronoun",
               "queryable",
               "toAble",
               "thisitthat"
+            ],
+            "listable": [
+              "theAble"
             ],
             "memorable": [
               "theAble"
@@ -3578,7 +3655,8 @@
             ],
             "object": [
               "queryable",
-              "theAble"
+              "theAble",
+              "listable"
             ],
             "orAble": [
               "ifAble"
@@ -3589,6 +3667,9 @@
             ],
             "propertyOf": [
               "preposition"
+            ],
+            "queryable": [
+              "listable"
             ],
             "questionMark": [
               "punctuation"
@@ -3627,9 +3708,7 @@
               "preposition"
             ],
             "unknown": [
-              "hierarchyAble",
-              "theAble",
-              "queryable"
+              "hierarchyAble"
             ],
             "what": [
               "object",
@@ -3689,7 +3768,11 @@
               },
               "is": {
               },
+              "isQuery": {
+              },
               "it": {
+              },
+              "listable": {
               },
               "memorable": {
               },
@@ -3778,6 +3861,7 @@
       "processed": [
         {
           "context": {
+            "context_id": 4,
             "context_index": 3,
             "dead": true,
             "default": true,
@@ -3854,9 +3938,12 @@
             "value": "calculate",
             "word": "calculate"
           },
-          "generatedParenthesized": "(((4)))",
-          "paraphrases": "calculate x",
-          "paraphrasesParenthesized": "(calculate (x))",
+          "generatedParenthesized": [
+          ],
+          "paraphrases": [
+          ],
+          "paraphrasesParenthesized": [
+          ],
           "responses": [
             "",
             "4"
@@ -3864,6 +3951,7 @@
         },
         {
           "context": {
+            "context_id": 2,
             "context_index": 1,
             "dead": true,
             "left": {
@@ -3912,9 +4000,12 @@
             "value": "equals",
             "word": "="
           },
-          "generatedParenthesized": "",
-          "paraphrases": "x = 4",
-          "paraphrasesParenthesized": "((x) = (4))",
+          "generatedParenthesized": [
+          ],
+          "paraphrases": [
+          ],
+          "paraphrasesParenthesized": [
+          ],
           "responses": [
             "",
             "4"
@@ -3922,6 +4013,7 @@
         },
         {
           "context": {
+            "context_id": 2,
             "context_index": 1,
             "dead": true,
             "level": 2,
@@ -3929,7 +4021,7 @@
             "number": "many",
             "one": {
               "dead": true,
-              "level": 1,
+              "level": 0,
               "marker": "unknown",
               "number": "many",
               "range": {
@@ -3957,7 +4049,7 @@
             "two": {
               "concept": true,
               "dead": true,
-              "level": 1,
+              "level": 0,
               "marker": "unknown",
               "range": {
                 "end": 20,
@@ -3975,18 +4067,18 @@
           },
           "generatedParenthesized": [
           ],
-          "paraphrases": "formulas are concepts",
+          "paraphrases": [
+          ],
           "paraphrasesParenthesized": [
           ],
           "responses": [
-            ""
           ]
         },
         {
           "context": {
             "concept": {
               "dead": true,
-              "level": 1,
+              "level": 0,
               "marker": "unknown",
               "range": {
                 "end": 29,
@@ -3997,6 +4089,7 @@
               "value": "operator",
               "word": "operator"
             },
+            "context_id": 2,
             "context_index": 1,
             "dead": true,
             "flatten": false,
@@ -4005,7 +4098,7 @@
             "modifiers": [
               {
                 "dead": true,
-                "level": 1,
+                "level": 0,
                 "marker": "unknown",
                 "range": {
                   "end": 11,
@@ -4033,15 +4126,16 @@
           },
           "generatedParenthesized": [
           ],
-          "paraphrases": "mathematical modifies operator",
+          "paraphrases": [
+          ],
           "paraphrasesParenthesized": [
           ],
           "responses": [
-            ""
           ]
         },
         {
           "context": {
+            "context_id": 2,
             "context_index": 1,
             "dead": true,
             "level": 2,
@@ -4049,7 +4143,7 @@
             "number": "one",
             "one": {
               "dead": true,
-              "level": 1,
+              "level": 0,
               "marker": "unknown",
               "number": "one",
               "range": {
@@ -4058,6 +4152,7 @@
               },
               "text": "descending",
               "types": [
+                "queryable",
                 "unknown"
               ],
               "unknown": true,
@@ -4132,15 +4227,16 @@
           },
           "generatedParenthesized": [
           ],
-          "paraphrases": "descending is a sort ordering",
+          "paraphrases": [
+          ],
           "paraphrasesParenthesized": [
           ],
           "responses": [
-            ""
           ]
         },
         {
           "context": {
+            "context_id": 2,
             "context_index": 1,
             "dead": true,
             "level": 2,
@@ -4148,7 +4244,7 @@
             "number": "one",
             "one": {
               "dead": true,
-              "level": 1,
+              "level": 0,
               "marker": "unknown",
               "number": "one",
               "range": {
@@ -4157,6 +4253,7 @@
               },
               "text": "ascending",
               "types": [
+                "queryable",
                 "unknown"
               ],
               "unknown": true,
@@ -4231,11 +4328,11 @@
           },
           "generatedParenthesized": [
           ],
-          "paraphrases": "ascending is a sort ordering",
+          "paraphrases": [
+          ],
           "paraphrasesParenthesized": [
           ],
           "responses": [
-            ""
           ]
         }
       ]
@@ -4646,6 +4743,7 @@
     },
     "contexts": [
       {
+        "context_id": 2,
         "context_index": 1,
         "dead": true,
         "default": true,
@@ -4696,6 +4794,7 @@
         "word": "equals"
       },
       {
+        "context_id": 4,
         "context_index": 3,
         "dead": true,
         "left": {
@@ -4780,6 +4879,7 @@
         "word": "="
       },
       {
+        "context_id": 6,
         "context_index": 5,
         "dead": true,
         "default": true,
@@ -5266,6 +5366,7 @@
             "x": [
               {
                 "equality": {
+                  "context_id": 4,
                   "context_index": 3,
                   "dead": true,
                   "left": {
@@ -5421,6 +5522,7 @@
             "y": [
               {
                 "equality": {
+                  "context_id": 2,
                   "context_index": 1,
                   "dead": true,
                   "default": true,
@@ -5547,6 +5649,10 @@
             "ifAble": [
               "orAble"
             ],
+            "listable": [
+              "object",
+              "queryable"
+            ],
             "object": [
               "what",
               "whose"
@@ -5572,7 +5678,6 @@
               "concept",
               "doubleQuote",
               "theAble",
-              "unknown",
               "it",
               "what",
               "whatAble",
@@ -5590,7 +5695,7 @@
               "property",
               "object",
               "concept",
-              "unknown",
+              "listable",
               "reason",
               "memorable",
               "noun"
@@ -5606,6 +5711,7 @@
             "verb": [
               "modifies",
               "is",
+              "isQuery",
               "remember",
               "evaluate"
             ]
@@ -5626,6 +5732,7 @@
             "canBeQuestion",
             "property",
             "theAble",
+            "listable",
             "propertyOf",
             "whose",
             "concept",
@@ -5645,6 +5752,7 @@
             "is",
             "toAble",
             "to",
+            "isQuery",
             "reason",
             "memorable",
             "remember",
@@ -5710,11 +5818,17 @@
               "canBeQuestion",
               "verb"
             ],
+            "isQuery": [
+              "verb"
+            ],
             "it": [
               "pronoun",
               "queryable",
               "toAble",
               "thisitthat"
+            ],
+            "listable": [
+              "theAble"
             ],
             "memorable": [
               "theAble"
@@ -5730,7 +5844,8 @@
             ],
             "object": [
               "queryable",
-              "theAble"
+              "theAble",
+              "listable"
             ],
             "orAble": [
               "ifAble"
@@ -5741,6 +5856,9 @@
             ],
             "propertyOf": [
               "preposition"
+            ],
+            "queryable": [
+              "listable"
             ],
             "questionMark": [
               "punctuation"
@@ -5779,9 +5897,7 @@
               "preposition"
             ],
             "unknown": [
-              "hierarchyAble",
-              "theAble",
-              "queryable"
+              "hierarchyAble"
             ],
             "what": [
               "object",
@@ -5841,7 +5957,11 @@
               },
               "is": {
               },
+              "isQuery": {
+              },
               "it": {
+              },
+              "listable": {
               },
               "memorable": {
               },
@@ -5930,6 +6050,7 @@
       "processed": [
         {
           "context": {
+            "context_id": 6,
             "context_index": 5,
             "dead": true,
             "default": true,
@@ -6041,9 +6162,12 @@
             "value": "calculate",
             "word": "calculate"
           },
-          "generatedParenthesized": "(((14)))",
-          "paraphrases": "calculate x",
-          "paraphrasesParenthesized": "(calculate (x))",
+          "generatedParenthesized": [
+          ],
+          "paraphrases": [
+          ],
+          "paraphrasesParenthesized": [
+          ],
           "responses": [
             "",
             "",
@@ -6052,6 +6176,7 @@
         },
         {
           "context": {
+            "context_id": 4,
             "context_index": 3,
             "dead": true,
             "left": {
@@ -6135,9 +6260,12 @@
             "value": "equals",
             "word": "="
           },
-          "generatedParenthesized": "",
-          "paraphrases": "x = y + 10",
-          "paraphrasesParenthesized": "((x) = ((y) + (10)))",
+          "generatedParenthesized": [
+          ],
+          "paraphrases": [
+          ],
+          "paraphrasesParenthesized": [
+          ],
           "responses": [
             "",
             "",
@@ -6146,6 +6274,7 @@
         },
         {
           "context": {
+            "context_id": 2,
             "context_index": 1,
             "dead": true,
             "default": true,
@@ -6195,9 +6324,12 @@
             "value": "equals",
             "word": "equals"
           },
-          "generatedParenthesized": "",
-          "paraphrases": "y equals 4",
-          "paraphrasesParenthesized": "((y) equals (4))",
+          "generatedParenthesized": [
+          ],
+          "paraphrases": [
+          ],
+          "paraphrasesParenthesized": [
+          ],
           "responses": [
             "",
             "",
@@ -6206,6 +6338,7 @@
         },
         {
           "context": {
+            "context_id": 2,
             "context_index": 1,
             "dead": true,
             "level": 2,
@@ -6213,7 +6346,7 @@
             "number": "many",
             "one": {
               "dead": true,
-              "level": 1,
+              "level": 0,
               "marker": "unknown",
               "number": "many",
               "range": {
@@ -6241,7 +6374,7 @@
             "two": {
               "concept": true,
               "dead": true,
-              "level": 1,
+              "level": 0,
               "marker": "unknown",
               "range": {
                 "end": 20,
@@ -6259,18 +6392,18 @@
           },
           "generatedParenthesized": [
           ],
-          "paraphrases": "formulas are concepts",
+          "paraphrases": [
+          ],
           "paraphrasesParenthesized": [
           ],
           "responses": [
-            ""
           ]
         },
         {
           "context": {
             "concept": {
               "dead": true,
-              "level": 1,
+              "level": 0,
               "marker": "unknown",
               "range": {
                 "end": 29,
@@ -6281,6 +6414,7 @@
               "value": "operator",
               "word": "operator"
             },
+            "context_id": 2,
             "context_index": 1,
             "dead": true,
             "flatten": false,
@@ -6289,7 +6423,7 @@
             "modifiers": [
               {
                 "dead": true,
-                "level": 1,
+                "level": 0,
                 "marker": "unknown",
                 "range": {
                   "end": 11,
@@ -6317,15 +6451,16 @@
           },
           "generatedParenthesized": [
           ],
-          "paraphrases": "mathematical modifies operator",
+          "paraphrases": [
+          ],
           "paraphrasesParenthesized": [
           ],
           "responses": [
-            ""
           ]
         },
         {
           "context": {
+            "context_id": 2,
             "context_index": 1,
             "dead": true,
             "level": 2,
@@ -6333,7 +6468,7 @@
             "number": "one",
             "one": {
               "dead": true,
-              "level": 1,
+              "level": 0,
               "marker": "unknown",
               "number": "one",
               "range": {
@@ -6342,6 +6477,7 @@
               },
               "text": "descending",
               "types": [
+                "queryable",
                 "unknown"
               ],
               "unknown": true,
@@ -6416,11 +6552,11 @@
           },
           "generatedParenthesized": [
           ],
-          "paraphrases": "descending is a sort ordering",
+          "paraphrases": [
+          ],
           "paraphrasesParenthesized": [
           ],
           "responses": [
-            ""
           ]
         }
       ]
@@ -7485,6 +7621,7 @@
     },
     "contexts": [
       {
+        "context_id": 2,
         "context_index": 1,
         "dead": true,
         "default": true,
@@ -7628,10 +7765,6 @@
               0
             ],
             [
-              "forVariable",
-              0
-            ],
-            [
               "solve",
               0
             ],
@@ -7661,10 +7794,6 @@
               0
             ],
             [
-              "forVariable",
-              0
-            ],
-            [
               "solve",
               0
             ],
@@ -7690,10 +7819,6 @@
               0
             ],
             [
-              "forVariable",
-              0
-            ],
-            [
               "solve",
               0
             ],
@@ -7715,10 +7840,6 @@
               0
             ],
             [
-              "forVariable",
-              0
-            ],
-            [
               "solve",
               0
             ]
@@ -7726,23 +7847,6 @@
         },
         {
           "counter": 5,
-          "op": [
-            "forVariable",
-            0
-          ],
-          "ops": [
-            [
-              "forVariable",
-              0
-            ],
-            [
-              "solve",
-              0
-            ]
-          ]
-        },
-        {
-          "counter": 6,
           "op": [
             "solve",
             0
@@ -7851,6 +7955,10 @@
             "ifAble": [
               "orAble"
             ],
+            "listable": [
+              "object",
+              "queryable"
+            ],
             "object": [
               "what",
               "whose"
@@ -7876,7 +7984,6 @@
               "concept",
               "doubleQuote",
               "theAble",
-              "unknown",
               "it",
               "what",
               "whatAble",
@@ -7894,7 +8001,7 @@
               "property",
               "object",
               "concept",
-              "unknown",
+              "listable",
               "reason",
               "memorable",
               "noun"
@@ -7910,6 +8017,7 @@
             "verb": [
               "modifies",
               "is",
+              "isQuery",
               "remember",
               "evaluate"
             ]
@@ -7930,6 +8038,7 @@
             "canBeQuestion",
             "property",
             "theAble",
+            "listable",
             "propertyOf",
             "whose",
             "concept",
@@ -7949,6 +8058,7 @@
             "is",
             "toAble",
             "to",
+            "isQuery",
             "reason",
             "memorable",
             "remember",
@@ -8014,11 +8124,17 @@
               "canBeQuestion",
               "verb"
             ],
+            "isQuery": [
+              "verb"
+            ],
             "it": [
               "pronoun",
               "queryable",
               "toAble",
               "thisitthat"
+            ],
+            "listable": [
+              "theAble"
             ],
             "memorable": [
               "theAble"
@@ -8034,7 +8150,8 @@
             ],
             "object": [
               "queryable",
-              "theAble"
+              "theAble",
+              "listable"
             ],
             "orAble": [
               "ifAble"
@@ -8045,6 +8162,9 @@
             ],
             "propertyOf": [
               "preposition"
+            ],
+            "queryable": [
+              "listable"
             ],
             "questionMark": [
               "punctuation"
@@ -8083,9 +8203,7 @@
               "preposition"
             ],
             "unknown": [
-              "hierarchyAble",
-              "theAble",
-              "queryable"
+              "hierarchyAble"
             ],
             "what": [
               "object",
@@ -8145,7 +8263,11 @@
               },
               "is": {
               },
+              "isQuery": {
+              },
               "it": {
+              },
+              "listable": {
               },
               "memorable": {
               },
@@ -8234,6 +8356,7 @@
       "processed": [
         {
           "context": {
+            "context_id": 2,
             "context_index": 1,
             "dead": true,
             "default": true,
@@ -8359,15 +8482,19 @@
             },
             "word": "solve"
           },
-          "generatedParenthesized": "(((x) = (y)))",
-          "paraphrases": "solve x = y for x",
-          "paraphrasesParenthesized": "(solve ((x) = (y)) for (x))",
+          "generatedParenthesized": [
+          ],
+          "paraphrases": [
+          ],
+          "paraphrasesParenthesized": [
+          ],
           "responses": [
             "x = y"
           ]
         },
         {
           "context": {
+            "context_id": 2,
             "context_index": 1,
             "dead": true,
             "level": 2,
@@ -8375,7 +8502,7 @@
             "number": "many",
             "one": {
               "dead": true,
-              "level": 1,
+              "level": 0,
               "marker": "unknown",
               "number": "many",
               "range": {
@@ -8403,7 +8530,7 @@
             "two": {
               "concept": true,
               "dead": true,
-              "level": 1,
+              "level": 0,
               "marker": "unknown",
               "range": {
                 "end": 20,
@@ -8421,18 +8548,18 @@
           },
           "generatedParenthesized": [
           ],
-          "paraphrases": "formulas are concepts",
+          "paraphrases": [
+          ],
           "paraphrasesParenthesized": [
           ],
           "responses": [
-            ""
           ]
         },
         {
           "context": {
             "concept": {
               "dead": true,
-              "level": 1,
+              "level": 0,
               "marker": "unknown",
               "range": {
                 "end": 29,
@@ -8443,6 +8570,7 @@
               "value": "operator",
               "word": "operator"
             },
+            "context_id": 2,
             "context_index": 1,
             "dead": true,
             "flatten": false,
@@ -8451,7 +8579,7 @@
             "modifiers": [
               {
                 "dead": true,
-                "level": 1,
+                "level": 0,
                 "marker": "unknown",
                 "range": {
                   "end": 11,
@@ -8479,15 +8607,16 @@
           },
           "generatedParenthesized": [
           ],
-          "paraphrases": "mathematical modifies operator",
+          "paraphrases": [
+          ],
           "paraphrasesParenthesized": [
           ],
           "responses": [
-            ""
           ]
         },
         {
           "context": {
+            "context_id": 2,
             "context_index": 1,
             "dead": true,
             "level": 2,
@@ -8495,7 +8624,7 @@
             "number": "one",
             "one": {
               "dead": true,
-              "level": 1,
+              "level": 0,
               "marker": "unknown",
               "number": "one",
               "range": {
@@ -8504,6 +8633,7 @@
               },
               "text": "descending",
               "types": [
+                "queryable",
                 "unknown"
               ],
               "unknown": true,
@@ -8578,15 +8708,16 @@
           },
           "generatedParenthesized": [
           ],
-          "paraphrases": "descending is a sort ordering",
+          "paraphrases": [
+          ],
           "paraphrasesParenthesized": [
           ],
           "responses": [
-            ""
           ]
         },
         {
           "context": {
+            "context_id": 2,
             "context_index": 1,
             "dead": true,
             "level": 2,
@@ -8594,7 +8725,7 @@
             "number": "one",
             "one": {
               "dead": true,
-              "level": 1,
+              "level": 0,
               "marker": "unknown",
               "number": "one",
               "range": {
@@ -8603,6 +8734,7 @@
               },
               "text": "ascending",
               "types": [
+                "queryable",
                 "unknown"
               ],
               "unknown": true,
@@ -8677,18 +8809,18 @@
           },
           "generatedParenthesized": [
           ],
-          "paraphrases": "ascending is a sort ordering",
+          "paraphrases": [
+          ],
           "paraphrasesParenthesized": [
           ],
           "responses": [
-            ""
           ]
         },
         {
           "context": {
             "concept": {
               "dead": true,
-              "level": 1,
+              "level": 0,
               "marker": "unknown",
               "range": {
                 "end": 21,
@@ -8699,6 +8831,7 @@
               "value": "ordering",
               "word": "ordering"
             },
+            "context_id": 2,
             "context_index": 1,
             "dead": true,
             "flatten": false,
@@ -8707,7 +8840,7 @@
             "modifiers": [
               {
                 "dead": true,
-                "level": 1,
+                "level": 0,
                 "marker": "unknown",
                 "range": {
                   "end": 3,
@@ -8736,11 +8869,11 @@
           },
           "generatedParenthesized": [
           ],
-          "paraphrases": "sort modifies ordering",
+          "paraphrases": [
+          ],
           "paraphrasesParenthesized": [
           ],
           "responses": [
-            ""
           ]
         }
       ]
@@ -9070,51 +9203,6 @@
               {
                 "marker": [
                   "solve",
-                  0
-                ],
-                "range": {
-                  "end": 4,
-                  "start": 0
-                }
-              },
-              {
-                "marker": [
-                  "equals",
-                  1
-                ],
-                "range": {
-                  "end": 10,
-                  "start": 6
-                }
-              },
-              {
-                "marker": [
-                  "forVariable",
-                  1
-                ],
-                "range": {
-                  "end": 14,
-                  "start": 12
-                }
-              },
-              {
-                "marker": [
-                  "x",
-                  1
-                ],
-                "range": {
-                  "end": 16,
-                  "start": 16
-                }
-              }
-            ]
-          },
-          {
-            "counter": 7,
-            "operators": [
-              {
-                "marker": [
-                  "solve",
                   1
                 ],
                 "range": {
@@ -9199,6 +9287,7 @@
     },
     "contexts": [
       {
+        "context_id": 2,
         "context_index": 1,
         "dead": true,
         "default": true,
@@ -9342,10 +9431,6 @@
               0
             ],
             [
-              "forVariable",
-              0
-            ],
-            [
               "solve",
               0
             ],
@@ -9375,10 +9460,6 @@
               0
             ],
             [
-              "forVariable",
-              0
-            ],
-            [
               "solve",
               0
             ],
@@ -9404,10 +9485,6 @@
               0
             ],
             [
-              "forVariable",
-              0
-            ],
-            [
               "solve",
               0
             ],
@@ -9429,10 +9506,6 @@
               0
             ],
             [
-              "forVariable",
-              0
-            ],
-            [
               "solve",
               0
             ]
@@ -9440,23 +9513,6 @@
         },
         {
           "counter": 5,
-          "op": [
-            "forVariable",
-            0
-          ],
-          "ops": [
-            [
-              "forVariable",
-              0
-            ],
-            [
-              "solve",
-              0
-            ]
-          ]
-        },
-        {
-          "counter": 6,
           "op": [
             "solve",
             0
@@ -9565,6 +9621,10 @@
             "ifAble": [
               "orAble"
             ],
+            "listable": [
+              "object",
+              "queryable"
+            ],
             "object": [
               "what",
               "whose"
@@ -9590,7 +9650,6 @@
               "concept",
               "doubleQuote",
               "theAble",
-              "unknown",
               "it",
               "what",
               "whatAble",
@@ -9608,7 +9667,7 @@
               "property",
               "object",
               "concept",
-              "unknown",
+              "listable",
               "reason",
               "memorable",
               "noun"
@@ -9624,6 +9683,7 @@
             "verb": [
               "modifies",
               "is",
+              "isQuery",
               "remember",
               "evaluate"
             ]
@@ -9644,6 +9704,7 @@
             "canBeQuestion",
             "property",
             "theAble",
+            "listable",
             "propertyOf",
             "whose",
             "concept",
@@ -9663,6 +9724,7 @@
             "is",
             "toAble",
             "to",
+            "isQuery",
             "reason",
             "memorable",
             "remember",
@@ -9728,11 +9790,17 @@
               "canBeQuestion",
               "verb"
             ],
+            "isQuery": [
+              "verb"
+            ],
             "it": [
               "pronoun",
               "queryable",
               "toAble",
               "thisitthat"
+            ],
+            "listable": [
+              "theAble"
             ],
             "memorable": [
               "theAble"
@@ -9748,7 +9816,8 @@
             ],
             "object": [
               "queryable",
-              "theAble"
+              "theAble",
+              "listable"
             ],
             "orAble": [
               "ifAble"
@@ -9759,6 +9828,9 @@
             ],
             "propertyOf": [
               "preposition"
+            ],
+            "queryable": [
+              "listable"
             ],
             "questionMark": [
               "punctuation"
@@ -9797,9 +9869,7 @@
               "preposition"
             ],
             "unknown": [
-              "hierarchyAble",
-              "theAble",
-              "queryable"
+              "hierarchyAble"
             ],
             "what": [
               "object",
@@ -9859,7 +9929,11 @@
               },
               "is": {
               },
+              "isQuery": {
+              },
               "it": {
+              },
+              "listable": {
               },
               "memorable": {
               },
@@ -9948,6 +10022,7 @@
       "processed": [
         {
           "context": {
+            "context_id": 2,
             "context_index": 1,
             "dead": true,
             "default": true,
@@ -10073,15 +10148,19 @@
             },
             "word": "solve"
           },
-          "generatedParenthesized": "(((y) = (x)))",
-          "paraphrases": "solve x = y for y",
-          "paraphrasesParenthesized": "(solve ((x) = (y)) for (y))",
+          "generatedParenthesized": [
+          ],
+          "paraphrases": [
+          ],
+          "paraphrasesParenthesized": [
+          ],
           "responses": [
             "y = x"
           ]
         },
         {
           "context": {
+            "context_id": 2,
             "context_index": 1,
             "dead": true,
             "level": 2,
@@ -10089,7 +10168,7 @@
             "number": "many",
             "one": {
               "dead": true,
-              "level": 1,
+              "level": 0,
               "marker": "unknown",
               "number": "many",
               "range": {
@@ -10117,7 +10196,7 @@
             "two": {
               "concept": true,
               "dead": true,
-              "level": 1,
+              "level": 0,
               "marker": "unknown",
               "range": {
                 "end": 20,
@@ -10135,18 +10214,18 @@
           },
           "generatedParenthesized": [
           ],
-          "paraphrases": "formulas are concepts",
+          "paraphrases": [
+          ],
           "paraphrasesParenthesized": [
           ],
           "responses": [
-            ""
           ]
         },
         {
           "context": {
             "concept": {
               "dead": true,
-              "level": 1,
+              "level": 0,
               "marker": "unknown",
               "range": {
                 "end": 29,
@@ -10157,6 +10236,7 @@
               "value": "operator",
               "word": "operator"
             },
+            "context_id": 2,
             "context_index": 1,
             "dead": true,
             "flatten": false,
@@ -10165,7 +10245,7 @@
             "modifiers": [
               {
                 "dead": true,
-                "level": 1,
+                "level": 0,
                 "marker": "unknown",
                 "range": {
                   "end": 11,
@@ -10193,15 +10273,16 @@
           },
           "generatedParenthesized": [
           ],
-          "paraphrases": "mathematical modifies operator",
+          "paraphrases": [
+          ],
           "paraphrasesParenthesized": [
           ],
           "responses": [
-            ""
           ]
         },
         {
           "context": {
+            "context_id": 2,
             "context_index": 1,
             "dead": true,
             "level": 2,
@@ -10209,7 +10290,7 @@
             "number": "one",
             "one": {
               "dead": true,
-              "level": 1,
+              "level": 0,
               "marker": "unknown",
               "number": "one",
               "range": {
@@ -10218,6 +10299,7 @@
               },
               "text": "descending",
               "types": [
+                "queryable",
                 "unknown"
               ],
               "unknown": true,
@@ -10292,15 +10374,16 @@
           },
           "generatedParenthesized": [
           ],
-          "paraphrases": "descending is a sort ordering",
+          "paraphrases": [
+          ],
           "paraphrasesParenthesized": [
           ],
           "responses": [
-            ""
           ]
         },
         {
           "context": {
+            "context_id": 2,
             "context_index": 1,
             "dead": true,
             "level": 2,
@@ -10308,7 +10391,7 @@
             "number": "one",
             "one": {
               "dead": true,
-              "level": 1,
+              "level": 0,
               "marker": "unknown",
               "number": "one",
               "range": {
@@ -10317,6 +10400,7 @@
               },
               "text": "ascending",
               "types": [
+                "queryable",
                 "unknown"
               ],
               "unknown": true,
@@ -10391,18 +10475,18 @@
           },
           "generatedParenthesized": [
           ],
-          "paraphrases": "ascending is a sort ordering",
+          "paraphrases": [
+          ],
           "paraphrasesParenthesized": [
           ],
           "responses": [
-            ""
           ]
         },
         {
           "context": {
             "concept": {
               "dead": true,
-              "level": 1,
+              "level": 0,
               "marker": "unknown",
               "range": {
                 "end": 21,
@@ -10413,6 +10497,7 @@
               "value": "ordering",
               "word": "ordering"
             },
+            "context_id": 2,
             "context_index": 1,
             "dead": true,
             "flatten": false,
@@ -10421,7 +10506,7 @@
             "modifiers": [
               {
                 "dead": true,
-                "level": 1,
+                "level": 0,
                 "marker": "unknown",
                 "range": {
                   "end": 3,
@@ -10450,11 +10535,11 @@
           },
           "generatedParenthesized": [
           ],
-          "paraphrases": "sort modifies ordering",
+          "paraphrases": [
+          ],
           "paraphrasesParenthesized": [
           ],
           "responses": [
-            ""
           ]
         }
       ]
@@ -10784,51 +10869,6 @@
               {
                 "marker": [
                   "solve",
-                  0
-                ],
-                "range": {
-                  "end": 4,
-                  "start": 0
-                }
-              },
-              {
-                "marker": [
-                  "equals",
-                  1
-                ],
-                "range": {
-                  "end": 10,
-                  "start": 6
-                }
-              },
-              {
-                "marker": [
-                  "forVariable",
-                  1
-                ],
-                "range": {
-                  "end": 14,
-                  "start": 12
-                }
-              },
-              {
-                "marker": [
-                  "y",
-                  1
-                ],
-                "range": {
-                  "end": 16,
-                  "start": 16
-                }
-              }
-            ]
-          },
-          {
-            "counter": 7,
-            "operators": [
-              {
-                "marker": [
-                  "solve",
                   1
                 ],
                 "range": {
@@ -10969,6 +11009,7 @@
     },
     "contexts": [
       {
+        "context_id": 2,
         "context_index": 1,
         "dead": true,
         "default": true,
@@ -11182,10 +11223,6 @@
               0
             ],
             [
-              "forVariable",
-              0
-            ],
-            [
               "integer",
               0
             ],
@@ -11223,10 +11260,6 @@
               0
             ],
             [
-              "forVariable",
-              0
-            ],
-            [
               "integer",
               0
             ],
@@ -11260,10 +11293,6 @@
               0
             ],
             [
-              "forVariable",
-              0
-            ],
-            [
               "integer",
               0
             ],
@@ -11293,10 +11322,6 @@
               0
             ],
             [
-              "forVariable",
-              0
-            ],
-            [
               "plusOperator",
               0
             ],
@@ -11322,10 +11347,6 @@
               0
             ],
             [
-              "forVariable",
-              0
-            ],
-            [
               "plusOperator",
               0
             ],
@@ -11347,10 +11368,6 @@
               0
             ],
             [
-              "forVariable",
-              0
-            ],
-            [
               "solve",
               0
             ]
@@ -11358,23 +11375,6 @@
         },
         {
           "counter": 7,
-          "op": [
-            "forVariable",
-            0
-          ],
-          "ops": [
-            [
-              "forVariable",
-              0
-            ],
-            [
-              "solve",
-              0
-            ]
-          ]
-        },
-        {
-          "counter": 8,
           "op": [
             "solve",
             0
@@ -11483,6 +11483,10 @@
             "ifAble": [
               "orAble"
             ],
+            "listable": [
+              "object",
+              "queryable"
+            ],
             "object": [
               "what",
               "whose"
@@ -11508,7 +11512,6 @@
               "concept",
               "doubleQuote",
               "theAble",
-              "unknown",
               "it",
               "what",
               "whatAble",
@@ -11526,7 +11529,7 @@
               "property",
               "object",
               "concept",
-              "unknown",
+              "listable",
               "reason",
               "memorable",
               "noun"
@@ -11542,6 +11545,7 @@
             "verb": [
               "modifies",
               "is",
+              "isQuery",
               "remember",
               "evaluate"
             ]
@@ -11562,6 +11566,7 @@
             "canBeQuestion",
             "property",
             "theAble",
+            "listable",
             "propertyOf",
             "whose",
             "concept",
@@ -11581,6 +11586,7 @@
             "is",
             "toAble",
             "to",
+            "isQuery",
             "reason",
             "memorable",
             "remember",
@@ -11646,11 +11652,17 @@
               "canBeQuestion",
               "verb"
             ],
+            "isQuery": [
+              "verb"
+            ],
             "it": [
               "pronoun",
               "queryable",
               "toAble",
               "thisitthat"
+            ],
+            "listable": [
+              "theAble"
             ],
             "memorable": [
               "theAble"
@@ -11666,7 +11678,8 @@
             ],
             "object": [
               "queryable",
-              "theAble"
+              "theAble",
+              "listable"
             ],
             "orAble": [
               "ifAble"
@@ -11677,6 +11690,9 @@
             ],
             "propertyOf": [
               "preposition"
+            ],
+            "queryable": [
+              "listable"
             ],
             "questionMark": [
               "punctuation"
@@ -11715,9 +11731,7 @@
               "preposition"
             ],
             "unknown": [
-              "hierarchyAble",
-              "theAble",
-              "queryable"
+              "hierarchyAble"
             ],
             "what": [
               "object",
@@ -11777,7 +11791,11 @@
               },
               "is": {
               },
+              "isQuery": {
+              },
               "it": {
+              },
+              "listable": {
               },
               "memorable": {
               },
@@ -11866,6 +11884,7 @@
       "processed": [
         {
           "context": {
+            "context_id": 2,
             "context_index": 1,
             "dead": true,
             "default": true,
@@ -12061,15 +12080,19 @@
             },
             "word": "solve"
           },
-          "generatedParenthesized": "(((x) = ((y) + (1))))",
-          "paraphrases": "solve x = y + 1 for x",
-          "paraphrasesParenthesized": "(solve ((x) = ((y) + (1))) for (x))",
+          "generatedParenthesized": [
+          ],
+          "paraphrases": [
+          ],
+          "paraphrasesParenthesized": [
+          ],
           "responses": [
             "x = y + 1"
           ]
         },
         {
           "context": {
+            "context_id": 2,
             "context_index": 1,
             "dead": true,
             "level": 2,
@@ -12077,7 +12100,7 @@
             "number": "many",
             "one": {
               "dead": true,
-              "level": 1,
+              "level": 0,
               "marker": "unknown",
               "number": "many",
               "range": {
@@ -12105,7 +12128,7 @@
             "two": {
               "concept": true,
               "dead": true,
-              "level": 1,
+              "level": 0,
               "marker": "unknown",
               "range": {
                 "end": 20,
@@ -12123,18 +12146,18 @@
           },
           "generatedParenthesized": [
           ],
-          "paraphrases": "formulas are concepts",
+          "paraphrases": [
+          ],
           "paraphrasesParenthesized": [
           ],
           "responses": [
-            ""
           ]
         },
         {
           "context": {
             "concept": {
               "dead": true,
-              "level": 1,
+              "level": 0,
               "marker": "unknown",
               "range": {
                 "end": 29,
@@ -12145,6 +12168,7 @@
               "value": "operator",
               "word": "operator"
             },
+            "context_id": 2,
             "context_index": 1,
             "dead": true,
             "flatten": false,
@@ -12153,7 +12177,7 @@
             "modifiers": [
               {
                 "dead": true,
-                "level": 1,
+                "level": 0,
                 "marker": "unknown",
                 "range": {
                   "end": 11,
@@ -12181,15 +12205,16 @@
           },
           "generatedParenthesized": [
           ],
-          "paraphrases": "mathematical modifies operator",
+          "paraphrases": [
+          ],
           "paraphrasesParenthesized": [
           ],
           "responses": [
-            ""
           ]
         },
         {
           "context": {
+            "context_id": 2,
             "context_index": 1,
             "dead": true,
             "level": 2,
@@ -12197,7 +12222,7 @@
             "number": "one",
             "one": {
               "dead": true,
-              "level": 1,
+              "level": 0,
               "marker": "unknown",
               "number": "one",
               "range": {
@@ -12206,6 +12231,7 @@
               },
               "text": "descending",
               "types": [
+                "queryable",
                 "unknown"
               ],
               "unknown": true,
@@ -12280,15 +12306,16 @@
           },
           "generatedParenthesized": [
           ],
-          "paraphrases": "descending is a sort ordering",
+          "paraphrases": [
+          ],
           "paraphrasesParenthesized": [
           ],
           "responses": [
-            ""
           ]
         },
         {
           "context": {
+            "context_id": 2,
             "context_index": 1,
             "dead": true,
             "level": 2,
@@ -12296,7 +12323,7 @@
             "number": "one",
             "one": {
               "dead": true,
-              "level": 1,
+              "level": 0,
               "marker": "unknown",
               "number": "one",
               "range": {
@@ -12305,6 +12332,7 @@
               },
               "text": "ascending",
               "types": [
+                "queryable",
                 "unknown"
               ],
               "unknown": true,
@@ -12379,18 +12407,18 @@
           },
           "generatedParenthesized": [
           ],
-          "paraphrases": "ascending is a sort ordering",
+          "paraphrases": [
+          ],
           "paraphrasesParenthesized": [
           ],
           "responses": [
-            ""
           ]
         },
         {
           "context": {
             "concept": {
               "dead": true,
-              "level": 1,
+              "level": 0,
               "marker": "unknown",
               "range": {
                 "end": 21,
@@ -12401,6 +12429,7 @@
               "value": "ordering",
               "word": "ordering"
             },
+            "context_id": 2,
             "context_index": 1,
             "dead": true,
             "flatten": false,
@@ -12409,7 +12438,7 @@
             "modifiers": [
               {
                 "dead": true,
-                "level": 1,
+                "level": 0,
                 "marker": "unknown",
                 "range": {
                   "end": 3,
@@ -12438,11 +12467,11 @@
           },
           "generatedParenthesized": [
           ],
-          "paraphrases": "sort modifies ordering",
+          "paraphrases": [
+          ],
           "paraphrasesParenthesized": [
           ],
           "responses": [
-            ""
           ]
         }
       ]
@@ -13002,51 +13031,6 @@
               {
                 "marker": [
                   "solve",
-                  0
-                ],
-                "range": {
-                  "end": 4,
-                  "start": 0
-                }
-              },
-              {
-                "marker": [
-                  "equals",
-                  1
-                ],
-                "range": {
-                  "end": 14,
-                  "start": 6
-                }
-              },
-              {
-                "marker": [
-                  "forVariable",
-                  1
-                ],
-                "range": {
-                  "end": 18,
-                  "start": 16
-                }
-              },
-              {
-                "marker": [
-                  "x",
-                  1
-                ],
-                "range": {
-                  "end": 20,
-                  "start": 20
-                }
-              }
-            ]
-          },
-          {
-            "counter": 9,
-            "operators": [
-              {
-                "marker": [
-                  "solve",
                   1
                 ],
                 "range": {
@@ -13062,6 +13046,40 @@
   },
   {
     "associations": [
+      [
+        [
+          "divideByOperator",
+          0
+        ],
+        [
+          "equals",
+          0
+        ],
+        [
+          "integer",
+          0
+        ],
+        [
+          "leftParenthesis",
+          0
+        ],
+        [
+          "plusOperator",
+          0
+        ],
+        [
+          "rightParenthesis",
+          0
+        ],
+        [
+          "timesOperator",
+          0
+        ],
+        [
+          "unknown",
+          0
+        ]
+      ],
       [
         [
           "divideByOperator",
@@ -13221,6 +13239,7 @@
     },
     "contexts": [
       {
+        "context_id": 2,
         "context_index": 1,
         "dead": true,
         "left": {
@@ -13378,7 +13397,6 @@
         "word": "="
       }
     ],
-    "developerTest": false,
     "generatedParenthesized": [
       ""
     ],
@@ -13660,6 +13678,7 @@
             "fahrenheit": [
               {
                 "equality": {
+                  "context_id": 2,
                   "context_index": 1,
                   "dead": true,
                   "left": {
@@ -14030,7 +14049,6 @@
               "concept",
               "doubleQuote",
               "theAble",
-              "unknown",
               "it",
               "what",
               "whatAble",
@@ -14048,7 +14066,7 @@
               "property",
               "object",
               "concept",
-              "unknown",
+              "listable",
               "reason",
               "memorable",
               "noun"
@@ -14180,6 +14198,9 @@
               "toAble",
               "thisitthat"
             ],
+            "listable": [
+              "theAble"
+            ],
             "memorable": [
               "theAble"
             ],
@@ -14247,9 +14268,7 @@
               "preposition"
             ],
             "unknown": [
-              "hierarchyAble",
-              "theAble",
-              "queryable"
+              "hierarchyAble"
             ],
             "what": [
               "object",
@@ -14402,6 +14421,7 @@
       "processed": [
         {
           "context": {
+            "context_id": 2,
             "context_index": 1,
             "dead": true,
             "left": {
@@ -14558,15 +14578,19 @@
             "value": "equals",
             "word": "="
           },
-          "generatedParenthesized": "",
-          "paraphrases": "fahrenheit = celcius * (9 / 5) + 32",
-          "paraphrasesParenthesized": "((fahrenheit) = (((celcius) * ((((9) / (5))))) + (32)))",
+          "generatedParenthesized": [
+          ],
+          "paraphrases": [
+          ],
+          "paraphrasesParenthesized": [
+          ],
           "responses": [
             ""
           ]
         },
         {
           "context": {
+            "context_id": 2,
             "context_index": 1,
             "dead": true,
             "level": 2,
@@ -14620,11 +14644,11 @@
           },
           "generatedParenthesized": [
           ],
-          "paraphrases": "formulas are concepts",
+          "paraphrases": [
+          ],
           "paraphrasesParenthesized": [
           ],
           "responses": [
-            ""
           ]
         },
         {
@@ -14642,6 +14666,7 @@
               "value": "operator",
               "word": "operator"
             },
+            "context_id": 2,
             "context_index": 1,
             "dead": true,
             "flatten": false,
@@ -14678,15 +14703,16 @@
           },
           "generatedParenthesized": [
           ],
-          "paraphrases": "mathematical modifies operator",
+          "paraphrases": [
+          ],
           "paraphrasesParenthesized": [
           ],
           "responses": [
-            ""
           ]
         },
         {
           "context": {
+            "context_id": 2,
             "context_index": 1,
             "dead": true,
             "level": 2,
@@ -14703,6 +14729,7 @@
               },
               "text": "descending",
               "types": [
+                "queryable",
                 "unknown"
               ],
               "unknown": true,
@@ -14717,9 +14744,9 @@
             "topLevel": true,
             "touchedBy": [
               "comparable#call2",
-              "instance3#comparable#call2",
-              "instance3#math#call2",
-              "instance3#formulas#call2"
+              "instance2#comparable#call2",
+              "instance2#math#call2",
+              "instance2#formulas#call2"
             ],
             "two": {
               "atomic": true,
@@ -14777,15 +14804,16 @@
           },
           "generatedParenthesized": [
           ],
-          "paraphrases": "descending is a sort ordering",
+          "paraphrases": [
+          ],
           "paraphrasesParenthesized": [
           ],
           "responses": [
-            ""
           ]
         },
         {
           "context": {
+            "context_id": 2,
             "context_index": 1,
             "dead": true,
             "level": 2,
@@ -14802,6 +14830,7 @@
               },
               "text": "ascending",
               "types": [
+                "queryable",
                 "unknown"
               ],
               "unknown": true,
@@ -14816,9 +14845,9 @@
             "topLevel": true,
             "touchedBy": [
               "comparable#call2",
-              "instance2#comparable#call2",
-              "instance2#math#call2",
-              "instance2#formulas#call2"
+              "instance1#comparable#call2",
+              "instance1#math#call2",
+              "instance1#formulas#call2"
             ],
             "two": {
               "atomic": true,
@@ -14876,11 +14905,11 @@
           },
           "generatedParenthesized": [
           ],
-          "paraphrases": "ascending is a sort ordering",
+          "paraphrases": [
+          ],
           "paraphrasesParenthesized": [
           ],
           "responses": [
-            ""
           ]
         },
         {
@@ -14898,6 +14927,7 @@
               "value": "ordering",
               "word": "ordering"
             },
+            "context_id": 2,
             "context_index": 1,
             "dead": true,
             "flatten": false,
@@ -14935,11 +14965,11 @@
           },
           "generatedParenthesized": [
           ],
-          "paraphrases": "sort modifies ordering",
+          "paraphrases": [
+          ],
           "paraphrasesParenthesized": [
           ],
           "responses": [
-            ""
           ]
         }
       ]
@@ -15932,36 +15962,8 @@
           0
         ],
         [
-          "the",
-          0
-        ],
-        [
           "unknown",
-          1
-        ]
-      ],
-      [
-        [
-          "forVariable",
           0
-        ],
-        [
-          "the",
-          0
-        ],
-        [
-          "unknown",
-          1
-        ]
-      ],
-      [
-        [
-          "forVariable",
-          0
-        ],
-        [
-          "unknown",
-          1
         ]
       ]
     ],
@@ -15969,12 +15971,13 @@
     },
     "contexts": [
       {
+        "context_id": 2,
         "context_index": 1,
         "dead": true,
         "equality": {
           "dead": true,
           "default": true,
-          "level": 1,
+          "level": 0,
           "marker": "forVariable",
           "range": {
             "end": 15,
@@ -15997,7 +16000,7 @@
         "topLevel": true,
         "variable": {
           "dead": true,
-          "level": 1,
+          "level": 0,
           "marker": "unknown",
           "range": {
             "end": 26,
@@ -16013,7 +16016,7 @@
           "dead": true,
           "determiner": "the",
           "focusableForPhrase": true,
-          "level": 1,
+          "level": 0,
           "marker": "formula",
           "modifiers": [
             "determiner"
@@ -16047,14 +16050,6 @@
           ],
           "ops": [
             [
-              "forVariable",
-              0
-            ],
-            [
-              "formula",
-              0
-            ],
-            [
               "formulaForVariable",
               0
             ],
@@ -16071,18 +16066,10 @@
         {
           "counter": 2,
           "op": [
-            "formula",
+            "the",
             0
           ],
           "ops": [
-            [
-              "forVariable",
-              0
-            ],
-            [
-              "formula",
-              0
-            ],
             [
               "formulaForVariable",
               0
@@ -16095,44 +16082,6 @@
         },
         {
           "counter": 3,
-          "op": [
-            "the",
-            0
-          ],
-          "ops": [
-            [
-              "forVariable",
-              0
-            ],
-            [
-              "formulaForVariable",
-              0
-            ],
-            [
-              "the",
-              0
-            ]
-          ]
-        },
-        {
-          "counter": 4,
-          "op": [
-            "forVariable",
-            0
-          ],
-          "ops": [
-            [
-              "forVariable",
-              0
-            ],
-            [
-              "formulaForVariable",
-              0
-            ]
-          ]
-        },
-        {
-          "counter": 5,
           "op": [
             "formulaForVariable",
             0
@@ -16241,6 +16190,10 @@
             "ifAble": [
               "orAble"
             ],
+            "listable": [
+              "object",
+              "queryable"
+            ],
             "object": [
               "what",
               "whose"
@@ -16266,7 +16219,6 @@
               "concept",
               "doubleQuote",
               "theAble",
-              "unknown",
               "it",
               "what",
               "whatAble",
@@ -16284,7 +16236,7 @@
               "property",
               "object",
               "concept",
-              "unknown",
+              "listable",
               "reason",
               "memorable",
               "noun"
@@ -16300,6 +16252,7 @@
             "verb": [
               "modifies",
               "is",
+              "isQuery",
               "remember",
               "evaluate"
             ]
@@ -16320,6 +16273,7 @@
             "canBeQuestion",
             "property",
             "theAble",
+            "listable",
             "propertyOf",
             "whose",
             "concept",
@@ -16339,6 +16293,7 @@
             "is",
             "toAble",
             "to",
+            "isQuery",
             "reason",
             "memorable",
             "remember",
@@ -16404,11 +16359,17 @@
               "canBeQuestion",
               "verb"
             ],
+            "isQuery": [
+              "verb"
+            ],
             "it": [
               "pronoun",
               "queryable",
               "toAble",
               "thisitthat"
+            ],
+            "listable": [
+              "theAble"
             ],
             "memorable": [
               "theAble"
@@ -16424,7 +16385,8 @@
             ],
             "object": [
               "queryable",
-              "theAble"
+              "theAble",
+              "listable"
             ],
             "orAble": [
               "ifAble"
@@ -16435,6 +16397,9 @@
             ],
             "propertyOf": [
               "preposition"
+            ],
+            "queryable": [
+              "listable"
             ],
             "questionMark": [
               "punctuation"
@@ -16473,9 +16438,7 @@
               "preposition"
             ],
             "unknown": [
-              "hierarchyAble",
-              "theAble",
-              "queryable"
+              "hierarchyAble"
             ],
             "what": [
               "object",
@@ -16535,7 +16498,11 @@
               },
               "is": {
               },
+              "isQuery": {
+              },
               "it": {
+              },
+              "listable": {
               },
               "memorable": {
               },
@@ -16624,12 +16591,13 @@
       "processed": [
         {
           "context": {
+            "context_id": 2,
             "context_index": 1,
             "dead": true,
             "equality": {
               "dead": true,
               "default": true,
-              "level": 1,
+              "level": 0,
               "marker": "forVariable",
               "range": {
                 "end": 15,
@@ -16652,7 +16620,7 @@
             "topLevel": true,
             "variable": {
               "dead": true,
-              "level": 1,
+              "level": 0,
               "marker": "unknown",
               "range": {
                 "end": 26,
@@ -16668,7 +16636,7 @@
               "dead": true,
               "determiner": "the",
               "focusableForPhrase": true,
-              "level": 1,
+              "level": 0,
               "marker": "formula",
               "modifiers": [
                 "determiner"
@@ -16688,15 +16656,19 @@
               "word": "formulas"
             }
           },
-          "generatedParenthesized": "",
-          "paraphrases": "the formulas for fahrenheit",
-          "paraphrasesParenthesized": "((the (formulas)) (for) (fahrenheit))",
+          "generatedParenthesized": [
+          ],
+          "paraphrases": [
+          ],
+          "paraphrasesParenthesized": [
+          ],
           "responses": [
             ""
           ]
         },
         {
           "context": {
+            "context_id": 2,
             "context_index": 1,
             "dead": true,
             "level": 2,
@@ -16704,7 +16676,7 @@
             "number": "many",
             "one": {
               "dead": true,
-              "level": 1,
+              "level": 0,
               "marker": "unknown",
               "number": "many",
               "range": {
@@ -16732,7 +16704,7 @@
             "two": {
               "concept": true,
               "dead": true,
-              "level": 1,
+              "level": 0,
               "marker": "unknown",
               "range": {
                 "end": 20,
@@ -16750,18 +16722,18 @@
           },
           "generatedParenthesized": [
           ],
-          "paraphrases": "formulas are concepts",
+          "paraphrases": [
+          ],
           "paraphrasesParenthesized": [
           ],
           "responses": [
-            ""
           ]
         },
         {
           "context": {
             "concept": {
               "dead": true,
-              "level": 1,
+              "level": 0,
               "marker": "unknown",
               "range": {
                 "end": 29,
@@ -16772,6 +16744,7 @@
               "value": "operator",
               "word": "operator"
             },
+            "context_id": 2,
             "context_index": 1,
             "dead": true,
             "flatten": false,
@@ -16780,7 +16753,7 @@
             "modifiers": [
               {
                 "dead": true,
-                "level": 1,
+                "level": 0,
                 "marker": "unknown",
                 "range": {
                   "end": 11,
@@ -16808,15 +16781,16 @@
           },
           "generatedParenthesized": [
           ],
-          "paraphrases": "mathematical modifies operator",
+          "paraphrases": [
+          ],
           "paraphrasesParenthesized": [
           ],
           "responses": [
-            ""
           ]
         },
         {
           "context": {
+            "context_id": 2,
             "context_index": 1,
             "dead": true,
             "level": 2,
@@ -16824,7 +16798,7 @@
             "number": "one",
             "one": {
               "dead": true,
-              "level": 1,
+              "level": 0,
               "marker": "unknown",
               "number": "one",
               "range": {
@@ -16833,6 +16807,7 @@
               },
               "text": "descending",
               "types": [
+                "queryable",
                 "unknown"
               ],
               "unknown": true,
@@ -16907,15 +16882,16 @@
           },
           "generatedParenthesized": [
           ],
-          "paraphrases": "descending is a sort ordering",
+          "paraphrases": [
+          ],
           "paraphrasesParenthesized": [
           ],
           "responses": [
-            ""
           ]
         },
         {
           "context": {
+            "context_id": 2,
             "context_index": 1,
             "dead": true,
             "level": 2,
@@ -16923,7 +16899,7 @@
             "number": "one",
             "one": {
               "dead": true,
-              "level": 1,
+              "level": 0,
               "marker": "unknown",
               "number": "one",
               "range": {
@@ -16932,6 +16908,7 @@
               },
               "text": "ascending",
               "types": [
+                "queryable",
                 "unknown"
               ],
               "unknown": true,
@@ -17006,18 +16983,18 @@
           },
           "generatedParenthesized": [
           ],
-          "paraphrases": "ascending is a sort ordering",
+          "paraphrases": [
+          ],
           "paraphrasesParenthesized": [
           ],
           "responses": [
-            ""
           ]
         },
         {
           "context": {
             "concept": {
               "dead": true,
-              "level": 1,
+              "level": 0,
               "marker": "unknown",
               "range": {
                 "end": 21,
@@ -17028,6 +17005,7 @@
               "value": "ordering",
               "word": "ordering"
             },
+            "context_id": 2,
             "context_index": 1,
             "dead": true,
             "flatten": false,
@@ -17036,7 +17014,7 @@
             "modifiers": [
               {
                 "dead": true,
-                "level": 1,
+                "level": 0,
                 "marker": "unknown",
                 "range": {
                   "end": 3,
@@ -17065,11 +17043,11 @@
           },
           "generatedParenthesized": [
           ],
-          "paraphrases": "sort modifies ordering",
+          "paraphrases": [
+          ],
           "paraphrasesParenthesized": [
           ],
           "responses": [
-            ""
           ]
         }
       ]
@@ -17169,7 +17147,7 @@
               {
                 "marker": [
                   "unknown",
-                  1
+                  0
                 ],
                 "range": {
                   "end": 26,
@@ -17183,22 +17161,12 @@
             "operators": [
               {
                 "marker": [
-                  "the",
+                  "formula",
                   0
                 ],
                 "range": {
-                  "end": 2,
-                  "start": 0
-                }
-              },
-              {
-                "marker": [
-                  "formula",
-                  1
-                ],
-                "range": {
                   "end": 11,
-                  "start": 4
+                  "start": 0
                 }
               },
               {
@@ -17214,7 +17182,7 @@
               {
                 "marker": [
                   "unknown",
-                  1
+                  0
                 ],
                 "range": {
                   "end": 26,
@@ -17225,76 +17193,6 @@
           },
           {
             "counter": 4,
-            "operators": [
-              {
-                "marker": [
-                  "formula",
-                  1
-                ],
-                "range": {
-                  "end": 11,
-                  "start": 0
-                }
-              },
-              {
-                "marker": [
-                  "forVariable",
-                  0
-                ],
-                "range": {
-                  "end": 15,
-                  "start": 13
-                }
-              },
-              {
-                "marker": [
-                  "unknown",
-                  1
-                ],
-                "range": {
-                  "end": 26,
-                  "start": 17
-                }
-              }
-            ]
-          },
-          {
-            "counter": 5,
-            "operators": [
-              {
-                "marker": [
-                  "formula",
-                  1
-                ],
-                "range": {
-                  "end": 11,
-                  "start": 0
-                }
-              },
-              {
-                "marker": [
-                  "forVariable",
-                  1
-                ],
-                "range": {
-                  "end": 15,
-                  "start": 13
-                }
-              },
-              {
-                "marker": [
-                  "unknown",
-                  1
-                ],
-                "range": {
-                  "end": 26,
-                  "start": 17
-                }
-              }
-            ]
-          },
-          {
-            "counter": 6,
             "operators": [
               {
                 "marker": [
@@ -17314,6 +17212,40 @@
   },
   {
     "associations": [
+      [
+        [
+          "divideByOperator",
+          0
+        ],
+        [
+          "equals",
+          0
+        ],
+        [
+          "integer",
+          0
+        ],
+        [
+          "leftParenthesis",
+          0
+        ],
+        [
+          "plusOperator",
+          0
+        ],
+        [
+          "rightParenthesis",
+          0
+        ],
+        [
+          "timesOperator",
+          0
+        ],
+        [
+          "unknown",
+          0
+        ]
+      ],
       [
         [
           "divideByOperator",
@@ -17488,6 +17420,28 @@
         [
           "unknown",
           0
+        ]
+      ],
+      [
+        [
+          "forVariable",
+          0
+        ],
+        [
+          "formula",
+          0
+        ],
+        [
+          "is",
+          0
+        ],
+        [
+          "the",
+          0
+        ],
+        [
+          "unknown",
+          0
         ],
         [
           "what",
@@ -17511,52 +17465,13 @@
           "unknown",
           0
         ]
-      ],
-      [
-        [
-          "forVariable",
-          0
-        ],
-        [
-          "formula",
-          0
-        ],
-        [
-          "the",
-          0
-        ],
-        [
-          "unknown",
-          0
-        ]
-      ],
-      [
-        [
-          "forVariable",
-          0
-        ],
-        [
-          "formula",
-          0
-        ],
-        [
-          "the",
-          0
-        ],
-        [
-          "unknown",
-          0
-        ],
-        [
-          "what",
-          0
-        ]
       ]
     ],
     "config": {
     },
     "contexts": [
       {
+        "context_id": 2,
         "context_index": 1,
         "dead": true,
         "left": {
@@ -17714,6 +17629,7 @@
         "word": "="
       },
       {
+        "context_id": 4,
         "context_index": 3,
         "dead": true,
         "evalue": {
@@ -17811,6 +17727,7 @@
               "marker": "list",
               "value": [
                 {
+                  "context_id": 2,
                   "context_index": 1,
                   "dead": true,
                   "left": {
@@ -18133,7 +18050,6 @@
         "word": "are"
       }
     ],
-    "developerTest": false,
     "generatedParenthesized": [
       "",
       "((((the (formulas)) (for) (fahrenheit)) are ((((fahrenheit) = (((celcius) * ((((9) / (5))))) + (32)))))))"
@@ -18654,6 +18570,7 @@
             "fahrenheit": [
               {
                 "equality": {
+                  "context_id": 2,
                   "context_index": 1,
                   "dead": true,
                   "left": {
@@ -19024,7 +18941,6 @@
               "concept",
               "doubleQuote",
               "theAble",
-              "unknown",
               "it",
               "what",
               "whatAble",
@@ -19042,7 +18958,7 @@
               "property",
               "object",
               "concept",
-              "unknown",
+              "listable",
               "reason",
               "memorable",
               "noun"
@@ -19174,6 +19090,9 @@
               "toAble",
               "thisitthat"
             ],
+            "listable": [
+              "theAble"
+            ],
             "memorable": [
               "theAble"
             ],
@@ -19241,9 +19160,7 @@
               "preposition"
             ],
             "unknown": [
-              "hierarchyAble",
-              "theAble",
-              "queryable"
+              "hierarchyAble"
             ],
             "what": [
               "object",
@@ -19396,6 +19313,7 @@
       "processed": [
         {
           "context": {
+            "context_id": 4,
             "context_index": 3,
             "dead": true,
             "evalue": {
@@ -19493,6 +19411,7 @@
                   "marker": "list",
                   "value": [
                     {
+                      "context_id": 2,
                       "context_index": 1,
                       "dead": true,
                       "left": {
@@ -19814,9 +19733,12 @@
             },
             "word": "are"
           },
-          "generatedParenthesized": "((((the (formulas)) (for) (fahrenheit)) are ((((fahrenheit) = (((celcius) * ((((9) / (5))))) + (32)))))))",
-          "paraphrases": "what are the formulas for fahrenheit?",
-          "paraphrasesParenthesized": "(((what) are ((the (formulas)) (for) (fahrenheit)))?)",
+          "generatedParenthesized": [
+          ],
+          "paraphrases": [
+          ],
+          "paraphrasesParenthesized": [
+          ],
           "responses": [
             "",
             "the formulas for fahrenheit are fahrenheit = celcius * (9 / 5) + 32"
@@ -19824,6 +19746,7 @@
         },
         {
           "context": {
+            "context_id": 2,
             "context_index": 1,
             "dead": true,
             "left": {
@@ -19980,9 +19903,12 @@
             "value": "equals",
             "word": "="
           },
-          "generatedParenthesized": "",
-          "paraphrases": "fahrenheit = celcius * (9 / 5) + 32",
-          "paraphrasesParenthesized": "((fahrenheit) = (((celcius) * ((((9) / (5))))) + (32)))",
+          "generatedParenthesized": [
+          ],
+          "paraphrases": [
+          ],
+          "paraphrasesParenthesized": [
+          ],
           "responses": [
             "",
             "the formulas for fahrenheit are fahrenheit = celcius * (9 / 5) + 32"
@@ -19990,6 +19916,7 @@
         },
         {
           "context": {
+            "context_id": 2,
             "context_index": 1,
             "dead": true,
             "level": 2,
@@ -20043,11 +19970,11 @@
           },
           "generatedParenthesized": [
           ],
-          "paraphrases": "formulas are concepts",
+          "paraphrases": [
+          ],
           "paraphrasesParenthesized": [
           ],
           "responses": [
-            ""
           ]
         },
         {
@@ -20065,6 +19992,7 @@
               "value": "operator",
               "word": "operator"
             },
+            "context_id": 2,
             "context_index": 1,
             "dead": true,
             "flatten": false,
@@ -20101,15 +20029,16 @@
           },
           "generatedParenthesized": [
           ],
-          "paraphrases": "mathematical modifies operator",
+          "paraphrases": [
+          ],
           "paraphrasesParenthesized": [
           ],
           "responses": [
-            ""
           ]
         },
         {
           "context": {
+            "context_id": 2,
             "context_index": 1,
             "dead": true,
             "level": 2,
@@ -20126,6 +20055,7 @@
               },
               "text": "descending",
               "types": [
+                "queryable",
                 "unknown"
               ],
               "unknown": true,
@@ -20140,9 +20070,9 @@
             "topLevel": true,
             "touchedBy": [
               "comparable#call2",
-              "instance3#comparable#call2",
-              "instance3#math#call2",
-              "instance3#formulas#call2"
+              "instance2#comparable#call2",
+              "instance2#math#call2",
+              "instance2#formulas#call2"
             ],
             "two": {
               "atomic": true,
@@ -20200,15 +20130,16 @@
           },
           "generatedParenthesized": [
           ],
-          "paraphrases": "descending is a sort ordering",
+          "paraphrases": [
+          ],
           "paraphrasesParenthesized": [
           ],
           "responses": [
-            ""
           ]
         },
         {
           "context": {
+            "context_id": 2,
             "context_index": 1,
             "dead": true,
             "level": 2,
@@ -20225,6 +20156,7 @@
               },
               "text": "ascending",
               "types": [
+                "queryable",
                 "unknown"
               ],
               "unknown": true,
@@ -20239,9 +20171,9 @@
             "topLevel": true,
             "touchedBy": [
               "comparable#call2",
-              "instance2#comparable#call2",
-              "instance2#math#call2",
-              "instance2#formulas#call2"
+              "instance1#comparable#call2",
+              "instance1#math#call2",
+              "instance1#formulas#call2"
             ],
             "two": {
               "atomic": true,
@@ -20299,11 +20231,11 @@
           },
           "generatedParenthesized": [
           ],
-          "paraphrases": "ascending is a sort ordering",
+          "paraphrases": [
+          ],
           "paraphrasesParenthesized": [
           ],
           "responses": [
-            ""
           ]
         }
       ]
