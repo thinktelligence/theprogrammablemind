@@ -204,7 +204,9 @@ knowledgeModule({
     name: './formulas.test.json',
     contents: tests,
     checks: {
-      objects: ['formulas'],
+      objects: [
+        'formulas',
+      ],
       context: defaultContextCheck(),
     }
   },
