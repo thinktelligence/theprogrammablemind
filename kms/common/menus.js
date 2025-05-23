@@ -6,7 +6,8 @@ const tests = require('./menus.test.json')
 const instance = require('./menus.instance.json')
 
 class API {
-  initialize({ objects }) {
+  initialize({ objects, config }) {
+    this._config = config
     this._objects = objects
     this._objects.show = []
     this._objects.menuDefs = []
@@ -63,7 +64,7 @@ class API {
   }
 
   addMenu(name) {
-    const config = this.args.config
+    const config = this._config
     const id = name
     const languageId = `${name}Menu_menus`
     config.addOperator(`([${languageId}|])`)
@@ -83,7 +84,7 @@ class API {
   }
 
   addMenuItem(menuId, id, name) {
-    const config = this.args.config
+    const config = this._config
     const languageId = `${id}MenuItem_menus`
     config.addOperator(`([${languageId}|])`)
     config.addBridge({ 

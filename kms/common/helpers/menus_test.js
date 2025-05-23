@@ -155,7 +155,7 @@ describe("ups", () => {
 });
 
 describe("parents", () => {
-  test('NEOS23 calculate parents empty', () => {
+  test('calculate parents empty', () => {
     const sm = {
       key: "File",
       text: "File",
@@ -164,7 +164,7 @@ describe("parents", () => {
     expect(parents).toStrictEqual({ "File": "File" }) 
   });
 
-  test('NEOS23 calculate parents one', () => {
+  test('calculate parents one', () => {
     const sm = {
       key: "File",
       text: "File",
@@ -176,7 +176,7 @@ describe("parents", () => {
     expect(parents).toStrictEqual({"File": "File", "File-New": "File"}) 
   });
 
-  test('NEOS23 calculate parents two', () => {
+  test('calculate parents two', () => {
     const sm = {
       key: "File",
       text: "File",
@@ -189,7 +189,7 @@ describe("parents", () => {
     expect(parents).toStrictEqual({ "File": "File", "File-Open": "File", "File-New": "File" }) 
   });
 
-  test('NEO23 calculate parents two with list', () => {
+  test('calculate parents two with list', () => {
     const sm = {
       key: "File",
       text: "File",
