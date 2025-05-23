@@ -2,6 +2,18 @@ const { flatten, knowledgeModule, where } = require('./runtime').theprogrammable
 const { defaultContextCheck } = require('./helpers')
 const sdefaults_tests = require('./sdefaults.test.json')
 
+class API {
+  initialize(args) {
+    const { globals } = args
+    this.globals = globals
+    this.globals.associations = []
+  }
+
+  addAssociation(association) {
+    this.globals.associations.push(association)
+  }
+}
+
 const config = {
   name: 'sdefaults',
   semantics: [
@@ -29,11 +41,24 @@ const config = {
         context.isResponse
       }
     },
+    {
+      notes: 'set the global associations',
+      where: where(),
+      priority: -1,
+      match: ({context}) => context.marker == 'controlBetween' || context.marker == 'controlEnd',
+      apply: async ({context, objects, api, _continue}) => {
+        for (const association of context.previous?.associations || []) {
+          api.addAssociation(association)
+        }
+        _continue()
+      }
+    },
   ],
 };
 
 knowledgeModule({ 
   config,
+  api: () => new API(),
 
   module,
   description: 'defaults for semantics',

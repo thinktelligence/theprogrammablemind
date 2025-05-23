@@ -1,6 +1,7 @@
 const { knowledgeModule, where, Digraph } = require('./runtime').theprogrammablemind
 const { defaultContextCheck } = require('./helpers')
 const ui = require('./ui')
+const helpers = require('./helpers/menus')
 const tests = require('./menus.test.json')
 const instance = require('./menus.instance.json')
 
@@ -8,14 +9,41 @@ class API {
   initialize({ objects }) {
     this._objects = objects
     this._objects.show = []
+    this._objects.menuDefs = []
+    this._objects.directions = {}
+  }
+
+  setup() {
+    this._objects.directions = {
+      right: helpers.calculateRights(this._objects.menuDefs),
+      left: helpers.calculateLefts(this._objects.menuDefs),
+      up: helpers.calculateUps(this._objects.menuDefs),
+      down: helpers.calculateDowns(this._objects.menuDefs),
+      parents: helpers.calculateParents(this._objects.menuDefs),
+    }
   }
 
   move(direction, steps = 1, units = undefined) {
     this._objects.move = { direction, steps, units }
+    let next = this.current()
+    if (direction === 'left' || direction === 'right' ){
+      next = this._objects.directions.parents[next]
+    }
+    for (let i = 0; i < steps; ++i) {
+      next = this._objects.directions[direction][next]
+    }
+    if (next) {
+      this.show(next)
+    }
   }
 
   show(item) {
     this._objects.show.push(item)
+    this._objects.current = item
+  }
+
+  current() {
+    return this._objects.current
   }
 
   select(item) {
@@ -41,10 +69,16 @@ class API {
     config.addOperator(`([${languageId}|])`)
     config.addBridge({ 
       id: `${languageId}`, 
-      associations: [languageId],
+      associations: [languageId, 'menus'],
       isA: ['menu_menus'],
       words: [{ word: name, value: id, instance: true }],
     })
+    this._objects.menuDefs.push({
+      key: name,
+      text: name,
+      children: [],
+    })
+    this.setup()
     return { languageId, id }
   }
 
@@ -54,10 +88,16 @@ class API {
     config.addOperator(`([${languageId}|])`)
     config.addBridge({ 
       id: `${languageId}`, 
-      associations: [menuId.languageId],
+      associations: [menuId.languageId, 'menus'],
       isA: ['menu_menus_item_menus'],
       words: [{ word: name, value: id, path: [menuId.id, id], instance: true }],
     })
+    const menu = this._objects.menuDefs.find((md) => md.key == menuId.id)
+    menu.children.push({
+      key: id,
+      text: name,
+    })
+    this.setup()
   }
 }
 
@@ -132,13 +172,19 @@ const fixtures = async ({api, fragment, s, config, objects, kms, isModule}) => {
   const objectMenuId = api.addMenu('object')
 
   api.addMenuItem(fileMenuId, 'fileOpen', 'open')
+  api.addMenuItem(fileMenuId, 'fileClose', 'close')
   api.addMenuItem(objectMenuId, 'objectOpen', 'open')
+  api.addMenuItem(objectMenuId, 'objectClose', 'close')
 }
 
 knowledgeModule({ 
   config,
   includes: [ui],
   api: () => new API(),
+  apiKMs: ['menus', 'ui'],
+  initializer: ({apis}) => {
+    apis('sdefaults').addAssociation('menus')
+  },
 
   module,
   description: 'Control menues with speech',
@@ -147,7 +193,7 @@ knowledgeModule({
     contents: tests,
     fixtures,
     checks: {
-      objects: ['move', 'select', 'unselect', 'cancel', 'stop', 'show'],
+      objects: ['move', 'select', 'unselect', 'cancel', 'stop', 'show', 'menuDefs'],
       context: defaultContextCheck(['operator', 'direction', 'moveable']),
     },
   },

@@ -17,7 +17,7 @@ const concept_instance = require('./concept.instance.json')
 config = {
   name: 'concept',
   operators: [
-    "((context.punctuation != true)* [modifies|] (_any))",
+    "((punctuation != true)* [modifies|] (_any))",
     "([concept])",
     "([literally] (modifies/0))",
   ],
