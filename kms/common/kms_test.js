@@ -1,7 +1,7 @@
 const menus = require('./menus')
 
 describe('helpers', () => {
-  it('NEOS23 setting api runs initialize', async () => {
+  it('setting api runs initialize', async () => {
     const km = await menus()
     class API extends km.api.constructor {
     }
@@ -11,7 +11,7 @@ describe('helpers', () => {
     expect(api._objects).not.toBeNull()
   })
 
-  it('NEO23 sdefault association set', async () => {
+  it('sdefault association set', async () => {
     const km = await menus()
     class API extends km.api.constructor {
     }
