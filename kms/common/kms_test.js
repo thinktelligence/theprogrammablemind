@@ -1,12 +1,31 @@
 const menus = require('./menus')
 
 describe('helpers', () => {
-  it('setting api runs initialize', async () => {
+  it('NEOS23 missing api error', async () => {
     const km = await menus()
     class API extends km.api.constructor {
     }
     const api = new API()
-    await km.setApi(() => api)
+    try {
+      await km.setApi(() => api)
+      expect(true).toBe(false)
+    } catch(e) {
+      const expected = 'Error: The API for menus is not being provided by the API constructor.'
+      expect(e.toString()).toBe(expected)
+    }
+  })
+
+  it('NEO23 setting api runs initialize', async () => {
+    const km = await menus()
+    class API extends km.api.constructor {
+    }
+    const api = new API()
+    await km.setApi(() => {
+      return {
+        menus: api,
+        ui: api,
+      }
+    })
     expect(api._config).not.toBeNull()
     expect(api._objects).not.toBeNull()
   })
@@ -16,7 +35,12 @@ describe('helpers', () => {
     class API extends km.api.constructor {
     }
     const api = new API()
-    await km.setApi(() => api)
+    await km.setApi(() => {
+      return {
+        menus: api,
+        ui: api,
+      }
+    })
     expect(km.config.objects.associations).toStrictEqual(["menus"])
   })
 
@@ -26,7 +50,12 @@ describe('helpers', () => {
     }
     const api = new API()
     km.stop_auto_rebuild()
-      await km.setApi(() => api)
+      await km.setApi(() => {
+        return {
+          menus: api,
+          ui: api,
+        }
+      })
       try {
         km.api.addMenu('file')
         expect(true).toBe(false)

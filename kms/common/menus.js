@@ -5,7 +5,7 @@ const helpers = require('./helpers/menus')
 const tests = require('./menus.test.json')
 const instance = require('./menus.instance.json')
 
-class API {
+class MenusAPI {
   initialize({ objects, config }) {
     this._config = config
     this._objects = objects
@@ -160,6 +160,36 @@ const template = {
   ],
 }
 
+class UIAPI {
+  constructor(menusAPI) {
+    this.menusAPI = menusAPI
+  }
+
+  initialize() {
+  }
+
+  move(direction, steps = 1, units = undefined) {
+    this.menusAPI.move(direction, steps, units)
+  }
+
+  select(item) {
+    this.menusAPI.select(item)
+  }
+
+  unselect(item) {
+    this.menusAPI.unselect(item)
+  }
+
+  cancel(direction) {
+    this.menusAPI.cancel(direction)
+  }
+
+  stop(action) {
+    this.menusAPI.stop(action)
+  }
+
+}
+
 /*
    show the file menu
    pick the file open item
@@ -181,7 +211,14 @@ const fixtures = async ({api, fragment, s, config, objects, kms, isModule}) => {
 knowledgeModule({ 
   config,
   includes: [ui],
-  api: () => new API(),
+  // api: () => new API(),
+  api: () => {
+    const menusAPI = new MenusAPI()
+    return {
+      'menus': menusAPI,
+      'ui': new UIAPI(menusAPI)
+    }
+  },
   apiKMs: ['menus', 'ui'],
   initializer: ({apis}) => {
     apis('sdefaults').addAssociation('menus')
