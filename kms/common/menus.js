@@ -24,6 +24,10 @@ class MenusAPI {
     }
   }
 
+  close() {
+    this._objects.close = true
+  }
+
   move(direction, steps = 1, units = undefined) {
     this._objects.move = { direction, steps, units }
     let next = this.current()
@@ -116,9 +120,20 @@ const template = {
     {
       operators: [
         "([show_menus|show] (showable_menus))",
+        "([close_menus|close] (menu_menus/*))",
         "((@<= menu_menus) [typeOfMenu_menus|show] (@== menu_menus))",
       ],
       bridges: [
+        {
+          id: 'close_menus',
+          isA: ['verb'],
+          associations: ['menus'],
+          bridge: "{ ...next(operator), closee: after[0], generate: ['this', 'closee'] }",
+          semantic: ({context, api}) => {
+            debugger
+            api.close()
+          }
+        },
         {
           id: 'show_menus',
           isA: ['verb'],
@@ -231,7 +246,7 @@ knowledgeModule({
     contents: tests,
     fixtures,
     checks: {
-      objects: ['move', 'select', 'unselect', 'cancel', 'stop', 'show', 'menuDefs'],
+      objects: ['move', 'select', 'unselect', 'cancel', 'stop', 'show', 'menuDefs', 'close'],
       context: defaultContextCheck(['operator', 'direction', 'moveable']),
     },
   },
