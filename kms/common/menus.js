@@ -218,7 +218,9 @@ const fixtures = async ({api, fragment, s, config, objects, kms, isModule}) => {
   const objectMenuId = api.addMenu('object')
 
   api.addMenuItem(fileMenuId, 'fileOpen', 'open')
+  api.addMenuItem(fileMenuId, 'fileOpenRemote', 'open remote')
   api.addMenuItem(fileMenuId, 'fileClose', 'close')
+
   api.addMenuItem(objectMenuId, 'objectOpen', 'open')
   api.addMenuItem(objectMenuId, 'objectClose', 'close')
 }

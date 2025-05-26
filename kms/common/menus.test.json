@@ -87,6 +87,9 @@
       ]
     },
     "objects": {
+      "associations": [
+        "menus"
+      ],
       "nameToUUID": {
         "articles": "articles2",
         "asking": "asking2",
@@ -112,57 +115,110 @@
       },
       "namespaced": {
         "articles2": {
+          "km": "articles2"
         },
         "asking2": {
+          "km": "asking2"
         },
         "concept2": {
           "defaultTypesForHierarchy": {
           },
+          "km": "concept2",
           "valueToWords": [
           ]
         },
         "conjunction2": {
+          "km": "conjunction2"
         },
         "countable2": {
+          "km": "countable2"
         },
         "dialogues2": {
           "idSuffix": "_menus",
+          "km": "dialogues2",
           "mentioned": [
           ],
           "variables": {
           }
         },
         "evaluate2": {
+          "km": "evaluate2"
         },
         "gdefaults2": {
+          "km": "gdefaults2"
         },
         "hierarchy2": {
+          "km": "hierarchy2"
         },
         "menus1": {
           "directions": {
             "down": {
               "file": "fileOpen",
-              "fileOpen": "fileClose",
+              "fileOpen": "fileOpenRemote",
+              "fileOpenRemote": "fileClose",
               "object": "objectOpen",
               "objectOpen": "objectClose"
             },
             "left": {
-              "file": "object"
-            },
-            "right": {
               "object": "file"
             },
+            "parents": {
+              "file": "file",
+              "fileClose": "file",
+              "fileOpen": "file",
+              "fileOpenRemote": "file",
+              "object": "object",
+              "objectClose": "object",
+              "objectOpen": "object"
+            },
+            "paths": {
+              "file": [
+                "file"
+              ],
+              "fileClose": [
+                "file",
+                "fileClose"
+              ],
+              "fileOpen": [
+                "file",
+                "fileOpen"
+              ],
+              "fileOpenRemote": [
+                "file",
+                "fileOpenRemote"
+              ],
+              "object": [
+                "object"
+              ],
+              "objectClose": [
+                "object",
+                "objectClose"
+              ],
+              "objectOpen": [
+                "object",
+                "objectOpen"
+              ]
+            },
+            "right": {
+              "file": "object"
+            },
             "up": {
-              "fileClose": "fileOpen",
+              "fileClose": "fileOpenRemote",
+              "fileOpenRemote": "fileOpen",
               "objectClose": "objectOpen"
             }
           },
+          "km": "menus1",
           "menuDefs": [
             {
               "children": [
                 {
                   "key": "fileOpen",
                   "text": "open"
+                },
+                {
+                  "key": "fileOpenRemote",
+                  "text": "open remote"
                 },
                 {
                   "key": "fileClose",
@@ -191,14 +247,19 @@
           ]
         },
         "meta2": {
+          "km": "meta2"
         },
         "negation2": {
+          "km": "negation2"
         },
         "numbers2": {
+          "km": "numbers2"
         },
         "ordinals2": {
+          "km": "ordinals2"
         },
         "pos2": {
+          "km": "pos2"
         },
         "properties2": {
           "children": {
@@ -351,6 +412,7 @@
             "showable_menus",
             "menu_menus_item_menus"
           ],
+          "km": "properties2",
           "parents": {
             "a": [
               "article"
@@ -615,24 +677,23 @@
           }
         },
         "punctuation2": {
+          "km": "punctuation2"
         },
         "sdefaults2": {
+          "km": "sdefaults2"
         },
         "stm2": {
+          "km": "stm2",
           "mentioned": [
           ],
           "variables": {
           }
         },
         "tokenize2": {
+          "km": "tokenize2"
         },
         "ui2": {
-          "directions": {
-          },
-          "menuDefs": [
-          ],
-          "show": [
-          ]
+          "km": "ui2"
         }
       },
       "processed": [
@@ -1160,7 +1221,8 @@
     "contexts": [
       {
         "associations": [
-          "fileMenu_menus"
+          "fileMenu_menus",
+          "menus"
         ],
         "concept": true,
         "context_id": 2,
@@ -1172,7 +1234,8 @@
         "marker": "menu_menus",
         "menus": {
           "associations": [
-            "fileMenu_menus"
+            "fileMenu_menus",
+            "menus"
           ],
           "dead": true,
           "instance": true,
@@ -1271,6 +1334,11 @@
       ]
     },
     "objects": {
+      "associations": [
+        "menus",
+        "fileMenu_menus",
+        "menus"
+      ],
       "nameToUUID": {
         "articles": "articles2",
         "asking": "asking2",
@@ -1296,57 +1364,110 @@
       },
       "namespaced": {
         "articles2": {
+          "km": "articles2"
         },
         "asking2": {
+          "km": "asking2"
         },
         "concept2": {
           "defaultTypesForHierarchy": {
           },
+          "km": "concept2",
           "valueToWords": [
           ]
         },
         "conjunction2": {
+          "km": "conjunction2"
         },
         "countable2": {
+          "km": "countable2"
         },
         "dialogues2": {
           "idSuffix": "_menus",
+          "km": "dialogues2",
           "mentioned": [
           ],
           "variables": {
           }
         },
         "evaluate2": {
+          "km": "evaluate2"
         },
         "gdefaults2": {
+          "km": "gdefaults2"
         },
         "hierarchy2": {
+          "km": "hierarchy2"
         },
         "menus1": {
           "directions": {
             "down": {
               "file": "fileOpen",
-              "fileOpen": "fileClose",
+              "fileOpen": "fileOpenRemote",
+              "fileOpenRemote": "fileClose",
               "object": "objectOpen",
               "objectOpen": "objectClose"
             },
             "left": {
-              "file": "object"
-            },
-            "right": {
               "object": "file"
             },
+            "parents": {
+              "file": "file",
+              "fileClose": "file",
+              "fileOpen": "file",
+              "fileOpenRemote": "file",
+              "object": "object",
+              "objectClose": "object",
+              "objectOpen": "object"
+            },
+            "paths": {
+              "file": [
+                "file"
+              ],
+              "fileClose": [
+                "file",
+                "fileClose"
+              ],
+              "fileOpen": [
+                "file",
+                "fileOpen"
+              ],
+              "fileOpenRemote": [
+                "file",
+                "fileOpenRemote"
+              ],
+              "object": [
+                "object"
+              ],
+              "objectClose": [
+                "object",
+                "objectClose"
+              ],
+              "objectOpen": [
+                "object",
+                "objectOpen"
+              ]
+            },
+            "right": {
+              "file": "object"
+            },
             "up": {
-              "fileClose": "fileOpen",
+              "fileClose": "fileOpenRemote",
+              "fileOpenRemote": "fileOpen",
               "objectClose": "objectOpen"
             }
           },
+          "km": "menus1",
           "menuDefs": [
             {
               "children": [
                 {
                   "key": "fileOpen",
                   "text": "open"
+                },
+                {
+                  "key": "fileOpenRemote",
+                  "text": "open remote"
                 },
                 {
                   "key": "fileClose",
@@ -1375,14 +1496,19 @@
           ]
         },
         "meta2": {
+          "km": "meta2"
         },
         "negation2": {
+          "km": "negation2"
         },
         "numbers2": {
+          "km": "numbers2"
         },
         "ordinals2": {
+          "km": "ordinals2"
         },
         "pos2": {
+          "km": "pos2"
         },
         "properties2": {
           "children": {
@@ -1535,6 +1661,7 @@
             "showable_menus",
             "menu_menus_item_menus"
           ],
+          "km": "properties2",
           "parents": {
             "a": [
               "article"
@@ -1799,31 +1926,31 @@
           }
         },
         "punctuation2": {
+          "km": "punctuation2"
         },
         "sdefaults2": {
+          "km": "sdefaults2"
         },
         "stm2": {
+          "km": "stm2",
           "mentioned": [
           ],
           "variables": {
           }
         },
         "tokenize2": {
+          "km": "tokenize2"
         },
         "ui2": {
-          "directions": {
-          },
-          "menuDefs": [
-          ],
-          "show": [
-          ]
+          "km": "ui2"
         }
       },
       "processed": [
         {
           "context": {
             "associations": [
-              "fileMenu_menus"
+              "fileMenu_menus",
+              "menus"
             ],
             "concept": true,
             "context_id": 2,
@@ -1835,7 +1962,8 @@
             "marker": "menu_menus",
             "menus": {
               "associations": [
-                "fileMenu_menus"
+                "fileMenu_menus",
+                "menus"
               ],
               "dead": true,
               "instance": true,
@@ -2401,7 +2529,8 @@
     "contexts": [
       {
         "associations": [
-          "fileMenu_menus"
+          "fileMenu_menus",
+          "menus"
         ],
         "context_id": 2,
         "context_index": 1,
@@ -2423,7 +2552,8 @@
       },
       {
         "associations": [
-          "fileMenu_menus"
+          "fileMenu_menus",
+          "menus"
         ],
         "context_id": 4,
         "context_index": 3,
@@ -2457,6 +2587,13 @@
       ]
     },
     "objects": {
+      "associations": [
+        "menus",
+        "fileMenu_menus",
+        "menus",
+        "fileMenu_menus",
+        "menus"
+      ],
       "nameToUUID": {
         "articles": "articles2",
         "asking": "asking2",
@@ -2482,58 +2619,111 @@
       },
       "namespaced": {
         "articles2": {
+          "km": "articles2"
         },
         "asking2": {
+          "km": "asking2"
         },
         "concept2": {
           "defaultTypesForHierarchy": {
           },
+          "km": "concept2",
           "valueToWords": [
           ]
         },
         "conjunction2": {
+          "km": "conjunction2"
         },
         "countable2": {
+          "km": "countable2"
         },
         "dialogues2": {
           "idSuffix": "_menus",
+          "km": "dialogues2",
           "mentioned": [
           ],
           "variables": {
           }
         },
         "evaluate2": {
+          "km": "evaluate2"
         },
         "gdefaults2": {
+          "km": "gdefaults2"
         },
         "hierarchy2": {
+          "km": "hierarchy2"
         },
         "menus1": {
           "current": "fileOpen",
           "directions": {
             "down": {
               "file": "fileOpen",
-              "fileOpen": "fileClose",
+              "fileOpen": "fileOpenRemote",
+              "fileOpenRemote": "fileClose",
               "object": "objectOpen",
               "objectOpen": "objectClose"
             },
             "left": {
-              "file": "object"
-            },
-            "right": {
               "object": "file"
             },
+            "parents": {
+              "file": "file",
+              "fileClose": "file",
+              "fileOpen": "file",
+              "fileOpenRemote": "file",
+              "object": "object",
+              "objectClose": "object",
+              "objectOpen": "object"
+            },
+            "paths": {
+              "file": [
+                "file"
+              ],
+              "fileClose": [
+                "file",
+                "fileClose"
+              ],
+              "fileOpen": [
+                "file",
+                "fileOpen"
+              ],
+              "fileOpenRemote": [
+                "file",
+                "fileOpenRemote"
+              ],
+              "object": [
+                "object"
+              ],
+              "objectClose": [
+                "object",
+                "objectClose"
+              ],
+              "objectOpen": [
+                "object",
+                "objectOpen"
+              ]
+            },
+            "right": {
+              "file": "object"
+            },
             "up": {
-              "fileClose": "fileOpen",
+              "fileClose": "fileOpenRemote",
+              "fileOpenRemote": "fileOpen",
               "objectClose": "objectOpen"
             }
           },
+          "km": "menus1",
           "menuDefs": [
             {
               "children": [
                 {
                   "key": "fileOpen",
                   "text": "open"
+                },
+                {
+                  "key": "fileOpenRemote",
+                  "text": "open remote"
                 },
                 {
                   "key": "fileClose",
@@ -2564,14 +2754,19 @@
           ]
         },
         "meta2": {
+          "km": "meta2"
         },
         "negation2": {
+          "km": "negation2"
         },
         "numbers2": {
+          "km": "numbers2"
         },
         "ordinals2": {
+          "km": "ordinals2"
         },
         "pos2": {
+          "km": "pos2"
         },
         "properties2": {
           "children": {
@@ -2724,6 +2919,7 @@
             "showable_menus",
             "menu_menus_item_menus"
           ],
+          "km": "properties2",
           "parents": {
             "a": [
               "article"
@@ -2988,31 +3184,31 @@
           }
         },
         "punctuation2": {
+          "km": "punctuation2"
         },
         "sdefaults2": {
+          "km": "sdefaults2"
         },
         "stm2": {
+          "km": "stm2",
           "mentioned": [
           ],
           "variables": {
           }
         },
         "tokenize2": {
+          "km": "tokenize2"
         },
         "ui2": {
-          "directions": {
-          },
-          "menuDefs": [
-          ],
-          "show": [
-          ]
+          "km": "ui2"
         }
       },
       "processed": [
         {
           "context": {
             "associations": [
-              "fileMenu_menus"
+              "fileMenu_menus",
+              "menus"
             ],
             "context_id": 4,
             "context_index": 3,
@@ -3050,7 +3246,8 @@
         {
           "context": {
             "associations": [
-              "fileMenu_menus"
+              "fileMenu_menus",
+              "menus"
             ],
             "context_id": 2,
             "context_index": 1,
@@ -3473,7 +3670,8 @@
     "contexts": [
       {
         "associations": [
-          "objectMenu_menus"
+          "objectMenu_menus",
+          "menus"
         ],
         "context_id": 2,
         "context_index": 1,
@@ -3495,7 +3693,8 @@
       },
       {
         "associations": [
-          "objectMenu_menus"
+          "objectMenu_menus",
+          "menus"
         ],
         "context_id": 4,
         "context_index": 3,
@@ -3529,6 +3728,13 @@
       ]
     },
     "objects": {
+      "associations": [
+        "menus",
+        "objectMenu_menus",
+        "menus",
+        "objectMenu_menus",
+        "menus"
+      ],
       "nameToUUID": {
         "articles": "articles2",
         "asking": "asking2",
@@ -3554,58 +3760,111 @@
       },
       "namespaced": {
         "articles2": {
+          "km": "articles2"
         },
         "asking2": {
+          "km": "asking2"
         },
         "concept2": {
           "defaultTypesForHierarchy": {
           },
+          "km": "concept2",
           "valueToWords": [
           ]
         },
         "conjunction2": {
+          "km": "conjunction2"
         },
         "countable2": {
+          "km": "countable2"
         },
         "dialogues2": {
           "idSuffix": "_menus",
+          "km": "dialogues2",
           "mentioned": [
           ],
           "variables": {
           }
         },
         "evaluate2": {
+          "km": "evaluate2"
         },
         "gdefaults2": {
+          "km": "gdefaults2"
         },
         "hierarchy2": {
+          "km": "hierarchy2"
         },
         "menus1": {
           "current": "objectOpen",
           "directions": {
             "down": {
               "file": "fileOpen",
-              "fileOpen": "fileClose",
+              "fileOpen": "fileOpenRemote",
+              "fileOpenRemote": "fileClose",
               "object": "objectOpen",
               "objectOpen": "objectClose"
             },
             "left": {
-              "file": "object"
-            },
-            "right": {
               "object": "file"
             },
+            "parents": {
+              "file": "file",
+              "fileClose": "file",
+              "fileOpen": "file",
+              "fileOpenRemote": "file",
+              "object": "object",
+              "objectClose": "object",
+              "objectOpen": "object"
+            },
+            "paths": {
+              "file": [
+                "file"
+              ],
+              "fileClose": [
+                "file",
+                "fileClose"
+              ],
+              "fileOpen": [
+                "file",
+                "fileOpen"
+              ],
+              "fileOpenRemote": [
+                "file",
+                "fileOpenRemote"
+              ],
+              "object": [
+                "object"
+              ],
+              "objectClose": [
+                "object",
+                "objectClose"
+              ],
+              "objectOpen": [
+                "object",
+                "objectOpen"
+              ]
+            },
+            "right": {
+              "file": "object"
+            },
             "up": {
-              "fileClose": "fileOpen",
+              "fileClose": "fileOpenRemote",
+              "fileOpenRemote": "fileOpen",
               "objectClose": "objectOpen"
             }
           },
+          "km": "menus1",
           "menuDefs": [
             {
               "children": [
                 {
                   "key": "fileOpen",
                   "text": "open"
+                },
+                {
+                  "key": "fileOpenRemote",
+                  "text": "open remote"
                 },
                 {
                   "key": "fileClose",
@@ -3636,14 +3895,19 @@
           ]
         },
         "meta2": {
+          "km": "meta2"
         },
         "negation2": {
+          "km": "negation2"
         },
         "numbers2": {
+          "km": "numbers2"
         },
         "ordinals2": {
+          "km": "ordinals2"
         },
         "pos2": {
+          "km": "pos2"
         },
         "properties2": {
           "children": {
@@ -3796,6 +4060,7 @@
             "showable_menus",
             "menu_menus_item_menus"
           ],
+          "km": "properties2",
           "parents": {
             "a": [
               "article"
@@ -4060,31 +4325,31 @@
           }
         },
         "punctuation2": {
+          "km": "punctuation2"
         },
         "sdefaults2": {
+          "km": "sdefaults2"
         },
         "stm2": {
+          "km": "stm2",
           "mentioned": [
           ],
           "variables": {
           }
         },
         "tokenize2": {
+          "km": "tokenize2"
         },
         "ui2": {
-          "directions": {
-          },
-          "menuDefs": [
-          ],
-          "show": [
-          ]
+          "km": "ui2"
         }
       },
       "processed": [
         {
           "context": {
             "associations": [
-              "objectMenu_menus"
+              "objectMenu_menus",
+              "menus"
             ],
             "context_id": 4,
             "context_index": 3,
@@ -4122,7 +4387,8 @@
         {
           "context": {
             "associations": [
-              "objectMenu_menus"
+              "objectMenu_menus",
+              "menus"
             ],
             "context_id": 2,
             "context_index": 1,
@@ -4545,7 +4811,8 @@
     "contexts": [
       {
         "associations": [
-          "fileMenu_menus"
+          "fileMenu_menus",
+          "menus"
         ],
         "context_id": 2,
         "context_index": 1,
@@ -4574,6 +4841,11 @@
       ]
     },
     "objects": {
+      "associations": [
+        "menus",
+        "fileMenu_menus",
+        "menus"
+      ],
       "nameToUUID": {
         "articles": "articles2",
         "asking": "asking2",
@@ -4599,58 +4871,111 @@
       },
       "namespaced": {
         "articles2": {
+          "km": "articles2"
         },
         "asking2": {
+          "km": "asking2"
         },
         "concept2": {
           "defaultTypesForHierarchy": {
           },
+          "km": "concept2",
           "valueToWords": [
           ]
         },
         "conjunction2": {
+          "km": "conjunction2"
         },
         "countable2": {
+          "km": "countable2"
         },
         "dialogues2": {
           "idSuffix": "_menus",
+          "km": "dialogues2",
           "mentioned": [
           ],
           "variables": {
           }
         },
         "evaluate2": {
+          "km": "evaluate2"
         },
         "gdefaults2": {
+          "km": "gdefaults2"
         },
         "hierarchy2": {
+          "km": "hierarchy2"
         },
         "menus1": {
           "current": "file",
           "directions": {
             "down": {
               "file": "fileOpen",
-              "fileOpen": "fileClose",
+              "fileOpen": "fileOpenRemote",
+              "fileOpenRemote": "fileClose",
               "object": "objectOpen",
               "objectOpen": "objectClose"
             },
             "left": {
-              "file": "object"
-            },
-            "right": {
               "object": "file"
             },
+            "parents": {
+              "file": "file",
+              "fileClose": "file",
+              "fileOpen": "file",
+              "fileOpenRemote": "file",
+              "object": "object",
+              "objectClose": "object",
+              "objectOpen": "object"
+            },
+            "paths": {
+              "file": [
+                "file"
+              ],
+              "fileClose": [
+                "file",
+                "fileClose"
+              ],
+              "fileOpen": [
+                "file",
+                "fileOpen"
+              ],
+              "fileOpenRemote": [
+                "file",
+                "fileOpenRemote"
+              ],
+              "object": [
+                "object"
+              ],
+              "objectClose": [
+                "object",
+                "objectClose"
+              ],
+              "objectOpen": [
+                "object",
+                "objectOpen"
+              ]
+            },
+            "right": {
+              "file": "object"
+            },
             "up": {
-              "fileClose": "fileOpen",
+              "fileClose": "fileOpenRemote",
+              "fileOpenRemote": "fileOpen",
               "objectClose": "objectOpen"
             }
           },
+          "km": "menus1",
           "menuDefs": [
             {
               "children": [
                 {
                   "key": "fileOpen",
                   "text": "open"
+                },
+                {
+                  "key": "fileOpenRemote",
+                  "text": "open remote"
                 },
                 {
                   "key": "fileClose",
@@ -4680,14 +5005,19 @@
           ]
         },
         "meta2": {
+          "km": "meta2"
         },
         "negation2": {
+          "km": "negation2"
         },
         "numbers2": {
+          "km": "numbers2"
         },
         "ordinals2": {
+          "km": "ordinals2"
         },
         "pos2": {
+          "km": "pos2"
         },
         "properties2": {
           "children": {
@@ -4840,6 +5170,7 @@
             "showable_menus",
             "menu_menus_item_menus"
           ],
+          "km": "properties2",
           "parents": {
             "a": [
               "article"
@@ -5104,31 +5435,31 @@
           }
         },
         "punctuation2": {
+          "km": "punctuation2"
         },
         "sdefaults2": {
+          "km": "sdefaults2"
         },
         "stm2": {
+          "km": "stm2",
           "mentioned": [
           ],
           "variables": {
           }
         },
         "tokenize2": {
+          "km": "tokenize2"
         },
         "ui2": {
-          "directions": {
-          },
-          "menuDefs": [
-          ],
-          "show": [
-          ]
+          "km": "ui2"
         }
       },
       "processed": [
         {
           "context": {
             "associations": [
-              "fileMenu_menus"
+              "fileMenu_menus",
+              "menus"
             ],
             "context_id": 2,
             "context_index": 1,
@@ -5580,7 +5911,8 @@
     "contexts": [
       {
         "associations": [
-          "fileMenu_menus"
+          "fileMenu_menus",
+          "menus"
         ],
         "context_id": 2,
         "context_index": 1,
@@ -5629,6 +5961,11 @@
       ]
     },
     "objects": {
+      "associations": [
+        "menus",
+        "fileMenu_menus",
+        "menus"
+      ],
       "nameToUUID": {
         "articles": "articles2",
         "asking": "asking2",
@@ -5654,58 +5991,111 @@
       },
       "namespaced": {
         "articles2": {
+          "km": "articles2"
         },
         "asking2": {
+          "km": "asking2"
         },
         "concept2": {
           "defaultTypesForHierarchy": {
           },
+          "km": "concept2",
           "valueToWords": [
           ]
         },
         "conjunction2": {
+          "km": "conjunction2"
         },
         "countable2": {
+          "km": "countable2"
         },
         "dialogues2": {
           "idSuffix": "_menus",
+          "km": "dialogues2",
           "mentioned": [
           ],
           "variables": {
           }
         },
         "evaluate2": {
+          "km": "evaluate2"
         },
         "gdefaults2": {
+          "km": "gdefaults2"
         },
         "hierarchy2": {
+          "km": "hierarchy2"
         },
         "menus1": {
           "current": "fileOpen",
           "directions": {
             "down": {
               "file": "fileOpen",
-              "fileOpen": "fileClose",
+              "fileOpen": "fileOpenRemote",
+              "fileOpenRemote": "fileClose",
               "object": "objectOpen",
               "objectOpen": "objectClose"
             },
             "left": {
-              "file": "object"
-            },
-            "right": {
               "object": "file"
             },
+            "parents": {
+              "file": "file",
+              "fileClose": "file",
+              "fileOpen": "file",
+              "fileOpenRemote": "file",
+              "object": "object",
+              "objectClose": "object",
+              "objectOpen": "object"
+            },
+            "paths": {
+              "file": [
+                "file"
+              ],
+              "fileClose": [
+                "file",
+                "fileClose"
+              ],
+              "fileOpen": [
+                "file",
+                "fileOpen"
+              ],
+              "fileOpenRemote": [
+                "file",
+                "fileOpenRemote"
+              ],
+              "object": [
+                "object"
+              ],
+              "objectClose": [
+                "object",
+                "objectClose"
+              ],
+              "objectOpen": [
+                "object",
+                "objectOpen"
+              ]
+            },
+            "right": {
+              "file": "object"
+            },
             "up": {
-              "fileClose": "fileOpen",
+              "fileClose": "fileOpenRemote",
+              "fileOpenRemote": "fileOpen",
               "objectClose": "objectOpen"
             }
           },
+          "km": "menus1",
           "menuDefs": [
             {
               "children": [
                 {
                   "key": "fileOpen",
                   "text": "open"
+                },
+                {
+                  "key": "fileOpenRemote",
+                  "text": "open remote"
                 },
                 {
                   "key": "fileClose",
@@ -5740,14 +6130,19 @@
           ]
         },
         "meta2": {
+          "km": "meta2"
         },
         "negation2": {
+          "km": "negation2"
         },
         "numbers2": {
+          "km": "numbers2"
         },
         "ordinals2": {
+          "km": "ordinals2"
         },
         "pos2": {
+          "km": "pos2"
         },
         "properties2": {
           "children": {
@@ -5900,6 +6295,7 @@
             "showable_menus",
             "menu_menus_item_menus"
           ],
+          "km": "properties2",
           "parents": {
             "a": [
               "article"
@@ -6164,24 +6560,23 @@
           }
         },
         "punctuation2": {
+          "km": "punctuation2"
         },
         "sdefaults2": {
+          "km": "sdefaults2"
         },
         "stm2": {
+          "km": "stm2",
           "mentioned": [
           ],
           "variables": {
           }
         },
         "tokenize2": {
+          "km": "tokenize2"
         },
         "ui2": {
-          "directions": {
-          },
-          "menuDefs": [
-          ],
-          "show": [
-          ]
+          "km": "ui2"
         }
       },
       "processed": [
@@ -6219,7 +6614,8 @@
         {
           "context": {
             "associations": [
-              "fileMenu_menus"
+              "fileMenu_menus",
+              "menus"
             ],
             "context_id": 2,
             "context_index": 1,
@@ -6652,7 +7048,8 @@
     "contexts": [
       {
         "associations": [
-          "fileMenu_menus"
+          "fileMenu_menus",
+          "menus"
         ],
         "context_id": 2,
         "context_index": 1,
@@ -6753,6 +7150,11 @@
       ]
     },
     "objects": {
+      "associations": [
+        "menus",
+        "fileMenu_menus",
+        "menus"
+      ],
       "nameToUUID": {
         "articles": "articles2",
         "asking": "asking2",
@@ -6778,58 +7180,111 @@
       },
       "namespaced": {
         "articles2": {
+          "km": "articles2"
         },
         "asking2": {
+          "km": "asking2"
         },
         "concept2": {
           "defaultTypesForHierarchy": {
           },
+          "km": "concept2",
           "valueToWords": [
           ]
         },
         "conjunction2": {
+          "km": "conjunction2"
         },
         "countable2": {
+          "km": "countable2"
         },
         "dialogues2": {
           "idSuffix": "_menus",
+          "km": "dialogues2",
           "mentioned": [
           ],
           "variables": {
           }
         },
         "evaluate2": {
+          "km": "evaluate2"
         },
         "gdefaults2": {
+          "km": "gdefaults2"
         },
         "hierarchy2": {
+          "km": "hierarchy2"
         },
         "menus1": {
-          "current": "fileClose",
+          "current": "fileOpenRemote",
           "directions": {
             "down": {
               "file": "fileOpen",
-              "fileOpen": "fileClose",
+              "fileOpen": "fileOpenRemote",
+              "fileOpenRemote": "fileClose",
               "object": "objectOpen",
               "objectOpen": "objectClose"
             },
             "left": {
-              "file": "object"
-            },
-            "right": {
               "object": "file"
             },
+            "parents": {
+              "file": "file",
+              "fileClose": "file",
+              "fileOpen": "file",
+              "fileOpenRemote": "file",
+              "object": "object",
+              "objectClose": "object",
+              "objectOpen": "object"
+            },
+            "paths": {
+              "file": [
+                "file"
+              ],
+              "fileClose": [
+                "file",
+                "fileClose"
+              ],
+              "fileOpen": [
+                "file",
+                "fileOpen"
+              ],
+              "fileOpenRemote": [
+                "file",
+                "fileOpenRemote"
+              ],
+              "object": [
+                "object"
+              ],
+              "objectClose": [
+                "object",
+                "objectClose"
+              ],
+              "objectOpen": [
+                "object",
+                "objectOpen"
+              ]
+            },
+            "right": {
+              "file": "object"
+            },
             "up": {
-              "fileClose": "fileOpen",
+              "fileClose": "fileOpenRemote",
+              "fileOpenRemote": "fileOpen",
               "objectClose": "objectOpen"
             }
           },
+          "km": "menus1",
           "menuDefs": [
             {
               "children": [
                 {
                   "key": "fileOpen",
                   "text": "open"
+                },
+                {
+                  "key": "fileOpenRemote",
+                  "text": "open remote"
                 },
                 {
                   "key": "fileClose",
@@ -6860,18 +7315,23 @@
           },
           "show": [
             "file",
-            "fileClose"
+            "fileOpenRemote"
           ]
         },
         "meta2": {
+          "km": "meta2"
         },
         "negation2": {
+          "km": "negation2"
         },
         "numbers2": {
+          "km": "numbers2"
         },
         "ordinals2": {
+          "km": "ordinals2"
         },
         "pos2": {
+          "km": "pos2"
         },
         "properties2": {
           "children": {
@@ -7024,6 +7484,7 @@
             "showable_menus",
             "menu_menus_item_menus"
           ],
+          "km": "properties2",
           "parents": {
             "a": [
               "article"
@@ -7288,24 +7749,23 @@
           }
         },
         "punctuation2": {
+          "km": "punctuation2"
         },
         "sdefaults2": {
+          "km": "sdefaults2"
         },
         "stm2": {
+          "km": "stm2",
           "mentioned": [
           ],
           "variables": {
           }
         },
         "tokenize2": {
+          "km": "tokenize2"
         },
         "ui2": {
-          "directions": {
-          },
-          "menuDefs": [
-          ],
-          "show": [
-          ]
+          "km": "ui2"
         }
       },
       "processed": [
@@ -7365,7 +7825,8 @@
         {
           "context": {
             "associations": [
-              "fileMenu_menus"
+              "fileMenu_menus",
+              "menus"
             ],
             "context_id": 2,
             "context_index": 1,
@@ -7868,7 +8329,8 @@
     "contexts": [
       {
         "associations": [
-          "fileMenu_menus"
+          "fileMenu_menus",
+          "menus"
         ],
         "context_id": 2,
         "context_index": 1,
@@ -7989,6 +8451,11 @@
       ]
     },
     "objects": {
+      "associations": [
+        "menus",
+        "fileMenu_menus",
+        "menus"
+      ],
       "nameToUUID": {
         "articles": "articles2",
         "asking": "asking2",
@@ -8014,58 +8481,111 @@
       },
       "namespaced": {
         "articles2": {
+          "km": "articles2"
         },
         "asking2": {
+          "km": "asking2"
         },
         "concept2": {
           "defaultTypesForHierarchy": {
           },
+          "km": "concept2",
           "valueToWords": [
           ]
         },
         "conjunction2": {
+          "km": "conjunction2"
         },
         "countable2": {
+          "km": "countable2"
         },
         "dialogues2": {
           "idSuffix": "_menus",
+          "km": "dialogues2",
           "mentioned": [
           ],
           "variables": {
           }
         },
         "evaluate2": {
+          "km": "evaluate2"
         },
         "gdefaults2": {
+          "km": "gdefaults2"
         },
         "hierarchy2": {
+          "km": "hierarchy2"
         },
         "menus1": {
           "current": "fileOpen",
           "directions": {
             "down": {
               "file": "fileOpen",
-              "fileOpen": "fileClose",
+              "fileOpen": "fileOpenRemote",
+              "fileOpenRemote": "fileClose",
               "object": "objectOpen",
               "objectOpen": "objectClose"
             },
             "left": {
-              "file": "object"
-            },
-            "right": {
               "object": "file"
             },
+            "parents": {
+              "file": "file",
+              "fileClose": "file",
+              "fileOpen": "file",
+              "fileOpenRemote": "file",
+              "object": "object",
+              "objectClose": "object",
+              "objectOpen": "object"
+            },
+            "paths": {
+              "file": [
+                "file"
+              ],
+              "fileClose": [
+                "file",
+                "fileClose"
+              ],
+              "fileOpen": [
+                "file",
+                "fileOpen"
+              ],
+              "fileOpenRemote": [
+                "file",
+                "fileOpenRemote"
+              ],
+              "object": [
+                "object"
+              ],
+              "objectClose": [
+                "object",
+                "objectClose"
+              ],
+              "objectOpen": [
+                "object",
+                "objectOpen"
+              ]
+            },
+            "right": {
+              "file": "object"
+            },
             "up": {
-              "fileClose": "fileOpen",
+              "fileClose": "fileOpenRemote",
+              "fileOpenRemote": "fileOpen",
               "objectClose": "objectOpen"
             }
           },
+          "km": "menus1",
           "menuDefs": [
             {
               "children": [
                 {
                   "key": "fileOpen",
                   "text": "open"
+                },
+                {
+                  "key": "fileOpenRemote",
+                  "text": "open remote"
                 },
                 {
                   "key": "fileClose",
@@ -8096,19 +8616,24 @@
           },
           "show": [
             "file",
-            "fileClose",
+            "fileOpenRemote",
             "fileOpen"
           ]
         },
         "meta2": {
+          "km": "meta2"
         },
         "negation2": {
+          "km": "negation2"
         },
         "numbers2": {
+          "km": "numbers2"
         },
         "ordinals2": {
+          "km": "ordinals2"
         },
         "pos2": {
+          "km": "pos2"
         },
         "properties2": {
           "children": {
@@ -8261,6 +8786,7 @@
             "showable_menus",
             "menu_menus_item_menus"
           ],
+          "km": "properties2",
           "parents": {
             "a": [
               "article"
@@ -8525,24 +9051,23 @@
           }
         },
         "punctuation2": {
+          "km": "punctuation2"
         },
         "sdefaults2": {
+          "km": "sdefaults2"
         },
         "stm2": {
+          "km": "stm2",
           "mentioned": [
           ],
           "variables": {
           }
         },
         "tokenize2": {
+          "km": "tokenize2"
         },
         "ui2": {
-          "directions": {
-          },
-          "menuDefs": [
-          ],
-          "show": [
-          ]
+          "km": "ui2"
         }
       },
       "processed": [
@@ -8635,7 +9160,8 @@
         {
           "context": {
             "associations": [
-              "fileMenu_menus"
+              "fileMenu_menus",
+              "menus"
             ],
             "context_id": 2,
             "context_index": 1,
@@ -9081,7 +9607,8 @@
     "contexts": [
       {
         "associations": [
-          "fileMenu_menus"
+          "fileMenu_menus",
+          "menus"
         ],
         "context_id": 2,
         "context_index": 1,
@@ -9121,7 +9648,6 @@
         "word": "right"
       }
     ],
-    "developerTest": false,
     "generatedParenthesized": [
       "",
       ""
@@ -9131,6 +9657,11 @@
       ]
     },
     "objects": {
+      "associations": [
+        "menus",
+        "fileMenu_menus",
+        "menus"
+      ],
       "nameToUUID": {
         "articles": "articles2",
         "asking": "asking2",
@@ -9156,38 +9687,48 @@
       },
       "namespaced": {
         "articles2": {
+          "km": "articles2"
         },
         "asking2": {
+          "km": "asking2"
         },
         "concept2": {
           "defaultTypesForHierarchy": {
           },
+          "km": "concept2",
           "valueToWords": [
           ]
         },
         "conjunction2": {
+          "km": "conjunction2"
         },
         "countable2": {
+          "km": "countable2"
         },
         "dialogues2": {
           "idSuffix": "_menus",
+          "km": "dialogues2",
           "mentioned": [
           ],
           "variables": {
           }
         },
         "evaluate2": {
+          "km": "evaluate2"
         },
         "gdefaults2": {
+          "km": "gdefaults2"
         },
         "hierarchy2": {
+          "km": "hierarchy2"
         },
         "menus1": {
           "current": "object",
           "directions": {
             "down": {
               "file": "fileOpen",
-              "fileOpen": "fileClose",
+              "fileOpen": "fileOpenRemote",
+              "fileOpenRemote": "fileClose",
               "object": "objectOpen",
               "objectOpen": "objectClose"
             },
@@ -9198,24 +9739,59 @@
               "file": "file",
               "fileClose": "file",
               "fileOpen": "file",
+              "fileOpenRemote": "file",
               "object": "object",
               "objectClose": "object",
               "objectOpen": "object"
+            },
+            "paths": {
+              "file": [
+                "file"
+              ],
+              "fileClose": [
+                "file",
+                "fileClose"
+              ],
+              "fileOpen": [
+                "file",
+                "fileOpen"
+              ],
+              "fileOpenRemote": [
+                "file",
+                "fileOpenRemote"
+              ],
+              "object": [
+                "object"
+              ],
+              "objectClose": [
+                "object",
+                "objectClose"
+              ],
+              "objectOpen": [
+                "object",
+                "objectOpen"
+              ]
             },
             "right": {
               "file": "object"
             },
             "up": {
-              "fileClose": "fileOpen",
+              "fileClose": "fileOpenRemote",
+              "fileOpenRemote": "fileOpen",
               "objectClose": "objectOpen"
             }
           },
+          "km": "menus1",
           "menuDefs": [
             {
               "children": [
                 {
                   "key": "fileOpen",
                   "text": "open"
+                },
+                {
+                  "key": "fileOpenRemote",
+                  "text": "open remote"
                 },
                 {
                   "key": "fileClose",
@@ -9250,14 +9826,19 @@
           ]
         },
         "meta2": {
+          "km": "meta2"
         },
         "negation2": {
+          "km": "negation2"
         },
         "numbers2": {
+          "km": "numbers2"
         },
         "ordinals2": {
+          "km": "ordinals2"
         },
         "pos2": {
+          "km": "pos2"
         },
         "properties2": {
           "children": {
@@ -9410,6 +9991,7 @@
             "showable_menus",
             "menu_menus_item_menus"
           ],
+          "km": "properties2",
           "parents": {
             "a": [
               "article"
@@ -9674,24 +10256,23 @@
           }
         },
         "punctuation2": {
+          "km": "punctuation2"
         },
         "sdefaults2": {
+          "km": "sdefaults2"
         },
         "stm2": {
+          "km": "stm2",
           "mentioned": [
           ],
           "variables": {
           }
         },
         "tokenize2": {
+          "km": "tokenize2"
         },
         "ui2": {
-          "directions": {
-          },
-          "menuDefs": [
-          ],
-          "show": [
-          ]
+          "km": "ui2"
         }
       },
       "processed": [
@@ -9729,7 +10310,8 @@
         {
           "context": {
             "associations": [
-              "fileMenu_menus"
+              "fileMenu_menus",
+              "menus"
             ],
             "context_id": 2,
             "context_index": 1,
@@ -10174,7 +10756,6 @@
         "word": "object"
       }
     ],
-    "developerTest": false,
     "generatedParenthesized": [
       ""
     ],
@@ -10213,38 +10794,48 @@
       },
       "namespaced": {
         "articles2": {
+          "km": "articles2"
         },
         "asking2": {
+          "km": "asking2"
         },
         "concept2": {
           "defaultTypesForHierarchy": {
           },
+          "km": "concept2",
           "valueToWords": [
           ]
         },
         "conjunction2": {
+          "km": "conjunction2"
         },
         "countable2": {
+          "km": "countable2"
         },
         "dialogues2": {
           "idSuffix": "_menus",
+          "km": "dialogues2",
           "mentioned": [
           ],
           "variables": {
           }
         },
         "evaluate2": {
+          "km": "evaluate2"
         },
         "gdefaults2": {
+          "km": "gdefaults2"
         },
         "hierarchy2": {
+          "km": "hierarchy2"
         },
         "menus1": {
           "current": "object",
           "directions": {
             "down": {
               "file": "fileOpen",
-              "fileOpen": "fileClose",
+              "fileOpen": "fileOpenRemote",
+              "fileOpenRemote": "fileClose",
               "object": "objectOpen",
               "objectOpen": "objectClose"
             },
@@ -10255,24 +10846,59 @@
               "file": "file",
               "fileClose": "file",
               "fileOpen": "file",
+              "fileOpenRemote": "file",
               "object": "object",
               "objectClose": "object",
               "objectOpen": "object"
+            },
+            "paths": {
+              "file": [
+                "file"
+              ],
+              "fileClose": [
+                "file",
+                "fileClose"
+              ],
+              "fileOpen": [
+                "file",
+                "fileOpen"
+              ],
+              "fileOpenRemote": [
+                "file",
+                "fileOpenRemote"
+              ],
+              "object": [
+                "object"
+              ],
+              "objectClose": [
+                "object",
+                "objectClose"
+              ],
+              "objectOpen": [
+                "object",
+                "objectOpen"
+              ]
             },
             "right": {
               "file": "object"
             },
             "up": {
-              "fileClose": "fileOpen",
+              "fileClose": "fileOpenRemote",
+              "fileOpenRemote": "fileOpen",
               "objectClose": "objectOpen"
             }
           },
+          "km": "menus1",
           "menuDefs": [
             {
               "children": [
                 {
                   "key": "fileOpen",
                   "text": "open"
+                },
+                {
+                  "key": "fileOpenRemote",
+                  "text": "open remote"
                 },
                 {
                   "key": "fileClose",
@@ -10302,14 +10928,19 @@
           ]
         },
         "meta2": {
+          "km": "meta2"
         },
         "negation2": {
+          "km": "negation2"
         },
         "numbers2": {
+          "km": "numbers2"
         },
         "ordinals2": {
+          "km": "ordinals2"
         },
         "pos2": {
+          "km": "pos2"
         },
         "properties2": {
           "children": {
@@ -10462,6 +11093,7 @@
             "showable_menus",
             "menu_menus_item_menus"
           ],
+          "km": "properties2",
           "parents": {
             "a": [
               "article"
@@ -10726,24 +11358,23 @@
           }
         },
         "punctuation2": {
+          "km": "punctuation2"
         },
         "sdefaults2": {
+          "km": "sdefaults2"
         },
         "stm2": {
+          "km": "stm2",
           "mentioned": [
           ],
           "variables": {
           }
         },
         "tokenize2": {
+          "km": "tokenize2"
         },
         "ui2": {
-          "directions": {
-          },
-          "menuDefs": [
-          ],
-          "show": [
-          ]
+          "km": "ui2"
         }
       },
       "processed": [
@@ -11252,7 +11883,6 @@
         "word": "open"
       }
     ],
-    "developerTest": false,
     "generatedParenthesized": [
       "",
       ""
@@ -11294,38 +11924,48 @@
       },
       "namespaced": {
         "articles2": {
+          "km": "articles2"
         },
         "asking2": {
+          "km": "asking2"
         },
         "concept2": {
           "defaultTypesForHierarchy": {
           },
+          "km": "concept2",
           "valueToWords": [
           ]
         },
         "conjunction2": {
+          "km": "conjunction2"
         },
         "countable2": {
+          "km": "countable2"
         },
         "dialogues2": {
           "idSuffix": "_menus",
+          "km": "dialogues2",
           "mentioned": [
           ],
           "variables": {
           }
         },
         "evaluate2": {
+          "km": "evaluate2"
         },
         "gdefaults2": {
+          "km": "gdefaults2"
         },
         "hierarchy2": {
+          "km": "hierarchy2"
         },
         "menus1": {
           "current": "objectOpen",
           "directions": {
             "down": {
               "file": "fileOpen",
-              "fileOpen": "fileClose",
+              "fileOpen": "fileOpenRemote",
+              "fileOpenRemote": "fileClose",
               "object": "objectOpen",
               "objectOpen": "objectClose"
             },
@@ -11336,24 +11976,59 @@
               "file": "file",
               "fileClose": "file",
               "fileOpen": "file",
+              "fileOpenRemote": "file",
               "object": "object",
               "objectClose": "object",
               "objectOpen": "object"
+            },
+            "paths": {
+              "file": [
+                "file"
+              ],
+              "fileClose": [
+                "file",
+                "fileClose"
+              ],
+              "fileOpen": [
+                "file",
+                "fileOpen"
+              ],
+              "fileOpenRemote": [
+                "file",
+                "fileOpenRemote"
+              ],
+              "object": [
+                "object"
+              ],
+              "objectClose": [
+                "object",
+                "objectClose"
+              ],
+              "objectOpen": [
+                "object",
+                "objectOpen"
+              ]
             },
             "right": {
               "file": "object"
             },
             "up": {
-              "fileClose": "fileOpen",
+              "fileClose": "fileOpenRemote",
+              "fileOpenRemote": "fileOpen",
               "objectClose": "objectOpen"
             }
           },
+          "km": "menus1",
           "menuDefs": [
             {
               "children": [
                 {
                   "key": "fileOpen",
                   "text": "open"
+                },
+                {
+                  "key": "fileOpenRemote",
+                  "text": "open remote"
                 },
                 {
                   "key": "fileClose",
@@ -11384,14 +12059,19 @@
           ]
         },
         "meta2": {
+          "km": "meta2"
         },
         "negation2": {
+          "km": "negation2"
         },
         "numbers2": {
+          "km": "numbers2"
         },
         "ordinals2": {
+          "km": "ordinals2"
         },
         "pos2": {
+          "km": "pos2"
         },
         "properties2": {
           "children": {
@@ -11544,6 +12224,7 @@
             "showable_menus",
             "menu_menus_item_menus"
           ],
+          "km": "properties2",
           "parents": {
             "a": [
               "article"
@@ -11808,24 +12489,23 @@
           }
         },
         "punctuation2": {
+          "km": "punctuation2"
         },
         "sdefaults2": {
+          "km": "sdefaults2"
         },
         "stm2": {
+          "km": "stm2",
           "mentioned": [
           ],
           "variables": {
           }
         },
         "tokenize2": {
+          "km": "tokenize2"
         },
         "ui2": {
-          "directions": {
-          },
-          "menuDefs": [
-          ],
-          "show": [
-          ]
+          "km": "ui2"
         }
       },
       "processed": [
@@ -12375,7 +13055,6 @@
         "word": "close"
       }
     ],
-    "developerTest": false,
     "generatedParenthesized": [
       ""
     ],
@@ -12504,7 +13183,8 @@
           "directions": {
             "down": {
               "file": "fileOpen",
-              "fileOpen": "fileClose",
+              "fileOpen": "fileOpenRemote",
+              "fileOpenRemote": "fileClose",
               "object": "objectOpen",
               "objectOpen": "objectClose"
             },
@@ -12515,15 +13195,45 @@
               "file": "file",
               "fileClose": "file",
               "fileOpen": "file",
+              "fileOpenRemote": "file",
               "object": "object",
               "objectClose": "object",
               "objectOpen": "object"
+            },
+            "paths": {
+              "file": [
+                "file"
+              ],
+              "fileClose": [
+                "file",
+                "fileClose"
+              ],
+              "fileOpen": [
+                "file",
+                "fileOpen"
+              ],
+              "fileOpenRemote": [
+                "file",
+                "fileOpenRemote"
+              ],
+              "object": [
+                "object"
+              ],
+              "objectClose": [
+                "object",
+                "objectClose"
+              ],
+              "objectOpen": [
+                "object",
+                "objectOpen"
+              ]
             },
             "right": {
               "file": "object"
             },
             "up": {
-              "fileClose": "fileOpen",
+              "fileClose": "fileOpenRemote",
+              "fileOpenRemote": "fileOpen",
               "objectClose": "objectOpen"
             }
           },
@@ -12534,6 +13244,10 @@
                 {
                   "key": "fileOpen",
                   "text": "open"
+                },
+                {
+                  "key": "fileOpenRemote",
+                  "text": "open remote"
                 },
                 {
                   "key": "fileClose",
@@ -13638,7 +14352,6 @@
         "word": "close"
       }
     ],
-    "developerTest": false,
     "generatedParenthesized": [
       "",
       ""
@@ -13720,7 +14433,8 @@
           "directions": {
             "down": {
               "file": "fileOpen",
-              "fileOpen": "fileClose",
+              "fileOpen": "fileOpenRemote",
+              "fileOpenRemote": "fileClose",
               "object": "objectOpen",
               "objectOpen": "objectClose"
             },
@@ -13731,15 +14445,45 @@
               "file": "file",
               "fileClose": "file",
               "fileOpen": "file",
+              "fileOpenRemote": "file",
               "object": "object",
               "objectClose": "object",
               "objectOpen": "object"
+            },
+            "paths": {
+              "file": [
+                "file"
+              ],
+              "fileClose": [
+                "file",
+                "fileClose"
+              ],
+              "fileOpen": [
+                "file",
+                "fileOpen"
+              ],
+              "fileOpenRemote": [
+                "file",
+                "fileOpenRemote"
+              ],
+              "object": [
+                "object"
+              ],
+              "objectClose": [
+                "object",
+                "objectClose"
+              ],
+              "objectOpen": [
+                "object",
+                "objectOpen"
+              ]
             },
             "right": {
               "file": "object"
             },
             "up": {
-              "fileClose": "fileOpen",
+              "fileClose": "fileOpenRemote",
+              "fileOpenRemote": "fileOpen",
               "objectClose": "objectOpen"
             }
           },
@@ -13750,6 +14494,10 @@
                 {
                   "key": "fileOpen",
                   "text": "open"
+                },
+                {
+                  "key": "fileOpenRemote",
+                  "text": "open remote"
                 },
                 {
                   "key": "fileClose",
@@ -14745,7 +15493,6 @@
         "word": "close"
       }
     ],
-    "developerTest": false,
     "generatedParenthesized": [
       "",
       ""
@@ -14827,7 +15574,8 @@
           "directions": {
             "down": {
               "file": "fileOpen",
-              "fileOpen": "fileClose",
+              "fileOpen": "fileOpenRemote",
+              "fileOpenRemote": "fileClose",
               "object": "objectOpen",
               "objectOpen": "objectClose"
             },
@@ -14838,15 +15586,45 @@
               "file": "file",
               "fileClose": "file",
               "fileOpen": "file",
+              "fileOpenRemote": "file",
               "object": "object",
               "objectClose": "object",
               "objectOpen": "object"
+            },
+            "paths": {
+              "file": [
+                "file"
+              ],
+              "fileClose": [
+                "file",
+                "fileClose"
+              ],
+              "fileOpen": [
+                "file",
+                "fileOpen"
+              ],
+              "fileOpenRemote": [
+                "file",
+                "fileOpenRemote"
+              ],
+              "object": [
+                "object"
+              ],
+              "objectClose": [
+                "object",
+                "objectClose"
+              ],
+              "objectOpen": [
+                "object",
+                "objectOpen"
+              ]
             },
             "right": {
               "file": "object"
             },
             "up": {
-              "fileClose": "fileOpen",
+              "fileClose": "fileOpenRemote",
+              "fileOpenRemote": "fileOpen",
               "objectClose": "objectOpen"
             }
           },
@@ -14857,6 +15635,10 @@
                 {
                   "key": "fileOpen",
                   "text": "open"
+                },
+                {
+                  "key": "fileOpenRemote",
+                  "text": "open remote"
                 },
                 {
                   "key": "fileClose",
@@ -15786,6 +16568,1147 @@
                 ],
                 "range": {
                   "end": 9,
+                  "start": 5
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "associations": [
+    ],
+    "config": {
+    },
+    "contexts": [
+      {
+        "associations": [
+          "fileMenu_menus",
+          "menus"
+        ],
+        "context_id": 2,
+        "context_index": 1,
+        "dead": true,
+        "instance": true,
+        "level": 0,
+        "marker": "fileMenu_menus",
+        "range": {
+          "end": 3,
+          "start": 0
+        },
+        "text": "file",
+        "topLevel": true,
+        "touchedBy": [
+          "menus#call2"
+        ],
+        "value": "file",
+        "word": "file"
+      },
+      {
+        "associations": [
+          "fileMenu_menus",
+          "menus"
+        ],
+        "context_id": 4,
+        "context_index": 3,
+        "dead": true,
+        "instance": true,
+        "level": 0,
+        "marker": "fileOpenRemoteMenuItem_menus",
+        "path": [
+          "file",
+          "fileOpenRemote"
+        ],
+        "range": {
+          "end": 15,
+          "start": 5
+        },
+        "text": "open remote",
+        "topLevel": true,
+        "touchedBy": [
+          "menus#call7"
+        ],
+        "value": "fileOpenRemote",
+        "word": "open remote"
+      }
+    ],
+    "generatedParenthesized": [
+      "",
+      ""
+    ],
+    "metadata": {
+      "opChoices": [
+      ]
+    },
+    "objects": {
+      "associations": [
+        "menus",
+        "fileMenu_menus",
+        "menus",
+        "fileMenu_menus",
+        "menus"
+      ],
+      "nameToUUID": {
+        "articles": "articles2",
+        "asking": "asking2",
+        "concept": "concept2",
+        "conjunction": "conjunction2",
+        "countable": "countable2",
+        "dialogues": "dialogues2",
+        "evaluate": "evaluate2",
+        "gdefaults": "gdefaults2",
+        "hierarchy": "hierarchy2",
+        "menus": "menus1",
+        "meta": "meta2",
+        "negation": "negation2",
+        "numbers": "numbers2",
+        "ordinals": "ordinals2",
+        "pos": "pos2",
+        "properties": "properties2",
+        "punctuation": "punctuation2",
+        "sdefaults": "sdefaults2",
+        "stm": "stm2",
+        "tokenize": "tokenize2",
+        "ui": "ui2"
+      },
+      "namespaced": {
+        "articles2": {
+          "km": "articles2"
+        },
+        "asking2": {
+          "km": "asking2"
+        },
+        "concept2": {
+          "defaultTypesForHierarchy": {
+          },
+          "km": "concept2",
+          "valueToWords": [
+          ]
+        },
+        "conjunction2": {
+          "km": "conjunction2"
+        },
+        "countable2": {
+          "km": "countable2"
+        },
+        "dialogues2": {
+          "idSuffix": "_menus",
+          "km": "dialogues2",
+          "mentioned": [
+          ],
+          "variables": {
+          }
+        },
+        "evaluate2": {
+          "km": "evaluate2"
+        },
+        "gdefaults2": {
+          "km": "gdefaults2"
+        },
+        "hierarchy2": {
+          "km": "hierarchy2"
+        },
+        "menus1": {
+          "current": "fileOpenRemote",
+          "directions": {
+            "down": {
+              "file": "fileOpen",
+              "fileOpen": "fileOpenRemote",
+              "fileOpenRemote": "fileClose",
+              "object": "objectOpen",
+              "objectOpen": "objectClose"
+            },
+            "left": {
+              "object": "file"
+            },
+            "parents": {
+              "file": "file",
+              "fileClose": "file",
+              "fileOpen": "file",
+              "fileOpenRemote": "file",
+              "object": "object",
+              "objectClose": "object",
+              "objectOpen": "object"
+            },
+            "paths": {
+              "file": [
+                "file"
+              ],
+              "fileClose": [
+                "file",
+                "fileClose"
+              ],
+              "fileOpen": [
+                "file",
+                "fileOpen"
+              ],
+              "fileOpenRemote": [
+                "file",
+                "fileOpenRemote"
+              ],
+              "object": [
+                "object"
+              ],
+              "objectClose": [
+                "object",
+                "objectClose"
+              ],
+              "objectOpen": [
+                "object",
+                "objectOpen"
+              ]
+            },
+            "right": {
+              "file": "object"
+            },
+            "up": {
+              "fileClose": "fileOpenRemote",
+              "fileOpenRemote": "fileOpen",
+              "objectClose": "objectOpen"
+            }
+          },
+          "km": "menus1",
+          "menuDefs": [
+            {
+              "children": [
+                {
+                  "key": "fileOpen",
+                  "text": "open"
+                },
+                {
+                  "key": "fileOpenRemote",
+                  "text": "open remote"
+                },
+                {
+                  "key": "fileClose",
+                  "text": "close"
+                }
+              ],
+              "key": "file",
+              "text": "file"
+            },
+            {
+              "children": [
+                {
+                  "key": "objectOpen",
+                  "text": "open"
+                },
+                {
+                  "key": "objectClose",
+                  "text": "close"
+                }
+              ],
+              "key": "object",
+              "text": "object"
+            }
+          ],
+          "show": [
+            "file",
+            "fileOpenRemote"
+          ]
+        },
+        "meta2": {
+          "km": "meta2"
+        },
+        "negation2": {
+          "km": "negation2"
+        },
+        "numbers2": {
+          "km": "numbers2"
+        },
+        "ordinals2": {
+          "km": "ordinals2"
+        },
+        "pos2": {
+          "km": "pos2"
+        },
+        "properties2": {
+          "children": {
+            "adjective": [
+              "stm_before"
+            ],
+            "article": [
+              "a",
+              "the",
+              "each",
+              "every"
+            ],
+            "canBeDoQuestion": [
+              "have"
+            ],
+            "canBeQuestion": [
+              "have",
+              "is"
+            ],
+            "concept": [
+              "menu_menus",
+              "item_menus"
+            ],
+            "hierarchyAble": [
+              "unknown"
+            ],
+            "ifAble": [
+              "orAble"
+            ],
+            "listable": [
+              "object",
+              "queryable"
+            ],
+            "object": [
+              "what",
+              "whose"
+            ],
+            "preposition": [
+              "between",
+              "propertyOf",
+              "to"
+            ],
+            "pronoun": [
+              "it",
+              "this"
+            ],
+            "punctuation": [
+              "questionMark"
+            ],
+            "queryable": [
+              "xfx",
+              "hierarchyAble",
+              "readonly",
+              "property",
+              "object",
+              "concept",
+              "doubleQuote",
+              "theAble",
+              "it",
+              "what",
+              "whatAble",
+              "negatable",
+              "this",
+              "reason",
+              "distributable",
+              "thisitthat"
+            ],
+            "showable_menus": [
+              "menu_menus",
+              "menu_menus_item_menus"
+            ],
+            "theAble": [
+              "property",
+              "object",
+              "concept",
+              "listable",
+              "reason",
+              "memorable",
+              "noun"
+            ],
+            "thisitthat": [
+              "it",
+              "this",
+              "that"
+            ],
+            "toAble": [
+              "it"
+            ],
+            "verb": [
+              "modifies",
+              "is",
+              "isQuery",
+              "remember",
+              "evaluate"
+            ]
+          },
+          "concepts": [
+            "properties",
+            "unknown",
+            "hierarchyAble",
+            "what",
+            "object",
+            "xfx",
+            "queryable",
+            "between",
+            "preposition",
+            "readonly",
+            "have",
+            "canBeDoQuestion",
+            "canBeQuestion",
+            "property",
+            "theAble",
+            "listable",
+            "propertyOf",
+            "whose",
+            "concept",
+            "modifies",
+            "verb",
+            "doubleQuote",
+            "it",
+            "pronoun",
+            "this",
+            "questionMark",
+            "punctuation",
+            "a",
+            "article",
+            "the",
+            "whatAble",
+            "negatable",
+            "is",
+            "toAble",
+            "to",
+            "isQuery",
+            "reason",
+            "memorable",
+            "remember",
+            "stm_before",
+            "adjective",
+            "orAble",
+            "ifAble",
+            "evaluate",
+            "each",
+            "every",
+            "distributable",
+            "noun",
+            "thisitthat",
+            "that",
+            "menu_menus",
+            "item_menus",
+            "showable_menus",
+            "menu_menus_item_menus"
+          ],
+          "km": "properties2",
+          "parents": {
+            "a": [
+              "article"
+            ],
+            "between": [
+              "preposition"
+            ],
+            "concept": [
+              "theAble",
+              "queryable"
+            ],
+            "distributable": [
+              "queryable"
+            ],
+            "doubleQuote": [
+              "queryable"
+            ],
+            "each": [
+              "article"
+            ],
+            "evaluate": [
+              "verb"
+            ],
+            "every": [
+              "article"
+            ],
+            "have": [
+              "canBeDoQuestion",
+              "canBeQuestion"
+            ],
+            "hierarchyAble": [
+              "queryable"
+            ],
+            "is": [
+              "canBeQuestion",
+              "verb"
+            ],
+            "isQuery": [
+              "verb"
+            ],
+            "it": [
+              "pronoun",
+              "queryable",
+              "toAble",
+              "thisitthat"
+            ],
+            "item_menus": [
+              "concept"
+            ],
+            "listable": [
+              "theAble"
+            ],
+            "memorable": [
+              "theAble"
+            ],
+            "menu_menus": [
+              "concept",
+              "showable_menus"
+            ],
+            "menu_menus_item_menus": [
+              "showable_menus"
+            ],
+            "modifies": [
+              "verb"
+            ],
+            "negatable": [
+              "queryable"
+            ],
+            "noun": [
+              "theAble"
+            ],
+            "object": [
+              "queryable",
+              "theAble",
+              "listable"
+            ],
+            "orAble": [
+              "ifAble"
+            ],
+            "property": [
+              "queryable",
+              "theAble"
+            ],
+            "propertyOf": [
+              "preposition"
+            ],
+            "queryable": [
+              "listable"
+            ],
+            "questionMark": [
+              "punctuation"
+            ],
+            "readonly": [
+              "queryable"
+            ],
+            "reason": [
+              "theAble",
+              "queryable"
+            ],
+            "remember": [
+              "verb"
+            ],
+            "stm_before": [
+              "adjective"
+            ],
+            "that": [
+              "thisitthat"
+            ],
+            "the": [
+              "article"
+            ],
+            "theAble": [
+              "queryable"
+            ],
+            "this": [
+              "pronoun",
+              "queryable",
+              "thisitthat"
+            ],
+            "thisitthat": [
+              "queryable"
+            ],
+            "to": [
+              "preposition"
+            ],
+            "unknown": [
+              "hierarchyAble"
+            ],
+            "what": [
+              "object",
+              "queryable"
+            ],
+            "whatAble": [
+              "queryable"
+            ],
+            "whose": [
+              "object"
+            ],
+            "xfx": [
+              "queryable"
+            ]
+          },
+          "properties": {
+            "handlers": {
+            },
+            "initHandlers": [
+            ],
+            "root": {
+              "a": {
+              },
+              "adjective": {
+              },
+              "article": {
+              },
+              "between": {
+              },
+              "canBeDoQuestion": {
+              },
+              "canBeQuestion": {
+              },
+              "concept": {
+              },
+              "distributable": {
+              },
+              "doubleQuote": {
+              },
+              "each": {
+              },
+              "evaluate": {
+              },
+              "every": {
+              },
+              "have": {
+              },
+              "hierarchyAble": {
+              },
+              "ifAble": {
+              },
+              "is": {
+              },
+              "isQuery": {
+              },
+              "it": {
+              },
+              "item_menus": {
+              },
+              "listable": {
+              },
+              "memorable": {
+              },
+              "menu_menus": {
+              },
+              "menu_menus_item_menus": {
+              },
+              "modifies": {
+              },
+              "negatable": {
+              },
+              "noun": {
+              },
+              "object": {
+              },
+              "orAble": {
+              },
+              "preposition": {
+              },
+              "pronoun": {
+              },
+              "property": {
+              },
+              "propertyOf": {
+              },
+              "punctuation": {
+              },
+              "queryable": {
+              },
+              "questionMark": {
+              },
+              "readonly": {
+              },
+              "reason": {
+              },
+              "remember": {
+              },
+              "showable_menus": {
+              },
+              "stm_before": {
+              },
+              "that": {
+              },
+              "the": {
+              },
+              "theAble": {
+              },
+              "this": {
+              },
+              "thisitthat": {
+              },
+              "to": {
+              },
+              "toAble": {
+              },
+              "unknown": {
+              },
+              "verb": {
+              },
+              "what": {
+              },
+              "whatAble": {
+              },
+              "whose": {
+              },
+              "xfx": {
+              }
+            }
+          },
+          "property": {
+          },
+          "relations": [
+          ],
+          "valueToWords": {
+          }
+        },
+        "punctuation2": {
+          "km": "punctuation2"
+        },
+        "sdefaults2": {
+          "km": "sdefaults2"
+        },
+        "stm2": {
+          "km": "stm2",
+          "mentioned": [
+          ],
+          "variables": {
+          }
+        },
+        "tokenize2": {
+          "km": "tokenize2"
+        },
+        "ui2": {
+          "km": "ui2"
+        }
+      },
+      "processed": [
+        {
+          "context": {
+            "associations": [
+              "fileMenu_menus",
+              "menus"
+            ],
+            "context_id": 4,
+            "context_index": 3,
+            "dead": true,
+            "instance": true,
+            "level": 0,
+            "marker": "fileOpenRemoteMenuItem_menus",
+            "path": [
+              "file",
+              "fileOpenRemote"
+            ],
+            "range": {
+              "end": 15,
+              "start": 5
+            },
+            "text": "open remote",
+            "topLevel": true,
+            "touchedBy": [
+              "menus#call7"
+            ],
+            "value": "fileOpenRemote",
+            "word": "open remote"
+          },
+          "generatedParenthesized": [
+          ],
+          "paraphrases": [
+          ],
+          "paraphrasesParenthesized": [
+          ],
+          "responses": [
+            "",
+            ""
+          ]
+        },
+        {
+          "context": {
+            "associations": [
+              "fileMenu_menus",
+              "menus"
+            ],
+            "context_id": 2,
+            "context_index": 1,
+            "dead": true,
+            "instance": true,
+            "level": 0,
+            "marker": "fileMenu_menus",
+            "range": {
+              "end": 3,
+              "start": 0
+            },
+            "text": "file",
+            "topLevel": true,
+            "touchedBy": [
+              "menus#call2"
+            ],
+            "value": "file",
+            "word": "file"
+          },
+          "generatedParenthesized": [
+          ],
+          "paraphrases": [
+          ],
+          "paraphrasesParenthesized": [
+          ],
+          "responses": [
+            "",
+            ""
+          ]
+        },
+        {
+          "context": {
+            "context_id": 2,
+            "context_index": 1,
+            "dead": true,
+            "level": 2,
+            "marker": "is",
+            "number": "many",
+            "one": {
+              "default": true,
+              "isList": true,
+              "level": 1,
+              "listable": true,
+              "marker": "list",
+              "number": "many",
+              "range": {
+                "end": 32,
+                "start": 0
+              },
+              "text": "menus and menu items",
+              "types": [
+                "list",
+                "menu_menus",
+                "menu_menus_item_menus"
+              ],
+              "value": [
+                {
+                  "dead": true,
+                  "level": 1,
+                  "marker": "menu_menus",
+                  "number": "many",
+                  "range": {
+                    "end": 4,
+                    "start": 0
+                  },
+                  "text": "menus",
+                  "value": "menu_menus",
+                  "word": "menus"
+                },
+                {
+                  "atomic": true,
+                  "dead": true,
+                  "level": 1,
+                  "marker": "menu_menus_item_menus",
+                  "modifier_menu_menus": {
+                    "level": 0,
+                    "marker": "menu_menus",
+                    "number": "one",
+                    "range": {
+                      "end": 13,
+                      "start": 10
+                    },
+                    "text": "menu",
+                    "types": [
+                      "menu_menus"
+                    ],
+                    "value": "menu_menus",
+                    "word": "menu"
+                  },
+                  "modifiers": [
+                    "modifier_menu_menus"
+                  ],
+                  "number": "many",
+                  "range": {
+                    "end": 19,
+                    "start": 10
+                  },
+                  "text": "menu items",
+                  "types": [
+                    "item_menus",
+                    "menu_menus_item_menus"
+                  ],
+                  "value": "menu_menus_item_menus",
+                  "word": "items"
+                }
+              ],
+              "word": "and"
+            },
+            "range": {
+              "end": 32,
+              "start": 0
+            },
+            "text": "menus and menu items are showable",
+            "topLevel": true,
+            "touchedBy": [
+              "menus#call2",
+              "instance4#menus#call2"
+            ],
+            "two": {
+              "concept": true,
+              "dead": true,
+              "level": 0,
+              "marker": "unknown",
+              "range": {
+                "end": 32,
+                "start": 25
+              },
+              "text": "showable",
+              "types": [
+                "unknown"
+              ],
+              "unknown": true,
+              "value": "showable",
+              "word": "showable"
+            },
+            "word": "are"
+          },
+          "generatedParenthesized": [
+          ],
+          "paraphrases": [
+          ],
+          "paraphrasesParenthesized": [
+          ],
+          "responses": [
+          ]
+        },
+        {
+          "context": {
+            "concept": {
+              "dead": true,
+              "level": 1,
+              "marker": "item_menus",
+              "number": "one",
+              "range": {
+                "end": 17,
+                "start": 14
+              },
+              "text": "item",
+              "value": "item_menus",
+              "word": "item"
+            },
+            "context_id": 2,
+            "context_index": 1,
+            "dead": true,
+            "flatten": false,
+            "level": 1,
+            "marker": "modifies",
+            "modifiers": [
+              {
+                "dead": true,
+                "level": 1,
+                "marker": "menu_menus",
+                "number": "one",
+                "range": {
+                  "end": 3,
+                  "start": 0
+                },
+                "text": "menu",
+                "value": "menu_menus",
+                "word": "menu"
+              }
+            ],
+            "number": "one",
+            "range": {
+              "end": 17,
+              "start": 0
+            },
+            "text": "menu modifies item",
+            "topLevel": true,
+            "touchedBy": [
+              "menus#call2",
+              "instance3#menus#call2"
+            ],
+            "word": "modifies"
+          },
+          "generatedParenthesized": [
+          ],
+          "paraphrases": [
+          ],
+          "paraphrasesParenthesized": [
+          ],
+          "responses": [
+          ]
+        },
+        {
+          "context": {
+            "context_id": 2,
+            "context_index": 1,
+            "dead": true,
+            "level": 2,
+            "marker": "is",
+            "number": "one",
+            "one": {
+              "dead": true,
+              "level": 0,
+              "marker": "unknown",
+              "number": "one",
+              "range": {
+                "end": 16,
+                "start": 0
+              },
+              "text": "item",
+              "types": [
+                "unknown"
+              ],
+              "unknown": true,
+              "value": "item",
+              "word": "item"
+            },
+            "range": {
+              "end": 16,
+              "start": 0
+            },
+            "text": "item is a concept",
+            "topLevel": true,
+            "touchedBy": [
+              "menus#call2",
+              "instance2#menus#call2"
+            ],
+            "two": {
+              "concept": true,
+              "dead": true,
+              "default": true,
+              "determiner": {
+                "default": true,
+                "level": 0,
+                "marker": "a",
+                "range": {
+                  "end": 8,
+                  "start": 8
+                },
+                "text": "a",
+                "word": "a"
+              },
+              "instance": true,
+              "level": 0,
+              "marker": "concept",
+              "modifiers": [
+                "determiner"
+              ],
+              "number": "one",
+              "pullFromContext": false,
+              "range": {
+                "end": 16,
+                "start": 8
+              },
+              "text": "a concept",
+              "types": [
+                "concept"
+              ],
+              "value": "concept",
+              "wantsValue": true,
+              "word": "concept"
+            },
+            "word": "is"
+          },
+          "generatedParenthesized": [
+          ],
+          "paraphrases": [
+          ],
+          "paraphrasesParenthesized": [
+          ],
+          "responses": [
+          ]
+        },
+        {
+          "context": {
+            "context_id": 2,
+            "context_index": 1,
+            "dead": true,
+            "level": 2,
+            "marker": "is",
+            "number": "one",
+            "one": {
+              "dead": true,
+              "level": 0,
+              "marker": "unknown",
+              "number": "one",
+              "range": {
+                "end": 16,
+                "start": 0
+              },
+              "text": "menu",
+              "types": [
+                "unknown"
+              ],
+              "unknown": true,
+              "value": "menu",
+              "word": "menu"
+            },
+            "range": {
+              "end": 16,
+              "start": 0
+            },
+            "text": "menu is a concept",
+            "topLevel": true,
+            "touchedBy": [
+              "menus#call2",
+              "instance1#menus#call2"
+            ],
+            "two": {
+              "concept": true,
+              "dead": true,
+              "default": true,
+              "determiner": {
+                "default": true,
+                "level": 0,
+                "marker": "a",
+                "range": {
+                  "end": 8,
+                  "start": 8
+                },
+                "text": "a",
+                "word": "a"
+              },
+              "instance": true,
+              "level": 0,
+              "marker": "concept",
+              "modifiers": [
+                "determiner"
+              ],
+              "number": "one",
+              "pullFromContext": false,
+              "range": {
+                "end": 16,
+                "start": 8
+              },
+              "text": "a concept",
+              "types": [
+                "concept"
+              ],
+              "value": "concept",
+              "wantsValue": true,
+              "word": "concept"
+            },
+            "word": "is"
+          },
+          "generatedParenthesized": [
+          ],
+          "paraphrases": [
+          ],
+          "paraphrasesParenthesized": [
+          ],
+          "responses": [
+          ]
+        }
+      ]
+    },
+    "paraphrases": [
+      "file",
+      "open remote"
+    ],
+    "paraphrasesParenthesized": [
+      "(file)",
+      "(open remote)"
+    ],
+    "query": "file open remote",
+    "responses": [
+      "",
+      ""
+    ],
+    "summaries": [
+      {
+        "length": 2,
+        "summaries": [
+          {
+            "counter": 1,
+            "operators": [
+              {
+                "marker": [
+                  "fileMenu_menus",
+                  0
+                ],
+                "range": {
+                  "end": 3,
+                  "start": 0
+                }
+              },
+              {
+                "marker": [
+                  "fileOpenRemoteMenuItem_menus",
+                  0
+                ],
+                "range": {
+                  "end": 15,
                   "start": 5
                 }
               }
