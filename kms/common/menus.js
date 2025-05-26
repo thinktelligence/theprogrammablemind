@@ -130,7 +130,6 @@ const template = {
           associations: ['menus'],
           bridge: "{ ...next(operator), closee: after[0], generate: ['this', 'closee'] }",
           semantic: ({context, api}) => {
-            debugger
             api.close()
           }
         },
