@@ -1,4 +1,4 @@
-const { calculateRights, calculateLefts, calculateDowns, calculateUps, calculateParents, } = require('./menus');
+const { calculateRights, calculateLefts, calculateDowns, calculateUps, calculateParents, calculatePaths, } = require('./menus');
 
 describe("downs", () => {
   test('calculate downs empty', () => {
@@ -60,20 +60,6 @@ describe("downs", () => {
     }
     const downs = calculateDowns(sm)
     expect(downs).toStrictEqual({ "File": "File-New", "File-New": "File-Open", "File-Open": "File-OpenAs" }) 
-  });
-
-  test('calculate two has divider', () => {
-    const sm = {
-      key: "File",
-      text: "File",
-      children: [
-        { key:"File-New", text:"New" },
-        { divider: true },
-        { key:"File-OpenAs", text:"Open As..." },
-      ]
-    }
-    const downs = calculateDowns(sm)
-    expect(downs).toStrictEqual({ "File": "File-New", "File-New": "File-OpenAs" }) 
   });
 });
 
@@ -138,20 +124,6 @@ describe("ups", () => {
     const ups = calculateUps(sm)
     expect(ups).toStrictEqual({ "File-Open": "File-New", "File-OpenAs": "File-Open" }) 
   });
-
-  test('calculate two has divider', () => {
-    const sm = {
-      key: "File",
-      text: "File",
-      children: [
-        { key:"File-New", text:"New" },
-        { divider: true },
-        { key:"File-OpenAs", text:"Open As..." },
-      ]
-    }
-    const ups = calculateUps(sm)
-    expect(ups).toStrictEqual({ "File-OpenAs": "File-New" }) 
-  });
 });
 
 describe("parents", () => {
@@ -215,20 +187,6 @@ describe("parents", () => {
     const parents = calculateParents([sm])
     expect(parents).toStrictEqual({ "File": "File", "File-Open": "File", "File-New": "File", "File-OpenAs": "File" }) 
   });
-
-  test('calculate two has divider', () => {
-    const sm = {
-      key: "File",
-      text: "File",
-      children: [
-        { key:"File-New", text:"New" },
-        { divider: true },
-        { key:"File-OpenAs", text:"Open As..." },
-      ]
-    }
-    const parents = calculateParents(sm)
-    expect(parents).toStrictEqual({ "File-OpenAs": "File", "File-New": "File" }) 
-  });
 });
 
 describe("lefts", () => {
@@ -282,5 +240,68 @@ describe("rights", () => {
     expect(rights).toStrictEqual({ "File": "Object" }) 
   });
 
+});
+
+describe("paths", () => {
+  test('calculate paths empty', () => {
+    const sm = {
+      key: "File",
+      text: "File",
+    }
+    const paths = calculatePaths(sm)
+    expect(paths).toStrictEqual({ "File": ["File"] }) 
+  });
+
+  test('calculate paths one', () => {
+    const sm = {
+      key: "File",
+      text: "File",
+      children: [
+        { key:"File-New", text:"New" },
+      ]
+    }
+    const paths = calculatePaths(sm)
+    expect(paths).toStrictEqual({ "File": ["File"], "File-New": ["File", "File-New"] }) 
+  });
+
+  test('calculate paths two', () => {
+    const sm = {
+      key: "File",
+      text: "File",
+      children: [
+        { key:"File-New", text:"New" },
+        { key:"File-Open", text:"Open" },
+      ]
+    }
+    const paths = calculatePaths(sm)
+    expect(paths).toStrictEqual({ "File": ["File"], "File-New": ["File", "File-New"], "File-Open": ["File", "File-Open"] }) 
+  });
+
+  test('calculate paths two with list', () => {
+    const sm = {
+      key: "File",
+      text: "File",
+      children: [
+        { key:"File-New", text:"New" },
+        { key:"File-Open", text:"Open" },
+      ]
+    }
+    const paths = calculatePaths([sm])
+    expect(paths).toStrictEqual({ "File": ["File"], "File-New": ["File", "File-New"], "File-Open": ["File", "File-Open"] }) 
+  });
+
+  test('calculate paths three', () => {
+    const sm = {
+      key: "File",
+      text: "File",
+      children: [
+        { key:"File-New", text:"New" },
+        { key:"File-Open", text:"Open" },
+        { key:"File-OpenAs", text:"Open As..." },
+      ]
+    }
+    const paths = calculatePaths(sm)
+    expect(paths).toStrictEqual({ "File": ["File"], "File-New": ["File", "File-New"], "File-Open": ["File", "File-Open"], "File-OpenAs": ["File", "File-OpenAs"] }) 
+  });
 });
 

@@ -21,6 +21,7 @@ class MenusAPI {
       up: helpers.calculateUps(this._objects.menuDefs),
       down: helpers.calculateDowns(this._objects.menuDefs),
       parents: helpers.calculateParents(this._objects.menuDefs),
+      paths: helpers.calculatePaths(this._objects.menuDefs),
     }
   }
 

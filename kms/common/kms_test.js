@@ -1,7 +1,7 @@
 const menus = require('./menus')
 
 describe('helpers', () => {
-  it('NEOS23 missing api error', async () => {
+  it('missing api error', async () => {
     const km = await menus()
     class API extends km.api.constructor {
     }
@@ -15,7 +15,7 @@ describe('helpers', () => {
     }
   })
 
-  it('NEO23 setting api runs initialize', async () => {
+  it('setting api runs initialize', async () => {
     const km = await menus()
     class API extends km.api.constructor {
     }

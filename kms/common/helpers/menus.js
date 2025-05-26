@@ -123,10 +123,32 @@ const calculateParentsHelper = (defs, parents) => {
   return parents
 }
 
+const calculatePaths = (defs) => {
+  const paths = {}
+  calculatePathsHelper(defs, paths)
+  return paths
+}
+
+const calculatePathsHelper = (defs, paths) => {
+  if (Array.isArray(defs)) {
+    for (const def of defs) {
+      calculatePathsHelper(def, paths)
+    }
+  } else {
+    paths[defs.key] = [defs.key]
+    for (const child of (defs.children || [])) {
+      paths[child.key] = [defs.key, child.key]
+    }
+  }
+  return paths
+}
+
+
 module.exports = {
   calculateRights,
   calculateLefts,
   calculateDowns,
   calculateUps,
   calculateParents,
+  calculatePaths,
 }
