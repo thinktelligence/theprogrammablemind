@@ -2,6 +2,7 @@ const { knowledgeModule, where, Digraph } = require('./runtime').theprogrammable
 const { defaultContextCheck } = require('./helpers')
 const dialogues = require('./dialogues')
 const ordinals = require('./ordinals')
+const math = require('./math')
 const countable = require('./countable')
 const ui_tests = require('./ui.test.json')
 const ui_instance = require('./ui.instance.json')
@@ -128,11 +129,13 @@ const config = {
        localHierarchy: [['thisitthat', 'moveable']],
        optional: { 1: "{ marker: 'moveable', pullFromContext: true, default: true, skipDefault: true }" },
        bridge: "{ ...next(operator), operator: operator, moveable: after[0], direction: after[1], generate: ['operator', 'moveable', 'direction' ] }",
-       semantic: ({api, context}) => {
+       semantic: async ({api, context, e}) => {
          if (context.direction?.steps?.quantity) {
            api.move(context.direction.value, context.direction.steps.quantity.value, context.direction.steps.marker)
          } else {
-           api.move(context.direction.value, context.direction.steps ? context.direction.steps.value : 1)
+           const steps = await e(context.direction.steps)
+           api.move(context.direction.value, steps?.evalue || 1)
+           // api.move(context.direction.value, context.direction.steps ? context.direction.steps.value : 1)
          }
        }
     },
@@ -175,7 +178,7 @@ const template = {
 
 knowledgeModule({ 
   config,
-  includes: [dialogues, ordinals, countable],
+  includes: [dialogues, ordinals, countable, math],
   api: () => new API(),
 
   module,

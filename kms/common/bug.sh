@@ -877,3 +877,5 @@ node people -q 'ownee23 is owned by owner23 who is ownee23 owned by' -g -d
 node wp -q 'bold the first letter of the words that start with t in the third paragraph' -g -d
 node properties -q "the age of greg is 23 what is greg's age" -g -d
 node fastfood -q '(2 mango passion and (3 strawberry)) smoothies' -g -d
+close the menu
+edit
