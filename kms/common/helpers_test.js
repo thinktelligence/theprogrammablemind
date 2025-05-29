@@ -29,6 +29,24 @@ describe('helpers', () => {
     })
   })
 
+  describe('pushL', () => {
+    it('empty', async () => {
+      l = []
+      helpers.pushL(l, 1)
+      expect(l).toStrictEqual([1])
+    })
+    it('has limit not limited', async () => {
+      l = []
+      helpers.pushL(l, 1, 10)
+      expect(l).toStrictEqual([1])
+    })
+    it('has limit limited', async () => {
+      l = [1,2,3]
+      helpers.pushL(l, 4, 3)
+      expect(l).toStrictEqual([2,3,4])
+    })
+  })
+
   describe('getValue', () => {
     it('null object', async () => {
       expect(helpers.getValue('a')).toBe(undefined)

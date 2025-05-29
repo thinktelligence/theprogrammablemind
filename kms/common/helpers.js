@@ -7,6 +7,13 @@ const unshiftL = (list, element, max) => {
   list.unshift(element)
 }
 
+const pushL = (list, element, max) => {
+  if (list.length >= max) {
+    list.shift()
+  }
+  list.push(element)
+}
+
 // X pm today or tomorrow
 const millisecondsUntilHourOfDay = (newDate, hour) => {
   const now = newDate()
@@ -215,6 +222,7 @@ const getValue = (propertyPath, object) => {
 
 module.exports = {
   unshiftL,
+  pushL,
   getValue,
   defaultContextCheck,
   defaultContextCheckProperties,
