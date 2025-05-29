@@ -11,6 +11,24 @@ newDateMock = (date) => {
 }
 
 describe('helpers', () => {
+  describe('unshiftL', () => {
+    it('empty', async () => {
+      l = []
+      helpers.unshiftL(l, 1)
+      expect(l).toStrictEqual([1])
+    })
+    it('has limit not limited', async () => {
+      l = []
+      helpers.unshiftL(l, 1, 10)
+      expect(l).toStrictEqual([1])
+    })
+    it('has limit limited', async () => {
+      l = [3,2,1]
+      helpers.unshiftL(l, 4, 3)
+      expect(l).toStrictEqual([4,3,2])
+    })
+  })
+
   describe('getValue', () => {
     it('null object', async () => {
       expect(helpers.getValue('a')).toBe(undefined)

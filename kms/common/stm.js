@@ -14,6 +14,7 @@ class API {
     this._objects.mentioned = []
     this._objects.variables = {}
     this.idCounter = 0
+    this.maximumMentioned = 50
   }
 
   getId() {
@@ -65,7 +66,7 @@ class API {
       concept.stm.id = this.getId()
     }
     frameOfReference.mentioned = (frameOfReference.mentioned || []).filter( (context) => context.stm && context.stm.id != concept.stm.id )
-    frameOfReference.mentioned.unshift(concept)
+    helpers.unshiftL(frameOfReference.mentioned, concept, this.maximumMentioned)
   }
 
   mentions({ context, frameOfReference, useHierarchy=true, all, condition = (() => true) } = {}) {

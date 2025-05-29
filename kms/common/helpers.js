@@ -1,5 +1,12 @@
 const pluralize = require('pluralize')
 
+const unshiftL = (list, element, max) => {
+  if (list.length >= max) {
+    list.pop()
+  }
+  list.unshift(element)
+}
+
 // X pm today or tomorrow
 const millisecondsUntilHourOfDay = (newDate, hour) => {
   const now = newDate()
@@ -207,6 +214,7 @@ const getValue = (propertyPath, object) => {
 }
 
 module.exports = {
+  unshiftL,
   getValue,
   defaultContextCheck,
   defaultContextCheckProperties,
