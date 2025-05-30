@@ -6,11 +6,11 @@ class API {
   initialize(args) {
     const { globals } = args
     this.globals = globals
-    this.globals.server.associations = []
+    this.globals.associations = []
   }
 
   addAssociation(association) {
-    this.globals.server.associations.push(association)
+    this.globals.associations.push(association)
   }
 }
 
