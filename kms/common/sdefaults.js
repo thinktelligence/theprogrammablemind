@@ -1,4 +1,4 @@
-const { flatten, knowledgeModule, where } = require('./runtime').theprogrammablemind
+const { flatten, knowledgeModule, where, debug } = require('./runtime').theprogrammablemind
 const { defaultContextCheck } = require('./helpers')
 const sdefaults_tests = require('./sdefaults.test.json')
 
@@ -6,11 +6,11 @@ class API {
   initialize(args) {
     const { globals } = args
     this.globals = globals
-    this.globals.associations = []
+    this.globals.server.associations = []
   }
 
   addAssociation(association) {
-    this.globals.associations.push(association)
+    this.globals.server.associations.push(association)
   }
 }
 
@@ -66,7 +66,7 @@ knowledgeModule({
     name: './sdefaults.test.json',
     contents: sdefaults_tests,
     checks: {
-            context: defaultContextCheck(),
-          },
+      context: defaultContextCheck(),
+    },
   },
 })

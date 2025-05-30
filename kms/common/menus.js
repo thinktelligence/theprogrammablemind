@@ -169,6 +169,7 @@ const template = {
         },
       ]
     },
+    "resetidsuffix",
   ],
   fragments: [
     "show showable",

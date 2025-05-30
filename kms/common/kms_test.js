@@ -41,7 +41,7 @@ describe('helpers', () => {
         ui: api,
       }
     })
-    expect(km.config.objects.associations).toStrictEqual(["menus"])
+    expect(km.config.objects.server.associations).toStrictEqual(["menus"])
   })
 
   it('sdefault setup lands in right place', async () => {
