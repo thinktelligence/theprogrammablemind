@@ -11,6 +11,28 @@ newDateMock = (date) => {
 }
 
 describe('helpers', () => {
+  describe('processTemplateString', () => {
+    const evaluate = (expression) => {
+      return `evaluated(${expression})`
+    }
+    it('empty', async () => {
+      const result = await helpers.processTemplateString("", evaluate)
+      expect(result).toStrictEqual("")
+    })
+    it('no vars', async () => {
+      const result = await helpers.processTemplateString("dude", evaluate)
+      expect(result).toStrictEqual("dude")
+    })
+    it('one var', async () => {
+      const result = await helpers.processTemplateString("dude + ${a}", evaluate)
+      expect(result).toStrictEqual("dude + evaluated(a)")
+    })
+    it('date bug', async () => {
+      const result = await helpers.processTemplateString("${month}/${day}/${year}", evaluate)
+      expect(result).toStrictEqual("evaluated(month)/evaluated(day)/evaluated(year)")
+    })
+  })
+
   describe('unshiftL', () => {
     it('empty', async () => {
       l = []

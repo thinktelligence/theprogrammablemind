@@ -220,7 +220,48 @@ const getValue = (propertyPath, object) => {
   return value
 }
 
+const processTemplateString = async (template, evaluate) => {
+  async function resolveWithCallback(strings, ...keys) {
+    // const resolvedValues = await Promise.all(keys.map(key => lookupVariable(key)));
+    const resolvedValues = await Promise.all(keys.map(async (key) => {
+      return await evaluate(key)
+    }))
+
+    let result = strings[0];
+    for (let i = 0; i < resolvedValues.length; i++) {
+      result += resolvedValues[i] + strings[(i + 1)*2];
+    }
+    return result;
+  }
+
+  async function processTemplateString(template) {
+    // Split the template into strings and keys
+    const parts = template.split(/(\${[^}]+})/g);
+    const strings = [];
+    const keys = [];
+    for (const part of parts) {
+      if (part.startsWith("${") && part.endsWith("}")) {
+        keys.push(part.slice(2, -1)); // Extract key (e.g., "name" from "${name}")
+        strings.push(""); // Placeholder for interpolation
+      } else {
+        strings.push(part);
+      }
+    }
+
+    // Ensure the strings array has one more element than keys
+    if (strings.length === keys.length) {
+      strings.push("");
+    }
+
+    // Pass to the tagged template function
+    return resolveWithCallback(strings, ...keys);
+  }
+
+  return await processTemplateString(template)
+}
+
 module.exports = {
+  processTemplateString,
   unshiftL,
   pushL,
   getValue,

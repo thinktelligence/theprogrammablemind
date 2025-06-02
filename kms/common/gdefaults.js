@@ -4,6 +4,7 @@ const { knowledgeModule, where } = require('./runtime').theprogrammablemind
 const tokenize = require('./tokenize.js')
 const gdefaults_tests = require('./gdefaults.test.json')
 const { getValue, isMany } = require('./helpers.js')
+const helpers = require('./helpers')
 
 const config = {
   name: 'gdefaults',
@@ -29,6 +30,13 @@ const config = {
       apply: ({context, gp}) => gp(context.response),
     },
 
+    {
+      where: where(),
+      match: ({context}) => context.paraphrase && context.interpolate,
+      apply: async ({interpolate, context}) => {
+        return interpolate(context.interpolate, context)
+      }
+    },
     {
       where: where(),
       match: ({context}) => context.generate,
@@ -232,6 +240,12 @@ const initializer = ({config}) => {
         verbatim: (text) => {
           args.insert({ marker: 'verbatim', verbatim: text, isResponse: true })
         },
+        interpolate: async (interpolate, context) => {
+          const evaluator = async (key) => {
+            return args.gp(context[key])
+          }
+          return await helpers.processTemplateString(interpolate, evaluator)
+        }
       }
     })
   }
