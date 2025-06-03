@@ -246,14 +246,15 @@ const config = {
        
         return listable(context, 'hierarchyAble') && context.same && context.same.concept && !context.query
       },
-      apply: ({callId, config, objects, km, context, asList, listable}) => {
+      apply: (args) => {
+        const {callId, config, objects, km, context, asList, listable} = args
         const api = km('properties').api
         const oneConcepts = asList(context);
         const twoConcepts = asList(context.same);
         for (const oneConcept of oneConcepts.value) {
           for (const twoConcept of twoConcepts.value) {
-            oneConceptId = api.makeObject({config, context: oneConcept})
-            twoConceptId = api.makeObject({config, context: twoConcept})
+            oneConceptId = api.makeObject({...args, context: oneConcept})
+            twoConceptId = api.makeObject({...args, context: twoConcept})
             api.rememberIsA(oneConceptId, twoConceptId)
             context.sameWasProcessed = true
           }

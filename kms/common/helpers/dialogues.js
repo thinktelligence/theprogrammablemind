@@ -83,6 +83,9 @@ class API {
       return context.value
     }
     */
+    if (typeof context == 'string') {
+      context = { word: context, value: context }
+    }
     const { word, value, number } = context;
     if (!value) {
       return

@@ -879,3 +879,5 @@ node properties -q "the age of greg is 23 what is greg's age" -g -d
 node fastfood -q '(2 mango passion and (3 strawberry)) smoothies' -g -d
 close the menu
 edit
+node dates -q 'jan 10 and 11 2020' -g -d
+

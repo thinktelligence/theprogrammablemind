@@ -431,9 +431,9 @@ const config = {
     {
       where: where(),
       match: ({context}) => context.marker == 'concept' && context.same,
-      apply: ({context, km, config}) => {
-        const api = km('properties').api
-        api.makeObject({ config, context: context.same })
+      apply: (args) => {
+        const {context} = args
+        args.makeObject({ ...args, context: context.same })
         context.sameWasProcessed = true
       }
     },
@@ -670,10 +670,18 @@ const config = {
   ]
 };
 
+const initializer = ({objects, config, isModule}) => {
+  // debugger
+  config.addArgs(({config, api, isA}) => ({
+    makeObject: api('properties').makeObject,
+  }))
+}
+
 knowledgeModule( { 
   config,
   api: () => new API(),
   includes: [concept, meta, dialogues],
+  initializer,
 
   module,
   description: 'properties of objects',
