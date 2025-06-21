@@ -85,6 +85,7 @@ const config = {
     positive: [
       { context: [["the",0],["unknown",0],["propertyOf",0],["unknown",0],["is",0],["unknown",0]], choose: 4 },
       { context: [["objectPrefix",0],["unknown",0]], choose: 1 },
+      { context: [["unknown",0],["propertyOf", 0],["unknown",0]], choose: 0 },
     ]
   },
 
