@@ -542,10 +542,15 @@ const config = {
       where: where(),
       // match: ({context}) => context.marker == 'property' && context.same && context.object,
       match: ({context, hierarchy, uuid}) => hierarchy.isA(context.marker, 'property') && context.same && context.objects && !context[`disable${uuid}`],
-      apply: async ({context, fragments, objects, km, api, log, s, uuid}) => {
+      apply: async (args) => {
+        const {context, fragments, objects, km, api, log, s, uuid} = args
+        // greg55
         const objectContext = context.object;
         const propertyContext = context;
         const objectId = context.object.value
+
+        api.makeObject({ ...args, context: objectContext })
+        api.makeObject({ ...args, context: propertyContext })
         // const propertyId = context.value
         /*
         const propertyId = context.marker

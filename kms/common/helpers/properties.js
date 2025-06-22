@@ -703,6 +703,7 @@ class API {
   }
 
   setProperty(object, property, value, has, skipHandler) {
+    // debugger
     if (!skipHandler) {
       const handler = this.propertiesFH.getHandler([object, property])
       if (handler) {
@@ -793,31 +794,6 @@ class API {
 
   learnWords(config, context) {
   }
-/*
-  ensureDefault(map, key, default) {
-    if (!this._objects[map][key]) {
-      this._objects[map][key] = default
-    }
-    return this._objects[map][key]
-  }
-
-  pushListNoDups(list, value) {
-    if (list.includes(value)) {
-      return
-    }
-    list.push(value)
-  }
-
-  ensureConcept(concept) {
-    ensureDefault(this.properties, concept, {})
-    ensureDefault(this.concepts, concept, [])
-  }
-
-  canDo(object, ability) {
-    this.ensureConcept(object)
-    this.pushListNoDups(this.ensureList('abilities', object), ability)
-  }
-*/
   isA(child, ancestor) {
     // return this._objects.parents[child].includes(parent);
     const todo = [child];
