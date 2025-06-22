@@ -246,6 +246,12 @@ template = {
       associations: {
         positive: [
           { context: [["word_wp",1],["thatVerb",0],["wordComparison_wp",0],["unknown",0]], choose: 0 },
+          { context: [["paragraph_wp",1],["thatVerb",0],["paragraphComparisonVerb_wp",0],["unknown",0]], choose: 0 },
+          { context: [["word_wp",0],["thatVerb",0],["wordComparison_wp",0]], choose: 0 },
+          { context: [["paragraph_wp",0],["thatVerb",0],["paragraphComparisonVerb_wp",0]], choose: 0 },
+          { context: [["paragraph_wp",1],["thatVerb",0],["paragraphComparisonVerb_wp",0]], choose: 0 },
+          { context: [["paragraph_wp",1],["thatVerb",0],["paragraphComparisonVerb_wp",0],["bolded_wp",0],["word_wp",0]], choose: 0 },
+          { context: [["paragraph_wp",1],["thatVerb",0],["paragraphComparisonVerb_wp",0],["word_wp",0]], choose: 0 },
         ]
       },
 
