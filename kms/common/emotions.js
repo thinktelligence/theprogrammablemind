@@ -38,11 +38,6 @@ const config = {
   priorities: [
     { "context": [['feel', 0], ['means', 0], ], "choose": [0] },
   ],
-
-  hierarchy: [
-    ['emotion', 'unknown'],
-    ['sentientBeing', 'unknown'],
-  ]
 }
 
 const initializer = ({config, apis}) => {
@@ -52,6 +47,10 @@ const initializer = ({config, apis}) => {
                 create: ['feel'/*, 'emotion'*/],
                 before: [{tag: 'sentientBeing', id: 'sentientBeing'}],
                 after: [{tag: 'emotion', id: 'emotion'}],
+                localHierarchy: [
+                  ['unknown', 'emotion'],
+                  ['unknown', 'sentientBeing'],
+                ],
                 doAble: true,
                 config })
 }
