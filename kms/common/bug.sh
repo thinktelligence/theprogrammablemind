@@ -884,3 +884,4 @@ node avatar -q 'what is the rank of mccoy' -g -d
 node wp -q 'a paragraph that contains bolded words' -g -d
 node people -q 'ownee is owned by owner means owner owns ownee' -g -d
 node crew -q 'what is the status of the phasers' -g -d
+node ui -q 'move up 2+2' -g -d

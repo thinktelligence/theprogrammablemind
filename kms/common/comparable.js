@@ -18,8 +18,8 @@ const config = {
   ],
   associations: {
     positive: [
-      { context: [["article", 0], ["condition",0],["comparable",0]], choose: 1 },
-      { context: [["article", 0], ["condition",0],["comparable",1]], choose: 1 },
+      { context: [["article", 0], ["condition",0],["comparable",0]], choose: 2 },
+      { context: [["article", 0], ["condition",0],["comparable",1]], choose: 2 },
     ]
   },
   bridges: [

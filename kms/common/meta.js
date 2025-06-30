@@ -51,9 +51,9 @@ const config = {
   ],
   associations: {
     positive: [
-      { "context": [['*', 0], ['means', 0], ['*', 0]], "choose": 1 },
-      { "context": [['*', 1], ['means', 0], ['*', 0]], "choose": 1 },
-      { "context": [['*', 1], ['means', 0], ['*', 1]], "choose": 1 },
+      { "context": [['*', 0], ['means', 0], ['*', 0]], "choose": { index: 1, increment: true } },
+      { "context": [['*', 1], ['means', 0], ['*', 0]], "choose": { index: 1, increment: true } },
+      { "context": [['*', 1], ['means', 0], ['*', 1]], "choose": { index: 1, increment: true } },
     ]
   },
   priorities: [

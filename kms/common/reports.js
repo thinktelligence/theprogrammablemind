@@ -390,8 +390,8 @@ const config = {
   ],
   associations: {
     positive: [
-      { context: [['show', 0], ['article', 0], ['property', 2]], choose: 0 },
-      { context: [['show', 0], ['thisitthat', 0]], choose: 0 },
+      { context: [['show', 0], ['article', 0], ['property', 2]], choose: { index: 0, increment: true } },
+      { context: [['show', 0], ['thisitthat', 0]], choose: { index: 0, increment: true } },
     ]
   },
   generators: [

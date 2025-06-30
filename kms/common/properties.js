@@ -83,7 +83,7 @@ const config = {
   name: 'properties',
   associations: {
     positive: [
-      { context: [["the",0],["unknown",0],["propertyOf",0],["unknown",0],["is",0],["unknown",0]], choose: 4 },
+      { context: [["the",0],["unknown",0],["propertyOf",0],["unknown",0],["is",0],["unknown",0]], choose: { index: 4, increment: true } },
       { context: [["objectPrefix",0],["unknown",0]], choose: 1 },
       { context: [["unknown",0],["propertyOf", 0],["unknown",0]], choose: 0 },
     ]

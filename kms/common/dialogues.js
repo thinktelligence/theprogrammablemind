@@ -104,11 +104,11 @@ const config = {
   associations: {
     positive: [
       { context: [['unknown', 0], ['isEdAble', 0]], choose: 1 },
-      { context: [['isQuery', 0], ['a', 0], ['unknown', 0], ['a', 0], ['unknown', 0]], choose: 0 },
+      { context: [['isQuery', 0], ['a', 0], ['unknown', 0], ['a', 0], ['unknown', 0]], choose: { index: 0, increment: true } },
 
-      { context: [["unknown",0],["isEd",0],["isEdAble",0],["by",0],["unknown",0]], choose: 1 },
-      { context: [["unknown",0],["isEd",0],["isEdAble",0],["by",1]], choose: 1 },
-      { context: [["unknown",0],["isEd",0],["isEdAble",0]], choose: 1 },
+      { context: [["unknown",0],["isEd",0],["isEdAble",0],["by",0],["unknown",0]], choose: { index: 0, increment: true } },
+      { context: [["unknown",0],["isEd",0],["isEdAble",0],["by",1]], choose: { index: 0, increment: true } },
+      { context: [["unknown",0],["isEd",0],["isEdAble",0]], choose: { index: 0, increment: true } },
 
 
       ...listorama('unknown'),
