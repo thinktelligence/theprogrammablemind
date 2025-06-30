@@ -111,8 +111,27 @@ const config = {
       { context: [["unknown",0],["isEd",0],["isEdAble",0]], choose: { index: 0, increment: true } },
 
 
-      ...listorama('unknown'),
-      ...listorama('queryable'),
+      // ...listorama('unknown'),
+      // ...listorama('queryable'),
+      { context: [['unknown', 0], ['list', 0], ['unknown', 0]], choose: 0 },
+      { context: [['unknown', 0], ['list', 0], ['unknown', 1]], choose: 0 },
+      { context: [['unknown', 1], ['list', 0], ['unknown', 0]], choose: 0 },
+      { context: [['unknown', 1], ['list', 0], ['unknown', 1]], choose: 0 },
+
+      { context: [['queryable', 0], ['list', 0], ['unknown', 0]], choose: 1 },
+      { context: [['queryable', 0], ['list', 0], ['unknown', 1]], choose: 1 },
+      { context: [['queryable', 1], ['list', 0], ['unknown', 0]], choose: 1 },
+      { context: [['queryable', 1], ['list', 0], ['unknown', 1]], choose: 1 },
+
+      { context: [['unknown', 0], ['list', 0], ['queryable', 0]], choose: 2 },
+      { context: [['unknown', 0], ['list', 0], ['queryable', 1]], choose: 2 },
+      { context: [['unknown', 1], ['list', 0], ['queryable', 0]], choose: 2 },
+      { context: [['unknown', 1], ['list', 0], ['queryable', 1]], choose: 2 },
+
+      { context: [['queryable', 0], ['list', 0], ['queryable', 0]], choose: 0 },
+      { context: [['queryable', 0], ['list', 0], ['queryable', 1]], choose: 0 },
+      { context: [['queryable', 1], ['list', 0], ['queryable', 0]], choose: 0 },
+      { context: [['queryable', 1], ['list', 0], ['queryable', 1]], choose: 0 },
     ]
   },
   bridges: [

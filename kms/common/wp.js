@@ -252,6 +252,10 @@ template = {
           { context: [["paragraph_wp",1],["thatVerb",0],["paragraphComparisonVerb_wp",0]], choose: 0 },
           { context: [["paragraph_wp",1],["thatVerb",0],["paragraphComparisonVerb_wp",0],["bolded_wp",0],["word_wp",0]], choose: 0 },
           { context: [["paragraph_wp",1],["thatVerb",0],["paragraphComparisonVerb_wp",0],["word_wp",0]], choose: 0 },
+          { context: [["article",0],["word_wp",1],["statefulElementInContext_wp",0],["every", 0],["paragraph_wp",0]], choose: 1 },
+          { context: [["article",0],["statefulElement_wp",0]], choose: 1 },
+          { context: [["article",0],["statefulElement_wp",1]], choose: 1 },
+          { context: [["article",0],["ordinal", 0],["statefulElement_wp",0]], choose: 2 },
         ]
       },
 
