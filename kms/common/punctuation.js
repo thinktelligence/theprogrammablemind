@@ -16,18 +16,21 @@ const config = {
     {
       id: "comma",
       level: 0,
+      skipable: true,
       bridge: "{ ...before[0], decorators.after: operator, no_convolutions: true }",      // css :after decoration
       words: [{ word: ",", value: ',', depth: '+' }],
     },
     {
       id: "leftParenthesis",
       level: 0,
+      skipable: true,
       bridge: "{ ...after[0], parenthesis: '(' }",
       words: [{ word: "(", value: '(', depth: '+' }],
     },
     {
       id: "rightParenthesis",
       level: 0,
+      skipable: true,
       bridge: "{ ...next(operator) }",
       words: [{ word: ")", value: ')', depth: '-' }],
     },
