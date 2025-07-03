@@ -433,6 +433,12 @@ const template = {
           }
         },
       ],
+      associations: {
+        positive: [
+          { context: [['combo', 0], ['integer', 0]], choose: 0 },
+          { context: [['combo', 0], ['integer', 1]], choose: 0 },
+        ],
+      },
     },
   ],
 }

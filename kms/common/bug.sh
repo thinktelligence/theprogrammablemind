@@ -885,3 +885,4 @@ node wp -q 'a paragraph that contains bolded words' -g -d
 node people -q 'ownee is owned by owner means owner owns ownee' -g -d
 node crew -q 'what is the status of the phasers' -g -d
 node ui -q 'move up 2+2' -g -d
+node wp -q 'underline the 4th and 7th word of the second paragraph' -g -d
