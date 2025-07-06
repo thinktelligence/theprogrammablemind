@@ -11,6 +11,7 @@ const conjunction = require('./common/conjunction')
 const countable = require('./common/countable')
 const crew = require('./common/crew')
 const currency = require('./common/currency')
+const dates = require('./common/dates')
 const dialogues = require('./common/dialogues')
 const dimension = require('./common/dimension')
 const edible = require('./common/edible')
@@ -75,6 +76,7 @@ module.exports = {
   countable,
   crew,
   currency,
+  dates,
   dialogues,
   dimension,
   edible,
