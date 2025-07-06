@@ -369,6 +369,7 @@ const template = {
       hierarchy: [
         ['meal', 'toAble'],
         ['drink', 'toAble'],
+        ['smoothie_modifier', 'sizeable'],
       ],
       bridges: [
         { 
