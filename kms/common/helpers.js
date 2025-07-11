@@ -151,11 +151,39 @@ const toEValue = (context) => {
 	return context;
 }
 
+const defaultContextCheckValidify = (properties) => {
+  for (const value of properties) {
+    if (typeof value == 'string') {
+      continue
+    }
+    if (typeof value.property == 'string' && value.filter) {
+      continue
+    }
+    throw new Error("Expected the <checks> argument to defaultContextCheck to be a list of <property> or { property: <property>, filter: <checks> }. Where <property> is a string.")
+  }
+}
+
 const defaultContextCheckProperties = ['marker', 'text', 'verbatim', 'isResponse', { property: 'response', filter: ['marker', 'text', 'verbatim'] }] 
+
+const expand_checks = (properties) => {
+  const expanded = []
+  for (const property of properties) {
+    defaultContextCheckValidify(properties)
+    if (typeof property == 'string') {
+      expanded.push({ property, filter: defaultContextCheckProperties })
+    } else {
+      expanded.push({ property: property.property, filter: [...defaultContextCheckProperties, ...expand_checks(property.filter)] })
+    }
+  }
+  return expanded
+}
+
 const defaultContextCheck = (properties = []) => {
+  defaultContextCheckValidify(properties)
   return [
     ...defaultContextCheckProperties,
-    ...properties.map((property) => { return { property, filter: defaultContextCheckProperties } }),
+    // ...properties.map((property) => { return { property, filter: defaultContextCheckProperties } }),
+    ...expand_checks(properties),
     (object) => {
       if (typeof object.value == 'object') {
         return { property: 'value', filter: defaultContextCheckProperties }
