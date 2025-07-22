@@ -37,6 +37,7 @@ const template = {
         "([era_dates|])",
         "([date_dates|])",
         "([dateEra_dates] (date_dates/*) (era_dates/*))",
+        "([monthYear_dates] (month_dates/*) (yearNumber_dates/*))",
         "([monthDayYear_dates] (month_dates/*) (dayNumber_dates/*) (yearNumber_dates/*))",
         "([monthDayYearWithSlashes_dates] (monthNumber_dates/*) (dateSeparator_dates/*) (dayNumber_dates/*) (dateSeparator_dates/*) (yearNumber_dates/*))",
       ],
@@ -48,7 +49,7 @@ const template = {
         },
         { 
           id: 'date_dates', 
-          words: ['date'],
+          words: ['date', 'distributable'],
           bridge: "{ ...next(operator) }" 
         },
         { 
@@ -71,7 +72,7 @@ const template = {
         { 
           id: 'dayNumber_dates', 
           isA: ['integer'],
-          associations: ['dates'],
+          //associations: ['dates'],
           bridge: "{ ...next(operator) }" 
         },
         { 
@@ -83,6 +84,12 @@ const template = {
           id: 'yearNumber_dates', 
           isA: ['integer'],
           bridge: "{ ...next(operator) }" 
+        },
+        { 
+          id: 'monthYear_dates', 
+          convolution: true,
+          isA: ['date_dates'],
+          bridge: "{ ...next(operator), month: after[0], year: after[1], interpolate: '${month} ${year}' }"
         },
         { 
           id: 'monthDayYear_dates', 
