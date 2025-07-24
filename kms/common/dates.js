@@ -41,6 +41,14 @@ const template = {
         "([monthDayYear_dates] (month_dates/*) (dayNumber_dates/*) (yearNumber_dates/*))",
         "([monthDayYearWithSlashes_dates] (monthNumber_dates/*) (dateSeparator_dates/*) (dayNumber_dates/*) (dateSeparator_dates/*) (yearNumber_dates/*))",
       ],
+      associations: {
+        positive: [
+          { context: [['every', 0], ['monday_dates', 0]], choose: 1 },
+        ]
+      },
+      hierarchy: [
+        ['monday_dates', 'distributable'],
+      ],
       bridges: [
         { 
           id: 'era_dates', 

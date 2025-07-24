@@ -3,19 +3,11 @@ const { defaultContextCheck } = require('./helpers')
 const dialogues = require('./dialogues')
 const hierarchy = require('./hierarchy')
 const emotions = require('./emotions')
+const selfKM = require('./self')
 const avatar_tests = require('./avatar.test.json')
  
 const config = {
   name: 'avatar',
-
-  // TODO make different response for answerNotKnown based on emotions
-  operators: [
-    "([self])",
-  ],
-
-  bridges: [
-    { id: 'self', level: 0, bridge: "{ ...next(operator) }" },
-  ],
 
   hierarchy: [
     ['self', 'queryable'],
@@ -70,7 +62,7 @@ const config = {
 
 knowledgeModule( { 
   config,
-  includes: [hierarchy, emotions],
+  includes: [selfKM, hierarchy, emotions],
 
   module,
   description: 'avatar for dialogues',
