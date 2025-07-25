@@ -44,6 +44,7 @@ const pos = require('./common/pos')
 const pressure = require('./common/pressure')
 const properties = require('./common/properties')
 const punctuation = require('./common/punctuation')
+const reminders = require('./common/reminders')
 const reports = require('./common/reports')
 const scorekeeper = require('./common/scorekeeper')
 const sdefaults = require('./common/sdefaults')
@@ -110,6 +111,7 @@ module.exports = {
   pressure,
   properties,
   punctuation,
+  reminders,
   reports,
   scorekeeper,
   sdefaults,
