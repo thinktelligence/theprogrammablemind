@@ -47,6 +47,7 @@ const punctuation = require('./common/punctuation')
 const reports = require('./common/reports')
 const scorekeeper = require('./common/scorekeeper')
 const sdefaults = require('./common/sdefaults')
+const self = require('./common/self')
 const sizeable = require('./common/sizeable')
 const spock = require('./common/spock')
 const stgame = require('./common/stgame')
@@ -112,6 +113,7 @@ module.exports = {
   reports,
   scorekeeper,
   sdefaults,
+  self,
   sizeable,
   spock,
   stgame,
