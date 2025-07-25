@@ -142,8 +142,6 @@ const setUpdate = (isA, update, states) => {
   }
 }
 
-const api = new API()
-
 const config = {
   name: 'wp',
 };

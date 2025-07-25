@@ -1,2 +1,47 @@
 {
+  "configs": [
+    {
+      "operators": [
+        "([remind] (self/*) (*)*)"
+      ],
+      "bridges": [
+        {
+          "id": "remind",
+          "isA": [
+            "verb"
+          ],
+          "bridge": "{ ...next(operator), operator: operator, who: after[0], reminder: after[1], interpolate: '${operator} ${who} ${reminder}' }",
+          "semantic": "async ({api, gsp, context}) => {\n            const text = await gsp(context.reminder.slice(1));\n            api.add({ text });\n          }"
+        }
+      ]
+    },
+    {
+      "apply": "({ask, api}) => {\n      ask([\n        {\n          where: where(),\n          oneShot: false,\n          onNevermind: ({verbatim, ...args}) => {\n            // this is cross km boundaries from the dialogues km to this one so the api if for dialogs.\n            // i need to get the one for fastfood here.\n            const api = args.kms.fastfood.api\n            const needsDrink = askAbout({ args, api })\n            for (const item of needsDrink) {\n              api.remove(item)\n            }\n          },\n\n          matchq: (args) => args.api.askAbout(args).length > 0 && args.context.marker == 'controlEnd',\n          applyq: (args) => {\n            args.context.cascade = false\n            const items = askAbout(args)\n            const item = items[0]\n            debugger;\n            debugger\n          },\n\n          matchr: (args) => {\n            if (args.isA(args.context.marker, 'drink') && askAbout(args).length > 0) {\n              const needsDrink = askAbout(args)\n              if (args.api.isAvailableModification(needsDrink[0].food, { ...args.context , id: args.context.value })) {\n                return true\n              }\n            }\n            return false\n          },\n          applyr: (args) => {\n            // TODO check for is available for all modifications\n            const needsDrink = askAbout(args)\n            const { api, context } = args\n            if (isMany(context)) {\n              let count = getCount(context) || Number.MAX_SAFE_INTEGER\n              for (const item of needsDrink) {\n                if (count < 1) {\n                  break\n                }\n                count -= 1\n                api.addDrink(item.item_id, { id: context.value })\n              }\n            } else {\n              const item_id = needsDrink[0].item_id\n              api.addDrink(item_id, { id: context.value })\n            }\n          }\n        },\n      ])\n    }"
+    }
+  ],
+  "resultss": [
+    {
+      "extraConfig": true,
+      "operators": [
+        "([remind] (self/*) (*)*)"
+      ],
+      "bridges": [
+        {
+          "id": "remind",
+          "isA": [
+            "verb"
+          ],
+          "bridge": "{ ...next(operator), operator: operator, who: after[0], reminder: after[1], interpolate: '${operator} ${who} ${reminder}' }"
+        }
+      ]
+    },
+    {
+      "apply": "({ask, api}) => {\n      ask([\n        {\n          where: where(),\n          oneShot: false,\n          onNevermind: ({verbatim, ...args}) => {\n            // this is cross km boundaries from the dialogues km to this one so the api if for dialogs.\n            // i need to get the one for fastfood here.\n            const api = args.kms.fastfood.api\n            const needsDrink = askAbout({ args, api })\n            for (const item of needsDrink) {\n              api.remove(item)\n            }\n          },\n\n          matchq: (args) => args.api.askAbout(args).length > 0 && args.context.marker == 'controlEnd',\n          applyq: (args) => {\n            args.context.cascade = false\n            const items = askAbout(args)\n            const item = items[0]\n            debugger;\n            debugger\n          },\n\n          matchr: (args) => {\n            if (args.isA(args.context.marker, 'drink') && askAbout(args).length > 0) {\n              const needsDrink = askAbout(args)\n              if (args.api.isAvailableModification(needsDrink[0].food, { ...args.context , id: args.context.value })) {\n                return true\n              }\n            }\n            return false\n          },\n          applyr: (args) => {\n            // TODO check for is available for all modifications\n            const needsDrink = askAbout(args)\n            const { api, context } = args\n            if (isMany(context)) {\n              let count = getCount(context) || Number.MAX_SAFE_INTEGER\n              for (const item of needsDrink) {\n                if (count < 1) {\n                  break\n                }\n                count -= 1\n                api.addDrink(item.item_id, { id: context.value })\n              }\n            } else {\n              const item_id = needsDrink[0].item_id\n              api.addDrink(item_id, { id: context.value })\n            }\n          }\n        },\n      ])\n    }"
+    }
+  ],
+  "fragments": [],
+  "semantics": [],
+  "associations": [],
+  "summaries": [],
+  "learned_contextual_priorities": []
 }

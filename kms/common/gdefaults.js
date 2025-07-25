@@ -242,7 +242,11 @@ const initializer = ({config}) => {
         },
         interpolate: async (interpolate, context) => {
           const evaluator = async (key) => {
-            return args.gp(context[key])
+            if (Array.isArray(context[key])) {
+              return args.gsp(context[key])
+            } else {
+              return args.gp(context[key])
+            }
           }
           return await helpers.processTemplateString(interpolate, evaluator)
         }
