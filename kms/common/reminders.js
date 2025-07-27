@@ -138,7 +138,6 @@ const template = {
           },
 
           matchr: ({ isA, api, context }) => {
-            debugger
             if (isA(context.marker, 'reminderTime') && api.askAbout().length > 0) {
                 return true
             }
@@ -146,7 +145,6 @@ const template = {
           },
           applyr: ({ context, api }) => {
             const items = api.askAbout()
-            debugger
             api.update({ id: items[0].id, when: context })
             // TODO check for is available for all modifications
             /*
