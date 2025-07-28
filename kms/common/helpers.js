@@ -152,6 +152,7 @@ const toEValue = (context) => {
 }
 
 const defaultContextCheckValidify = (properties) => {
+  return // new way
   for (const value of properties) {
     if (typeof value == 'string') {
       continue
@@ -163,19 +164,35 @@ const defaultContextCheckValidify = (properties) => {
   }
 }
 
-const defaultContextCheckProperties = ['marker', 'text', 'verbatim', 'isResponse', { property: 'response', filter: ['marker', 'text', 'verbatim'] }] 
+const defaultContextCheckProperties = ['marker', 'text', 'verbatim', 'isResponse', 'types', { property: 'response', filter: ['marker', 'text', 'verbatim'] }] 
 
 const expand_checks = (properties) => {
-  const expanded = []
-  for (const property of properties) {
-    defaultContextCheckValidify(properties)
-    if (typeof property == 'string') {
-      expanded.push({ property, filter: defaultContextCheckProperties })
+  let expanded = []
+  if (properties == 'defaults') {
+    return defaultContextCheckProperties
+  }
+  if (Array.isArray(properties)) {
+    for (const property of properties) {
+      defaultContextCheckValidify(properties)
+      if (typeof property == 'string') {
+        expanded.push({ property, filter: defaultContextCheckProperties })
+      } else if (property.property && property.filter) {
+        expanded.push({ property: property.property, filter: [defaultContextCheckProperties, ...expand_checks(property.filter)] })
+      } else {
+        expanded = [...expanded, ...expand_checks(property)]
+      }
+    }
+    return expanded
+  }
+  for (const key of Object.keys(properties)) {
+    if (key === '_') {
+      expanded = [...expanded, ...defaultContextCheckProperties]
     } else {
-      expanded.push({ property: property.property, filter: [...defaultContextCheckProperties, ...expand_checks(property.filter)] })
+      expanded.push({ property: key, filter: [...expand_checks(properties[key])] })
     }
   }
   return expanded
+
 }
 
 const defaultContextCheck = (properties = []) => {

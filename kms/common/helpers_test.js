@@ -127,6 +127,340 @@ describe('helpers', () => {
   })
 })
 
+describe('defaultContextCheck', () => {
+  it('NEOS23 empty', () => {
+    context = {}
+    actual = helpers.defaultContextCheck()
+    console.log('actual', JSON.stringify(actual, null, 2), null, 2)
+    expected = [
+        "marker",
+        "text",
+        "verbatim",
+        "isResponse",
+        "types",
+        {
+          "property": "response",
+          "filter": [
+            "marker",
+            "text",
+            "verbatim"
+          ]
+        },
+        actual[6], // function
+        actual[7], // function
+        {
+          "property": "modifiers",
+          "isPropertyList": true,
+          "filter": [
+            "marker",
+            "text",
+            "verbatim",
+            "isResponse",
+            "types",
+            {
+              "property": "response",
+              "filter": [
+                "marker",
+                "text",
+                "verbatim"
+              ]
+            }
+          ]
+        }
+      ]
+
+    expect(JSON.stringify(actual)).toEqual(JSON.stringify(expected))
+  })
+
+  it('NEOS23 added object', () => {
+    context = {}
+    actual = helpers.defaultContextCheck(['a'])
+    console.log('actual', JSON.stringify(actual, null, 2), null, 2)
+    expected = [
+        "marker",
+        "text",
+        "verbatim",
+        "isResponse",
+        "types",
+        {
+          "property": "response",
+          "filter": [
+            "marker",
+            "text",
+            "verbatim"
+          ]
+        },
+        {
+          "property": "a",
+          "filter": [
+            "marker",
+            "text",
+            "verbatim",
+            "isResponse",
+            "types",
+            {
+              "property": "response",
+              "filter": [
+                "marker",
+                "text",
+                "verbatim"
+              ]
+            }
+          ]
+        },
+        actual[7], // function
+        actual[8], // function
+        {
+          "property": "modifiers",
+          "isPropertyList": true,
+          "filter": [
+            "marker",
+            "text",
+            "verbatim",
+            "isResponse",
+            "types",
+            {
+              "property": "response",
+              "filter": [
+                "marker",
+                "text",
+                "verbatim"
+              ]
+            }
+          ]
+        }
+      ]
+
+    expect(JSON.stringify(actual)).toEqual(JSON.stringify(expected))
+  })
+
+  it('NEOS23 explicit tree filter - depth 1', () => {
+    context = {}
+    actual = helpers.defaultContextCheck([
+      {
+        event: 'defaults'
+      },
+    ])
+    console.log('actual', JSON.stringify(actual, null, 2), null, 2)
+    expected = [
+        "marker",
+        "text",
+        "verbatim",
+        "isResponse",
+        "types",
+        {
+          "property": "response",
+          "filter": [
+            "marker",
+            "text",
+            "verbatim"
+          ]
+        },
+        {
+          "property": "event",
+          "filter": [
+            "marker",
+            "text",
+            "verbatim",
+            "isResponse",
+            "types",
+            {
+              "property": "response",
+              "filter": [
+                "marker",
+                "text",
+                "verbatim"
+              ]
+            }
+          ]
+        },
+        actual[7], // function
+        actual[8], // function
+        {
+          "property": "modifiers",
+          "isPropertyList": true,
+          "filter": [
+            "marker",
+            "text",
+            "verbatim",
+            "isResponse",
+            "types",
+            {
+              "property": "response",
+              "filter": [
+                "marker",
+                "text",
+                "verbatim"
+              ]
+            }
+          ]
+        }
+      ]
+
+    expect(JSON.stringify(actual)).toEqual(JSON.stringify(expected))
+  })
+
+  it('NEOS23 explicit tree filter - depth 2', () => {
+    context = {}
+    actual = helpers.defaultContextCheck([
+      {
+        event: {
+          one: 'defaults'
+        },
+      },
+    ])
+    console.log('actual', JSON.stringify(actual, null, 2), null, 2)
+    expected = [
+        "marker",
+        "text",
+        "verbatim",
+        "isResponse",
+        "types",
+        {
+          "property": "response",
+          "filter": [
+            "marker",
+            "text",
+            "verbatim"
+          ]
+        },
+        {
+          "property": "event",
+          "filter": [
+            {
+              "property": "one",
+              "filter": [
+                "marker",
+                "text",
+                "verbatim",
+                "isResponse",
+                "types",
+                {
+                  "property": "response",
+                  "filter": [
+                    "marker",
+                    "text",
+                    "verbatim"
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        actual[7], // function
+        actual[8], // function
+        {
+          "property": "modifiers",
+          "isPropertyList": true,
+          "filter": [
+            "marker",
+            "text",
+            "verbatim",
+            "isResponse",
+            "types",
+            {
+              "property": "response",
+              "filter": [
+                "marker",
+                "text",
+                "verbatim"
+              ]
+            }
+          ]
+        }
+      ]
+
+    expect(JSON.stringify(actual)).toEqual(JSON.stringify(expected))
+  })
+
+  it('NEOS23 explicit tree filter - depth 2 - default: true', () => {
+    context = {}
+    actual = helpers.defaultContextCheck([
+      {
+        event: {
+          one: 'defaults',
+          _: 'defaults',
+        },
+      },
+    ])
+    console.log('actual', JSON.stringify(actual, null, 2), null, 2)
+    expected = [
+        "marker",
+        "text",
+        "verbatim",
+        "isResponse",
+        "types",
+        {
+          "property": "response",
+          "filter": [
+            "marker",
+            "text",
+            "verbatim"
+          ]
+        },
+        {
+          "property": "event",
+          "filter": [
+            {
+              "property": "one",
+              "filter": [
+                "marker",
+                "text",
+                "verbatim",
+                "isResponse",
+                "types",
+                {
+                  "property": "response",
+                  "filter": [
+                    "marker",
+                    "text",
+                    "verbatim"
+                  ]
+                }
+              ]
+            },
+            "marker",
+            "text",
+            "verbatim",
+            "isResponse",
+            "types",
+            {
+              "property": "response",
+              "filter": [
+                "marker",
+                "text",
+                "verbatim"
+              ]
+            }
+          ]
+        },
+        actual[7], // function
+        actual[8], // function
+        {
+          "property": "modifiers",
+          "isPropertyList": true,
+          "filter": [
+            "marker",
+            "text",
+            "verbatim",
+            "isResponse",
+            "types",
+            {
+              "property": "response",
+              "filter": [
+                "marker",
+                "text",
+                "verbatim"
+              ]
+            }
+          ]
+        }
+      ]
+
+    expect(JSON.stringify(actual)).toEqual(JSON.stringify(expected))
+  })
+})
+
 describe('focus', () => {
   it('empty', () => {
     context = {}
