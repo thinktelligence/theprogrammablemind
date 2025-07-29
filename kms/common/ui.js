@@ -127,7 +127,9 @@ const config = {
        isA: ['verb'],
        level: 0, 
        localHierarchy: [['thisitthat', 'moveable']],
-       optional: { 1: "{ marker: 'moveable', pullFromContext: true, default: true, skipDefault: true }" },
+       optional: { 
+         1: "{ marker: 'moveable', pullFromContext: true, default: true, skipDefault: true }" 
+       },
        bridge: "{ ...next(operator), operator: operator, moveable: after[0], direction: after[1], generate: ['operator', 'moveable', 'direction' ] }",
        semantic: async ({api, context, e}) => {
          if (context.direction?.steps?.quantity) {

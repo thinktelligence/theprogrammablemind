@@ -41,6 +41,7 @@ const config = {
   name: 'time',
   operators: [
     "([time])",
+    "([atTime|at] (time))",
     "([use] (([timeUnit]) [timeFormat|format]))",
     // "(([number|]) [ampm|])",
     "((time) [ampm|])",
@@ -62,15 +63,22 @@ const config = {
       bridge: "{ ...next(operator), hour: after[0], colon: after[1], minute: after[2], interpolate: '${hour}${colon}${minute}' }",
     },
     { 
+      id: "atTime", 
+      words: ['@'],
+      isA: ['preposition'],
+      bridge: "{ ...next(operator), time: after[0], operator: operator,  interpolate: '${operator} ${time}' }" 
+    },
+    { 
       id: "time", 
       bridge: "{ ...next(operator) }" 
     },
     { 
       id: "ampm", 
+      isA: ['adjective'],
       localHierarchy: [
         ['integer', 'time'],
       ],
-      bridge: "{ ...next(before[0]), ampm: operator, time: before[0], interpolate: concat(default(before[0].interpolate, '${time}'), ' ${ampm}') }",
+      bridge: "{ ...next(before[0]), marker: if(isA(before[0].marker, 'integer'), operator('time'), before[0].marker), ampm: operator, time: before[0], interpolate: concat(default(before[0].interpolate, '${time}'), ' ${ampm}') }",
     },
     { 
       id: "timeFormat", 

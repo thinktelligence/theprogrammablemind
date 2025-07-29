@@ -177,14 +177,17 @@ const config = {
 
     { 
       id: "by", 
-      level: 0, 
       bridge: "{ ...next(operator), object: after[0] }", 
       localHierarchy: [['unknown', 'isEder']],
       optional: { 1: "{ marker: 'unknown', implicit: true, concept: true }", }, 
     },
 
     { id: "debug23" },
-    { id: "what", level: 0, optional: "{ ...next(operator), query: ['what'], determined: true }", bridge: "{ ...after, query: ['what'], modifiers: ['what'], what: operator }" },
+    { 
+      id: "what", 
+      optional: "{ ...next(operator), query: ['what'], determined: true }", 
+      bridge: "{ ...after, query: ['what'], modifiers: ['what'], what: operator }" 
+    },
     { id: "whatAble" },
 
     // context.instance == variables.instance (unification)

@@ -4,6 +4,7 @@ const reminders_tests = require('./reminders.test.json')
 const reminders_instance = require('./reminders.instance.json')
 const selfKM = require('./self')
 const dates = require('./dates')
+const time = require('./time')
 const helpers = require('./helpers')
 
 class API {
@@ -21,7 +22,7 @@ class API {
   askAbout() {
     const items = []
     for (const item of this._objects.reminders) {
-      if (!item.when) {
+      if (!item.date) {
         items.push({ when: true, text: item.text, id: item.id })
       }
     }
@@ -69,7 +70,9 @@ const template = {
       operators: [
         "([reminderTime|])",
         "([remind] (self/*) (!@<= 'onDate')*)",
-        "([remind:withTimeBridge] (self/*) (!@<= 'onDate')* ([onDate|on] (reminderTime)))",
+        "([onDate|on] (reminderTime))",
+        "([remind:withDateBridge] (self/*) (!@<= 'onDate')* (onDate))",
+        "([remind:withDateAndTimeBridge] (self/*) (!@<= 'onDate')* (onDate) (atTime))",
         "([show] ([reminders]))",
         "([delete_reminders|delete,cancel] (number/*))",
       ],
@@ -78,10 +81,11 @@ const template = {
           id: 'remind',
           isA: ['verb'],
           bridge: "{ ...next(operator), operator: operator, who: after[0], reminder: after[1], interpolate: '${operator} ${who} ${reminder}' }",
-          withTimeBridge: "{ ...next(operator), operator: operator, who: after[0], reminder: after[1], when: after[2], interpolate: '${operator} ${who} ${reminder} ${when}' }",
+          withDateBridge: "{ ...next(operator), operator: operator, who: after[0], reminder: after[1], date: after[2], interpolate: '${operator} ${who} ${reminder} ${date}' }",
+          withDateAndTimeBridge: "{ ...next(operator), operator: operator, who: after[0], reminder: after[1], date: after[2], time: after[3], interpolate: '${operator} ${who} ${reminder} ${date} ${time}' }",
           semantic: async ({api, gsp, context}) => {
             const text = await gsp(context.reminder.slice(1));
-            api.add({ text, when: context.when });
+            api.add({ text, date: context.date, time: context.time });
           },
         },
         {
@@ -94,7 +98,7 @@ const template = {
         { 
           id: 'onDate', 
           isA: ['preposition'],
-          bridge: "{ ...next(operator), time: after[0], onDate: operator, interpolate: '${onDate} ${time}' }",
+          bridge: "{ ...next(operator), date: after[0], onDate: operator, interpolate: '${onDate} ${date}' }",
         },
         { 
           id: 'reminders', 
@@ -152,25 +156,7 @@ const template = {
           },
           applyr: ({ context, api }) => {
             const items = api.askAbout()
-            api.update({ id: items[0].id, when: context })
-            // TODO check for is available for all modifications
-            /*
-            const needsDrink = askAbout(args)
-            const { api, context } = args
-            if (isMany(context)) {
-              let count = getCount(context) || Number.MAX_SAFE_INTEGER
-              for (const item of needsDrink) {
-                if (count < 1) {
-                  break
-                }
-                count -= 1
-                api.addDrink(item.item_id, { id: context.value })
-              }
-            } else {
-              const item_id = needsDrink[0].item_id
-              api.addDrink(item_id, { id: context.value })
-            }
-            */
+            api.update({ id: items[0].id, date: context })
           }
         },
       ])
@@ -180,7 +166,7 @@ const template = {
 
 knowledgeModule( { 
   config: { name: 'reminders' },
-  includes: [dates, selfKM],
+  includes: [time, dates, selfKM],
   api: () => new API(),
 
   module,
@@ -193,7 +179,7 @@ knowledgeModule( {
       objects: [
         { 
           property: 'reminders',
-          filter: [ 'text', 'when' ],
+          filter: [ 'text', 'date', 'time' ],
         }
       ],
     },
