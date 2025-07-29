@@ -16,11 +16,31 @@
     },
     "contexts": [
       {
-        "ampm": "pm",
+        "ampm": {
+          "ampm": "pm",
+          "determined": true,
+          "level": 0,
+          "marker": "ampm",
+          "range": {
+            "end": 3,
+            "start": 2
+          },
+          "text": "pm",
+          "word": "pm"
+        },
+        "context_id": 2,
         "context_index": 1,
         "dead": true,
-        "determined": true,
-        "hour": {
+        "instance": true,
+        "interpolate": "${time} ${ampm}",
+        "level": 2,
+        "marker": "integer",
+        "range": {
+          "end": 3,
+          "start": 0
+        },
+        "text": "2 pm",
+        "time": {
           "dead": true,
           "instance": true,
           "level": 1,
@@ -31,20 +51,19 @@
           },
           "text": "2",
           "types": [
-            "integer"
+            "integer",
+            "time"
           ],
           "value": 2,
           "word": "2"
         },
-        "level": 1,
-        "marker": "ampm",
-        "range": {
-          "end": 3,
-          "start": 0
-        },
-        "text": "2 pm",
         "topLevel": true,
-        "word": "pm"
+        "types": [
+          "integer",
+          "time"
+        ],
+        "value": 2,
+        "word": "2"
       }
     ],
     "generatedParenthesized": [
@@ -85,6 +104,8 @@
       ]
     },
     "objects": {
+      "associations": [
+      ],
       "nameToUUID": {
         "articles": "articles2",
         "asking": "asking2",
@@ -109,39 +130,52 @@
       },
       "namespaced": {
         "articles2": {
+          "km": "articles2"
         },
         "asking2": {
+          "km": "asking2"
         },
         "concept2": {
           "defaultTypesForHierarchy": {
           },
+          "km": "concept2",
           "valueToWords": [
           ]
         },
         "conjunction2": {
+          "km": "conjunction2"
         },
         "countable2": {
+          "km": "countable2"
         },
         "dialogues2": {
           "idSuffix": "",
+          "km": "dialogues2",
           "mentioned": [
           ],
           "variables": {
           }
         },
         "evaluate2": {
+          "km": "evaluate2"
         },
         "gdefaults2": {
+          "km": "gdefaults2"
         },
         "hierarchy2": {
+          "km": "hierarchy2"
         },
         "meta2": {
+          "km": "meta2"
         },
         "negation2": {
+          "km": "negation2"
         },
         "numbers2": {
+          "km": "numbers2"
         },
         "pos2": {
+          "km": "pos2"
         },
         "properties2": {
           "children": {
@@ -166,6 +200,10 @@
             ],
             "ifAble": [
               "orAble"
+            ],
+            "listable": [
+              "object",
+              "queryable"
             ],
             "object": [
               "what",
@@ -192,7 +230,6 @@
               "concept",
               "doubleQuote",
               "theAble",
-              "unknown",
               "it",
               "what",
               "whatAble",
@@ -206,7 +243,7 @@
               "property",
               "object",
               "concept",
-              "unknown",
+              "listable",
               "reason",
               "memorable",
               "noun"
@@ -222,6 +259,7 @@
             "verb": [
               "modifies",
               "is",
+              "isQuery",
               "remember",
               "evaluate"
             ]
@@ -242,6 +280,7 @@
             "canBeQuestion",
             "property",
             "theAble",
+            "listable",
             "propertyOf",
             "whose",
             "concept",
@@ -261,6 +300,7 @@
             "is",
             "toAble",
             "to",
+            "isQuery",
             "reason",
             "memorable",
             "remember",
@@ -276,6 +316,7 @@
             "thisitthat",
             "that"
           ],
+          "km": "properties2",
           "parents": {
             "a": [
               "article"
@@ -313,11 +354,17 @@
               "canBeQuestion",
               "verb"
             ],
+            "isQuery": [
+              "verb"
+            ],
             "it": [
               "pronoun",
               "queryable",
               "toAble",
               "thisitthat"
+            ],
+            "listable": [
+              "theAble"
             ],
             "memorable": [
               "theAble"
@@ -333,7 +380,8 @@
             ],
             "object": [
               "queryable",
-              "theAble"
+              "theAble",
+              "listable"
             ],
             "orAble": [
               "ifAble"
@@ -344,6 +392,9 @@
             ],
             "propertyOf": [
               "preposition"
+            ],
+            "queryable": [
+              "listable"
             ],
             "questionMark": [
               "punctuation"
@@ -382,9 +433,7 @@
               "preposition"
             ],
             "unknown": [
-              "hierarchyAble",
-              "theAble",
-              "queryable"
+              "hierarchyAble"
             ],
             "what": [
               "object",
@@ -438,7 +487,11 @@
               },
               "is": {
               },
+              "isQuery": {
+              },
               "it": {
+              },
+              "listable": {
               },
               "memorable": {
               },
@@ -510,31 +563,57 @@
           }
         },
         "punctuation2": {
+          "km": "punctuation2"
         },
         "sdefaults2": {
+          "km": "sdefaults2"
         },
         "stm2": {
+          "km": "stm2",
           "mentioned": [
           ],
           "variables": {
           }
         },
         "tell2": {
+          "km": "tell2"
         },
         "time1": {
-          "format": 12
+          "format": 12,
+          "km": "time1"
         },
         "tokenize2": {
+          "km": "tokenize2"
         }
       },
       "processed": [
         {
           "context": {
-            "ampm": "pm",
+            "ampm": {
+              "ampm": "pm",
+              "determined": true,
+              "level": 0,
+              "marker": "ampm",
+              "range": {
+                "end": 3,
+                "start": 2
+              },
+              "text": "pm",
+              "word": "pm"
+            },
+            "context_id": 2,
             "context_index": 1,
             "dead": true,
-            "determined": true,
-            "hour": {
+            "instance": true,
+            "interpolate": "${time} ${ampm}",
+            "level": 2,
+            "marker": "integer",
+            "range": {
+              "end": 3,
+              "start": 0
+            },
+            "text": "2 pm",
+            "time": {
               "dead": true,
               "instance": true,
               "level": 1,
@@ -545,24 +624,26 @@
               },
               "text": "2",
               "types": [
-                "integer"
+                "integer",
+                "time"
               ],
               "value": 2,
               "word": "2"
             },
-            "level": 1,
-            "marker": "ampm",
-            "range": {
-              "end": 3,
-              "start": 0
-            },
-            "text": "2 pm",
             "topLevel": true,
-            "word": "pm"
+            "types": [
+              "integer",
+              "time"
+            ],
+            "value": 2,
+            "word": "2"
           },
-          "generatedParenthesized": "",
-          "paraphrases": "2 pm",
-          "paraphrasesParenthesized": "((2) pm)",
+          "generatedParenthesized": [
+          ],
+          "paraphrases": [
+          ],
+          "paraphrasesParenthesized": [
+          ],
           "responses": [
             ""
           ]
@@ -573,7 +654,7 @@
       "2 pm"
     ],
     "paraphrasesParenthesized": [
-      "((2) pm)"
+      "((2) (pm))"
     ],
     "query": "2 pm",
     "responses": [
@@ -638,8 +719,8 @@
             "operators": [
               {
                 "marker": [
-                  "ampm",
-                  1
+                  "integer",
+                  2
                 ],
                 "range": {
                   "end": 3,
@@ -823,6 +904,7 @@
     },
     "contexts": [
       {
+        "context_id": 2,
         "context_index": 1,
         "dead": true,
         "default": true,
@@ -861,10 +943,29 @@
           },
           "text": "the time is 2 pm",
           "two": {
-            "ampm": "pm",
+            "ampm": {
+              "ampm": "pm",
+              "determined": true,
+              "level": 0,
+              "marker": "ampm",
+              "range": {
+                "end": 28,
+                "start": 27
+              },
+              "text": "pm",
+              "word": "pm"
+            },
             "dead": true,
-            "determined": true,
-            "hour": {
+            "instance": true,
+            "interpolate": "${time} ${ampm}",
+            "level": 2,
+            "marker": "integer",
+            "range": {
+              "end": 28,
+              "start": 25
+            },
+            "text": "2 pm",
+            "time": {
               "dead": true,
               "instance": true,
               "level": 1,
@@ -875,22 +976,18 @@
               },
               "text": "2",
               "types": [
-                "integer"
+                "integer",
+                "time"
               ],
               "value": 2,
               "word": "2"
             },
-            "level": 1,
-            "marker": "ampm",
-            "range": {
-              "end": 28,
-              "start": 25
-            },
-            "text": "2 pm",
             "types": [
-              "ampm"
+              "integer",
+              "time"
             ],
-            "word": "pm"
+            "value": 2,
+            "word": "2"
           },
           "types": [
             "is"
@@ -1170,6 +1267,8 @@
       ]
     },
     "objects": {
+      "associations": [
+      ],
       "nameToUUID": {
         "articles": "articles2",
         "asking": "asking2",
@@ -1194,39 +1293,52 @@
       },
       "namespaced": {
         "articles2": {
+          "km": "articles2"
         },
         "asking2": {
+          "km": "asking2"
         },
         "concept2": {
           "defaultTypesForHierarchy": {
           },
+          "km": "concept2",
           "valueToWords": [
           ]
         },
         "conjunction2": {
+          "km": "conjunction2"
         },
         "countable2": {
+          "km": "countable2"
         },
         "dialogues2": {
           "idSuffix": "",
+          "km": "dialogues2",
           "mentioned": [
           ],
           "variables": {
           }
         },
         "evaluate2": {
+          "km": "evaluate2"
         },
         "gdefaults2": {
+          "km": "gdefaults2"
         },
         "hierarchy2": {
+          "km": "hierarchy2"
         },
         "meta2": {
+          "km": "meta2"
         },
         "negation2": {
+          "km": "negation2"
         },
         "numbers2": {
+          "km": "numbers2"
         },
         "pos2": {
+          "km": "pos2"
         },
         "properties2": {
           "children": {
@@ -1251,6 +1363,10 @@
             ],
             "ifAble": [
               "orAble"
+            ],
+            "listable": [
+              "object",
+              "queryable"
             ],
             "object": [
               "what",
@@ -1277,7 +1393,6 @@
               "concept",
               "doubleQuote",
               "theAble",
-              "unknown",
               "it",
               "what",
               "whatAble",
@@ -1291,7 +1406,7 @@
               "property",
               "object",
               "concept",
-              "unknown",
+              "listable",
               "reason",
               "memorable",
               "noun"
@@ -1307,6 +1422,7 @@
             "verb": [
               "modifies",
               "is",
+              "isQuery",
               "remember",
               "evaluate"
             ]
@@ -1327,6 +1443,7 @@
             "canBeQuestion",
             "property",
             "theAble",
+            "listable",
             "propertyOf",
             "whose",
             "concept",
@@ -1346,6 +1463,7 @@
             "is",
             "toAble",
             "to",
+            "isQuery",
             "reason",
             "memorable",
             "remember",
@@ -1361,6 +1479,7 @@
             "thisitthat",
             "that"
           ],
+          "km": "properties2",
           "parents": {
             "a": [
               "article"
@@ -1398,11 +1517,17 @@
               "canBeQuestion",
               "verb"
             ],
+            "isQuery": [
+              "verb"
+            ],
             "it": [
               "pronoun",
               "queryable",
               "toAble",
               "thisitthat"
+            ],
+            "listable": [
+              "theAble"
             ],
             "memorable": [
               "theAble"
@@ -1418,7 +1543,8 @@
             ],
             "object": [
               "queryable",
-              "theAble"
+              "theAble",
+              "listable"
             ],
             "orAble": [
               "ifAble"
@@ -1429,6 +1555,9 @@
             ],
             "propertyOf": [
               "preposition"
+            ],
+            "queryable": [
+              "listable"
             ],
             "questionMark": [
               "punctuation"
@@ -1467,9 +1596,7 @@
               "preposition"
             ],
             "unknown": [
-              "hierarchyAble",
-              "theAble",
-              "queryable"
+              "hierarchyAble"
             ],
             "what": [
               "object",
@@ -1523,7 +1650,11 @@
               },
               "is": {
               },
+              "isQuery": {
+              },
               "it": {
+              },
+              "listable": {
               },
               "memorable": {
               },
@@ -1595,26 +1726,163 @@
           }
         },
         "punctuation2": {
+          "km": "punctuation2"
         },
         "sdefaults2": {
+          "km": "sdefaults2"
         },
         "stm2": {
+          "km": "stm2",
           "mentioned": [
+            {
+              "concept": true,
+              "dead": true,
+              "default": true,
+              "determiner": "the",
+              "focusableForPhrase": true,
+              "fromSTM": true,
+              "level": 1,
+              "marker": "time",
+              "modifiers": [
+                "determiner"
+              ],
+              "number": "one",
+              "pullFromContext": false,
+              "range": {
+                "end": 28,
+                "start": 13
+              },
+              "stm": {
+                "id": 2
+              },
+              "text": "the time",
+              "types": [
+                "time"
+              ],
+              "value": {
+                "ampm": {
+                  "ampm": "pm",
+                  "determined": true,
+                  "level": 0,
+                  "marker": "ampm",
+                  "range": {
+                    "end": 28,
+                    "start": 27
+                  },
+                  "text": "pm",
+                  "word": "pm"
+                },
+                "dead": true,
+                "instance": true,
+                "interpolate": "${time} ${ampm}",
+                "level": 2,
+                "marker": "integer",
+                "range": {
+                  "end": 28,
+                  "start": 25
+                },
+                "text": "2 pm",
+                "time": {
+                  "dead": true,
+                  "instance": true,
+                  "level": 1,
+                  "marker": "integer",
+                  "range": {
+                    "end": 25,
+                    "start": 25
+                  },
+                  "text": "2",
+                  "types": [
+                    "integer",
+                    "time"
+                  ],
+                  "value": 2,
+                  "word": "2"
+                },
+                "types": [
+                  "integer",
+                  "time"
+                ],
+                "value": 2,
+                "word": "2"
+              },
+              "wantsValue": true,
+              "word": "time"
+            },
+            {
+              "fromSTM": true,
+              "marker": "time",
+              "pullFromContext": false,
+              "stm": {
+                "id": 1
+              },
+              "value": {
+                "ampm": {
+                  "ampm": "pm",
+                  "determined": true,
+                  "level": 0,
+                  "marker": "ampm",
+                  "range": {
+                    "end": 28,
+                    "start": 27
+                  },
+                  "text": "pm",
+                  "word": "pm"
+                },
+                "dead": true,
+                "instance": true,
+                "interpolate": "${time} ${ampm}",
+                "level": 2,
+                "marker": "integer",
+                "range": {
+                  "end": 28,
+                  "start": 25
+                },
+                "text": "2 pm",
+                "time": {
+                  "dead": true,
+                  "instance": true,
+                  "level": 1,
+                  "marker": "integer",
+                  "range": {
+                    "end": 25,
+                    "start": 25
+                  },
+                  "text": "2",
+                  "types": [
+                    "integer",
+                    "time"
+                  ],
+                  "value": 2,
+                  "word": "2"
+                },
+                "types": [
+                  "integer",
+                  "time"
+                ],
+                "value": 2,
+                "word": "2"
+              }
+            }
           ],
           "variables": {
           }
         },
         "tell2": {
+          "km": "tell2"
         },
         "time1": {
-          "format": 12
+          "format": 12,
+          "km": "time1"
         },
         "tokenize2": {
+          "km": "tokenize2"
         }
       },
       "processed": [
         {
           "context": {
+            "context_id": 2,
             "context_index": 1,
             "dead": true,
             "default": true,
@@ -1653,10 +1921,29 @@
               },
               "text": "the time is 2 pm",
               "two": {
-                "ampm": "pm",
+                "ampm": {
+                  "ampm": "pm",
+                  "determined": true,
+                  "level": 0,
+                  "marker": "ampm",
+                  "range": {
+                    "end": 28,
+                    "start": 27
+                  },
+                  "text": "pm",
+                  "word": "pm"
+                },
                 "dead": true,
-                "determined": true,
-                "hour": {
+                "instance": true,
+                "interpolate": "${time} ${ampm}",
+                "level": 2,
+                "marker": "integer",
+                "range": {
+                  "end": 28,
+                  "start": 25
+                },
+                "text": "2 pm",
+                "time": {
                   "dead": true,
                   "instance": true,
                   "level": 1,
@@ -1667,22 +1954,18 @@
                   },
                   "text": "2",
                   "types": [
-                    "integer"
+                    "integer",
+                    "time"
                   ],
                   "value": 2,
                   "word": "2"
                 },
-                "level": 1,
-                "marker": "ampm",
-                "range": {
-                  "end": 28,
-                  "start": 25
-                },
-                "text": "2 pm",
                 "types": [
-                  "ampm"
+                  "integer",
+                  "time"
                 ],
-                "word": "pm"
+                "value": 2,
+                "word": "2"
               },
               "types": [
                 "is"
@@ -1733,9 +2016,12 @@
             "value": "tell",
             "word": "tell"
           },
-          "generatedParenthesized": "",
-          "paraphrases": "tell me when the time is 2 pm",
-          "paraphrasesParenthesized": "(tell (me) when ((the (time)) is ((2) pm)))",
+          "generatedParenthesized": [
+          ],
+          "paraphrases": [
+          ],
+          "paraphrasesParenthesized": [
+          ],
           "responses": [
             ""
           ]
@@ -1746,7 +2032,7 @@
       "tell me when the time is 2 pm"
     ],
     "paraphrasesParenthesized": [
-      "(tell (me) when ((the (time)) is ((2) pm)))"
+      "(tell (me) when ((the (time)) is ((2) (pm))))"
     ],
     "query": "tell me when the time is 2 pm",
     "responses": [
@@ -2301,8 +2587,8 @@
               },
               {
                 "marker": [
-                  "ampm",
-                  1
+                  "integer",
+                  2
                 ],
                 "range": {
                   "end": 28,
@@ -2466,6 +2752,7 @@
     },
     "contexts": [
       {
+        "context_id": 2,
         "context_index": 1,
         "dead": true,
         "default": true,
@@ -2522,6 +2809,7 @@
         "word": "use"
       },
       {
+        "context_id": 4,
         "context_index": 3,
         "dead": true,
         "evalue": {
@@ -2937,6 +3225,8 @@
       ]
     },
     "objects": {
+      "associations": [
+      ],
       "nameToUUID": {
         "articles": "articles2",
         "asking": "asking2",
@@ -2961,39 +3251,52 @@
       },
       "namespaced": {
         "articles2": {
+          "km": "articles2"
         },
         "asking2": {
+          "km": "asking2"
         },
         "concept2": {
           "defaultTypesForHierarchy": {
           },
+          "km": "concept2",
           "valueToWords": [
           ]
         },
         "conjunction2": {
+          "km": "conjunction2"
         },
         "countable2": {
+          "km": "countable2"
         },
         "dialogues2": {
           "idSuffix": "",
+          "km": "dialogues2",
           "mentioned": [
           ],
           "variables": {
           }
         },
         "evaluate2": {
+          "km": "evaluate2"
         },
         "gdefaults2": {
+          "km": "gdefaults2"
         },
         "hierarchy2": {
+          "km": "hierarchy2"
         },
         "meta2": {
+          "km": "meta2"
         },
         "negation2": {
+          "km": "negation2"
         },
         "numbers2": {
+          "km": "numbers2"
         },
         "pos2": {
+          "km": "pos2"
         },
         "properties2": {
           "children": {
@@ -3018,6 +3321,10 @@
             ],
             "ifAble": [
               "orAble"
+            ],
+            "listable": [
+              "object",
+              "queryable"
             ],
             "object": [
               "what",
@@ -3044,7 +3351,6 @@
               "concept",
               "doubleQuote",
               "theAble",
-              "unknown",
               "it",
               "what",
               "whatAble",
@@ -3058,7 +3364,7 @@
               "property",
               "object",
               "concept",
-              "unknown",
+              "listable",
               "reason",
               "memorable",
               "noun"
@@ -3074,6 +3380,7 @@
             "verb": [
               "modifies",
               "is",
+              "isQuery",
               "remember",
               "evaluate"
             ]
@@ -3094,6 +3401,7 @@
             "canBeQuestion",
             "property",
             "theAble",
+            "listable",
             "propertyOf",
             "whose",
             "concept",
@@ -3113,6 +3421,7 @@
             "is",
             "toAble",
             "to",
+            "isQuery",
             "reason",
             "memorable",
             "remember",
@@ -3128,6 +3437,7 @@
             "thisitthat",
             "that"
           ],
+          "km": "properties2",
           "parents": {
             "a": [
               "article"
@@ -3165,11 +3475,17 @@
               "canBeQuestion",
               "verb"
             ],
+            "isQuery": [
+              "verb"
+            ],
             "it": [
               "pronoun",
               "queryable",
               "toAble",
               "thisitthat"
+            ],
+            "listable": [
+              "theAble"
             ],
             "memorable": [
               "theAble"
@@ -3185,7 +3501,8 @@
             ],
             "object": [
               "queryable",
-              "theAble"
+              "theAble",
+              "listable"
             ],
             "orAble": [
               "ifAble"
@@ -3196,6 +3513,9 @@
             ],
             "propertyOf": [
               "preposition"
+            ],
+            "queryable": [
+              "listable"
             ],
             "questionMark": [
               "punctuation"
@@ -3234,9 +3554,7 @@
               "preposition"
             ],
             "unknown": [
-              "hierarchyAble",
-              "theAble",
-              "queryable"
+              "hierarchyAble"
             ],
             "what": [
               "object",
@@ -3290,7 +3608,11 @@
               },
               "is": {
               },
+              "isQuery": {
+              },
               "it": {
+              },
+              "listable": {
               },
               "memorable": {
               },
@@ -3362,26 +3684,33 @@
           }
         },
         "punctuation2": {
+          "km": "punctuation2"
         },
         "sdefaults2": {
+          "km": "sdefaults2"
         },
         "stm2": {
+          "km": "stm2",
           "mentioned": [
           ],
           "variables": {
           }
         },
         "tell2": {
+          "km": "tell2"
         },
         "time1": {
-          "format": 12
+          "format": 12,
+          "km": "time1"
         },
         "tokenize2": {
+          "km": "tokenize2"
         }
       },
       "processed": [
         {
           "context": {
+            "context_id": 4,
             "context_index": 3,
             "dead": true,
             "evalue": {
@@ -3513,9 +3842,12 @@
             },
             "word": "is"
           },
-          "generatedParenthesized": "(((the (time)) is (1:59 pm)))",
-          "paraphrases": "what is the time?",
-          "paraphrasesParenthesized": "(((what) is (the (time)))?)",
+          "generatedParenthesized": [
+          ],
+          "paraphrases": [
+          ],
+          "paraphrasesParenthesized": [
+          ],
           "responses": [
             "",
             "the time is 1:59 pm"
@@ -3523,6 +3855,7 @@
         },
         {
           "context": {
+            "context_id": 2,
             "context_index": 1,
             "dead": true,
             "default": true,
@@ -3578,9 +3911,12 @@
             "value": "use",
             "word": "use"
           },
-          "generatedParenthesized": "",
-          "paraphrases": "use 12 hour time",
-          "paraphrasesParenthesized": "(use 12 hour time)",
+          "generatedParenthesized": [
+          ],
+          "paraphrases": [
+          ],
+          "paraphrasesParenthesized": [
+          ],
           "responses": [
             "",
             "the time is 1:59 pm"
@@ -4355,6 +4691,7 @@
     },
     "contexts": [
       {
+        "context_id": 2,
         "context_index": 1,
         "dead": true,
         "default": true,
@@ -4411,6 +4748,7 @@
         "word": "use"
       },
       {
+        "context_id": 4,
         "context_index": 3,
         "dead": true,
         "evalue": {
@@ -4826,6 +5164,8 @@
       ]
     },
     "objects": {
+      "associations": [
+      ],
       "nameToUUID": {
         "articles": "articles2",
         "asking": "asking2",
@@ -4850,39 +5190,52 @@
       },
       "namespaced": {
         "articles2": {
+          "km": "articles2"
         },
         "asking2": {
+          "km": "asking2"
         },
         "concept2": {
           "defaultTypesForHierarchy": {
           },
+          "km": "concept2",
           "valueToWords": [
           ]
         },
         "conjunction2": {
+          "km": "conjunction2"
         },
         "countable2": {
+          "km": "countable2"
         },
         "dialogues2": {
           "idSuffix": "",
+          "km": "dialogues2",
           "mentioned": [
           ],
           "variables": {
           }
         },
         "evaluate2": {
+          "km": "evaluate2"
         },
         "gdefaults2": {
+          "km": "gdefaults2"
         },
         "hierarchy2": {
+          "km": "hierarchy2"
         },
         "meta2": {
+          "km": "meta2"
         },
         "negation2": {
+          "km": "negation2"
         },
         "numbers2": {
+          "km": "numbers2"
         },
         "pos2": {
+          "km": "pos2"
         },
         "properties2": {
           "children": {
@@ -4907,6 +5260,10 @@
             ],
             "ifAble": [
               "orAble"
+            ],
+            "listable": [
+              "object",
+              "queryable"
             ],
             "object": [
               "what",
@@ -4933,7 +5290,6 @@
               "concept",
               "doubleQuote",
               "theAble",
-              "unknown",
               "it",
               "what",
               "whatAble",
@@ -4947,7 +5303,7 @@
               "property",
               "object",
               "concept",
-              "unknown",
+              "listable",
               "reason",
               "memorable",
               "noun"
@@ -4963,6 +5319,7 @@
             "verb": [
               "modifies",
               "is",
+              "isQuery",
               "remember",
               "evaluate"
             ]
@@ -4983,6 +5340,7 @@
             "canBeQuestion",
             "property",
             "theAble",
+            "listable",
             "propertyOf",
             "whose",
             "concept",
@@ -5002,6 +5360,7 @@
             "is",
             "toAble",
             "to",
+            "isQuery",
             "reason",
             "memorable",
             "remember",
@@ -5017,6 +5376,7 @@
             "thisitthat",
             "that"
           ],
+          "km": "properties2",
           "parents": {
             "a": [
               "article"
@@ -5054,11 +5414,17 @@
               "canBeQuestion",
               "verb"
             ],
+            "isQuery": [
+              "verb"
+            ],
             "it": [
               "pronoun",
               "queryable",
               "toAble",
               "thisitthat"
+            ],
+            "listable": [
+              "theAble"
             ],
             "memorable": [
               "theAble"
@@ -5074,7 +5440,8 @@
             ],
             "object": [
               "queryable",
-              "theAble"
+              "theAble",
+              "listable"
             ],
             "orAble": [
               "ifAble"
@@ -5085,6 +5452,9 @@
             ],
             "propertyOf": [
               "preposition"
+            ],
+            "queryable": [
+              "listable"
             ],
             "questionMark": [
               "punctuation"
@@ -5123,9 +5493,7 @@
               "preposition"
             ],
             "unknown": [
-              "hierarchyAble",
-              "theAble",
-              "queryable"
+              "hierarchyAble"
             ],
             "what": [
               "object",
@@ -5179,7 +5547,11 @@
               },
               "is": {
               },
+              "isQuery": {
+              },
               "it": {
+              },
+              "listable": {
               },
               "memorable": {
               },
@@ -5251,26 +5623,33 @@
           }
         },
         "punctuation2": {
+          "km": "punctuation2"
         },
         "sdefaults2": {
+          "km": "sdefaults2"
         },
         "stm2": {
+          "km": "stm2",
           "mentioned": [
           ],
           "variables": {
           }
         },
         "tell2": {
+          "km": "tell2"
         },
         "time1": {
-          "format": 24
+          "format": 24,
+          "km": "time1"
         },
         "tokenize2": {
+          "km": "tokenize2"
         }
       },
       "processed": [
         {
           "context": {
+            "context_id": 4,
             "context_index": 3,
             "dead": true,
             "evalue": {
@@ -5402,9 +5781,12 @@
             },
             "word": "is"
           },
-          "generatedParenthesized": "(((the (time)) is (13:59)))",
-          "paraphrases": "what is the time?",
-          "paraphrasesParenthesized": "(((what) is (the (time)))?)",
+          "generatedParenthesized": [
+          ],
+          "paraphrases": [
+          ],
+          "paraphrasesParenthesized": [
+          ],
           "responses": [
             "",
             "the time is 13:59"
@@ -5412,6 +5794,7 @@
         },
         {
           "context": {
+            "context_id": 2,
             "context_index": 1,
             "dead": true,
             "default": true,
@@ -5467,9 +5850,12 @@
             "value": "use",
             "word": "use"
           },
-          "generatedParenthesized": "",
-          "paraphrases": "use 24 hour time",
-          "paraphrasesParenthesized": "(use 24 hour time)",
+          "generatedParenthesized": [
+          ],
+          "paraphrases": [
+          ],
+          "paraphrasesParenthesized": [
+          ],
           "responses": [
             "",
             "the time is 13:59"
@@ -6202,6 +6588,7 @@
     },
     "contexts": [
       {
+        "context_id": 2,
         "context_index": 1,
         "dead": true,
         "default": true,
@@ -6371,6 +6758,8 @@
       ]
     },
     "objects": {
+      "associations": [
+      ],
       "nameToUUID": {
         "articles": "articles2",
         "asking": "asking2",
@@ -6395,39 +6784,52 @@
       },
       "namespaced": {
         "articles2": {
+          "km": "articles2"
         },
         "asking2": {
+          "km": "asking2"
         },
         "concept2": {
           "defaultTypesForHierarchy": {
           },
+          "km": "concept2",
           "valueToWords": [
           ]
         },
         "conjunction2": {
+          "km": "conjunction2"
         },
         "countable2": {
+          "km": "countable2"
         },
         "dialogues2": {
           "idSuffix": "",
+          "km": "dialogues2",
           "mentioned": [
           ],
           "variables": {
           }
         },
         "evaluate2": {
+          "km": "evaluate2"
         },
         "gdefaults2": {
+          "km": "gdefaults2"
         },
         "hierarchy2": {
+          "km": "hierarchy2"
         },
         "meta2": {
+          "km": "meta2"
         },
         "negation2": {
+          "km": "negation2"
         },
         "numbers2": {
+          "km": "numbers2"
         },
         "pos2": {
+          "km": "pos2"
         },
         "properties2": {
           "children": {
@@ -6452,6 +6854,10 @@
             ],
             "ifAble": [
               "orAble"
+            ],
+            "listable": [
+              "object",
+              "queryable"
             ],
             "object": [
               "what",
@@ -6478,7 +6884,6 @@
               "concept",
               "doubleQuote",
               "theAble",
-              "unknown",
               "it",
               "what",
               "whatAble",
@@ -6492,7 +6897,7 @@
               "property",
               "object",
               "concept",
-              "unknown",
+              "listable",
               "reason",
               "memorable",
               "noun"
@@ -6508,6 +6913,7 @@
             "verb": [
               "modifies",
               "is",
+              "isQuery",
               "remember",
               "evaluate"
             ]
@@ -6528,6 +6934,7 @@
             "canBeQuestion",
             "property",
             "theAble",
+            "listable",
             "propertyOf",
             "whose",
             "concept",
@@ -6547,6 +6954,7 @@
             "is",
             "toAble",
             "to",
+            "isQuery",
             "reason",
             "memorable",
             "remember",
@@ -6562,6 +6970,7 @@
             "thisitthat",
             "that"
           ],
+          "km": "properties2",
           "parents": {
             "a": [
               "article"
@@ -6599,11 +7008,17 @@
               "canBeQuestion",
               "verb"
             ],
+            "isQuery": [
+              "verb"
+            ],
             "it": [
               "pronoun",
               "queryable",
               "toAble",
               "thisitthat"
+            ],
+            "listable": [
+              "theAble"
             ],
             "memorable": [
               "theAble"
@@ -6619,7 +7034,8 @@
             ],
             "object": [
               "queryable",
-              "theAble"
+              "theAble",
+              "listable"
             ],
             "orAble": [
               "ifAble"
@@ -6630,6 +7046,9 @@
             ],
             "propertyOf": [
               "preposition"
+            ],
+            "queryable": [
+              "listable"
             ],
             "questionMark": [
               "punctuation"
@@ -6668,9 +7087,7 @@
               "preposition"
             ],
             "unknown": [
-              "hierarchyAble",
-              "theAble",
-              "queryable"
+              "hierarchyAble"
             ],
             "what": [
               "object",
@@ -6724,7 +7141,11 @@
               },
               "is": {
               },
+              "isQuery": {
+              },
               "it": {
+              },
+              "listable": {
               },
               "memorable": {
               },
@@ -6796,26 +7217,33 @@
           }
         },
         "punctuation2": {
+          "km": "punctuation2"
         },
         "sdefaults2": {
+          "km": "sdefaults2"
         },
         "stm2": {
+          "km": "stm2",
           "mentioned": [
           ],
           "variables": {
           }
         },
         "tell2": {
+          "km": "tell2"
         },
         "time1": {
-          "format": 12
+          "format": 12,
+          "km": "time1"
         },
         "tokenize2": {
+          "km": "tokenize2"
         }
       },
       "processed": [
         {
           "context": {
+            "context_id": 2,
             "context_index": 1,
             "dead": true,
             "default": true,
@@ -6871,9 +7299,12 @@
             "value": "use",
             "word": "use"
           },
-          "generatedParenthesized": "",
-          "paraphrases": "The hour format is 12 hour or 24 hour",
-          "paraphrasesParenthesized": "(The hour format is 12 hour or 24 hour)",
+          "generatedParenthesized": [
+          ],
+          "paraphrases": [
+          ],
+          "paraphrasesParenthesized": [
+          ],
           "responses": [
             ""
           ]
@@ -7157,6 +7588,7 @@
     },
     "contexts": [
       {
+        "context_id": 2,
         "context_index": 1,
         "dead": true,
         "evalue": {
@@ -7386,6 +7818,8 @@
       ]
     },
     "objects": {
+      "associations": [
+      ],
       "nameToUUID": {
         "articles": "articles2",
         "asking": "asking2",
@@ -7410,39 +7844,52 @@
       },
       "namespaced": {
         "articles2": {
+          "km": "articles2"
         },
         "asking2": {
+          "km": "asking2"
         },
         "concept2": {
           "defaultTypesForHierarchy": {
           },
+          "km": "concept2",
           "valueToWords": [
           ]
         },
         "conjunction2": {
+          "km": "conjunction2"
         },
         "countable2": {
+          "km": "countable2"
         },
         "dialogues2": {
           "idSuffix": "",
+          "km": "dialogues2",
           "mentioned": [
           ],
           "variables": {
           }
         },
         "evaluate2": {
+          "km": "evaluate2"
         },
         "gdefaults2": {
+          "km": "gdefaults2"
         },
         "hierarchy2": {
+          "km": "hierarchy2"
         },
         "meta2": {
+          "km": "meta2"
         },
         "negation2": {
+          "km": "negation2"
         },
         "numbers2": {
+          "km": "numbers2"
         },
         "pos2": {
+          "km": "pos2"
         },
         "properties2": {
           "children": {
@@ -7467,6 +7914,10 @@
             ],
             "ifAble": [
               "orAble"
+            ],
+            "listable": [
+              "object",
+              "queryable"
             ],
             "object": [
               "what",
@@ -7493,7 +7944,6 @@
               "concept",
               "doubleQuote",
               "theAble",
-              "unknown",
               "it",
               "what",
               "whatAble",
@@ -7507,7 +7957,7 @@
               "property",
               "object",
               "concept",
-              "unknown",
+              "listable",
               "reason",
               "memorable",
               "noun"
@@ -7523,6 +7973,7 @@
             "verb": [
               "modifies",
               "is",
+              "isQuery",
               "remember",
               "evaluate"
             ]
@@ -7543,6 +7994,7 @@
             "canBeQuestion",
             "property",
             "theAble",
+            "listable",
             "propertyOf",
             "whose",
             "concept",
@@ -7562,6 +8014,7 @@
             "is",
             "toAble",
             "to",
+            "isQuery",
             "reason",
             "memorable",
             "remember",
@@ -7577,6 +8030,7 @@
             "thisitthat",
             "that"
           ],
+          "km": "properties2",
           "parents": {
             "a": [
               "article"
@@ -7614,11 +8068,17 @@
               "canBeQuestion",
               "verb"
             ],
+            "isQuery": [
+              "verb"
+            ],
             "it": [
               "pronoun",
               "queryable",
               "toAble",
               "thisitthat"
+            ],
+            "listable": [
+              "theAble"
             ],
             "memorable": [
               "theAble"
@@ -7634,7 +8094,8 @@
             ],
             "object": [
               "queryable",
-              "theAble"
+              "theAble",
+              "listable"
             ],
             "orAble": [
               "ifAble"
@@ -7645,6 +8106,9 @@
             ],
             "propertyOf": [
               "preposition"
+            ],
+            "queryable": [
+              "listable"
             ],
             "questionMark": [
               "punctuation"
@@ -7683,9 +8147,7 @@
               "preposition"
             ],
             "unknown": [
-              "hierarchyAble",
-              "theAble",
-              "queryable"
+              "hierarchyAble"
             ],
             "what": [
               "object",
@@ -7739,7 +8201,11 @@
               },
               "is": {
               },
+              "isQuery": {
+              },
               "it": {
+              },
+              "listable": {
               },
               "memorable": {
               },
@@ -7811,26 +8277,33 @@
           }
         },
         "punctuation2": {
+          "km": "punctuation2"
         },
         "sdefaults2": {
+          "km": "sdefaults2"
         },
         "stm2": {
+          "km": "stm2",
           "mentioned": [
           ],
           "variables": {
           }
         },
         "tell2": {
+          "km": "tell2"
         },
         "time1": {
-          "format": 12
+          "format": 12,
+          "km": "time1"
         },
         "tokenize2": {
+          "km": "tokenize2"
         }
       },
       "processed": [
         {
           "context": {
+            "context_id": 2,
             "context_index": 1,
             "dead": true,
             "evalue": {
@@ -7962,9 +8435,12 @@
             },
             "word": "is"
           },
-          "generatedParenthesized": "(((the (time)) is (1:59 pm)))",
-          "paraphrases": "what is the time?",
-          "paraphrasesParenthesized": "(((what) is (the (time)))?)",
+          "generatedParenthesized": [
+          ],
+          "paraphrases": [
+          ],
+          "paraphrasesParenthesized": [
+          ],
           "responses": [
             "the time is 1:59 pm"
           ]
@@ -8180,6 +8656,1814 @@
                 ],
                 "range": {
                   "end": 15,
+                  "start": 0
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "associations": [
+      [
+        [
+          "colon",
+          0
+        ],
+        [
+          "integer",
+          0
+        ]
+      ],
+      [
+        [
+          "colon",
+          0
+        ],
+        [
+          "integer",
+          0
+        ]
+      ]
+    ],
+    "config": {
+    },
+    "contexts": [
+      {
+        "colon": {
+          "dead": true,
+          "level": 0,
+          "marker": "colon",
+          "range": {
+            "end": 2,
+            "start": 2
+          },
+          "text": ":",
+          "types": [
+            "colon"
+          ],
+          "value": "colon",
+          "word": ":"
+        },
+        "context_id": 2,
+        "context_index": 1,
+        "dead": true,
+        "hour": {
+          "dead": true,
+          "instance": true,
+          "level": 1,
+          "marker": "integer",
+          "range": {
+            "end": 1,
+            "start": 0
+          },
+          "text": "10",
+          "types": [
+            "integer"
+          ],
+          "value": 10,
+          "word": "10"
+        },
+        "interpolate": "${hour}${colon}${minute}",
+        "level": 1,
+        "marker": "hourMinutes",
+        "minute": {
+          "instance": true,
+          "level": 0,
+          "marker": "integer",
+          "range": {
+            "end": 4,
+            "start": 3
+          },
+          "text": "23",
+          "types": [
+            "integer"
+          ],
+          "value": 23,
+          "word": "23"
+        },
+        "range": {
+          "end": 4,
+          "start": 0
+        },
+        "text": "10:23",
+        "topLevel": true
+      }
+    ],
+    "generatedParenthesized": [
+      ""
+    ],
+    "metadata": {
+      "opChoices": [
+        {
+          "counter": 1,
+          "op": [
+            "integer",
+            0
+          ],
+          "ops": [
+            [
+              "hourMinutes",
+              0
+            ],
+            [
+              "integer",
+              0
+            ],
+            [
+              "integer",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 2,
+          "op": [
+            "hourMinutes",
+            0
+          ],
+          "ops": [
+            [
+              "hourMinutes",
+              0
+            ],
+            [
+              "integer",
+              0
+            ]
+          ]
+        }
+      ]
+    },
+    "objects": {
+      "associations": [
+      ],
+      "nameToUUID": {
+        "articles": "articles2",
+        "asking": "asking2",
+        "concept": "concept2",
+        "conjunction": "conjunction2",
+        "countable": "countable2",
+        "dialogues": "dialogues2",
+        "evaluate": "evaluate2",
+        "gdefaults": "gdefaults2",
+        "hierarchy": "hierarchy2",
+        "meta": "meta2",
+        "negation": "negation2",
+        "numbers": "numbers2",
+        "pos": "pos2",
+        "properties": "properties2",
+        "punctuation": "punctuation2",
+        "sdefaults": "sdefaults2",
+        "stm": "stm2",
+        "tell": "tell2",
+        "time": "time1",
+        "tokenize": "tokenize2"
+      },
+      "namespaced": {
+        "articles2": {
+          "km": "articles2"
+        },
+        "asking2": {
+          "km": "asking2"
+        },
+        "concept2": {
+          "defaultTypesForHierarchy": {
+          },
+          "km": "concept2",
+          "valueToWords": [
+          ]
+        },
+        "conjunction2": {
+          "km": "conjunction2"
+        },
+        "countable2": {
+          "km": "countable2"
+        },
+        "dialogues2": {
+          "idSuffix": "",
+          "km": "dialogues2",
+          "mentioned": [
+          ],
+          "variables": {
+          }
+        },
+        "evaluate2": {
+          "km": "evaluate2"
+        },
+        "gdefaults2": {
+          "km": "gdefaults2"
+        },
+        "hierarchy2": {
+          "km": "hierarchy2"
+        },
+        "meta2": {
+          "km": "meta2"
+        },
+        "negation2": {
+          "km": "negation2"
+        },
+        "numbers2": {
+          "km": "numbers2"
+        },
+        "pos2": {
+          "km": "pos2"
+        },
+        "properties2": {
+          "children": {
+            "adjective": [
+              "stm_before"
+            ],
+            "article": [
+              "a",
+              "the",
+              "each",
+              "every"
+            ],
+            "canBeDoQuestion": [
+              "have"
+            ],
+            "canBeQuestion": [
+              "have",
+              "is"
+            ],
+            "hierarchyAble": [
+              "unknown"
+            ],
+            "ifAble": [
+              "orAble"
+            ],
+            "listable": [
+              "object",
+              "queryable"
+            ],
+            "object": [
+              "what",
+              "whose"
+            ],
+            "preposition": [
+              "between",
+              "propertyOf",
+              "to"
+            ],
+            "pronoun": [
+              "it",
+              "this"
+            ],
+            "punctuation": [
+              "questionMark"
+            ],
+            "queryable": [
+              "xfx",
+              "hierarchyAble",
+              "readonly",
+              "property",
+              "object",
+              "concept",
+              "doubleQuote",
+              "theAble",
+              "it",
+              "what",
+              "whatAble",
+              "negatable",
+              "this",
+              "reason",
+              "distributable",
+              "thisitthat"
+            ],
+            "theAble": [
+              "property",
+              "object",
+              "concept",
+              "listable",
+              "reason",
+              "memorable",
+              "noun"
+            ],
+            "thisitthat": [
+              "it",
+              "this",
+              "that"
+            ],
+            "toAble": [
+              "it"
+            ],
+            "verb": [
+              "modifies",
+              "is",
+              "isQuery",
+              "remember",
+              "evaluate"
+            ]
+          },
+          "concepts": [
+            "properties",
+            "unknown",
+            "hierarchyAble",
+            "what",
+            "object",
+            "xfx",
+            "queryable",
+            "between",
+            "preposition",
+            "readonly",
+            "have",
+            "canBeDoQuestion",
+            "canBeQuestion",
+            "property",
+            "theAble",
+            "listable",
+            "propertyOf",
+            "whose",
+            "concept",
+            "modifies",
+            "verb",
+            "doubleQuote",
+            "it",
+            "pronoun",
+            "this",
+            "questionMark",
+            "punctuation",
+            "a",
+            "article",
+            "the",
+            "whatAble",
+            "negatable",
+            "is",
+            "toAble",
+            "to",
+            "isQuery",
+            "reason",
+            "memorable",
+            "remember",
+            "stm_before",
+            "adjective",
+            "orAble",
+            "ifAble",
+            "evaluate",
+            "each",
+            "every",
+            "distributable",
+            "noun",
+            "thisitthat",
+            "that"
+          ],
+          "km": "properties2",
+          "parents": {
+            "a": [
+              "article"
+            ],
+            "between": [
+              "preposition"
+            ],
+            "concept": [
+              "theAble",
+              "queryable"
+            ],
+            "distributable": [
+              "queryable"
+            ],
+            "doubleQuote": [
+              "queryable"
+            ],
+            "each": [
+              "article"
+            ],
+            "evaluate": [
+              "verb"
+            ],
+            "every": [
+              "article"
+            ],
+            "have": [
+              "canBeDoQuestion",
+              "canBeQuestion"
+            ],
+            "hierarchyAble": [
+              "queryable"
+            ],
+            "is": [
+              "canBeQuestion",
+              "verb"
+            ],
+            "isQuery": [
+              "verb"
+            ],
+            "it": [
+              "pronoun",
+              "queryable",
+              "toAble",
+              "thisitthat"
+            ],
+            "listable": [
+              "theAble"
+            ],
+            "memorable": [
+              "theAble"
+            ],
+            "modifies": [
+              "verb"
+            ],
+            "negatable": [
+              "queryable"
+            ],
+            "noun": [
+              "theAble"
+            ],
+            "object": [
+              "queryable",
+              "theAble",
+              "listable"
+            ],
+            "orAble": [
+              "ifAble"
+            ],
+            "property": [
+              "queryable",
+              "theAble"
+            ],
+            "propertyOf": [
+              "preposition"
+            ],
+            "queryable": [
+              "listable"
+            ],
+            "questionMark": [
+              "punctuation"
+            ],
+            "readonly": [
+              "queryable"
+            ],
+            "reason": [
+              "theAble",
+              "queryable"
+            ],
+            "remember": [
+              "verb"
+            ],
+            "stm_before": [
+              "adjective"
+            ],
+            "that": [
+              "thisitthat"
+            ],
+            "the": [
+              "article"
+            ],
+            "theAble": [
+              "queryable"
+            ],
+            "this": [
+              "pronoun",
+              "queryable",
+              "thisitthat"
+            ],
+            "thisitthat": [
+              "queryable"
+            ],
+            "to": [
+              "preposition"
+            ],
+            "unknown": [
+              "hierarchyAble"
+            ],
+            "what": [
+              "object",
+              "queryable"
+            ],
+            "whatAble": [
+              "queryable"
+            ],
+            "whose": [
+              "object"
+            ],
+            "xfx": [
+              "queryable"
+            ]
+          },
+          "properties": {
+            "handlers": {
+            },
+            "initHandlers": [
+            ],
+            "root": {
+              "a": {
+              },
+              "adjective": {
+              },
+              "article": {
+              },
+              "between": {
+              },
+              "canBeDoQuestion": {
+              },
+              "canBeQuestion": {
+              },
+              "concept": {
+              },
+              "distributable": {
+              },
+              "doubleQuote": {
+              },
+              "each": {
+              },
+              "evaluate": {
+              },
+              "every": {
+              },
+              "have": {
+              },
+              "hierarchyAble": {
+              },
+              "ifAble": {
+              },
+              "is": {
+              },
+              "isQuery": {
+              },
+              "it": {
+              },
+              "listable": {
+              },
+              "memorable": {
+              },
+              "modifies": {
+              },
+              "negatable": {
+              },
+              "noun": {
+              },
+              "object": {
+              },
+              "orAble": {
+              },
+              "preposition": {
+              },
+              "pronoun": {
+              },
+              "property": {
+              },
+              "propertyOf": {
+              },
+              "punctuation": {
+              },
+              "queryable": {
+              },
+              "questionMark": {
+              },
+              "readonly": {
+              },
+              "reason": {
+              },
+              "remember": {
+              },
+              "stm_before": {
+              },
+              "that": {
+              },
+              "the": {
+              },
+              "theAble": {
+              },
+              "this": {
+              },
+              "thisitthat": {
+              },
+              "to": {
+              },
+              "toAble": {
+              },
+              "unknown": {
+              },
+              "verb": {
+              },
+              "what": {
+              },
+              "whatAble": {
+              },
+              "whose": {
+              },
+              "xfx": {
+              }
+            }
+          },
+          "property": {
+          },
+          "relations": [
+          ],
+          "valueToWords": {
+          }
+        },
+        "punctuation2": {
+          "km": "punctuation2"
+        },
+        "sdefaults2": {
+          "km": "sdefaults2"
+        },
+        "stm2": {
+          "km": "stm2",
+          "mentioned": [
+          ],
+          "variables": {
+          }
+        },
+        "tell2": {
+          "km": "tell2"
+        },
+        "time1": {
+          "format": 12,
+          "km": "time1"
+        },
+        "tokenize2": {
+          "km": "tokenize2"
+        }
+      },
+      "processed": [
+        {
+          "context": {
+            "colon": {
+              "dead": true,
+              "level": 0,
+              "marker": "colon",
+              "range": {
+                "end": 2,
+                "start": 2
+              },
+              "text": ":",
+              "types": [
+                "colon"
+              ],
+              "value": "colon",
+              "word": ":"
+            },
+            "context_id": 2,
+            "context_index": 1,
+            "dead": true,
+            "hour": {
+              "dead": true,
+              "instance": true,
+              "level": 1,
+              "marker": "integer",
+              "range": {
+                "end": 1,
+                "start": 0
+              },
+              "text": "10",
+              "types": [
+                "integer"
+              ],
+              "value": 10,
+              "word": "10"
+            },
+            "interpolate": "${hour}${colon}${minute}",
+            "level": 1,
+            "marker": "hourMinutes",
+            "minute": {
+              "instance": true,
+              "level": 0,
+              "marker": "integer",
+              "range": {
+                "end": 4,
+                "start": 3
+              },
+              "text": "23",
+              "types": [
+                "integer"
+              ],
+              "value": 23,
+              "word": "23"
+            },
+            "range": {
+              "end": 4,
+              "start": 0
+            },
+            "text": "10:23",
+            "topLevel": true
+          },
+          "generatedParenthesized": [
+          ],
+          "paraphrases": [
+          ],
+          "paraphrasesParenthesized": [
+          ],
+          "responses": [
+            ""
+          ]
+        }
+      ]
+    },
+    "paraphrases": [
+      "10:23"
+    ],
+    "paraphrasesParenthesized": [
+      "((10)(:)(23))"
+    ],
+    "query": "10:23",
+    "responses": [
+      ""
+    ],
+    "summaries": [
+      {
+        "length": 1,
+        "summaries": [
+          {
+            "counter": 1,
+            "operators": [
+              {
+                "marker": [
+                  "integer",
+                  0
+                ],
+                "range": {
+                  "end": 1,
+                  "start": 0
+                }
+              },
+              {
+                "marker": [
+                  "colon",
+                  0
+                ],
+                "range": {
+                  "end": 2,
+                  "start": 2
+                }
+              },
+              {
+                "marker": [
+                  "integer",
+                  0
+                ],
+                "range": {
+                  "end": 4,
+                  "start": 3
+                }
+              }
+            ]
+          },
+          {
+            "counter": 2,
+            "operators": [
+              {
+                "marker": [
+                  "integer",
+                  1
+                ],
+                "range": {
+                  "end": 1,
+                  "start": 0
+                }
+              },
+              {
+                "marker": [
+                  "colon",
+                  0
+                ],
+                "range": {
+                  "end": 2,
+                  "start": 2
+                }
+              },
+              {
+                "marker": [
+                  "integer",
+                  0
+                ],
+                "range": {
+                  "end": 4,
+                  "start": 3
+                }
+              }
+            ]
+          },
+          {
+            "counter": 3,
+            "operators": [
+              {
+                "marker": [
+                  "hourMinutes",
+                  1
+                ],
+                "range": {
+                  "end": 4,
+                  "start": 0
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "associations": [
+      [
+        [
+          "ampm",
+          0
+        ],
+        [
+          "colon",
+          0
+        ],
+        [
+          "integer",
+          0
+        ]
+      ],
+      [
+        [
+          "ampm",
+          0
+        ],
+        [
+          "colon",
+          0
+        ],
+        [
+          "integer",
+          0
+        ]
+      ]
+    ],
+    "config": {
+    },
+    "contexts": [
+      {
+        "ampm": {
+          "ampm": "pm",
+          "determined": true,
+          "level": 0,
+          "marker": "ampm",
+          "range": {
+            "end": 7,
+            "start": 6
+          },
+          "text": "pm",
+          "word": "pm"
+        },
+        "colon": {
+          "dead": true,
+          "level": 0,
+          "marker": "colon",
+          "range": {
+            "end": 2,
+            "start": 2
+          },
+          "text": ":",
+          "types": [
+            "colon"
+          ],
+          "value": "colon",
+          "word": ":"
+        },
+        "context_id": 2,
+        "context_index": 1,
+        "dead": true,
+        "hour": {
+          "dead": true,
+          "instance": true,
+          "level": 1,
+          "marker": "integer",
+          "range": {
+            "end": 1,
+            "start": 0
+          },
+          "text": "10",
+          "types": [
+            "integer"
+          ],
+          "value": 10,
+          "word": "10"
+        },
+        "interpolate": "${hour}${colon}${minute} ${ampm}",
+        "level": 2,
+        "marker": "hourMinutes",
+        "minute": {
+          "instance": true,
+          "level": 0,
+          "marker": "integer",
+          "range": {
+            "end": 4,
+            "start": 3
+          },
+          "text": "23",
+          "types": [
+            "integer"
+          ],
+          "value": 23,
+          "word": "23"
+        },
+        "range": {
+          "end": 7,
+          "start": 0
+        },
+        "text": "10:23 pm",
+        "time": {
+          "colon": {
+            "dead": true,
+            "level": 0,
+            "marker": "colon",
+            "range": {
+              "end": 2,
+              "start": 2
+            },
+            "text": ":",
+            "types": [
+              "colon"
+            ],
+            "value": "colon",
+            "word": ":"
+          },
+          "dead": true,
+          "hour": {
+            "dead": true,
+            "instance": true,
+            "level": 1,
+            "marker": "integer",
+            "range": {
+              "end": 1,
+              "start": 0
+            },
+            "text": "10",
+            "types": [
+              "integer"
+            ],
+            "value": 10,
+            "word": "10"
+          },
+          "interpolate": "${hour}${colon}${minute}",
+          "level": 1,
+          "marker": "hourMinutes",
+          "minute": {
+            "instance": true,
+            "level": 0,
+            "marker": "integer",
+            "range": {
+              "end": 4,
+              "start": 3
+            },
+            "text": "23",
+            "types": [
+              "integer"
+            ],
+            "value": 23,
+            "word": "23"
+          },
+          "range": {
+            "end": 4,
+            "start": 0
+          },
+          "text": " 10:23",
+          "types": [
+            "hourMinutes"
+          ]
+        },
+        "topLevel": true,
+        "types": [
+          "hourMinutes"
+        ]
+      }
+    ],
+    "generatedParenthesized": [
+      ""
+    ],
+    "metadata": {
+      "opChoices": [
+        {
+          "counter": 1,
+          "op": [
+            "integer",
+            0
+          ],
+          "ops": [
+            [
+              "ampm",
+              0
+            ],
+            [
+              "hourMinutes",
+              0
+            ],
+            [
+              "integer",
+              0
+            ],
+            [
+              "integer",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 2,
+          "op": [
+            "hourMinutes",
+            0
+          ],
+          "ops": [
+            [
+              "ampm",
+              0
+            ],
+            [
+              "hourMinutes",
+              0
+            ],
+            [
+              "integer",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 3,
+          "op": [
+            "ampm",
+            0
+          ],
+          "ops": [
+            [
+              "ampm",
+              0
+            ]
+          ]
+        }
+      ]
+    },
+    "objects": {
+      "associations": [
+      ],
+      "nameToUUID": {
+        "articles": "articles2",
+        "asking": "asking2",
+        "concept": "concept2",
+        "conjunction": "conjunction2",
+        "countable": "countable2",
+        "dialogues": "dialogues2",
+        "evaluate": "evaluate2",
+        "gdefaults": "gdefaults2",
+        "hierarchy": "hierarchy2",
+        "meta": "meta2",
+        "negation": "negation2",
+        "numbers": "numbers2",
+        "pos": "pos2",
+        "properties": "properties2",
+        "punctuation": "punctuation2",
+        "sdefaults": "sdefaults2",
+        "stm": "stm2",
+        "tell": "tell2",
+        "time": "time1",
+        "tokenize": "tokenize2"
+      },
+      "namespaced": {
+        "articles2": {
+          "km": "articles2"
+        },
+        "asking2": {
+          "km": "asking2"
+        },
+        "concept2": {
+          "defaultTypesForHierarchy": {
+          },
+          "km": "concept2",
+          "valueToWords": [
+          ]
+        },
+        "conjunction2": {
+          "km": "conjunction2"
+        },
+        "countable2": {
+          "km": "countable2"
+        },
+        "dialogues2": {
+          "idSuffix": "",
+          "km": "dialogues2",
+          "mentioned": [
+          ],
+          "variables": {
+          }
+        },
+        "evaluate2": {
+          "km": "evaluate2"
+        },
+        "gdefaults2": {
+          "km": "gdefaults2"
+        },
+        "hierarchy2": {
+          "km": "hierarchy2"
+        },
+        "meta2": {
+          "km": "meta2"
+        },
+        "negation2": {
+          "km": "negation2"
+        },
+        "numbers2": {
+          "km": "numbers2"
+        },
+        "pos2": {
+          "km": "pos2"
+        },
+        "properties2": {
+          "children": {
+            "adjective": [
+              "stm_before"
+            ],
+            "article": [
+              "a",
+              "the",
+              "each",
+              "every"
+            ],
+            "canBeDoQuestion": [
+              "have"
+            ],
+            "canBeQuestion": [
+              "have",
+              "is"
+            ],
+            "hierarchyAble": [
+              "unknown"
+            ],
+            "ifAble": [
+              "orAble"
+            ],
+            "listable": [
+              "object",
+              "queryable"
+            ],
+            "object": [
+              "what",
+              "whose"
+            ],
+            "preposition": [
+              "between",
+              "propertyOf",
+              "to"
+            ],
+            "pronoun": [
+              "it",
+              "this"
+            ],
+            "punctuation": [
+              "questionMark"
+            ],
+            "queryable": [
+              "xfx",
+              "hierarchyAble",
+              "readonly",
+              "property",
+              "object",
+              "concept",
+              "doubleQuote",
+              "theAble",
+              "it",
+              "what",
+              "whatAble",
+              "negatable",
+              "this",
+              "reason",
+              "distributable",
+              "thisitthat"
+            ],
+            "theAble": [
+              "property",
+              "object",
+              "concept",
+              "listable",
+              "reason",
+              "memorable",
+              "noun"
+            ],
+            "thisitthat": [
+              "it",
+              "this",
+              "that"
+            ],
+            "toAble": [
+              "it"
+            ],
+            "verb": [
+              "modifies",
+              "is",
+              "isQuery",
+              "remember",
+              "evaluate"
+            ]
+          },
+          "concepts": [
+            "properties",
+            "unknown",
+            "hierarchyAble",
+            "what",
+            "object",
+            "xfx",
+            "queryable",
+            "between",
+            "preposition",
+            "readonly",
+            "have",
+            "canBeDoQuestion",
+            "canBeQuestion",
+            "property",
+            "theAble",
+            "listable",
+            "propertyOf",
+            "whose",
+            "concept",
+            "modifies",
+            "verb",
+            "doubleQuote",
+            "it",
+            "pronoun",
+            "this",
+            "questionMark",
+            "punctuation",
+            "a",
+            "article",
+            "the",
+            "whatAble",
+            "negatable",
+            "is",
+            "toAble",
+            "to",
+            "isQuery",
+            "reason",
+            "memorable",
+            "remember",
+            "stm_before",
+            "adjective",
+            "orAble",
+            "ifAble",
+            "evaluate",
+            "each",
+            "every",
+            "distributable",
+            "noun",
+            "thisitthat",
+            "that"
+          ],
+          "km": "properties2",
+          "parents": {
+            "a": [
+              "article"
+            ],
+            "between": [
+              "preposition"
+            ],
+            "concept": [
+              "theAble",
+              "queryable"
+            ],
+            "distributable": [
+              "queryable"
+            ],
+            "doubleQuote": [
+              "queryable"
+            ],
+            "each": [
+              "article"
+            ],
+            "evaluate": [
+              "verb"
+            ],
+            "every": [
+              "article"
+            ],
+            "have": [
+              "canBeDoQuestion",
+              "canBeQuestion"
+            ],
+            "hierarchyAble": [
+              "queryable"
+            ],
+            "is": [
+              "canBeQuestion",
+              "verb"
+            ],
+            "isQuery": [
+              "verb"
+            ],
+            "it": [
+              "pronoun",
+              "queryable",
+              "toAble",
+              "thisitthat"
+            ],
+            "listable": [
+              "theAble"
+            ],
+            "memorable": [
+              "theAble"
+            ],
+            "modifies": [
+              "verb"
+            ],
+            "negatable": [
+              "queryable"
+            ],
+            "noun": [
+              "theAble"
+            ],
+            "object": [
+              "queryable",
+              "theAble",
+              "listable"
+            ],
+            "orAble": [
+              "ifAble"
+            ],
+            "property": [
+              "queryable",
+              "theAble"
+            ],
+            "propertyOf": [
+              "preposition"
+            ],
+            "queryable": [
+              "listable"
+            ],
+            "questionMark": [
+              "punctuation"
+            ],
+            "readonly": [
+              "queryable"
+            ],
+            "reason": [
+              "theAble",
+              "queryable"
+            ],
+            "remember": [
+              "verb"
+            ],
+            "stm_before": [
+              "adjective"
+            ],
+            "that": [
+              "thisitthat"
+            ],
+            "the": [
+              "article"
+            ],
+            "theAble": [
+              "queryable"
+            ],
+            "this": [
+              "pronoun",
+              "queryable",
+              "thisitthat"
+            ],
+            "thisitthat": [
+              "queryable"
+            ],
+            "to": [
+              "preposition"
+            ],
+            "unknown": [
+              "hierarchyAble"
+            ],
+            "what": [
+              "object",
+              "queryable"
+            ],
+            "whatAble": [
+              "queryable"
+            ],
+            "whose": [
+              "object"
+            ],
+            "xfx": [
+              "queryable"
+            ]
+          },
+          "properties": {
+            "handlers": {
+            },
+            "initHandlers": [
+            ],
+            "root": {
+              "a": {
+              },
+              "adjective": {
+              },
+              "article": {
+              },
+              "between": {
+              },
+              "canBeDoQuestion": {
+              },
+              "canBeQuestion": {
+              },
+              "concept": {
+              },
+              "distributable": {
+              },
+              "doubleQuote": {
+              },
+              "each": {
+              },
+              "evaluate": {
+              },
+              "every": {
+              },
+              "have": {
+              },
+              "hierarchyAble": {
+              },
+              "ifAble": {
+              },
+              "is": {
+              },
+              "isQuery": {
+              },
+              "it": {
+              },
+              "listable": {
+              },
+              "memorable": {
+              },
+              "modifies": {
+              },
+              "negatable": {
+              },
+              "noun": {
+              },
+              "object": {
+              },
+              "orAble": {
+              },
+              "preposition": {
+              },
+              "pronoun": {
+              },
+              "property": {
+              },
+              "propertyOf": {
+              },
+              "punctuation": {
+              },
+              "queryable": {
+              },
+              "questionMark": {
+              },
+              "readonly": {
+              },
+              "reason": {
+              },
+              "remember": {
+              },
+              "stm_before": {
+              },
+              "that": {
+              },
+              "the": {
+              },
+              "theAble": {
+              },
+              "this": {
+              },
+              "thisitthat": {
+              },
+              "to": {
+              },
+              "toAble": {
+              },
+              "unknown": {
+              },
+              "verb": {
+              },
+              "what": {
+              },
+              "whatAble": {
+              },
+              "whose": {
+              },
+              "xfx": {
+              }
+            }
+          },
+          "property": {
+          },
+          "relations": [
+          ],
+          "valueToWords": {
+          }
+        },
+        "punctuation2": {
+          "km": "punctuation2"
+        },
+        "sdefaults2": {
+          "km": "sdefaults2"
+        },
+        "stm2": {
+          "km": "stm2",
+          "mentioned": [
+          ],
+          "variables": {
+          }
+        },
+        "tell2": {
+          "km": "tell2"
+        },
+        "time1": {
+          "format": 12,
+          "km": "time1"
+        },
+        "tokenize2": {
+          "km": "tokenize2"
+        }
+      },
+      "processed": [
+        {
+          "context": {
+            "ampm": {
+              "ampm": "pm",
+              "determined": true,
+              "level": 0,
+              "marker": "ampm",
+              "range": {
+                "end": 7,
+                "start": 6
+              },
+              "text": "pm",
+              "word": "pm"
+            },
+            "colon": {
+              "dead": true,
+              "level": 0,
+              "marker": "colon",
+              "range": {
+                "end": 2,
+                "start": 2
+              },
+              "text": ":",
+              "types": [
+                "colon"
+              ],
+              "value": "colon",
+              "word": ":"
+            },
+            "context_id": 2,
+            "context_index": 1,
+            "dead": true,
+            "hour": {
+              "dead": true,
+              "instance": true,
+              "level": 1,
+              "marker": "integer",
+              "range": {
+                "end": 1,
+                "start": 0
+              },
+              "text": "10",
+              "types": [
+                "integer"
+              ],
+              "value": 10,
+              "word": "10"
+            },
+            "interpolate": "${hour}${colon}${minute} ${ampm}",
+            "level": 2,
+            "marker": "hourMinutes",
+            "minute": {
+              "instance": true,
+              "level": 0,
+              "marker": "integer",
+              "range": {
+                "end": 4,
+                "start": 3
+              },
+              "text": "23",
+              "types": [
+                "integer"
+              ],
+              "value": 23,
+              "word": "23"
+            },
+            "range": {
+              "end": 7,
+              "start": 0
+            },
+            "text": "10:23 pm",
+            "time": {
+              "colon": {
+                "dead": true,
+                "level": 0,
+                "marker": "colon",
+                "range": {
+                  "end": 2,
+                  "start": 2
+                },
+                "text": ":",
+                "types": [
+                  "colon"
+                ],
+                "value": "colon",
+                "word": ":"
+              },
+              "dead": true,
+              "hour": {
+                "dead": true,
+                "instance": true,
+                "level": 1,
+                "marker": "integer",
+                "range": {
+                  "end": 1,
+                  "start": 0
+                },
+                "text": "10",
+                "types": [
+                  "integer"
+                ],
+                "value": 10,
+                "word": "10"
+              },
+              "interpolate": "${hour}${colon}${minute}",
+              "level": 1,
+              "marker": "hourMinutes",
+              "minute": {
+                "instance": true,
+                "level": 0,
+                "marker": "integer",
+                "range": {
+                  "end": 4,
+                  "start": 3
+                },
+                "text": "23",
+                "types": [
+                  "integer"
+                ],
+                "value": 23,
+                "word": "23"
+              },
+              "range": {
+                "end": 4,
+                "start": 0
+              },
+              "text": " 10:23",
+              "types": [
+                "hourMinutes"
+              ]
+            },
+            "topLevel": true,
+            "types": [
+              "hourMinutes"
+            ]
+          },
+          "generatedParenthesized": [
+          ],
+          "paraphrases": [
+          ],
+          "paraphrasesParenthesized": [
+          ],
+          "responses": [
+            ""
+          ]
+        }
+      ]
+    },
+    "paraphrases": [
+      "10:23 pm"
+    ],
+    "paraphrasesParenthesized": [
+      "((10)(:)(23) (pm))"
+    ],
+    "query": "10:23 pm",
+    "responses": [
+      ""
+    ],
+    "summaries": [
+      {
+        "length": 1,
+        "summaries": [
+          {
+            "counter": 1,
+            "operators": [
+              {
+                "marker": [
+                  "integer",
+                  0
+                ],
+                "range": {
+                  "end": 1,
+                  "start": 0
+                }
+              },
+              {
+                "marker": [
+                  "colon",
+                  0
+                ],
+                "range": {
+                  "end": 2,
+                  "start": 2
+                }
+              },
+              {
+                "marker": [
+                  "integer",
+                  0
+                ],
+                "range": {
+                  "end": 4,
+                  "start": 3
+                }
+              },
+              {
+                "marker": [
+                  "ampm",
+                  0
+                ],
+                "range": {
+                  "end": 7,
+                  "start": 6
+                }
+              }
+            ]
+          },
+          {
+            "counter": 2,
+            "operators": [
+              {
+                "marker": [
+                  "integer",
+                  1
+                ],
+                "range": {
+                  "end": 1,
+                  "start": 0
+                }
+              },
+              {
+                "marker": [
+                  "colon",
+                  0
+                ],
+                "range": {
+                  "end": 2,
+                  "start": 2
+                }
+              },
+              {
+                "marker": [
+                  "integer",
+                  0
+                ],
+                "range": {
+                  "end": 4,
+                  "start": 3
+                }
+              },
+              {
+                "marker": [
+                  "ampm",
+                  0
+                ],
+                "range": {
+                  "end": 7,
+                  "start": 6
+                }
+              }
+            ]
+          },
+          {
+            "counter": 3,
+            "operators": [
+              {
+                "marker": [
+                  "hourMinutes",
+                  1
+                ],
+                "range": {
+                  "end": 4,
+                  "start": 0
+                }
+              },
+              {
+                "marker": [
+                  "ampm",
+                  0
+                ],
+                "range": {
+                  "end": 7,
+                  "start": 6
+                }
+              }
+            ]
+          },
+          {
+            "counter": 4,
+            "operators": [
+              {
+                "marker": [
+                  "hourMinutes",
+                  2
+                ],
+                "range": {
+                  "end": 7,
                   "start": 0
                 }
               }

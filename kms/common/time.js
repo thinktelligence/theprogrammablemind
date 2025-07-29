@@ -42,7 +42,9 @@ const config = {
   operators: [
     "([time])",
     "([use] (([timeUnit]) [timeFormat|format]))",
-    "(([number|]) [ampm|])"
+    // "(([number|]) [ampm|])",
+    "((time) [ampm|])",
+    "([hourMinutes|] (integer) (colon) (integer))",
     //"(([anyConcept]) [equals|is] ([anyConcept]))",
     //"(([what0|what]) [equals] (<the> ([timeConcept])))",
     //"(<whatP|what> ([anyConcept]))",
@@ -53,26 +55,40 @@ const config = {
     // how many hours are in a day
   ],
   bridges: [
-    { "id": "time", "level": 0, "bridge": "{ ...next(operator) }" },
-
-    // { "id": "hourUnits", "level": 0, "bridge": "{ ...next(operator) }" },
-    { "id": "ampm", "level": 0, "bridge": "{ ...next(operator), hour: before[0] }" },
-
-    { "id": "timeFormat", "level": 0, "bridge": "{ ...before[0], ...next(operator) }" },
-    // { "id": "count", "level": 0, "bridge": "{ ...after, count: operator.value }" },
+    {
+      id: 'hourMinutes',
+      isA: ['time'],
+      convolution: true,
+      bridge: "{ ...next(operator), hour: after[0], colon: after[1], minute: after[2], interpolate: '${hour}${colon}${minute}' }",
+    },
     { 
-      "id": "timeUnit", 
-      "level": 0, 
+      id: "time", 
+      bridge: "{ ...next(operator) }" 
+    },
+    { 
+      id: "ampm", 
+      localHierarchy: [
+        ['integer', 'time'],
+      ],
+      bridge: "{ ...next(before[0]), ampm: operator, time: before[0], interpolate: concat(default(before[0].interpolate, '${time}'), ' ${ampm}') }",
+    },
+    { 
+      id: "timeFormat", 
+      bridge: "{ ...before[0], ...next(operator) }" 
+    },
+    { 
+      id: "timeUnit", 
       words: [ 
         ...helpers.words('hour', { initial: "{ units: 'hour' }" }),
         ...helpers.words('minute', { initial: "{ units: 'minute' }" }),
         ...helpers.words('second', { initial: "{ units: 'second' }" }),
       ],
-      "bridge": "{ ...next(operator) }" 
+      bridge: "{ ...next(operator) }" 
     },
-    { "id": "use", "level": 0, 
-            bridge: "{ ...next(operator), format: after[0] }",
-            generatorp: ({g, context}) => `use ${context.format.quantity.value} hour time` 
+    { 
+      id: "use",
+      bridge: "{ ...next(operator), format: after[0] }",
+      generatorp: ({g, context}) => `use ${context.format.quantity.value} hour time` 
     },
   ],
   hierarchy: [
@@ -84,26 +100,21 @@ const config = {
 
   "words": {
     "literals": {
-      // " ([0-9]+)": [{"id": "count", "initial": "{ value: int(group[0]) }" }],
-      // " (1[0-2]|[1-9])": [{"id": "hourUnits", "initial": "{ hour: int(group[0]) }" }],
-      "am": [{"id": "ampm", "initial": "{ ampm: 'am', determined: true }" }],
-      "pm": [{"id": "ampm", "initial": "{ ampm: 'pm', determined: true }" }],
-      //" (1[0-2]|[1-9]) ?pm": [{"id": "count", "initial": "{ hour: int(group[0]), part: 'pm' }" }],
-      //" (1[0-2]|[1-9]) ?am": [{"id": "count", "initial": "{ hour: int(group[0]), part: 'am' }" }],
+      // " ([0-9]+)": [{id: "count", "initial": "{ value: int(group[0]) }" }],
+      // " (1[0-2]|[1-9])": [{id: "hourUnits", "initial": "{ hour: int(group[0]) }" }],
+      "am": [{id: "ampm", "initial": "{ ampm: 'am', determined: true }" }],
+      "pm": [{id: "ampm", "initial": "{ ampm: 'pm', determined: true }" }],
+      //" (1[0-2]|[1-9]) ?pm": [{id: "count", "initial": "{ hour: int(group[0]), part: 'pm' }" }],
+      //" (1[0-2]|[1-9]) ?am": [{id: "count", "initial": "{ hour: int(group[0]), part: 'am' }" }],
       /*
-      " hours?": [{"id": "timeUnit", "initial": "{ units: 'hour' }" }],
-      " minutes?": [{"id": "timeUnit", "initial": "{ units: 'hour' }" }],
-      " seconds?": [{"id": "timeUnit", "initial": "{ units: 'seconds' }" }],
+      " hours?": [{id: "timeUnit", "initial": "{ units: 'hour' }" }],
+      " minutes?": [{id: "timeUnit", "initial": "{ units: 'hour' }" }],
+      " seconds?": [{id: "timeUnit", "initial": "{ units: 'seconds' }" }],
       */
     }
   },
 
   generators: [
-    { 
-      where: where(),
-      match: ({context}) => context.marker == 'ampm' && context.paraphrase, 
-      apply: async ({g, context, gp}) => `${await gp(context.hour)} ${context.ampm}` 
-    },
     { 
       where: where(),
       match: ({context}) => context.marker == 'time' && context.evalue && context.format == 12, 
@@ -181,6 +192,19 @@ const initializer = ({api, config, objects, kms, isModule}) => {
       apply: api.semantics
   })
 }
+
+console.log('greg23 ssssssssssssss')
+console.log(JSON.stringify(defaultContextCheck([
+  //{ 'event': { , 'target', 'one', 'two']
+  {
+    event: {
+      one: 'defaults',
+      two: 'defaults',
+      info: 'defaults',
+      target: 'defaults'
+    }
+  },
+]), null, 2))
 
 knowledgeModule({
   config,

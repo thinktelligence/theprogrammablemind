@@ -67,8 +67,9 @@ const template = {
   configs: [
     { 
       operators: [
-        "([remind] (self/*) (*)*)",
         "([reminderTime|])",
+        "([remind] (self/*) (!@<= 'onDate')*)",
+        "([remind:withTimeBridge] (self/*) (!@<= 'onDate')* ([onDate|on] (reminderTime)))",
         "([show] ([reminders]))",
         "([delete_reminders|delete,cancel] (number/*))",
       ],
@@ -77,9 +78,10 @@ const template = {
           id: 'remind',
           isA: ['verb'],
           bridge: "{ ...next(operator), operator: operator, who: after[0], reminder: after[1], interpolate: '${operator} ${who} ${reminder}' }",
+          withTimeBridge: "{ ...next(operator), operator: operator, who: after[0], reminder: after[1], when: after[2], interpolate: '${operator} ${who} ${reminder} ${when}' }",
           semantic: async ({api, gsp, context}) => {
             const text = await gsp(context.reminder.slice(1));
-            api.add({ text });
+            api.add({ text, when: context.when });
           },
         },
         {
@@ -88,6 +90,11 @@ const template = {
             'day_dates',
             'month_dates',
           ],
+        },
+        { 
+          id: 'onDate', 
+          isA: ['preposition'],
+          bridge: "{ ...next(operator), time: after[0], onDate: operator, interpolate: '${onDate} ${time}' }",
         },
         { 
           id: 'reminders', 

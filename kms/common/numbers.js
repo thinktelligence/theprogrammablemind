@@ -93,7 +93,7 @@ const config = {
     },
     { 
       where: where(),
-      match: ({context}) => ['number', 'integer'].includes(context.marker),
+      match: ({context}) => false && ['number', 'integer'].includes(context.marker),
       apply: ({context}) => `${context.value}` 
     },
   ],

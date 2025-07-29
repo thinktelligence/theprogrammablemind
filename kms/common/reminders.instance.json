@@ -2,8 +2,9 @@
   "configs": [
     {
       "operators": [
-        "([remind] (self/*) (*)*)",
         "([reminderTime|])",
+        "([remind] (self/*) (!@<= 'onDate')*)",
+        "([remind:withTimeBridge] (self/*) (!@<= 'onDate')* ([onDate|on] (reminderTime)))",
         "([show] ([reminders]))",
         "([delete_reminders|delete,cancel] (number/*))"
       ],
@@ -14,7 +15,8 @@
             "verb"
           ],
           "bridge": "{ ...next(operator), operator: operator, who: after[0], reminder: after[1], interpolate: '${operator} ${who} ${reminder}' }",
-          "semantic": "async ({api, gsp, context}) => {\n            const text = await gsp(context.reminder.slice(1));\n            api.add({ text });\n          }"
+          "withTimeBridge": "{ ...next(operator), operator: operator, who: after[0], reminder: after[1], when: after[2], interpolate: '${operator} ${who} ${reminder} ${when}' }",
+          "semantic": "async ({api, gsp, context}) => {\n            const text = await gsp(context.reminder.slice(1));\n            api.add({ text, when: context.when });\n          }"
         },
         {
           "id": "reminderTime",
@@ -22,6 +24,13 @@
             "day_dates",
             "month_dates"
           ]
+        },
+        {
+          "id": "onDate",
+          "isA": [
+            "preposition"
+          ],
+          "bridge": "{ ...next(operator), time: after[0], onDate: operator, interpolate: '${onDate} ${time}' }"
         },
         {
           "id": "reminders",
@@ -55,8 +64,9 @@
     {
       "extraConfig": true,
       "operators": [
-        "([remind] (self/*) (*)*)",
         "([reminderTime|])",
+        "([remind] (self/*) (!@<= 'onDate')*)",
+        "([remind:withTimeBridge] (self/*) (!@<= 'onDate')* ([onDate|on] (reminderTime)))",
         "([show] ([reminders]))",
         "([delete_reminders|delete,cancel] (number/*))"
       ],
@@ -66,7 +76,8 @@
           "isA": [
             "verb"
           ],
-          "bridge": "{ ...next(operator), operator: operator, who: after[0], reminder: after[1], interpolate: '${operator} ${who} ${reminder}' }"
+          "bridge": "{ ...next(operator), operator: operator, who: after[0], reminder: after[1], interpolate: '${operator} ${who} ${reminder}' }",
+          "withTimeBridge": "{ ...next(operator), operator: operator, who: after[0], reminder: after[1], when: after[2], interpolate: '${operator} ${who} ${reminder} ${when}' }"
         },
         {
           "id": "reminderTime",
@@ -74,6 +85,13 @@
             "day_dates",
             "month_dates"
           ]
+        },
+        {
+          "id": "onDate",
+          "isA": [
+            "preposition"
+          ],
+          "bridge": "{ ...next(operator), time: after[0], onDate: operator, interpolate: '${onDate} ${time}' }"
         },
         {
           "id": "reminders",
