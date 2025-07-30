@@ -15,6 +15,9 @@ function getNextDayOfWeek(date, targetDay) {
   };
 
   const targetDayNum = dayMap[targetDay.toLowerCase()]
+  if (!targetDayNum) {
+    return
+  }
   const currentDay = date.getDay();
 
   let daysUntilNext = targetDayNum - currentDay;
@@ -24,13 +27,15 @@ function getNextDayOfWeek(date, targetDay) {
 
   const nextDate = new Date(date);
   nextDate.setDate(date.getDate() + daysUntilNext);
-
   return nextDate;
 }
 
 instantiate = (now, context) => {
-  if (context.dayOfWeek) {
-    context.nextDate = getNextDayOfWeek(now, context.value)
+  if (context.date) {
+    const date = getNextDayOfWeek(now, context.date?.date?.value)
+    if (date) {
+      return date.toISOString()
+    }
   }
 }
 

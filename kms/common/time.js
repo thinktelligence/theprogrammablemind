@@ -201,19 +201,6 @@ const initializer = ({api, config, objects, kms, isModule}) => {
   })
 }
 
-console.log('greg23 ssssssssssssss')
-console.log(JSON.stringify(defaultContextCheck([
-  //{ 'event': { , 'target', 'one', 'two']
-  {
-    event: {
-      one: 'defaults',
-      two: 'defaults',
-      info: 'defaults',
-      target: 'defaults'
-    }
-  },
-]), null, 2))
-
 knowledgeModule({
   config,
   includes: [tell, numbers, countable],

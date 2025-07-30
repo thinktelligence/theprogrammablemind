@@ -5,6 +5,7 @@ const reminders_instance = require('./reminders.instance.json')
 const selfKM = require('./self')
 const dates = require('./dates')
 const time = require('./time')
+const reminders_helpers = require('./helpers/reminders')
 const helpers = require('./helpers')
 
 class API {
@@ -16,7 +17,24 @@ class API {
 
   add(reminder) {
     const id = ++this._objects.id
-    this._objects.reminders.push({ ...reminder, id })
+    reminder.id = id
+    this._objects.reminders.push(reminder)
+    this.args.mentioned({ context: reminder })
+  }
+
+  instantiate(reminder) {
+    let now;
+    if (this.args.isProcess) {
+      // so the unit tests work consistently
+      now = new Date(2025, 6, 29, 14, 52, 0)
+    } else {
+      now = new Date()
+    }
+    reminder.nextISODate = reminders_helpers.instantiate(now, reminder)
+  }
+
+  // the user of the KM can override this. this can be used to sync the GUI and the LUI
+  getCurrent() {
   }
 
   askAbout() {
@@ -85,7 +103,9 @@ const template = {
           withDateAndTimeBridge: "{ ...next(operator), operator: operator, who: after[0], reminder: after[1], date: after[2], time: after[3], interpolate: '${operator} ${who} ${reminder} ${date} ${time}' }",
           semantic: async ({api, gsp, context}) => {
             const text = await gsp(context.reminder.slice(1));
-            api.add({ text, date: context.date, time: context.time });
+            const reminder = { text, date: context.date, time: context.time }
+            api.instantiate(reminder)
+            api.add(reminder)
           },
         },
         {
@@ -179,7 +199,7 @@ knowledgeModule( {
       objects: [
         { 
           property: 'reminders',
-          filter: [ 'text', 'date', 'time' ],
+          filter: [ 'text', 'date', 'time', 'nextISODate', 'stm' ],
         }
       ],
     },
