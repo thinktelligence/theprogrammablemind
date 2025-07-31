@@ -3,10 +3,17 @@ const { defaultContextCheck } = require('./helpers')
 const reminders_tests = require('./reminders.test.json')
 const reminders_instance = require('./reminders.instance.json')
 const selfKM = require('./self')
-const dates = require('./dates')
-const time = require('./time')
-const reminders_helpers = require('./helpers/reminders')
+const dateTimeSelectors = require('./dateTimeSelectors')
 const helpers = require('./helpers')
+
+/*
+   friday instead
+   change it to friday
+   delete it
+   make it friday instead
+   2 sundays from now
+   the sunday after july 1st
+*/
 
 class API {
   initialize({ objects }) {
@@ -22,7 +29,7 @@ class API {
     this.args.mentioned({ context: reminder })
   }
 
-  instantiate(reminder) {
+  async instantiate(reminder) {
     let now;
     if (this.args.isProcess) {
       // so the unit tests work consistently
@@ -30,7 +37,9 @@ class API {
     } else {
       now = new Date()
     }
-    reminder.nextISODate = reminders_helpers.instantiate(now, reminder)
+    // reminder.nextISODate = reminders_helpers.instantiate(now, reminder)
+    // debugger
+    // TODO make the evaluate work --> const value = await this.args.e(reminder.dateTimeSelector)
   }
 
   // the user of the KM can override this. this can be used to sync the GUI and the LUI
@@ -40,7 +49,7 @@ class API {
   askAbout() {
     const items = []
     for (const item of this._objects.reminders) {
-      if (!item.date) {
+      if (!item.dateTimeSelector) {
         items.push({ when: true, text: item.text, id: item.id })
       }
     }
@@ -86,11 +95,9 @@ const template = {
   configs: [
     { 
       operators: [
-        "([reminderTime|])",
-        "([remind] (self/*) (!@<= 'onDate')*)",
-        "([onDate|on] (reminderTime))",
-        "([remind:withDateBridge] (self/*) (!@<= 'onDate')* (onDate))",
-        "([remind:withDateAndTimeBridge] (self/*) (!@<= 'onDate')* (onDate) (atTime))",
+        "([remind] (self/*) (!@<= 'dateTimeSelector')*)",
+        "([remind:withDateBridge] (self/*) (!@<= 'dateTimeSelector')* (dateTimeSelector))",
+        "([remind:withDateAndTimeBridge] (self/*) (!@<= 'dateTimeSelector')* (dateTimeSelector) (atTime))",
         "([show] ([reminders]))",
         "([delete_reminders|delete,cancel] (number/*))",
       ],
@@ -101,24 +108,16 @@ const template = {
           bridge: "{ ...next(operator), operator: operator, who: after[0], reminder: after[1], interpolate: '${operator} ${who} ${reminder}' }",
           withDateBridge: "{ ...next(operator), operator: operator, who: after[0], reminder: after[1], date: after[2], interpolate: '${operator} ${who} ${reminder} ${date}' }",
           withDateAndTimeBridge: "{ ...next(operator), operator: operator, who: after[0], reminder: after[1], date: after[2], time: after[3], interpolate: '${operator} ${who} ${reminder} ${date} ${time}' }",
-          semantic: async ({api, gsp, context}) => {
+          semantic: async ({api, gsp, gp, context}) => {
             const text = await gsp(context.reminder.slice(1));
-            const reminder = { text, date: context.date, time: context.time }
-            api.instantiate(reminder)
+            const reminder = { text, dateTimeSelector: context.date }
+            if (context.date) {
+              reminder.dateTimeSelector = context.date
+              reminder.dateTimeSelectorText = await gp(context.date)
+            }
+            await api.instantiate(reminder)
             api.add(reminder)
           },
-        },
-        {
-          id: 'reminderTime',
-          children: [
-            'day_dates',
-            'month_dates',
-          ],
-        },
-        { 
-          id: 'onDate', 
-          isA: ['preposition'],
-          bridge: "{ ...next(operator), date: after[0], onDate: operator, interpolate: '${onDate} ${date}' }",
         },
         { 
           id: 'reminders', 
@@ -169,14 +168,14 @@ const template = {
           },
 
           matchr: ({ isA, api, context }) => {
-            if (isA(context.marker, 'reminderTime') && api.askAbout().length > 0) {
+            if (isA(context.marker, 'onDateValue_dates') && api.askAbout().length > 0) {
                 return true
             }
             return false
           },
-          applyr: ({ context, api }) => {
+          applyr: async ({ context, api, gp }) => {
             const items = api.askAbout()
-            api.update({ id: items[0].id, date: context })
+            api.update({ id: items[0].id, dateTimeSelector: context, dateTimeSelectorText: await gp(context) })
           }
         },
       ])
@@ -186,7 +185,7 @@ const template = {
 
 knowledgeModule( { 
   config: { name: 'reminders' },
-  includes: [time, dates, selfKM],
+  includes: [dateTimeSelectors, selfKM],
   api: () => new API(),
 
   module,
@@ -199,7 +198,16 @@ knowledgeModule( {
       objects: [
         { 
           property: 'reminders',
-          filter: [ 'text', 'date', 'time', 'nextISODate', 'stm' ],
+          filter: [ 
+            'text', 
+            'dateTimeSelectorText', 
+            'nextISODate', 
+            'stm',
+            {
+              property: 'dateTimeSelector', 
+              filter: ['marker', 'text', 'value'],
+            }
+          ],
         }
       ],
     },

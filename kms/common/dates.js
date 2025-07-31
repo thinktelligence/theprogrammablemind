@@ -40,6 +40,7 @@ const template = {
         "([monthYear_dates] (month_dates/*) (yearNumber_dates/*))",
         "([monthDayYear_dates] (month_dates/*) (dayNumber_dates/*) (yearNumber_dates/*))",
         "([monthDayYearWithSlashes_dates] (monthNumber_dates/*) (dateSeparator_dates/*) (dayNumber_dates/*) (dateSeparator_dates/*) (yearNumber_dates/*))",
+        "([onDate_dates|on] ([onDateValue_dates|]))",
       ],
       associations: {
         positive: [
@@ -50,6 +51,18 @@ const template = {
         ['monday_dates', 'distributable'],
       ],
       bridges: [
+        {
+          id: 'onDateValue_dates',
+          children: [
+            'day_dates',
+            'month_dates',
+          ],
+        },
+        {
+          id: 'onDate_dates',
+          isA: ['preposition'],
+          bridge: "{ ...next(operator), date: after[0], onDate: operator, interpolate: '${onDate} ${date}' }",
+        },
         { 
           id: 'era_dates', 
           words: ['era'],

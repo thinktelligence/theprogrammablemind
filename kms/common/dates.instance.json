@@ -15,7 +15,8 @@
         "([dateEra_dates] (date_dates/*) (era_dates/*))",
         "([monthYear_dates] (month_dates/*) (yearNumber_dates/*))",
         "([monthDayYear_dates] (month_dates/*) (dayNumber_dates/*) (yearNumber_dates/*))",
-        "([monthDayYearWithSlashes_dates] (monthNumber_dates/*) (dateSeparator_dates/*) (dayNumber_dates/*) (dateSeparator_dates/*) (yearNumber_dates/*))"
+        "([monthDayYearWithSlashes_dates] (monthNumber_dates/*) (dateSeparator_dates/*) (dayNumber_dates/*) (dateSeparator_dates/*) (yearNumber_dates/*))",
+        "([onDate_dates|on] ([onDateValue_dates|]))"
       ],
       "associations": {
         "positive": [
@@ -41,6 +42,20 @@
         ]
       ],
       "bridges": [
+        {
+          "id": "onDateValue_dates",
+          "children": [
+            "day_dates",
+            "month_dates"
+          ]
+        },
+        {
+          "id": "onDate_dates",
+          "isA": [
+            "preposition"
+          ],
+          "bridge": "{ ...next(operator), date: after[0], onDate: operator, interpolate: '${onDate} ${date}' }"
+        },
         {
           "id": "era_dates",
           "words": [
@@ -243,11 +258,6 @@
         [
           "each",
           "article",
-          false
-        ],
-        [
-          "evaluate",
-          "verb",
           false
         ],
         [
@@ -767,11 +777,6 @@
         [
           "each",
           "article",
-          false
-        ],
-        [
-          "evaluate",
-          "verb",
           false
         ],
         [
@@ -9867,11 +9872,6 @@
           false
         ],
         [
-          "evaluate",
-          "verb",
-          false
-        ],
-        [
           "every",
           "article",
           false
@@ -14179,11 +14179,6 @@
           false
         ],
         [
-          "evaluate",
-          "verb",
-          false
-        ],
-        [
           "every",
           "article",
           false
@@ -16587,7 +16582,8 @@
         "([dateEra_dates] (date_dates/*) (era_dates/*))",
         "([monthYear_dates] (month_dates/*) (yearNumber_dates/*))",
         "([monthDayYear_dates] (month_dates/*) (dayNumber_dates/*) (yearNumber_dates/*))",
-        "([monthDayYearWithSlashes_dates] (monthNumber_dates/*) (dateSeparator_dates/*) (dayNumber_dates/*) (dateSeparator_dates/*) (yearNumber_dates/*))"
+        "([monthDayYearWithSlashes_dates] (monthNumber_dates/*) (dateSeparator_dates/*) (dayNumber_dates/*) (dateSeparator_dates/*) (yearNumber_dates/*))",
+        "([onDate_dates|on] ([onDateValue_dates|]))"
       ],
       "associations": {
         "positive": [
@@ -16613,6 +16609,20 @@
         ]
       ],
       "bridges": [
+        {
+          "id": "onDateValue_dates",
+          "children": [
+            "day_dates",
+            "month_dates"
+          ]
+        },
+        {
+          "id": "onDate_dates",
+          "isA": [
+            "preposition"
+          ],
+          "bridge": "{ ...next(operator), date: after[0], onDate: operator, interpolate: '${onDate} ${date}' }"
+        },
         {
           "id": "era_dates",
           "words": [
@@ -17156,6 +17166,11 @@
         ],
         [
           "day_dates",
+          "onDateValue_dates",
+          false
+        ],
+        [
+          "day_dates",
           "property",
           false
         ],
@@ -17297,11 +17312,6 @@
         [
           "era_dates",
           "theAble",
-          false
-        ],
-        [
-          "evaluate",
-          "verb",
           false
         ],
         [
@@ -17961,6 +17971,11 @@
         ],
         [
           "month_dates",
+          "onDateValue_dates",
+          false
+        ],
+        [
+          "month_dates",
           "property",
           false
         ],
@@ -18162,6 +18177,16 @@
         [
           "october_dates",
           "theAble",
+          false
+        ],
+        [
+          "onDateValue_dates",
+          "onDateValue_dates",
+          false
+        ],
+        [
+          "onDate_dates",
+          "preposition",
           false
         ],
         [
