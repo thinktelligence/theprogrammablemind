@@ -30,12 +30,35 @@ function getNextDayOfWeek(date, targetDay) {
   return nextDate;
 }
 
+function getTime(time) {
+  let hour = 0
+  let minute = 0
+  let second = 0
+  let hour_offset = 0
+  if (time.time.ampm.ampm == 'pm') {
+    hour_offset = 12
+  }
+  if (time.marker == 'integer') {
+    hour = time.value
+  }
+  hour += hour_offset
+  return { hour, minute, second }
+}
+
 instantiate = (now, context) => {
   if (context.dateTimeSelector) {
     const dateTimeSelector = getNextDayOfWeek(now, context.dateTimeSelector?.value)
     if (dateTimeSelector) {
       return dateTimeSelector.toISOString()
     }
+  } else if (context.marker == 'dateTimeSelector') {
+    const dateTimeSelector = getNextDayOfWeek(now, context.date.date.value)
+    const hms = getTime(context.time)
+    dateTimeSelector.setHours(hms.hour)
+    dateTimeSelector.setMinutes(hms.minute)
+    dateTimeSelector.setSeconds(hms.second)
+    dateTimeSelector.setMilliseconds(0)
+    return dateTimeSelector.toISOString()
   }
 }
 

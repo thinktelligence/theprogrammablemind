@@ -37,9 +37,10 @@ class API {
     } else {
       now = new Date()
     }
-    // reminder.nextISODate = reminders_helpers.instantiate(now, reminder)
-    // debugger
+    // reminder.nextISODate = dateTimeSelectors.instantiate(now, reminder)
     // TODO make the evaluate work --> const value = await this.args.e(reminder.dateTimeSelector)
+    const value = await this.args.e(reminder.dateTimeSelector)
+    reminder.nextISODate = value?.evalue
   }
 
   // the user of the KM can override this. this can be used to sync the GUI and the LUI

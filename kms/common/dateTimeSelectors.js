@@ -54,7 +54,7 @@ const template = {
       ],
       semantics: [
         {
-          match: ({context, isA}) => isA(context.marker, 'dateTimeSelector') && !!args.context.evaluate,
+          match: ({context, isA}) => isA(context.marker, 'dateTimeSelector') && !!context.evaluate,
           apply: ({context, isProcess}) => {
             context.evalue = instantiate(isProcess, context)
           },
