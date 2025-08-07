@@ -29,7 +29,6 @@ function instantiate(isProcessOrTest, dateTimeSelector) {
   } else {
     now = new Date()
   }
-  // reminder.nextISODate = dateTimeSelectors_helpers.instantiate(now, reminder)
   return dateTimeSelectors_helpers.instantiate(now, dateTimeSelector)
 }
 
@@ -53,7 +52,7 @@ const template = {
         {
           match: ({context, isA}) => isA(context.marker, 'dateTimeSelector') && !!context.evaluate,
           apply: ({context, isProcess, isTest}) => {
-            context.evalue = instantiate(isProcess || isTest, context)
+            context.evalue = instantiate(isProcess || isTest || context.isTest, context)
           },
         }
       ],

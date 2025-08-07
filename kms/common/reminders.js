@@ -30,15 +30,6 @@ class API {
   }
 
   async instantiate(reminder) {
-    let now;
-    if (this.args.isProcess || this.args.isTest) {
-      // so the unit tests work consistently
-      now = new Date(2025, 5, 29, 14, 52, 0)
-    } else {
-      now = new Date()
-    }
-    // reminder.nextISODate = dateTimeSelectors.instantiate(now, reminder)
-    // TODO make the evaluate work --> const value = await this.args.e(reminder.dateTimeSelector)
     const value = await this.args.e(reminder.dateTimeSelector)
     reminder.nextISODate = value?.evalue
   }
