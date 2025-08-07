@@ -21,9 +21,9 @@ const dateTimeSelectors_helpers = require('./helpers/dateTimeSelectors')
    10 am
 */
 
-function instantiate(isProcess, dateTimeSelector) {
+function instantiate(isProcessOrTest, dateTimeSelector) {
   let now;
-  if (isProcess) {
+  if (isProcessOrTest) {
     // so the unit tests work consistently. the month is zero based so 5 is june
     now = new Date(2025, 5, 29, 14, 52, 0)
   } else {
@@ -47,22 +47,13 @@ const template = {
           convolution: true,
           children: ['onDate_dates', 'atTime', 'date_dates'],
           bridge: "{ ...next(operator), date: after[0], time: after[1], interpolate: '${date} ${time}' }",
-          /*
-          evaluator: {
-            match: ({context, isA}) => isA(context.marker, 'dateTimeSelector'),
-            apply: ({context, isProcess}) => {
-              debugger
-              context.evalue = instantiate(isProcess, context)
-            },
-          }
-          */
         },
       ],
       semantics: [
         {
           match: ({context, isA}) => isA(context.marker, 'dateTimeSelector') && !!context.evaluate,
-          apply: ({context, isProcess}) => {
-            context.evalue = instantiate(isProcess, context)
+          apply: ({context, isProcess, isTest}) => {
+            context.evalue = instantiate(isProcess || isTest, context)
           },
         }
       ],

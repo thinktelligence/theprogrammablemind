@@ -31,7 +31,7 @@ class API {
 
   async instantiate(reminder) {
     let now;
-    if (this.args.isProcess) {
+    if (this.args.isProcess || this.args.isTest) {
       // so the unit tests work consistently
       now = new Date(2025, 5, 29, 14, 52, 0)
     } else {
