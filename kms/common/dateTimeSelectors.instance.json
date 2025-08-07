@@ -7,11 +7,25 @@
       "bridges": [
         {
           "id": "dateTimeSelector",
+          "after": [
+            "preposition"
+          ],
+          "before": [
+            "verb"
+          ],
           "convolution": true,
           "children": [
-            "onDate",
-            "atTime"
-          ]
+            "onDate_dates",
+            "atTime",
+            "date_dates"
+          ],
+          "bridge": "{ ...next(operator), date: after[0], time: after[1], interpolate: '${date} ${time}' }"
+        }
+      ],
+      "semantics": [
+        {
+          "match": "({context, isA}) => isA(context.marker, 'dateTimeSelector') && !!context.evaluate",
+          "apply": "({context, isProcess}) => {\n            context.evalue = instantiate(isProcess, context)\n          }"
         }
       ]
     }
@@ -25,12 +39,23 @@
       "bridges": [
         {
           "id": "dateTimeSelector",
+          "after": [
+            "preposition"
+          ],
+          "before": [
+            "verb"
+          ],
           "convolution": true,
           "children": [
-            "onDate",
-            "atTime"
-          ]
+            "onDate_dates",
+            "atTime",
+            "date_dates"
+          ],
+          "bridge": "{ ...next(operator), date: after[0], time: after[1], interpolate: '${date} ${time}' }"
         }
+      ],
+      "semantics": [
+        {}
       ]
     }
   ],

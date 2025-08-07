@@ -34,7 +34,7 @@ describe("instantiate", () => {
     expect(actual).toStrictEqual(expected.toISOString()) 
   });
 
-  const dateTimeSelector = (ampm) => {
+  const dateTimeSelectorWithExplicitOn = (ampm) => {
     return {
       "marker": "dateTimeSelector",
       "range": {
@@ -167,15 +167,136 @@ describe("instantiate", () => {
 
   test('NEOS23 date with time am', () => {
     const now = new Date(2025, 6, 29, 14, 52, 0);
-    const actual = instantiate(now, dateTimeSelector('am'))
-    const expected = new Date("2025-08-04T07:00:00.000Z");
+    const actual = instantiate(now, dateTimeSelectorWithExplicitOn('am'))
+    const expected = new Date("2025-08-04T17:00:00.000Z");
     expect(actual).toStrictEqual(expected.toISOString()) 
   });
 
-  test('NEO23 date with time pm', () => {
+  test('NEOS23 date with time pm', () => {
     const now = new Date(2025, 6, 29, 14, 52, 0);
-    const actual = instantiate(now, dateTimeSelector('pm'))
-    const expected = new Date("2025-08-04T19:00:00.000Z");
+    const actual = instantiate(now, dateTimeSelectorWithExplicitOn('pm'))
+    const expected = new Date("2025-08-05T05:00:00.000Z");
+    expect(actual).toStrictEqual(expected.toISOString()) 
+  });
+
+  const dateTimeSelectorWithImplicitOn = (ampm) => {
+    return {
+      "marker": "dateTimeSelector",
+      "range": {
+        "start": 26,
+        "end": 43
+      },
+      "dead": true,
+      "date": {
+        "value": "monday_dates",
+        "number": "one",
+        "text": "monday",
+        "marker": "monday_dates",
+        "word": "monday",
+        "range": {
+          "start": 29,
+          "end": 34
+        },
+        "dead": true,
+        "types": [
+          "monday_dates"
+        ],
+        "level": 1
+      },
+      "time": {
+        "marker": "atTime",
+        "default": true,
+        "word": "at",
+        "text": `at 10 ${ampm}`,
+        "range": {
+          "start": 36,
+          "end": 43
+        },
+        "dead": true,
+        "time": {
+          "instance": true,
+          "value": 10,
+          "text": `10 ${ampm}`,
+          "marker": "time",
+          "word": "10",
+          "range": {
+            "start": 39,
+            "end": 43
+          },
+          "dead": true,
+          "types": [
+            "time"
+          ],
+          "ampm": {
+            "ampm": ampm,
+            "determined": true,
+            "text": ampm,
+            "marker": "ampm",
+            "word": ampm,
+            "range": {
+              "start": 42,
+              "end": 43
+            },
+            "level": 0
+          },
+          "time": {
+            "instance": true,
+            "value": 10,
+            "text": "10",
+            "marker": "integer",
+            "word": "10",
+            "range": {
+              "start": 39,
+              "end": 40
+            },
+            "dead": true,
+            "types": [
+              "integer",
+              "time"
+            ],
+            "level": 1
+          },
+          "interpolate": "${time} ${ampm}",
+          "level": 0
+        },
+        "operator": {
+          "marker": "atTime",
+          "default": true,
+          "word": "at",
+          "text": "at",
+          "range": {
+            "start": 36,
+            "end": 37
+          },
+          "level": 0
+        },
+        "interpolate": "${operator} ${time}",
+        "types": [
+          "atTime"
+        ],
+        "level": 1
+      },
+      "interpolate": "${date} ${time}",
+      "text": ` on monday at 10 ${ampm}`,
+      "types": [
+        "dateTimeSelector"
+      ],
+      "level": 1,
+      "evaluate": true
+    }
+  }
+
+  test('NEOS23 date with time am with implicit on', () => {
+    const now = new Date(2025, 6, 29, 14, 52, 0);
+    const actual = instantiate(now, dateTimeSelectorWithImplicitOn('am'))
+    const expected = new Date("2025-08-04T17:00:00.000Z");
+    expect(actual).toStrictEqual(expected.toISOString()) 
+  });
+
+  test('NEOS23 date with time pm', () => {
+    const now = new Date(2025, 6, 29, 14, 52, 0);
+    const actual = instantiate(now, dateTimeSelectorWithImplicitOn('pm'))
+    const expected = new Date("2025-08-05T05:00:00.000Z");
     expect(actual).toStrictEqual(expected.toISOString()) 
   });
 

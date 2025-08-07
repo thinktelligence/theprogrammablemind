@@ -32,14 +32,16 @@ function getNextDayOfWeek(date, targetDay) {
 
 function getTime(time) {
   let hour = 0
-  let minute = 0
-  let second = 0
+  const minute = 0
+  const second = 0
   let hour_offset = 0
   if (time.time.ampm.ampm == 'pm') {
     hour_offset = 12
   }
   if (time.marker == 'integer') {
     hour = time.value
+  } else if (time.marker == 'atTime') {
+    hour = time.time.value
   }
   hour += hour_offset
   return { hour, minute, second }
@@ -52,7 +54,9 @@ instantiate = (now, context) => {
       return dateTimeSelector.toISOString()
     }
   } else if (context.marker == 'dateTimeSelector') {
-    const dateTimeSelector = getNextDayOfWeek(now, context.date.date.value)
+    // (on date) OR (date)
+    const date = context.date?.date || context.date
+    const dateTimeSelector = getNextDayOfWeek(now, date.value)
     const hms = getTime(context.time)
     dateTimeSelector.setHours(hms.hour)
     dateTimeSelector.setMinutes(hms.minute)

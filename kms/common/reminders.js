@@ -33,7 +33,7 @@ class API {
     let now;
     if (this.args.isProcess) {
       // so the unit tests work consistently
-      now = new Date(2025, 6, 29, 14, 52, 0)
+      now = new Date(2025, 5, 29, 14, 52, 0)
     } else {
       now = new Date()
     }

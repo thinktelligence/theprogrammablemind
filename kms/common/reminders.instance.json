@@ -17,7 +17,7 @@
           "bridge": "{ ...next(operator), operator: operator, who: after[0], reminder: after[1], interpolate: '${operator} ${who} ${reminder}' }",
           "withDateBridge": "{ ...next(operator), operator: operator, who: after[0], reminder: after[1], date: after[2], interpolate: '${operator} ${who} ${reminder} ${date}' }",
           "withDateAndTimeBridge": "{ ...next(operator), operator: operator, who: after[0], reminder: after[1], date: after[2], time: after[3], interpolate: '${operator} ${who} ${reminder} ${date} ${time}' }",
-          "semantic": "async ({api, gsp, gp, context}) => {\n            const text = await gsp(context.reminder.slice(1));\n            const reminder = { text, dateTimeSelector: context.date }\n            if (context.date) {\n              reminder.dateTimeSelector = context.date\n              reminder.dateTimeSelectorText = await gp(context.date)\n            }\n            await api.instantiate(reminder)\n            api.add(reminder)\n          }"
+          "semantic": "async ({api, gsp, gp, context}) => {\n            const text = await gsp(context.reminder.slice(1));\n            const reminder = { text, dateTimeSelector: context.date }\n            if (context.date) {\n              reminder.dateTimeSelector = context.date\n              reminder.dateTimeSelectorText = await gp(context.date)\n            }\n            debugger\n            await api.instantiate(reminder)\n            api.add(reminder)\n          }"
         },
         {
           "id": "reminders",

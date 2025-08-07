@@ -13,13 +13,19 @@ const dateTimeSelectors_helpers = require('./helpers/dateTimeSelectors')
    make it friday instead
    2 sundays from now
    the sunday after july 1st
+   the first tuesday after july 1st
+   the first tuesday on or after july 1st
+   the last tuesday of every month
+   the last tuesday of every third month
+   monday at 10 am
+   10 am
 */
 
 function instantiate(isProcess, dateTimeSelector) {
   let now;
   if (isProcess) {
-    // so the unit tests work consistently
-    now = new Date(2025, 6, 29, 14, 52, 0)
+    // so the unit tests work consistently. the month is zero based so 5 is june
+    now = new Date(2025, 5, 29, 14, 52, 0)
   } else {
     now = new Date()
   }
