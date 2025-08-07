@@ -12,6 +12,7 @@ const dateTimeSelectors_helpers = require('./helpers/dateTimeSelectors')
    delete it
    make it friday instead
    2 sundays from now
+   2 sundays from last tuesday
    the sunday after july 1st
    the first tuesday after july 1st
    the first tuesday on or after july 1st
@@ -21,14 +22,8 @@ const dateTimeSelectors_helpers = require('./helpers/dateTimeSelectors')
    10 am
 */
 
-function instantiate(isProcessOrTest, dateTimeSelector) {
-  let now;
-  if (isProcessOrTest) {
-    // so the unit tests work consistently. the month is zero based so 5 is june
-    now = new Date(2025, 5, 29, 14, 52, 0)
-  } else {
-    now = new Date()
-  }
+function instantiate(kms, isProcessOrTest, dateTimeSelector) {
+  const now = kms.time.api.now()
   return dateTimeSelectors_helpers.instantiate(now, dateTimeSelector)
 }
 
@@ -51,8 +46,8 @@ const template = {
       semantics: [
         {
           match: ({context, isA}) => isA(context.marker, 'dateTimeSelector') && !!context.evaluate,
-          apply: ({context, isProcess, isTest}) => {
-            context.evalue = instantiate(isProcess || isTest || context.isTest, context)
+          apply: ({context, isProcess, isTest, kms}) => {
+            context.evalue = instantiate(kms, isProcess || isTest || context.isTest, context)
           },
         }
       ],

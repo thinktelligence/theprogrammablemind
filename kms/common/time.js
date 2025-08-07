@@ -29,6 +29,14 @@ class API {
     context.event = promise
   }
 
+  now() {
+    if (this.args.isProcess || this.args.isTest) {
+      return new Date(2025, 5, 29, 14, 52, 0)
+    } else {
+      return new Date()
+    }
+  }
+
   newDate() {
     return new Date()
   }
