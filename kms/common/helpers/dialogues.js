@@ -78,11 +78,6 @@ class API {
 
   // word is for one or many
   makeObject({config, context, types=[], source_value=undefined, doPluralize=true} = {}) {
-    /*
-    if (!context.unknown) {
-      return context.value
-    }
-    */
     if (typeof context == 'string') {
       context = { word: context, value: context }
     }
@@ -119,6 +114,12 @@ class API {
       this.setupObjectHierarchy(config, concept, {types: allTypes});
     }
 
+    try {
+      pluralize.isSingular(word)
+    } catch ( e ) {
+      debugger
+      return
+    }
     if (pluralize.isSingular(word)) {
       addConcept(word, 'one')
       doPluralize && addConcept(pluralize.plural(word), 'many')

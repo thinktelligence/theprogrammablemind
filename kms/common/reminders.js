@@ -13,6 +13,9 @@ const helpers = require('./helpers')
    make it friday instead
    2 sundays from now
    the sunday after july 1st
+   remind greg to go to regina
+   remind every truck driver to whatever tomorrow at 8 am
+   remind greg and bob to go to bolivia and see the xyz corporation
 */
 
 class API {
@@ -27,6 +30,10 @@ class API {
     reminder.id = id
     this._objects.reminders.push(reminder)
     this.args.mentioned({ context: reminder })
+  }
+
+  addRemindable(text) {
+    this.args.makeObject({ ...this.args, context: { word: text, value: text, number: 'one' }, types: ['remindable'] })
   }
 
   async instantiate(reminder) {
@@ -87,16 +94,32 @@ const template = {
   configs: [
     { 
       operators: [
-        "([remind] (self/*) (!@<= 'dateTimeSelector')*)",
-        "([remind:withDateBridge] (self/*) (!@<= 'dateTimeSelector')* (dateTimeSelector))",
-        "([remind:withDateAndTimeBridge] (self/*) (!@<= 'dateTimeSelector')* (dateTimeSelector) (atTime))",
+        "([remindable])",
+        { pattern: "([addRemindable] (word)*)", development: true },
+        "([remind] (remindable/*) (!@<= 'dateTimeSelector')*)",
+        "([remind:withDateBridge] (remindable/*) (!@<= 'dateTimeSelector')* (dateTimeSelector))",
+        "([remind:withDateAndTimeBridge] (remindable/*) (!@<= 'dateTimeSelector')* (dateTimeSelector) (atTime))",
         "([show] ([reminders]))",
         "([delete_reminders|delete,cancel] (number/*))",
       ],
       bridges: [
         {
+          id: 'addRemindable',
+          isA: ['verb'],
+          development: true,
+          bridge: "{ ...next(operator), arg: after[0], operator: operator, interpolate: '${operator} ${arg}' }",
+          semantic: ({api, context}) => {
+            const name = context.arg.map( (word) => word.text ).join(' ')
+            api.addRemindable(name)
+          }
+        },
+        {
+          id: 'remindable',
+        },
+        {
           id: 'remind',
           isA: ['verb'],
+          localHierarchy: [['self', 'remindable']],
           bridge: "{ ...next(operator), operator: operator, who: after[0], reminder: after[1], interpolate: '${operator} ${who} ${reminder}' }",
           withDateBridge: "{ ...next(operator), operator: operator, who: after[0], reminder: after[1], date: after[2], interpolate: '${operator} ${who} ${reminder} ${date}' }",
           withDateAndTimeBridge: "{ ...next(operator), operator: operator, who: after[0], reminder: after[1], date: after[2], time: after[3], interpolate: '${operator} ${who} ${reminder} ${date} ${time}' }",
