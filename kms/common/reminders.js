@@ -32,8 +32,11 @@ class API {
     this.args.mentioned({ context: reminder })
   }
 
-  addRemindable(text) {
-    this.args.makeObject({ ...this.args, context: { word: text, value: text, number: 'one' }, types: ['remindable'] })
+  addRemindable(id, text) {
+    if (!text) {
+      text = id
+    }
+    this.args.makeObject({ ...this.args, context: { word: text, value: id, number: 'one' }, types: ['remindable'] })
   }
 
   async instantiate(reminder) {
