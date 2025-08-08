@@ -128,7 +128,8 @@ const template = {
           withDateAndTimeBridge: "{ ...next(operator), operator: operator, who: after[0], reminder: after[1], date: after[2], time: after[3], interpolate: '${operator} ${who} ${reminder} ${date} ${time}' }",
           semantic: async ({api, gsp, gp, context}) => {
             const text = await gsp(context.reminder.slice(1));
-            const reminder = { text, dateTimeSelector: context.date }
+            const who = { id: context.who.value || context.who.text, text: context.who.text }
+            const reminder = { text, dateTimeSelector: context.date, who }
             if (context.date) {
               reminder.dateTimeSelector = context.date
               reminder.dateTimeSelectorText = await gp(context.date)
@@ -219,6 +220,7 @@ knowledgeModule( {
           filter: [ 
             'text', 
             'dateTimeSelectorText', 
+            'who',
             'nextISODate', 
             'stm',
             {

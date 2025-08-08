@@ -114,12 +114,7 @@ class API {
       this.setupObjectHierarchy(config, concept, {types: allTypes});
     }
 
-    try {
-      pluralize.isSingular(word)
-    } catch ( e ) {
-      debugger
-      return
-    }
+    pluralize.isSingular(word)
     if (pluralize.isSingular(word)) {
       addConcept(word, 'one')
       doPluralize && addConcept(pluralize.plural(word), 'many')

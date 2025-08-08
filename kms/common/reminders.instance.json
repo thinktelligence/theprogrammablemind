@@ -2,17 +2,40 @@
   "configs": [
     {
       "operators": [
-        "([remind] (self/*) (!@<= 'dateTimeSelector')*)",
-        "([remind:withDateBridge] (self/*) (!@<= 'dateTimeSelector')* (dateTimeSelector))",
-        "([remind:withDateAndTimeBridge] (self/*) (!@<= 'dateTimeSelector')* (dateTimeSelector) (atTime))",
+        "([remindable])",
+        {
+          "pattern": "([addRemindable] (word)*)",
+          "development": true
+        },
+        "([remind] (remindable/*) (!@<= 'dateTimeSelector')*)",
+        "([remind:withDateBridge] (remindable/*) (!@<= 'dateTimeSelector')* (dateTimeSelector))",
+        "([remind:withDateAndTimeBridge] (remindable/*) (!@<= 'dateTimeSelector')* (dateTimeSelector) (atTime))",
         "([show] ([reminders]))",
         "([delete_reminders|delete,cancel] (number/*))"
       ],
       "bridges": [
         {
+          "id": "addRemindable",
+          "isA": [
+            "verb"
+          ],
+          "development": true,
+          "bridge": "{ ...next(operator), arg: after[0], operator: operator, interpolate: '${operator} ${arg}' }",
+          "semantic": "({api, context}) => {\n            const name = context.arg.map( (word) => word.text ).join(' ')\n            api.addRemindable(name)\n          }"
+        },
+        {
+          "id": "remindable"
+        },
+        {
           "id": "remind",
           "isA": [
             "verb"
+          ],
+          "localHierarchy": [
+            [
+              "self",
+              "remindable"
+            ]
           ],
           "bridge": "{ ...next(operator), operator: operator, who: after[0], reminder: after[1], interpolate: '${operator} ${who} ${reminder}' }",
           "withDateBridge": "{ ...next(operator), operator: operator, who: after[0], reminder: after[1], date: after[2], interpolate: '${operator} ${who} ${reminder} ${date}' }",
@@ -51,17 +74,39 @@
     {
       "extraConfig": true,
       "operators": [
-        "([remind] (self/*) (!@<= 'dateTimeSelector')*)",
-        "([remind:withDateBridge] (self/*) (!@<= 'dateTimeSelector')* (dateTimeSelector))",
-        "([remind:withDateAndTimeBridge] (self/*) (!@<= 'dateTimeSelector')* (dateTimeSelector) (atTime))",
+        "([remindable])",
+        {
+          "pattern": "([addRemindable] (word)*)",
+          "development": true
+        },
+        "([remind] (remindable/*) (!@<= 'dateTimeSelector')*)",
+        "([remind:withDateBridge] (remindable/*) (!@<= 'dateTimeSelector')* (dateTimeSelector))",
+        "([remind:withDateAndTimeBridge] (remindable/*) (!@<= 'dateTimeSelector')* (dateTimeSelector) (atTime))",
         "([show] ([reminders]))",
         "([delete_reminders|delete,cancel] (number/*))"
       ],
       "bridges": [
         {
+          "id": "addRemindable",
+          "isA": [
+            "verb"
+          ],
+          "development": true,
+          "bridge": "{ ...next(operator), arg: after[0], operator: operator, interpolate: '${operator} ${arg}' }"
+        },
+        {
+          "id": "remindable"
+        },
+        {
           "id": "remind",
           "isA": [
             "verb"
+          ],
+          "localHierarchy": [
+            [
+              "self",
+              "remindable"
+            ]
           ],
           "bridge": "{ ...next(operator), operator: operator, who: after[0], reminder: after[1], interpolate: '${operator} ${who} ${reminder}' }",
           "withDateBridge": "{ ...next(operator), operator: operator, who: after[0], reminder: after[1], date: after[2], interpolate: '${operator} ${who} ${reminder} ${date}' }",
