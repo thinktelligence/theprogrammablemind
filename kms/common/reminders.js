@@ -16,6 +16,9 @@ const helpers = require('./helpers')
    remind greg to go to regina
    remind every truck driver to whatever tomorrow at 8 am
    remind greg and bob to go to bolivia and see the xyz corporation
+
+   remind me to go\nmonday at 10 am
+   remind me to go\non monday at 10 am
 */
 
 class API {
@@ -187,7 +190,7 @@ const template = {
           },
 
           matchr: ({ isA, api, context }) => {
-            if (isA(context.marker, 'onDateValue_dates') && api.askAbout().length > 0) {
+            if ((isA(context.marker, 'onDateValue_dates') || isA(context.marker, 'dateTimeSelector')) && api.askAbout().length > 0) {
                 return true
             }
             return false
