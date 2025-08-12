@@ -13,9 +13,7 @@ const helpers = require('./helpers')
    make it friday instead
    2 sundays from now
    the sunday after july 1st
-   remind greg to go to regina
    remind every truck driver to whatever tomorrow at 8 am
-   remind greg and bob to go to bolivia and see the xyz corporation
 */
 
 class API {
@@ -23,6 +21,7 @@ class API {
     this._objects = objects
     this._objects.reminders = []
     this._objects.id = 0
+    this._objects.current = null
   }
 
   async add(reminder) {
@@ -31,6 +30,22 @@ class API {
     reminder.id = id
     this._objects.reminders.push(reminder)
     this.args.mentioned({ context: reminder })
+    this._objects.current = id
+  }
+
+  getCurrent() {
+    return this._objects.current
+  }
+
+  // addUser to current
+  addUser(user) {
+    const reminder = this._objects.reminders.find((r) => r.id == this._objects.current)
+    if (reminder) {
+      if (Array.isArray(reminder.who)) {
+      } else {
+        reminder.who = [reminder.who, user]
+      }
+    }
   }
 
   addRemindable(id, text) {
@@ -43,6 +58,18 @@ class API {
   async instantiate(reminder) {
     const value = await this.args.e(reminder.dateTimeSelector)
     reminder.nextISODate = value?.evalue
+  }
+
+  contextToWho(who) {
+    if (who.isList) {
+      const whos = []
+      for (const element of this.args.values(who)) {
+        whos.push(this.contextToWho(element))
+      }
+      return whos
+    } else {
+      return { id: who.value || who.text, text: who.text, remindee_id: who.remindee_id }
+    }
   }
 
   // the user of the KM can override this. this can be used to sync the GUI and the LUI
@@ -88,7 +115,6 @@ class API {
         return
       }
     }
-
   }
 }
 
@@ -106,8 +132,17 @@ const template = {
         "([remind:withDateAndTimeBridge] (remindable/*) (!@<= 'dateTimeSelector')* (dateTimeSelector) (atTime))",
         "([show] ([reminders]))",
         "([delete_reminders|delete,cancel] (number/*))",
+        "([add] (remindable/*))",
       ],
       bridges: [
+        {
+          id: 'add',
+          isA: ['verb'],
+          bridge: "{ ...next(operator), arg: after[0], operator: operator, interpolate: '${operator} ${arg}' }",
+          semantic: ({api, context}) => {
+            api.addUser(context.arg)
+          }
+        },
         {
           id: 'addRemindable',
           isA: ['verb'],
@@ -130,7 +165,7 @@ const template = {
           withDateAndTimeBridge: "{ ...next(operator), operator: operator, who: after[0], reminder: after[1], date: after[2], time: after[3], interpolate: '${operator} ${who} ${reminder} ${date} ${time}' }",
           semantic: async ({api, gsp, gp, context}) => {
             const text = await gsp(context.reminder.slice(1));
-            const who = { id: context.who.value || context.who.text, text: context.who.text, remindee_id: context.who.remindee_id }
+            const who = api.contextToWho(context.who)
             const reminder = { text, dateTimeSelector: context.date, who }
             if (context.date) {
               reminder.dateTimeSelector = context.date
