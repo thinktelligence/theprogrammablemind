@@ -37,7 +37,6 @@ class API {
     if (!text) {
       text = id
     }
-    debugger
     this.args.makeObject({ ...this.args, context: { word: text, value: id, number: 'one', remindee_id: id }, initial: `remindee_id: "${id}"`, types: ['remindable'] })
   }
 
