@@ -37,7 +37,8 @@ class API {
     if (!text) {
       text = id
     }
-    this.args.makeObject({ ...this.args, context: { word: text, value: id, number: 'one' }, types: ['remindable'] })
+    debugger
+    this.args.makeObject({ ...this.args, context: { word: text, value: id, number: 'one', remindee_id: id }, initial: `remindee_id: "${id}"`, types: ['remindable'] })
   }
 
   async instantiate(reminder) {
@@ -130,7 +131,7 @@ const template = {
           withDateAndTimeBridge: "{ ...next(operator), operator: operator, who: after[0], reminder: after[1], date: after[2], time: after[3], interpolate: '${operator} ${who} ${reminder} ${date} ${time}' }",
           semantic: async ({api, gsp, gp, context}) => {
             const text = await gsp(context.reminder.slice(1));
-            const who = { id: context.who.value || context.who.text, text: context.who.text }
+            const who = { id: context.who.value || context.who.text, text: context.who.text, remindee_id: context.who.remindee_id }
             const reminder = { text, dateTimeSelector: context.date, who }
             if (context.date) {
               reminder.dateTimeSelector = context.date

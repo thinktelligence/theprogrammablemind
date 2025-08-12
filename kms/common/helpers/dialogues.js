@@ -77,7 +77,7 @@ class API {
   }
 
   // word is for one or many
-  makeObject({config, context, types=[], source_value=undefined, doPluralize=true} = {}) {
+  makeObject({config, context, types=[], source_value=undefined, doPluralize=true, initial=''} = {}) {
     if (typeof context == 'string') {
       context = { word: context, value: context }
     }
@@ -102,7 +102,7 @@ class API {
     config.addOperator({ pattern: `(["${concept}"])`, allowDups: true })
     config.addBridge({ id: concept, level: 0, bridge: `{ ...next(operator), value: or(operator.value, '${source_value || concept}') }` , allowDups: true })
     const addConcept = (word, number) => {
-      config.addWord(word, { id: concept, initial: `{ value: "${source_value || concept}", number: "${number}" }` } )
+      config.addWord(word, { id: concept, initial: `{ value: "${source_value || concept}", number: "${number}" ${initial ? ', ': ''}${initial} }` } )
       const baseTypes = [
         'theAble',
         'queryable',
