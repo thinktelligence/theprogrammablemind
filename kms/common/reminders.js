@@ -16,9 +16,6 @@ const helpers = require('./helpers')
    remind greg to go to regina
    remind every truck driver to whatever tomorrow at 8 am
    remind greg and bob to go to bolivia and see the xyz corporation
-
-   remind me to go\nmonday at 10 am
-   remind me to go\non monday at 10 am
 */
 
 class API {
@@ -115,7 +112,7 @@ const template = {
           id: 'addRemindable',
           isA: ['verb'],
           development: true,
-          bridge: "{ ...next(operator), arg: after[0], operator: operator, interpolate: '${operator} ${arg}' }",
+          bridge: "{ ...next(operator), flatten: true, arg: after[0], operator: operator, interpolate: '${operator} ${arg}' }",
           semantic: ({api, context}) => {
             const name = context.arg.map( (word) => word.text ).join(' ')
             api.addRemindable(name)
@@ -225,13 +222,13 @@ knowledgeModule( {
           filter: [ 
             'text', 
             'dateTimeSelectorText', 
-            'who',
             'nextISODate', 
+            'who', 
             'stm',
             {
               property: 'dateTimeSelector', 
               filter: ['marker', 'text', 'value'],
-            }
+            },
           ],
         }
       ],
