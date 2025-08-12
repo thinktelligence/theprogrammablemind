@@ -48,12 +48,7 @@ function getTime(time) {
 }
 
 instantiate = (now, context) => {
-  if (context.dateTimeSelector) {
-    const dateTimeSelector = getNextDayOfWeek(now, context.dateTimeSelector?.value)
-    if (dateTimeSelector) {
-      return dateTimeSelector.toISOString()
-    }
-  } else if (context.marker == 'dateTimeSelector') {
+  if (context.marker == 'dateTimeSelector') {
     // (on date) OR (date)
     const date = context.date?.date || context.date
     const dateTimeSelector = getNextDayOfWeek(now, date.value)
@@ -63,6 +58,16 @@ instantiate = (now, context) => {
     dateTimeSelector.setSeconds(hms.second)
     dateTimeSelector.setMilliseconds(0)
     return dateTimeSelector.toISOString()
+  } else if (context.dateTimeSelector) {
+    const dateTimeSelector = getNextDayOfWeek(now, context.dateTimeSelector?.value)
+    if (dateTimeSelector) {
+      return dateTimeSelector.toISOString()
+    }
+  } else if (context.value) {
+    const dateTimeSelector = getNextDayOfWeek(now, context.value)
+    if (dateTimeSelector) {
+      return dateTimeSelector.toISOString()
+    }
   }
 }
 

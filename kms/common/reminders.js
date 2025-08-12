@@ -28,7 +28,8 @@ class API {
     this._objects.id = 0
   }
 
-  add(reminder) {
+  async add(reminder) {
+    await this.instantiate(reminder)
     const id = ++this._objects.id
     reminder.id = id
     this._objects.reminders.push(reminder)
@@ -82,10 +83,11 @@ class API {
     this._objects.reminders = this._objects.reminders.splice(ordinal, 1)
   }
 
-  update(update) {
+  async update(update) {
     for (const item of this._objects.reminders) {
       if (item.id == update.id) {
         Object.assign(item, update)
+        await this.instantiate(item)
         return
       }
     }
@@ -137,8 +139,8 @@ const template = {
               reminder.dateTimeSelector = context.date
               reminder.dateTimeSelectorText = await gp(context.date)
             }
-            await api.instantiate(reminder)
-            api.add(reminder)
+            // await api.instantiate(reminder)
+            await api.add(reminder)
           },
         },
         { 
@@ -197,7 +199,7 @@ const template = {
           },
           applyr: async ({ context, api, gp }) => {
             const items = api.askAbout()
-            api.update({ id: items[0].id, dateTimeSelector: context, dateTimeSelectorText: await gp(context) })
+            await api.update({ id: items[0].id, dateTimeSelector: context, dateTimeSelectorText: await gp(context) })
           }
         },
       ])
