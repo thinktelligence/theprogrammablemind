@@ -88,7 +88,7 @@ class API {
     const items = []
     for (const item of this._objects.reminders) {
       if (!item.dateTimeSelector) {
-        items.push({ when: true, text: item.text, id: item.id })
+        items.push({ when: true, who: item.who, text: item.text, id: item.id })
       }
     }
     return items
@@ -142,7 +142,7 @@ const template = {
         "([show] ([reminders]))",
         "([delete_reminders|delete,cancel] (number/*))",
         "([add] (remindable/*))",
-        "([remove] (remindable/*))",
+        "([remove|] (remindable/*))",
         "((verb/*) [inAddition|also,too])",
       ],
       bridges: [
@@ -161,6 +161,7 @@ const template = {
         },
         {
           id: 'remove',
+          words: ['delete', 'remove'],
           isA: ['verb'],
           bridge: "{ ...next(operator), arg: after[0], operator: operator, interpolate: '${operator} ${arg}' }",
           semantic: ({api, context}) => {
@@ -186,7 +187,7 @@ const template = {
           isA: ['verb'],
           localHierarchy: [['self', 'remindable']],
           bridge: "{ ...next(operator), operator: operator, who: after[0], reminder: after[1], interpolate: '${operator} ${who} ${reminder}' }",
-          justWhoBridge: "{ ...next(operator), operator: operator, who: after[0], interpolate: '${operator} ${who}' }",
+          justWhoBridge: "{ ...next(operator), bridge: 'justWhoBridge', operator: operator, who: after[0], interpolate: '${operator} ${who}' }",
           withDateBridge: "{ ...next(operator), operator: operator, who: after[0], reminder: after[1], date: after[2], interpolate: '${operator} ${who} ${reminder} ${date}' }",
           withDateAndTimeBridge: "{ ...next(operator), operator: operator, who: after[0], reminder: after[1], date: after[2], time: after[3], interpolate: '${operator} ${who} ${reminder} ${date} ${time}' }",
           semantics: [
@@ -198,8 +199,11 @@ const template = {
             },
           ],
           semantic: async ({api, gsp, gp, context}) => {
-            const text = await gsp(context.reminder.slice(1));
             const who = api.contextToWho(context.who)
+            let text;
+            if (context.reminder) {
+              text = await gsp(context.reminder.slice(1));
+            }
             const reminder = { text, dateTimeSelector: context.date, who }
             if (context.date) {
               reminder.dateTimeSelector = context.date
@@ -250,11 +254,17 @@ const template = {
           },
 
           matchq: ({ api, context }) => api.askAbout().length > 0 && context.marker == 'controlEnd',
-          applyq: ({ api, context }) => {
+          applyq: async ({ api, context, gs }) => {
             context.cascade = false
             const items = api.askAbout()
             const item = items[0]
-            return 'When should I remind you to ' + item.text;
+            let who
+            if (item.who.id == 'me') {
+              who = 'you'
+            } else {
+              who = await gs(item.who.map((who) => who.text), ', ', ' and ')
+            }
+            return `When should I remind ${who} to ${item.text}`
           },
 
           matchr: ({ isA, api, context }) => {
@@ -284,7 +294,7 @@ knowledgeModule( {
     name: './reminders.test.json',
     contents: reminders_tests,
     checks: {
-      context: defaultContextCheck(['who', 'reminder']),
+      context: defaultContextCheck(['who', 'reminder', 'verbatim']),
       objects: [
         { 
           property: 'reminders',
