@@ -42,9 +42,17 @@ class API {
     const reminder = this._objects.reminders.find((r) => r.id == this._objects.current)
     if (reminder) {
       if (Array.isArray(reminder.who)) {
+        reminder.who = [...reminder.who, user]
       } else {
         reminder.who = [reminder.who, user]
       }
+    }
+  }
+
+  removeUser(user) {
+    const reminder = this._objects.reminders.find((r) => r.id == this._objects.current)
+    if (reminder) {
+      reminder.who = reminder.who.filter((who) => who.remindee_id != user.remindee_id)
     }
   }
 
@@ -127,20 +135,36 @@ const template = {
       operators: [
         "([remindable])",
         { pattern: "([addRemindable] (word)*)", development: true },
-        "([remind] (remindable/*) (!@<= 'dateTimeSelector')*)",
-        "([remind:withDateBridge] (remindable/*) (!@<= 'dateTimeSelector')* (dateTimeSelector))",
-        "([remind:withDateAndTimeBridge] (remindable/*) (!@<= 'dateTimeSelector')* (dateTimeSelector) (atTime))",
+        "([remind:justWhoBridge] (remindable/*))",
+        "([remind] (remindable/*) (!@<= 'dateTimeSelector' && !@<= 'inAddition')*)",
+        "([remind:withDateBridge] (remindable/*) (!@<= 'dateTimeSelector' && !@<= 'inAddition')* (dateTimeSelector))",
+        "([remind:withDateAndTimeBridge] (remindable/*) (!@<= 'dateTimeSelector' && !@<= 'inAddition')* (dateTimeSelector) (atTime))",
         "([show] ([reminders]))",
         "([delete_reminders|delete,cancel] (number/*))",
         "([add] (remindable/*))",
+        "([remove] (remindable/*))",
+        "((verb/*) [inAddition|also,too])",
       ],
       bridges: [
+        {
+          id: 'inAddition',
+          after: ['verb'],
+          bridge: "{ ...before[0], inAddition: true, verb: before[0], operator: operator, interpolate: '${verb} ${operator}' }",
+        },
         {
           id: 'add',
           isA: ['verb'],
           bridge: "{ ...next(operator), arg: after[0], operator: operator, interpolate: '${operator} ${arg}' }",
           semantic: ({api, context}) => {
-            api.addUser(context.arg)
+            api.addUser(api.contextToWho(context.arg))
+          }
+        },
+        {
+          id: 'remove',
+          isA: ['verb'],
+          bridge: "{ ...next(operator), arg: after[0], operator: operator, interpolate: '${operator} ${arg}' }",
+          semantic: ({api, context}) => {
+            api.removeUser(api.contextToWho(context.arg))
           }
         },
         {
@@ -155,14 +179,24 @@ const template = {
         },
         {
           id: 'remindable',
+          isA: ['listable'],
         },
         {
           id: 'remind',
           isA: ['verb'],
           localHierarchy: [['self', 'remindable']],
           bridge: "{ ...next(operator), operator: operator, who: after[0], reminder: after[1], interpolate: '${operator} ${who} ${reminder}' }",
+          justWhoBridge: "{ ...next(operator), operator: operator, who: after[0], interpolate: '${operator} ${who}' }",
           withDateBridge: "{ ...next(operator), operator: operator, who: after[0], reminder: after[1], date: after[2], interpolate: '${operator} ${who} ${reminder} ${date}' }",
           withDateAndTimeBridge: "{ ...next(operator), operator: operator, who: after[0], reminder: after[1], date: after[2], time: after[3], interpolate: '${operator} ${who} ${reminder} ${date} ${time}' }",
+          semantics: [
+            {
+              match: ({context}) => context.marker == 'remind' && context.inAddition,
+              apply: ({context, api}) => {
+                api.addUser(api.contextToWho(context.who))
+              }
+            },
+          ],
           semantic: async ({api, gsp, gp, context}) => {
             const text = await gsp(context.reminder.slice(1));
             const who = api.contextToWho(context.who)
