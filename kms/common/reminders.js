@@ -262,7 +262,11 @@ const template = {
             if (Array.isArray(item.who)) {
               who = await gs(item.who.map((who) => who.text), ', ', ' and ')
             } else {
-              who = 'you'
+              if (item.who.text == 'me') {
+                who = 'you'
+              } else {
+                who = item.text
+              }
             }
             return `When should I remind ${who} to ${item.text}`
           },
