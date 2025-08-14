@@ -259,10 +259,10 @@ const template = {
             const items = api.askAbout()
             const item = items[0]
             let who
-            if (item.who.id == 'me') {
-              who = 'you'
-            } else {
+            if (Array.isArray(item.who)) {
               who = await gs(item.who.map((who) => who.text), ', ', ' and ')
+            } else {
+              who = 'you'
             }
             return `When should I remind ${who} to ${item.text}`
           },
