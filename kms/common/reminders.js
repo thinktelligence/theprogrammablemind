@@ -265,7 +265,7 @@ const template = {
               if (item.who.text == 'me') {
                 who = 'you'
               } else {
-                who = item.text
+                who = item.who.text
               }
             }
             return `When should I remind ${who} to ${item.text}`
