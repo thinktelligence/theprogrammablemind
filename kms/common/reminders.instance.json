@@ -7,24 +7,58 @@
           "pattern": "([addRemindable] (word)*)",
           "development": true
         },
-        "([remind] (remindable/*) (!@<= 'dateTimeSelector')*)",
-        "([remind:withDateBridge] (remindable/*) (!@<= 'dateTimeSelector')* (dateTimeSelector))",
-        "([remind:withDateAndTimeBridge] (remindable/*) (!@<= 'dateTimeSelector')* (dateTimeSelector) (atTime))",
+        "([remind:justWhoBridge] (remindable/*))",
+        "([remind] (remindable/*) (!@<= 'dateTimeSelector' && !@<= 'inAddition')*)",
+        "([remind:withDateBridge] (remindable/*) (!@<= 'dateTimeSelector' && !@<= 'inAddition')* (dateTimeSelector))",
+        "([remind:withDateAndTimeBridge] (remindable/*) (!@<= 'dateTimeSelector' && !@<= 'inAddition')* (dateTimeSelector) (atTime))",
         "([show] ([reminders]))",
-        "([delete_reminders|delete,cancel] (number/*))"
+        "([delete_reminders|delete,cancel] (number/*))",
+        "([add] (remindable/*))",
+        "([remove|] (remindable/*))",
+        "((verb/*) [inAddition|also,too])"
       ],
       "bridges": [
+        {
+          "id": "inAddition",
+          "after": [
+            "verb"
+          ],
+          "bridge": "{ ...before[0], inAddition: true, verb: before[0], operator: operator, interpolate: '${verb} ${operator}' }"
+        },
+        {
+          "id": "add",
+          "isA": [
+            "verb"
+          ],
+          "bridge": "{ ...next(operator), arg: after[0], operator: operator, interpolate: '${operator} ${arg}' }",
+          "semantic": "({api, context}) => {\n            api.addUser(api.contextToWho(context.arg))\n          }"
+        },
+        {
+          "id": "remove",
+          "words": [
+            "delete",
+            "remove"
+          ],
+          "isA": [
+            "verb"
+          ],
+          "bridge": "{ ...next(operator), arg: after[0], operator: operator, interpolate: '${operator} ${arg}' }",
+          "semantic": "({api, context}) => {\n            api.removeUser(api.contextToWho(context.arg))\n          }"
+        },
         {
           "id": "addRemindable",
           "isA": [
             "verb"
           ],
           "development": true,
-          "bridge": "{ ...next(operator), arg: after[0], operator: operator, interpolate: '${operator} ${arg}' }",
+          "bridge": "{ ...next(operator), flatten: true, arg: after[0], operator: operator, interpolate: '${operator} ${arg}' }",
           "semantic": "({api, context}) => {\n            const name = context.arg.map( (word) => word.text ).join(' ')\n            api.addRemindable(name)\n          }"
         },
         {
-          "id": "remindable"
+          "id": "remindable",
+          "isA": [
+            "listable"
+          ]
         },
         {
           "id": "remind",
@@ -38,9 +72,11 @@
             ]
           ],
           "bridge": "{ ...next(operator), operator: operator, who: after[0], reminder: after[1], interpolate: '${operator} ${who} ${reminder}' }",
+          "justWhoBridge": "{ ...next(operator), bridge: 'justWhoBridge', operator: operator, who: after[0], interpolate: '${operator} ${who}' }",
           "withDateBridge": "{ ...next(operator), operator: operator, who: after[0], reminder: after[1], date: after[2], interpolate: '${operator} ${who} ${reminder} ${date}' }",
           "withDateAndTimeBridge": "{ ...next(operator), operator: operator, who: after[0], reminder: after[1], date: after[2], time: after[3], interpolate: '${operator} ${who} ${reminder} ${date} ${time}' }",
-          "semantic": "async ({api, gsp, gp, context}) => {\n            const text = await gsp(context.reminder.slice(1));\n            const who = { id: context.who.value || context.who.text, text: context.who.text }\n            const reminder = { text, dateTimeSelector: context.date, who }\n            if (context.date) {\n              reminder.dateTimeSelector = context.date\n              reminder.dateTimeSelectorText = await gp(context.date)\n            }\n            // await api.instantiate(reminder)\n            await api.add(reminder)\n          }"
+          "semantics": "[object Object]",
+          "semantic": "async ({ask, api, gsp, gp, context}) => {\n            const who = api.contextToWho(context.who)\n            let text;\n            if (context.reminder) {\n              text = await gsp(context.reminder.slice(1));\n            }\n            const reminder = { text, dateTimeSelector: context.date, who }\n            if (context.date) {\n              reminder.dateTimeSelector = context.date\n              reminder.dateTimeSelectorText = await gp(context.date)\n            }\n            // await api.instantiate(reminder)\n            await api.add(reminder)\n            ask([\n              query('missingReminder', reminder),\n              query('missingDate', reminder),\n            ])\n          }"
         },
         {
           "id": "reminders",
@@ -65,9 +101,6 @@
           "semantic": "({context, api, verbatim}) => {\n            const s = api.delete_reminder(context.reminders.value)\n            if (s) {\n              verbatim(s)\n            }\n          }"
         }
       ]
-    },
-    {
-      "apply": "({ask, api}) => {\n      ask([\n        {\n          where: where(),\n          oneShot: false,\n          onNevermind: ({verbatim, ...args}) => {\n            // this is cross km boundaries from the dialogues km to this one so the api if for dialogs.\n            // i need to get the one for fastfood here.\n            const api = args.kms.fastfood.api\n            const needsDrink = askAbout({ args, api })\n            for (const item of needsDrink) {\n              api.remove(item)\n            }\n          },\n\n          matchq: ({ api, context }) => api.askAbout().length > 0 && context.marker == 'controlEnd',\n          applyq: ({ api, context }) => {\n            context.cascade = false\n            const items = api.askAbout()\n            const item = items[0]\n            return 'When should I remind you to ' + item.text;\n          },\n\n          matchr: ({ isA, api, context }) => {\n            if ((isA(context.marker, 'onDateValue_dates') || isA(context.marker, 'dateTimeSelector')) && api.askAbout().length > 0) {\n                return true\n            }\n            return false\n          },\n          applyr: async ({ context, api, gp }) => {\n            const items = api.askAbout()\n            await api.update({ id: items[0].id, dateTimeSelector: context, dateTimeSelectorText: await gp(context) })\n          }\n        },\n      ])\n    }"
     }
   ],
   "resultss": [
@@ -79,23 +112,55 @@
           "pattern": "([addRemindable] (word)*)",
           "development": true
         },
-        "([remind] (remindable/*) (!@<= 'dateTimeSelector')*)",
-        "([remind:withDateBridge] (remindable/*) (!@<= 'dateTimeSelector')* (dateTimeSelector))",
-        "([remind:withDateAndTimeBridge] (remindable/*) (!@<= 'dateTimeSelector')* (dateTimeSelector) (atTime))",
+        "([remind:justWhoBridge] (remindable/*))",
+        "([remind] (remindable/*) (!@<= 'dateTimeSelector' && !@<= 'inAddition')*)",
+        "([remind:withDateBridge] (remindable/*) (!@<= 'dateTimeSelector' && !@<= 'inAddition')* (dateTimeSelector))",
+        "([remind:withDateAndTimeBridge] (remindable/*) (!@<= 'dateTimeSelector' && !@<= 'inAddition')* (dateTimeSelector) (atTime))",
         "([show] ([reminders]))",
-        "([delete_reminders|delete,cancel] (number/*))"
+        "([delete_reminders|delete,cancel] (number/*))",
+        "([add] (remindable/*))",
+        "([remove|] (remindable/*))",
+        "((verb/*) [inAddition|also,too])"
       ],
       "bridges": [
+        {
+          "id": "inAddition",
+          "after": [
+            "verb"
+          ],
+          "bridge": "{ ...before[0], inAddition: true, verb: before[0], operator: operator, interpolate: '${verb} ${operator}' }"
+        },
+        {
+          "id": "add",
+          "isA": [
+            "verb"
+          ],
+          "bridge": "{ ...next(operator), arg: after[0], operator: operator, interpolate: '${operator} ${arg}' }"
+        },
+        {
+          "id": "remove",
+          "words": [
+            "delete",
+            "remove"
+          ],
+          "isA": [
+            "verb"
+          ],
+          "bridge": "{ ...next(operator), arg: after[0], operator: operator, interpolate: '${operator} ${arg}' }"
+        },
         {
           "id": "addRemindable",
           "isA": [
             "verb"
           ],
           "development": true,
-          "bridge": "{ ...next(operator), arg: after[0], operator: operator, interpolate: '${operator} ${arg}' }"
+          "bridge": "{ ...next(operator), flatten: true, arg: after[0], operator: operator, interpolate: '${operator} ${arg}' }"
         },
         {
-          "id": "remindable"
+          "id": "remindable",
+          "isA": [
+            "listable"
+          ]
         },
         {
           "id": "remind",
@@ -109,8 +174,12 @@
             ]
           ],
           "bridge": "{ ...next(operator), operator: operator, who: after[0], reminder: after[1], interpolate: '${operator} ${who} ${reminder}' }",
+          "justWhoBridge": "{ ...next(operator), bridge: 'justWhoBridge', operator: operator, who: after[0], interpolate: '${operator} ${who}' }",
           "withDateBridge": "{ ...next(operator), operator: operator, who: after[0], reminder: after[1], date: after[2], interpolate: '${operator} ${who} ${reminder} ${date}' }",
-          "withDateAndTimeBridge": "{ ...next(operator), operator: operator, who: after[0], reminder: after[1], date: after[2], time: after[3], interpolate: '${operator} ${who} ${reminder} ${date} ${time}' }"
+          "withDateAndTimeBridge": "{ ...next(operator), operator: operator, who: after[0], reminder: after[1], date: after[2], time: after[3], interpolate: '${operator} ${who} ${reminder} ${date} ${time}' }",
+          "semantics": [
+            {}
+          ]
         },
         {
           "id": "reminders",
@@ -133,9 +202,6 @@
           "bridge": "{ ...next(operator), operator: operator, reminders: after[0], interpolate: '${operator} ${reminders}' }"
         }
       ]
-    },
-    {
-      "apply": "({ask, api}) => {\n      ask([\n        {\n          where: where(),\n          oneShot: false,\n          onNevermind: ({verbatim, ...args}) => {\n            // this is cross km boundaries from the dialogues km to this one so the api if for dialogs.\n            // i need to get the one for fastfood here.\n            const api = args.kms.fastfood.api\n            const needsDrink = askAbout({ args, api })\n            for (const item of needsDrink) {\n              api.remove(item)\n            }\n          },\n\n          matchq: ({ api, context }) => api.askAbout().length > 0 && context.marker == 'controlEnd',\n          applyq: ({ api, context }) => {\n            context.cascade = false\n            const items = api.askAbout()\n            const item = items[0]\n            return 'When should I remind you to ' + item.text;\n          },\n\n          matchr: ({ isA, api, context }) => {\n            if ((isA(context.marker, 'onDateValue_dates') || isA(context.marker, 'dateTimeSelector')) && api.askAbout().length > 0) {\n                return true\n            }\n            return false\n          },\n          applyr: async ({ context, api, gp }) => {\n            const items = api.askAbout()\n            await api.update({ id: items[0].id, dateTimeSelector: context, dateTimeSelectorText: await gp(context) })\n          }\n        },\n      ])\n    }"
     }
   ],
   "fragments": [],

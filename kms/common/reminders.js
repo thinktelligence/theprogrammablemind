@@ -16,6 +16,54 @@ const helpers = require('./helpers')
    remind every truck driver to whatever tomorrow at 8 am
 */
 
+const query = (missing, reminder) => {
+  return  {
+    where: where(),
+    // oneShot: false,
+    onNevermind: ({verbatim, ...args}) => {
+      const api = args.kms.reminders.api
+      api.delete_reminder(reminder.id)
+    },
+
+    matchq: ({ api, context }) => api.missing(missing, reminder) && context.marker == 'controlEnd',
+    applyq: async ({ api, context, gs }) => {
+      context.cascade = false
+      const item = api.missing(missing, reminder)
+      let who
+      if (Array.isArray(item.who)) {
+        who = await gs(item.who.map((who) => who.text), ', ', ' and ')
+      } else {
+        if (item.who.text == 'me') {
+          who = 'you'
+        } else {
+          who = item.who.text
+        }
+      }
+      if (item.missingDate) {
+        return `When should I remind ${who} to ${item.text}`
+      }
+      if (item.missingReminder) {
+        return `What should I remind ${who} to do?`
+      }
+    },
+
+    matchr: ({ isA, api, context }) => {
+      const gotADate = ((isA(context.marker, 'onDateValue_dates') || isA(context.marker, 'dateTimeSelector')) && api.missing(missing, reminder))
+      if (missing == 'missingDate') {
+        return gotADate
+      } else {
+        // debugger
+        // return !gotADate && !context.isControl
+      }
+      return false
+    },
+    applyr: async ({ context, api, gp }) => {
+      const item = api.missing(missing, reminder)
+      await api.update({ id: item.id, dateTimeSelector: context, dateTimeSelectorText: await gp(context) })
+    }
+  }
+}
+
 class API {
   initialize({ objects }) {
     this._objects = objects
@@ -84,11 +132,23 @@ class API {
   getCurrent() {
   }
 
-  askAbout() {
+  missing(what, reminder) {
+    if (what == 'missingReminder' && !reminder.text) {
+      return { when: true, who: reminder.who, text: reminder.text, id: reminder.id, missingReminder: true }
+    }
+    if (what == 'missingDate' && !reminder.dateTimeSelector) {
+      return { when: true, who: reminder.who, text: reminder.text, id: reminder.id, missingDate: true }
+    }
+  }
+
+  askAbout(what) {
     const items = []
     for (const item of this._objects.reminders) {
-      if (!item.dateTimeSelector) {
-        items.push({ when: true, who: item.who, text: item.text, id: item.id })
+      if (this.missing('missingReminder', item)) {
+        items.push(this.missing('missingReminder', item))
+      }
+      if (this.missing('missingDate', item)) {
+        items.push(this.missing('missingDate', item))
       }
     }
     return items
@@ -108,11 +168,22 @@ class API {
     // -> return a table object. then have ability to talk about the table. maybe later let's focus on this for now
   }
 
+  /*
   delete_reminder(ordinal) {
     if (ordinal < 1 || ordinal > this._objects.reminders.length) {
       return `Not possible`
     }
     this._objects.reminders = this._objects.reminders.splice(ordinal, 1)
+  }
+  */
+  delete_reminder(id) {
+    const reminder = this._objects.reminders.find((reminder) => reminder.id)
+    if (reminder) {
+      if (reminder.cleanUp) {
+        reminder.cleanUp()
+      }
+      this._objects.reminders = this._objects.reminders.filter((reminder) => reminder.id != id)
+    }
   }
 
   async update(update) {
@@ -198,7 +269,7 @@ const template = {
               }
             },
           ],
-          semantic: async ({api, gsp, gp, context}) => {
+          semantic: async ({ask, api, gsp, gp, context}) => {
             const who = api.contextToWho(context.who)
             let text;
             if (context.reminder) {
@@ -211,6 +282,10 @@ const template = {
             }
             // await api.instantiate(reminder)
             await api.add(reminder)
+            reminder.cleanUp = ask([
+              query('missingReminder', reminder),
+              query('missingDate', reminder),
+            ])
           },
         },
         { 
@@ -238,52 +313,14 @@ const template = {
         },
       ]
     },
+    /*
     ({ask, api}) => {
       ask([
-        {
-          where: where(),
-          oneShot: false,
-          onNevermind: ({verbatim, ...args}) => {
-            // this is cross km boundaries from the dialogues km to this one so the api if for dialogs.
-            // i need to get the one for fastfood here.
-            const api = args.kms.fastfood.api
-            const needsDrink = askAbout({ args, api })
-            for (const item of needsDrink) {
-              api.remove(item)
-            }
-          },
-
-          matchq: ({ api, context }) => api.askAbout().length > 0 && context.marker == 'controlEnd',
-          applyq: async ({ api, context, gs }) => {
-            context.cascade = false
-            const items = api.askAbout()
-            const item = items[0]
-            let who
-            if (Array.isArray(item.who)) {
-              who = await gs(item.who.map((who) => who.text), ', ', ' and ')
-            } else {
-              if (item.who.text == 'me') {
-                who = 'you'
-              } else {
-                who = item.who.text
-              }
-            }
-            return `When should I remind ${who} to ${item.text}`
-          },
-
-          matchr: ({ isA, api, context }) => {
-            if ((isA(context.marker, 'onDateValue_dates') || isA(context.marker, 'dateTimeSelector')) && api.askAbout().length > 0) {
-                return true
-            }
-            return false
-          },
-          applyr: async ({ context, api, gp }) => {
-            const items = api.askAbout()
-            await api.update({ id: items[0].id, dateTimeSelector: context, dateTimeSelectorText: await gp(context) })
-          }
-        },
+        query('missingReminder'),
+        query('missingDate'),
       ])
     }
+    */
   ],
 }
 

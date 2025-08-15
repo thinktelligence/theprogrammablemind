@@ -278,47 +278,6 @@ const config = {
       bridge: "{ ...next(operator) }" 
     },
     */
-    /*
-    { 
-      id: "nevermind", 
-      bridge: "{ ...next(operator) }",
-      semantic: (args) => {
-        const {config, context} = args
-        // stop asking all questions
-        for (const semantic of config.semantics) {
-          if (semantic.isQuestion) {
-            let doRemove = true
-            if (semantic.onNevermind && semantic.getWasAsked() && !semantic.getWasApplied()) {
-              doRemove = semantic.onNevermind(args)
-            }
-            if (doRemove) {
-              config.removeSemantic(semantic)
-            }
-          }
-        }
-      }
-    },
-    */
-    /*
-    { 
-      id: "nevermindTestSetup", 
-      development: true,
-      bridge: "{ ...next(operator), type: after[0], postModifiers: ['type'] }",
-      semantic: ({ask, context}) => {
-        const nevermindType = context.type.value
-        ask({
-          applyq: () => 'the test question?',
-          onNevermind: ({objects, context}) => {
-            objects.onNevermindWasCalled = true
-            objects.nevermindType = nevermindType
-            return nevermindType == 'accept'
-          },
-          matchr: () => false,
-          applyr: () => {},
-        })
-      }
-    },
-    */
     { 
       id: "why", 
       level: 0, 

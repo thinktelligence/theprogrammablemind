@@ -96,13 +96,14 @@ const config = {
 
 const getAsk = (config) => (uuid) => {
     return (asks) => {
-    const ask = (ask) => {
+    const ask = (ask, s_ids) => {
       let oneShot = true // default
       if (ask.oneShot === false) {
         oneShot = false
       }
 
       const id_q = stableId('semantic')
+      s_ids.push(id_q)
       const id_rs = []
       let wasAsked = false
       let wasApplied = false
@@ -126,10 +127,12 @@ const getAsk = (config) => (uuid) => {
       for (const semantic of semanticsr) {
         const id_r = stableId('semantic')
         id_rs.push(id_r)
+        s_ids.push(id_r)
         config.addSemantic({
           uuid,
           id: id_r,
-          tied_ids: [id_q],
+          // tied_ids: [id_q],
+          tied_ids: s_ids,
           oneShot,
           where: semantic.where || ask.where || where(2),
           source: 'response',
@@ -145,7 +148,8 @@ const getAsk = (config) => (uuid) => {
         uuid,
         oneShot,
         id: id_q,
-        tied_ids: id_rs,
+        // tied_ids: id_rs,
+        tied_ids: s_ids,
         where: ask.where,
         isQuestion: true,  // do one question at a time
         getWasAsked,
@@ -170,6 +174,8 @@ const getAsk = (config) => (uuid) => {
             args.verbatim(await applyq({ ...args, wasAsked: getWasAsked() }))
             setWasAsked(true)
             args.context.controlKeepMotivation = true
+          } else {
+            args._continue()
           }
           args.context.cascade = true
         }
@@ -179,7 +185,15 @@ const getAsk = (config) => (uuid) => {
       asks = [asks]
     }
 
-    [...asks].reverse().forEach( (a) => ask(a) )
+    const s_ids = []
+    for (const a of [...asks].reverse()) {
+      ask(a, s_ids)
+    }
+    
+    const cleanUp = () => {
+      config.removeSemantic(s_ids)
+    }
+    return cleanUp
   }
 }
 
