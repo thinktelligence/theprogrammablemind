@@ -87,7 +87,7 @@ class API {
 
   // addUser to current
   addUser(user) {
-    const reminder = this._objects.reminders.find((r) => r.id == this._objects.current)
+    const reminder = this.reminders().find((r) => r.id == this._objects.current)
     if (reminder) {
       if (Array.isArray(reminder.who)) {
         reminder.who = [...reminder.who, user]
@@ -98,7 +98,7 @@ class API {
   }
 
   removeUser(user) {
-    const reminder = this._objects.reminders.find((r) => r.id == this._objects.current)
+    const reminder = this.reminders().find((r) => r.id == this._objects.current)
     if (reminder) {
       reminder.who = reminder.who.filter((who) => who.remindee_id != user.remindee_id)
     }
@@ -141,9 +141,17 @@ class API {
     }
   }
 
+  reminders() {
+    return this._objects.reminders
+  }
+
+  setReminders(reminders) {
+    this._objects.reminders = reminders
+  }
+
   askAbout(what) {
     const items = []
-    for (const item of this._objects.reminders) {
+    for (const item of this.reminders()) {
       if (this.missing('missingReminder', item)) {
         items.push(this.missing('missingReminder', item))
       }
@@ -155,12 +163,12 @@ class API {
   }
 
   show() {
-    if (this._objects.reminders.length == 0) {
+    if (this.reminders().length == 0) {
       return "There are no reminders"
     }
     let s = 'The reminders are\n'
     let counter = 1
-    for (const item of this._objects.reminders) {
+    for (const item of this.reminders()) {
       s += `    ${counter}. ${item.text}\n`
       counter += 1
     }
@@ -168,21 +176,13 @@ class API {
     // -> return a table object. then have ability to talk about the table. maybe later let's focus on this for now
   }
 
-  /*
-  delete_reminder(ordinal) {
-    if (ordinal < 1 || ordinal > this._objects.reminders.length) {
-      return `Not possible`
-    }
-    this._objects.reminders = this._objects.reminders.splice(ordinal, 1)
-  }
-  */
   delete_reminder(id) {
-    const reminder = this._objects.reminders.find((reminder) => reminder.id)
+    const reminder = this.reminders().find((reminder) => reminder.id)
     if (reminder) {
       if (reminder.cleanUp) {
         reminder.cleanUp()
       }
-      this._objects.reminders = this._objects.reminders.filter((reminder) => reminder.id != id)
+      this.setReminders(this._objects.reminders.filter((reminder) => reminder.id != id))
     }
   }
 
