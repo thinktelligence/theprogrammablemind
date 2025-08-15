@@ -48,6 +48,9 @@ const query = (missing, reminder_id) => {
     },
 
     matchr: ({ isA, api, context }) => {
+      if (context.evaluate) {
+        return false
+      }
       const gotADate = ((isA(context.marker, 'onDateValue_dates') || isA(context.marker, 'dateTimeSelector')) && api.missing(missing, reminder_id))
       if (missing == 'missingDate') {
         return gotADate
