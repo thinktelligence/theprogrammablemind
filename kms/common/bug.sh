@@ -886,3 +886,4 @@ node people -q 'ownee is owned by owner means owner owns ownee' -g -d
 node crew -q 'what is the status of the phasers' -g -d
 node ui -q 'move up 2+2' -g -d
 node wp -q 'underline the 4th and 7th word of the second paragraph' -g -d
+node inspect reminders -q 'remind me\nremindResponse go to the store on monday' -g -d

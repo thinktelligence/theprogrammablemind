@@ -48,14 +48,13 @@ const query = (missing, reminder_id) => {
     },
 
     matchr: ({ isA, api, context }) => {
-      if (context.evaluate) {
+      if (context.evaluate || context.isControl || context.isResponse) {
         return false
       }
       const gotADate = ((isA(context.marker, 'onDateValue_dates') || isA(context.marker, 'dateTimeSelector')) && api.missing(missing, reminder_id))
       if (missing == 'missingDate') {
         return gotADate
       } else {
-        // debugger
         // return !gotADate && !context.isControl
       }
       return false
@@ -73,6 +72,7 @@ class API {
     this._objects.reminders = []
     this._objects.id = 0
     this._objects.current = null
+    this._objects.defaultTime = { hour: 9, minute: 0, second: 0, millisecond: 0 }
   }
 
   async add(reminder) {
@@ -84,7 +84,7 @@ class API {
     this._objects.current = id
   }
 
-  getCurrent() {
+  getCurrentId() {
     return this._objects.current
   }
 
@@ -115,6 +115,9 @@ class API {
   }
 
   async instantiate(reminder) {
+    if (reminder.dateTimeSelector) {
+      reminder.dateTimeSelector.defaultTime = this._objects.defaultTime
+    }
     const value = await this.args.e(reminder.dateTimeSelector)
     reminder.nextISODate = value?.evalue
   }
@@ -129,10 +132,6 @@ class API {
     } else {
       return { id: who.value || who.text, text: who.text, remindee_id: who.remindee_id }
     }
-  }
-
-  // the user of the KM can override this. this can be used to sync the GUI and the LUI
-  getCurrent() {
   }
 
   missing(what, reminder_id) {
@@ -195,6 +194,9 @@ class API {
   }
 
   async update(update) {
+    if (!update.id) {
+      update.id = this.getCurrentId()
+    }
     for (const item of this._objects.reminders) {
       if (item.id == update.id) {
         Object.assign(item, update)
@@ -218,6 +220,7 @@ const template = {
         "([remind] (remindable/*) (!@<= 'dateTimeSelector' && !@<= 'inAddition')*)",
         "([remind:withDateBridge] (remindable/*) (!@<= 'dateTimeSelector' && !@<= 'inAddition')* (dateTimeSelector))",
         "([remind:withDateAndTimeBridge] (remindable/*) (!@<= 'dateTimeSelector' && !@<= 'inAddition')* (dateTimeSelector) (atTime))",
+        "([remindResponse] (!@<= 'dateTimeSelector' && !@<= 'inAddition')* (dateTimeSelector))",
         "([show] ([reminders]))",
         "([delete_reminders|delete,cancel] (number/*))",
         "([add] (remindable/*))",
@@ -260,6 +263,21 @@ const template = {
         {
           id: 'remindable',
           isA: ['listable'],
+        },
+        {
+          id: 'remindResponse',
+          isA: ['verb'],
+          // convolution: true,
+          bridge: "{ ...next(operator), operator: operator, reminder: after[0], date: after[1], interpolate: '${reminder} ${date}' }",
+          semantic: async ({context, api, gp, gsp}) => {
+            const text = await gsp(context.reminder.slice(1));
+            const update = { text }
+            if (context.date) {
+              update.dateTimeSelector = context.date
+              update.dateTimeSelectorText = await gp(context.date)
+            }
+            await api.update(update)
+          }
         },
         {
           id: 'remind',

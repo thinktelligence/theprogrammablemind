@@ -11,6 +11,7 @@
         "([remind] (remindable/*) (!@<= 'dateTimeSelector' && !@<= 'inAddition')*)",
         "([remind:withDateBridge] (remindable/*) (!@<= 'dateTimeSelector' && !@<= 'inAddition')* (dateTimeSelector))",
         "([remind:withDateAndTimeBridge] (remindable/*) (!@<= 'dateTimeSelector' && !@<= 'inAddition')* (dateTimeSelector) (atTime))",
+        "([remindResponse] (!@<= 'dateTimeSelector' && !@<= 'inAddition')* (dateTimeSelector))",
         "([show] ([reminders]))",
         "([delete_reminders|delete,cancel] (number/*))",
         "([add] (remindable/*))",
@@ -61,6 +62,14 @@
           ]
         },
         {
+          "id": "remindResponse",
+          "isA": [
+            "verb"
+          ],
+          "bridge": "{ ...next(operator), operator: operator, reminder: after[0], date: after[1], interpolate: '${reminder} ${date}' }",
+          "semantic": "async ({context, api, gp, gsp}) => {\n            const text = await gsp(context.reminder.slice(1));\n            const update = { text }\n            if (context.date) {\n              update.dateTimeSelector = context.date\n              update.dateTimeSelectorText = await gp(context.date)\n            }\n            await api.update(update)\n          }"
+        },
+        {
           "id": "remind",
           "isA": [
             "verb"
@@ -76,7 +85,7 @@
           "withDateBridge": "{ ...next(operator), operator: operator, who: after[0], reminder: after[1], date: after[2], interpolate: '${operator} ${who} ${reminder} ${date}' }",
           "withDateAndTimeBridge": "{ ...next(operator), operator: operator, who: after[0], reminder: after[1], date: after[2], time: after[3], interpolate: '${operator} ${who} ${reminder} ${date} ${time}' }",
           "semantics": "[object Object]",
-          "semantic": "async ({ask, api, gsp, gp, context}) => {\n            const who = api.contextToWho(context.who)\n            let text;\n            if (context.reminder) {\n              text = await gsp(context.reminder.slice(1));\n            }\n            const reminder = { text, dateTimeSelector: context.date, who }\n            if (context.date) {\n              reminder.dateTimeSelector = context.date\n              reminder.dateTimeSelectorText = await gp(context.date)\n            }\n            // await api.instantiate(reminder)\n            await api.add(reminder)\n            ask([\n              query('missingReminder', reminder),\n              query('missingDate', reminder),\n            ])\n          }"
+          "semantic": "async ({ask, api, gsp, gp, context}) => {\n            const who = api.contextToWho(context.who)\n            let text;\n            if (context.reminder) {\n              text = await gsp(context.reminder.slice(1));\n            }\n            const reminder = { text, dateTimeSelector: context.date, who }\n            if (context.date) {\n              reminder.dateTimeSelector = context.date\n              reminder.dateTimeSelectorText = await gp(context.date)\n            }\n            // await api.instantiate(reminder)\n            await api.add(reminder)\n            reminder.cleanUp = ask([\n              query('missingReminder', reminder.id),\n              query('missingDate', reminder.id),\n            ])\n          }"
         },
         {
           "id": "reminders",
@@ -116,6 +125,7 @@
         "([remind] (remindable/*) (!@<= 'dateTimeSelector' && !@<= 'inAddition')*)",
         "([remind:withDateBridge] (remindable/*) (!@<= 'dateTimeSelector' && !@<= 'inAddition')* (dateTimeSelector))",
         "([remind:withDateAndTimeBridge] (remindable/*) (!@<= 'dateTimeSelector' && !@<= 'inAddition')* (dateTimeSelector) (atTime))",
+        "([remindResponse] (!@<= 'dateTimeSelector' && !@<= 'inAddition')* (dateTimeSelector))",
         "([show] ([reminders]))",
         "([delete_reminders|delete,cancel] (number/*))",
         "([add] (remindable/*))",
@@ -161,6 +171,13 @@
           "isA": [
             "listable"
           ]
+        },
+        {
+          "id": "remindResponse",
+          "isA": [
+            "verb"
+          ],
+          "bridge": "{ ...next(operator), operator: operator, reminder: after[0], date: after[1], interpolate: '${reminder} ${date}' }"
         },
         {
           "id": "remind",

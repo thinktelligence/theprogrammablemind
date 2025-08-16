@@ -22,9 +22,9 @@ const dateTimeSelectors_helpers = require('./helpers/dateTimeSelectors')
    10 am
 */
 
-function instantiate(kms, isProcessOrTest, dateTimeSelector) {
+function instantiate(kms, isA, isProcessOrTest, dateTimeSelector) {
   const now = kms.time.api.now()
-  return dateTimeSelectors_helpers.instantiate(now, dateTimeSelector)
+  return dateTimeSelectors_helpers.instantiate(isA, now, dateTimeSelector)
 }
 
 const template = {
@@ -46,8 +46,8 @@ const template = {
       semantics: [
         {
           match: ({context, isA}) => (isA(context.marker, 'onDateValue_dates') || isA(context.marker, 'dateTimeSelector')) && !!context.evaluate,
-          apply: ({context, isProcess, isTest, kms}) => {
-            context.evalue = instantiate(kms, isProcess || isTest || context.isTest, context)
+          apply: ({context, isProcess, isTest, kms, isA}) => {
+            context.evalue = instantiate(kms, isA, isProcess || isTest || context.isTest, context)
           },
         }
       ],

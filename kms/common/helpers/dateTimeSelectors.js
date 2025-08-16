@@ -35,7 +35,7 @@ function getTime(time) {
   const minute = 0
   const second = 0
   let hour_offset = 0
-  if (time.time.ampm.ampm == 'pm') {
+  if (time.time?.ampm?.ampm == 'pm') {
     hour_offset = 12
   }
   if (time.marker == 'integer') {
@@ -44,19 +44,31 @@ function getTime(time) {
     hour = time.time.value
   }
   hour += hour_offset
+  if (time.hour) {
+    hour = time.hour
+  }
+  if (time.second) {
+    second = time.second
+  }
+  if (time.minute) {
+    minute = time.minute
+  }
   return { hour, minute, second }
 }
 
-instantiate = (now, context) => {
-  if (context.marker == 'dateTimeSelector') {
+instantiate = (isA, now, context) => {
+  if (isA(context?.marker, 'dateTimeSelector')) {
     // (on date) OR (date)
     const date = context.date?.date || context.date
     const dateTimeSelector = getNextDayOfWeek(now, date.value)
-    const hms = getTime(context.time)
-    dateTimeSelector.setHours(hms.hour)
-    dateTimeSelector.setMinutes(hms.minute)
-    dateTimeSelector.setSeconds(hms.second)
-    dateTimeSelector.setMilliseconds(0)
+    const time = context.time || context.defaultTime
+    if (time) {
+      const hms = getTime(time)
+      dateTimeSelector.setHours(hms.hour)
+      dateTimeSelector.setMinutes(hms.minute)
+      dateTimeSelector.setSeconds(hms.second)
+      dateTimeSelector.setMilliseconds(0)
+    }
     return dateTimeSelector.toISOString()
   } else if (context.dateTimeSelector) {
     const dateTimeSelector = getNextDayOfWeek(now, context.dateTimeSelector?.value)

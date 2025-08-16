@@ -25,7 +25,7 @@
       "semantics": [
         {
           "match": "({context, isA}) => (isA(context.marker, 'onDateValue_dates') || isA(context.marker, 'dateTimeSelector')) && !!context.evaluate",
-          "apply": "({context, isProcess, isTest, kms}) => {\n            context.evalue = instantiate(kms, isProcess || isTest || context.isTest, context)\n          }"
+          "apply": "({context, isProcess, isTest, kms, isA}) => {\n            context.evalue = instantiate(kms, isA, isProcess || isTest || context.isTest, context)\n          }"
         }
       ]
     }

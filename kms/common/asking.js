@@ -131,8 +131,8 @@ const getAsk = (config) => (uuid) => {
         config.addSemantic({
           uuid,
           id: id_r,
-          // tied_ids: [id_q],
-          tied_ids: s_ids,
+          tied_ids: [id_q],
+          // tied_ids: s_ids,
           oneShot,
           where: semantic.where || ask.where || where(2),
           source: 'response',
@@ -148,8 +148,8 @@ const getAsk = (config) => (uuid) => {
         uuid,
         oneShot,
         id: id_q,
-        // tied_ids: id_rs,
-        tied_ids: s_ids,
+        tied_ids: id_rs,
+        // tied_ids: s_ids,
         where: ask.where,
         isQuestion: true,  // do one question at a time
         getWasAsked,

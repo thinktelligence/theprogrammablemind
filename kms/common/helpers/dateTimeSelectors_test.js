@@ -8,6 +8,10 @@ const isoString = date.toISOString();
 console.log(isoString); // "2025-07-28T21:54:00.000Z"
 */
 
+const isA = (child, parent) => {
+  return child == parent
+}
+
 describe("instantiate", () => {
   test('NEOS23 monday', () => {
     const monday = {
@@ -29,7 +33,7 @@ describe("instantiate", () => {
     monday.dayOfWeek = true
 
     const now = new Date(2025, 6, 29, 14, 52, 0);
-    const actual = instantiate(now, { dateTimeSelector: monday })
+    const actual = instantiate(isA, now, { dateTimeSelector: monday })
     const expected = new Date('2025-08-04T21:52:00.000Z');
     expect(actual).toStrictEqual(expected.toISOString()) 
   });
@@ -167,14 +171,14 @@ describe("instantiate", () => {
 
   test('NEOS23 date with time am', () => {
     const now = new Date(2025, 6, 29, 14, 52, 0);
-    const actual = instantiate(now, dateTimeSelectorWithExplicitOn('am'))
+    const actual = instantiate(isA, now, dateTimeSelectorWithExplicitOn('am'))
     const expected = new Date("2025-08-04T17:00:00.000Z");
     expect(actual).toStrictEqual(expected.toISOString()) 
   });
 
   test('NEOS23 date with time pm', () => {
     const now = new Date(2025, 6, 29, 14, 52, 0);
-    const actual = instantiate(now, dateTimeSelectorWithExplicitOn('pm'))
+    const actual = instantiate(isA, now, dateTimeSelectorWithExplicitOn('pm'))
     const expected = new Date("2025-08-05T05:00:00.000Z");
     expect(actual).toStrictEqual(expected.toISOString()) 
   });
@@ -288,14 +292,14 @@ describe("instantiate", () => {
 
   test('NEOS23 date with time am with implicit on', () => {
     const now = new Date(2025, 6, 29, 14, 52, 0);
-    const actual = instantiate(now, dateTimeSelectorWithImplicitOn('am'))
+    const actual = instantiate(isA, now, dateTimeSelectorWithImplicitOn('am'))
     const expected = new Date("2025-08-04T17:00:00.000Z");
     expect(actual).toStrictEqual(expected.toISOString()) 
   });
 
   test('NEOS23 date with time pm', () => {
     const now = new Date(2025, 6, 29, 14, 52, 0);
-    const actual = instantiate(now, dateTimeSelectorWithImplicitOn('pm'))
+    const actual = instantiate(isA, now, dateTimeSelectorWithImplicitOn('pm'))
     const expected = new Date("2025-08-05T05:00:00.000Z");
     expect(actual).toStrictEqual(expected.toISOString()) 
   });
