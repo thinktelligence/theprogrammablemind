@@ -272,7 +272,7 @@ const template = {
           disabled: true,
           bridge: "{ ...next(operator), operator: operator, reminder: after[0], date: after[1], interpolate: '${reminder} ${date}' }",
           semantic: async ({context, api, gp, gsp}) => {
-            const text = await gsp(context.reminder.slice(1));
+            const text = await gsp(context.reminder.slice(0));
             const update = { text }
             if (context.date) {
               update.dateTimeSelector = context.date
