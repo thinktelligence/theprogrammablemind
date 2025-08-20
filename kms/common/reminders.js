@@ -190,7 +190,7 @@ class API {
       if (reminder.cleanUp) {
         reminder.cleanUp()
       }
-      this.setReminders(this._objects.reminders.filter((reminder) => reminder.id != id))
+      this.setReminders(this.reminders().filter((reminder) => reminder.id != id))
     }
   }
 
