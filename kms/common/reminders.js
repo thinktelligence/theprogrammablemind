@@ -26,7 +26,7 @@ const query = (missing, reminder_id) => {
     },
 
     matchq: ({ api, context }) => api.missing(missing, reminder_id) && context.marker == 'controlEnd',
-    applyq: async ({ api, context, gs }) => {
+    applyq: async ({ api, context, gs, enable }) => {
       context.cascade = false
       const item = api.missing(missing, reminder_id)
       let who
@@ -43,6 +43,7 @@ const query = (missing, reminder_id) => {
         return `When should I remind ${who} to ${item.text}`
       }
       if (item.missingReminder) {
+        enable(['remindResponse', 0])
         return `What should I remind ${who} to do?`
       }
     },
@@ -220,7 +221,7 @@ const template = {
         "([remind] (remindable/*) (!@<= 'dateTimeSelector' && !@<= 'inAddition')*)",
         "([remind:withDateBridge] (remindable/*) (!@<= 'dateTimeSelector' && !@<= 'inAddition')* (dateTimeSelector))",
         "([remind:withDateAndTimeBridge] (remindable/*) (!@<= 'dateTimeSelector' && !@<= 'inAddition')* (dateTimeSelector) (atTime))",
-        "([remindResponse] (!@<= 'dateTimeSelector' && !@<= 'inAddition')* (dateTimeSelector))",
+        "([remindResponse] (!@<= 'remindResponse' && !@<= 'dateTimeSelector' && !@<= 'inAddition')+ (dateTimeSelector))",
         "([show] ([reminders]))",
         "([delete_reminders|delete,cancel] (number/*))",
         "([add] (remindable/*))",
@@ -267,7 +268,8 @@ const template = {
         {
           id: 'remindResponse',
           isA: ['verb'],
-          // convolution: true,
+          convolution: true,
+          disabled: true,
           bridge: "{ ...next(operator), operator: operator, reminder: after[0], date: after[1], interpolate: '${reminder} ${date}' }",
           semantic: async ({context, api, gp, gsp}) => {
             const text = await gsp(context.reminder.slice(1));

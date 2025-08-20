@@ -11,7 +11,7 @@
         "([remind] (remindable/*) (!@<= 'dateTimeSelector' && !@<= 'inAddition')*)",
         "([remind:withDateBridge] (remindable/*) (!@<= 'dateTimeSelector' && !@<= 'inAddition')* (dateTimeSelector))",
         "([remind:withDateAndTimeBridge] (remindable/*) (!@<= 'dateTimeSelector' && !@<= 'inAddition')* (dateTimeSelector) (atTime))",
-        "([remindResponse] (!@<= 'dateTimeSelector' && !@<= 'inAddition')* (dateTimeSelector))",
+        "([remindResponse] (!@<= 'remindResponse' && !@<= 'dateTimeSelector' && !@<= 'inAddition')+ (dateTimeSelector))",
         "([show] ([reminders]))",
         "([delete_reminders|delete,cancel] (number/*))",
         "([add] (remindable/*))",
@@ -66,6 +66,8 @@
           "isA": [
             "verb"
           ],
+          "convolution": true,
+          "disabled": true,
           "bridge": "{ ...next(operator), operator: operator, reminder: after[0], date: after[1], interpolate: '${reminder} ${date}' }",
           "semantic": "async ({context, api, gp, gsp}) => {\n            const text = await gsp(context.reminder.slice(1));\n            const update = { text }\n            if (context.date) {\n              update.dateTimeSelector = context.date\n              update.dateTimeSelectorText = await gp(context.date)\n            }\n            await api.update(update)\n          }"
         },
@@ -125,7 +127,7 @@
         "([remind] (remindable/*) (!@<= 'dateTimeSelector' && !@<= 'inAddition')*)",
         "([remind:withDateBridge] (remindable/*) (!@<= 'dateTimeSelector' && !@<= 'inAddition')* (dateTimeSelector))",
         "([remind:withDateAndTimeBridge] (remindable/*) (!@<= 'dateTimeSelector' && !@<= 'inAddition')* (dateTimeSelector) (atTime))",
-        "([remindResponse] (!@<= 'dateTimeSelector' && !@<= 'inAddition')* (dateTimeSelector))",
+        "([remindResponse] (!@<= 'remindResponse' && !@<= 'dateTimeSelector' && !@<= 'inAddition')+ (dateTimeSelector))",
         "([show] ([reminders]))",
         "([delete_reminders|delete,cancel] (number/*))",
         "([add] (remindable/*))",
@@ -177,6 +179,8 @@
           "isA": [
             "verb"
           ],
+          "convolution": true,
+          "disabled": true,
           "bridge": "{ ...next(operator), operator: operator, reminder: after[0], date: after[1], interpolate: '${reminder} ${date}' }"
         },
         {
