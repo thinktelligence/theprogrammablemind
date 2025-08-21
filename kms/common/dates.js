@@ -37,6 +37,7 @@ const template = {
         "([era_dates|])",
         "([date_dates|])",
         "([dateEra_dates] (date_dates/*) (era_dates/*))",
+        "([monthDay_dates] (month_dates/*) (dayNumber_dates/*))",
         "([monthYear_dates] (month_dates/*) (yearNumber_dates/*))",
         "([monthDayYear_dates] (month_dates/*) (dayNumber_dates/*) (yearNumber_dates/*))",
         "([monthDayYearWithSlashes_dates] (monthNumber_dates/*) (dateSeparator_dates/*) (dayNumber_dates/*) (dateSeparator_dates/*) (yearNumber_dates/*))",
@@ -107,6 +108,14 @@ const template = {
           id: 'yearNumber_dates', 
           isA: ['integer'],
           bridge: "{ ...next(operator) }" 
+        },
+        { 
+          id: 'monthDay_dates', 
+          convolution: true,
+          localHierarchy: [['ordinal', 'dayNumber_dates']],
+          before: ['preposition'],
+          isA: ['date_dates'],
+          bridge: "{ ...next(operator), month: after[0], day: after[1], interpolate: '${month} ${day}' }"
         },
         { 
           id: 'monthYear_dates', 

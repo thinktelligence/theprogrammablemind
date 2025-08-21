@@ -86,17 +86,28 @@ function getTime(time) {
 }
 
 instantiate = (isA, now, context) => {
-  debugger
-  if (
-       (context.marker == 'onDate_dates' && context.date?.marker == 'monthDayYear_dates') ||
-       (context.marker == 'monthDayYear_dates')
-     ) {
-    if (context.marker == 'onDate_dates') {
-      context = context.date
+  const getType = (context, type) => {
+    if (context.marker == 'onDate_dates' && context.date?.marker == type) {
+      return context.date
+    } if (context.marker == type) {
+      return context
     }
-    const day = context.day.value;
-    const month = toMonthNumber(context.month.value);
-    const year = context.year.value;
+  }
+  let value
+  if (value = getType(context, 'monthDay_dates')) {
+    const day = value.day.value;
+    const month = toMonthNumber(value.month.value);
+    debugger
+    const currentMonth = now.getMonth() + 1; // 1-based (January = 1)
+    const currentYear = now.getFullYear();
+    const year = currentMonth >= month ? currentYear + 1 : currentYear;
+  
+    const date = new Date(year, month-1, day)
+    return date.toISOString()
+  } else if (value = getType(context, 'monthDayYear_dates')) {
+    const day = value.day.value;
+    const month = toMonthNumber(value.month.value);
+    const year = value.year.value;
     const date = new Date(year, month-1, day)
     return date.toISOString()
   } else if (isA(context?.marker, 'dateTimeSelector')) {
