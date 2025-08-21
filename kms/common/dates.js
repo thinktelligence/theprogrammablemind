@@ -71,6 +71,7 @@ const template = {
         { 
           id: 'date_dates', 
           words: ['date', 'distributable'],
+          isA: ['onDateValue_dates'],
           bridge: "{ ...next(operator) }" 
         },
         { 
@@ -87,6 +88,7 @@ const template = {
         { 
           id: 'monthDayYearWithSlashes_dates', 
           isA: ['date_dates'],
+          before: ['preposition'],
           convolution: true,
           bridge: "{ ...next(operator), day: after[2], month: after[0], year: after[4], interpolate: '${month}/${day}/${year}' }",
         },
@@ -109,12 +111,14 @@ const template = {
         { 
           id: 'monthYear_dates', 
           convolution: true,
+          before: ['preposition'],
           isA: ['date_dates'],
           bridge: "{ ...next(operator), month: after[0], year: after[1], interpolate: '${month} ${year}' }"
         },
         { 
           id: 'monthDayYear_dates', 
           convolution: true,
+          before: ['preposition'],
           isA: ['date_dates'],
           localHierarchy: [
             ['ordinal', 'dayNumber_dates'],
