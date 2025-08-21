@@ -23,8 +23,12 @@ const dateTimeSelectors_helpers = require('./helpers/dateTimeSelectors')
 */
 
 function instantiate(kms, isA, isProcessOrTest, dateTimeSelector) {
-  const now = kms.time.api.now()
-  return dateTimeSelectors_helpers.instantiate(isA, now, dateTimeSelector)
+  try {
+    const now = kms.time.api.now()
+    return dateTimeSelectors_helpers.instantiate(isA, now, dateTimeSelector)
+  } catch ( e ) {
+    return `Implement instatiate for this type of date. See the dateTimeSelectors KM ${where()}`
+  }
 }
 
 const template = {
