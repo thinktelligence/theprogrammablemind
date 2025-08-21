@@ -20,6 +20,7 @@ const dateTimeSelectors_helpers = require('./helpers/dateTimeSelectors')
    the last tuesday of every third month
    monday at 10 am
    10 am
+   first monday after jan 1
 */
 
 function instantiate(kms, isA, isProcessOrTest, dateTimeSelector) {
@@ -36,8 +37,15 @@ const template = {
     { 
       operators: [
         "([dateTimeSelector] (onDate) (atTime))",
+        "((day_dates/*) [dayOfMonth|of] (month_dates/*))",
       ],
       bridges: [
+        { 
+          id: 'dayOfMonth', 
+          after: ['preposition'],
+          before: ['verb'],
+          bridge: "{ ...next(operator), day: before[0], month: after[0], operator: operator, interpolate: '${day} ${operator} ${month}' }",
+        },
         { 
           id: 'dateTimeSelector', 
           after: ['preposition'],
@@ -49,11 +57,24 @@ const template = {
       ],
       semantics: [
         {
-          match: ({context, isA}) => (isA(context.marker, 'onDateValue_dates') || isA(context.marker, 'dateTimeSelector')) && !!context.evaluate,
+          match: ({context, isA}) => {
+            if (!context.evaluate) {
+              return false
+            }
+            if (isA(context.marker, 'onDateValue_dates')) {
+              return true
+            }
+            if (isA(context.marker, 'dateTimeSelector')) {
+              return true
+            }
+          },
           apply: ({context, isProcess, isTest, kms, isA}) => {
             context.evalue = instantiate(kms, isA, isProcess || isTest || context.isTest, context)
           },
         }
+      ],
+      hierarchy: [
+        ['day_dates', 'orderable'],
       ],
     },
   ],

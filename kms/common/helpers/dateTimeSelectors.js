@@ -97,11 +97,9 @@ instantiate = (isA, now, context) => {
   if (value = getType(context, 'monthDay_dates')) {
     const day = value.day.value;
     const month = toMonthNumber(value.month.value);
-    debugger
     const currentMonth = now.getMonth() + 1; // 1-based (January = 1)
     const currentYear = now.getFullYear();
     const year = currentMonth >= month ? currentYear + 1 : currentYear;
-  
     const date = new Date(year, month-1, day)
     return date.toISOString()
   } else if (value = getType(context, 'monthDayYear_dates')) {
