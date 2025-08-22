@@ -158,8 +158,11 @@ const template = {
     (args) => {
       const as = ['jan', 'feb', 'mar', 'apr', 'jun', 'jul', 'aug', 'sept', 'oct', 'nov', 'dec']
       const ms = ['january', 'february', 'march', 'april', 'june', 'july', 'august', 'september', 'october', 'november', 'december']
+      // args.makeObject({...args, context: { word: as[i], value: `${ms[i]}_dates`}, types: [`${ms[i]}_dates`]})
       for (let i = 0; i < as.length; ++i) {
-        args.makeObject({...args, context: { word: as[i], value: `${as[i]}_dates`}, types: [`${ms[i]}_dates`]})
+        const word = as[i]
+        const id = `${ms[i]}_dates`
+        args.addWords(id, word, { value: id, abbreviation: word })
       }
 
       /*

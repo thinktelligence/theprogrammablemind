@@ -158,7 +158,7 @@ function getNthDayOfMonth(dayName, ordinal, monthName, now) {
   }
   const targetDayIndex = days.indexOf(dayName);
 
-  let date = new Date(year, monthIndex, 1);
+  const date = new Date(year, monthIndex, 1);
 
   while (date.getDay() !== targetDayIndex) {
     date.setDate(date.getDate() + 1);

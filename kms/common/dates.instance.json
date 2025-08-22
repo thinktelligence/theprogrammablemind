@@ -228,7 +228,7 @@
       }
     },
     {
-      "apply": "(args) => {\n      const as = ['jan', 'feb', 'mar', 'apr', 'jun', 'jul', 'aug', 'sept', 'oct', 'nov', 'dec']\n      const ms = ['january', 'february', 'march', 'april', 'june', 'july', 'august', 'september', 'october', 'november', 'december']\n      for (let i = 0; i < as.length; ++i) {\n        args.makeObject({...args, context: { word: as[i], value: `${as[i]}_dates`}, types: [`${ms[i]}_dates`]})\n      }\n\n      /*\n      const word = 'bc'\n      const synonym = 'bce'\n      args.makeObject({...args, context: { word: synonym, value: `${synonym}_dates`}, types: [`${word}_dates`]})\n      */\n    }"
+      "apply": "(args) => {\n      const as = ['jan', 'feb', 'mar', 'apr', 'jun', 'jul', 'aug', 'sept', 'oct', 'nov', 'dec']\n      const ms = ['january', 'february', 'march', 'april', 'june', 'july', 'august', 'september', 'october', 'november', 'december']\n      // args.makeObject({...args, context: { word: as[i], value: `${ms[i]}_dates`}, types: [`${ms[i]}_dates`]})\n      for (let i = 0; i < as.length; ++i) {\n        const word = as[i]\n        const id = `${ms[i]}_dates`\n        args.addWords(id, word, { value: id, abbreviation: word })\n      }\n\n      /*\n      const word = 'bc'\n      const synonym = 'bce'\n      args.makeObject({...args, context: { word: synonym, value: `${synonym}_dates`}, types: [`${word}_dates`]})\n      */\n    }"
     },
     "resetIdSuffix"
   ],
@@ -3247,6 +3247,20 @@
             "comma",
             0
           ],
+          [
+            "is",
+            0
+          ],
+          [
+            "list",
+            1
+          ],
+          [
+            "unknown",
+            0
+          ]
+        ],
+        [
           [
             "is",
             0
@@ -11620,6 +11634,20 @@
             "unknown",
             0
           ]
+        ],
+        [
+          [
+            "is",
+            0
+          ],
+          [
+            "list",
+            1
+          ],
+          [
+            "unknown",
+            0
+          ]
         ]
       ],
       "summaries": [
@@ -15709,6 +15737,20 @@
             "unknown",
             0
           ]
+        ],
+        [
+          [
+            "is",
+            0
+          ],
+          [
+            "list",
+            1
+          ],
+          [
+            "unknown",
+            0
+          ]
         ]
       ],
       "summaries": [
@@ -16825,7 +16867,7 @@
       }
     },
     {
-      "apply": "(args) => {\n      const as = ['jan', 'feb', 'mar', 'apr', 'jun', 'jul', 'aug', 'sept', 'oct', 'nov', 'dec']\n      const ms = ['january', 'february', 'march', 'april', 'june', 'july', 'august', 'september', 'october', 'november', 'december']\n      for (let i = 0; i < as.length; ++i) {\n        args.makeObject({...args, context: { word: as[i], value: `${as[i]}_dates`}, types: [`${ms[i]}_dates`]})\n      }\n\n      /*\n      const word = 'bc'\n      const synonym = 'bce'\n      args.makeObject({...args, context: { word: synonym, value: `${synonym}_dates`}, types: [`${word}_dates`]})\n      */\n    }"
+      "apply": "(args) => {\n      const as = ['jan', 'feb', 'mar', 'apr', 'jun', 'jul', 'aug', 'sept', 'oct', 'nov', 'dec']\n      const ms = ['january', 'february', 'march', 'april', 'june', 'july', 'august', 'september', 'october', 'november', 'december']\n      // args.makeObject({...args, context: { word: as[i], value: `${ms[i]}_dates`}, types: [`${ms[i]}_dates`]})\n      for (let i = 0; i < as.length; ++i) {\n        const word = as[i]\n        const id = `${ms[i]}_dates`\n        args.addWords(id, word, { value: id, abbreviation: word })\n      }\n\n      /*\n      const word = 'bc'\n      const synonym = 'bce'\n      args.makeObject({...args, context: { word: synonym, value: `${synonym}_dates`}, types: [`${word}_dates`]})\n      */\n    }"
     },
     {
       "hierarchy": [
@@ -16920,46 +16962,6 @@
           false
         ],
         [
-          "apr_dates",
-          "april_dates",
-          false
-        ],
-        [
-          "apr_dates",
-          "hierarchyAble",
-          false
-        ],
-        [
-          "apr_dates",
-          "isEdee",
-          false
-        ],
-        [
-          "apr_dates",
-          "isEder",
-          false
-        ],
-        [
-          "apr_dates",
-          "object",
-          false
-        ],
-        [
-          "apr_dates",
-          "property",
-          false
-        ],
-        [
-          "apr_dates",
-          "queryable",
-          false
-        ],
-        [
-          "apr_dates",
-          "theAble",
-          false
-        ],
-        [
           "april_dates",
           "hierarchyAble",
           false
@@ -17002,46 +17004,6 @@
         [
           "article",
           "article",
-          false
-        ],
-        [
-          "aug_dates",
-          "august_dates",
-          false
-        ],
-        [
-          "aug_dates",
-          "hierarchyAble",
-          false
-        ],
-        [
-          "aug_dates",
-          "isEdee",
-          false
-        ],
-        [
-          "aug_dates",
-          "isEder",
-          false
-        ],
-        [
-          "aug_dates",
-          "object",
-          false
-        ],
-        [
-          "aug_dates",
-          "property",
-          false
-        ],
-        [
-          "aug_dates",
-          "queryable",
-          false
-        ],
-        [
-          "aug_dates",
-          "theAble",
           false
         ],
         [
@@ -17245,46 +17207,6 @@
           false
         ],
         [
-          "dec_dates",
-          "december_dates",
-          false
-        ],
-        [
-          "dec_dates",
-          "hierarchyAble",
-          false
-        ],
-        [
-          "dec_dates",
-          "isEdee",
-          false
-        ],
-        [
-          "dec_dates",
-          "isEder",
-          false
-        ],
-        [
-          "dec_dates",
-          "object",
-          false
-        ],
-        [
-          "dec_dates",
-          "property",
-          false
-        ],
-        [
-          "dec_dates",
-          "queryable",
-          false
-        ],
-        [
-          "dec_dates",
-          "theAble",
-          false
-        ],
-        [
           "december_dates",
           "hierarchyAble",
           false
@@ -17377,46 +17299,6 @@
         [
           "every",
           "article",
-          false
-        ],
-        [
-          "feb_dates",
-          "february_dates",
-          false
-        ],
-        [
-          "feb_dates",
-          "hierarchyAble",
-          false
-        ],
-        [
-          "feb_dates",
-          "isEdee",
-          false
-        ],
-        [
-          "feb_dates",
-          "isEder",
-          false
-        ],
-        [
-          "feb_dates",
-          "object",
-          false
-        ],
-        [
-          "feb_dates",
-          "property",
-          false
-        ],
-        [
-          "feb_dates",
-          "queryable",
-          false
-        ],
-        [
-          "feb_dates",
-          "theAble",
           false
         ],
         [
@@ -17570,46 +17452,6 @@
           false
         ],
         [
-          "jan_dates",
-          "hierarchyAble",
-          false
-        ],
-        [
-          "jan_dates",
-          "isEdee",
-          false
-        ],
-        [
-          "jan_dates",
-          "isEder",
-          false
-        ],
-        [
-          "jan_dates",
-          "january_dates",
-          false
-        ],
-        [
-          "jan_dates",
-          "object",
-          false
-        ],
-        [
-          "jan_dates",
-          "property",
-          false
-        ],
-        [
-          "jan_dates",
-          "queryable",
-          false
-        ],
-        [
-          "jan_dates",
-          "theAble",
-          false
-        ],
-        [
           "january_dates",
           "hierarchyAble",
           false
@@ -17650,46 +17492,6 @@
           false
         ],
         [
-          "jul_dates",
-          "hierarchyAble",
-          false
-        ],
-        [
-          "jul_dates",
-          "isEdee",
-          false
-        ],
-        [
-          "jul_dates",
-          "isEder",
-          false
-        ],
-        [
-          "jul_dates",
-          "july_dates",
-          false
-        ],
-        [
-          "jul_dates",
-          "object",
-          false
-        ],
-        [
-          "jul_dates",
-          "property",
-          false
-        ],
-        [
-          "jul_dates",
-          "queryable",
-          false
-        ],
-        [
-          "jul_dates",
-          "theAble",
-          false
-        ],
-        [
           "july_dates",
           "hierarchyAble",
           false
@@ -17726,46 +17528,6 @@
         ],
         [
           "july_dates",
-          "theAble",
-          false
-        ],
-        [
-          "jun_dates",
-          "hierarchyAble",
-          false
-        ],
-        [
-          "jun_dates",
-          "isEdee",
-          false
-        ],
-        [
-          "jun_dates",
-          "isEder",
-          false
-        ],
-        [
-          "jun_dates",
-          "june_dates",
-          false
-        ],
-        [
-          "jun_dates",
-          "object",
-          false
-        ],
-        [
-          "jun_dates",
-          "property",
-          false
-        ],
-        [
-          "jun_dates",
-          "queryable",
-          false
-        ],
-        [
-          "jun_dates",
           "theAble",
           false
         ],
@@ -17811,46 +17573,6 @@
         ],
         [
           "listable",
-          "theAble",
-          false
-        ],
-        [
-          "mar_dates",
-          "hierarchyAble",
-          false
-        ],
-        [
-          "mar_dates",
-          "isEdee",
-          false
-        ],
-        [
-          "mar_dates",
-          "isEder",
-          false
-        ],
-        [
-          "mar_dates",
-          "march_dates",
-          false
-        ],
-        [
-          "mar_dates",
-          "object",
-          false
-        ],
-        [
-          "mar_dates",
-          "property",
-          false
-        ],
-        [
-          "mar_dates",
-          "queryable",
-          false
-        ],
-        [
-          "mar_dates",
           "theAble",
           false
         ],
@@ -18065,46 +17787,6 @@
           false
         ],
         [
-          "nov_dates",
-          "hierarchyAble",
-          false
-        ],
-        [
-          "nov_dates",
-          "isEdee",
-          false
-        ],
-        [
-          "nov_dates",
-          "isEder",
-          false
-        ],
-        [
-          "nov_dates",
-          "november_dates",
-          false
-        ],
-        [
-          "nov_dates",
-          "object",
-          false
-        ],
-        [
-          "nov_dates",
-          "property",
-          false
-        ],
-        [
-          "nov_dates",
-          "queryable",
-          false
-        ],
-        [
-          "nov_dates",
-          "theAble",
-          false
-        ],
-        [
           "november_dates",
           "hierarchyAble",
           false
@@ -18161,46 +17843,6 @@
         ],
         [
           "object",
-          "theAble",
-          false
-        ],
-        [
-          "oct_dates",
-          "hierarchyAble",
-          false
-        ],
-        [
-          "oct_dates",
-          "isEdee",
-          false
-        ],
-        [
-          "oct_dates",
-          "isEder",
-          false
-        ],
-        [
-          "oct_dates",
-          "object",
-          false
-        ],
-        [
-          "oct_dates",
-          "october_dates",
-          false
-        ],
-        [
-          "oct_dates",
-          "property",
-          false
-        ],
-        [
-          "oct_dates",
-          "queryable",
-          false
-        ],
-        [
-          "oct_dates",
           "theAble",
           false
         ],
@@ -18376,46 +18018,6 @@
         ],
         [
           "saturday_dates",
-          "theAble",
-          false
-        ],
-        [
-          "sept_dates",
-          "hierarchyAble",
-          false
-        ],
-        [
-          "sept_dates",
-          "isEdee",
-          false
-        ],
-        [
-          "sept_dates",
-          "isEder",
-          false
-        ],
-        [
-          "sept_dates",
-          "object",
-          false
-        ],
-        [
-          "sept_dates",
-          "property",
-          false
-        ],
-        [
-          "sept_dates",
-          "queryable",
-          false
-        ],
-        [
-          "sept_dates",
-          "september_dates",
-          false
-        ],
-        [
-          "sept_dates",
           "theAble",
           false
         ],
@@ -18886,6 +18488,48 @@
         "comma",
         0
       ],
+      [
+        "is",
+        0
+      ],
+      [
+        "list",
+        1
+      ],
+      [
+        "unknown",
+        0
+      ]
+    ],
+    [
+      [
+        "is",
+        0
+      ],
+      [
+        "list",
+        1
+      ],
+      [
+        "unknown",
+        0
+      ]
+    ],
+    [
+      [
+        "is",
+        0
+      ],
+      [
+        "list",
+        1
+      ],
+      [
+        "unknown",
+        0
+      ]
+    ],
+    [
       [
         "is",
         0

@@ -79,7 +79,6 @@ const template = {
             try {
               const now = kms.time.api.now()
               const date = onOrIs('dayOfMonth', context)
-              debugger
               context.evalue = dateTimeSelectors_helpers.getNthDayOfMonth(removeDatesSuffix(date.day.value), date.day.ordinal.value || 1, removeDatesSuffix(date.month.value), now)
             } catch ( e ) {
               context.evalue = `Implement instatiate for this type of date. See the dateTimeSelectors KM ${where()}. ${e}`

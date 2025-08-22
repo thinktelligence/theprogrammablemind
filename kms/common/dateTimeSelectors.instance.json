@@ -11,8 +11,12 @@
           "after": [
             "preposition"
           ],
+          "isA": [
+            "onDateValue_dates"
+          ],
           "before": [
-            "verb"
+            "verb",
+            "onDate_dates"
           ],
           "bridge": "{ ...next(operator), day: before[0], month: after[0], operator: operator, interpolate: '${day} ${operator} ${month}' }"
         },
@@ -34,6 +38,10 @@
         }
       ],
       "semantics": [
+        {
+          "match": "({context, isA}) => context.evaluate && onOrIs('dayOfMonth', context)",
+          "apply": "({context, isProcess, isTest, kms, isA}) => {\n            try {\n              const now = kms.time.api.now()\n              const date = onOrIs('dayOfMonth', context)\n              debugger\n              context.evalue = dateTimeSelectors_helpers.getNthDayOfMonth(removeDatesSuffix(date.day.value), date.day.ordinal.value || 1, removeDatesSuffix(date.month.value), now)\n            } catch ( e ) {\n              context.evalue = `Implement instatiate for this type of date. See the dateTimeSelectors KM ${where()}. ${e}`\n            }\n          }"
+        },
         {
           "match": "({context, isA}) => {\n            if (!context.evaluate) {\n              return false\n            }\n            if (isA(context.marker, 'onDateValue_dates')) {\n              return true\n            }\n            if (isA(context.marker, 'dateTimeSelector')) {\n              return true\n            }\n          }",
           "apply": "({context, isProcess, isTest, kms, isA}) => {\n            context.evalue = instantiate(kms, isA, isProcess || isTest || context.isTest, context)\n          }"
@@ -60,8 +68,12 @@
           "after": [
             "preposition"
           ],
+          "isA": [
+            "onDateValue_dates"
+          ],
           "before": [
-            "verb"
+            "verb",
+            "onDate_dates"
           ],
           "bridge": "{ ...next(operator), day: before[0], month: after[0], operator: operator, interpolate: '${day} ${operator} ${month}' }"
         },
@@ -83,6 +95,7 @@
         }
       ],
       "semantics": [
+        {},
         {}
       ],
       "hierarchy": [
