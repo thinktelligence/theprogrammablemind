@@ -14,6 +14,8 @@ const helpers = require('./helpers')
    2 sundays from now
    the sunday after july 1st
    remind every truck driver to whatever tomorrow at 8 am
+   add the user greg
+   add greg as a user
 */
 
 const query = (missing, reminder_id) => {

@@ -32,6 +32,13 @@ function instantiate(kms, isA, isProcessOrTest, dateTimeSelector) {
   }
 }
 
+function removeDatesSuffix(str) {
+  if (str.endsWith('_dates')) {
+    return str.slice(0, -6); // Removes last 6 characters
+  }
+  return str;
+}
+
 const template = {
   configs: [
     { 
@@ -56,6 +63,19 @@ const template = {
         },
       ],
       semantics: [
+        {
+          evaluator: true,
+          match: ({context, isA}) => context.evaluate && context.marker === 'dayOfMonth',
+          apply: ({context, isProcess, isTest, kms, isA}) => {
+            debugger
+            try {
+              const now = kms.time.api.now()
+              context.evalue = dateTimeSelectors_helpers.getNthDayOfMonth(removeDatesSuffix(context.day.value), context.day.ordinal.value || 1, removeDatesSuffix(context.month.value), now)
+            } catch ( e ) {
+              context.evalue = `Implement instatiate for this type of date. See the dateTimeSelectors KM ${where()}. ${e}`
+            }
+          },
+        },
         {
           match: ({context, isA}) => {
             if (!context.evaluate) {

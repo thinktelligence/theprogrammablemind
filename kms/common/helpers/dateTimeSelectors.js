@@ -134,10 +134,50 @@ instantiate = (isA, now, context) => {
   }
 }
 
+// function getNthDayOfMonth(dayName, ordinal, monthName, year = new Date().getFullYear()) {
+function getNthDayOfMonth(dayName, ordinal, monthName, now) {
+  // Validate inputs
+  const days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+  const months = [
+    'january', 'february', 'march', 'april', 'may', 'june',
+    'july', 'august', 'september', 'october', 'november', 'december'
+  ];
+
+  let year = now.getFullYear()
+
+  dayName = dayName.toLowerCase();
+  monthName = monthName.toLowerCase();
+
+  if (!days.includes(dayName)) throw new Error('Invalid day name');
+  if (!months.includes(monthName)) throw new Error('Invalid month name');
+  if (!Number.isInteger(ordinal) || ordinal < 1 || ordinal > 5) throw new Error('Ordinal must be an integer between 1 and 5');
+
+  const monthIndex = months.indexOf(monthName);
+  if (monthIndex <= now.getMonth()) {
+    year += 1
+  }
+  const targetDayIndex = days.indexOf(dayName);
+
+  let date = new Date(year, monthIndex, 1);
+
+  while (date.getDay() !== targetDayIndex) {
+    date.setDate(date.getDate() + 1);
+  }
+
+  date.setDate(date.getDate() + (ordinal - 1) * 7);
+
+  if (date.getMonth() !== monthIndex) {
+    throw new Error(`The ${ordinal}th ${dayName} does not exist in ${monthName} ${year}`);
+  }
+
+  return date.toISOString();
+}
+
 until = (time) => {
 }
 
 module.exports = {
   instantiate,
   until,
+  getNthDayOfMonth,
 }
