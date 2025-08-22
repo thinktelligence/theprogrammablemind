@@ -39,6 +39,15 @@ function removeDatesSuffix(str) {
   return str;
 }
 
+function onOrIs(marker, context) {
+  if (context.marker === marker) {
+    return context
+  }
+  if (context.marker === 'onDate_dates' && context.date?.marker == marker) {
+    return context.date
+  }
+}
+
 const template = {
   configs: [
     { 
@@ -50,7 +59,8 @@ const template = {
         { 
           id: 'dayOfMonth', 
           after: ['preposition'],
-          before: ['verb'],
+          isA: ['onDateValue_dates'],
+          before: ['verb', 'onDate_dates'],
           bridge: "{ ...next(operator), day: before[0], month: after[0], operator: operator, interpolate: '${day} ${operator} ${month}' }",
         },
         { 
@@ -64,13 +74,13 @@ const template = {
       ],
       semantics: [
         {
-          evaluator: true,
-          match: ({context, isA}) => context.evaluate && context.marker === 'dayOfMonth',
+          match: ({context, isA}) => context.evaluate && onOrIs('dayOfMonth', context),
           apply: ({context, isProcess, isTest, kms, isA}) => {
-            debugger
             try {
               const now = kms.time.api.now()
-              context.evalue = dateTimeSelectors_helpers.getNthDayOfMonth(removeDatesSuffix(context.day.value), context.day.ordinal.value || 1, removeDatesSuffix(context.month.value), now)
+              const date = onOrIs('dayOfMonth', context)
+              debugger
+              context.evalue = dateTimeSelectors_helpers.getNthDayOfMonth(removeDatesSuffix(date.day.value), date.day.ordinal.value || 1, removeDatesSuffix(date.month.value), now)
             } catch ( e ) {
               context.evalue = `Implement instatiate for this type of date. See the dateTimeSelectors KM ${where()}. ${e}`
             }
