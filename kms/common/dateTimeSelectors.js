@@ -48,20 +48,37 @@ function onOrIs(marker, context) {
   }
 }
 
+function afterOrIs(marker, context) {
+  if (context.marker === marker) {
+    return context
+  }
+  if (context.marker === 'afterDate_dates' && context.date?.marker == marker) {
+    return context.date
+  }
+}
+
 const template = {
   configs: [
     { 
       operators: [
         "([dateTimeSelector] (onDate) (atTime))",
         "((day_dates/*) [dayOfMonth|of] (month_dates/*))",
+        "((day_dates/*) [dayAfterDate|after] (afterDateValue_dates/*))",
       ],
       bridges: [
         { 
           id: 'dayOfMonth', 
-          after: ['preposition'],
+          after: ['article'],
           isA: ['onDateValue_dates'],
           before: ['verb', 'onDate_dates'],
           bridge: "{ ...next(operator), day: before[0], month: after[0], operator: operator, interpolate: '${day} ${operator} ${month}' }",
+        },
+        { 
+          id: 'dayAfterDate', 
+          after: ['article', 'monthDayYear_dates'],
+          isA: ['afterDateValue_dates'],
+          before: ['verb', 'afterDate_dates'],
+          bridge: "{ ...next(operator), day: before[0], after: after[0], operator: operator, interpolate: '${day} ${operator} ${after}' }",
         },
         { 
           id: 'dateTimeSelector', 
@@ -73,6 +90,19 @@ const template = {
         },
       ],
       semantics: [
+        {
+          match: ({context, isA}) => context.evaluate && onOrIs('dayAfterDate', context),
+          apply: ({context, isProcess, isTest, kms, isA}) => {
+            try {
+              const now = kms.time.api.now()
+              debugger
+              const date = afterOrIs('dayOfMonth', context)
+              context.evalue = dateTimeSelectors_helpers.getNthDayOfMonth(removeDatesSuffix(date.day.value), date.day.ordinal.value || 1, removeDatesSuffix(date.month.value), now)
+            } catch ( e ) {
+              context.evalue = `Implement instatiate for this type of date. See the dateTimeSelectors KM ${where()}. ${e}`
+            }
+          },
+        },
         {
           match: ({context, isA}) => context.evaluate && onOrIs('dayOfMonth', context),
           apply: ({context, isProcess, isTest, kms, isA}) => {

@@ -42,6 +42,7 @@ const template = {
         "([monthDayYear_dates] (month_dates/*) (dayNumber_dates/*) (yearNumber_dates/*))",
         "([monthDayYearWithSlashes_dates] (monthNumber_dates/*) (dateSeparator_dates/*) (dayNumber_dates/*) (dateSeparator_dates/*) (yearNumber_dates/*))",
         "([onDate_dates|on] ([onDateValue_dates|]))",
+        "([afterDate_dates|after] ([afterDateValue_dates|]))",
       ],
       associations: {
         positive: [
@@ -64,6 +65,18 @@ const template = {
           isA: ['preposition'],
           bridge: "{ ...next(operator), date: after[0], onDate: operator, interpolate: '${onDate} ${date}' }",
         },
+        {
+          id: 'afterDateValue_dates',
+          children: [
+            'day_dates',
+            'month_dates',
+          ],
+        },
+        {
+          id: 'afterDate_dates',
+          isA: ['preposition'],
+          bridge: "{ ...next(operator), date: after[0], afterDate: operator, interpolate: '${afterDate} ${date}' }",
+        },
         { 
           id: 'era_dates', 
           words: ['era'],
@@ -72,7 +85,7 @@ const template = {
         { 
           id: 'date_dates', 
           words: ['date', 'distributable'],
-          isA: ['onDateValue_dates'],
+          isA: ['onDateValue_dates', 'afterDateValue_dates'],
           bridge: "{ ...next(operator) }" 
         },
         { 
@@ -127,7 +140,7 @@ const template = {
         { 
           id: 'monthDayYear_dates', 
           convolution: true,
-          before: ['preposition'],
+          before: ['preposition', 'monthDay_dates'],
           isA: ['date_dates'],
           localHierarchy: [
             ['ordinal', 'dayNumber_dates'],
