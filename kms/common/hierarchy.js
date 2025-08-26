@@ -164,15 +164,15 @@ const config = {
       notes: 'c is a y',
       where: where(),
       match: ({context, listable}) => listable(context.marker, 'hierarchyAble') && !context.pullFromContext && !context.wantsValue && context.same && !context.same.pullFromContext && context.same.wantsValue,
-      apply: ({context, km, objects, asList, baseConfig : config}) => {
+      apply: async ({context, km, objects, asList, baseConfig : config}) => {
         const api = km('properties').api
         // mark c as an instance?
         const oneConcepts = asList(context);
         const twoConcepts = asList(context.same);
         for (let oneConcept of oneConcepts.value) {
           for (let twoConcept of twoConcepts.value) {
-            oneConcept = api.makeObject({config, context})
-            twoConcept = api.makeObject({config, context: context.same})
+            oneConcept = await api.makeObject({config, context})
+            twoConcept = await api.makeObject({config, context: context.same})
             api.rememberIsA(oneConcept, twoConcept)
           }
         }
@@ -183,14 +183,14 @@ const config = {
       notes: 'an x is a y',
       where: where(),
       match: ({context, listable}) => listable(context.marker, 'hierarchyAble') && !context.pullFromContext && context.wantsValue && context.same,
-      apply: ({context, km, objects, baseConfig : config, asList}) => {
+      apply: async ({context, km, objects, baseConfig : config, asList}) => {
         const api = km('properties').api
         const oneConcepts = asList(context);
         const twoConcepts = asList(context.same);
         for (let oneConcept of oneConcepts.value) {
           for (let twoConcept of twoConcepts.value) {
-            oneConcept = api.makeObject({config, context})
-            twoConcept = api.makeObject({config, context: context.same})
+            oneConcept = await api.makeObject({config, context})
+            twoConcept = await api.makeObject({config, context: context.same})
             api.rememberIsA(oneConcept, twoConcept) 
             context.sameWasProcessed = true
           }
@@ -246,15 +246,15 @@ const config = {
        
         return listable(context, 'hierarchyAble') && context.same && context.same.concept && !context.query
       },
-      apply: (args) => {
+      apply: async (args) => {
         const {callId, config, objects, km, context, asList, listable} = args
         const api = km('properties').api
         const oneConcepts = asList(context);
         const twoConcepts = asList(context.same);
         for (const oneConcept of oneConcepts.value) {
           for (const twoConcept of twoConcepts.value) {
-            oneConceptId = api.makeObject({...args, context: oneConcept})
-            twoConceptId = api.makeObject({...args, context: twoConcept})
+            oneConceptId = await api.makeObject({...args, context: oneConcept})
+            twoConceptId = await api.makeObject({...args, context: twoConcept})
             api.rememberIsA(oneConceptId, twoConceptId)
             context.sameWasProcessed = true
           }

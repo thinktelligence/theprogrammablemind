@@ -166,10 +166,13 @@ const defaultContextCheckValidify = (properties) => {
 
 const defaultContextCheckProperties = ['marker', 'text', 'verbatim', 'isResponse', 'types', { property: 'response', filter: ['marker', 'text', 'verbatim'] }] 
 
-const expand_checks = (properties) => {
+const expand_checks = (properties, variables = {}) => {
   let expanded = []
   if (properties == 'defaults') {
     return defaultContextCheckProperties
+  }
+  if (properties.variable) {
+    return variables[properties.variable]
   }
   if (Array.isArray(properties)) {
     for (const property of properties) {
@@ -177,9 +180,9 @@ const expand_checks = (properties) => {
       if (typeof property == 'string') {
         expanded.push({ property, filter: defaultContextCheckProperties })
       } else if (property.property && property.filter) {
-        expanded.push({ property: property.property, filter: [defaultContextCheckProperties, ...expand_checks(property.filter)] })
+        expanded.push({ property: property.property, filter: [defaultContextCheckProperties, ...expand_checks(property.filter, variables)] })
       } else {
-        expanded = [...expanded, ...expand_checks(property)]
+        expanded = [...expanded, ...expand_checks(property, variables)]
       }
     }
     return expanded
@@ -188,38 +191,43 @@ const expand_checks = (properties) => {
     if (key === '_') {
       expanded = [...expanded, ...defaultContextCheckProperties]
     } else {
-      expanded.push({ property: key, filter: [...expand_checks(properties[key])] })
+      expanded.push({ property: key, filter: [...expand_checks(properties[key], variables)] })
     }
   }
   return expanded
 
 }
 
-const defaultContextCheck = (properties = []) => {
+const defaultContextCheck = (properties = [], variables={}, minimal=false) => {
   defaultContextCheckValidify(properties)
-  return [
-    ...defaultContextCheckProperties,
-    // ...properties.map((property) => { return { property, filter: defaultContextCheckProperties } }),
-    ...expand_checks(properties),
-    (object) => {
-      if (typeof object.value == 'object') {
-        return { property: 'value', filter: defaultContextCheckProperties }
-      } else {
-        return 'value'
-      }
-    },
-    (object) => {
-      if (!Array.isArray(object.modifiers)) {
-        return
-      }
-      if (typeof object.modifiers[0] == 'object') {
-        return { property: 'modifiers', filter: defaultContextCheckProperties }
-      } else {
-        return 'modifiers'
-      }
-    },
-    { property: 'modifiers', isPropertyList: true, filter: defaultContextCheckProperties }
-  ]
+  variables.defaults = defaultContextCheckProperties
+  if (minimal) {
+    return expand_checks(properties, variables)
+  } else {
+    return [
+      ...defaultContextCheckProperties,
+      // ...properties.map((property) => { return { property, filter: defaultContextCheckProperties } }),
+      ...expand_checks(properties, variables),
+      (object) => {
+        if (typeof object.value == 'object') {
+          return { property: 'value', filter: defaultContextCheckProperties }
+        } else {
+          return 'value'
+        }
+      },
+      (object) => {
+        if (!Array.isArray(object.modifiers)) {
+          return
+        }
+        if (typeof object.modifiers[0] == 'object') {
+          return { property: 'modifiers', filter: defaultContextCheckProperties }
+        } else {
+          return 'modifiers'
+        }
+      },
+      { property: 'modifiers', isPropertyList: true, filter: defaultContextCheckProperties }
+    ]
+  }
 }
 
 const isA = (hierarchy) => (child, parent, { strict=false } = {}) => {

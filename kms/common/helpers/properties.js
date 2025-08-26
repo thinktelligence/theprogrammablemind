@@ -546,9 +546,9 @@ class API {
     }
   }
 
-  makeObject(args) {
+  async makeObject(args) {
 		const types = [ 'hierarchyAble', 'object', 'property' ];
-    return args.km("dialogues").api.makeObject({ ...args, types: (args.types || []).concat(types) });
+    return await args.km("dialogues").api.makeObject({ ...args, types: (args.types || []).concat(types) });
   }
 
   relation_add (relations) {

@@ -53,7 +53,7 @@
           ],
           "development": true,
           "bridge": "{ ...next(operator), flatten: true, arg: after[0], operator: operator, interpolate: '${operator} ${arg}' }",
-          "semantic": "({api, context}) => {\n            const name = context.arg.map( (word) => word.text ).join(' ')\n            api.addRemindable(name)\n          }"
+          "semantic": "async ({api, context}) => {\n            const name = context.arg.map( (word) => word.text ).join(' ')\n            await api.addRemindable(name)\n          }"
         },
         {
           "id": "remindable",

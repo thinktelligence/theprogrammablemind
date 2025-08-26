@@ -459,6 +459,193 @@ describe('defaultContextCheck', () => {
 
     expect(JSON.stringify(actual)).toEqual(JSON.stringify(expected))
   })
+
+  it('NEOS23 explicit variable using defaults', () => {
+    context = {}
+    actual = helpers.defaultContextCheck([{ variable: 'defaults' }], {}, true)
+    console.log('actual', JSON.stringify(actual, null, 2))
+    expected = [
+      "marker",
+      "text",
+      "verbatim",
+      "isResponse",
+      "types",
+      {
+        "property": "response",
+        "filter": [
+          "marker",
+          "text",
+          "verbatim"
+        ]
+      }
+    ]
+    expect(JSON.stringify(actual)).toEqual(JSON.stringify(expected))
+  })
+
+  it('NEOS23 explicit variable using custom', () => {
+    context = {}
+    actual = helpers.defaultContextCheck([{ variable: 'custom' }], {custom: ['marker', 'text']}, true)
+    console.log('actual', JSON.stringify(actual, null, 2))
+    expected = [
+      "marker",
+      "text",
+    ]
+    expect(JSON.stringify(actual)).toEqual(JSON.stringify(expected))
+  })
+
+  it('NEOS23 explicit tree filter with default', () => {
+    context = {}
+    actual = helpers.defaultContextCheck([
+      { one: 'defaults' },
+    ], {}, true)
+    console.log('actual', JSON.stringify(actual, null, 2))
+    expected = [{
+      "property": "one",
+      "filter": [
+        "marker",
+        "text",
+        "verbatim",
+        "isResponse",
+        "types",
+        {
+          "property": "response",
+          "filter": [
+            "marker",
+            "text",
+            "verbatim"
+          ]
+        }
+      ]
+    }]
+    expect(JSON.stringify(actual)).toEqual(JSON.stringify(expected))
+  })
+
+  it('NEOS23 explicit tree filter with variable using default', () => {
+    context = {}
+    actual = helpers.defaultContextCheck([
+      { one: { variable: 'defaults'} },
+    ], {}, true)
+    console.log('actual', JSON.stringify(actual, null, 2))
+    expected = [{
+      "property": "one",
+      "filter": [
+        "marker",
+        "text",
+        "verbatim",
+        "isResponse",
+        "types",
+        {
+          "property": "response",
+          "filter": [
+            "marker",
+            "text",
+            "verbatim"
+          ]
+        }
+      ]
+    }]
+    expect(JSON.stringify(actual)).toEqual(JSON.stringify(expected))
+  })
+
+  it('NEOS23 explicit tree filter with variable using default and another in array', () => {
+    context = {}
+    actual = helpers.defaultContextCheck([
+      { one: [{ variable: 'defaults'}, 'month_number'] },
+    ], {}, true)
+    console.log('actual', JSON.stringify(actual, null, 2))
+    expected = [
+      {
+        "property": "one",
+        "filter": [
+          "marker",
+          "text",
+          "verbatim",
+          "isResponse",
+          "types",
+          {
+            "property": "response",
+            "filter": [
+              "marker",
+              "text",
+              "verbatim"
+            ]
+          },
+          {
+            "property": "month_number",
+            "filter": [
+              "marker",
+              "text",
+              "verbatim",
+              "isResponse",
+              "types",
+              {
+                "property": "response",
+                "filter": [
+                  "marker",
+                  "text",
+                  "verbatim"
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  })
+
+  it('NEOS23 explicit tree filter with variables in array', () => {
+    context = {}
+    actual = helpers.defaultContextCheck([
+      { one: ['something', 'month_number'] },
+    ], {}, true)
+    console.log('actual', JSON.stringify(actual, null, 2))
+    expected = [
+      {
+        "property": "one",
+        "filter": [
+          {
+            "property": "something",
+            "filter": [
+              "marker",
+              "text",
+              "verbatim",
+              "isResponse",
+              "types",
+              {
+                "property": "response",
+                "filter": [
+                  "marker",
+                  "text",
+                  "verbatim"
+                ]
+              }
+            ]
+          },
+          {
+            "property": "month_number",
+            "filter": [
+              "marker",
+              "text",
+              "verbatim",
+              "isResponse",
+              "types",
+              {
+                "property": "response",
+                "filter": [
+                  "marker",
+                  "text",
+                  "verbatim"
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+
+
+    expect(JSON.stringify(actual)).toEqual(JSON.stringify(expected))
+  })
 })
 
 describe('focus', () => {

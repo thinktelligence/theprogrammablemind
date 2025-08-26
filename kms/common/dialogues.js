@@ -156,8 +156,8 @@ const config = {
       id: 'makeObject',
       bridge: "{ ...next(operator), object: after[0] }",
       generatorp: async ({context, gp}) => `${context.word} ${await gp(context.object)}`,
-      semantic: ({config, context, api}) => {
-			  api.makeObject({ context: context.object, config, types: [] })
+      semantic: async ({config, context, api}) => {
+			  await api.makeObject({ context: context.object, config, types: [] })
       }
     },
     {
@@ -762,7 +762,7 @@ const config = {
         // if not isA add to stm
         if (!onePrime.sameWasProcessed && !twoPrime.sameWasProcessed) {
           for (const child of propertyToArray(one)) {
-            api.makeObject({ context: child, config, types: context.two.types || [] })
+            await api.makeObject({ context: child, config, types: context.two.types || [] })
             kms.stm.api.setVariable(child.value, two)
             kms.stm.api.mentioned({ context: child, value: two })
           }

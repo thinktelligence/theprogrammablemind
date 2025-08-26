@@ -52,7 +52,7 @@ function afterOrIs(marker, context) {
   if (context.marker === marker) {
     return context
   }
-  if (context.marker === 'afterDate_dates' && context.date?.marker == marker) {
+  if (context.marker === 'onDate_dates' && context.date?.marker == marker) {
     return context.date
   }
 }
@@ -76,7 +76,7 @@ const template = {
         { 
           id: 'dayAfterDate', 
           after: ['article', 'monthDayYear_dates'],
-          isA: ['afterDateValue_dates'],
+          isA: ['onDateValue_dates'],
           before: ['verb', 'afterDate_dates'],
           bridge: "{ ...next(operator), day: before[0], after: after[0], operator: operator, interpolate: '${day} ${operator} ${after}' }",
         },
@@ -92,12 +92,14 @@ const template = {
       semantics: [
         {
           match: ({context, isA}) => context.evaluate && onOrIs('dayAfterDate', context),
-          apply: ({context, isProcess, isTest, kms, isA}) => {
+          apply: async ({context, isProcess, isTest, kms, isA, e}) => {
             try {
               const now = kms.time.api.now()
-              debugger
-              const date = afterOrIs('dayOfMonth', context)
-              context.evalue = dateTimeSelectors_helpers.getNthDayOfMonth(removeDatesSuffix(date.day.value), date.day.ordinal.value || 1, removeDatesSuffix(date.month.value), now)
+              const date = afterOrIs('dayAfterDate', context)
+              const afterISO = (await e(date.after)).evalue
+              const day_ordinal = date.day.day_ordinal
+              const ordinal = date.day.ordinal.value
+              context.evalue = dateTimeSelectors_helpers.getNthWeekdayAfterDate(afterISO, day_ordinal, ordinal)
             } catch ( e ) {
               context.evalue = `Implement instatiate for this type of date. See the dateTimeSelectors KM ${where()}. ${e}`
             }
@@ -153,9 +155,9 @@ knowledgeModule( {
         'date', 'time', 'response',
         {
           value: {
-            date: 'defaults',
-            time: 'defaults',
-            evalue: 'defaults'
+            date: { variable: 'defaults' },
+            time: { variable: 'defaults' },
+            evalue: { variable: 'defaults' },
           },
         }
       ]),

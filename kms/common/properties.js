@@ -432,9 +432,9 @@ const config = {
     {
       where: where(),
       match: ({context}) => context.marker == 'concept' && context.same,
-      apply: (args) => {
+      apply: async (args) => {
         const {context} = args
-        args.makeObject({ ...args, context: context.same })
+        await args.makeObject({ ...args, context: context.same })
         context.sameWasProcessed = true
       }
     },
@@ -550,8 +550,8 @@ const config = {
         const propertyContext = context;
         const objectId = context.object.value
 
-        api.makeObject({ ...args, context: objectContext })
-        api.makeObject({ ...args, context: propertyContext })
+        await api.makeObject({ ...args, context: objectContext })
+        await api.makeObject({ ...args, context: propertyContext })
         // const propertyId = context.value
         /*
         const propertyId = context.marker

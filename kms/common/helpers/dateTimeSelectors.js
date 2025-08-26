@@ -3,16 +3,17 @@ const deepEqual = require('deep-equal')
 const { chooseNumber, zip } = require('../helpers.js')
 const { compose, translationMapping, translationMappingToInstantiatorMappings } = require('./meta.js')
 
+const dayMap = {
+  'sunday_dates': 0,
+  'monday_dates': 1,
+  'tuesday_dates': 2,
+  'wednesday_dates': 3,
+  'thursday_dates': 4,
+  'friday_dates': 5,
+  'saturday_dates': 6
+};
+
 function getNextDayOfWeek(date, targetDay) {
-  const dayMap = {
-    'sunday_dates': 0,
-    'monday_dates': 1,
-    'tuesday_dates': 2,
-    'wednesday_dates': 3,
-    'thursday_dates': 4,
-    'friday_dates': 5,
-    'saturday_dates': 6
-  };
 
   const targetDayNum = dayMap[targetDay.toLowerCase()]
   if (!targetDayNum) {
@@ -96,7 +97,8 @@ instantiate = (isA, now, context) => {
   let value
   if (value = getType(context, 'monthDay_dates')) {
     const day = value.day.value;
-    const month = toMonthNumber(value.month.value);
+    // const month = toMonthNumber(value.month.value);
+    const month = value.month.month_ordinal
     const currentMonth = now.getMonth() + 1; // 1-based (January = 1)
     const currentYear = now.getFullYear();
     const year = currentMonth >= month ? currentYear + 1 : currentYear;
@@ -104,7 +106,8 @@ instantiate = (isA, now, context) => {
     return date.toISOString()
   } else if (value = getType(context, 'monthDayYear_dates')) {
     const day = value.day.value;
-    const month = toMonthNumber(value.month.value);
+    // const month = toMonthNumber(value.month.value);
+    const month = value.month.month_ordinal
     const year = value.year.value;
     const date = new Date(year, month-1, day)
     return date.toISOString()
@@ -138,10 +141,7 @@ instantiate = (isA, now, context) => {
 function getNthDayOfMonth(dayName, ordinal, monthName, now) {
   // Validate inputs
   const days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
-  const months = [
-    'january', 'february', 'march', 'april', 'may', 'june',
-    'july', 'august', 'september', 'october', 'november', 'december'
-  ];
+  const months = [ 'january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december' ];
 
   let year = now.getFullYear()
 
@@ -173,11 +173,26 @@ function getNthDayOfMonth(dayName, ordinal, monthName, now) {
   return date.toISOString();
 }
 
-until = (time) => {
+function getNthWeekdayAfterDate(startDate, weekday_ordinal, n) {
+  // Ensure startDate is a Date object
+  const date = new Date(startDate);
+  let weekday_index = weekday_ordinal - 1
+  // Normalize weekday_index (0 = Sunday, 1 = Monday, ..., 6 = Saturday)
+  weekday_index = (weekday_index % 7 + 7) % 7;
+  // Get current day of the week
+  const currentDay = date.getDay();
+  // Calculate days until the next desired weekday_index
+  let daysUntilNext = (weekday_index - currentDay + 7) % 7;
+  if (daysUntilNext === 0) daysUntilNext = 7; // Move to next occurrence if already on the desired weekday_index
+  // Calculate total days to add: days until next weekday_index + 7 days for each additional occurrence
+  const daysToAdd = daysUntilNext + (n - 1) * 7;
+  // Add days to the start date
+  date.setDate(date.getDate() + daysToAdd);
+  return date.toISOString();
 }
 
 module.exports = {
   instantiate,
-  until,
   getNthDayOfMonth,
+  getNthWeekdayAfterDate,
 }

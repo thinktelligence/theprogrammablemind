@@ -224,8 +224,8 @@ knowledgeModule({
       context: defaultContextCheck([{
         event: {
           defaults: true,
-          one: 'defaults',
-          two: 'defaults',
+          one: { variable: 'defaults' },
+          two: { variable: 'defaults' },
         }
       }]),
     },

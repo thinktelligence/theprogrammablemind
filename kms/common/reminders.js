@@ -110,11 +110,11 @@ class API {
     }
   }
 
-  addRemindable(id, text) {
+  async addRemindable(id, text) {
     if (!text) {
       text = id
     }
-    this.args.makeObject({ ...this.args, context: { word: text, value: id, number: 'one', remindee_id: id }, initial: `remindee_id: "${id}"`, types: ['remindable'] })
+    await this.args.makeObject({ ...this.args, context: { word: text, value: id, number: 'one', remindee_id: id }, initial: { remindee_id: `${id}` }, types: ['remindable'] })
   }
 
   async instantiate(reminder) {
@@ -258,9 +258,9 @@ const template = {
           isA: ['verb'],
           development: true,
           bridge: "{ ...next(operator), flatten: true, arg: after[0], operator: operator, interpolate: '${operator} ${arg}' }",
-          semantic: ({api, context}) => {
+          semantic: async ({api, context}) => {
             const name = context.arg.map( (word) => word.text ).join(' ')
-            api.addRemindable(name)
+            await api.addRemindable(name)
           }
         },
         {

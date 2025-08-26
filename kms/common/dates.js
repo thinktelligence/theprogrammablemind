@@ -14,7 +14,35 @@ const helpers = require('./helpers')
 const template = {
   configs: [
     "setidsuffix _dates",
+    ({config}) => {
+      const months = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"]
+      config.addSemantic({
+        match: ({context}) => {
+          if (!context.makeObject) {
+            return
+          }
+          return months.includes(context.value)
+        },
+        apply: ({context}) => {
+          context.initial.month_ordinal = months.findIndex((month) => month == context.value) + 1
+        },
+      })
+    },
     "january, february, march, april, may, june, july, august, september, october, november and december are months",
+    ({config}) => {
+      const days = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"]
+      config.addSemantic({
+        match: ({context}) => {
+          if (!context.makeObject) {
+            return
+          }
+          return days.includes(context.value)
+        },
+        apply: ({context}) => {
+          context.initial.day_ordinal = days.findIndex((day) => day == context.value) + 1
+        },
+      })
+    },
     "monday, tuesday, wednesday, thursday, friday, saturday and sunday are days",
     "ac, bc, bce and ad are eras",
     // "ac, bc,, bce,, and ad are eras",
@@ -142,6 +170,12 @@ const template = {
           convolution: true,
           before: ['preposition', 'monthDay_dates'],
           isA: ['date_dates'],
+          evaluator: ({context}) => {
+            const year = context.year.value
+            const day = context.day.value
+            const month_ordinal = context.month.month_ordinal
+            context.evalue = new Date(year, month_ordinal-1, day).toISOString()
+          },
           localHierarchy: [
             ['ordinal', 'dayNumber_dates'],
           ],
@@ -169,20 +203,31 @@ const template = {
       }
     },
     (args) => {
-      const as = ['jan', 'feb', 'mar', 'apr', 'jun', 'jul', 'aug', 'sept', 'oct', 'nov', 'dec']
-      const ms = ['january', 'february', 'march', 'april', 'june', 'july', 'august', 'september', 'october', 'november', 'december']
-      // args.makeObject({...args, context: { word: as[i], value: `${ms[i]}_dates`}, types: [`${ms[i]}_dates`]})
-      for (let i = 0; i < as.length; ++i) {
-        const word = as[i]
-        const id = `${ms[i]}_dates`
-        args.addWords(id, word, { value: id, abbreviation: word })
+      {
+        const as = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sept', 'oct', 'nov', 'dec']
+        const ms = ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december']
+        // args.makeObject({...args, context: { word: as[i], value: `${ms[i]}_dates`}, types: [`${ms[i]}_dates`]})
+        for (let i = 0; i < as.length; ++i) {
+          const word = as[i]
+          if (word == 'may') {
+            continue
+          }
+          const id = `${ms[i]}_dates`
+          args.addWords(id, word, { value: id, abbreviation: word, month_ordinal: i+1 })
+        }
       }
 
-      /*
-      const word = 'bc'
-      const synonym = 'bce'
-      args.makeObject({...args, context: { word: synonym, value: `${synonym}_dates`}, types: [`${word}_dates`]})
-      */
+      {
+        const as = ['sun', 'mon', 'tues', 'weds', 'thurs', 'fri', 'sat']
+        const ms = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday']
+        // args.makeObject({...args, context: { word: as[i], value: `${ms[i]}_dates`}, types: [`${ms[i]}_dates`]})
+        for (let i = 0; i < as.length; ++i) {
+          const word = as[i]
+          const id = `${ms[i]}_dates`
+          args.addWords(id, word, { value: id, abbreviation: word, day_ordinal: i+1 })
+        }
+      }
+
     },
     "resetIdSuffix",
   ],
@@ -198,7 +243,21 @@ knowledgeModule( {
     name: './dates.test.json',
     contents: dates_tests,
     checks: {
-      context: defaultContextCheck(['day', 'month', 'year', 'era']),
+      context: defaultContextCheck([
+          'month', 'day', 'year', 'era', 'month_ordinal', 'day_ordinal',
+          {
+            month: [
+              'month_ordinal',
+            ],
+            day: [
+              'day_ordinal',
+            ],
+            date: [
+              'month_ordinal',
+              'day_ordinal',
+            ],
+          },
+        ]),
     },
   },
   template: {
