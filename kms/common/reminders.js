@@ -222,6 +222,7 @@ const template = {
         "([remind:justWhoBridge] (remindable/*))",
         "([remind] (remindable/*) (!@<= 'dateTimeSelector' && !@<= 'inAddition')*)",
         "([remind:withDateBridge] (remindable/*) (!@<= 'dateTimeSelector' && !@<= 'inAddition')* (dateTimeSelector))",
+        "([remind:withDateFirstBridge] (remindable/*) (dateTimeSelector) (!@<= 'dateTimeSelector' && !@<= 'inAddition')*)",
         "([remind:withDateAndTimeBridge] (remindable/*) (!@<= 'dateTimeSelector' && !@<= 'inAddition')* (dateTimeSelector) (atTime))",
         "([remindResponse] (!@<= 'remindResponse' && !@<= 'dateTimeSelector' && !@<= 'inAddition')+ (dateTimeSelector))",
         "([show] ([reminders]))",
@@ -290,6 +291,7 @@ const template = {
           bridge: "{ ...next(operator), operator: operator, who: after[0], reminder: after[1], interpolate: '${operator} ${who} ${reminder}' }",
           justWhoBridge: "{ ...next(operator), bridge: 'justWhoBridge', operator: operator, who: after[0], interpolate: '${operator} ${who}' }",
           withDateBridge: "{ ...next(operator), operator: operator, who: after[0], reminder: after[1], date: after[2], interpolate: '${operator} ${who} ${reminder} ${date}' }",
+          withDateFirstBridge: "{ ...next(operator), operator: operator, who: after[0], reminder: after[2], date: after[1], interpolate: '${operator} ${who} ${date} ${reminder}' }",
           withDateAndTimeBridge: "{ ...next(operator), operator: operator, who: after[0], reminder: after[1], date: after[2], time: after[3], interpolate: '${operator} ${who} ${reminder} ${date} ${time}' }",
           semantics: [
             {

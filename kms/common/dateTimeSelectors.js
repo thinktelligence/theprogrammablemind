@@ -26,6 +26,7 @@ const dateTimeSelectors_helpers = require('./helpers/dateTimeSelectors')
 function instantiate(kms, isA, isProcessOrTest, dateTimeSelector) {
   try {
     const now = kms.time.api.now()
+    debugger
     return dateTimeSelectors_helpers.instantiate(isA, now, dateTimeSelector)
   } catch ( e ) {
     return `Implement instatiate for this type of date. See the dateTimeSelectors KM ${where()}`
@@ -154,6 +155,11 @@ knowledgeModule( {
       context: defaultContextCheck([
         'date', 'time', 'response',
         {
+          after: {
+            day: [{ variable: 'defaults' }],
+            month: [{ variable: 'defaults' }, 'month_ordinal'],
+            year: { variable: 'defaults' },
+          },
           value: {
             date: { variable: 'defaults' },
             time: { variable: 'defaults' },
