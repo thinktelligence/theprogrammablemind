@@ -151,14 +151,13 @@ const toEValue = (context) => {
 	return context;
 }
 
-// TODO modifiers postModifiers as defaults
 const defaultContextCheck = (extra = []) => {
   return {
     version: 2,
     context: [
       {
         match: ({context}) => !Array.isArray(context),
-        apply: () => ['marker', 'text', 'verbatim', 'value', 'evalue', 'isResponse', ...extra],
+        apply: () => ['marker', 'text', 'verbatim', 'value', 'evalue', 'isResponse', { properties: 'modifiers' }, { properties: 'postModifiers' }, ...extra],
       },
     ],
   }
