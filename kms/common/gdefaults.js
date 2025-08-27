@@ -1,5 +1,5 @@
 const pluralize = require('pluralize')
-const { defaultContextCheck } = require('./helpers')
+const { defaultContextCheck2 } = require('./helpers')
 const { knowledgeModule, where } = require('./runtime').theprogrammablemind
 const tokenize = require('./tokenize.js')
 const gdefaults_tests = require('./gdefaults.test.json')
@@ -264,9 +264,6 @@ knowledgeModule({
   test: {
     name: './gdefaults.test.json',
     contents: gdefaults_tests,
-    checks: {
-            context: defaultContextCheck(),
-          },
-
+    checks: defaultContextCheck2(),
   },
 })

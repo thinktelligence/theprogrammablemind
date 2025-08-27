@@ -1,7 +1,7 @@
 const { knowledgeModule, where } = require('./runtime').theprogrammablemind
 const gdefaults = require('./gdefaults.js')
 const conjunction_tests = require('./conjunction.test.json')
-const { defaultContextCheck, propertyToArray } = require('./helpers')
+const { defaultContextCheck2, propertyToArray } = require('./helpers')
 const { isA, asList, listable } = require('./helpers/conjunction.js')
 
 const config = {
@@ -111,7 +111,7 @@ knowledgeModule( {
     contents: conjunction_tests,
     checks: {
             objects: ['idSuffix'],
-            context: defaultContextCheck(),
+            ...defaultContextCheck2(),
           },
 
   },

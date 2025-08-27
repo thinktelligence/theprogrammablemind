@@ -1,4 +1,4 @@
-const { defaultContextCheck } = require('./helpers')
+const { defaultContextCheck2 } = require('./helpers')
 const { knowledgeModule, where } = require('./runtime').theprogrammablemind
 const hierarchy = require('./hierarchy')
 const animals_tests = require('./animals.test.json')
@@ -35,10 +35,7 @@ knowledgeModule( {
     test: {
             name: './animals.test.json',
             contents: animals_tests,
-            checks: {
-              context: defaultContextCheck(),
-            },
-
+            checks: { ...defaultContextCheck2() },
           },
     template: {
       template,

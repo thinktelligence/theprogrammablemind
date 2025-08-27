@@ -1,5 +1,5 @@
 const { knowledgeModule, where, Digraph } = require('./runtime').theprogrammablemind
-const { defaultContextCheck } = require('./helpers')
+const { defaultContextCheck2 } = require('./helpers')
 const dimension = require('./dimension.js')
 const temperature_tests = require('./temperature.test.json')
 const temperature_instance = require('./temperature.instance.json')
@@ -23,9 +23,7 @@ knowledgeModule({
   test: {
     name: './temperature.test.json',
     contents: temperature_tests,
-    checks: {
-            context: defaultContextCheck(),
-          },
+    checks: defaultContextCheck2(),
   },
   template: {
     template,

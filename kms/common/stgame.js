@@ -1,5 +1,5 @@
 const { knowledgeModule, where, process : clientProcess } = require('./runtime').theprogrammablemind
-const { defaultContextCheck } = require('./helpers')
+const { defaultContextCheck2 } = require('./helpers')
 const createCharacters = require('./characters')
 const stgame_tests = require('./stgame.test.json')
 const createKirk = require('./kirk')
@@ -87,8 +87,6 @@ knowledgeModule( {
   test: {
           name: './stgame.test.json',
           contents: stgame_tests,
-          checks: {
-            context: defaultContextCheck(),
-          },
+          checks: defaultContextCheck2(),
         },
 })

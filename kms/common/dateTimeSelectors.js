@@ -1,5 +1,5 @@
 const { knowledgeModule, where } = require('./runtime').theprogrammablemind
-const { defaultContextCheck } = require('./helpers')
+const { defaultContextCheck2 } = require('./helpers')
 const dateTimeSelectors_tests = require('./dateTimeSelectors.test.json')
 const dateTimeSelectors_instance = require('./dateTimeSelectors.instance.json')
 const dates = require('./dates')
@@ -150,23 +150,7 @@ knowledgeModule( {
   test: {
     name: './dateTimeSelectors.test.json',
     contents: dateTimeSelectors_tests,
-    checks: {
-      context: defaultContextCheck([
-        'date', 'time', 'response',
-        {
-          after: {
-            day: [{ variable: 'defaults' }],
-            month: [{ variable: 'defaults' }, 'month_ordinal'],
-            year: { variable: 'defaults' },
-          },
-          value: {
-            date: { variable: 'defaults' },
-            time: { variable: 'defaults' },
-            evalue: { variable: 'defaults' },
-          },
-        }
-      ]),
-    },
+    checks: defaultContextCheck2(['date', 'time', 'response', 'after', 'day', 'month', 'year', 'evalue']),
   },
   template: {
     template,

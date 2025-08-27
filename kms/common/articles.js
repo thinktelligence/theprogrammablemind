@@ -1,7 +1,7 @@
 const { knowledgeModule, where, stableId } = require('./runtime').theprogrammablemind
 const gdefaults = require('./gdefaults.js')
 const pos = require('./pos.js')
-const { defaultContextCheck } = require('./helpers')
+const { defaultContextCheck2 } = require('./helpers')
 const tests = require('./articles.test.json')
 
 const config = {
@@ -122,7 +122,7 @@ knowledgeModule( {
     contents: tests,
     checks: {
             objects: ['onNevermindWasCalled', 'nevermindType', 'idSuffix'],
-            context: defaultContextCheck(['distributer']),
+            ...defaultContextCheck2(['distributer'])
           },
 
   },

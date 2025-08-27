@@ -1,5 +1,5 @@
 const { knowledgeModule, where } = require('./runtime').theprogrammablemind
-const { defaultContextCheck } = require('./helpers')
+const { defaultContextCheck2 } = require('./helpers')
 const tell = require('./tell')
 const countable = require('./countable')
 const numbers = require('./numbers')
@@ -220,14 +220,6 @@ knowledgeModule({
   test: {
     name: './time.test.json',
     contents: time_tests,
-    checks: {
-      context: defaultContextCheck([{
-        event: {
-          defaults: true,
-          one: { variable: 'defaults' },
-          two: { variable: 'defaults' },
-        }
-      }]),
-    },
+    checks: defaultContextCheck2(['one', 'two', 'events', 'time', 'ampm']),
   },
 })

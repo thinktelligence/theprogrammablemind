@@ -1,5 +1,5 @@
 const { knowledgeModule, ensureTestFile, where, unflatten, flattens } = require('./runtime').theprogrammablemind
-const { defaultContextCheck } = require('./helpers')
+const { defaultContextCheck2 } = require('./helpers')
 const _ = require('lodash')
 const gdefaults = require('./gdefaults.js')
 ensureTestFile(module, 'meta', 'test')
@@ -392,10 +392,7 @@ knowledgeModule({
     include: {
       words: true,
     },
-    checks: {
-            context: defaultContextCheck(),
-          },
-
+    checks: defaultContextCheck2(),
   },
   template: {
     template,

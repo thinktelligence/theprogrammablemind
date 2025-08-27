@@ -1,5 +1,5 @@
 const { knowledgeModule, where } = require('./runtime').theprogrammablemind
-const { defaultContextCheck } = require('./helpers')
+const { defaultContextCheck2 } = require('./helpers')
 const dialogues = require('./dialogues')
 const hierarchy = require('./hierarchy')
 const emotions = require('./emotions')
@@ -69,8 +69,6 @@ knowledgeModule( {
   test: {
     name: './avatar.test.json',
     contents: avatar_tests,
-    checks: {
-            context: defaultContextCheck(),
-          },
+    checks: defaultContextCheck2(),
   }
 })

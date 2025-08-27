@@ -1,5 +1,5 @@
 const { flatten, knowledgeModule, where, debug } = require('./runtime').theprogrammablemind
-const { defaultContextCheck } = require('./helpers')
+const { defaultContextCheck2 } = require('./helpers')
 const sdefaults_tests = require('./sdefaults.test.json')
 
 class API {
@@ -65,8 +65,6 @@ knowledgeModule({
   test: {
     name: './sdefaults.test.json',
     contents: sdefaults_tests,
-    checks: {
-      context: defaultContextCheck(),
-    },
+    checks: defaultContextCheck2(),
   },
 })

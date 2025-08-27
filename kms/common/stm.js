@@ -1,5 +1,5 @@
 const { knowledgeModule, where } = require('./runtime').theprogrammablemind
-const { defaultContextCheck } = require('./helpers')
+const { defaultContextCheck2 } = require('./helpers')
 const helpers = require('./helpers')
 const articles = require('./articles')
 const evaluate = require('./evaluate')
@@ -270,7 +270,7 @@ knowledgeModule( {
     name: './stm.test.json',
     contents: stm_tests,
     checks: {
-            context: [...defaultContextCheck(), 'pullFromContext', 'stm_id'],
+             ...defaultContextCheck2(['pullFromContext', 'stm_id']),
             objects: [{ property: 'mentioned', filter: helpers.defaultContextCheckProperties }],
           },
   },

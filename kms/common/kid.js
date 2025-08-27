@@ -1,5 +1,5 @@
 const { knowledgeModule, ensureTestFile, where } = require('./runtime').theprogrammablemind
-const { defaultContextCheck } = require('./helpers')
+const { defaultContextCheck2 } = require('./helpers')
 const avatar = require('./avatar')
 const animals = require('./animals')
 const ordering = require('./ordering')
@@ -43,10 +43,7 @@ knowledgeModule({
   test: {
           name: './kid.test.json',
           contents: kid_tests,
-          checks: {
-            context: defaultContextCheck(),
-          },
-
+          checks: defaultContextCheck2(),
         },
   template: {
     template,

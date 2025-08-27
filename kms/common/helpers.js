@@ -198,6 +198,19 @@ const expand_checks = (properties, variables = {}) => {
 
 }
 
+// TODO modifiers postModifiers as defaults
+const defaultContextCheck2 = (extra = []) => {
+  return {
+    version: 2,
+    context: [
+      {
+        match: ({context}) => !Array.isArray(context),
+        apply: () => ['marker', 'text', 'verbatim', 'value', 'evalue', 'isResponse', ...extra],
+      },
+    ],
+  }
+}
+
 const defaultContextCheck = (properties = [], variables={}, minimal=false) => {
   defaultContextCheckValidify(properties)
   variables.defaults = defaultContextCheckProperties
@@ -319,6 +332,7 @@ module.exports = {
   pushL,
   getValue,
   defaultContextCheck,
+  defaultContextCheck2,
   defaultContextCheckProperties,
 	toEValue,
   millisecondsUntilHourOfDay,
