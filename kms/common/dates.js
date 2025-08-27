@@ -1,5 +1,5 @@
 const { knowledgeModule, where } = require('./runtime').theprogrammablemind
-const { defaultContextCheck2 } = require('./helpers')
+const { defaultContextCheck } = require('./helpers')
 const dates_tests = require('./dates.test.json')
 const dates_instance = require('./dates.instance.json')
 const hierarchy = require('./hierarchy')
@@ -242,7 +242,7 @@ knowledgeModule( {
   test: {
     name: './dates.test.json',
     contents: dates_tests,
-    checks: defaultContextCheck2(['month', 'day', 'year', 'era', 'month_ordinal', 'day_ordinal', 'month', 'date']),
+    checks: defaultContextCheck(['month', 'day', 'year', 'era', 'month_ordinal', 'day_ordinal', 'month', 'date']),
   },
   template: {
     template,

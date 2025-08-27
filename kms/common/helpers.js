@@ -151,55 +151,8 @@ const toEValue = (context) => {
 	return context;
 }
 
-const defaultContextCheckValidify = (properties) => {
-  return // new way
-  for (const value of properties) {
-    if (typeof value == 'string') {
-      continue
-    }
-    if (typeof value.property == 'string' && value.filter) {
-      continue
-    }
-    throw new Error("Expected the <checks> argument to defaultContextCheck to be a list of <property> or { property: <property>, filter: <checks> }. Where <property> is a string.")
-  }
-}
-
-const defaultContextCheckProperties = ['marker', 'text', 'verbatim', 'isResponse', 'types', { property: 'response', filter: ['marker', 'text', 'verbatim'] }] 
-
-const expand_checks = (properties, variables = {}) => {
-  let expanded = []
-  if (properties == 'defaults') {
-    return defaultContextCheckProperties
-  }
-  if (properties.variable) {
-    return variables[properties.variable]
-  }
-  if (Array.isArray(properties)) {
-    for (const property of properties) {
-      defaultContextCheckValidify(properties)
-      if (typeof property == 'string') {
-        expanded.push({ property, filter: defaultContextCheckProperties })
-      } else if (property.property && property.filter) {
-        expanded.push({ property: property.property, filter: [defaultContextCheckProperties, ...expand_checks(property.filter, variables)] })
-      } else {
-        expanded = [...expanded, ...expand_checks(property, variables)]
-      }
-    }
-    return expanded
-  }
-  for (const key of Object.keys(properties)) {
-    if (key === '_') {
-      expanded = [...expanded, ...defaultContextCheckProperties]
-    } else {
-      expanded.push({ property: key, filter: [...expand_checks(properties[key], variables)] })
-    }
-  }
-  return expanded
-
-}
-
 // TODO modifiers postModifiers as defaults
-const defaultContextCheck2 = (extra = []) => {
+const defaultContextCheck = (extra = []) => {
   return {
     version: 2,
     context: [
@@ -208,38 +161,6 @@ const defaultContextCheck2 = (extra = []) => {
         apply: () => ['marker', 'text', 'verbatim', 'value', 'evalue', 'isResponse', ...extra],
       },
     ],
-  }
-}
-
-const defaultContextCheck = (properties = [], variables={}, minimal=false) => {
-  defaultContextCheckValidify(properties)
-  variables.defaults = defaultContextCheckProperties
-  if (minimal) {
-    return expand_checks(properties, variables)
-  } else {
-    return [
-      ...defaultContextCheckProperties,
-      // ...properties.map((property) => { return { property, filter: defaultContextCheckProperties } }),
-      ...expand_checks(properties, variables),
-      (object) => {
-        if (typeof object.value == 'object') {
-          return { property: 'value', filter: defaultContextCheckProperties }
-        } else {
-          return 'value'
-        }
-      },
-      (object) => {
-        if (!Array.isArray(object.modifiers)) {
-          return
-        }
-        if (typeof object.modifiers[0] == 'object') {
-          return { property: 'modifiers', filter: defaultContextCheckProperties }
-        } else {
-          return 'modifiers'
-        }
-      },
-      { property: 'modifiers', isPropertyList: true, filter: defaultContextCheckProperties }
-    ]
   }
 }
 
@@ -332,8 +253,6 @@ module.exports = {
   pushL,
   getValue,
   defaultContextCheck,
-  defaultContextCheck2,
-  defaultContextCheckProperties,
 	toEValue,
   millisecondsUntilHourOfDay,
   indent,

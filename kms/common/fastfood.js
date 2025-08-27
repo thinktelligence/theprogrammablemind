@@ -1,5 +1,5 @@
 const { knowledgeModule, ensureTestFile, where } = require('./runtime').theprogrammablemind
-const { defaultContextCheck2, propertyToArray } = require('./helpers')
+const { defaultContextCheck, propertyToArray } = require('./helpers')
 const edible = require('./edible')
 const events = require('./events')
 const sizeable = require('./sizeable')
@@ -995,7 +995,7 @@ knowledgeModule( {
                 { property: 'quantity', filter: ['marker', 'value', 'text' ] },
                 { property: 'pieces', filter: ['marker', 'value', 'text' ] },
               ],
-              ...defaultContextCheck2(['comboNumber']),
+              ...defaultContextCheck(['comboNumber']),
             },
           },
     template: {

@@ -1,5 +1,5 @@
 const { knowledgeModule, where } = require('./runtime').theprogrammablemind
-const { defaultContextCheck2 } = require('./helpers')
+const { defaultContextCheck } = require('./helpers')
 const properties = require('./properties')
 const hierarchy_tests = require('./hierarchy.test.json')
 const pluralize = require('pluralize')
@@ -305,7 +305,7 @@ knowledgeModule( {
     // TODO doesnt this need the KM
     checks: {
       objects: ['children', 'concept', 'parents', 'properties'],
-      ...defaultContextCheck2(),
+      ...defaultContextCheck(),
     },
     includes: {
       words: true,

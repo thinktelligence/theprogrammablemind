@@ -1,5 +1,5 @@
 const { knowledgeModule, where } = require('./runtime').theprogrammablemind
-const { defaultContextCheck2 } = require('./helpers')
+const { defaultContextCheck } = require('./helpers')
 const reminders_tests = require('./reminders.test.json')
 const reminders_instance = require('./reminders.instance.json')
 const selfKM = require('./self')
@@ -367,7 +367,7 @@ knowledgeModule( {
     name: './reminders.test.json',
     contents: reminders_tests,
     checks: {
-      ...defaultContextCheck2(['who', 'reminder']),
+      ...defaultContextCheck(['who', 'reminder']),
       objects: [
         { 
           property: 'reminders',

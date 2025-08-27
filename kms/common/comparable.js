@@ -1,5 +1,5 @@
 const { knowledgeModule, where, Digraph } = require('./runtime').theprogrammablemind
-const { defaultContextCheck2 } = require('./helpers')
+const { defaultContextCheck } = require('./helpers')
 const dialogues = require("./dialogues")
 const concept = require("./concept")
 const numbers = require("./numbers")
@@ -80,6 +80,6 @@ knowledgeModule({
   test: {
     name: './comparable.test.json',
     contents: comparable_tests,
-    checks: defaultContextCheck2(['ordering']),
+    checks: defaultContextCheck(['ordering']),
   },
 })

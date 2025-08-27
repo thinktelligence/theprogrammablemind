@@ -1,5 +1,5 @@
 const { knowledgeModule, where, Digraph } = require('./runtime').theprogrammablemind
-const { defaultContextCheck2 } = require('./helpers')
+const { defaultContextCheck } = require('./helpers')
 const dialogues = require('./dialogues')
 const ordinals = require('./ordinals')
 const math = require('./math')
@@ -190,7 +190,7 @@ knowledgeModule({
     contents: ui_tests,
     checks: {
       objects: ['move', 'select', 'unselect', 'cancel', 'stop'],
-      ...defaultContextCheck2(['operator', 'direction', 'moveable']),
+      ...defaultContextCheck(['operator', 'direction', 'moveable']),
     },
   },
   template: {

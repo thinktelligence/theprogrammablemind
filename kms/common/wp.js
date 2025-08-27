@@ -1,5 +1,5 @@
 const { knowledgeModule, where, Digraph } = require('./runtime').theprogrammablemind
-const { defaultContextCheck2 } = require('./helpers')
+const { defaultContextCheck } = require('./helpers')
 const helpers = require("./helpers")
 const ui = require("./ui")
 const countable = require("./countable")
@@ -423,7 +423,7 @@ knowledgeModule({
     name: './wp.test.json',
     contents: wp_tests,
     checks: {
-      ...defaultContextCheck2(['distributer', 'subject', 'element', 'letters', 'target', 'conditions' ]), 
+      ...defaultContextCheck(['distributer', 'subject', 'element', 'letters', 'target', 'conditions' ]), 
       objects: [
         'changeState', 
         { km: 'ui' },

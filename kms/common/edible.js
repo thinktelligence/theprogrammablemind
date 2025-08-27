@@ -1,5 +1,5 @@
 const { knowledgeModule, ensureTestFile, where } = require('./runtime').theprogrammablemind
-const { defaultContextCheck2 } = require('./helpers')
+const { defaultContextCheck } = require('./helpers')
 const hierarchy = require('./hierarchy')
 const countable = require('./countable')
 ensureTestFile(module, 'edible', 'test')
@@ -82,7 +82,7 @@ knowledgeModule( {
       test: {
               name: './edible.test.json',
               contents: edible_tests,
-              checks: defaultContextCheck2(),
+              checks: defaultContextCheck(),
             },
       template: {
         template,

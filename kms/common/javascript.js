@@ -1,5 +1,5 @@
 const { knowledgeModule, where } = require('./runtime').theprogrammablemind
-const { defaultContextCheck2 } = require('./helpers')
+const { defaultContextCheck } = require('./helpers')
 const dialogues = require('./dialogues')
 const javascript_tests = require('./javascript.test.json')
 
@@ -72,6 +72,6 @@ knowledgeModule( {
   test: {
     name: './javascript.test.json',
     contents: javascript_tests,
-    checks: defaultContextCheck2(),
+    checks: defaultContextCheck(),
   },
 })

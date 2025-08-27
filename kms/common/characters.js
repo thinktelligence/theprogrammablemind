@@ -1,5 +1,5 @@
 const { knowledgeModule, where, process:clientProcess } = require('./runtime').theprogrammablemind
-const { defaultContextCheck2 } = require('./helpers')
+const { defaultContextCheck } = require('./helpers')
 const gdefaults = require('./gdefaults.js')
 const createCurrencyKM = require('./currency.js')
 const createTimeKM = require('./time.js')
@@ -200,6 +200,6 @@ knowledgeModule({
   test: {
     name: './characters.test.json',
     contents: characters_tests,
-    checks: defaultContextCheck2(),
+    checks: defaultContextCheck(),
   },
 })

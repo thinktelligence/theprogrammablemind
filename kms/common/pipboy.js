@@ -1,5 +1,5 @@
 const { knowledgeModule, where, Digraph } = require('./runtime').theprogrammablemind
-const { defaultContextCheck2 } = require('./helpers')
+const { defaultContextCheck } = require('./helpers')
 const hierarchy = require('./hierarchy')
 const countable = require('./countable')
 const math = require('./math')
@@ -506,7 +506,7 @@ knowledgeModule({
         'apply', 'change', 'display', 'disarm', 'drink', 'eat', 'equip', 'setName', 'strip', 'take', 'wear',
         'apply', 'change', 'display', 'disarm', 'drink', 'eat', 'equip', 'setName', 'strip', 'take', 'wear', 'showWeapons',
       ],
-      ...defaultContextCheck2(),
+      ...defaultContextCheck(),
     },
   },
 })

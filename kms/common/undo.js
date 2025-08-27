@@ -1,5 +1,5 @@
 const { knowledgeModule, where, Digraph } = require('./runtime').theprogrammablemind
-const { defaultContextCheck2, words } = require('./helpers')
+const { defaultContextCheck, words } = require('./helpers')
 const stm = require('./stm')
 const undo_tests = require('./undo.test.json')
 const instance = require('./undo.instance.json')
@@ -58,7 +58,7 @@ knowledgeModule({
         'undone',
         { km: 'stm' },
       ],
-      context: defaultContextCheck2(),
+      context: defaultContextCheck(),
     },
   },
 })

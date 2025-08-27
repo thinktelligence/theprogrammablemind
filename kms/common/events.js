@@ -1,5 +1,5 @@
 const { knowledgeModule, ensureTestFile, where } = require('./runtime').theprogrammablemind
-const { defaultContextCheck2 } = require('./helpers')
+const { defaultContextCheck } = require('./helpers')
 const dialogues = require('./dialogues')
 const _ = require('lodash')
 ensureTestFile(module, 'events', 'test')
@@ -130,6 +130,6 @@ knowledgeModule({
     include: {
       words: true,
     },
-    checks: defaultContextCheck2(['event', 'action']),
+    checks: defaultContextCheck(['event', 'action']),
   },
 })

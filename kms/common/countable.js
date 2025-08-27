@@ -1,5 +1,5 @@
 const { knowledgeModule, where, Digraph } = require('./runtime').theprogrammablemind
-const { defaultContextCheck2 } = require('./helpers')
+const { defaultContextCheck } = require('./helpers')
 const dialogues = require("./hierarchy")
 const numbers = require("./numbers")
 const countable_tests = require('./countable.test.json')
@@ -94,6 +94,6 @@ knowledgeModule({
   test: {
     name: './countable.test.json',
     contents: countable_tests,
-    checks: defaultContextCheck2(['count', 'quantity']), 
+    checks: defaultContextCheck(['count', 'quantity']), 
   },
 })
