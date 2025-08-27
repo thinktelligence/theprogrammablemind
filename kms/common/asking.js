@@ -4,7 +4,7 @@ const gdefaults = require('./gdefaults.js')
 const sdefaults = require('./sdefaults.js')
 const conjunction = require('./conjunction.js')
 const asking_tests = require('./asking.test.json')
-const { defaultContextCheck, indent, focus, requiredArgument } = require('./helpers')
+const { defaultObjectCheck, defaultContextCheck, indent, focus, requiredArgument } = require('./helpers')
 const pluralize = require('pluralize')
 
 // TODO implement what / what did you say ...
@@ -260,7 +260,7 @@ knowledgeModule( {
     name: './asking.test.json',
     contents: asking_tests,
     checks: {
-      objects: ['onNevermindWasCalled', 'nevermindType', 'choice'],
+      ...defaultObjectCheck(['onNevermindWasCalled', 'nevermindType', 'choice']),
       ...defaultContextCheck(),
     },
   },

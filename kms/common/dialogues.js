@@ -13,7 +13,7 @@ const _ = require('lodash')
 const { API } = require('./helpers/dialogues')
 const { isMany, propertyToArray, words } = require('./helpers')
 const dialogues_tests = require('./dialogues.test.json')
-const { defaultContextCheck, indent, focus } = require('./helpers')
+const { defaultObjectCheck, defaultContextCheck, indent, focus } = require('./helpers')
 const pluralize = require('pluralize')
 
 const api = new API()
@@ -828,7 +828,7 @@ knowledgeModule( {
     name: './dialogues.test.json',
     contents: dialogues_tests,
     checks: {
-            objects: ['idSuffix'],
+            ...defaultObjectCheck(['idSuffix']),
             ...defaultContextCheck(['one', 'two']),
           },
 

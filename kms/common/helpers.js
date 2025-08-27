@@ -151,9 +151,19 @@ const toEValue = (context) => {
 	return context;
 }
 
+const defaultObjectCheck = (extra = []) => {
+  return {
+    objects: [
+      {
+        match: ({objects}) => true,
+        apply: () => extra
+      },
+    ],
+  }
+}
+
 const defaultContextCheck = (extra = []) => {
   return {
-    version: 2,
     context: [
       {
         match: ({context}) => !Array.isArray(context),
@@ -252,6 +262,7 @@ module.exports = {
   pushL,
   getValue,
   defaultContextCheck,
+  defaultObjectCheck,
 	toEValue,
   millisecondsUntilHourOfDay,
   indent,

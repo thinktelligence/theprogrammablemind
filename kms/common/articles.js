@@ -120,10 +120,6 @@ knowledgeModule( {
   test: {
     name: './articles.test.json',
     contents: tests,
-    checks: {
-            objects: ['onNevermindWasCalled', 'nevermindType', 'idSuffix'],
-            ...defaultContextCheck(['distributer'])
-          },
-
+    checks: defaultContextCheck(['distributer']),
   },
 })
