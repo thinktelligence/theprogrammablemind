@@ -65,6 +65,8 @@ knowledgeModule({
   test: {
     name: './sdefaults.test.json',
     contents: sdefaults_tests,
-    checks: defaultContextCheck(),
+    checks: {
+      context: [defaultContextCheck()],
+    },
   },
 })

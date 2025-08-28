@@ -69,6 +69,8 @@ knowledgeModule( {
   test: {
     name: './avatar.test.json',
     contents: avatar_tests,
-    checks: defaultContextCheck(),
+    checks: {
+      context: [defaultContextCheck()],
+    }
   }
 })

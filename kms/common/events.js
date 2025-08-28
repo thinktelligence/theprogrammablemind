@@ -130,6 +130,8 @@ knowledgeModule({
     include: {
       words: true,
     },
-    checks: defaultContextCheck(['event', 'action']),
+    checks: {
+      context: [defaultContextCheck(['event', 'action'])],
+    },
   },
 })

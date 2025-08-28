@@ -506,7 +506,7 @@ knowledgeModule({
         'apply', 'change', 'display', 'disarm', 'drink', 'eat', 'equip', 'setName', 'strip', 'take', 'wear',
         'apply', 'change', 'display', 'disarm', 'drink', 'eat', 'equip', 'setName', 'strip', 'take', 'wear', 'showWeapons',
       ],
-      ...defaultContextCheck(),
+      context: [defaultContextCheck()],
     },
   },
 })

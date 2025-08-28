@@ -134,7 +134,9 @@ knowledgeModule( {
     name: './nameable.test.json',
     contents: nameable_tests,
     checks: {
-            ...defaultContextCheck(['pullFromContext']),
+            context: [
+              defaultContextCheck(['pullFromContext']),
+            ],
             objects: ['mentioned', { km: 'stm' }],
           },
     include: {

@@ -1,5 +1,4 @@
 const { knowledgeModule, where } = require('./runtime').theprogrammablemind
-const { defaultContextCheck } = require('./helpers')
 const tester_tests = require('./tester.test.json')
 const ArgumentParser = require('argparse').ArgumentParser
 

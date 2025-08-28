@@ -31,7 +31,9 @@ knowledgeModule( {
   test: {
     name: './yesno.test.json',
     contents: yesno_tests,
-    checks: defaultContextCheck(),
+    checks: {
+      context: [defaultContextCheck()],
+    }
   },
 })
 

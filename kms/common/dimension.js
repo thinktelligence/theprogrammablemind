@@ -197,7 +197,9 @@ knowledgeModule({
     contents: tests,
     checks: {
       objects: [{ km: 'properties' }],
-      ...defaultContextCheck(),
+      context: [
+        defaultContextCheck(),
+      ],
     },
   },
 })

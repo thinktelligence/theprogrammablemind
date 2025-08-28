@@ -82,7 +82,9 @@ knowledgeModule( {
   test: {
           name: './crew.test.json',
           contents: crew_tests,
-          checks: defaultContextCheck(),
+          checks: {
+            context: [defaultContextCheck()],
+          }
         },
   template: {
     template,

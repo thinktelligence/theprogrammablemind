@@ -148,6 +148,8 @@ knowledgeModule({
   test: {
     name: './concept.test.json',
     contents: concept_tests,
-    checks: defaultContextCheck(),
+    checks: {
+      context: [defaultContextCheck()],
+    }
   }
 })

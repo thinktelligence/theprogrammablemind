@@ -270,7 +270,7 @@ knowledgeModule( {
     name: './stm.test.json',
     contents: stm_tests,
     checks: {
-             ...defaultContextCheck(['pullFromContext', 'stm_id']),
+             context: [defaultContextCheck(['pullFromContext', 'stm_id'])],
             objects: [{ property: 'mentioned', filter: helpers.defaultContextCheckProperties }],
           },
   },

@@ -374,7 +374,9 @@ knowledgeModule( {
   test: {
     name: './scorekeeper.test.json',
     contents: scorekeeper_tests,
-    checks: defaultContextCheck(),
+    checks: {
+      context: [defaultContextCheck()],
+    },
   },
   template: {
     template,

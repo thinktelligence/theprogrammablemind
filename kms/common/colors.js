@@ -55,7 +55,9 @@ knowledgeModule( {
   test: {
     name: './colors.test.json',
     contents: colors_tests,
-    checks: defaultContextCheck(),
+    checks: {
+      context: [defaultContextCheck()],
+    }
   },
   template: {
     template,

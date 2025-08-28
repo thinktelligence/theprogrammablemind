@@ -120,7 +120,9 @@ knowledgeModule( {
             name: './ordering.test.json',
             heck: ['children', 'concept', 'parents', 'properties'],
             contents: ordering_tests,
-            checks: defaultContextCheck(),
+            checks: {
+              context: [defaultContextCheck()],
+            }
           },
     template: {
       template, 

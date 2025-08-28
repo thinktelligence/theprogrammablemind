@@ -80,6 +80,8 @@ knowledgeModule({
   test: {
     name: './comparable.test.json',
     contents: comparable_tests,
-    checks: defaultContextCheck(['ordering']),
+    checks: {
+      context: [defaultContextCheck(['ordering'])],
+    }
   },
 })

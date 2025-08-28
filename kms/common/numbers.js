@@ -111,6 +111,8 @@ knowledgeModule( {
   test: {
     name: './numbers.test.json',
     contents: numbers_tests,
-    checks: defaultContextCheck(['instance'])
+    checks: {
+      context: [defaultContextCheck(['instance'])],
+    }
   },
 })

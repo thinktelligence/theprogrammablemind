@@ -264,6 +264,8 @@ knowledgeModule({
   test: {
     name: './gdefaults.test.json',
     contents: gdefaults_tests,
-    checks: defaultContextCheck(),
+    checks: {
+      context: [defaultContextCheck()],
+    },
   },
 })

@@ -120,6 +120,8 @@ knowledgeModule({
   test: {
     name: './currency.test.json',
     contents: currency_tests,
-    checks: defaultContextCheck(),
+    checks: {
+      context: [defaultContextCheck()],
+    },
   },
 })

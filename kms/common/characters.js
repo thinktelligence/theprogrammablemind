@@ -200,6 +200,8 @@ knowledgeModule({
   test: {
     name: './characters.test.json',
     contents: characters_tests,
-    checks: defaultContextCheck(),
+    checks: {
+      context: [defaultContextCheck()],
+    },
   },
 })

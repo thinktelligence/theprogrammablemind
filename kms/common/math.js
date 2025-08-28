@@ -123,6 +123,8 @@ knowledgeModule( {
   test: {
     name: './math.test.json',
     contents: tests,
-    checks: defaultContextCheck(),
+    checks: {
+      context: [defaultContextCheck()],
+    }
   },
 })

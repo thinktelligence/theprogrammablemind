@@ -58,7 +58,9 @@ knowledgeModule({
         'undone',
         { km: 'stm' },
       ],
-      context: defaultContextCheck(),
+      context: [
+        defaultContextCheck(),
+      ]
     },
   },
 })

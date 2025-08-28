@@ -261,7 +261,9 @@ knowledgeModule( {
     contents: asking_tests,
     checks: {
       ...defaultObjectCheck(['onNevermindWasCalled', 'nevermindType', 'choice']),
-      ...defaultContextCheck(),
+      context: [
+        defaultContextCheck(),
+      ],
     },
   },
 })

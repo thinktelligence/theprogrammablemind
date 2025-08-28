@@ -829,7 +829,9 @@ knowledgeModule( {
     contents: dialogues_tests,
     checks: {
             ...defaultObjectCheck(['idSuffix']),
-            ...defaultContextCheck(['one', 'two']),
+            context: [
+              defaultContextCheck(['one', 'two']),
+            ]
           },
 
   },

@@ -102,6 +102,8 @@ knowledgeModule({
   test: {
     name: './help.test.json',
     contents: help_tests,
-    checks: defaultContextCheck(),
+    checks: {
+      context: [defaultContextCheck()],
+    }
   },
 })

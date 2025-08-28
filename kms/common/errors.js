@@ -44,7 +44,9 @@ knowledgeModule({
   test: {
     name: './errors.test.json',
     contents: tests,
-    checks: defaultContextCheck(), 
+    checks: {
+      context: [defaultContextCheck()], 
+    }
     /*
     checks: {
             context: [

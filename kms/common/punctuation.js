@@ -70,7 +70,9 @@ knowledgeModule( {
   test: {
     name: './punctuation.test.json',
     contents: punctuation_tests,
-    checks: defaultContextCheck(),
+    checks: {
+      context: [defaultContextCheck()],
+    },
   },
 })
 

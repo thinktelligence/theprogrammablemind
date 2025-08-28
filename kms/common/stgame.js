@@ -87,6 +87,8 @@ knowledgeModule( {
   test: {
           name: './stgame.test.json',
           contents: stgame_tests,
-          checks: defaultContextCheck(),
+          checks: {
+            context: [defaultContextCheck()],
+          },
         },
 })

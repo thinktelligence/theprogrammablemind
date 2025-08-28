@@ -63,6 +63,8 @@ knowledgeModule( {
   test: {
     name: './pos.test.json',
     contents: pos_tests,
-    checks: defaultContextCheck(),
+    checks: {
+      context: [defaultContextCheck()],
+    },
   },
 })

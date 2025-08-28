@@ -305,7 +305,9 @@ knowledgeModule( {
     // TODO doesnt this need the KM
     checks: {
       objects: ['children', 'concept', 'parents', 'properties'],
-      ...defaultContextCheck(),
+      context: [
+        defaultContextCheck(),
+      ],
     },
     includes: {
       words: true,

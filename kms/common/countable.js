@@ -94,6 +94,8 @@ knowledgeModule({
   test: {
     name: './countable.test.json',
     contents: countable_tests,
-    checks: defaultContextCheck(['count', 'quantity']), 
+    checks: {
+      context: [defaultContextCheck(['count', 'quantity'])],
+    }
   },
 })

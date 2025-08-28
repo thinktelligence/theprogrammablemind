@@ -392,7 +392,9 @@ knowledgeModule({
     include: {
       words: true,
     },
-    checks: defaultContextCheck(),
+    checks: {
+      context: [defaultContextCheck()],
+    },
   },
   template: {
     template,

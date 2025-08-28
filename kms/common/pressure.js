@@ -23,7 +23,9 @@ knowledgeModule({
   test: {
     name: './pressure.test.json',
     contents: pressure_tests,
-    checks: defaultContextCheck(),
+    checks: {
+      context: [defaultContextCheck()],
+    },
   },
   template: {
     template,

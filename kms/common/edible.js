@@ -82,7 +82,9 @@ knowledgeModule( {
       test: {
               name: './edible.test.json',
               contents: edible_tests,
-              checks: defaultContextCheck(),
+              checks: {
+                context: [defaultContextCheck()],
+              }
             },
       template: {
         template,

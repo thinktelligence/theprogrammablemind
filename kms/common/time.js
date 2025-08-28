@@ -220,6 +220,8 @@ knowledgeModule({
   test: {
     name: './time.test.json',
     contents: time_tests,
-    checks: defaultContextCheck(['one', 'two', 'events', 'time', 'ampm']),
+    checks: {
+      context: [defaultContextCheck(['one', 'two', 'events', 'time', 'ampm'])],
+    }
   },
 })

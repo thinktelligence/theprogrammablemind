@@ -65,7 +65,9 @@ knowledgeModule( {
       test: {
               name: './emotions.test.json',
               contents: emotions_tests,
-              checks: defaultContextCheck(),
+              checks: {
+                context: [defaultContextCheck()],
+              }
             },
       template: {
         template,

@@ -621,7 +621,9 @@ knowledgeModule({
   test: {
     name: './reports.test.json',
     contents: reports_tests,
-    checks: defaultContextCheck(['name', 'index']),
+    checks: {
+      context: [defaultContextCheck(['name', 'index'])],
+    },
   },
   template: {
     template,

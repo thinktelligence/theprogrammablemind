@@ -33,6 +33,8 @@ knowledgeModule( {
   test: {
     name: './pronouns.test.json',
     contents: pronouns_tests,
-    checks: defaultContextCheck(),
+    checks: {
+      context: [defaultContextCheck()],
+    },
   }
 })

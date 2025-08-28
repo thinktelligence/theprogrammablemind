@@ -109,6 +109,8 @@ knowledgeModule( {
   test: {
     name: './conjunction.test.json',
     contents: conjunction_tests,
-    checks: defaultContextCheck(),
+    checks: {
+      context: [defaultContextCheck()],
+    },
   },
 })

@@ -59,6 +59,8 @@ knowledgeModule( {
   test: {
     name: './ordinals.test.json',
     contents: ordinals_tests,
-    checks: defaultContextCheck(),
+    checks: {
+      context: [defaultContextCheck()],
+    }
   },
 })

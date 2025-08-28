@@ -242,7 +242,9 @@ knowledgeModule( {
   test: {
     name: './dates.test.json',
     contents: dates_tests,
-    checks: defaultContextCheck(['month', 'day', 'year', 'era', 'month_ordinal', 'day_ordinal', 'month', 'date']),
+    checks: {
+      context: [defaultContextCheck(['month', 'day', 'year', 'era', 'month_ordinal', 'day_ordinal', 'month', 'date'])],
+    }
   },
   template: {
     template,

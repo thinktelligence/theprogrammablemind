@@ -251,7 +251,9 @@ knowledgeModule({
     fixtures,
     checks: {
       objects: ['move', 'select', 'unselect', 'cancel', 'stop', 'show', 'menuDefs', 'close'],
-      ...defaultContextCheck(['operator', 'direction', 'moveable']),
+      context: [
+        defaultContextCheck(['operator', 'direction', 'moveable']),
+      ],
     },
   },
   template: {

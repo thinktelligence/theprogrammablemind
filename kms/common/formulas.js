@@ -207,7 +207,9 @@ knowledgeModule({
       objects: [
         'formulas',
       ],
-      ...defaultContextCheck(),
+      context: [
+        defaultContextCheck(),
+      ]
     }
   },
 })
