@@ -72,6 +72,7 @@ const template = {
           isA: ['onDateValue_dates'],
           before: ['verb', 'onDate_dates'],
           bridge: "{ ...next(operator), day: before[0], month: after[0], operator: operator, interpolate: '${day} ${operator} ${month}' }",
+          check: ['day', 'month'],
         },
         { 
           id: 'dayAfterDate', 
@@ -79,6 +80,7 @@ const template = {
           isA: ['onDateValue_dates'],
           before: ['verb', 'afterDate_dates'],
           bridge: "{ ...next(operator), day: before[0], after: after[0], operator: operator, interpolate: '${day} ${operator} ${after}' }",
+          check: ['day', 'after'],
         },
         { 
           id: 'dateTimeSelector', 
@@ -87,6 +89,7 @@ const template = {
           convolution: true,
           children: ['onDate_dates', 'atTime', 'date_dates'],
           bridge: "{ ...next(operator), date: after[0], time: after[1], interpolate: '${date} ${time}' }",
+          check: ['time', 'date'],
         },
       ],
       semantics: [
@@ -151,7 +154,10 @@ knowledgeModule( {
     name: './dateTimeSelectors.test.json',
     contents: dateTimeSelectors_tests,
     checks: {
-      context: [defaultContextCheck({ extra: ['date', 'time', 'response', 'after', 'day', 'month', 'year', 'evalue'] })],
+      context: [
+        // defaultContextCheck({ extra: ['date', 'time', 'response', 'after', 'day', 'month', 'year', 'evalue'] }),
+        defaultContextCheck({ extra: ['date', 'time', 'response', 'after', 'evalue'] }),
+      ],
     }
   },
   template: {

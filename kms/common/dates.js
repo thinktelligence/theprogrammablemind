@@ -1,5 +1,5 @@
 const { knowledgeModule, where } = require('./runtime').theprogrammablemind
-const { defaultContextCheck } = require('./helpers')
+const { defaultContextCheck, defaultContextCheckProperties } = require('./helpers')
 const dates_tests = require('./dates.test.json')
 const dates_instance = require('./dates.instance.json')
 const hierarchy = require('./hierarchy')
@@ -92,6 +92,7 @@ const template = {
           id: 'onDate_dates',
           isA: ['preposition'],
           bridge: "{ ...next(operator), date: after[0], onDate: operator, interpolate: '${onDate} ${date}' }",
+          check: defaultContextCheckProperties(['onDate', 'date']),
         },
         {
           id: 'afterDateValue_dates',
@@ -104,6 +105,7 @@ const template = {
           id: 'afterDate_dates',
           isA: ['preposition'],
           bridge: "{ ...next(operator), date: after[0], afterDate: operator, interpolate: '${afterDate} ${date}' }",
+          check: defaultContextCheckProperties(['afterDate', 'date']),
         },
         { 
           id: 'era_dates', 
@@ -120,7 +122,8 @@ const template = {
           id: 'dateEra_dates', 
           isA: ['date_dates'],
           convolution: true,
-          bridge: "{ ...next(after[0]), era: after[1], interpolate: concat(after[0].interpolate, ' ${era}') }" 
+          bridge: "{ ...next(after[0]), era: after[1], interpolate: concat(after[0].interpolate, ' ${era}') }",
+          check: defaultContextCheckProperties(['era']),
         },
         { 
           id: 'dateSeparator_dates', 
@@ -133,6 +136,7 @@ const template = {
           before: ['preposition'],
           convolution: true,
           bridge: "{ ...next(operator), day: after[2], month: after[0], year: after[4], interpolate: '${month}/${day}/${year}' }",
+          check: defaultContextCheckProperties(['day', 'month', 'year']),
         },
         { 
           id: 'dayNumber_dates', 
@@ -156,14 +160,16 @@ const template = {
           localHierarchy: [['ordinal', 'dayNumber_dates']],
           before: ['preposition'],
           isA: ['date_dates'],
-          bridge: "{ ...next(operator), month: after[0], day: after[1], interpolate: '${month} ${day}' }"
+          bridge: "{ ...next(operator), month: after[0], day: after[1], interpolate: '${month} ${day}' }",
+          check: defaultContextCheckProperties(['day', 'month']),
         },
         { 
           id: 'monthYear_dates', 
           convolution: true,
           before: ['preposition'],
           isA: ['date_dates'],
-          bridge: "{ ...next(operator), month: after[0], year: after[1], interpolate: '${month} ${year}' }"
+          bridge: "{ ...next(operator), month: after[0], year: after[1], interpolate: '${month} ${year}' }",
+          check: defaultContextCheckProperties(['month', 'year']),
         },
         { 
           id: 'monthDayYear_dates', 
@@ -179,7 +185,8 @@ const template = {
           localHierarchy: [
             ['ordinal', 'dayNumber_dates'],
           ],
-          bridge: "{ ...next(operator), month: after[0], day: after[1], year: after[2], interpolate: '${month} ${day} ${year}' }"
+          bridge: "{ ...next(operator), month: after[0], day: after[1], year: after[2], interpolate: '${month} ${day} ${year}' }",
+          check: defaultContextCheckProperties(['month', 'day', 'year']),
         },
       ],
       words: {
@@ -243,7 +250,10 @@ knowledgeModule( {
     name: './dates.test.json',
     contents: dates_tests,
     checks: {
-      context: [defaultContextCheck({ extra: ['month', 'day', 'year', 'era', 'month_ordinal', 'day_ordinal', 'month', 'date'] })],
+      context: [
+//        defaultContextCheck({ marker: 'monthDayYear_dates', exported: true, extra: ['month', 'day', 'year'] }),
+        defaultContextCheck({ extra: ['month', 'day', 'year', 'era', 'month_ordinal', 'day_ordinal', 'month', 'date'] }),
+      ],
     }
   },
   template: {

@@ -695,7 +695,13 @@ knowledgeModule( {
     name: './properties.test.json',
     contents: properties_tests,
     checks: {
-      context: [defaultContextCheck({ extra: ['object', 'objects'] })],
+      context: [
+        defaultContextCheck({ marker: 'property', exported: true, extra: ['object', 'objects'] }),
+        defaultContextCheck({ marker: 'possession', exported: true, extra: ['object', 'objects'] }),
+        defaultContextCheck({ marker: 'propertyOf', exported: true, extra: ['object', 'objects'] }),
+        defaultContextCheck({ marker: 'objectPrefix', exported: true, extra: ['object', 'objects'] }),
+        defaultContextCheck()
+      ],
     },
     include: {
       words: true,

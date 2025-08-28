@@ -113,7 +113,9 @@ knowledgeModule( {
     contents: numbers_tests,
     checks: {
       context: [
-        defaultContextCheck({ extra: ['instance'] })
+        defaultContextCheck({ marker: 'number', exported: true, extra: ['instance'] }),
+        defaultContextCheck({ marker: 'integer', exported: true, extra: ['instance'] }),
+        defaultContextCheck()
       ],
     }
   },

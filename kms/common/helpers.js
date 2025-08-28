@@ -162,6 +162,10 @@ const defaultObjectCheck = (extra = []) => {
   }
 }
 
+const defaultContextCheckProperties = (extra) => {
+  return ['marker', 'text', 'verbatim', 'value', 'evalue', 'isResponse', { properties: 'modifiers' }, { properties: 'postModifiers' }, ...extra]
+}
+
 const defaultContextCheck = ({marker, extra = [], exported = false} = {}) => {
   let match
   if (marker) {
@@ -265,6 +269,7 @@ module.exports = {
   pushL,
   getValue,
   defaultContextCheck,
+  defaultContextCheckProperties,
   defaultObjectCheck,
 	toEValue,
   millisecondsUntilHourOfDay,
