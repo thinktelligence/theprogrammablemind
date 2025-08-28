@@ -162,9 +162,16 @@ const defaultObjectCheck = (extra = []) => {
   }
 }
 
-const defaultContextCheck = (extra = []) => {
+const defaultContextCheck = ({marker, extra = [], exported = false} = {}) => {
+  let match
+  if (marker) {
+    match = ({context}) => context.marker == marker
+  } else {
+    match = ({context}) => !Array.isArray(context)
+  }
   return {
-    match: ({context}) => !Array.isArray(context),
+    match,
+    exported,
     apply: () => ['marker', 'text', 'verbatim', 'value', 'evalue', 'isResponse', { properties: 'modifiers' }, { properties: 'postModifiers' }, ...extra],
   }
 }

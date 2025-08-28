@@ -695,7 +695,7 @@ knowledgeModule( {
     name: './properties.test.json',
     contents: properties_tests,
     checks: {
-      context: [defaultContextCheck(['object', 'objects'])],
+      context: [defaultContextCheck({ extra: ['object', 'objects'] })],
     },
     include: {
       words: true,

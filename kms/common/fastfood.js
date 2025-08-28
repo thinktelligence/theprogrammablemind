@@ -996,7 +996,7 @@ knowledgeModule( {
                 { property: 'pieces', filter: ['marker', 'value', 'text' ] },
               ],
               context: [
-                defaultContextCheck(['comboNumber']),
+                defaultContextCheck({ extra: ['comboNumber'] }),
               ],
             },
           },

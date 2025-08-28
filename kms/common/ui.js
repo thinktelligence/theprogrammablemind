@@ -190,7 +190,7 @@ knowledgeModule({
     contents: ui_tests,
     checks: {
       objects: ['move', 'select', 'unselect', 'cancel', 'stop'],
-      context: [defaultContextCheck(['operator', 'direction', 'moveable'])],
+      context: [defaultContextCheck({ extra: ['operator', 'direction', 'moveable'] })],
     },
   },
   template: {

@@ -121,7 +121,7 @@ knowledgeModule( {
     name: './articles.test.json',
     contents: tests,
     checks: {
-      context: [defaultContextCheck(['distributer'])]
+      context: [defaultContextCheck({ extra: ['distributer'] })]
     }
   },
 })

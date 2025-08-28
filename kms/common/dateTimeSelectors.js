@@ -151,7 +151,7 @@ knowledgeModule( {
     name: './dateTimeSelectors.test.json',
     contents: dateTimeSelectors_tests,
     checks: {
-      context: [defaultContextCheck(['date', 'time', 'response', 'after', 'day', 'month', 'year', 'evalue'])],
+      context: [defaultContextCheck({ extra: ['date', 'time', 'response', 'after', 'day', 'month', 'year', 'evalue'] })],
     }
   },
   template: {

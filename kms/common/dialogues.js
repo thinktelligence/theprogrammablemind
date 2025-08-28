@@ -830,7 +830,7 @@ knowledgeModule( {
     checks: {
             ...defaultObjectCheck(['idSuffix']),
             context: [
-              defaultContextCheck(['one', 'two']),
+              defaultContextCheck({ extra: ['one', 'two'] }),
             ]
           },
 

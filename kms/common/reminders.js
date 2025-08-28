@@ -367,7 +367,7 @@ knowledgeModule( {
     name: './reminders.test.json',
     contents: reminders_tests,
     checks: {
-      context: [defaultContextCheck(['who', 'reminder'])],
+      context: [defaultContextCheck({ extra: ['who', 'reminder'] })],
       objects: [
         { 
           property: 'reminders',

@@ -121,7 +121,7 @@ knowledgeModule( {
     name: './tell.test.json',
     contents: tell_tests,
     checks: {
-      context: [defaultContextCheck(['event', 'info', 'target'])],
+      context: [defaultContextCheck({ extra: ['event', 'info', 'target'] })],
     },
   },
 })

@@ -252,7 +252,7 @@ knowledgeModule({
     checks: {
       objects: ['move', 'select', 'unselect', 'cancel', 'stop', 'show', 'menuDefs', 'close'],
       context: [
-        defaultContextCheck(['operator', 'direction', 'moveable']),
+        defaultContextCheck({ extra: ['operator', 'direction', 'moveable'] }),
       ],
     },
   },

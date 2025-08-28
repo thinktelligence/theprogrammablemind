@@ -46,7 +46,7 @@ knowledgeModule( {
     name: './percentages.test.json',
     contents: percentages_tests,
     checks: {
-      context: [defaultContextCheck(['scale'])],
+      context: [defaultContextCheck({ extra: ['scale'] })],
     }
   },
 })

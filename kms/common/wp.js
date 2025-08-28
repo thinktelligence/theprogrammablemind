@@ -423,7 +423,7 @@ knowledgeModule({
     name: './wp.test.json',
     contents: wp_tests,
     checks: {
-      context: [defaultContextCheck(['distributer', 'subject', 'element', 'letters', 'target', 'conditions' ])], 
+      context: [defaultContextCheck({ extra: ['distributer', 'subject', 'element', 'letters', 'target', 'conditions' ] })], 
       objects: [
         'changeState', 
         { km: 'ui' },
