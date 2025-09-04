@@ -128,11 +128,13 @@ const getAsk = (config) => (uuid) => {
         const id_r = stableId('semantic')
         id_rs.push(id_r)
         s_ids.push(id_r)
+        // debugger
         config.addSemantic({
           uuid,
           id: id_r,
           tied_ids: [id_q],
           // tied_ids: s_ids,
+          onDelete: ask.onDelete,
           oneShot,
           where: semantic.where || ask.where || where(2),
           source: 'response',
@@ -154,6 +156,7 @@ const getAsk = (config) => (uuid) => {
         isQuestion: true,  // do one question at a time
         getWasAsked,
         getWasApplied,
+        onDelete: ask.onDelete,
         onNevermind: ask.onNevermind,
         source: 'question',
         match: ({ context }) => context.marker == 'controlEnd' || context.marker == 'controlBetween',
@@ -187,6 +190,7 @@ const getAsk = (config) => (uuid) => {
 
     const s_ids = []
     for (const a of [...asks].reverse()) {
+      // debugger
       ask(a, s_ids)
     }
     

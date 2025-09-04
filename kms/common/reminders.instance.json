@@ -12,7 +12,8 @@
         "([remind:withDateBridge] (remindable/*) (!@<= 'dateTimeSelector' && !@<= 'inAddition')* (dateTimeSelector))",
         "([remind:withDateFirstBridge] (remindable/*) (dateTimeSelector) (!@<= 'dateTimeSelector' && !@<= 'inAddition')*)",
         "([remind:withDateAndTimeBridge] (remindable/*) (!@<= 'dateTimeSelector' && !@<= 'inAddition')* (dateTimeSelector) (atTime))",
-        "([remindResponse] (!@<= 'remindResponse' && !@<= 'dateTimeSelector' && !@<= 'inAddition')+ (dateTimeSelector))",
+        "([remindResponse] (complete !== true && !@<= 'dateTimeSelector' && !@<= 'inAddition' )+ (dateTimeSelector))",
+        "([remindResponseOnly] (context.complete != true && !@<= day_dates && !@<= 'dateTimeSelector' && !@<=remind)+)",
         "([show] ([reminders]))",
         "([delete_reminders|delete,cancel] (number/*))",
         "([add] (remindable/*))",
@@ -32,7 +33,7 @@
           "isA": [
             "verb"
           ],
-          "bridge": "{ ...next(operator), arg: after[0], operator: operator, interpolate: '${operator} ${arg}' }",
+          "bridge": "{ ...next(operator), complete: true, arg: after[0], operator: operator, interpolate: '${operator} ${arg}' }",
           "semantic": "({api, context}) => {\n            api.addUser(api.contextToWho(context.arg))\n          }"
         },
         {
@@ -44,7 +45,7 @@
           "isA": [
             "verb"
           ],
-          "bridge": "{ ...next(operator), arg: after[0], operator: operator, interpolate: '${operator} ${arg}' }",
+          "bridge": "{ ...next(operator), complete: true, arg: after[0], operator: operator, interpolate: '${operator} ${arg}' }",
           "semantic": "({api, context}) => {\n            api.removeUser(api.contextToWho(context.arg))\n          }"
         },
         {
@@ -53,7 +54,7 @@
             "verb"
           ],
           "development": true,
-          "bridge": "{ ...next(operator), flatten: true, arg: after[0], operator: operator, interpolate: '${operator} ${arg}' }",
+          "bridge": "{ ...next(operator), complete: true, flatten: true, arg: after[0], operator: operator, interpolate: '${operator} ${arg}' }",
           "semantic": "async ({api, context}) => {\n            const name = context.arg.map( (word) => word.text ).join(' ')\n            await api.addRemindable(name)\n          }"
         },
         {
@@ -63,13 +64,29 @@
           ]
         },
         {
-          "id": "remindResponse",
+          "id": "remindResponseOnly",
           "isA": [
             "verb"
           ],
           "convolution": true,
           "disabled": true,
-          "bridge": "{ ...next(operator), operator: operator, reminder: after[0], date: after[1], interpolate: '${reminder} ${date}' }",
+          "bridge": "{ ...next(operator), complete: true, operator: operator, reminder: after[0], interpolate: '${reminder}' }",
+          "semantic": "async ({context, api, gp, gsp}) => {\n            debugger\n            const text = await gsp(context.reminder.slice(0));\n            const update = { text }\n            if (context.date) {\n              update.dateTimeSelector = context.date\n              update.dateTimeSelectorText = await gp(context.date)\n            }\n            await api.update(update)\n          }"
+        },
+        {
+          "id": "remindResponse",
+          "before": [
+            "remindResponseOnly"
+          ],
+          "isA": [
+            "verb"
+          ],
+          "convolution": true,
+          "disabled": true,
+          "optional": {
+            "2": {}
+          },
+          "bridge": "{ ...next(operator), complete: true, operator: operator, reminder: after[0], date: after[1], interpolate: '${reminder} ${date}' }",
           "semantic": "async ({context, api, gp, gsp}) => {\n            const text = await gsp(context.reminder.slice(0));\n            const update = { text }\n            if (context.date) {\n              update.dateTimeSelector = context.date\n              update.dateTimeSelectorText = await gp(context.date)\n            }\n            await api.update(update)\n          }"
         },
         {
@@ -83,11 +100,11 @@
               "remindable"
             ]
           ],
-          "bridge": "{ ...next(operator), operator: operator, who: after[0], reminder: after[1], interpolate: '${operator} ${who} ${reminder}' }",
-          "justWhoBridge": "{ ...next(operator), bridge: 'justWhoBridge', operator: operator, who: after[0], interpolate: '${operator} ${who}' }",
-          "withDateBridge": "{ ...next(operator), operator: operator, who: after[0], reminder: after[1], date: after[2], interpolate: '${operator} ${who} ${reminder} ${date}' }",
-          "withDateFirstBridge": "{ ...next(operator), operator: operator, who: after[0], reminder: after[2], date: after[1], interpolate: '${operator} ${who} ${date} ${reminder}' }",
-          "withDateAndTimeBridge": "{ ...next(operator), operator: operator, who: after[0], reminder: after[1], date: after[2], time: after[3], interpolate: '${operator} ${who} ${reminder} ${date} ${time}' }",
+          "bridge": "{ ...next(operator), complete: true, operator: operator, who: after[0], reminder: after[1], interpolate: '${operator} ${who} ${reminder}' }",
+          "justWhoBridge": "{ ...next(operator), complete: true, bridge: 'justWhoBridge', operator: operator, who: after[0], interpolate: '${operator} ${who}' }",
+          "withDateBridge": "{ ...next(operator), complete: true, operator: operator, who: after[0], reminder: after[1], date: after[2], interpolate: '${operator} ${who} ${reminder} ${date}' }",
+          "withDateFirstBridge": "{ ...next(operator), complete: true, operator: operator, who: after[0], reminder: after[2], date: after[1], interpolate: '${operator} ${who} ${date} ${reminder}' }",
+          "withDateAndTimeBridge": "{ ...next(operator), complete: true, operator: operator, who: after[0], reminder: after[1], date: after[2], time: after[3], interpolate: '${operator} ${who} ${reminder} ${date} ${time}' }",
           "semantics": "[object Object]",
           "semantic": "async ({ask, api, gsp, gp, context}) => {\n            const who = api.contextToWho(context.who)\n            let text;\n            if (context.reminder) {\n              text = await gsp(context.reminder.slice(1));\n            }\n            const reminder = { text, dateTimeSelector: context.date, who }\n            if (context.date) {\n              reminder.dateTimeSelector = context.date\n              reminder.dateTimeSelectorText = await gp(context.date)\n            }\n            // await api.instantiate(reminder)\n            await api.add(reminder)\n            reminder.cleanUp = ask([\n              query('missingReminder', reminder.id),\n              query('missingDate', reminder.id),\n            ])\n          }"
         },
@@ -102,7 +119,7 @@
           "isA": [
             "verb"
           ],
-          "bridge": "{ ...next(operator), operator: operator, reminders: after[0], interpolate: '${operator} ${reminders}' }",
+          "bridge": "{ ...next(operator), operator: operator, complete: true, reminders: after[0], interpolate: '${operator} ${reminders}' }",
           "semantic": "({context, api, verbatim}) => {\n            verbatim(api.show())\n          }"
         },
         {
@@ -110,7 +127,7 @@
           "isA": [
             "verb"
           ],
-          "bridge": "{ ...next(operator), operator: operator, reminders: after[0], interpolate: '${operator} ${reminders}' }",
+          "bridge": "{ ...next(operator), operator: operator, complete: true, reminders: after[0], interpolate: '${operator} ${reminders}' }",
           "semantic": "({context, api, verbatim}) => {\n            const s = api.delete_reminder(context.reminders.value)\n            if (s) {\n              verbatim(s)\n            }\n          }"
         }
       ]
@@ -130,7 +147,8 @@
         "([remind:withDateBridge] (remindable/*) (!@<= 'dateTimeSelector' && !@<= 'inAddition')* (dateTimeSelector))",
         "([remind:withDateFirstBridge] (remindable/*) (dateTimeSelector) (!@<= 'dateTimeSelector' && !@<= 'inAddition')*)",
         "([remind:withDateAndTimeBridge] (remindable/*) (!@<= 'dateTimeSelector' && !@<= 'inAddition')* (dateTimeSelector) (atTime))",
-        "([remindResponse] (!@<= 'remindResponse' && !@<= 'dateTimeSelector' && !@<= 'inAddition')+ (dateTimeSelector))",
+        "([remindResponse] (complete !== true && !@<= 'dateTimeSelector' && !@<= 'inAddition' )+ (dateTimeSelector))",
+        "([remindResponseOnly] (context.complete != true && !@<= day_dates && !@<= 'dateTimeSelector' && !@<=remind)+)",
         "([show] ([reminders]))",
         "([delete_reminders|delete,cancel] (number/*))",
         "([add] (remindable/*))",
@@ -150,7 +168,7 @@
           "isA": [
             "verb"
           ],
-          "bridge": "{ ...next(operator), arg: after[0], operator: operator, interpolate: '${operator} ${arg}' }"
+          "bridge": "{ ...next(operator), complete: true, arg: after[0], operator: operator, interpolate: '${operator} ${arg}' }"
         },
         {
           "id": "remove",
@@ -161,7 +179,7 @@
           "isA": [
             "verb"
           ],
-          "bridge": "{ ...next(operator), arg: after[0], operator: operator, interpolate: '${operator} ${arg}' }"
+          "bridge": "{ ...next(operator), complete: true, arg: after[0], operator: operator, interpolate: '${operator} ${arg}' }"
         },
         {
           "id": "addRemindable",
@@ -169,7 +187,7 @@
             "verb"
           ],
           "development": true,
-          "bridge": "{ ...next(operator), flatten: true, arg: after[0], operator: operator, interpolate: '${operator} ${arg}' }"
+          "bridge": "{ ...next(operator), complete: true, flatten: true, arg: after[0], operator: operator, interpolate: '${operator} ${arg}' }"
         },
         {
           "id": "remindable",
@@ -178,13 +196,28 @@
           ]
         },
         {
-          "id": "remindResponse",
+          "id": "remindResponseOnly",
           "isA": [
             "verb"
           ],
           "convolution": true,
           "disabled": true,
-          "bridge": "{ ...next(operator), operator: operator, reminder: after[0], date: after[1], interpolate: '${reminder} ${date}' }"
+          "bridge": "{ ...next(operator), complete: true, operator: operator, reminder: after[0], interpolate: '${reminder}' }"
+        },
+        {
+          "id": "remindResponse",
+          "before": [
+            "remindResponseOnly"
+          ],
+          "isA": [
+            "verb"
+          ],
+          "convolution": true,
+          "disabled": true,
+          "optional": {
+            "2": {}
+          },
+          "bridge": "{ ...next(operator), complete: true, operator: operator, reminder: after[0], date: after[1], interpolate: '${reminder} ${date}' }"
         },
         {
           "id": "remind",
@@ -197,11 +230,11 @@
               "remindable"
             ]
           ],
-          "bridge": "{ ...next(operator), operator: operator, who: after[0], reminder: after[1], interpolate: '${operator} ${who} ${reminder}' }",
-          "justWhoBridge": "{ ...next(operator), bridge: 'justWhoBridge', operator: operator, who: after[0], interpolate: '${operator} ${who}' }",
-          "withDateBridge": "{ ...next(operator), operator: operator, who: after[0], reminder: after[1], date: after[2], interpolate: '${operator} ${who} ${reminder} ${date}' }",
-          "withDateFirstBridge": "{ ...next(operator), operator: operator, who: after[0], reminder: after[2], date: after[1], interpolate: '${operator} ${who} ${date} ${reminder}' }",
-          "withDateAndTimeBridge": "{ ...next(operator), operator: operator, who: after[0], reminder: after[1], date: after[2], time: after[3], interpolate: '${operator} ${who} ${reminder} ${date} ${time}' }",
+          "bridge": "{ ...next(operator), complete: true, operator: operator, who: after[0], reminder: after[1], interpolate: '${operator} ${who} ${reminder}' }",
+          "justWhoBridge": "{ ...next(operator), complete: true, bridge: 'justWhoBridge', operator: operator, who: after[0], interpolate: '${operator} ${who}' }",
+          "withDateBridge": "{ ...next(operator), complete: true, operator: operator, who: after[0], reminder: after[1], date: after[2], interpolate: '${operator} ${who} ${reminder} ${date}' }",
+          "withDateFirstBridge": "{ ...next(operator), complete: true, operator: operator, who: after[0], reminder: after[2], date: after[1], interpolate: '${operator} ${who} ${date} ${reminder}' }",
+          "withDateAndTimeBridge": "{ ...next(operator), complete: true, operator: operator, who: after[0], reminder: after[1], date: after[2], time: after[3], interpolate: '${operator} ${who} ${reminder} ${date} ${time}' }",
           "semantics": [
             {}
           ]
@@ -217,14 +250,14 @@
           "isA": [
             "verb"
           ],
-          "bridge": "{ ...next(operator), operator: operator, reminders: after[0], interpolate: '${operator} ${reminders}' }"
+          "bridge": "{ ...next(operator), operator: operator, complete: true, reminders: after[0], interpolate: '${operator} ${reminders}' }"
         },
         {
           "id": "delete_reminders",
           "isA": [
             "verb"
           ],
-          "bridge": "{ ...next(operator), operator: operator, reminders: after[0], interpolate: '${operator} ${reminders}' }"
+          "bridge": "{ ...next(operator), operator: operator, complete: true, reminders: after[0], interpolate: '${operator} ${reminders}' }"
         }
       ]
     }

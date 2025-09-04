@@ -41,30 +41,53 @@ const query = (missing, reminder_id) => {
           who = item.who.text
         }
       }
-      if (item.missingDate) {
+
+      if (item.missingDate && item.missingReminder) {
+        enable(['remindResponse', 0])
+        enable(['remindResponseOnly', 0])
+      } else if (item.missingReminder) {
+        enable(['remindResponseOnly', 0])
+      }
+
+      /*
+      if (item.missingDate && item.missingReminder) {
+        enable(['remindResponse', 0])
+      }
+      */
+      if (item.missingDate && missing == 'missingDate') {
         return `When should I remind ${who} to ${item.text}`
       }
-      if (item.missingReminder) {
-        enable(['remindResponse', 0])
+      if (item.missingReminder && missing == 'missingReminder') {
+        // enable(['remindResponse', 0])
         return `What should I remind ${who} to do?`
       }
     },
 
-    matchr: ({ isA, api, context }) => {
+    matchr: async ({ isA, api, context }) => {
       if (context.evaluate || context.isControl || context.isResponse) {
         return false
       }
       const gotADate = ((isA(context.marker, 'onDateValue_dates') || isA(context.marker, 'dateTimeSelector')) && api.missing(missing, reminder_id))
       if (missing == 'missingDate') {
         return gotADate
-      } else {
-        // return !gotADate && !context.isControl
+      } else if (context.marker == 'remindResponseOnly' && missing == 'missingReminder') {
+        return true
       }
       return false
     },
-    applyr: async ({ context, api, gp }) => {
-      const item = api.missing(missing, reminder_id)
-      await api.update({ id: item.id, dateTimeSelector: context, dateTimeSelectorText: await gp(context) })
+    applyr: async ({ context, api, gp, gsp }) => {
+      if (context.marker == 'remindResponseOnly') {
+        console.log(JSON.stringify(context, null, 2))
+        let text;
+        if (context.reminder) {
+          text = await gsp(context.reminder.slice(0));
+        }
+        const item = api.missing(missing, reminder_id)
+        await api.update({ id: item.id, text })
+      } else {
+        const item = api.missing(missing, reminder_id)
+        await api.update({ id: item.id, dateTimeSelector: context, dateTimeSelectorText: await gp(context) })
+      }
     }
   }
 }
@@ -140,10 +163,10 @@ class API {
   missing(what, reminder_id) {
     const reminder = this.reminder(reminder_id)
     if (what == 'missingReminder' && !reminder.text) {
-      return { when: true, who: reminder.who, text: reminder.text, id: reminder.id, missingReminder: true }
+      return { when: true, who: reminder.who, text: reminder.text, id: reminder.id, missingReminder: true, missingDate: !reminder.dateTimeSelector }
     }
     if (what == 'missingDate' && !reminder.dateTimeSelector) {
-      return { when: true, who: reminder.who, text: reminder.text, id: reminder.id, missingDate: true }
+      return { when: true, who: reminder.who, text: reminder.text, id: reminder.id, missingDate: true, missingReminder: !reminder.missingReminder }
     }
   }
 
@@ -224,7 +247,10 @@ const template = {
         "([remind:withDateBridge] (remindable/*) (!@<= 'dateTimeSelector' && !@<= 'inAddition')* (dateTimeSelector))",
         "([remind:withDateFirstBridge] (remindable/*) (dateTimeSelector) (!@<= 'dateTimeSelector' && !@<= 'inAddition')*)",
         "([remind:withDateAndTimeBridge] (remindable/*) (!@<= 'dateTimeSelector' && !@<= 'inAddition')* (dateTimeSelector) (atTime))",
-        "([remindResponse] (!@<= 'remindResponse' && !@<= 'dateTimeSelector' && !@<= 'inAddition')+ (dateTimeSelector))",
+
+        "([remindResponse] (complete !== true && !@<= 'dateTimeSelector' && !@<= 'inAddition' )+ (dateTimeSelector))",
+        "([remindResponseOnly] (context.complete != true && !@<= day_dates && !@<= 'dateTimeSelector' && !@<=remind)+)",
+
         "([show] ([reminders]))",
         "([delete_reminders|delete,cancel] (number/*))",
         "([add] (remindable/*))",
@@ -240,7 +266,7 @@ const template = {
         {
           id: 'add',
           isA: ['verb'],
-          bridge: "{ ...next(operator), arg: after[0], operator: operator, interpolate: '${operator} ${arg}' }",
+          bridge: "{ ...next(operator), complete: true, arg: after[0], operator: operator, interpolate: '${operator} ${arg}' }",
           semantic: ({api, context}) => {
             api.addUser(api.contextToWho(context.arg))
           }
@@ -249,7 +275,7 @@ const template = {
           id: 'remove',
           words: ['delete', 'remove'],
           isA: ['verb'],
-          bridge: "{ ...next(operator), arg: after[0], operator: operator, interpolate: '${operator} ${arg}' }",
+          bridge: "{ ...next(operator), complete: true, arg: after[0], operator: operator, interpolate: '${operator} ${arg}' }",
           semantic: ({api, context}) => {
             api.removeUser(api.contextToWho(context.arg))
           }
@@ -258,7 +284,7 @@ const template = {
           id: 'addRemindable',
           isA: ['verb'],
           development: true,
-          bridge: "{ ...next(operator), flatten: true, arg: after[0], operator: operator, interpolate: '${operator} ${arg}' }",
+          bridge: "{ ...next(operator), complete: true, flatten: true, arg: after[0], operator: operator, interpolate: '${operator} ${arg}' }",
           semantic: async ({api, context}) => {
             const name = context.arg.map( (word) => word.text ).join(' ')
             await api.addRemindable(name)
@@ -269,11 +295,31 @@ const template = {
           isA: ['listable'],
         },
         {
-          id: 'remindResponse',
+          id: 'remindResponseOnly',
           isA: ['verb'],
           convolution: true,
           disabled: true,
-          bridge: "{ ...next(operator), operator: operator, reminder: after[0], date: after[1], interpolate: '${reminder} ${date}' }",
+          bridge: "{ ...next(operator), complete: true, operator: operator, reminder: after[0], interpolate: '${reminder}' }",
+          semantic: async ({context, api, gp, gsp}) => {
+            const text = await gsp(context.reminder.slice(0));
+            const update = { text }
+            if (context.date) {
+              update.dateTimeSelector = context.date
+              update.dateTimeSelectorText = await gp(context.date)
+            }
+            await api.update(update)
+          }
+        },
+        {
+          id: 'remindResponse',
+          before: ['remindResponseOnly'],
+          isA: ['verb'],
+          convolution: true,
+          disabled: true,
+          optional: {
+            "2": { },
+          },
+          bridge: "{ ...next(operator), complete: true, operator: operator, reminder: after[0], date: after[1], interpolate: '${reminder} ${date}' }",
           semantic: async ({context, api, gp, gsp}) => {
             const text = await gsp(context.reminder.slice(0));
             const update = { text }
@@ -288,11 +334,11 @@ const template = {
           id: 'remind',
           isA: ['verb'],
           localHierarchy: [['self', 'remindable']],
-          bridge: "{ ...next(operator), operator: operator, who: after[0], reminder: after[1], interpolate: '${operator} ${who} ${reminder}' }",
-          justWhoBridge: "{ ...next(operator), bridge: 'justWhoBridge', operator: operator, who: after[0], interpolate: '${operator} ${who}' }",
-          withDateBridge: "{ ...next(operator), operator: operator, who: after[0], reminder: after[1], date: after[2], interpolate: '${operator} ${who} ${reminder} ${date}' }",
-          withDateFirstBridge: "{ ...next(operator), operator: operator, who: after[0], reminder: after[2], date: after[1], interpolate: '${operator} ${who} ${date} ${reminder}' }",
-          withDateAndTimeBridge: "{ ...next(operator), operator: operator, who: after[0], reminder: after[1], date: after[2], time: after[3], interpolate: '${operator} ${who} ${reminder} ${date} ${time}' }",
+          bridge: "{ ...next(operator), complete: true, operator: operator, who: after[0], reminder: after[1], interpolate: '${operator} ${who} ${reminder}' }",
+          justWhoBridge: "{ ...next(operator), complete: true, bridge: 'justWhoBridge', operator: operator, who: after[0], interpolate: '${operator} ${who}' }",
+          withDateBridge: "{ ...next(operator), complete: true, operator: operator, who: after[0], reminder: after[1], date: after[2], interpolate: '${operator} ${who} ${reminder} ${date}' }",
+          withDateFirstBridge: "{ ...next(operator), complete: true, operator: operator, who: after[0], reminder: after[2], date: after[1], interpolate: '${operator} ${who} ${date} ${reminder}' }",
+          withDateAndTimeBridge: "{ ...next(operator), complete: true, operator: operator, who: after[0], reminder: after[1], date: after[2], time: after[3], interpolate: '${operator} ${who} ${reminder} ${date} ${time}' }",
           semantics: [
             {
               match: ({context}) => context.marker == 'remind' && context.inAddition,
@@ -327,7 +373,7 @@ const template = {
         {
           id: 'show',
           isA: ['verb'],
-          bridge: "{ ...next(operator), operator: operator, reminders: after[0], interpolate: '${operator} ${reminders}' }",
+          bridge: "{ ...next(operator), operator: operator, complete: true, reminders: after[0], interpolate: '${operator} ${reminders}' }",
           semantic: ({context, api, verbatim}) => {
             verbatim(api.show())
           }
@@ -335,7 +381,7 @@ const template = {
         {
           id: 'delete_reminders',
           isA: ['verb'],
-          bridge: "{ ...next(operator), operator: operator, reminders: after[0], interpolate: '${operator} ${reminders}' }",
+          bridge: "{ ...next(operator), operator: operator, complete: true, reminders: after[0], interpolate: '${operator} ${reminders}' }",
           semantic: ({context, api, verbatim}) => {
             const s = api.delete_reminder(context.reminders.value)
             if (s) {
