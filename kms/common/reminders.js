@@ -166,7 +166,7 @@ class API {
       return { when: true, who: reminder.who, text: reminder.text, id: reminder.id, missingReminder: true, missingDate: !reminder.dateTimeSelector }
     }
     if (what == 'missingDate' && !reminder.dateTimeSelector) {
-      return { when: true, who: reminder.who, text: reminder.text, id: reminder.id, missingDate: true, missingReminder: !reminder.missingReminder }
+      return { when: true, who: reminder.who, text: reminder.text, id: reminder.id, missingDate: true, missingReminder: !reminder.text }
     }
   }
 

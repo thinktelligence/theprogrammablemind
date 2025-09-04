@@ -18,7 +18,7 @@ const config = {
   bridges: [
     {
       id: "nevermind",
-      bridge: "{ ...next(operator) }",
+      bridge: "{ ...next(operator), complete: true }",
       semantic: (args) => {
         const {config, context} = args
         // stop asking all questions
