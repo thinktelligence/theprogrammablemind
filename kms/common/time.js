@@ -116,17 +116,8 @@ const config = {
 
   "words": {
     "literals": {
-      // " ([0-9]+)": [{id: "count", "initial": "{ value: int(group[0]) }" }],
-      // " (1[0-2]|[1-9])": [{id: "hourUnits", "initial": "{ hour: int(group[0]) }" }],
       "am": [{id: "ampm", "initial": "{ ampm: 'am', determined: true }" }],
       "pm": [{id: "ampm", "initial": "{ ampm: 'pm', determined: true }" }],
-      //" (1[0-2]|[1-9]) ?pm": [{id: "count", "initial": "{ hour: int(group[0]), part: 'pm' }" }],
-      //" (1[0-2]|[1-9]) ?am": [{id: "count", "initial": "{ hour: int(group[0]), part: 'am' }" }],
-      /*
-      " hours?": [{id: "timeUnit", "initial": "{ units: 'hour' }" }],
-      " minutes?": [{id: "timeUnit", "initial": "{ units: 'hour' }" }],
-      " seconds?": [{id: "timeUnit", "initial": "{ units: 'seconds' }" }],
-      */
     }
   },
 

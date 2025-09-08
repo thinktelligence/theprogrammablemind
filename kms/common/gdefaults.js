@@ -248,7 +248,15 @@ const initializer = ({config}) => {
               return args.gp(context[key])
             }
           }
-          return await helpers.processTemplateString(interpolate, evaluator)
+          if (Array.isArray(interpolate)) {
+            const strings = []
+            for (const element of interpolate) {
+              strings.push(await args.g(element))
+            }
+            return strings.join(" ")
+          } else {
+            return await helpers.processTemplateString(interpolate, evaluator)
+          }
         }
       }
     })

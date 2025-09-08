@@ -20,11 +20,6 @@ const config = {
   words: {
     "literals": {
       "=": [{"id": "assignment", "initial": "{ value: 1 }" }],
-      /*
-      " ([0-9]+)": [{"id": "number", "initial": "{ value: int(group[0]) }" }],
-      "one": [{"id": "number", "initial": "{ value: 1 }" }],
-      "ten": [{"id": "number", "initial": "{ value: 10 }" }],
-      */
     }
   },
 

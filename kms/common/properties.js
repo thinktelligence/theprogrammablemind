@@ -233,7 +233,7 @@ const config = {
   words: {
     literals: {
       "<<possession>>": [{ id: 'possession', initial: "{ value: 'possession' }" }],
-      " 's": [{ id: 'possession', initial: "{ value: 'possession' }" }],
+      "'s": [{ id: 'possession', initial: "{ value: 'possession' }" }],
       "have": [{ id: 'have', initial: "{ doesable: true, number: 'many' }" }],
       "has": [{ id: 'have', initial: "{ doesable: true, number: 'one' }" }],
       "dont": [{ id: 'doesnt', initial: "{ number: 'many' }" }],

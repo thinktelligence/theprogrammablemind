@@ -71,7 +71,7 @@
           "convolution": true,
           "disabled": true,
           "bridge": "{ ...next(operator), complete: true, operator: operator, reminder: after[0], interpolate: '${reminder}' }",
-          "semantic": "async ({context, api, gp, gsp}) => {\n            debugger\n            const text = await gsp(context.reminder.slice(0));\n            const update = { text }\n            if (context.date) {\n              update.dateTimeSelector = context.date\n              update.dateTimeSelectorText = await gp(context.date)\n            }\n            await api.update(update)\n          }"
+          "semantic": "async ({context, api, gp, gsp}) => {\n            const text = await gsp(context.reminder.slice(0));\n            const update = { text }\n            if (context.date) {\n              update.dateTimeSelector = context.date\n              update.dateTimeSelectorText = await gp(context.date)\n            }\n            await api.update(update)\n          }"
         },
         {
           "id": "remindResponse",
