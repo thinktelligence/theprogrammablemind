@@ -13,6 +13,7 @@ const config = {
     { 
       id: "percent", 
       words: ['percent', '%'],
+      separators: '?',
       bridge: "{ ...next(operator), modifiers: ['scale'], scale: before[0] }",
       generatorp: ({context}) => context.text,
     },

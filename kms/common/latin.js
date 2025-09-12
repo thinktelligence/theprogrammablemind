@@ -6,6 +6,7 @@ const latin_tests = require('./latin.test.json')
 /*
   marcus est vir
   marcus vir est
+  vir marcus est -> if vir is know to be a category and marcus is not that overides ordering
 
   estne
   marcus quintus iuliaque
@@ -13,7 +14,7 @@ const latin_tests = require('./latin.test.json')
 const config = {
   name: 'latin',
   operators: [
-    "((*) [queryMarker])",
+    "((hierarchy/*) [queryMarker])",
     "([hierarchiable])",
     "((hierarchiable) [hierarchy|] (hierarchiable))",
     "((hierarchiable) (hierarchiable) [hierarchy|])",
@@ -22,7 +23,8 @@ const config = {
   bridges: [
     { 
       id: "queryMarker",
-      bridge: "{ ...next(before[0]), question: true }",
+      bridge: "{ ...before[0], question: true }",
+      separators: '|',
       before: ['hierarchy'],
     },
     { id: "hierarchiable" },
@@ -42,17 +44,21 @@ const config = {
   ],
   words: {
     literals: {
-      "ne": [{ id: 'queryMarker', initial: { value: 'queryMarker' } }],
-    },
-    patterns: [
-      { "pattern": ["ne"], defs: [
-        {
-          id: "queryMarker", 
-          uuid: '1', 
-          initial: { value: 'greg' } 
+      "ne": [
+        { 
+          id: 'queryMarker', 
+          initial: { value: 'queryMarker' },
         }
-      ]},
+      ],
+    },
+    /*
+    patterns: [
+      { 
+        pattern: ["ne"], 
+        defs: [ { id: "queryMarker", uuid: '1', }, ],
+      },
     ],
+    */
   },
 };
 
@@ -61,7 +67,7 @@ knowledgeModule( {
   includes: [gdefaults],
 
   module,
-  description: 'latin',
+  description: 'machina quis scriptum latinum intellegit et agit',
   test: {
     name: './latin.test.json',
     contents: latin_tests,

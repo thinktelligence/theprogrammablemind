@@ -134,6 +134,7 @@ const template = {
           id: 'monthDayYearWithSlashes_dates', 
           isA: ['date_dates'],
           before: ['preposition'],
+          separators: "||||",
           convolution: true,
           bridge: "{ ...next(operator), day: after[2], month: after[0], year: after[4], interpolate: '${month}/${day}/${year}' }",
           check: defaultContextCheckProperties(['day', 'month', 'year']),
