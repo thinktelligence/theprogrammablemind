@@ -67,7 +67,7 @@ knowledgeModule( {
   includes: [gdefaults],
 
   module,
-  description: 'machina quis scriptum latinum intellegit et agit',
+  description: 'machina quae scriptum latinum intellegit et agit',
   test: {
     name: './latin.test.json',
     contents: latin_tests,
