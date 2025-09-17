@@ -250,10 +250,17 @@ const initializer = ({config}) => {
           }
           if (Array.isArray(interpolate)) {
             const strings = []
+            let separator = ''
             for (const element of interpolate) {
-              strings.push(await args.g(element))
+              if (typeof element == 'string') {
+                separator = element
+              } else {
+                strings.push(separator)
+                strings.push(await args.gp(element))
+                separator = ' '
+              }
             }
-            return strings.join(" ")
+            return strings.join('')
           } else {
             return await helpers.processTemplateString(interpolate, evaluator)
           }

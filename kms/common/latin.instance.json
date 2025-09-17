@@ -1,2 +1,170 @@
 {
+  "configs": [
+    {
+      "operators": [
+        "((hierarchy/*) [queryMarker|ne])",
+        "((listable/*) [listMarker|que])",
+        "([hierarchiable])",
+        "((hierarchiable) [hierarchy|] (hierarchiable))",
+        "((hierarchiable) (hierarchiable) [hierarchy|])",
+        "([hierarchy|] (hierarchiable) (hierarchiable))"
+      ],
+      "bridges": [
+        {
+          "id": "queryMarker",
+          "bridge": "{ ...before[0], verb: before[0], interpolate: [before[0], '', operator], question: true }",
+          "separators": "|",
+          "before": [
+            "hierarchy"
+          ]
+        },
+        {
+          "id": "listMarker",
+          "localHierarchy": [
+            [
+              "unknown",
+              "listable"
+            ]
+          ],
+          "bridge": "{ ...before[0], verb: before[0], interpolate: [before[0], '', operator], list: true }",
+          "separators": "|"
+        },
+        {
+          "id": "hierarchiable"
+        },
+        {
+          "id": "hierarchy",
+          "localHierarchy": [
+            [
+              "unknown",
+              "hierarchiable"
+            ]
+          ],
+          "bridge": "{ ...next(operator), child: arguments[0], parent: arguments[1], question: less_than(indexes.operator, indexes.arguments[0]), interpolate: all }",
+          "words": [
+            {
+              "word": "sum",
+              "number": "singular",
+              "person": "first"
+            },
+            {
+              "word": "es",
+              "number": "singular",
+              "person": "second"
+            },
+            {
+              "word": "est",
+              "number": "singular",
+              "person": "third"
+            },
+            {
+              "word": "sumus",
+              "number": "plural",
+              "person": "first"
+            },
+            {
+              "word": "estis",
+              "number": "plural",
+              "person": "second"
+            },
+            {
+              "word": "sunt",
+              "number": "plural",
+              "person": "third"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "apply": "({addSuffix}) => addSuffix('que')"
+    }
+  ],
+  "resultss": [
+    {
+      "extraConfig": true,
+      "operators": [
+        "((hierarchy/*) [queryMarker|ne])",
+        "((listable/*) [listMarker|que])",
+        "([hierarchiable])",
+        "((hierarchiable) [hierarchy|] (hierarchiable))",
+        "((hierarchiable) (hierarchiable) [hierarchy|])",
+        "([hierarchy|] (hierarchiable) (hierarchiable))"
+      ],
+      "bridges": [
+        {
+          "id": "queryMarker",
+          "bridge": "{ ...before[0], verb: before[0], interpolate: [before[0], '', operator], question: true }",
+          "separators": "|",
+          "before": [
+            "hierarchy"
+          ]
+        },
+        {
+          "id": "listMarker",
+          "localHierarchy": [
+            [
+              "unknown",
+              "listable"
+            ]
+          ],
+          "bridge": "{ ...before[0], verb: before[0], interpolate: [before[0], '', operator], list: true }",
+          "separators": "|"
+        },
+        {
+          "id": "hierarchiable"
+        },
+        {
+          "id": "hierarchy",
+          "localHierarchy": [
+            [
+              "unknown",
+              "hierarchiable"
+            ]
+          ],
+          "bridge": "{ ...next(operator), child: arguments[0], parent: arguments[1], question: less_than(indexes.operator, indexes.arguments[0]), interpolate: all }",
+          "words": [
+            {
+              "word": "sum",
+              "number": "singular",
+              "person": "first"
+            },
+            {
+              "word": "es",
+              "number": "singular",
+              "person": "second"
+            },
+            {
+              "word": "est",
+              "number": "singular",
+              "person": "third"
+            },
+            {
+              "word": "sumus",
+              "number": "plural",
+              "person": "first"
+            },
+            {
+              "word": "estis",
+              "number": "plural",
+              "person": "second"
+            },
+            {
+              "word": "sunt",
+              "number": "plural",
+              "person": "third"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "apply": "({addSuffix}) => addSuffix('que')"
+    }
+  ],
+  "fragments": [],
+  "semantics": [],
+  "associations": [],
+  "summaries": [],
+  "learned_contextual_priorities": []
 }

@@ -2,6 +2,7 @@ const { knowledgeModule, where } = require('./runtime').theprogrammablemind
 const { defaultContextCheck } = require('./helpers')
 const gdefaults = require("./gdefaults")
 const latin_tests = require('./latin.test.json')
+const latin_instance = require('./latin.instance.json')
 
 /*
   marcus est vir
@@ -12,9 +13,9 @@ const latin_tests = require('./latin.test.json')
   marcus quintus iuliaque
 */
 const config = {
-  name: 'latin',
   operators: [
-    "((hierarchy/*) [queryMarker])",
+    "((hierarchy/*) [queryMarker|ne])",
+    "((listable/*) [listMarker|que])",
     "([hierarchiable])",
     "((hierarchiable) [hierarchy|] (hierarchiable))",
     "((hierarchiable) (hierarchiable) [hierarchy|])",
@@ -23,9 +24,15 @@ const config = {
   bridges: [
     { 
       id: "queryMarker",
-      bridge: "{ ...before[0], question: true }",
+      bridge: "{ ...before[0], verb: before[0], interpolate: [before[0], '', operator], question: true }",
       separators: '|',
       before: ['hierarchy'],
+    },
+    { 
+      id: "listMarker",
+      localHierarchy: [['unknown', 'listable']],
+      bridge: "{ ...before[0], verb: before[0], interpolate: [before[0], '', operator], list: true }",
+      separators: '|',
     },
     { id: "hierarchiable" },
     { 
@@ -42,28 +49,17 @@ const config = {
       ]
     },
   ],
-  words: {
-    literals: {
-      "ne": [
-        { 
-          id: 'queryMarker', 
-          initial: { value: 'queryMarker' },
-        }
-      ],
-    },
-    /*
-    patterns: [
-      { 
-        pattern: ["ne"], 
-        defs: [ { id: "queryMarker", uuid: '1', }, ],
-      },
-    ],
-    */
-  },
 };
 
+const template = {
+  configs: [
+    config,
+    ({addSuffix}) => addSuffix('que'),
+  ]
+}
+
 knowledgeModule( { 
-  config,
+  config: { name: 'latin' },
   includes: [gdefaults],
 
   module,
@@ -74,5 +70,10 @@ knowledgeModule( {
     checks: {
       context: [defaultContextCheck()],
     },
+  },
+
+  template: {
+    template,
+    instance: latin_instance,
   },
 })

@@ -20,10 +20,6 @@ const config = {
       },
       { 
         pattern: [{ type: 'alphanumeric' }, { repeat: true }], 
-
-        // left: 'before[0] is not word',
-        // right: 'after[0] is not word',
-
         scale: 0.8, 
         check_spelling: true, 
         is_unknown: true, 
@@ -48,8 +44,23 @@ const config = {
   },
 };
 
+const initializer = ({objects, config, isModule}) => {
+  config.addArgs(
+    ({addPattern}) => ({
+      addSuffix: (suffix) => {
+        addPattern({
+          pattern: [{ type: 'alphanumeric' }, { repeat: true }, { end: true }, { suffix: true }, suffix],
+          allow_partial_matches: false,
+          defs: [{id: "unknown", uuid: '1', initial: "{ value: text, unknown: true }" }]
+        })
+      }
+    })
+  )
+}
+
 knowledgeModule( { 
   config,
+  initializer,
 
   module,
   description: 'tokenize',
