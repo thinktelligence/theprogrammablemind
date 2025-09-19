@@ -74,6 +74,12 @@
             }
           ]
         }
+      ],
+      "semantics": [
+        {
+          "match": "({context}) => context.marker == 'unknown'",
+          "apply": "({context, config, addWord}) => {\n        const id = context.word\n        const word = context.word\n        config.addWord(word, { id, value: id })\n        config.addOperator(`([${id}|])`)\n        config.addBridge({ id, isA: ['hierarchiable'] })\n      }"
+        }
       ]
     },
     {
@@ -156,6 +162,9 @@
             }
           ]
         }
+      ],
+      "semantics": [
+        {}
       ]
     },
     {

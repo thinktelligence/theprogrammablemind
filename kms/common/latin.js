@@ -49,6 +49,18 @@ const config = {
       ]
     },
   ],
+  semantics: [
+    {
+      match: ({context}) => context.marker == 'unknown',
+      apply: ({context, config, addWord}) => {
+        const id = context.word
+        const word = context.word
+        config.addWord(word, { id, value: id })
+        config.addOperator(`([${id}|])`)
+        config.addBridge({ id, isA: ['hierarchiable'] })
+      }
+    }
+  ],
 };
 
 const template = {
@@ -67,6 +79,13 @@ knowledgeModule( {
   test: {
     name: './latin.test.json',
     contents: latin_tests,
+    includes: {
+      words: {
+        literals: ['marcus'],
+      },
+      bridges: ['marcus'],
+      operators: ['([marcus|])'],
+    },
     checks: {
       context: [defaultContextCheck()],
     },
