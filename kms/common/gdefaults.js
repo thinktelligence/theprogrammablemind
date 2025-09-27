@@ -248,16 +248,41 @@ const initializer = ({config}) => {
               return args.gp(context[key])
             }
           }
+          const getValue = (keyOrValue) => {
+            if (typeof keyOrValue == 'string' && context[keyOrValue]) {
+              return context[keyOrValue]
+            }
+            return keyOrValue // it's a value
+          }
+
           if (Array.isArray(interpolate)) {
             const strings = []
             let separator = ''
             for (const element of interpolate) {
               if (typeof element == 'string') {
                 separator = element
+              } else if (element.separator && element.values) {
+                let ctr = 0
+                const values = getValue(element.values)
+                const vstrings = []
+                for (const value of values) {
+                  if (ctr == values.length-1) {
+                    vstrings.push(getValue(element.separator))
+                  }
+                  ctr += 1
+                  vstrings.push(getValue(value))
+                }
+                strings.push(await args.gsp(vstrings))
               } else {
-                strings.push(separator)
-                strings.push(await args.gp(element))
-                separator = ' '
+                let value = element
+                if (element.property) {
+                  value = context[element.property]
+                }
+                if (value) {
+                  strings.push(separator)
+                  strings.push(await args.gp(value))
+                  separator = ' '
+                }
               }
             }
             return strings.join('')
