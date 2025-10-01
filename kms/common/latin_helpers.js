@@ -257,4 +257,102 @@ function getDeclensions(nominative, genitive = null) {
   return forms;
 }
 
-module.exports = { getDeclensions };
+function getIsIOType(infinitive) {
+  const thirdIOVerbs = [
+    'capere',   // to take, seize
+    'cupere',   // to desire
+    'facere',   // to make, do
+    'iacere',   // to throw
+    'quaerere', // to seek, ask
+    'sapere',   // to know, taste
+    'sedēre'    // to sit (semi-deponent)
+  ];
+
+  return thirdIOVerbs.includes(infinitive);
+}
+
+function conjugateVerb(infinitive) {
+  if (typeof infinitive !== 'string' || !infinitive.endsWith('re')) {
+    throw new Error('Input must be a Latin verb infinitive ending in -re');
+  }
+
+  let conjugation, stem, first_singular_stem, isIOType;
+  if (infinitive.endsWith('are')) {
+    conjugation = 1;
+    stem = infinitive.slice(0, -2); // Remove "-are" (e.g., "amare" → "ama")
+    first_singular_stem = infinitive.slice(0, -3); // Remove "-are" (e.g., "amare" → "ama")
+  } else if (infinitive.endsWith('ēre') && !['ducere', 'capere', 'facere'].includes(infinitive)) {
+    conjugation = 2;
+    stem = infinitive.slice(0, -3); // Remove "-ere" (e.g., "videre" → "vide")
+    first_singular_stem = stem
+  } else if (infinitive.endsWith('ire')) {
+    conjugation = 4;
+    stem = infinitive.slice(0, -2); // Remove "-ire" (e.g., "audire" → "audi")
+    first_singular_stem = stem
+  } else {
+    conjugation = 3; // Third and third -io (e.g., "ducere" → "duc")
+    stem = infinitive.slice(0, -3); // Remove "-ere"
+    first_singular_stem = stem
+    isIOType = getIsIOType(infinitive)
+  }
+
+  const endings = {
+    1: [
+      { number: 'singular', person: 'first', ending: 'o' },
+      { number: 'singular', person: 'second', ending: 's' },
+      { number: 'singular', person: 'third', ending: 't' },
+      { number: 'plural', person: 'first', ending: 'mus' },
+      { number: 'plural', person: 'second', ending: 'tis' },
+      { number: 'plural', person: 'third', ending: 'nt' },
+    ],
+    2: [
+      { number: 'singular', person: 'first', ending: 'eo' },
+      { number: 'singular', person: 'second', ending: 'es' },
+      { number: 'singular', person: 'third', ending: 'et' },
+      { number: 'plural', person: 'first', ending: 'emus' },
+      { number: 'plural', person: 'second', ending: 'etis' },
+      { number: 'plural', person: 'third', ending: 'ent' },
+    ],
+    3: [
+      { number: 'singular', person: 'first', ending: 'o' },
+      { number: 'singular', person: 'second', ending: 'is' },
+      { number: 'singular', person: 'third', ending: 'it' },
+      { number: 'plural', person: 'first', ending: 'imus' },
+      { number: 'plural', person: 'second', ending: 'itis' },
+      { number: 'plural', person: 'third', ending: 'unt' },
+    ],
+    4: [
+      { number: 'singular', person: 'first', ending: 'o' },
+      { number: 'singular', person: 'second', ending: 's' },
+      { number: 'singular', person: 'third', ending: 't' },
+      { number: 'plural', person: 'first', ending: 'mus' },
+      { number: 'plural', person: 'second', ending: 'tis' },
+      { number: 'plural', person: 'third', ending: 'unt' },
+    ],
+  };
+
+  // if (conjugation === 3 && ['capere', 'facere'].includes(infinitive)) {
+  if (conjugation === 3 && isIOType) {
+    endings[3][0].ending = 'io'; // Third -io first-person singular
+    endings[3][5].ending = 'iunt'; // Third -io third-person plural
+  }
+
+  const conjugationEndings = endings[conjugation];
+  const conjugations = conjugationEndings.map(({ number, person, ending }) => {
+    // Special handling for "dare" first-person singular
+    let word;
+    if (person === 'first' && number === 'singular') {
+      word = first_singular_stem + ending;
+    } else if (conjugation === 1 || conjugation === 4) {
+      // Preserve stem vowel for first and fourth conjugations
+      word = stem + ending;
+    } else {
+      word = stem + ending;
+    }
+    return { word, number, person };
+  });
+
+  return conjugations;
+}
+
+module.exports = { conjugateVerb, getDeclensions };

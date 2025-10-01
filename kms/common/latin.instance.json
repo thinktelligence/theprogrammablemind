@@ -4,7 +4,7 @@
       "apply": "({config}) => {\n      config.addArgs(({config, api, isA}) => ({\n        addLatinNoun: ({ id, nominative, genetive, development }) => {\n          config.addOperator({ pattern: `([${id}|])`, development: development })\n          config.addBridge({ id, isA: ['hierarchiable'] })\n          const declensions = getDeclensions(nominative, genetive)\n          for (const declension of declensions) {\n            config.addWord(declension.word, { id, initial: { ...declension, development } })\n          }\n        }\n      }))\n    }"
     },
     {
-      "apply": "({addLatinNoun}) => {\n      addLatinNoun({ id: 'davus_person', nominative: 'davus', development: true })\n      addLatinNoun({ id: 'titus_person', nominative: 'titus', development: true })\n      addLatinNoun({ id: 'pear_food', nominative: 'pirum', development: true })\n    }"
+      "apply": "({addLatinNoun}) => {\n      addLatinNoun({ id: 'davus_person', nominative: 'davus', development: true })\n      addLatinNoun({ id: 'titus_person', nominative: 'titus', development: true })\n      addLatinNoun({ id: 'pear_food', nominative: 'pirum', development: true })\n      addLatinNoun({ id: 'table_latin', nominative: 'mensa', development: true })\n    }"
     },
     {
       "operators": [
@@ -17,6 +17,69 @@
         "((listable/*) [listMarker|que])"
       ],
       "bridges": [
+        {
+          "id": "inLatin",
+          "words": [
+            "in"
+          ],
+          "before": [
+            "iacere"
+          ],
+          "bridge": "{ ...next(operator), declension: 'inLatin', object: object, operator: operator, interpolate: [{ property: 'operator' }, { property: 'object' }] }",
+          "selector": {
+            "ordinals": [
+              1
+            ],
+            "arguments": {
+              "object": "(context.declension == 'accusative' || context.declension == 'ablative')"
+            }
+          }
+        },
+        {
+          "id": "iacere",
+          "level": 0,
+          "words": [
+            {
+              "word": "iacio",
+              "number": "singular",
+              "person": "first"
+            },
+            {
+              "word": "iacis",
+              "number": "singular",
+              "person": "second"
+            },
+            {
+              "word": "iacit",
+              "number": "singular",
+              "person": "third"
+            },
+            {
+              "word": "iacimus",
+              "number": "plural",
+              "person": "first"
+            },
+            {
+              "word": "iacitis",
+              "number": "plural",
+              "person": "second"
+            },
+            {
+              "word": "iaciunt",
+              "number": "plural",
+              "person": "third"
+            }
+          ],
+          "bridge": "{ ...next(operator), thrower: nominative?, receiver: dative?, object: object?, location: location?, interpolate: [{ property: 'thrower' }, { property: 'receiver' }, { property: 'location' }, { property: 'object' }, operator] }",
+          "selector": {
+            "arguments": {
+              "nominative": "(context.declension == 'nominative' && context.number == operator.number)",
+              "dative": "(context.declension == 'dative')",
+              "object": "(context.declension == 'accusative')",
+              "location": "(context.declension == 'inLatin')"
+            }
+          }
+        },
         {
           "id": "dare",
           "level": 0,
@@ -45,7 +108,7 @@
               "person": "third"
             },
             {
-              "word": "datus",
+              "word": "damus",
               "number": "plural",
               "person": "first"
             },
@@ -175,7 +238,7 @@
       "apply": "({config}) => {\n      config.addArgs(({config, api, isA}) => ({\n        addLatinNoun: ({ id, nominative, genetive, development }) => {\n          config.addOperator({ pattern: `([${id}|])`, development: development })\n          config.addBridge({ id, isA: ['hierarchiable'] })\n          const declensions = getDeclensions(nominative, genetive)\n          for (const declension of declensions) {\n            config.addWord(declension.word, { id, initial: { ...declension, development } })\n          }\n        }\n      }))\n    }"
     },
     {
-      "apply": "({addLatinNoun}) => {\n      addLatinNoun({ id: 'davus_person', nominative: 'davus', development: true })\n      addLatinNoun({ id: 'titus_person', nominative: 'titus', development: true })\n      addLatinNoun({ id: 'pear_food', nominative: 'pirum', development: true })\n    }"
+      "apply": "({addLatinNoun}) => {\n      addLatinNoun({ id: 'davus_person', nominative: 'davus', development: true })\n      addLatinNoun({ id: 'titus_person', nominative: 'titus', development: true })\n      addLatinNoun({ id: 'pear_food', nominative: 'pirum', development: true })\n      addLatinNoun({ id: 'table_latin', nominative: 'mensa', development: true })\n    }"
     },
     {
       "extraConfig": true,
@@ -189,6 +252,69 @@
         "((listable/*) [listMarker|que])"
       ],
       "bridges": [
+        {
+          "id": "inLatin",
+          "words": [
+            "in"
+          ],
+          "before": [
+            "iacere"
+          ],
+          "bridge": "{ ...next(operator), declension: 'inLatin', object: object, operator: operator, interpolate: [{ property: 'operator' }, { property: 'object' }] }",
+          "selector": {
+            "ordinals": [
+              1
+            ],
+            "arguments": {
+              "object": "(context.declension == 'accusative' || context.declension == 'ablative')"
+            }
+          }
+        },
+        {
+          "id": "iacere",
+          "level": 0,
+          "words": [
+            {
+              "word": "iacio",
+              "number": "singular",
+              "person": "first"
+            },
+            {
+              "word": "iacis",
+              "number": "singular",
+              "person": "second"
+            },
+            {
+              "word": "iacit",
+              "number": "singular",
+              "person": "third"
+            },
+            {
+              "word": "iacimus",
+              "number": "plural",
+              "person": "first"
+            },
+            {
+              "word": "iacitis",
+              "number": "plural",
+              "person": "second"
+            },
+            {
+              "word": "iaciunt",
+              "number": "plural",
+              "person": "third"
+            }
+          ],
+          "bridge": "{ ...next(operator), thrower: nominative?, receiver: dative?, object: object?, location: location?, interpolate: [{ property: 'thrower' }, { property: 'receiver' }, { property: 'location' }, { property: 'object' }, operator] }",
+          "selector": {
+            "arguments": {
+              "nominative": "(context.declension == 'nominative' && context.number == operator.number)",
+              "dative": "(context.declension == 'dative')",
+              "object": "(context.declension == 'accusative')",
+              "location": "(context.declension == 'inLatin')"
+            }
+          }
+        },
         {
           "id": "dare",
           "level": 0,
@@ -217,7 +343,7 @@
               "person": "third"
             },
             {
-              "word": "datus",
+              "word": "damus",
               "number": "plural",
               "person": "first"
             },

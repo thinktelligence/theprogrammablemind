@@ -1,7 +1,7 @@
 const { knowledgeModule, where } = require('./runtime').theprogrammablemind
 const { defaultContextCheck } = require('./helpers')
 const gdefaults = require("./gdefaults")
-const { getDeclensions } = require("./latin_helpers")
+const { conjugateVerb, getDeclensions } = require("./latin_helpers")
 const latin_tests = require('./latin.test.json')
 const latin_instance = require('./latin.instance.json')
 
@@ -20,6 +20,8 @@ const latin_instance = require('./latin.instance.json')
   equus et aninus leo et lupus canis et ovis bestiae sunt    
   aliae bestiae sunt aves aliae pisces
   moribus antiquis res stat romana virisque
+  fossa nimis lata et vallum nimis altum est
+  arma germanorium tam bona sunt nostra
 */
 const config = {
   operators: [
@@ -31,8 +33,38 @@ const config = {
 
     "(x [list|et] y)",
     "((listable/*) [listMarker|que])",
+
+    // "([inLatin|in] (context.declension == 'ablative' || context.declension == 'accusative'))"
   ],
   bridges: [
+    {
+      id: 'inLatin',
+      words: ['in'],
+      before: ['iacere'],
+      bridge: "{ ...next(operator), declension: 'inLatin', object: object, operator: operator, interpolate: [{ property: 'operator' }, { property: 'object' }] }",
+      selector: {
+        ordinals: [1],
+        arguments: {
+          object: "(context.declension == 'accusative' || context.declension == 'ablative')",
+        },
+      },
+    },
+    {
+      id: "iacere",
+      level: 0,
+      words: [
+        ...conjugateVerb('iacere'),
+      ],
+      bridge: "{ ...next(operator), thrower: nominative?, receiver: dative?, object: object?, location: location?, interpolate: [{ property: 'thrower' }, { property: 'receiver' }, { property: 'location' }, { property: 'object' }, operator] }",
+      selector: {
+        arguments: {
+          nominative: "(context.declension == 'nominative' && context.number == operator.number)",
+          dative: "(context.declension == 'dative')",
+          object: "(context.declension == 'accusative')",
+          location: "(context.declension == 'inLatin')",
+        },
+      },
+    },
     {
       id: "dare",
       level: 0,
@@ -45,13 +77,8 @@ const config = {
         },
       },
       words: [
-        { word: 'do', number: 'singular', person: 'first' },
-        { word: 'das', number: 'singular', person: 'second' },
-        { word: 'dat', number: 'singular', person: 'third' },
-        { word: 'datus', number: 'plural', person: 'first' },
-        { word: 'datis', number: 'plural', person: 'second' },
-        { word: 'dant', number: 'plural', person: 'third' },
-      ]
+        ...conjugateVerb('dare'),
+      ],
     },
     {
       id: "list",
@@ -134,6 +161,7 @@ const template = {
       addLatinNoun({ id: 'davus_person', nominative: 'davus', development: true })
       addLatinNoun({ id: 'titus_person', nominative: 'titus', development: true })
       addLatinNoun({ id: 'pear_food', nominative: 'pirum', development: true })
+      addLatinNoun({ id: 'table_latin', nominative: 'mensa', development: true })
     },
     config,
     ({addSuffix}) => addSuffix('que'),

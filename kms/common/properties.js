@@ -117,24 +117,8 @@ const config = {
     "(([property]) <([propertyOf|of] ([object]))>)",
   */
   hierarchy: [
-    // ['concept', 'theAble'],
-    // ['concept', 'queryable'],
     ['unknown', 'hierarchyAble'],
-    // ['unknown', 'object'],
     ['what', 'object'],
-    // ['hierarchyAble', 'queryable'],
-    // ['readonly', 'queryable'],
-    // ['object', 'queryable'],
-    // ['xfx', 'queryable'],
-  
-    // ['property', 'queryable'],
-    // ['property', 'theAble'],
-    // ['property', 'unknown'],
- 
-    // ['object', 'theAble'],
-    // ['whose', 'object'],
-    // ['have', 'canBeDoQuestion'],
-    // ['have', 'canBeQuestion'],
   ],
   bridges: [
     { 
