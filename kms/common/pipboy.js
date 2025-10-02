@@ -250,6 +250,7 @@ const config = {
        where: where(),
        id: "equip", 
        isA: ['verb'],
+       words: ['use'],
        level: 0, 
        localHierarchy: [ ['weapon', 'equipable'], ['thisitthat', 'equipable'], ['equipable', 'unknown'] ],
        bridge: "{ ...next(operator), item: after[0] }",
