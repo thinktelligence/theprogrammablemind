@@ -890,3 +890,13 @@ node inspect reminders -q 'remind me\nremindResponse go to the store on monday' 
 node reminders -q "remind me\njan 23 2021\nremind me\njan 1 2020\ngo to france" -g -d -s
 node latin -q 'marcus quintusque viri sum' -g -d
 node latin -q 'tito davus pirum dat' -g -d
+node latin -q "marcus\\nmarcus" -g -d
+
+node math -q 'x is 3 y is 4 what is x' -g -d
+
+node menus -q 'glop is 3 what is glop' -g -d
+node math -q 'the price is 20 what is the price' -g -d
+node people -q 'ownee is owned by owner means owner owns ownee' -g -d`
+node people -q 'ownee is owned by owner means owner owns ownee' -g -d
+node people -q 'who is ownee23 owned by' -g -d
+

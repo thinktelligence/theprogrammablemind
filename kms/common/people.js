@@ -18,6 +18,7 @@ const template = {
       "surname means last name",
       "given modifies name",
       "given name means first name",
+      { stop: true },
       "ownee is owned by owner means owner owns ownee",
     ],
 }

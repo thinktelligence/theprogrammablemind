@@ -50,6 +50,7 @@ const initializer = ({objects, config, isModule}) => {
       addSuffix: (suffix) => {
         addPattern({
           pattern: [{ type: 'alphanumeric' }, { repeat: true }, { end: true }, { suffix: true }, suffix],
+          scale: 0.8,
           allow_partial_matches: false,
           defs: [{id: "unknown", uuid: '1', initial: "{ value: text, unknown: true }" }]
         })

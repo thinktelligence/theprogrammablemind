@@ -22,6 +22,7 @@ const latin_instance = require('./latin.instance.json')
   moribus antiquis res stat romana virisque
   fossa nimis lata et vallum nimis altum est
   arma germanorium tam bona sunt nostra
+  hiems tempus frigidus est  (compound subject)
 */
 const config = {
   operators: [
