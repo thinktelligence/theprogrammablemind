@@ -890,3 +890,4 @@ node inspect reminders -q 'remind me\nremindResponse go to the store on monday' 
 node reminders -q "remind me\njan 23 2021\nremind me\njan 1 2020\ngo to france" -g -d -s
 node latin -q 'marcus quintusque viri sum' -g -d
 node latin -q 'tito davus pirum dat' -g -d
+node wp -q 'italicize the bolded words that contain t' -g -d

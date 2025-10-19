@@ -259,6 +259,8 @@ template = {
           { context: [["article",0],["statefulElement_wp",0]], choose: 1 },
           { context: [["article",0],["statefulElement_wp",1]], choose: 1 },
           { context: [["article",0],["ordinal", 0],["statefulElement_wp",0]], choose: 2 },
+
+          { context: [["styleModifier_wp",0],["statefulElement_wp",0]], choose: 1 },
         ]
       },
 
