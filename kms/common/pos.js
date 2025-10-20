@@ -20,7 +20,7 @@ const config = {
   bridges: [
     {
       id: "adjective",
-      before: ['ingVerb', 'subordinatedVerb', 'article'],
+      before: ['ingVerb', 'subordinatedVerb', 'article', 'preposition'],
     },
     {
       id: "adverb",
@@ -28,7 +28,7 @@ const config = {
     },
     {
       id: "article",
-      before: ['ingVerb', 'subordinatedVerb'],
+      before: ['ingVerb', 'subordinatedVerb', 'preposition'],
     },
     {
       id: "preposition",
@@ -57,11 +57,6 @@ const config = {
       before: ['ingVerb', 'subordinatedVerb'],
     },
   ],
-  priorities: [
-    { context: [['preposition', 0], ['adjective', 0], ], choose: [1] },
-    { context: [['preposition', 0], ['article', 0], ], choose: [1] },
-  ],
-
 };
 
 knowledgeModule( {
