@@ -18,43 +18,53 @@ const config = {
     "([noun])",
   ],
   bridges: [
-    { "id": "adjective" },
-    { "id": "adverb" },
-    { "id": "article" },
-    { "id": "preposition" },
-    { "id": "pronoun" },
-    { "id": "verb" },
-    { "id": "subordinatedVerb" },
-    { "id": "ingVerb" },
-    { "id": "punctuation" },
-    { "id": "noun" },
+    {
+      id: "adjective",
+      before: ['ingVerb', 'subordinatedVerb', 'article'],
+    },
+    {
+      id: "adverb",
+      before: ['ingVerb', 'subordinatedVerb'],
+    },
+    {
+      id: "article",
+      before: ['ingVerb', 'subordinatedVerb'],
+    },
+    {
+      id: "preposition",
+      before: ['ingVerb', 'subordinatedVerb'],
+    },
+    {
+      id: "pronoun",
+    },
+    {
+      id: "verb",
+      before: ['endOfSentence'],
+    },
+    {
+      id: "subordinatedVerb",
+      before: ['punctuation', 'verb'],
+    },
+    {
+      id: "ingVerb",
+      before: ['punctuation', 'verb'],
+    },
+    {
+      id: "punctuation",
+    },
+    {
+      id: "noun",
+      before: ['ingVerb', 'subordinatedVerb'],
+    },
   ],
   priorities: [
-    { "context": [['verb', 0], ['ingVerb', 0], ], "choose": [1] },
-    { "context": [['verb', 0], ['subordinatedVerb', 0], ], "choose": [1] },
-    { "context": [['endOfSentence', 0], ['verb', 0], ], "choose": [1] },
-    { "context": [['pronoun', 0], ['ingVerb', 0], ], "choose": [0] },
-    { "context": [['pronoun', 0], ['subordinatedVerb', 0], ], "choose": [0] },
-    { "context": [['preposition', 0], ['ingVerb', 0], ], "choose": [0] },
-    { "context": [['preposition', 0], ['subordinatedVerb', 0], ], "choose": [0] },
-    { "context": [['adverb', 0], ['ingVerb', 0], ], "choose": [0] },
-    { "context": [['adverb', 0], ['subordinatedVerb', 0], ], "choose": [0] },
-    { "context": [['preposition', 0], ['adjective', 0], ], "choose": [1] },
-    { "context": [['preposition', 0], ['article', 0], ], "choose": [1] },
-    { "context": [['adjective', 0], ['ingVerb', 0], ], "choose": [0] },
-    { "context": [['adjective', 0], ['subordinatedVerb', 0], ], "choose": [0] },
-    { "context": [['article', 0], ['ingVerb', 0], ], "choose": [0] },
-    { "context": [['article', 0], ['subordinatedVerb', 0], ], "choose": [0] },
-    { "context": [['article', 0], ['adjective', 0], ], "choose": [1] },
-    { "context": [['punctuation', 0], ['ingVerb', 0], ], "choose": [1] },
-    { "context": [['punctuation', 0], ['ingVerb', 0], ], "choose": [1] },
-    { "context": [['noun', 0], ['ingVerb', 0], ], "choose": [0] },
-    { "context": [['noun', 0], ['subordinatedVerb', 0], ], "choose": [0] },
+    { context: [['preposition', 0], ['adjective', 0], ], choose: [1] },
+    { context: [['preposition', 0], ['article', 0], ], choose: [1] },
   ],
 
 };
 
-knowledgeModule( { 
+knowledgeModule( {
   config,
   includes: [punctuation],
 
