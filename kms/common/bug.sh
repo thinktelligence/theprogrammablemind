@@ -901,3 +901,4 @@ node people -q 'ownee is owned by owner means owner owns ownee' -g -d`
 node people -q 'ownee is owned by owner means owner owns ownee' -g -d
 node people -q 'who is ownee23 owned by' -g -d
 node wp -q 'italicize the bolded words that contain t' -g -d
+node fastfood -q 'breakfast baconator, french toast sandwich, egg muffin, chicken on french toast, pancake platter, double sausage muffin, pancakes, french toast and oatmeal are breakfast meals' -g -d

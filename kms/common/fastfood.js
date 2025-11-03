@@ -103,6 +103,7 @@ const template = {
     "go modifies wrap",
     "a go wrap is a sandwich",
     "chicken modifies go wrap",
+    // { stop: true },
     "breakfast baconator, french toast sandwich, egg muffin, chicken on french toast, pancake platter, double sausage muffin, pancakes, french toast and oatmeal are breakfast meals",
     "single, double, triple, baconator, bacon deluxe, spicy homestyle and premium cod are meals",
     "coca modifies cola",
