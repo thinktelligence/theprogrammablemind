@@ -28,6 +28,7 @@ const hierarchy = require('./common/hierarchy')
 const javascript = require('./common/javascript')
 const kirk = require('./common/kirk')
 const latin = require('./common/latin')
+const latin_helpers = require('./common/latin_helpers')
 const length = require('./common/length')
 const listener = require('./common/listener')
 const math = require('./common/math')
@@ -97,6 +98,7 @@ module.exports = {
   javascript,
   kirk,
   latin,
+  latin_helpers,
   length,
   listener,
   math,
