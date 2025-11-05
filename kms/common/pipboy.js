@@ -124,7 +124,7 @@ const config = {
     "([putOn|] ([wearable]))",
     "(([put]) <on>)",
     "([call] ([nameable]) ([outfit]))",
-    "((condition/1,2) <propertyCondition|> (weapon/1))",
+    "((condition/1,2) <propertyCondition|> (weapon/0))",
     // "([call] ([outfit]) ([outfitName]))",
     // wear the city outfit / wear a suit / wear a suit and hat / wear that
     // call this the town outfit

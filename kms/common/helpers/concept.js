@@ -109,7 +109,8 @@ class API {
       associator_return_type: [modifiersObjectId, 0],
       // isA: ['adjective'],
       before: ['verb'],
-      bridge: `{ ...after[0], ${modifierProperties}, atomic: true, dead: true, marker: next(operator('${modifiersObjectId}')), value: '${modifiersObjectId}', modifiers: append([${modifierList}], after[0].modifiers)}`, 
+      // bridge: `{ ...after[0], ${modifierProperties}, atomic: true, dead: true, marker: next(operator('${modifiersObjectId}')), value: '${modifiersObjectId}', modifiers: append([${modifierList}], after[0].modifiers)}`, 
+      bridge: `{ ...after[0], ${modifierProperties}, atomic: true, dead: true, marker: operator('${modifiersObjectId}'), value: '${modifiersObjectId}', modifiers: append([${modifierList}], after[0].modifiers)}`, 
       allowDups: true })
     {
       const word = {

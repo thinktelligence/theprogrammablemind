@@ -103,7 +103,8 @@ class API {
     await this.args.s({ value, makeObject: true, initial })
     // config.addOperator({ pattern: `(["${fixUps(concept)}"])`, allowDups: true })
     config.addOperator({ pattern: `(["${concept}"|])`, allowDups: true })
-    config.addBridge({ id: concept, level: 0, bridge: `{ ...next(operator), value: or(operator.value, '${source_value || concept}') }` , allowDups: true })
+    config.addBridge({ id: concept, level: 0, bridge: `{ ...operator, dead: true, value: or(operator.value, '${source_value || concept}') }` , allowDups: true })
+    // config.addBridge({ id: concept, level: 0, bridge: `{ ...next(operator), value: or(operator.value, '${source_value || concept}') }` , allowDups: true })
 
     const addConcept = (word, number) => {
       if (number) {

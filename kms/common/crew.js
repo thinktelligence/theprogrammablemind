@@ -47,21 +47,6 @@ const initializer = ({config, apis}) => {
                 create: ['arm', 'weapon'], 
                 after: [{tag: 'weapon', id: 'weapon'}],
                 config }, 
-                /*
-                ({context, km}) => {
-                  const value = {
-                          "marker": "unknown",
-                          "types": [
-                            "unknown"
-                          ],
-                          "unknown": true,
-                          "value": "armed",
-                          "word": "armed",
-                          "response": true
-                  }
-                  km("properties").api.setProperty(context.weapon.value, 'status', value, true) 
-                }
-                */
           )
   
   api.createActionPrefix({ 

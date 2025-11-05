@@ -60,7 +60,7 @@ const config = {
     // "(([unit]) [kindOfDimension|of] ([dimension]))",
     "((amount/1 || number/1) [amountOfDimension|] ([unit]))",
     "(([amount]) [unit])",
-    "((dimension/1) [convertToUnits|in] (unit/1))",
+    "((dimension) [convertToUnits|in] (unit))",
 
     "(([number]) [degree])",
     { pattern: "([length])", development: true },
