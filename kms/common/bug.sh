@@ -903,3 +903,6 @@ node people -q 'who is ownee23 owned by' -g -d
 node wp -q 'italicize the bolded words that contain t' -g -d
 node fastfood -q 'breakfast baconator, french toast sandwich, egg muffin, chicken on french toast, pancake platter, double sausage muffin, pancakes, french toast and oatmeal are breakfast meals' -g -d
 node properties -q "alice's sister is wendy wendy's cat is cleo\nwho is the cat of the sister of alice" -g -d
+node fastfood -q "a combo with iced tea" -g -d
+node math -q 'what is 10 plus 2 plus 3' -g -d -tva
+node math -q 'what is 10 plus 2 plus 3' -g -d -tva
