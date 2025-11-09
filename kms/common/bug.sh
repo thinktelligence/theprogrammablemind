@@ -906,3 +906,4 @@ node properties -q "alice's sister is wendy wendy's cat is cleo\nwho is the cat 
 node fastfood -q "a combo with iced tea" -g -d
 node math -q 'what is 10 plus 2 plus 3' -g -d -tva
 node math -q 'what is 10 plus 2 plus 3' -g -d -tva
+node wp -q 'bold the third letter of the second paragraph' -g -d
