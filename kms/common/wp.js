@@ -243,6 +243,8 @@ template = {
       ],
       associations: {
         positive: [
+          { context: [["style_wp", 0], ["the", 0], ["letter_wp", 0], ["statefulElementInContext_wp", 0], ["the", 0], ["ordinal", 1], ["paragraph_wp", 0]], choose: { index: 0, increment: true } },
+
           { context: [["style_wp", 0], ["the", 0], ["ordinal", 0], ["word_wp", 0], ["statefulElementInContext_wp", 0], ["the", 0], ["ordinal", 0], ["list", 0], ["ordinal", 0], ["paragraph_wp", 0]], choose: { index: 0, increment: true } },
           { context: [["style_wp", 1], ["the", 0], ["ordinal", 0], ["word_wp", 0], ["statefulElementInContext_wp", 0], ["the", 0], ["ordinal", 0], ["list", 0], ["ordinal", 0], ["paragraph_wp", 0]], choose: { index: 0, increment: true } },
           { context: [["style_wp", 1], ["the", 0], ["ordinal", 1], ["word_wp", 0], ["statefulElementInContext_wp", 0], ["the", 0], ["ordinal", 0], ["list", 0], ["ordinal", 0], ["paragraph_wp", 0]], choose: { index: 0, increment: true } },
