@@ -345,7 +345,7 @@ const config = {
     },
     {
       where: where(),
-      match: ({context, hierarchy}) => hierarchy.isA(context.marker, 'canBeDoQuestion') && context.paraphrase && !context.query,
+      match: ({context, hierarchy}) => hierarchy.isA(context.marker, 'canBeDoQuestion') && context.paraphrase && !context.query && !context.interpolate,
       apply: async ({context, g}) => {
         return `${await g(context.object)} ${context.word} ${await g(context.property)}`
       }
