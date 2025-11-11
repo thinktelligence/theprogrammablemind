@@ -3,6 +3,7 @@ const { defaultContextCheck } = require('./helpers')
 const { knowledgeModule, where } = require('./runtime').theprogrammablemind
 const tokenize = require('./tokenize.js')
 const gdefaults_tests = require('./gdefaults.test.json')
+const englishHelpers = require('./english_helpers.js')
 const { getValue, isMany } = require('./helpers.js')
 const helpers = require('./helpers')
 
@@ -151,7 +152,7 @@ const config = {
     {
       where: where(),
       priority: -1,
-      match: ({context}) => context.evaluateWord && context.paraphrase && context.word && (context.number == 'many' || countext.number > 1),
+      match: ({context}) => context.evaluateWord && context.paraphrase && context.word && (context.number == 'many' || context.number > 1),
       apply: ({context}) => pluralize.plural(context.word),
     },
 
