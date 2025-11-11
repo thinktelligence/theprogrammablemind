@@ -341,13 +341,17 @@ class API {
           afterArgs = tagsToProps('after', after, '*')
         }
 
+        // const subjectContext = before[0].tag
+        // const interpolate = "[" + before.map((arg) => `{ property: '${arg.tag}' }`).concat(`{ ...operator, evaluateWord: true, number: ${subjectContext}.number }`).concat(after.map((arg) => `{ property: '${arg.tag}' }`)).join(',') + "]"
+        const interpolate = "[" + before.map((arg) => `{ property: '${arg.tag}' }`).concat(`{ ...operator, evaluateWord: true, isVerb: true, number: 'one' }`).concat(after.map((arg) => `{ property: '${arg.tag}' }`)).join(',') + "]"
+
         const unflattenArgs = [ ...before.map( (arg) => arg.tag ), ...after.map( (arg) => arg.tag ) ] 
         const focusable = [ ...before.map( (arg) => arg.tag ), ...after.map( (arg) => arg.tag ) ] 
         config.addBridge({ 
           id: operator, 
           level: 0, 
           localHierarchy: [...localHierarchy, ['object', 'unknown']],
-          bridge: `{ ... next(operator) ${doParams} ${beforeArgs} ${afterArgs}, unflatten: ${JSON.stringify(unflattenArgs)}, focusable: ${JSON.stringify(focusable)} }`, 
+          bridge: `{ ... next(operator) ${doParams} ${beforeArgs} ${afterArgs}, unflatten: ${JSON.stringify(unflattenArgs)}, focusable: ${JSON.stringify(focusable)}, interpolate: ${interpolate} }`, 
           allowDups: true 
         })
         if (words.length > 0) {
