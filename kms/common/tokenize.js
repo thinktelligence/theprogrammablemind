@@ -69,7 +69,10 @@ knowledgeModule( {
     name: './tokenize.test.json',
     contents: tokenize_tests,
     checks: {
-      context: [defaultContextCheck()],
+      context: [
+        defaultContextCheck({ marker: 'unknown', exported: true, extra: ['marker', 'text', 'value'] }),
+        defaultContextCheck(),
+      ],
     },
   },
 })

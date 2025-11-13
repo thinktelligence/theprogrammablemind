@@ -71,9 +71,9 @@ knowledgeModule( {
     contents: people_tests,
     checks: {
       context: [
-        defaultContextCheck({ extra: ['owned', 'ownee'] }),
+        defaultContextCheck({ marker: 'owns', extra: ['constraints', 'owned', 'ownee'] }),
       ],
-      objects: ['relations', { km: 'properties' }],
+      objects: [{ km: 'properties' }],
     },
   },
   template: {

@@ -686,6 +686,11 @@ knowledgeModule( {
         defaultContextCheck({ marker: 'objectPrefix', exported: true, extra: ['object', 'objects'] }),
         defaultContextCheck()
       ],
+      /*
+      objects: [
+        'relations'
+      ]
+      */
     },
     include: {
       words: true,
