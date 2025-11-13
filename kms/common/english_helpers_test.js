@@ -47,7 +47,7 @@ describe('conjugateVerb', () => {
       });
     });
 
-    test('NEO23 correctly conjugates present tense for third person singular', () => {
+    test('correctly conjugates present tense for third person singular', () => {
       expect(result).toContainEqual({ word: 'studies', number: 'singular', person: 'third', tense: 'present' });
       expect(result).toContainEqual({ word: 'study', number: 'singular', person: 'first', tense: 'present' });
       expect(result).toContainEqual({ word: 'study', number: 'plural', person: 'third', tense: 'present' });

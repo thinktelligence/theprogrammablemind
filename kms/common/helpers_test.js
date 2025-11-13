@@ -180,3 +180,92 @@ describe('focus', () => {
   })
 })
 
+describe('removeProp (mutation-only)', () => {
+  const data = () => ({
+    a: 1,
+    b: 2,
+    c: { d: 3, e: null },
+    arr: [1, null, 3],
+    [Symbol('keep')]: 'stay',
+    [Symbol('remove')]: 'go',
+  });
+
+  test('mutates and returns the same object', () => {
+    const obj = { x: 1 };
+    const res = helpers.removeProp(obj, () => true);
+    expect(res).toBe(obj);
+    expect(obj).toEqual({});
+  });
+
+  test('removes matching properties', () => {
+    const obj = data();
+    helpers.removeProp(obj, v => v === null);
+    expect(obj.c.e).toBeUndefined();
+    expect(obj.arr).toEqual([1, 3]);
+  });
+
+  test('removes array elements', () => {
+    const arr = [10, 20, 30];
+    helpers.removeProp(arr, v => v > 15);
+    expect(arr).toEqual([10]);
+  });
+
+  test('handles symbols', () => {
+    const sKeep = Symbol('keep');
+    const sRemove = Symbol('remove');
+    const obj = { [sKeep]: 1, [sRemove]: 2 };
+    helpers.removeProp(obj, (v, k) => k === sRemove);
+    expect(obj[sKeep]).toBe(1);
+    expect(obj[sRemove]).toBeUndefined();
+  });
+
+  test('respects maxDepth', () => {
+    const deep = { l1: { l2: { remove: true } } };
+    helpers.removeProp(deep, (v, k) => k === 'remove', { maxDepth: 1 });
+    expect(deep.l1.l2.remove).toBe(true); // not removed
+  });
+
+  test('circular references are safe', () => {
+    const obj = {};
+    obj.self = obj;
+    expect(() => helpers.removeProp(obj, () => false)).not.toThrow();
+  });
+
+  test('primitives are returned unchanged', () => {
+    expect(helpers.removeProp(42, () => true)).toBe(42);
+    expect(helpers.removeProp(null, () => true)).toBe(null);
+  });
+
+  test('testFn receives (value, key/index, parent)', () => {
+    const calls = [];
+    const obj = { a: 1, b: [2] };
+    helpers.removeProp(obj, (v, k, p) => {
+      calls.push({ v, k, p: p === obj ? 'root' : 'child' });
+      return false;
+    });
+    expect(calls).toContainEqual({ v: 1, k: 'a', p: 'root' });
+    expect(calls).toContainEqual({ v: [2], k: 'b', p: 'root' });
+    expect(calls).toContainEqual({ v: 2, k: 0, p: 'child' });
+  });
+
+  test('testFn receives (value, key/index, parent)', () => {
+    const obj = {
+      "interpolate": [
+        {
+          "range": {
+            "start": 22,
+            "end": 25
+          },
+        },
+      ],
+    }
+
+    helpers.removeProp(obj, (v, k, p) => {
+      console.log(`greg55: ${v}, ${k}, ${p}`)
+      return k == 'range';
+    });
+
+    console.log(JSON.stringify(obj, null, 2))
+  });
+});
+

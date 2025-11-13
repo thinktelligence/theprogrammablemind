@@ -2,7 +2,7 @@ const pluralize = require('pluralize')
 const { unflatten, flattens, Digraph } = require('../runtime').theprogrammablemind
 const _ = require('lodash')
 const deepEqual = require('deep-equal')
-const { chooseNumber } = require('../helpers.js')
+const { chooseNumber, removeProp } = require('../helpers.js')
 const { Frankenhash } = require('./frankenhash.js')
 const { compose, translationMapping, translationMappingToInstantiatorMappings } = require('./meta.js')
 
@@ -343,7 +343,8 @@ class API {
 
         // const subjectContext = before[0].tag
         // const interpolate = "[" + before.map((arg) => `{ property: '${arg.tag}' }`).concat(`{ ...operator, evaluateWord: true, number: ${subjectContext}.number }`).concat(after.map((arg) => `{ property: '${arg.tag}' }`)).join(',') + "]"
-        const interpolate = "[" + before.map((arg) => `{ property: '${arg.tag}' }`).concat(`{ ...operator, evaluateWord: true, isVerb: true, number: 'one' }`).concat(after.map((arg) => `{ property: '${arg.tag}' }`)).join(',') + "]"
+        const imperative = (before.length == 0) ? "true" : "false"
+        const interpolate = "[" + before.map((arg) => `{ property: '${arg.tag}' }`).concat(`{ ...operator, evaluateWord: true, imperative: ${imperative}, isVerb: true, number: 'one' }`).concat(after.map((arg) => `{ property: '${arg.tag}' }`)).join(',') + "]"
 
         const unflattenArgs = [ ...before.map( (arg) => arg.tag ), ...after.map( (arg) => arg.tag ) ] 
         const focusable = [ ...before.map( (arg) => arg.tag ), ...after.map( (arg) => arg.tag ) ] 
@@ -380,49 +381,53 @@ class API {
     config.addPriority({ "context": [[operator, 0], ['means', 0], ], "choose": [0] })
     config.addPriority({ "context": [['article', 0], [operator, 0], ], "choose": [0] })
 
-    config.addGenerator({
-      notes: 'ordering generator for paraphrase',
-      match: ({context}) => context.marker == operator && context.paraphrase && !context.query,
-      apply: async ({context, gp, g}) => {
-        const beforeGenerator = []
-        for (const arg of before) {
-          beforeGenerator.push(await g(context[arg.tag]))
+    if (false) {
+      config.addGenerator({
+        notes: 'ordering generator for paraphrase',
+        match: ({context}) => context.marker == operator && context.paraphrase && !context.query,
+        apply: async ({context, gp, g}) => {
+          const beforeGenerator = []
+          for (const arg of before) {
+            beforeGenerator.push(await g(context[arg.tag]))
+          }
+          const afterGenerator = []
+          for (const arg of after) {
+            afterGenerator.push(await gp(context[arg.tag]))
+          }
+          const word = context.word
+          const sub = []
+          if (context.subphrase) {
+            sub.push(['that'])
+          }
+          return beforeGenerator.concat(sub).concat([word]).concat(afterGenerator).join(' ')
         }
-        const afterGenerator = []
-        for (const arg of after) {
-          afterGenerator.push(await gp(context[arg.tag]))
-        }
-        const word = context.word
-        const sub = []
-        if (context.subphrase) {
-          sub.push(['that'])
-        }
-        return beforeGenerator.concat(sub).concat([word]).concat(afterGenerator).join(' ')
-      }
-    })
+      })
+    }
 
-    config.addGenerator({
-      notes: 'ordering generator for response',
-      match: ({context}) => context.marker == operator && context.evalue && context.isResponse,
-      apply: async ({context, g, km}) => {
-        const brief = km("dialogues").api.getBrief()
+    if (true) {
+      config.addGenerator({
+        notes: 'ordering generator for response',
+        match: ({context}) => context.marker == operator && context.evalue && context.isResponse,
+        apply: async ({context, g, km}) => {
+          const brief = km("dialogues").api.getBrief()
 
-        const { evalue } = context 
-        let yesno = ''
-        if (!context.do.query || evalue.truthValueOnly || brief) {
-          if (evalue.truthValue) {
-            yesno = 'yes'
-          } else if (evalue.truthValue === false) {
-            yesno = 'no'
+          const { evalue } = context 
+          let yesno = ''
+          if (!context.do.query || evalue.truthValueOnly || brief) {
+            if (evalue.truthValue) {
+              yesno = 'yes'
+            } else if (evalue.truthValue === false) {
+              yesno = 'no'
+            }
+          }
+          if (evalue.truthValueOnly || brief) {
+            return `${yesno}`
+          } else {
+            return `${yesno} ${await g(Object.assign({}, evalue, { paraphrase: true }))}`
           }
         }
-        if (evalue.truthValueOnly || brief) {
-          return `${yesno}`
-        } else {
-          return `${yesno} ${await g(Object.assign({}, evalue, { paraphrase: true }))}`
-        }
-      }
-    })
+      })
+    }
  
     if (ordering) {
       config.addSemantic({
@@ -519,7 +524,7 @@ class API {
       config.addSemantic({
         notes: `getter for ${operator}`,
         match: ({context}) => context.marker == operator && context.query,
-        apply: ({context, km}) => {
+        apply: ({context, km, callId}) => {
           const api = km('properties').api
 
           context.evalue = {
@@ -556,6 +561,8 @@ class API {
   }
 
   relation_add (relations) {
+    removeProp(relations, (val, prop, obj) => prop === 'range')
+
     if (!Array.isArray(relations)) {
       relations = [relations]
     }
@@ -707,7 +714,6 @@ class API {
   }
 
   setProperty(object, property, value, has, skipHandler) {
-    // debugger
     if (!skipHandler) {
       const handler = this.propertiesFH.getHandler([object, property])
       if (handler) {

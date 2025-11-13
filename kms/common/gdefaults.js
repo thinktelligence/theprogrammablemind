@@ -159,8 +159,21 @@ const config = {
     {
       where: where(),
       priority: -1,
+      match: ({context}) => context.evaluateWord && context.isVerb && context.paraphrase && context.word && context.number == 'one' && !context.imperative,
+      apply: ({context}) => {
+        const infinitive = englishHelpers.getInfinitive(context.word)
+        const cases = englishHelpers.conjugateVerb(infinitive)
+        return pluralize.plural(context.word)
+      },
+    },
+
+    {
+      where: where(),
+      priority: -1,
       match: ({context}) => context.evaluateWord && context.paraphrase && context.word && context.number == 'one',
-      apply: ({context}) => pluralize.singular(context.word),
+      apply: ({context}) => {
+        return pluralize.singular(context.word)
+      },
     },
 
     {

@@ -263,6 +263,58 @@ const processTemplateString = async (template, evaluate) => {
   return await processTemplateString(template)
 }
 
+// removeProp.js
+function removeProp(obj, testFn, { maxDepth = Infinity, seen = new WeakSet() } = {}) {
+  if (!obj || typeof obj !== 'object' || maxDepth <= 0) return obj;
+  if (seen.has(obj)) return obj;
+  seen.add(obj);
+
+  if (Array.isArray(obj)) {
+    // ---- ARRAY: process each element (but don't remove elements unless testFn says so)
+    let writeIdx = 0;
+    for (let i = 0; i < obj.length; i++) {
+      const element = obj[i];
+      const shouldRemoveElement = testFn(element, i, obj);
+
+      if (shouldRemoveElement) {
+        // Remove the whole array element
+        if (element && typeof element === 'object') {
+          // Still walk inside it in case testFn wants side effects
+          removeProp(element, testFn, { maxDepth: maxDepth - 1, seen });
+        }
+        // Skip writing it back
+      } else {
+        // Keep element, but walk into it to remove inner props
+        removeProp(element, testFn, { maxDepth: maxDepth - 1, seen });
+        if (writeIdx !== i) {
+          obj[writeIdx] = element;
+        }
+        writeIdx++;
+      }
+    }
+    obj.length = writeIdx;
+    return obj;
+  }
+
+  // ---- OBJECT: iterate over own keys
+  const keys = Reflect.ownKeys(obj);
+  for (const key of keys) {
+    const val = obj[key];
+    const shouldRemove = testFn(val, key, obj);
+
+    if (shouldRemove) {
+      delete obj[key];
+      if (val && typeof val === 'object') {
+        removeProp(val, testFn, { maxDepth: maxDepth - 1, seen });
+      }
+    } else {
+      removeProp(val, testFn, { maxDepth: maxDepth - 1, seen });
+    }
+  }
+
+  return obj;
+}
+
 module.exports = {
   processTemplateString,
   unshiftL,
@@ -284,4 +336,5 @@ module.exports = {
   wordNumber,
   requiredArgument,
   isA,
+  removeProp,
 }

@@ -907,3 +907,4 @@ node fastfood -q "a combo with iced tea" -g -d
 node math -q 'what is 10 plus 2 plus 3' -g -d -tva
 node math -q 'what is 10 plus 2 plus 3' -g -d -tva
 node wp -q 'bold the third letter of the second paragraph' -g -d
+node people -q 'wendy owns cleo wendy owns mary what does wendy own' -g -d

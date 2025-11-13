@@ -5,7 +5,6 @@ const people_tests = require('./people.test.json')
 const people_instance = require('./people.instance.json')
 const { hashIndexesGet, hashIndexesSet, translationMapping, translationMappings, compose } = require('./helpers/meta.js')
 
-
 // TODO first name 
 // TODO last name
 // alive is a first name vs alive is a person
@@ -71,8 +70,11 @@ knowledgeModule( {
     name: './people.test.json',
     contents: people_tests,
     checks: {
-      context: [defaultContextCheck()],
-    }
+      context: [
+        defaultContextCheck({ extra: ['owned', 'ownee'] }),
+      ],
+      objects: ['relations', { km: 'properties' }],
+    },
   },
   template: {
     template,
