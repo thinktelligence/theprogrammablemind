@@ -263,12 +263,33 @@ class API {
   // relation -> the semantics will be implements using relations
   // edable: "y is owned by x" edable = { operator: 'owned' }
   createActionPrefix(args, semanticApply) {
-    const { operator, before=[], after=[], create=[], config, localHierarchy=[], relation, ordering, doAble, words = [], unflatten:unflattenArgs = [], focusable = [], edAble } = args;
-    // const before = [...]
-    // const after = [{tag: 'weapon', id: 'weapon'}]
-    // const create = ['arm', 'weapon']
+    const { 
+      operator, 
+      before=[], 
+      after=[], 
+      create:createInit=[], 
+      hierarchy=[], 
+      config, 
+      localHierarchy=[], 
+      relation, 
+      ordering, 
+      doAble, 
+      words = [], 
+      unflatten:unflattenArgs = [], 
+      focusable = [], 
+      edAble } = args;
 
-   if (doAble) {
+    const createToCanonical = (concept) => {
+      if (typeof concept == 'string') {
+        return { id: concept, isA: [] }
+      } else {
+        return { isA: [], ...concept }
+      }
+    }
+
+    const create = createInit.map(createToCanonical)
+
+    if (doAble) {
       if (before.length != 1) {
         throw "Expected exactly one before argument"
       }
@@ -323,7 +344,7 @@ class API {
       }
     }
 
-    create.map( (id) => {
+    create.map( ({ id, isA }) => {
       if (id === operator) {
         const tagsToProps = (where, args, suffix='') => {
           const i = 0;
@@ -365,6 +386,10 @@ class API {
       } else {
         config.addBridge({ id: id, allowDups: true })
       }
+
+      for (const parentId of isA) {
+        config.addHierarchy(id, parentId)
+      }
     })
 
     if (words.length == 0) {
@@ -372,6 +397,10 @@ class API {
       const operatorSingular = pluralize.plural(operator)
       config.addWord(operatorSingular, { id: operator, initial: `{ value: '${operator}', number: 'one' }`})
       config.addWord(operatorPlural, { id: operator, initial: `{ value: '${operator}', number: 'many' }`})
+    }
+
+    for (const { child, parent } of hierarchy) {
+      config.addHierarchy(child, parent)
     }
 
     if (doAble) {
