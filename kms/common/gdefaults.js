@@ -291,6 +291,9 @@ const initializer = ({config}) => {
                 let value = element
                 if (element.property) {
                   value = context[element.property]
+                  if (element.context) {
+                    Object.assign(value, element.context)
+                  }
                 }
                 if (value) {
                   strings.push(separator)
