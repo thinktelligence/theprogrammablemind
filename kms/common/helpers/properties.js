@@ -365,7 +365,10 @@ class API {
         // const subjectContext = before[0].tag
         // const interpolate = "[" + before.map((arg) => `{ property: '${arg.tag}' }`).concat(`{ ...operator, evaluateWord: true, number: ${subjectContext}.number }`).concat(after.map((arg) => `{ property: '${arg.tag}' }`)).join(',') + "]"
         const imperative = (before.length == 0) ? "true" : "false"
-        const interpolate = "[" + before.map((arg) => `{ property: '${arg.tag}' }`).concat(`{ ...operator, evaluateWord: true, imperative: ${imperative}, isVerb: true, number: 'one' }`).concat(after.map((arg) => `{ property: '${arg.tag}' }`)).join(',') + "]"
+        // const interpolate = "[" + before.map((arg) => `{ property: '${arg.tag}' }`).concat(`{ ...operator, evaluateWord: true, imperative: ${imperative}, isVerb: true, number: 'one' }`).concat(after.map((arg) => `{ property: '${arg.tag}' }`)).join(',') + "]"
+        // const interpolateVerb = `{ property: "operator", context: { evaluateWord: true, imperative: ${imperative}, isVerb: true, number: 'one' } }`
+        const interpolateVerb = `{ property: "operator" }`
+        const interpolate = "[" + before.map((arg) => `{ property: '${arg.tag}' }`).concat(interpolateVerb).concat(after.map((arg) => `{ property: '${arg.tag}' }`)).join(',') + "]"
 
         const unflattenArgs = [ ...before.map( (arg) => arg.tag ), ...after.map( (arg) => arg.tag ) ] 
         const focusable = [ ...before.map( (arg) => arg.tag ), ...after.map( (arg) => arg.tag ) ] 
@@ -373,7 +376,7 @@ class API {
           id: operator, 
           level: 0, 
           localHierarchy: [...localHierarchy, ['object', 'unknown']],
-          bridge: `{ ... next(operator) ${doParams} ${beforeArgs} ${afterArgs}, unflatten: ${JSON.stringify(unflattenArgs)}, focusable: ${JSON.stringify(focusable)}, interpolate: ${interpolate} }`, 
+          bridge: `{ ... next(operator) ${doParams} ${beforeArgs} ${afterArgs}, operator: { ...operator, evaluateWord: true, imperative: ${imperative}, isVerb: true, number: 'one' }, unflatten: ${JSON.stringify(unflattenArgs)}, focusable: ${JSON.stringify(focusable)}, interpolate: ${interpolate} }`, 
           allowDups: true 
         })
         if (words.length > 0) {

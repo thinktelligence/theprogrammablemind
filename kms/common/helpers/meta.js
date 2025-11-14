@@ -65,7 +65,7 @@ const translationMapping = (from, to) => {
     if (matchField) {
       let found = false
       const todo = Object.keys(to).map( (key) => [key] )
-      while (!found) {
+      while (!found && todo.length > 0) {
         const tkey = todo.shift()
         const tvalue = hashIndexesGet(to, tkey);
         const fvalue = hashIndexesGet(from, [fkey]);
