@@ -58,7 +58,7 @@ const config = {
     "([dimension])",
     "([unit])",
     // "(([unit]) [kindOfDimension|of] ([dimension]))",
-    "((amount/1 || number/1) [amountOfDimension|] ([unit]))",
+    "((amount/* || number/*) [amountOfDimension|] ([unit]))",
     "(([amount]) [unit])",
     "((dimension) [convertToUnits|in] (unit))",
 
