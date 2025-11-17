@@ -63,14 +63,14 @@ const config = {
     "((dimension) [convertToUnits|in] (unit))",
 
     "(([number]) [degree])",
-    { pattern: "([length])", development: true },
+    { pattern: "([length])", scope: "testing" },
   ],
   priorities: [
     // TODO this should have been calculated
     { "context": [['amountOfDimension', 0], ['convertToUnits', 0], ], "choose": [0] },
   ],
   hierarchy: [
-    { child: 'convertToUnits', parent: 'testingValue', development: true },
+    { child: 'convertToUnits', parent: 'testingValue', scope: "testing" },
   ],
   generators: [
     {
@@ -94,7 +94,7 @@ const config = {
       id: "length", 
       isA: ['dimension'], 
       bridge: "{ ...next(operator) }",
-      development: true 
+      scope: "testing" 
     },
     { id: "amount", },
     /*

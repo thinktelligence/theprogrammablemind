@@ -26,13 +26,13 @@ const config = {
     "(([orAble|]) [orList|or] ([orAble|]))",
     // "cats is the plural of cat"
     // "is cat the plural of cats"
-    { pattern: "([x])", development: true },
+    { pattern: "([x])", scope: "testing" },
     // if f x then g x
-    { pattern: "([e])", development: true },
-    { pattern: "([f])", development: true },
-    { pattern: "([g])", development: true },
-    { pattern: "([undefined])", development: true },
-    { pattern: "([defined])", development: true },
+    { pattern: "([e])", scope: "testing" },
+    { pattern: "([f])", scope: "testing" },
+    { pattern: "([g])", scope: "testing" },
+    { pattern: "([undefined])", scope: "testing" },
+    { pattern: "([defined])", scope: "testing" },
 
     /*
     if creating a new word make a motivation to ask if word is plura or singlar of anohter wordA
@@ -61,9 +61,9 @@ const config = {
   //  [['means', 0], ['is', 0]],
   ],
   hierarchy: [
-    { child: 'e', parent: 'orAble', development: true },
-    { child: 'f', parent: 'orAble', development: true },
-    { child: 'g', parent: 'ifAble', development: true },
+    { child: 'e', parent: 'orAble', scope: "testing" },
+    { child: 'f', parent: 'orAble', scope: "testing" },
+    { child: 'g', parent: 'ifAble', scope: "testing" },
     { child: 'orAble', parent: 'ifAble' },
   ],
   bridges: [
@@ -94,12 +94,12 @@ const config = {
     { id: "then", level: 0, bridge: "{ ...next(operator), consequence: after[0] }" },
     { id: "ifAble" },
     { id: "orAble" },
-    { id: "x", development: true },
-    { id: "e", development: true },
-    { id: "f", development: true },
-    { id: "g", development: true },
-    { id: "undefined", development: true },
-    { id: "defined", development: true },
+    { id: "x", scope: "testing" },
+    { id: "e", scope: "testing" },
+    { id: "f", scope: "testing" },
+    { id: "g", scope: "testing" },
+    { id: "undefined", scope: "testing" },
+    { id: "defined", scope: "testing" },
 //    { id: "testWord2", level: 0, bridge: "{ ...next(operator) }" },
   ],
   version: '3',
@@ -107,12 +107,12 @@ const config = {
     "literals": {
       //  'testWord2': [{"id": "testWord2", "initial": "{ value: 'testWord2Value' }" }],
       // TODO make this development and select out for module
-      // 'x': [{id: "x", initial: "{ value: 'x' }", development: true }],
-      // 'f': [{id: "ifAble", initial: "{ word: 'f' }", development: true }],
-      // 'g': [{id: "ifAble", initial: "{ word: 'g' }", development: true }],
-      'f': [{id: "f", initial: "{ value: 'f', word: 'f' }", development: true }],
-      'x': [{id: "x", initial: "{ value: 'x', word: 'x' }", development: true }],
-      'gq': [{id: "g", initial: "{ word: 'gq', query: true }", development: true }],
+      // 'x': [{id: "x", initial: "{ value: 'x' }", scope: "testing" }],
+      // 'f': [{id: "ifAble", initial: "{ word: 'f' }", scope: "testing" }],
+      // 'g': [{id: "ifAble", initial: "{ word: 'g' }", scope: "testing" }],
+      'f': [{id: "f", initial: "{ value: 'f', word: 'f' }", scope: "testing" }],
+      'x': [{id: "x", initial: "{ value: 'x', word: 'x' }", scope: "testing" }],
+      'gq': [{id: "g", initial: "{ word: 'gq', query: true }", scope: "testing" }],
     }
   },
   generators: [
@@ -120,19 +120,19 @@ const config = {
       where: where(),
       match: ({context}) => context.marker == 'undefined',
       apply: ({context}) => 'undefined',
-      development: true,
+      scope: "testing",
     },
     {
       where: where(),
       match: ({context}) => context.marker == 'defined',
       apply: ({context}) => 'defined',
-      development: true,
+      scope: "testing",
     },
     {
       where: where(),
       match: ({context}) => context.evalue && !context.paraphrase,
       apply: ({context}) => context.evalue.verbatim,
-      development: true,
+      scope: "testing",
     },
     {
       where: where(),
@@ -154,13 +154,13 @@ const config = {
       where: where(),
       match: ({context}) => context.marker === 'ifAble',
       apply: ({context}) => context.value,
-      development: true,
+      scope: "testing",
     },
     { 
       where: where(),
       match: ({context}) => ['x', 'g', 'f', 'e', 'ifAble'].includes(context.marker),
       apply: ({context}) => `${context.word}`,
-      development: true,
+      scope: "testing",
     },
     {
       where: where(),
@@ -182,7 +182,7 @@ const config = {
         }
         context.isResponse = true
       },
-      development: true,
+      scope: "testing",
     },
     {
       where: where(),

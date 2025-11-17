@@ -6,15 +6,15 @@ const tests = require('./errors.test.json')
 const config = {
   name: 'errors',
   operators: [
-    { pattern: "([drop] ([dropable]))", development: true },
+    { pattern: "([drop] ([dropable]))", scope: "testing" },
   ],
   bridges: [
     { 
       id: "drop", 
       bridge: "{ ...next(operator), arg: after[0] }", 
-      development: true
+      scope: "testing"
     },
-    { id: "dropable", development: true },
+    { id: "dropable", scope: "testing" },
   ],
   semantics: [
     {

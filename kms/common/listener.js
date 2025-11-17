@@ -7,7 +7,7 @@ const listener_tests = require('./listener.test.json')
 const config = {
   name: 'listener',
   operators: [
-    { pattern: "([call])", development: true },
+    { pattern: "([call])", scope: "testing" },
   ],
   bridges: [
     {

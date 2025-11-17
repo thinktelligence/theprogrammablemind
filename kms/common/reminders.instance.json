@@ -5,7 +5,7 @@
         "([remindable])",
         {
           "pattern": "([addRemindable] (word)*)",
-          "development": true
+          "scope": "testing"
         },
         "([remind:justWhoBridge] (remindable/*))",
         "([remind] (remindable/*) (!@<= 'dateTimeSelector' && !@<= 'inAddition')*)",
@@ -53,7 +53,7 @@
           "isA": [
             "verb"
           ],
-          "development": true,
+          "scope": "testing",
           "bridge": "{ ...next(operator), complete: true, flatten: true, arg: after[0], operator: operator, interpolate: '${operator} ${arg}' }",
           "semantic": "async ({api, context}) => {\n            const name = context.arg.map( (word) => word.text ).join(' ')\n            await api.addRemindable(name)\n          }"
         },
@@ -140,7 +140,7 @@
         "([remindable])",
         {
           "pattern": "([addRemindable] (word)*)",
-          "development": true
+          "scope": "testing"
         },
         "([remind:justWhoBridge] (remindable/*))",
         "([remind] (remindable/*) (!@<= 'dateTimeSelector' && !@<= 'inAddition')*)",
@@ -186,7 +186,7 @@
           "isA": [
             "verb"
           ],
-          "development": true,
+          "scope": "testing",
           "bridge": "{ ...next(operator), complete: true, flatten: true, arg: after[0], operator: operator, interpolate: '${operator} ${arg}' }"
         },
         {

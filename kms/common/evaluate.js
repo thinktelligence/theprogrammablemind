@@ -8,7 +8,7 @@ const config = {
   name: 'evaluate', 
   operators: [
     "([evaluate] (value))",
-    { pattern: "([value1])", development: true },
+    { pattern: "([value1])", scope: "testing" },
   ],
   bridges: [
     {
@@ -17,7 +17,7 @@ const config = {
       evaluator: ({context}) => {
         context.evalue = 'value1 after evaluation'
       },
-      development: true,
+      scope: "testing",
     },
     {
       where: where(),

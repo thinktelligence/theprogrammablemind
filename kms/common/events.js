@@ -24,8 +24,8 @@ const config = {
   operators: [
     "([after] ([event]) ([action]))",
     "(([changeable]) [changes])",
-    { pattern: "([event1])", development: true },
-    { pattern: "([action1])", development: true },
+    { pattern: "([event1])", scope: "testing" },
+    { pattern: "([action1])", scope: "testing" },
   ],
   bridges: [
     { 
@@ -62,12 +62,12 @@ const config = {
         }
       ]
     },
-    { id: "event1", level: 0, bridge: "{ ...next(operator) }", development: true },
-    { id: "action1", level: 0, bridge: "{ ...next(operator) }", development: true },
+    { id: "event1", level: 0, bridge: "{ ...next(operator) }", scope: "testing" },
+    { id: "action1", level: 0, bridge: "{ ...next(operator) }", scope: "testing" },
   ],
   hierarchy: [
-    { child: 'event1', parent: 'event', development: true },
-    { child: 'action1', parent: 'action', development: true },
+    { child: 'event1', parent: 'event', scope: "testing" },
+    { child: 'action1', parent: 'action', scope: "testing" },
     ['changes', 'event'],
   ],
   generators: [
@@ -81,7 +81,7 @@ const config = {
   semantics: [
     {
       notes: 'event1',
-      development: true,
+      scope: "testing",
       where: where(),
       match: ({context}) => context.marker == 'event1' && !context.event,
       apply: ({context, kms, insert}) => {
@@ -90,7 +90,7 @@ const config = {
     },
     {
       notes: 'action1',
-      development: true,
+      scope: "testing",
       where: where(),
       match: ({context, isA}) => context.marker == 'action1',
       apply: ({context, kms}) => {

@@ -134,7 +134,7 @@ const config = {
     // show the outfits
 
     // TODO for future
-    // { pattern: "([testsetup1] ([equipable]))", development: true },
+    // { pattern: "([testsetup1] ([equipable]))", scope: "testing" },
   ],
   hierarchy: [
     ['weapon', 'countable'],
@@ -409,7 +409,7 @@ const config = {
     /*
     { 
        id: "testsetup1", 
-       development: true,
+       scope: "testing",
        level: 0, 
        bridge: "{ ...next(operator), type: after[0] }" ,
        localHierarchy: [ ['weapon', 'equipable'] ],

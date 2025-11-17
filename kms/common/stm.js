@@ -189,8 +189,8 @@ const config = {
   ],
   words: {
     literals: {
-      "m1": [{"id": "memorable", development: true, "initial": "{ value: 'm1' }" }],
-      "m2": [{"id": "memorable", development: true, "initial": "{ value: 'm2' }" }],
+      "m1": [{"id": "memorable", scope: "testing", "initial": "{ value: 'm1' }" }],
+      "m2": [{"id": "memorable", scope: "testing", "initial": "{ value: 'm2' }" }],
     },
   },
   bridges: [

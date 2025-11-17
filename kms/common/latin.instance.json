@@ -4,7 +4,7 @@
       "apply": "({config}) => {\n      config.addArgs(({config, api, isA}) => ({\n        addLatinNoun: ({ id, nominative, genetive, development }) => {\n          config.addOperator({ pattern: `([${id}|])`, development: development })\n          config.addBridge({ id, isA: ['hierarchiable'] })\n          const declensions = getDeclensions(nominative, genetive)\n          for (const declension of declensions) {\n            config.addWord(declension.word, { id, initial: { ...declension, development } })\n          }\n        }\n      }))\n    }"
     },
     {
-      "apply": "({addLatinNoun}) => {\n      addLatinNoun({ id: 'davus_person', nominative: 'davus', development: true })\n      addLatinNoun({ id: 'titus_person', nominative: 'titus', development: true })\n      addLatinNoun({ id: 'pear_food', nominative: 'pirum', development: true })\n      addLatinNoun({ id: 'table_latin', nominative: 'mensa', development: true })\n    }"
+      "apply": "({addLatinNoun}) => {\n      addLatinNoun({ id: 'davus_person', nominative: 'davus', scope: \"testing\" })\n      addLatinNoun({ id: 'titus_person', nominative: 'titus', scope: \"testing\" })\n      addLatinNoun({ id: 'pear_food', nominative: 'pirum', scope: \"testing\" })\n      addLatinNoun({ id: 'table_latin', nominative: 'mensa', scope: \"testing\" })\n    }"
     },
     {
       "operators": [
@@ -238,7 +238,7 @@
       "apply": "({config}) => {\n      config.addArgs(({config, api, isA}) => ({\n        addLatinNoun: ({ id, nominative, genetive, development }) => {\n          config.addOperator({ pattern: `([${id}|])`, development: development })\n          config.addBridge({ id, isA: ['hierarchiable'] })\n          const declensions = getDeclensions(nominative, genetive)\n          for (const declension of declensions) {\n            config.addWord(declension.word, { id, initial: { ...declension, development } })\n          }\n        }\n      }))\n    }"
     },
     {
-      "apply": "({addLatinNoun}) => {\n      addLatinNoun({ id: 'davus_person', nominative: 'davus', development: true })\n      addLatinNoun({ id: 'titus_person', nominative: 'titus', development: true })\n      addLatinNoun({ id: 'pear_food', nominative: 'pirum', development: true })\n      addLatinNoun({ id: 'table_latin', nominative: 'mensa', development: true })\n    }"
+      "apply": "({addLatinNoun}) => {\n      addLatinNoun({ id: 'davus_person', nominative: 'davus', scope: \"testing\" })\n      addLatinNoun({ id: 'titus_person', nominative: 'titus', scope: \"testing\" })\n      addLatinNoun({ id: 'pear_food', nominative: 'pirum', scope: \"testing\" })\n      addLatinNoun({ id: 'table_latin', nominative: 'mensa', scope: \"testing\" })\n    }"
     },
     {
       "extraConfig": true,

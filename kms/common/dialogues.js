@@ -69,7 +69,7 @@ const config = {
     "([isEder|])",
 
     // "([nevermind])",
-    // { pattern: "([nevermindTestSetup] (allowed))", development: true },
+    // { pattern: "([nevermindTestSetup] (allowed))", scope: "testing" },
     "([why])",
     "([reason])",
     // "([thisitthat|])",

@@ -12,8 +12,8 @@ const config = {
   name: 'asking',
   operators: [
     "([nevermind])",
-    { pattern: "([nevermindTestSetup] (allowed))", development: true },
-    { pattern: "([whichOnesTestSetup] (choices)*)", development: true },
+    { pattern: "([nevermindTestSetup] (allowed))", scope: "testing" },
+    { pattern: "([whichOnesTestSetup] (choices)*)", scope: "testing" },
   ],
   bridges: [
     {
@@ -38,7 +38,7 @@ const config = {
 
     {
       id: "whichOnesTestSetup",
-      development: true,
+      scope: "testing",
       generatorp: async ({context, gs}) => `${context.marker} ${await gs(context.choices)}`,
       bridge: "{ ...next(operator), choices: after[0] }",
       semantic: ({askWhich, context}) => {
@@ -75,7 +75,7 @@ const config = {
 
     {
       id: "nevermindTestSetup",
-      development: true,
+      scope: "testing",
       bridge: "{ ...next(operator), type: after[0], postModifiers: ['type'] }",
       semantic: ({ask, context}) => {
         const nevermindType = context.type.value

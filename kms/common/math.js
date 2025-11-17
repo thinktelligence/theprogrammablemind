@@ -82,8 +82,8 @@ const config = {
     "([minusExpression|])", 
     "([timesExpression|])", 
     "([divideByExpression|])", 
-    { pattern: "([x])", development: true },
-    { pattern: "([y])", development: true },
+    { pattern: "([x])", scope: "testing" },
+    { pattern: "([y])", scope: "testing" },
   ],
   bridges: [
     { 
@@ -96,8 +96,8 @@ const config = {
       before: ['verb'],
       after: ['adjective'],
     },
-    { id: "x", isA: ['number'], level: 0, bridge: '{ ...next(operator) }', development: true},
-    { id: "y", isA: ['number'], level: 0, bridge: '{ ...next(operator) }', development: true},
+    { id: "x", isA: ['number'], level: 0, bridge: '{ ...next(operator) }', scope: "testing"},
+    { id: "y", isA: ['number'], level: 0, bridge: '{ ...next(operator) }', scope: "testing"},
     ...mathematicalOperator('plus', ['plus', '+'], (x, y) => x + y),
     ...mathematicalOperator('minus', ['minus', '-'], (x, y) => x - y),
     ...mathematicalOperator('times', ['times', '*'], (x, y) => x * y, [['plusOperator', 0], ['minusOperator', 0]]),

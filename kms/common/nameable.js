@@ -77,25 +77,25 @@ const config = {
   operators: [
     // "([call] ([nameable]) (name))",
     "([call] ([nameable]) (!@<=endOfSentence)*)",
-    { pattern: "([getNamesByType] (type))", development: true },
-    { pattern: "([m1])", development: true },
-//    { pattern: "([testPullFromContext] ([memorable]))", development: true }
+    { pattern: "([getNamesByType] (type))", scope: "testing" },
+    { pattern: "([m1])", scope: "testing" },
+//    { pattern: "([testPullFromContext] ([memorable]))", scope: "testing" }
   ],
   words: {
     literals: {
-//      "m1": [{"id": "memorable", development: true, "initial": "{ value: 'm1' }" }],
-//      "m2": [{"id": "memorable", development: true, "initial": "{ value: 'm2' }" }],
+//      "m1": [{"id": "memorable", scope: "testing", "initial": "{ value: 'm1' }" }],
+//      "m2": [{"id": "memorable", scope: "testing", "initial": "{ value: 'm2' }" }],
     },
   },
   bridges: [
     {
       id: 'm1',
       isA: ['memorable', 'nameable'],
-      development: true,
+      scope: "testing",
     },
     {
       id: 'getNamesByType',
-      development: true,
+      scope: "testing",
       isA: ['verb'],
       bridge: "{ ...next(operator), type: after[0] }",
       semantic: async ({context, api}) => {

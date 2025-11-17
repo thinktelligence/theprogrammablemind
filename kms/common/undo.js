@@ -24,7 +24,7 @@ const template = {
         {
           id: 'action_undo',
           words: words('action'),
-          development: true,
+          scope: "testing",
           semantic: ({ context, mentioned, isModule }) => {
             if (!isModule) {
               mentioned({ context })

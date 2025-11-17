@@ -13,7 +13,7 @@ const instance = require('./formulas.instance.json')
 /*
 const template = {
   configs: [
-    // { query: "x equals y + 4", development: true },
+    // { query: "x equals y + 4", scope: "testing" },
   ]
 }
 */

@@ -19,8 +19,8 @@ const game = {
 const template = {
   configs: [
     // "start a new game\ngreg and jeff",
-    // { query: "start a new game", development: true },
-    // { query: "the winning score is 20", development: true },
+    // { query: "start a new game", scope: "testing" },
+    // { query: "the winning score is 20", scope: "testing" },
   ],
 }
 

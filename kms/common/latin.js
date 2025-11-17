@@ -159,10 +159,10 @@ const template = {
       }))
     },
     ({addLatinNoun}) => {
-      addLatinNoun({ id: 'davus_person', nominative: 'davus', development: true })
-      addLatinNoun({ id: 'titus_person', nominative: 'titus', development: true })
-      addLatinNoun({ id: 'pear_food', nominative: 'pirum', development: true })
-      addLatinNoun({ id: 'table_latin', nominative: 'mensa', development: true })
+      addLatinNoun({ id: 'davus_person', nominative: 'davus', scope: "testing" })
+      addLatinNoun({ id: 'titus_person', nominative: 'titus', scope: "testing" })
+      addLatinNoun({ id: 'pear_food', nominative: 'pirum', scope: "testing" })
+      addLatinNoun({ id: 'table_latin', nominative: 'mensa', scope: "testing" })
     },
     config,
     ({addSuffix}) => addSuffix('que'),

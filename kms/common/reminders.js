@@ -241,7 +241,7 @@ const template = {
     { 
       operators: [
         "([remindable])",
-        { pattern: "([addRemindable] (word)*)", development: true },
+        { pattern: "([addRemindable] (word)*)", scope: "testing" },
         "([remind:justWhoBridge] (remindable/*))",
         "([remind] (remindable/*) (!@<= 'dateTimeSelector' && !@<= 'inAddition')*)",
         "([remind:withDateBridge] (remindable/*) (!@<= 'dateTimeSelector' && !@<= 'inAddition')* (dateTimeSelector))",
@@ -283,7 +283,7 @@ const template = {
         {
           id: 'addRemindable',
           isA: ['verb'],
-          development: true,
+          scope: "testing",
           bridge: "{ ...next(operator), complete: true, flatten: true, arg: after[0], operator: operator, interpolate: '${operator} ${arg}' }",
           semantic: async ({api, context}) => {
             const name = context.arg.map( (word) => word.text ).join(' ')

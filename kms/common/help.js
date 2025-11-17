@@ -77,7 +77,7 @@ const config = {
   words: {
     "literals": {
       // "km1": { "the": [{"id": "the", "initial": "{ modifiers: [] }" }],
-      'km1': [{id: "km", initial: "{ value: 'km1', word: 'km1' }", development: true }],
+      'km1': [{id: "km", initial: "{ value: 'km1', word: 'km1' }", scope: "testing" }],
     }
   },
 };

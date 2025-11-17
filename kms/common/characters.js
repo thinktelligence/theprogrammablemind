@@ -42,8 +42,8 @@ const config = {
   ],
   "words": {
     "literals": {
-      "sally": [{"id": "character", development: true, "initial": "{ value: 'sally' }" }],
-      "bob": [{"id": "character", development: true, "initial": "{ value: 'bob' }" }],
+      "sally": [{"id": "character", scope: "testing", "initial": "{ value: 'sally' }" }],
+      "bob": [{"id": "character", scope: "testing", "initial": "{ value: 'bob' }" }],
     },
   },
 
