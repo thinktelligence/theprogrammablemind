@@ -17,6 +17,7 @@ const dialogues = require('./common/dialogues')
 const dimension = require('./common/dimension')
 const edible = require('./common/edible')
 const emotions = require('./common/emotions')
+const english_helpers = require('./common/english_helpers')
 const errors = require('./common/errors')
 const evaluate = require('./common/evaluate')
 const events = require('./common/events')
@@ -87,6 +88,7 @@ module.exports = {
   dimension,
   edible,
   emotions,
+  english_helpers,
   errors,
   evaluate,
   events,
