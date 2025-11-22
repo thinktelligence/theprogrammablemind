@@ -82,6 +82,7 @@ const initializer = ({objects, config, isModule}) => {
         } 
       },
       asList,
+      toList: asList,
       toArray: propertyToArray,
       listable: listable(hierarchy),
       isA: isAI,

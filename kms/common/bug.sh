@@ -908,3 +908,10 @@ node math -q 'what is 10 plus 2 plus 3' -g -d -tva
 node math -q 'what is 10 plus 2 plus 3' -g -d -tva
 node wp -q 'bold the third letter of the second paragraph' -g -d
 node people -q 'wendy owns cleo wendy owns mary what does wendy own' -g -d
+node dimension -q 'c1 is a dimension\na1 and b1 are units of d1\nwhat are 10 a1 in b1' -g -d
+node can -q 'mike and janice can make coffee and tea\nmike makes what' -g -d
+node can -q 'mike can make tea\nevaluate propertyrelation\nmike can make what' -g -d
+node can -q 'what can mike make' -g -d
+node can -q 'can mike make tea' -g -d
+node can -q 'mike can make coffee\ncan mike make tea' -g -d
+

@@ -159,7 +159,7 @@ const config = {
     {
       where: where(),
       priority: -1,
-      match: ({context}) => context.evaluateWord && context.isVerb && context.paraphrase && context.word && context.number == 'one' && !context.imperative,
+      match: ({context}) => context.evaluateWord && context.isVerb && context.paraphrase && context.word && context.number == 'one' && !context.imperative && !context.interpolate,
       apply: ({context}) => {
         const infinitive = englishHelpers.getInfinitive(context.word)
         const cases = englishHelpers.conjugateVerb(infinitive)
@@ -170,7 +170,7 @@ const config = {
     {
       where: where(),
       priority: -1,
-      match: ({context}) => context.evaluateWord && context.paraphrase && context.word && context.number == 'one',
+      match: ({context}) => context.evaluateWord && context.paraphrase && context.word && context.number == 'one' && !context.interpolate,
       apply: ({context}) => {
         return pluralize.singular(context.word)
       },

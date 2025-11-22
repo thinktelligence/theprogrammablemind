@@ -1,5 +1,5 @@
 const { knowledgeModule, where } = require('./runtime').theprogrammablemind
-const { defaultContextCheck } = require('./helpers')
+const { defaultContextCheck, words } = require('./helpers')
 const dialogues = require('./dialogues')
 const meta = require('./meta')
 const concept = require('./concept')
@@ -75,6 +75,8 @@ const template = {
   fragments: [
     "the property1 of object1 is value1",
   ],
+  configs: [
+  ],
 }
 
 const api = new API();
@@ -91,6 +93,7 @@ const config = {
 
   operators: [
     "([hierarchyAble|])",
+    { pattern: "([propertyRelation|])" }, // , scope: 'development' },
     "(([property]) <([propertyOf|of] ([object]))>)",
     "(<whose> ([property]))",
     // "((modifier) [modifies] (concept))", 
@@ -121,6 +124,16 @@ const config = {
     ['what', 'object'],
   ],
   bridges: [
+    { 
+      id: 'propertyRelation', 
+      // scope: 'development',
+      words: words('propertyRelation'),
+      evaluator: ({context, api, objects, toList}) => {
+        context.evalue = toList(objects.relations)
+        context.evalue.isResponse = true
+        context.evalue.paraphrase = false
+      }
+    },
     { 
       id: 'xfx', 
       isA: ['queryable'],

@@ -1,7 +1,13 @@
 const { propertyToArray } = require('../helpers.js')
 
 const asList = (context) => {
-  if (context.marker === 'list') {
+  if (Array.isArray(context)) {
+    return {
+      marker: 'list',
+      // types: [context.marker],
+      value: context
+    }
+  } else if (context.marker === 'list') {
     return context
   }
   return {

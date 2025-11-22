@@ -136,6 +136,22 @@ const propertyToArray = (value) => {
   }
 }
 
+// values is marker: 'list' or some context
+function concats(values) {
+  combined = []
+  for (const value of values) {
+    if (value.marker == 'list') {
+      combined = combined.concat(value.value)
+    } else {
+      combined.push(value)
+    }
+  }
+  return {
+    marker: 'list',
+    value: combined
+  }
+}
+
 wordNumber = (word, toPlural) => {
   if (toPlural) {
     return pluralize.plural(word)
@@ -337,4 +353,5 @@ module.exports = {
   requiredArgument,
   isA,
   removeProp,
+  concats
 }

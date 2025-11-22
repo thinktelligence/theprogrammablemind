@@ -1,5 +1,5 @@
 const { flatten, knowledgeModule, where, debug } = require('./runtime').theprogrammablemind
-const { defaultContextCheck } = require('./helpers')
+const { defaultContextCheck, concats } = require('./helpers')
 const sdefaults_tests = require('./sdefaults.test.json')
 
 class API {
@@ -18,12 +18,32 @@ const config = {
   name: 'sdefaults',
   semantics: [
     {
-      notes: 'flatten',
+      notes: 'flatten listable',
       where: where(),
       priority: -1,
       // match: ({context}) => context.flatten || context.listable && context.value[0].flatten,
       match: ({context}) => context.flatten || context.listable && context.value.some((value) => value.flatten),
       // match: ({context}) => context.flatten || context.listable || (Array.isArray(context.value) && context.value.some((value) => value.flatten)),
+      apply: async ({config, km, context, s}) => {
+        const [flats, wf] = flatten(['list'], context)
+        const evalues = []
+        for (const flat of flats) {
+          const result = await s({ ...flat, flatten: false })
+          if (result.evalue) {
+            evalues.push(result.evalue)
+          }
+        }
+        if (evalues.length > 0) {
+          context.evalue = concats(evalues)
+          context.isResponse = true
+        }
+      }
+    },
+    {
+      notes: 'flatten relation',
+      where: where(),
+      priority: -1,
+      match: ({context}) => context.flatten && context.relation,
       apply: async ({config, km, context, s}) => {
         const [flats, wf] = flatten(['list'], context)
         for (const flat of flats) {

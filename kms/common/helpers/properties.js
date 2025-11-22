@@ -274,6 +274,7 @@ class API {
       relation, 
       ordering, 
       doAble, 
+      flatten,
       words = [], 
       unflatten:unflattenArgs = [], 
       focusable = [], 
@@ -372,11 +373,15 @@ class API {
 
         const unflattenArgs = [ ...before.map( (arg) => arg.tag ), ...after.map( (arg) => arg.tag ) ] 
         const focusable = [ ...before.map( (arg) => arg.tag ), ...after.map( (arg) => arg.tag ) ] 
+        let flattenProperty = ''
+        if (flatten) {
+          flattenProperty = ", flatten: true, relation: true "
+        }
         config.addBridge({ 
           id: operator, 
           level: 0, 
           localHierarchy: [...localHierarchy, ['object', 'unknown']],
-          bridge: `{ ... next(operator) ${doParams} ${beforeArgs} ${afterArgs}, operator: { ...operator, evaluateWord: true, imperative: ${imperative}, isVerb: true, number: 'one' }, unflatten: ${JSON.stringify(unflattenArgs)}, focusable: ${JSON.stringify(focusable)}, interpolate: ${interpolate} }`, 
+          bridge: `{ ... next(operator) ${flattenProperty} ${doParams} ${beforeArgs} ${afterArgs}, operator: { ...operator, evaluateWord: true, imperative: ${imperative}, isVerb: true, number: 'one' }, unflatten: ${JSON.stringify(unflattenArgs)}, focusable: ${JSON.stringify(focusable)}, interpolate: ${interpolate} }`, 
           allowDups: true 
         })
         if (words.length > 0) {
@@ -445,10 +450,11 @@ class API {
 
           const { evalue } = context 
           let yesno = ''
-          if (!context.do.query || evalue.truthValueOnly || brief) {
+          debugger
+          if (!context.do?.query || evalue.truthValueOnly || context.truthValueOnly || brief) {
             if (evalue.truthValue) {
               yesno = 'yes'
-            } else if (evalue.truthValue === false) {
+            } else if (evalue.truthValue === false || context.truthValueOnly) {
               yesno = 'no'
             }
           }
@@ -568,8 +574,6 @@ class API {
           if (context.evalue.value.length == 0) {
             context.evalue.marker = 'answerNotKnown';
             context.evalue.value = [];
-            context.evalue.marker = 'answerNotKnown';
-            context.evalue.value = [];
           }
         }
       })
@@ -642,7 +646,7 @@ class API {
     return value
   }
 
-  relation_get(context, args) {
+  relation_get (context, args) {
     const andTheAnswerIs = []
     for (const relation of this._objects.relations) {
       if (this.relation_match(args, context, relation)) {
