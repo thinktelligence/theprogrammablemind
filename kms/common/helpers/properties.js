@@ -275,6 +275,7 @@ class API {
       ordering, 
       doAble, 
       flatten,
+      can,
       words = [], 
       unflatten:unflattenArgs = [], 
       focusable = [], 
@@ -418,6 +419,13 @@ class API {
     config.addPriority({ "context": [[operator, 0], ['means', 0], ], "choose": [0] })
     config.addPriority({ "context": [['article', 0], [operator, 0], ], "choose": [0] })
 
+    if (can) {
+      const beforeIds = before.map((def) => def.id)
+      const afterIds = after.map((def) => def.id)
+      config.addHierarchy(operator, 'canableAction')
+      config.addAssociation({ context: [[afterIds[0], 0], ['whatCanQuestion', 0], [beforeIds[0], 0], ['make', 0]], choose: 1 })
+      config.addAssociation({ context: [[afterIds[0], 1], ['whatCanQuestion', 0], [beforeIds[0], 0], ['make', 0]], choose: 1 })
+    }
     if (false) {
       config.addGenerator({
         notes: 'ordering generator for paraphrase',

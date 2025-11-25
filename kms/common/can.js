@@ -97,11 +97,11 @@ const template = {
           after: [{tag: 'makeable', id: 'makeable'}],
           relation: true,
           flatten: true,
+          can: true,
           create: [
             {
               id: 'make',
               infinitive: 'make',
-              isA: ['canableAction'],
             },
             'makeable', 
             'maker'
@@ -112,8 +112,6 @@ const template = {
           ],
           config,
         })
-        // config.addAssociation({ context: [['what', 0], ['whatCanQuestion', 0], ['unknown', 0], ['make', 0]], choose: 1 })
-        // config.addAssociation({ context: [['what', 1], ['whatCanQuestion', 0], ['unknown', 0], ['make', 0]], choose: 1 })
       }
     }
   ]
