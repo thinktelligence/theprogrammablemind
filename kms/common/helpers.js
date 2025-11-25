@@ -52,8 +52,15 @@ function words(word, additional = {}) {
 }
 
 function isMany(context) {
-  if (((context || {}).value || {}).marker == 'list' && (((context || {}).value || {}).value || []).length > 1) {
-    return true
+  // if (((context || {}).value || {}).marker == 'list' && (((context || {}).value || {}).value || []).length > 1) {
+  const isList = context.marker == 'list' || context.value?.marker == 'list'
+  if (isList) {
+    if (context.value?.length > 1) {
+      return true
+    }
+    if (context.value?.value?.length > 1) {
+      return true
+    }
   }
 
   let number = context.number
