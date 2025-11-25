@@ -38,7 +38,7 @@ class API {
     const modifierIds = modifiers.map( (modifier) => this.args.kms.dialogues.api.toScopedId(modifier) )
     const modifiersObjectId = `${modifierIds.join("_")}_${objectId}`
 
-    const toWord = (object) => {
+    function toWord(object) {
       if (typeof object == 'string') {
         return object
       }

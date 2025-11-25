@@ -1,13 +1,13 @@
 const pluralize = require('pluralize')
 
-const unshiftL = (list, element, max) => {
+function unshiftL(list, element, max) {
   if (list.length >= max) {
     list.pop()
   }
   list.unshift(element)
 }
 
-const pushL = (list, element, max) => {
+function pushL(list, element, max) {
   if (list.length >= max) {
     list.shift()
   }
@@ -15,11 +15,11 @@ const pushL = (list, element, max) => {
 }
 
 // X pm today or tomorrow
-const millisecondsUntilHourOfDay = (newDate, hour) => {
+function millisecondsUntilHourOfDay(newDate, hour) {
   const now = newDate()
   const target = newDate(now)
 
-  const addHours = (date, h) => {
+  function addHours(date, h) {
     date.setTime(date.getTime() + (h*60*60*1000));
   }
   const hours = target.getHours()
@@ -34,11 +34,11 @@ const millisecondsUntilHourOfDay = (newDate, hour) => {
   return diff;
 }
 
-const indent = (string, indent) => {
+function indent(string, indent) {
   return string.replace(/^/gm, ' '.repeat(indent));
 }
 
-const getCount = (context) => {
+function getCount(context) {
   if (context.quantity) {
     return context.quantity.value
   }
@@ -47,11 +47,11 @@ const getCount = (context) => {
   }
 }
 
-const words = (word, additional = {}) => {
+function words(word, additional = {}) {
   return [{ word: pluralize.singular(word), number: 'one', ...additional }, { word: pluralize.plural(word), number: 'many', ...additional }]
 }
 
-const isMany = (context) => {
+function isMany(context) {
   if (((context || {}).value || {}).marker == 'list' && (((context || {}).value || {}).value || []).length > 1) {
     return true
   }
@@ -77,13 +77,13 @@ const isMany = (context) => {
   return false
 }
 
-const requiredArgument = (value, name) => {
+function requiredArgument(value, name) {
   if (!value) {
     throw new Error(`${name} is a required argument`)
   }
 }
 
-const chooseNumber = (context, one, many) => {
+function chooseNumber(context, one, many) {
   if (isMany(context)) {
     return many;
   } else {
@@ -91,7 +91,7 @@ const chooseNumber = (context, one, many) => {
   }
 }
 
-const zip = (...arrays) => {
+function zip(...arrays) {
   if (arrays == []) {
     return []
   }
@@ -107,8 +107,8 @@ const zip = (...arrays) => {
 }
 
 
-const focus = (context) => {
-  const helper = (context) => {
+function focus(context) {
+  function helper(context) {
     if (!context || !context.focusable) {
       return null
     }
@@ -126,7 +126,7 @@ const focus = (context) => {
 
 // if property is a list make array of elements of the list, if not return an array with the property value
 // fromList
-const propertyToArray = (value) => {
+function propertyToArray(value) {
   if (Array.isArray(value)) {
     return value
   } else if (value.marker == 'list') {
@@ -152,7 +152,7 @@ function concats(values) {
   }
 }
 
-wordNumber = (word, toPlural) => {
+function wordNumber(word, toPlural) {
   if (toPlural) {
     return pluralize.plural(word)
   } else {
@@ -160,14 +160,14 @@ wordNumber = (word, toPlural) => {
   }
 }
 
-const toEValue = (context) => {
+function toEValue(context) {
   while( context.evalue ) {
     context = context.evalue
   }
 	return context;
 }
 
-const defaultObjectCheck = (extra = []) => {
+function defaultObjectCheck(extra = []) {
   return {
     objects: [
       {
@@ -178,11 +178,11 @@ const defaultObjectCheck = (extra = []) => {
   }
 }
 
-const defaultContextCheckProperties = (extra) => {
+function defaultContextCheckProperties(extra) {
   return ['marker', 'text', 'verbatim', 'value', 'evalue', 'isResponse', { properties: 'modifiers' }, { properties: 'postModifiers' }, ...extra]
 }
 
-const defaultContextCheck = ({marker, extra = [], exported = false} = {}) => {
+function defaultContextCheck({marker, extra = [], exported = false} = {}) {
   let match
   if (marker) {
     match = ({context}) => context.marker == marker
@@ -196,35 +196,37 @@ const defaultContextCheck = ({marker, extra = [], exported = false} = {}) => {
   }
 }
 
-const isA = (hierarchy) => (child, parent, { strict=false } = {}) => {
-  if (!child || !parent) {
-    return false
-  }
+function isA(hierarchy) {
+  return (child, parent, { strict=false } = {}) => {
+    if (!child || !parent) {
+      return false
+    }
 
-  if (strict) {
-    if (child.marker) {
-      child = child.marker
-    }
-    if (parent.marker) {
-      parent = parent.marker
-    }
-    return hierarchy.isA(child, parent)
-  } else {
-    if (hierarchy.isA(child.marker || child, parent.marker || parent)) {
-      return true
-    }
-    for (const childT of child.types || [child]) {
-      for (const parentT of parent.types || [parent]) {
-        if (hierarchy.isA(childT, parentT)) {
-          return true
+    if (strict) {
+      if (child.marker) {
+        child = child.marker
+      }
+      if (parent.marker) {
+        parent = parent.marker
+      }
+      return hierarchy.isA(child, parent)
+    } else {
+      if (hierarchy.isA(child.marker || child, parent.marker || parent)) {
+        return true
+      }
+      for (const childT of child.types || [child]) {
+        for (const parentT of parent.types || [parent]) {
+          if (hierarchy.isA(childT, parentT)) {
+            return true
+          }
         }
       }
+      return false
     }
-    return false
   }
 }
 
-const getValue = (propertyPath, object) => {
+function getValue(propertyPath, object) {
   if (!propertyPath) {
     return
   }
@@ -239,7 +241,7 @@ const getValue = (propertyPath, object) => {
   return value
 }
 
-const processTemplateString = async (template, evaluate) => {
+async function processTemplateString(template, evaluate) {
   async function resolveWithCallback(strings, ...keys) {
     // const resolvedValues = await Promise.all(keys.map(key => lookupVariable(key)));
     const resolvedValues = await Promise.all(keys.map(async (key) => {

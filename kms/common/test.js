@@ -3,7 +3,7 @@ const { exec } = require('child_process');
 
 console.time('tests time')
 
-const sleep = async (ms) => {
+async function sleep(ms) {
   return new Promise((resolve) => {
     setTimeout(resolve, ms);
   });
@@ -41,7 +41,7 @@ for (let file of package_json.files) {
 
 // tests = [tests[0]]
 
-const loop = async (tests, failed) => {
+async function loop(tests, failed) {
   if (tests.length == []) {
     if (failed.length > 0) {
       console.log("FAILED Tests", JSON.stringify(failed, null, 2))

@@ -115,11 +115,11 @@ class API {
   }
 }
 
-const root = (id) => {
+function root(id) {
   return id.split('_')[0]
 }
 
-const setUpdate = (isA, update, states) => {
+function setUpdate(isA, update, states) {
   let color;
   const styles = []
   for (const state of states) {
@@ -146,10 +146,10 @@ const config = {
   name: 'wp',
 };
 
-const changeState = ({api, isA, context, toArray, element, state}) => {
+function changeState({api, isA, context, toArray, element, state}) {
   let scope
 
-  const getElement = (selector, update) => {
+  function getElement(selector, update) {
     const unit = root(selector.marker)
     const conditions = []
     let scope;

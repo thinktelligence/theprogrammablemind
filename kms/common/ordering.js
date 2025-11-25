@@ -32,7 +32,7 @@ const api = new API();
 
   if a likes b then a wants b
 */
-const initializer = ({config, km}) => {
+function initializer({config, km}) {
   const oapi = km('ordering').api
   oapi.createOrdering({ name: 'preference', categories: [ ['love', 'like'], ['hate', 'dislike'] ], ordering: [ ['love', 'like'], ['like', 'dislike'], ['dislike', 'hate'] ] })
   const papi = km('properties').api

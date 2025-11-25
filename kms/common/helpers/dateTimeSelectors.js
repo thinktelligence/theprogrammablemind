@@ -86,8 +86,8 @@ function getTime(time) {
   return { hour, minute, second }
 }
 
-instantiate = (isA, now, context) => {
-  const getType = (context, type) => {
+function instantiate(isA, now, context) {
+  function getType(context, type) {
     if (context.marker == 'onDate_dates' && context.date?.marker == type) {
       return context.date
     } if (context.marker == type) {

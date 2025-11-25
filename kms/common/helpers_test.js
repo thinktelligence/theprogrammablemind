@@ -12,7 +12,7 @@ newDateMock = (date) => {
 
 describe('helpers', () => {
   describe('processTemplateString', () => {
-    const evaluate = (expression) => {
+    function evaluate(expression) {
       return `evaluated(${expression})`
     }
     it('empty', async () => {
@@ -181,14 +181,16 @@ describe('focus', () => {
 })
 
 describe('removeProp (mutation-only)', () => {
-  const data = () => ({
-    a: 1,
-    b: 2,
-    c: { d: 3, e: null },
-    arr: [1, null, 3],
-    [Symbol('keep')]: 'stay',
-    [Symbol('remove')]: 'go',
-  });
+  function data() {
+    return ({
+      a: 1,
+      b: 2,
+      c: { d: 3, e: null },
+      arr: [1, null, 3],
+      [Symbol('keep')]: 'stay',
+      [Symbol('remove')]: 'go',
+    });
+  }
 
   test('mutates and returns the same object', () => {
     const obj = { x: 1 };

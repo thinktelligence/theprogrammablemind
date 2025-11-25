@@ -76,7 +76,7 @@ const config = {
   ],
 };
 
-const initializer = ({objects, config, isModule}) => {
+function initializer({objects, config, isModule}) {
   config.addArgs(({config, api, hierarchy}) => {
     const isAI = isA(hierarchy);
 

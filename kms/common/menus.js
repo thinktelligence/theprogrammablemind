@@ -214,7 +214,7 @@ class UIAPI {
    file (<- instance of menu) menu (<- concept of menu)
 */
 // called for the non-module load to setup fixtures
-const fixtures = async ({api, fragment, s, config, objects, kms, isModule}) => {
+async function fixtures({api, fragment, s, config, objects, kms, isModule}) {
   const fileMenuId = api.addMenu('file')
   const objectMenuId = api.addMenu('object')
 

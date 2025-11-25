@@ -40,7 +40,7 @@ const config = {
   ],
 }
 
-const initializer = ({config, apis}) => {
+function initializer({config, apis}) {
   const api = apis('properties')
   api.createActionPrefix({
                 operator: 'feel',

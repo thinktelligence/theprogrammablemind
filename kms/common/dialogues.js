@@ -18,7 +18,7 @@ const pluralize = require('pluralize')
 
 const api = new API()
 
-const warningIsANotImplemented = (log, context) => {
+function warningIsANotImplemented(log, context) {
   const description = 'WARNING from Dialogues KM: For semantics in order to handle sentences of type "x is y?", set the response to what you like.'
   const match = `({context, hierarchy}) => hierarchy.isA(context.marker, 'is') && context.query && <other conditions as you like>`
   const apply = `({context}) => <do stuff...>; context.evalue = <value>`
@@ -27,7 +27,7 @@ const warningIsANotImplemented = (log, context) => {
   log(indent(message, 4))
 }
 
-const warningSameNotEvaluated = (log, one) => {
+function warningSameNotEvaluated(log, one) {
   const description = 'WARNING from Dialogues KM: For the "X is Y" type phrase implement a same handler.'
   const match = `({context}) => context.marker == '${one.marker}' && context.same && <other conditions as you like>`
   const apply = '({context}) => <do stuff... context.same is the other value>; context.sameWasProcessed = true'
@@ -36,7 +36,7 @@ const warningSameNotEvaluated = (log, one) => {
   log(indent(message, 4))
 }
 
-const listorama = (type) => {
+function listorama(type) {
   return [
       { context: [[type, 0], ['list', 0], [type, 0]], choose: 0 },
       { context: [[type, 1], ['list', 0], [type, 0]], choose: 0 },
@@ -529,7 +529,7 @@ const config = {
           return `${await gp(context.one)} ${isMany(context.one) || isMany(context.two) || isMany(context) ? "are" : "is"} ${await g(context.two)}`
         }
 
-        const hasFocus = (property) => {
+        function hasFocus(property) {
           if (context.focusableForPhrase) {
             return true
           }
@@ -789,7 +789,7 @@ const config = {
   ],
 };
 
-const initializer = ({objects, config, isModule}) => {
+function initializer({objects, config, isModule}) {
   /* TODO add this beck in. some stuff from config needs to be here
   config.addArgs((args) => ({ 
     e: (context) => config.api.getEvaluator(args.s, args.log, context),

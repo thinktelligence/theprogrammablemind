@@ -44,7 +44,7 @@ const config = {
   },
 };
 
-const initializer = ({objects, config, isModule}) => {
+function initializer({objects, config, isModule}) {
   config.addArgs(
     ({addPattern}) => ({
       addSuffix: (suffix) => {

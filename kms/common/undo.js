@@ -37,7 +37,7 @@ const template = {
   ]
 }
 
-const createConfig = async () => {
+async function createConfig() {
   const config = new Config({ name: 'undo' }, module)
   config.stop_auto_rebuild()
     await config.add(stm)

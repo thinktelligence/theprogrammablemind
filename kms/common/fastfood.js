@@ -284,7 +284,7 @@ const template = {
     ({ask, api}) => {
       // see if followup for drink is needed
 
-      const hasDrink = (isA, item) => {
+      function hasDrink(isA, item) {
         let hasDrink = false
         for (const modification of (item.modifications || [])) {
           if (isA(modification.id, 'drink')) {
@@ -295,11 +295,11 @@ const template = {
         return hasDrink
       }
 
-      const needsDrink = (item) => {
+      function needsDrink (item) {
         return item.needsDrink
       }
 
-      const askAbout = ({api, isA}) => {
+      function askAbout({api, isA}) {
         const items = []
         for (const item of api.items()) {
           if (needsDrink(item) && !hasDrink(isA, item)) {
@@ -765,7 +765,7 @@ class State {
       return
     }
 
-    const addSize = (item, data) => {
+    function addSize(item, data) {
       if (item.size) {
         data.size = item.size.value
       }

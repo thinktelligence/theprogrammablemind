@@ -30,7 +30,9 @@ const configStruct = {
 
 };
 
-const createConfig = async () => new Config(configStruct, module)
+async function createConfig() {
+  return new Config(configStruct, module)
+}
 
 knowledgeModule( { 
   module,

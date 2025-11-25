@@ -89,7 +89,7 @@ const config = {
   ],
 };
 
-const initializer = ({config, objects, apis, addWord, addGenerator, baseConfig, uuid}) => {
+function initializer({config, objects, apis, addWord, addGenerator, baseConfig, uuid}) {
   const api = apis('currency')
   units = api.getUnits()
   for (word in units) {

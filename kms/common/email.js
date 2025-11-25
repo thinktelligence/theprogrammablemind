@@ -3,7 +3,7 @@ const { defaultContextCheck } = require('./helpers')
 const dialogues = require('./dialogues')
 const help_tests = require('./help.test.json')
 
-const getHelp = (config, indent=2) => {
+function getHelp(config, indent=2) {
   indent = ' '.repeat(indent)
   let help = ''
   help += `${indent}NAME: ${config.name}\n`

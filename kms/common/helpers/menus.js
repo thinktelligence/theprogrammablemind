@@ -1,10 +1,10 @@
-const calculateLefts = (defs) => {
+function calculateLefts(defs) {
   const lefts = {}
   calculateLeftsHelper(defs, lefts)
   return lefts
 }
 
-const calculateLeftsHelper = (defs, lefts) => {
+function calculateLeftsHelper(defs, lefts) {
   if (Array.isArray(defs)) {
     let previous
     for (const def of defs) {
@@ -19,13 +19,13 @@ const calculateLeftsHelper = (defs, lefts) => {
   return lefts
 }
 
-const calculateRights = (defs) => {
+function calculateRights(defs) {
   const rights = {}
   calculateRightsHelper(defs, rights)
   return rights
 }
 
-const calculateRightsHelper = (defs, rights) => {
+function calculateRightsHelper(defs, rights) {
   if (Array.isArray(defs)) {
     let previous
     for (const def of defs) {
@@ -40,13 +40,13 @@ const calculateRightsHelper = (defs, rights) => {
   return rights
 }
 
-const calculateDowns = (defs) => {
+function calculateDowns(defs) {
   const downs = {}
   calculateDownsHelper(defs, downs)
   return downs
 }
 
-const calculateDownsHelper = (defs, downs) => {
+function calculateDownsHelper(defs, downs) {
   if (Array.isArray(defs)) {
     for (const def of defs) {
       calculateDownsHelper(def, downs)
@@ -72,13 +72,13 @@ const calculateDownsHelper = (defs, downs) => {
   return downs
 }
 
-const calculateUps = (defs) => {
+function calculateUps(defs) {
   const ups = {}
   calculateUpsHelper(defs, ups)
   return ups
 }
 
-const calculateUpsHelper = (defs, ups) => {
+function calculateUpsHelper(defs, ups) {
   if (Array.isArray(defs)) {
     for (const def of defs) {
       calculateUpsHelper(def, ups)
@@ -100,13 +100,13 @@ const calculateUpsHelper = (defs, ups) => {
   return ups
 }
 
-const calculateParents = (defs) => {
+function calculateParents(defs) {
   const parents = {}
   calculateParentsHelper(defs, parents)
   return parents
 }
 
-const calculateParentsHelper = (defs, parents) => {
+function calculateParentsHelper(defs, parents) {
   if (Array.isArray(defs)) {
     for (const def of defs) {
       parents[def.key] = def.key
@@ -123,13 +123,13 @@ const calculateParentsHelper = (defs, parents) => {
   return parents
 }
 
-const calculatePaths = (defs) => {
+function calculatePaths(defs) {
   const paths = {}
   calculatePathsHelper(defs, paths)
   return paths
 }
 
-const calculatePathsHelper = (defs, paths) => {
+function calculatePathsHelper(defs, paths) {
   if (Array.isArray(defs)) {
     for (const def of defs) {
       calculatePathsHelper(def, paths)

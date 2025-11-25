@@ -74,7 +74,7 @@ class API {
 
     const findPrevious = !!context.stm_previous
     const forAll = []
-    const addForAll = (context) => {
+    function addForAll(context) {
       if (!forAll.find( (c) => c.stm.id == context.stm.id)) {
         forAll.push(context)
       }
@@ -247,7 +247,7 @@ const config = {
   ],
 }
 
-const initializer = ({config}) => {
+function initializer({config}) {
     config.addArgs(({kms}) => ({
       mentioned: (args) => {
         kms.stm.api.mentioned(args)

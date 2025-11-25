@@ -29,13 +29,13 @@ const template ={
 
 /* START USER DEFINED: this part could be calling your backend db */
 
-const compareValue = (property, v1, v2) => {
+function compareValue(property, v1, v2) {
   return v1[property] < v2[property] ? -1 :
          v1[property] > v2[property] ? 1 :
          0;
 }
 
-const newReport = ({km, objects}) => {
+function newReport({km, objects}) {
   objects.tempReportId += 1
   const reportId = `tempReport${objects.tempReportId}`
   km('stm').api.mentioned({ context: { marker: "report", text: reportId, types: [ "report" ], value: reportId, word: reportId } })
@@ -48,21 +48,23 @@ const newReport = ({km, objects}) => {
   return reportId
 }
 
-const compareObject = (ordering) => (v1, v2) => {
-  for (const order of ordering) {
-    c = compareValue(order[0], v1, v2)
-    if (c == 0) {
-      continue
+function compareObject(ordering) {
+  return (v1, v2) => {
+    for (const order of ordering) {
+      c = compareValue(order[0], v1, v2)
+      if (c == 0) {
+        continue
+      }
+      if (order[1] == 'descending') {
+        c *= -1
+      }
+      return c
     }
-    if (order[1] == 'descending') {
-      c *= -1
-    }
-    return c
+    return 0
   }
-  return 0
 }
 
-const sort = ({ ordering, list }) => {
+function sort({ ordering, list }) {
   return [...list].sort(compareObject(ordering))
 }
 
@@ -84,7 +86,7 @@ const testData2 = {
   ]
 }
 
-const apiTemplate = (marker, testData) => { 
+function apiTemplate(marker, testData) { 
   return {
     getName: () => testData.name,
     getTypes: () => testData.types,
@@ -581,7 +583,7 @@ const config = {
   ],
 };
 
-const initializeApi = (config, api) => {
+function initializeApi(config, api) {
   const type = api.getName();
   config.addWord(type, {"id": "product", "initial": "{ value: '" + type + `', api: '${type}'}` })
   /*
@@ -599,7 +601,7 @@ const initializeApi = (config, api) => {
   // config.addWord(type, {"id": "report", "initial": `${open} value: '${type}' ${close}` })
  }
 
-const initializer = async ({config, objects, km, kms, isModule}) => {
+async function initializer({config, objects, km, kms, isModule}) {
     if (!isModule) {
       await kms.reports.addAPI(api1)
       await kms.reports.addAPI(api2)

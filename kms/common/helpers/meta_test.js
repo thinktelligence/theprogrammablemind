@@ -144,7 +144,8 @@ describe('helpersMeta', () => {
   })
 
   describe('semanticsGenerate', () => {
-    const FROM = () => { return {
+    function FROM() { 
+      return {
           "marker": "arm",
           "value": "arm",
           "weapon": {
@@ -165,8 +166,10 @@ describe('helpersMeta', () => {
           },
           "word": "arm",
           "topLevel": true
-        } }
-    const TO = () => { return {
+        } 
+      }
+    function TO() { 
+      return {
           "default": true,
           "marker": "is",
           "one": {
@@ -221,19 +224,23 @@ describe('helpersMeta', () => {
       const from = FROM()
       const to = TO()
 
-      const match = ({context}) => context.marker == "arm"
+      function match({context}) {
+        return context.marker == "arm"
+      }
       // from+to generate mappings
       const mappings = [
         { from: ['weapon'], to: ['one', 'object'] },
       ]
       // context(from) + to-copy
       // const apply = (mappings, _.cloneDeep(to)) => ({context}) => {
-      const apply = (mappings, TO) => ({context}) => {
-        TO = _.cloneDeep(TO)
-        for (const { from, to } of mappings) {
-          hashIndexesSet(TO, to, hashIndexesGet(context, from))
+      function apply(mappings, TO) {
+        return ({context}) => {
+          TO = _.cloneDeep(TO)
+          for (const { from, to } of mappings) {
+            hashIndexesSet(TO, to, hashIndexesGet(context, from))
+          }
+          Object.assign(context, TO)
         }
-        Object.assign(context, TO)
       }
       const semantic = { match, apply }
 

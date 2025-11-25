@@ -92,7 +92,7 @@ class API {
     }
 
     // TODO handle the general case
-    const fixUps = (concept) => {
+    function fixUps(concept) {
       if (concept == '*') {
         return '\\*'
       }

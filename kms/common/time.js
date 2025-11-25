@@ -6,7 +6,7 @@ const numbers = require('./numbers')
 const helpers = require('./helpers')
 const time_tests = require('./time.test.json')
 
-const pad = (v, l) => {
+function pad(v, l) {
   const s = String(v)
   const n = l - s.length
   return "0".repeat(n) + s
@@ -141,7 +141,7 @@ const config = {
       where: where(),
       match: ({context}) => context.marker == 'time' && context.evalue && context.format == 24, 
       apply: ({g, context}) => {
-        const pad = (num, size) => {
+        function pad(num, size) {
           num = num.toString();
           while (num.length < size) num = "0" + num;
           return num;
@@ -187,7 +187,7 @@ const config = {
   ],
 };
 
-const initializer = ({api, config, objects, kms, isModule}) => {
+function initializer({api, config, objects, kms, isModule}) {
   if (!isModule) {
     kms.time.api.newDate = () => new Date("December 25, 1995 1:59:58 pm" )
   }

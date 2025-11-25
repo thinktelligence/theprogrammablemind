@@ -29,7 +29,7 @@ const template = {
   ]
 };
 
-const createConfig = async () => {
+async function createConfig() {
   const config = new Config({ name: 'kid', }, module)
   await config.add(avatar, animals, edible, ordering)
   // config.load(template, kid_instance)

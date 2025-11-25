@@ -98,15 +98,17 @@ describe('helpers', () => {
     xit('x = y match', async () => {
       const value = { marker: 'equals', left: 'x', right: { marker: '+', x: 'y', y: 'z' } }
 
-      const f = (values, variable) => (value) => {
-        if (!value) {
-          throw new Error("Value not present")
+      function f(values, variable) {
+        return (value) => {
+          if (!value) {
+            throw new Error("Value not present")
+          }
+          if (values[variable] && values[variable] != value) {
+            throw new Error("Variable already set to different value")
+          }
+          values[variable] = value
+          return true
         }
-        if (values[variable] && values[variable] != value) {
-          throw new Error("Variable already set to different value")
-        }
-        values[variable] = value
-        return true
       }
 
       const rule = {

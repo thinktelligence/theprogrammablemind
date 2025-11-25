@@ -8,7 +8,7 @@ const isoString = date.toISOString();
 console.log(isoString); // "2025-07-28T21:54:00.000Z"
 */
 
-const isA = (child, parent) => {
+function isA(child, parent) {
   return child == parent
 }
 
@@ -38,7 +38,7 @@ describe("instantiate", () => {
     expect(actual).toStrictEqual(expected.toISOString()) 
   });
 
-  const dateTimeSelectorWithExplicitOn = (ampm) => {
+  function dateTimeSelectorWithExplicitOn(ampm) {
     return {
       "marker": "dateTimeSelector",
       "range": {
@@ -183,7 +183,7 @@ describe("instantiate", () => {
     expect(actual).toStrictEqual(expected.toISOString()) 
   });
 
-  const dateTimeSelectorWithImplicitOn = (ampm) => {
+  function dateTimeSelectorWithImplicitOn(ampm) {
     return {
       "marker": "dateTimeSelector",
       "range": {

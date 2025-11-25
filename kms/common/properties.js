@@ -625,7 +625,7 @@ const config = {
       apply: async ({context, api, kms, objects, g, s, log}) => {
         const toDo = [ ...context.objects ]
 
-        const toValue = async (objectContext) => {
+        async function toValue(objectContext) {
           if (!objectContext.value) {
             return objectContext;
           }
@@ -673,7 +673,7 @@ const config = {
   ]
 };
 
-const initializer = ({objects, config, isModule}) => {
+function initializer({objects, config, isModule}) {
   // debugger
   config.addArgs(({config, api, isA}) => ({
     makeObject: api('properties').makeObject,
