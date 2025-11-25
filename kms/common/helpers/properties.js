@@ -458,7 +458,6 @@ class API {
 
           const { evalue } = context 
           let yesno = ''
-
           let hasVariables = false
           if (context.focusable) {
             for (const f of context.focusable) {
@@ -487,7 +486,7 @@ class API {
               yesno = 'no'
             }
           }
-          if (evalue.truthValueOnly || brief) {
+          if (evalue.truthValueOnly) {
             return `${yesno}`
           } else {
             const details = await g(Object.assign({}, evalue, { paraphrase: true }))
