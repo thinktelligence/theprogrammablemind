@@ -1,10 +1,9 @@
 const pluralize = require('pluralize')
-const { defaultContextCheck } = require('./helpers')
+const { defaultContextCheck, getValue, isMany } = require('./helpers')
 const { knowledgeModule, where, flatten } = require('./runtime').theprogrammablemind
 const tokenize = require('./tokenize.js')
 const gdefaults_tests = require('./gdefaults.test.json')
 const englishHelpers = require('./english_helpers.js')
-const { getValue, isMany } = require('./helpers.js')
 const helpers = require('./helpers')
 
 const config = {
@@ -295,6 +294,9 @@ function initializer({config}) {
                   if (element.context) {
                     Object.assign(value, element.context)
                   }
+                }
+                if (element.number) {
+                  value.number = isMany(context[element.number]) ? "many": "one"
                 }
                 if (value) {
                   strings.push(separator)
