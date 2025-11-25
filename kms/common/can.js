@@ -89,7 +89,6 @@ const config = {
 const template = {
   configs: [
     ({isProcess, isTesting, testModuleName, apis, config, addHierarchy}) => {
-      debugger
       if (isProcess || isTesting) {
         const api = apis('properties')
         api.createActionPrefix({
