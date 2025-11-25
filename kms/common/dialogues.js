@@ -245,6 +245,7 @@ const config = {
     { id: "canBeDoQuestion", level: 2, bridge: "{ ...next(operator) }" },
     { id: "doesAble", level: 0, bridge: "{ ...next(operator) }" },
     { id: "doesAble", level: 1, bridge: "{ ...next(operator), before: before[0] }" },
+    // { id: "does", level: 0, bridge: "{ query: true, wantsTruthValue: true, what: operator.marker, ...context, number: operator.number, object.number: operator.number }*" },
     { id: "does", level: 0, bridge: "{ query: true, what: operator.marker, ...context, number: operator.number, object.number: operator.number }*" },
 
     /*

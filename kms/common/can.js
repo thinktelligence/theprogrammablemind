@@ -32,10 +32,10 @@ const config = {
   name: 'can',
   operators: [
     // "([can] (canableAction && context.infinitive))",
-    "([canableAction])",
+    "((*) [canableAction] (*))",
     "(<canStatement|can> (canableAction/0))",
     "(<canQuestion|can> (canableAction/1))",
-    "((*) [whatCanQuestion|can] (*) ([canableAction]))"
+    "((*) [whatCanQuestion|can] (*) (canableAction))"
     /*
       bridge: [
         // b=[do] o=c a=[s, ca]
@@ -48,6 +48,12 @@ const config = {
     */
     // Bridge('{ ...before }'-(Rewire before[0] to after[0] Set after to [ListableType(Listable(Type('likee')))]), '{ ...next(operator), likee*: after[0], liker: before[0] }')
   ],
+  associations: {
+    positive: [
+      // { context: [['what', 0], ['whatCanQuestion', 0], ['unknown', 0], ['make', 0]], choose: 1 },
+      // { context: [['what', 1], ['whatCanQuestion', 0], ['unknown', 0], ['make', 0]], choose: 1 },
+    ],
+  },
   bridges: [
     { 
       id: "canableAction",
@@ -62,16 +68,6 @@ const config = {
       id: "canQuestion",
       before: ['verb'],
       bridge: "{ ...after[0], operator.number: 'infinitive', truthValueOnly: true, query: true, can: operator, arg1: [{ property: 'can' }], interpolate: append([{ property: 'can'}], after[0].interpolate)}",
-      // bridge: "{ ...after[0], operator.number: 'infinitive', truthValueOnly: true, query: true, can: operator, arg1: [{ property: 'can' }], i2: after[0].interpolate, interpolate: append([{ property: 'can'}], after[0].interpolate) }",
-      // bridge: "{ ...after[0], operator.number: 'infinitive', truthValueOnly: true, query: true, can: operator, arg1: [{ property: 'can' }], i2: after[0].interpolate, interpolate: append([{ property: 'can'}], []) }",
-      /*
-      generator: [
-        { 
-          match: ({context}) => context.query && context.can,
-          apply: ({context}) => 
-        },
-      ],
-      */
     },
     { 
       id: "whatCanQuestion",
@@ -92,8 +88,9 @@ const config = {
 
 const template = {
   configs: [
-    ({isProcess, apis, config, addHierarchy}) => {
-      if (isProcess) {
+    ({isProcess, isTesting, testModuleName, apis, config, addHierarchy}) => {
+      debugger
+      if (isProcess || isTesting) {
         const api = apis('properties')
         api.createActionPrefix({
           before: [{tag: 'maker', id: 'maker'}],
@@ -116,6 +113,8 @@ const template = {
           ],
           config,
         })
+        // config.addAssociation({ context: [['what', 0], ['whatCanQuestion', 0], ['unknown', 0], ['make', 0]], choose: 1 })
+        // config.addAssociation({ context: [['what', 1], ['whatCanQuestion', 0], ['unknown', 0], ['make', 0]], choose: 1 })
       }
     }
   ]

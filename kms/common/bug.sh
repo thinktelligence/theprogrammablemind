@@ -914,4 +914,4 @@ node can -q 'mike can make tea\nevaluate propertyrelation\nmike can make what' -
 node can -q 'what can mike make' -g -d
 node can -q 'can mike make tea' -g -d
 node can -q 'mike can make coffee\ncan mike make tea' -g -d
-
+node can -q 'what beverages can mike make' -g -d

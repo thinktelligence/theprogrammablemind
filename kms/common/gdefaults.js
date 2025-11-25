@@ -1,6 +1,6 @@
 const pluralize = require('pluralize')
 const { defaultContextCheck } = require('./helpers')
-const { knowledgeModule, where } = require('./runtime').theprogrammablemind
+const { knowledgeModule, where, flatten } = require('./runtime').theprogrammablemind
 const tokenize = require('./tokenize.js')
 const gdefaults_tests = require('./gdefaults.test.json')
 const englishHelpers = require('./english_helpers.js')
@@ -245,6 +245,7 @@ const config = {
 const initializer = ({config}) => {
     config.addArgs((args) => {
       return {
+        flatten,
         number: (context) => isMany(context) ? "many" : "one",
         // number/gender/person etc
         gw: (context, { number: numberContext }) => {

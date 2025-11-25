@@ -445,14 +445,35 @@ class API {
       config.addGenerator({
         notes: 'ordering generator for response',
         match: ({context}) => context.marker == operator && context.evalue && context.isResponse,
-        apply: async ({context, g, km}) => {
+        apply: async ({context, g, km, flatten}) => {
           const brief = km("dialogues").api.getBrief()
 
           const { evalue } = context 
           let yesno = ''
-          debugger
-          if (!context.do?.query || evalue.truthValueOnly || context.truthValueOnly || brief) {
-            if (evalue.truthValue) {
+
+          let hasVariables = false
+          if (context.focusable) {
+            for (const f of context.focusable) {
+              if (context[f].query) {
+                hasVariables = true
+                break
+              }
+            }
+          }
+          // if (!context.do?.query || evalue.truthValueOnly || context.truthValueOnly || brief) {
+          if (evalue.truthValueOnly || context.truthValueOnly || context.wantsTruthValue || brief || !hasVariables) {
+            const any = (value, test) => {
+              if (test(value)) {
+                return true
+              }
+              const values = flatten(['list'], value)[0]
+              for (const value of values) {
+                if (test(value)) {
+                  return true
+                }
+              }
+            }
+            if (any(evalue, (value) => value.truthValue)) {
               yesno = 'yes'
             } else if (evalue.truthValue === false || context.truthValueOnly) {
               yesno = 'no'
@@ -461,7 +482,13 @@ class API {
           if (evalue.truthValueOnly || brief) {
             return `${yesno}`
           } else {
-            return `${yesno} ${await g(Object.assign({}, evalue, { paraphrase: true }))}`
+            const details = await g(Object.assign({}, evalue, { paraphrase: true }))
+            if (yesno) {
+              return `${yesno} ${details}`
+            }
+            else {
+              return details
+            }
           }
         }
       })
@@ -564,7 +591,6 @@ class API {
         match: ({context}) => context.marker == operator && context.query,
         apply: ({context, km, callId}) => {
           const api = km('properties').api
-
           context.evalue = {
             marker: 'list',
             value: unflatten(api.relation_get(context, before.concat(after).map( (arg) => arg.tag ) ))
@@ -574,6 +600,8 @@ class API {
           if (context.evalue.value.length == 0) {
             context.evalue.marker = 'answerNotKnown';
             context.evalue.value = [];
+          } else {
+            // context.evalue.truthValue = true
           }
         }
       })
@@ -603,6 +631,7 @@ class API {
       relations = [relations]
     }
     for (const relation of relations) {
+      relation.truthValue = true
       this._objects.relations.push(relation)
     }
   }
