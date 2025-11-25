@@ -7,7 +7,7 @@ const { table } = require('table')
 const _ = require('lodash')
 const characters_tests = require('./characters.test.json')
 
-const getHelp = (config, indent=2) => {
+function getHelp(config, indent=2) {
   indent = ' '.repeat(indent)
   let help = ''
   help += `${indent}NAME: ${config.name}\n`
@@ -167,13 +167,13 @@ class Bob {
   }
 }
 
-const initializeApi = (config, api) => {
+function initializeApi(config, api) {
   const name = api.getName();
   config.addWord(name, {"id": "character", "initial": "{ value: '" + name + `', api: '${name}'}` })
 }
 
 
-const initializer = async ({isModule, km}) => {
+async function initializer({isModule, km}) {
   if (!isModule) {
     const timeKM = await createTimeKM()
     const currencyKM = await createCurrencyKM()

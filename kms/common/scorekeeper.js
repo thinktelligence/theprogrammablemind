@@ -24,14 +24,14 @@ const template = {
   ],
 }
 
-const setPlayers = (objects, config, players) => {
+function setPlayers(objects, config, players) {
   for (const player of players) {
     config.addWord(player, { "id": "player", "initial": `{ value: "${player}" }` })
   }
   objects.players = players;
 }
 
-const setNextPlayer = (km, objects) => {
+function setNextPlayer(km, objects) {
   const turn = {
         marker: "turn",
         default: true,
@@ -46,7 +46,7 @@ const setNextPlayer = (km, objects) => {
   api.mentioned({ context: turn })
 }
 
-const addPlayer = (objects, config, player) => {
+function addPlayer(objects, config, player) {
   config.addWord(player, { "id": "player", "initial": `{ value: "${player}" }` })
   objects.players.push(player);
 }
@@ -335,7 +335,7 @@ const config = {
   ],
 };
 
-const initializer = ({objects, km, isModule}) => {
+function initializer({objects, km, isModule}) {
     objects.players = []
     objects.nextPlayer = undefined;
     setNextPlayer(km, objects);

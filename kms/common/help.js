@@ -4,7 +4,7 @@ const dialogues = require('./dialogues')
 const help_tests = require('./help.test.json')
 const helpers = require('./helpers')
 
-const getHelp = (config, indent=2) => {
+function getHelp(config, indent=2) {
   indent = ' '.repeat(indent)
   let help = ''
   if (config.tests.length == 0) {
@@ -82,7 +82,7 @@ const config = {
   },
 };
 
-const initializer = ({ config, addWord, kms }) => {
+function initializer({ config, addWord, kms }) {
     const names = new Set()
     for (const name in kms) {
       names.add(name);

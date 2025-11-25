@@ -63,7 +63,7 @@ class SpockAPI {
   }
 }
 
-const createCharactersHelper = async () => {
+async function createCharactersHelper() {
   const characters = await createCharacters()
   const kirk = await createKirk()
   const spock = await createSpock()

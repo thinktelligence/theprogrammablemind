@@ -6,11 +6,11 @@ const pluralize = require('pluralize')
 const _ = require('lodash')
 const { isMany } = require('./helpers')
 
-const getTypes = ( km, concept, instance ) => {
+function getTypes( km, concept, instance ) {
   const propertiesAPI = km('properties').api;
   const conceptAPI = km('concept').api;
   const digraph = propertiesAPI.digraph;
-  const intersect = (set1, set2) => {
+  function intersect(set1, set2) {
     return new Set([...set1].filter(x => set2.has(x)))
   }
   const descendants = digraph.descendants(concept.value)
@@ -286,7 +286,7 @@ const config = {
   ]
 };
 
-const initializer = ({apis, hierarchy}) => {
+function initializer({apis, hierarchy}) {
     apis('stm').addIsA( (child, parent) => {
       return hierarchy.isA(child, parent) 
     })

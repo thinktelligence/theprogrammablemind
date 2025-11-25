@@ -2,7 +2,7 @@ const { knowledgeModule, where } = require('./runtime').theprogrammablemind
 const tester_tests = require('./tester.test.json')
 const ArgumentParser = require('argparse').ArgumentParser
 
-const testModuleNameFn = () => {
+function testModuleNameFn() {
   const parser = new ArgumentParser({ description: 'Get test module name' })
   parser.add_argument('-tmn', '--testModuleName', { help: 'List of module to run the tests from' })
   const [args, unknown] = parser.parse_known_args()
@@ -18,7 +18,7 @@ parser.add_argument('-m', '--modules', { help: 'List of modules to load' })
 const [args, unknown] = parser.parse_known_args()
 process.argv = [process.argv[0], process.argv[1], ...unknown]
 
-const createConfig = async () => {
+async function createConfig() {
   const config = new Config({ name: 'tester' })
   global.theprogrammablemind = {
     loadForTesting: {}
@@ -42,7 +42,7 @@ const includes = args.modules.split(',').map((module) => {
   return km
 })
 
-const fixtures = async (args) => {
+async function fixtures(args) {
   const { config, kms, apis } = args;
   if (kms[testModuleName].testConfig?.fixtures) {
     const fixtures = kms.menus.testConfig?.fixtures

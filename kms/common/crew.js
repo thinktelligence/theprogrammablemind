@@ -37,7 +37,7 @@ const template = {
   ],
 };
 
-const initializer = ({config, apis}) => {
+function initializer({config, apis}) {
   const api = apis('properties')
   const conceptApi = apis('concept')
   // conceptApi.kindOfConcept({ config, modifiers: ['photon'], object: 'torpedo' })

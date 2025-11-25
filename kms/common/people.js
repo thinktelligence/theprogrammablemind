@@ -41,7 +41,7 @@ const config = {
 
 };
 
-const initializer = ({baseConfig, context, apis, isModule}) => {
+function initializer({baseConfig, context, apis, isModule}) {
     // const api = km('properties').api
     const api = apis('properties')
     // setup paraphrase

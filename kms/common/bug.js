@@ -1,4 +1,4 @@
-const getObjects = (objects) => {
+function getObjects(objects) {
   const objects23 = objects
   return (uuid) => { 
       console.log('getObjects objects', objects)

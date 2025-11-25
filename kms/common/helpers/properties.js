@@ -28,7 +28,7 @@ class API {
     this._km = km
     this.__config = config
     this.digraph = new Digraph()
-    const toJSON = (h) => {
+    function toJSON(h) {
       if (h.child && h.parent) {
         return h
       } else {
@@ -281,7 +281,7 @@ class API {
       focusable = [], 
       edAble } = args;
 
-    const createToCanonical = (concept) => {
+    function createToCanonical(concept) {
       if (typeof concept == 'string') {
         return { id: concept, isA: [] }
       } else {
@@ -348,7 +348,7 @@ class API {
 
     create.map( ({ id, isA }) => {
       if (id === operator) {
-        const tagsToProps = (where, args, suffix='') => {
+        function tagsToProps(where, args, suffix='') {
           const i = 0;
           let r = ''
           for (const arg of args) {
@@ -469,7 +469,7 @@ class API {
           }
           // if (!context.do?.query || evalue.truthValueOnly || context.truthValueOnly || brief) {
           if (evalue.truthValueOnly || context.truthValueOnly || context.wantsTruthValue || brief || !hasVariables) {
-            const any = (value, test) => {
+            function any(value, test) {
               if (test(value)) {
                 return true
               }

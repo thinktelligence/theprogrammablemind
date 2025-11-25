@@ -13,7 +13,7 @@ function getVariables(expression, isVariable = (expression) => typeof expression
   return []
 }
 
-const match = (values, head, value) => {
+function match(values, head, value) {
   for (const prop in head) {
     if (head[prop] instanceof Function) {
       if (!head[prop](value[prop])) {
@@ -33,22 +33,24 @@ const match = (values, head, value) => {
   return true
 }
 
-const unify = (rule, value) => {
+function unify(rule, value) {
   const values = { ...rule.values }
   if (match(values, rule.head(values), value)) {
     return rule.body(values)
   }
 }
 
-const f = (values, variable) => (value) => {
-  if (!value) {
-    throw new Error("Value not present")
+function f(values, variable) {
+  return (value) => {
+    if (!value) {
+      throw new Error("Value not present")
+    }
+    if (values[variable] && values[variable] != value) {
+      throw new Error("Variable already set to different value")
+    }
+    values[variable] = value
+    return true
   }
-  if (values[variable] && values[variable] != value) {
-    throw new Error("Variable already set to different value")
-  }
-  values[variable] = value
-  return true
 }
 
 const rules = [
@@ -74,7 +76,7 @@ const rules = [
 ]
 
 function solveFor(expression, variable, isVariable = (expression) => typeof expression.value != 'number') {
-  const sameVar = (c1, c2) => {
+  function sameVar(c1, c2) {
     return c1.value == c2.value
   }
 

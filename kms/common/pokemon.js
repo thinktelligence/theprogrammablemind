@@ -29,7 +29,7 @@ const template = {
 // 'ashe owns pikachu who owns pikachu'
 // TODO does ashe own pikachu / ash owns pikachu? / 'ashe likes pikachu does ashe like pikachu'
 
-const initializer = ({config, apis}) => {
+function initializer({config, apis}) {
     const api = apis('properties')
     /*
     api.createActionPrefix({

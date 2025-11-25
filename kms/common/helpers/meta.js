@@ -1,6 +1,6 @@
 const _ = require('lodash')
 
-const hashIndexesGet = (hash, indexes) => {
+function hashIndexesGet(hash, indexes) {
   let value = hash
   for (const i of indexes) {
     value = value[i]
@@ -8,7 +8,7 @@ const hashIndexesGet = (hash, indexes) => {
   return value
 }
 
-const hashIndexesSet = (hash, indexes, value) => {
+function hashIndexesSet(hash, indexes, value) {
   let currentValue = hash
   for (const i of indexes.slice(0, -1)) {
     if (!currentValue[i]) {
@@ -19,7 +19,7 @@ const hashIndexesSet = (hash, indexes, value) => {
   currentValue[indexes[indexes.length-1]] = value
 }
 
-const isPrefix = (prefix, fix) => {
+function isPrefix(prefix, fix) {
   return prefix.every((element, index) => {
     return prefix[index] === fix[index]
   })
@@ -27,11 +27,11 @@ const isPrefix = (prefix, fix) => {
 }
 
 // assumes isPrefix is true
-const replacePrefix = (prefix, prefixPrime, fix) => {
+function replacePrefix(prefix, prefixPrime, fix) {
   return prefixPrime.concat(fix.slice(prefix.length))
 }
 
-const compose = (m1s, m2s) => {
+function compose(m1s, m2s) {
   return m2s.map( (m2) => { 
     m1 = m1s.find( (m1) => isPrefix(m1.from, m2.from) )
     if (m1) {
@@ -48,7 +48,7 @@ const compose = (m1s, m2s) => {
           '[{"from":["two"],"to":["owner"]},{"from":["one"],"to":["ownee"]},{"from":["number"],"to":["number"]}]'
 */
 
-const translationMapping = (from, to) => {
+function translationMapping(from, to) {
   const mappings = []
   if (from.atomic) {
     return mappings
@@ -89,7 +89,7 @@ const translationMapping = (from, to) => {
   return mappings
 }
 
-const translationMappings = (froms, to) => {
+function translationMappings(froms, to) {
   const mappingss = []
   for (const from of froms) {
     mappingss.push(translationMapping(from, to))
@@ -97,7 +97,7 @@ const translationMappings = (froms, to) => {
   return mappingss
 }
 
-const translationMappingToInstantiatorMappings  = (translationMapping, from , to) => {
+function translationMappingToInstantiatorMappings(translationMapping, from , to) {
   return translationMapping.map( (tm) => {
     return {
       // match: ({context}) => context.value == to[tm.to].value,

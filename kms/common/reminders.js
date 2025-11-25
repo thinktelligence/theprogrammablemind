@@ -18,7 +18,7 @@ const helpers = require('./helpers')
    add greg as a user
 */
 
-const query = (missing, reminder_id) => {
+function query(missing, reminder_id) {
   return  {
     where: where(),
     // oneShot: false,

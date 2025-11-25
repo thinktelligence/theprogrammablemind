@@ -242,7 +242,7 @@ const config = {
   ],
 };
 
-const initializer = ({config}) => {
+function initializer({config}) {
     config.addArgs((args) => {
       return {
         flatten,
@@ -256,14 +256,14 @@ const initializer = ({config}) => {
           args.insert({ marker: 'verbatim', verbatim: text, isResponse: true })
         },
         interpolate: async (interpolate, context) => {
-          const evaluator = async (key) => {
+          async function evaluator(key) {
             if (Array.isArray(context[key])) {
               return args.gsp(context[key])
             } else {
               return args.gp(context[key])
             }
           }
-          const getValue = (keyOrValue) => {
+          function getValue(keyOrValue) {
             if (typeof keyOrValue == 'string' && context[keyOrValue]) {
               return context[keyOrValue]
             }

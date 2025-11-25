@@ -206,10 +206,14 @@ const config = {
         // setup the read semantic
        
           // !topLevel or maybe !value??!?! 
-          const match = (defContext) => ({context}) => context.marker == (defContext.consequence || {}).marker && context.query // && !context.value
-          const apply = (DEFINITIONs, DERIVED) => {
+          function match(defContext) {
+            return ({context}) => context.marker == (defContext.consequence || {}).marker && context.query // && !context.value
+          }
+          function apply(DEFINITIONs, DERIVED) {
             const mappingss = translationMappings(DEFINITIONs, DERIVED)
-            const invertMappings = (mappings) => mappings.map( ({ from, to }) => { return { to: from, from: to } } )
+            function invertMappings(mappings) {
+              return mappings.map( ({ from, to }) => { return { to: from, from: to } } )
+            }
             return async ({context, s, config}) => { 
               DEFINITIONs = _.cloneDeep(DEFINITIONs)
               //const mappings = mappingss[0]
@@ -306,15 +310,21 @@ const config = {
       apply: async ({config, context, g}) => {
         // setup the write semantic
         {
-          const matchByMarker = (defContext) => ({context}) => context.marker == defContext.from.marker && !context.query && !context.objects
-          const matchByValue = (defContext) => ({context}) => context.evalue == defContext.from.value && !context.query && !context.objects
-          const apply = (mappings, TO) => async ({context, s}) => {
-            TO = _.cloneDeep(TO)
-            for (const { from, to } of mappings) {
-              hashIndexesSet(TO, to, hashIndexesGet(context, from))
+          function matchByMarker(defContext) {
+            return ({context}) => context.marker == defContext.from.marker && !context.query && !context.objects
+          }
+          function matchByValue(defContext) {
+            return ({context}) => context.evalue == defContext.from.value && !context.query && !context.objects
+          }
+          function apply(mappings, TO) {
+            return async ({context, s}) => {
+              TO = _.cloneDeep(TO)
+              for (const { from, to } of mappings) {
+                hashIndexesSet(TO, to, hashIndexesGet(context, from))
+              }
+              toPrime = await s(TO)
+              context.result = toPrime.result
             }
-            toPrime = await s(TO)
-            context.result = toPrime.result
           }
           const mappings = translationMapping(context.from, context.to)
           let match = matchByMarker(context)
@@ -333,30 +343,36 @@ const config = {
 
         // setup the read semantic
         {
-          const matchByMarker = (defContext) => ({context, uuid}) => context.marker == defContext.from.marker && (context.query || context.evaluate) && !context[`disable${uuid}`]
-          const matchByValue = (defContext) => ({context, uuid}) => context.value == defContext.from.value && (context.query || context.evaluate) && !context[`disable${uuid}`]
-          const apply = (mappings, TO) => async ({uuid, context, s, g, config}) => {
-            TO = _.cloneDeep(TO)
-            for (const { from, to } of mappings) {
-              hashIndexesSet(TO, to, hashIndexesGet(context, from))
-            }
-            // next move add debug arg to s and g
-            // TODO why is there query and evaluate?
-            if (context.query) {
-              TO.query = context.query
-            } else {
-              TO.evaluate = context.evaluate
-            }
-            TO[`disable${uuid}`] = true
-            toPrime = await s(TO)
-            if (context.query) {
-              if (toPrime.evalue) {
-                context.evalue = toPrime.evalue
-              } else {
-                context.evalue = toPrime
+          function matchByMarker(defContext) {
+            return ({context, uuid}) => context.marker == defContext.from.marker && (context.query || context.evaluate) && !context[`disable${uuid}`]
+          }
+          function matchByValue(defContext) {
+            return ({context, uuid}) => context.value == defContext.from.value && (context.query || context.evaluate) && !context[`disable${uuid}`]
+          }
+          function apply(mappings, TO) {
+            return async ({uuid, context, s, g, config}) => {
+              TO = _.cloneDeep(TO)
+              for (const { from, to } of mappings) {
+                hashIndexesSet(TO, to, hashIndexesGet(context, from))
               }
-            } else {
-              context.evalue = toPrime.evalue
+              // next move add debug arg to s and g
+              // TODO why is there query and evaluate?
+              if (context.query) {
+                TO.query = context.query
+              } else {
+                TO.evaluate = context.evaluate
+              }
+              TO[`disable${uuid}`] = true
+              toPrime = await s(TO)
+              if (context.query) {
+                if (toPrime.evalue) {
+                  context.evalue = toPrime.evalue
+                } else {
+                  context.evalue = toPrime
+                }
+              } else {
+                context.evalue = toPrime.evalue
+              }
             }
           }
           const mappings = translationMapping(context.from, context.to)

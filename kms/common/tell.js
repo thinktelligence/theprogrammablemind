@@ -98,7 +98,7 @@ const config = {
   ],
 };
 
-const initializer = ({config, isModule}) => {
+function initializer({config, isModule}) {
       if (!isModule) {
         config.addSemantic({
           match: ({context, hierarchy}) => context.happening && hierarchy.isA(context.marker, 'event'),
