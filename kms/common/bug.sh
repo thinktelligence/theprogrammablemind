@@ -915,6 +915,9 @@ node can -q 'what can mike make' -g -d
 node can -q 'can mike make tea' -g -d
 node can -q 'mike can make coffee\ncan mike make tea' -g -d
 node can -q 'what beverages can mike make' -g -d
+
+DONE node can -q 'fred makes coffee\nbe brief\nwho makes coffee' -g -d
 node can -q 'fred and bob make coffee\nbe brief\nwho makes coffee' -g -d
 node can -q 'fred bob and stan can make coffee\nbe brief\nwho can make coffee' -g -d
 
+node can -q 'fred bob and stan can make coffee' -g -d

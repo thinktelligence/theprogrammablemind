@@ -370,11 +370,13 @@ const config = {
     {
       where: where(),
       notes: "handle making responses brief",
-      match: ({context, objects}) => (context.topLevel || context.isResponse) && objects.brief && !context.briefWasRun,
+      match: ({context, objects, callId}) => (context.topLevel || context.isResponse) && objects.brief && !context.briefWasRun,
       apply: async ({context, g}) => {
         const focussed = focus(context)
         context.briefWasRun = true
-        return await g(focussed)
+        const result = await g(focussed)
+        context.briefWasRun = false
+        return result
       },
       priority: -2,
     },

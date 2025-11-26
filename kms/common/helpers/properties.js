@@ -472,8 +472,9 @@ class API {
               }
             }
           }
+          
           // if (!context.do?.query || evalue.truthValueOnly || context.truthValueOnly || brief) {
-          if (evalue.truthValueOnly || context.truthValueOnly || context.wantsTruthValue || brief || !hasVariables) {
+          if (evalue.truthValueOnly || context.truthValueOnly || context.wantsTruthValue || !hasVariables) {
             function any(value, test) {
               if (test(value)) {
                 return true

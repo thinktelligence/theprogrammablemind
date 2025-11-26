@@ -173,7 +173,7 @@ const config = {
     {
       where: where(),
       priority: -1,
-      match: ({context}) => context.evaluateWord && context.paraphrase && context.word && (context.number == 'many' || context.number > 1),
+      match: ({context}) => context.evaluateWord && context.paraphrase && context.word && (context.number == 'many' || context.number > 1) && !context.interpolate,
       apply: ({context}) => pluralize.plural(context.word),
     },
 
@@ -317,7 +317,8 @@ function initializer({config}) {
                     Object.assign(value, element.context)
                   }
                 }
-                if (!value?.number && element.number) {
+                // if (!value?.number && element.number) {
+                if (value?.number !== 'infinitive' && element.number) {
                   value.number = isMany(context[element.number]) ? "many": "one"
                 }
                 if (value) {

@@ -1,4 +1,5 @@
 const pluralize = require('pluralize')
+const { flatten } = require('./runtime').theprogrammablemind
 
 function unshiftL(list, element, max) {
   if (list.length >= max) {
@@ -124,8 +125,14 @@ function focus(context) {
     }
     for (const property of context.focusable) {
       let focus = helper(context[property])
-      if (!focus && (context[property] || {}).focus) {
-        focus = context[property]
+      if (!focus) {
+        const flat = flatten(['list'], context[property])[0]
+        for (const element of flat) {
+          if (element.focus) {
+            focus = context[property]
+            break
+          }
+        }
       }
       return focus
     }

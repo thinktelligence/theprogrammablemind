@@ -68,7 +68,7 @@ const config = {
       id: "canQuestion",
       before: ['verb'],
       // bridge: "{ ...after[0], operator.number: 'infinitive', truthValueOnly: true, query: true, can: operator, arg1: [{ property: 'can' }], interpolate: append([{ property: 'can'}], after[0].interpolate)}",
-      bridge: "{ ...after[0], operator.number: 'infinitive', truthValueOnly: true, query: true, can: operator, greg: 23, interpolate: append([{ property: 'can'}], after[0].interpolate)}",
+      bridge: "{ ...after[0], operator.number: 'infinitive', truthValueOnly: true, query: true, can: operator, interpolate: append([{ property: 'can'}], after[0].interpolate)}",
     },
     { 
       id: "whatCanQuestion",
