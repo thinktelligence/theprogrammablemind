@@ -52,6 +52,9 @@ function words(word, additional = {}) {
 }
 
 function isMany(context) {
+  if (!context) {
+    return
+  }
   // if (((context || {}).value || {}).marker == 'list' && (((context || {}).value || {}).value || []).length > 1) {
   const isList = context.marker == 'list' || context.value?.marker == 'list'
   if (isList) {

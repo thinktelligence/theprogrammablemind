@@ -369,7 +369,12 @@ class API {
         const imperative = (before.length == 0) ? "true" : "false"
         // const interpolate = "[" + before.map((arg) => `{ property: '${arg.tag}' }`).concat(`{ ...operator, evaluateWord: true, imperative: ${imperative}, isVerb: true, number: 'one' }`).concat(after.map((arg) => `{ property: '${arg.tag}' }`)).join(',') + "]"
         // const interpolateVerb = `{ property: "operator", context: { evaluateWord: true, imperative: ${imperative}, isVerb: true, number: 'one' } }`
-        const interpolateVerb = `{ property: "operator", number: '${before[0].tag}' }`
+        let interpolateVerb
+        if (before.length > 0) {
+          interpolateVerb = `{ property: "operator", number: '${before[0].tag}' }`
+        } else {
+          interpolateVerb = `{ property: "operator" }`
+        }
         const interpolate = "[" + before.map((arg) => `{ property: '${arg.tag}' }`).concat(interpolateVerb).concat(after.map((arg) => `{ property: '${arg.tag}' }`)).join(',') + "]"
 
         const unflattenArgs = [ ...before.map( (arg) => arg.tag ), ...after.map( (arg) => arg.tag ) ] 

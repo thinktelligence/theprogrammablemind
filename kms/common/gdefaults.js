@@ -151,6 +151,28 @@ const config = {
     {
       where: where(),
       priority: -1,
+      match: ({context}) => context.evaluateWord && context.isVerb && context.paraphrase && context.word && context.number == 'one' && !context.imperative && !context.interpolate,
+      apply: ({context}) => {
+        const infinitive = englishHelpers.getInfinitive(context.word)
+        const cases = englishHelpers.conjugateVerb(infinitive)
+        return pluralize.plural(context.word)
+      },
+    },
+
+    {
+      where: where(),
+      priority: -1,
+      match: ({context}) => context.evaluateWord && context.isVerb && context.paraphrase && context.word && context.number == 'many' && !context.imperative && !context.interpolate,
+      apply: ({context}) => {
+        const infinitive = englishHelpers.getInfinitive(context.word)
+        const cases = englishHelpers.conjugateVerb(infinitive)
+        return pluralize.singular(context.word)
+      },
+    },
+
+    {
+      where: where(),
+      priority: -1,
       match: ({context}) => context.evaluateWord && context.paraphrase && context.word && (context.number == 'many' || context.number > 1),
       apply: ({context}) => pluralize.plural(context.word),
     },
@@ -295,7 +317,7 @@ function initializer({config}) {
                     Object.assign(value, element.context)
                   }
                 }
-                if (element.number) {
+                if (!value?.number && element.number) {
                   value.number = isMany(context[element.number]) ? "many": "one"
                 }
                 if (value) {
