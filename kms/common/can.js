@@ -20,10 +20,13 @@ fred bob and stan can make coffee
 fred can make capucino bob americano and stan lattes
 ask someone to make me an americano
 who do I ask to make an american
-what can fred make
-can bob make coffee
 
-WORKING coffee can be made by joe
+have a way to convert from active to passive
+
+DONE what can fred make
+DONE can bob make coffee
+
+DONE coffee can be made by joe
 DONE who can coffee be made by
 DONE who can make coffee and tea
 
