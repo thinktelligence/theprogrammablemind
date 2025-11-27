@@ -24,8 +24,8 @@ what can fred make
 can bob make coffee
 who can make coffee and tea
 
-can you make coffee
-what can you make
+DONE can bob make coffee
+what can bob make
 */
 
 const config = {
@@ -74,7 +74,8 @@ const config = {
       id: "whatCanQuestion",
       before: ['verb'],
       bridge: [
-        { "apply": true, "bridge": "{ ...after[1], can: operator }", "set": "operator" },
+        // { "apply": true, "bridge": "{ ...after[1], can: operator, operator: after[1], interpolate: [{ property: 'can' }, { property: 'operator' }] }", "set": "operator" },
+        { "apply": true, "bridge": "{ ...after[1], can: operator, operator: after[1] }", "set": "operator" },
         {
           "rewire": [
             { "from": 'before[0]', "to": 'after[0]' },
@@ -82,6 +83,8 @@ const config = {
           ]
         },
         { "apply": true, "operator": "operator", "set": "context" },
+        { "apply": true, "bridge": "{ ...context, operator.number: 'infinitive', interpolate: [context.interpolate[2], { property: 'can' }, context.interpolate[0], context.interpolate[1]] }", "set": "context" },
+        // { "apply": true, "bridge": "{ ...context, interpolate: [context.interpolate[2], context.interpolate[0], context.interpolate[1]] }", set: "context" },
       ],
     },
   ],
