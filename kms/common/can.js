@@ -22,7 +22,9 @@ ask someone to make me an americano
 who do I ask to make an american
 what can fred make
 can bob make coffee
-who can coffee be made by
+
+WORKING coffee can be made by joe
+DONE who can coffee be made by
 DONE who can make coffee and tea
 
 DONE can bob make coffee
@@ -40,6 +42,7 @@ const config = {
     "((*) [whatCanQuestion|can] (*) (canableAction))",
     // who can coffee be made by
     "((*) [whatCanQuestionPassive|can] (*) ([beCanPassive|be]) (canableAction) ([byCanPassive|by]))",
+    "((*) [canPassive|can] ([beCanPassive|be]) (canableAction) ([byCanPassive|by]) (*))",
     /*
       bridge: [
         // b=[do] o=c a=[s, ca]
@@ -56,6 +59,8 @@ const config = {
     positive: [
       { context: [['what', 0], ['whatCanQuestionPassive', 0], ['unknown', 0], ['beCanPassive', 0], ['make', 0], ['byCanPassive', 0]], choose: 1 },
       { context: [['what', 1], ['whatCanQuestionPassive', 0], ['unknown', 0], ['beCanPassive', 0], ['make', 0], ['byCanPassive', 0]], choose: 1 },
+      { context: [['unknown', 0], ['canPassive', 0], ['beCanPassive', 0], ['make', 0], ['byCanPassive', 0], ['unknown', 0]], choose: 1 },
+      { context: [['unknown', 1], ['canPassive', 0], ['beCanPassive', 0], ['make', 0], ['byCanPassive', 0], ['unknown', 0]], choose: 1 },
     ],
   },
   bridges: [
@@ -75,6 +80,24 @@ const config = {
       before: ['verb'],
       // bridge: "{ ...after[0], operator.number: 'infinitive', truthValueOnly: true, query: true, can: operator, arg1: [{ property: 'can' }], interpolate: append([{ property: 'can'}], after[0].interpolate)}",
       bridge: "{ ...after[0], operator.number: 'infinitive', truthValueOnly: true, query: true, can: operator, interpolate: append([{ property: 'can'}], after[0].interpolate)}",
+    },
+    { 
+      // "((*) [canPassive|can] ([beCanPassive|be]) (canableAction) ([byCanPassive|by]) (*))",
+      id: "canPassive",
+      before: ['verb'],
+      bridge: [
+        // { "apply": true, "bridge": "{ ...after[1], can: operator, operator: after[1], interpolate: [{ property: 'can' }, { property: 'operator' }] }", "set": "operator" },
+        { "apply": true, "bridge": "{ ...after[1], can: operator, be: after[0], operator: after[1], by: after[2] }", "set": "operator" },
+        {
+          "rewire": [
+            { "from": 'before[0]', "to": 'after[0]' },
+            { "from": 'after[3]', "to": 'before[0]' },
+          ]
+        },
+        { "apply": true, "operator": "operator", "set": "context" },
+        { "apply": true, "bridge": "{ ...context, interpolate: [context.interpolate[2], { property: 'can' }, { property: 'be' }, context.interpolate[1], { property: 'by' }, context.interpolate[0]] }", "set": "context" },
+        // { "apply": true, "bridge": "{ ...context, interpolate: [context.interpolate[2], context.interpolate[0], context.interpolate[1]] }", set: "context" },
+      ],
     },
     { 
       // "((*) [whatCanQuestionPassive|can] (*) ([beCanPassive|be]) (canableAction) ([byCanPassive|by]))",
