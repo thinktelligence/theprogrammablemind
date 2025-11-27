@@ -1,4 +1,5 @@
 const pluralize = require('pluralize')
+const { conjugateVerb } = require('../english_helpers')
 const { unflatten, flattens, Digraph } = require('../runtime').theprogrammablemind
 const _ = require('lodash')
 const deepEqual = require('deep-equal')
@@ -407,6 +408,15 @@ class API {
     })
 
     if (words.length == 0) {
+      const createDef = createInit.find((def) => def.id == operator)
+      if (createDef && createDef.infinitive) {
+        const conjugation = conjugateVerb(createDef.infinitive)
+        if (can) {
+          const def = conjugation.find((def) => def.form == "pastParticiple")
+          config.addWord(def.word, { id: operator, initial: `{ value: '${operator}', tense: '${def.tense}' }`})
+        }
+      }
+
       const operatorPlural = pluralize.singular(operator)
       const operatorSingular = pluralize.plural(operator)
       config.addWord(operatorSingular, { id: operator, initial: `{ value: '${operator}', number: 'one' }`})

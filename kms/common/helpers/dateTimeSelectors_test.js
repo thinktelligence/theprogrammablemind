@@ -308,19 +308,19 @@ describe("instantiate", () => {
 
 describe("getNthDayOfMonth", () => {
   describe("in the current year", () => {
-    test('NEOS23 first monday of august 2025', () => {
+    test('first monday of august 2025', () => {
       const now = new Date(2025, 6, 29, 14, 52, 0);
       const actual = getNthDayOfMonth('monday', 1, 'august', now)
       const expected = new Date("2025-08-04T07:00:00.000Z")
       expect(actual).toStrictEqual(expected.toISOString()) 
     });
-    test('NEOS23 first tuesday of august 2025', () => {
+    test('first tuesday of august 2025', () => {
       const now = new Date(2025, 6, 29, 14, 52, 0);
       const actual = getNthDayOfMonth('tuesday', 1, 'august', now)
       const expected = new Date("2025-08-05T07:00:00.000Z")
       expect(actual).toStrictEqual(expected.toISOString()) 
     });
-    test('NEOS23 second monday of august 2025', () => {
+    test('second monday of august 2025', () => {
       const now = new Date(2025, 6, 29, 14, 52, 0);
       const actual = getNthDayOfMonth('monday', 2, 'august', now)
       const expected = new Date("2025-08-11T07:00:00.000Z")
@@ -329,19 +329,19 @@ describe("getNthDayOfMonth", () => {
   });
 
   describe("in the next year", () => {
-    test('NEOS23 first monday of january of next year', () => {
+    test('first monday of january of next year', () => {
       const now = new Date(2025, 6, 29, 14, 52, 0);
       const actual = getNthDayOfMonth('monday', 1, 'january', now)
       const expected = new Date("2026-01-05T08:00:00.000Z")
       expect(actual).toStrictEqual(expected.toISOString()) 
     });
-    test('NEOS23 first monday of january of next year', () => {
+    test('first monday of january of next year', () => {
       const now = new Date(2025, 6, 29, 14, 52, 0);
       const actual = getNthDayOfMonth('tuesday', 1, 'january', now)
       const expected = new Date("2026-01-06T08:00:00.000Z")
       expect(actual).toStrictEqual(expected.toISOString()) 
     });
-    test('NEOS23 second monday of january of next year', () => {
+    test('second monday of january of next year', () => {
       const now = new Date(2025, 6, 29, 14, 52, 0);
       const actual = getNthDayOfMonth('monday', 2, 'january', now)
       const expected = new Date("2026-01-12T08:00:00.000Z")

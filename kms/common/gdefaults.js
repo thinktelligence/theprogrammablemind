@@ -154,8 +154,14 @@ const config = {
       match: ({context}) => context.evaluateWord && context.isVerb && context.paraphrase && context.word && context.number == 'one' && !context.imperative && !context.interpolate,
       apply: ({context}) => {
         const infinitive = englishHelpers.getInfinitive(context.word)
-        const cases = englishHelpers.conjugateVerb(infinitive)
-        return pluralize.plural(context.word)
+        if (context.tense) {
+          const cases = englishHelpers.conjugateVerb(infinitive)
+          // console.log(JSON.stringify(cases, null, 2))
+          const def = cases.find((def) => def.tense == context.tense)
+          return def.word
+        } else {
+          return pluralize.plural(context.word)
+        }
       },
     },
 

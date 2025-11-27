@@ -922,3 +922,4 @@ DONE node can -q 'fred bob and stan can make coffee\nbe brief\nwho can make coff
 DONE node can -q 'fred bob and stan can make coffee' -g -d
 node can -q 'what can bob make' -g -d
 node can -q 'bob can make coffee\nwhat can bob make' -g -d
+node can -q 'who can coffee be made by' -g -d
