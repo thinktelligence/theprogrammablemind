@@ -396,7 +396,7 @@ const config = {
       where: where(),
       notes: "be brief or wordy",
       match: ({context}) => context.marker == 'be',
-      apply: ({context}) => `be ${context.type.word}`,
+      apply: ({context}) => `be ${context.type?.word}`,
     },
     /*
     {

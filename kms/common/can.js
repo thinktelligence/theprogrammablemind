@@ -22,10 +22,11 @@ ask someone to make me an americano
 who do I ask to make an american
 what can fred make
 can bob make coffee
-who can make coffee and tea
+who can coffee be made by
+DONE who can make coffee and tea
 
 DONE can bob make coffee
-what can bob make
+DONE what can bob make
 */
 
 const config = {
