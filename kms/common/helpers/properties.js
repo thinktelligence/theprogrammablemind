@@ -440,7 +440,12 @@ class API {
       config.addHierarchy(operator, 'canableAction')
       config.addAssociation({ context: [[afterIds[0], 0], ['whatCanQuestion', 0], [beforeIds[0], 0], ['make', 0]], choose: 1 })
       config.addAssociation({ context: [[afterIds[0], 1], ['whatCanQuestion', 0], [beforeIds[0], 0], ['make', 0]], choose: 1 })
+      config.addAssociation({ context: [[afterIds[0], 0], ['whatCanQuestionPassive', 0], [beforeIds[0], 0], ['beCanPassive', 0], ['make', 0], ['byCanPassive', 0]], choose: 1 })
+      config.addAssociation({ context: [[afterIds[0], 1], ['whatCanQuestionPassive', 0], [beforeIds[0], 0], ['beCanPassive', 0], ['make', 0], ['byCanPassive', 0]], choose: 1 })
+      config.addAssociation({ context: [[afterIds[0], 0], ['canPassive', 0], ['beCanPassive', 0], ['make', 0], ['byCanPassive', 0], [beforeIds[0], 0]], choose: 1 })
+      config.addAssociation({ context: [[afterIds[0], 1], ['canPassive', 0], ['beCanPassive', 0], ['make', 0], ['byCanPassive', 0], [beforeIds[0], 0]], choose: 1 })
     }
+
     if (false) {
       config.addGenerator({
         notes: 'ordering generator for paraphrase',

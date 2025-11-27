@@ -55,6 +55,7 @@ const config = {
     */
     // Bridge('{ ...before }'-(Rewire before[0] to after[0] Set after to [ListableType(Listable(Type('likee')))]), '{ ...next(operator), likee*: after[0], liker: before[0] }')
   ],
+  /*
   associations: {
     positive: [
       { context: [['what', 0], ['whatCanQuestionPassive', 0], ['unknown', 0], ['beCanPassive', 0], ['make', 0], ['byCanPassive', 0]], choose: 1 },
@@ -63,6 +64,7 @@ const config = {
       { context: [['unknown', 1], ['canPassive', 0], ['beCanPassive', 0], ['make', 0], ['byCanPassive', 0], ['unknown', 0]], choose: 1 },
     ],
   },
+  */
   bridges: [
     { id: 'beCanPassive' },
     { id: 'byCanPassive' },
