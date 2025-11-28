@@ -100,7 +100,7 @@ const config = {
           ]
         },
         { "apply": true, "operator": "operator", "set": "context" },
-        { "apply": true, "bridge": "{ ...context, interpolate: [context.interpolate[2], { property: 'can' }, { property: 'be' }, context.interpolate[1], { property: 'by' }, context.interpolate[0]] }", "set": "context" },
+        { "apply": true, "bridge": "{ ...context, passive: true, interpolate: [context.interpolate[2], { property: 'can' }, { property: 'be' }, context.interpolate[1], { property: 'by' }, context.interpolate[0]] }", "set": "context" },
         // { "apply": true, "bridge": "{ ...context, interpolate: [context.interpolate[2], context.interpolate[0], context.interpolate[1]] }", set: "context" },
       ],
     },
@@ -112,7 +112,7 @@ const config = {
         // { "apply": true, "bridge": "{ ...after[1], can: operator, operator: after[1], interpolate: [{ property: 'can' }, { property: 'operator' }] }", "set": "operator" },
         { "apply": true, "bridge": "{ ...after[2], can: operator, be: after[1], operator: after[2], by: after[3] }", "set": "operator" },
         { "apply": true, "operator": "operator", "set": "context" },
-        { "apply": true, "bridge": "{ ...context, interpolate: [context.interpolate[0], { property: 'can' }, context.interpolate[2], { property: 'be' }, context.interpolate[1], { property: 'by' }] }", "set": "context" },
+        { "apply": true, "bridge": "{ ...context, passive: true, interpolate: [context.interpolate[0], { property: 'can' }, context.interpolate[2], { property: 'be' }, context.interpolate[1], { property: 'by' }] }", "set": "context" },
         // { "apply": true, "bridge": "{ ...context, interpolate: [context.interpolate[2], context.interpolate[0], context.interpolate[1]] }", set: "context" },
       ],
     },
@@ -177,7 +177,9 @@ knowledgeModule( {
     name: './can.test.json',
     contents: can_tests,
     checks: {
-      context: [defaultContextCheck()],
+      context: [
+        defaultContextCheck({ extra: ['can', 'evalue', 'makeable', 'maker', 'operator', 'interpolate', 'number', 'property'] }),
+      ],
     },
   },
   template: {
