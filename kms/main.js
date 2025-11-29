@@ -3,6 +3,7 @@ const animals = require('./common/animals')
 const articles = require('./common/articles')
 const asking = require('./common/asking')
 const avatar = require('./common/avatar')
+const can = require('./common/can')
 const characters = require('./common/characters')
 const colors = require('./common/colors')
 const comparable = require('./common/comparable')
@@ -17,6 +18,7 @@ const dialogues = require('./common/dialogues')
 const dimension = require('./common/dimension')
 const edible = require('./common/edible')
 const emotions = require('./common/emotions')
+const english_helpers = require('./common/english_helpers')
 const errors = require('./common/errors')
 const evaluate = require('./common/evaluate')
 const events = require('./common/events')
@@ -73,6 +75,7 @@ module.exports = {
   articles,
   asking,
   avatar,
+  can,
   characters,
   colors,
   comparable,
@@ -87,6 +90,7 @@ module.exports = {
   dimension,
   edible,
   emotions,
+  english_helpers,
   errors,
   evaluate,
   events,
