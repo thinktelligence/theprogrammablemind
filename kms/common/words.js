@@ -1,43 +1,32 @@
 const { knowledgeModule, where } = require('./runtime').theprogrammablemind
 const { defaultContextCheck } = require('./helpers')
 const words_tests = require('./words.test.json')
+const words_instance = require('./words.instance.json')
+const tokenize = require('./tokenize')
 
-const configStruct = {
-  name: 'words',
-  operators: [
-    "([adjective])",
-    "([article])",
-    "([prewordsition])",
-    "([pronoun])",
-    "([verb])",
-    "([punctuation])",
-  ],
-  bridges: [
-    { "id": "adjective" },
-    { "id": "article" },
-    { "id": "prewordsition" },
-    { "id": "pronoun" },
-    { "id": "verb" },
-    { "id": "punctuation" },
-  ],
-  priorities: [
-    { "choose": [['pronoun', 0], ['verb', 0], ], "choose": [0] },
-    { "choose": [['prewordsition', 0], ['verb', 0], ], "choose": [0] },
-    { "choose": [['adjective', 0], ['verb', 0], ], "choose": [0] },
-    { "choose": [['article', 0], ['verb', 0], ], "choose": [0] },
-    { "choose": [['punctuation', 0], ['verb', 0], ], "choose": [0] },
-  ],
+function initializer({objects, config, isModule}) {
+  config.addArgs(({config}) => ({
+    getWords: (partial) => {
+      debugger
+    },
+    addWord: (context) => {
+      debugger
+    }
+  }))
+}
 
-};
-
-async function createConfig() {
-  return new Config(configStruct, module)
+const template = {
+  configs: [],
+  fragments: [],
 }
 
 knowledgeModule( { 
+  config: { name: 'words' },
+  includes: [tokenize],
+  initializer,
+
   module,
-  createConfig,
-  description: 'evaluating to a word',
+  description: 'talking about words',
   test: {
     name: './words.test.json',
     contents: words_tests,
@@ -45,4 +34,9 @@ knowledgeModule( {
       context: [defaultContextCheck()],
     }
   },
+  template: {
+    template,
+    instance: words_instance,
+  },
+
 })

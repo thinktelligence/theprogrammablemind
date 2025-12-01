@@ -59,10 +59,6 @@ const config = {
     // who is the car owned by
     "(([queryable]) [(<isEd|> ([isEdAble|]))])",
 
-    /* TODO investigate this:
-      {"pattern":"(([ownee])^ <owned|owned> ([by] ([owner])?))","uuid":"people1"}
-      {"pattern":"(([isEdee])^ <isEdAble|> ([by] ([isEder])?))","uuid":"dialogues2"}
-    */
     "(([isEdee])^ <isEdAble|> ([by] ([isEder])?))",
     "([isEdee|])",
     "([isEder|])",
@@ -175,7 +171,16 @@ const config = {
     },
     { id: "toAble" },
 
-    { id: "be", level: 0, bridge: "{ ...next(operator), type: after[0] }" },
+    { 
+      id: "be", 
+      level: 0, 
+      bridge: `{ 
+        ...next(operator), 
+        tense: 'infinitive',
+        type: after[0] 
+      }` 
+    },
+
     { id: "briefOrWordy" },
 
     { id: "yesno" },
@@ -231,7 +236,6 @@ const config = {
   words: {
     "literals": {
       "?": [{"id": "questionMark", "initial": "{}" }],
-      // "the": [{"id": "the", "initial": "{ modifiers: [] }" }],
       "who": [{"id": "what", "initial": "{ modifiers: [], query: true }" }],
       "yes": [{"id": "yesno", "initial": "{ value: true }" }],
       "no": [{"id": "yesno", "initial": "{ value: false }" }],
@@ -240,6 +244,7 @@ const config = {
       "does": [{"id": "does", "initial": "{ number: 'one' }" }],
       "do": [{"id": "does", "initial": "{ number: 'many' }" }],
       "is": [
+        {"id": "be", "initial": "{ tense: 'infinitive' }" }, 
         {"id": "is", "initial": "{ number: 'one' }" }, 
         {"id": "isQuery", "initial": "{ number: 'one' }" }, 
         {"id": "isEd", "initial": "{ number: 'one' }" }

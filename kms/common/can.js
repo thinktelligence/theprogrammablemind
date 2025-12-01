@@ -37,7 +37,6 @@ DONE what can bob make
 const config = {
   name: 'can',
   operators: [
-    // "([can] (canableAction && context.infinitive))",
     "((*) [canableAction] (*))",
     "(<canStatement|can> (canableAction/0))",
     "(<canQuestion|can> (canableAction/1))",
@@ -46,28 +45,7 @@ const config = {
     // who can coffee be made by
     "((*) [whatCanQuestionPassive|can] (*) ([beCanPassive|be]) (canableAction) ([byCanPassive|by]))",
     "((*) [canPassive|can] ([beCanPassive|be]) (canableAction) ([byCanPassive|by]) (*))",
-    /*
-      bridge: [
-        // b=[do] o=c a=[s, ca]
-        apply operator { ...after[1], can } to operator
-        // b=[do] o=[ca+c] a=[s, ca]
-        rewire before[0] -> after[0] + after[0] -> before[0]
-        // b=[s] o=[ca+c] a=[do, ca]
-        apply operator
-      ]
-    */
-    // Bridge('{ ...before }'-(Rewire before[0] to after[0] Set after to [ListableType(Listable(Type('likee')))]), '{ ...next(operator), likee*: after[0], liker: before[0] }')
   ],
-  /*
-  associations: {
-    positive: [
-      { context: [['what', 0], ['whatCanQuestionPassive', 0], ['unknown', 0], ['beCanPassive', 0], ['make', 0], ['byCanPassive', 0]], choose: 1 },
-      { context: [['what', 1], ['whatCanQuestionPassive', 0], ['unknown', 0], ['beCanPassive', 0], ['make', 0], ['byCanPassive', 0]], choose: 1 },
-      { context: [['unknown', 0], ['canPassive', 0], ['beCanPassive', 0], ['make', 0], ['byCanPassive', 0], ['unknown', 0]], choose: 1 },
-      { context: [['unknown', 1], ['canPassive', 0], ['beCanPassive', 0], ['make', 0], ['byCanPassive', 0], ['unknown', 0]], choose: 1 },
-    ],
-  },
-  */
   bridges: [
     { id: 'beCanPassive' },
     { id: 'byCanPassive' },
