@@ -5,12 +5,23 @@ const words_instance = require('./words.instance.json')
 const tokenize = require('./tokenize')
 
 function initializer({objects, config, isModule}) {
-  config.addArgs(({config}) => ({
-    getWords: (partial) => {
-      debugger
+  objects.words = []
+  config.addArgs((args) => ({
+    getWord: (partial) => {
+      for (const word of objects.words) {
+        let matches = true
+        for (const key in partial) {
+          if (partial[key] !== word[key]) {
+            matches = false
+          }
+        }
+        if (matches) {
+          return word
+        }
+      }
     },
     addWord: (context) => {
-      debugger
+      objects.words.push(context)
     }
   }))
 }
