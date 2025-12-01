@@ -56,7 +56,6 @@ const config = {
 
     "(([queryable]) [is|] ([queryable|]))",
     "([isQuery|] ([queryable]) ([queryable]))",
-    // "(([queryable]) [is:isEdBridge|is,are] ([isEdAble|]))",
     // who is the car owned by
     "(([queryable]) [(<isEd|> ([isEdAble|]))])",
 
@@ -68,26 +67,16 @@ const config = {
     "([isEdee|])",
     "([isEder|])",
 
-    // "([nevermind])",
-    // { pattern: "([nevermindTestSetup] (allowed))", scope: "testing" },
     "([why])",
     "([reason])",
-    // "([thisitthat|])",
-    // "([it])",
-    // "([this])",
-    // "([that])",
 
     "(<what> ([whatAble|]))",
     "([what:optional])",
-    // "(<the|> ([theAble|]))",
-    // "(<a|a,an> ([theAble|]))",
-    // "([unknown])",
 
     "([be] ([briefOrWordy|]))",
 
     "([([canBeQuestion])])",
     "(([canBeQuestion/1,2]) <questionMark|>)",
-    // "(([is/2]) <questionMark|>)",
 
     "(([what]) [(<does|> ([doesAble|]))])",
     "([canBeDoQuestion])",
@@ -101,46 +90,29 @@ const config = {
 
     "([to] ([toAble|]))",
   ],
-  associations: {
-    positive: [
-      { context: [['unknown', 0], ['isEdAble', 0]], choose: 1 },
-      { context: [['isQuery', 0], ['a', 0], ['unknown', 0], ['a', 0], ['unknown', 0]], choose: { index: 0, increment: true } },
-
-      { context: [["unknown",0],["isEd",0],["isEdAble",0],["by",0],["unknown",0]], choose: { index: 0, increment: true } },
-      { context: [["unknown",0],["isEd",0],["isEdAble",0],["by",1]], choose: { index: 0, increment: true } },
-      { context: [["unknown",0],["isEd",0],["isEdAble",0]], choose: { index: 0, increment: true } },
-
-
-      // ...listorama('unknown'),
-      // ...listorama('queryable'),
-      { context: [['unknown', 0], ['list', 0], ['unknown', 0]], choose: 0 },
-      { context: [['unknown', 0], ['list', 0], ['unknown', 1]], choose: 0 },
-      { context: [['unknown', 1], ['list', 0], ['unknown', 0]], choose: 0 },
-      { context: [['unknown', 1], ['list', 0], ['unknown', 1]], choose: 0 },
-
-      { context: [['queryable', 0], ['list', 0], ['unknown', 0]], choose: 1 },
-      { context: [['queryable', 0], ['list', 0], ['unknown', 1]], choose: 1 },
-      { context: [['queryable', 1], ['list', 0], ['unknown', 0]], choose: 1 },
-      { context: [['queryable', 1], ['list', 0], ['unknown', 1]], choose: 1 },
-
-      { context: [['unknown', 0], ['list', 0], ['queryable', 0]], choose: 2 },
-      { context: [['unknown', 0], ['list', 0], ['queryable', 1]], choose: 2 },
-      { context: [['unknown', 1], ['list', 0], ['queryable', 0]], choose: 2 },
-      { context: [['unknown', 1], ['list', 0], ['queryable', 1]], choose: 2 },
-
-      { context: [['queryable', 0], ['list', 0], ['queryable', 0]], choose: 0 },
-      { context: [['queryable', 0], ['list', 0], ['queryable', 1]], choose: 0 },
-      { context: [['queryable', 1], ['list', 0], ['queryable', 0]], choose: 0 },
-      { context: [['queryable', 1], ['list', 0], ['queryable', 1]], choose: 0 },
-    ]
-  },
   bridges: [
     {
       id: 'thatVerb',
       before: ['verb'],
-      // bridge: "{ ...after[0], verb: after[0], that: operator, generate: ['that', 'verb'], localPriorities: { before: [\"verb\"] }, bridge_override: { operator: after[0].marker, bridge: '{ ...bridge.subject, postModifiers: [\"conditions\"], generate: append(before[0].generate, concatm(\"thatClause.\", operator.generate)), thatClause: bridge, conditions: append(after[0].conditions, [bridge]) }' } }",
-      // bridge: "{ ...after[0], verb: after[0], that: operator, generate: ['that', 'verb'], localPriorities: { before: [\"verb\"] }, bridge_override: { operator: after[0].marker, bridge: '{ ...bridge.subject, postModifiers: [\"conditions\"], generate: concatm(\"thatClause.\", bridge.generate), thatClause: bridge, conditions: append(bridge.subject.conditions, [bridge]) }' } }",
-      bridge: "{ ...after[0], verb: after[0], that: operator, generate: ['that', 'verb'], localPriorities: { actLike: [\"subordinatedVerb\", 0] }, bridge_override: { operator: after[0].marker, bridge: '{ ...bridge.subject, postModifiers: [\"conditions\"], modifiers: [], generate: concatm(\"thatClause.\", bridge.generate), thatClause: bridge, conditions: append(bridge.subject.conditions, [bridge]) }' } }",
+      bridge: `
+      { 
+        ...after[0], 
+        verb: after[0], 
+        that: operator, 
+        generate: ['that', 'verb'], 
+        localPriorities: { actLike: ["subordinatedVerb", 0] }, 
+        bridge_override: { 
+          operator: after[0].marker, 
+          bridge: '{ 
+            ...bridge.subject, 
+            postModifiers: ["conditions"], 
+            modifiers: [], 
+            generate: concatm("thatClause.", bridge.generate), 
+            thatClause: bridge, 
+            conditions: append(bridge.subject.conditions, [bridge]) 
+          }' 
+        } 
+      }`,
     },
 
     {
@@ -245,40 +217,7 @@ const config = {
     { id: "canBeDoQuestion", level: 2, bridge: "{ ...next(operator) }" },
     { id: "doesAble", level: 0, bridge: "{ ...next(operator) }" },
     { id: "doesAble", level: 1, bridge: "{ ...next(operator), before: before[0] }" },
-    // { id: "does", level: 0, bridge: "{ query: true, wantsTruthValue: true, what: operator.marker, ...context, number: operator.number, object.number: operator.number }*" },
     { id: "does", level: 0, bridge: "{ query: true, what: operator.marker, ...context, number: operator.number, object.number: operator.number }*" },
-
-    /*
-    { 
-      id: 'the', 
-      level: 0, 
-      bridge: '{ ...after[0], focusableForPhrase: true, pullFromContext: true, concept: true, wantsValue: true, determiner: "the", modifiers: append(["determiner"], after[0].modifiers)}' 
-    },
-    { 
-      id: "a", 
-      level: 0, 
-      // bridge: "{ ...after[0], pullFromContext: false, instance: true, concept: true, number: 'one', wantsValue: true, determiner: operator, modifiers: append(['determiner'], after[0].modifiers) }" 
-      bridge: "{ ...after[0], pullFromContext: false, concept: true, number: 'one', wantsValue: true, determiner: operator, modifiers: append(['determiner'], after[0].modifiers) }" 
-    },
-    */
-    /*
-    { 
-      id: "theAble", 
-      children: ['noun'],
-      bridge: "{ ...next(operator) }" 
-    },
-    */
-
-    // TODO make this hierarchy thing work
-    /*
-    { 
-      id: "thisitthat", 
-      level: 0, 
-      isA: ['queryable'], 
-      before: ['verby'],
-      bridge: "{ ...next(operator) }" 
-    },
-    */
     { 
       id: "why", 
       level: 0, 
@@ -288,26 +227,6 @@ const config = {
       id: "reason", 
       isA: ['theAble', 'queryable'], 
     },
-    /*
-    { 
-      id: "it", 
-      level: 0, 
-      isA: ['thisitthat'], 
-      bridge: "{ ...next(operator), pullFromContext: true, unknown: true, determined: true }" 
-    },
-    { 
-      id: "this", 
-      level: 0, 
-      isA: ['thisitthat'], 
-      bridge: "{ ...next(operator), unknown: true, pullFromContext: true }" 
-    },
-    { 
-      id: "that", 
-      level: 0, 
-      isA: ['thisitthat'], 
-      bridge: "{ ...next(operator), unknown: true, pullFromContext: true }" 
-    },
-    */
   ],
   words: {
     "literals": {
@@ -348,12 +267,9 @@ const config = {
     ['it', 'pronoun'],
     ['this', 'pronoun'],
     ['questionMark', 'punctuation'],
-    // ['questionMark', 'isEd'],
     ['a', 'article'],
     ['the', 'article'],
-    // ['unknown', 'theAble'],
     ['theAble', 'queryable'],
-    // ['unknown', 'queryable'],
     ['it', 'queryable'],
     ['what', 'queryable'],
     ['whatAble', 'queryable'],
