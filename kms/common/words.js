@@ -7,7 +7,7 @@ const tokenize = require('./tokenize')
 function initializer({objects, config, isModule}) {
   objects.words = []
   config.addArgs((args) => ({
-    getWord: (partial) => {
+    getWordFromDictionary: (partial) => {
       for (const word of objects.words) {
         let matches = true
         for (const key in partial) {
@@ -20,7 +20,7 @@ function initializer({objects, config, isModule}) {
         }
       }
     },
-    addWord: (context) => {
+    addWordToDictionary: (context) => {
       objects.words.push(context)
     }
   }))
