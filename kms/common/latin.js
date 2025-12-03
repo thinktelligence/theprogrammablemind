@@ -56,7 +56,7 @@ const config = {
       words: [
         ...conjugateVerb('iacere'),
       ],
-      bridge: "{ ...next(operator), thrower: nominative?, receiver: dative?, object: object?, location: location?, interpolate: [{ property: 'thrower' }, { property: 'receiver' }, { property: 'location' }, { property: 'object' }, operator] }",
+      bridge: "{ ...next(operator), thrower: nominative?, receiver: dative?, object: object?, location: location?, interpolate: [{ property: 'thrower' }, { property: 'receiver' }, { property: 'location' }, { property: 'object' }, { context: operator }] }",
       selector: {
         arguments: {
           nominative: "(context.declension == 'nominative' && context.number == operator.number)",
@@ -69,7 +69,7 @@ const config = {
     {
       id: "dare",
       level: 0,
-      bridge: "{ ...next(operator), giver: nominative?, receiver: dative?, object: accusative?, interpolate: [{ property: 'giver' }, { property: 'receiver' }, { property: 'object' }, operator] }",
+      bridge: "{ ...next(operator), giver: nominative?, receiver: dative?, object: accusative?, interpolate: [{ property: 'giver' }, { property: 'receiver' }, { property: 'object' }, { context: operator }] }",
       selector: {
         arguments: {
           nominative: "(context.declension == 'nominative' && context.number == operator.number)",
@@ -105,21 +105,21 @@ const config = {
 
     { 
       id: "queryMarker",
-      bridge: "{ ...before[0], verb: before[0], interpolate: [before[0], '', operator], question: true }",
+      bridge: "{ ...before[0], verb: before[0], interpolate: [{ context: before[0] }, '', { context: operator }], question: true }",
       separators: '|',
       before: ['hierarchy'],
     },
     { 
       id: "listMarker",
       localHierarchy: [['unknown', 'listable']],
-      bridge: "{ ...before[0], verb: before[0], interpolate: [before[0], '', operator], isList: true }",
+      bridge: "{ ...before[0], verb: before[0], interpolate: [{ context: before[0] }, '', { context: operator }], isList: true }",
       separators: '|',
     },
     { id: "hierarchiable" },
     { 
       id: "hierarchy",
       localHierarchy: [['unknown', 'hierarchiable']],
-      bridge:  "{ ...next(operator), child: arguments[0], parent: arguments[1], question: less_than(indexes.operator, indexes.arguments[0]), interpolate: all }",
+      bridge:  "{ ...next(operator), child: arguments[0], parent: arguments[1], question: less_than(indexes.operator, indexes.arguments[0]), interpolate: map(all, { context: element }) }",
       words: [
         { word: 'sum', number: 'singular', person: 'first' },
         { word: 'es', number: 'singular', person: 'second' },

@@ -2,6 +2,7 @@ const pluralize = require('pluralize')
 const { defaultContextCheck, getValue, isMany } = require('./helpers')
 const { knowledgeModule, where, flatten } = require('./runtime').theprogrammablemind
 const tokenize = require('./tokenize.js')
+const words = require('./words.js')
 const gdefaults_tests = require('./gdefaults.test.json')
 const englishHelpers = require('./english_helpers.js')
 const helpers = require('./helpers')
@@ -301,7 +302,14 @@ function initializer({config}) {
             const strings = []
             let separator = ''
             for (const element of interpolate) {
-              if (typeof element == 'string') {
+              if (element.word) {
+                const word = args.getWordFromDictionary(element.word)
+                if (word) {
+                  strings.push(separator)
+                  strings.push(await args.gp(word))
+                  separator = ' '
+                }
+              } else if (typeof element == 'string') {
                 separator = element
               } else if (element.separator && element.values) {
                 let ctr = 0
@@ -315,8 +323,18 @@ function initializer({config}) {
                   vstrings.push(getValue(value))
                 }
                 strings.push(await args.gsp(vstrings))
-              } else {
-                let value = element
+              } else if (element.property) {
+                value = context[element.property]
+                if (value) {
+                  if (element.context) {
+                    value = { ...value, ...element.context }
+                  }
+                  strings.push(separator)
+                  strings.push(await args.gp(value))
+                  separator = ' '
+                }
+              } else if (element.context) {
+                let value = element.context
                 if (element.property) {
                   value = context[element.property]
                   if (element.context) {
@@ -345,7 +363,7 @@ function initializer({config}) {
 
 knowledgeModule({ 
   config,
-  includes: [tokenize],
+  includes: [tokenize, words],
   initializer,
 
   module,

@@ -331,7 +331,6 @@ class API {
         if (create.includes(argument.id)) {
           // config.addHierarchy('unknown', argument.id)
           // config.addHierarchy('what', argument.id)
-          // greg23 <<<<<<<<<<<< doing this
           config.addHierarchy(argument.id, 'unknown')
           config.addHierarchy(argument.id, 'what')
         }
@@ -596,7 +595,7 @@ class API {
     if (relation) {
       config.addSemantic({
         notes: `setter for ${operator}`,
-        match: ({context}) => context.marker == operator,
+        match: ({context}) => context.marker == operator && !context.toPassive,
         apply: ({context, km, hierarchy, config}) => {
           const api = km('properties').api
           // add types for arguments
