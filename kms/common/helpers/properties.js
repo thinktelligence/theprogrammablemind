@@ -595,7 +595,7 @@ class API {
     if (relation) {
       config.addSemantic({
         notes: `setter for ${operator}`,
-        match: ({context}) => context.marker == operator && !context.toPassive,
+        match: ({context}) => context.marker == operator && !context.toPassive && !context.toActive,
         apply: ({context, km, hierarchy, config}) => {
           const api = km('properties').api
           // add types for arguments

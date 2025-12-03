@@ -157,7 +157,6 @@ const config = {
         const infinitive = englishHelpers.getInfinitive(context.word)
         if (context.tense) {
           const cases = englishHelpers.conjugateVerb(infinitive)
-          // console.log(JSON.stringify(cases, null, 2))
           const def = cases.find((def) => def.tense == context.tense)
           return def.word
         } else {

@@ -38,7 +38,6 @@ const config = {
   name: 'can',
   operators: [
     // "([can] (canableAction && context.infinitive))",
-    "([dorf])",
     "((*) [canableAction] (*))",
     "(<canStatement|can> (canableAction/0))",
     "(<canQuestion|can> (canableAction/1))",
@@ -51,16 +50,6 @@ const config = {
   bridges: [
     { id: 'beCanPassive' },
     { id: 'byCanPassive' },
-    { 
-      id: 'dorf',
-      semantic: async ({config, s, context}) => {
-        const before = config.config.objects.processed[0].context
-        before.toPassive = true
-        await s(before)
-        debugger
-        context.evalue = before.evalue
-      }
-    },
     { 
       id: "canableAction",
       isA: ['verb'],
@@ -131,14 +120,34 @@ const config = {
         if (context.passive) {
           return
         }
-        const mapper = await fragmentMapper(['canobject', 'canVerb', 'cansubject'], "canobject can be canverb by cansubject", "cansubject can canverb canobject")
-        debugger
-        const passive = mapper.instantiate([context])[0]
-        const string = await g(passive)
-        console.log(string)
-        context.isResult = true
-        context.evalue = passive
-        console.log(JSON.stringify(passive, null, 2))
+        // From 
+        //    [{"property":"canSubject"},{"property":"operator","number":"canSubject"},{"property":"canObject"}]
+        context.interpolate = [
+          context.interpolate[2],
+          { "word": { "marker": "canPassive" } },
+          { "word": { "marker": "beCanPassive" } },
+          { "number": "maker", "property": "verb" },
+          { "word": { "marker": "byCanPassive" } },
+          context.interpolate[0],
+        ]
+        context.passive = true
+      }
+    },
+    {
+      match: ({context}) => context.toActive,
+      apply: async ({g, context, fragmentMapper}) => {
+        if (!context.passive) {
+          return
+        }
+        // From 
+        //    [{"property":"canSubject"},{"property":"operator","number":"canSubject"},{"property":"canObject"}]
+        context.interpolate = [
+          context.interpolate[5],
+          { "word": { "marker": "canPassive" } },
+          { "number": context.interpolate[5].property, "property": "operator" },
+          context.interpolate[0],
+        ]
+        context.passive = false
       }
     },
   ],
