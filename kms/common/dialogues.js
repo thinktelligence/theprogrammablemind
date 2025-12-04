@@ -176,7 +176,7 @@ const config = {
       level: 0, 
       bridge: `{ 
         ...next(operator), 
-        tense: 'infinitive',
+        form: 'infinitive',
         type: after[0] 
       }` 
     },
@@ -244,7 +244,7 @@ const config = {
       "does": [{"id": "does", "initial": "{ number: 'one' }" }],
       "do": [{"id": "does", "initial": "{ number: 'many' }" }],
       "is": [
-        {"id": "be", "initial": "{ tense: 'infinitive' }" }, 
+        {"id": "be", "initial": "{ form: 'infinitive' }" }, 
         {"id": "is", "initial": "{ number: 'one' }" }, 
         {"id": "isQuery", "initial": "{ number: 'one' }" }, 
         {"id": "isEd", "initial": "{ number: 'one' }" }

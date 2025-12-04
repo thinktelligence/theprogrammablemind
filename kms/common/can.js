@@ -62,8 +62,7 @@ const config = {
     { 
       id: "canQuestion",
       before: ['verb'],
-      // bridge: "{ ...after[0], operator.number: 'infinitive', truthValueOnly: true, query: true, can: operator, arg1: [{ property: 'can' }], interpolate: append([{ property: 'can'}], after[0].interpolate)}",
-      bridge: "{ ...after[0], operator.number: 'infinitive', truthValueOnly: true, query: true, can: operator, interpolate: append([{ property: 'can'}], after[0].interpolate)}",
+      bridge: "{ ...after[0], operator.form: 'infinitive', truthValueOnly: true, query: true, can: operator, interpolate: append([{ property: 'can'}], after[0].interpolate)}",
     },
     { 
       // "((*) [canPassive|can] ([beCanPassive|be]) (canableAction) ([byCanPassive|by]) (*))",
@@ -108,7 +107,7 @@ const config = {
           ]
         },
         { "apply": true, "operator": "operator", "set": "context" },
-        { "apply": true, "bridge": "{ ...context, operator.number: 'infinitive', interpolate: [context.interpolate[2], { property: 'can' }, context.interpolate[0], context.interpolate[1]] }", "set": "context" },
+        { "apply": true, "bridge": "{ ...context, operator.form: 'infinitive', interpolate: [context.interpolate[2], { property: 'can' }, context.interpolate[0], context.interpolate[1]] }", "set": "context" },
         // { "apply": true, "bridge": "{ ...context, interpolate: [context.interpolate[2], context.interpolate[0], context.interpolate[1]] }", set: "context" },
       ],
     },
