@@ -18,7 +18,7 @@ describe('can km', () => {
       const text = await gp(contextPrime)
       console.log(JSON.stringify(contextPrime.interpolate, null, 2))
       console.log(text)
-      const expected = 'canobject can be canverbs by cansubject'
+      const expected = 'canobject can be canverbed by cansubject'
       expect(text).toBe(expected)
     })
   })
@@ -32,7 +32,7 @@ describe('can km', () => {
       const text = await gp(contextPrime)
       console.log(JSON.stringify(contextPrime.interpolate, null, 2))
       console.log(text)
-      const expected = "cansubject can canverbs canobject"
+      const expected = "cansubject can canverb canobject"
       expect(text).toBe(expected)
     })
   })
@@ -50,7 +50,7 @@ describe('can km', () => {
       const text = await gp(contextPrime)
       console.log(JSON.stringify(contextPrime.interpolate, null, 2))
       console.log(text)
-      const expected = "canobject can be canverbs by cansubject and canobject can be canverbs by cansubject"
+      const expected = "canobject can be canverbs by cansubject and canobject can be canverbed by cansubject"
       expect(text).toBe(expected)
     })
   })
@@ -68,7 +68,7 @@ describe('can km', () => {
       const text = await gp(contextPrime)
       console.log(JSON.stringify(contextPrime.interpolate, null, 2))
       console.log(text)
-      const expected = "cansubject can canverbs canobject and cansubject can canverb canobject"
+      const expected = "cansubject can canverb canobject and cansubject can canverb canobject"
       expect(text).toBe(expected)
     })
   })

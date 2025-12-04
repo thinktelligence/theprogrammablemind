@@ -156,7 +156,11 @@ const config = {
       match: ({context}) => context.evaluateWord && context.isVerb && context.paraphrase && context.word && !context.imperative && !context.interpolate,
       apply: ({context}) => {
         const infinitive = englishHelpers.getInfinitive(context.word)
-        if (context.tense) {
+        if (context.form == 'infinitive') {
+          const cases = englishHelpers.conjugateVerb(infinitive)
+          const def = cases.find((def) => def.form == context.form)
+          return def.word
+        } else if (context.tense) {
           const cases = englishHelpers.conjugateVerb(infinitive)
           const def = cases.find((def) => def.tense == context.tense)
           return def.word
@@ -359,7 +363,7 @@ function initializer({config}) {
                   }
                 }
                 // if (!value?.number && element.number) {
-                if (value?.number !== 'infinitive' && element.number) {
+                if (value?.form !== 'infinitive' && element.number) {
                   value.number = isMany(context[element.number]) ? "many": "one"
                 }
                 if (value) {
