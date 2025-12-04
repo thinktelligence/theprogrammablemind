@@ -1,5 +1,5 @@
 const { knowledgeModule, where } = require('./runtime').theprogrammablemind
-const { defaultContextCheck } = require('./helpers')
+const { defaultContextCheck, propertyToArray } = require('./helpers')
 const hierarchy = require("./hierarchy")
 const tests = require('./can.test.json')
 const instance = require('./can.instance.json')
@@ -57,13 +57,13 @@ const config = {
     { 
       id: "canStatement",
       before: ['verb'],
-      bridge: "{ ...after[0], can: operator, verb: after[0], interpolate: [{ property: 'can' }, { property: 'verb', context: { number: 'one' } }]}",
+      bridge: "{ ...after[0], can: operator, verb: after[0], voice: 'active', interpolate: [{ property: 'can' }, { property: 'verb', context: { number: 'one' } }]}",
     },
     { 
       id: "canQuestion",
       before: ['verb'],
       // bridge: "{ ...after[0], operator.number: 'infinitive', truthValueOnly: true, query: true, can: operator, arg1: [{ property: 'can' }], interpolate: append([{ property: 'can'}], after[0].interpolate)}",
-      bridge: "{ ...after[0], operator.number: 'infinitive', truthValueOnly: true, query: true, can: operator, interpolate: append([{ property: 'can'}], after[0].interpolate)}",
+      bridge: "{ ...after[0], operator.number: 'infinitive', voice: 'active', truthValueOnly: true, query: true, can: operator, interpolate: append([{ property: 'can'}], after[0].interpolate)}",
     },
     { 
       // "((*) [canPassive|can] ([beCanPassive|be]) (canableAction) ([byCanPassive|by]) (*))",
@@ -79,7 +79,7 @@ const config = {
           ]
         },
         { "apply": true, "operator": "operator", "set": "context" },
-        { "apply": true, "bridge": "{ ...context, passive: true, interpolate: [context.interpolate[2], { word: { marker: 'canPassive' } }, { word: { marker: 'beCanPassive' } }, context.interpolate[1], { word: { marker: 'byCanPassive' } }, context.interpolate[0]] }", "set": "context" },
+        { "apply": true, "bridge": "{ ...context, voice: 'passive', interpolate: [context.interpolate[2], { word: { marker: 'canPassive' } }, { word: { marker: 'beCanPassive' } }, context.interpolate[1], { word: { marker: 'byCanPassive' } }, context.interpolate[0]] }", "set": "context" },
         // { "apply": true, "bridge": "{ ...context, interpolate: [context.interpolate[2], context.interpolate[0], context.interpolate[1]] }", set: "context" },
       ],
     },
@@ -91,7 +91,7 @@ const config = {
         // { "apply": true, "bridge": "{ ...after[1], can: operator, operator: after[1], interpolate: [{ property: 'can' }, { property: 'operator' }] }", "set": "operator" },
         { "apply": true, "bridge": "{ ...after[2], can: operator, be: after[1], operator: after[2], by: after[3] }", "set": "operator" },
         { "apply": true, "operator": "operator", "set": "context" },
-        { "apply": true, "bridge": "{ ...context, passive: true, interpolate: [context.interpolate[0], { word: { marker: 'canPassive' } }, context.interpolate[2], { word: { marker: 'beCanPassive' } }, context.interpolate[1], { word: { marker: 'byCanPassive' } }] }", "set": "context" },
+        { "apply": true, "bridge": "{ ...context, voice: 'passive', interpolate: [context.interpolate[0], { word: { marker: 'canPassive' } }, context.interpolate[2], { word: { marker: 'beCanPassive' } }, context.interpolate[1], { word: { marker: 'byCanPassive' } }] }", "set": "context" },
         // { "apply": true, "bridge": "{ ...context, interpolate: [context.interpolate[2], context.interpolate[0], context.interpolate[1]] }", set: "context" },
       ],
     },
@@ -100,7 +100,7 @@ const config = {
       before: ['verb'],
       bridge: [
         // { "apply": true, "bridge": "{ ...after[1], can: operator, operator: after[1], interpolate: [{ property: 'can' }, { property: 'operator' }] }", "set": "operator" },
-        { "apply": true, "bridge": "{ ...after[1], can: operator, operator: after[1] }", "set": "operator" },
+        { "apply": true, "bridge": "{ ...after[1], can: operator, voice: 'active', operator: after[1] }", "set": "operator" },
         {
           "rewire": [
             { "from": 'before[0]', "to": 'after[0]' },
@@ -115,39 +115,50 @@ const config = {
   ],
   semantics: [
     {
-      match: ({context}) => context.toPassive,
+      match: ({context}) => context.toVoice == 'passive',
       apply: async ({g, context, fragmentMapper}) => {
-        if (context.passive) {
-          return
+        for (const element of propertyToArray(context)) {
+          if (!element.voice) {
+            continue
+          }
+          if (element.voice === 'passive') {
+            continue
+          }
+          // From 
+          //    [{"property":"canSubject"},{"property":"operator","number":"canSubject"},{"property":"canObject"}]
+          element.interpolate = [
+            element.interpolate[2],
+            { word: { marker: "canPassive" } },
+            { word: { marker: "beCanPassive" } },
+            // { tense: "perfect", property: "verb" },
+            { semantic: [{ property: "verb" }, { overrides: { tense: "perfect", evaluateWord: true } }] },
+            { word: { marker: "byCanPassive" } },
+            element.interpolate[0],
+          ]
+          element.voice = 'passive'
         }
-        // From 
-        //    [{"property":"canSubject"},{"property":"operator","number":"canSubject"},{"property":"canObject"}]
-        context.interpolate = [
-          context.interpolate[2],
-          { "word": { "marker": "canPassive" } },
-          { "word": { "marker": "beCanPassive" } },
-          { "number": "maker", "property": "verb" },
-          { "word": { "marker": "byCanPassive" } },
-          context.interpolate[0],
-        ]
-        context.passive = true
       }
     },
     {
-      match: ({context}) => context.toActive,
+      match: ({context}) => context.toVoice == 'active',
       apply: async ({g, context, fragmentMapper}) => {
-        if (!context.passive) {
-          return
-        }
         // From 
         //    [{"property":"canSubject"},{"property":"operator","number":"canSubject"},{"property":"canObject"}]
-        context.interpolate = [
-          context.interpolate[5],
-          { "word": { "marker": "canPassive" } },
-          { "number": context.interpolate[5].property, "property": "operator" },
-          context.interpolate[0],
-        ]
-        context.passive = false
+        for (const element of propertyToArray(context)) {
+          if (!element.voice) {
+            continue
+          }
+          if (element.voice === 'active') {
+            continue
+          }
+          element.interpolate = [
+            element.interpolate[5],
+            { "word": { "marker": "canPassive" } },
+            { "number": element.interpolate[5].property, "property": "operator" },
+            element.interpolate[0],
+          ]
+          element.voice = 'active'
+        }
       }
     },
   ],

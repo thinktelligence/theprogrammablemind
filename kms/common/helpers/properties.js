@@ -311,7 +311,6 @@ class API {
         pattern: `([(${beforeOperators} [${operator}|] ${afterOperators}^)])`, 
         allowDups: true,
       })
-      // config.addOperator({ id: operator, level: 1, words: [operator] })
       config.addBridge({ 
         id: operator, 
         level: 1, 
@@ -412,14 +411,14 @@ class API {
         const conjugation = conjugateVerb(createDef.infinitive)
         if (can) {
           const def = conjugation.find((def) => def.form == "pastParticiple")
-          config.addWord(def.word, { id: operator, initial: `{ value: '${operator}', tense: '${def.tense}' }`})
+          config.addWord(def.word, { id: operator, initial: `{ value: '${operator}', isVerb: true, tense: '${def.tense}' }`})
         }
       }
 
       const operatorPlural = pluralize.singular(operator)
       const operatorSingular = pluralize.plural(operator)
-      config.addWord(operatorSingular, { id: operator, initial: `{ value: '${operator}', number: 'one' }`})
-      config.addWord(operatorPlural, { id: operator, initial: `{ value: '${operator}', number: 'many' }`})
+      config.addWord(operatorSingular, { id: operator, initial: `{ value: '${operator}', isVerb: true, number: 'one' }`})
+      config.addWord(operatorPlural, { id: operator, initial: `{ value: '${operator}', isVerb: true, number: 'many' }`})
     }
 
     for (const { child, parent } of hierarchy) {
@@ -472,10 +471,10 @@ class API {
       config.addGenerator({
         notes: 'ordering generator for response',
         match: ({context}) => context.marker == operator && context.evalue && context.isResponse,
-        apply: async ({context, g, km, flatten}) => {
+        apply: async ({context, s, g, km, flatten}) => {
           const brief = km("dialogues").api.getBrief()
 
-          const { evalue } = context 
+          let { evalue } = context 
           let yesno = ''
           let hasVariables = false
           if (context.focusable) {
@@ -509,6 +508,10 @@ class API {
           if (evalue.truthValueOnly) {
             return `${yesno}`
           } else {
+            if (context.voice) {
+              evalue = await s({ ...evalue, toVoice: context.voice, flatten: false})
+            }
+
             const details = await g(Object.assign({}, evalue, { paraphrase: true }))
             if (yesno) {
               return `${yesno} ${details}`
@@ -595,7 +598,7 @@ class API {
     if (relation) {
       config.addSemantic({
         notes: `setter for ${operator}`,
-        match: ({context}) => context.marker == operator && !context.toPassive && !context.toActive,
+        match: ({context}) => context.marker == operator && !context.toVoice,
         apply: ({context, km, hierarchy, config}) => {
           const api = km('properties').api
           // add types for arguments

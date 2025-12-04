@@ -920,7 +920,8 @@ DONE node can -q 'fred makes coffee\nbe brief\nwho makes coffee' -g -d
 DONE node can -q 'fred and bob make coffee\nbe brief\nwho makes coffee' -g -d
 DONE node can -q 'fred bob and stan can make coffee\nbe brief\nwho can make coffee' -g -d
 DONE node can -q 'fred bob and stan can make coffee' -g -d
-node can -q 'what can bob make' -g -d
-node can -q 'bob can make coffee\nwhat can bob make' -g -d
-node can -q 'who can coffee be made by' -g -d
-node inspect can -q 'mike can make tea\ndorf' -g -d
+DONE node can -q 'what can bob make' -g -d
+DONE node can -q 'bob can make coffee\nwhat can bob make' -g -d
+DONE node can -q 'who can coffee be made by' -g -d
+DONE node inspect can -q 'mike can make tea\ndorf' -g -d
+node can -q 'coffee can be made by bob\nwhat can bob make' -g -d

@@ -90,7 +90,7 @@ const config = {
               text.push(await g(m))
             }
           } else {
-            text.push(await g(context[modifier], { isModifier: true }))
+            text.push(await g(context[modifier], { assumed: { isModifier: true } }))
           }
         }
         // text.push(context.word)
@@ -152,7 +152,8 @@ const config = {
     {
       where: where(),
       priority: -1,
-      match: ({context}) => context.evaluateWord && context.isVerb && context.paraphrase && context.word && context.number == 'one' && !context.imperative && !context.interpolate,
+      // match: ({context}) => context.evaluateWord && context.isVerb && context.paraphrase && context.word && context.number == 'one' && !context.imperative && !context.interpolate,
+      match: ({context}) => context.evaluateWord && context.isVerb && context.paraphrase && context.word && !context.imperative && !context.interpolate,
       apply: ({context}) => {
         const infinitive = englishHelpers.getInfinitive(context.word)
         if (context.tense) {
@@ -165,6 +166,7 @@ const config = {
       },
     },
 
+/*
     {
       where: where(),
       priority: -1,
@@ -175,7 +177,7 @@ const config = {
         return pluralize.singular(context.word)
       },
     },
-
+*/
     {
       where: where(),
       priority: -1,
@@ -301,6 +303,7 @@ function initializer({config}) {
             const strings = []
             let separator = ''
             for (const element of interpolate) {
+              // { "word": { "marker": "canPassive" } ie { word: <selectionCriteria> }
               if (element.word) {
                 const word = args.getWordFromDictionary(element.word)
                 if (word) {
@@ -322,6 +325,21 @@ function initializer({config}) {
                   vstrings.push(getValue(value))
                 }
                 strings.push(await args.gsp(vstrings))
+              } else if (element.semantic) {
+                const wordContext = {}
+                for (const term of element.semantic) {
+                  if (term.property) {
+                    Object.assign(wordContext, context[term.property])
+                  } else if (term.overrides) {
+                    Object.assign(wordContext, term.overrides)
+                  }
+                }
+                const value = await args.gp(wordContext) //, { options: { debug: { apply: true } } })
+                if (value) {
+                  strings.push(separator)
+                  strings.push(await args.gp(value))
+                  separator = ' '
+                }
               } else if (element.property) {
                 value = context[element.property]
                 if (value) {

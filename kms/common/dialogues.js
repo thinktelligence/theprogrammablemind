@@ -478,7 +478,7 @@ const config = {
         } else {
           // TODO fix this using the assumed and that whole mess. change isResponse to useValue
           if (context.isResponse) {
-            return `${await gp(context.one, { responding: true })} ${isMany(context.one) || isMany(context.two) || isMany(context) ? "are" : "is"} ${await g(context.two)}`
+            return `${await gp(context.one, { assumed: { responding: true } })} ${isMany(context.one) || isMany(context.two) || isMany(context) ? "are" : "is"} ${await g(context.two)}`
           } else {
             return `${await gp(context.one)} ${isMany(context.one) || isMany(context.two) || isMany(context) ? "are" : "is"} ${await gr(context.two)}`
           }
