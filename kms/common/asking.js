@@ -129,7 +129,6 @@ function getAsk(config) {
           const id_r = stableId('semantic')
           id_rs.push(id_r)
           s_ids.push(id_r)
-          // debugger
           config.addSemantic({
             uuid,
             id: id_r,
@@ -175,7 +174,11 @@ function getAsk(config) {
             if (await matchq(args)) {
               setWasApplied(false)
               // args.context.motivationKeep = true
-              args.verbatim(await applyq({ ...args, wasAsked: getWasAsked() }))
+              const query = await applyq({ ...args, wasAsked: getWasAsked() })
+              if (typeof query != 'string') {
+                throw new Error(`ask expects the value return from applyq to be a string. ${ask.where}`)
+              }
+              args.verbatim(query)
               setWasAsked(true)
               args.context.controlKeepMotivation = true
             } else {

@@ -277,6 +277,9 @@ const config = {
 
 function initializer({config}) {
     config.addArgs((args) => {
+      const verbatim = (text) => {
+        args.insert({ marker: 'verbatim', verbatim: text, isResponse: true })
+      }
       return {
         flatten,
         number: (context) => isMany(context) ? "many" : "one",
@@ -285,9 +288,8 @@ function initializer({config}) {
           const number = numberContext ? args.number(numberContext) : context.number;
           return args.gp( { ...context, evaluateWord: true, number } )
         },
-        verbatim: (text) => {
-          args.insert({ marker: 'verbatim', verbatim: text, isResponse: true })
-        },
+        verbatim, 
+        say: verbatim,
         interpolate: async (interpolate, context) => {
           async function evaluator(key) {
             if (Array.isArray(context[key])) {
