@@ -12,6 +12,7 @@ todo
   repeat that/what/say again/say that again
   how to handle time in the testing
   make it say the howToCalibrate right from the start. maybe have some prime it call?!?!?!
+  convert from length to a some kind of standard number
 
   call this point a
   move 5 feet
@@ -40,7 +41,20 @@ todo
   who car 1
 
   just say the speed
+
+
+  go forward 2 meters
 */
+
+class API {
+  initialize({ objects }) {
+    this._objects = objects
+    this._objects.reminders = []
+    this._objects.id = 0
+    this._objects.current = null
+    this._objects.defaultTime = { hour: 9, minute: 0, second: 0, millisecond: 0 }
+  }
+}
 
 const howToCalibrate = "When you are ready say calibrate. The car will drive forward at 10 percent power then say stop. Measure the distance and tell me that. Or you can say the speed of the car at percentage of power."
 
@@ -98,27 +112,41 @@ const template = {
         property: 'startTime',
         query: howToCalibrate
       })
+
+      // expectProperty
+      args.config.addSemantic({
+        match: ({context, isA}) => isA(context.marker, 'direction'),
+        apply: ({context}) => {
+          objects.direction = context
+        }
+      })
+
+      // expectProperty
+      args.config.addSemantic({
+        match: ({context, isA}) => isA(context.marker, 'dimension'),
+        apply: ({context, objects}) => {
+          objects.distance = context
+        }
+      })
+
+      args.config.addSemantic({
+        match: ({context, isA}) => context.marker == 'controlEnd',
+        apply: ({context, objects}) => {
+          if (objects.direction && objects.dimension) {
+            // send a command to the car
+          }
+        }
+      })
     },
     {
       operators: [
         "([calibrate] ([distance]))",
         "([pause] ([number]))",
         "([stop] ([car|])?)",
+        "([go])",
       ],
       bridges: [
-        {
-          id: "go",
-          level: 0,
-          words: ['go'],
-          bridge: "{ ...next(operator), distance: distance?, direction: direction?, interpolate: [{ property: 'operator' }, { property: 'direction' }, { property: 'distance' }] }",
-          selector: {
-            arguments: {
-              direction: "isA(context.marker, 'direction')",
-              distance: "isA(context.marker, 'dimension')",
-            },
-          },
-        },
-
+        { id: "go" },
         {
           id: 'calibrate',
           isA: ['verb'],
@@ -166,6 +194,7 @@ const template = {
 knowledgeModule( { 
   config: { name: 'picarx' },
   includes: [hierarchy, length],
+  api: () => new API(),
 
   module,
   description: 'controlling a picarx',
