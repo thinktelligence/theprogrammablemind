@@ -2,6 +2,9 @@
   "configs": [
     "dimension and unit are concepts",
     {
+      "apply": "({apis}) => {\n      apis('properties').addHierarchyWatcher({\n        match: ({parentId}) => parentId == 'unit',\n        apply: ({config, childId, parent}) => {\n          config.updateBridge(childId, ({ bridge }) => {\n            // console.log(JSON.stringify(childId, null, 2))\n            // console.log(JSON.stringify(parentId, null, 2))\n            // debugger\n            // if (!bridge) {\n            //   debugger\n            //   return\n            // }\n            if (!bridge.init) {\n              bridge.init = {}\n            }\n            // bridge.init['dimension'] = parent.object.marker\n            bridge.init['dimension'] = parent.object.value\n          })\n        }\n      })\n    }"
+    },
+    {
       "name": "dimension",
       "operators": [
         "([dimension])",
@@ -47,10 +50,9 @@
       ],
       "bridges": [
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:84",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:82",
           "id": "dimension",
           "bridge": "{ ...next(operator) }",
-          "isA": [],
           "generatorpr": {}
         },
         {
@@ -65,7 +67,7 @@
           "id": "amount"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:110",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:107",
           "id": "degree",
           "words": [
             {
@@ -82,10 +84,10 @@
         {
           "id": "amountOfDimension",
           "convolution": true,
-          "bridge": "{ marker: operator('dimension'), unit: after[0], value: before[0].value, amount: before[0] }"
+          "bridge": "{ marker: next(catch(operator(after[0].dimension), operator('dimension'))), dead: true, unit: after[0], value: before[0].value, amount: before[0] }"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:123",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:121",
           "id": "convertToUnits",
           "bridge": "{ ...next(operator), from: before[0], to: after[0] }",
           "isA": [
@@ -1547,6 +1549,9 @@
       }
     },
     {
+      "apply": "({apis}) => {\n      apis('properties').addHierarchyWatcher({\n        match: ({parentId}) => parentId == 'unit',\n        apply: ({config, childId, parent}) => {\n          config.updateBridge(childId, ({ bridge }) => {\n            // console.log(JSON.stringify(childId, null, 2))\n            // console.log(JSON.stringify(parentId, null, 2))\n            // debugger\n            // if (!bridge) {\n            //   debugger\n            //   return\n            // }\n            if (!bridge.init) {\n              bridge.init = {}\n            }\n            // bridge.init['dimension'] = parent.object.marker\n            bridge.init['dimension'] = parent.object.value\n          })\n        }\n      })\n    }"
+    },
+    {
       "extraConfig": true,
       "name": "dimension",
       "operators": [
@@ -1587,15 +1592,14 @@
       ],
       "generators": [
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:77"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:75"
         }
       ],
       "bridges": [
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:84",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:82",
           "id": "dimension",
           "bridge": "{ ...next(operator) }",
-          "isA": [],
           "generatorpr": {}
         },
         {
@@ -1610,7 +1614,7 @@
           "id": "amount"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:110",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:107",
           "id": "degree",
           "words": [
             {
@@ -1626,10 +1630,10 @@
         {
           "id": "amountOfDimension",
           "convolution": true,
-          "bridge": "{ marker: operator('dimension'), unit: after[0], value: before[0].value, amount: before[0] }"
+          "bridge": "{ marker: next(catch(operator(after[0].dimension), operator('dimension'))), dead: true, unit: after[0], value: before[0].value, amount: before[0] }"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:123",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:121",
           "id": "convertToUnits",
           "bridge": "{ ...next(operator), from: before[0], to: after[0] }",
           "isA": [

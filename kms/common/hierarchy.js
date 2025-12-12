@@ -256,6 +256,7 @@ const config = {
             oneConceptId = await api.makeObject({...args, context: oneConcept})
             twoConceptId = await api.makeObject({...args, context: twoConcept})
             api.rememberIsA(oneConceptId, twoConceptId)
+            api.seenHierarchyWatcher({ childId: oneConceptId, child: oneConcept, parentId: twoConceptId, parent: twoConcept })
             context.sameWasProcessed = true
           }
         }
