@@ -65,6 +65,7 @@ const time = require('./common/time')
 const tokenize = require('./common/tokenize')
 const ui = require('./common/ui')
 const weight = require('./common/weight')
+const words = require('./common/words')
 const wp = require('./common/wp')
 const yesno = require('./common/yesno')
 
@@ -136,6 +137,7 @@ module.exports = {
   tokenize,
   ui,
   weight,
+  words,
   wp,
   yesno,
 }
