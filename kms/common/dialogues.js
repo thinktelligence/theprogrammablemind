@@ -16,8 +16,6 @@ const dialogues_tests = require('./dialogues.test.json')
 const { defaultObjectCheck, defaultContextCheck, indent, focus } = require('./helpers')
 const pluralize = require('pluralize')
 
-const api = new API()
-
 function warningIsANotImplemented(log, context) {
   const description = 'WARNING from Dialogues KM: For semantics in order to handle sentences of type "x is y?", set the response to what you like.'
   const match = `({context, hierarchy}) => hierarchy.isA(context.marker, 'is') && context.query && <other conditions as you like>`

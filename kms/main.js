@@ -32,7 +32,6 @@ const kirk = require('./common/kirk')
 const latin = require('./common/latin')
 const latin_helpers = require('./common/latin_helpers')
 const length = require('./common/length')
-const listener = require('./common/listener')
 const math = require('./common/math')
 const menus = require('./common/menus')
 const meta = require('./common/meta')
@@ -66,6 +65,7 @@ const time = require('./common/time')
 const tokenize = require('./common/tokenize')
 const ui = require('./common/ui')
 const weight = require('./common/weight')
+const words = require('./common/words')
 const wp = require('./common/wp')
 const yesno = require('./common/yesno')
 
@@ -104,7 +104,6 @@ module.exports = {
   latin,
   latin_helpers,
   length,
-  listener,
   math,
   menus,
   meta,
@@ -138,6 +137,7 @@ module.exports = {
   tokenize,
   ui,
   weight,
+  words,
   wp,
   yesno,
 }

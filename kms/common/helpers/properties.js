@@ -10,6 +10,24 @@ const { compose, translationMapping, translationMappingToInstantiatorMappings } 
 class API {
   constructor() {
     this.digraph = new Digraph()
+    this.hierarchyWatchers = []
+  }
+
+  addHierarchyWatcher(watcher) {
+    this.hierarchyWatchers.push(watcher)
+  }
+
+  removeHierarchyWatcher(watcher) {
+    this.hierarchyWatchers = this.hierarchyWatchers.filter((w) => w.id == watcher.id)
+  }
+
+  seenHierarchyWatcher(watcherArgs) {
+    const args = { ...this.args, ...watcherArgs }
+    for (const { match, apply } of this.hierarchyWatchers) {
+      if (match(args)) {
+        apply(args)
+      }
+    }
   }
 
   initialize({ km, objects, config }) {

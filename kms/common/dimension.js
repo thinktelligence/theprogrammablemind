@@ -50,8 +50,6 @@ class API {
   }
 }
 
-const api = new API()
-
 const config = {
   name: 'dimension',
   operators: [
@@ -84,7 +82,6 @@ const config = {
       where: where(),
       id: "dimension", 
       bridge: "{ ...next(operator) }",
-      isA: [],
       generatorpr: {
         match: ({context}) => context.amount,
         apply: async ({context, gp, gr}) => `${await gr(context.amount)} ${await gp(context.unit)}`,
@@ -117,7 +114,8 @@ const config = {
     { 
       id: "amountOfDimension", 
       convolution: true, 
-      bridge: "{ marker: operator('dimension'), unit: after[0], value: before[0].value, amount: before[0] }" 
+      bridge: "{ marker: next(catch(operator(after[0].dimension), operator('dimension'))), dead: true, unit: after[0], value: before[0].value, amount: before[0] }" 
+      // bridge: "{ marker: operator('dimension'), unit: after[0], value: before[0].value, amount: before[0] }" 
     },
     { 
       where: where(),
@@ -180,6 +178,27 @@ const config = {
 const template = {
   configs: [
     "dimension and unit are concepts",
+    ({apis}) => {
+      apis('properties').addHierarchyWatcher({
+        match: ({parentId}) => parentId == 'unit',
+        apply: ({config, childId, parent}) => {
+          config.updateBridge(childId, ({ bridge }) => {
+            // console.log(JSON.stringify(childId, null, 2))
+            // console.log(JSON.stringify(parentId, null, 2))
+            // debugger
+            // if (!bridge) {
+            //   debugger
+            //   return
+            // }
+            if (!bridge.init) {
+              bridge.init = {}
+            }
+            // bridge.init['dimension'] = parent.object.marker
+            bridge.init['dimension'] = parent.object.value
+          })
+        }
+      })
+    },
     config,
   ],
 }

@@ -926,3 +926,6 @@ DONE node can -q 'who can coffee be made by' -g -d
 DONE node inspect can -q 'mike can make tea\ndorf' -g -d
 node can -q 'coffee can be made by bob\nwhat can bob make' -g -d
 node can -q 'coffee can be made by joe\nwho can make coffee' -g -d
+node weight -q "the weight of greg is 213 pounds what is greg's weight" -g -d
+node wp -q 'bold the first word of the second and third paragraph' -g -d
+node dialogues -q 'first and second' -g -d
