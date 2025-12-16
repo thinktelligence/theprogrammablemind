@@ -2,7 +2,7 @@
   "configs": [
     "dimension and unit are concepts",
     {
-      "apply": "({apis}) => {\n      apis('properties').addHierarchyWatcher({\n        match: ({parentId}) => parentId == 'unit',\n        apply: ({config, childId, parent}) => {\n          config.updateBridge(childId, ({ bridge }) => {\n            // console.log(JSON.stringify(childId, null, 2))\n            // console.log(JSON.stringify(parentId, null, 2))\n            // debugger\n            // if (!bridge) {\n            //   debugger\n            //   return\n            // }\n            if (!bridge.init) {\n              bridge.init = {}\n            }\n            // bridge.init['dimension'] = parent.object.marker\n            bridge.init['dimension'] = parent.object.value\n          })\n        }\n      })\n    }"
+      "apply": "({apis}) => {\n      apis('properties').addHierarchyWatcher({\n        match: ({parentId, isA}) => isA(parentId, 'unit'),\n        apply: ({config, childId, parent}) => {\n          config.updateBridge(childId, ({ bridge }) => {\n            // console.log(JSON.stringify(childId, null, 2))\n            // console.log(JSON.stringify(parentId, null, 2))\n            // debugger\n            // if (!bridge) {\n            //   debugger\n            //   return\n            // }\n            if (!bridge.init) {\n              bridge.init = {}\n            }\n            // bridge.init['dimension'] = parent.object.marker\n            bridge.init['dimension'] = parent.object.value\n          })\n        }\n      })\n    }"
     },
     {
       "name": "dimension",
@@ -1549,7 +1549,7 @@
       }
     },
     {
-      "apply": "({apis}) => {\n      apis('properties').addHierarchyWatcher({\n        match: ({parentId}) => parentId == 'unit',\n        apply: ({config, childId, parent}) => {\n          config.updateBridge(childId, ({ bridge }) => {\n            // console.log(JSON.stringify(childId, null, 2))\n            // console.log(JSON.stringify(parentId, null, 2))\n            // debugger\n            // if (!bridge) {\n            //   debugger\n            //   return\n            // }\n            if (!bridge.init) {\n              bridge.init = {}\n            }\n            // bridge.init['dimension'] = parent.object.marker\n            bridge.init['dimension'] = parent.object.value\n          })\n        }\n      })\n    }"
+      "apply": "({apis}) => {\n      apis('properties').addHierarchyWatcher({\n        match: ({parentId, isA}) => isA(parentId, 'unit'),\n        apply: ({config, childId, parent}) => {\n          config.updateBridge(childId, ({ bridge }) => {\n            // console.log(JSON.stringify(childId, null, 2))\n            // console.log(JSON.stringify(parentId, null, 2))\n            // debugger\n            // if (!bridge) {\n            //   debugger\n            //   return\n            // }\n            if (!bridge.init) {\n              bridge.init = {}\n            }\n            // bridge.init['dimension'] = parent.object.marker\n            bridge.init['dimension'] = parent.object.value\n          })\n        }\n      })\n    }"
     },
     {
       "extraConfig": true,
