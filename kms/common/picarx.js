@@ -3,16 +3,18 @@ const { defaultContextCheck } = require('./helpers')
 const picarx_tests = require('./picarx.test.json')
 const picarx_instance = require('./picarx.instance.json')
 const hierarchy = require('./hierarchy')
+const help = require('./help')
 const length = require('./length')
 
 /*
 todo
 
-  why is 3 meters not marker: length its marker dimension
+  DONE why is 3 meters not marker: length its marker dimension
+  DONE how to handle time in the testing
   repeat that/what/say again/say that again
-  how to handle time in the testing
   make it say the howToCalibrate right from the start. maybe have some prime it call?!?!?!
   convert from length to a some kind of standard number
+  shut up/dont talk/be quiet -> stop saying responses
 
   call this point a
   move 5 feet
@@ -53,7 +55,21 @@ class API {
     this._objects.id = 0
     this._objects.current = null
     this._objects.defaultTime = { hour: 9, minute: 0, second: 0, millisecond: 0 }
+    delete this.testDate
   }
+
+  now() {
+    if (this.args.isProcess || this.args.isTest) {
+      if (!this.testDate) {
+        this.testDate = new Date(2025, 5, 29, 14, 52, 0)
+      }
+      this.testDate = new Date(this.testDate.getTime() + 1000)
+      return this.testDate
+    } else {
+      return new Date()
+    }
+  }
+
 }
 
 const howToCalibrate = "When you are ready say calibrate. The car will drive forward at 10 percent power then say stop. Measure the distance and tell me that. Or you can say the speed of the car at percentage of power."
@@ -130,17 +146,15 @@ const template = {
       })
 
       args.config.addSemantic({
-        match: ({context, isA}) => context.marker == 'controlEnd',
+        match: ({context, objects, isA}) => objects.direction && objects.dimension && context.marker == 'controlEnd',
         apply: ({context, objects}) => {
-          if (objects.direction && objects.dimension) {
-            // send a command to the car
-          }
+          // send a command to the car
         }
       })
     },
     {
       operators: [
-        "([calibrate] ([distance]))",
+        "([calibrate])",
         "([pause] ([number]))",
         "([stop] ([car|])?)",
         "([go])",
@@ -150,15 +164,11 @@ const template = {
         {
           id: 'calibrate',
           isA: ['verb'],
-          bridge: "{ ...operator, dimension: after[0], interpolate: [{ context: operator }, { property: 'dimension' }] }",
-          semantic: ({context, objects}) => {
-            objects.startTime = Date.now()
+          bridge: "{ ...next(operator), interpolate: [{ context: operator }] }",
+          semantic: ({context, objects, api}) => {
+            objects.startTime = api.now()
             // send command to car to go forward
           }
-        },
-        {
-          id: 'distance',
-          isA: ['theAble'],
         },
         {
           id: 'pause',
@@ -177,14 +187,20 @@ const template = {
             1: "{ marker: 'picarx' }",
           },
           bridge: "{ ...next(operator), object: after[0], interpolate: [{ context: operator }, { property: 'object' }] }",
-          semantic: ({context, objects, say}) => {
+          semantic: ({context, objects, api, say}) => {
             if (!objects.startTime) {
               say(howToCalibrate)
             } else {
-              objects.endTime = Date.now()
+              objects.endTime = api.now()
               objects.duration = objects.endTime - objects.startTime
             }
           }
+        },
+      ],
+      generators: [
+        {
+          match: ({context}) => context.marker == 'help' && !context.paraphrase && context.isResponse,
+          apply: () => howToCalibrate
         },
       ],
     },
@@ -193,7 +209,7 @@ const template = {
 
 knowledgeModule( { 
   config: { name: 'picarx' },
-  includes: [hierarchy, length],
+  includes: [hierarchy, length, help],
   api: () => new API(),
 
   module,
