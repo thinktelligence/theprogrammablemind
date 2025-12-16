@@ -217,7 +217,12 @@ knowledgeModule({
     checks: {
       objects: [{ km: 'properties' }],
       context: [
-        defaultContextCheck(),
+        defaultContextCheck({ 
+          match: ({context, isA}) => isA(context.marker, 'unit'), 
+          exported: true, 
+          extra: ['dimension'],
+        }),
+        defaultContextCheck(['dimension']),
       ],
     },
   },
