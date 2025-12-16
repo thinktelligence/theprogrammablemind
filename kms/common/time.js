@@ -1,16 +1,22 @@
 const { knowledgeModule, where } = require('./runtime').theprogrammablemind
 const { defaultContextCheck } = require('./helpers')
 const tell = require('./tell')
-const countable = require('./countable')
-const numbers = require('./numbers')
+const dimension = require('./dimension')
 const helpers = require('./helpers')
 const time_tests = require('./time.test.json')
+const instance = require('./time.instance.json')
 
 function pad(v, l) {
   const s = String(v)
   const n = l - s.length
   return "0".repeat(n) + s
 }
+
+//"what is the time in 24 hour format"
+//"what time is it in Paris"
+//"what time is it in GMT"
+// what is the time
+// how many hours are in a day
 
 class API {
   // gets the contexts for doing the happening
@@ -46,24 +52,16 @@ class API {
 }
 
 const config = {
-  name: 'time',
   operators: [
-    "([time])",
+/*
     "([atTime|at] (time))",
     "([use] (([timeUnit]) [timeFormat|format]))",
-    // "(([number|]) [ampm|])",
     "((time) [ampm|])",
     "([hourMinutes|] (integer) (colon) (integer))",
-    //"(([anyConcept]) [equals|is] ([anyConcept]))",
-    //"(([what0|what]) [equals] (<the> ([timeConcept])))",
-    //"(<whatP|what> ([anyConcept]))",
-    //"what is the time in 24 hour format"
-    //"what time is it in Paris"
-    //"what time is it in GMT"
-    // what is the time
-    // how many hours are in a day
+*/
   ],
   bridges: [
+/*
     {
       id: 'hourMinutes',
       isA: ['time'],
@@ -75,10 +73,6 @@ const config = {
       words: ['@'],
       isA: ['preposition'],
       bridge: "{ ...next(operator), time: after[0], operator: operator,  interpolate: '${operator} ${time}' }" 
-    },
-    { 
-      id: "time", 
-      bridge: "{ ...next(operator) }" 
     },
     { 
       id: "ampm", 
@@ -106,22 +100,25 @@ const config = {
       bridge: "{ ...next(operator), format: after[0] }",
       generatorp: ({g, context}) => `use ${context.format.quantity.value} hour time` 
     },
+*/
   ],
   hierarchy: [
-    ['time', 'queryable'],
+/*
     ['ampm', 'queryable'],
-    ['time', 'theAble'],
     ['timeUnit', 'countable'],
+*/
   ],
-
+/*
   "words": {
     "literals": {
       "am": [{id: "ampm", "initial": "{ ampm: 'am', determined: true }" }],
       "pm": [{id: "ampm", "initial": "{ ampm: 'pm', determined: true }" }],
     }
   },
+*/
 
   generators: [
+  /*
     { 
       where: where(),
       match: ({context}) => context.marker == 'time' && context.evalue && context.format == 12, 
@@ -155,9 +152,11 @@ const config = {
       match: ({context}) => context.marker == 'response', 
       apply: ({g, context}) => context.text 
     },
+  */
   ],
 
   semantics: [
+  /*
     {
       notes: 'evaluate time',
       where: where(),
@@ -184,8 +183,22 @@ const config = {
         context.text = 'The hour format is 12 hour or 24 hour'
       }
     },
+    */
   ],
 };
+
+const template = {
+  configs: [
+    "years hours minutes and seconds are units of time",
+    "hours = minutes / 60",
+    "minutes = hours * 60",
+    "seconds = minutes * 60",
+    "minutes = seconds / 60",
+    "day = hours / 24",
+    "hours = days * 24",
+    config,
+  ],
+}
 
 function initializer({api, config, objects, kms, isModule}) {
   if (!isModule) {
@@ -201,8 +214,8 @@ function initializer({api, config, objects, kms, isModule}) {
 }
 
 knowledgeModule({
-  config,
-  includes: [tell, numbers, countable],
+  config: { name: 'time' },
+  includes: [tell, dimension],
   api: () => new API(),
   initializer,
 
@@ -215,4 +228,5 @@ knowledgeModule({
       context: [defaultContextCheck({ extra: ['one', 'two', 'events', 'time', 'ampm'] })],
     }
   },
+  template: { template, instance },
 })
