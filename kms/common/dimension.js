@@ -180,7 +180,7 @@ const template = {
     "dimension and unit are concepts",
     ({apis}) => {
       apis('properties').addHierarchyWatcher({
-        match: ({parentId}) => parentId == 'unit',
+        match: ({parentId, isA}) => isA(parentId, 'unit'),
         apply: ({config, childId, parent}) => {
           config.updateBridge(childId, ({ bridge }) => {
             // console.log(JSON.stringify(childId, null, 2))

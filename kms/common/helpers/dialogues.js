@@ -86,7 +86,12 @@ class API {
       return
     }
     // const concept = pluralize.singular(value)
-    const concept = this.toScopedId(context)
+    let concept = this.toScopedId(context)
+    const extraTypes = []
+    if (concept == 'unit' && context.objects) {
+      concept = context.objects.map((c) => this.toScopedId(c)).join("_")
+      types.push(this.toScopedId(context.objects[0]))
+    }
     if (config.exists(concept)) {
       return concept
     }
