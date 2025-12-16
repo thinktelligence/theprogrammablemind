@@ -51,141 +51,6 @@ class API {
   }
 }
 
-const config = {
-  operators: [
-/*
-    "([atTime|at] (time))",
-    "([use] (([timeUnit]) [timeFormat|format]))",
-    "((time) [ampm|])",
-    "([hourMinutes|] (integer) (colon) (integer))",
-*/
-  ],
-  bridges: [
-/*
-    {
-      id: 'hourMinutes',
-      isA: ['time'],
-      convolution: true,
-      bridge: "{ ...next(operator), hour: after[0], colon: after[1], minute: after[2], interpolate: '${hour}${colon}${minute}' }",
-    },
-    { 
-      id: "atTime", 
-      words: ['@'],
-      isA: ['preposition'],
-      bridge: "{ ...next(operator), time: after[0], operator: operator,  interpolate: '${operator} ${time}' }" 
-    },
-    { 
-      id: "ampm", 
-      isA: ['adjective'],
-      localHierarchy: [
-        ['integer', 'time'],
-      ],
-      bridge: "{ ...next(before[0]), marker: if(isA(before[0].marker, 'integer'), operator('time'), before[0].marker), ampm: operator, time: before[0], interpolate: concat(default(before[0].interpolate, '${time}'), ' ${ampm}') }",
-    },
-    { 
-      id: "timeFormat", 
-      bridge: "{ ...before[0], ...next(operator) }" 
-    },
-    { 
-      id: "timeUnit", 
-      words: [ 
-        ...helpers.words('hour', { initial: "{ units: 'hour' }" }),
-        ...helpers.words('minute', { initial: "{ units: 'minute' }" }),
-        ...helpers.words('second', { initial: "{ units: 'second' }" }),
-      ],
-      bridge: "{ ...next(operator) }" 
-    },
-    { 
-      id: "use",
-      bridge: "{ ...next(operator), format: after[0] }",
-      generatorp: ({g, context}) => `use ${context.format.quantity.value} hour time` 
-    },
-*/
-  ],
-  hierarchy: [
-/*
-    ['ampm', 'queryable'],
-    ['timeUnit', 'countable'],
-*/
-  ],
-/*
-  "words": {
-    "literals": {
-      "am": [{id: "ampm", "initial": "{ ampm: 'am', determined: true }" }],
-      "pm": [{id: "ampm", "initial": "{ ampm: 'pm', determined: true }" }],
-    }
-  },
-*/
-
-  generators: [
-  /*
-    { 
-      where: where(),
-      match: ({context}) => context.marker == 'time' && context.evalue && context.format == 12, 
-      apply: ({context}) => {
-        let hh = context.evalue.getHours();
-        let ampm = 'am'
-        if (hh > 12) {
-          hh -= 12;
-          ampm = 'pm'
-        }
-        let ss = context.evalue.getMinutes()
-        ss = pad(ss, 2)
-        return `${hh}:${ss} ${ampm}` 
-      }
-    },
-    { 
-      where: where(),
-      match: ({context}) => context.marker == 'time' && context.evalue && context.format == 24, 
-      apply: ({g, context}) => {
-        function pad(num, size) {
-          num = num.toString();
-          while (num.length < size) num = "0" + num;
-          return num;
-        }
-
-          return `${context.evalue.getHours()}:${pad(context.evalue.getMinutes(), 2)}` 
-      }
-    },
-    { 
-      where: where(),
-      match: ({context}) => context.marker == 'response', 
-      apply: ({g, context}) => context.text 
-    },
-  */
-  ],
-
-  semantics: [
-  /*
-    {
-      notes: 'evaluate time',
-      where: where(),
-      match: ({objects, context, api}) => context.marker == 'time' && context.evaluate, 
-      apply: ({objects, context, api}) => {
-        context.evalue = api.newDate()
-        context.format = objects.format
-      }
-    },
-    {
-      notes: 'use time format working case',
-      where: where(),
-      match: ({objects, context}) => context.marker == 'use' && context.format && (context.format.quantity.value == 12 || context.format.quantity.value == 24), 
-      apply: ({objects, context}) => {
-        objects.format = context.format.quantity.value
-      }
-    },
-    {
-      notes: 'use time format error case',
-      where: where(),
-      match: ({objects, context}) => context.marker == 'use' && context.format && (context.format.quantity.value != 12 && context.format.quantity.value != 24), 
-      apply: ({objects, context}) => {
-        context.marker = 'response'
-        context.text = 'The hour format is 12 hour or 24 hour'
-      }
-    },
-    */
-  ],
-};
 
 const template = {
   configs: [
@@ -196,7 +61,143 @@ const template = {
     "minutes = seconds / 60",
     "day = hours / 24",
     "hours = days * 24",
-    config,
+    {
+      operators: [
+        "(([timePoint]) [ampm|])",
+        "([atTime|at] (timePoint))",
+    /*
+        "([atTime|at] (time))",
+        "([use] (([timeUnit]) [timeFormat|format]))",
+        "([hourMinutes|] (integer) (colon) (integer))",
+    */
+      ],
+      bridges: [
+    /*
+        {
+          id: 'hourMinutes',
+          isA: ['time'],
+          convolution: true,
+          bridge: "{ ...next(operator), hour: after[0], colon: after[1], minute: after[2], interpolate: '${hour}${colon}${minute}' }",
+        },
+    */
+        { 
+          id: "timePoint",
+          words: ['time'],
+          isA: ['noun'],
+        },
+        { 
+          id: "atTime", 
+          words: ['@'],
+          isA: ['preposition'],
+          bridge: "{ ...next(operator), timePoint: after[0], operator: operator,  interpolate: '${operator} ${timePoint}' }" 
+        },
+        { 
+          id: "ampm", 
+          isA: ['adjective'],
+          localHierarchy: [
+            ['integer', 'timePoint'],
+          ],
+          bridge: "{ ...next(before[0]), marker: if(isA(before[0].marker, 'integer'), operator('timePoint'), before[0].marker), ampm: operator, time: before[0], interpolate: concat(default(before[0].interpolate, '${time}'), ' ${ampm}') }",
+        },
+    /*
+        { 
+          id: "timeFormat", 
+          bridge: "{ ...before[0], ...next(operator) }" 
+        },
+        { 
+          id: "timeUnit", 
+          words: [ 
+            ..helpers.words('hour', { initial: "{ units: 'hour' }" }),
+            ...helpers.words('minute', { initial: "{ units: 'minute' }" }),
+            ...helpers.words('second', { initial: "{ units: 'second' }" }),
+          ],
+          bridge: "{ ...next(operator) }" 
+        },
+        { 
+          id: "use",
+          bridge: "{ ...next(operator), format: after[0] }",
+          generatorp: ({g, context}) => `use ${context.format.quantity.value} hour time` 
+        },
+    */
+      ],
+      hierarchy: [
+    /*
+        ['ampm', 'queryable'],
+        ['timeUnit', 'countable'],
+    */
+      ],
+      "words": {
+        "literals": {
+          "am": [{id: "ampm", "initial": "{ ampm: 'am', determined: true }" }],
+          "pm": [{id: "ampm", "initial": "{ ampm: 'pm', determined: true }" }],
+        }
+      },
+
+      generators: [
+        { 
+          where: where(),
+          match: ({context}) => context.marker == 'timePoint' && context.evalue && context.format == 12, 
+          apply: ({context}) => {
+            let hh = context.evalue.getHours();
+            let ampm = 'am'
+            if (hh > 12) {
+              hh -= 12;
+              ampm = 'pm'
+            }
+            let ss = context.evalue.getMinutes()
+            ss = pad(ss, 2)
+            return `${hh}:${ss} ${ampm}` 
+          }
+        },
+        { 
+          where: where(),
+          match: ({context}) => context.marker == 'timePoint' && context.evalue && context.format == 24, 
+          apply: ({g, context}) => {
+            function pad(num, size) {
+              num = num.toString();
+              while (num.length < size) num = "0" + num;
+              return num;
+            }
+
+              return `${context.evalue.getHours()}:${pad(context.evalue.getMinutes(), 2)}` 
+          }
+        },
+        { 
+          where: where(),
+          match: ({context}) => context.marker == 'response', 
+          apply: ({g, context}) => context.text 
+        },
+      ],
+
+      semantics: [
+        {
+          notes: 'evaluate time',
+          where: where(),
+          match: ({objects, context, api}) => context.marker == 'timePoint' && context.evaluate, 
+          apply: ({objects, context, api}) => {
+            context.evalue = api.newDate()
+            context.format = objects.format
+          }
+        },
+        {
+          notes: 'use time format working case',
+          where: where(),
+          match: ({objects, context}) => context.marker == 'use' && context.format && (context.format.quantity.value == 12 || context.format.quantity.value == 24), 
+          apply: ({objects, context}) => {
+            objects.format = context.format.quantity.value
+          }
+        },
+        {
+          notes: 'use time format error case',
+          where: where(),
+          match: ({objects, context}) => context.marker == 'use' && context.format && (context.format.quantity.value != 12 && context.format.quantity.value != 24), 
+          apply: ({objects, context}) => {
+            context.marker = 'response'
+            context.text = 'The hour format is 12 hour or 24 hour'
+          }
+        },
+      ],
+    }
   ],
 }
 
@@ -225,7 +226,7 @@ knowledgeModule({
     name: './time.test.json',
     contents: time_tests,
     checks: {
-      context: [defaultContextCheck({ extra: ['one', 'two', 'events', 'time', 'ampm'] })],
+      context: [defaultContextCheck({ extra: ['one', 'two', 'events', 'time', 'timePoint', 'ampm'] })],
     }
   },
   template: { template, instance },
