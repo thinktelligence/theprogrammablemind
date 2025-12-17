@@ -28,7 +28,7 @@ function instantiate(kms, isA, isProcessOrTest, dateTimeSelector) {
     const now = kms.time.api.now()
     return dateTimeSelectors_helpers.instantiate(isA, now, dateTimeSelector)
   } catch ( e ) {
-    return `Implement instatiate for this type of date. See the dateTimeSelectors KM ${where()}`
+    return `Implement instatiate for this type of date, ${dateTimeSelector.marker}. See the dateTimeSelectors KM ${where()}, ${e}\n${e.stack}`
   }
 }
 
@@ -104,7 +104,7 @@ const template = {
               const ordinal = date.day.ordinal.value
               context.evalue = dateTimeSelectors_helpers.getNthWeekdayAfterDate(afterISO, day_ordinal, ordinal)
             } catch ( e ) {
-              context.evalue = `Implement instatiate for this type of date. See the dateTimeSelectors KM ${where()}. ${e}`
+              context.evalue = `Implement instatiate for this type of date, ${context.marker}. See the dateTimeSelectors KM ${where()}. ${e}`
             }
           },
         },
@@ -116,7 +116,7 @@ const template = {
               const date = onOrIs('dayOfMonth', context)
               context.evalue = dateTimeSelectors_helpers.getNthDayOfMonth(removeDatesSuffix(date.day.value), date.day.ordinal.value || 1, removeDatesSuffix(date.month.value), now)
             } catch ( e ) {
-              context.evalue = `Implement instatiate for this type of date. See the dateTimeSelectors KM ${where()}. ${e}`
+              context.evalue = `Implement instatiate for this type of date, ${context.marker}. See the dateTimeSelectors KM ${where()}. ${e}`
             }
           },
         },

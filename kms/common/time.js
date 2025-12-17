@@ -65,21 +65,16 @@ const template = {
       operators: [
         "(([timePoint]) [ampm|])",
         "([atTime|at] (timePoint))",
-    /*
-        "([atTime|at] (time))",
         "([use] (([timeUnit]) [timeFormat|format]))",
         "([hourMinutes|] (integer) (colon) (integer))",
-    */
       ],
       bridges: [
-    /*
         {
           id: 'hourMinutes',
-          isA: ['time'],
+          isA: ['timePoint'],
           convolution: true,
           bridge: "{ ...next(operator), hour: after[0], colon: after[1], minute: after[2], interpolate: '${hour}${colon}${minute}' }",
         },
-    */
         { 
           id: "timePoint",
           words: ['time'],
@@ -89,7 +84,7 @@ const template = {
           id: "atTime", 
           words: ['@'],
           isA: ['preposition'],
-          bridge: "{ ...next(operator), timePoint: after[0], operator: operator,  interpolate: '${operator} ${timePoint}' }" 
+          bridge: "{ ...next(operator), time: after[0], operator: operator,  interpolate: '${operator} ${time}' }" 
         },
         { 
           id: "ampm", 
@@ -99,15 +94,15 @@ const template = {
           ],
           bridge: "{ ...next(before[0]), marker: if(isA(before[0].marker, 'integer'), operator('timePoint'), before[0].marker), ampm: operator, time: before[0], interpolate: concat(default(before[0].interpolate, '${time}'), ' ${ampm}') }",
         },
-    /*
         { 
           id: "timeFormat", 
           bridge: "{ ...before[0], ...next(operator) }" 
         },
         { 
           id: "timeUnit", 
+          isA: ['countable'],
           words: [ 
-            ..helpers.words('hour', { initial: "{ units: 'hour' }" }),
+            ...helpers.words('hour', { initial: "{ units: 'hour' }" }),
             ...helpers.words('minute', { initial: "{ units: 'minute' }" }),
             ...helpers.words('second', { initial: "{ units: 'second' }" }),
           ],
@@ -118,7 +113,6 @@ const template = {
           bridge: "{ ...next(operator), format: after[0] }",
           generatorp: ({g, context}) => `use ${context.format.quantity.value} hour time` 
         },
-    */
       ],
       hierarchy: [
     /*

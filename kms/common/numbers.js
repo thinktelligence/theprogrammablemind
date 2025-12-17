@@ -114,7 +114,7 @@ knowledgeModule( {
     checks: {
       context: [
         defaultContextCheck({ marker: 'number', exported: true, extra: ['instance'] }),
-        defaultContextCheck({ marker: 'integer', exported: true, extra: ['instance'] }),
+        defaultContextCheck({ match: ({isA, context}) => isA(context.marker, 'integer'), exported: true, extra: ['instance'] }),
         defaultContextCheck()
       ],
     }

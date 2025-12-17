@@ -2190,6 +2190,14 @@
         [
           "evaluate",
           0
+        ],
+        [
+          "integer",
+          0
+        ],
+        [
+          "monday_dates",
+          0
         ]
       ],
       [
@@ -2203,28 +2211,6 @@
         ],
         [
           "evaluate",
-          0
-        ],
-        [
-          "integer",
-          0
-        ]
-      ],
-      [
-        [
-          "ampm",
-          0
-        ],
-        [
-          "atTime",
-          0
-        ],
-        [
-          "evaluate",
-          0
-        ],
-        [
-          "integer",
           0
         ],
         [
@@ -2242,7 +2228,21 @@
           0
         ],
         [
-          "time",
+          "monday_dates",
+          0
+        ],
+        [
+          "timePoint",
+          0
+        ]
+      ],
+      [
+        [
+          "evaluate",
+          0
+        ],
+        [
+          "monday_dates",
           0
         ]
       ]
@@ -2273,8 +2273,9 @@
         ],
         "value": {
           "date": {
+            "day_ordinal": 2,
             "dead": true,
-            "level": 1,
+            "level": 0,
             "marker": "monday_dates",
             "number": "one",
             "range": {
@@ -2333,7 +2334,7 @@
               "instance": true,
               "interpolate": "${time} ${ampm}",
               "level": 0,
-              "marker": "time",
+              "marker": "timePoint",
               "range": {
                 "end": 22,
                 "start": 19
@@ -2351,13 +2352,13 @@
                 "text": "2",
                 "types": [
                   "integer",
-                  "time"
+                  "timePoint"
                 ],
                 "value": 2,
                 "word": "2"
               },
               "types": [
-                "time"
+                "timePoint"
               ],
               "value": 2,
               "word": "2"
@@ -2371,6 +2372,7 @@
         "word": "evaluate"
       }
     ],
+    "developerTest": false,
     "generatedParenthesized": [
       "(2025-06-30T21:00:00.000Z)"
     ],
@@ -2522,15 +2524,19 @@
       "nameToUUID": {
         "articles": "articles2",
         "asking": "asking2",
+        "comparable": "comparable2",
         "concept": "concept2",
         "conjunction": "conjunction2",
         "countable": "countable2",
         "dateTimeSelectors": "dateTimeSelectors1",
         "dates": "dates2",
         "dialogues": "dialogues2",
+        "dimension": "dimension2",
         "evaluate": "evaluate2",
+        "formulas": "formulas2",
         "gdefaults": "gdefaults2",
         "hierarchy": "hierarchy2",
+        "math": "math2",
         "meta": "meta2",
         "negation": "negation2",
         "numbers": "numbers2",
@@ -2541,8 +2547,10 @@
         "sdefaults": "sdefaults2",
         "stm": "stm2",
         "tell": "tell2",
+        "testing": "testing2",
         "time": "time2",
-        "tokenize": "tokenize2"
+        "tokenize": "tokenize2",
+        "words": "words2"
       },
       "namespaced": {
         "articles2": {
@@ -2550,6 +2558,9 @@
         },
         "asking2": {
           "km": "asking2"
+        },
+        "comparable2": {
+          "km": "comparable2"
         },
         "concept2": {
           "defaultTypesForHierarchy": {
@@ -2578,14 +2589,993 @@
           "variables": {
           }
         },
+        "dimension2": {
+          "km": "dimension2"
+        },
         "evaluate2": {
           "km": "evaluate2"
+        },
+        "formulas2": {
+          "formulas": {
+            "day": [
+              {
+                "equality": {
+                  "context_id": null,
+                  "context_index": 1,
+                  "dead": true,
+                  "left": {
+                    "dead": true,
+                    "level": 0,
+                    "marker": "unknown",
+                    "range": {
+                      "end": 2,
+                      "start": 0
+                    },
+                    "text": "day",
+                    "types": [
+                      "expression",
+                      "unknown"
+                    ],
+                    "unknown": true,
+                    "value": "day",
+                    "word": "day"
+                  },
+                  "level": 1,
+                  "marker": "equals",
+                  "range": {
+                    "end": 15,
+                    "start": 0
+                  },
+                  "right": {
+                    "dead": true,
+                    "evaluate": true,
+                    "isResponse": true,
+                    "level": 1,
+                    "marker": "divideByExpression",
+                    "number": "one",
+                    "range": {
+                      "end": 15,
+                      "start": 6
+                    },
+                    "text": "hours / 24",
+                    "types": [
+                      "divideByExpression",
+                      "number"
+                    ],
+                    "value": null,
+                    "word": "/",
+                    "x": {
+                      "dead": true,
+                      "dimension": "time",
+                      "level": 0,
+                      "marker": "hour",
+                      "number": "many",
+                      "range": {
+                        "end": 10,
+                        "start": 6
+                      },
+                      "text": "hours",
+                      "types": [
+                        "hour"
+                      ],
+                      "value": "hour",
+                      "word": "hours"
+                    },
+                    "y": {
+                      "dead": true,
+                      "instance": true,
+                      "level": 1,
+                      "marker": "integer",
+                      "range": {
+                        "end": 15,
+                        "start": 14
+                      },
+                      "text": "24",
+                      "types": [
+                        "integer"
+                      ],
+                      "value": 24,
+                      "word": "24"
+                    }
+                  },
+                  "text": "day = hours / 24",
+                  "topLevel": true,
+                  "touchedBy": [
+                    "time#call2",
+                    "instance5#time#call2",
+                    "instance5#dateTimeSelectors#call2"
+                  ],
+                  "value": "equals",
+                  "word": "="
+                },
+                "formula": {
+                  "dead": true,
+                  "evaluate": true,
+                  "isResponse": true,
+                  "level": 1,
+                  "marker": "divideByExpression",
+                  "number": "one",
+                  "range": {
+                    "end": 15,
+                    "start": 6
+                  },
+                  "text": "hours / 24",
+                  "types": [
+                    "divideByExpression",
+                    "number"
+                  ],
+                  "value": null,
+                  "word": "/",
+                  "x": {
+                    "dead": true,
+                    "dimension": "time",
+                    "level": 0,
+                    "marker": "hour",
+                    "number": "many",
+                    "range": {
+                      "end": 10,
+                      "start": 6
+                    },
+                    "text": "hours",
+                    "types": [
+                      "hour"
+                    ],
+                    "value": "hour",
+                    "word": "hours"
+                  },
+                  "y": {
+                    "dead": true,
+                    "instance": true,
+                    "level": 1,
+                    "marker": "integer",
+                    "range": {
+                      "end": 15,
+                      "start": 14
+                    },
+                    "text": "24",
+                    "types": [
+                      "integer"
+                    ],
+                    "value": 24,
+                    "word": "24"
+                  }
+                },
+                "name": {
+                  "dead": true,
+                  "level": 0,
+                  "marker": "unknown",
+                  "range": {
+                    "end": 2,
+                    "start": 0
+                  },
+                  "text": "day",
+                  "types": [
+                    "expression",
+                    "unknown"
+                  ],
+                  "unknown": true,
+                  "value": "day",
+                  "word": "day"
+                }
+              }
+            ],
+            "hour": [
+              {
+                "equality": {
+                  "context_id": null,
+                  "context_index": 1,
+                  "dead": true,
+                  "left": {
+                    "dead": true,
+                    "dimension": "time",
+                    "level": 0,
+                    "marker": "hour",
+                    "number": "many",
+                    "range": {
+                      "end": 4,
+                      "start": 0
+                    },
+                    "text": "hours",
+                    "types": [
+                      "hour"
+                    ],
+                    "value": "hour",
+                    "word": "hours"
+                  },
+                  "level": 1,
+                  "marker": "equals",
+                  "range": {
+                    "end": 19,
+                    "start": 0
+                  },
+                  "right": {
+                    "dead": true,
+                    "evaluate": true,
+                    "isResponse": true,
+                    "level": 1,
+                    "marker": "divideByExpression",
+                    "number": "one",
+                    "range": {
+                      "end": 19,
+                      "start": 8
+                    },
+                    "text": "minutes / 60",
+                    "types": [
+                      "divideByExpression",
+                      "number"
+                    ],
+                    "value": null,
+                    "word": "/",
+                    "x": {
+                      "dead": true,
+                      "dimension": "time",
+                      "level": 0,
+                      "marker": "minute",
+                      "number": "many",
+                      "range": {
+                        "end": 14,
+                        "start": 8
+                      },
+                      "text": "minutes",
+                      "types": [
+                        "minute"
+                      ],
+                      "value": "minute",
+                      "word": "minutes"
+                    },
+                    "y": {
+                      "dead": true,
+                      "instance": true,
+                      "level": 1,
+                      "marker": "integer",
+                      "range": {
+                        "end": 19,
+                        "start": 18
+                      },
+                      "text": "60",
+                      "types": [
+                        "integer"
+                      ],
+                      "value": 60,
+                      "word": "60"
+                    }
+                  },
+                  "text": "hours = minutes / 60",
+                  "topLevel": true,
+                  "touchedBy": [
+                    "time#call2",
+                    "instance1#time#call2",
+                    "instance1#dateTimeSelectors#call2"
+                  ],
+                  "value": "equals",
+                  "word": "="
+                },
+                "formula": {
+                  "dead": true,
+                  "evaluate": true,
+                  "isResponse": true,
+                  "level": 1,
+                  "marker": "divideByExpression",
+                  "number": "one",
+                  "range": {
+                    "end": 19,
+                    "start": 8
+                  },
+                  "text": "minutes / 60",
+                  "types": [
+                    "divideByExpression",
+                    "number"
+                  ],
+                  "value": null,
+                  "word": "/",
+                  "x": {
+                    "dead": true,
+                    "dimension": "time",
+                    "level": 0,
+                    "marker": "minute",
+                    "number": "many",
+                    "range": {
+                      "end": 14,
+                      "start": 8
+                    },
+                    "text": "minutes",
+                    "types": [
+                      "minute"
+                    ],
+                    "value": "minute",
+                    "word": "minutes"
+                  },
+                  "y": {
+                    "dead": true,
+                    "instance": true,
+                    "level": 1,
+                    "marker": "integer",
+                    "range": {
+                      "end": 19,
+                      "start": 18
+                    },
+                    "text": "60",
+                    "types": [
+                      "integer"
+                    ],
+                    "value": 60,
+                    "word": "60"
+                  }
+                },
+                "name": {
+                  "dead": true,
+                  "dimension": "time",
+                  "level": 0,
+                  "marker": "hour",
+                  "number": "many",
+                  "range": {
+                    "end": 4,
+                    "start": 0
+                  },
+                  "text": "hours",
+                  "types": [
+                    "hour"
+                  ],
+                  "value": "hour",
+                  "word": "hours"
+                }
+              },
+              {
+                "equality": {
+                  "context_id": null,
+                  "context_index": 1,
+                  "dead": true,
+                  "left": {
+                    "dead": true,
+                    "dimension": "time",
+                    "level": 0,
+                    "marker": "hour",
+                    "number": "many",
+                    "range": {
+                      "end": 4,
+                      "start": 0
+                    },
+                    "text": "hours",
+                    "types": [
+                      "hour"
+                    ],
+                    "value": "hour",
+                    "word": "hours"
+                  },
+                  "level": 1,
+                  "marker": "equals",
+                  "range": {
+                    "end": 16,
+                    "start": 0
+                  },
+                  "right": {
+                    "dead": true,
+                    "evaluate": true,
+                    "isResponse": true,
+                    "level": 1,
+                    "marker": "timesExpression",
+                    "number": "one",
+                    "range": {
+                      "end": 16,
+                      "start": 8
+                    },
+                    "text": "days * 24",
+                    "types": [
+                      "number",
+                      "timesExpression"
+                    ],
+                    "value": null,
+                    "word": "*",
+                    "x": {
+                      "dead": true,
+                      "level": 0,
+                      "marker": "unknown",
+                      "range": {
+                        "end": 11,
+                        "start": 8
+                      },
+                      "text": "days",
+                      "types": [
+                        "number",
+                        "unknown"
+                      ],
+                      "unknown": true,
+                      "value": "days",
+                      "word": "days"
+                    },
+                    "y": {
+                      "dead": true,
+                      "instance": true,
+                      "level": 1,
+                      "marker": "integer",
+                      "range": {
+                        "end": 16,
+                        "start": 15
+                      },
+                      "text": "24",
+                      "types": [
+                        "integer"
+                      ],
+                      "value": 24,
+                      "word": "24"
+                    }
+                  },
+                  "text": "hours = days * 24",
+                  "topLevel": true,
+                  "touchedBy": [
+                    "time#call2",
+                    "instance6#time#call2",
+                    "instance6#dateTimeSelectors#call2"
+                  ],
+                  "value": "equals",
+                  "word": "="
+                },
+                "formula": {
+                  "dead": true,
+                  "evaluate": true,
+                  "isResponse": true,
+                  "level": 1,
+                  "marker": "timesExpression",
+                  "number": "one",
+                  "range": {
+                    "end": 16,
+                    "start": 8
+                  },
+                  "text": "days * 24",
+                  "types": [
+                    "number",
+                    "timesExpression"
+                  ],
+                  "value": null,
+                  "word": "*",
+                  "x": {
+                    "dead": true,
+                    "level": 0,
+                    "marker": "unknown",
+                    "range": {
+                      "end": 11,
+                      "start": 8
+                    },
+                    "text": "days",
+                    "types": [
+                      "number",
+                      "unknown"
+                    ],
+                    "unknown": true,
+                    "value": "days",
+                    "word": "days"
+                  },
+                  "y": {
+                    "dead": true,
+                    "instance": true,
+                    "level": 1,
+                    "marker": "integer",
+                    "range": {
+                      "end": 16,
+                      "start": 15
+                    },
+                    "text": "24",
+                    "types": [
+                      "integer"
+                    ],
+                    "value": 24,
+                    "word": "24"
+                  }
+                },
+                "name": {
+                  "dead": true,
+                  "dimension": "time",
+                  "level": 0,
+                  "marker": "hour",
+                  "number": "many",
+                  "range": {
+                    "end": 4,
+                    "start": 0
+                  },
+                  "text": "hours",
+                  "types": [
+                    "hour"
+                  ],
+                  "value": "hour",
+                  "word": "hours"
+                }
+              }
+            ],
+            "minute": [
+              {
+                "equality": {
+                  "context_id": null,
+                  "context_index": 1,
+                  "dead": true,
+                  "left": {
+                    "dead": true,
+                    "dimension": "time",
+                    "level": 0,
+                    "marker": "minute",
+                    "number": "many",
+                    "range": {
+                      "end": 6,
+                      "start": 0
+                    },
+                    "text": "minutes",
+                    "types": [
+                      "minute"
+                    ],
+                    "value": "minute",
+                    "word": "minutes"
+                  },
+                  "level": 1,
+                  "marker": "equals",
+                  "range": {
+                    "end": 19,
+                    "start": 0
+                  },
+                  "right": {
+                    "dead": true,
+                    "evaluate": true,
+                    "isResponse": true,
+                    "level": 1,
+                    "marker": "timesExpression",
+                    "number": "one",
+                    "range": {
+                      "end": 19,
+                      "start": 10
+                    },
+                    "text": "hours * 60",
+                    "types": [
+                      "number",
+                      "timesExpression"
+                    ],
+                    "value": null,
+                    "word": "*",
+                    "x": {
+                      "dead": true,
+                      "dimension": "time",
+                      "level": 0,
+                      "marker": "hour",
+                      "number": "many",
+                      "range": {
+                        "end": 14,
+                        "start": 10
+                      },
+                      "text": "hours",
+                      "types": [
+                        "hour"
+                      ],
+                      "value": "hour",
+                      "word": "hours"
+                    },
+                    "y": {
+                      "dead": true,
+                      "instance": true,
+                      "level": 1,
+                      "marker": "integer",
+                      "range": {
+                        "end": 19,
+                        "start": 18
+                      },
+                      "text": "60",
+                      "types": [
+                        "integer"
+                      ],
+                      "value": 60,
+                      "word": "60"
+                    }
+                  },
+                  "text": "minutes = hours * 60",
+                  "topLevel": true,
+                  "touchedBy": [
+                    "time#call2",
+                    "instance2#time#call2",
+                    "instance2#dateTimeSelectors#call2"
+                  ],
+                  "value": "equals",
+                  "word": "="
+                },
+                "formula": {
+                  "dead": true,
+                  "evaluate": true,
+                  "isResponse": true,
+                  "level": 1,
+                  "marker": "timesExpression",
+                  "number": "one",
+                  "range": {
+                    "end": 19,
+                    "start": 10
+                  },
+                  "text": "hours * 60",
+                  "types": [
+                    "number",
+                    "timesExpression"
+                  ],
+                  "value": null,
+                  "word": "*",
+                  "x": {
+                    "dead": true,
+                    "dimension": "time",
+                    "level": 0,
+                    "marker": "hour",
+                    "number": "many",
+                    "range": {
+                      "end": 14,
+                      "start": 10
+                    },
+                    "text": "hours",
+                    "types": [
+                      "hour"
+                    ],
+                    "value": "hour",
+                    "word": "hours"
+                  },
+                  "y": {
+                    "dead": true,
+                    "instance": true,
+                    "level": 1,
+                    "marker": "integer",
+                    "range": {
+                      "end": 19,
+                      "start": 18
+                    },
+                    "text": "60",
+                    "types": [
+                      "integer"
+                    ],
+                    "value": 60,
+                    "word": "60"
+                  }
+                },
+                "name": {
+                  "dead": true,
+                  "dimension": "time",
+                  "level": 0,
+                  "marker": "minute",
+                  "number": "many",
+                  "range": {
+                    "end": 6,
+                    "start": 0
+                  },
+                  "text": "minutes",
+                  "types": [
+                    "minute"
+                  ],
+                  "value": "minute",
+                  "word": "minutes"
+                }
+              },
+              {
+                "equality": {
+                  "context_id": null,
+                  "context_index": 1,
+                  "dead": true,
+                  "left": {
+                    "dead": true,
+                    "dimension": "time",
+                    "level": 0,
+                    "marker": "minute",
+                    "number": "many",
+                    "range": {
+                      "end": 6,
+                      "start": 0
+                    },
+                    "text": "minutes",
+                    "types": [
+                      "minute"
+                    ],
+                    "value": "minute",
+                    "word": "minutes"
+                  },
+                  "level": 1,
+                  "marker": "equals",
+                  "range": {
+                    "end": 21,
+                    "start": 0
+                  },
+                  "right": {
+                    "dead": true,
+                    "evaluate": true,
+                    "isResponse": true,
+                    "level": 1,
+                    "marker": "divideByExpression",
+                    "number": "one",
+                    "range": {
+                      "end": 21,
+                      "start": 10
+                    },
+                    "text": "seconds / 60",
+                    "types": [
+                      "divideByExpression",
+                      "number"
+                    ],
+                    "value": null,
+                    "word": "/",
+                    "x": {
+                      "dead": true,
+                      "dimension": "time",
+                      "level": 0,
+                      "marker": "second",
+                      "number": "many",
+                      "range": {
+                        "end": 16,
+                        "start": 10
+                      },
+                      "text": "seconds",
+                      "types": [
+                        "second"
+                      ],
+                      "value": "second",
+                      "word": "seconds"
+                    },
+                    "y": {
+                      "dead": true,
+                      "instance": true,
+                      "level": 1,
+                      "marker": "integer",
+                      "range": {
+                        "end": 21,
+                        "start": 20
+                      },
+                      "text": "60",
+                      "types": [
+                        "integer"
+                      ],
+                      "value": 60,
+                      "word": "60"
+                    }
+                  },
+                  "text": "minutes = seconds / 60",
+                  "topLevel": true,
+                  "touchedBy": [
+                    "time#call2",
+                    "instance4#time#call2",
+                    "instance4#dateTimeSelectors#call2"
+                  ],
+                  "value": "equals",
+                  "word": "="
+                },
+                "formula": {
+                  "dead": true,
+                  "evaluate": true,
+                  "isResponse": true,
+                  "level": 1,
+                  "marker": "divideByExpression",
+                  "number": "one",
+                  "range": {
+                    "end": 21,
+                    "start": 10
+                  },
+                  "text": "seconds / 60",
+                  "types": [
+                    "divideByExpression",
+                    "number"
+                  ],
+                  "value": null,
+                  "word": "/",
+                  "x": {
+                    "dead": true,
+                    "dimension": "time",
+                    "level": 0,
+                    "marker": "second",
+                    "number": "many",
+                    "range": {
+                      "end": 16,
+                      "start": 10
+                    },
+                    "text": "seconds",
+                    "types": [
+                      "second"
+                    ],
+                    "value": "second",
+                    "word": "seconds"
+                  },
+                  "y": {
+                    "dead": true,
+                    "instance": true,
+                    "level": 1,
+                    "marker": "integer",
+                    "range": {
+                      "end": 21,
+                      "start": 20
+                    },
+                    "text": "60",
+                    "types": [
+                      "integer"
+                    ],
+                    "value": 60,
+                    "word": "60"
+                  }
+                },
+                "name": {
+                  "dead": true,
+                  "dimension": "time",
+                  "level": 0,
+                  "marker": "minute",
+                  "number": "many",
+                  "range": {
+                    "end": 6,
+                    "start": 0
+                  },
+                  "text": "minutes",
+                  "types": [
+                    "minute"
+                  ],
+                  "value": "minute",
+                  "word": "minutes"
+                }
+              }
+            ],
+            "second": [
+              {
+                "equality": {
+                  "context_id": null,
+                  "context_index": 1,
+                  "dead": true,
+                  "left": {
+                    "dead": true,
+                    "dimension": "time",
+                    "level": 0,
+                    "marker": "second",
+                    "number": "many",
+                    "range": {
+                      "end": 6,
+                      "start": 0
+                    },
+                    "text": "seconds",
+                    "types": [
+                      "second"
+                    ],
+                    "value": "second",
+                    "word": "seconds"
+                  },
+                  "level": 1,
+                  "marker": "equals",
+                  "range": {
+                    "end": 21,
+                    "start": 0
+                  },
+                  "right": {
+                    "dead": true,
+                    "evaluate": true,
+                    "isResponse": true,
+                    "level": 1,
+                    "marker": "timesExpression",
+                    "number": "one",
+                    "range": {
+                      "end": 21,
+                      "start": 10
+                    },
+                    "text": "minutes * 60",
+                    "types": [
+                      "number",
+                      "timesExpression"
+                    ],
+                    "value": null,
+                    "word": "*",
+                    "x": {
+                      "dead": true,
+                      "dimension": "time",
+                      "level": 0,
+                      "marker": "minute",
+                      "number": "many",
+                      "range": {
+                        "end": 16,
+                        "start": 10
+                      },
+                      "text": "minutes",
+                      "types": [
+                        "minute"
+                      ],
+                      "value": "minute",
+                      "word": "minutes"
+                    },
+                    "y": {
+                      "dead": true,
+                      "instance": true,
+                      "level": 1,
+                      "marker": "integer",
+                      "range": {
+                        "end": 21,
+                        "start": 20
+                      },
+                      "text": "60",
+                      "types": [
+                        "integer"
+                      ],
+                      "value": 60,
+                      "word": "60"
+                    }
+                  },
+                  "text": "seconds = minutes * 60",
+                  "topLevel": true,
+                  "touchedBy": [
+                    "time#call2",
+                    "instance3#time#call2",
+                    "instance3#dateTimeSelectors#call2"
+                  ],
+                  "value": "equals",
+                  "word": "="
+                },
+                "formula": {
+                  "dead": true,
+                  "evaluate": true,
+                  "isResponse": true,
+                  "level": 1,
+                  "marker": "timesExpression",
+                  "number": "one",
+                  "range": {
+                    "end": 21,
+                    "start": 10
+                  },
+                  "text": "minutes * 60",
+                  "types": [
+                    "number",
+                    "timesExpression"
+                  ],
+                  "value": null,
+                  "word": "*",
+                  "x": {
+                    "dead": true,
+                    "dimension": "time",
+                    "level": 0,
+                    "marker": "minute",
+                    "number": "many",
+                    "range": {
+                      "end": 16,
+                      "start": 10
+                    },
+                    "text": "minutes",
+                    "types": [
+                      "minute"
+                    ],
+                    "value": "minute",
+                    "word": "minutes"
+                  },
+                  "y": {
+                    "dead": true,
+                    "instance": true,
+                    "level": 1,
+                    "marker": "integer",
+                    "range": {
+                      "end": 21,
+                      "start": 20
+                    },
+                    "text": "60",
+                    "types": [
+                      "integer"
+                    ],
+                    "value": 60,
+                    "word": "60"
+                  }
+                },
+                "name": {
+                  "dead": true,
+                  "dimension": "time",
+                  "level": 0,
+                  "marker": "second",
+                  "number": "many",
+                  "range": {
+                    "end": 6,
+                    "start": 0
+                  },
+                  "text": "seconds",
+                  "types": [
+                    "second"
+                  ],
+                  "value": "second",
+                  "word": "seconds"
+                }
+              }
+            ]
+          },
+          "km": "formulas2"
         },
         "gdefaults2": {
           "km": "gdefaults2"
         },
         "hierarchy2": {
           "km": "hierarchy2"
+        },
+        "math2": {
+          "km": "math2"
         },
         "meta2": {
           "km": "meta2"
@@ -2619,6 +3609,11 @@
             "canBeQuestion": [
               "have",
               "is"
+            ],
+            "concept": [
+              "formula",
+              "dimension",
+              "unit"
             ],
             "day_dates": [
               "monday_dates",
@@ -2693,6 +3688,10 @@
               "distributable",
               "thisitthat"
             ],
+            "sort_ordering": [
+              "ascending",
+              "descending"
+            ],
             "theAble": [
               "property",
               "object",
@@ -2709,6 +3708,12 @@
             ],
             "toAble": [
               "it"
+            ],
+            "unit_time": [
+              "year",
+              "hour",
+              "minute",
+              "second"
             ],
             "verb": [
               "modifies",
@@ -2767,6 +3772,12 @@
             "noun",
             "thisitthat",
             "that",
+            "ascending",
+            "sort_ordering",
+            "descending",
+            "formula",
+            "dimension",
+            "unit",
             "january_dates",
             "month_dates",
             "february_dates",
@@ -2792,7 +3803,12 @@
             "era_dates",
             "bc_dates",
             "bce_dates",
-            "ad_dates"
+            "ad_dates",
+            "year",
+            "unit_time",
+            "hour",
+            "minute",
+            "second"
           ],
           "km": "properties2",
           "parents": {
@@ -2807,6 +3823,9 @@
             ],
             "april_dates": [
               "month_dates"
+            ],
+            "ascending": [
+              "sort_ordering"
             ],
             "august_dates": [
               "month_dates"
@@ -2827,6 +3846,12 @@
             "december_dates": [
               "month_dates"
             ],
+            "descending": [
+              "sort_ordering"
+            ],
+            "dimension": [
+              "concept"
+            ],
             "distributable": [
               "queryable"
             ],
@@ -2842,6 +3867,9 @@
             "february_dates": [
               "month_dates"
             ],
+            "formula": [
+              "concept"
+            ],
             "friday_dates": [
               "day_dates"
             ],
@@ -2851,6 +3879,9 @@
             ],
             "hierarchyAble": [
               "queryable"
+            ],
+            "hour": [
+              "unit_time"
             ],
             "is": [
               "canBeQuestion",
@@ -2885,6 +3916,9 @@
             ],
             "memorable": [
               "theAble"
+            ],
+            "minute": [
+              "unit_time"
             ],
             "modifies": [
               "verb"
@@ -2938,6 +3972,9 @@
             "saturday_dates": [
               "day_dates"
             ],
+            "second": [
+              "unit_time"
+            ],
             "september_dates": [
               "month_dates"
             ],
@@ -2973,6 +4010,9 @@
             "tuesday_dates": [
               "day_dates"
             ],
+            "unit": [
+              "concept"
+            ],
             "unknown": [
               "hierarchyAble"
             ],
@@ -2991,6 +4031,9 @@
             ],
             "xfx": [
               "queryable"
+            ],
+            "year": [
+              "unit_time"
             ]
           },
           "properties": {
@@ -3011,6 +4054,8 @@
               },
               "article": {
               },
+              "ascending": {
+              },
               "august_dates": {
               },
               "bc_dates": {
@@ -3029,6 +4074,10 @@
               },
               "december_dates": {
               },
+              "descending": {
+              },
+              "dimension": {
+              },
               "distributable": {
               },
               "doubleQuote": {
@@ -3041,11 +4090,15 @@
               },
               "february_dates": {
               },
+              "formula": {
+              },
               "friday_dates": {
               },
               "have": {
               },
               "hierarchyAble": {
+              },
+              "hour": {
               },
               "ifAble": {
               },
@@ -3068,6 +4121,8 @@
               "may_dates": {
               },
               "memorable": {
+              },
+              "minute": {
               },
               "modifies": {
               },
@@ -3109,7 +4164,11 @@
               },
               "saturday_dates": {
               },
+              "second": {
+              },
               "september_dates": {
+              },
+              "sort_ordering": {
               },
               "stm_before": {
               },
@@ -3133,6 +4192,10 @@
               },
               "tuesday_dates": {
               },
+              "unit": {
+              },
+              "unit_time": {
+              },
               "unknown": {
               },
               "verb": {
@@ -3146,6 +4209,8 @@
               "whose": {
               },
               "xfx": {
+              },
+              "year": {
               }
             }
           },
@@ -3172,12 +4237,20 @@
         "tell2": {
           "km": "tell2"
         },
+        "testing2": {
+          "km": "testing2"
+        },
         "time2": {
           "format": 12,
           "km": "time2"
         },
         "tokenize2": {
           "km": "tokenize2"
+        },
+        "words2": {
+          "km": "words2",
+          "words": [
+          ]
         }
       },
       "processed": [
@@ -3205,8 +4278,9 @@
             ],
             "value": {
               "date": {
+                "day_ordinal": 2,
                 "dead": true,
-                "level": 1,
+                "level": 0,
                 "marker": "monday_dates",
                 "number": "one",
                 "range": {
@@ -3265,7 +4339,7 @@
                   "instance": true,
                   "interpolate": "${time} ${ampm}",
                   "level": 0,
-                  "marker": "time",
+                  "marker": "timePoint",
                   "range": {
                     "end": 22,
                     "start": 19
@@ -3283,13 +4357,13 @@
                     "text": "2",
                     "types": [
                       "integer",
-                      "time"
+                      "timePoint"
                     ],
                     "value": 2,
                     "word": "2"
                   },
                   "types": [
-                    "time"
+                    "timePoint"
                   ],
                   "value": 2,
                   "word": "2"
@@ -3314,26 +4388,93 @@
         },
         {
           "context": {
-            "context_id": 2,
+            "context_id": null,
             "context_index": 1,
             "dead": true,
-            "default": true,
-            "level": 0,
-            "marker": "resetIdSuffix",
+            "left": {
+              "dead": true,
+              "dimension": "time",
+              "level": 0,
+              "marker": "hour",
+              "number": "many",
+              "range": {
+                "end": 4,
+                "start": 0
+              },
+              "text": "hours",
+              "types": [
+                "hour"
+              ],
+              "value": "hour",
+              "word": "hours"
+            },
+            "level": 1,
+            "marker": "equals",
             "range": {
-              "end": 12,
+              "end": 16,
               "start": 0
             },
-            "raw_text": "resetIdSuffix",
-            "text": "resetidsuffix",
+            "right": {
+              "dead": true,
+              "evaluate": true,
+              "isResponse": true,
+              "level": 1,
+              "marker": "timesExpression",
+              "number": "one",
+              "range": {
+                "end": 16,
+                "start": 8
+              },
+              "text": "days * 24",
+              "types": [
+                "number",
+                "timesExpression"
+              ],
+              "value": null,
+              "word": "*",
+              "x": {
+                "dead": true,
+                "level": 0,
+                "marker": "unknown",
+                "range": {
+                  "end": 11,
+                  "start": 8
+                },
+                "text": "days",
+                "types": [
+                  "number",
+                  "unknown"
+                ],
+                "unknown": true,
+                "value": "days",
+                "word": "days"
+              },
+              "y": {
+                "dead": true,
+                "instance": true,
+                "level": 1,
+                "marker": "integer",
+                "range": {
+                  "end": 16,
+                  "start": 15
+                },
+                "text": "24",
+                "types": [
+                  "integer"
+                ],
+                "value": 24,
+                "word": "24"
+              }
+            },
+            "text": "hours = days * 24",
             "topLevel": true,
             "touchedBy": [
-              "dates#call2",
-              "instance6#dates#call2",
+              "time#call2",
+              "instance6#time#call2",
               "instance6#dateTimeSelectors#call2"
             ],
-            "value": "resetIdSuffix",
-            "word": "resetidsuffix"
+            "value": "equals",
+            "word": "="
           },
           "generatedParenthesized": [
           ],
@@ -3346,155 +4487,291 @@
         },
         {
           "context": {
-            "context_id": 2,
+            "context_id": null,
             "context_index": 1,
             "dead": true,
-            "level": 2,
-            "marker": "is",
-            "number": "many",
-            "one": {
-              "default": true,
-              "isList": true,
-              "level": 1,
-              "listable": true,
-              "marker": "list",
-              "number": "many",
+            "left": {
+              "dead": true,
+              "level": 0,
+              "marker": "unknown",
               "range": {
-                "end": 26,
+                "end": 2,
                 "start": 0
               },
-              "text": "ac, bc, bce and ad",
+              "text": "day",
               "types": [
-                "list",
+                "expression",
                 "unknown"
               ],
-              "value": [
-                {
-                  "dead": true,
-                  "decorators": {
-                    "after": {
-                      "depth": "+",
-                      "level": 0,
-                      "marker": "comma",
-                      "range": {
-                        "end": 2,
-                        "start": 2
-                      },
-                      "text": ",",
-                      "value": ",",
-                      "word": ","
-                    }
-                  },
-                  "level": 0,
-                  "marker": "unknown",
-                  "no_convolutions": true,
-                  "range": {
-                    "end": 2,
-                    "start": 0
-                  },
-                  "text": "ac,",
-                  "types": [
-                    "unknown"
-                  ],
-                  "unknown": true,
-                  "value": "ac",
-                  "word": "ac"
-                },
-                {
-                  "dead": true,
-                  "decorators": {
-                    "after": {
-                      "depth": "+",
-                      "level": 0,
-                      "marker": "comma",
-                      "range": {
-                        "end": 6,
-                        "start": 6
-                      },
-                      "text": ",",
-                      "value": ",",
-                      "word": ","
-                    }
-                  },
-                  "level": 0,
-                  "marker": "unknown",
-                  "no_convolutions": true,
-                  "range": {
-                    "end": 6,
-                    "start": 4
-                  },
-                  "text": "bc,",
-                  "types": [
-                    "unknown"
-                  ],
-                  "unknown": true,
-                  "value": "bc",
-                  "word": "bc"
-                },
-                {
-                  "dead": true,
-                  "level": 0,
-                  "marker": "unknown",
-                  "range": {
-                    "end": 10,
-                    "start": 8
-                  },
-                  "text": "bce",
-                  "types": [
-                    "unknown"
-                  ],
-                  "unknown": true,
-                  "value": "bce",
-                  "word": "bce"
-                },
-                {
-                  "dead": true,
-                  "level": 0,
-                  "marker": "unknown",
-                  "range": {
-                    "end": 17,
-                    "start": 16
-                  },
-                  "text": "ad",
-                  "types": [
-                    "unknown"
-                  ],
-                  "unknown": true,
-                  "value": "ad",
-                  "word": "ad"
-                }
-              ],
-              "word": "and"
+              "unknown": true,
+              "value": "day",
+              "word": "day"
             },
+            "level": 1,
+            "marker": "equals",
             "range": {
-              "end": 26,
+              "end": 15,
               "start": 0
             },
-            "text": "ac, bc, bce and ad are eras",
+            "right": {
+              "dead": true,
+              "evaluate": true,
+              "isResponse": true,
+              "level": 1,
+              "marker": "divideByExpression",
+              "number": "one",
+              "range": {
+                "end": 15,
+                "start": 6
+              },
+              "text": "hours / 24",
+              "types": [
+                "divideByExpression",
+                "number"
+              ],
+              "value": null,
+              "word": "/",
+              "x": {
+                "dead": true,
+                "dimension": "time",
+                "level": 0,
+                "marker": "hour",
+                "number": "many",
+                "range": {
+                  "end": 10,
+                  "start": 6
+                },
+                "text": "hours",
+                "types": [
+                  "hour"
+                ],
+                "value": "hour",
+                "word": "hours"
+              },
+              "y": {
+                "dead": true,
+                "instance": true,
+                "level": 1,
+                "marker": "integer",
+                "range": {
+                  "end": 15,
+                  "start": 14
+                },
+                "text": "24",
+                "types": [
+                  "integer"
+                ],
+                "value": 24,
+                "word": "24"
+              }
+            },
+            "text": "day = hours / 24",
             "topLevel": true,
             "touchedBy": [
-              "dates#call2",
-              "instance3#dates#call2",
+              "time#call2",
+              "instance5#time#call2",
+              "instance5#dateTimeSelectors#call2"
+            ],
+            "value": "equals",
+            "word": "="
+          },
+          "generatedParenthesized": [
+          ],
+          "paraphrases": [
+          ],
+          "paraphrasesParenthesized": [
+          ],
+          "responses": [
+          ]
+        },
+        {
+          "context": {
+            "context_id": null,
+            "context_index": 1,
+            "dead": true,
+            "left": {
+              "dead": true,
+              "dimension": "time",
+              "level": 0,
+              "marker": "minute",
+              "number": "many",
+              "range": {
+                "end": 6,
+                "start": 0
+              },
+              "text": "minutes",
+              "types": [
+                "minute"
+              ],
+              "value": "minute",
+              "word": "minutes"
+            },
+            "level": 1,
+            "marker": "equals",
+            "range": {
+              "end": 21,
+              "start": 0
+            },
+            "right": {
+              "dead": true,
+              "evaluate": true,
+              "isResponse": true,
+              "level": 1,
+              "marker": "divideByExpression",
+              "number": "one",
+              "range": {
+                "end": 21,
+                "start": 10
+              },
+              "text": "seconds / 60",
+              "types": [
+                "divideByExpression",
+                "number"
+              ],
+              "value": null,
+              "word": "/",
+              "x": {
+                "dead": true,
+                "dimension": "time",
+                "level": 0,
+                "marker": "second",
+                "number": "many",
+                "range": {
+                  "end": 16,
+                  "start": 10
+                },
+                "text": "seconds",
+                "types": [
+                  "second"
+                ],
+                "value": "second",
+                "word": "seconds"
+              },
+              "y": {
+                "dead": true,
+                "instance": true,
+                "level": 1,
+                "marker": "integer",
+                "range": {
+                  "end": 21,
+                  "start": 20
+                },
+                "text": "60",
+                "types": [
+                  "integer"
+                ],
+                "value": 60,
+                "word": "60"
+              }
+            },
+            "text": "minutes = seconds / 60",
+            "topLevel": true,
+            "touchedBy": [
+              "time#call2",
+              "instance4#time#call2",
+              "instance4#dateTimeSelectors#call2"
+            ],
+            "value": "equals",
+            "word": "="
+          },
+          "generatedParenthesized": [
+          ],
+          "paraphrases": [
+          ],
+          "paraphrasesParenthesized": [
+          ],
+          "responses": [
+          ]
+        },
+        {
+          "context": {
+            "context_id": null,
+            "context_index": 1,
+            "dead": true,
+            "left": {
+              "dead": true,
+              "dimension": "time",
+              "level": 0,
+              "marker": "second",
+              "number": "many",
+              "range": {
+                "end": 6,
+                "start": 0
+              },
+              "text": "seconds",
+              "types": [
+                "second"
+              ],
+              "value": "second",
+              "word": "seconds"
+            },
+            "level": 1,
+            "marker": "equals",
+            "range": {
+              "end": 21,
+              "start": 0
+            },
+            "right": {
+              "dead": true,
+              "evaluate": true,
+              "isResponse": true,
+              "level": 1,
+              "marker": "timesExpression",
+              "number": "one",
+              "range": {
+                "end": 21,
+                "start": 10
+              },
+              "text": "minutes * 60",
+              "types": [
+                "number",
+                "timesExpression"
+              ],
+              "value": null,
+              "word": "*",
+              "x": {
+                "dead": true,
+                "dimension": "time",
+                "level": 0,
+                "marker": "minute",
+                "number": "many",
+                "range": {
+                  "end": 16,
+                  "start": 10
+                },
+                "text": "minutes",
+                "types": [
+                  "minute"
+                ],
+                "value": "minute",
+                "word": "minutes"
+              },
+              "y": {
+                "dead": true,
+                "instance": true,
+                "level": 1,
+                "marker": "integer",
+                "range": {
+                  "end": 21,
+                  "start": 20
+                },
+                "text": "60",
+                "types": [
+                  "integer"
+                ],
+                "value": 60,
+                "word": "60"
+              }
+            },
+            "text": "seconds = minutes * 60",
+            "topLevel": true,
+            "touchedBy": [
+              "time#call2",
+              "instance3#time#call2",
               "instance3#dateTimeSelectors#call2"
             ],
-            "two": {
-              "concept": true,
-              "dead": true,
-              "level": 0,
-              "marker": "unknown",
-              "range": {
-                "end": 26,
-                "start": 23
-              },
-              "text": "eras",
-              "types": [
-                "unknown"
-              ],
-              "unknown": true,
-              "value": "eras",
-              "word": "eras"
-            },
-            "word": "are"
+            "value": "equals",
+            "word": "="
           },
           "generatedParenthesized": [
           ],
@@ -3507,701 +4784,93 @@
         },
         {
           "context": {
-            "context_id": 2,
+            "context_id": null,
             "context_index": 1,
             "dead": true,
-            "level": 2,
-            "marker": "is",
-            "number": "many",
-            "one": {
-              "default": true,
-              "isList": true,
-              "level": 1,
-              "listable": true,
-              "marker": "list",
+            "left": {
+              "dead": true,
+              "dimension": "time",
+              "level": 0,
+              "marker": "minute",
               "number": "many",
               "range": {
-                "end": 73,
+                "end": 6,
                 "start": 0
               },
-              "text": "monday, tuesday, wednesday, thursday, friday, saturday and sunday",
+              "text": "minutes",
               "types": [
-                "list",
-                "unknown"
+                "minute"
               ],
-              "value": [
-                {
-                  "dead": true,
-                  "decorators": {
-                    "after": {
-                      "depth": "+",
-                      "level": 0,
-                      "marker": "comma",
-                      "range": {
-                        "end": 6,
-                        "start": 6
-                      },
-                      "text": ",",
-                      "value": ",",
-                      "word": ","
-                    }
-                  },
-                  "level": 0,
-                  "marker": "unknown",
-                  "no_convolutions": true,
-                  "range": {
-                    "end": 6,
-                    "start": 0
-                  },
-                  "text": "monday,",
-                  "types": [
-                    "unknown"
-                  ],
-                  "unknown": true,
-                  "value": "monday",
-                  "word": "monday"
-                },
-                {
-                  "dead": true,
-                  "decorators": {
-                    "after": {
-                      "depth": "+",
-                      "level": 0,
-                      "marker": "comma",
-                      "range": {
-                        "end": 15,
-                        "start": 15
-                      },
-                      "text": ",",
-                      "value": ",",
-                      "word": ","
-                    }
-                  },
-                  "level": 0,
-                  "marker": "unknown",
-                  "no_convolutions": true,
-                  "range": {
-                    "end": 15,
-                    "start": 8
-                  },
-                  "text": "tuesday,",
-                  "types": [
-                    "unknown"
-                  ],
-                  "unknown": true,
-                  "value": "tuesday",
-                  "word": "tuesday"
-                },
-                {
-                  "dead": true,
-                  "decorators": {
-                    "after": {
-                      "depth": "+",
-                      "level": 0,
-                      "marker": "comma",
-                      "range": {
-                        "end": 26,
-                        "start": 26
-                      },
-                      "text": ",",
-                      "value": ",",
-                      "word": ","
-                    }
-                  },
-                  "level": 0,
-                  "marker": "unknown",
-                  "no_convolutions": true,
-                  "range": {
-                    "end": 26,
-                    "start": 17
-                  },
-                  "text": "wednesday,",
-                  "types": [
-                    "unknown"
-                  ],
-                  "unknown": true,
-                  "value": "wednesday",
-                  "word": "wednesday"
-                },
-                {
-                  "dead": true,
-                  "decorators": {
-                    "after": {
-                      "depth": "+",
-                      "level": 0,
-                      "marker": "comma",
-                      "range": {
-                        "end": 36,
-                        "start": 36
-                      },
-                      "text": ",",
-                      "value": ",",
-                      "word": ","
-                    }
-                  },
-                  "level": 0,
-                  "marker": "unknown",
-                  "no_convolutions": true,
-                  "range": {
-                    "end": 36,
-                    "start": 28
-                  },
-                  "text": "thursday,",
-                  "types": [
-                    "unknown"
-                  ],
-                  "unknown": true,
-                  "value": "thursday",
-                  "word": "thursday"
-                },
-                {
-                  "dead": true,
-                  "decorators": {
-                    "after": {
-                      "depth": "+",
-                      "level": 0,
-                      "marker": "comma",
-                      "range": {
-                        "end": 44,
-                        "start": 44
-                      },
-                      "text": ",",
-                      "value": ",",
-                      "word": ","
-                    }
-                  },
-                  "level": 0,
-                  "marker": "unknown",
-                  "no_convolutions": true,
-                  "range": {
-                    "end": 44,
-                    "start": 38
-                  },
-                  "text": "friday,",
-                  "types": [
-                    "unknown"
-                  ],
-                  "unknown": true,
-                  "value": "friday",
-                  "word": "friday"
-                },
-                {
-                  "dead": true,
-                  "level": 0,
-                  "marker": "unknown",
-                  "range": {
-                    "end": 53,
-                    "start": 46
-                  },
-                  "text": "saturday",
-                  "types": [
-                    "unknown"
-                  ],
-                  "unknown": true,
-                  "value": "saturday",
-                  "word": "saturday"
-                },
-                {
-                  "dead": true,
-                  "level": 0,
-                  "marker": "unknown",
-                  "range": {
-                    "end": 64,
-                    "start": 59
-                  },
-                  "text": "sunday",
-                  "types": [
-                    "unknown"
-                  ],
-                  "unknown": true,
-                  "value": "sunday",
-                  "word": "sunday"
-                }
-              ],
-              "word": "and"
+              "value": "minute",
+              "word": "minutes"
             },
+            "level": 1,
+            "marker": "equals",
             "range": {
-              "end": 73,
+              "end": 19,
               "start": 0
             },
-            "text": "monday, tuesday, wednesday, thursday, friday, saturday and sunday are days",
+            "right": {
+              "dead": true,
+              "evaluate": true,
+              "isResponse": true,
+              "level": 1,
+              "marker": "timesExpression",
+              "number": "one",
+              "range": {
+                "end": 19,
+                "start": 10
+              },
+              "text": "hours * 60",
+              "types": [
+                "number",
+                "timesExpression"
+              ],
+              "value": null,
+              "word": "*",
+              "x": {
+                "dead": true,
+                "dimension": "time",
+                "level": 0,
+                "marker": "hour",
+                "number": "many",
+                "range": {
+                  "end": 14,
+                  "start": 10
+                },
+                "text": "hours",
+                "types": [
+                  "hour"
+                ],
+                "value": "hour",
+                "word": "hours"
+              },
+              "y": {
+                "dead": true,
+                "instance": true,
+                "level": 1,
+                "marker": "integer",
+                "range": {
+                  "end": 19,
+                  "start": 18
+                },
+                "text": "60",
+                "types": [
+                  "integer"
+                ],
+                "value": 60,
+                "word": "60"
+              }
+            },
+            "text": "minutes = hours * 60",
             "topLevel": true,
             "touchedBy": [
-              "dates#call2",
-              "instance2#dates#call2",
+              "time#call2",
+              "instance2#time#call2",
               "instance2#dateTimeSelectors#call2"
             ],
-            "two": {
-              "concept": true,
-              "dead": true,
-              "level": 0,
-              "marker": "unknown",
-              "range": {
-                "end": 73,
-                "start": 70
-              },
-              "text": "days",
-              "types": [
-                "unknown"
-              ],
-              "unknown": true,
-              "value": "days",
-              "word": "days"
-            },
-            "word": "are"
-          },
-          "generatedParenthesized": [
-          ],
-          "paraphrases": [
-          ],
-          "paraphrasesParenthesized": [
-          ],
-          "responses": [
-          ]
-        },
-        {
-          "context": {
-            "context_id": 2,
-            "context_index": 1,
-            "dead": true,
-            "level": 2,
-            "marker": "is",
-            "number": "many",
-            "one": {
-              "default": true,
-              "isList": true,
-              "level": 1,
-              "listable": true,
-              "marker": "list",
-              "number": "many",
-              "range": {
-                "end": 109,
-                "start": 0
-              },
-              "text": "january, february, march, april, may, june, july, august, september, october, november and december",
-              "types": [
-                "list",
-                "unknown"
-              ],
-              "value": [
-                {
-                  "dead": true,
-                  "decorators": {
-                    "after": {
-                      "depth": "+",
-                      "level": 0,
-                      "marker": "comma",
-                      "range": {
-                        "end": 7,
-                        "start": 7
-                      },
-                      "text": ",",
-                      "value": ",",
-                      "word": ","
-                    }
-                  },
-                  "level": 0,
-                  "marker": "unknown",
-                  "no_convolutions": true,
-                  "range": {
-                    "end": 7,
-                    "start": 0
-                  },
-                  "text": "january,",
-                  "types": [
-                    "unknown"
-                  ],
-                  "unknown": true,
-                  "value": "january",
-                  "word": "january"
-                },
-                {
-                  "dead": true,
-                  "decorators": {
-                    "after": {
-                      "depth": "+",
-                      "level": 0,
-                      "marker": "comma",
-                      "range": {
-                        "end": 17,
-                        "start": 17
-                      },
-                      "text": ",",
-                      "value": ",",
-                      "word": ","
-                    }
-                  },
-                  "level": 0,
-                  "marker": "unknown",
-                  "no_convolutions": true,
-                  "range": {
-                    "end": 17,
-                    "start": 9
-                  },
-                  "text": "february,",
-                  "types": [
-                    "unknown"
-                  ],
-                  "unknown": true,
-                  "value": "february",
-                  "word": "february"
-                },
-                {
-                  "dead": true,
-                  "decorators": {
-                    "after": {
-                      "depth": "+",
-                      "level": 0,
-                      "marker": "comma",
-                      "range": {
-                        "end": 24,
-                        "start": 24
-                      },
-                      "text": ",",
-                      "value": ",",
-                      "word": ","
-                    }
-                  },
-                  "level": 0,
-                  "marker": "unknown",
-                  "no_convolutions": true,
-                  "range": {
-                    "end": 24,
-                    "start": 19
-                  },
-                  "text": "march,",
-                  "types": [
-                    "unknown"
-                  ],
-                  "unknown": true,
-                  "value": "march",
-                  "word": "march"
-                },
-                {
-                  "dead": true,
-                  "decorators": {
-                    "after": {
-                      "depth": "+",
-                      "level": 0,
-                      "marker": "comma",
-                      "range": {
-                        "end": 31,
-                        "start": 31
-                      },
-                      "text": ",",
-                      "value": ",",
-                      "word": ","
-                    }
-                  },
-                  "level": 0,
-                  "marker": "unknown",
-                  "no_convolutions": true,
-                  "range": {
-                    "end": 31,
-                    "start": 26
-                  },
-                  "text": "april,",
-                  "types": [
-                    "unknown"
-                  ],
-                  "unknown": true,
-                  "value": "april",
-                  "word": "april"
-                },
-                {
-                  "dead": true,
-                  "decorators": {
-                    "after": {
-                      "depth": "+",
-                      "level": 0,
-                      "marker": "comma",
-                      "range": {
-                        "end": 36,
-                        "start": 36
-                      },
-                      "text": ",",
-                      "value": ",",
-                      "word": ","
-                    }
-                  },
-                  "level": 0,
-                  "marker": "unknown",
-                  "no_convolutions": true,
-                  "range": {
-                    "end": 36,
-                    "start": 33
-                  },
-                  "text": "may,",
-                  "types": [
-                    "unknown"
-                  ],
-                  "unknown": true,
-                  "value": "may",
-                  "word": "may"
-                },
-                {
-                  "dead": true,
-                  "decorators": {
-                    "after": {
-                      "depth": "+",
-                      "level": 0,
-                      "marker": "comma",
-                      "range": {
-                        "end": 42,
-                        "start": 42
-                      },
-                      "text": ",",
-                      "value": ",",
-                      "word": ","
-                    }
-                  },
-                  "level": 0,
-                  "marker": "unknown",
-                  "no_convolutions": true,
-                  "range": {
-                    "end": 42,
-                    "start": 38
-                  },
-                  "text": "june,",
-                  "types": [
-                    "unknown"
-                  ],
-                  "unknown": true,
-                  "value": "june",
-                  "word": "june"
-                },
-                {
-                  "dead": true,
-                  "decorators": {
-                    "after": {
-                      "depth": "+",
-                      "level": 0,
-                      "marker": "comma",
-                      "range": {
-                        "end": 48,
-                        "start": 48
-                      },
-                      "text": ",",
-                      "value": ",",
-                      "word": ","
-                    }
-                  },
-                  "level": 0,
-                  "marker": "unknown",
-                  "no_convolutions": true,
-                  "range": {
-                    "end": 48,
-                    "start": 44
-                  },
-                  "text": "july,",
-                  "types": [
-                    "unknown"
-                  ],
-                  "unknown": true,
-                  "value": "july",
-                  "word": "july"
-                },
-                {
-                  "dead": true,
-                  "decorators": {
-                    "after": {
-                      "depth": "+",
-                      "level": 0,
-                      "marker": "comma",
-                      "range": {
-                        "end": 56,
-                        "start": 56
-                      },
-                      "text": ",",
-                      "value": ",",
-                      "word": ","
-                    }
-                  },
-                  "level": 0,
-                  "marker": "unknown",
-                  "no_convolutions": true,
-                  "range": {
-                    "end": 56,
-                    "start": 50
-                  },
-                  "text": "august,",
-                  "types": [
-                    "unknown"
-                  ],
-                  "unknown": true,
-                  "value": "august",
-                  "word": "august"
-                },
-                {
-                  "dead": true,
-                  "decorators": {
-                    "after": {
-                      "depth": "+",
-                      "level": 0,
-                      "marker": "comma",
-                      "range": {
-                        "end": 67,
-                        "start": 67
-                      },
-                      "text": ",",
-                      "value": ",",
-                      "word": ","
-                    }
-                  },
-                  "level": 0,
-                  "marker": "unknown",
-                  "no_convolutions": true,
-                  "range": {
-                    "end": 67,
-                    "start": 58
-                  },
-                  "text": "september,",
-                  "types": [
-                    "unknown"
-                  ],
-                  "unknown": true,
-                  "value": "september",
-                  "word": "september"
-                },
-                {
-                  "dead": true,
-                  "decorators": {
-                    "after": {
-                      "depth": "+",
-                      "level": 0,
-                      "marker": "comma",
-                      "range": {
-                        "end": 76,
-                        "start": 76
-                      },
-                      "text": ",",
-                      "value": ",",
-                      "word": ","
-                    }
-                  },
-                  "level": 0,
-                  "marker": "unknown",
-                  "no_convolutions": true,
-                  "range": {
-                    "end": 76,
-                    "start": 69
-                  },
-                  "text": "october,",
-                  "types": [
-                    "unknown"
-                  ],
-                  "unknown": true,
-                  "value": "october",
-                  "word": "october"
-                },
-                {
-                  "dead": true,
-                  "level": 0,
-                  "marker": "unknown",
-                  "range": {
-                    "end": 85,
-                    "start": 78
-                  },
-                  "text": "november",
-                  "types": [
-                    "unknown"
-                  ],
-                  "unknown": true,
-                  "value": "november",
-                  "word": "november"
-                },
-                {
-                  "dead": true,
-                  "level": 0,
-                  "marker": "unknown",
-                  "range": {
-                    "end": 98,
-                    "start": 91
-                  },
-                  "text": "december",
-                  "types": [
-                    "unknown"
-                  ],
-                  "unknown": true,
-                  "value": "december",
-                  "word": "december"
-                }
-              ],
-              "word": "and"
-            },
-            "range": {
-              "end": 109,
-              "start": 0
-            },
-            "text": "january, february, march, april, may, june, july, august, september, october, november and december are months",
-            "topLevel": true,
-            "touchedBy": [
-              "dates#call2",
-              "instance1#dates#call2",
-              "instance1#dateTimeSelectors#call2"
-            ],
-            "two": {
-              "concept": true,
-              "dead": true,
-              "level": 0,
-              "marker": "unknown",
-              "range": {
-                "end": 109,
-                "start": 104
-              },
-              "text": "months",
-              "types": [
-                "unknown"
-              ],
-              "unknown": true,
-              "value": "months",
-              "word": "months"
-            },
-            "word": "are"
-          },
-          "generatedParenthesized": [
-          ],
-          "paraphrases": [
-          ],
-          "paraphrasesParenthesized": [
-          ],
-          "responses": [
-          ]
-        },
-        {
-          "context": {
-            "context_id": 2,
-            "context_index": 1,
-            "dead": true,
-            "default": true,
-            "level": 1,
-            "marker": "setIdSuffix",
-            "range": {
-              "end": 17,
-              "start": 0
-            },
-            "suffix": {
-              "dead": true,
-              "level": 0,
-              "marker": "unknown",
-              "range": {
-                "end": 17,
-                "start": 12
-              },
-              "text": "_dates",
-              "unknown": true,
-              "value": "_dates",
-              "word": "_dates"
-            },
-            "text": "setidsuffix _dates",
-            "topLevel": true,
-            "touchedBy": [
-              "dates#call2",
-              "instance0#dates#call2",
-              "instance0#dateTimeSelectors#call2"
-            ],
-            "value": "setIdSuffix",
-            "word": "setidsuffix"
+            "value": "equals",
+            "word": "="
           },
           "generatedParenthesized": [
           ],
@@ -4299,7 +4968,7 @@
               {
                 "marker": [
                   "monday_dates",
-                  1
+                  0
                 ],
                 "range": {
                   "end": 14,
@@ -4354,7 +5023,7 @@
               {
                 "marker": [
                   "monday_dates",
-                  1
+                  0
                 ],
                 "range": {
                   "end": 14,
@@ -4409,7 +5078,7 @@
               {
                 "marker": [
                   "monday_dates",
-                  1
+                  0
                 ],
                 "range": {
                   "end": 14,
@@ -4428,7 +5097,7 @@
               },
               {
                 "marker": [
-                  "time",
+                  "timePoint",
                   0
                 ],
                 "range": {
@@ -4454,7 +5123,7 @@
               {
                 "marker": [
                   "monday_dates",
-                  1
+                  0
                 ],
                 "range": {
                   "end": 14,
