@@ -23,7 +23,7 @@ describe('words km', () => {
     })
   })
 
-  test('NEO23 finds one', async () => {
+  test('finds one', async () => {
     await km.run(({addWordToDictionary, getWordFromDictionary, config}) => {
       const word = {
         id: 'be',
