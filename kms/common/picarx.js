@@ -98,6 +98,7 @@ const askForProperty = ({
 const template = {
   fragments: [ 
     // "forward",
+    "evaluate dimension in meters",
   ],
   configs: [
     "car is a concept",
@@ -145,6 +146,7 @@ const template = {
       args.config.addSemantic({
         match: ({context, isA}) => isA(context.marker, 'dimension'),
         apply: ({context, objects}) => {
+          debugger
           objects.calibration.distance = context
         }
       })
