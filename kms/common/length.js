@@ -7,7 +7,7 @@ const length_instance = require('./length.instance.json')
 const template = {
   configs: [
     "length is a dimension",
-    "meter centimeter foot and inch are units of length",
+    "meter centimeter foot mile and inch are units of length",
     "meters = centimeters / 100",
     "centimeters = meters * 100",
     "centimeters = millimeters / 10",
