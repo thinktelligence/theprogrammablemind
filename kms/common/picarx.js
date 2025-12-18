@@ -1,10 +1,8 @@
 const { knowledgeModule, where } = require('./runtime').theprogrammablemind
-const { defaultContextCheck } = require('./helpers')
+const { defaultContextCheck, getValue, setValue } = require('./helpers')
 const picarx_tests = require('./picarx.test.json')
 const picarx_instance = require('./picarx.instance.json')
 const hierarchy = require('./hierarchy')
-const time = require('./time')
-const length = require('./length')
 const rates = require('./rates')
 const help = require('./help')
 
@@ -79,19 +77,20 @@ const howToCalibrate = "When you are ready say calibrate. The car will drive for
 const askForProperty = ({
   objects,
   ask,
-  property,
+  propertyPath,
   query,
 }) => {
   ask({
     where: where(),
     oneShot: false, 
 
-    matchq: ({ api, context }) => !objects[property] && context.marker == 'controlEnd',
+    matchq: ({ api, context }) => !getValue(propertyPath, objects) && context.marker == 'controlEnd',
     applyq: async ({ say }) => query,
 
     matchr: ({context}) => context.marker == 'dimension',
     applyr: async ({objects, context}) => {
-      objects.distance = context
+      // objects.calibration.distance = context
+      setValue(propertyPath, objects, context)
     },
   })
 }
@@ -107,29 +106,30 @@ const template = {
     "forward, left, right, and backward are directions",
     "speed is a property",
     ({objects}) => {
-      objects.startTime = undefined   // start time for calibration
-      objects.endTime = undefined     // end time for calibration
-      objects.duration = undefined    // end time - start time
-      objects.distance = undefined    // distance travelled during calibration in mm
-      objects.speed = undefined       // length / time in meters per second
-      objects.calibrated_speed_in_meters_per_second = undefined
-      objects.calibrated_speed_percentage = undefined
+      objects.calibration = {
+        startTime: undefined,   // start time for calibration
+        endTime: undefined,     // end time for calibration
+        duration: undefined,    // end time - start time
+        distance: undefined,    // distance travelled during calibration in mm
+        power: 0.1,
+        speed: undefined,       // meters per second
+      }
       objects.direction = undefined   // direction to go if going
     },
     (args) => {
       askForProperty({
         ...args,
-        property: 'distance',
+        propertyPath: ['calibration', 'distance'],
         query: "How far did the car go?",
       })
       askForProperty({
         ...args,
-        property: 'endTime',
+        propertyPath: ['calibration', 'endTime'],
         query: "Say stop when the car has driven enough.",
       })
       askForProperty({
         ...args,
-        property: 'startTime',
+        propertyPath: ['calibration', 'startTime'],
         query: howToCalibrate
       })
 
@@ -145,7 +145,7 @@ const template = {
       args.config.addSemantic({
         match: ({context, isA}) => isA(context.marker, 'dimension'),
         apply: ({context, objects}) => {
-          objects.distance = context
+          objects.calibration.distance = context
         }
       })
 
@@ -170,7 +170,7 @@ const template = {
           isA: ['verb'],
           bridge: "{ ...next(operator), interpolate: [{ context: operator }] }",
           semantic: ({context, objects, api}) => {
-            objects.startTime = api.now()
+            objects.calibration.startTime = api.now()
             // send command to car to go forward
           }
         },
@@ -192,11 +192,11 @@ const template = {
           },
           bridge: "{ ...next(operator), object: after[0], interpolate: [{ context: operator }, { property: 'object' }] }",
           semantic: ({context, objects, api, say}) => {
-            if (!objects.startTime) {
+            if (!objects.calibration.startTime) {
               // default will say how to calibrate
             } else {
-              objects.endTime = api.now()
-              objects.duration = objects.endTime - objects.startTime
+              objects.calibration.endTime = api.now()
+              objects.calibration.duration = objects.calibration.endTime - objects.calibration.startTime
             }
           }
         },
@@ -213,7 +213,7 @@ const template = {
 
 knowledgeModule( { 
   config: { name: 'picarx' },
-  includes: [hierarchy, length, time, rates, help],
+  includes: [hierarchy, rates, help],
   api: () => new API(),
 
   module,
@@ -224,13 +224,7 @@ knowledgeModule( {
     checks: {
       context: [defaultContextCheck()],
       objects: [
-        'startTime',
-        'endTime',
-        'duration',
-        'distance',
-        'speed',
-        'calibrated_speed_in_meters_per_second',
-        'calibrated_speed_percentage',
+        'calibrate',
       ],
     }
   },

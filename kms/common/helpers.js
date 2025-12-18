@@ -247,7 +247,10 @@ function getValue(propertyPath, object) {
   if (!propertyPath) {
     return
   }
-  const path = propertyPath.split('.')
+  let path = propertyPath
+  if (typeof path == 'string') {
+    path = propertyPath.split('.')
+  }
   let value = object
   for (const name of path) {
     if (!value) {
@@ -256,6 +259,29 @@ function getValue(propertyPath, object) {
     value = value[name]
   }
   return value
+}
+
+function setValue(propertyPath, object, newValue) {
+  if (!propertyPath) {
+    return;
+  }
+  let path = propertyPath;
+  if (typeof path === 'string') {
+    path = propertyPath.split('.');
+  }
+  let current = object;
+  for (let i = 0; i < path.length; i++) {
+    const name = path[i];
+    if (i === path.length - 1) {
+      // Set the value at the final step
+      current[name] = newValue;
+      break;
+    }
+    if (current[name] === undefined || current[name] === null) {
+      current[name] = {};  // Create a plain object for nesting
+    }
+    current = current[name];
+  }
 }
 
 async function processTemplateString(template, evaluate) {
@@ -354,7 +380,10 @@ module.exports = {
   processTemplateString,
   unshiftL,
   pushL,
+
   getValue,
+  setValue,
+
   defaultContextCheck,
   defaultContextCheckProperties,
   defaultObjectCheck,
