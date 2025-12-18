@@ -929,3 +929,4 @@ node can -q 'coffee can be made by joe\nwho can make coffee' -g -d
 node weight -q "the weight of greg is 213 pounds what is greg's weight" -g -d
 node wp -q 'bold the first word of the second and third paragraph' -g -d
 node dialogues -q 'first and second' -g -d
+node rates -q 'mile per hour' -g -d
