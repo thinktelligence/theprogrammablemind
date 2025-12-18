@@ -3,8 +3,10 @@ const { defaultContextCheck } = require('./helpers')
 const picarx_tests = require('./picarx.test.json')
 const picarx_instance = require('./picarx.instance.json')
 const hierarchy = require('./hierarchy')
-const help = require('./help')
+const time = require('./time')
 const length = require('./length')
+const rates = require('./rates')
+const help = require('./help')
 
 /*
 todo
@@ -109,7 +111,9 @@ const template = {
       objects.endTime = undefined     // end time for calibration
       objects.duration = undefined    // end time - start time
       objects.distance = undefined    // distance travelled during calibration in mm
-      objects.speed = undefined       // distance / duration
+      objects.speed = undefined       // length / time in meters per second
+      objects.calibrated_speed_in_meters_per_second = undefined
+      objects.calibrated_speed_percentage = undefined
       objects.direction = undefined   // direction to go if going
     },
     (args) => {
@@ -189,7 +193,7 @@ const template = {
           bridge: "{ ...next(operator), object: after[0], interpolate: [{ context: operator }, { property: 'object' }] }",
           semantic: ({context, objects, api, say}) => {
             if (!objects.startTime) {
-              say(howToCalibrate)
+              // default will say how to calibrate
             } else {
               objects.endTime = api.now()
               objects.duration = objects.endTime - objects.startTime
@@ -200,7 +204,7 @@ const template = {
       generators: [
         {
           match: ({context}) => context.marker == 'help' && !context.paraphrase && context.isResponse,
-          apply: () => howToCalibrate
+          apply: () => ''
         },
       ],
     },
@@ -209,7 +213,7 @@ const template = {
 
 knowledgeModule( { 
   config: { name: 'picarx' },
-  includes: [hierarchy, length, help],
+  includes: [hierarchy, length, time, rates, help],
   api: () => new API(),
 
   module,
@@ -225,6 +229,8 @@ knowledgeModule( {
         'duration',
         'distance',
         'speed',
+        'calibrated_speed_in_meters_per_second',
+        'calibrated_speed_percentage',
       ],
     }
   },
