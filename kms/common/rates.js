@@ -20,6 +20,8 @@ const template = {
       bridges: [
         {
           id: 'unitPerUnit',
+          before: ['amountOfDimension'],
+          isA: ['unit'],
           bridge: `{ 
             ...operator, 
             numerator: before[0], 
@@ -29,6 +31,42 @@ const template = {
           "enhanced_associations": true,
         },
       ],
+      semantics: [
+        {
+          match: ({context}) => context.marker == 'convertToUnits' && context.evaluate && (context.from.unit.marker == 'unitPerUnit' || context.to.marker == 'unitPerUnit'),
+          apply: async ({context, kms, e, error}) => {
+
+            async function convert(fromUnits, fromAmount, toUnits) {
+              let evalue;
+              if (toUnits.value == fromUnits.value) {
+                evalue = fromAmount
+              } else {
+                const formula = kms.formulas.api.get(toUnits, [fromUnits])
+                if (!formula) {
+                  const reason = { marker: 'reason', focusableForPhrase: true, evalue: { marker: 'noconversion', from: fromUnits, to: toUnits } }
+                  kms.stm.api.mentioned({ context: reason })
+                  error(reason)
+                }
+                kms.stm.api.setVariable(fromUnits.value, fromAmount)
+                evalue = await e(formula)
+              }
+              return evalue
+            }
+
+            const evalueNumerator = await convert(context.from.unit.numerator, context.from.amount, context.to.numerator) 
+            const evalueDenominator = await convert(context.from.unit.denominator, 1, context.to.denominator) 
+            const evalue = { evalue: evalueNumerator.evalue / evalueDenominator.evalue }
+
+            context.evalue = {
+              paraphrase: true,
+              marker: 'dimension',
+              level: 1,
+              unit: context.to,
+              amount: { evalue, paraphrase: undefined }
+            }
+          },
+        },
+      ]
     },
   ],
 }
