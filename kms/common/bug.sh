@@ -930,3 +930,4 @@ node weight -q "the weight of greg is 213 pounds what is greg's weight" -g -d
 node wp -q 'bold the first word of the second and third paragraph' -g -d
 node dialogues -q 'first and second' -g -d
 node rates -q 'mile per hour' -g -d
+node  picarx -q 'calibrate\npause 1\nstop\n2 feet' -g -d

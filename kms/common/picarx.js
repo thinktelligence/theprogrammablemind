@@ -98,7 +98,7 @@ const askForProperty = ({
 const template = {
   fragments: [ 
     // "forward",
-    "evaluate dimension in meters",
+    "dimension in meters",
   ],
   configs: [
     "car is a concept",
@@ -145,9 +145,25 @@ const template = {
       // expectProperty
       args.config.addSemantic({
         match: ({context, isA}) => isA(context.marker, 'dimension'),
-        apply: ({context, objects}) => {
-          debugger
-          objects.calibration.distance = context
+        apply: async ({context, objects, fragments, e}) => {
+          const fragment = await fragments("dimension in meters")
+          const source = context
+          const mappings = [{
+            where: where(),
+            match: ({context}) => context.value == 'dimension',
+            apply: ({context}) => Object.assign(context, source),
+          }]
+          const instantiation = await fragment.instantiate(mappings)
+          const result = await e(instantiation)
+          objects.calibration.distance = result.evalue.amount.evalue.evalue
+        }
+      })
+
+      args.config.addSemantic({
+        match: ({context, objects, isA}) => context.marker == 'controlEnd' && objects.calibration.distance && objects.calibration.duration && !objects.calibration.speed,
+        apply: ({context, objects, _continue}) => {
+          objects.calibration.speed = objects.calibration.distance / objects.calibration.duration
+          _continue()
         }
       })
 
@@ -198,7 +214,7 @@ const template = {
               // default will say how to calibrate
             } else {
               objects.calibration.endTime = api.now()
-              objects.calibration.duration = objects.calibration.endTime - objects.calibration.startTime
+              objects.calibration.duration = (objects.calibration.endTime - objects.calibration.startTime)/1000
             }
           }
         },
@@ -226,7 +242,7 @@ knowledgeModule( {
     checks: {
       context: [defaultContextCheck()],
       objects: [
-        'calibrate',
+        'calibration',
       ],
     }
   },
