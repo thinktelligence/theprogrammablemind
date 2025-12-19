@@ -9,6 +9,10 @@ const help = require('./help')
 /*
 todo
 
+  https://github.com/sunfounder/picar-x/tree/v2.0/gpt_examples
+  https://github.com/sunfounder/picar-x/tree/v2.0/example
+  VOSK: https://docs.sunfounder.com/projects/picar-x-v20/en/latest/ai_interaction/python_voice_control.html
+
   DONE why is 3 meters not marker: length its marker dimension
   DONE how to handle time in the testing
   repeat that/what/say again/say that again
@@ -44,8 +48,10 @@ todo
 
   just say the speed
 
-
   go forward 2 meters
+
+  pan camera left slowly
+  do the cylon every 30 seconds
 */
 
 class API {
@@ -70,6 +76,23 @@ class API {
     }
   }
 
+  forward(power) {
+  }
+
+  backward(power) {
+  }
+
+  turn(angle) {
+  }
+
+  tilt_angle(angle) {
+  }
+
+  pan_angle(angle) {
+  }
+
+  stop() {
+  }
 }
 
 const howToCalibrate = "When you are ready say calibrate. The car will drive forward at 10 percent power then say stop. Measure the distance and tell me that. Or you can say the speed of the car at percentage of power."
@@ -137,7 +160,7 @@ const template = {
       // expectProperty
       args.config.addSemantic({
         match: ({context, isA}) => isA(context.marker, 'direction'),
-        apply: ({context}) => {
+        apply: ({objects, context}) => {
           objects.direction = context
         }
       })
@@ -176,12 +199,27 @@ const template = {
     },
     {
       operators: [
+        { pattern: "([testSetup])", scope: "development" },
         "([calibrate])",
         "([pause] ([number]))",
         "([stop] ([car|])?)",
         "([go])",
       ],
       bridges: [
+        { 
+          id: "testSetup" ,
+          scope: 'development',
+          semantic: ({objects}) => {
+            objects.calibration = {
+              distance: 0.6097560975609756,
+              duration: 1,
+              endTime: "2025-06-29T21:52:02.000Z",
+              power: 0.1,
+              speed: 0.6097560975609756,
+              startTime: "2025-06-29T21:52:01.000Z"
+            }
+          }
+        },
         { id: "go" },
         {
           id: 'calibrate',
