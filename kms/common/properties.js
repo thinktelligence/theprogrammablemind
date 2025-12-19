@@ -367,7 +367,7 @@ const config = {
       notes: 'the property of object',
       where: where(),
       // match: ({context}) => context.paraphrase && context.modifiers && context.object, 
-      match: ({context}) => context.paraphrase && !context.possession && context.object, 
+      match: ({context}) => context.paraphrase && !context.possession && context.object && !context.interpolate, 
       apply: async ({context, g, gs}) => {
                const base = { ...context }
                base.object = undefined;
@@ -400,7 +400,7 @@ const config = {
       notes: "object's property",
       where: where(),
       // match: ({context}) => context.paraphrase && !context.modifiers && context.object, 
-      match: ({context}) => !context.modifiers && context.object, 
+      match: ({context}) => !context.modifiers && context.object && !context.interpolate, 
       apply: async ({context, g, gs}) => {
                if (context.objects) {
                  const objects = [ ...context.objects ]

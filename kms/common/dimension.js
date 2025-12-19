@@ -127,11 +127,6 @@ const config = {
       generatorp: async ({context, g}) => `${await g(context.from)} ${context.word} ${await g(context.to)}`,
       // evaluator: ({context, kms, error}) => {
       evaluator: async ({context, kms, e, error}) => {
-        /*
-        error(({context, e}) => {
-          context.evalue = 'dont know...'
-        })
-        */
         const from = context.from;
         const to = context.to;
         let evalue;
