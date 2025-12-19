@@ -36,7 +36,7 @@ const template = {
           match: ({context}) => context.marker == 'convertToUnits' && context.evaluate && (context.from.unit.marker == 'unitPerUnit' || context.to.marker == 'unitPerUnit'),
           apply: async ({context, kms, e, error}) => {
 
-            const convert = async (fromUnits, fromAmount, toUnits) => {
+            async function convert(fromUnits, fromAmount, toUnits) {
               let evalue;
               if (toUnits.value == fromUnits.value) {
                 evalue = fromAmount
@@ -53,7 +53,6 @@ const template = {
               return evalue
             }
 
-            debugger
             const evalueNumerator = await convert(context.from.unit.numerator, context.from.amount, context.to.numerator) 
             const evalueDenominator = await convert(context.from.unit.denominator, 1, context.to.denominator) 
             const evalue = { evalue: evalueNumerator.evalue / evalueDenominator.evalue }
