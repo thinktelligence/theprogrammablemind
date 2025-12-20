@@ -156,14 +156,7 @@ const template = {
           where: where(),
           match: ({context, isA}) => isA(context, 'showable_menus'),
           apply: async ({context, insert, s, fragments}) => {
-            const value = context
-            const fragment = await fragments("show showable")
-            const mappings = [{
-              where: where(),
-              match: ({context}) => context.value == 'showable_menus',
-              apply: ({context}) => Object.assign(context, value),
-            }]
-            const instantiation = await fragment.instantiate(mappings)
+            const instantiation = await fragments("show showable", { 'showable_menus': context })
             await s(instantiation)
           }
         },
