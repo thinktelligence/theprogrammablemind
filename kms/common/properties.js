@@ -572,7 +572,7 @@ const config = {
         } catch (e) {
           log(`Error processing set property of an object: ${e}`)
           const config = km('properties')
-          const fragment = fragments("the property1 of object1 is value1")
+          const fragment = await fragments("the property1 of object1 is value1")
           const value = await api.getProperty(objectId, propertyId)
           if (value.value == context.same.value) {
             context.evalue = [

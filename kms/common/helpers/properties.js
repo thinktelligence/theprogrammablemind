@@ -247,8 +247,8 @@ class API {
         match: ({context, hierarchy}) => hierarchy.isA(context.marker, 'is') && context.one && context.one.marker == after[0].tag && context.one.constraints && context.one.constraints[0] && context.one.constraints[0].constraint.marker == edAble.operator && context.one.constraints[0].constraint[before[0].tag].implicit,
         apply: async ({context, fragments, g, gs, callId}) => {
           const isToFromM = [{"from":["one"],"to":["two"]},{"from":["two"],"to":["one"]}]
-          const fromF = fragments(whoIsWhatVerbedBy).contexts()[0]
-          const toF = fragments(thisIsVerbedByThat)
+          const fromF = (await fragments(whoIsWhatVerbedBy)).contexts()[0]
+          const toF = await fragments(thisIsVerbedByThat)
           const to = toF.contexts()[0]
           const tm = translationMapping(fromF, to)
           /*

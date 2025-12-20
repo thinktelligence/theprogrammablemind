@@ -43,7 +43,7 @@
       "semantics": [
         {
           "match": "({context, isA}) => isA(context, 'showable_menus')",
-          "apply": "async ({context, insert, s, fragments}) => {\n            const value = context\n            const fragment = fragments(\"show showable\")\n            const mappings = [{\n              where: where(),\n              match: ({context}) => context.value == 'showable_menus',\n              apply: ({context}) => Object.assign(context, value),\n            }]\n            const instantiation = await fragment.instantiate(mappings)\n            await s(instantiation)\n          }"
+          "apply": "async ({context, insert, s, fragments}) => {\n            const value = context\n            const fragment = await fragments(\"show showable\")\n            const mappings = [{\n              where: where(),\n              match: ({context}) => context.value == 'showable_menus',\n              apply: ({context}) => Object.assign(context, value),\n            }]\n            const instantiation = await fragment.instantiate(mappings)\n            await s(instantiation)\n          }"
         }
       ]
     },

@@ -277,7 +277,7 @@ const config = {
 
 function initializer({config}) {
     config.addArgs((args) => {
-      const verbatim = (text) => {
+      function verbatim(text) {
         args.insert({ marker: 'verbatim', verbatim: text, isResponse: true })
       }
       return {

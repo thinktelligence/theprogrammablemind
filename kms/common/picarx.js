@@ -76,6 +76,13 @@ class API {
     }
   }
 
+  sendCommand() {
+    const command = { power: this._objects.calibration.power, ...this._objects.current }
+    this._objects.history.push(command)
+  }
+
+  // subclass and override the remaining to call the car
+
   forward(power) {
   }
 
@@ -102,6 +109,7 @@ const askForProperty = ({
   ask,
   propertyPath,
   query,
+  matchr,
 }) => {
   ask({
     where: where(),
@@ -110,7 +118,7 @@ const askForProperty = ({
     matchq: ({ api, context }) => !getValue(propertyPath, objects) && context.marker == 'controlEnd',
     applyq: async ({ say }) => query,
 
-    matchr: ({context}) => context.marker == 'dimension',
+    matchr,
     applyr: async ({objects, context}) => {
       // objects.calibration.distance = context
       setValue(propertyPath, objects, context)
@@ -120,15 +128,15 @@ const askForProperty = ({
 
 const template = {
   fragments: [ 
-    // "forward",
     "dimension in meters",
+    "unitperunit in meters per second",
   ],
   configs: [
     "car is a concept",
     "picarx is a car",
     //TODO "forward left, right, backward are directions",
     "forward, left, right, and backward are directions",
-    "speed is a property",
+    "speed and power are properties",
     ({objects}) => {
       objects.calibration = {
         startTime: undefined,   // start time for calibration
@@ -138,45 +146,58 @@ const template = {
         power: 0.1,
         speed: undefined,       // meters per second
       }
-      objects.direction = undefined   // direction to go if going
+      objects.current = {
+        // direction: undefined,   // direction to go if going
+        // power: undefined,       // power
+      }
+      objects.history = []
+      objects.isCalibrated = false
     },
     (args) => {
       askForProperty({
         ...args,
         propertyPath: ['calibration', 'distance'],
         query: "How far did the car go?",
+        matchr: ({context}) => context.marker == 'dimension' && context.dimension == 'length',
       })
       askForProperty({
         ...args,
         propertyPath: ['calibration', 'endTime'],
         query: "Say stop when the car has driven enough.",
+        matchr: () => false,
       })
       askForProperty({
         ...args,
         propertyPath: ['calibration', 'startTime'],
-        query: howToCalibrate
+        query: howToCalibrate,
+        matchr: () => false,
       })
+
+      // expectProperty
+      /*
+      args.config.addSemantic({
+        match: ({context, isA, objects}) => isA(context.marker, 'unitPerUnit') && !objects.calibration.speed,
+        apply: ({objects, context}) => {
+          debugger
+          objects.direction = context
+        }
+      })
+      */
 
       // expectProperty
       args.config.addSemantic({
         match: ({context, isA}) => isA(context.marker, 'direction'),
         apply: ({objects, context}) => {
-          objects.direction = context
+          objects.current.direction = context.marker
         }
       })
 
       // expectProperty
       args.config.addSemantic({
-        match: ({context, isA}) => isA(context.marker, 'dimension'),
+        match: ({context, isA}) => isA(context.marker, 'dimension') && !isA(context.unit.marker, 'unitPerUnit'),
         apply: async ({context, objects, fragments, e}) => {
-          const fragment = await fragments("dimension in meters")
           const source = context
-          const mappings = [{
-            where: where(),
-            match: ({context}) => context.value == 'dimension',
-            apply: ({context}) => Object.assign(context, source),
-          }]
-          const instantiation = await fragment.instantiate(mappings)
+          const instantiation = await fragments("dimension in meters", { dimension: context })
           const result = await e(instantiation)
           objects.calibration.distance = result.evalue.amount.evalue.evalue
         }
@@ -186,40 +207,35 @@ const template = {
         match: ({context, objects, isA}) => context.marker == 'controlEnd' && objects.calibration.distance && objects.calibration.duration && !objects.calibration.speed,
         apply: ({context, objects, _continue}) => {
           objects.calibration.speed = objects.calibration.distance / objects.calibration.duration
+          objects.isCalibrated = true
           _continue()
         }
       })
 
       args.config.addSemantic({
-        match: ({context, objects, isA}) => objects.direction && objects.dimension && context.marker == 'controlEnd',
-        apply: ({context, objects}) => {
+        match: ({context, isA}) => isA(context.marker, 'dimension') && isA(context.unit.marker, 'unitPerUnit'),
+        apply: ({context, objects, api}) => {
           // send a command to the car
+          debugger 
+        }
+      })
+
+      args.config.addSemantic({
+        match: ({context, objects, isA}) => objects.current.direction && objects.isCalibrated && context.marker == 'controlEnd',
+        apply: ({context, objects, api}) => {
+          // send a command to the car
+          api.sendCommand()
         }
       })
     },
     {
       operators: [
-        { pattern: "([testSetup])", scope: "development" },
         "([calibrate])",
         "([pause] ([number]))",
         "([stop] ([car|])?)",
         "([go])",
       ],
       bridges: [
-        { 
-          id: "testSetup" ,
-          scope: 'development',
-          semantic: ({objects}) => {
-            objects.calibration = {
-              distance: 0.6097560975609756,
-              duration: 1,
-              endTime: "2025-06-29T21:52:02.000Z",
-              power: 0.1,
-              speed: 0.6097560975609756,
-              startTime: "2025-06-29T21:52:01.000Z"
-            }
-          }
-        },
         { id: "go" },
         {
           id: 'calibrate',
@@ -281,6 +297,8 @@ knowledgeModule( {
       context: [defaultContextCheck()],
       objects: [
         'calibration',
+        'history',
+        'current',
       ],
     }
   },

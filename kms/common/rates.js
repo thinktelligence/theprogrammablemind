@@ -8,6 +8,8 @@ const rates_instance = require('./rates.instance.json')
 
 /*
   miles per hour
+
+  TODO 2 meters every 3 minutes
 */
 
 const template = {
