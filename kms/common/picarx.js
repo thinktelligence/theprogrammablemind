@@ -9,6 +9,30 @@ const help = require('./help')
 /*
 todo
 
+  VOSK
+
+    https://alphacephei.com/vosk/
+
+  FreeNode Tank
+
+  https://docs.freenove.com/projects/fnk0077/en/latest/fnk0077/codes/tutorial/3_Module_test_%28necessary%29.html
+https://www.amazon.ca/Freenove-Raspberry-Tracking-Avoidance-Ultrasonic/dp/B0BNDQFRP1/ref=sr_1_1_sspa?crid=1JT788RT84O8C&dib=eyJ2IjoiMSJ9.1W6XTWnHwPcqZTD8iRfmF7hHwiVycHjB02NHKEcqGfQSUKyJfN0OLyaaoCcypQug_C9CGah-7wLgfAtJRs_JKiwDsqYXqFfvvoU5ETBk_Le-S9Qt4kwh92r0w19bzA5my7aQpT52ssw8-f8Xpzjbqm1uFsLh82jF4V7P8xMKobjVHHILXalReEPuJz2OlF6y_ihwtUuVLDjMkuvNPoK-M7YLntLqKQy229XKjtDSUV4J0YT1L8uLVWHZ-ySs_MmG_w-oyZ9QFIe0a9hJEMuiu_BcaDmxFkwMeGBro2uczAU.NlqF_FH_6PvflZKozPylFlIyKuwx7mAB-jAggC1aPFk&dib_tag=se&keywords=Freenove+Tank+Robot+Kit&qid=1766258114&sprefix=freenove+tank+robot+kit%2Caps%2C130&sr=8-1-spons&sp_csd=d2lkZ2V0TmFtZT1zcF9hdGY&psc=1
+
+
+  send commands to arduino from another computer:
+
+    https://www.npmjs.com/package/johnny-five
+
+  KEYESTUDIO Mini Tank Robot V2 Smart Car Kit for Arduino
+
+    https://www.amazon.ca/KEYESTUDIO-Infrared-Ultrasonic-Obstacle-Avoidance/dp/B07X4W7SZ5/ref=sr_1_10?crid=2A71NHZNTAION&dib=eyJ2IjoiMSJ9.W-I4I_tfyGdGt2UrNlNrlFeKnfIwppniNSX5FJndx77Ht944f9RylJD9me0PiqV5V_b185b17BsrPdKxmYYHnJ-Odb7hbdVzKs019mag1nCL-Wqe4aR0IYrEOzJkKTnR4YbXGYwriLd26OBYjhNvgaCFyE5uwsYkAK-qJXI2Xiui19oLiLYrmJvBz0bCHe4s7U6OdmaumYhhfxpVErk1E1zAwxE8kdq_YD7ZCMRjKS9Tr6cbayIh9GKDwMLuW-LCdzOW2eQx-dTB7yXV53rpV34IBAcCE1IgmwwNIIW7E6Y.fdaAuj4qvXq-67f5ktOq7Coo8lggrMiB_TFFtluqDtI&dib_tag=se&keywords=Adafruit+Mini+Round+Robot+Chassis+Kit&qid=1766256581&sprefix=adafruit+mini+round+robot+chassis+kit+%2Caps%2C123&sr=8-10
+    https://github.com/ericmend/mini-tank/blob/master/README.md
+
+
+
+
+  vosk
+
   https://github.com/sunfounder/picar-x/tree/v2.0/gpt_examples
   https://github.com/sunfounder/picar-x/tree/v2.0/example
   VOSK: https://docs.sunfounder.com/projects/picar-x-v20/en/latest/ai_interaction/python_voice_control.html
@@ -19,6 +43,8 @@ todo
   make it say the howToCalibrate right from the start. maybe have some prime it call?!?!?!
   convert from length to a some kind of standard number
   shut up/dont talk/be quiet -> stop saying responses
+
+  use it to measure distances -> go forward. stop. how far was that
 
   call this point a
   move 5 feet
@@ -82,6 +108,9 @@ class API {
       case 'forward':
         this.forward(command.power)
         break
+      case 'backward':
+        this.backward(command.power)
+        break
     }
   }
 
@@ -92,7 +121,11 @@ class API {
   }
 
   backward(power) {
+    this._objects.history.push({ direction: 'backward', power })
   }
+
+  // -angle is counterclockwise
+  // +angle is clockwise
 
   turn(angle) {
   }
