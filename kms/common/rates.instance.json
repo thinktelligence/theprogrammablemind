@@ -1,13 +1,52 @@
 {
   "configs": [
     {
-      "operators": []
+      "operators": [
+        "((context.dimension != undefined) [unitPerUnit|per] (context.dimension != undefined))"
+      ],
+      "bridges": [
+        {
+          "id": "unitPerUnit",
+          "before": [
+            "amountOfDimension"
+          ],
+          "isA": [
+            "unit"
+          ],
+          "bridge": "{ \n            ...operator, \n            numerator: before[0], \n            denominator: after[0],\n            interpolate: [{ property: 'numerator', context: { number: 'many' } }, { context: operator }, { property: 'denominator' }] \n          }",
+          "enhanced_associations": true
+        }
+      ],
+      "semantics": [
+        {
+          "match": "({context}) => context.marker == 'convertToUnits' && context.evaluate && (context.from.unit.marker == 'unitPerUnit' || context.to.marker == 'unitPerUnit')",
+          "apply": "async ({context, kms, e, error}) => {\n\n            async function convert(fromUnits, fromAmount, toUnits) {\n              let evalue;\n              if (toUnits.value == fromUnits.value) {\n                evalue = fromAmount\n              } else {\n                const formula = kms.formulas.api.get(toUnits, [fromUnits])\n                if (!formula) {\n                  const reason = { marker: 'reason', focusableForPhrase: true, evalue: { marker: 'noconversion', from: fromUnits, to: toUnits } }\n                  kms.stm.api.mentioned({ context: reason })\n                  error(reason)\n                }\n                kms.stm.api.setVariable(fromUnits.value, fromAmount)\n                evalue = await e(formula)\n              }\n              return evalue\n            }\n\n            debugger\n            const evalueNumerator = await convert(context.from.unit.numerator, context.from.amount, context.to.numerator) \n            const evalueDenominator = await convert(context.from.unit.denominator, 1, context.to.denominator) \n            const evalue = { evalue: (evalueNumerator.evalue || evalueNumerator.value) / (evalueDenominator.evalue || evalueDenominator.evalue) }\n\n            context.evalue = {\n              paraphrase: true,\n              marker: 'dimension',\n              level: 1,\n              unit: context.to,\n              amount: { evalue, paraphrase: undefined }\n            }\n          }"
+        }
+      ]
     }
   ],
   "resultss": [
     {
       "extraConfig": true,
-      "operators": []
+      "operators": [
+        "((context.dimension != undefined) [unitPerUnit|per] (context.dimension != undefined))"
+      ],
+      "bridges": [
+        {
+          "id": "unitPerUnit",
+          "before": [
+            "amountOfDimension"
+          ],
+          "isA": [
+            "unit"
+          ],
+          "bridge": "{ \n            ...operator, \n            numerator: before[0], \n            denominator: after[0],\n            interpolate: [{ property: 'numerator', context: { number: 'many' } }, { context: operator }, { property: 'denominator' }] \n          }",
+          "enhanced_associations": true
+        }
+      ],
+      "semantics": [
+        {}
+      ]
     }
   ],
   "fragments": [],

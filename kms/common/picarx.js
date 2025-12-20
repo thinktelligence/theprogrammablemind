@@ -78,12 +78,17 @@ class API {
 
   sendCommand() {
     const command = { power: this._objects.calibration.power, ...this._objects.current }
-    this._objects.history.push(command)
+    switch (command.direction) {
+      case 'forward':
+        this.forward(command.power)
+        break
+    }
   }
 
   // subclass and override the remaining to call the car
 
   forward(power) {
+    this._objects.history.push({ direction: 'forward', power })
   }
 
   backward(power) {
@@ -104,13 +109,13 @@ class API {
 
 const howToCalibrate = "When you are ready say calibrate. The car will drive forward at 10 percent power then say stop. Measure the distance and tell me that. Or you can say the speed of the car at percentage of power."
 
-const askForProperty = ({
+function askForProperty({
   objects,
   ask,
   propertyPath,
   query,
   matchr,
-}) => {
+}) {
   ask({
     where: where(),
     oneShot: false, 
@@ -196,7 +201,6 @@ const template = {
       args.config.addSemantic({
         match: ({context, isA}) => isA(context.marker, 'dimension') && !isA(context.unit.marker, 'unitPerUnit'),
         apply: async ({context, objects, fragments, e}) => {
-          const source = context
           const instantiation = await fragments("dimension in meters", { dimension: context })
           const result = await e(instantiation)
           objects.calibration.distance = result.evalue.amount.evalue.evalue
@@ -205,18 +209,23 @@ const template = {
 
       args.config.addSemantic({
         match: ({context, objects, isA}) => context.marker == 'controlEnd' && objects.calibration.distance && objects.calibration.duration && !objects.calibration.speed,
-        apply: ({context, objects, _continue}) => {
+        apply: ({context, objects, _continue, say}) => {
           objects.calibration.speed = objects.calibration.distance / objects.calibration.duration
           objects.isCalibrated = true
+          say(`The car is calibrated. The speed is ${objects.calibration.speed.toFixed(4)} meters per second at 10 percent power`)
           _continue()
         }
       })
 
       args.config.addSemantic({
         match: ({context, isA}) => isA(context.marker, 'dimension') && isA(context.unit.marker, 'unitPerUnit'),
-        apply: ({context, objects, api}) => {
+        apply: async ({context, objects, api, fragments, e}) => {
           // send a command to the car
-          debugger 
+          const instantiation = await fragments("unitperunit in meters per second", { unitperunit: context })
+          const result = await e(instantiation)
+          const desired_speed = result.evalue.amount.evalue.evalue
+          const desired_power = objects.calibration.power * (desired_speed / objects.calibration.speed)
+          objects.current.power = desired_power 
         }
       })
 
@@ -252,7 +261,7 @@ const template = {
           bridge: "{ ...operator, time: after[0], interpolate: [{ context: operator }, { property: 'time' }] }",
           semantic: async ({context}) => {
             // why doesn't nodejs add a sleep function. I always have to look up how to do this because its not fucking memorable.
-            const sleep = (ms) => new Promise(r => setTimeout(r, ms));
+            function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
             await sleep(context.time.value*1000) 
           }
         },

@@ -57,7 +57,7 @@ const template = {
 
             const evalueNumerator = await convert(context.from.unit.numerator, context.from.amount, context.to.numerator) 
             const evalueDenominator = await convert(context.from.unit.denominator, 1, context.to.denominator) 
-            const evalue = { evalue: evalueNumerator.evalue / evalueDenominator.evalue }
+            const evalue = { evalue: (evalueNumerator.evalue || evalueNumerator.value) / (evalueDenominator.evalue || evalueDenominator.evalue) }
 
             context.evalue = {
               paraphrase: true,
