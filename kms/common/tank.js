@@ -111,6 +111,9 @@ class API {
       case 'backward':
         this.backward(command.power)
         break
+      case 'around':
+        this.rotate(180)
+        break
     }
 
     if (command.distance) {
@@ -118,6 +121,7 @@ class API {
       const speed_meters_per_second = this._objects.calibration.speed
       const duration_seconds = distance_meters / speed_meters_per_second
       this.pause(duration_seconds)
+      this.stop()
     }
   }
 
@@ -138,6 +142,10 @@ class API {
   // -angle is counterclockwise
   // +angle is clockwise
 
+  rotate(angle) {
+    this._objects.history.push({ turn: angle })
+  }
+
   turn(angle) {
   }
 
@@ -148,6 +156,7 @@ class API {
   }
 
   stop() {
+    this._objects.history.push({ power: 0 })
   }
 }
 
@@ -217,7 +226,7 @@ function expectDirection(args) {
 function expectDistanceForCalibration(args) {
   args.config.addSemantic({
     oneShot: true,
-    match: ({context, isA}) => isA(context.marker, 'dimension') && !isA(context.unit.marker, 'unitPerUnit'),
+    match: ({context, isA, objects}) => isA(context.marker, 'dimension') && !isA(context.unit.marker, 'unitPerUnit') && objects.calibration.startTime,
     apply: async ({context, objects, fragments, e}) => {
       const instantiation = await fragments("dimension in meters", { dimension: context })
       const result = await e(instantiation)
@@ -260,7 +269,7 @@ const template = {
   configs: [
     "tank is a concept",
     //TODO "forward left, right, backward are directions",
-    "forward, left, right, and backward are directions",
+    "around, forward, left, right, and backward are directions",
     "speed and power are properties",
     ({objects}) => {
       objects.calibration = {
@@ -310,12 +319,21 @@ const template = {
     {
       operators: [
         "([calibrate])",
+        "([turn] (direction))",
         "([pause] ([number]))",
         "([stop] ([tank|])?)",
         "([go])",
       ],
       bridges: [
         { id: "go" },
+        {
+          id: 'turn',
+          isA: ['verb'],
+          bridge: "{ ...next(operator), direction: after[0], interpolate: [{ context: operator }, { property: 'direction' }] }",
+          semantic: ({context, objects, api}) => {
+            objects.current.direction = context.direction.marker
+          }
+        },
         {
           id: 'calibrate',
           isA: ['verb'],
@@ -331,8 +349,8 @@ const template = {
           bridge: "{ ...operator, time: after[0], interpolate: [{ context: operator }, { property: 'time' }] }",
           semantic: async ({context}) => {
             // why doesn't nodejs add a sleep function. I always have to look up how to do this because its not fucking memorable.
-            function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
-            await sleep(context.time.value*1000) 
+            // function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+            // await sleep(context.time.value*1000) 
           }
         },
         {

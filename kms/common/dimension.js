@@ -11,8 +11,13 @@ const instance = require('./dimension.instance.json')
   x fahrenheit equals (x-32)*5/9 + 32 fahrenheit
   10 celcius + 5
 
+  1 meter 10 centimeters
+
   1 meter in feet and inches
   10 feet in meters and inches
+
+  show length in feet and inches
+  show length in meters and millimeters
 
   10 C
 
