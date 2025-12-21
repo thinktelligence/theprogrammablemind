@@ -1,21 +1,19 @@
 {
   "configs": [
-    "car is a concept",
-    "picarx is a car",
+    "tank is a concept",
     "forward, left, right, and backward are directions",
     "speed and power are properties",
     {
-      "apply": "({objects}) => {\n      objects.calibration = {\n        startTime: undefined,   // start time for calibration\n        endTime: undefined,     // end time for calibration\n        duration: undefined,    // end time - start time\n        distance: undefined,    // distance travelled during calibration in mm\n        power: 0.1,\n        speed: undefined,       // meters per second\n      }\n      objects.direction = undefined   // direction to go if going\n      objects.power = undefined       // power\n    }"
+      "apply": "({objects}) => {\n      objects.calibration = {\n        startTime: undefined,   // start time for calibration\n        endTime: undefined,     // end time for calibration\n        duration: undefined,    // end time - start time\n        distance: undefined,    // distance travelled during calibration in mm\n        power: 0.1,\n        speed: undefined,       // meters per second\n      }\n      objects.current = {\n        // direction: undefined,   // direction to go if going\n        // power: undefined,       // power\n      }\n      objects.history = []\n      objects.isCalibrated = false\n    }"
     },
     {
-      "apply": "(args) => {\n      askForProperty({\n        ...args,\n        propertyPath: ['calibration', 'distance'],\n        query: \"How far did the car go?\",\n      })\n      askForProperty({\n        ...args,\n        propertyPath: ['calibration', 'endTime'],\n        query: \"Say stop when the car has driven enough.\",\n      })\n      askForProperty({\n        ...args,\n        propertyPath: ['calibration', 'startTime'],\n        query: howToCalibrate\n      })\n\n      // expectProperty\n      /*\n      args.config.addSemantic({\n        match: ({context, isA, objects}) => isA(context.marker, 'unitPerUnit') && !objects.calibration.speed,\n        apply: ({objects, context}) => {\n          debugger\n          objects.direction = context\n        }\n      })\n      */\n\n      // expectProperty\n      args.config.addSemantic({\n        match: ({context, isA}) => isA(context.marker, 'direction'),\n        apply: ({objects, context}) => {\n          objects.direction = context\n        }\n      })\n\n      // expectProperty\n      args.config.addSemantic({\n        match: ({context, isA}) => isA(context.marker, 'dimension'),\n        apply: async ({context, objects, fragments, e}) => {\n          const fragment = await fragments(\"dimension in meters\")\n          const source = context\n          const mappings = [{\n            where: where(),\n            match: ({context}) => context.value == 'dimension',\n            apply: ({context}) => Object.assign(context, source),\n          }]\n          const instantiation = await fragment.instantiate(mappings)\n          const result = await e(instantiation)\n          objects.calibration.distance = result.evalue.amount.evalue.evalue\n        }\n      })\n\n      args.config.addSemantic({\n        match: ({context, objects, isA}) => context.marker == 'controlEnd' && objects.calibration.distance && objects.calibration.duration && !objects.calibration.speed,\n        apply: ({context, objects, _continue}) => {\n          objects.calibration.speed = objects.calibration.distance / objects.calibration.duration\n          _continue()\n        }\n      })\n\n      args.config.addSemantic({\n        match: ({context, objects, isA}) => objects.direction && objects.dimension && context.marker == 'controlEnd',\n        apply: ({context, objects}) => {\n          // send a command to the car\n        }\n      })\n    }"
+      "apply": "(args) => {\n      askForProperty({\n        ...args,\n        propertyPath: ['calibration', 'distance'],\n        query: \"How far did the tank go?\",\n        matchr: ({context}) => context.marker == 'dimension' && context.dimension == 'length',\n      })\n      askForProperty({\n        ...args,\n        propertyPath: ['calibration', 'endTime'],\n        query: \"Say stop when the tank has driven enough.\",\n        matchr: () => false,\n      })\n      askForProperty({\n        ...args,\n        propertyPath: ['calibration', 'startTime'],\n        query: howToCalibrate,\n        matchr: () => false,\n      })\n\n      // expectProperty\n      /*\n      args.config.addSemantic({\n        match: ({context, isA, objects}) => isA(context.marker, 'unitPerUnit') && !objects.calibration.speed,\n        apply: ({objects, context}) => {\n          debugger\n          objects.direction = context\n        }\n      })\n      */\n\n      // expectProperty\n      args.config.addSemantic({\n        match: ({context, isA}) => isA(context.marker, 'direction'),\n        apply: ({objects, context}) => {\n          objects.current.direction = context.marker\n        }\n      })\n\n      // expectProperty\n      args.config.addSemantic({\n        match: ({context, isA}) => isA(context.marker, 'dimension') && !isA(context.unit.marker, 'unitPerUnit'),\n        apply: async ({context, objects, fragments, e}) => {\n          const instantiation = await fragments(\"dimension in meters\", { dimension: context })\n          const result = await e(instantiation)\n          objects.calibration.distance = result.evalue.amount.evalue.evalue\n        }\n      })\n\n      args.config.addSemantic({\n        match: ({context, objects, isA}) => context.marker == 'controlEnd' && objects.calibration.distance && objects.calibration.duration && !objects.calibration.speed,\n        apply: ({context, objects, _continue, say}) => {\n          objects.calibration.speed = objects.calibration.distance / objects.calibration.duration\n          objects.isCalibrated = true\n          say(`The tank is calibrated. The speed is ${objects.calibration.speed.toFixed(4)} meters per second at 10 percent power`)\n          _continue()\n        }\n      })\n\n      args.config.addSemantic({\n        match: ({context, isA}) => isA(context.marker, 'dimension') && isA(context.unit.marker, 'unitPerUnit'),\n        apply: async ({context, objects, api, fragments, e}) => {\n          // send a command to the tank\n          const instantiation = await fragments(\"unitperunit in meters per second\", { unitperunit: context })\n          const result = await e(instantiation)\n          const desired_speed = result.evalue.amount.evalue.evalue\n          const desired_power = objects.calibration.power * (desired_speed / objects.calibration.speed)\n          objects.current.power = desired_power \n        }\n      })\n\n      args.config.addSemantic({\n        match: ({context, objects, isA}) => objects.current.direction && objects.isCalibrated && context.marker == 'controlEnd',\n        apply: ({context, objects, api}) => {\n          // send a command to the tank\n          api.sendCommand()\n        }\n      })\n    }"
     },
     {
       "operators": [
         "([calibrate])",
         "([pause] ([number]))",
-        "([stop] ([car|])?)",
-        "([stop] ([car|])?)",
+        "([stop] ([tank|])?)",
         "([go])"
       ],
       "bridges": [
@@ -28,7 +26,7 @@
             "verb"
           ],
           "bridge": "{ ...next(operator), interpolate: [{ context: operator }] }",
-          "semantic": "({context, objects, api}) => {\n            objects.calibration.startTime = api.now()\n            // send command to car to go forward\n          }"
+          "semantic": "({context, objects, api}) => {\n            objects.calibration.startTime = api.now()\n            // send command to tank to go forward\n          }"
         },
         {
           "id": "pause",
@@ -36,7 +34,7 @@
             "verb"
           ],
           "bridge": "{ ...operator, time: after[0], interpolate: [{ context: operator }, { property: 'time' }] }",
-          "semantic": "async ({context}) => {\n            // why doesn't nodejs add a sleep function. I always have to look up how to do this because its not fucking memorable.\n            const sleep = (ms) => new Promise(r => setTimeout(r, ms));\n            await sleep(context.time.value*1000) \n          }"
+          "semantic": "async ({context}) => {\n            // why doesn't nodejs add a sleep function. I always have to look up how to do this because its not fucking memorable.\n            function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }\n            await sleep(context.time.value*1000) \n          }"
         },
         {
           "id": "stop",
@@ -44,7 +42,7 @@
             "verb"
           ],
           "optional": {
-            "1": "{ marker: 'picarx' }"
+            "1": "{ marker: 'tank' }"
           },
           "bridge": "{ ...next(operator), object: after[0], interpolate: [{ context: operator }, { property: 'object' }] }",
           "semantic": "({context, objects, api, say}) => {\n            if (!objects.calibration.startTime) {\n              // default will say how to calibrate\n            } else {\n              objects.calibration.endTime = api.now()\n              objects.calibration.duration = (objects.calibration.endTime - objects.calibration.startTime)/1000\n            }\n          }"
@@ -1604,23 +1602,23 @@
       "contexts": [
         {
           "number": "one",
-          "text": "car is a concept",
+          "text": "tank is a concept",
           "marker": "is",
           "word": "is",
           "range": {
             "start": 0,
-            "end": 15
+            "end": 16
           },
           "one": {
             "number": "one",
-            "value": "car",
+            "value": "tank",
             "unknown": true,
-            "text": "car",
+            "text": "tank",
             "marker": "unknown",
-            "word": "car",
+            "word": "tank",
             "range": {
               "start": 0,
-              "end": 2
+              "end": 3
             },
             "dead": true,
             "types": [
@@ -1636,8 +1634,8 @@
             "dead": true,
             "word": "concept",
             "range": {
-              "start": 7,
-              "end": 15
+              "start": 8,
+              "end": 16
             },
             "types": [
               "concept"
@@ -1653,8 +1651,8 @@
               "word": "a",
               "text": "a",
               "range": {
-                "start": 7,
-                "end": 7
+                "start": 8,
+                "end": 8
               },
               "level": 0
             },
@@ -1669,7 +1667,7 @@
           "topLevel": true,
           "context_id": 2,
           "touchedBy": [
-            "picarx#call2"
+            "tank#call2"
           ]
         }
       ],
@@ -1677,7 +1675,7 @@
         ""
       ],
       "paraphrases": [
-        "car is a concept"
+        "tank is a concept"
       ],
       "paraphrasesParenthesized": [],
       "generatedParenthesized": [],
@@ -1730,7 +1728,7 @@
                   ],
                   "range": {
                     "start": 0,
-                    "end": 2
+                    "end": 3
                   }
                 },
                 {
@@ -1739,8 +1737,8 @@
                     0
                   ],
                   "range": {
-                    "start": 4,
-                    "end": 5
+                    "start": 5,
+                    "end": 6
                   }
                 },
                 {
@@ -1749,8 +1747,8 @@
                     0
                   ],
                   "range": {
-                    "start": 7,
-                    "end": 7
+                    "start": 8,
+                    "end": 8
                   }
                 },
                 {
@@ -1759,8 +1757,8 @@
                     0
                   ],
                   "range": {
-                    "start": 9,
-                    "end": 15
+                    "start": 10,
+                    "end": 16
                   }
                 }
               ],
@@ -1775,7 +1773,7 @@
                   ],
                   "range": {
                     "start": 0,
-                    "end": 2
+                    "end": 3
                   }
                 },
                 {
@@ -1784,8 +1782,8 @@
                     0
                   ],
                   "range": {
-                    "start": 4,
-                    "end": 5
+                    "start": 5,
+                    "end": 6
                   }
                 },
                 {
@@ -1794,8 +1792,8 @@
                     0
                   ],
                   "range": {
-                    "start": 7,
-                    "end": 7
+                    "start": 8,
+                    "end": 8
                   }
                 },
                 {
@@ -1804,8 +1802,8 @@
                     0
                   ],
                   "range": {
-                    "start": 9,
-                    "end": 15
+                    "start": 10,
+                    "end": 16
                   }
                 }
               ],
@@ -1820,7 +1818,7 @@
                   ],
                   "range": {
                     "start": 0,
-                    "end": 2
+                    "end": 3
                   }
                 },
                 {
@@ -1829,8 +1827,8 @@
                     0
                   ],
                   "range": {
-                    "start": 4,
-                    "end": 5
+                    "start": 5,
+                    "end": 6
                   }
                 },
                 {
@@ -1839,8 +1837,8 @@
                     0
                   ],
                   "range": {
-                    "start": 7,
-                    "end": 15
+                    "start": 8,
+                    "end": 16
                   }
                 }
               ],
@@ -1855,7 +1853,7 @@
                   ],
                   "range": {
                     "start": 0,
-                    "end": 15
+                    "end": 16
                   }
                 }
               ],
@@ -1870,7 +1868,7 @@
                   ],
                   "range": {
                     "start": 0,
-                    "end": 15
+                    "end": 16
                   }
                 }
               ],
@@ -1882,9 +1880,9 @@
       ],
       "learned_contextual_priorities": [],
       "rtf_associations": [],
-      "query": "car is a concept",
+      "query": "tank is a concept",
       "key": {
-        "query": "car is a concept"
+        "query": "tank is a concept"
       }
     },
     {
@@ -1982,46 +1980,6 @@
         [
           "canBeQuestion",
           "canBeQuestion",
-          false
-        ],
-        [
-          "car",
-          "concept",
-          false
-        ],
-        [
-          "car",
-          "hierarchyAble",
-          false
-        ],
-        [
-          "car",
-          "isEdee",
-          false
-        ],
-        [
-          "car",
-          "isEder",
-          false
-        ],
-        [
-          "car",
-          "object",
-          false
-        ],
-        [
-          "car",
-          "property",
-          false
-        ],
-        [
-          "car",
-          "queryable",
-          false
-        ],
-        [
-          "car",
-          "theAble",
           false
         ],
         [
@@ -3105,1980 +3063,43 @@
           false
         ],
         [
-          "testingValue",
-          "testingValue",
-          false
-        ],
-        [
-          "that",
-          "thisitthat",
-          false
-        ],
-        [
-          "the",
-          "article",
-          false
-        ],
-        [
-          "theAble",
-          "queryable",
-          false
-        ],
-        [
-          "this",
-          "pronoun",
-          false
-        ],
-        [
-          "this",
-          "queryable",
-          false
-        ],
-        [
-          "this",
-          "thisitthat",
-          false
-        ],
-        [
-          "thisitthat",
-          "queryable",
-          false
-        ],
-        [
-          "timePoint",
-          "noun",
-          false
-        ],
-        [
-          "timeUnit",
-          "countable",
-          false
-        ],
-        [
-          "timesExpression",
-          "mathematicalExpression",
-          false
-        ],
-        [
-          "timesOperator",
-          "mathematical_operator",
-          false
-        ],
-        [
-          "to",
-          "preposition",
-          false
-        ],
-        [
-          "toAble",
-          "toAble",
-          false
-        ],
-        [
-          "type",
-          "property",
-          false
-        ],
-        [
-          "type",
-          "whatAble",
-          false
-        ],
-        [
-          "unit",
+          "tank",
           "concept",
           false
         ],
         [
-          "unit",
+          "tank",
           "hierarchyAble",
           false
         ],
         [
-          "unit",
+          "tank",
           "isEdee",
           false
         ],
         [
-          "unit",
+          "tank",
           "isEder",
           false
         ],
         [
-          "unit",
-          "number",
-          false
-        ],
-        [
-          "unit",
+          "tank",
           "object",
           false
         ],
         [
-          "unit",
+          "tank",
           "property",
           false
         ],
         [
-          "unit",
+          "tank",
           "queryable",
           false
         ],
         [
-          "unit",
+          "tank",
           "theAble",
-          false
-        ],
-        [
-          "unitPerUnit",
-          "unit",
-          false
-        ],
-        [
-          "unit_length",
-          "hierarchyAble",
-          false
-        ],
-        [
-          "unit_length",
-          "isEdee",
-          false
-        ],
-        [
-          "unit_length",
-          "isEder",
-          false
-        ],
-        [
-          "unit_length",
-          "object",
-          false
-        ],
-        [
-          "unit_length",
-          "property",
-          false
-        ],
-        [
-          "unit_length",
-          "queryable",
-          false
-        ],
-        [
-          "unit_length",
-          "theAble",
-          false
-        ],
-        [
-          "unit_length",
-          "unit",
-          false
-        ],
-        [
-          "unit_time",
-          "hierarchyAble",
-          false
-        ],
-        [
-          "unit_time",
-          "isEdee",
-          false
-        ],
-        [
-          "unit_time",
-          "isEder",
-          false
-        ],
-        [
-          "unit_time",
-          "object",
-          false
-        ],
-        [
-          "unit_time",
-          "property",
-          false
-        ],
-        [
-          "unit_time",
-          "queryable",
-          false
-        ],
-        [
-          "unit_time",
-          "theAble",
-          false
-        ],
-        [
-          "unit_time",
-          "unit",
-          false
-        ],
-        [
-          "unknown",
-          "hierarchyAble",
-          false
-        ],
-        [
-          "verb",
-          "verb",
-          false
-        ],
-        [
-          "what",
-          "object",
-          false
-        ],
-        [
-          "what",
-          "queryable",
-          false
-        ],
-        [
-          "whatAble",
-          "queryable",
-          false
-        ],
-        [
-          "whose",
-          "object",
-          false
-        ],
-        [
-          "x",
-          "number",
-          false
-        ],
-        [
-          "xfx",
-          "queryable",
-          false
-        ],
-        [
-          "y",
-          "number",
-          false
-        ],
-        [
-          "year",
-          "hierarchyAble",
-          false
-        ],
-        [
-          "year",
-          "isEdee",
-          false
-        ],
-        [
-          "year",
-          "isEder",
-          false
-        ],
-        [
-          "year",
-          "object",
-          false
-        ],
-        [
-          "year",
-          "property",
-          false
-        ],
-        [
-          "year",
-          "queryable",
-          false
-        ],
-        [
-          "year",
-          "theAble",
-          false
-        ],
-        [
-          "year",
-          "unit_time",
-          false
-        ]
-      ],
-      "metadata": {
-        "opChoices": [
-          {
-            "op": [
-              "unknown",
-              0
-            ],
-            "ops": [
-              [
-                "a",
-                0
-              ],
-              [
-                "car",
-                0
-              ],
-              [
-                "is",
-                0
-              ],
-              [
-                "unknown",
-                0
-              ]
-            ],
-            "counter": 1
-          },
-          {
-            "op": [
-              "car",
-              0
-            ],
-            "ops": [
-              [
-                "a",
-                0
-              ],
-              [
-                "car",
-                0
-              ],
-              [
-                "is",
-                0
-              ]
-            ],
-            "counter": 2
-          },
-          {
-            "op": [
-              "a",
-              0
-            ],
-            "ops": [
-              [
-                "a",
-                0
-              ],
-              [
-                "is",
-                0
-              ]
-            ],
-            "counter": 3
-          },
-          {
-            "op": [
-              "is",
-              0
-            ],
-            "ops": [
-              [
-                "is",
-                0
-              ]
-            ],
-            "counter": 4
-          },
-          {
-            "op": [
-              "is",
-              1
-            ],
-            "ops": [
-              [
-                "is",
-                1
-              ]
-            ],
-            "counter": 5
-          }
-        ]
-      },
-      "trace": "undefined",
-      "contexts": [
-        {
-          "number": "one",
-          "text": "picarx is a car",
-          "marker": "is",
-          "word": "is",
-          "range": {
-            "start": 0,
-            "end": 14
-          },
-          "one": {
-            "number": "one",
-            "value": "picarx",
-            "unknown": true,
-            "text": "picarx",
-            "marker": "unknown",
-            "word": "picarx",
-            "range": {
-              "start": 0,
-              "end": 5
-            },
-            "dead": true,
-            "types": [
-              "unknown"
-            ],
-            "level": 0
-          },
-          "two": {
-            "value": "car",
-            "number": "one",
-            "text": "a car",
-            "marker": "car",
-            "word": "car",
-            "range": {
-              "start": 10,
-              "end": 14
-            },
-            "dead": true,
-            "types": [
-              "car"
-            ],
-            "pullFromContext": false,
-            "instance": true,
-            "concept": true,
-            "wantsValue": true,
-            "determiner": {
-              "marker": "a",
-              "default": true,
-              "word": "a",
-              "text": "a",
-              "range": {
-                "start": 10,
-                "end": 10
-              },
-              "level": 0
-            },
-            "modifiers": [
-              "determiner"
-            ],
-            "level": 0
-          },
-          "dead": true,
-          "level": 2,
-          "context_index": 1,
-          "topLevel": true,
-          "context_id": 2,
-          "touchedBy": [
-            "picarx#call2"
-          ]
-        }
-      ],
-      "generated": [
-        ""
-      ],
-      "paraphrases": [
-        "picarx is a car"
-      ],
-      "paraphrasesParenthesized": [],
-      "generatedParenthesized": [],
-      "responses": [
-        ""
-      ],
-      "associations": [
-        [
-          [
-            "a",
-            0
-          ],
-          [
-            "car",
-            0
-          ],
-          [
-            "is",
-            0
-          ],
-          [
-            "unknown",
-            0
-          ]
-        ],
-        [
-          [
-            "car",
-            0
-          ],
-          [
-            "is",
-            0
-          ],
-          [
-            "unknown",
-            0
-          ]
-        ]
-      ],
-      "summaries": [
-        {
-          "summaries": [
-            {
-              "operators": [
-                {
-                  "marker": [
-                    "unknown",
-                    0
-                  ],
-                  "range": {
-                    "start": 0,
-                    "end": 5
-                  }
-                },
-                {
-                  "marker": [
-                    "is",
-                    0
-                  ],
-                  "range": {
-                    "start": 7,
-                    "end": 8
-                  }
-                },
-                {
-                  "marker": [
-                    "a",
-                    0
-                  ],
-                  "range": {
-                    "start": 10,
-                    "end": 10
-                  }
-                },
-                {
-                  "marker": [
-                    "car",
-                    0
-                  ],
-                  "range": {
-                    "start": 12,
-                    "end": 14
-                  }
-                }
-              ],
-              "counter": 1
-            },
-            {
-              "operators": [
-                {
-                  "marker": [
-                    "unknown",
-                    0
-                  ],
-                  "range": {
-                    "start": 0,
-                    "end": 5
-                  }
-                },
-                {
-                  "marker": [
-                    "is",
-                    0
-                  ],
-                  "range": {
-                    "start": 7,
-                    "end": 8
-                  }
-                },
-                {
-                  "marker": [
-                    "a",
-                    0
-                  ],
-                  "range": {
-                    "start": 10,
-                    "end": 10
-                  }
-                },
-                {
-                  "marker": [
-                    "car",
-                    0
-                  ],
-                  "range": {
-                    "start": 12,
-                    "end": 14
-                  }
-                }
-              ],
-              "counter": 2
-            },
-            {
-              "operators": [
-                {
-                  "marker": [
-                    "unknown",
-                    0
-                  ],
-                  "range": {
-                    "start": 0,
-                    "end": 5
-                  }
-                },
-                {
-                  "marker": [
-                    "is",
-                    0
-                  ],
-                  "range": {
-                    "start": 7,
-                    "end": 8
-                  }
-                },
-                {
-                  "marker": [
-                    "a",
-                    0
-                  ],
-                  "range": {
-                    "start": 10,
-                    "end": 10
-                  }
-                },
-                {
-                  "marker": [
-                    "car",
-                    0
-                  ],
-                  "range": {
-                    "start": 12,
-                    "end": 14
-                  }
-                }
-              ],
-              "counter": 3
-            },
-            {
-              "operators": [
-                {
-                  "marker": [
-                    "unknown",
-                    0
-                  ],
-                  "range": {
-                    "start": 0,
-                    "end": 5
-                  }
-                },
-                {
-                  "marker": [
-                    "is",
-                    0
-                  ],
-                  "range": {
-                    "start": 7,
-                    "end": 8
-                  }
-                },
-                {
-                  "marker": [
-                    "car",
-                    0
-                  ],
-                  "range": {
-                    "start": 10,
-                    "end": 14
-                  }
-                }
-              ],
-              "counter": 4
-            },
-            {
-              "operators": [
-                {
-                  "marker": [
-                    "is",
-                    1
-                  ],
-                  "range": {
-                    "start": 0,
-                    "end": 14
-                  }
-                }
-              ],
-              "counter": 5
-            },
-            {
-              "operators": [
-                {
-                  "marker": [
-                    "is",
-                    2
-                  ],
-                  "range": {
-                    "start": 0,
-                    "end": 14
-                  }
-                }
-              ],
-              "counter": 6
-            }
-          ],
-          "length": 1
-        }
-      ],
-      "learned_contextual_priorities": [],
-      "rtf_associations": [],
-      "query": "picarx is a car",
-      "key": {
-        "query": "picarx is a car"
-      }
-    },
-    {
-      "hierarchy": [
-        [
-          "a",
-          "article",
-          false
-        ],
-        [
-          "adjective",
-          "adjective",
-          false
-        ],
-        [
-          "all",
-          "quantifier",
-          false
-        ],
-        [
-          "amount",
-          "amount",
-          false
-        ],
-        [
-          "ampm",
-          "adjective",
-          false
-        ],
-        [
-          "article",
-          "article",
-          false
-        ],
-        [
-          "ascending",
-          "hierarchyAble",
-          false
-        ],
-        [
-          "ascending",
-          "isEdee",
-          false
-        ],
-        [
-          "ascending",
-          "isEder",
-          false
-        ],
-        [
-          "ascending",
-          "object",
-          false
-        ],
-        [
-          "ascending",
-          "property",
-          false
-        ],
-        [
-          "ascending",
-          "queryable",
-          false
-        ],
-        [
-          "ascending",
-          "sort_ordering",
-          false
-        ],
-        [
-          "ascending",
-          "theAble",
-          false
-        ],
-        [
-          "atTime",
-          "preposition",
-          false
-        ],
-        [
-          "between",
-          "preposition",
-          false
-        ],
-        [
-          "calculate",
-          "verb",
-          false
-        ],
-        [
-          "canBeDoQuestion",
-          "canBeDoQuestion",
-          false
-        ],
-        [
-          "canBeQuestion",
-          "canBeQuestion",
-          false
-        ],
-        [
-          "car",
-          "concept",
-          false
-        ],
-        [
-          "car",
-          "hierarchyAble",
-          false
-        ],
-        [
-          "car",
-          "isEdee",
-          false
-        ],
-        [
-          "car",
-          "isEder",
-          false
-        ],
-        [
-          "car",
-          "object",
-          false
-        ],
-        [
-          "car",
-          "property",
-          false
-        ],
-        [
-          "car",
-          "queryable",
-          false
-        ],
-        [
-          "car",
-          "theAble",
-          false
-        ],
-        [
-          "centimeter",
-          "hierarchyAble",
-          false
-        ],
-        [
-          "centimeter",
-          "isEdee",
-          false
-        ],
-        [
-          "centimeter",
-          "isEder",
-          false
-        ],
-        [
-          "centimeter",
-          "object",
-          false
-        ],
-        [
-          "centimeter",
-          "property",
-          false
-        ],
-        [
-          "centimeter",
-          "queryable",
-          false
-        ],
-        [
-          "centimeter",
-          "theAble",
-          false
-        ],
-        [
-          "centimeter",
-          "unit_length",
-          false
-        ],
-        [
-          "comparable",
-          "theAble",
-          false
-        ],
-        [
-          "concept",
-          "queryable",
-          false
-        ],
-        [
-          "concept",
-          "theAble",
-          false
-        ],
-        [
-          "condition",
-          "condition",
-          false
-        ],
-        [
-          "convertToUnits",
-          "expression",
-          false
-        ],
-        [
-          "convertToUnits",
-          "queryable",
-          false
-        ],
-        [
-          "convertToUnits",
-          "testingValue",
-          false
-        ],
-        [
-          "countable",
-          "hierarchyAble",
-          false
-        ],
-        [
-          "degree",
-          "amount",
-          false
-        ],
-        [
-          "descending",
-          "hierarchyAble",
-          false
-        ],
-        [
-          "descending",
-          "isEdee",
-          false
-        ],
-        [
-          "descending",
-          "isEder",
-          false
-        ],
-        [
-          "descending",
-          "object",
-          false
-        ],
-        [
-          "descending",
-          "property",
-          false
-        ],
-        [
-          "descending",
-          "queryable",
-          false
-        ],
-        [
-          "descending",
-          "sort_ordering",
-          false
-        ],
-        [
-          "descending",
-          "theAble",
-          false
-        ],
-        [
-          "dimension",
-          "concept",
-          false
-        ],
-        [
-          "dimension",
-          "hierarchyAble",
-          false
-        ],
-        [
-          "dimension",
-          "isEdee",
-          false
-        ],
-        [
-          "dimension",
-          "isEder",
-          false
-        ],
-        [
-          "dimension",
-          "object",
-          false
-        ],
-        [
-          "dimension",
-          "property",
-          false
-        ],
-        [
-          "dimension",
-          "queryable",
-          false
-        ],
-        [
-          "dimension",
-          "theAble",
-          false
-        ],
-        [
-          "distributable",
-          "queryable",
-          false
-        ],
-        [
-          "divideByExpression",
-          "mathematicalExpression",
-          false
-        ],
-        [
-          "divideByOperator",
-          "mathematical_operator",
-          false
-        ],
-        [
-          "doubleQuote",
-          "queryable",
-          false
-        ],
-        [
-          "each",
-          "article",
-          false
-        ],
-        [
-          "event",
-          "event",
-          false
-        ],
-        [
-          "every",
-          "article",
-          false
-        ],
-        [
-          "expression",
-          "expression",
-          false
-        ],
-        [
-          "foot",
-          "hierarchyAble",
-          false
-        ],
-        [
-          "foot",
-          "isEdee",
-          false
-        ],
-        [
-          "foot",
-          "isEder",
-          false
-        ],
-        [
-          "foot",
-          "object",
-          false
-        ],
-        [
-          "foot",
-          "property",
-          false
-        ],
-        [
-          "foot",
-          "queryable",
-          false
-        ],
-        [
-          "foot",
-          "theAble",
-          false
-        ],
-        [
-          "foot",
-          "unit_length",
-          false
-        ],
-        [
-          "forVariable",
-          "preposition",
-          false
-        ],
-        [
-          "formula",
-          "concept",
-          false
-        ],
-        [
-          "formula",
-          "hierarchyAble",
-          false
-        ],
-        [
-          "formula",
-          "isEdee",
-          false
-        ],
-        [
-          "formula",
-          "isEder",
-          false
-        ],
-        [
-          "formula",
-          "object",
-          false
-        ],
-        [
-          "formula",
-          "property",
-          false
-        ],
-        [
-          "formula",
-          "queryable",
-          false
-        ],
-        [
-          "formula",
-          "theAble",
-          false
-        ],
-        [
-          "formulaForVariable",
-          "preposition",
-          false
-        ],
-        [
-          "formulaForVariable",
-          "queryable",
-          false
-        ],
-        [
-          "hasCountOfPieces",
-          "countable",
-          false
-        ],
-        [
-          "have",
-          "canBeDoQuestion",
-          false
-        ],
-        [
-          "have",
-          "canBeQuestion",
-          false
-        ],
-        [
-          "hierarchyAble",
-          "queryable",
-          false
-        ],
-        [
-          "highest",
-          "condition",
-          false
-        ],
-        [
-          "hour",
-          "hierarchyAble",
-          false
-        ],
-        [
-          "hour",
-          "isEdee",
-          false
-        ],
-        [
-          "hour",
-          "isEder",
-          false
-        ],
-        [
-          "hour",
-          "object",
-          false
-        ],
-        [
-          "hour",
-          "property",
-          false
-        ],
-        [
-          "hour",
-          "queryable",
-          false
-        ],
-        [
-          "hour",
-          "theAble",
-          false
-        ],
-        [
-          "hour",
-          "unit_time",
-          false
-        ],
-        [
-          "hourMinutes",
-          "timePoint",
-          false
-        ],
-        [
-          "ifAble",
-          "ifAble",
-          false
-        ],
-        [
-          "inch",
-          "hierarchyAble",
-          false
-        ],
-        [
-          "inch",
-          "isEdee",
-          false
-        ],
-        [
-          "inch",
-          "isEder",
-          false
-        ],
-        [
-          "inch",
-          "object",
-          false
-        ],
-        [
-          "inch",
-          "property",
-          false
-        ],
-        [
-          "inch",
-          "queryable",
-          false
-        ],
-        [
-          "inch",
-          "theAble",
-          false
-        ],
-        [
-          "inch",
-          "unit_length",
-          false
-        ],
-        [
-          "integer",
-          "number",
-          false
-        ],
-        [
-          "is",
-          "canBeQuestion",
-          false
-        ],
-        [
-          "is",
-          "event",
-          false
-        ],
-        [
-          "is",
-          "verb",
-          false
-        ],
-        [
-          "isEdee",
-          "isEdee",
-          false
-        ],
-        [
-          "isEder",
-          "isEder",
-          false
-        ],
-        [
-          "isQuery",
-          "verb",
-          false
-        ],
-        [
-          "it",
-          "pronoun",
-          false
-        ],
-        [
-          "it",
-          "queryable",
-          false
-        ],
-        [
-          "it",
-          "thisitthat",
-          false
-        ],
-        [
-          "it",
-          "toAble",
-          false
-        ],
-        [
-          "length",
-          "dimension",
-          false
-        ],
-        [
-          "listable",
-          "theAble",
-          false
-        ],
-        [
-          "lowest",
-          "condition",
-          false
-        ],
-        [
-          "mathematical",
-          "hierarchyAble",
-          false
-        ],
-        [
-          "mathematical",
-          "isEdee",
-          false
-        ],
-        [
-          "mathematical",
-          "isEder",
-          false
-        ],
-        [
-          "mathematical",
-          "object",
-          false
-        ],
-        [
-          "mathematical",
-          "operator_modifier",
-          false
-        ],
-        [
-          "mathematical",
-          "property",
-          false
-        ],
-        [
-          "mathematical",
-          "queryable",
-          false
-        ],
-        [
-          "mathematical",
-          "theAble",
-          false
-        ],
-        [
-          "mathematicalExpression",
-          "concept",
-          false
-        ],
-        [
-          "mathematicalExpression",
-          "expression",
-          false
-        ],
-        [
-          "mathematicalExpression",
-          "number",
-          false
-        ],
-        [
-          "mathematical_operator",
-          "adjective",
-          true
-        ],
-        [
-          "mathematical_operator",
-          "concept",
-          false
-        ],
-        [
-          "mathematical_operator",
-          "hierarchyAble",
-          false
-        ],
-        [
-          "mathematical_operator",
-          "isEdee",
-          false
-        ],
-        [
-          "mathematical_operator",
-          "isEder",
-          false
-        ],
-        [
-          "mathematical_operator",
-          "object",
-          false
-        ],
-        [
-          "mathematical_operator",
-          "operator",
-          false
-        ],
-        [
-          "mathematical_operator",
-          "property",
-          false
-        ],
-        [
-          "mathematical_operator",
-          "queryable",
-          false
-        ],
-        [
-          "mathematical_operator",
-          "theAble",
-          false
-        ],
-        [
-          "memorable",
-          "theAble",
-          false
-        ],
-        [
-          "meter",
-          "hierarchyAble",
-          false
-        ],
-        [
-          "meter",
-          "isEdee",
-          false
-        ],
-        [
-          "meter",
-          "isEder",
-          false
-        ],
-        [
-          "meter",
-          "object",
-          false
-        ],
-        [
-          "meter",
-          "property",
-          false
-        ],
-        [
-          "meter",
-          "queryable",
-          false
-        ],
-        [
-          "meter",
-          "theAble",
-          false
-        ],
-        [
-          "meter",
-          "unit_length",
-          false
-        ],
-        [
-          "mile",
-          "hierarchyAble",
-          false
-        ],
-        [
-          "mile",
-          "isEdee",
-          false
-        ],
-        [
-          "mile",
-          "isEder",
-          false
-        ],
-        [
-          "mile",
-          "object",
-          false
-        ],
-        [
-          "mile",
-          "property",
-          false
-        ],
-        [
-          "mile",
-          "queryable",
-          false
-        ],
-        [
-          "mile",
-          "theAble",
-          false
-        ],
-        [
-          "mile",
-          "unit_length",
-          false
-        ],
-        [
-          "minusExpression",
-          "mathematicalExpression",
-          false
-        ],
-        [
-          "minusOperator",
-          "mathematical_operator",
-          false
-        ],
-        [
-          "minute",
-          "hierarchyAble",
-          false
-        ],
-        [
-          "minute",
-          "isEdee",
-          false
-        ],
-        [
-          "minute",
-          "isEder",
-          false
-        ],
-        [
-          "minute",
-          "object",
-          false
-        ],
-        [
-          "minute",
-          "property",
-          false
-        ],
-        [
-          "minute",
-          "queryable",
-          false
-        ],
-        [
-          "minute",
-          "theAble",
-          false
-        ],
-        [
-          "minute",
-          "unit_time",
-          false
-        ],
-        [
-          "modifies",
-          "verb",
-          false
-        ],
-        [
-          "negatable",
-          "queryable",
-          false
-        ],
-        [
-          "noun",
-          "theAble",
-          false
-        ],
-        [
-          "number",
-          "expression",
-          false
-        ],
-        [
-          "number",
-          "quantifier",
-          false
-        ],
-        [
-          "number",
-          "queryable",
-          false
-        ],
-        [
-          "object",
-          "listable",
-          false
-        ],
-        [
-          "object",
-          "queryable",
-          false
-        ],
-        [
-          "object",
-          "theAble",
-          false
-        ],
-        [
-          "operator",
-          "concept",
-          false
-        ],
-        [
-          "operator",
-          "hierarchyAble",
-          false
-        ],
-        [
-          "operator",
-          "isEdee",
-          false
-        ],
-        [
-          "operator",
-          "isEder",
-          false
-        ],
-        [
-          "operator",
-          "object",
-          false
-        ],
-        [
-          "operator",
-          "property",
-          false
-        ],
-        [
-          "operator",
-          "queryable",
-          false
-        ],
-        [
-          "operator",
-          "theAble",
-          false
-        ],
-        [
-          "operator_modifier",
-          "adjective",
-          false
-        ],
-        [
-          "orAble",
-          "ifAble",
-          false
-        ],
-        [
-          "ordering",
-          "concept",
-          false
-        ],
-        [
-          "ordering",
-          "hierarchyAble",
-          false
-        ],
-        [
-          "ordering",
-          "isEdee",
-          false
-        ],
-        [
-          "ordering",
-          "isEder",
-          false
-        ],
-        [
-          "ordering",
-          "object",
-          false
-        ],
-        [
-          "ordering",
-          "property",
-          false
-        ],
-        [
-          "ordering",
-          "queryable",
-          false
-        ],
-        [
-          "ordering",
-          "theAble",
-          false
-        ],
-        [
-          "ordering_modifier",
-          "adjective",
-          false
-        ],
-        [
-          "picarx",
-          "car",
-          false
-        ],
-        [
-          "picarx",
-          "hierarchyAble",
-          false
-        ],
-        [
-          "picarx",
-          "isEdee",
-          false
-        ],
-        [
-          "picarx",
-          "isEder",
-          false
-        ],
-        [
-          "picarx",
-          "object",
-          false
-        ],
-        [
-          "picarx",
-          "property",
-          false
-        ],
-        [
-          "picarx",
-          "queryable",
-          false
-        ],
-        [
-          "picarx",
-          "theAble",
-          false
-        ],
-        [
-          "plusExpression",
-          "mathematicalExpression",
-          false
-        ],
-        [
-          "plusOperator",
-          "mathematical_operator",
-          false
-        ],
-        [
-          "preposition",
-          "preposition",
-          false
-        ],
-        [
-          "pronoun",
-          "pronoun",
-          false
-        ],
-        [
-          "property",
-          "queryable",
-          false
-        ],
-        [
-          "property",
-          "theAble",
-          false
-        ],
-        [
-          "propertyOf",
-          "preposition",
-          false
-        ],
-        [
-          "punctuation",
-          "punctuation",
-          false
-        ],
-        [
-          "quantifier",
-          "quantifier",
-          false
-        ],
-        [
-          "queryable",
-          "listable",
-          false
-        ],
-        [
-          "questionMark",
-          "punctuation",
-          false
-        ],
-        [
-          "readonly",
-          "queryable",
-          false
-        ],
-        [
-          "reason",
-          "queryable",
-          false
-        ],
-        [
-          "reason",
-          "theAble",
-          false
-        ],
-        [
-          "remember",
-          "verb",
-          false
-        ],
-        [
-          "second",
-          "hierarchyAble",
-          false
-        ],
-        [
-          "second",
-          "isEdee",
-          false
-        ],
-        [
-          "second",
-          "isEder",
-          false
-        ],
-        [
-          "second",
-          "object",
-          false
-        ],
-        [
-          "second",
-          "property",
-          false
-        ],
-        [
-          "second",
-          "queryable",
-          false
-        ],
-        [
-          "second",
-          "theAble",
-          false
-        ],
-        [
-          "second",
-          "unit_time",
-          false
-        ],
-        [
-          "sort",
-          "hierarchyAble",
-          false
-        ],
-        [
-          "sort",
-          "isEdee",
-          false
-        ],
-        [
-          "sort",
-          "isEder",
-          false
-        ],
-        [
-          "sort",
-          "object",
-          false
-        ],
-        [
-          "sort",
-          "ordering_modifier",
-          false
-        ],
-        [
-          "sort",
-          "property",
-          false
-        ],
-        [
-          "sort",
-          "queryable",
-          false
-        ],
-        [
-          "sort",
-          "theAble",
-          false
-        ],
-        [
-          "sortOrdering",
-          "adjective",
-          false
-        ],
-        [
-          "sort_ordering",
-          "adjective",
-          true
-        ],
-        [
-          "sort_ordering",
-          "concept",
-          false
-        ],
-        [
-          "sort_ordering",
-          "hierarchyAble",
-          false
-        ],
-        [
-          "sort_ordering",
-          "isEdee",
-          false
-        ],
-        [
-          "sort_ordering",
-          "isEder",
-          false
-        ],
-        [
-          "sort_ordering",
-          "object",
-          false
-        ],
-        [
-          "sort_ordering",
-          "ordering",
-          false
-        ],
-        [
-          "sort_ordering",
-          "property",
-          false
-        ],
-        [
-          "sort_ordering",
-          "queryable",
-          false
-        ],
-        [
-          "sort_ordering",
-          "theAble",
-          false
-        ],
-        [
-          "stm_before",
-          "adjective",
           false
         ],
         [
@@ -5869,7 +3890,7 @@
           "topLevel": true,
           "context_id": 2,
           "touchedBy": [
-            "picarx#call2"
+            "tank#call2"
           ]
         }
       ],
@@ -7134,46 +5155,6 @@
           false
         ],
         [
-          "car",
-          "concept",
-          false
-        ],
-        [
-          "car",
-          "hierarchyAble",
-          false
-        ],
-        [
-          "car",
-          "isEdee",
-          false
-        ],
-        [
-          "car",
-          "isEder",
-          false
-        ],
-        [
-          "car",
-          "object",
-          false
-        ],
-        [
-          "car",
-          "property",
-          false
-        ],
-        [
-          "car",
-          "queryable",
-          false
-        ],
-        [
-          "car",
-          "theAble",
-          false
-        ],
-        [
           "centimeter",
           "hierarchyAble",
           false
@@ -8154,46 +6135,6 @@
           false
         ],
         [
-          "picarx",
-          "car",
-          false
-        ],
-        [
-          "picarx",
-          "hierarchyAble",
-          false
-        ],
-        [
-          "picarx",
-          "isEdee",
-          false
-        ],
-        [
-          "picarx",
-          "isEder",
-          false
-        ],
-        [
-          "picarx",
-          "object",
-          false
-        ],
-        [
-          "picarx",
-          "property",
-          false
-        ],
-        [
-          "picarx",
-          "queryable",
-          false
-        ],
-        [
-          "picarx",
-          "theAble",
-          false
-        ],
-        [
           "plusExpression",
           "mathematicalExpression",
           false
@@ -8446,6 +6387,46 @@
         [
           "stm_before",
           "adjective",
+          false
+        ],
+        [
+          "tank",
+          "concept",
+          false
+        ],
+        [
+          "tank",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "tank",
+          "isEdee",
+          false
+        ],
+        [
+          "tank",
+          "isEder",
+          false
+        ],
+        [
+          "tank",
+          "object",
+          false
+        ],
+        [
+          "tank",
+          "property",
+          false
+        ],
+        [
+          "tank",
+          "queryable",
+          false
+        ],
+        [
+          "tank",
+          "theAble",
           false
         ],
         [
@@ -8922,7 +6903,7 @@
           "topLevel": true,
           "context_id": 2,
           "touchedBy": [
-            "picarx#call2"
+            "tank#call2"
           ]
         }
       ],
@@ -9216,18 +7197,17 @@
       }
     },
     {
-      "apply": "({objects}) => {\n      objects.calibration = {\n        startTime: undefined,   // start time for calibration\n        endTime: undefined,     // end time for calibration\n        duration: undefined,    // end time - start time\n        distance: undefined,    // distance travelled during calibration in mm\n        power: 0.1,\n        speed: undefined,       // meters per second\n      }\n      objects.direction = undefined   // direction to go if going\n      objects.power = undefined       // power\n    }"
+      "apply": "({objects}) => {\n      objects.calibration = {\n        startTime: undefined,   // start time for calibration\n        endTime: undefined,     // end time for calibration\n        duration: undefined,    // end time - start time\n        distance: undefined,    // distance travelled during calibration in mm\n        power: 0.1,\n        speed: undefined,       // meters per second\n      }\n      objects.current = {\n        // direction: undefined,   // direction to go if going\n        // power: undefined,       // power\n      }\n      objects.history = []\n      objects.isCalibrated = false\n    }"
     },
     {
-      "apply": "(args) => {\n      askForProperty({\n        ...args,\n        propertyPath: ['calibration', 'distance'],\n        query: \"How far did the car go?\",\n      })\n      askForProperty({\n        ...args,\n        propertyPath: ['calibration', 'endTime'],\n        query: \"Say stop when the car has driven enough.\",\n      })\n      askForProperty({\n        ...args,\n        propertyPath: ['calibration', 'startTime'],\n        query: howToCalibrate\n      })\n\n      // expectProperty\n      /*\n      args.config.addSemantic({\n        match: ({context, isA, objects}) => isA(context.marker, 'unitPerUnit') && !objects.calibration.speed,\n        apply: ({objects, context}) => {\n          debugger\n          objects.direction = context\n        }\n      })\n      */\n\n      // expectProperty\n      args.config.addSemantic({\n        match: ({context, isA}) => isA(context.marker, 'direction'),\n        apply: ({objects, context}) => {\n          objects.direction = context\n        }\n      })\n\n      // expectProperty\n      args.config.addSemantic({\n        match: ({context, isA}) => isA(context.marker, 'dimension'),\n        apply: async ({context, objects, fragments, e}) => {\n          const fragment = await fragments(\"dimension in meters\")\n          const source = context\n          const mappings = [{\n            where: where(),\n            match: ({context}) => context.value == 'dimension',\n            apply: ({context}) => Object.assign(context, source),\n          }]\n          const instantiation = await fragment.instantiate(mappings)\n          const result = await e(instantiation)\n          objects.calibration.distance = result.evalue.amount.evalue.evalue\n        }\n      })\n\n      args.config.addSemantic({\n        match: ({context, objects, isA}) => context.marker == 'controlEnd' && objects.calibration.distance && objects.calibration.duration && !objects.calibration.speed,\n        apply: ({context, objects, _continue}) => {\n          objects.calibration.speed = objects.calibration.distance / objects.calibration.duration\n          _continue()\n        }\n      })\n\n      args.config.addSemantic({\n        match: ({context, objects, isA}) => objects.direction && objects.dimension && context.marker == 'controlEnd',\n        apply: ({context, objects}) => {\n          // send a command to the car\n        }\n      })\n    }"
+      "apply": "(args) => {\n      askForProperty({\n        ...args,\n        propertyPath: ['calibration', 'distance'],\n        query: \"How far did the tank go?\",\n        matchr: ({context}) => context.marker == 'dimension' && context.dimension == 'length',\n      })\n      askForProperty({\n        ...args,\n        propertyPath: ['calibration', 'endTime'],\n        query: \"Say stop when the tank has driven enough.\",\n        matchr: () => false,\n      })\n      askForProperty({\n        ...args,\n        propertyPath: ['calibration', 'startTime'],\n        query: howToCalibrate,\n        matchr: () => false,\n      })\n\n      // expectProperty\n      /*\n      args.config.addSemantic({\n        match: ({context, isA, objects}) => isA(context.marker, 'unitPerUnit') && !objects.calibration.speed,\n        apply: ({objects, context}) => {\n          debugger\n          objects.direction = context\n        }\n      })\n      */\n\n      // expectProperty\n      args.config.addSemantic({\n        match: ({context, isA}) => isA(context.marker, 'direction'),\n        apply: ({objects, context}) => {\n          objects.current.direction = context.marker\n        }\n      })\n\n      // expectProperty\n      args.config.addSemantic({\n        match: ({context, isA}) => isA(context.marker, 'dimension') && !isA(context.unit.marker, 'unitPerUnit'),\n        apply: async ({context, objects, fragments, e}) => {\n          const instantiation = await fragments(\"dimension in meters\", { dimension: context })\n          const result = await e(instantiation)\n          objects.calibration.distance = result.evalue.amount.evalue.evalue\n        }\n      })\n\n      args.config.addSemantic({\n        match: ({context, objects, isA}) => context.marker == 'controlEnd' && objects.calibration.distance && objects.calibration.duration && !objects.calibration.speed,\n        apply: ({context, objects, _continue, say}) => {\n          objects.calibration.speed = objects.calibration.distance / objects.calibration.duration\n          objects.isCalibrated = true\n          say(`The tank is calibrated. The speed is ${objects.calibration.speed.toFixed(4)} meters per second at 10 percent power`)\n          _continue()\n        }\n      })\n\n      args.config.addSemantic({\n        match: ({context, isA}) => isA(context.marker, 'dimension') && isA(context.unit.marker, 'unitPerUnit'),\n        apply: async ({context, objects, api, fragments, e}) => {\n          // send a command to the tank\n          const instantiation = await fragments(\"unitperunit in meters per second\", { unitperunit: context })\n          const result = await e(instantiation)\n          const desired_speed = result.evalue.amount.evalue.evalue\n          const desired_power = objects.calibration.power * (desired_speed / objects.calibration.speed)\n          objects.current.power = desired_power \n        }\n      })\n\n      args.config.addSemantic({\n        match: ({context, objects, isA}) => objects.current.direction && objects.isCalibrated && context.marker == 'controlEnd',\n        apply: ({context, objects, api}) => {\n          // send a command to the tank\n          api.sendCommand()\n        }\n      })\n    }"
     },
     {
       "extraConfig": true,
       "operators": [
         "([calibrate])",
         "([pause] ([number]))",
-        "([stop] ([car|])?)",
-        "([stop] ([car|])?)",
+        "([stop] ([tank|])?)",
         "([go])"
       ],
       "bridges": [
@@ -9254,7 +7234,7 @@
             "verb"
           ],
           "optional": {
-            "1": "{ marker: 'picarx' }"
+            "1": "{ marker: 'tank' }"
           },
           "bridge": "{ ...next(operator), object: after[0], interpolate: [{ context: operator }, { property: 'object' }] }"
         }
@@ -9405,46 +7385,6 @@
         [
           "canBeQuestion",
           "canBeQuestion",
-          false
-        ],
-        [
-          "car",
-          "concept",
-          false
-        ],
-        [
-          "car",
-          "hierarchyAble",
-          false
-        ],
-        [
-          "car",
-          "isEdee",
-          false
-        ],
-        [
-          "car",
-          "isEder",
-          false
-        ],
-        [
-          "car",
-          "object",
-          false
-        ],
-        [
-          "car",
-          "property",
-          false
-        ],
-        [
-          "car",
-          "queryable",
-          false
-        ],
-        [
-          "car",
-          "theAble",
           false
         ],
         [
@@ -10433,46 +8373,6 @@
           false
         ],
         [
-          "picarx",
-          "car",
-          false
-        ],
-        [
-          "picarx",
-          "hierarchyAble",
-          false
-        ],
-        [
-          "picarx",
-          "isEdee",
-          false
-        ],
-        [
-          "picarx",
-          "isEder",
-          false
-        ],
-        [
-          "picarx",
-          "object",
-          false
-        ],
-        [
-          "picarx",
-          "property",
-          false
-        ],
-        [
-          "picarx",
-          "queryable",
-          false
-        ],
-        [
-          "picarx",
-          "theAble",
-          false
-        ],
-        [
           "plusExpression",
           "mathematicalExpression",
           false
@@ -10800,6 +8700,46 @@
         [
           "stop",
           "verb",
+          false
+        ],
+        [
+          "tank",
+          "concept",
+          false
+        ],
+        [
+          "tank",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "tank",
+          "isEdee",
+          false
+        ],
+        [
+          "tank",
+          "isEder",
+          false
+        ],
+        [
+          "tank",
+          "object",
+          false
+        ],
+        [
+          "tank",
+          "property",
+          false
+        ],
+        [
+          "tank",
+          "queryable",
+          false
+        ],
+        [
+          "tank",
+          "theAble",
           false
         ],
         [
@@ -11519,46 +9459,6 @@
           false
         ],
         [
-          "car",
-          "concept",
-          false
-        ],
-        [
-          "car",
-          "hierarchyAble",
-          false
-        ],
-        [
-          "car",
-          "isEdee",
-          false
-        ],
-        [
-          "car",
-          "isEder",
-          false
-        ],
-        [
-          "car",
-          "object",
-          false
-        ],
-        [
-          "car",
-          "property",
-          false
-        ],
-        [
-          "car",
-          "queryable",
-          false
-        ],
-        [
-          "car",
-          "theAble",
-          false
-        ],
-        [
           "centimeter",
           "hierarchyAble",
           false
@@ -12544,46 +10444,6 @@
           false
         ],
         [
-          "picarx",
-          "car",
-          false
-        ],
-        [
-          "picarx",
-          "hierarchyAble",
-          false
-        ],
-        [
-          "picarx",
-          "isEdee",
-          false
-        ],
-        [
-          "picarx",
-          "isEder",
-          false
-        ],
-        [
-          "picarx",
-          "object",
-          false
-        ],
-        [
-          "picarx",
-          "property",
-          false
-        ],
-        [
-          "picarx",
-          "queryable",
-          false
-        ],
-        [
-          "picarx",
-          "theAble",
-          false
-        ],
-        [
           "plusExpression",
           "mathematicalExpression",
           false
@@ -12911,6 +10771,46 @@
         [
           "stop",
           "verb",
+          false
+        ],
+        [
+          "tank",
+          "concept",
+          false
+        ],
+        [
+          "tank",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "tank",
+          "isEdee",
+          false
+        ],
+        [
+          "tank",
+          "isEder",
+          false
+        ],
+        [
+          "tank",
+          "object",
+          false
+        ],
+        [
+          "tank",
+          "property",
+          false
+        ],
+        [
+          "tank",
+          "queryable",
+          false
+        ],
+        [
+          "tank",
+          "theAble",
           false
         ],
         [
@@ -13754,39 +11654,7 @@
         0
       ],
       [
-        "car",
-        0
-      ],
-      [
-        "is",
-        0
-      ],
-      [
-        "unknown",
-        0
-      ]
-    ],
-    [
-      [
-        "a",
-        0
-      ],
-      [
         "concept",
-        0
-      ],
-      [
-        "is",
-        0
-      ],
-      [
-        "unknown",
-        0
-      ]
-    ],
-    [
-      [
-        "car",
         0
       ],
       [
@@ -13963,7 +11831,7 @@
               ],
               "range": {
                 "start": 0,
-                "end": 2
+                "end": 3
               }
             },
             {
@@ -13972,8 +11840,8 @@
                 0
               ],
               "range": {
-                "start": 4,
-                "end": 5
+                "start": 5,
+                "end": 6
               }
             },
             {
@@ -13982,8 +11850,8 @@
                 0
               ],
               "range": {
-                "start": 7,
-                "end": 7
+                "start": 8,
+                "end": 8
               }
             },
             {
@@ -13992,8 +11860,8 @@
                 0
               ],
               "range": {
-                "start": 9,
-                "end": 15
+                "start": 10,
+                "end": 16
               }
             }
           ],
@@ -14008,7 +11876,7 @@
               ],
               "range": {
                 "start": 0,
-                "end": 2
+                "end": 3
               }
             },
             {
@@ -14017,8 +11885,8 @@
                 0
               ],
               "range": {
-                "start": 4,
-                "end": 5
+                "start": 5,
+                "end": 6
               }
             },
             {
@@ -14027,8 +11895,8 @@
                 0
               ],
               "range": {
-                "start": 7,
-                "end": 7
+                "start": 8,
+                "end": 8
               }
             },
             {
@@ -14037,8 +11905,8 @@
                 0
               ],
               "range": {
-                "start": 9,
-                "end": 15
+                "start": 10,
+                "end": 16
               }
             }
           ],
@@ -14053,7 +11921,7 @@
               ],
               "range": {
                 "start": 0,
-                "end": 2
+                "end": 3
               }
             },
             {
@@ -14062,8 +11930,8 @@
                 0
               ],
               "range": {
-                "start": 4,
-                "end": 5
+                "start": 5,
+                "end": 6
               }
             },
             {
@@ -14072,8 +11940,8 @@
                 0
               ],
               "range": {
-                "start": 7,
-                "end": 15
+                "start": 8,
+                "end": 16
               }
             }
           ],
@@ -14088,7 +11956,7 @@
               ],
               "range": {
                 "start": 0,
-                "end": 15
+                "end": 16
               }
             }
           ],
@@ -14103,216 +11971,11 @@
               ],
               "range": {
                 "start": 0,
-                "end": 15
+                "end": 16
               }
             }
           ],
           "counter": 5
-        }
-      ],
-      "length": 1
-    },
-    {
-      "summaries": [
-        {
-          "operators": [
-            {
-              "marker": [
-                "unknown",
-                0
-              ],
-              "range": {
-                "start": 0,
-                "end": 5
-              }
-            },
-            {
-              "marker": [
-                "is",
-                0
-              ],
-              "range": {
-                "start": 7,
-                "end": 8
-              }
-            },
-            {
-              "marker": [
-                "a",
-                0
-              ],
-              "range": {
-                "start": 10,
-                "end": 10
-              }
-            },
-            {
-              "marker": [
-                "car",
-                0
-              ],
-              "range": {
-                "start": 12,
-                "end": 14
-              }
-            }
-          ],
-          "counter": 1
-        },
-        {
-          "operators": [
-            {
-              "marker": [
-                "unknown",
-                0
-              ],
-              "range": {
-                "start": 0,
-                "end": 5
-              }
-            },
-            {
-              "marker": [
-                "is",
-                0
-              ],
-              "range": {
-                "start": 7,
-                "end": 8
-              }
-            },
-            {
-              "marker": [
-                "a",
-                0
-              ],
-              "range": {
-                "start": 10,
-                "end": 10
-              }
-            },
-            {
-              "marker": [
-                "car",
-                0
-              ],
-              "range": {
-                "start": 12,
-                "end": 14
-              }
-            }
-          ],
-          "counter": 2
-        },
-        {
-          "operators": [
-            {
-              "marker": [
-                "unknown",
-                0
-              ],
-              "range": {
-                "start": 0,
-                "end": 5
-              }
-            },
-            {
-              "marker": [
-                "is",
-                0
-              ],
-              "range": {
-                "start": 7,
-                "end": 8
-              }
-            },
-            {
-              "marker": [
-                "a",
-                0
-              ],
-              "range": {
-                "start": 10,
-                "end": 10
-              }
-            },
-            {
-              "marker": [
-                "car",
-                0
-              ],
-              "range": {
-                "start": 12,
-                "end": 14
-              }
-            }
-          ],
-          "counter": 3
-        },
-        {
-          "operators": [
-            {
-              "marker": [
-                "unknown",
-                0
-              ],
-              "range": {
-                "start": 0,
-                "end": 5
-              }
-            },
-            {
-              "marker": [
-                "is",
-                0
-              ],
-              "range": {
-                "start": 7,
-                "end": 8
-              }
-            },
-            {
-              "marker": [
-                "car",
-                0
-              ],
-              "range": {
-                "start": 10,
-                "end": 14
-              }
-            }
-          ],
-          "counter": 4
-        },
-        {
-          "operators": [
-            {
-              "marker": [
-                "is",
-                1
-              ],
-              "range": {
-                "start": 0,
-                "end": 14
-              }
-            }
-          ],
-          "counter": 5
-        },
-        {
-          "operators": [
-            {
-              "marker": [
-                "is",
-                2
-              ],
-              "range": {
-                "start": 0,
-                "end": 14
-              }
-            }
-          ],
-          "counter": 6
         }
       ],
       "length": 1

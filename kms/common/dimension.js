@@ -139,6 +139,7 @@ const config = {
         }
         if (to.value == efrom.unit.value) {
           evalue = efrom.amount
+          evalue.evalue = efrom.amount.value
         } else {
           const formula = kms.formulas.api.get(to, [efrom.unit])
           if (!formula) {

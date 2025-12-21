@@ -1,7 +1,7 @@
 const { knowledgeModule, where } = require('./runtime').theprogrammablemind
 const { defaultContextCheck, getValue, setValue } = require('./helpers')
-const picarx_tests = require('./picarx.test.json')
-const picarx_instance = require('./picarx.instance.json')
+const tank_tests = require('./tank.test.json')
+const tank_instance = require('./tank.instance.json')
 const hierarchy = require('./hierarchy')
 const rates = require('./rates')
 const help = require('./help')
@@ -112,6 +112,17 @@ class API {
         this.backward(command.power)
         break
     }
+
+    if (command.distance) {
+      const distance_meters = command.distance
+      const speed_meters_per_second = this._objects.calibration.speed
+      const duration_seconds = distance_meters / speed_meters_per_second
+      this.pause(duration_seconds)
+    }
+  }
+
+  pause(duration_seconds) {
+    this._objects.history.push({ pause: duration_seconds })
   }
 
   // subclass and override the remaining to call the car
@@ -140,7 +151,7 @@ class API {
   }
 }
 
-const howToCalibrate = "When you are ready say calibrate. The car will drive forward at 10 percent power then say stop. Measure the distance and tell me that. Or you can say the speed of the car at percentage of power."
+const howToCalibrate = "When you are ready say calibrate. The tank will drive forward at 10 percent power then say stop. Measure the distance and tell me that. Or you can say the speed of the tank at percentage of power."
 
 function askForProperty({
   objects,
@@ -148,10 +159,11 @@ function askForProperty({
   propertyPath,
   query,
   matchr,
+  oneShot=false, 
 }) {
   ask({
     where: where(),
-    oneShot: false, 
+    oneShot,
 
     matchq: ({ api, context }) => !getValue(propertyPath, objects) && context.marker == 'controlEnd',
     applyq: async ({ say }) => query,
@@ -164,14 +176,89 @@ function askForProperty({
   })
 }
 
+function askForCalibrationDistance(args) {
+  askForProperty({
+    ...args,
+    propertyPath: ['calibration', 'distance'],
+    query: "How far did the tank go?",
+    matchr: ({context}) => context.marker == 'dimension' && context.dimension == 'length',
+  })
+}
+
+function askForEndTime(args) {
+  askForProperty({
+    ...args,
+    propertyPath: ['calibration', 'endTime'],
+    query: "Say stop when the tank has driven enough.",
+    matchr: () => false,
+  })
+}
+
+function askForStartTime(args) {
+  askForProperty({
+    ...args,
+    propertyPath: ['calibration', 'startTime'],
+    query: howToCalibrate,
+    matchr: () => false,
+  })
+}
+
+// expectProperty
+function expectDirection(args) {
+  args.config.addSemantic({
+    match: ({context, isA}) => isA(context.marker, 'direction'),
+    apply: ({objects, context}) => {
+      objects.current.direction = context.marker
+    }
+  })
+}
+
+// expectProperty
+function expectDistanceForCalibration(args) {
+  args.config.addSemantic({
+    oneShot: true,
+    match: ({context, isA}) => isA(context.marker, 'dimension') && !isA(context.unit.marker, 'unitPerUnit'),
+    apply: async ({context, objects, fragments, e}) => {
+      const instantiation = await fragments("dimension in meters", { dimension: context })
+      const result = await e(instantiation)
+      objects.calibration.distance = result.evalue.amount.evalue.evalue
+    }
+  })
+}
+
+function expectDistanceForMove(args) {
+  // TODO save id for recalibration
+  args.config.addSemantic({
+    match: ({context, isA}) => isA(context.marker, 'dimension') && !isA(context.unit.marker, 'unitPerUnit'),
+    apply: async ({context, objects, fragments, e}) => {
+      const instantiation = await fragments("dimension in meters", { dimension: context })
+      const result = await e(instantiation)
+      objects.current.distance = result.evalue.amount.evalue.evalue
+    }
+  })
+}
+
+function expectCalibrationCompletion(args) {
+  args.config.addSemantic({
+    oneShot: true,
+    match: ({context, objects, isA}) => context.marker == 'controlEnd' && objects.calibration.distance && objects.calibration.duration && !objects.calibration.speed,
+    apply: ({context, objects, _continue, say}) => {
+      objects.calibration.speed = objects.calibration.distance / objects.calibration.duration
+      objects.isCalibrated = true
+      say(`The tank is calibrated. The speed is ${objects.calibration.speed.toFixed(4)} meters per second at 10 percent power`)
+      _continue()
+      expectDistanceForMove(args)
+    }
+  })
+}
+
 const template = {
   fragments: [ 
     "dimension in meters",
     "unitperunit in meters per second",
   ],
   configs: [
-    "car is a concept",
-    "picarx is a car",
+    "tank is a concept",
     //TODO "forward left, right, backward are directions",
     "forward, left, right, and backward are directions",
     "speed and power are properties",
@@ -192,68 +279,18 @@ const template = {
       objects.isCalibrated = false
     },
     (args) => {
-      askForProperty({
-        ...args,
-        propertyPath: ['calibration', 'distance'],
-        query: "How far did the car go?",
-        matchr: ({context}) => context.marker == 'dimension' && context.dimension == 'length',
-      })
-      askForProperty({
-        ...args,
-        propertyPath: ['calibration', 'endTime'],
-        query: "Say stop when the car has driven enough.",
-        matchr: () => false,
-      })
-      askForProperty({
-        ...args,
-        propertyPath: ['calibration', 'startTime'],
-        query: howToCalibrate,
-        matchr: () => false,
-      })
+      askForCalibrationDistance(args)
+      askForEndTime(args)
+      askForStartTime(args)
 
-      // expectProperty
-      /*
-      args.config.addSemantic({
-        match: ({context, isA, objects}) => isA(context.marker, 'unitPerUnit') && !objects.calibration.speed,
-        apply: ({objects, context}) => {
-          debugger
-          objects.direction = context
-        }
-      })
-      */
-
-      // expectProperty
-      args.config.addSemantic({
-        match: ({context, isA}) => isA(context.marker, 'direction'),
-        apply: ({objects, context}) => {
-          objects.current.direction = context.marker
-        }
-      })
-
-      // expectProperty
-      args.config.addSemantic({
-        match: ({context, isA}) => isA(context.marker, 'dimension') && !isA(context.unit.marker, 'unitPerUnit'),
-        apply: async ({context, objects, fragments, e}) => {
-          const instantiation = await fragments("dimension in meters", { dimension: context })
-          const result = await e(instantiation)
-          objects.calibration.distance = result.evalue.amount.evalue.evalue
-        }
-      })
-
-      args.config.addSemantic({
-        match: ({context, objects, isA}) => context.marker == 'controlEnd' && objects.calibration.distance && objects.calibration.duration && !objects.calibration.speed,
-        apply: ({context, objects, _continue, say}) => {
-          objects.calibration.speed = objects.calibration.distance / objects.calibration.duration
-          objects.isCalibrated = true
-          say(`The car is calibrated. The speed is ${objects.calibration.speed.toFixed(4)} meters per second at 10 percent power`)
-          _continue()
-        }
-      })
+      expectDirection(args)
+      expectDistanceForCalibration(args)
+      expectCalibrationCompletion(args)
 
       args.config.addSemantic({
         match: ({context, isA}) => isA(context.marker, 'dimension') && isA(context.unit.marker, 'unitPerUnit'),
         apply: async ({context, objects, api, fragments, e}) => {
-          // send a command to the car
+          // send a command to the tank
           const instantiation = await fragments("unitperunit in meters per second", { unitperunit: context })
           const result = await e(instantiation)
           const desired_speed = result.evalue.amount.evalue.evalue
@@ -265,7 +302,7 @@ const template = {
       args.config.addSemantic({
         match: ({context, objects, isA}) => objects.current.direction && objects.isCalibrated && context.marker == 'controlEnd',
         apply: ({context, objects, api}) => {
-          // send a command to the car
+          // send a command to the tank
           api.sendCommand()
         }
       })
@@ -274,7 +311,7 @@ const template = {
       operators: [
         "([calibrate])",
         "([pause] ([number]))",
-        "([stop] ([car|])?)",
+        "([stop] ([tank|])?)",
         "([go])",
       ],
       bridges: [
@@ -285,7 +322,7 @@ const template = {
           bridge: "{ ...next(operator), interpolate: [{ context: operator }] }",
           semantic: ({context, objects, api}) => {
             objects.calibration.startTime = api.now()
-            // send command to car to go forward
+            // send command to tank to go forward
           }
         },
         {
@@ -302,7 +339,7 @@ const template = {
           id: 'stop',
           isA: ['verb'],
           optional: {
-            1: "{ marker: 'picarx' }",
+            1: "{ marker: 'tank' }",
           },
           bridge: "{ ...next(operator), object: after[0], interpolate: [{ context: operator }, { property: 'object' }] }",
           semantic: ({context, objects, api, say}) => {
@@ -326,15 +363,15 @@ const template = {
 }
 
 knowledgeModule( { 
-  config: { name: 'picarx' },
+  config: { name: 'tank' },
   includes: [hierarchy, rates, help],
   api: () => new API(),
 
   module,
-  description: 'controlling a picarx',
+  description: 'controlling a tank',
   test: {
-    name: './picarx.test.json',
-    contents: picarx_tests,
+    name: './tank.test.json',
+    contents: tank_tests,
     checks: {
       context: [defaultContextCheck()],
       objects: [
@@ -346,7 +383,7 @@ knowledgeModule( {
   },
   template: {
     template,
-    instance: picarx_instance,
+    instance: tank_instance,
   },
 
 })

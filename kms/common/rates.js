@@ -42,6 +42,7 @@ const template = {
               let evalue;
               if (toUnits.value == fromUnits.value) {
                 evalue = fromAmount
+                evalue.evalue = fromAmount.value
               } else {
                 const formula = kms.formulas.api.get(toUnits, [fromUnits])
                 if (!formula) {
