@@ -48,6 +48,7 @@ const pos = require('./common/pos')
 const pressure = require('./common/pressure')
 const properties = require('./common/properties')
 const punctuation = require('./common/punctuation')
+const rates = require('./common/rates')
 const reminders = require('./common/reminders')
 const reports = require('./common/reports')
 const scorekeeper = require('./common/scorekeeper')
@@ -57,6 +58,7 @@ const sizeable = require('./common/sizeable')
 const spock = require('./common/spock')
 const stgame = require('./common/stgame')
 const stm = require('./common/stm')
+const tank = require('./common/tank')
 const tell = require('./common/tell')
 const temperature = require('./common/temperature')
 const tester = require('./common/tester')
@@ -120,6 +122,7 @@ module.exports = {
   pressure,
   properties,
   punctuation,
+  rates,
   reminders,
   reports,
   scorekeeper,
@@ -129,6 +132,7 @@ module.exports = {
   spock,
   stgame,
   stm,
+  tank,
   tell,
   temperature,
   tester,
