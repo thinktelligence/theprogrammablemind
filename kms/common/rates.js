@@ -22,7 +22,7 @@ const template = {
       bridges: [
         {
           id: 'unitPerUnit',
-          before: ['amountOfDimension'],
+          before: ['amountOfCoordinate'],
           isA: ['unit'],
           bridge: `{ 
             ...operator, 
@@ -35,6 +35,7 @@ const template = {
       ],
       semantics: [
         {
+          where: where(),
           match: ({context}) => context.marker == 'convertToUnits' && context.evaluate && (context.from.unit.marker == 'unitPerUnit' || context.to.marker == 'unitPerUnit'),
           apply: async ({context, kms, e, error}) => {
 
@@ -59,10 +60,9 @@ const template = {
             const evalueNumerator = await convert(context.from.unit.numerator, context.from.amount, context.to.numerator) 
             const evalueDenominator = await convert(context.from.unit.denominator, 1, context.to.denominator) 
             const evalue = { evalue: (evalueNumerator.evalue || evalueNumerator.value) / (evalueDenominator.evalue || evalueDenominator.evalue) }
-
             context.evalue = {
               paraphrase: true,
-              marker: 'dimension',
+              marker: 'coordinate',
               level: 1,
               unit: context.to,
               amount: { evalue, paraphrase: undefined }
@@ -84,7 +84,10 @@ knowledgeModule({
     name: './rates.test.json',
     contents: rates_tests,
     checks: {
-      context: [defaultContextCheck()],
+      context: [
+        defaultContextCheck({ marker: 'unitPerUnit', exported: true, extra: ['numerator', 'denominator'] }),
+        defaultContextCheck()
+      ],
     }
   },
   template: {

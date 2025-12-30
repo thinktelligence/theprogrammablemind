@@ -13,7 +13,7 @@
       "operators": [
         "(([timePoint]) [ampm|])",
         "([atTime|at] (timePoint))",
-        "([use] (([timeUnit]) [timeFormat|format]))",
+        "([use] (([coordinate]) [timeFormat|format]))",
         "([hourMinutes|] (integer) (colon) (integer))"
       ],
       "bridges": [
@@ -59,54 +59,13 @@
         },
         {
           "id": "timeFormat",
-          "bridge": "{ ...before[0], ...next(operator) }"
-        },
-        {
-          "id": "timeUnit",
-          "isA": [
-            "countable"
-          ],
-          "words": [
-            {
-              "word": "hour",
-              "number": "one",
-              "initial": "{ units: 'hour' }"
-            },
-            {
-              "word": "hours",
-              "number": "many",
-              "initial": "{ units: 'hour' }"
-            },
-            {
-              "word": "minute",
-              "number": "one",
-              "initial": "{ units: 'minute' }"
-            },
-            {
-              "word": "minutes",
-              "number": "many",
-              "initial": "{ units: 'minute' }"
-            },
-            {
-              "word": "second",
-              "number": "one",
-              "initial": "{ units: 'second' }"
-            },
-            {
-              "word": "seconds",
-              "number": "many",
-              "initial": "{ units: 'second' }"
-            }
-          ],
-          "bridge": "{ ...next(operator) }"
+          "bridge": "{ ...before[0], ...next(operator), interpolate: [ { context: before[0] }, { context: operator } ] }"
         },
         {
           "id": "use",
-          "bridge": "{ ...next(operator), format: after[0] }",
-          "generatorp": "({g, context}) => `use ${context.format.quantity.value} hour time`"
+          "bridge": "{ ...next(operator), format: after[0], interpolate: [{ context: operator }, { property: 'format' }] }"
         }
       ],
-      "hierarchy": [],
       "words": {
         "literals": {
           "am": [
@@ -143,11 +102,11 @@
           "apply": "({objects, context, api}) => {\n            context.evalue = api.newDate()\n            context.format = objects.format\n          }"
         },
         {
-          "match": "({objects, context}) => context.marker == 'use' && context.format && (context.format.quantity.value == 12 || context.format.quantity.value == 24)",
-          "apply": "({objects, context}) => {\n            objects.format = context.format.quantity.value\n          }"
+          "match": "({objects, context}) => context.marker == 'use' && context.format && (context.format.amount.value == 12 || context.format.amount.value == 24)",
+          "apply": "({objects, context}) => {\n            objects.format = context.format.amount.value\n          }"
         },
         {
-          "match": "({objects, context}) => context.marker == 'use' && context.format && (context.format.quantity.value != 12 && context.format.quantity.value != 24)",
+          "match": "({objects, context}) => context.marker == 'use' && context.format && (context.format.amount.value != 12 && context.format.amount.value != 24)",
           "apply": "({objects, context}) => {\n            context.marker = 'response'\n            context.text = 'The hour format is 12 hour or 24 hour'\n          }"
         }
       ]
@@ -274,6 +233,11 @@
         [
           "convertToUnits",
           "testingValue",
+          false
+        ],
+        [
+          "coordinate",
+          "noun",
           false
         ],
         [
@@ -2722,6 +2686,11 @@
           false
         ],
         [
+          "coordinate",
+          "noun",
+          false
+        ],
+        [
           "countable",
           "hierarchyAble",
           false
@@ -4468,6 +4437,11 @@
         [
           "convertToUnits",
           "testingValue",
+          false
+        ],
+        [
+          "coordinate",
+          "noun",
           false
         ],
         [
@@ -6220,6 +6194,11 @@
           false
         ],
         [
+          "coordinate",
+          "noun",
+          false
+        ],
+        [
           "countable",
           "hierarchyAble",
           false
@@ -7966,6 +7945,11 @@
         [
           "convertToUnits",
           "testingValue",
+          false
+        ],
+        [
+          "coordinate",
+          "noun",
           false
         ],
         [
@@ -9718,6 +9702,11 @@
           false
         ],
         [
+          "coordinate",
+          "noun",
+          false
+        ],
+        [
           "countable",
           "hierarchyAble",
           false
@@ -11464,6 +11453,11 @@
         [
           "convertToUnits",
           "testingValue",
+          false
+        ],
+        [
+          "coordinate",
+          "noun",
           false
         ],
         [
@@ -13216,6 +13210,11 @@
           false
         ],
         [
+          "coordinate",
+          "noun",
+          false
+        ],
+        [
           "countable",
           "hierarchyAble",
           false
@@ -14965,6 +14964,11 @@
           false
         ],
         [
+          "coordinate",
+          "noun",
+          false
+        ],
+        [
           "countable",
           "hierarchyAble",
           false
@@ -16596,7 +16600,7 @@
       "operators": [
         "(([timePoint]) [ampm|])",
         "([atTime|at] (timePoint))",
-        "([use] (([timeUnit]) [timeFormat|format]))",
+        "([use] (([coordinate]) [timeFormat|format]))",
         "([hourMinutes|] (integer) (colon) (integer))"
       ],
       "bridges": [
@@ -16642,53 +16646,13 @@
         },
         {
           "id": "timeFormat",
-          "bridge": "{ ...before[0], ...next(operator) }"
-        },
-        {
-          "id": "timeUnit",
-          "isA": [
-            "countable"
-          ],
-          "words": [
-            {
-              "word": "hour",
-              "number": "one",
-              "initial": "{ units: 'hour' }"
-            },
-            {
-              "word": "hours",
-              "number": "many",
-              "initial": "{ units: 'hour' }"
-            },
-            {
-              "word": "minute",
-              "number": "one",
-              "initial": "{ units: 'minute' }"
-            },
-            {
-              "word": "minutes",
-              "number": "many",
-              "initial": "{ units: 'minute' }"
-            },
-            {
-              "word": "second",
-              "number": "one",
-              "initial": "{ units: 'second' }"
-            },
-            {
-              "word": "seconds",
-              "number": "many",
-              "initial": "{ units: 'second' }"
-            }
-          ],
-          "bridge": "{ ...next(operator) }"
+          "bridge": "{ ...before[0], ...next(operator), interpolate: [ { context: before[0] }, { context: operator } ] }"
         },
         {
           "id": "use",
-          "bridge": "{ ...next(operator), format: after[0] }"
+          "bridge": "{ ...next(operator), format: after[0], interpolate: [{ context: operator }, { property: 'format' }] }"
         }
       ],
-      "hierarchy": [],
       "words": {
         "literals": {
           "am": [
@@ -16707,27 +16671,27 @@
       },
       "generators": [
         {
+          "where": "/home/dev/code/theprogrammablemind/kms/common/time.js:119"
+        },
+        {
           "where": "/home/dev/code/theprogrammablemind/kms/common/time.js:134"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/time.js:149"
-        },
-        {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/time.js:162"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/time.js:147"
         }
       ],
       "semantics": [
         {
           "notes": "evaluate time",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/time.js:171"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/time.js:156"
         },
         {
           "notes": "use time format working case",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/time.js:180"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/time.js:165"
         },
         {
           "notes": "use time format error case",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/time.js:188"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/time.js:173"
         }
       ]
     }

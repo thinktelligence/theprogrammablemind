@@ -166,6 +166,7 @@ function askForProperty({
   objects,
   ask,
   propertyPath,
+  contextPath=[],
   query,
   matchr,
   oneShot=false, 
@@ -179,8 +180,7 @@ function askForProperty({
 
     matchr,
     applyr: async ({objects, context}) => {
-      // objects.calibration.distance = context
-      setValue(propertyPath, objects, context)
+      setValue(propertyPath, objects, getValue(contextPath, context))
     },
   })
 }
@@ -190,7 +190,7 @@ function askForCalibrationDistance(args) {
     ...args,
     propertyPath: ['calibration', 'distance'],
     query: "How far did the tank go?",
-    matchr: ({context}) => context.marker == 'dimension' && context.dimension == 'length',
+    matchr: ({context, objects}) => objects.calibration.endTime && context.marker == 'coordinate' && context.unit.dimension == 'length',
   })
 }
 
@@ -226,9 +226,9 @@ function expectDirection(args) {
 function expectDistanceForCalibration(args) {
   args.config.addSemantic({
     oneShot: true,
-    match: ({context, isA, objects}) => isA(context.marker, 'dimension') && !isA(context.unit.marker, 'unitPerUnit') && objects.calibration.startTime,
+    match: ({context, isA, objects}) => isA(context.marker, 'coordinate') && !isA(context.unit.marker, 'unitPerUnit') && objects.calibration.startTime,
     apply: async ({context, objects, fragments, e}) => {
-      const instantiation = await fragments("dimension in meters", { dimension: context })
+      const instantiation = await fragments("coordinate in meters", { coordinate: context })
       const result = await e(instantiation)
       objects.calibration.distance = result.evalue.amount.evalue.evalue
     }
@@ -238,9 +238,9 @@ function expectDistanceForCalibration(args) {
 function expectDistanceForMove(args) {
   // TODO save id for recalibration
   args.config.addSemantic({
-    match: ({context, isA}) => isA(context.marker, 'dimension') && !isA(context.unit.marker, 'unitPerUnit'),
+    match: ({context, isA}) => isA(context.marker, 'coordinate') && !isA(context.unit.marker, 'unitPerUnit'),
     apply: async ({context, objects, fragments, e}) => {
-      const instantiation = await fragments("dimension in meters", { dimension: context })
+      const instantiation = await fragments("coordinate in meters", { coordinate: context })
       const result = await e(instantiation)
       objects.current.distance = result.evalue.amount.evalue.evalue
     }
@@ -263,8 +263,8 @@ function expectCalibrationCompletion(args) {
 
 const template = {
   fragments: [ 
-    "dimension in meters",
-    "unitperunit in meters per second",
+    "coordinate in meters",
+    "coordinate in meters per second",
   ],
   configs: [
     "tank is a concept",
@@ -297,10 +297,10 @@ const template = {
       expectCalibrationCompletion(args)
 
       args.config.addSemantic({
-        match: ({context, isA}) => isA(context.marker, 'dimension') && isA(context.unit.marker, 'unitPerUnit'),
+        match: ({context, isA}) => isA(context.marker, 'coordinate') && isA(context.unit.marker, 'unitPerUnit'),
         apply: async ({context, objects, api, fragments, e}) => {
           // send a command to the tank
-          const instantiation = await fragments("unitperunit in meters per second", { unitperunit: context })
+          const instantiation = await fragments("coordinate in meters per second", { coordinate: context })
           const result = await e(instantiation)
           const desired_speed = result.evalue.amount.evalue.evalue
           const desired_power = objects.calibration.power * (desired_speed / objects.calibration.speed)
@@ -332,7 +332,8 @@ const template = {
           bridge: "{ ...next(operator), direction: after[0], interpolate: [{ context: operator }, { property: 'direction' }] }",
           semantic: ({context, objects, api}) => {
             objects.current.direction = context.direction.marker
-          }
+          },
+          // check: { marker: 'turn', exported: true, extra: ['direction'] }
         },
         {
           id: 'calibrate',
@@ -391,7 +392,10 @@ knowledgeModule( {
     name: './tank.test.json',
     contents: tank_tests,
     checks: {
-      context: [defaultContextCheck()],
+      context: [
+        defaultContextCheck({ marker: 'turn', exported: true, extra: ['direction'] }),
+        defaultContextCheck(),
+      ],
       objects: [
         'calibration',
         'history',

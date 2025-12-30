@@ -67,7 +67,8 @@ const template = {
       operators: [
         "(([timePoint]) [ampm|])",
         "([atTime|at] (timePoint))",
-        "([use] (([timeUnit]) [timeFormat|format]))",
+        // "([use] (([timeUnit]) [timeFormat|format]))",
+        "([use] (([coordinate]) [timeFormat|format]))",
         "([hourMinutes|] (integer) (colon) (integer))",
       ],
       bridges: [
@@ -98,29 +99,13 @@ const template = {
         },
         { 
           id: "timeFormat", 
-          bridge: "{ ...before[0], ...next(operator) }" 
-        },
-        { 
-          id: "timeUnit", 
-          isA: ['countable'],
-          words: [ 
-            ...helpers.words('hour', { initial: "{ units: 'hour' }" }),
-            ...helpers.words('minute', { initial: "{ units: 'minute' }" }),
-            ...helpers.words('second', { initial: "{ units: 'second' }" }),
-          ],
-          bridge: "{ ...next(operator) }" 
+          bridge: "{ ...before[0], ...next(operator), interpolate: [ { context: before[0] }, { context: operator } ] }" 
         },
         { 
           id: "use",
-          bridge: "{ ...next(operator), format: after[0] }",
-          generatorp: ({g, context}) => `use ${context.format.quantity.value} hour time` 
+          bridge: "{ ...next(operator), format: after[0], interpolate: [{ context: operator }, { property: 'format' }] }",
+          // generatorp: ({g, context}) => `use ${context.format.quantity.value} hour time` 
         },
-      ],
-      hierarchy: [
-    /*
-        ['ampm', 'queryable'],
-        ['timeUnit', 'countable'],
-    */
       ],
       "words": {
         "literals": {
@@ -178,15 +163,15 @@ const template = {
         {
           notes: 'use time format working case',
           where: where(),
-          match: ({objects, context}) => context.marker == 'use' && context.format && (context.format.quantity.value == 12 || context.format.quantity.value == 24), 
+          match: ({objects, context}) => context.marker == 'use' && context.format && (context.format.amount.value == 12 || context.format.amount.value == 24), 
           apply: ({objects, context}) => {
-            objects.format = context.format.quantity.value
+            objects.format = context.format.amount.value
           }
         },
         {
           notes: 'use time format error case',
           where: where(),
-          match: ({objects, context}) => context.marker == 'use' && context.format && (context.format.quantity.value != 12 && context.format.quantity.value != 24), 
+          match: ({objects, context}) => context.marker == 'use' && context.format && (context.format.amount.value != 12 && context.format.amount.value != 24), 
           apply: ({objects, context}) => {
             context.marker = 'response'
             context.text = 'The hour format is 12 hour or 24 hour'

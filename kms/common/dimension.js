@@ -58,22 +58,24 @@ class API {
   }
 }
 
+// eg, dimension == length; meters == unit; 2 meters == coordinate
+
 const config = {
   name: 'dimension',
   operators: [
-    "([dimension])",
+    "([coordinate])",
     "([unit])",
     // "(([unit]) [kindOfDimension|of] ([dimension]))",
-    "((amount/* || number/*) [amountOfDimension|] ([unit]))",
+    "((amount/* || number/*) [amountOfCoordinate|] ([unit]))",
     "(([amount]) [unit])",
-    "((dimension) [convertToUnits|in] (unit))",
+    "((@<=coordinate || context.possession == true) [convertToUnits|in] (unit))",
 
     "(([number]) [degree])",
     { pattern: "([length])", scope: "testing" },
   ],
   priorities: [
     // TODO this should have been calculated
-    { "context": [['amountOfDimension', 0], ['convertToUnits', 0], ], "choose": [0] },
+    { "context": [['amountOfCoordinate', 0], ['convertToUnits', 0], ], "choose": [0] },
   ],
   hierarchy: [
     { child: 'convertToUnits', parent: 'testingValue', scope: "testing" },
@@ -89,11 +91,13 @@ const config = {
     { 
       where: where(),
       id: "dimension", 
+    },
+    { 
+      where: where(),
+      id: "coordinate", 
+      isA: ["noun"],
       bridge: "{ ...next(operator) }",
-      generatorpr: {
-        match: ({context}) => context.amount,
-        apply: async ({context, gp, gr}) => `${await gr(context.amount)} ${await gp(context.unit)}`,
-      },
+      generatorpr: async ({context, gp, gr}) => `${await gr(context.amount)} ${await gp(context.unit)}`,
     },
     { 
       id: "length", 
@@ -120,9 +124,10 @@ const config = {
       bridge: "{ ...next(operator), value: before[0].value, amount: before[0] }",
     },
     { 
-      id: "amountOfDimension", 
+      id: "amountOfCoordinate", 
       convolution: true, 
-      bridge: "{ marker: next(catch(operator(after[0].dimension), operator('dimension'))), dead: true, unit: after[0], value: before[0].value, amount: before[0] }" 
+      // bridge: "{ marker: next(catch(operator(after[0].dimension), operator('dimension'))), dead: true, unit: after[0], value: before[0].value, amount: before[0] }" 
+      bridge: "{ marker: next(operator('coordinate')), dead: true, unit: after[0], value: before[0].value, amount: before[0] }" 
       // bridge: "{ marker: operator('dimension'), unit: after[0], value: before[0].value, amount: before[0] }" 
     },
     { 
@@ -165,7 +170,8 @@ const config = {
         */
         context.evalue = { 
           paraphrase: true,
-          marker: 'dimension',
+          // marker: 'dimension',
+          marker: 'coordinate',
           level: 1,
           unit: to,
           amount: { evalue, paraphrase: undefined }
@@ -221,6 +227,7 @@ knowledgeModule({
     checks: {
       objects: [{ km: 'properties' }],
       context: [
+        defaultContextCheck({ marker: 'convertToUnits', exported: true, extra: ['from', 'to'] }),
         defaultContextCheck({ 
           match: ({context, isA}) => isA(context.marker, 'unit'), 
           exported: true, 

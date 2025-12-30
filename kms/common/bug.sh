@@ -932,3 +932,4 @@ node dialogues -q 'first and second' -g -d
 node rates -q 'mile per hour' -g -d
 node  picarx -q 'calibrate\npause 1\nstop\n2 feet' -g -d
 node inspect picarx -q 'calibrate\npause 1\nstop\n2 feet\nforward 2 meters per minute' -g -d
+node  tank -q 'turn left' -g -d
