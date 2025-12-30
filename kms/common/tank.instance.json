@@ -7,7 +7,7 @@
       "apply": "({objects}) => {\n      objects.calibration = {\n        startTime: undefined,   // start time for calibration\n        endTime: undefined,     // end time for calibration\n        duration: undefined,    // end time - start time\n        distance: undefined,    // distance travelled during calibration in mm\n        power: 0.1,\n        speed: undefined,       // meters per second\n      }\n      objects.current = {\n        // direction: undefined,   // direction to go if going\n        // power: undefined,       // power\n      }\n      objects.history = []\n      objects.isCalibrated = false\n    }"
     },
     {
-      "apply": "(args) => {\n      askForCalibrationDistance(args)\n      askForEndTime(args)\n      askForStartTime(args)\n\n      expectDirection(args)\n      expectDistanceForCalibration(args)\n      expectCalibrationCompletion(args)\n\n      args.config.addSemantic({\n        match: ({context, isA}) => isA(context.marker, 'coordinate') && isA(context.unit.marker, 'unitPerUnit'),\n        apply: async ({context, objects, api, fragments, e}) => {\n          // send a command to the tank\n          const instantiation = await fragments(\"coordinate in meters per second\", { coordinate: context })\n          const result = await e(instantiation)\n          const desired_speed = result.evalue.amount.evalue.evalue\n          const desired_power = objects.calibration.power * (desired_speed / objects.calibration.speed)\n          objects.current.power = desired_power \n        }\n      })\n\n      args.config.addSemantic({\n        match: ({context, objects, isA}) => objects.current.direction && objects.isCalibrated && context.marker == 'controlEnd',\n        apply: ({context, objects, api}) => {\n          // send a command to the tank\n          api.sendCommand()\n        }\n      })\n    }"
+      "apply": "(args) => {\n      askForCalibrationDistance(args)\n      askForEndTime(args)\n      askForStartTime(args)\n\n      expectDirection(args)\n      expectDistanceForCalibration(args)\n      expectCalibrationCompletion(args)\n\n      args.config.addSemantic({\n        match: ({context, isA}) => isA(context.marker, 'quantity') && isA(context.unit.marker, 'unitPerUnit'),\n        apply: async ({context, objects, api, fragments, e}) => {\n          // send a command to the tank\n          const instantiation = await fragments(\"quantity in meters per second\", { quantity: context })\n          const result = await e(instantiation)\n          const desired_speed = result.evalue.amount.evalue.evalue\n          const desired_power = objects.calibration.power * (desired_speed / objects.calibration.speed)\n          objects.current.power = desired_power \n        }\n      })\n\n      args.config.addSemantic({\n        match: ({context, objects, isA}) => objects.current.direction && objects.isCalibrated && context.marker == 'controlEnd',\n        apply: ({context, objects, api}) => {\n          // send a command to the tank\n          api.sendCommand()\n        }\n      })\n    }"
     },
     {
       "operators": [
@@ -236,11 +236,6 @@
         [
           "convertToUnits",
           "testingValue",
-          false
-        ],
-        [
-          "coordinate",
-          "noun",
           false
         ],
         [
@@ -1076,6 +1071,11 @@
         [
           "quantifier",
           "quantifier",
+          false
+        ],
+        [
+          "quantity",
+          "noun",
           false
         ],
         [
@@ -2067,11 +2067,6 @@
           false
         ],
         [
-          "coordinate",
-          "noun",
-          false
-        ],
-        [
           "countable",
           "hierarchyAble",
           false
@@ -2904,6 +2899,11 @@
         [
           "quantifier",
           "quantifier",
+          false
+        ],
+        [
+          "quantity",
+          "noun",
           false
         ],
         [
@@ -5884,11 +5884,6 @@
           false
         ],
         [
-          "coordinate",
-          "noun",
-          false
-        ],
-        [
           "countable",
           "hierarchyAble",
           false
@@ -6836,6 +6831,11 @@
         [
           "quantifier",
           "quantifier",
+          false
+        ],
+        [
+          "quantity",
+          "noun",
           false
         ],
         [
@@ -7854,7 +7854,7 @@
       "apply": "({objects}) => {\n      objects.calibration = {\n        startTime: undefined,   // start time for calibration\n        endTime: undefined,     // end time for calibration\n        duration: undefined,    // end time - start time\n        distance: undefined,    // distance travelled during calibration in mm\n        power: 0.1,\n        speed: undefined,       // meters per second\n      }\n      objects.current = {\n        // direction: undefined,   // direction to go if going\n        // power: undefined,       // power\n      }\n      objects.history = []\n      objects.isCalibrated = false\n    }"
     },
     {
-      "apply": "(args) => {\n      askForCalibrationDistance(args)\n      askForEndTime(args)\n      askForStartTime(args)\n\n      expectDirection(args)\n      expectDistanceForCalibration(args)\n      expectCalibrationCompletion(args)\n\n      args.config.addSemantic({\n        match: ({context, isA}) => isA(context.marker, 'coordinate') && isA(context.unit.marker, 'unitPerUnit'),\n        apply: async ({context, objects, api, fragments, e}) => {\n          // send a command to the tank\n          const instantiation = await fragments(\"coordinate in meters per second\", { coordinate: context })\n          const result = await e(instantiation)\n          const desired_speed = result.evalue.amount.evalue.evalue\n          const desired_power = objects.calibration.power * (desired_speed / objects.calibration.speed)\n          objects.current.power = desired_power \n        }\n      })\n\n      args.config.addSemantic({\n        match: ({context, objects, isA}) => objects.current.direction && objects.isCalibrated && context.marker == 'controlEnd',\n        apply: ({context, objects, api}) => {\n          // send a command to the tank\n          api.sendCommand()\n        }\n      })\n    }"
+      "apply": "(args) => {\n      askForCalibrationDistance(args)\n      askForEndTime(args)\n      askForStartTime(args)\n\n      expectDirection(args)\n      expectDistanceForCalibration(args)\n      expectCalibrationCompletion(args)\n\n      args.config.addSemantic({\n        match: ({context, isA}) => isA(context.marker, 'quantity') && isA(context.unit.marker, 'unitPerUnit'),\n        apply: async ({context, objects, api, fragments, e}) => {\n          // send a command to the tank\n          const instantiation = await fragments(\"quantity in meters per second\", { quantity: context })\n          const result = await e(instantiation)\n          const desired_speed = result.evalue.amount.evalue.evalue\n          const desired_power = objects.calibration.power * (desired_speed / objects.calibration.speed)\n          objects.current.power = desired_power \n        }\n      })\n\n      args.config.addSemantic({\n        match: ({context, objects, isA}) => objects.current.direction && objects.isCalibrated && context.marker == 'controlEnd',\n        apply: ({context, objects, api}) => {\n          // send a command to the tank\n          api.sendCommand()\n        }\n      })\n    }"
     },
     {
       "extraConfig": true,
@@ -8165,11 +8165,6 @@
           false
         ],
         [
-          "coordinate",
-          "noun",
-          false
-        ],
-        [
           "countable",
           "hierarchyAble",
           false
@@ -9160,6 +9155,11 @@
           false
         ],
         [
+          "quantity",
+          "noun",
+          false
+        ],
+        [
           "queryable",
           "listable",
           false
@@ -9749,7 +9749,7 @@
         "opChoices": [
           {
             "op": [
-              "coordinate",
+              "quantity",
               0
             ],
             "ops": [
@@ -9758,11 +9758,11 @@
                 0
               ],
               [
-                "coordinate",
+                "meter",
                 0
               ],
               [
-                "meter",
+                "quantity",
                 0
               ]
             ],
@@ -9806,25 +9806,25 @@
           "marker": "convertToUnits",
           "default": true,
           "word": "in",
-          "text": "coordinate in meters",
+          "text": "quantity in meters",
           "range": {
             "start": 0,
-            "end": 19
+            "end": 17
           },
           "dead": true,
           "from": {
-            "marker": "coordinate",
-            "value": "coordinate",
+            "marker": "quantity",
+            "value": "quantity",
             "default": true,
-            "text": "coordinate",
-            "word": "coordinate",
+            "text": "quantity",
+            "word": "quantity",
             "range": {
               "start": 0,
-              "end": 9
+              "end": 7
             },
             "dead": true,
             "types": [
-              "coordinate"
+              "quantity"
             ],
             "level": 1
           },
@@ -9836,8 +9836,8 @@
             "marker": "meter",
             "word": "meters",
             "range": {
-              "start": 14,
-              "end": 19
+              "start": 12,
+              "end": 17
             },
             "dead": true,
             "types": [
@@ -9869,10 +9869,6 @@
             0
           ],
           [
-            "coordinate",
-            0
-          ],
-          [
             "meter",
             0
           ]
@@ -9885,6 +9881,10 @@
           [
             "meter",
             0
+          ],
+          [
+            "quantity",
+            0
           ]
         ]
       ],
@@ -9895,12 +9895,12 @@
               "operators": [
                 {
                   "marker": [
-                    "coordinate",
+                    "quantity",
                     0
                   ],
                   "range": {
                     "start": 0,
-                    "end": 9
+                    "end": 7
                   }
                 },
                 {
@@ -9909,8 +9909,8 @@
                     0
                   ],
                   "range": {
-                    "start": 11,
-                    "end": 12
+                    "start": 9,
+                    "end": 10
                   }
                 },
                 {
@@ -9919,8 +9919,8 @@
                     0
                   ],
                   "range": {
-                    "start": 14,
-                    "end": 19
+                    "start": 12,
+                    "end": 17
                   }
                 }
               ],
@@ -9930,12 +9930,12 @@
               "operators": [
                 {
                   "marker": [
-                    "coordinate",
+                    "quantity",
                     1
                   ],
                   "range": {
                     "start": 0,
-                    "end": 9
+                    "end": 7
                   }
                 },
                 {
@@ -9944,8 +9944,8 @@
                     0
                   ],
                   "range": {
-                    "start": 11,
-                    "end": 12
+                    "start": 9,
+                    "end": 10
                   }
                 },
                 {
@@ -9954,8 +9954,8 @@
                     0
                   ],
                   "range": {
-                    "start": 14,
-                    "end": 19
+                    "start": 12,
+                    "end": 17
                   }
                 }
               ],
@@ -9965,12 +9965,12 @@
               "operators": [
                 {
                   "marker": [
-                    "coordinate",
+                    "quantity",
                     1
                   ],
                   "range": {
                     "start": 0,
-                    "end": 9
+                    "end": 7
                   }
                 },
                 {
@@ -9979,8 +9979,8 @@
                     0
                   ],
                   "range": {
-                    "start": 11,
-                    "end": 12
+                    "start": 9,
+                    "end": 10
                   }
                 },
                 {
@@ -9989,8 +9989,8 @@
                     0
                   ],
                   "range": {
-                    "start": 14,
-                    "end": 19
+                    "start": 12,
+                    "end": 17
                   }
                 }
               ],
@@ -10005,7 +10005,7 @@
                   ],
                   "range": {
                     "start": 0,
-                    "end": 19
+                    "end": 17
                   }
                 }
               ],
@@ -10017,10 +10017,10 @@
       ],
       "learned_contextual_priorities": [],
       "rtf_associations": [],
-      "query": "coordinate in meters",
+      "query": "quantity in meters",
       "skipSemantics": true,
       "key": {
-        "query": "coordinate in meters"
+        "query": "quantity in meters"
       }
     },
     {
@@ -10281,11 +10281,6 @@
           false
         ],
         [
-          "coordinate",
-          "noun",
-          false
-        ],
-        [
           "countable",
           "hierarchyAble",
           false
@@ -11276,6 +11271,11 @@
           false
         ],
         [
+          "quantity",
+          "noun",
+          false
+        ],
+        [
           "queryable",
           "listable",
           false
@@ -11865,7 +11865,7 @@
         "opChoices": [
           {
             "op": [
-              "coordinate",
+              "quantity",
               0
             ],
             "ops": [
@@ -11878,11 +11878,11 @@
                 0
               ],
               [
-                "coordinate",
+                "meter",
                 0
               ],
               [
-                "meter",
+                "quantity",
                 0
               ],
               [
@@ -11988,25 +11988,25 @@
           "marker": "convertToUnits",
           "default": true,
           "word": "in",
-          "text": "coordinate in meters per second",
+          "text": "quantity in meters per second",
           "range": {
             "start": 0,
-            "end": 30
+            "end": 28
           },
           "dead": true,
           "from": {
-            "marker": "coordinate",
-            "value": "coordinate",
+            "marker": "quantity",
+            "value": "quantity",
             "default": true,
-            "text": "coordinate",
-            "word": "coordinate",
+            "text": "quantity",
+            "word": "quantity",
             "range": {
               "start": 0,
-              "end": 9
+              "end": 7
             },
             "dead": true,
             "types": [
-              "coordinate"
+              "quantity"
             ],
             "level": 1
           },
@@ -12016,8 +12016,8 @@
             "word": "per",
             "text": "meters per second",
             "range": {
-              "start": 14,
-              "end": 30
+              "start": 12,
+              "end": 28
             },
             "numerator": {
               "value": "meter",
@@ -12027,8 +12027,8 @@
               "marker": "meter",
               "word": "meters",
               "range": {
-                "start": 14,
-                "end": 19
+                "start": 12,
+                "end": 17
               },
               "dead": true,
               "level": 0
@@ -12041,8 +12041,8 @@
               "marker": "second",
               "word": "second",
               "range": {
-                "start": 25,
-                "end": 30
+                "start": 23,
+                "end": 28
               },
               "level": 0
             },
@@ -12060,8 +12060,8 @@
                   "word": "per",
                   "text": "per",
                   "range": {
-                    "start": 21,
-                    "end": 23
+                    "start": 19,
+                    "end": 21
                   },
                   "level": 0
                 }
@@ -12100,11 +12100,11 @@
             0
           ],
           [
-            "coordinate",
+            "meter",
             0
           ],
           [
-            "meter",
+            "quantity",
             0
           ],
           [
@@ -12152,12 +12152,12 @@
               "operators": [
                 {
                   "marker": [
-                    "coordinate",
+                    "quantity",
                     0
                   ],
                   "range": {
                     "start": 0,
-                    "end": 9
+                    "end": 7
                   }
                 },
                 {
@@ -12166,8 +12166,8 @@
                     0
                   ],
                   "range": {
-                    "start": 11,
-                    "end": 12
+                    "start": 9,
+                    "end": 10
                   }
                 },
                 {
@@ -12176,8 +12176,8 @@
                     0
                   ],
                   "range": {
-                    "start": 14,
-                    "end": 19
+                    "start": 12,
+                    "end": 17
                   }
                 },
                 {
@@ -12186,8 +12186,8 @@
                     0
                   ],
                   "range": {
-                    "start": 21,
-                    "end": 23
+                    "start": 19,
+                    "end": 21
                   }
                 },
                 {
@@ -12196,8 +12196,8 @@
                     0
                   ],
                   "range": {
-                    "start": 25,
-                    "end": 30
+                    "start": 23,
+                    "end": 28
                   }
                 }
               ],
@@ -12207,12 +12207,12 @@
               "operators": [
                 {
                   "marker": [
-                    "coordinate",
+                    "quantity",
                     1
                   ],
                   "range": {
                     "start": 0,
-                    "end": 9
+                    "end": 7
                   }
                 },
                 {
@@ -12221,8 +12221,8 @@
                     0
                   ],
                   "range": {
-                    "start": 11,
-                    "end": 12
+                    "start": 9,
+                    "end": 10
                   }
                 },
                 {
@@ -12231,8 +12231,8 @@
                     0
                   ],
                   "range": {
-                    "start": 14,
-                    "end": 19
+                    "start": 12,
+                    "end": 17
                   }
                 },
                 {
@@ -12241,8 +12241,8 @@
                     0
                   ],
                   "range": {
-                    "start": 21,
-                    "end": 23
+                    "start": 19,
+                    "end": 21
                   }
                 },
                 {
@@ -12251,8 +12251,8 @@
                     0
                   ],
                   "range": {
-                    "start": 25,
-                    "end": 30
+                    "start": 23,
+                    "end": 28
                   }
                 }
               ],
@@ -12262,12 +12262,12 @@
               "operators": [
                 {
                   "marker": [
-                    "coordinate",
+                    "quantity",
                     1
                   ],
                   "range": {
                     "start": 0,
-                    "end": 9
+                    "end": 7
                   }
                 },
                 {
@@ -12276,8 +12276,8 @@
                     0
                   ],
                   "range": {
-                    "start": 11,
-                    "end": 12
+                    "start": 9,
+                    "end": 10
                   }
                 },
                 {
@@ -12286,8 +12286,8 @@
                     0
                   ],
                   "range": {
-                    "start": 14,
-                    "end": 19
+                    "start": 12,
+                    "end": 17
                   }
                 },
                 {
@@ -12296,8 +12296,8 @@
                     0
                   ],
                   "range": {
-                    "start": 21,
-                    "end": 23
+                    "start": 19,
+                    "end": 21
                   }
                 },
                 {
@@ -12306,8 +12306,8 @@
                     0
                   ],
                   "range": {
-                    "start": 25,
-                    "end": 30
+                    "start": 23,
+                    "end": 28
                   }
                 }
               ],
@@ -12317,12 +12317,12 @@
               "operators": [
                 {
                   "marker": [
-                    "coordinate",
+                    "quantity",
                     1
                   ],
                   "range": {
                     "start": 0,
-                    "end": 9
+                    "end": 7
                   }
                 },
                 {
@@ -12331,8 +12331,8 @@
                     0
                   ],
                   "range": {
-                    "start": 11,
-                    "end": 12
+                    "start": 9,
+                    "end": 10
                   }
                 },
                 {
@@ -12341,8 +12341,8 @@
                     0
                   ],
                   "range": {
-                    "start": 14,
-                    "end": 30
+                    "start": 12,
+                    "end": 28
                   }
                 }
               ],
@@ -12352,12 +12352,12 @@
               "operators": [
                 {
                   "marker": [
-                    "coordinate",
+                    "quantity",
                     1
                   ],
                   "range": {
                     "start": 0,
-                    "end": 9
+                    "end": 7
                   }
                 },
                 {
@@ -12366,8 +12366,8 @@
                     0
                   ],
                   "range": {
-                    "start": 11,
-                    "end": 12
+                    "start": 9,
+                    "end": 10
                   }
                 },
                 {
@@ -12376,8 +12376,8 @@
                     0
                   ],
                   "range": {
-                    "start": 14,
-                    "end": 30
+                    "start": 12,
+                    "end": 28
                   }
                 }
               ],
@@ -12392,7 +12392,7 @@
                   ],
                   "range": {
                     "start": 0,
-                    "end": 30
+                    "end": 28
                   }
                 }
               ],
@@ -12404,10 +12404,10 @@
       ],
       "learned_contextual_priorities": [],
       "rtf_associations": [],
-      "query": "coordinate in meters per second",
+      "query": "quantity in meters per second",
       "skipSemantics": true,
       "key": {
-        "query": "coordinate in meters per second"
+        "query": "quantity in meters per second"
       }
     }
   ],
@@ -12469,10 +12469,6 @@
         0
       ],
       [
-        "coordinate",
-        0
-      ],
-      [
         "meter",
         0
       ]
@@ -12483,11 +12479,25 @@
         0
       ],
       [
-        "coordinate",
+        "meter",
+        0
+      ],
+      [
+        "quantity",
+        0
+      ]
+    ],
+    [
+      [
+        "convertToUnits",
         0
       ],
       [
         "meter",
+        0
+      ],
+      [
+        "quantity",
         0
       ],
       [
@@ -12496,16 +12506,6 @@
       ],
       [
         "unitPerUnit",
-        0
-      ]
-    ],
-    [
-      [
-        "convertToUnits",
-        0
-      ],
-      [
-        "meter",
         0
       ]
     ],
@@ -14510,12 +14510,12 @@
           "operators": [
             {
               "marker": [
-                "coordinate",
+                "quantity",
                 0
               ],
               "range": {
                 "start": 0,
-                "end": 9
+                "end": 7
               }
             },
             {
@@ -14524,8 +14524,8 @@
                 0
               ],
               "range": {
-                "start": 11,
-                "end": 12
+                "start": 9,
+                "end": 10
               }
             },
             {
@@ -14534,8 +14534,8 @@
                 0
               ],
               "range": {
-                "start": 14,
-                "end": 19
+                "start": 12,
+                "end": 17
               }
             }
           ],
@@ -14545,12 +14545,12 @@
           "operators": [
             {
               "marker": [
-                "coordinate",
+                "quantity",
                 1
               ],
               "range": {
                 "start": 0,
-                "end": 9
+                "end": 7
               }
             },
             {
@@ -14559,8 +14559,8 @@
                 0
               ],
               "range": {
-                "start": 11,
-                "end": 12
+                "start": 9,
+                "end": 10
               }
             },
             {
@@ -14569,8 +14569,8 @@
                 0
               ],
               "range": {
-                "start": 14,
-                "end": 19
+                "start": 12,
+                "end": 17
               }
             }
           ],
@@ -14580,12 +14580,12 @@
           "operators": [
             {
               "marker": [
-                "coordinate",
+                "quantity",
                 1
               ],
               "range": {
                 "start": 0,
-                "end": 9
+                "end": 7
               }
             },
             {
@@ -14594,8 +14594,8 @@
                 0
               ],
               "range": {
-                "start": 11,
-                "end": 12
+                "start": 9,
+                "end": 10
               }
             },
             {
@@ -14604,8 +14604,8 @@
                 0
               ],
               "range": {
-                "start": 14,
-                "end": 19
+                "start": 12,
+                "end": 17
               }
             }
           ],
@@ -14620,7 +14620,7 @@
               ],
               "range": {
                 "start": 0,
-                "end": 19
+                "end": 17
               }
             }
           ],
@@ -14635,12 +14635,12 @@
           "operators": [
             {
               "marker": [
-                "coordinate",
+                "quantity",
                 0
               ],
               "range": {
                 "start": 0,
-                "end": 9
+                "end": 7
               }
             },
             {
@@ -14649,8 +14649,8 @@
                 0
               ],
               "range": {
-                "start": 11,
-                "end": 12
+                "start": 9,
+                "end": 10
               }
             },
             {
@@ -14659,8 +14659,8 @@
                 0
               ],
               "range": {
-                "start": 14,
-                "end": 19
+                "start": 12,
+                "end": 17
               }
             },
             {
@@ -14669,8 +14669,8 @@
                 0
               ],
               "range": {
-                "start": 21,
-                "end": 23
+                "start": 19,
+                "end": 21
               }
             },
             {
@@ -14679,8 +14679,8 @@
                 0
               ],
               "range": {
-                "start": 25,
-                "end": 30
+                "start": 23,
+                "end": 28
               }
             }
           ],
@@ -14690,12 +14690,12 @@
           "operators": [
             {
               "marker": [
-                "coordinate",
+                "quantity",
                 1
               ],
               "range": {
                 "start": 0,
-                "end": 9
+                "end": 7
               }
             },
             {
@@ -14704,8 +14704,8 @@
                 0
               ],
               "range": {
-                "start": 11,
-                "end": 12
+                "start": 9,
+                "end": 10
               }
             },
             {
@@ -14714,8 +14714,8 @@
                 0
               ],
               "range": {
-                "start": 14,
-                "end": 19
+                "start": 12,
+                "end": 17
               }
             },
             {
@@ -14724,8 +14724,8 @@
                 0
               ],
               "range": {
-                "start": 21,
-                "end": 23
+                "start": 19,
+                "end": 21
               }
             },
             {
@@ -14734,8 +14734,8 @@
                 0
               ],
               "range": {
-                "start": 25,
-                "end": 30
+                "start": 23,
+                "end": 28
               }
             }
           ],
@@ -14745,12 +14745,12 @@
           "operators": [
             {
               "marker": [
-                "coordinate",
+                "quantity",
                 1
               ],
               "range": {
                 "start": 0,
-                "end": 9
+                "end": 7
               }
             },
             {
@@ -14759,8 +14759,8 @@
                 0
               ],
               "range": {
-                "start": 11,
-                "end": 12
+                "start": 9,
+                "end": 10
               }
             },
             {
@@ -14769,8 +14769,8 @@
                 0
               ],
               "range": {
-                "start": 14,
-                "end": 19
+                "start": 12,
+                "end": 17
               }
             },
             {
@@ -14779,8 +14779,8 @@
                 0
               ],
               "range": {
-                "start": 21,
-                "end": 23
+                "start": 19,
+                "end": 21
               }
             },
             {
@@ -14789,8 +14789,8 @@
                 0
               ],
               "range": {
-                "start": 25,
-                "end": 30
+                "start": 23,
+                "end": 28
               }
             }
           ],
@@ -14800,12 +14800,12 @@
           "operators": [
             {
               "marker": [
-                "coordinate",
+                "quantity",
                 1
               ],
               "range": {
                 "start": 0,
-                "end": 9
+                "end": 7
               }
             },
             {
@@ -14814,8 +14814,8 @@
                 0
               ],
               "range": {
-                "start": 11,
-                "end": 12
+                "start": 9,
+                "end": 10
               }
             },
             {
@@ -14824,8 +14824,8 @@
                 0
               ],
               "range": {
-                "start": 14,
-                "end": 30
+                "start": 12,
+                "end": 28
               }
             }
           ],
@@ -14835,12 +14835,12 @@
           "operators": [
             {
               "marker": [
-                "coordinate",
+                "quantity",
                 1
               ],
               "range": {
                 "start": 0,
-                "end": 9
+                "end": 7
               }
             },
             {
@@ -14849,8 +14849,8 @@
                 0
               ],
               "range": {
-                "start": 11,
-                "end": 12
+                "start": 9,
+                "end": 10
               }
             },
             {
@@ -14859,8 +14859,8 @@
                 0
               ],
               "range": {
-                "start": 14,
-                "end": 30
+                "start": 12,
+                "end": 28
               }
             }
           ],
@@ -14875,7 +14875,7 @@
               ],
               "range": {
                 "start": 0,
-                "end": 30
+                "end": 28
               }
             }
           ],

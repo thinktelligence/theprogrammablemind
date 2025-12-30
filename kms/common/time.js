@@ -68,7 +68,7 @@ const template = {
         "(([timePoint]) [ampm|])",
         "([atTime|at] (timePoint))",
         // "([use] (([timeUnit]) [timeFormat|format]))",
-        "([use] (([coordinate]) [timeFormat|format]))",
+        "([use] (([quantity]) [timeFormat|format]))",
         "([hourMinutes|] (integer) (colon) (integer))",
       ],
       bridges: [

@@ -7,11 +7,11 @@
     {
       "name": "dimension",
       "operators": [
-        "([coordinate])",
+        "([quantity])",
         "([unit])",
         "((amount/* || number/*) [amountOfCoordinate|] ([unit]))",
         "(([amount]) [unit])",
-        "((@<=coordinate || context.possession == true) [convertToUnits|in] (unit))",
+        "((@<=quantity || context.possession == true) [convertToUnits|in] (unit))",
         "(([number]) [degree])",
         {
           "pattern": "([length])",
@@ -55,7 +55,7 @@
         },
         {
           "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:96",
-          "id": "coordinate",
+          "id": "quantity",
           "isA": [
             "noun"
           ],
@@ -90,7 +90,7 @@
         {
           "id": "amountOfCoordinate",
           "convolution": true,
-          "bridge": "{ marker: next(operator('coordinate')), dead: true, unit: after[0], value: before[0].value, amount: before[0] }"
+          "bridge": "{ marker: next(operator('quantity')), dead: true, unit: after[0], value: before[0].value, amount: before[0] }"
         },
         {
           "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:134",
@@ -117,7 +117,7 @@
             ]
           ],
           "generatorp": "async ({context, g}) => `${await g(context.from)} ${context.word} ${await g(context.to)}`",
-          "evaluator": "async ({context, kms, e, error}) => {\n        const from = context.from;\n        const to = context.to;\n        let evalue;\n        let efrom = from\n        if (!from.unit) {\n          efrom = (await e(from)).evalue\n        }\n        if (to.value == efrom.unit.value) {\n          evalue = efrom.amount\n          evalue.evalue = efrom.amount.value\n        } else {\n          const formula = kms.formulas.api.get(to, [efrom.unit])\n          if (!formula) {\n            const reason = { marker: 'reason', focusableForPhrase: true, evalue: { marker: 'noconversion', from: efrom.unit, to } }\n            kms.stm.api.mentioned({ context: reason })\n            error(reason)\n          }\n          kms.stm.api.setVariable(efrom.unit.value, efrom.amount)\n          evalue = await e(formula)\n        }\n        /*\n        '{\n            \"marker\":\"dimension\",\n            \"unit\":{\"marker\":\"unit\",\"range\":{\"start\":19,\"end\":25},\"word\":\"celcius\",\"text\":\"celcius\",\"value\":\"celcius\",\"unknown\":true,\"types\":[\"unit\",\"unknown\"]},\n            \"value\":10,\n            \"amount\":{\"word\":\"degrees\",\"number\":\"many\",\"text\":\"10 degrees\",\"marker\":\"degree\",\"range\":{\"start\":8,\"end\":17},\"value\":10,\"amount\":{\"value\":10,\"text\":\"10\",\"marker\":\"number\",\"word\":\"10\",\"range\":{\"start\":8,\"end\":9},\"types\":[\"number\"]}},\n              \"text\":\"10 degrees celcius\",\"range\":{\"start\":8,\"end\":25}}'\n        */\n        context.evalue = { \n          paraphrase: true,\n          // marker: 'dimension',\n          marker: 'coordinate',\n          level: 1,\n          unit: to,\n          amount: { evalue, paraphrase: undefined }\n        }\n      }"
+          "evaluator": "async ({context, kms, e, error}) => {\n        const from = context.from;\n        const to = context.to;\n        let evalue;\n        let efrom = from\n        if (!from.unit) {\n          efrom = (await e(from)).evalue\n        }\n        if (to.value == efrom.unit.value) {\n          evalue = efrom.amount\n          evalue.evalue = efrom.amount.value\n        } else {\n          const formula = kms.formulas.api.get(to, [efrom.unit])\n          if (!formula) {\n            const reason = { marker: 'reason', focusableForPhrase: true, evalue: { marker: 'noconversion', from: efrom.unit, to } }\n            kms.stm.api.mentioned({ context: reason })\n            error(reason)\n          }\n          kms.stm.api.setVariable(efrom.unit.value, efrom.amount)\n          evalue = await e(formula)\n        }\n        /*\n        '{\n            \"marker\":\"dimension\",\n            \"unit\":{\"marker\":\"unit\",\"range\":{\"start\":19,\"end\":25},\"word\":\"celcius\",\"text\":\"celcius\",\"value\":\"celcius\",\"unknown\":true,\"types\":[\"unit\",\"unknown\"]},\n            \"value\":10,\n            \"amount\":{\"word\":\"degrees\",\"number\":\"many\",\"text\":\"10 degrees\",\"marker\":\"degree\",\"range\":{\"start\":8,\"end\":17},\"value\":10,\"amount\":{\"value\":10,\"text\":\"10\",\"marker\":\"number\",\"word\":\"10\",\"range\":{\"start\":8,\"end\":9},\"types\":[\"number\"]}},\n              \"text\":\"10 degrees celcius\",\"range\":{\"start\":8,\"end\":25}}'\n        */\n        context.evalue = { \n          paraphrase: true,\n          // marker: 'dimension',\n          marker: 'quantity',\n          level: 1,\n          unit: to,\n          amount: { evalue, paraphrase: undefined }\n        }\n      }"
         },
         {
           "id": "unit",
@@ -1561,11 +1561,11 @@
       "extraConfig": true,
       "name": "dimension",
       "operators": [
-        "([coordinate])",
+        "([quantity])",
         "([unit])",
         "((amount/* || number/*) [amountOfCoordinate|] ([unit]))",
         "(([amount]) [unit])",
-        "((@<=coordinate || context.possession == true) [convertToUnits|in] (unit))",
+        "((@<=quantity || context.possession == true) [convertToUnits|in] (unit))",
         "(([number]) [degree])",
         {
           "pattern": "([length])",
@@ -1608,7 +1608,7 @@
         },
         {
           "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:96",
-          "id": "coordinate",
+          "id": "quantity",
           "isA": [
             "noun"
           ],
@@ -1642,7 +1642,7 @@
         {
           "id": "amountOfCoordinate",
           "convolution": true,
-          "bridge": "{ marker: next(operator('coordinate')), dead: true, unit: after[0], value: before[0].value, amount: before[0] }"
+          "bridge": "{ marker: next(operator('quantity')), dead: true, unit: after[0], value: before[0].value, amount: before[0] }"
         },
         {
           "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:134",

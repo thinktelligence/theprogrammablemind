@@ -58,17 +58,17 @@ class API {
   }
 }
 
-// eg, dimension == length; meters == unit; 2 meters == coordinate
+// eg, dimension == length; meters == unit; 2 meters == quantity
 
 const config = {
   name: 'dimension',
   operators: [
-    "([coordinate])",
+    "([quantity])",
     "([unit])",
     // "(([unit]) [kindOfDimension|of] ([dimension]))",
     "((amount/* || number/*) [amountOfCoordinate|] ([unit]))",
     "(([amount]) [unit])",
-    "((@<=coordinate || context.possession == true) [convertToUnits|in] (unit))",
+    "((@<=quantity || context.possession == true) [convertToUnits|in] (unit))",
 
     "(([number]) [degree])",
     { pattern: "([length])", scope: "testing" },
@@ -94,7 +94,7 @@ const config = {
     },
     { 
       where: where(),
-      id: "coordinate", 
+      id: "quantity", 
       isA: ["noun"],
       bridge: "{ ...next(operator) }",
       generatorpr: async ({context, gp, gr}) => `${await gr(context.amount)} ${await gp(context.unit)}`,
@@ -127,7 +127,7 @@ const config = {
       id: "amountOfCoordinate", 
       convolution: true, 
       // bridge: "{ marker: next(catch(operator(after[0].dimension), operator('dimension'))), dead: true, unit: after[0], value: before[0].value, amount: before[0] }" 
-      bridge: "{ marker: next(operator('coordinate')), dead: true, unit: after[0], value: before[0].value, amount: before[0] }" 
+      bridge: "{ marker: next(operator('quantity')), dead: true, unit: after[0], value: before[0].value, amount: before[0] }" 
       // bridge: "{ marker: operator('dimension'), unit: after[0], value: before[0].value, amount: before[0] }" 
     },
     { 
@@ -171,7 +171,7 @@ const config = {
         context.evalue = { 
           paraphrase: true,
           // marker: 'dimension',
-          marker: 'coordinate',
+          marker: 'quantity',
           level: 1,
           unit: to,
           amount: { evalue, paraphrase: undefined }

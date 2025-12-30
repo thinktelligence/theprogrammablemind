@@ -62,7 +62,7 @@ const template = {
             const evalue = { evalue: (evalueNumerator.evalue || evalueNumerator.value) / (evalueDenominator.evalue || evalueDenominator.evalue) }
             context.evalue = {
               paraphrase: true,
-              marker: 'coordinate',
+              marker: 'quantity',
               level: 1,
               unit: context.to,
               amount: { evalue, paraphrase: undefined }

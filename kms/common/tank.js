@@ -190,7 +190,7 @@ function askForCalibrationDistance(args) {
     ...args,
     propertyPath: ['calibration', 'distance'],
     query: "How far did the tank go?",
-    matchr: ({context, objects}) => objects.calibration.endTime && context.marker == 'coordinate' && context.unit.dimension == 'length',
+    matchr: ({context, objects}) => objects.calibration.endTime && context.marker == 'quantity' && context.unit.dimension == 'length',
   })
 }
 
@@ -226,9 +226,9 @@ function expectDirection(args) {
 function expectDistanceForCalibration(args) {
   args.config.addSemantic({
     oneShot: true,
-    match: ({context, isA, objects}) => isA(context.marker, 'coordinate') && !isA(context.unit.marker, 'unitPerUnit') && objects.calibration.startTime,
+    match: ({context, isA, objects}) => isA(context.marker, 'quantity') && !isA(context.unit.marker, 'unitPerUnit') && objects.calibration.startTime,
     apply: async ({context, objects, fragments, e}) => {
-      const instantiation = await fragments("coordinate in meters", { coordinate: context })
+      const instantiation = await fragments("quantity in meters", { quantity: context })
       const result = await e(instantiation)
       objects.calibration.distance = result.evalue.amount.evalue.evalue
     }
@@ -238,9 +238,9 @@ function expectDistanceForCalibration(args) {
 function expectDistanceForMove(args) {
   // TODO save id for recalibration
   args.config.addSemantic({
-    match: ({context, isA}) => isA(context.marker, 'coordinate') && !isA(context.unit.marker, 'unitPerUnit'),
+    match: ({context, isA}) => isA(context.marker, 'quantity') && !isA(context.unit.marker, 'unitPerUnit'),
     apply: async ({context, objects, fragments, e}) => {
-      const instantiation = await fragments("coordinate in meters", { coordinate: context })
+      const instantiation = await fragments("quantity in meters", { quantity: context })
       const result = await e(instantiation)
       objects.current.distance = result.evalue.amount.evalue.evalue
     }
@@ -263,8 +263,8 @@ function expectCalibrationCompletion(args) {
 
 const template = {
   fragments: [ 
-    "coordinate in meters",
-    "coordinate in meters per second",
+    "quantity in meters",
+    "quantity in meters per second",
   ],
   configs: [
     "tank is a concept",
@@ -297,10 +297,10 @@ const template = {
       expectCalibrationCompletion(args)
 
       args.config.addSemantic({
-        match: ({context, isA}) => isA(context.marker, 'coordinate') && isA(context.unit.marker, 'unitPerUnit'),
+        match: ({context, isA}) => isA(context.marker, 'quantity') && isA(context.unit.marker, 'unitPerUnit'),
         apply: async ({context, objects, api, fragments, e}) => {
           // send a command to the tank
-          const instantiation = await fragments("coordinate in meters per second", { coordinate: context })
+          const instantiation = await fragments("quantity in meters per second", { quantity: context })
           const result = await e(instantiation)
           const desired_speed = result.evalue.amount.evalue.evalue
           const desired_power = objects.calibration.power * (desired_speed / objects.calibration.speed)
