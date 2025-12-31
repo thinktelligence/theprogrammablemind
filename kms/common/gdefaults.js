@@ -213,6 +213,10 @@ const config = {
       where: where(),
       match: ({context}) => context.paraphrase && context.word && (context.number == 'many' || context.number > 1),
       apply: ({context}) => {
+        // TODO make the sentence that the plural celcius is celcius work
+        if (["fahrenheit", "celcius"].includes(context.word)) {
+          return context.word
+        }
         return pluralize.plural(context.word)
       }
     },

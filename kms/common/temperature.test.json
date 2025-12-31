@@ -55,7 +55,7 @@
           0
         ],
         [
-          "dimension",
+          "fahrenheit",
           0
         ],
         [
@@ -80,36 +80,13 @@
           "what",
           0
         ]
-      ],
-      [
-        [
-          "convertToUnits",
-          0
-        ],
-        [
-          "is",
-          0
-        ]
-      ],
-      [
-        [
-          "convertToUnits",
-          0
-        ],
-        [
-          "is",
-          0
-        ],
-        [
-          "what",
-          0
-        ]
       ]
     ],
     "config": {
     },
     "contexts": [
       {
+        "context_id": 2,
         "context_index": 1,
         "dead": true,
         "evalue": {
@@ -141,18 +118,19 @@
               },
               "dead": true,
               "level": 1,
-              "marker": "dimension",
+              "marker": "quantity",
               "range": {
                 "end": 17,
                 "start": 8
               },
               "text": "10 celcius",
               "types": [
-                "dimension"
+                "quantity"
               ],
               "unit": {
                 "dead": true,
-                "level": 1,
+                "dimension": "temperature",
+                "level": 0,
                 "marker": "celcius",
                 "number": "one",
                 "range": {
@@ -177,7 +155,8 @@
             "text": "10 celcius in fahrenheit",
             "to": {
               "dead": true,
-              "level": 1,
+              "dimension": "temperature",
+              "level": 0,
               "marker": "fahrenheit",
               "number": "one",
               "range": {
@@ -205,6 +184,8 @@
                   "dead": true,
                   "evalue": 50,
                   "instance": true,
+                  "isModule": true,
+                  "isProcess": true,
                   "isResponse": true,
                   "level": 1,
                   "marker": "plusExpression",
@@ -262,7 +243,8 @@
                       "word": "*",
                       "x": {
                         "dead": true,
-                        "level": 1,
+                        "dimension": "temperature",
+                        "level": 0,
                         "marker": "celcius",
                         "number": "one",
                         "range": {
@@ -329,13 +311,14 @@
                 }
               },
               "level": 1,
-              "marker": "dimension",
+              "marker": "quantity",
               "paraphrase": true,
               "unit": {
                 "dead": true,
-                "level": 1,
+                "dimension": "temperature",
+                "level": 0,
                 "marker": "fahrenheit",
-                "number": "one",
+                "number": "many",
                 "range": {
                   "end": 31,
                   "start": 22
@@ -368,18 +351,19 @@
               },
               "dead": true,
               "level": 1,
-              "marker": "dimension",
+              "marker": "quantity",
               "range": {
                 "end": 17,
                 "start": 8
               },
               "text": "10 celcius",
               "types": [
-                "dimension"
+                "quantity"
               ],
               "unit": {
                 "dead": true,
-                "level": 1,
+                "dimension": "temperature",
+                "level": 0,
                 "marker": "celcius",
                 "number": "one",
                 "range": {
@@ -396,6 +380,8 @@
               "value": 10
             },
             "instance": true,
+            "isModule": true,
+            "isProcess": true,
             "level": 1,
             "marker": "convertToUnits",
             "range": {
@@ -405,7 +391,8 @@
             "text": "10 celcius in fahrenheit",
             "to": {
               "dead": true,
-              "level": 1,
+              "dimension": "temperature",
+              "level": 0,
               "marker": "fahrenheit",
               "number": "one",
               "range": {
@@ -445,7 +432,7 @@
             "what"
           ],
           "range": {
-            "end": 31,
+            "end": 3,
             "start": 0
           },
           "text": "what",
@@ -489,18 +476,19 @@
             },
             "dead": true,
             "level": 1,
-            "marker": "dimension",
+            "marker": "quantity",
             "range": {
               "end": 17,
               "start": 8
             },
             "text": "10 celcius",
             "types": [
-              "dimension"
+              "quantity"
             ],
             "unit": {
               "dead": true,
-              "level": 1,
+              "dimension": "temperature",
+              "level": 0,
               "marker": "celcius",
               "number": "one",
               "range": {
@@ -525,7 +513,8 @@
           "text": "10 celcius in fahrenheit",
           "to": {
             "dead": true,
-            "level": 1,
+            "dimension": "temperature",
+            "level": 0,
             "marker": "fahrenheit",
             "number": "one",
             "range": {
@@ -560,6 +549,10 @@
           ],
           "ops": [
             [
+              "amountOfCoordinate",
+              0
+            ],
+            [
               "celcius",
               0
             ],
@@ -593,7 +586,7 @@
           ],
           "ops": [
             [
-              "amountOfDimension",
+              "amountOfCoordinate",
               0
             ],
             [
@@ -621,12 +614,12 @@
         {
           "counter": 3,
           "op": [
-            "fahrenheit",
+            "amountOfCoordinate",
             0
           ],
           "ops": [
             [
-              "amountOfDimension",
+              "amountOfCoordinate",
               0
             ],
             [
@@ -650,16 +643,16 @@
         {
           "counter": 4,
           "op": [
-            "what",
+            "fahrenheit",
             0
           ],
           "ops": [
             [
-              "amountOfDimension",
+              "convertToUnits",
               0
             ],
             [
-              "convertToUnits",
+              "fahrenheit",
               0
             ],
             [
@@ -675,47 +668,26 @@
         {
           "counter": 5,
           "op": [
-            "amountOfDimension",
+            "what",
             0
           ],
           "ops": [
-            [
-              "amountOfDimension",
-              0
-            ],
             [
               "convertToUnits",
               0
             ],
             [
               "is",
+              0
+            ],
+            [
+              "what",
               0
             ]
           ]
         },
         {
           "counter": 6,
-          "op": [
-            "dimension",
-            0
-          ],
-          "ops": [
-            [
-              "convertToUnits",
-              0
-            ],
-            [
-              "dimension",
-              0
-            ],
-            [
-              "is",
-              0
-            ]
-          ]
-        },
-        {
-          "counter": 7,
           "op": [
             "convertToUnits",
             0
@@ -732,7 +704,7 @@
           ]
         },
         {
-          "counter": 8,
+          "counter": 7,
           "op": [
             "is",
             0
@@ -745,7 +717,7 @@
           ]
         },
         {
-          "counter": 9,
+          "counter": 8,
           "op": [
             "is",
             1
@@ -760,6 +732,8 @@
       ]
     },
     "objects": {
+      "associations": [
+      ],
       "nameToUUID": {
         "articles": "articles2",
         "asking": "asking2",
@@ -784,46 +758,58 @@
         "stm": "stm2",
         "temperature": "temperature1",
         "testing": "testing2",
-        "tokenize": "tokenize2"
+        "tokenize": "tokenize2",
+        "words": "words2"
       },
       "namespaced": {
         "articles2": {
+          "km": "articles2"
         },
         "asking2": {
+          "km": "asking2"
         },
         "comparable2": {
+          "km": "comparable2"
         },
         "concept2": {
           "defaultTypesForHierarchy": {
           },
+          "km": "concept2",
           "valueToWords": [
           ]
         },
         "conjunction2": {
+          "km": "conjunction2"
         },
         "countable2": {
+          "km": "countable2"
         },
         "dialogues2": {
           "idSuffix": "",
+          "km": "dialogues2",
           "mentioned": [
           ],
           "variables": {
           }
         },
         "dimension2": {
+          "km": "dimension2"
         },
         "evaluate2": {
+          "km": "evaluate2"
         },
         "formulas2": {
           "formulas": {
             "celcius": [
               {
                 "equality": {
+                  "context_id": null,
                   "context_index": 1,
                   "dead": true,
                   "left": {
                     "dead": true,
-                    "level": 1,
+                    "dimension": "temperature",
+                    "level": 0,
                     "marker": "celcius",
                     "number": "one",
                     "range": {
@@ -918,7 +904,8 @@
                           "word": "-",
                           "x": {
                             "dead": true,
-                            "level": 1,
+                            "dimension": "temperature",
+                            "level": 0,
                             "marker": "fahrenheit",
                             "number": "one",
                             "range": {
@@ -1084,7 +1071,8 @@
                         "word": "-",
                         "x": {
                           "dead": true,
-                          "level": 1,
+                          "dimension": "temperature",
+                          "level": 0,
                           "marker": "fahrenheit",
                           "number": "one",
                           "range": {
@@ -1168,7 +1156,8 @@
                 },
                 "name": {
                   "dead": true,
-                  "level": 1,
+                  "dimension": "temperature",
+                  "level": 0,
                   "marker": "celcius",
                   "number": "one",
                   "range": {
@@ -1187,11 +1176,13 @@
             "fahrenheit": [
               {
                 "equality": {
+                  "context_id": null,
                   "context_index": 1,
                   "dead": true,
                   "left": {
                     "dead": true,
-                    "level": 1,
+                    "dimension": "temperature",
+                    "level": 0,
                     "marker": "fahrenheit",
                     "number": "one",
                     "range": {
@@ -1267,7 +1258,8 @@
                         "word": "*",
                         "x": {
                           "dead": true,
-                          "level": 1,
+                          "dimension": "temperature",
+                          "level": 0,
                           "marker": "celcius",
                           "number": "one",
                           "range": {
@@ -1397,7 +1389,8 @@
                       "word": "*",
                       "x": {
                         "dead": true,
-                        "level": 1,
+                        "dimension": "temperature",
+                        "level": 0,
                         "marker": "celcius",
                         "number": "one",
                         "range": {
@@ -1464,7 +1457,8 @@
                 },
                 "name": {
                   "dead": true,
-                  "level": 1,
+                  "dimension": "temperature",
+                  "level": 0,
                   "marker": "fahrenheit",
                   "number": "one",
                   "range": {
@@ -1480,21 +1474,29 @@
                 }
               }
             ]
-          }
+          },
+          "km": "formulas2"
         },
         "gdefaults2": {
+          "km": "gdefaults2"
         },
         "hierarchy2": {
+          "km": "hierarchy2"
         },
         "math2": {
+          "km": "math2"
         },
         "meta2": {
+          "km": "meta2"
         },
         "negation2": {
+          "km": "negation2"
         },
         "numbers2": {
+          "km": "numbers2"
         },
         "pos2": {
+          "km": "pos2"
         },
         "properties2": {
           "children": {
@@ -1528,6 +1530,10 @@
             "ifAble": [
               "orAble"
             ],
+            "listable": [
+              "object",
+              "queryable"
+            ],
             "object": [
               "what",
               "whose"
@@ -1553,7 +1559,6 @@
               "concept",
               "doubleQuote",
               "theAble",
-              "unknown",
               "it",
               "what",
               "whatAble",
@@ -1571,7 +1576,7 @@
               "property",
               "object",
               "concept",
-              "unknown",
+              "listable",
               "reason",
               "memorable",
               "noun"
@@ -1584,7 +1589,7 @@
             "toAble": [
               "it"
             ],
-            "unit": [
+            "unit_temperature": [
               "celcius",
               "fahrenheit",
               "kelvin"
@@ -1592,8 +1597,8 @@
             "verb": [
               "modifies",
               "is",
-              "remember",
-              "evaluate"
+              "isQuery",
+              "remember"
             ]
           },
           "concepts": [
@@ -1612,6 +1617,7 @@
             "canBeQuestion",
             "property",
             "theAble",
+            "listable",
             "propertyOf",
             "whose",
             "concept",
@@ -1631,6 +1637,7 @@
             "is",
             "toAble",
             "to",
+            "isQuery",
             "reason",
             "memorable",
             "remember",
@@ -1638,7 +1645,6 @@
             "adjective",
             "orAble",
             "ifAble",
-            "evaluate",
             "each",
             "every",
             "distributable",
@@ -1653,9 +1659,11 @@
             "unit",
             "temperature",
             "celcius",
+            "unit_temperature",
             "fahrenheit",
             "kelvin"
           ],
+          "km": "properties2",
           "parents": {
             "a": [
               "article"
@@ -1667,7 +1675,7 @@
               "preposition"
             ],
             "celcius": [
-              "unit"
+              "unit_temperature"
             ],
             "concept": [
               "theAble",
@@ -1688,14 +1696,11 @@
             "each": [
               "article"
             ],
-            "evaluate": [
-              "verb"
-            ],
             "every": [
               "article"
             ],
             "fahrenheit": [
-              "unit"
+              "unit_temperature"
             ],
             "formula": [
               "concept"
@@ -1711,6 +1716,9 @@
               "canBeQuestion",
               "verb"
             ],
+            "isQuery": [
+              "verb"
+            ],
             "it": [
               "pronoun",
               "queryable",
@@ -1718,7 +1726,10 @@
               "thisitthat"
             ],
             "kelvin": [
-              "unit"
+              "unit_temperature"
+            ],
+            "listable": [
+              "theAble"
             ],
             "memorable": [
               "theAble"
@@ -1734,7 +1745,8 @@
             ],
             "object": [
               "queryable",
-              "theAble"
+              "theAble",
+              "listable"
             ],
             "orAble": [
               "ifAble"
@@ -1745,6 +1757,9 @@
             ],
             "propertyOf": [
               "preposition"
+            ],
+            "queryable": [
+              "listable"
             ],
             "questionMark": [
               "punctuation"
@@ -1789,9 +1804,7 @@
               "concept"
             ],
             "unknown": [
-              "hierarchyAble",
-              "theAble",
-              "queryable"
+              "hierarchyAble"
             ],
             "what": [
               "object",
@@ -1841,8 +1854,6 @@
               },
               "each": {
               },
-              "evaluate": {
-              },
               "every": {
               },
               "fahrenheit": {
@@ -1857,9 +1868,13 @@
               },
               "is": {
               },
+              "isQuery": {
+              },
               "it": {
               },
               "kelvin": {
+              },
+              "listable": {
               },
               "memorable": {
               },
@@ -1915,6 +1930,8 @@
               },
               "unit": {
               },
+              "unit_temperature": {
+              },
               "unknown": {
               },
               "verb": {
@@ -1937,10 +1954,13 @@
           }
         },
         "punctuation2": {
+          "km": "punctuation2"
         },
         "sdefaults2": {
+          "km": "sdefaults2"
         },
         "stm2": {
+          "km": "stm2",
           "mentioned": [
             {
               "fromSTM": true,
@@ -1971,15 +1991,24 @@
           }
         },
         "temperature1": {
+          "km": "temperature1"
         },
         "testing2": {
+          "km": "testing2"
         },
         "tokenize2": {
+          "km": "tokenize2"
+        },
+        "words2": {
+          "km": "words2",
+          "words": [
+          ]
         }
       },
       "processed": [
         {
           "context": {
+            "context_id": 2,
             "context_index": 1,
             "dead": true,
             "evalue": {
@@ -2011,18 +2040,19 @@
                   },
                   "dead": true,
                   "level": 1,
-                  "marker": "dimension",
+                  "marker": "quantity",
                   "range": {
                     "end": 17,
                     "start": 8
                   },
                   "text": "10 celcius",
                   "types": [
-                    "dimension"
+                    "quantity"
                   ],
                   "unit": {
                     "dead": true,
-                    "level": 1,
+                    "dimension": "temperature",
+                    "level": 0,
                     "marker": "celcius",
                     "number": "one",
                     "range": {
@@ -2047,7 +2077,8 @@
                 "text": "10 celcius in fahrenheit",
                 "to": {
                   "dead": true,
-                  "level": 1,
+                  "dimension": "temperature",
+                  "level": 0,
                   "marker": "fahrenheit",
                   "number": "one",
                   "range": {
@@ -2075,6 +2106,8 @@
                       "dead": true,
                       "evalue": 50,
                       "instance": true,
+                      "isModule": true,
+                      "isProcess": true,
                       "isResponse": true,
                       "level": 1,
                       "marker": "plusExpression",
@@ -2132,7 +2165,8 @@
                           "word": "*",
                           "x": {
                             "dead": true,
-                            "level": 1,
+                            "dimension": "temperature",
+                            "level": 0,
                             "marker": "celcius",
                             "number": "one",
                             "range": {
@@ -2199,13 +2233,14 @@
                     }
                   },
                   "level": 1,
-                  "marker": "dimension",
+                  "marker": "quantity",
                   "paraphrase": true,
                   "unit": {
                     "dead": true,
-                    "level": 1,
+                    "dimension": "temperature",
+                    "level": 0,
                     "marker": "fahrenheit",
-                    "number": "one",
+                    "number": "many",
                     "range": {
                       "end": 31,
                       "start": 22
@@ -2238,18 +2273,19 @@
                   },
                   "dead": true,
                   "level": 1,
-                  "marker": "dimension",
+                  "marker": "quantity",
                   "range": {
                     "end": 17,
                     "start": 8
                   },
                   "text": "10 celcius",
                   "types": [
-                    "dimension"
+                    "quantity"
                   ],
                   "unit": {
                     "dead": true,
-                    "level": 1,
+                    "dimension": "temperature",
+                    "level": 0,
                     "marker": "celcius",
                     "number": "one",
                     "range": {
@@ -2266,6 +2302,8 @@
                   "value": 10
                 },
                 "instance": true,
+                "isModule": true,
+                "isProcess": true,
                 "level": 1,
                 "marker": "convertToUnits",
                 "range": {
@@ -2275,7 +2313,8 @@
                 "text": "10 celcius in fahrenheit",
                 "to": {
                   "dead": true,
-                  "level": 1,
+                  "dimension": "temperature",
+                  "level": 0,
                   "marker": "fahrenheit",
                   "number": "one",
                   "range": {
@@ -2315,7 +2354,7 @@
                 "what"
               ],
               "range": {
-                "end": 31,
+                "end": 3,
                 "start": 0
               },
               "text": "what",
@@ -2359,18 +2398,19 @@
                 },
                 "dead": true,
                 "level": 1,
-                "marker": "dimension",
+                "marker": "quantity",
                 "range": {
                   "end": 17,
                   "start": 8
                 },
                 "text": "10 celcius",
                 "types": [
-                  "dimension"
+                  "quantity"
                 ],
                 "unit": {
                   "dead": true,
-                  "level": 1,
+                  "dimension": "temperature",
+                  "level": 0,
                   "marker": "celcius",
                   "number": "one",
                   "range": {
@@ -2395,7 +2435,8 @@
               "text": "10 celcius in fahrenheit",
               "to": {
                 "dead": true,
-                "level": 1,
+                "dimension": "temperature",
+                "level": 0,
                 "marker": "fahrenheit",
                 "number": "one",
                 "range": {
@@ -2416,20 +2457,25 @@
             },
             "word": "is"
           },
-          "generatedParenthesized": "(((((10) (celcius)) in (fahrenheit)) is ((((50)) (fahrenheit)))))",
-          "paraphrases": "what is 10 celcius in fahrenheit?",
-          "paraphrasesParenthesized": "(((what) is (((10) (celcius)) in (fahrenheit)))?)",
+          "generatedParenthesized": [
+          ],
+          "paraphrases": [
+          ],
+          "paraphrasesParenthesized": [
+          ],
           "responses": [
             "10 celcius in fahrenheit is 50 fahrenheit"
           ]
         },
         {
           "context": {
+            "context_id": null,
             "context_index": 1,
             "dead": true,
             "left": {
               "dead": true,
-              "level": 1,
+              "dimension": "temperature",
+              "level": 0,
               "marker": "celcius",
               "number": "one",
               "range": {
@@ -2524,7 +2570,8 @@
                     "word": "-",
                     "x": {
                       "dead": true,
-                      "level": 1,
+                      "dimension": "temperature",
+                      "level": 0,
                       "marker": "fahrenheit",
                       "number": "one",
                       "range": {
@@ -2617,20 +2664,22 @@
           },
           "generatedParenthesized": [
           ],
-          "paraphrases": "celcius = (fahrenheit - 32) * 5 / 8 + 32",
+          "paraphrases": [
+          ],
           "paraphrasesParenthesized": [
           ],
           "responses": [
-            ""
           ]
         },
         {
           "context": {
+            "context_id": null,
             "context_index": 1,
             "dead": true,
             "left": {
               "dead": true,
-              "level": 1,
+              "dimension": "temperature",
+              "level": 0,
               "marker": "fahrenheit",
               "number": "one",
               "range": {
@@ -2706,7 +2755,8 @@
                   "word": "*",
                   "x": {
                     "dead": true,
-                    "level": 1,
+                    "dimension": "temperature",
+                    "level": 0,
                     "marker": "celcius",
                     "number": "one",
                     "range": {
@@ -2782,15 +2832,16 @@
           },
           "generatedParenthesized": [
           ],
-          "paraphrases": "fahrenheit = celcius * 9 / 5 + 32",
+          "paraphrases": [
+          ],
           "paraphrasesParenthesized": [
           ],
           "responses": [
-            ""
           ]
         },
         {
           "context": {
+            "context_id": null,
             "context_index": 1,
             "dead": true,
             "level": 2,
@@ -2804,7 +2855,7 @@
               "marker": "list",
               "number": "many",
               "range": {
-                "end": 53,
+                "end": 28,
                 "start": 0
               },
               "text": "celcius fahrenheit and kelvin",
@@ -2815,7 +2866,7 @@
               "value": [
                 {
                   "dead": true,
-                  "level": 1,
+                  "level": 0,
                   "marker": "unknown",
                   "range": {
                     "end": 6,
@@ -2831,7 +2882,7 @@
                 },
                 {
                   "dead": true,
-                  "level": 1,
+                  "level": 0,
                   "marker": "unknown",
                   "range": {
                     "end": 17,
@@ -2847,7 +2898,7 @@
                 },
                 {
                   "dead": true,
-                  "level": 1,
+                  "level": 0,
                   "marker": "unknown",
                   "range": {
                     "end": 28,
@@ -2877,12 +2928,12 @@
             "two": {
               "concept": true,
               "dead": true,
-              "level": 1,
+              "level": 0,
               "marker": "unit",
               "number": "many",
               "object": {
                 "dead": true,
-                "level": 1,
+                "level": 0,
                 "marker": "temperature",
                 "number": "one",
                 "range": {
@@ -2899,7 +2950,7 @@
               "objects": [
                 {
                   "dead": true,
-                  "level": 1,
+                  "level": 0,
                   "marker": "unit",
                   "number": "many",
                   "range": {
@@ -2915,7 +2966,7 @@
                 },
                 {
                   "dead": true,
-                  "level": 1,
+                  "level": 0,
                   "marker": "temperature",
                   "number": "one",
                   "range": {
@@ -2945,15 +2996,16 @@
           },
           "generatedParenthesized": [
           ],
-          "paraphrases": "celcius, fahrenheit and kelvin are units of temperature",
+          "paraphrases": [
+          ],
           "paraphrasesParenthesized": [
           ],
           "responses": [
-            ""
           ]
         },
         {
           "context": {
+            "context_id": null,
             "context_index": 1,
             "dead": true,
             "level": 2,
@@ -2961,11 +3013,11 @@
             "number": "one",
             "one": {
               "dead": true,
-              "level": 1,
+              "level": 0,
               "marker": "unknown",
               "number": "one",
               "range": {
-                "end": 25,
+                "end": 10,
                 "start": 0
               },
               "text": "temperature",
@@ -3001,7 +3053,7 @@
                 "word": "a"
               },
               "instance": true,
-              "level": 1,
+              "level": 0,
               "marker": "dimension",
               "modifiers": [
                 "determiner"
@@ -3024,15 +3076,16 @@
           },
           "generatedParenthesized": [
           ],
-          "paraphrases": "temperature is a dimension",
+          "paraphrases": [
+          ],
           "paraphrasesParenthesized": [
           ],
           "responses": [
-            ""
           ]
         },
         {
           "context": {
+            "context_id": null,
             "context_index": 1,
             "dead": true,
             "level": 2,
@@ -3046,7 +3099,7 @@
               "marker": "list",
               "number": "many",
               "range": {
-                "end": 30,
+                "end": 17,
                 "start": 0
               },
               "text": "dimension and unit",
@@ -3057,7 +3110,7 @@
               "value": [
                 {
                   "dead": true,
-                  "level": 1,
+                  "level": 0,
                   "marker": "unknown",
                   "range": {
                     "end": 8,
@@ -3073,7 +3126,7 @@
                 },
                 {
                   "dead": true,
-                  "level": 1,
+                  "level": 0,
                   "marker": "unknown",
                   "range": {
                     "end": 17,
@@ -3104,7 +3157,7 @@
             "two": {
               "concept": true,
               "dead": true,
-              "level": 1,
+              "level": 0,
               "marker": "unknown",
               "range": {
                 "end": 30,
@@ -3122,11 +3175,11 @@
           },
           "generatedParenthesized": [
           ],
-          "paraphrases": "dimension and unit are concepts",
+          "paraphrases": [
+          ],
           "paraphrasesParenthesized": [
           ],
           "responses": [
-            ""
           ]
         }
       ]
@@ -3311,7 +3364,7 @@
               {
                 "marker": [
                   "celcius",
-                  1
+                  0
                 ],
                 "range": {
                   "end": 17,
@@ -3365,22 +3418,12 @@
               },
               {
                 "marker": [
-                  "integer",
-                  1
-                ],
-                "range": {
-                  "end": 9,
-                  "start": 8
-                }
-              },
-              {
-                "marker": [
-                  "celcius",
+                  "quantity",
                   1
                 ],
                 "range": {
                   "end": 17,
-                  "start": 11
+                  "start": 8
                 }
               },
               {
@@ -3396,7 +3439,7 @@
               {
                 "marker": [
                   "fahrenheit",
-                  1
+                  0
                 ],
                 "range": {
                   "end": 31,
@@ -3411,7 +3454,7 @@
               {
                 "marker": [
                   "what",
-                  1
+                  0
                 ],
                 "range": {
                   "end": 3,
@@ -3430,22 +3473,12 @@
               },
               {
                 "marker": [
-                  "integer",
-                  1
-                ],
-                "range": {
-                  "end": 9,
-                  "start": 8
-                }
-              },
-              {
-                "marker": [
-                  "celcius",
+                  "quantity",
                   1
                 ],
                 "range": {
                   "end": 17,
-                  "start": 11
+                  "start": 8
                 }
               },
               {
@@ -3461,7 +3494,7 @@
               {
                 "marker": [
                   "fahrenheit",
-                  1
+                  0
                 ],
                 "range": {
                   "end": 31,
@@ -3495,8 +3528,8 @@
               },
               {
                 "marker": [
-                  "dimension",
-                  0
+                  "quantity",
+                  1
                 ],
                 "range": {
                   "end": 17,
@@ -3516,7 +3549,7 @@
               {
                 "marker": [
                   "fahrenheit",
-                  1
+                  0
                 ],
                 "range": {
                   "end": 31,
@@ -3550,32 +3583,12 @@
               },
               {
                 "marker": [
-                  "dimension",
-                  1
-                ],
-                "range": {
-                  "end": 17,
-                  "start": 8
-                }
-              },
-              {
-                "marker": [
                   "convertToUnits",
-                  0
-                ],
-                "range": {
-                  "end": 20,
-                  "start": 19
-                }
-              },
-              {
-                "marker": [
-                  "fahrenheit",
                   1
                 ],
                 "range": {
                   "end": 31,
-                  "start": 22
+                  "start": 8
                 }
               }
             ]
@@ -3585,53 +3598,18 @@
             "operators": [
               {
                 "marker": [
-                  "what",
-                  1
-                ],
-                "range": {
-                  "end": 3,
-                  "start": 0
-                }
-              },
-              {
-                "marker": [
                   "is",
-                  0
-                ],
-                "range": {
-                  "end": 6,
-                  "start": 5
-                }
-              },
-              {
-                "marker": [
-                  "convertToUnits",
                   1
                 ],
                 "range": {
                   "end": 31,
-                  "start": 8
+                  "start": 0
                 }
               }
             ]
           },
           {
             "counter": 9,
-            "operators": [
-              {
-                "marker": [
-                  "is",
-                  1
-                ],
-                "range": {
-                  "end": 31,
-                  "start": 0
-                }
-              }
-            ]
-          },
-          {
-            "counter": 10,
             "operators": [
               {
                 "marker": [
@@ -3711,37 +3689,13 @@
         [
           "is",
           0
-        ],
-        [
-          "what",
-          0
         ]
       ],
       [
         [
-          "convertToUnits",
+          "celcius",
           0
         ],
-        [
-          "dimension",
-          0
-        ],
-        [
-          "is",
-          0
-        ]
-      ],
-      [
-        [
-          "convertToUnits",
-          0
-        ],
-        [
-          "is",
-          0
-        ]
-      ],
-      [
         [
           "convertToUnits",
           0
@@ -3760,6 +3714,7 @@
     },
     "contexts": [
       {
+        "context_id": 2,
         "context_index": 1,
         "dead": true,
         "evalue": {
@@ -3791,18 +3746,19 @@
               },
               "dead": true,
               "level": 1,
-              "marker": "dimension",
+              "marker": "quantity",
               "range": {
                 "end": 20,
                 "start": 8
               },
               "text": "10 fahrenheit",
               "types": [
-                "dimension"
+                "quantity"
               ],
               "unit": {
                 "dead": true,
-                "level": 1,
+                "dimension": "temperature",
+                "level": 0,
                 "marker": "fahrenheit",
                 "number": "one",
                 "range": {
@@ -3827,7 +3783,8 @@
             "text": "10 fahrenheit in celcius",
             "to": {
               "dead": true,
-              "level": 1,
+              "dimension": "temperature",
+              "level": 0,
               "marker": "celcius",
               "number": "one",
               "range": {
@@ -3855,6 +3812,8 @@
                   "dead": true,
                   "evalue": 18.25,
                   "instance": true,
+                  "isModule": true,
+                  "isProcess": true,
                   "isResponse": true,
                   "level": 1,
                   "marker": "plusExpression",
@@ -3931,7 +3890,8 @@
                         "word": "-",
                         "x": {
                           "dead": true,
-                          "level": 1,
+                          "dimension": "temperature",
+                          "level": 0,
                           "marker": "fahrenheit",
                           "number": "one",
                           "range": {
@@ -4015,13 +3975,14 @@
                 }
               },
               "level": 1,
-              "marker": "dimension",
+              "marker": "quantity",
               "paraphrase": true,
               "unit": {
                 "dead": true,
-                "level": 1,
+                "dimension": "temperature",
+                "level": 0,
                 "marker": "celcius",
-                "number": "one",
+                "number": "many",
                 "range": {
                   "end": 31,
                   "start": 25
@@ -4054,18 +4015,19 @@
               },
               "dead": true,
               "level": 1,
-              "marker": "dimension",
+              "marker": "quantity",
               "range": {
                 "end": 20,
                 "start": 8
               },
               "text": "10 fahrenheit",
               "types": [
-                "dimension"
+                "quantity"
               ],
               "unit": {
                 "dead": true,
-                "level": 1,
+                "dimension": "temperature",
+                "level": 0,
                 "marker": "fahrenheit",
                 "number": "one",
                 "range": {
@@ -4082,6 +4044,8 @@
               "value": 10
             },
             "instance": true,
+            "isModule": true,
+            "isProcess": true,
             "level": 1,
             "marker": "convertToUnits",
             "range": {
@@ -4091,7 +4055,8 @@
             "text": "10 fahrenheit in celcius",
             "to": {
               "dead": true,
-              "level": 1,
+              "dimension": "temperature",
+              "level": 0,
               "marker": "celcius",
               "number": "one",
               "range": {
@@ -4131,7 +4096,7 @@
             "what"
           ],
           "range": {
-            "end": 31,
+            "end": 3,
             "start": 0
           },
           "text": "what",
@@ -4175,18 +4140,19 @@
             },
             "dead": true,
             "level": 1,
-            "marker": "dimension",
+            "marker": "quantity",
             "range": {
               "end": 20,
               "start": 8
             },
             "text": "10 fahrenheit",
             "types": [
-              "dimension"
+              "quantity"
             ],
             "unit": {
               "dead": true,
-              "level": 1,
+              "dimension": "temperature",
+              "level": 0,
               "marker": "fahrenheit",
               "number": "one",
               "range": {
@@ -4211,7 +4177,8 @@
           "text": "10 fahrenheit in celcius",
           "to": {
             "dead": true,
-            "level": 1,
+            "dimension": "temperature",
+            "level": 0,
             "marker": "celcius",
             "number": "one",
             "range": {
@@ -4246,6 +4213,10 @@
           ],
           "ops": [
             [
+              "amountOfCoordinate",
+              0
+            ],
+            [
               "celcius",
               0
             ],
@@ -4279,7 +4250,7 @@
           ],
           "ops": [
             [
-              "amountOfDimension",
+              "amountOfCoordinate",
               0
             ],
             [
@@ -4307,12 +4278,12 @@
         {
           "counter": 3,
           "op": [
-            "celcius",
+            "amountOfCoordinate",
             0
           ],
           "ops": [
             [
-              "amountOfDimension",
+              "amountOfCoordinate",
               0
             ],
             [
@@ -4336,12 +4307,12 @@
         {
           "counter": 4,
           "op": [
-            "what",
+            "celcius",
             0
           ],
           "ops": [
             [
-              "amountOfDimension",
+              "celcius",
               0
             ],
             [
@@ -4361,47 +4332,26 @@
         {
           "counter": 5,
           "op": [
-            "amountOfDimension",
+            "what",
             0
           ],
           "ops": [
-            [
-              "amountOfDimension",
-              0
-            ],
             [
               "convertToUnits",
               0
             ],
             [
               "is",
+              0
+            ],
+            [
+              "what",
               0
             ]
           ]
         },
         {
           "counter": 6,
-          "op": [
-            "dimension",
-            0
-          ],
-          "ops": [
-            [
-              "convertToUnits",
-              0
-            ],
-            [
-              "dimension",
-              0
-            ],
-            [
-              "is",
-              0
-            ]
-          ]
-        },
-        {
-          "counter": 7,
           "op": [
             "convertToUnits",
             0
@@ -4418,7 +4368,7 @@
           ]
         },
         {
-          "counter": 8,
+          "counter": 7,
           "op": [
             "is",
             0
@@ -4431,7 +4381,7 @@
           ]
         },
         {
-          "counter": 9,
+          "counter": 8,
           "op": [
             "is",
             1
@@ -4446,6 +4396,8 @@
       ]
     },
     "objects": {
+      "associations": [
+      ],
       "nameToUUID": {
         "articles": "articles2",
         "asking": "asking2",
@@ -4470,46 +4422,58 @@
         "stm": "stm2",
         "temperature": "temperature1",
         "testing": "testing2",
-        "tokenize": "tokenize2"
+        "tokenize": "tokenize2",
+        "words": "words2"
       },
       "namespaced": {
         "articles2": {
+          "km": "articles2"
         },
         "asking2": {
+          "km": "asking2"
         },
         "comparable2": {
+          "km": "comparable2"
         },
         "concept2": {
           "defaultTypesForHierarchy": {
           },
+          "km": "concept2",
           "valueToWords": [
           ]
         },
         "conjunction2": {
+          "km": "conjunction2"
         },
         "countable2": {
+          "km": "countable2"
         },
         "dialogues2": {
           "idSuffix": "",
+          "km": "dialogues2",
           "mentioned": [
           ],
           "variables": {
           }
         },
         "dimension2": {
+          "km": "dimension2"
         },
         "evaluate2": {
+          "km": "evaluate2"
         },
         "formulas2": {
           "formulas": {
             "celcius": [
               {
                 "equality": {
+                  "context_id": null,
                   "context_index": 1,
                   "dead": true,
                   "left": {
                     "dead": true,
-                    "level": 1,
+                    "dimension": "temperature",
+                    "level": 0,
                     "marker": "celcius",
                     "number": "one",
                     "range": {
@@ -4604,7 +4568,8 @@
                           "word": "-",
                           "x": {
                             "dead": true,
-                            "level": 1,
+                            "dimension": "temperature",
+                            "level": 0,
                             "marker": "fahrenheit",
                             "number": "one",
                             "range": {
@@ -4770,7 +4735,8 @@
                         "word": "-",
                         "x": {
                           "dead": true,
-                          "level": 1,
+                          "dimension": "temperature",
+                          "level": 0,
                           "marker": "fahrenheit",
                           "number": "one",
                           "range": {
@@ -4854,7 +4820,8 @@
                 },
                 "name": {
                   "dead": true,
-                  "level": 1,
+                  "dimension": "temperature",
+                  "level": 0,
                   "marker": "celcius",
                   "number": "one",
                   "range": {
@@ -4873,11 +4840,13 @@
             "fahrenheit": [
               {
                 "equality": {
+                  "context_id": null,
                   "context_index": 1,
                   "dead": true,
                   "left": {
                     "dead": true,
-                    "level": 1,
+                    "dimension": "temperature",
+                    "level": 0,
                     "marker": "fahrenheit",
                     "number": "one",
                     "range": {
@@ -4953,7 +4922,8 @@
                         "word": "*",
                         "x": {
                           "dead": true,
-                          "level": 1,
+                          "dimension": "temperature",
+                          "level": 0,
                           "marker": "celcius",
                           "number": "one",
                           "range": {
@@ -5083,7 +5053,8 @@
                       "word": "*",
                       "x": {
                         "dead": true,
-                        "level": 1,
+                        "dimension": "temperature",
+                        "level": 0,
                         "marker": "celcius",
                         "number": "one",
                         "range": {
@@ -5150,7 +5121,8 @@
                 },
                 "name": {
                   "dead": true,
-                  "level": 1,
+                  "dimension": "temperature",
+                  "level": 0,
                   "marker": "fahrenheit",
                   "number": "one",
                   "range": {
@@ -5166,21 +5138,29 @@
                 }
               }
             ]
-          }
+          },
+          "km": "formulas2"
         },
         "gdefaults2": {
+          "km": "gdefaults2"
         },
         "hierarchy2": {
+          "km": "hierarchy2"
         },
         "math2": {
+          "km": "math2"
         },
         "meta2": {
+          "km": "meta2"
         },
         "negation2": {
+          "km": "negation2"
         },
         "numbers2": {
+          "km": "numbers2"
         },
         "pos2": {
+          "km": "pos2"
         },
         "properties2": {
           "children": {
@@ -5214,6 +5194,10 @@
             "ifAble": [
               "orAble"
             ],
+            "listable": [
+              "object",
+              "queryable"
+            ],
             "object": [
               "what",
               "whose"
@@ -5239,7 +5223,6 @@
               "concept",
               "doubleQuote",
               "theAble",
-              "unknown",
               "it",
               "what",
               "whatAble",
@@ -5257,7 +5240,7 @@
               "property",
               "object",
               "concept",
-              "unknown",
+              "listable",
               "reason",
               "memorable",
               "noun"
@@ -5270,7 +5253,7 @@
             "toAble": [
               "it"
             ],
-            "unit": [
+            "unit_temperature": [
               "celcius",
               "fahrenheit",
               "kelvin"
@@ -5278,8 +5261,8 @@
             "verb": [
               "modifies",
               "is",
-              "remember",
-              "evaluate"
+              "isQuery",
+              "remember"
             ]
           },
           "concepts": [
@@ -5298,6 +5281,7 @@
             "canBeQuestion",
             "property",
             "theAble",
+            "listable",
             "propertyOf",
             "whose",
             "concept",
@@ -5317,6 +5301,7 @@
             "is",
             "toAble",
             "to",
+            "isQuery",
             "reason",
             "memorable",
             "remember",
@@ -5324,7 +5309,6 @@
             "adjective",
             "orAble",
             "ifAble",
-            "evaluate",
             "each",
             "every",
             "distributable",
@@ -5339,9 +5323,11 @@
             "unit",
             "temperature",
             "celcius",
+            "unit_temperature",
             "fahrenheit",
             "kelvin"
           ],
+          "km": "properties2",
           "parents": {
             "a": [
               "article"
@@ -5353,7 +5339,7 @@
               "preposition"
             ],
             "celcius": [
-              "unit"
+              "unit_temperature"
             ],
             "concept": [
               "theAble",
@@ -5374,14 +5360,11 @@
             "each": [
               "article"
             ],
-            "evaluate": [
-              "verb"
-            ],
             "every": [
               "article"
             ],
             "fahrenheit": [
-              "unit"
+              "unit_temperature"
             ],
             "formula": [
               "concept"
@@ -5397,6 +5380,9 @@
               "canBeQuestion",
               "verb"
             ],
+            "isQuery": [
+              "verb"
+            ],
             "it": [
               "pronoun",
               "queryable",
@@ -5404,7 +5390,10 @@
               "thisitthat"
             ],
             "kelvin": [
-              "unit"
+              "unit_temperature"
+            ],
+            "listable": [
+              "theAble"
             ],
             "memorable": [
               "theAble"
@@ -5420,7 +5409,8 @@
             ],
             "object": [
               "queryable",
-              "theAble"
+              "theAble",
+              "listable"
             ],
             "orAble": [
               "ifAble"
@@ -5431,6 +5421,9 @@
             ],
             "propertyOf": [
               "preposition"
+            ],
+            "queryable": [
+              "listable"
             ],
             "questionMark": [
               "punctuation"
@@ -5475,9 +5468,7 @@
               "concept"
             ],
             "unknown": [
-              "hierarchyAble",
-              "theAble",
-              "queryable"
+              "hierarchyAble"
             ],
             "what": [
               "object",
@@ -5527,8 +5518,6 @@
               },
               "each": {
               },
-              "evaluate": {
-              },
               "every": {
               },
               "fahrenheit": {
@@ -5543,9 +5532,13 @@
               },
               "is": {
               },
+              "isQuery": {
+              },
               "it": {
               },
               "kelvin": {
+              },
+              "listable": {
               },
               "memorable": {
               },
@@ -5601,6 +5594,8 @@
               },
               "unit": {
               },
+              "unit_temperature": {
+              },
               "unknown": {
               },
               "verb": {
@@ -5623,10 +5618,13 @@
           }
         },
         "punctuation2": {
+          "km": "punctuation2"
         },
         "sdefaults2": {
+          "km": "sdefaults2"
         },
         "stm2": {
+          "km": "stm2",
           "mentioned": [
             {
               "fromSTM": true,
@@ -5657,15 +5655,24 @@
           }
         },
         "temperature1": {
+          "km": "temperature1"
         },
         "testing2": {
+          "km": "testing2"
         },
         "tokenize2": {
+          "km": "tokenize2"
+        },
+        "words2": {
+          "km": "words2",
+          "words": [
+          ]
         }
       },
       "processed": [
         {
           "context": {
+            "context_id": 2,
             "context_index": 1,
             "dead": true,
             "evalue": {
@@ -5697,18 +5704,19 @@
                   },
                   "dead": true,
                   "level": 1,
-                  "marker": "dimension",
+                  "marker": "quantity",
                   "range": {
                     "end": 20,
                     "start": 8
                   },
                   "text": "10 fahrenheit",
                   "types": [
-                    "dimension"
+                    "quantity"
                   ],
                   "unit": {
                     "dead": true,
-                    "level": 1,
+                    "dimension": "temperature",
+                    "level": 0,
                     "marker": "fahrenheit",
                     "number": "one",
                     "range": {
@@ -5733,7 +5741,8 @@
                 "text": "10 fahrenheit in celcius",
                 "to": {
                   "dead": true,
-                  "level": 1,
+                  "dimension": "temperature",
+                  "level": 0,
                   "marker": "celcius",
                   "number": "one",
                   "range": {
@@ -5761,6 +5770,8 @@
                       "dead": true,
                       "evalue": 18.25,
                       "instance": true,
+                      "isModule": true,
+                      "isProcess": true,
                       "isResponse": true,
                       "level": 1,
                       "marker": "plusExpression",
@@ -5837,7 +5848,8 @@
                             "word": "-",
                             "x": {
                               "dead": true,
-                              "level": 1,
+                              "dimension": "temperature",
+                              "level": 0,
                               "marker": "fahrenheit",
                               "number": "one",
                               "range": {
@@ -5921,13 +5933,14 @@
                     }
                   },
                   "level": 1,
-                  "marker": "dimension",
+                  "marker": "quantity",
                   "paraphrase": true,
                   "unit": {
                     "dead": true,
-                    "level": 1,
+                    "dimension": "temperature",
+                    "level": 0,
                     "marker": "celcius",
-                    "number": "one",
+                    "number": "many",
                     "range": {
                       "end": 31,
                       "start": 25
@@ -5960,18 +5973,19 @@
                   },
                   "dead": true,
                   "level": 1,
-                  "marker": "dimension",
+                  "marker": "quantity",
                   "range": {
                     "end": 20,
                     "start": 8
                   },
                   "text": "10 fahrenheit",
                   "types": [
-                    "dimension"
+                    "quantity"
                   ],
                   "unit": {
                     "dead": true,
-                    "level": 1,
+                    "dimension": "temperature",
+                    "level": 0,
                     "marker": "fahrenheit",
                     "number": "one",
                     "range": {
@@ -5988,6 +6002,8 @@
                   "value": 10
                 },
                 "instance": true,
+                "isModule": true,
+                "isProcess": true,
                 "level": 1,
                 "marker": "convertToUnits",
                 "range": {
@@ -5997,7 +6013,8 @@
                 "text": "10 fahrenheit in celcius",
                 "to": {
                   "dead": true,
-                  "level": 1,
+                  "dimension": "temperature",
+                  "level": 0,
                   "marker": "celcius",
                   "number": "one",
                   "range": {
@@ -6037,7 +6054,7 @@
                 "what"
               ],
               "range": {
-                "end": 31,
+                "end": 3,
                 "start": 0
               },
               "text": "what",
@@ -6081,18 +6098,19 @@
                 },
                 "dead": true,
                 "level": 1,
-                "marker": "dimension",
+                "marker": "quantity",
                 "range": {
                   "end": 20,
                   "start": 8
                 },
                 "text": "10 fahrenheit",
                 "types": [
-                  "dimension"
+                  "quantity"
                 ],
                 "unit": {
                   "dead": true,
-                  "level": 1,
+                  "dimension": "temperature",
+                  "level": 0,
                   "marker": "fahrenheit",
                   "number": "one",
                   "range": {
@@ -6117,7 +6135,8 @@
               "text": "10 fahrenheit in celcius",
               "to": {
                 "dead": true,
-                "level": 1,
+                "dimension": "temperature",
+                "level": 0,
                 "marker": "celcius",
                 "number": "one",
                 "range": {
@@ -6138,20 +6157,25 @@
             },
             "word": "is"
           },
-          "generatedParenthesized": "(((((10) (fahrenheit)) in (celcius)) is ((((18.25)) (celcius)))))",
-          "paraphrases": "what is 10 fahrenheit in celcius?",
-          "paraphrasesParenthesized": "(((what) is (((10) (fahrenheit)) in (celcius)))?)",
+          "generatedParenthesized": [
+          ],
+          "paraphrases": [
+          ],
+          "paraphrasesParenthesized": [
+          ],
           "responses": [
             "10 fahrenheit in celcius is 18.25 celcius"
           ]
         },
         {
           "context": {
+            "context_id": null,
             "context_index": 1,
             "dead": true,
             "left": {
               "dead": true,
-              "level": 1,
+              "dimension": "temperature",
+              "level": 0,
               "marker": "celcius",
               "number": "one",
               "range": {
@@ -6246,7 +6270,8 @@
                     "word": "-",
                     "x": {
                       "dead": true,
-                      "level": 1,
+                      "dimension": "temperature",
+                      "level": 0,
                       "marker": "fahrenheit",
                       "number": "one",
                       "range": {
@@ -6339,20 +6364,22 @@
           },
           "generatedParenthesized": [
           ],
-          "paraphrases": "celcius = (fahrenheit - 32) * 5 / 8 + 32",
+          "paraphrases": [
+          ],
           "paraphrasesParenthesized": [
           ],
           "responses": [
-            ""
           ]
         },
         {
           "context": {
+            "context_id": null,
             "context_index": 1,
             "dead": true,
             "left": {
               "dead": true,
-              "level": 1,
+              "dimension": "temperature",
+              "level": 0,
               "marker": "fahrenheit",
               "number": "one",
               "range": {
@@ -6428,7 +6455,8 @@
                   "word": "*",
                   "x": {
                     "dead": true,
-                    "level": 1,
+                    "dimension": "temperature",
+                    "level": 0,
                     "marker": "celcius",
                     "number": "one",
                     "range": {
@@ -6504,15 +6532,16 @@
           },
           "generatedParenthesized": [
           ],
-          "paraphrases": "fahrenheit = celcius * 9 / 5 + 32",
+          "paraphrases": [
+          ],
           "paraphrasesParenthesized": [
           ],
           "responses": [
-            ""
           ]
         },
         {
           "context": {
+            "context_id": null,
             "context_index": 1,
             "dead": true,
             "level": 2,
@@ -6526,7 +6555,7 @@
               "marker": "list",
               "number": "many",
               "range": {
-                "end": 53,
+                "end": 28,
                 "start": 0
               },
               "text": "celcius fahrenheit and kelvin",
@@ -6537,7 +6566,7 @@
               "value": [
                 {
                   "dead": true,
-                  "level": 1,
+                  "level": 0,
                   "marker": "unknown",
                   "range": {
                     "end": 6,
@@ -6553,7 +6582,7 @@
                 },
                 {
                   "dead": true,
-                  "level": 1,
+                  "level": 0,
                   "marker": "unknown",
                   "range": {
                     "end": 17,
@@ -6569,7 +6598,7 @@
                 },
                 {
                   "dead": true,
-                  "level": 1,
+                  "level": 0,
                   "marker": "unknown",
                   "range": {
                     "end": 28,
@@ -6599,12 +6628,12 @@
             "two": {
               "concept": true,
               "dead": true,
-              "level": 1,
+              "level": 0,
               "marker": "unit",
               "number": "many",
               "object": {
                 "dead": true,
-                "level": 1,
+                "level": 0,
                 "marker": "temperature",
                 "number": "one",
                 "range": {
@@ -6621,7 +6650,7 @@
               "objects": [
                 {
                   "dead": true,
-                  "level": 1,
+                  "level": 0,
                   "marker": "unit",
                   "number": "many",
                   "range": {
@@ -6637,7 +6666,7 @@
                 },
                 {
                   "dead": true,
-                  "level": 1,
+                  "level": 0,
                   "marker": "temperature",
                   "number": "one",
                   "range": {
@@ -6667,15 +6696,16 @@
           },
           "generatedParenthesized": [
           ],
-          "paraphrases": "celcius, fahrenheit and kelvin are units of temperature",
+          "paraphrases": [
+          ],
           "paraphrasesParenthesized": [
           ],
           "responses": [
-            ""
           ]
         },
         {
           "context": {
+            "context_id": null,
             "context_index": 1,
             "dead": true,
             "level": 2,
@@ -6683,11 +6713,11 @@
             "number": "one",
             "one": {
               "dead": true,
-              "level": 1,
+              "level": 0,
               "marker": "unknown",
               "number": "one",
               "range": {
-                "end": 25,
+                "end": 10,
                 "start": 0
               },
               "text": "temperature",
@@ -6723,7 +6753,7 @@
                 "word": "a"
               },
               "instance": true,
-              "level": 1,
+              "level": 0,
               "marker": "dimension",
               "modifiers": [
                 "determiner"
@@ -6746,15 +6776,16 @@
           },
           "generatedParenthesized": [
           ],
-          "paraphrases": "temperature is a dimension",
+          "paraphrases": [
+          ],
           "paraphrasesParenthesized": [
           ],
           "responses": [
-            ""
           ]
         },
         {
           "context": {
+            "context_id": null,
             "context_index": 1,
             "dead": true,
             "level": 2,
@@ -6768,7 +6799,7 @@
               "marker": "list",
               "number": "many",
               "range": {
-                "end": 30,
+                "end": 17,
                 "start": 0
               },
               "text": "dimension and unit",
@@ -6779,7 +6810,7 @@
               "value": [
                 {
                   "dead": true,
-                  "level": 1,
+                  "level": 0,
                   "marker": "unknown",
                   "range": {
                     "end": 8,
@@ -6795,7 +6826,7 @@
                 },
                 {
                   "dead": true,
-                  "level": 1,
+                  "level": 0,
                   "marker": "unknown",
                   "range": {
                     "end": 17,
@@ -6826,7 +6857,7 @@
             "two": {
               "concept": true,
               "dead": true,
-              "level": 1,
+              "level": 0,
               "marker": "unknown",
               "range": {
                 "end": 30,
@@ -6844,11 +6875,11 @@
           },
           "generatedParenthesized": [
           ],
-          "paraphrases": "dimension and unit are concepts",
+          "paraphrases": [
+          ],
           "paraphrasesParenthesized": [
           ],
           "responses": [
-            ""
           ]
         }
       ]
@@ -7033,7 +7064,7 @@
               {
                 "marker": [
                   "fahrenheit",
-                  1
+                  0
                 ],
                 "range": {
                   "end": 20,
@@ -7087,22 +7118,12 @@
               },
               {
                 "marker": [
-                  "integer",
-                  1
-                ],
-                "range": {
-                  "end": 9,
-                  "start": 8
-                }
-              },
-              {
-                "marker": [
-                  "fahrenheit",
+                  "quantity",
                   1
                 ],
                 "range": {
                   "end": 20,
-                  "start": 11
+                  "start": 8
                 }
               },
               {
@@ -7118,7 +7139,7 @@
               {
                 "marker": [
                   "celcius",
-                  1
+                  0
                 ],
                 "range": {
                   "end": 31,
@@ -7133,7 +7154,7 @@
               {
                 "marker": [
                   "what",
-                  1
+                  0
                 ],
                 "range": {
                   "end": 3,
@@ -7152,22 +7173,12 @@
               },
               {
                 "marker": [
-                  "integer",
-                  1
-                ],
-                "range": {
-                  "end": 9,
-                  "start": 8
-                }
-              },
-              {
-                "marker": [
-                  "fahrenheit",
+                  "quantity",
                   1
                 ],
                 "range": {
                   "end": 20,
-                  "start": 11
+                  "start": 8
                 }
               },
               {
@@ -7183,7 +7194,7 @@
               {
                 "marker": [
                   "celcius",
-                  1
+                  0
                 ],
                 "range": {
                   "end": 31,
@@ -7217,8 +7228,8 @@
               },
               {
                 "marker": [
-                  "dimension",
-                  0
+                  "quantity",
+                  1
                 ],
                 "range": {
                   "end": 20,
@@ -7238,7 +7249,7 @@
               {
                 "marker": [
                   "celcius",
-                  1
+                  0
                 ],
                 "range": {
                   "end": 31,
@@ -7272,32 +7283,12 @@
               },
               {
                 "marker": [
-                  "dimension",
-                  1
-                ],
-                "range": {
-                  "end": 20,
-                  "start": 8
-                }
-              },
-              {
-                "marker": [
                   "convertToUnits",
-                  0
-                ],
-                "range": {
-                  "end": 23,
-                  "start": 22
-                }
-              },
-              {
-                "marker": [
-                  "celcius",
                   1
                 ],
                 "range": {
                   "end": 31,
-                  "start": 25
+                  "start": 8
                 }
               }
             ]
@@ -7307,53 +7298,18 @@
             "operators": [
               {
                 "marker": [
-                  "what",
-                  1
-                ],
-                "range": {
-                  "end": 3,
-                  "start": 0
-                }
-              },
-              {
-                "marker": [
                   "is",
-                  0
-                ],
-                "range": {
-                  "end": 6,
-                  "start": 5
-                }
-              },
-              {
-                "marker": [
-                  "convertToUnits",
                   1
                 ],
                 "range": {
                   "end": 31,
-                  "start": 8
+                  "start": 0
                 }
               }
             ]
           },
           {
             "counter": 9,
-            "operators": [
-              {
-                "marker": [
-                  "is",
-                  1
-                ],
-                "range": {
-                  "end": 31,
-                  "start": 0
-                }
-              }
-            ]
-          },
-          {
-            "counter": 10,
             "operators": [
               {
                 "marker": [

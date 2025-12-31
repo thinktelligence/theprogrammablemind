@@ -160,28 +160,32 @@ const config = {
             }
             kms.stm.api.setVariable(efrom.unit.value, efrom.amount)
             evalue = await e(formula)
-            debugger
-            console.log(await gp(formula))
-            console.log(await gp(evalue))
           }
           return evalue
         }
 
-        const evalues = []
+        let evalues = []
         for (const to of tos) {
           evalues.push({ value: await convert(to), to: structuredClone(to) })
         }
         evalues.sort((a, b) => a.evalue - b.evalue )
+
         let fractionalPart = 0
         let scale = 1
         for (const evalue of evalues) {
           const value = evalue.value.evalue * scale
           const integerPart = Math.trunc(value)
-          const fractionalPart = Math.abs(value - integerPart)
-          evalue.to.evalue = integerPart
+          fractionalPart = Math.abs(value - integerPart)
+          evalue.value.evalue = integerPart
           scale = fractionalPart / value * scale
         }
-        evalues[evalues.length-1].to.evalue += fractionalPart
+        // evalues[evalues.length-1].value.evalue = Number((integerPart * (1+scale)).toFixed(4))
+        evalues[evalues.length-1].value.evalue += fractionalPart
+        evalues[evalues.length-1].value.evalue = Number(evalues[evalues.length-1].value.evalue.toFixed(4))
+
+        // remove the zeros
+        evalues = evalues.filter( (evalue) => evalue.value.evalue )
+
         /*
         '{
             "marker":"dimension",
@@ -190,20 +194,21 @@ const config = {
             "amount":{"word":"degrees","number":"many","text":"10 degrees","marker":"degree","range":{"start":8,"end":17},"value":10,"amount":{"value":10,"text":"10","marker":"number","word":"10","range":{"start":8,"end":9},"types":["number"]}},
               "text":"10 degrees celcius","range":{"start":8,"end":25}}'
         */
-        debugger
-        if (evalues.length > 1) {
-          context.evalue = toList(evalues.map((evalue) => {
-            return evalue.to
-          }))
-        } else {
-          debugger
-          context.evalue = { 
+        evalues = evalues.map((evalue) => {
+          const number = evalue.value.evalue == 1 ? 'one' : 'many'
+          evalue.to.number = number
+          return { 
             paraphrase: true,
             marker: 'quantity',
             level: 1,
-            unit: evalues[0].to,
-            amount: { evalue: evalues[0].value, paraphrase: undefined }
+            unit: evalue.to,
+            amount: { evalue: evalue.value, paraphrase: undefined }
           }
+        })
+        if (evalues.length > 1) {
+          context.evalue = toList(evalues)
+        } else {
+          context.evalue = evalues[0]
         }
       },
     },
@@ -262,7 +267,7 @@ knowledgeModule({
           exported: true, 
           extra: ['dimension'],
         }),
-        defaultContextCheck(['dimension']),
+        defaultContextCheck(['dimension', 'response']),
       ],
     },
   },
