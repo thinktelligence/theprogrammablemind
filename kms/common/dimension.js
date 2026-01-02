@@ -221,7 +221,9 @@ const config = {
 
 const template = {
   configs: [
-    "dimension and unit are concepts",
+    "measurement modifies unit",
+    "dimension and measurement unit are concepts",
+    "unit means measurement unit",
     ({apis}) => {
       apis('properties').addHierarchyWatcher({
         match: ({parentId, isA}) => isA(parentId, 'unit'),
@@ -243,6 +245,15 @@ const template = {
         }
       })
     },
+    "metric modifies system",
+    "imperial modifies system",
+    "measurement modifies system",
+    "the metric system is a measurement system",
+    "the imperial system is a measurement system",
+    "imperial modifies unit",
+    "metric modifies unit",
+    // "imperial unit is a unit",
+    // "metric unit is a unit",
     config,
   ],
 }
