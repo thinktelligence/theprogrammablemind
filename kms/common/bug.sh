@@ -934,3 +934,4 @@ node  picarx -q 'calibrate\npause 1\nstop\n2 feet' -g -d
 node inspect picarx -q 'calibrate\npause 1\nstop\n2 feet\nforward 2 meters per minute' -g -d
 node  tank -q 'turn left' -g -d
 node length -q 'evaluate 10 feet in meters and centimeters' -g -d
+node comparable -q "ascending is a sort ordering" -g -d
