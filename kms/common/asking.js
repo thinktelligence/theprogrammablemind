@@ -22,16 +22,21 @@ const config = {
       semantic: (args) => {
         const {config, context} = args
         // stop asking all questions
-        for (const semantic of config.semantics) {
+        const remove = []
+        for (const semantic of config.semantics()) {
           if (semantic.isQuestion) {
             let doRemove = true
             if (semantic.onNevermind && semantic.getWasAsked() && !semantic.getWasApplied()) {
               doRemove = semantic.onNevermind(args)
             }
             if (doRemove) {
-              config.removeSemantic(semantic)
+              remove.push(semantic)
+              // config.removeSemantic(semantic)
             }
           }
+        }
+        for (const semantic of remove) {
+          config.removeSemantic(semantic)
         }
       }
     },
