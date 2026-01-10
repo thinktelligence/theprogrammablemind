@@ -2,6 +2,8 @@
   "configs": [
     "length is a dimension",
     "meter centimeter millimeter foot mile and inch are units of length",
+    "meters, centimeters and millimeters are metric units",
+    "feet and inches are imperial units",
     "meters = centimeters / 100",
     "centimeters = meters * 100",
     "centimeters = millimeters / 10",
@@ -7300,23 +7302,72 @@
                 0
               ],
               [
-                "divideByOperator",
+                "comma",
                 0
               ],
               [
-                "equals",
+                "is",
                 0
               ],
               [
-                "integer",
+                "list",
                 0
               ],
               [
                 "meter",
                 0
+              ],
+              [
+                "metric",
+                0
+              ],
+              [
+                "metric_unit",
+                0
+              ],
+              [
+                "millimeter",
+                0
               ]
             ],
             "counter": 1
+          },
+          {
+            "op": [
+              "comma",
+              0
+            ],
+            "ops": [
+              [
+                "centimeter",
+                0
+              ],
+              [
+                "comma",
+                0
+              ],
+              [
+                "is",
+                0
+              ],
+              [
+                "list",
+                0
+              ],
+              [
+                "metric",
+                0
+              ],
+              [
+                "metric_unit",
+                0
+              ],
+              [
+                "millimeter",
+                0
+              ]
+            ],
+            "counter": 2
           },
           {
             "op": [
@@ -7329,36 +7380,23 @@
                 0
               ],
               [
-                "divideByOperator",
+                "is",
                 0
               ],
               [
-                "equals",
+                "list",
                 0
               ],
               [
-                "integer",
-                0
-              ]
-            ],
-            "counter": 2
-          },
-          {
-            "op": [
-              "integer",
-              0
-            ],
-            "ops": [
-              [
-                "divideByOperator",
+                "metric",
                 0
               ],
               [
-                "equals",
+                "metric_unit",
                 0
               ],
               [
-                "integer",
+                "millimeter",
                 0
               ]
             ],
@@ -7366,16 +7404,28 @@
           },
           {
             "op": [
-              "divideByOperator",
+              "list",
               0
             ],
             "ops": [
               [
-                "divideByOperator",
+                "is",
                 0
               ],
               [
-                "equals",
+                "list",
+                0
+              ],
+              [
+                "metric",
+                0
+              ],
+              [
+                "metric_unit",
+                0
+              ],
+              [
+                "millimeter",
                 0
               ]
             ],
@@ -7383,101 +7433,206 @@
           },
           {
             "op": [
-              "equals",
-              0
+              "list",
+              1
             ],
             "ops": [
               [
-                "equals",
+                "is",
+                0
+              ],
+              [
+                "list",
+                1
+              ],
+              [
+                "metric",
+                0
+              ],
+              [
+                "metric_unit",
                 0
               ]
             ],
             "counter": 5
+          },
+          {
+            "op": [
+              "metric_unit",
+              0
+            ],
+            "ops": [
+              [
+                "is",
+                0
+              ],
+              [
+                "metric",
+                0
+              ],
+              [
+                "metric_unit",
+                0
+              ]
+            ],
+            "counter": 6
+          },
+          {
+            "op": [
+              "is",
+              0
+            ],
+            "ops": [
+              [
+                "is",
+                0
+              ]
+            ],
+            "counter": 7
+          },
+          {
+            "op": [
+              "is",
+              1
+            ],
+            "ops": [
+              [
+                "is",
+                1
+              ]
+            ],
+            "counter": 8
           }
         ]
       },
       "trace": "undefined",
       "contexts": [
         {
-          "value": "equals",
-          "text": "meters = centimeters / 100",
-          "marker": "equals",
-          "word": "=",
+          "number": "many",
+          "text": "meters, centimeters and millimeters are metric units",
+          "marker": "is",
+          "word": "are",
           "range": {
             "start": 0,
-            "end": 25
+            "end": 51
           },
-          "dead": true,
-          "left": {
-            "value": "meter",
+          "one": {
             "number": "many",
-            "text": "meters",
-            "dimension": "length",
-            "marker": "meter",
-            "word": "meters",
+            "marker": "list",
+            "default": true,
+            "word": "and",
+            "text": "meters, centimeters and millimeters",
             "range": {
               "start": 0,
-              "end": 5
+              "end": 34
             },
-            "dead": true,
             "types": [
-              "meter"
+              "centimeter",
+              "list",
+              "meter",
+              "millimeter"
             ],
-            "level": 0
-          },
-          "right": {
-            "value": null,
-            "text": "centimeters / 100",
-            "marker": "divideByExpression",
-            "word": "/",
-            "range": {
-              "start": 9,
-              "end": 25
-            },
-            "dead": true,
-            "types": [
-              "divideByExpression",
-              "number"
-            ],
-            "x": {
-              "value": "centimeter",
-              "number": "many",
-              "text": "centimeters",
-              "dimension": "length",
-              "marker": "centimeter",
-              "word": "centimeters",
-              "range": {
-                "start": 9,
-                "end": 19
+            "listable": true,
+            "isList": true,
+            "value": [
+              {
+                "value": "meter",
+                "number": "many",
+                "text": "meters,",
+                "dimension": "length",
+                "marker": "meter",
+                "word": "meters",
+                "range": {
+                  "start": 0,
+                  "end": 6
+                },
+                "dead": true,
+                "decorators": {
+                  "after": {
+                    "word": ",",
+                    "value": ",",
+                    "depth": "+",
+                    "text": ",",
+                    "marker": "comma",
+                    "range": {
+                      "start": 6,
+                      "end": 6
+                    },
+                    "level": 0
+                  }
+                },
+                "no_convolutions": true,
+                "level": 0
               },
-              "dead": true,
+              {
+                "value": "centimeter",
+                "number": "many",
+                "text": "centimeters",
+                "dimension": "length",
+                "marker": "centimeter",
+                "word": "centimeters",
+                "range": {
+                  "start": 8,
+                  "end": 18
+                },
+                "dead": true,
+                "level": 0
+              },
+              {
+                "value": "millimeter",
+                "number": "many",
+                "text": "millimeters",
+                "dimension": "length",
+                "marker": "millimeter",
+                "word": "millimeters",
+                "range": {
+                  "start": 24,
+                  "end": 34
+                },
+                "level": 0
+              }
+            ],
+            "level": 1
+          },
+          "two": {
+            "value": "metric_unit",
+            "number": "many",
+            "text": "metric units",
+            "marker": "metric_unit",
+            "dead": true,
+            "word": "units",
+            "range": {
+              "start": 40,
+              "end": 51
+            },
+            "types": [
+              "metric_unit",
+              "unit"
+            ],
+            "modifier_metric": {
+              "value": "metric",
+              "number": "one",
+              "text": "metric",
+              "marker": "metric",
+              "word": "metric",
+              "range": {
+                "start": 40,
+                "end": 45
+              },
               "types": [
-                "centimeter"
+                "metric"
               ],
               "level": 0
             },
-            "y": {
-              "instance": true,
-              "value": 100,
-              "text": "100",
-              "marker": "integer",
-              "word": "100",
-              "range": {
-                "start": 23,
-                "end": 25
-              },
-              "dead": true,
-              "types": [
-                "integer"
-              ],
-              "level": 1
-            },
-            "number": "one",
-            "isResponse": true,
-            "evaluate": true,
-            "level": 1
+            "atomic": true,
+            "modifiers": [
+              "modifier_metric"
+            ],
+            "level": 0,
+            "concept": true
           },
-          "level": 1,
+          "dead": true,
+          "level": 2,
           "context_index": 1,
           "topLevel": true,
           "context_id": 2,
@@ -7490,7 +7645,7 @@
         ""
       ],
       "paraphrases": [
-        "meters = centimeters / 100"
+        "meters, centimeters and millimeters are metric units"
       ],
       "paraphrasesParenthesized": [],
       "generatedParenthesized": [],
@@ -7504,19 +7659,31 @@
             0
           ],
           [
-            "divideByOperator",
+            "comma",
             0
           ],
           [
-            "equals",
+            "is",
             0
           ],
           [
-            "integer",
+            "list",
             0
           ],
           [
             "meter",
+            0
+          ],
+          [
+            "metric",
+            0
+          ],
+          [
+            "millimeter",
+            0
+          ],
+          [
+            "unit",
             0
           ]
         ],
@@ -7526,25 +7693,81 @@
             0
           ],
           [
-            "divideByOperator",
+            "is",
             0
           ],
           [
-            "equals",
+            "list",
             0
           ],
           [
             "meter",
+            0
+          ],
+          [
+            "metric",
+            0
+          ],
+          [
+            "millimeter",
+            0
+          ],
+          [
+            "unit",
             0
           ]
         ],
         [
           [
-            "equals",
+            "is",
             0
           ],
           [
+            "list",
+            1
+          ],
+          [
             "meter",
+            0
+          ],
+          [
+            "metric",
+            0
+          ],
+          [
+            "unit",
+            0
+          ]
+        ],
+        [
+          [
+            "is",
+            0
+          ],
+          [
+            "list",
+            1
+          ],
+          [
+            "metric",
+            0
+          ],
+          [
+            "unit",
+            0
+          ]
+        ],
+        [
+          [
+            "is",
+            0
+          ],
+          [
+            "list",
+            1
+          ],
+          [
+            "metric_unit",
             0
           ]
         ]
@@ -7566,12 +7789,12 @@
                 },
                 {
                   "marker": [
-                    "equals",
+                    "comma",
                     0
                   ],
                   "range": {
-                    "start": 7,
-                    "end": 7
+                    "start": 6,
+                    "end": 6
                   }
                 },
                 {
@@ -7580,28 +7803,58 @@
                     0
                   ],
                   "range": {
-                    "start": 9,
-                    "end": 19
+                    "start": 8,
+                    "end": 18
                   }
                 },
                 {
                   "marker": [
-                    "divideByOperator",
+                    "list",
                     0
                   ],
                   "range": {
-                    "start": 21,
-                    "end": 21
+                    "start": 20,
+                    "end": 22
                   }
                 },
                 {
                   "marker": [
-                    "integer",
+                    "millimeter",
                     0
                   ],
                   "range": {
-                    "start": 23,
-                    "end": 25
+                    "start": 24,
+                    "end": 34
+                  }
+                },
+                {
+                  "marker": [
+                    "is",
+                    0
+                  ],
+                  "range": {
+                    "start": 36,
+                    "end": 38
+                  }
+                },
+                {
+                  "marker": [
+                    "metric",
+                    0
+                  ],
+                  "range": {
+                    "start": 40,
+                    "end": 45
+                  }
+                },
+                {
+                  "marker": [
+                    "unit",
+                    0
+                  ],
+                  "range": {
+                    "start": 47,
+                    "end": 51
                   }
                 }
               ],
@@ -7621,12 +7874,12 @@
                 },
                 {
                   "marker": [
-                    "equals",
+                    "comma",
                     0
                   ],
                   "range": {
-                    "start": 7,
-                    "end": 7
+                    "start": 6,
+                    "end": 6
                   }
                 },
                 {
@@ -7635,28 +7888,58 @@
                     0
                   ],
                   "range": {
-                    "start": 9,
-                    "end": 19
+                    "start": 8,
+                    "end": 18
                   }
                 },
                 {
                   "marker": [
-                    "divideByOperator",
+                    "list",
                     0
                   ],
                   "range": {
-                    "start": 21,
-                    "end": 21
+                    "start": 20,
+                    "end": 22
                   }
                 },
                 {
                   "marker": [
-                    "integer",
+                    "millimeter",
                     0
                   ],
                   "range": {
-                    "start": 23,
-                    "end": 25
+                    "start": 24,
+                    "end": 34
+                  }
+                },
+                {
+                  "marker": [
+                    "is",
+                    0
+                  ],
+                  "range": {
+                    "start": 36,
+                    "end": 38
+                  }
+                },
+                {
+                  "marker": [
+                    "metric",
+                    0
+                  ],
+                  "range": {
+                    "start": 40,
+                    "end": 45
+                  }
+                },
+                {
+                  "marker": [
+                    "unit",
+                    0
+                  ],
+                  "range": {
+                    "start": 47,
+                    "end": 51
                   }
                 }
               ],
@@ -7671,17 +7954,7 @@
                   ],
                   "range": {
                     "start": 0,
-                    "end": 5
-                  }
-                },
-                {
-                  "marker": [
-                    "equals",
-                    0
-                  ],
-                  "range": {
-                    "start": 7,
-                    "end": 7
+                    "end": 6
                   }
                 },
                 {
@@ -7690,28 +7963,58 @@
                     0
                   ],
                   "range": {
-                    "start": 9,
-                    "end": 19
+                    "start": 8,
+                    "end": 18
                   }
                 },
                 {
                   "marker": [
-                    "divideByOperator",
+                    "list",
                     0
                   ],
                   "range": {
-                    "start": 21,
-                    "end": 21
+                    "start": 20,
+                    "end": 22
                   }
                 },
                 {
                   "marker": [
-                    "integer",
+                    "millimeter",
                     0
                   ],
                   "range": {
-                    "start": 23,
-                    "end": 25
+                    "start": 24,
+                    "end": 34
+                  }
+                },
+                {
+                  "marker": [
+                    "is",
+                    0
+                  ],
+                  "range": {
+                    "start": 36,
+                    "end": 38
+                  }
+                },
+                {
+                  "marker": [
+                    "metric",
+                    0
+                  ],
+                  "range": {
+                    "start": 40,
+                    "end": 45
+                  }
+                },
+                {
+                  "marker": [
+                    "unit",
+                    0
+                  ],
+                  "range": {
+                    "start": 47,
+                    "end": 51
                   }
                 }
               ],
@@ -7726,17 +8029,7 @@
                   ],
                   "range": {
                     "start": 0,
-                    "end": 5
-                  }
-                },
-                {
-                  "marker": [
-                    "equals",
-                    0
-                  ],
-                  "range": {
-                    "start": 7,
-                    "end": 7
+                    "end": 6
                   }
                 },
                 {
@@ -7745,28 +8038,58 @@
                     0
                   ],
                   "range": {
-                    "start": 9,
-                    "end": 19
+                    "start": 8,
+                    "end": 18
                   }
                 },
                 {
                   "marker": [
-                    "divideByOperator",
+                    "list",
                     0
                   ],
                   "range": {
-                    "start": 21,
-                    "end": 21
+                    "start": 20,
+                    "end": 22
                   }
                 },
                 {
                   "marker": [
-                    "integer",
-                    1
+                    "millimeter",
+                    0
                   ],
                   "range": {
-                    "start": 23,
-                    "end": 25
+                    "start": 24,
+                    "end": 34
+                  }
+                },
+                {
+                  "marker": [
+                    "is",
+                    0
+                  ],
+                  "range": {
+                    "start": 36,
+                    "end": 38
+                  }
+                },
+                {
+                  "marker": [
+                    "metric",
+                    0
+                  ],
+                  "range": {
+                    "start": 40,
+                    "end": 45
+                  }
+                },
+                {
+                  "marker": [
+                    "unit",
+                    0
+                  ],
+                  "range": {
+                    "start": 47,
+                    "end": 51
                   }
                 }
               ],
@@ -7781,27 +8104,47 @@
                   ],
                   "range": {
                     "start": 0,
-                    "end": 5
+                    "end": 6
                   }
                 },
                 {
                   "marker": [
-                    "equals",
-                    0
-                  ],
-                  "range": {
-                    "start": 7,
-                    "end": 7
-                  }
-                },
-                {
-                  "marker": [
-                    "divideByExpression",
+                    "list",
                     1
                   ],
                   "range": {
-                    "start": 9,
-                    "end": 25
+                    "start": 8,
+                    "end": 34
+                  }
+                },
+                {
+                  "marker": [
+                    "is",
+                    0
+                  ],
+                  "range": {
+                    "start": 36,
+                    "end": 38
+                  }
+                },
+                {
+                  "marker": [
+                    "metric",
+                    0
+                  ],
+                  "range": {
+                    "start": 40,
+                    "end": 45
+                  }
+                },
+                {
+                  "marker": [
+                    "unit",
+                    0
+                  ],
+                  "range": {
+                    "start": 47,
+                    "end": 51
                   }
                 }
               ],
@@ -7811,16 +8154,111 @@
               "operators": [
                 {
                   "marker": [
-                    "equals",
+                    "list",
                     1
                   ],
                   "range": {
                     "start": 0,
-                    "end": 25
+                    "end": 34
+                  }
+                },
+                {
+                  "marker": [
+                    "is",
+                    0
+                  ],
+                  "range": {
+                    "start": 36,
+                    "end": 38
+                  }
+                },
+                {
+                  "marker": [
+                    "metric",
+                    0
+                  ],
+                  "range": {
+                    "start": 40,
+                    "end": 45
+                  }
+                },
+                {
+                  "marker": [
+                    "unit",
+                    0
+                  ],
+                  "range": {
+                    "start": 47,
+                    "end": 51
                   }
                 }
               ],
               "counter": 6
+            },
+            {
+              "operators": [
+                {
+                  "marker": [
+                    "list",
+                    1
+                  ],
+                  "range": {
+                    "start": 0,
+                    "end": 34
+                  }
+                },
+                {
+                  "marker": [
+                    "is",
+                    0
+                  ],
+                  "range": {
+                    "start": 36,
+                    "end": 38
+                  }
+                },
+                {
+                  "marker": [
+                    "metric_unit",
+                    0
+                  ],
+                  "range": {
+                    "start": 40,
+                    "end": 51
+                  }
+                }
+              ],
+              "counter": 7
+            },
+            {
+              "operators": [
+                {
+                  "marker": [
+                    "is",
+                    1
+                  ],
+                  "range": {
+                    "start": 0,
+                    "end": 51
+                  }
+                }
+              ],
+              "counter": 8
+            },
+            {
+              "operators": [
+                {
+                  "marker": [
+                    "is",
+                    2
+                  ],
+                  "range": {
+                    "start": 0,
+                    "end": 51
+                  }
+                }
+              ],
+              "counter": 9
             }
           ],
           "length": 1
@@ -7828,9 +8266,9 @@
       ],
       "learned_contextual_priorities": [],
       "rtf_associations": [],
-      "query": "meters = centimeters / 100",
+      "query": "meters, centimeters and millimeters are metric units",
       "key": {
-        "query": "meters = centimeters / 100"
+        "query": "meters, centimeters and millimeters are metric units"
       }
     },
     {
@@ -7933,6 +8371,11 @@
         [
           "centimeter",
           "isEder",
+          false
+        ],
+        [
+          "centimeter",
+          "metric_unit",
           false
         ],
         [
@@ -8772,6 +9215,11 @@
         ],
         [
           "meter",
+          "metric_unit",
+          false
+        ],
+        [
+          "meter",
           "object",
           false
         ],
@@ -8998,6 +9446,4697 @@
         [
           "millimeter",
           "isEder",
+          false
+        ],
+        [
+          "millimeter",
+          "metric_unit",
+          false
+        ],
+        [
+          "millimeter",
+          "object",
+          false
+        ],
+        [
+          "millimeter",
+          "property",
+          false
+        ],
+        [
+          "millimeter",
+          "queryable",
+          false
+        ],
+        [
+          "millimeter",
+          "theAble",
+          false
+        ],
+        [
+          "millimeter",
+          "unit_length",
+          false
+        ],
+        [
+          "minusExpression",
+          "mathematicalExpression",
+          false
+        ],
+        [
+          "minusOperator",
+          "mathematical_operator",
+          false
+        ],
+        [
+          "modifies",
+          "verb",
+          false
+        ],
+        [
+          "negatable",
+          "queryable",
+          false
+        ],
+        [
+          "noun",
+          "theAble",
+          false
+        ],
+        [
+          "number",
+          "expression",
+          false
+        ],
+        [
+          "number",
+          "quantifier",
+          false
+        ],
+        [
+          "number",
+          "queryable",
+          false
+        ],
+        [
+          "object",
+          "listable",
+          false
+        ],
+        [
+          "object",
+          "queryable",
+          false
+        ],
+        [
+          "object",
+          "theAble",
+          false
+        ],
+        [
+          "operator",
+          "concept",
+          false
+        ],
+        [
+          "operator",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "operator",
+          "isEdee",
+          false
+        ],
+        [
+          "operator",
+          "isEder",
+          false
+        ],
+        [
+          "operator",
+          "object",
+          false
+        ],
+        [
+          "operator",
+          "property",
+          false
+        ],
+        [
+          "operator",
+          "queryable",
+          false
+        ],
+        [
+          "operator",
+          "theAble",
+          false
+        ],
+        [
+          "operator_modifier",
+          "adjective",
+          false
+        ],
+        [
+          "orAble",
+          "ifAble",
+          false
+        ],
+        [
+          "ordering",
+          "concept",
+          false
+        ],
+        [
+          "ordering",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "ordering",
+          "isEdee",
+          false
+        ],
+        [
+          "ordering",
+          "isEder",
+          false
+        ],
+        [
+          "ordering",
+          "object",
+          false
+        ],
+        [
+          "ordering",
+          "property",
+          false
+        ],
+        [
+          "ordering",
+          "queryable",
+          false
+        ],
+        [
+          "ordering",
+          "theAble",
+          false
+        ],
+        [
+          "ordering_modifier",
+          "adjective",
+          false
+        ],
+        [
+          "plusExpression",
+          "mathematicalExpression",
+          false
+        ],
+        [
+          "plusOperator",
+          "mathematical_operator",
+          false
+        ],
+        [
+          "preposition",
+          "preposition",
+          false
+        ],
+        [
+          "pronoun",
+          "pronoun",
+          false
+        ],
+        [
+          "property",
+          "queryable",
+          false
+        ],
+        [
+          "property",
+          "theAble",
+          false
+        ],
+        [
+          "propertyOf",
+          "preposition",
+          false
+        ],
+        [
+          "punctuation",
+          "punctuation",
+          false
+        ],
+        [
+          "quantifier",
+          "quantifier",
+          false
+        ],
+        [
+          "quantity",
+          "noun",
+          false
+        ],
+        [
+          "queryable",
+          "listable",
+          false
+        ],
+        [
+          "questionMark",
+          "punctuation",
+          false
+        ],
+        [
+          "readonly",
+          "queryable",
+          false
+        ],
+        [
+          "reason",
+          "queryable",
+          false
+        ],
+        [
+          "reason",
+          "theAble",
+          false
+        ],
+        [
+          "remember",
+          "verb",
+          false
+        ],
+        [
+          "sort",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "sort",
+          "isEdee",
+          false
+        ],
+        [
+          "sort",
+          "isEder",
+          false
+        ],
+        [
+          "sort",
+          "object",
+          false
+        ],
+        [
+          "sort",
+          "ordering_modifier",
+          false
+        ],
+        [
+          "sort",
+          "property",
+          false
+        ],
+        [
+          "sort",
+          "queryable",
+          false
+        ],
+        [
+          "sort",
+          "theAble",
+          false
+        ],
+        [
+          "sortOrdering",
+          "adjective",
+          false
+        ],
+        [
+          "sort_ordering",
+          "adjective",
+          true
+        ],
+        [
+          "sort_ordering",
+          "concept",
+          false
+        ],
+        [
+          "sort_ordering",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "sort_ordering",
+          "isEdee",
+          false
+        ],
+        [
+          "sort_ordering",
+          "isEder",
+          false
+        ],
+        [
+          "sort_ordering",
+          "object",
+          false
+        ],
+        [
+          "sort_ordering",
+          "ordering",
+          false
+        ],
+        [
+          "sort_ordering",
+          "property",
+          false
+        ],
+        [
+          "sort_ordering",
+          "queryable",
+          false
+        ],
+        [
+          "sort_ordering",
+          "theAble",
+          false
+        ],
+        [
+          "stm_before",
+          "adjective",
+          false
+        ],
+        [
+          "system",
+          "concept",
+          false
+        ],
+        [
+          "system",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "system",
+          "isEdee",
+          false
+        ],
+        [
+          "system",
+          "isEder",
+          false
+        ],
+        [
+          "system",
+          "object",
+          false
+        ],
+        [
+          "system",
+          "property",
+          false
+        ],
+        [
+          "system",
+          "queryable",
+          false
+        ],
+        [
+          "system",
+          "theAble",
+          false
+        ],
+        [
+          "system_modifier",
+          "adjective",
+          false
+        ],
+        [
+          "testingValue",
+          "testingValue",
+          false
+        ],
+        [
+          "that",
+          "thisitthat",
+          false
+        ],
+        [
+          "the",
+          "article",
+          false
+        ],
+        [
+          "theAble",
+          "queryable",
+          false
+        ],
+        [
+          "this",
+          "pronoun",
+          false
+        ],
+        [
+          "this",
+          "queryable",
+          false
+        ],
+        [
+          "this",
+          "thisitthat",
+          false
+        ],
+        [
+          "thisitthat",
+          "queryable",
+          false
+        ],
+        [
+          "timesExpression",
+          "mathematicalExpression",
+          false
+        ],
+        [
+          "timesOperator",
+          "mathematical_operator",
+          false
+        ],
+        [
+          "to",
+          "preposition",
+          false
+        ],
+        [
+          "toAble",
+          "toAble",
+          false
+        ],
+        [
+          "type",
+          "property",
+          false
+        ],
+        [
+          "type",
+          "whatAble",
+          false
+        ],
+        [
+          "unit",
+          "concept",
+          false
+        ],
+        [
+          "unit",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "unit",
+          "isEdee",
+          false
+        ],
+        [
+          "unit",
+          "isEder",
+          false
+        ],
+        [
+          "unit",
+          "number",
+          false
+        ],
+        [
+          "unit",
+          "object",
+          false
+        ],
+        [
+          "unit",
+          "property",
+          false
+        ],
+        [
+          "unit",
+          "queryable",
+          false
+        ],
+        [
+          "unit",
+          "theAble",
+          false
+        ],
+        [
+          "unit_length",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "unit_length",
+          "isEdee",
+          false
+        ],
+        [
+          "unit_length",
+          "isEder",
+          false
+        ],
+        [
+          "unit_length",
+          "object",
+          false
+        ],
+        [
+          "unit_length",
+          "property",
+          false
+        ],
+        [
+          "unit_length",
+          "queryable",
+          false
+        ],
+        [
+          "unit_length",
+          "theAble",
+          false
+        ],
+        [
+          "unit_length",
+          "unit",
+          false
+        ],
+        [
+          "unit_modifier",
+          "adjective",
+          false
+        ],
+        [
+          "unknown",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "verb",
+          "verb",
+          false
+        ],
+        [
+          "what",
+          "object",
+          false
+        ],
+        [
+          "what",
+          "queryable",
+          false
+        ],
+        [
+          "whatAble",
+          "queryable",
+          false
+        ],
+        [
+          "whose",
+          "object",
+          false
+        ],
+        [
+          "x",
+          "number",
+          false
+        ],
+        [
+          "xfx",
+          "queryable",
+          false
+        ],
+        [
+          "y",
+          "number",
+          false
+        ]
+      ],
+      "metadata": {
+        "opChoices": [
+          {
+            "op": [
+              "foot",
+              0
+            ],
+            "ops": [
+              [
+                "foot",
+                0
+              ],
+              [
+                "imperial",
+                0
+              ],
+              [
+                "imperial_unit",
+                0
+              ],
+              [
+                "inch",
+                0
+              ],
+              [
+                "is",
+                0
+              ],
+              [
+                "list",
+                0
+              ]
+            ],
+            "counter": 1
+          },
+          {
+            "op": [
+              "list",
+              0
+            ],
+            "ops": [
+              [
+                "imperial",
+                0
+              ],
+              [
+                "imperial_unit",
+                0
+              ],
+              [
+                "inch",
+                0
+              ],
+              [
+                "is",
+                0
+              ],
+              [
+                "list",
+                0
+              ]
+            ],
+            "counter": 2
+          },
+          {
+            "op": [
+              "imperial_unit",
+              0
+            ],
+            "ops": [
+              [
+                "imperial",
+                0
+              ],
+              [
+                "imperial_unit",
+                0
+              ],
+              [
+                "is",
+                0
+              ]
+            ],
+            "counter": 3
+          },
+          {
+            "op": [
+              "is",
+              0
+            ],
+            "ops": [
+              [
+                "is",
+                0
+              ]
+            ],
+            "counter": 4
+          },
+          {
+            "op": [
+              "is",
+              1
+            ],
+            "ops": [
+              [
+                "is",
+                1
+              ]
+            ],
+            "counter": 5
+          }
+        ]
+      },
+      "trace": "undefined",
+      "contexts": [
+        {
+          "number": "many",
+          "text": "feet and inches are imperial units",
+          "marker": "is",
+          "word": "are",
+          "range": {
+            "start": 0,
+            "end": 33
+          },
+          "one": {
+            "number": "many",
+            "marker": "list",
+            "default": true,
+            "word": "and",
+            "text": "feet and inches",
+            "range": {
+              "start": 0,
+              "end": 14
+            },
+            "types": [
+              "foot",
+              "inch",
+              "list"
+            ],
+            "listable": true,
+            "isList": true,
+            "value": [
+              {
+                "value": "foot",
+                "number": "many",
+                "text": "feet",
+                "dimension": "length",
+                "marker": "foot",
+                "word": "feet",
+                "range": {
+                  "start": 0,
+                  "end": 3
+                },
+                "dead": true,
+                "level": 0
+              },
+              {
+                "value": "inch",
+                "number": "many",
+                "text": "inches",
+                "dimension": "length",
+                "marker": "inch",
+                "word": "inches",
+                "range": {
+                  "start": 9,
+                  "end": 14
+                },
+                "level": 0
+              }
+            ],
+            "level": 1
+          },
+          "two": {
+            "value": "imperial_unit",
+            "number": "many",
+            "text": "imperial units",
+            "marker": "imperial_unit",
+            "dead": true,
+            "word": "units",
+            "range": {
+              "start": 20,
+              "end": 33
+            },
+            "types": [
+              "imperial_unit",
+              "unit"
+            ],
+            "modifier_imperial": {
+              "value": "imperial",
+              "number": "one",
+              "text": "imperial",
+              "marker": "imperial",
+              "word": "imperial",
+              "range": {
+                "start": 20,
+                "end": 27
+              },
+              "types": [
+                "imperial"
+              ],
+              "level": 0
+            },
+            "atomic": true,
+            "modifiers": [
+              "modifier_imperial"
+            ],
+            "level": 0,
+            "concept": true
+          },
+          "dead": true,
+          "level": 2,
+          "context_index": 1,
+          "topLevel": true,
+          "context_id": 2,
+          "touchedBy": [
+            "length#call2"
+          ]
+        }
+      ],
+      "generated": [
+        ""
+      ],
+      "paraphrases": [
+        "feet and inches are imperial units"
+      ],
+      "paraphrasesParenthesized": [],
+      "generatedParenthesized": [],
+      "responses": [
+        ""
+      ],
+      "associations": [
+        [
+          [
+            "foot",
+            0
+          ],
+          [
+            "imperial",
+            0
+          ],
+          [
+            "inch",
+            0
+          ],
+          [
+            "is",
+            0
+          ],
+          [
+            "list",
+            0
+          ],
+          [
+            "unit",
+            0
+          ]
+        ],
+        [
+          [
+            "imperial",
+            0
+          ],
+          [
+            "is",
+            0
+          ],
+          [
+            "list",
+            1
+          ],
+          [
+            "unit",
+            0
+          ]
+        ],
+        [
+          [
+            "imperial_unit",
+            0
+          ],
+          [
+            "is",
+            0
+          ],
+          [
+            "list",
+            1
+          ]
+        ]
+      ],
+      "summaries": [
+        {
+          "summaries": [
+            {
+              "operators": [
+                {
+                  "marker": [
+                    "foot",
+                    0
+                  ],
+                  "range": {
+                    "start": 0,
+                    "end": 3
+                  }
+                },
+                {
+                  "marker": [
+                    "list",
+                    0
+                  ],
+                  "range": {
+                    "start": 5,
+                    "end": 7
+                  }
+                },
+                {
+                  "marker": [
+                    "inch",
+                    0
+                  ],
+                  "range": {
+                    "start": 9,
+                    "end": 14
+                  }
+                },
+                {
+                  "marker": [
+                    "is",
+                    0
+                  ],
+                  "range": {
+                    "start": 16,
+                    "end": 18
+                  }
+                },
+                {
+                  "marker": [
+                    "imperial",
+                    0
+                  ],
+                  "range": {
+                    "start": 20,
+                    "end": 27
+                  }
+                },
+                {
+                  "marker": [
+                    "unit",
+                    0
+                  ],
+                  "range": {
+                    "start": 29,
+                    "end": 33
+                  }
+                }
+              ],
+              "counter": 1
+            },
+            {
+              "operators": [
+                {
+                  "marker": [
+                    "foot",
+                    0
+                  ],
+                  "range": {
+                    "start": 0,
+                    "end": 3
+                  }
+                },
+                {
+                  "marker": [
+                    "list",
+                    0
+                  ],
+                  "range": {
+                    "start": 5,
+                    "end": 7
+                  }
+                },
+                {
+                  "marker": [
+                    "inch",
+                    0
+                  ],
+                  "range": {
+                    "start": 9,
+                    "end": 14
+                  }
+                },
+                {
+                  "marker": [
+                    "is",
+                    0
+                  ],
+                  "range": {
+                    "start": 16,
+                    "end": 18
+                  }
+                },
+                {
+                  "marker": [
+                    "imperial",
+                    0
+                  ],
+                  "range": {
+                    "start": 20,
+                    "end": 27
+                  }
+                },
+                {
+                  "marker": [
+                    "unit",
+                    0
+                  ],
+                  "range": {
+                    "start": 29,
+                    "end": 33
+                  }
+                }
+              ],
+              "counter": 2
+            },
+            {
+              "operators": [
+                {
+                  "marker": [
+                    "list",
+                    1
+                  ],
+                  "range": {
+                    "start": 0,
+                    "end": 14
+                  }
+                },
+                {
+                  "marker": [
+                    "is",
+                    0
+                  ],
+                  "range": {
+                    "start": 16,
+                    "end": 18
+                  }
+                },
+                {
+                  "marker": [
+                    "imperial",
+                    0
+                  ],
+                  "range": {
+                    "start": 20,
+                    "end": 27
+                  }
+                },
+                {
+                  "marker": [
+                    "unit",
+                    0
+                  ],
+                  "range": {
+                    "start": 29,
+                    "end": 33
+                  }
+                }
+              ],
+              "counter": 3
+            },
+            {
+              "operators": [
+                {
+                  "marker": [
+                    "list",
+                    1
+                  ],
+                  "range": {
+                    "start": 0,
+                    "end": 14
+                  }
+                },
+                {
+                  "marker": [
+                    "is",
+                    0
+                  ],
+                  "range": {
+                    "start": 16,
+                    "end": 18
+                  }
+                },
+                {
+                  "marker": [
+                    "imperial_unit",
+                    0
+                  ],
+                  "range": {
+                    "start": 20,
+                    "end": 33
+                  }
+                }
+              ],
+              "counter": 4
+            },
+            {
+              "operators": [
+                {
+                  "marker": [
+                    "is",
+                    1
+                  ],
+                  "range": {
+                    "start": 0,
+                    "end": 33
+                  }
+                }
+              ],
+              "counter": 5
+            },
+            {
+              "operators": [
+                {
+                  "marker": [
+                    "is",
+                    2
+                  ],
+                  "range": {
+                    "start": 0,
+                    "end": 33
+                  }
+                }
+              ],
+              "counter": 6
+            }
+          ],
+          "length": 1
+        }
+      ],
+      "learned_contextual_priorities": [],
+      "rtf_associations": [],
+      "query": "feet and inches are imperial units",
+      "key": {
+        "query": "feet and inches are imperial units"
+      }
+    },
+    {
+      "hierarchy": [
+        [
+          "a",
+          "article",
+          false
+        ],
+        [
+          "adjective",
+          "adjective",
+          false
+        ],
+        [
+          "all",
+          "quantifier",
+          false
+        ],
+        [
+          "amount",
+          "amount",
+          false
+        ],
+        [
+          "article",
+          "article",
+          false
+        ],
+        [
+          "ascending",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "ascending",
+          "isEdee",
+          false
+        ],
+        [
+          "ascending",
+          "isEder",
+          false
+        ],
+        [
+          "ascending",
+          "object",
+          false
+        ],
+        [
+          "ascending",
+          "property",
+          false
+        ],
+        [
+          "ascending",
+          "queryable",
+          false
+        ],
+        [
+          "ascending",
+          "sort_ordering",
+          false
+        ],
+        [
+          "ascending",
+          "theAble",
+          false
+        ],
+        [
+          "between",
+          "preposition",
+          false
+        ],
+        [
+          "calculate",
+          "verb",
+          false
+        ],
+        [
+          "canBeDoQuestion",
+          "canBeDoQuestion",
+          false
+        ],
+        [
+          "canBeQuestion",
+          "canBeQuestion",
+          false
+        ],
+        [
+          "centimeter",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "centimeter",
+          "isEdee",
+          false
+        ],
+        [
+          "centimeter",
+          "isEder",
+          false
+        ],
+        [
+          "centimeter",
+          "metric_unit",
+          false
+        ],
+        [
+          "centimeter",
+          "object",
+          false
+        ],
+        [
+          "centimeter",
+          "property",
+          false
+        ],
+        [
+          "centimeter",
+          "queryable",
+          false
+        ],
+        [
+          "centimeter",
+          "theAble",
+          false
+        ],
+        [
+          "centimeter",
+          "unit_length",
+          false
+        ],
+        [
+          "comparable",
+          "theAble",
+          false
+        ],
+        [
+          "concept",
+          "queryable",
+          false
+        ],
+        [
+          "concept",
+          "theAble",
+          false
+        ],
+        [
+          "condition",
+          "condition",
+          false
+        ],
+        [
+          "convertToUnits",
+          "expression",
+          false
+        ],
+        [
+          "convertToUnits",
+          "queryable",
+          false
+        ],
+        [
+          "convertToUnits",
+          "testingValue",
+          false
+        ],
+        [
+          "countable",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "degree",
+          "amount",
+          false
+        ],
+        [
+          "descending",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "descending",
+          "isEdee",
+          false
+        ],
+        [
+          "descending",
+          "isEder",
+          false
+        ],
+        [
+          "descending",
+          "object",
+          false
+        ],
+        [
+          "descending",
+          "property",
+          false
+        ],
+        [
+          "descending",
+          "queryable",
+          false
+        ],
+        [
+          "descending",
+          "sort_ordering",
+          false
+        ],
+        [
+          "descending",
+          "theAble",
+          false
+        ],
+        [
+          "dimension",
+          "concept",
+          false
+        ],
+        [
+          "dimension",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "dimension",
+          "isEdee",
+          false
+        ],
+        [
+          "dimension",
+          "isEder",
+          false
+        ],
+        [
+          "dimension",
+          "object",
+          false
+        ],
+        [
+          "dimension",
+          "property",
+          false
+        ],
+        [
+          "dimension",
+          "queryable",
+          false
+        ],
+        [
+          "dimension",
+          "theAble",
+          false
+        ],
+        [
+          "distributable",
+          "queryable",
+          false
+        ],
+        [
+          "divideByExpression",
+          "mathematicalExpression",
+          false
+        ],
+        [
+          "divideByOperator",
+          "mathematical_operator",
+          false
+        ],
+        [
+          "doubleQuote",
+          "queryable",
+          false
+        ],
+        [
+          "each",
+          "article",
+          false
+        ],
+        [
+          "every",
+          "article",
+          false
+        ],
+        [
+          "expression",
+          "expression",
+          false
+        ],
+        [
+          "foot",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "foot",
+          "imperial_unit",
+          false
+        ],
+        [
+          "foot",
+          "isEdee",
+          false
+        ],
+        [
+          "foot",
+          "isEder",
+          false
+        ],
+        [
+          "foot",
+          "object",
+          false
+        ],
+        [
+          "foot",
+          "property",
+          false
+        ],
+        [
+          "foot",
+          "queryable",
+          false
+        ],
+        [
+          "foot",
+          "theAble",
+          false
+        ],
+        [
+          "foot",
+          "unit_length",
+          false
+        ],
+        [
+          "forVariable",
+          "preposition",
+          false
+        ],
+        [
+          "formula",
+          "concept",
+          false
+        ],
+        [
+          "formula",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "formula",
+          "isEdee",
+          false
+        ],
+        [
+          "formula",
+          "isEder",
+          false
+        ],
+        [
+          "formula",
+          "object",
+          false
+        ],
+        [
+          "formula",
+          "property",
+          false
+        ],
+        [
+          "formula",
+          "queryable",
+          false
+        ],
+        [
+          "formula",
+          "theAble",
+          false
+        ],
+        [
+          "formulaForVariable",
+          "preposition",
+          false
+        ],
+        [
+          "formulaForVariable",
+          "queryable",
+          false
+        ],
+        [
+          "hasCountOfPieces",
+          "countable",
+          false
+        ],
+        [
+          "have",
+          "canBeDoQuestion",
+          false
+        ],
+        [
+          "have",
+          "canBeQuestion",
+          false
+        ],
+        [
+          "hierarchyAble",
+          "queryable",
+          false
+        ],
+        [
+          "highest",
+          "condition",
+          false
+        ],
+        [
+          "ifAble",
+          "ifAble",
+          false
+        ],
+        [
+          "imperial",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "imperial",
+          "isEdee",
+          false
+        ],
+        [
+          "imperial",
+          "isEder",
+          false
+        ],
+        [
+          "imperial",
+          "object",
+          false
+        ],
+        [
+          "imperial",
+          "property",
+          false
+        ],
+        [
+          "imperial",
+          "queryable",
+          false
+        ],
+        [
+          "imperial",
+          "system_modifier",
+          false
+        ],
+        [
+          "imperial",
+          "theAble",
+          false
+        ],
+        [
+          "imperial",
+          "unit_modifier",
+          false
+        ],
+        [
+          "imperial_system",
+          "adjective",
+          true
+        ],
+        [
+          "imperial_system",
+          "concept",
+          false
+        ],
+        [
+          "imperial_system",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "imperial_system",
+          "isEdee",
+          false
+        ],
+        [
+          "imperial_system",
+          "isEder",
+          false
+        ],
+        [
+          "imperial_system",
+          "measurement_system",
+          false
+        ],
+        [
+          "imperial_system",
+          "object",
+          false
+        ],
+        [
+          "imperial_system",
+          "property",
+          false
+        ],
+        [
+          "imperial_system",
+          "queryable",
+          false
+        ],
+        [
+          "imperial_system",
+          "system",
+          false
+        ],
+        [
+          "imperial_system",
+          "theAble",
+          false
+        ],
+        [
+          "imperial_unit",
+          "adjective",
+          true
+        ],
+        [
+          "imperial_unit",
+          "concept",
+          false
+        ],
+        [
+          "imperial_unit",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "imperial_unit",
+          "isEdee",
+          false
+        ],
+        [
+          "imperial_unit",
+          "isEder",
+          false
+        ],
+        [
+          "imperial_unit",
+          "object",
+          false
+        ],
+        [
+          "imperial_unit",
+          "property",
+          false
+        ],
+        [
+          "imperial_unit",
+          "queryable",
+          false
+        ],
+        [
+          "imperial_unit",
+          "theAble",
+          false
+        ],
+        [
+          "imperial_unit",
+          "unit",
+          false
+        ],
+        [
+          "inch",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "inch",
+          "imperial_unit",
+          false
+        ],
+        [
+          "inch",
+          "isEdee",
+          false
+        ],
+        [
+          "inch",
+          "isEder",
+          false
+        ],
+        [
+          "inch",
+          "object",
+          false
+        ],
+        [
+          "inch",
+          "property",
+          false
+        ],
+        [
+          "inch",
+          "queryable",
+          false
+        ],
+        [
+          "inch",
+          "theAble",
+          false
+        ],
+        [
+          "inch",
+          "unit_length",
+          false
+        ],
+        [
+          "integer",
+          "number",
+          false
+        ],
+        [
+          "is",
+          "canBeQuestion",
+          false
+        ],
+        [
+          "is",
+          "verb",
+          false
+        ],
+        [
+          "isEdee",
+          "isEdee",
+          false
+        ],
+        [
+          "isEder",
+          "isEder",
+          false
+        ],
+        [
+          "isQuery",
+          "verb",
+          false
+        ],
+        [
+          "it",
+          "pronoun",
+          false
+        ],
+        [
+          "it",
+          "queryable",
+          false
+        ],
+        [
+          "it",
+          "thisitthat",
+          false
+        ],
+        [
+          "it",
+          "toAble",
+          false
+        ],
+        [
+          "length",
+          "dimension",
+          false
+        ],
+        [
+          "listable",
+          "theAble",
+          false
+        ],
+        [
+          "lowest",
+          "condition",
+          false
+        ],
+        [
+          "mathematical",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "mathematical",
+          "isEdee",
+          false
+        ],
+        [
+          "mathematical",
+          "isEder",
+          false
+        ],
+        [
+          "mathematical",
+          "object",
+          false
+        ],
+        [
+          "mathematical",
+          "operator_modifier",
+          false
+        ],
+        [
+          "mathematical",
+          "property",
+          false
+        ],
+        [
+          "mathematical",
+          "queryable",
+          false
+        ],
+        [
+          "mathematical",
+          "theAble",
+          false
+        ],
+        [
+          "mathematicalExpression",
+          "concept",
+          false
+        ],
+        [
+          "mathematicalExpression",
+          "expression",
+          false
+        ],
+        [
+          "mathematicalExpression",
+          "number",
+          false
+        ],
+        [
+          "mathematical_operator",
+          "adjective",
+          true
+        ],
+        [
+          "mathematical_operator",
+          "concept",
+          false
+        ],
+        [
+          "mathematical_operator",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "mathematical_operator",
+          "isEdee",
+          false
+        ],
+        [
+          "mathematical_operator",
+          "isEder",
+          false
+        ],
+        [
+          "mathematical_operator",
+          "object",
+          false
+        ],
+        [
+          "mathematical_operator",
+          "operator",
+          false
+        ],
+        [
+          "mathematical_operator",
+          "property",
+          false
+        ],
+        [
+          "mathematical_operator",
+          "queryable",
+          false
+        ],
+        [
+          "mathematical_operator",
+          "theAble",
+          false
+        ],
+        [
+          "measurement",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "measurement",
+          "isEdee",
+          false
+        ],
+        [
+          "measurement",
+          "isEder",
+          false
+        ],
+        [
+          "measurement",
+          "object",
+          false
+        ],
+        [
+          "measurement",
+          "property",
+          false
+        ],
+        [
+          "measurement",
+          "queryable",
+          false
+        ],
+        [
+          "measurement",
+          "system_modifier",
+          false
+        ],
+        [
+          "measurement",
+          "theAble",
+          false
+        ],
+        [
+          "measurement",
+          "unit_modifier",
+          false
+        ],
+        [
+          "measurement_system",
+          "adjective",
+          true
+        ],
+        [
+          "measurement_system",
+          "concept",
+          false
+        ],
+        [
+          "measurement_system",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "measurement_system",
+          "isEdee",
+          false
+        ],
+        [
+          "measurement_system",
+          "isEder",
+          false
+        ],
+        [
+          "measurement_system",
+          "object",
+          false
+        ],
+        [
+          "measurement_system",
+          "property",
+          false
+        ],
+        [
+          "measurement_system",
+          "queryable",
+          false
+        ],
+        [
+          "measurement_system",
+          "system",
+          false
+        ],
+        [
+          "measurement_system",
+          "theAble",
+          false
+        ],
+        [
+          "measurement_unit",
+          "adjective",
+          true
+        ],
+        [
+          "measurement_unit",
+          "concept",
+          false
+        ],
+        [
+          "measurement_unit",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "measurement_unit",
+          "isEdee",
+          false
+        ],
+        [
+          "measurement_unit",
+          "isEder",
+          false
+        ],
+        [
+          "measurement_unit",
+          "object",
+          false
+        ],
+        [
+          "measurement_unit",
+          "property",
+          false
+        ],
+        [
+          "measurement_unit",
+          "queryable",
+          false
+        ],
+        [
+          "measurement_unit",
+          "theAble",
+          false
+        ],
+        [
+          "measurement_unit",
+          "unit",
+          false
+        ],
+        [
+          "memorable",
+          "theAble",
+          false
+        ],
+        [
+          "meter",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "meter",
+          "isEdee",
+          false
+        ],
+        [
+          "meter",
+          "isEder",
+          false
+        ],
+        [
+          "meter",
+          "metric_unit",
+          false
+        ],
+        [
+          "meter",
+          "object",
+          false
+        ],
+        [
+          "meter",
+          "property",
+          false
+        ],
+        [
+          "meter",
+          "queryable",
+          false
+        ],
+        [
+          "meter",
+          "theAble",
+          false
+        ],
+        [
+          "meter",
+          "unit_length",
+          false
+        ],
+        [
+          "metric",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "metric",
+          "isEdee",
+          false
+        ],
+        [
+          "metric",
+          "isEder",
+          false
+        ],
+        [
+          "metric",
+          "object",
+          false
+        ],
+        [
+          "metric",
+          "property",
+          false
+        ],
+        [
+          "metric",
+          "queryable",
+          false
+        ],
+        [
+          "metric",
+          "system_modifier",
+          false
+        ],
+        [
+          "metric",
+          "theAble",
+          false
+        ],
+        [
+          "metric",
+          "unit_modifier",
+          false
+        ],
+        [
+          "metric_system",
+          "adjective",
+          true
+        ],
+        [
+          "metric_system",
+          "concept",
+          false
+        ],
+        [
+          "metric_system",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "metric_system",
+          "isEdee",
+          false
+        ],
+        [
+          "metric_system",
+          "isEder",
+          false
+        ],
+        [
+          "metric_system",
+          "measurement_system",
+          false
+        ],
+        [
+          "metric_system",
+          "object",
+          false
+        ],
+        [
+          "metric_system",
+          "property",
+          false
+        ],
+        [
+          "metric_system",
+          "queryable",
+          false
+        ],
+        [
+          "metric_system",
+          "system",
+          false
+        ],
+        [
+          "metric_system",
+          "theAble",
+          false
+        ],
+        [
+          "metric_unit",
+          "adjective",
+          true
+        ],
+        [
+          "metric_unit",
+          "concept",
+          false
+        ],
+        [
+          "metric_unit",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "metric_unit",
+          "isEdee",
+          false
+        ],
+        [
+          "metric_unit",
+          "isEder",
+          false
+        ],
+        [
+          "metric_unit",
+          "object",
+          false
+        ],
+        [
+          "metric_unit",
+          "property",
+          false
+        ],
+        [
+          "metric_unit",
+          "queryable",
+          false
+        ],
+        [
+          "metric_unit",
+          "theAble",
+          false
+        ],
+        [
+          "metric_unit",
+          "unit",
+          false
+        ],
+        [
+          "mile",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "mile",
+          "isEdee",
+          false
+        ],
+        [
+          "mile",
+          "isEder",
+          false
+        ],
+        [
+          "mile",
+          "object",
+          false
+        ],
+        [
+          "mile",
+          "property",
+          false
+        ],
+        [
+          "mile",
+          "queryable",
+          false
+        ],
+        [
+          "mile",
+          "theAble",
+          false
+        ],
+        [
+          "mile",
+          "unit_length",
+          false
+        ],
+        [
+          "millimeter",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "millimeter",
+          "isEdee",
+          false
+        ],
+        [
+          "millimeter",
+          "isEder",
+          false
+        ],
+        [
+          "millimeter",
+          "metric_unit",
+          false
+        ],
+        [
+          "millimeter",
+          "object",
+          false
+        ],
+        [
+          "millimeter",
+          "property",
+          false
+        ],
+        [
+          "millimeter",
+          "queryable",
+          false
+        ],
+        [
+          "millimeter",
+          "theAble",
+          false
+        ],
+        [
+          "millimeter",
+          "unit_length",
+          false
+        ],
+        [
+          "minusExpression",
+          "mathematicalExpression",
+          false
+        ],
+        [
+          "minusOperator",
+          "mathematical_operator",
+          false
+        ],
+        [
+          "modifies",
+          "verb",
+          false
+        ],
+        [
+          "negatable",
+          "queryable",
+          false
+        ],
+        [
+          "noun",
+          "theAble",
+          false
+        ],
+        [
+          "number",
+          "expression",
+          false
+        ],
+        [
+          "number",
+          "quantifier",
+          false
+        ],
+        [
+          "number",
+          "queryable",
+          false
+        ],
+        [
+          "object",
+          "listable",
+          false
+        ],
+        [
+          "object",
+          "queryable",
+          false
+        ],
+        [
+          "object",
+          "theAble",
+          false
+        ],
+        [
+          "operator",
+          "concept",
+          false
+        ],
+        [
+          "operator",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "operator",
+          "isEdee",
+          false
+        ],
+        [
+          "operator",
+          "isEder",
+          false
+        ],
+        [
+          "operator",
+          "object",
+          false
+        ],
+        [
+          "operator",
+          "property",
+          false
+        ],
+        [
+          "operator",
+          "queryable",
+          false
+        ],
+        [
+          "operator",
+          "theAble",
+          false
+        ],
+        [
+          "operator_modifier",
+          "adjective",
+          false
+        ],
+        [
+          "orAble",
+          "ifAble",
+          false
+        ],
+        [
+          "ordering",
+          "concept",
+          false
+        ],
+        [
+          "ordering",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "ordering",
+          "isEdee",
+          false
+        ],
+        [
+          "ordering",
+          "isEder",
+          false
+        ],
+        [
+          "ordering",
+          "object",
+          false
+        ],
+        [
+          "ordering",
+          "property",
+          false
+        ],
+        [
+          "ordering",
+          "queryable",
+          false
+        ],
+        [
+          "ordering",
+          "theAble",
+          false
+        ],
+        [
+          "ordering_modifier",
+          "adjective",
+          false
+        ],
+        [
+          "plusExpression",
+          "mathematicalExpression",
+          false
+        ],
+        [
+          "plusOperator",
+          "mathematical_operator",
+          false
+        ],
+        [
+          "preposition",
+          "preposition",
+          false
+        ],
+        [
+          "pronoun",
+          "pronoun",
+          false
+        ],
+        [
+          "property",
+          "queryable",
+          false
+        ],
+        [
+          "property",
+          "theAble",
+          false
+        ],
+        [
+          "propertyOf",
+          "preposition",
+          false
+        ],
+        [
+          "punctuation",
+          "punctuation",
+          false
+        ],
+        [
+          "quantifier",
+          "quantifier",
+          false
+        ],
+        [
+          "quantity",
+          "noun",
+          false
+        ],
+        [
+          "queryable",
+          "listable",
+          false
+        ],
+        [
+          "questionMark",
+          "punctuation",
+          false
+        ],
+        [
+          "readonly",
+          "queryable",
+          false
+        ],
+        [
+          "reason",
+          "queryable",
+          false
+        ],
+        [
+          "reason",
+          "theAble",
+          false
+        ],
+        [
+          "remember",
+          "verb",
+          false
+        ],
+        [
+          "sort",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "sort",
+          "isEdee",
+          false
+        ],
+        [
+          "sort",
+          "isEder",
+          false
+        ],
+        [
+          "sort",
+          "object",
+          false
+        ],
+        [
+          "sort",
+          "ordering_modifier",
+          false
+        ],
+        [
+          "sort",
+          "property",
+          false
+        ],
+        [
+          "sort",
+          "queryable",
+          false
+        ],
+        [
+          "sort",
+          "theAble",
+          false
+        ],
+        [
+          "sortOrdering",
+          "adjective",
+          false
+        ],
+        [
+          "sort_ordering",
+          "adjective",
+          true
+        ],
+        [
+          "sort_ordering",
+          "concept",
+          false
+        ],
+        [
+          "sort_ordering",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "sort_ordering",
+          "isEdee",
+          false
+        ],
+        [
+          "sort_ordering",
+          "isEder",
+          false
+        ],
+        [
+          "sort_ordering",
+          "object",
+          false
+        ],
+        [
+          "sort_ordering",
+          "ordering",
+          false
+        ],
+        [
+          "sort_ordering",
+          "property",
+          false
+        ],
+        [
+          "sort_ordering",
+          "queryable",
+          false
+        ],
+        [
+          "sort_ordering",
+          "theAble",
+          false
+        ],
+        [
+          "stm_before",
+          "adjective",
+          false
+        ],
+        [
+          "system",
+          "concept",
+          false
+        ],
+        [
+          "system",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "system",
+          "isEdee",
+          false
+        ],
+        [
+          "system",
+          "isEder",
+          false
+        ],
+        [
+          "system",
+          "object",
+          false
+        ],
+        [
+          "system",
+          "property",
+          false
+        ],
+        [
+          "system",
+          "queryable",
+          false
+        ],
+        [
+          "system",
+          "theAble",
+          false
+        ],
+        [
+          "system_modifier",
+          "adjective",
+          false
+        ],
+        [
+          "testingValue",
+          "testingValue",
+          false
+        ],
+        [
+          "that",
+          "thisitthat",
+          false
+        ],
+        [
+          "the",
+          "article",
+          false
+        ],
+        [
+          "theAble",
+          "queryable",
+          false
+        ],
+        [
+          "this",
+          "pronoun",
+          false
+        ],
+        [
+          "this",
+          "queryable",
+          false
+        ],
+        [
+          "this",
+          "thisitthat",
+          false
+        ],
+        [
+          "thisitthat",
+          "queryable",
+          false
+        ],
+        [
+          "timesExpression",
+          "mathematicalExpression",
+          false
+        ],
+        [
+          "timesOperator",
+          "mathematical_operator",
+          false
+        ],
+        [
+          "to",
+          "preposition",
+          false
+        ],
+        [
+          "toAble",
+          "toAble",
+          false
+        ],
+        [
+          "type",
+          "property",
+          false
+        ],
+        [
+          "type",
+          "whatAble",
+          false
+        ],
+        [
+          "unit",
+          "concept",
+          false
+        ],
+        [
+          "unit",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "unit",
+          "isEdee",
+          false
+        ],
+        [
+          "unit",
+          "isEder",
+          false
+        ],
+        [
+          "unit",
+          "number",
+          false
+        ],
+        [
+          "unit",
+          "object",
+          false
+        ],
+        [
+          "unit",
+          "property",
+          false
+        ],
+        [
+          "unit",
+          "queryable",
+          false
+        ],
+        [
+          "unit",
+          "theAble",
+          false
+        ],
+        [
+          "unit_length",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "unit_length",
+          "isEdee",
+          false
+        ],
+        [
+          "unit_length",
+          "isEder",
+          false
+        ],
+        [
+          "unit_length",
+          "object",
+          false
+        ],
+        [
+          "unit_length",
+          "property",
+          false
+        ],
+        [
+          "unit_length",
+          "queryable",
+          false
+        ],
+        [
+          "unit_length",
+          "theAble",
+          false
+        ],
+        [
+          "unit_length",
+          "unit",
+          false
+        ],
+        [
+          "unit_modifier",
+          "adjective",
+          false
+        ],
+        [
+          "unknown",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "verb",
+          "verb",
+          false
+        ],
+        [
+          "what",
+          "object",
+          false
+        ],
+        [
+          "what",
+          "queryable",
+          false
+        ],
+        [
+          "whatAble",
+          "queryable",
+          false
+        ],
+        [
+          "whose",
+          "object",
+          false
+        ],
+        [
+          "x",
+          "number",
+          false
+        ],
+        [
+          "xfx",
+          "queryable",
+          false
+        ],
+        [
+          "y",
+          "number",
+          false
+        ]
+      ],
+      "metadata": {
+        "opChoices": [
+          {
+            "op": [
+              "meter",
+              0
+            ],
+            "ops": [
+              [
+                "centimeter",
+                0
+              ],
+              [
+                "divideByOperator",
+                0
+              ],
+              [
+                "equals",
+                0
+              ],
+              [
+                "integer",
+                0
+              ],
+              [
+                "meter",
+                0
+              ]
+            ],
+            "counter": 1
+          },
+          {
+            "op": [
+              "centimeter",
+              0
+            ],
+            "ops": [
+              [
+                "centimeter",
+                0
+              ],
+              [
+                "divideByOperator",
+                0
+              ],
+              [
+                "equals",
+                0
+              ],
+              [
+                "integer",
+                0
+              ]
+            ],
+            "counter": 2
+          },
+          {
+            "op": [
+              "integer",
+              0
+            ],
+            "ops": [
+              [
+                "divideByOperator",
+                0
+              ],
+              [
+                "equals",
+                0
+              ],
+              [
+                "integer",
+                0
+              ]
+            ],
+            "counter": 3
+          },
+          {
+            "op": [
+              "divideByOperator",
+              0
+            ],
+            "ops": [
+              [
+                "divideByOperator",
+                0
+              ],
+              [
+                "equals",
+                0
+              ]
+            ],
+            "counter": 4
+          },
+          {
+            "op": [
+              "equals",
+              0
+            ],
+            "ops": [
+              [
+                "equals",
+                0
+              ]
+            ],
+            "counter": 5
+          }
+        ]
+      },
+      "trace": "undefined",
+      "contexts": [
+        {
+          "value": "equals",
+          "text": "meters = centimeters / 100",
+          "marker": "equals",
+          "word": "=",
+          "range": {
+            "start": 0,
+            "end": 25
+          },
+          "dead": true,
+          "left": {
+            "value": "meter",
+            "number": "many",
+            "text": "meters",
+            "dimension": "length",
+            "marker": "meter",
+            "word": "meters",
+            "range": {
+              "start": 0,
+              "end": 5
+            },
+            "dead": true,
+            "types": [
+              "meter"
+            ],
+            "level": 0
+          },
+          "right": {
+            "value": null,
+            "text": "centimeters / 100",
+            "marker": "divideByExpression",
+            "word": "/",
+            "range": {
+              "start": 9,
+              "end": 25
+            },
+            "dead": true,
+            "types": [
+              "divideByExpression",
+              "number"
+            ],
+            "x": {
+              "value": "centimeter",
+              "number": "many",
+              "text": "centimeters",
+              "dimension": "length",
+              "marker": "centimeter",
+              "word": "centimeters",
+              "range": {
+                "start": 9,
+                "end": 19
+              },
+              "dead": true,
+              "types": [
+                "centimeter"
+              ],
+              "level": 0
+            },
+            "y": {
+              "instance": true,
+              "value": 100,
+              "text": "100",
+              "marker": "integer",
+              "word": "100",
+              "range": {
+                "start": 23,
+                "end": 25
+              },
+              "dead": true,
+              "types": [
+                "integer"
+              ],
+              "level": 1
+            },
+            "number": "one",
+            "isResponse": true,
+            "evaluate": true,
+            "level": 1
+          },
+          "level": 1,
+          "context_index": 1,
+          "topLevel": true,
+          "context_id": 2,
+          "touchedBy": [
+            "length#call2"
+          ]
+        }
+      ],
+      "generated": [
+        ""
+      ],
+      "paraphrases": [
+        "meters = centimeters / 100"
+      ],
+      "paraphrasesParenthesized": [],
+      "generatedParenthesized": [],
+      "responses": [
+        ""
+      ],
+      "associations": [
+        [
+          [
+            "centimeter",
+            0
+          ],
+          [
+            "divideByOperator",
+            0
+          ],
+          [
+            "equals",
+            0
+          ],
+          [
+            "integer",
+            0
+          ],
+          [
+            "meter",
+            0
+          ]
+        ],
+        [
+          [
+            "centimeter",
+            0
+          ],
+          [
+            "divideByOperator",
+            0
+          ],
+          [
+            "equals",
+            0
+          ],
+          [
+            "meter",
+            0
+          ]
+        ],
+        [
+          [
+            "equals",
+            0
+          ],
+          [
+            "meter",
+            0
+          ]
+        ]
+      ],
+      "summaries": [
+        {
+          "summaries": [
+            {
+              "operators": [
+                {
+                  "marker": [
+                    "meter",
+                    0
+                  ],
+                  "range": {
+                    "start": 0,
+                    "end": 5
+                  }
+                },
+                {
+                  "marker": [
+                    "equals",
+                    0
+                  ],
+                  "range": {
+                    "start": 7,
+                    "end": 7
+                  }
+                },
+                {
+                  "marker": [
+                    "centimeter",
+                    0
+                  ],
+                  "range": {
+                    "start": 9,
+                    "end": 19
+                  }
+                },
+                {
+                  "marker": [
+                    "divideByOperator",
+                    0
+                  ],
+                  "range": {
+                    "start": 21,
+                    "end": 21
+                  }
+                },
+                {
+                  "marker": [
+                    "integer",
+                    0
+                  ],
+                  "range": {
+                    "start": 23,
+                    "end": 25
+                  }
+                }
+              ],
+              "counter": 1
+            },
+            {
+              "operators": [
+                {
+                  "marker": [
+                    "meter",
+                    0
+                  ],
+                  "range": {
+                    "start": 0,
+                    "end": 5
+                  }
+                },
+                {
+                  "marker": [
+                    "equals",
+                    0
+                  ],
+                  "range": {
+                    "start": 7,
+                    "end": 7
+                  }
+                },
+                {
+                  "marker": [
+                    "centimeter",
+                    0
+                  ],
+                  "range": {
+                    "start": 9,
+                    "end": 19
+                  }
+                },
+                {
+                  "marker": [
+                    "divideByOperator",
+                    0
+                  ],
+                  "range": {
+                    "start": 21,
+                    "end": 21
+                  }
+                },
+                {
+                  "marker": [
+                    "integer",
+                    0
+                  ],
+                  "range": {
+                    "start": 23,
+                    "end": 25
+                  }
+                }
+              ],
+              "counter": 2
+            },
+            {
+              "operators": [
+                {
+                  "marker": [
+                    "meter",
+                    0
+                  ],
+                  "range": {
+                    "start": 0,
+                    "end": 5
+                  }
+                },
+                {
+                  "marker": [
+                    "equals",
+                    0
+                  ],
+                  "range": {
+                    "start": 7,
+                    "end": 7
+                  }
+                },
+                {
+                  "marker": [
+                    "centimeter",
+                    0
+                  ],
+                  "range": {
+                    "start": 9,
+                    "end": 19
+                  }
+                },
+                {
+                  "marker": [
+                    "divideByOperator",
+                    0
+                  ],
+                  "range": {
+                    "start": 21,
+                    "end": 21
+                  }
+                },
+                {
+                  "marker": [
+                    "integer",
+                    0
+                  ],
+                  "range": {
+                    "start": 23,
+                    "end": 25
+                  }
+                }
+              ],
+              "counter": 3
+            },
+            {
+              "operators": [
+                {
+                  "marker": [
+                    "meter",
+                    0
+                  ],
+                  "range": {
+                    "start": 0,
+                    "end": 5
+                  }
+                },
+                {
+                  "marker": [
+                    "equals",
+                    0
+                  ],
+                  "range": {
+                    "start": 7,
+                    "end": 7
+                  }
+                },
+                {
+                  "marker": [
+                    "centimeter",
+                    0
+                  ],
+                  "range": {
+                    "start": 9,
+                    "end": 19
+                  }
+                },
+                {
+                  "marker": [
+                    "divideByOperator",
+                    0
+                  ],
+                  "range": {
+                    "start": 21,
+                    "end": 21
+                  }
+                },
+                {
+                  "marker": [
+                    "integer",
+                    1
+                  ],
+                  "range": {
+                    "start": 23,
+                    "end": 25
+                  }
+                }
+              ],
+              "counter": 4
+            },
+            {
+              "operators": [
+                {
+                  "marker": [
+                    "meter",
+                    0
+                  ],
+                  "range": {
+                    "start": 0,
+                    "end": 5
+                  }
+                },
+                {
+                  "marker": [
+                    "equals",
+                    0
+                  ],
+                  "range": {
+                    "start": 7,
+                    "end": 7
+                  }
+                },
+                {
+                  "marker": [
+                    "divideByExpression",
+                    1
+                  ],
+                  "range": {
+                    "start": 9,
+                    "end": 25
+                  }
+                }
+              ],
+              "counter": 5
+            },
+            {
+              "operators": [
+                {
+                  "marker": [
+                    "equals",
+                    1
+                  ],
+                  "range": {
+                    "start": 0,
+                    "end": 25
+                  }
+                }
+              ],
+              "counter": 6
+            }
+          ],
+          "length": 1
+        }
+      ],
+      "learned_contextual_priorities": [],
+      "rtf_associations": [],
+      "query": "meters = centimeters / 100",
+      "key": {
+        "query": "meters = centimeters / 100"
+      }
+    },
+    {
+      "hierarchy": [
+        [
+          "a",
+          "article",
+          false
+        ],
+        [
+          "adjective",
+          "adjective",
+          false
+        ],
+        [
+          "all",
+          "quantifier",
+          false
+        ],
+        [
+          "amount",
+          "amount",
+          false
+        ],
+        [
+          "article",
+          "article",
+          false
+        ],
+        [
+          "ascending",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "ascending",
+          "isEdee",
+          false
+        ],
+        [
+          "ascending",
+          "isEder",
+          false
+        ],
+        [
+          "ascending",
+          "object",
+          false
+        ],
+        [
+          "ascending",
+          "property",
+          false
+        ],
+        [
+          "ascending",
+          "queryable",
+          false
+        ],
+        [
+          "ascending",
+          "sort_ordering",
+          false
+        ],
+        [
+          "ascending",
+          "theAble",
+          false
+        ],
+        [
+          "between",
+          "preposition",
+          false
+        ],
+        [
+          "calculate",
+          "verb",
+          false
+        ],
+        [
+          "canBeDoQuestion",
+          "canBeDoQuestion",
+          false
+        ],
+        [
+          "canBeQuestion",
+          "canBeQuestion",
+          false
+        ],
+        [
+          "centimeter",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "centimeter",
+          "isEdee",
+          false
+        ],
+        [
+          "centimeter",
+          "isEder",
+          false
+        ],
+        [
+          "centimeter",
+          "metric_unit",
+          false
+        ],
+        [
+          "centimeter",
+          "object",
+          false
+        ],
+        [
+          "centimeter",
+          "property",
+          false
+        ],
+        [
+          "centimeter",
+          "queryable",
+          false
+        ],
+        [
+          "centimeter",
+          "theAble",
+          false
+        ],
+        [
+          "centimeter",
+          "unit_length",
+          false
+        ],
+        [
+          "comparable",
+          "theAble",
+          false
+        ],
+        [
+          "concept",
+          "queryable",
+          false
+        ],
+        [
+          "concept",
+          "theAble",
+          false
+        ],
+        [
+          "condition",
+          "condition",
+          false
+        ],
+        [
+          "convertToUnits",
+          "expression",
+          false
+        ],
+        [
+          "convertToUnits",
+          "queryable",
+          false
+        ],
+        [
+          "convertToUnits",
+          "testingValue",
+          false
+        ],
+        [
+          "countable",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "degree",
+          "amount",
+          false
+        ],
+        [
+          "descending",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "descending",
+          "isEdee",
+          false
+        ],
+        [
+          "descending",
+          "isEder",
+          false
+        ],
+        [
+          "descending",
+          "object",
+          false
+        ],
+        [
+          "descending",
+          "property",
+          false
+        ],
+        [
+          "descending",
+          "queryable",
+          false
+        ],
+        [
+          "descending",
+          "sort_ordering",
+          false
+        ],
+        [
+          "descending",
+          "theAble",
+          false
+        ],
+        [
+          "dimension",
+          "concept",
+          false
+        ],
+        [
+          "dimension",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "dimension",
+          "isEdee",
+          false
+        ],
+        [
+          "dimension",
+          "isEder",
+          false
+        ],
+        [
+          "dimension",
+          "object",
+          false
+        ],
+        [
+          "dimension",
+          "property",
+          false
+        ],
+        [
+          "dimension",
+          "queryable",
+          false
+        ],
+        [
+          "dimension",
+          "theAble",
+          false
+        ],
+        [
+          "distributable",
+          "queryable",
+          false
+        ],
+        [
+          "divideByExpression",
+          "mathematicalExpression",
+          false
+        ],
+        [
+          "divideByOperator",
+          "mathematical_operator",
+          false
+        ],
+        [
+          "doubleQuote",
+          "queryable",
+          false
+        ],
+        [
+          "each",
+          "article",
+          false
+        ],
+        [
+          "every",
+          "article",
+          false
+        ],
+        [
+          "expression",
+          "expression",
+          false
+        ],
+        [
+          "foot",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "foot",
+          "imperial_unit",
+          false
+        ],
+        [
+          "foot",
+          "isEdee",
+          false
+        ],
+        [
+          "foot",
+          "isEder",
+          false
+        ],
+        [
+          "foot",
+          "object",
+          false
+        ],
+        [
+          "foot",
+          "property",
+          false
+        ],
+        [
+          "foot",
+          "queryable",
+          false
+        ],
+        [
+          "foot",
+          "theAble",
+          false
+        ],
+        [
+          "foot",
+          "unit_length",
+          false
+        ],
+        [
+          "forVariable",
+          "preposition",
+          false
+        ],
+        [
+          "formula",
+          "concept",
+          false
+        ],
+        [
+          "formula",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "formula",
+          "isEdee",
+          false
+        ],
+        [
+          "formula",
+          "isEder",
+          false
+        ],
+        [
+          "formula",
+          "object",
+          false
+        ],
+        [
+          "formula",
+          "property",
+          false
+        ],
+        [
+          "formula",
+          "queryable",
+          false
+        ],
+        [
+          "formula",
+          "theAble",
+          false
+        ],
+        [
+          "formulaForVariable",
+          "preposition",
+          false
+        ],
+        [
+          "formulaForVariable",
+          "queryable",
+          false
+        ],
+        [
+          "hasCountOfPieces",
+          "countable",
+          false
+        ],
+        [
+          "have",
+          "canBeDoQuestion",
+          false
+        ],
+        [
+          "have",
+          "canBeQuestion",
+          false
+        ],
+        [
+          "hierarchyAble",
+          "queryable",
+          false
+        ],
+        [
+          "highest",
+          "condition",
+          false
+        ],
+        [
+          "ifAble",
+          "ifAble",
+          false
+        ],
+        [
+          "imperial",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "imperial",
+          "isEdee",
+          false
+        ],
+        [
+          "imperial",
+          "isEder",
+          false
+        ],
+        [
+          "imperial",
+          "object",
+          false
+        ],
+        [
+          "imperial",
+          "property",
+          false
+        ],
+        [
+          "imperial",
+          "queryable",
+          false
+        ],
+        [
+          "imperial",
+          "system_modifier",
+          false
+        ],
+        [
+          "imperial",
+          "theAble",
+          false
+        ],
+        [
+          "imperial",
+          "unit_modifier",
+          false
+        ],
+        [
+          "imperial_system",
+          "adjective",
+          true
+        ],
+        [
+          "imperial_system",
+          "concept",
+          false
+        ],
+        [
+          "imperial_system",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "imperial_system",
+          "isEdee",
+          false
+        ],
+        [
+          "imperial_system",
+          "isEder",
+          false
+        ],
+        [
+          "imperial_system",
+          "measurement_system",
+          false
+        ],
+        [
+          "imperial_system",
+          "object",
+          false
+        ],
+        [
+          "imperial_system",
+          "property",
+          false
+        ],
+        [
+          "imperial_system",
+          "queryable",
+          false
+        ],
+        [
+          "imperial_system",
+          "system",
+          false
+        ],
+        [
+          "imperial_system",
+          "theAble",
+          false
+        ],
+        [
+          "imperial_unit",
+          "adjective",
+          true
+        ],
+        [
+          "imperial_unit",
+          "concept",
+          false
+        ],
+        [
+          "imperial_unit",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "imperial_unit",
+          "isEdee",
+          false
+        ],
+        [
+          "imperial_unit",
+          "isEder",
+          false
+        ],
+        [
+          "imperial_unit",
+          "object",
+          false
+        ],
+        [
+          "imperial_unit",
+          "property",
+          false
+        ],
+        [
+          "imperial_unit",
+          "queryable",
+          false
+        ],
+        [
+          "imperial_unit",
+          "theAble",
+          false
+        ],
+        [
+          "imperial_unit",
+          "unit",
+          false
+        ],
+        [
+          "inch",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "inch",
+          "imperial_unit",
+          false
+        ],
+        [
+          "inch",
+          "isEdee",
+          false
+        ],
+        [
+          "inch",
+          "isEder",
+          false
+        ],
+        [
+          "inch",
+          "object",
+          false
+        ],
+        [
+          "inch",
+          "property",
+          false
+        ],
+        [
+          "inch",
+          "queryable",
+          false
+        ],
+        [
+          "inch",
+          "theAble",
+          false
+        ],
+        [
+          "inch",
+          "unit_length",
+          false
+        ],
+        [
+          "integer",
+          "number",
+          false
+        ],
+        [
+          "is",
+          "canBeQuestion",
+          false
+        ],
+        [
+          "is",
+          "verb",
+          false
+        ],
+        [
+          "isEdee",
+          "isEdee",
+          false
+        ],
+        [
+          "isEder",
+          "isEder",
+          false
+        ],
+        [
+          "isQuery",
+          "verb",
+          false
+        ],
+        [
+          "it",
+          "pronoun",
+          false
+        ],
+        [
+          "it",
+          "queryable",
+          false
+        ],
+        [
+          "it",
+          "thisitthat",
+          false
+        ],
+        [
+          "it",
+          "toAble",
+          false
+        ],
+        [
+          "length",
+          "dimension",
+          false
+        ],
+        [
+          "listable",
+          "theAble",
+          false
+        ],
+        [
+          "lowest",
+          "condition",
+          false
+        ],
+        [
+          "mathematical",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "mathematical",
+          "isEdee",
+          false
+        ],
+        [
+          "mathematical",
+          "isEder",
+          false
+        ],
+        [
+          "mathematical",
+          "object",
+          false
+        ],
+        [
+          "mathematical",
+          "operator_modifier",
+          false
+        ],
+        [
+          "mathematical",
+          "property",
+          false
+        ],
+        [
+          "mathematical",
+          "queryable",
+          false
+        ],
+        [
+          "mathematical",
+          "theAble",
+          false
+        ],
+        [
+          "mathematicalExpression",
+          "concept",
+          false
+        ],
+        [
+          "mathematicalExpression",
+          "expression",
+          false
+        ],
+        [
+          "mathematicalExpression",
+          "number",
+          false
+        ],
+        [
+          "mathematical_operator",
+          "adjective",
+          true
+        ],
+        [
+          "mathematical_operator",
+          "concept",
+          false
+        ],
+        [
+          "mathematical_operator",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "mathematical_operator",
+          "isEdee",
+          false
+        ],
+        [
+          "mathematical_operator",
+          "isEder",
+          false
+        ],
+        [
+          "mathematical_operator",
+          "object",
+          false
+        ],
+        [
+          "mathematical_operator",
+          "operator",
+          false
+        ],
+        [
+          "mathematical_operator",
+          "property",
+          false
+        ],
+        [
+          "mathematical_operator",
+          "queryable",
+          false
+        ],
+        [
+          "mathematical_operator",
+          "theAble",
+          false
+        ],
+        [
+          "measurement",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "measurement",
+          "isEdee",
+          false
+        ],
+        [
+          "measurement",
+          "isEder",
+          false
+        ],
+        [
+          "measurement",
+          "object",
+          false
+        ],
+        [
+          "measurement",
+          "property",
+          false
+        ],
+        [
+          "measurement",
+          "queryable",
+          false
+        ],
+        [
+          "measurement",
+          "system_modifier",
+          false
+        ],
+        [
+          "measurement",
+          "theAble",
+          false
+        ],
+        [
+          "measurement",
+          "unit_modifier",
+          false
+        ],
+        [
+          "measurement_system",
+          "adjective",
+          true
+        ],
+        [
+          "measurement_system",
+          "concept",
+          false
+        ],
+        [
+          "measurement_system",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "measurement_system",
+          "isEdee",
+          false
+        ],
+        [
+          "measurement_system",
+          "isEder",
+          false
+        ],
+        [
+          "measurement_system",
+          "object",
+          false
+        ],
+        [
+          "measurement_system",
+          "property",
+          false
+        ],
+        [
+          "measurement_system",
+          "queryable",
+          false
+        ],
+        [
+          "measurement_system",
+          "system",
+          false
+        ],
+        [
+          "measurement_system",
+          "theAble",
+          false
+        ],
+        [
+          "measurement_unit",
+          "adjective",
+          true
+        ],
+        [
+          "measurement_unit",
+          "concept",
+          false
+        ],
+        [
+          "measurement_unit",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "measurement_unit",
+          "isEdee",
+          false
+        ],
+        [
+          "measurement_unit",
+          "isEder",
+          false
+        ],
+        [
+          "measurement_unit",
+          "object",
+          false
+        ],
+        [
+          "measurement_unit",
+          "property",
+          false
+        ],
+        [
+          "measurement_unit",
+          "queryable",
+          false
+        ],
+        [
+          "measurement_unit",
+          "theAble",
+          false
+        ],
+        [
+          "measurement_unit",
+          "unit",
+          false
+        ],
+        [
+          "memorable",
+          "theAble",
+          false
+        ],
+        [
+          "meter",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "meter",
+          "isEdee",
+          false
+        ],
+        [
+          "meter",
+          "isEder",
+          false
+        ],
+        [
+          "meter",
+          "metric_unit",
+          false
+        ],
+        [
+          "meter",
+          "object",
+          false
+        ],
+        [
+          "meter",
+          "property",
+          false
+        ],
+        [
+          "meter",
+          "queryable",
+          false
+        ],
+        [
+          "meter",
+          "theAble",
+          false
+        ],
+        [
+          "meter",
+          "unit_length",
+          false
+        ],
+        [
+          "metric",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "metric",
+          "isEdee",
+          false
+        ],
+        [
+          "metric",
+          "isEder",
+          false
+        ],
+        [
+          "metric",
+          "object",
+          false
+        ],
+        [
+          "metric",
+          "property",
+          false
+        ],
+        [
+          "metric",
+          "queryable",
+          false
+        ],
+        [
+          "metric",
+          "system_modifier",
+          false
+        ],
+        [
+          "metric",
+          "theAble",
+          false
+        ],
+        [
+          "metric",
+          "unit_modifier",
+          false
+        ],
+        [
+          "metric_system",
+          "adjective",
+          true
+        ],
+        [
+          "metric_system",
+          "concept",
+          false
+        ],
+        [
+          "metric_system",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "metric_system",
+          "isEdee",
+          false
+        ],
+        [
+          "metric_system",
+          "isEder",
+          false
+        ],
+        [
+          "metric_system",
+          "measurement_system",
+          false
+        ],
+        [
+          "metric_system",
+          "object",
+          false
+        ],
+        [
+          "metric_system",
+          "property",
+          false
+        ],
+        [
+          "metric_system",
+          "queryable",
+          false
+        ],
+        [
+          "metric_system",
+          "system",
+          false
+        ],
+        [
+          "metric_system",
+          "theAble",
+          false
+        ],
+        [
+          "metric_unit",
+          "adjective",
+          true
+        ],
+        [
+          "metric_unit",
+          "concept",
+          false
+        ],
+        [
+          "metric_unit",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "metric_unit",
+          "isEdee",
+          false
+        ],
+        [
+          "metric_unit",
+          "isEder",
+          false
+        ],
+        [
+          "metric_unit",
+          "object",
+          false
+        ],
+        [
+          "metric_unit",
+          "property",
+          false
+        ],
+        [
+          "metric_unit",
+          "queryable",
+          false
+        ],
+        [
+          "metric_unit",
+          "theAble",
+          false
+        ],
+        [
+          "metric_unit",
+          "unit",
+          false
+        ],
+        [
+          "mile",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "mile",
+          "isEdee",
+          false
+        ],
+        [
+          "mile",
+          "isEder",
+          false
+        ],
+        [
+          "mile",
+          "object",
+          false
+        ],
+        [
+          "mile",
+          "property",
+          false
+        ],
+        [
+          "mile",
+          "queryable",
+          false
+        ],
+        [
+          "mile",
+          "theAble",
+          false
+        ],
+        [
+          "mile",
+          "unit_length",
+          false
+        ],
+        [
+          "millimeter",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "millimeter",
+          "isEdee",
+          false
+        ],
+        [
+          "millimeter",
+          "isEder",
+          false
+        ],
+        [
+          "millimeter",
+          "metric_unit",
           false
         ],
         [
@@ -10256,6 +15395,11 @@
         ],
         [
           "centimeter",
+          "metric_unit",
+          false
+        ],
+        [
+          "centimeter",
           "object",
           false
         ],
@@ -10442,6 +15586,11 @@
         [
           "foot",
           "hierarchyAble",
+          false
+        ],
+        [
+          "foot",
+          "imperial_unit",
           false
         ],
         [
@@ -10717,6 +15866,11 @@
         [
           "inch",
           "hierarchyAble",
+          false
+        ],
+        [
+          "inch",
+          "imperial_unit",
           false
         ],
         [
@@ -11091,6 +16245,11 @@
         ],
         [
           "meter",
+          "metric_unit",
+          false
+        ],
+        [
+          "meter",
           "object",
           false
         ],
@@ -11317,6 +16476,11 @@
         [
           "millimeter",
           "isEder",
+          false
+        ],
+        [
+          "millimeter",
+          "metric_unit",
           false
         ],
         [
@@ -11958,7 +17122,7 @@
           },
           {
             "op": [
-              "millimeter",
+              "integer",
               0
             ],
             "ops": [
@@ -11983,7 +17147,7 @@
           },
           {
             "op": [
-              "integer",
+              "millimeter",
               0
             ],
             "ops": [
@@ -11996,7 +17160,7 @@
                 0
               ],
               [
-                "integer",
+                "millimeter",
                 0
               ]
             ],
@@ -12345,7 +17509,7 @@
                 {
                   "marker": [
                     "integer",
-                    0
+                    1
                   ],
                   "range": {
                     "start": 28,
@@ -12575,6 +17739,11 @@
         ],
         [
           "centimeter",
+          "metric_unit",
+          false
+        ],
+        [
+          "centimeter",
           "object",
           false
         ],
@@ -12761,6 +17930,11 @@
         [
           "foot",
           "hierarchyAble",
+          false
+        ],
+        [
+          "foot",
+          "imperial_unit",
           false
         ],
         [
@@ -13036,6 +18210,11 @@
         [
           "inch",
           "hierarchyAble",
+          false
+        ],
+        [
+          "inch",
+          "imperial_unit",
           false
         ],
         [
@@ -13410,6 +18589,11 @@
         ],
         [
           "meter",
+          "metric_unit",
+          false
+        ],
+        [
+          "meter",
           "object",
           false
         ],
@@ -13636,6 +18820,11 @@
         [
           "millimeter",
           "isEder",
+          false
+        ],
+        [
+          "millimeter",
+          "metric_unit",
           false
         ],
         [
@@ -14248,7 +19437,7 @@
         "opChoices": [
           {
             "op": [
-              "millimeter",
+              "centimeter",
               0
             ],
             "ops": [
@@ -14277,20 +19466,20 @@
           },
           {
             "op": [
-              "centimeter",
+              "integer",
               0
             ],
             "ops": [
-              [
-                "centimeter",
-                0
-              ],
               [
                 "equals",
                 0
               ],
               [
                 "integer",
+                0
+              ],
+              [
+                "millimeter",
                 0
               ],
               [
@@ -14302,7 +19491,7 @@
           },
           {
             "op": [
-              "integer",
+              "millimeter",
               0
             ],
             "ops": [
@@ -14311,7 +19500,7 @@
                 0
               ],
               [
-                "integer",
+                "millimeter",
                 0
               ],
               [
@@ -14664,7 +19853,7 @@
                 {
                   "marker": [
                     "integer",
-                    0
+                    1
                   ],
                   "range": {
                     "start": 28,
@@ -14894,6 +20083,11 @@
         ],
         [
           "centimeter",
+          "metric_unit",
+          false
+        ],
+        [
+          "centimeter",
           "object",
           false
         ],
@@ -15080,6 +20274,11 @@
         [
           "foot",
           "hierarchyAble",
+          false
+        ],
+        [
+          "foot",
+          "imperial_unit",
           false
         ],
         [
@@ -15355,6 +20554,11 @@
         [
           "inch",
           "hierarchyAble",
+          false
+        ],
+        [
+          "inch",
+          "imperial_unit",
           false
         ],
         [
@@ -15729,6 +20933,11 @@
         ],
         [
           "meter",
+          "metric_unit",
+          false
+        ],
+        [
+          "meter",
           "object",
           false
         ],
@@ -15955,6 +21164,11 @@
         [
           "millimeter",
           "isEder",
+          false
+        ],
+        [
+          "millimeter",
+          "metric_unit",
           false
         ],
         [
@@ -16567,7 +21781,7 @@
         "opChoices": [
           {
             "op": [
-              "millimeter",
+              "meter",
               0
             ],
             "ops": [
@@ -16596,7 +21810,7 @@
           },
           {
             "op": [
-              "meter",
+              "integer",
               0
             ],
             "ops": [
@@ -16609,7 +21823,7 @@
                 0
               ],
               [
-                "meter",
+                "millimeter",
                 0
               ],
               [
@@ -16621,7 +21835,7 @@
           },
           {
             "op": [
-              "integer",
+              "millimeter",
               0
             ],
             "ops": [
@@ -16630,7 +21844,7 @@
                 0
               ],
               [
-                "integer",
+                "millimeter",
                 0
               ],
               [
@@ -16983,7 +22197,7 @@
                 {
                   "marker": [
                     "integer",
-                    0
+                    1
                   ],
                   "range": {
                     "start": 23,
@@ -17213,6 +22427,11 @@
         ],
         [
           "centimeter",
+          "metric_unit",
+          false
+        ],
+        [
+          "centimeter",
           "object",
           false
         ],
@@ -17399,6 +22618,11 @@
         [
           "foot",
           "hierarchyAble",
+          false
+        ],
+        [
+          "foot",
+          "imperial_unit",
           false
         ],
         [
@@ -17674,6 +22898,11 @@
         [
           "inch",
           "hierarchyAble",
+          false
+        ],
+        [
+          "inch",
+          "imperial_unit",
           false
         ],
         [
@@ -18048,6 +23277,11 @@
         ],
         [
           "meter",
+          "metric_unit",
+          false
+        ],
+        [
+          "meter",
           "object",
           false
         ],
@@ -18274,6 +23508,11 @@
         [
           "millimeter",
           "isEder",
+          false
+        ],
+        [
+          "millimeter",
+          "metric_unit",
           false
         ],
         [
@@ -18915,7 +24154,7 @@
           },
           {
             "op": [
-              "millimeter",
+              "integer",
               0
             ],
             "ops": [
@@ -18940,7 +24179,7 @@
           },
           {
             "op": [
-              "integer",
+              "millimeter",
               0
             ],
             "ops": [
@@ -18953,7 +24192,7 @@
                 0
               ],
               [
-                "integer",
+                "millimeter",
                 0
               ]
             ],
@@ -19302,7 +24541,7 @@
                 {
                   "marker": [
                     "integer",
-                    0
+                    1
                   ],
                   "range": {
                     "start": 23,
@@ -19532,6 +24771,11 @@
         ],
         [
           "centimeter",
+          "metric_unit",
+          false
+        ],
+        [
+          "centimeter",
           "object",
           false
         ],
@@ -19718,6 +24962,11 @@
         [
           "foot",
           "hierarchyAble",
+          false
+        ],
+        [
+          "foot",
+          "imperial_unit",
           false
         ],
         [
@@ -19993,6 +25242,11 @@
         [
           "inch",
           "hierarchyAble",
+          false
+        ],
+        [
+          "inch",
+          "imperial_unit",
           false
         ],
         [
@@ -20367,6 +25621,11 @@
         ],
         [
           "meter",
+          "metric_unit",
+          false
+        ],
+        [
+          "meter",
           "object",
           false
         ],
@@ -20593,6 +25852,11 @@
         [
           "millimeter",
           "isEder",
+          false
+        ],
+        [
+          "millimeter",
+          "metric_unit",
           false
         ],
         [
@@ -21234,7 +26498,7 @@
           },
           {
             "op": [
-              "inch",
+              "integer",
               0
             ],
             "ops": [
@@ -21259,7 +26523,7 @@
           },
           {
             "op": [
-              "integer",
+              "inch",
               0
             ],
             "ops": [
@@ -21272,7 +26536,7 @@
                 0
               ],
               [
-                "integer",
+                "inch",
                 0
               ]
             ],
@@ -21621,7 +26885,7 @@
                 {
                   "marker": [
                     "integer",
-                    0
+                    1
                   ],
                   "range": {
                     "start": 16,
@@ -21851,6 +27115,11 @@
         ],
         [
           "centimeter",
+          "metric_unit",
+          false
+        ],
+        [
+          "centimeter",
           "object",
           false
         ],
@@ -22037,6 +27306,11 @@
         [
           "foot",
           "hierarchyAble",
+          false
+        ],
+        [
+          "foot",
+          "imperial_unit",
           false
         ],
         [
@@ -22312,6 +27586,11 @@
         [
           "inch",
           "hierarchyAble",
+          false
+        ],
+        [
+          "inch",
+          "imperial_unit",
           false
         ],
         [
@@ -22686,6 +27965,11 @@
         ],
         [
           "meter",
+          "metric_unit",
+          false
+        ],
+        [
+          "meter",
           "object",
           false
         ],
@@ -22912,6 +28196,11 @@
         [
           "millimeter",
           "isEder",
+          false
+        ],
+        [
+          "millimeter",
+          "metric_unit",
           false
         ],
         [
@@ -23524,7 +28813,7 @@
         "opChoices": [
           {
             "op": [
-              "inch",
+              "foot",
               0
             ],
             "ops": [
@@ -23553,7 +28842,7 @@
           },
           {
             "op": [
-              "foot",
+              "integer",
               0
             ],
             "ops": [
@@ -23562,7 +28851,7 @@
                 0
               ],
               [
-                "foot",
+                "inch",
                 0
               ],
               [
@@ -23578,7 +28867,7 @@
           },
           {
             "op": [
-              "integer",
+              "inch",
               0
             ],
             "ops": [
@@ -23587,7 +28876,7 @@
                 0
               ],
               [
-                "integer",
+                "inch",
                 0
               ],
               [
@@ -23940,7 +29229,7 @@
                 {
                   "marker": [
                     "integer",
-                    0
+                    1
                   ],
                   "range": {
                     "start": 16,
@@ -24170,6 +29459,11 @@
         ],
         [
           "centimeter",
+          "metric_unit",
+          false
+        ],
+        [
+          "centimeter",
           "object",
           false
         ],
@@ -24356,6 +29650,11 @@
         [
           "foot",
           "hierarchyAble",
+          false
+        ],
+        [
+          "foot",
+          "imperial_unit",
           false
         ],
         [
@@ -24631,6 +29930,11 @@
         [
           "inch",
           "hierarchyAble",
+          false
+        ],
+        [
+          "inch",
+          "imperial_unit",
           false
         ],
         [
@@ -25005,6 +30309,11 @@
         ],
         [
           "meter",
+          "metric_unit",
+          false
+        ],
+        [
+          "meter",
           "object",
           false
         ],
@@ -25231,6 +30540,11 @@
         [
           "millimeter",
           "isEder",
+          false
+        ],
+        [
+          "millimeter",
+          "metric_unit",
           false
         ],
         [
@@ -26489,6 +31803,11 @@
         ],
         [
           "centimeter",
+          "metric_unit",
+          false
+        ],
+        [
+          "centimeter",
           "object",
           false
         ],
@@ -26675,6 +31994,11 @@
         [
           "foot",
           "hierarchyAble",
+          false
+        ],
+        [
+          "foot",
+          "imperial_unit",
           false
         ],
         [
@@ -26950,6 +32274,11 @@
         [
           "inch",
           "hierarchyAble",
+          false
+        ],
+        [
+          "inch",
+          "imperial_unit",
           false
         ],
         [
@@ -27324,6 +32653,11 @@
         ],
         [
           "meter",
+          "metric_unit",
+          false
+        ],
+        [
+          "meter",
           "object",
           false
         ],
@@ -27550,6 +32884,11 @@
         [
           "millimeter",
           "isEder",
+          false
+        ],
+        [
+          "millimeter",
+          "metric_unit",
           false
         ],
         [
@@ -28808,6 +34147,11 @@
         ],
         [
           "centimeter",
+          "metric_unit",
+          false
+        ],
+        [
+          "centimeter",
           "object",
           false
         ],
@@ -28994,6 +34338,11 @@
         [
           "foot",
           "hierarchyAble",
+          false
+        ],
+        [
+          "foot",
+          "imperial_unit",
           false
         ],
         [
@@ -29269,6 +34618,11 @@
         [
           "inch",
           "hierarchyAble",
+          false
+        ],
+        [
+          "inch",
+          "imperial_unit",
           false
         ],
         [
@@ -29643,6 +34997,11 @@
         ],
         [
           "meter",
+          "metric_unit",
+          false
+        ],
+        [
+          "meter",
           "object",
           false
         ],
@@ -29869,6 +35228,11 @@
         [
           "millimeter",
           "isEder",
+          false
+        ],
+        [
+          "millimeter",
+          "metric_unit",
           false
         ],
         [
@@ -31127,6 +36491,11 @@
         ],
         [
           "centimeter",
+          "metric_unit",
+          false
+        ],
+        [
+          "centimeter",
           "object",
           false
         ],
@@ -31313,6 +36682,11 @@
         [
           "foot",
           "hierarchyAble",
+          false
+        ],
+        [
+          "foot",
+          "imperial_unit",
           false
         ],
         [
@@ -31588,6 +36962,11 @@
         [
           "inch",
           "hierarchyAble",
+          false
+        ],
+        [
+          "inch",
+          "imperial_unit",
           false
         ],
         [
@@ -31962,6 +37341,11 @@
         ],
         [
           "meter",
+          "metric_unit",
+          false
+        ],
+        [
+          "meter",
           "object",
           false
         ],
@@ -32188,6 +37572,11 @@
         [
           "millimeter",
           "isEder",
+          false
+        ],
+        [
+          "millimeter",
+          "metric_unit",
           false
         ],
         [
@@ -33446,6 +38835,11 @@
         ],
         [
           "centimeter",
+          "metric_unit",
+          false
+        ],
+        [
+          "centimeter",
           "object",
           false
         ],
@@ -33632,6 +39026,11 @@
         [
           "foot",
           "hierarchyAble",
+          false
+        ],
+        [
+          "foot",
+          "imperial_unit",
           false
         ],
         [
@@ -33907,6 +39306,11 @@
         [
           "inch",
           "hierarchyAble",
+          false
+        ],
+        [
+          "inch",
+          "imperial_unit",
           false
         ],
         [
@@ -34281,6 +39685,11 @@
         ],
         [
           "meter",
+          "metric_unit",
+          false
+        ],
+        [
+          "meter",
           "object",
           false
         ],
@@ -34507,6 +39916,11 @@
         [
           "millimeter",
           "isEder",
+          false
+        ],
+        [
+          "millimeter",
+          "metric_unit",
           false
         ],
         [
@@ -35173,7 +40587,7 @@
           },
           {
             "op": [
-              "timesOperator",
+              "foot",
               0
             ],
             "ops": [
@@ -35194,6 +40608,23 @@
           },
           {
             "op": [
+              "timesOperator",
+              0
+            ],
+            "ops": [
+              [
+                "equals",
+                0
+              ],
+              [
+                "timesOperator",
+                0
+              ]
+            ],
+            "counter": 4
+          },
+          {
+            "op": [
               "equals",
               0
             ],
@@ -35203,7 +40634,7 @@
                 0
               ]
             ],
-            "counter": 4
+            "counter": 5
           }
         ]
       },
@@ -35277,6 +40708,7 @@
                 "start": 15,
                 "end": 18
               },
+              "dead": true,
               "types": [
                 "foot"
               ],
@@ -35551,6 +40983,61 @@
                 },
                 {
                   "marker": [
+                    "integer",
+                    1
+                  ],
+                  "range": {
+                    "start": 8,
+                    "end": 11
+                  }
+                },
+                {
+                  "marker": [
+                    "timesOperator",
+                    0
+                  ],
+                  "range": {
+                    "start": 13,
+                    "end": 13
+                  }
+                },
+                {
+                  "marker": [
+                    "foot",
+                    0
+                  ],
+                  "range": {
+                    "start": 15,
+                    "end": 18
+                  }
+                }
+              ],
+              "counter": 4
+            },
+            {
+              "operators": [
+                {
+                  "marker": [
+                    "mile",
+                    0
+                  ],
+                  "range": {
+                    "start": 0,
+                    "end": 4
+                  }
+                },
+                {
+                  "marker": [
+                    "equals",
+                    0
+                  ],
+                  "range": {
+                    "start": 6,
+                    "end": 6
+                  }
+                },
+                {
+                  "marker": [
                     "timesExpression",
                     1
                   ],
@@ -35560,7 +41047,7 @@
                   }
                 }
               ],
-              "counter": 4
+              "counter": 5
             },
             {
               "operators": [
@@ -35575,7 +41062,7 @@
                   }
                 }
               ],
-              "counter": 5
+              "counter": 6
             }
           ],
           "length": 1
@@ -35688,6 +41175,11 @@
         [
           "centimeter",
           "isEder",
+          false
+        ],
+        [
+          "centimeter",
+          "metric_unit",
           false
         ],
         [
@@ -35878,6 +41370,11 @@
         [
           "foot",
           "hierarchyAble",
+          false
+        ],
+        [
+          "foot",
+          "imperial_unit",
           false
         ],
         [
@@ -36153,6 +41650,11 @@
         [
           "inch",
           "hierarchyAble",
+          false
+        ],
+        [
+          "inch",
+          "imperial_unit",
           false
         ],
         [
@@ -36527,6 +42029,11 @@
         ],
         [
           "meter",
+          "metric_unit",
+          false
+        ],
+        [
+          "meter",
           "object",
           false
         ],
@@ -36753,6 +42260,11 @@
         [
           "millimeter",
           "isEder",
+          false
+        ],
+        [
+          "millimeter",
+          "metric_unit",
           false
         ],
         [
@@ -38011,6 +43523,11 @@
         ],
         [
           "centimeter",
+          "metric_unit",
+          false
+        ],
+        [
+          "centimeter",
           "object",
           false
         ],
@@ -38197,6 +43714,11 @@
         [
           "foot",
           "hierarchyAble",
+          false
+        ],
+        [
+          "foot",
+          "imperial_unit",
           false
         ],
         [
@@ -38472,6 +43994,11 @@
         [
           "inch",
           "hierarchyAble",
+          false
+        ],
+        [
+          "inch",
+          "imperial_unit",
           false
         ],
         [
@@ -38846,6 +44373,11 @@
         ],
         [
           "meter",
+          "metric_unit",
+          false
+        ],
+        [
+          "meter",
           "object",
           false
         ],
@@ -39072,6 +44604,11 @@
         [
           "millimeter",
           "isEder",
+          false
+        ],
+        [
+          "millimeter",
+          "metric_unit",
           false
         ],
         [
@@ -40330,6 +45867,11 @@
         ],
         [
           "centimeter",
+          "metric_unit",
+          false
+        ],
+        [
+          "centimeter",
           "object",
           false
         ],
@@ -40516,6 +46058,11 @@
         [
           "foot",
           "hierarchyAble",
+          false
+        ],
+        [
+          "foot",
+          "imperial_unit",
           false
         ],
         [
@@ -40791,6 +46338,11 @@
         [
           "inch",
           "hierarchyAble",
+          false
+        ],
+        [
+          "inch",
+          "imperial_unit",
           false
         ],
         [
@@ -41165,6 +46717,11 @@
         ],
         [
           "meter",
+          "metric_unit",
+          false
+        ],
+        [
+          "meter",
           "object",
           false
         ],
@@ -41391,6 +46948,11 @@
         [
           "millimeter",
           "isEder",
+          false
+        ],
+        [
+          "millimeter",
+          "metric_unit",
           false
         ],
         [
@@ -42587,6 +48149,40 @@
         0
       ],
       [
+        "comma",
+        0
+      ],
+      [
+        "is",
+        0
+      ],
+      [
+        "list",
+        0
+      ],
+      [
+        "meter",
+        0
+      ],
+      [
+        "metric",
+        0
+      ],
+      [
+        "millimeter",
+        0
+      ],
+      [
+        "unit",
+        0
+      ]
+    ],
+    [
+      [
+        "centimeter",
+        0
+      ],
+      [
         "divideByOperator",
         0
       ],
@@ -42848,6 +48444,36 @@
       ],
       [
         "timesOperator",
+        0
+      ]
+    ],
+    [
+      [
+        "centimeter",
+        0
+      ],
+      [
+        "is",
+        0
+      ],
+      [
+        "list",
+        0
+      ],
+      [
+        "meter",
+        0
+      ],
+      [
+        "metric",
+        0
+      ],
+      [
+        "millimeter",
+        0
+      ],
+      [
+        "unit",
         0
       ]
     ],
@@ -43393,6 +49019,64 @@
     ],
     [
       [
+        "foot",
+        0
+      ],
+      [
+        "imperial",
+        0
+      ],
+      [
+        "inch",
+        0
+      ],
+      [
+        "is",
+        0
+      ],
+      [
+        "list",
+        0
+      ],
+      [
+        "unit",
+        0
+      ]
+    ],
+    [
+      [
+        "imperial",
+        0
+      ],
+      [
+        "is",
+        0
+      ],
+      [
+        "list",
+        1
+      ],
+      [
+        "unit",
+        0
+      ]
+    ],
+    [
+      [
+        "imperial_unit",
+        0
+      ],
+      [
+        "is",
+        0
+      ],
+      [
+        "list",
+        1
+      ]
+    ],
+    [
+      [
         "is",
         0
       ],
@@ -43462,6 +49146,60 @@
       ],
       [
         "unknown",
+        0
+      ]
+    ],
+    [
+      [
+        "is",
+        0
+      ],
+      [
+        "list",
+        1
+      ],
+      [
+        "meter",
+        0
+      ],
+      [
+        "metric",
+        0
+      ],
+      [
+        "unit",
+        0
+      ]
+    ],
+    [
+      [
+        "is",
+        0
+      ],
+      [
+        "list",
+        1
+      ],
+      [
+        "metric",
+        0
+      ],
+      [
+        "unit",
+        0
+      ]
+    ],
+    [
+      [
+        "is",
+        0
+      ],
+      [
+        "list",
+        1
+      ],
+      [
+        "metric_unit",
         0
       ]
     ],
@@ -45043,6 +50781,741 @@
             },
             {
               "marker": [
+                "comma",
+                0
+              ],
+              "range": {
+                "start": 6,
+                "end": 6
+              }
+            },
+            {
+              "marker": [
+                "centimeter",
+                0
+              ],
+              "range": {
+                "start": 8,
+                "end": 18
+              }
+            },
+            {
+              "marker": [
+                "list",
+                0
+              ],
+              "range": {
+                "start": 20,
+                "end": 22
+              }
+            },
+            {
+              "marker": [
+                "millimeter",
+                0
+              ],
+              "range": {
+                "start": 24,
+                "end": 34
+              }
+            },
+            {
+              "marker": [
+                "is",
+                0
+              ],
+              "range": {
+                "start": 36,
+                "end": 38
+              }
+            },
+            {
+              "marker": [
+                "metric",
+                0
+              ],
+              "range": {
+                "start": 40,
+                "end": 45
+              }
+            },
+            {
+              "marker": [
+                "unit",
+                0
+              ],
+              "range": {
+                "start": 47,
+                "end": 51
+              }
+            }
+          ],
+          "counter": 1
+        },
+        {
+          "operators": [
+            {
+              "marker": [
+                "meter",
+                0
+              ],
+              "range": {
+                "start": 0,
+                "end": 5
+              }
+            },
+            {
+              "marker": [
+                "comma",
+                0
+              ],
+              "range": {
+                "start": 6,
+                "end": 6
+              }
+            },
+            {
+              "marker": [
+                "centimeter",
+                0
+              ],
+              "range": {
+                "start": 8,
+                "end": 18
+              }
+            },
+            {
+              "marker": [
+                "list",
+                0
+              ],
+              "range": {
+                "start": 20,
+                "end": 22
+              }
+            },
+            {
+              "marker": [
+                "millimeter",
+                0
+              ],
+              "range": {
+                "start": 24,
+                "end": 34
+              }
+            },
+            {
+              "marker": [
+                "is",
+                0
+              ],
+              "range": {
+                "start": 36,
+                "end": 38
+              }
+            },
+            {
+              "marker": [
+                "metric",
+                0
+              ],
+              "range": {
+                "start": 40,
+                "end": 45
+              }
+            },
+            {
+              "marker": [
+                "unit",
+                0
+              ],
+              "range": {
+                "start": 47,
+                "end": 51
+              }
+            }
+          ],
+          "counter": 2
+        },
+        {
+          "operators": [
+            {
+              "marker": [
+                "meter",
+                0
+              ],
+              "range": {
+                "start": 0,
+                "end": 6
+              }
+            },
+            {
+              "marker": [
+                "centimeter",
+                0
+              ],
+              "range": {
+                "start": 8,
+                "end": 18
+              }
+            },
+            {
+              "marker": [
+                "list",
+                0
+              ],
+              "range": {
+                "start": 20,
+                "end": 22
+              }
+            },
+            {
+              "marker": [
+                "millimeter",
+                0
+              ],
+              "range": {
+                "start": 24,
+                "end": 34
+              }
+            },
+            {
+              "marker": [
+                "is",
+                0
+              ],
+              "range": {
+                "start": 36,
+                "end": 38
+              }
+            },
+            {
+              "marker": [
+                "metric",
+                0
+              ],
+              "range": {
+                "start": 40,
+                "end": 45
+              }
+            },
+            {
+              "marker": [
+                "unit",
+                0
+              ],
+              "range": {
+                "start": 47,
+                "end": 51
+              }
+            }
+          ],
+          "counter": 3
+        },
+        {
+          "operators": [
+            {
+              "marker": [
+                "meter",
+                0
+              ],
+              "range": {
+                "start": 0,
+                "end": 6
+              }
+            },
+            {
+              "marker": [
+                "centimeter",
+                0
+              ],
+              "range": {
+                "start": 8,
+                "end": 18
+              }
+            },
+            {
+              "marker": [
+                "list",
+                0
+              ],
+              "range": {
+                "start": 20,
+                "end": 22
+              }
+            },
+            {
+              "marker": [
+                "millimeter",
+                0
+              ],
+              "range": {
+                "start": 24,
+                "end": 34
+              }
+            },
+            {
+              "marker": [
+                "is",
+                0
+              ],
+              "range": {
+                "start": 36,
+                "end": 38
+              }
+            },
+            {
+              "marker": [
+                "metric",
+                0
+              ],
+              "range": {
+                "start": 40,
+                "end": 45
+              }
+            },
+            {
+              "marker": [
+                "unit",
+                0
+              ],
+              "range": {
+                "start": 47,
+                "end": 51
+              }
+            }
+          ],
+          "counter": 4
+        },
+        {
+          "operators": [
+            {
+              "marker": [
+                "meter",
+                0
+              ],
+              "range": {
+                "start": 0,
+                "end": 6
+              }
+            },
+            {
+              "marker": [
+                "list",
+                1
+              ],
+              "range": {
+                "start": 8,
+                "end": 34
+              }
+            },
+            {
+              "marker": [
+                "is",
+                0
+              ],
+              "range": {
+                "start": 36,
+                "end": 38
+              }
+            },
+            {
+              "marker": [
+                "metric",
+                0
+              ],
+              "range": {
+                "start": 40,
+                "end": 45
+              }
+            },
+            {
+              "marker": [
+                "unit",
+                0
+              ],
+              "range": {
+                "start": 47,
+                "end": 51
+              }
+            }
+          ],
+          "counter": 5
+        },
+        {
+          "operators": [
+            {
+              "marker": [
+                "list",
+                1
+              ],
+              "range": {
+                "start": 0,
+                "end": 34
+              }
+            },
+            {
+              "marker": [
+                "is",
+                0
+              ],
+              "range": {
+                "start": 36,
+                "end": 38
+              }
+            },
+            {
+              "marker": [
+                "metric",
+                0
+              ],
+              "range": {
+                "start": 40,
+                "end": 45
+              }
+            },
+            {
+              "marker": [
+                "unit",
+                0
+              ],
+              "range": {
+                "start": 47,
+                "end": 51
+              }
+            }
+          ],
+          "counter": 6
+        },
+        {
+          "operators": [
+            {
+              "marker": [
+                "list",
+                1
+              ],
+              "range": {
+                "start": 0,
+                "end": 34
+              }
+            },
+            {
+              "marker": [
+                "is",
+                0
+              ],
+              "range": {
+                "start": 36,
+                "end": 38
+              }
+            },
+            {
+              "marker": [
+                "metric_unit",
+                0
+              ],
+              "range": {
+                "start": 40,
+                "end": 51
+              }
+            }
+          ],
+          "counter": 7
+        },
+        {
+          "operators": [
+            {
+              "marker": [
+                "is",
+                1
+              ],
+              "range": {
+                "start": 0,
+                "end": 51
+              }
+            }
+          ],
+          "counter": 8
+        },
+        {
+          "operators": [
+            {
+              "marker": [
+                "is",
+                2
+              ],
+              "range": {
+                "start": 0,
+                "end": 51
+              }
+            }
+          ],
+          "counter": 9
+        }
+      ],
+      "length": 1
+    },
+    {
+      "summaries": [
+        {
+          "operators": [
+            {
+              "marker": [
+                "foot",
+                0
+              ],
+              "range": {
+                "start": 0,
+                "end": 3
+              }
+            },
+            {
+              "marker": [
+                "list",
+                0
+              ],
+              "range": {
+                "start": 5,
+                "end": 7
+              }
+            },
+            {
+              "marker": [
+                "inch",
+                0
+              ],
+              "range": {
+                "start": 9,
+                "end": 14
+              }
+            },
+            {
+              "marker": [
+                "is",
+                0
+              ],
+              "range": {
+                "start": 16,
+                "end": 18
+              }
+            },
+            {
+              "marker": [
+                "imperial",
+                0
+              ],
+              "range": {
+                "start": 20,
+                "end": 27
+              }
+            },
+            {
+              "marker": [
+                "unit",
+                0
+              ],
+              "range": {
+                "start": 29,
+                "end": 33
+              }
+            }
+          ],
+          "counter": 1
+        },
+        {
+          "operators": [
+            {
+              "marker": [
+                "foot",
+                0
+              ],
+              "range": {
+                "start": 0,
+                "end": 3
+              }
+            },
+            {
+              "marker": [
+                "list",
+                0
+              ],
+              "range": {
+                "start": 5,
+                "end": 7
+              }
+            },
+            {
+              "marker": [
+                "inch",
+                0
+              ],
+              "range": {
+                "start": 9,
+                "end": 14
+              }
+            },
+            {
+              "marker": [
+                "is",
+                0
+              ],
+              "range": {
+                "start": 16,
+                "end": 18
+              }
+            },
+            {
+              "marker": [
+                "imperial",
+                0
+              ],
+              "range": {
+                "start": 20,
+                "end": 27
+              }
+            },
+            {
+              "marker": [
+                "unit",
+                0
+              ],
+              "range": {
+                "start": 29,
+                "end": 33
+              }
+            }
+          ],
+          "counter": 2
+        },
+        {
+          "operators": [
+            {
+              "marker": [
+                "list",
+                1
+              ],
+              "range": {
+                "start": 0,
+                "end": 14
+              }
+            },
+            {
+              "marker": [
+                "is",
+                0
+              ],
+              "range": {
+                "start": 16,
+                "end": 18
+              }
+            },
+            {
+              "marker": [
+                "imperial",
+                0
+              ],
+              "range": {
+                "start": 20,
+                "end": 27
+              }
+            },
+            {
+              "marker": [
+                "unit",
+                0
+              ],
+              "range": {
+                "start": 29,
+                "end": 33
+              }
+            }
+          ],
+          "counter": 3
+        },
+        {
+          "operators": [
+            {
+              "marker": [
+                "list",
+                1
+              ],
+              "range": {
+                "start": 0,
+                "end": 14
+              }
+            },
+            {
+              "marker": [
+                "is",
+                0
+              ],
+              "range": {
+                "start": 16,
+                "end": 18
+              }
+            },
+            {
+              "marker": [
+                "imperial_unit",
+                0
+              ],
+              "range": {
+                "start": 20,
+                "end": 33
+              }
+            }
+          ],
+          "counter": 4
+        },
+        {
+          "operators": [
+            {
+              "marker": [
+                "is",
+                1
+              ],
+              "range": {
+                "start": 0,
+                "end": 33
+              }
+            }
+          ],
+          "counter": 5
+        },
+        {
+          "operators": [
+            {
+              "marker": [
+                "is",
+                2
+              ],
+              "range": {
+                "start": 0,
+                "end": 33
+              }
+            }
+          ],
+          "counter": 6
+        }
+      ],
+      "length": 1
+    },
+    {
+      "summaries": [
+        {
+          "operators": [
+            {
+              "marker": [
+                "meter",
+                0
+              ],
+              "range": {
+                "start": 0,
+                "end": 5
+              }
+            },
+            {
+              "marker": [
                 "equals",
                 0
               ],
@@ -45734,7 +52207,7 @@
             {
               "marker": [
                 "integer",
-                0
+                1
               ],
               "range": {
                 "start": 28,
@@ -46009,7 +52482,7 @@
             {
               "marker": [
                 "integer",
-                0
+                1
               ],
               "range": {
                 "start": 28,
@@ -46284,7 +52757,7 @@
             {
               "marker": [
                 "integer",
-                0
+                1
               ],
               "range": {
                 "start": 23,
@@ -46559,7 +53032,7 @@
             {
               "marker": [
                 "integer",
-                0
+                1
               ],
               "range": {
                 "start": 23,
@@ -46834,7 +53307,7 @@
             {
               "marker": [
                 "integer",
-                0
+                1
               ],
               "range": {
                 "start": 16,
@@ -47109,7 +53582,7 @@
             {
               "marker": [
                 "integer",
-                0
+                1
               ],
               "range": {
                 "start": 16,
@@ -48518,6 +54991,61 @@
             },
             {
               "marker": [
+                "integer",
+                1
+              ],
+              "range": {
+                "start": 8,
+                "end": 11
+              }
+            },
+            {
+              "marker": [
+                "timesOperator",
+                0
+              ],
+              "range": {
+                "start": 13,
+                "end": 13
+              }
+            },
+            {
+              "marker": [
+                "foot",
+                0
+              ],
+              "range": {
+                "start": 15,
+                "end": 18
+              }
+            }
+          ],
+          "counter": 4
+        },
+        {
+          "operators": [
+            {
+              "marker": [
+                "mile",
+                0
+              ],
+              "range": {
+                "start": 0,
+                "end": 4
+              }
+            },
+            {
+              "marker": [
+                "equals",
+                0
+              ],
+              "range": {
+                "start": 6,
+                "end": 6
+              }
+            },
+            {
+              "marker": [
                 "timesExpression",
                 1
               ],
@@ -48527,7 +55055,7 @@
               }
             }
           ],
-          "counter": 4
+          "counter": 5
         },
         {
           "operators": [
@@ -48542,7 +55070,7 @@
               }
             }
           ],
-          "counter": 5
+          "counter": 6
         }
       ],
       "length": 1

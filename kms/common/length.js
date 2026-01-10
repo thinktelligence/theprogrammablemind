@@ -8,8 +8,8 @@ const template = {
   configs: [
     "length is a dimension",
     "meter centimeter millimeter foot mile and inch are units of length",
-    // "meters, centimeters and millimeters are metric units",
-    // "feet and inches are imperial units",
+    "meters, centimeters and millimeters are metric units",
+    "feet and inches are imperial units",
     "meters = centimeters / 100",
     "centimeters = meters * 100",
     "centimeters = millimeters / 10",

@@ -1,4 +1,4 @@
-const { knowledgeModule, where, Digraph } = require('./runtime').theprogrammablemind
+const { debug, knowledgeModule, where, Digraph } = require('./runtime').theprogrammablemind
 const { defaultObjectCheck, defaultContextCheck } = require('./helpers')
 const hierarchy = require('./hierarchy.js')
 const formulas = require('./formulas.js')
@@ -226,8 +226,9 @@ const template = {
     "unit means measurement unit",
     ({apis}) => {
       apis('properties').addHierarchyWatcher({
-        match: ({parentId, isA}) => isA(parentId, 'unit'),
-        apply: ({config, childId, parent}) => {
+        match: ({parentId, isA}) => isA(parentId, 'unit') && parentId.startsWith('unit_'),
+        apply: ({config, childId, parent, parentId}) => {
+          // debug._break('greg23')
           config.updateBridge(childId, ({ bridge }) => {
             // console.log(JSON.stringify(childId, null, 2))
             // console.log(JSON.stringify(parentId, null, 2))
