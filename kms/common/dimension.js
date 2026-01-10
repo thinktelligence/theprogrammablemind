@@ -1,4 +1,4 @@
-const { knowledgeModule, where, Digraph } = require('./runtime').theprogrammablemind
+const { debug, knowledgeModule, where, Digraph } = require('./runtime').theprogrammablemind
 const { defaultObjectCheck, defaultContextCheck } = require('./helpers')
 const hierarchy = require('./hierarchy.js')
 const formulas = require('./formulas.js')
@@ -221,11 +221,14 @@ const config = {
 
 const template = {
   configs: [
-    "dimension and unit are concepts",
+    "measurement modifies unit",
+    "dimension and measurement unit are concepts",
+    "unit means measurement unit",
     ({apis}) => {
       apis('properties').addHierarchyWatcher({
-        match: ({parentId, isA}) => isA(parentId, 'unit'),
-        apply: ({config, childId, parent}) => {
+        match: ({parentId, isA}) => isA(parentId, 'unit') && parentId.startsWith('unit_'),
+        apply: ({config, childId, parent, parentId}) => {
+          // debug._break('greg23')
           config.updateBridge(childId, ({ bridge }) => {
             // console.log(JSON.stringify(childId, null, 2))
             // console.log(JSON.stringify(parentId, null, 2))
@@ -243,6 +246,15 @@ const template = {
         }
       })
     },
+    "metric modifies system",
+    "imperial modifies system",
+    "measurement modifies system",
+    "the metric system is a measurement system",
+    "the imperial system is a measurement system",
+    "imperial modifies unit",
+    "metric modifies unit",
+    // "imperial unit is a unit",
+    // "metric unit is a unit",
     config,
   ],
 }

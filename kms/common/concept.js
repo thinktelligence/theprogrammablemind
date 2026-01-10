@@ -27,7 +27,25 @@ config = {
       isA: ['verb'],
       words: [{ word: 'modifies', number: 'one', flatten: false }, { word: 'modify', number: 'many', flatten: true }],
       // bridge: "{ ...next(operator), modifiers: before, concept: after[0], flatten: true }"
-      bridge: "{ ...next(operator), modifiers: before[0], concept: after[0] }"
+      bridge: "{ ...next(operator), modifiers: before[0], concept: after[0] }",
+      semantic: {
+        notes: 'define a modifier',
+        where: where(),
+        apply: ({config, query, km, context}) => {
+          let modifiers
+          if (context.literally) {
+            literalModifiers = context.modifiers[0]
+            // modifiers = literalModifiers.value.map(modifier => modifier.value)
+            modifiers = literalModifiers.value
+            modifiers = modifiers.slice(0, -1).concat([literalModifiers.marker]).concat(modifiers.slice(-1))
+          } else {
+            modifiers = context.modifiers
+            // modifiers = context.modifiers.map(modifier => modifier.value)
+          }
+          // km('concept').api.kindOfConcept({ config, modifiers, object: context.concept.value || context.concept.marker })
+          km('concept').api.kindOfConcept({ config, modifiers, object: context.concept })
+        }
+      },
     },
     { id: "literally", bridge: "{ ...after[0], flatten: false, literally: true }" },
     { id: "concept" },
@@ -113,27 +131,6 @@ config = {
         }
       }
       // const chosen = chooseNumber(context, word.singular, word.plural)
-    },
-  ],
-  semantics: [
-    {
-      notes: 'define a modifier',
-      where: where(),
-      match: ({context}) => context.marker == 'modifies',
-      apply: ({config, query, km, context}) => {
-        let modifiers
-        if (context.literally) {
-          literalModifiers = context.modifiers[0]
-          // modifiers = literalModifiers.value.map(modifier => modifier.value)
-          modifiers = literalModifiers.value
-          modifiers = modifiers.slice(0, -1).concat([literalModifiers.marker]).concat(modifiers.slice(-1))
-        } else {
-          modifiers = context.modifiers
-          // modifiers = context.modifiers.map(modifier => modifier.value)
-        }
-        // km('concept').api.kindOfConcept({ config, modifiers, object: context.concept.value || context.concept.marker })
-        km('concept').api.kindOfConcept({ config, modifiers, object: context.concept })
-      }
     },
   ],
 }
