@@ -1,17 +1,17 @@
 {
   "configs": [
-    "tank is a concept",
+    "drone is a concept",
     "around, forward, left, right, and backward are directions",
     "speed and power are properties",
     {
-      "apply": "(args) => {\n      askForCalibrationDistance(args)\n      askForEndTime(args)\n      askForStartTime(args)\n\n      expectDirection(args)\n      expectDistanceForCalibration(args)\n      expectCalibrationCompletion(args)\n\n      args.config.addSemantic({\n        match: ({context, isA}) => isA(context.marker, 'quantity') && isA(context.unit.marker, 'unitPerUnit'),\n        apply: async ({context, objects, api, fragments, e}) => {\n          // send a command to the tank\n          const instantiation = await fragments(\"quantity in meters per second\", { quantity: context })\n          const result = await e(instantiation)\n          const desired_speed = result.evalue.amount.evalue.evalue\n          const desired_power = objects.calibration.power * (desired_speed / objects.calibration.speed)\n          objects.current.power = desired_power \n        }\n      })\n\n      args.config.addSemantic({\n        match: ({context, objects, isA}) => objects.current.direction && objects.isCalibrated && context.marker == 'controlEnd',\n        apply: ({context, objects, api}) => {\n          // send a command to the tank\n          api.sendCommand()\n        }\n      })\n    }"
+      "apply": "(args) => {\n      askForCalibrationDistance(args)\n      askForEndTime(args)\n      askForStartTime(args)\n\n      expectDirection(args)\n      expectDistanceForCalibration(args)\n      expectCalibrationCompletion(args)\n\n      args.config.addSemantic({\n        match: ({context, isA}) => isA(context.marker, 'quantity') && isA(context.unit.marker, 'unitPerUnit'),\n        apply: async ({context, objects, api, fragments, e}) => {\n          // send a command to the drone\n          const instantiation = await fragments(\"quantity in meters per second\", { quantity: context })\n          const result = await e(instantiation)\n          const desired_speed = result.evalue.amount.evalue.evalue\n          const desired_power = objects.calibration.power * (desired_speed / objects.calibration.speed)\n          objects.current.power = desired_power \n        }\n      })\n\n      args.config.addSemantic({\n        match: ({context, objects, isA}) => objects.current.direction && objects.isCalibrated && context.marker == 'controlEnd',\n        apply: ({context, objects, api}) => {\n          // send a command to the drone\n          api.sendCommand()\n        }\n      })\n    }"
     },
     {
       "operators": [
         "([calibrate])",
         "([turn] (direction))",
         "([pause] ([number]))",
-        "([stop] ([tank|])?)",
+        "([stop] ([drone|])?)",
         "([go])"
       ],
       "bridges": [
@@ -32,7 +32,7 @@
             "verb"
           ],
           "bridge": "{ ...next(operator), interpolate: [{ context: operator }] }",
-          "semantic": "({context, objects, api}) => {\n            objects.calibration.startTime = api.now()\n            // send command to tank to go forward\n          }"
+          "semantic": "({context, objects, api}) => {\n            objects.calibration.startTime = api.now()\n            // send command to drone to go forward\n          }"
         },
         {
           "id": "pause",
@@ -48,7 +48,7 @@
             "verb"
           ],
           "optional": {
-            "1": "{ marker: 'tank' }"
+            "1": "{ marker: 'drone' }"
           },
           "bridge": "{ ...next(operator), object: after[0], interpolate: [{ context: operator }, { property: 'object' }] }",
           "semantic": "({context, objects, api, say}) => {\n            if (!objects.calibration.startTime) {\n              // default will say how to calibrate\n            } else {\n              objects.calibration.endTime = api.now()\n              objects.calibration.duration = (objects.calibration.endTime - objects.calibration.startTime)/1000\n            }\n          }"
@@ -93,46 +93,6 @@
         [
           "article",
           "article",
-          false
-        ],
-        [
-          "ascending",
-          "hierarchyAble",
-          false
-        ],
-        [
-          "ascending",
-          "isEdee",
-          false
-        ],
-        [
-          "ascending",
-          "isEder",
-          false
-        ],
-        [
-          "ascending",
-          "object",
-          false
-        ],
-        [
-          "ascending",
-          "property",
-          false
-        ],
-        [
-          "ascending",
-          "queryable",
-          false
-        ],
-        [
-          "ascending",
-          "sort_ordering",
-          false
-        ],
-        [
-          "ascending",
-          "theAble",
           false
         ],
         [
@@ -243,46 +203,6 @@
         [
           "degree",
           "amount",
-          false
-        ],
-        [
-          "descending",
-          "hierarchyAble",
-          false
-        ],
-        [
-          "descending",
-          "isEdee",
-          false
-        ],
-        [
-          "descending",
-          "isEder",
-          false
-        ],
-        [
-          "descending",
-          "object",
-          false
-        ],
-        [
-          "descending",
-          "property",
-          false
-        ],
-        [
-          "descending",
-          "queryable",
-          false
-        ],
-        [
-          "descending",
-          "sort_ordering",
-          false
-        ],
-        [
-          "descending",
-          "theAble",
           false
         ],
         [
@@ -1183,11 +1103,6 @@
         [
           "sort",
           "theAble",
-          false
-        ],
-        [
-          "sortOrdering",
-          "adjective",
           false
         ],
         [
@@ -1608,23 +1523,23 @@
       "contexts": [
         {
           "number": "one",
-          "text": "tank is a concept",
+          "text": "drone is a concept",
           "marker": "is",
           "word": "is",
           "range": {
             "start": 0,
-            "end": 16
+            "end": 17
           },
           "one": {
             "number": "one",
-            "value": "tank",
+            "value": "drone",
             "unknown": true,
-            "text": "tank",
+            "text": "drone",
             "marker": "unknown",
-            "word": "tank",
+            "word": "drone",
             "range": {
               "start": 0,
-              "end": 3
+              "end": 4
             },
             "dead": true,
             "types": [
@@ -1640,8 +1555,8 @@
             "dead": true,
             "word": "concept",
             "range": {
-              "start": 8,
-              "end": 16
+              "start": 9,
+              "end": 17
             },
             "types": [
               "concept"
@@ -1657,8 +1572,8 @@
               "word": "a",
               "text": "a",
               "range": {
-                "start": 8,
-                "end": 8
+                "start": 9,
+                "end": 9
               },
               "level": 0
             },
@@ -1673,7 +1588,7 @@
           "topLevel": true,
           "context_id": 2,
           "touchedBy": [
-            "tank#call2"
+            "drone#call2"
           ]
         }
       ],
@@ -1681,7 +1596,7 @@
         ""
       ],
       "paraphrases": [
-        "tank is a concept"
+        "drone is a concept"
       ],
       "paraphrasesParenthesized": [],
       "generatedParenthesized": [],
@@ -1734,7 +1649,7 @@
                   ],
                   "range": {
                     "start": 0,
-                    "end": 3
+                    "end": 4
                   }
                 },
                 {
@@ -1743,8 +1658,8 @@
                     0
                   ],
                   "range": {
-                    "start": 5,
-                    "end": 6
+                    "start": 6,
+                    "end": 7
                   }
                 },
                 {
@@ -1753,8 +1668,8 @@
                     0
                   ],
                   "range": {
-                    "start": 8,
-                    "end": 8
+                    "start": 9,
+                    "end": 9
                   }
                 },
                 {
@@ -1763,8 +1678,8 @@
                     0
                   ],
                   "range": {
-                    "start": 10,
-                    "end": 16
+                    "start": 11,
+                    "end": 17
                   }
                 }
               ],
@@ -1779,7 +1694,7 @@
                   ],
                   "range": {
                     "start": 0,
-                    "end": 3
+                    "end": 4
                   }
                 },
                 {
@@ -1788,8 +1703,8 @@
                     0
                   ],
                   "range": {
-                    "start": 5,
-                    "end": 6
+                    "start": 6,
+                    "end": 7
                   }
                 },
                 {
@@ -1798,8 +1713,8 @@
                     0
                   ],
                   "range": {
-                    "start": 8,
-                    "end": 8
+                    "start": 9,
+                    "end": 9
                   }
                 },
                 {
@@ -1808,8 +1723,8 @@
                     0
                   ],
                   "range": {
-                    "start": 10,
-                    "end": 16
+                    "start": 11,
+                    "end": 17
                   }
                 }
               ],
@@ -1824,7 +1739,7 @@
                   ],
                   "range": {
                     "start": 0,
-                    "end": 3
+                    "end": 4
                   }
                 },
                 {
@@ -1833,8 +1748,8 @@
                     0
                   ],
                   "range": {
-                    "start": 5,
-                    "end": 6
+                    "start": 6,
+                    "end": 7
                   }
                 },
                 {
@@ -1843,8 +1758,8 @@
                     0
                   ],
                   "range": {
-                    "start": 8,
-                    "end": 16
+                    "start": 9,
+                    "end": 17
                   }
                 }
               ],
@@ -1859,7 +1774,7 @@
                   ],
                   "range": {
                     "start": 0,
-                    "end": 16
+                    "end": 17
                   }
                 }
               ],
@@ -1874,7 +1789,7 @@
                   ],
                   "range": {
                     "start": 0,
-                    "end": 16
+                    "end": 17
                   }
                 }
               ],
@@ -1886,9 +1801,9 @@
       ],
       "learned_contextual_priorities": [],
       "rtf_associations": [],
-      "query": "tank is a concept",
+      "query": "drone is a concept",
       "key": {
-        "query": "tank is a concept"
+        "query": "drone is a concept"
       }
     },
     {
@@ -1921,46 +1836,6 @@
         [
           "article",
           "article",
-          false
-        ],
-        [
-          "ascending",
-          "hierarchyAble",
-          false
-        ],
-        [
-          "ascending",
-          "isEdee",
-          false
-        ],
-        [
-          "ascending",
-          "isEder",
-          false
-        ],
-        [
-          "ascending",
-          "object",
-          false
-        ],
-        [
-          "ascending",
-          "property",
-          false
-        ],
-        [
-          "ascending",
-          "queryable",
-          false
-        ],
-        [
-          "ascending",
-          "sort_ordering",
-          false
-        ],
-        [
-          "ascending",
-          "theAble",
           false
         ],
         [
@@ -2074,46 +1949,6 @@
           false
         ],
         [
-          "descending",
-          "hierarchyAble",
-          false
-        ],
-        [
-          "descending",
-          "isEdee",
-          false
-        ],
-        [
-          "descending",
-          "isEder",
-          false
-        ],
-        [
-          "descending",
-          "object",
-          false
-        ],
-        [
-          "descending",
-          "property",
-          false
-        ],
-        [
-          "descending",
-          "queryable",
-          false
-        ],
-        [
-          "descending",
-          "sort_ordering",
-          false
-        ],
-        [
-          "descending",
-          "theAble",
-          false
-        ],
-        [
           "dimension",
           "concept",
           false
@@ -2171,6 +2006,46 @@
         [
           "doubleQuote",
           "queryable",
+          false
+        ],
+        [
+          "drone",
+          "concept",
+          false
+        ],
+        [
+          "drone",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "drone",
+          "isEdee",
+          false
+        ],
+        [
+          "drone",
+          "isEder",
+          false
+        ],
+        [
+          "drone",
+          "object",
+          false
+        ],
+        [
+          "drone",
+          "property",
+          false
+        ],
+        [
+          "drone",
+          "queryable",
+          false
+        ],
+        [
+          "drone",
+          "theAble",
           false
         ],
         [
@@ -3014,11 +2889,6 @@
           false
         ],
         [
-          "sortOrdering",
-          "adjective",
-          false
-        ],
-        [
           "sort_ordering",
           "adjective",
           true
@@ -3071,46 +2941,6 @@
         [
           "stm_before",
           "adjective",
-          false
-        ],
-        [
-          "tank",
-          "concept",
-          false
-        ],
-        [
-          "tank",
-          "hierarchyAble",
-          false
-        ],
-        [
-          "tank",
-          "isEdee",
-          false
-        ],
-        [
-          "tank",
-          "isEder",
-          false
-        ],
-        [
-          "tank",
-          "object",
-          false
-        ],
-        [
-          "tank",
-          "property",
-          false
-        ],
-        [
-          "tank",
-          "queryable",
-          false
-        ],
-        [
-          "tank",
-          "theAble",
           false
         ],
         [
@@ -4046,7 +3876,7 @@
           "topLevel": true,
           "context_id": 2,
           "touchedBy": [
-            "tank#call2"
+            "drone#call2"
           ]
         }
       ],
@@ -5701,46 +5531,6 @@
           false
         ],
         [
-          "ascending",
-          "hierarchyAble",
-          false
-        ],
-        [
-          "ascending",
-          "isEdee",
-          false
-        ],
-        [
-          "ascending",
-          "isEder",
-          false
-        ],
-        [
-          "ascending",
-          "object",
-          false
-        ],
-        [
-          "ascending",
-          "property",
-          false
-        ],
-        [
-          "ascending",
-          "queryable",
-          false
-        ],
-        [
-          "ascending",
-          "sort_ordering",
-          false
-        ],
-        [
-          "ascending",
-          "theAble",
-          false
-        ],
-        [
           "atTime",
           "preposition",
           false
@@ -5891,46 +5681,6 @@
           false
         ],
         [
-          "descending",
-          "hierarchyAble",
-          false
-        ],
-        [
-          "descending",
-          "isEdee",
-          false
-        ],
-        [
-          "descending",
-          "isEder",
-          false
-        ],
-        [
-          "descending",
-          "object",
-          false
-        ],
-        [
-          "descending",
-          "property",
-          false
-        ],
-        [
-          "descending",
-          "queryable",
-          false
-        ],
-        [
-          "descending",
-          "sort_ordering",
-          false
-        ],
-        [
-          "descending",
-          "theAble",
-          false
-        ],
-        [
           "dimension",
           "concept",
           false
@@ -6023,6 +5773,46 @@
         [
           "doubleQuote",
           "queryable",
+          false
+        ],
+        [
+          "drone",
+          "concept",
+          false
+        ],
+        [
+          "drone",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "drone",
+          "isEdee",
+          false
+        ],
+        [
+          "drone",
+          "isEder",
+          false
+        ],
+        [
+          "drone",
+          "object",
+          false
+        ],
+        [
+          "drone",
+          "property",
+          false
+        ],
+        [
+          "drone",
+          "queryable",
+          false
+        ],
+        [
+          "drone",
+          "theAble",
           false
         ],
         [
@@ -6986,11 +6776,6 @@
           false
         ],
         [
-          "sortOrdering",
-          "adjective",
-          false
-        ],
-        [
           "sort_ordering",
           "adjective",
           true
@@ -7043,46 +6828,6 @@
         [
           "stm_before",
           "adjective",
-          false
-        ],
-        [
-          "tank",
-          "concept",
-          false
-        ],
-        [
-          "tank",
-          "hierarchyAble",
-          false
-        ],
-        [
-          "tank",
-          "isEdee",
-          false
-        ],
-        [
-          "tank",
-          "isEder",
-          false
-        ],
-        [
-          "tank",
-          "object",
-          false
-        ],
-        [
-          "tank",
-          "property",
-          false
-        ],
-        [
-          "tank",
-          "queryable",
-          false
-        ],
-        [
-          "tank",
-          "theAble",
           false
         ],
         [
@@ -7554,7 +7299,7 @@
           "topLevel": true,
           "context_id": 2,
           "touchedBy": [
-            "tank#call2"
+            "drone#call2"
           ]
         }
       ],
@@ -7848,7 +7593,7 @@
       }
     },
     {
-      "apply": "(args) => {\n      askForCalibrationDistance(args)\n      askForEndTime(args)\n      askForStartTime(args)\n\n      expectDirection(args)\n      expectDistanceForCalibration(args)\n      expectCalibrationCompletion(args)\n\n      args.config.addSemantic({\n        match: ({context, isA}) => isA(context.marker, 'quantity') && isA(context.unit.marker, 'unitPerUnit'),\n        apply: async ({context, objects, api, fragments, e}) => {\n          // send a command to the tank\n          const instantiation = await fragments(\"quantity in meters per second\", { quantity: context })\n          const result = await e(instantiation)\n          const desired_speed = result.evalue.amount.evalue.evalue\n          const desired_power = objects.calibration.power * (desired_speed / objects.calibration.speed)\n          objects.current.power = desired_power \n        }\n      })\n\n      args.config.addSemantic({\n        match: ({context, objects, isA}) => objects.current.direction && objects.isCalibrated && context.marker == 'controlEnd',\n        apply: ({context, objects, api}) => {\n          // send a command to the tank\n          api.sendCommand()\n        }\n      })\n    }"
+      "apply": "(args) => {\n      askForCalibrationDistance(args)\n      askForEndTime(args)\n      askForStartTime(args)\n\n      expectDirection(args)\n      expectDistanceForCalibration(args)\n      expectCalibrationCompletion(args)\n\n      args.config.addSemantic({\n        match: ({context, isA}) => isA(context.marker, 'quantity') && isA(context.unit.marker, 'unitPerUnit'),\n        apply: async ({context, objects, api, fragments, e}) => {\n          // send a command to the drone\n          const instantiation = await fragments(\"quantity in meters per second\", { quantity: context })\n          const result = await e(instantiation)\n          const desired_speed = result.evalue.amount.evalue.evalue\n          const desired_power = objects.calibration.power * (desired_speed / objects.calibration.speed)\n          objects.current.power = desired_power \n        }\n      })\n\n      args.config.addSemantic({\n        match: ({context, objects, isA}) => objects.current.direction && objects.isCalibrated && context.marker == 'controlEnd',\n        apply: ({context, objects, api}) => {\n          // send a command to the drone\n          api.sendCommand()\n        }\n      })\n    }"
     },
     {
       "extraConfig": true,
@@ -7856,7 +7601,7 @@
         "([calibrate])",
         "([turn] (direction))",
         "([pause] ([number]))",
-        "([stop] ([tank|])?)",
+        "([stop] ([drone|])?)",
         "([go])"
       ],
       "bridges": [
@@ -7890,7 +7635,7 @@
             "verb"
           ],
           "optional": {
-            "1": "{ marker: 'tank' }"
+            "1": "{ marker: 'drone' }"
           },
           "bridge": "{ ...next(operator), object: after[0], interpolate: [{ context: operator }, { property: 'object' }] }"
         }
@@ -7971,46 +7716,6 @@
         [
           "article",
           "article",
-          false
-        ],
-        [
-          "ascending",
-          "hierarchyAble",
-          false
-        ],
-        [
-          "ascending",
-          "isEdee",
-          false
-        ],
-        [
-          "ascending",
-          "isEder",
-          false
-        ],
-        [
-          "ascending",
-          "object",
-          false
-        ],
-        [
-          "ascending",
-          "property",
-          false
-        ],
-        [
-          "ascending",
-          "queryable",
-          false
-        ],
-        [
-          "ascending",
-          "sort_ordering",
-          false
-        ],
-        [
-          "ascending",
-          "theAble",
           false
         ],
         [
@@ -8169,46 +7874,6 @@
           false
         ],
         [
-          "descending",
-          "hierarchyAble",
-          false
-        ],
-        [
-          "descending",
-          "isEdee",
-          false
-        ],
-        [
-          "descending",
-          "isEder",
-          false
-        ],
-        [
-          "descending",
-          "object",
-          false
-        ],
-        [
-          "descending",
-          "property",
-          false
-        ],
-        [
-          "descending",
-          "queryable",
-          false
-        ],
-        [
-          "descending",
-          "sort_ordering",
-          false
-        ],
-        [
-          "descending",
-          "theAble",
-          false
-        ],
-        [
           "dimension",
           "concept",
           false
@@ -8301,6 +7966,46 @@
         [
           "doubleQuote",
           "queryable",
+          false
+        ],
+        [
+          "drone",
+          "concept",
+          false
+        ],
+        [
+          "drone",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "drone",
+          "isEdee",
+          false
+        ],
+        [
+          "drone",
+          "isEder",
+          false
+        ],
+        [
+          "drone",
+          "object",
+          false
+        ],
+        [
+          "drone",
+          "property",
+          false
+        ],
+        [
+          "drone",
+          "queryable",
+          false
+        ],
+        [
+          "drone",
+          "theAble",
           false
         ],
         [
@@ -9304,11 +9009,6 @@
           false
         ],
         [
-          "sortOrdering",
-          "adjective",
-          false
-        ],
-        [
           "sort_ordering",
           "adjective",
           true
@@ -9401,46 +9101,6 @@
         [
           "stop",
           "verb",
-          false
-        ],
-        [
-          "tank",
-          "concept",
-          false
-        ],
-        [
-          "tank",
-          "hierarchyAble",
-          false
-        ],
-        [
-          "tank",
-          "isEdee",
-          false
-        ],
-        [
-          "tank",
-          "isEder",
-          false
-        ],
-        [
-          "tank",
-          "object",
-          false
-        ],
-        [
-          "tank",
-          "property",
-          false
-        ],
-        [
-          "tank",
-          "queryable",
-          false
-        ],
-        [
-          "tank",
-          "theAble",
           false
         ],
         [
@@ -10090,46 +9750,6 @@
           false
         ],
         [
-          "ascending",
-          "hierarchyAble",
-          false
-        ],
-        [
-          "ascending",
-          "isEdee",
-          false
-        ],
-        [
-          "ascending",
-          "isEder",
-          false
-        ],
-        [
-          "ascending",
-          "object",
-          false
-        ],
-        [
-          "ascending",
-          "property",
-          false
-        ],
-        [
-          "ascending",
-          "queryable",
-          false
-        ],
-        [
-          "ascending",
-          "sort_ordering",
-          false
-        ],
-        [
-          "ascending",
-          "theAble",
-          false
-        ],
-        [
           "atTime",
           "preposition",
           false
@@ -10285,46 +9905,6 @@
           false
         ],
         [
-          "descending",
-          "hierarchyAble",
-          false
-        ],
-        [
-          "descending",
-          "isEdee",
-          false
-        ],
-        [
-          "descending",
-          "isEder",
-          false
-        ],
-        [
-          "descending",
-          "object",
-          false
-        ],
-        [
-          "descending",
-          "property",
-          false
-        ],
-        [
-          "descending",
-          "queryable",
-          false
-        ],
-        [
-          "descending",
-          "sort_ordering",
-          false
-        ],
-        [
-          "descending",
-          "theAble",
-          false
-        ],
-        [
           "dimension",
           "concept",
           false
@@ -10417,6 +9997,46 @@
         [
           "doubleQuote",
           "queryable",
+          false
+        ],
+        [
+          "drone",
+          "concept",
+          false
+        ],
+        [
+          "drone",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "drone",
+          "isEdee",
+          false
+        ],
+        [
+          "drone",
+          "isEder",
+          false
+        ],
+        [
+          "drone",
+          "object",
+          false
+        ],
+        [
+          "drone",
+          "property",
+          false
+        ],
+        [
+          "drone",
+          "queryable",
+          false
+        ],
+        [
+          "drone",
+          "theAble",
           false
         ],
         [
@@ -11420,11 +11040,6 @@
           false
         ],
         [
-          "sortOrdering",
-          "adjective",
-          false
-        ],
-        [
           "sort_ordering",
           "adjective",
           true
@@ -11517,46 +11132,6 @@
         [
           "stop",
           "verb",
-          false
-        ],
-        [
-          "tank",
-          "concept",
-          false
-        ],
-        [
-          "tank",
-          "hierarchyAble",
-          false
-        ],
-        [
-          "tank",
-          "isEdee",
-          false
-        ],
-        [
-          "tank",
-          "isEder",
-          false
-        ],
-        [
-          "tank",
-          "object",
-          false
-        ],
-        [
-          "tank",
-          "property",
-          false
-        ],
-        [
-          "tank",
-          "queryable",
-          false
-        ],
-        [
-          "tank",
-          "theAble",
           false
         ],
         [
@@ -12604,7 +12179,7 @@
               ],
               "range": {
                 "start": 0,
-                "end": 3
+                "end": 4
               }
             },
             {
@@ -12613,8 +12188,8 @@
                 0
               ],
               "range": {
-                "start": 5,
-                "end": 6
+                "start": 6,
+                "end": 7
               }
             },
             {
@@ -12623,8 +12198,8 @@
                 0
               ],
               "range": {
-                "start": 8,
-                "end": 8
+                "start": 9,
+                "end": 9
               }
             },
             {
@@ -12633,8 +12208,8 @@
                 0
               ],
               "range": {
-                "start": 10,
-                "end": 16
+                "start": 11,
+                "end": 17
               }
             }
           ],
@@ -12649,7 +12224,7 @@
               ],
               "range": {
                 "start": 0,
-                "end": 3
+                "end": 4
               }
             },
             {
@@ -12658,8 +12233,8 @@
                 0
               ],
               "range": {
-                "start": 5,
-                "end": 6
+                "start": 6,
+                "end": 7
               }
             },
             {
@@ -12668,8 +12243,8 @@
                 0
               ],
               "range": {
-                "start": 8,
-                "end": 8
+                "start": 9,
+                "end": 9
               }
             },
             {
@@ -12678,8 +12253,8 @@
                 0
               ],
               "range": {
-                "start": 10,
-                "end": 16
+                "start": 11,
+                "end": 17
               }
             }
           ],
@@ -12694,7 +12269,7 @@
               ],
               "range": {
                 "start": 0,
-                "end": 3
+                "end": 4
               }
             },
             {
@@ -12703,8 +12278,8 @@
                 0
               ],
               "range": {
-                "start": 5,
-                "end": 6
+                "start": 6,
+                "end": 7
               }
             },
             {
@@ -12713,8 +12288,8 @@
                 0
               ],
               "range": {
-                "start": 8,
-                "end": 16
+                "start": 9,
+                "end": 17
               }
             }
           ],
@@ -12729,7 +12304,7 @@
               ],
               "range": {
                 "start": 0,
-                "end": 16
+                "end": 17
               }
             }
           ],
@@ -12744,7 +12319,7 @@
               ],
               "range": {
                 "start": 0,
-                "end": 16
+                "end": 17
               }
             }
           ],

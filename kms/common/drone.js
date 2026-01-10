@@ -1,7 +1,7 @@
 const { knowledgeModule, where } = require('./runtime').theprogrammablemind
 const { defaultContextCheck, getValue, setValue } = require('./helpers')
-const tank_tests = require('./tank.test.json')
-const tank_instance = require('./tank.instance.json')
+const drone_tests = require('./drone.test.json')
+const drone_instance = require('./drone.instance.json')
 const hierarchy = require('./hierarchy')
 const rates = require('./rates')
 const help = require('./help')
@@ -16,7 +16,7 @@ todo
   FreeNode Tank
 
   https://docs.freenove.com/projects/fnk0077/en/latest/fnk0077/codes/tutorial/3_Module_test_%28necessary%29.html
-https://www.amazon.ca/Freenove-Raspberry-Tracking-Avoidance-Ultrasonic/dp/B0BNDQFRP1/ref=sr_1_1_sspa?crid=1JT788RT84O8C&dib=eyJ2IjoiMSJ9.1W6XTWnHwPcqZTD8iRfmF7hHwiVycHjB02NHKEcqGfQSUKyJfN0OLyaaoCcypQug_C9CGah-7wLgfAtJRs_JKiwDsqYXqFfvvoU5ETBk_Le-S9Qt4kwh92r0w19bzA5my7aQpT52ssw8-f8Xpzjbqm1uFsLh82jF4V7P8xMKobjVHHILXalReEPuJz2OlF6y_ihwtUuVLDjMkuvNPoK-M7YLntLqKQy229XKjtDSUV4J0YT1L8uLVWHZ-ySs_MmG_w-oyZ9QFIe0a9hJEMuiu_BcaDmxFkwMeGBro2uczAU.NlqF_FH_6PvflZKozPylFlIyKuwx7mAB-jAggC1aPFk&dib_tag=se&keywords=Freenove+Tank+Robot+Kit&qid=1766258114&sprefix=freenove+tank+robot+kit%2Caps%2C130&sr=8-1-spons&sp_csd=d2lkZ2V0TmFtZT1zcF9hdGY&psc=1
+https://www.amazon.ca/Freenove-Raspberry-Tracking-Avoidance-Ultrasonic/dp/B0BNDQFRP1/ref=sr_1_1_sspa?crid=1JT788RT84O8C&dib=eyJ2IjoiMSJ9.1W6XTWnHwPcqZTD8iRfmF7hHwiVycHjB02NHKEcqGfQSUKyJfN0OLyaaoCcypQug_C9CGah-7wLgfAtJRs_JKiwDsqYXqFfvvoU5ETBk_Le-S9Qt4kwh92r0w19bzA5my7aQpT52ssw8-f8Xpzjbqm1uFsLh82jF4V7P8xMKobjVHHILXalReEPuJz2OlF6y_ihwtUuVLDjMkuvNPoK-M7YLntLqKQy229XKjtDSUV4J0YT1L8uLVWHZ-ySs_MmG_w-oyZ9QFIe0a9hJEMuiu_BcaDmxFkwMeGBro2uczAU.NlqF_FH_6PvflZKozPylFlIyKuwx7mAB-jAggC1aPFk&dib_tag=se&keywords=Freenove+Tank+Robot+Kit&qid=1766258114&sprefix=freenove+drone+robot+kit%2Caps%2C130&sr=8-1-spons&sp_csd=d2lkZ2V0TmFtZT1zcF9hdGY&psc=1
 
 
   send commands to arduino from another computer:
@@ -26,7 +26,7 @@ https://www.amazon.ca/Freenove-Raspberry-Tracking-Avoidance-Ultrasonic/dp/B0BNDQ
   KEYESTUDIO Mini Tank Robot V2 Smart Car Kit for Arduino
 
     https://www.amazon.ca/KEYESTUDIO-Infrared-Ultrasonic-Obstacle-Avoidance/dp/B07X4W7SZ5/ref=sr_1_10?crid=2A71NHZNTAION&dib=eyJ2IjoiMSJ9.W-I4I_tfyGdGt2UrNlNrlFeKnfIwppniNSX5FJndx77Ht944f9RylJD9me0PiqV5V_b185b17BsrPdKxmYYHnJ-Odb7hbdVzKs019mag1nCL-Wqe4aR0IYrEOzJkKTnR4YbXGYwriLd26OBYjhNvgaCFyE5uwsYkAK-qJXI2Xiui19oLiLYrmJvBz0bCHe4s7U6OdmaumYhhfxpVErk1E1zAwxE8kdq_YD7ZCMRjKS9Tr6cbayIh9GKDwMLuW-LCdzOW2eQx-dTB7yXV53rpV34IBAcCE1IgmwwNIIW7E6Y.fdaAuj4qvXq-67f5ktOq7Coo8lggrMiB_TFFtluqDtI&dib_tag=se&keywords=Adafruit+Mini+Round+Robot+Chassis+Kit&qid=1766256581&sprefix=adafruit+mini+round+robot+chassis+kit+%2Caps%2C123&sr=8-10
-    https://github.com/ericmend/mini-tank/blob/master/README.md
+    https://github.com/ericmend/mini-drone/blob/master/README.md
 
 
 
@@ -172,7 +172,7 @@ class API {
   }
 }
 
-const howToCalibrate = "When you are ready say calibrate. The tank will drive forward at 10 percent power then say stop. Measure the distance and tell me that. Or you can say the speed of the tank at percentage of power."
+const howToCalibrate = "When you are ready say calibrate. The drone will drive forward at 10 percent power then say stop. Measure the distance and tell me that. Or you can say the speed of the drone at percentage of power."
 
 function askForProperty({
   ask,
@@ -202,7 +202,7 @@ function askForCalibrationDistance(args) {
   askForProperty({
     ...args,
     propertyPath: ['calibration', 'distance'],
-    query: "How far did the tank go?",
+    query: "How far did the drone go?",
     matchr: ({context, objects}) => objects.calibration.endTime && context.marker == 'quantity' && context.unit.dimension == 'length',
   })
 }
@@ -211,7 +211,7 @@ function askForEndTime(args) {
   askForProperty({
     ...args,
     propertyPath: ['calibration', 'endTime'],
-    query: "Say stop when the tank has driven enough.",
+    query: "Say stop when the drone has driven enough.",
     matchr: () => false,
   })
 }
@@ -267,7 +267,7 @@ function expectCalibrationCompletion(args) {
     apply: ({context, objects, _continue, say}) => {
       objects.calibration.speed = objects.calibration.distance / objects.calibration.duration
       objects.isCalibrated = true
-      say(`The tank is calibrated. The speed is ${objects.calibration.speed.toFixed(4)} meters per second at 10 percent power`)
+      say(`The drone is calibrated. The speed is ${objects.calibration.speed.toFixed(4)} meters per second at 10 percent power`)
       _continue()
       expectDistanceForMove(args)
     }
@@ -280,7 +280,7 @@ const template = {
     "quantity in meters per second",
   ],
   configs: [
-    "tank is a concept",
+    "drone is a concept",
     //TODO "forward left, right, backward are directions",
     "around, forward, left, right, and backward are directions",
     "speed and power are properties",
@@ -296,7 +296,7 @@ const template = {
       args.config.addSemantic({
         match: ({context, isA}) => isA(context.marker, 'quantity') && isA(context.unit.marker, 'unitPerUnit'),
         apply: async ({context, objects, api, fragments, e}) => {
-          // send a command to the tank
+          // send a command to the drone
           const instantiation = await fragments("quantity in meters per second", { quantity: context })
           const result = await e(instantiation)
           const desired_speed = result.evalue.amount.evalue.evalue
@@ -308,7 +308,7 @@ const template = {
       args.config.addSemantic({
         match: ({context, objects, isA}) => objects.current.direction && objects.isCalibrated && context.marker == 'controlEnd',
         apply: ({context, objects, api}) => {
-          // send a command to the tank
+          // send a command to the drone
           api.sendCommand()
         }
       })
@@ -318,7 +318,7 @@ const template = {
         "([calibrate])",
         "([turn] (direction))",
         "([pause] ([number]))",
-        "([stop] ([tank|])?)",
+        "([stop] ([drone|])?)",
         "([go])",
       ],
       bridges: [
@@ -338,7 +338,7 @@ const template = {
           bridge: "{ ...next(operator), interpolate: [{ context: operator }] }",
           semantic: ({context, objects, api}) => {
             objects.calibration.startTime = api.now()
-            // send command to tank to go forward
+            // send command to drone to go forward
           }
         },
         {
@@ -355,7 +355,7 @@ const template = {
           id: 'stop',
           isA: ['verb'],
           optional: {
-            1: "{ marker: 'tank' }",
+            1: "{ marker: 'drone' }",
           },
           bridge: "{ ...next(operator), object: after[0], interpolate: [{ context: operator }, { property: 'object' }] }",
           semantic: ({context, objects, api, say}) => {
@@ -379,15 +379,15 @@ const template = {
 }
 
 knowledgeModule( { 
-  config: { name: 'tank' },
+  config: { name: 'drone' },
   includes: [hierarchy, rates, help],
   api: () => new API(),
 
   module,
-  description: 'controlling a tank',
+  description: 'controlling a drone',
   test: {
-    name: './tank.test.json',
-    contents: tank_tests,
+    name: './drone.test.json',
+    contents: drone_tests,
     checks: {
       context: [
         defaultContextCheck({ marker: 'turn', exported: true, extra: ['direction'] }),
@@ -402,7 +402,7 @@ knowledgeModule( {
   },
   template: {
     template,
-    instance: tank_instance,
+    instance: drone_instance,
   },
 
 })
