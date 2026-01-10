@@ -7,13 +7,13 @@ const helpers = require('./helpers')
 function getHelp(config, indent=2) {
   indent = ' '.repeat(indent)
   let help = ''
-  if (config.tests.length == 0) {
+  if (config.getTests().length == 0) {
     return ''
   }
-  help += `${indent}NAME: ${config.name}\n`
-  help += `${indent}DESCRIPTION: ${config.description}\n\n`
+  help += `${indent}NAME: ${config.getName()}\n`
+  help += `${indent}DESCRIPTION: ${config.getDescription()}\n\n`
   help += `${indent}SAMPLE SENTENCES\n\n`
-  for (const test of config.tests) {
+  for (const test of config.getTests()) {
     if (test.developerTest) {
       continue
     }
@@ -47,17 +47,17 @@ const config = {
         const isAll = kms.length == 0
         let help = '';
         let separator = ''
-        if (isAll || kms.includes(config.name)) {
-          if (config.name !== 'tester') {
+        if (isAll || kms.includes(config.getName())) {
+          if (config.getName() !== 'tester') {
             help += getHelp(config)
             separator = '\n'
           }
         }
         
-        if (config.configs.length > 1) {
-          for (km of config.configs) {
+        if (config.getConfigs().length > 1) {
+          for (km of config.getConfigs()) {
             if (km._config instanceof Config) {
-              if (isAll || kms.includes(km._config.name)) {
+              if (isAll || kms.includes(km._config.getName())) {
                 help += separator + getHelp(km._config)
                 separator = '\n'
               }

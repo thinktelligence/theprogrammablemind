@@ -83,11 +83,23 @@ https://www.amazon.ca/Freenove-Raspberry-Tracking-Avoidance-Ultrasonic/dp/B0BNDQ
 class API {
   initialize({ objects }) {
     this._objects = objects
-    this._objects.reminders = []
-    this._objects.id = 0
-    this._objects.current = null
     this._objects.defaultTime = { hour: 9, minute: 0, second: 0, millisecond: 0 }
     delete this.testDate
+
+    objects.calibration = {
+      startTime: undefined,   // start time for calibration
+      endTime: undefined,     // end time for calibration
+      duration: undefined,    // end time - start time
+      distance: undefined,    // distance travelled during calibration in mm
+      power: 0.1,
+      speed: undefined,       // meters per second
+    }
+    objects.current = {
+      // direction: undefined,   // direction to go if going
+      // power: undefined,       // power
+    }
+    objects.history = []
+    objects.isCalibrated = false
   }
 
   now() {
@@ -163,7 +175,6 @@ class API {
 const howToCalibrate = "When you are ready say calibrate. The tank will drive forward at 10 percent power then say stop. Measure the distance and tell me that. Or you can say the speed of the tank at percentage of power."
 
 function askForProperty({
-  objects,
   ask,
   propertyPath,
   contextPath=[],
@@ -175,8 +186,10 @@ function askForProperty({
     where: where(),
     oneShot,
 
-    matchq: ({ api, context }) => !getValue(propertyPath, objects) && context.marker == 'controlEnd',
-    applyq: async ({ say }) => query,
+    matchq: ({ api, context, objects }) => !getValue(propertyPath, objects) && context.marker == 'controlEnd',
+    applyq: async ({ say, objects }) => {
+      return query
+    },
 
     matchr,
     applyr: async ({objects, context}) => {
@@ -271,22 +284,6 @@ const template = {
     //TODO "forward left, right, backward are directions",
     "around, forward, left, right, and backward are directions",
     "speed and power are properties",
-    ({objects}) => {
-      objects.calibration = {
-        startTime: undefined,   // start time for calibration
-        endTime: undefined,     // end time for calibration
-        duration: undefined,    // end time - start time
-        distance: undefined,    // distance travelled during calibration in mm
-        power: 0.1,
-        speed: undefined,       // meters per second
-      }
-      objects.current = {
-        // direction: undefined,   // direction to go if going
-        // power: undefined,       // power
-      }
-      objects.history = []
-      objects.isCalibrated = false
-    },
     (args) => {
       askForCalibrationDistance(args)
       askForEndTime(args)

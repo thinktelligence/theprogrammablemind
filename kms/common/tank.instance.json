@@ -4,9 +4,6 @@
     "around, forward, left, right, and backward are directions",
     "speed and power are properties",
     {
-      "apply": "({objects}) => {\n      objects.calibration = {\n        startTime: undefined,   // start time for calibration\n        endTime: undefined,     // end time for calibration\n        duration: undefined,    // end time - start time\n        distance: undefined,    // distance travelled during calibration in mm\n        power: 0.1,\n        speed: undefined,       // meters per second\n      }\n      objects.current = {\n        // direction: undefined,   // direction to go if going\n        // power: undefined,       // power\n      }\n      objects.history = []\n      objects.isCalibrated = false\n    }"
-    },
-    {
       "apply": "(args) => {\n      askForCalibrationDistance(args)\n      askForEndTime(args)\n      askForStartTime(args)\n\n      expectDirection(args)\n      expectDistanceForCalibration(args)\n      expectCalibrationCompletion(args)\n\n      args.config.addSemantic({\n        match: ({context, isA}) => isA(context.marker, 'quantity') && isA(context.unit.marker, 'unitPerUnit'),\n        apply: async ({context, objects, api, fragments, e}) => {\n          // send a command to the tank\n          const instantiation = await fragments(\"quantity in meters per second\", { quantity: context })\n          const result = await e(instantiation)\n          const desired_speed = result.evalue.amount.evalue.evalue\n          const desired_power = objects.calibration.power * (desired_speed / objects.calibration.speed)\n          objects.current.power = desired_power \n        }\n      })\n\n      args.config.addSemantic({\n        match: ({context, objects, isA}) => objects.current.direction && objects.isCalibrated && context.marker == 'controlEnd',\n        apply: ({context, objects, api}) => {\n          // send a command to the tank\n          api.sendCommand()\n        }\n      })\n    }"
     },
     {
@@ -9334,9 +9331,6 @@
       "key": {
         "query": "speed and power are properties"
       }
-    },
-    {
-      "apply": "({objects}) => {\n      objects.calibration = {\n        startTime: undefined,   // start time for calibration\n        endTime: undefined,     // end time for calibration\n        duration: undefined,    // end time - start time\n        distance: undefined,    // distance travelled during calibration in mm\n        power: 0.1,\n        speed: undefined,       // meters per second\n      }\n      objects.current = {\n        // direction: undefined,   // direction to go if going\n        // power: undefined,       // power\n      }\n      objects.history = []\n      objects.isCalibrated = false\n    }"
     },
     {
       "apply": "(args) => {\n      askForCalibrationDistance(args)\n      askForEndTime(args)\n      askForStartTime(args)\n\n      expectDirection(args)\n      expectDistanceForCalibration(args)\n      expectCalibrationCompletion(args)\n\n      args.config.addSemantic({\n        match: ({context, isA}) => isA(context.marker, 'quantity') && isA(context.unit.marker, 'unitPerUnit'),\n        apply: async ({context, objects, api, fragments, e}) => {\n          // send a command to the tank\n          const instantiation = await fragments(\"quantity in meters per second\", { quantity: context })\n          const result = await e(instantiation)\n          const desired_speed = result.evalue.amount.evalue.evalue\n          const desired_power = objects.calibration.power * (desired_speed / objects.calibration.speed)\n          objects.current.power = desired_power \n        }\n      })\n\n      args.config.addSemantic({\n        match: ({context, objects, isA}) => objects.current.direction && objects.isCalibrated && context.marker == 'controlEnd',\n        apply: ({context, objects, api}) => {\n          // send a command to the tank\n          api.sendCommand()\n        }\n      })\n    }"
