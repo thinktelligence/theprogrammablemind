@@ -1,5 +1,5 @@
 const { debug, knowledgeModule, where, Digraph } = require('./runtime').theprogrammablemind
-const { defaultObjectCheck, defaultContextCheck } = require('./helpers')
+const { defaultObjectCheck, defaultContextCheck, defaultContextCheckProperties } = require('./helpers')
 const hierarchy = require('./hierarchy.js')
 const formulas = require('./formulas.js')
 const testing = require('./testing.js')
@@ -253,9 +253,25 @@ const template = {
     "the imperial system is a measurement system",
     "imperial modifies unit",
     "metric modifies unit",
-    // "imperial unit is a unit",
-    // "metric unit is a unit",
+    "imperial unit is a unit",
+    "metric unit is a unit",
     config,
+    {
+      operators: [
+        "([useMeasurementSystem|use] (measurement_system))",
+      ],
+      bridges: [
+        {
+          id: 'useMeasurementSystem',
+          isA: ['verb'],
+          bridge: "{ ...next(operator), system: after[0], interpolate: [ { context: operator }, { property: 'system' } ] }",
+          semantic: ({context, objects}) => {
+            objects.defaultSystem = context.system
+          },
+          check: defaultContextCheckProperties(['system']),
+        },
+      ],
+    },
   ],
 }
 
@@ -271,15 +287,19 @@ knowledgeModule({
     name: './dimension.test.json',
     contents: tests,
     checks: {
-      objects: [{ km: 'properties' }],
+      objects: [
+        { km: 'properties' },
+        'defaultSystem',
+      ],
       context: [
+        defaultContextCheck({ marker: 'metric_system', exported: true }),
         defaultContextCheck({ marker: 'convertToUnits', exported: true, extra: ['from', 'to'] }),
         defaultContextCheck({ 
           match: ({context, isA}) => isA(context.marker, 'unit'), 
           exported: true, 
           extra: ['dimension'],
         }),
-        defaultContextCheck(['dimension', 'response']),
+        // defaultContextCheck(['dimension', 'response']),
       ],
     },
   },

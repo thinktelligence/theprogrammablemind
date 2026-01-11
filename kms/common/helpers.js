@@ -188,6 +188,7 @@ function defaultObjectCheck(extra = []) {
   return {
     objects: [
       {
+        extra,
         match: ({objects}) => true,
         apply: () => extra
       },
@@ -204,9 +205,9 @@ function defaultContextCheck({marker, extra = [], exported = false} = {}) {
   if (marker) {
     match = ({context}) => context.marker == marker
   } else {
-    match = ({context}) => !Array.isArray(context)
   }
   return {
+    marker,
     match,
     exported,
     apply: () => ['marker', 'text', 'verbatim', 'value', 'evalue', 'isResponse', { properties: 'modifiers' }, { properties: 'postModifiers' }, ...extra],
