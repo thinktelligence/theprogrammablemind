@@ -48,7 +48,6 @@ const config = {
 const template = {
   configs: [
     "sort modifies ordering",
-    { stop: true },
     "ascending is a sort ordering",
     "descending is a sort ordering",
     {
