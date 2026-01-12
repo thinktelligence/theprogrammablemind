@@ -296,6 +296,7 @@ const config = {
           }
           if (context.to.value) {
             kms.stm.api.setVariable(context.from.value, context.to.value)
+            // config.addWord(context.from.word, context.to)
           } else {
             await kms.dialogues.api.makeObject({ context: context.from, types: context.to.types || [], config });
             kms.stm.api.setVariable(context.from.value, context.to)

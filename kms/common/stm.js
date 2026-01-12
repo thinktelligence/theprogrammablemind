@@ -40,7 +40,16 @@ class API {
     return this._objects.mentioned.filter( (context) => this.isA(context.marker, type) )
   }
 
-  mentioned({ context:concept, value=null, frameOfReference } = {}) {
+  mentioned(args) {
+    let concept, value, frameOfReference
+    if (!args.context) {
+      concept = args
+    } else {
+      concept = args.context
+      value = args.value
+      frameOfReference = args.frameOfReference
+    }
+
     if (!frameOfReference) {
       frameOfReference = this._objects
     }

@@ -41,6 +41,10 @@ class API {
     this._objects.measurementSystem = measurementSystem
   }
 
+  // if the user says 2 feet deduce english etc
+  deduceMeasurementSystem(utterance) {
+  }
+
   getMeasurementSystem() {
     return this._objects.measurementSystem
   }
@@ -74,7 +78,6 @@ const config = {
   operators: [
     "([quantity])",
     "([unit])",
-    // "(([unit]) [kindOfDimension|of] ([dimension]))",
     "((amount/* || number/*) [amountOfCoordinate|] ([unit]))",
     "(([amount]) [unit])",
     "((@<=quantity || context.possession == true) [convertToUnits|in] (unit))",
@@ -115,15 +118,6 @@ const config = {
       scope: "testing" 
     },
     { id: "amount", },
-    /*
-    { 
-      id: "kindOfDimension", 
-      bridge: "{ ...next(operator), subclass: before[0], class: after[0], value: concat(before[0].marker.id, after[0].marker.id) }",
-      // bridge: "{ ...next(operator), subclass: before[0], class: after[0], value: concat(before[0].marker, after[0].marker) }",
-      isA: ['preposition'],
-      generatorp: ({context, gp}) => `${gp(context.subclass)} ${context.word} ${gp(context.class)}`,
-    },
-    */
     { 
       where: where(),
       id: "degree", 
@@ -135,9 +129,7 @@ const config = {
     { 
       id: "amountOfCoordinate", 
       convolution: true, 
-      // bridge: "{ marker: next(catch(operator(after[0].dimension), operator('dimension'))), dead: true, unit: after[0], value: before[0].value, amount: before[0] }" 
       bridge: "{ marker: next(operator('quantity')), dead: true, unit: after[0], value: before[0].value, amount: before[0] }" 
-      // bridge: "{ marker: operator('dimension'), unit: after[0], value: before[0].value, amount: before[0] }" 
     },
     { 
       where: where(),
@@ -237,15 +229,7 @@ const template = {
       apis('properties').addHierarchyWatcher({
         match: ({parentId, isA}) => isA(parentId, 'unit') && parentId.startsWith('unit_'),
         apply: ({config, childId, parent, parentId}) => {
-          // debug._break('greg23')
           config.updateBridge(childId, ({ bridge }) => {
-            // console.log(JSON.stringify(childId, null, 2))
-            // console.log(JSON.stringify(parentId, null, 2))
-            // debugger
-            // if (!bridge) {
-            //   debugger
-            //   return
-            // }
             if (!bridge.init) {
               bridge.init = {}
             }

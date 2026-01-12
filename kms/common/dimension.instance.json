@@ -4,7 +4,7 @@
     "dimension and measurement unit are concepts",
     "unit means measurement unit",
     {
-      "apply": "({apis}) => {\n      apis('properties').addHierarchyWatcher({\n        match: ({parentId, isA}) => isA(parentId, 'unit') && parentId.startsWith('unit_'),\n        apply: ({config, childId, parent, parentId}) => {\n          // debug._break('greg23')\n          config.updateBridge(childId, ({ bridge }) => {\n            // console.log(JSON.stringify(childId, null, 2))\n            // console.log(JSON.stringify(parentId, null, 2))\n            // debugger\n            // if (!bridge) {\n            //   debugger\n            //   return\n            // }\n            if (!bridge.init) {\n              bridge.init = {}\n            }\n            // bridge.init['dimension'] = parent.object.marker\n            bridge.init['dimension'] = parent.object.value\n          })\n        }\n      })\n    }"
+      "apply": "({apis}) => {\n      apis('properties').addHierarchyWatcher({\n        match: ({parentId, isA}) => isA(parentId, 'unit') && parentId.startsWith('unit_'),\n        apply: ({config, childId, parent, parentId}) => {\n          config.updateBridge(childId, ({ bridge }) => {\n            if (!bridge.init) {\n              bridge.init = {}\n            }\n            // bridge.init['dimension'] = parent.object.marker\n            bridge.init['dimension'] = parent.object.value\n          })\n        }\n      })\n    }"
     },
     "metric modifies system",
     "imperial modifies system",
@@ -61,11 +61,11 @@
       ],
       "bridges": [
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:92",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:104",
           "id": "dimension"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:96",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:108",
           "id": "quantity",
           "isA": [
             "noun"
@@ -84,7 +84,7 @@
           "id": "amount"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:119",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:122",
           "id": "degree",
           "words": [
             {
@@ -104,7 +104,7 @@
           "bridge": "{ marker: next(operator('quantity')), dead: true, unit: after[0], value: before[0].value, amount: before[0] }"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:134",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:135",
           "id": "convertToUnits",
           "bridge": "{ ...next(operator), from: before[0], to: after[0] }",
           "isA": [
@@ -149,7 +149,7 @@
             "verb"
           ],
           "bridge": "{ ...next(operator), system: after[0], interpolate: [ { context: operator }, { property: 'system' } ] }",
-          "semantic": "({context, objects}) => {\n            objects.defaultSystem = context.system\n          }",
+          "semantic": "({context, api}) => {\n            api.setMeasurementSystem(context.system.value)\n          }",
           "check": [
             "marker",
             "text",
@@ -4326,7 +4326,7 @@
       }
     },
     {
-      "apply": "({apis}) => {\n      apis('properties').addHierarchyWatcher({\n        match: ({parentId, isA}) => isA(parentId, 'unit') && parentId.startsWith('unit_'),\n        apply: ({config, childId, parent, parentId}) => {\n          // debug._break('greg23')\n          config.updateBridge(childId, ({ bridge }) => {\n            // console.log(JSON.stringify(childId, null, 2))\n            // console.log(JSON.stringify(parentId, null, 2))\n            // debugger\n            // if (!bridge) {\n            //   debugger\n            //   return\n            // }\n            if (!bridge.init) {\n              bridge.init = {}\n            }\n            // bridge.init['dimension'] = parent.object.marker\n            bridge.init['dimension'] = parent.object.value\n          })\n        }\n      })\n    }"
+      "apply": "({apis}) => {\n      apis('properties').addHierarchyWatcher({\n        match: ({parentId, isA}) => isA(parentId, 'unit') && parentId.startsWith('unit_'),\n        apply: ({config, childId, parent, parentId}) => {\n          config.updateBridge(childId, ({ bridge }) => {\n            if (!bridge.init) {\n              bridge.init = {}\n            }\n            // bridge.init['dimension'] = parent.object.marker\n            bridge.init['dimension'] = parent.object.value\n          })\n        }\n      })\n    }"
     },
     {
       "hierarchy": [
@@ -19887,16 +19887,16 @@
       ],
       "generators": [
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:85"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:97"
         }
       ],
       "bridges": [
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:92",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:104",
           "id": "dimension"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:96",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:108",
           "id": "quantity",
           "isA": [
             "noun"
@@ -19915,7 +19915,7 @@
           "id": "amount"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:119",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:122",
           "id": "degree",
           "words": [
             {
@@ -19934,7 +19934,7 @@
           "bridge": "{ marker: next(operator('quantity')), dead: true, unit: after[0], value: before[0].value, amount: before[0] }"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:134",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:135",
           "id": "convertToUnits",
           "bridge": "{ ...next(operator), from: before[0], to: after[0] }",
           "isA": [

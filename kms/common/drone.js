@@ -3,6 +3,7 @@ const { defaultContextCheck, getValue, setValue } = require('./helpers')
 const drone_tests = require('./drone.test.json')
 const drone_instance = require('./drone.instance.json')
 const hierarchy = require('./hierarchy')
+const nameable = require('./nameable')
 const rates = require('./rates')
 const help = require('./help')
 
@@ -49,8 +50,9 @@ https://www.amazon.ca/Freenove-Raspberry-Tracking-Avoidance-Ultrasonic/dp/B0BNDQ
   call this point a
   move 5 feet
   call this point b
-  moving between a and b is patrol 1
+  moving between a and b is called patrol 1
   do patrol 1 every 3 minutes
+
   what is patrol 1
 
   calibrate distance
@@ -78,12 +80,19 @@ https://www.amazon.ca/Freenove-Raspberry-Tracking-Avoidance-Ultrasonic/dp/B0BNDQ
 
   pan camera left slowly
   do the cylon every 30 seconds
+
+  patrol one is forward 10 feet left 2 feet right 3 feet and back to the start
+  go forward 10 feet then go back to the start
+
+  go to the last point
+  go back 2 positions
 */
 
 class API {
   initialize({ objects }) {
     this._objects = objects
     this._objects.defaultTime = { hour: 9, minute: 0, second: 0, millisecond: 0 }
+    this._objects.ordinal = 0
     delete this.testDate
 
     objects.calibration = {
@@ -100,6 +109,10 @@ class API {
     }
     objects.history = []
     objects.isCalibrated = false
+  }
+
+  nextOrdinal() {
+    return this._objects.ordinal += 1
   }
 
   now() {
@@ -264,10 +277,11 @@ function expectCalibrationCompletion(args) {
   args.config.addSemantic({
     oneShot: true,
     match: ({context, objects, isA}) => context.marker == 'controlEnd' && objects.calibration.distance && objects.calibration.duration && !objects.calibration.speed,
-    apply: ({context, objects, _continue, say}) => {
+    apply: ({api, context, objects, _continue, say, mentioned}) => {
       objects.calibration.speed = objects.calibration.distance / objects.calibration.duration
       objects.isCalibrated = true
       say(`The drone is calibrated. The speed is ${objects.calibration.speed.toFixed(4)} meters per second at 10 percent power`)
+      mentioned({ marker: 'point', ordinal: api.nextOrdinal(), distance: objects.calibration.distance })
       _continue()
       expectDistanceForMove(args)
     }
@@ -284,6 +298,9 @@ const template = {
     //TODO "forward left, right, backward are directions",
     "around, forward, left, right, and backward are directions",
     "speed and power are properties",
+    "point is a concept",
+    // TODO fix/add this "position means point",
+    "points are nameable",
     (args) => {
       askForCalibrationDistance(args)
       askForEndTime(args)
@@ -336,8 +353,9 @@ const template = {
           id: 'calibrate',
           isA: ['verb'],
           bridge: "{ ...next(operator), interpolate: [{ context: operator }] }",
-          semantic: ({context, objects, api}) => {
+          semantic: ({context, objects, api, mentioned}) => {
             objects.calibration.startTime = api.now()
+            mentioned({ marker: 'point', ordinal: api.nextOrdinal() })
             // send command to drone to go forward
           }
         },
@@ -380,7 +398,7 @@ const template = {
 
 knowledgeModule( { 
   config: { name: 'drone' },
-  includes: [hierarchy, rates, help],
+  includes: [nameable, hierarchy, rates, help],
   api: () => new API(),
 
   module,
@@ -394,6 +412,7 @@ knowledgeModule( {
         defaultContextCheck(),
       ],
       objects: [
+        { km: 'stm' },
         'calibration',
         'history',
         'current',

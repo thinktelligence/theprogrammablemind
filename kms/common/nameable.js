@@ -1,5 +1,5 @@
 const { knowledgeModule, where } = require('./runtime').theprogrammablemind
-const { defaultContextCheck } = require('./helpers')
+const { defaultContextCheck, defaultContextCheckProperties } = require('./helpers')
 const helpers = require('./helpers')
 const stm = require('./stm')
 const nameable_tests = require('./nameable.test.json')
@@ -107,19 +107,26 @@ const config = {
       id: 'call',
       isA: ['verb'],
       bridge: "{ ...next(operator), nameable: after[0], name: after[1:][0] }",
-      // bridge: "{ ...next(operator), nameable: after[0], name: after[1] }",
-      // generatorp: async ({context, g}) => `call ${await g(context.nameable)} ${await g(context.name)}`,
       generatorp: async ({context, g, gs}) => `call ${await g(context.nameable)} ${await gs(context.name)}`,
-      semantic: async ({config, context, api, e}) => {
+      semantic: async ({config, context, api, e, verbatim, g}) => {
         // TODO find report being referred to
         const nameable = (await e(context.nameable)).evalue
+        if (!nameable) {
+          verbatim(`${await g(context.nameable)} is not known`)
+          return
+        }
         const name = context.name.map((n) => n.text).join(' ')
         // const name = context.name.text
         config.addWord(name, { id: nameable.marker, initial: `{ value: "${name}", pullFromContext: true, nameable_named: true }` })
         api.setName(nameable, name)
-      }
+      },
+      check: defaultContextCheckProperties(['nameable', 'name']),
     },
-    { id: 'nameable', words: helpers.words('nameable')},
+    { 
+      id: 'nameable', 
+      words: helpers.words('nameable'),
+      children: ['thisitthat'],
+    },
   ]
 }
 
