@@ -271,7 +271,8 @@ knowledgeModule( {
     contents: stm_tests,
     checks: {
              context: [defaultContextCheck({ extra: ['pullFromContext', 'stm_id'] })],
-            objects: [{ property: 'mentioned', filter: helpers.defaultContextCheckProperties }],
+             objects: [defaultContextCheck({ extra: ['mentioned'] })],
+             // objects: [{ property: 'mentioned', filter: helpers.defaultContextCheckProperties }],
           },
   },
 })
