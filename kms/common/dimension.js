@@ -32,8 +32,17 @@ const instance = require('./dimension.instance.json')
 */
 class API {
 
-  initialize({ config }) {
+  initialize({ config, objects }) {
     this._config = config
+    this._objects = objects
+  }
+
+  setMeasurementSystem(measurementSystem) {
+    this._objects.measurementSystem = measurementSystem
+  }
+
+  getMeasurementSystem() {
+    return this._objects.measurementSystem
   }
 
   setup( {dimension, units} ) {
@@ -265,8 +274,8 @@ const template = {
           id: 'useMeasurementSystem',
           isA: ['verb'],
           bridge: "{ ...next(operator), system: after[0], interpolate: [ { context: operator }, { property: 'system' } ] }",
-          semantic: ({context, objects}) => {
-            objects.defaultSystem = context.system
+          semantic: ({context, api}) => {
+            api.setMeasurementSystem(context.system.value)
           },
           check: defaultContextCheckProperties(['system']),
         },
@@ -289,7 +298,7 @@ knowledgeModule({
     checks: {
       objects: [
         { km: 'properties' },
-        'defaultSystem',
+        'measurementSystem',
       ],
       context: [
         defaultContextCheck({ marker: 'metric_system', exported: true }),
