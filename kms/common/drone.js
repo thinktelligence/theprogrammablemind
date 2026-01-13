@@ -151,24 +151,24 @@ class API {
   }
 
   pause(duration_seconds) {
-    this._objects.history.push({ pause: duration_seconds })
+    this._objects.history.push({ marker: 'history', pause: duration_seconds })
   }
 
   // subclass and override the remaining to call the car
 
   forward(power) {
-    this._objects.history.push({ direction: 'forward', power })
+    this._objects.history.push({ marker: 'history', direction: 'forward', power })
   }
 
   backward(power) {
-    this._objects.history.push({ direction: 'backward', power })
+    this._objects.history.push({ marker: 'history', direction: 'backward', power })
   }
 
   // -angle is counterclockwise
   // +angle is clockwise
 
   rotate(angle) {
-    this._objects.history.push({ turn: angle })
+    this._objects.history.push({ marker: 'history', turn: angle })
   }
 
   turn(angle) {
@@ -181,7 +181,7 @@ class API {
   }
 
   stop() {
-    this._objects.history.push({ power: 0 })
+    this._objects.history.push({ marker: 'history', power: 0 })
   }
 }
 
@@ -392,6 +392,9 @@ const template = {
           apply: () => ''
         },
       ],
+      semantics: [
+      
+      ],
     },
   ],
 }
@@ -408,8 +411,9 @@ knowledgeModule( {
     contents: drone_tests,
     checks: {
       context: [
-        defaultContextCheck({ marker: 'point', exported: true, extra: ['ordinal'] }),
+        defaultContextCheck({ marker: 'point', exported: true, extra: ['ordinal', { property: 'stm', check: ['id', 'names'] }] }),
         defaultContextCheck({ marker: 'turn', exported: true, extra: ['direction'] }),
+        defaultContextCheck({ marker: 'history', exported: true, extra: ['pause', 'direction', 'power', 'turn'] }),
         defaultContextCheck(),
       ],
       objects: [
@@ -417,7 +421,6 @@ knowledgeModule( {
         { path: ['calibration'] }, 
         { path: ['history'] },
         { path: ['current'] },
-        // defaultContextCheck(['calibration', 'history', 'current']),
       ],
     }
   },
