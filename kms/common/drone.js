@@ -408,14 +408,16 @@ knowledgeModule( {
     contents: drone_tests,
     checks: {
       context: [
+        defaultContextCheck({ marker: 'point', exported: true, extra: ['ordinal'] }),
         defaultContextCheck({ marker: 'turn', exported: true, extra: ['direction'] }),
         defaultContextCheck(),
       ],
       objects: [
         { km: 'stm' },
-        'calibration',
-        'history',
-        'current',
+        { path: ['calibration'] }, 
+        { path: ['history'] },
+        { path: ['current'] },
+        // defaultContextCheck(['calibration', 'history', 'current']),
       ],
     }
   },

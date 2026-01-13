@@ -280,7 +280,8 @@ knowledgeModule( {
     contents: stm_tests,
     checks: {
              context: [defaultContextCheck({ extra: ['pullFromContext', 'stm_id'] })],
-             objects: [defaultContextCheck({ extra: ['mentioned'] })],
+             objects: [ { path: ['mentioned'] }],
+             // objects: [defaultContextCheck({ extra: ['mentioned'] })],
              // objects: [{ property: 'mentioned', filter: helpers.defaultContextCheckProperties }],
           },
   },

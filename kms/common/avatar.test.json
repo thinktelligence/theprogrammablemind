@@ -21,64 +21,8 @@
           0
         ],
         [
-          "questionMark",
-          0
-        ],
-        [
           "unknown",
           0
-        ],
-        [
-          "unknown",
-          1
-        ]
-      ],
-      [
-        [
-          "have",
-          0
-        ],
-        [
-          "questionMark",
-          0
-        ],
-        [
-          "unknown",
-          1
-        ]
-      ],
-      [
-        [
-          "have",
-          0
-        ],
-        [
-          "unknown",
-          0
-        ]
-      ],
-      [
-        [
-          "have",
-          0
-        ],
-        [
-          "unknown",
-          0
-        ],
-        [
-          "unknown",
-          1
-        ]
-      ],
-      [
-        [
-          "have",
-          0
-        ],
-        [
-          "unknown",
-          1
         ]
       ],
       [
@@ -96,16 +40,12 @@
     },
     "contexts": [
       {
+        "context_id": 2,
         "context_index": 1,
         "dead": true,
         "do": {
           "left": "object",
-          "range": {
-            "end": 12,
-            "start": 0
-          },
-          "right": "property",
-          "text": "greg has eyes"
+          "right": "property"
         },
         "doesable": true,
         "level": 2,
@@ -113,11 +53,11 @@
         "number": "one",
         "object": {
           "dead": true,
-          "level": 1,
+          "level": 0,
           "marker": "object",
           "number": "one",
           "range": {
-            "end": 12,
+            "end": 3,
             "start": 0
           },
           "text": "greg",
@@ -130,7 +70,7 @@
         },
         "property": {
           "dead": true,
-          "level": 1,
+          "level": 0,
           "marker": "property",
           "range": {
             "end": 12,
@@ -157,16 +97,12 @@
         "word": "has"
       },
       {
+        "context_id": 4,
         "context_index": 3,
         "dead": true,
         "do": {
           "left": "object",
-          "range": {
-            "end": 26,
-            "start": 14
-          },
-          "right": "property",
-          "text": ""
+          "right": "property"
         },
         "doesable": true,
         "evalue": {
@@ -179,11 +115,11 @@
         "number": "one",
         "object": {
           "dead": true,
-          "level": 1,
+          "level": 0,
           "marker": "object",
           "number": "one",
           "range": {
-            "end": 26,
+            "end": 17,
             "start": 14
           },
           "text": "greg",
@@ -196,7 +132,7 @@
         },
         "property": {
           "dead": true,
-          "level": 1,
+          "level": 0,
           "marker": "property",
           "range": {
             "end": 26,
@@ -454,6 +390,8 @@
       ]
     },
     "objects": {
+      "associations": [
+      ],
       "nameToUUID": {
         "articles": "articles2",
         "asking": "asking2",
@@ -471,44 +409,59 @@
         "properties": "properties2",
         "punctuation": "punctuation2",
         "sdefaults": "sdefaults2",
+        "self": "self2",
         "stm": "stm2",
-        "tokenize": "tokenize2"
+        "tokenize": "tokenize2",
+        "words": "words2"
       },
       "namespaced": {
         "articles2": {
+          "km": "articles2"
         },
         "asking2": {
+          "km": "asking2"
         },
         "avatar1": {
+          "km": "avatar1"
         },
         "concept2": {
           "defaultTypesForHierarchy": {
           },
+          "km": "concept2",
           "valueToWords": [
           ]
         },
         "conjunction2": {
+          "km": "conjunction2"
         },
         "dialogues2": {
           "idSuffix": "",
+          "km": "dialogues2",
           "mentioned": [
           ],
           "variables": {
           }
         },
         "emotions2": {
+          "km": "emotions2"
         },
         "evaluate2": {
+          "km": "evaluate2"
         },
         "gdefaults2": {
+          "km": "gdefaults2"
         },
         "hierarchy2": {
+          "km": "hierarchy2"
         },
         "meta2": {
+          "km": "meta2"
         },
         "negation2": {
+          "km": "negation2"
         },
         "pos2": {
+          "km": "pos2"
         },
         "properties2": {
           "children": {
@@ -533,6 +486,10 @@
             ],
             "ifAble": [
               "orAble"
+            ],
+            "listable": [
+              "object",
+              "queryable"
             ],
             "object": [
               "what",
@@ -559,7 +516,6 @@
               "concept",
               "doubleQuote",
               "theAble",
-              "unknown",
               "it",
               "what",
               "whatAble",
@@ -573,7 +529,7 @@
               "property",
               "object",
               "concept",
-              "unknown",
+              "listable",
               "reason",
               "memorable",
               "noun"
@@ -589,8 +545,8 @@
             "verb": [
               "modifies",
               "is",
-              "remember",
-              "evaluate"
+              "isQuery",
+              "remember"
             ]
           },
           "concepts": [
@@ -609,6 +565,7 @@
             "canBeQuestion",
             "property",
             "theAble",
+            "listable",
             "propertyOf",
             "whose",
             "concept",
@@ -628,6 +585,7 @@
             "is",
             "toAble",
             "to",
+            "isQuery",
             "reason",
             "memorable",
             "remember",
@@ -635,7 +593,6 @@
             "adjective",
             "orAble",
             "ifAble",
-            "evaluate",
             "each",
             "every",
             "distributable",
@@ -644,6 +601,7 @@
             "that",
             "greg"
           ],
+          "km": "properties2",
           "parents": {
             "a": [
               "article"
@@ -664,9 +622,6 @@
             "each": [
               "article"
             ],
-            "evaluate": [
-              "verb"
-            ],
             "every": [
               "article"
             ],
@@ -681,11 +636,17 @@
               "canBeQuestion",
               "verb"
             ],
+            "isQuery": [
+              "verb"
+            ],
             "it": [
               "pronoun",
               "queryable",
               "toAble",
               "thisitthat"
+            ],
+            "listable": [
+              "theAble"
             ],
             "memorable": [
               "theAble"
@@ -701,7 +662,8 @@
             ],
             "object": [
               "queryable",
-              "theAble"
+              "theAble",
+              "listable"
             ],
             "orAble": [
               "ifAble"
@@ -712,6 +674,9 @@
             ],
             "propertyOf": [
               "preposition"
+            ],
+            "queryable": [
+              "listable"
             ],
             "questionMark": [
               "punctuation"
@@ -750,9 +715,7 @@
               "preposition"
             ],
             "unknown": [
-              "hierarchyAble",
-              "theAble",
-              "queryable"
+              "hierarchyAble"
             ],
             "what": [
               "object",
@@ -794,8 +757,6 @@
               },
               "each": {
               },
-              "evaluate": {
-              },
               "every": {
               },
               "greg": {
@@ -812,7 +773,11 @@
               },
               "is": {
               },
+              "isQuery": {
+              },
               "it": {
+              },
+              "listable": {
               },
               "memorable": {
               },
@@ -884,31 +849,39 @@
           }
         },
         "punctuation2": {
+          "km": "punctuation2"
         },
         "sdefaults2": {
+          "km": "sdefaults2"
+        },
+        "self2": {
+          "km": "self2"
         },
         "stm2": {
+          "km": "stm2",
           "mentioned": [
           ],
           "variables": {
           }
         },
         "tokenize2": {
+          "km": "tokenize2"
+        },
+        "words2": {
+          "km": "words2",
+          "words": [
+          ]
         }
       },
       "processed": [
         {
           "context": {
+            "context_id": 4,
             "context_index": 3,
             "dead": true,
             "do": {
               "left": "object",
-              "range": {
-                "end": 26,
-                "start": 14
-              },
-              "right": "property",
-              "text": ""
+              "right": "property"
             },
             "doesable": true,
             "evalue": {
@@ -921,11 +894,11 @@
             "number": "one",
             "object": {
               "dead": true,
-              "level": 1,
+              "level": 0,
               "marker": "object",
               "number": "one",
               "range": {
-                "end": 26,
+                "end": 17,
                 "start": 14
               },
               "text": "greg",
@@ -938,7 +911,7 @@
             },
             "property": {
               "dead": true,
-              "level": 1,
+              "level": 0,
               "marker": "property",
               "range": {
                 "end": 26,
@@ -969,9 +942,12 @@
             ],
             "word": "has"
           },
-          "generatedParenthesized": "(yes)",
-          "paraphrases": "does greg have eyes?",
-          "paraphrasesParenthesized": "((does (greg) have (eyes))?)",
+          "generatedParenthesized": [
+          ],
+          "paraphrases": [
+          ],
+          "paraphrasesParenthesized": [
+          ],
           "responses": [
             "",
             "yes"
@@ -979,16 +955,12 @@
         },
         {
           "context": {
+            "context_id": 2,
             "context_index": 1,
             "dead": true,
             "do": {
               "left": "object",
-              "range": {
-                "end": 12,
-                "start": 0
-              },
-              "right": "property",
-              "text": "greg has eyes"
+              "right": "property"
             },
             "doesable": true,
             "level": 2,
@@ -996,11 +968,11 @@
             "number": "one",
             "object": {
               "dead": true,
-              "level": 1,
+              "level": 0,
               "marker": "object",
               "number": "one",
               "range": {
-                "end": 12,
+                "end": 3,
                 "start": 0
               },
               "text": "greg",
@@ -1013,7 +985,7 @@
             },
             "property": {
               "dead": true,
-              "level": 1,
+              "level": 0,
               "marker": "property",
               "range": {
                 "end": 12,
@@ -1039,9 +1011,12 @@
             ],
             "word": "has"
           },
-          "generatedParenthesized": "",
-          "paraphrases": "greg has eyes",
-          "paraphrasesParenthesized": "((greg) has (eyes))",
+          "generatedParenthesized": [
+          ],
+          "paraphrases": [
+          ],
+          "paraphrasesParenthesized": [
+          ],
           "responses": [
             "",
             "yes"
@@ -1049,6 +1024,7 @@
         },
         {
           "context": {
+            "context_id": null,
             "context_index": 1,
             "dead": true,
             "default": true,
@@ -1056,24 +1032,20 @@
               "dead": true,
               "do": {
                 "left": "sentientBeing",
-                "range": {
-                  "end": 28,
-                  "start": 0
-                },
-                "right": "emotion",
-                "text": "sentientbeing1 feels emotion1"
+                "right": "emotion"
               },
               "emotion": {
                 "dead": true,
-                "level": 1,
-                "marker": "emotion",
+                "level": 0,
+                "marker": "unknown",
                 "range": {
                   "end": 28,
                   "start": 21
                 },
                 "text": "emotion1",
                 "types": [
-                  "emotion"
+                  "emotion",
+                  "unknown"
                 ],
                 "unknown": true,
                 "value": "emotion1",
@@ -1083,17 +1055,45 @@
                 "sentientBeing",
                 "emotion"
               ],
+              "interpolate": [
+                {
+                  "property": "sentientBeing"
+                },
+                {
+                  "number": "sentientBeing",
+                  "property": "operator"
+                },
+                {
+                  "property": "emotion"
+                }
+              ],
+              "isVerb": true,
               "level": 2,
               "marker": "feel",
               "number": "one",
+              "operator": {
+                "evaluateWord": true,
+                "imperative": false,
+                "isVerb": true,
+                "level": 0,
+                "marker": "feel",
+                "number": "one",
+                "range": {
+                  "end": 19,
+                  "start": 15
+                },
+                "text": "feels",
+                "value": "feel",
+                "word": "feels"
+              },
               "range": {
                 "end": 28,
                 "start": 0
               },
               "sentientBeing": {
                 "dead": true,
-                "level": 1,
-                "marker": "sentientBeing",
+                "level": 0,
+                "marker": "unknown",
                 "range": {
                   "end": 13,
                   "start": 0
@@ -1101,7 +1101,8 @@
                 "raw_text": "sentientBeing1",
                 "text": "sentientbeing1",
                 "types": [
-                  "sentientBeing"
+                  "sentientBeing",
+                  "unknown"
                 ],
                 "unknown": true,
                 "value": "sentientbeing1",
@@ -1132,7 +1133,7 @@
                 "dead": true,
                 "determiner": "the",
                 "focusableForPhrase": true,
-                "level": 1,
+                "level": 0,
                 "marker": "property",
                 "modifiers": [
                   "determiner"
@@ -1140,7 +1141,7 @@
                 "number": "one",
                 "object": {
                   "dead": true,
-                  "level": 1,
+                  "level": 0,
                   "marker": "object",
                   "range": {
                     "end": 64,
@@ -1161,7 +1162,7 @@
                     "dead": true,
                     "determiner": "the",
                     "focusableForPhrase": true,
-                    "level": 1,
+                    "level": 0,
                     "marker": "property",
                     "modifiers": [
                       "determiner"
@@ -1183,7 +1184,7 @@
                   },
                   {
                     "dead": true,
-                    "level": 1,
+                    "level": 0,
                     "marker": "object",
                     "range": {
                       "end": 64,
@@ -1201,7 +1202,7 @@
                 ],
                 "pullFromContext": true,
                 "range": {
-                  "end": 76,
+                  "end": 64,
                   "start": 36
                 },
                 "text": "the emotion of sentientbeing1",
@@ -1221,7 +1222,7 @@
               "text": "the emotion of sentientbeing1 is emotion1",
               "two": {
                 "dead": true,
-                "level": 1,
+                "level": 0,
                 "marker": "unknown",
                 "range": {
                   "end": 76,
@@ -1248,11 +1249,11 @@
           },
           "generatedParenthesized": [
           ],
-          "paraphrases": "sentientbeing1 feels emotion1 means the emotion of sentientbeing1 is emotion1",
+          "paraphrases": [
+          ],
           "paraphrasesParenthesized": [
           ],
           "responses": [
-            ""
           ]
         }
       ]
@@ -1355,7 +1356,7 @@
               {
                 "marker": [
                   "unknown",
-                  1
+                  0
                 ],
                 "range": {
                   "end": 3,
@@ -1430,7 +1431,7 @@
               {
                 "marker": [
                   "unknown",
-                  1
+                  0
                 ],
                 "range": {
                   "end": 3,
@@ -1450,7 +1451,7 @@
               {
                 "marker": [
                   "unknown",
-                  1
+                  0
                 ],
                 "range": {
                   "end": 12,
@@ -1505,7 +1506,7 @@
               {
                 "marker": [
                   "unknown",
-                  1
+                  0
                 ],
                 "range": {
                   "end": 3,
@@ -1525,7 +1526,7 @@
               {
                 "marker": [
                   "unknown",
-                  1
+                  0
                 ],
                 "range": {
                   "end": 12,
@@ -1535,7 +1536,7 @@
               {
                 "marker": [
                   "unknown",
-                  1
+                  0
                 ],
                 "range": {
                   "end": 17,
@@ -1580,7 +1581,7 @@
               {
                 "marker": [
                   "unknown",
-                  1
+                  0
                 ],
                 "range": {
                   "end": 3,
@@ -1600,7 +1601,7 @@
               {
                 "marker": [
                   "unknown",
-                  1
+                  0
                 ],
                 "range": {
                   "end": 12,
@@ -1610,7 +1611,7 @@
               {
                 "marker": [
                   "unknown",
-                  1
+                  0
                 ],
                 "range": {
                   "end": 17,
@@ -1630,7 +1631,7 @@
               {
                 "marker": [
                   "unknown",
-                  1
+                  0
                 ],
                 "range": {
                   "end": 26,
@@ -1665,7 +1666,7 @@
               {
                 "marker": [
                   "unknown",
-                  1
+                  0
                 ],
                 "range": {
                   "end": 17,
@@ -1685,7 +1686,7 @@
               {
                 "marker": [
                   "unknown",
-                  1
+                  0
                 ],
                 "range": {
                   "end": 26,
@@ -1868,24 +1869,6 @@
           0
         ],
         [
-          "unknown",
-          1
-        ]
-      ],
-      [
-        [
-          "is",
-          0
-        ],
-        [
-          "objectPrefix",
-          0
-        ],
-        [
-          "unknown",
-          0
-        ],
-        [
           "what",
           0
         ]
@@ -1896,12 +1879,8 @@
           0
         ],
         [
-          "objectPrefix",
+          "property",
           0
-        ],
-        [
-          "unknown",
-          1
         ]
       ],
       [
@@ -1910,45 +1889,11 @@
           0
         ],
         [
-          "unknown",
-          1
-        ]
-      ],
-      [
-        [
-          "objectPrefix",
+          "property",
           0
         ],
         [
           "unknown",
-          0
-        ],
-        [
-          "what",
-          0
-        ]
-      ],
-      [
-        [
-          "objectPrefix",
-          0
-        ],
-        [
-          "unknown",
-          1
-        ]
-      ],
-      [
-        [
-          "objectPrefix",
-          0
-        ],
-        [
-          "unknown",
-          1
-        ],
-        [
-          "what",
           0
         ]
       ]
@@ -1957,6 +1902,7 @@
     },
     "contexts": [
       {
+        "context_id": 2,
         "context_index": 1,
         "dead": true,
         "level": 2,
@@ -1964,7 +1910,7 @@
         "number": "one",
         "one": {
           "dead": true,
-          "level": 1,
+          "level": 0,
           "marker": "property",
           "number": "one",
           "object": {
@@ -1983,7 +1929,7 @@
           "objects": [
             {
               "dead": true,
-              "level": 1,
+              "level": 0,
               "marker": "property",
               "range": {
                 "end": 6,
@@ -2012,7 +1958,7 @@
             }
           ],
           "range": {
-            "end": 14,
+            "end": 6,
             "start": 0
           },
           "text": "my name",
@@ -2035,7 +1981,7 @@
         "two": {
           "concept": true,
           "dead": true,
-          "level": 1,
+          "level": 0,
           "marker": "unknown",
           "range": {
             "end": 14,
@@ -2052,6 +1998,7 @@
         "word": "is"
       },
       {
+        "context_id": 4,
         "context_index": 3,
         "dead": true,
         "evalue": {
@@ -2063,7 +2010,7 @@
           "marker": "is",
           "one": {
             "dead": true,
-            "level": 1,
+            "level": 0,
             "marker": "property",
             "object": {
               "level": 0,
@@ -2081,7 +2028,7 @@
             "objects": [
               {
                 "dead": true,
-                "level": 1,
+                "level": 0,
                 "marker": "property",
                 "range": {
                   "end": 30,
@@ -2126,7 +2073,7 @@
             "evalue": {
               "concept": true,
               "dead": true,
-              "level": 1,
+              "level": 0,
               "marker": "unknown",
               "range": {
                 "end": 14,
@@ -2145,12 +2092,14 @@
               "object[0]"
             ],
             "instance": true,
-            "level": 1,
+            "isModule": true,
+            "isProcess": true,
+            "level": 0,
             "marker": "property",
             "objects": [
               {
                 "dead": true,
-                "level": 1,
+                "level": 0,
                 "marker": "property",
                 "range": {
                   "end": 30,
@@ -2184,8 +2133,8 @@
             },
             "text": "my name",
             "touchedBy": [
-              "avatar#call17",
-              "avatar#call16"
+              "avatar#call19",
+              "avatar#call18"
             ],
             "types": [
               "property"
@@ -2211,7 +2160,7 @@
             "what"
           ],
           "range": {
-            "end": 30,
+            "end": 19,
             "start": 16
           },
           "text": "what",
@@ -2231,11 +2180,11 @@
         "text": "what is my name",
         "topLevel": true,
         "touchedBy": [
-          "avatar#call16"
+          "avatar#call18"
         ],
         "two": {
           "dead": true,
-          "level": 1,
+          "level": 0,
           "marker": "property",
           "object": {
             "level": 0,
@@ -2253,7 +2202,7 @@
           "objects": [
             {
               "dead": true,
-              "level": 1,
+              "level": 0,
               "marker": "property",
               "range": {
                 "end": 30,
@@ -2355,7 +2304,7 @@
               0
             ],
             [
-              "isEd",
+              "is",
               0
             ],
             [
@@ -2392,7 +2341,7 @@
               0
             ],
             [
-              "isEd",
+              "is",
               0
             ],
             [
@@ -2425,7 +2374,7 @@
               0
             ],
             [
-              "isEd",
+              "is",
               0
             ],
             [
@@ -2454,7 +2403,7 @@
               0
             ],
             [
-              "isEd",
+              "is",
               0
             ],
             [
@@ -2479,7 +2428,7 @@
               0
             ],
             [
-              "isEd",
+              "is",
               0
             ],
             [
@@ -2509,7 +2458,7 @@
           "counter": 8,
           "op": [
             "is",
-            0
+            1
           ],
           "ops": [
             [
@@ -2526,16 +2475,12 @@
           "counter": 9,
           "op": [
             "is",
-            1
+            0
           ],
           "ops": [
             [
               "is",
-              1
-            ],
-            [
-              "is",
-              1
+              0
             ]
           ]
         },
@@ -2555,6 +2500,8 @@
       ]
     },
     "objects": {
+      "associations": [
+      ],
       "nameToUUID": {
         "articles": "articles2",
         "asking": "asking2",
@@ -2572,44 +2519,59 @@
         "properties": "properties2",
         "punctuation": "punctuation2",
         "sdefaults": "sdefaults2",
+        "self": "self2",
         "stm": "stm2",
-        "tokenize": "tokenize2"
+        "tokenize": "tokenize2",
+        "words": "words2"
       },
       "namespaced": {
         "articles2": {
+          "km": "articles2"
         },
         "asking2": {
+          "km": "asking2"
         },
         "avatar1": {
+          "km": "avatar1"
         },
         "concept2": {
           "defaultTypesForHierarchy": {
           },
+          "km": "concept2",
           "valueToWords": [
           ]
         },
         "conjunction2": {
+          "km": "conjunction2"
         },
         "dialogues2": {
           "idSuffix": "",
+          "km": "dialogues2",
           "mentioned": [
           ],
           "variables": {
           }
         },
         "emotions2": {
+          "km": "emotions2"
         },
         "evaluate2": {
+          "km": "evaluate2"
         },
         "gdefaults2": {
+          "km": "gdefaults2"
         },
         "hierarchy2": {
+          "km": "hierarchy2"
         },
         "meta2": {
+          "km": "meta2"
         },
         "negation2": {
+          "km": "negation2"
         },
         "pos2": {
+          "km": "pos2"
         },
         "properties2": {
           "children": {
@@ -2634,6 +2596,10 @@
             ],
             "ifAble": [
               "orAble"
+            ],
+            "listable": [
+              "object",
+              "queryable"
             ],
             "name": [
               "greg"
@@ -2663,7 +2629,6 @@
               "concept",
               "doubleQuote",
               "theAble",
-              "unknown",
               "it",
               "what",
               "whatAble",
@@ -2677,7 +2642,7 @@
               "property",
               "object",
               "concept",
-              "unknown",
+              "listable",
               "reason",
               "memorable",
               "noun"
@@ -2693,8 +2658,8 @@
             "verb": [
               "modifies",
               "is",
-              "remember",
-              "evaluate"
+              "isQuery",
+              "remember"
             ]
           },
           "concepts": [
@@ -2713,6 +2678,7 @@
             "canBeQuestion",
             "property",
             "theAble",
+            "listable",
             "propertyOf",
             "whose",
             "concept",
@@ -2732,6 +2698,7 @@
             "is",
             "toAble",
             "to",
+            "isQuery",
             "reason",
             "memorable",
             "remember",
@@ -2739,7 +2706,6 @@
             "adjective",
             "orAble",
             "ifAble",
-            "evaluate",
             "each",
             "every",
             "distributable",
@@ -2750,6 +2716,7 @@
             "name",
             "other"
           ],
+          "km": "properties2",
           "parents": {
             "a": [
               "article"
@@ -2770,9 +2737,6 @@
             "each": [
               "article"
             ],
-            "evaluate": [
-              "verb"
-            ],
             "every": [
               "article"
             ],
@@ -2790,11 +2754,17 @@
               "canBeQuestion",
               "verb"
             ],
+            "isQuery": [
+              "verb"
+            ],
             "it": [
               "pronoun",
               "queryable",
               "toAble",
               "thisitthat"
+            ],
+            "listable": [
+              "theAble"
             ],
             "memorable": [
               "theAble"
@@ -2810,7 +2780,8 @@
             ],
             "object": [
               "queryable",
-              "theAble"
+              "theAble",
+              "listable"
             ],
             "orAble": [
               "ifAble"
@@ -2821,6 +2792,9 @@
             ],
             "propertyOf": [
               "preposition"
+            ],
+            "queryable": [
+              "listable"
             ],
             "questionMark": [
               "punctuation"
@@ -2859,9 +2833,7 @@
               "preposition"
             ],
             "unknown": [
-              "hierarchyAble",
-              "theAble",
-              "queryable"
+              "hierarchyAble"
             ],
             "what": [
               "object",
@@ -2903,8 +2875,6 @@
               },
               "each": {
               },
-              "evaluate": {
-              },
               "every": {
               },
               "greg": {
@@ -2917,7 +2887,11 @@
               },
               "is": {
               },
+              "isQuery": {
+              },
               "it": {
+              },
+              "listable": {
               },
               "memorable": {
               },
@@ -2939,7 +2913,7 @@
                   "value": {
                     "concept": true,
                     "dead": true,
-                    "level": 1,
+                    "level": 0,
                     "marker": "unknown",
                     "range": {
                       "end": 14,
@@ -3010,7 +2984,7 @@
               {
                 "concept": true,
                 "dead": true,
-                "level": 1,
+                "level": 0,
                 "marker": "unknown",
                 "range": {
                   "end": 14,
@@ -3032,21 +3006,34 @@
           }
         },
         "punctuation2": {
+          "km": "punctuation2"
         },
         "sdefaults2": {
+          "km": "sdefaults2"
+        },
+        "self2": {
+          "km": "self2"
         },
         "stm2": {
+          "km": "stm2",
           "mentioned": [
           ],
           "variables": {
           }
         },
         "tokenize2": {
+          "km": "tokenize2"
+        },
+        "words2": {
+          "km": "words2",
+          "words": [
+          ]
         }
       },
       "processed": [
         {
           "context": {
+            "context_id": 4,
             "context_index": 3,
             "dead": true,
             "evalue": {
@@ -3058,7 +3045,7 @@
               "marker": "is",
               "one": {
                 "dead": true,
-                "level": 1,
+                "level": 0,
                 "marker": "property",
                 "object": {
                   "level": 0,
@@ -3076,7 +3063,7 @@
                 "objects": [
                   {
                     "dead": true,
-                    "level": 1,
+                    "level": 0,
                     "marker": "property",
                     "range": {
                       "end": 30,
@@ -3121,7 +3108,7 @@
                 "evalue": {
                   "concept": true,
                   "dead": true,
-                  "level": 1,
+                  "level": 0,
                   "marker": "unknown",
                   "range": {
                     "end": 14,
@@ -3140,12 +3127,14 @@
                   "object[0]"
                 ],
                 "instance": true,
-                "level": 1,
+                "isModule": true,
+                "isProcess": true,
+                "level": 0,
                 "marker": "property",
                 "objects": [
                   {
                     "dead": true,
-                    "level": 1,
+                    "level": 0,
                     "marker": "property",
                     "range": {
                       "end": 30,
@@ -3179,8 +3168,8 @@
                 },
                 "text": "my name",
                 "touchedBy": [
-                  "avatar#call17",
-                  "avatar#call16"
+                  "avatar#call19",
+                  "avatar#call18"
                 ],
                 "types": [
                   "property"
@@ -3206,7 +3195,7 @@
                 "what"
               ],
               "range": {
-                "end": 30,
+                "end": 19,
                 "start": 16
               },
               "text": "what",
@@ -3226,11 +3215,11 @@
             "text": "what is my name",
             "topLevel": true,
             "touchedBy": [
-              "avatar#call16"
+              "avatar#call18"
             ],
             "two": {
               "dead": true,
-              "level": 1,
+              "level": 0,
               "marker": "property",
               "object": {
                 "level": 0,
@@ -3248,7 +3237,7 @@
               "objects": [
                 {
                   "dead": true,
-                  "level": 1,
+                  "level": 0,
                   "marker": "property",
                   "range": {
                     "end": 30,
@@ -3290,9 +3279,12 @@
             },
             "word": "is"
           },
-          "generatedParenthesized": "((((your) (name)) is ((greg))))",
-          "paraphrases": "what is my name?",
-          "paraphrasesParenthesized": "(((what) is ((my) (name)))?)",
+          "generatedParenthesized": [
+          ],
+          "paraphrases": [
+          ],
+          "paraphrasesParenthesized": [
+          ],
           "responses": [
             "",
             "your name is greg"
@@ -3300,6 +3292,7 @@
         },
         {
           "context": {
+            "context_id": 2,
             "context_index": 1,
             "dead": true,
             "level": 2,
@@ -3307,7 +3300,7 @@
             "number": "one",
             "one": {
               "dead": true,
-              "level": 1,
+              "level": 0,
               "marker": "property",
               "number": "one",
               "object": {
@@ -3326,7 +3319,7 @@
               "objects": [
                 {
                   "dead": true,
-                  "level": 1,
+                  "level": 0,
                   "marker": "property",
                   "range": {
                     "end": 6,
@@ -3355,7 +3348,7 @@
                 }
               ],
               "range": {
-                "end": 14,
+                "end": 6,
                 "start": 0
               },
               "text": "my name",
@@ -3378,7 +3371,7 @@
             "two": {
               "concept": true,
               "dead": true,
-              "level": 1,
+              "level": 0,
               "marker": "unknown",
               "range": {
                 "end": 14,
@@ -3394,9 +3387,12 @@
             },
             "word": "is"
           },
-          "generatedParenthesized": "",
-          "paraphrases": "my name is greg",
-          "paraphrasesParenthesized": "(((my) (name)) is (greg))",
+          "generatedParenthesized": [
+          ],
+          "paraphrases": [
+          ],
+          "paraphrasesParenthesized": [
+          ],
           "responses": [
             "",
             "your name is greg"
@@ -3404,6 +3400,7 @@
         },
         {
           "context": {
+            "context_id": null,
             "context_index": 1,
             "dead": true,
             "default": true,
@@ -3411,24 +3408,20 @@
               "dead": true,
               "do": {
                 "left": "sentientBeing",
-                "range": {
-                  "end": 28,
-                  "start": 0
-                },
-                "right": "emotion",
-                "text": "sentientbeing1 feels emotion1"
+                "right": "emotion"
               },
               "emotion": {
                 "dead": true,
-                "level": 1,
-                "marker": "emotion",
+                "level": 0,
+                "marker": "unknown",
                 "range": {
                   "end": 28,
                   "start": 21
                 },
                 "text": "emotion1",
                 "types": [
-                  "emotion"
+                  "emotion",
+                  "unknown"
                 ],
                 "unknown": true,
                 "value": "emotion1",
@@ -3438,17 +3431,45 @@
                 "sentientBeing",
                 "emotion"
               ],
+              "interpolate": [
+                {
+                  "property": "sentientBeing"
+                },
+                {
+                  "number": "sentientBeing",
+                  "property": "operator"
+                },
+                {
+                  "property": "emotion"
+                }
+              ],
+              "isVerb": true,
               "level": 2,
               "marker": "feel",
               "number": "one",
+              "operator": {
+                "evaluateWord": true,
+                "imperative": false,
+                "isVerb": true,
+                "level": 0,
+                "marker": "feel",
+                "number": "one",
+                "range": {
+                  "end": 19,
+                  "start": 15
+                },
+                "text": "feels",
+                "value": "feel",
+                "word": "feels"
+              },
               "range": {
                 "end": 28,
                 "start": 0
               },
               "sentientBeing": {
                 "dead": true,
-                "level": 1,
-                "marker": "sentientBeing",
+                "level": 0,
+                "marker": "unknown",
                 "range": {
                   "end": 13,
                   "start": 0
@@ -3456,7 +3477,8 @@
                 "raw_text": "sentientBeing1",
                 "text": "sentientbeing1",
                 "types": [
-                  "sentientBeing"
+                  "sentientBeing",
+                  "unknown"
                 ],
                 "unknown": true,
                 "value": "sentientbeing1",
@@ -3487,7 +3509,7 @@
                 "dead": true,
                 "determiner": "the",
                 "focusableForPhrase": true,
-                "level": 1,
+                "level": 0,
                 "marker": "property",
                 "modifiers": [
                   "determiner"
@@ -3495,7 +3517,7 @@
                 "number": "one",
                 "object": {
                   "dead": true,
-                  "level": 1,
+                  "level": 0,
                   "marker": "object",
                   "range": {
                     "end": 64,
@@ -3516,7 +3538,7 @@
                     "dead": true,
                     "determiner": "the",
                     "focusableForPhrase": true,
-                    "level": 1,
+                    "level": 0,
                     "marker": "property",
                     "modifiers": [
                       "determiner"
@@ -3538,7 +3560,7 @@
                   },
                   {
                     "dead": true,
-                    "level": 1,
+                    "level": 0,
                     "marker": "object",
                     "range": {
                       "end": 64,
@@ -3556,7 +3578,7 @@
                 ],
                 "pullFromContext": true,
                 "range": {
-                  "end": 76,
+                  "end": 64,
                   "start": 36
                 },
                 "text": "the emotion of sentientbeing1",
@@ -3576,7 +3598,7 @@
               "text": "the emotion of sentientbeing1 is emotion1",
               "two": {
                 "dead": true,
-                "level": 1,
+                "level": 0,
                 "marker": "unknown",
                 "range": {
                   "end": 76,
@@ -3603,11 +3625,11 @@
           },
           "generatedParenthesized": [
           ],
-          "paraphrases": "sentientbeing1 feels emotion1 means the emotion of sentientbeing1 is emotion1",
+          "paraphrases": [
+          ],
           "paraphrasesParenthesized": [
           ],
           "responses": [
-            ""
           ]
         }
       ]
@@ -3730,7 +3752,7 @@
               {
                 "marker": [
                   "unknown",
-                  1
+                  0
                 ],
                 "range": {
                   "end": 6,
@@ -3769,7 +3791,7 @@
               },
               {
                 "marker": [
-                  "isEd",
+                  "is",
                   0
                 ],
                 "range": {
@@ -3815,7 +3837,7 @@
               {
                 "marker": [
                   "unknown",
-                  1
+                  0
                 ],
                 "range": {
                   "end": 6,
@@ -3835,7 +3857,7 @@
               {
                 "marker": [
                   "unknown",
-                  1
+                  0
                 ],
                 "range": {
                   "end": 14,
@@ -3854,7 +3876,7 @@
               },
               {
                 "marker": [
-                  "isEd",
+                  "is",
                   0
                 ],
                 "range": {
@@ -3900,7 +3922,7 @@
               {
                 "marker": [
                   "unknown",
-                  1
+                  0
                 ],
                 "range": {
                   "end": 6,
@@ -3920,7 +3942,7 @@
               {
                 "marker": [
                   "unknown",
-                  1
+                  0
                 ],
                 "range": {
                   "end": 14,
@@ -3939,7 +3961,7 @@
               },
               {
                 "marker": [
-                  "isEd",
+                  "is",
                   0
                 ],
                 "range": {
@@ -3960,7 +3982,7 @@
               {
                 "marker": [
                   "unknown",
-                  1
+                  0
                 ],
                 "range": {
                   "end": 30,
@@ -3985,7 +4007,7 @@
               {
                 "marker": [
                   "unknown",
-                  1
+                  0
                 ],
                 "range": {
                   "end": 6,
@@ -4005,7 +4027,7 @@
               {
                 "marker": [
                   "unknown",
-                  1
+                  0
                 ],
                 "range": {
                   "end": 14,
@@ -4024,7 +4046,7 @@
               },
               {
                 "marker": [
-                  "isEd",
+                  "is",
                   0
                 ],
                 "range": {
@@ -4045,7 +4067,7 @@
               {
                 "marker": [
                   "unknown",
-                  1
+                  0
                 ],
                 "range": {
                   "end": 30,
@@ -4060,7 +4082,7 @@
               {
                 "marker": [
                   "property",
-                  1
+                  0
                 ],
                 "range": {
                   "end": 6,
@@ -4080,7 +4102,7 @@
               {
                 "marker": [
                   "unknown",
-                  1
+                  0
                 ],
                 "range": {
                   "end": 14,
@@ -4099,7 +4121,7 @@
               },
               {
                 "marker": [
-                  "isEd",
+                  "is",
                   0
                 ],
                 "range": {
@@ -4120,7 +4142,7 @@
               {
                 "marker": [
                   "unknown",
-                  1
+                  0
                 ],
                 "range": {
                   "end": 30,
@@ -4135,7 +4157,7 @@
               {
                 "marker": [
                   "property",
-                  1
+                  0
                 ],
                 "range": {
                   "end": 6,
@@ -4155,7 +4177,7 @@
               {
                 "marker": [
                   "unknown",
-                  1
+                  0
                 ],
                 "range": {
                   "end": 14,
@@ -4185,7 +4207,7 @@
               {
                 "marker": [
                   "property",
-                  1
+                  0
                 ],
                 "range": {
                   "end": 30,
@@ -4230,7 +4252,7 @@
               {
                 "marker": [
                   "property",
-                  1
+                  0
                 ],
                 "range": {
                   "end": 30,
@@ -4245,7 +4267,7 @@
               {
                 "marker": [
                   "is",
-                  1
+                  2
                 ],
                 "range": {
                   "end": 14,
@@ -4254,12 +4276,32 @@
               },
               {
                 "marker": [
-                  "is",
+                  "what",
                   1
                 ],
                 "range": {
-                  "end": 30,
+                  "end": 19,
                   "start": 16
+                }
+              },
+              {
+                "marker": [
+                  "is",
+                  0
+                ],
+                "range": {
+                  "end": 22,
+                  "start": 21
+                }
+              },
+              {
+                "marker": [
+                  "property",
+                  0
+                ],
+                "range": {
+                  "end": 30,
+                  "start": 24
                 }
               }
             ]
@@ -4326,6 +4368,34 @@
           0
         ],
         [
+          "property",
+          0
+        ]
+      ],
+      [
+        [
+          "is",
+          0
+        ],
+        [
+          "propertyOf",
+          0
+        ],
+        [
+          "the",
+          0
+        ],
+        [
+          "unknown",
+          0
+        ]
+      ],
+      [
+        [
+          "is",
+          0
+        ],
+        [
           "propertyOf",
           0
         ],
@@ -4353,7 +4423,7 @@
         ],
         [
           "unknown",
-          1
+          0
         ]
       ],
       [
@@ -4367,60 +4437,6 @@
         ],
         [
           "unknown",
-          1
-        ]
-      ],
-      [
-        [
-          "propertyOf",
-          0
-        ],
-        [
-          "the",
-          0
-        ],
-        [
-          "unknown",
-          0
-        ],
-        [
-          "unknown",
-          1
-        ],
-        [
-          "what",
-          0
-        ]
-      ],
-      [
-        [
-          "propertyOf",
-          0
-        ],
-        [
-          "the",
-          0
-        ],
-        [
-          "unknown",
-          1
-        ]
-      ],
-      [
-        [
-          "propertyOf",
-          0
-        ],
-        [
-          "the",
-          0
-        ],
-        [
-          "unknown",
-          1
-        ],
-        [
-          "what",
           0
         ]
       ]
@@ -4429,6 +4445,7 @@
     },
     "contexts": [
       {
+        "context_id": 2,
         "context_index": 1,
         "dead": true,
         "evalue": {
@@ -4449,7 +4466,7 @@
             "what"
           ],
           "range": {
-            "end": 24,
+            "end": 3,
             "start": 0
           },
           "text": "what",
@@ -4476,14 +4493,14 @@
           "dead": true,
           "determiner": "the",
           "focusableForPhrase": true,
-          "level": 1,
+          "level": 0,
           "marker": "property",
           "modifiers": [
             "determiner"
           ],
           "object": {
             "dead": true,
-            "level": 1,
+            "level": 0,
             "marker": "object",
             "range": {
               "end": 24,
@@ -4503,7 +4520,7 @@
               "dead": true,
               "determiner": "the",
               "focusableForPhrase": true,
-              "level": 1,
+              "level": 0,
               "marker": "property",
               "modifiers": [
                 "determiner"
@@ -4525,7 +4542,7 @@
             },
             {
               "dead": true,
-              "level": 1,
+              "level": 0,
               "marker": "object",
               "range": {
                 "end": 24,
@@ -4604,7 +4621,7 @@
           ],
           "ops": [
             [
-              "isEd",
+              "is",
               0
             ],
             [
@@ -4633,7 +4650,7 @@
           ],
           "ops": [
             [
-              "isEd",
+              "is",
               0
             ],
             [
@@ -4658,7 +4675,7 @@
           ],
           "ops": [
             [
-              "isEd",
+              "is",
               0
             ],
             [
@@ -4734,6 +4751,8 @@
       ]
     },
     "objects": {
+      "associations": [
+      ],
       "nameToUUID": {
         "articles": "articles2",
         "asking": "asking2",
@@ -4751,44 +4770,59 @@
         "properties": "properties2",
         "punctuation": "punctuation2",
         "sdefaults": "sdefaults2",
+        "self": "self2",
         "stm": "stm2",
-        "tokenize": "tokenize2"
+        "tokenize": "tokenize2",
+        "words": "words2"
       },
       "namespaced": {
         "articles2": {
+          "km": "articles2"
         },
         "asking2": {
+          "km": "asking2"
         },
         "avatar1": {
+          "km": "avatar1"
         },
         "concept2": {
           "defaultTypesForHierarchy": {
           },
+          "km": "concept2",
           "valueToWords": [
           ]
         },
         "conjunction2": {
+          "km": "conjunction2"
         },
         "dialogues2": {
           "idSuffix": "",
+          "km": "dialogues2",
           "mentioned": [
           ],
           "variables": {
           }
         },
         "emotions2": {
+          "km": "emotions2"
         },
         "evaluate2": {
+          "km": "evaluate2"
         },
         "gdefaults2": {
+          "km": "gdefaults2"
         },
         "hierarchy2": {
+          "km": "hierarchy2"
         },
         "meta2": {
+          "km": "meta2"
         },
         "negation2": {
+          "km": "negation2"
         },
         "pos2": {
+          "km": "pos2"
         },
         "properties2": {
           "children": {
@@ -4813,6 +4847,10 @@
             ],
             "ifAble": [
               "orAble"
+            ],
+            "listable": [
+              "object",
+              "queryable"
             ],
             "object": [
               "what",
@@ -4839,7 +4877,6 @@
               "concept",
               "doubleQuote",
               "theAble",
-              "unknown",
               "it",
               "what",
               "whatAble",
@@ -4853,7 +4890,7 @@
               "property",
               "object",
               "concept",
-              "unknown",
+              "listable",
               "reason",
               "memorable",
               "noun"
@@ -4869,8 +4906,8 @@
             "verb": [
               "modifies",
               "is",
-              "remember",
-              "evaluate"
+              "isQuery",
+              "remember"
             ]
           },
           "concepts": [
@@ -4889,6 +4926,7 @@
             "canBeQuestion",
             "property",
             "theAble",
+            "listable",
             "propertyOf",
             "whose",
             "concept",
@@ -4908,6 +4946,7 @@
             "is",
             "toAble",
             "to",
+            "isQuery",
             "reason",
             "memorable",
             "remember",
@@ -4915,7 +4954,6 @@
             "adjective",
             "orAble",
             "ifAble",
-            "evaluate",
             "each",
             "every",
             "distributable",
@@ -4923,6 +4961,7 @@
             "thisitthat",
             "that"
           ],
+          "km": "properties2",
           "parents": {
             "a": [
               "article"
@@ -4943,9 +4982,6 @@
             "each": [
               "article"
             ],
-            "evaluate": [
-              "verb"
-            ],
             "every": [
               "article"
             ],
@@ -4960,11 +4996,17 @@
               "canBeQuestion",
               "verb"
             ],
+            "isQuery": [
+              "verb"
+            ],
             "it": [
               "pronoun",
               "queryable",
               "toAble",
               "thisitthat"
+            ],
+            "listable": [
+              "theAble"
             ],
             "memorable": [
               "theAble"
@@ -4980,7 +5022,8 @@
             ],
             "object": [
               "queryable",
-              "theAble"
+              "theAble",
+              "listable"
             ],
             "orAble": [
               "ifAble"
@@ -4991,6 +5034,9 @@
             ],
             "propertyOf": [
               "preposition"
+            ],
+            "queryable": [
+              "listable"
             ],
             "questionMark": [
               "punctuation"
@@ -5029,9 +5075,7 @@
               "preposition"
             ],
             "unknown": [
-              "hierarchyAble",
-              "theAble",
-              "queryable"
+              "hierarchyAble"
             ],
             "what": [
               "object",
@@ -5073,8 +5117,6 @@
               },
               "each": {
               },
-              "evaluate": {
-              },
               "every": {
               },
               "have": {
@@ -5085,7 +5127,11 @@
               },
               "is": {
               },
+              "isQuery": {
+              },
               "it": {
+              },
+              "listable": {
               },
               "memorable": {
               },
@@ -5157,21 +5203,34 @@
           }
         },
         "punctuation2": {
+          "km": "punctuation2"
         },
         "sdefaults2": {
+          "km": "sdefaults2"
+        },
+        "self2": {
+          "km": "self2"
         },
         "stm2": {
+          "km": "stm2",
           "mentioned": [
           ],
           "variables": {
           }
         },
         "tokenize2": {
+          "km": "tokenize2"
+        },
+        "words2": {
+          "km": "words2",
+          "words": [
+          ]
         }
       },
       "processed": [
         {
           "context": {
+            "context_id": 2,
             "context_index": 1,
             "dead": true,
             "evalue": {
@@ -5192,7 +5251,7 @@
                 "what"
               ],
               "range": {
-                "end": 24,
+                "end": 3,
                 "start": 0
               },
               "text": "what",
@@ -5219,14 +5278,14 @@
               "dead": true,
               "determiner": "the",
               "focusableForPhrase": true,
-              "level": 1,
+              "level": 0,
               "marker": "property",
               "modifiers": [
                 "determiner"
               ],
               "object": {
                 "dead": true,
-                "level": 1,
+                "level": 0,
                 "marker": "object",
                 "range": {
                   "end": 24,
@@ -5246,7 +5305,7 @@
                   "dead": true,
                   "determiner": "the",
                   "focusableForPhrase": true,
-                  "level": 1,
+                  "level": 0,
                   "marker": "property",
                   "modifiers": [
                     "determiner"
@@ -5268,7 +5327,7 @@
                 },
                 {
                   "dead": true,
-                  "level": 1,
+                  "level": 0,
                   "marker": "object",
                   "range": {
                     "end": 24,
@@ -5300,15 +5359,19 @@
             },
             "word": "is"
           },
-          "generatedParenthesized": "(What \"mccoy\" means is unknown)",
-          "paraphrases": "what is the rank of mccoy?",
-          "paraphrasesParenthesized": "(((what) is ((the (rank)) of (mccoy)))?)",
+          "generatedParenthesized": [
+          ],
+          "paraphrases": [
+          ],
+          "paraphrasesParenthesized": [
+          ],
           "responses": [
             "What \"mccoy\" means is unknown"
           ]
         },
         {
           "context": {
+            "context_id": null,
             "context_index": 1,
             "dead": true,
             "default": true,
@@ -5316,24 +5379,20 @@
               "dead": true,
               "do": {
                 "left": "sentientBeing",
-                "range": {
-                  "end": 28,
-                  "start": 0
-                },
-                "right": "emotion",
-                "text": "sentientbeing1 feels emotion1"
+                "right": "emotion"
               },
               "emotion": {
                 "dead": true,
-                "level": 1,
-                "marker": "emotion",
+                "level": 0,
+                "marker": "unknown",
                 "range": {
                   "end": 28,
                   "start": 21
                 },
                 "text": "emotion1",
                 "types": [
-                  "emotion"
+                  "emotion",
+                  "unknown"
                 ],
                 "unknown": true,
                 "value": "emotion1",
@@ -5343,17 +5402,45 @@
                 "sentientBeing",
                 "emotion"
               ],
+              "interpolate": [
+                {
+                  "property": "sentientBeing"
+                },
+                {
+                  "number": "sentientBeing",
+                  "property": "operator"
+                },
+                {
+                  "property": "emotion"
+                }
+              ],
+              "isVerb": true,
               "level": 2,
               "marker": "feel",
               "number": "one",
+              "operator": {
+                "evaluateWord": true,
+                "imperative": false,
+                "isVerb": true,
+                "level": 0,
+                "marker": "feel",
+                "number": "one",
+                "range": {
+                  "end": 19,
+                  "start": 15
+                },
+                "text": "feels",
+                "value": "feel",
+                "word": "feels"
+              },
               "range": {
                 "end": 28,
                 "start": 0
               },
               "sentientBeing": {
                 "dead": true,
-                "level": 1,
-                "marker": "sentientBeing",
+                "level": 0,
+                "marker": "unknown",
                 "range": {
                   "end": 13,
                   "start": 0
@@ -5361,7 +5448,8 @@
                 "raw_text": "sentientBeing1",
                 "text": "sentientbeing1",
                 "types": [
-                  "sentientBeing"
+                  "sentientBeing",
+                  "unknown"
                 ],
                 "unknown": true,
                 "value": "sentientbeing1",
@@ -5392,7 +5480,7 @@
                 "dead": true,
                 "determiner": "the",
                 "focusableForPhrase": true,
-                "level": 1,
+                "level": 0,
                 "marker": "property",
                 "modifiers": [
                   "determiner"
@@ -5400,7 +5488,7 @@
                 "number": "one",
                 "object": {
                   "dead": true,
-                  "level": 1,
+                  "level": 0,
                   "marker": "object",
                   "range": {
                     "end": 64,
@@ -5421,7 +5509,7 @@
                     "dead": true,
                     "determiner": "the",
                     "focusableForPhrase": true,
-                    "level": 1,
+                    "level": 0,
                     "marker": "property",
                     "modifiers": [
                       "determiner"
@@ -5443,7 +5531,7 @@
                   },
                   {
                     "dead": true,
-                    "level": 1,
+                    "level": 0,
                     "marker": "object",
                     "range": {
                       "end": 64,
@@ -5461,7 +5549,7 @@
                 ],
                 "pullFromContext": true,
                 "range": {
-                  "end": 76,
+                  "end": 64,
                   "start": 36
                 },
                 "text": "the emotion of sentientbeing1",
@@ -5481,7 +5569,7 @@
               "text": "the emotion of sentientbeing1 is emotion1",
               "two": {
                 "dead": true,
-                "level": 1,
+                "level": 0,
                 "marker": "unknown",
                 "range": {
                   "end": 76,
@@ -5508,11 +5596,11 @@
           },
           "generatedParenthesized": [
           ],
-          "paraphrases": "sentientbeing1 feels emotion1 means the emotion of sentientbeing1 is emotion1",
+          "paraphrases": [
+          ],
           "paraphrasesParenthesized": [
           ],
           "responses": [
-            ""
           ]
         }
       ]
@@ -5611,7 +5699,7 @@
               },
               {
                 "marker": [
-                  "isEd",
+                  "is",
                   0
                 ],
                 "range": {
@@ -5632,7 +5720,7 @@
               {
                 "marker": [
                   "unknown",
-                  1
+                  0
                 ],
                 "range": {
                   "end": 15,
@@ -5676,7 +5764,7 @@
               },
               {
                 "marker": [
-                  "isEd",
+                  "is",
                   0
                 ],
                 "range": {
@@ -5697,7 +5785,7 @@
               {
                 "marker": [
                   "unknown",
-                  1
+                  0
                 ],
                 "range": {
                   "end": 15,
@@ -5717,7 +5805,7 @@
               {
                 "marker": [
                   "unknown",
-                  1
+                  0
                 ],
                 "range": {
                   "end": 24,
@@ -5741,7 +5829,7 @@
               },
               {
                 "marker": [
-                  "isEd",
+                  "is",
                   0
                 ],
                 "range": {
@@ -5762,7 +5850,7 @@
               {
                 "marker": [
                   "unknown",
-                  1
+                  0
                 ],
                 "range": {
                   "end": 15,
@@ -5782,7 +5870,7 @@
               {
                 "marker": [
                   "unknown",
-                  1
+                  0
                 ],
                 "range": {
                   "end": 24,
@@ -5817,7 +5905,7 @@
               {
                 "marker": [
                   "unknown",
-                  1
+                  0
                 ],
                 "range": {
                   "end": 15,
@@ -5837,7 +5925,7 @@
               {
                 "marker": [
                   "unknown",
-                  1
+                  0
                 ],
                 "range": {
                   "end": 24,
@@ -5872,7 +5960,7 @@
               {
                 "marker": [
                   "unknown",
-                  1
+                  0
                 ],
                 "range": {
                   "end": 15,
@@ -5917,7 +6005,7 @@
               {
                 "marker": [
                   "property",
-                  1
+                  0
                 ],
                 "range": {
                   "end": 24,
@@ -5975,36 +6063,13 @@
           "unknown",
           0
         ]
-      ],
-      [
-        [
-          "is",
-          0
-        ],
-        [
-          "self",
-          0
-        ],
-        [
-          "unknown",
-          1
-        ]
-      ],
-      [
-        [
-          "is",
-          0
-        ],
-        [
-          "unknown",
-          1
-        ]
       ]
     ],
     "config": {
     },
     "contexts": [
       {
+        "context_id": 2,
         "context_index": 1,
         "dead": true,
         "level": 2,
@@ -6012,19 +6077,26 @@
         "number": "many",
         "one": {
           "dead": true,
-          "level": 1,
+          "grammar_person": 2,
+          "grammer_case": [
+            "nominative",
+            "dative",
+            "accusative"
+          ],
+          "level": 0,
           "marker": "self",
-          "number": "many",
+          "number": [
+            "one",
+            "many"
+          ],
           "range": {
-            "end": 14,
+            "end": 2,
             "start": 0
           },
           "text": "you",
           "types": [
             "self"
           ],
-          "value": "self",
-          "variable": true,
           "word": "you"
         },
         "range": {
@@ -6038,7 +6110,7 @@
         ],
         "two": {
           "dead": true,
-          "level": 1,
+          "level": 0,
           "marker": "unknown",
           "range": {
             "end": 14,
@@ -6072,10 +6144,6 @@
               0
             ],
             [
-              "self",
-              0
-            ],
-            [
               "unknown",
               0
             ]
@@ -6083,23 +6151,6 @@
         },
         {
           "counter": 2,
-          "op": [
-            "self",
-            0
-          ],
-          "ops": [
-            [
-              "is",
-              0
-            ],
-            [
-              "self",
-              0
-            ]
-          ]
-        },
-        {
-          "counter": 3,
           "op": [
             "is",
             0
@@ -6112,7 +6163,7 @@
           ]
         },
         {
-          "counter": 4,
+          "counter": 3,
           "op": [
             "is",
             1
@@ -6127,6 +6178,8 @@
       ]
     },
     "objects": {
+      "associations": [
+      ],
       "nameToUUID": {
         "articles": "articles2",
         "asking": "asking2",
@@ -6144,44 +6197,59 @@
         "properties": "properties2",
         "punctuation": "punctuation2",
         "sdefaults": "sdefaults2",
+        "self": "self2",
         "stm": "stm2",
-        "tokenize": "tokenize2"
+        "tokenize": "tokenize2",
+        "words": "words2"
       },
       "namespaced": {
         "articles2": {
+          "km": "articles2"
         },
         "asking2": {
+          "km": "asking2"
         },
         "avatar1": {
+          "km": "avatar1"
         },
         "concept2": {
           "defaultTypesForHierarchy": {
           },
+          "km": "concept2",
           "valueToWords": [
           ]
         },
         "conjunction2": {
+          "km": "conjunction2"
         },
         "dialogues2": {
           "idSuffix": "",
+          "km": "dialogues2",
           "mentioned": [
           ],
           "variables": {
           }
         },
         "emotions2": {
+          "km": "emotions2"
         },
         "evaluate2": {
+          "km": "evaluate2"
         },
         "gdefaults2": {
+          "km": "gdefaults2"
         },
         "hierarchy2": {
+          "km": "hierarchy2"
         },
         "meta2": {
+          "km": "meta2"
         },
         "negation2": {
+          "km": "negation2"
         },
         "pos2": {
+          "km": "pos2"
         },
         "properties2": {
           "children": {
@@ -6206,6 +6274,10 @@
             ],
             "ifAble": [
               "orAble"
+            ],
+            "listable": [
+              "object",
+              "queryable"
             ],
             "object": [
               "what",
@@ -6232,7 +6304,6 @@
               "concept",
               "doubleQuote",
               "theAble",
-              "unknown",
               "it",
               "what",
               "whatAble",
@@ -6246,7 +6317,7 @@
               "property",
               "object",
               "concept",
-              "unknown",
+              "listable",
               "reason",
               "memorable",
               "noun"
@@ -6262,8 +6333,8 @@
             "verb": [
               "modifies",
               "is",
-              "remember",
-              "evaluate"
+              "isQuery",
+              "remember"
             ]
           },
           "concepts": [
@@ -6282,6 +6353,7 @@
             "canBeQuestion",
             "property",
             "theAble",
+            "listable",
             "propertyOf",
             "whose",
             "concept",
@@ -6301,6 +6373,7 @@
             "is",
             "toAble",
             "to",
+            "isQuery",
             "reason",
             "memorable",
             "remember",
@@ -6308,7 +6381,6 @@
             "adjective",
             "orAble",
             "ifAble",
-            "evaluate",
             "each",
             "every",
             "distributable",
@@ -6316,6 +6388,7 @@
             "thisitthat",
             "that"
           ],
+          "km": "properties2",
           "parents": {
             "a": [
               "article"
@@ -6336,9 +6409,6 @@
             "each": [
               "article"
             ],
-            "evaluate": [
-              "verb"
-            ],
             "every": [
               "article"
             ],
@@ -6353,11 +6423,17 @@
               "canBeQuestion",
               "verb"
             ],
+            "isQuery": [
+              "verb"
+            ],
             "it": [
               "pronoun",
               "queryable",
               "toAble",
               "thisitthat"
+            ],
+            "listable": [
+              "theAble"
             ],
             "memorable": [
               "theAble"
@@ -6373,7 +6449,8 @@
             ],
             "object": [
               "queryable",
-              "theAble"
+              "theAble",
+              "listable"
             ],
             "orAble": [
               "ifAble"
@@ -6384,6 +6461,9 @@
             ],
             "propertyOf": [
               "preposition"
+            ],
+            "queryable": [
+              "listable"
             ],
             "questionMark": [
               "punctuation"
@@ -6422,9 +6502,7 @@
               "preposition"
             ],
             "unknown": [
-              "hierarchyAble",
-              "theAble",
-              "queryable"
+              "hierarchyAble"
             ],
             "what": [
               "object",
@@ -6466,8 +6544,6 @@
               },
               "each": {
               },
-              "evaluate": {
-              },
               "every": {
               },
               "have": {
@@ -6478,7 +6554,11 @@
               },
               "is": {
               },
+              "isQuery": {
+              },
               "it": {
+              },
+              "listable": {
               },
               "memorable": {
               },
@@ -6550,10 +6630,16 @@
           }
         },
         "punctuation2": {
+          "km": "punctuation2"
         },
         "sdefaults2": {
+          "km": "sdefaults2"
+        },
+        "self2": {
+          "km": "self2"
         },
         "stm2": {
+          "km": "stm2",
           "mentioned": [
             {
               "fromSTM": true,
@@ -6569,11 +6655,18 @@
           }
         },
         "tokenize2": {
+          "km": "tokenize2"
+        },
+        "words2": {
+          "km": "words2",
+          "words": [
+          ]
         }
       },
       "processed": [
         {
           "context": {
+            "context_id": 2,
             "context_index": 1,
             "dead": true,
             "level": 2,
@@ -6581,19 +6674,26 @@
             "number": "many",
             "one": {
               "dead": true,
-              "level": 1,
+              "grammar_person": 2,
+              "grammer_case": [
+                "nominative",
+                "dative",
+                "accusative"
+              ],
+              "level": 0,
               "marker": "self",
-              "number": "many",
+              "number": [
+                "one",
+                "many"
+              ],
               "range": {
-                "end": 14,
+                "end": 2,
                 "start": 0
               },
               "text": "you",
               "types": [
                 "self"
               ],
-              "value": "self",
-              "variable": true,
               "word": "you"
             },
             "range": {
@@ -6607,7 +6707,7 @@
             ],
             "two": {
               "dead": true,
-              "level": 1,
+              "level": 0,
               "marker": "unknown",
               "range": {
                 "end": 14,
@@ -6623,15 +6723,19 @@
             },
             "word": "are"
           },
-          "generatedParenthesized": "",
-          "paraphrases": "you are cthulhu",
-          "paraphrasesParenthesized": "((you) are (cthulhu))",
+          "generatedParenthesized": [
+          ],
+          "paraphrases": [
+          ],
+          "paraphrasesParenthesized": [
+          ],
           "responses": [
             ""
           ]
         },
         {
           "context": {
+            "context_id": null,
             "context_index": 1,
             "dead": true,
             "default": true,
@@ -6639,24 +6743,20 @@
               "dead": true,
               "do": {
                 "left": "sentientBeing",
-                "range": {
-                  "end": 28,
-                  "start": 0
-                },
-                "right": "emotion",
-                "text": "sentientbeing1 feels emotion1"
+                "right": "emotion"
               },
               "emotion": {
                 "dead": true,
-                "level": 1,
-                "marker": "emotion",
+                "level": 0,
+                "marker": "unknown",
                 "range": {
                   "end": 28,
                   "start": 21
                 },
                 "text": "emotion1",
                 "types": [
-                  "emotion"
+                  "emotion",
+                  "unknown"
                 ],
                 "unknown": true,
                 "value": "emotion1",
@@ -6666,17 +6766,45 @@
                 "sentientBeing",
                 "emotion"
               ],
+              "interpolate": [
+                {
+                  "property": "sentientBeing"
+                },
+                {
+                  "number": "sentientBeing",
+                  "property": "operator"
+                },
+                {
+                  "property": "emotion"
+                }
+              ],
+              "isVerb": true,
               "level": 2,
               "marker": "feel",
               "number": "one",
+              "operator": {
+                "evaluateWord": true,
+                "imperative": false,
+                "isVerb": true,
+                "level": 0,
+                "marker": "feel",
+                "number": "one",
+                "range": {
+                  "end": 19,
+                  "start": 15
+                },
+                "text": "feels",
+                "value": "feel",
+                "word": "feels"
+              },
               "range": {
                 "end": 28,
                 "start": 0
               },
               "sentientBeing": {
                 "dead": true,
-                "level": 1,
-                "marker": "sentientBeing",
+                "level": 0,
+                "marker": "unknown",
                 "range": {
                   "end": 13,
                   "start": 0
@@ -6684,7 +6812,8 @@
                 "raw_text": "sentientBeing1",
                 "text": "sentientbeing1",
                 "types": [
-                  "sentientBeing"
+                  "sentientBeing",
+                  "unknown"
                 ],
                 "unknown": true,
                 "value": "sentientbeing1",
@@ -6715,7 +6844,7 @@
                 "dead": true,
                 "determiner": "the",
                 "focusableForPhrase": true,
-                "level": 1,
+                "level": 0,
                 "marker": "property",
                 "modifiers": [
                   "determiner"
@@ -6723,7 +6852,7 @@
                 "number": "one",
                 "object": {
                   "dead": true,
-                  "level": 1,
+                  "level": 0,
                   "marker": "object",
                   "range": {
                     "end": 64,
@@ -6744,7 +6873,7 @@
                     "dead": true,
                     "determiner": "the",
                     "focusableForPhrase": true,
-                    "level": 1,
+                    "level": 0,
                     "marker": "property",
                     "modifiers": [
                       "determiner"
@@ -6766,7 +6895,7 @@
                   },
                   {
                     "dead": true,
-                    "level": 1,
+                    "level": 0,
                     "marker": "object",
                     "range": {
                       "end": 64,
@@ -6784,7 +6913,7 @@
                 ],
                 "pullFromContext": true,
                 "range": {
-                  "end": 76,
+                  "end": 64,
                   "start": 36
                 },
                 "text": "the emotion of sentientbeing1",
@@ -6804,7 +6933,7 @@
               "text": "the emotion of sentientbeing1 is emotion1",
               "two": {
                 "dead": true,
-                "level": 1,
+                "level": 0,
                 "marker": "unknown",
                 "range": {
                   "end": 76,
@@ -6831,11 +6960,11 @@
           },
           "generatedParenthesized": [
           ],
-          "paraphrases": "sentientbeing1 feels emotion1 means the emotion of sentientbeing1 is emotion1",
+          "paraphrases": [
+          ],
           "paraphrasesParenthesized": [
           ],
           "responses": [
-            ""
           ]
         }
       ]
@@ -6915,7 +7044,7 @@
               {
                 "marker": [
                   "unknown",
-                  1
+                  0
                 ],
                 "range": {
                   "end": 14,
@@ -6929,53 +7058,18 @@
             "operators": [
               {
                 "marker": [
-                  "self",
-                  1
-                ],
-                "range": {
-                  "end": 2,
-                  "start": 0
-                }
-              },
-              {
-                "marker": [
                   "is",
-                  0
-                ],
-                "range": {
-                  "end": 6,
-                  "start": 4
-                }
-              },
-              {
-                "marker": [
-                  "unknown",
                   1
                 ],
                 "range": {
                   "end": 14,
-                  "start": 8
+                  "start": 0
                 }
               }
             ]
           },
           {
             "counter": 4,
-            "operators": [
-              {
-                "marker": [
-                  "is",
-                  1
-                ],
-                "range": {
-                  "end": 14,
-                  "start": 0
-                }
-              }
-            ]
-          },
-          {
-            "counter": 5,
             "operators": [
               {
                 "marker": [
@@ -7008,36 +7102,13 @@
           "unknown",
           0
         ]
-      ],
-      [
-        [
-          "is",
-          0
-        ],
-        [
-          "self",
-          0
-        ],
-        [
-          "unknown",
-          1
-        ]
-      ],
-      [
-        [
-          "is",
-          0
-        ],
-        [
-          "unknown",
-          1
-        ]
       ]
     ],
     "config": {
     },
     "contexts": [
       {
+        "context_id": 2,
         "context_index": 1,
         "dead": true,
         "level": 2,
@@ -7045,19 +7116,26 @@
         "number": "many",
         "one": {
           "dead": true,
-          "level": 1,
+          "grammar_person": 2,
+          "grammer_case": [
+            "nominative",
+            "dative",
+            "accusative"
+          ],
+          "level": 0,
           "marker": "self",
-          "number": "many",
+          "number": [
+            "one",
+            "many"
+          ],
           "range": {
-            "end": 11,
+            "end": 2,
             "start": 0
           },
           "text": "you",
           "types": [
             "self"
           ],
-          "value": "self",
-          "variable": true,
           "word": "you"
         },
         "range": {
@@ -7071,7 +7149,7 @@
         ],
         "two": {
           "dead": true,
-          "level": 1,
+          "level": 0,
           "marker": "unknown",
           "range": {
             "end": 11,
@@ -7105,10 +7183,6 @@
               0
             ],
             [
-              "self",
-              0
-            ],
-            [
               "unknown",
               0
             ]
@@ -7116,23 +7190,6 @@
         },
         {
           "counter": 2,
-          "op": [
-            "self",
-            0
-          ],
-          "ops": [
-            [
-              "is",
-              0
-            ],
-            [
-              "self",
-              0
-            ]
-          ]
-        },
-        {
-          "counter": 3,
           "op": [
             "is",
             0
@@ -7145,7 +7202,7 @@
           ]
         },
         {
-          "counter": 4,
+          "counter": 3,
           "op": [
             "is",
             1
@@ -7160,6 +7217,8 @@
       ]
     },
     "objects": {
+      "associations": [
+      ],
       "nameToUUID": {
         "articles": "articles2",
         "asking": "asking2",
@@ -7177,44 +7236,59 @@
         "properties": "properties2",
         "punctuation": "punctuation2",
         "sdefaults": "sdefaults2",
+        "self": "self2",
         "stm": "stm2",
-        "tokenize": "tokenize2"
+        "tokenize": "tokenize2",
+        "words": "words2"
       },
       "namespaced": {
         "articles2": {
+          "km": "articles2"
         },
         "asking2": {
+          "km": "asking2"
         },
         "avatar1": {
+          "km": "avatar1"
         },
         "concept2": {
           "defaultTypesForHierarchy": {
           },
+          "km": "concept2",
           "valueToWords": [
           ]
         },
         "conjunction2": {
+          "km": "conjunction2"
         },
         "dialogues2": {
           "idSuffix": "",
+          "km": "dialogues2",
           "mentioned": [
           ],
           "variables": {
           }
         },
         "emotions2": {
+          "km": "emotions2"
         },
         "evaluate2": {
+          "km": "evaluate2"
         },
         "gdefaults2": {
+          "km": "gdefaults2"
         },
         "hierarchy2": {
+          "km": "hierarchy2"
         },
         "meta2": {
+          "km": "meta2"
         },
         "negation2": {
+          "km": "negation2"
         },
         "pos2": {
+          "km": "pos2"
         },
         "properties2": {
           "children": {
@@ -7239,6 +7313,10 @@
             ],
             "ifAble": [
               "orAble"
+            ],
+            "listable": [
+              "object",
+              "queryable"
             ],
             "object": [
               "what",
@@ -7265,7 +7343,6 @@
               "concept",
               "doubleQuote",
               "theAble",
-              "unknown",
               "it",
               "what",
               "whatAble",
@@ -7279,7 +7356,7 @@
               "property",
               "object",
               "concept",
-              "unknown",
+              "listable",
               "reason",
               "memorable",
               "noun"
@@ -7295,8 +7372,8 @@
             "verb": [
               "modifies",
               "is",
-              "remember",
-              "evaluate"
+              "isQuery",
+              "remember"
             ]
           },
           "concepts": [
@@ -7315,6 +7392,7 @@
             "canBeQuestion",
             "property",
             "theAble",
+            "listable",
             "propertyOf",
             "whose",
             "concept",
@@ -7334,6 +7412,7 @@
             "is",
             "toAble",
             "to",
+            "isQuery",
             "reason",
             "memorable",
             "remember",
@@ -7341,7 +7420,6 @@
             "adjective",
             "orAble",
             "ifAble",
-            "evaluate",
             "each",
             "every",
             "distributable",
@@ -7349,6 +7427,7 @@
             "thisitthat",
             "that"
           ],
+          "km": "properties2",
           "parents": {
             "a": [
               "article"
@@ -7369,9 +7448,6 @@
             "each": [
               "article"
             ],
-            "evaluate": [
-              "verb"
-            ],
             "every": [
               "article"
             ],
@@ -7386,11 +7462,17 @@
               "canBeQuestion",
               "verb"
             ],
+            "isQuery": [
+              "verb"
+            ],
             "it": [
               "pronoun",
               "queryable",
               "toAble",
               "thisitthat"
+            ],
+            "listable": [
+              "theAble"
             ],
             "memorable": [
               "theAble"
@@ -7406,7 +7488,8 @@
             ],
             "object": [
               "queryable",
-              "theAble"
+              "theAble",
+              "listable"
             ],
             "orAble": [
               "ifAble"
@@ -7417,6 +7500,9 @@
             ],
             "propertyOf": [
               "preposition"
+            ],
+            "queryable": [
+              "listable"
             ],
             "questionMark": [
               "punctuation"
@@ -7455,9 +7541,7 @@
               "preposition"
             ],
             "unknown": [
-              "hierarchyAble",
-              "theAble",
-              "queryable"
+              "hierarchyAble"
             ],
             "what": [
               "object",
@@ -7499,8 +7583,6 @@
               },
               "each": {
               },
-              "evaluate": {
-              },
               "every": {
               },
               "have": {
@@ -7511,7 +7593,11 @@
               },
               "is": {
               },
+              "isQuery": {
+              },
               "it": {
+              },
+              "listable": {
               },
               "memorable": {
               },
@@ -7583,10 +7669,16 @@
           }
         },
         "punctuation2": {
+          "km": "punctuation2"
         },
         "sdefaults2": {
+          "km": "sdefaults2"
+        },
+        "self2": {
+          "km": "self2"
         },
         "stm2": {
+          "km": "stm2",
           "mentioned": [
             {
               "fromSTM": true,
@@ -7602,11 +7694,18 @@
           }
         },
         "tokenize2": {
+          "km": "tokenize2"
+        },
+        "words2": {
+          "km": "words2",
+          "words": [
+          ]
         }
       },
       "processed": [
         {
           "context": {
+            "context_id": 2,
             "context_index": 1,
             "dead": true,
             "level": 2,
@@ -7614,19 +7713,26 @@
             "number": "many",
             "one": {
               "dead": true,
-              "level": 1,
+              "grammar_person": 2,
+              "grammer_case": [
+                "nominative",
+                "dative",
+                "accusative"
+              ],
+              "level": 0,
               "marker": "self",
-              "number": "many",
+              "number": [
+                "one",
+                "many"
+              ],
               "range": {
-                "end": 11,
+                "end": 2,
                 "start": 0
               },
               "text": "you",
               "types": [
                 "self"
               ],
-              "value": "self",
-              "variable": true,
               "word": "you"
             },
             "range": {
@@ -7640,7 +7746,7 @@
             ],
             "two": {
               "dead": true,
-              "level": 1,
+              "level": 0,
               "marker": "unknown",
               "range": {
                 "end": 11,
@@ -7656,15 +7762,19 @@
             },
             "word": "are"
           },
-          "generatedParenthesized": "",
-          "paraphrases": "you are kirk",
-          "paraphrasesParenthesized": "((you) are (kirk))",
+          "generatedParenthesized": [
+          ],
+          "paraphrases": [
+          ],
+          "paraphrasesParenthesized": [
+          ],
           "responses": [
             ""
           ]
         },
         {
           "context": {
+            "context_id": null,
             "context_index": 1,
             "dead": true,
             "default": true,
@@ -7672,24 +7782,20 @@
               "dead": true,
               "do": {
                 "left": "sentientBeing",
-                "range": {
-                  "end": 28,
-                  "start": 0
-                },
-                "right": "emotion",
-                "text": "sentientbeing1 feels emotion1"
+                "right": "emotion"
               },
               "emotion": {
                 "dead": true,
-                "level": 1,
-                "marker": "emotion",
+                "level": 0,
+                "marker": "unknown",
                 "range": {
                   "end": 28,
                   "start": 21
                 },
                 "text": "emotion1",
                 "types": [
-                  "emotion"
+                  "emotion",
+                  "unknown"
                 ],
                 "unknown": true,
                 "value": "emotion1",
@@ -7699,17 +7805,45 @@
                 "sentientBeing",
                 "emotion"
               ],
+              "interpolate": [
+                {
+                  "property": "sentientBeing"
+                },
+                {
+                  "number": "sentientBeing",
+                  "property": "operator"
+                },
+                {
+                  "property": "emotion"
+                }
+              ],
+              "isVerb": true,
               "level": 2,
               "marker": "feel",
               "number": "one",
+              "operator": {
+                "evaluateWord": true,
+                "imperative": false,
+                "isVerb": true,
+                "level": 0,
+                "marker": "feel",
+                "number": "one",
+                "range": {
+                  "end": 19,
+                  "start": 15
+                },
+                "text": "feels",
+                "value": "feel",
+                "word": "feels"
+              },
               "range": {
                 "end": 28,
                 "start": 0
               },
               "sentientBeing": {
                 "dead": true,
-                "level": 1,
-                "marker": "sentientBeing",
+                "level": 0,
+                "marker": "unknown",
                 "range": {
                   "end": 13,
                   "start": 0
@@ -7717,7 +7851,8 @@
                 "raw_text": "sentientBeing1",
                 "text": "sentientbeing1",
                 "types": [
-                  "sentientBeing"
+                  "sentientBeing",
+                  "unknown"
                 ],
                 "unknown": true,
                 "value": "sentientbeing1",
@@ -7748,7 +7883,7 @@
                 "dead": true,
                 "determiner": "the",
                 "focusableForPhrase": true,
-                "level": 1,
+                "level": 0,
                 "marker": "property",
                 "modifiers": [
                   "determiner"
@@ -7756,7 +7891,7 @@
                 "number": "one",
                 "object": {
                   "dead": true,
-                  "level": 1,
+                  "level": 0,
                   "marker": "object",
                   "range": {
                     "end": 64,
@@ -7777,7 +7912,7 @@
                     "dead": true,
                     "determiner": "the",
                     "focusableForPhrase": true,
-                    "level": 1,
+                    "level": 0,
                     "marker": "property",
                     "modifiers": [
                       "determiner"
@@ -7799,7 +7934,7 @@
                   },
                   {
                     "dead": true,
-                    "level": 1,
+                    "level": 0,
                     "marker": "object",
                     "range": {
                       "end": 64,
@@ -7817,7 +7952,7 @@
                 ],
                 "pullFromContext": true,
                 "range": {
-                  "end": 76,
+                  "end": 64,
                   "start": 36
                 },
                 "text": "the emotion of sentientbeing1",
@@ -7837,7 +7972,7 @@
               "text": "the emotion of sentientbeing1 is emotion1",
               "two": {
                 "dead": true,
-                "level": 1,
+                "level": 0,
                 "marker": "unknown",
                 "range": {
                   "end": 76,
@@ -7864,11 +7999,11 @@
           },
           "generatedParenthesized": [
           ],
-          "paraphrases": "sentientbeing1 feels emotion1 means the emotion of sentientbeing1 is emotion1",
+          "paraphrases": [
+          ],
           "paraphrasesParenthesized": [
           ],
           "responses": [
-            ""
           ]
         }
       ]
@@ -7948,7 +8083,7 @@
               {
                 "marker": [
                   "unknown",
-                  1
+                  0
                 ],
                 "range": {
                   "end": 11,
@@ -7962,53 +8097,18 @@
             "operators": [
               {
                 "marker": [
-                  "self",
-                  1
-                ],
-                "range": {
-                  "end": 2,
-                  "start": 0
-                }
-              },
-              {
-                "marker": [
                   "is",
-                  0
-                ],
-                "range": {
-                  "end": 6,
-                  "start": 4
-                }
-              },
-              {
-                "marker": [
-                  "unknown",
                   1
                 ],
                 "range": {
                   "end": 11,
-                  "start": 8
+                  "start": 0
                 }
               }
             ]
           },
           {
             "counter": 4,
-            "operators": [
-              {
-                "marker": [
-                  "is",
-                  1
-                ],
-                "range": {
-                  "end": 11,
-                  "start": 0
-                }
-              }
-            ]
-          },
-          {
-            "counter": 5,
             "operators": [
               {
                 "marker": [
@@ -8056,24 +8156,6 @@
           0
         ],
         [
-          "unknown",
-          1
-        ]
-      ],
-      [
-        [
-          "is",
-          0
-        ],
-        [
-          "objectPrefix",
-          0
-        ],
-        [
-          "unknown",
-          0
-        ],
-        [
           "what",
           0
         ]
@@ -8084,12 +8166,8 @@
           0
         ],
         [
-          "objectPrefix",
+          "property",
           0
-        ],
-        [
-          "unknown",
-          1
         ]
       ],
       [
@@ -8098,45 +8176,11 @@
           0
         ],
         [
-          "unknown",
-          1
-        ]
-      ],
-      [
-        [
-          "objectPrefix",
+          "property",
           0
         ],
         [
           "unknown",
-          0
-        ],
-        [
-          "what",
-          0
-        ]
-      ],
-      [
-        [
-          "objectPrefix",
-          0
-        ],
-        [
-          "unknown",
-          1
-        ]
-      ],
-      [
-        [
-          "objectPrefix",
-          0
-        ],
-        [
-          "unknown",
-          1
-        ],
-        [
-          "what",
           0
         ]
       ]
@@ -8145,6 +8189,7 @@
     },
     "contexts": [
       {
+        "context_id": 2,
         "context_index": 1,
         "dead": true,
         "level": 2,
@@ -8152,7 +8197,7 @@
         "number": "one",
         "one": {
           "dead": true,
-          "level": 1,
+          "level": 0,
           "marker": "property",
           "number": "one",
           "object": {
@@ -8171,7 +8216,7 @@
           "objects": [
             {
               "dead": true,
-              "level": 1,
+              "level": 0,
               "marker": "property",
               "range": {
                 "end": 8,
@@ -8200,7 +8245,7 @@
             }
           ],
           "range": {
-            "end": 16,
+            "end": 8,
             "start": 0
           },
           "text": "your name",
@@ -8223,7 +8268,7 @@
         "two": {
           "concept": true,
           "dead": true,
-          "level": 1,
+          "level": 0,
           "marker": "unknown",
           "range": {
             "end": 16,
@@ -8240,6 +8285,7 @@
         "word": "is"
       },
       {
+        "context_id": 4,
         "context_index": 3,
         "dead": true,
         "evalue": {
@@ -8251,7 +8297,7 @@
           "marker": "is",
           "one": {
             "dead": true,
-            "level": 1,
+            "level": 0,
             "marker": "property",
             "object": {
               "level": 0,
@@ -8269,7 +8315,7 @@
             "objects": [
               {
                 "dead": true,
-                "level": 1,
+                "level": 0,
                 "marker": "property",
                 "range": {
                   "end": 34,
@@ -8314,7 +8360,7 @@
             "evalue": {
               "concept": true,
               "dead": true,
-              "level": 1,
+              "level": 0,
               "marker": "unknown",
               "range": {
                 "end": 16,
@@ -8333,12 +8379,14 @@
               "object[0]"
             ],
             "instance": true,
-            "level": 1,
+            "isModule": true,
+            "isProcess": true,
+            "level": 0,
             "marker": "property",
             "objects": [
               {
                 "dead": true,
-                "level": 1,
+                "level": 0,
                 "marker": "property",
                 "range": {
                   "end": 34,
@@ -8372,8 +8420,8 @@
             },
             "text": "your name",
             "touchedBy": [
-              "avatar#call17",
-              "avatar#call16"
+              "avatar#call18",
+              "avatar#call17"
             ],
             "types": [
               "property"
@@ -8399,7 +8447,7 @@
             "what"
           ],
           "range": {
-            "end": 34,
+            "end": 21,
             "start": 18
           },
           "text": "what",
@@ -8419,11 +8467,11 @@
         "text": "what is your name",
         "topLevel": true,
         "touchedBy": [
-          "avatar#call16"
+          "avatar#call17"
         ],
         "two": {
           "dead": true,
-          "level": 1,
+          "level": 0,
           "marker": "property",
           "object": {
             "level": 0,
@@ -8441,7 +8489,7 @@
           "objects": [
             {
               "dead": true,
-              "level": 1,
+              "level": 0,
               "marker": "property",
               "range": {
                 "end": 34,
@@ -8580,7 +8628,7 @@
               0
             ],
             [
-              "isEd",
+              "is",
               0
             ],
             [
@@ -8613,7 +8661,7 @@
               0
             ],
             [
-              "isEd",
+              "is",
               0
             ],
             [
@@ -8642,7 +8690,7 @@
               0
             ],
             [
-              "isEd",
+              "is",
               0
             ],
             [
@@ -8667,7 +8715,7 @@
               0
             ],
             [
-              "isEd",
+              "is",
               0
             ],
             [
@@ -8697,7 +8745,7 @@
           "counter": 8,
           "op": [
             "is",
-            0
+            1
           ],
           "ops": [
             [
@@ -8714,16 +8762,12 @@
           "counter": 9,
           "op": [
             "is",
-            1
+            0
           ],
           "ops": [
             [
               "is",
-              1
-            ],
-            [
-              "is",
-              1
+              0
             ]
           ]
         },
@@ -8743,6 +8787,8 @@
       ]
     },
     "objects": {
+      "associations": [
+      ],
       "nameToUUID": {
         "articles": "articles2",
         "asking": "asking2",
@@ -8760,44 +8806,59 @@
         "properties": "properties2",
         "punctuation": "punctuation2",
         "sdefaults": "sdefaults2",
+        "self": "self2",
         "stm": "stm2",
-        "tokenize": "tokenize2"
+        "tokenize": "tokenize2",
+        "words": "words2"
       },
       "namespaced": {
         "articles2": {
+          "km": "articles2"
         },
         "asking2": {
+          "km": "asking2"
         },
         "avatar1": {
+          "km": "avatar1"
         },
         "concept2": {
           "defaultTypesForHierarchy": {
           },
+          "km": "concept2",
           "valueToWords": [
           ]
         },
         "conjunction2": {
+          "km": "conjunction2"
         },
         "dialogues2": {
           "idSuffix": "",
+          "km": "dialogues2",
           "mentioned": [
           ],
           "variables": {
           }
         },
         "emotions2": {
+          "km": "emotions2"
         },
         "evaluate2": {
+          "km": "evaluate2"
         },
         "gdefaults2": {
+          "km": "gdefaults2"
         },
         "hierarchy2": {
+          "km": "hierarchy2"
         },
         "meta2": {
+          "km": "meta2"
         },
         "negation2": {
+          "km": "negation2"
         },
         "pos2": {
+          "km": "pos2"
         },
         "properties2": {
           "children": {
@@ -8822,6 +8883,10 @@
             ],
             "ifAble": [
               "orAble"
+            ],
+            "listable": [
+              "object",
+              "queryable"
             ],
             "name": [
               "greg"
@@ -8851,7 +8916,6 @@
               "concept",
               "doubleQuote",
               "theAble",
-              "unknown",
               "it",
               "what",
               "whatAble",
@@ -8865,7 +8929,7 @@
               "property",
               "object",
               "concept",
-              "unknown",
+              "listable",
               "reason",
               "memorable",
               "noun"
@@ -8881,8 +8945,8 @@
             "verb": [
               "modifies",
               "is",
-              "remember",
-              "evaluate"
+              "isQuery",
+              "remember"
             ]
           },
           "concepts": [
@@ -8901,6 +8965,7 @@
             "canBeQuestion",
             "property",
             "theAble",
+            "listable",
             "propertyOf",
             "whose",
             "concept",
@@ -8920,6 +8985,7 @@
             "is",
             "toAble",
             "to",
+            "isQuery",
             "reason",
             "memorable",
             "remember",
@@ -8927,7 +8993,6 @@
             "adjective",
             "orAble",
             "ifAble",
-            "evaluate",
             "each",
             "every",
             "distributable",
@@ -8938,6 +9003,7 @@
             "name",
             "self"
           ],
+          "km": "properties2",
           "parents": {
             "a": [
               "article"
@@ -8958,9 +9024,6 @@
             "each": [
               "article"
             ],
-            "evaluate": [
-              "verb"
-            ],
             "every": [
               "article"
             ],
@@ -8978,11 +9041,17 @@
               "canBeQuestion",
               "verb"
             ],
+            "isQuery": [
+              "verb"
+            ],
             "it": [
               "pronoun",
               "queryable",
               "toAble",
               "thisitthat"
+            ],
+            "listable": [
+              "theAble"
             ],
             "memorable": [
               "theAble"
@@ -8998,7 +9067,8 @@
             ],
             "object": [
               "queryable",
-              "theAble"
+              "theAble",
+              "listable"
             ],
             "orAble": [
               "ifAble"
@@ -9009,6 +9079,9 @@
             ],
             "propertyOf": [
               "preposition"
+            ],
+            "queryable": [
+              "listable"
             ],
             "questionMark": [
               "punctuation"
@@ -9047,9 +9120,7 @@
               "preposition"
             ],
             "unknown": [
-              "hierarchyAble",
-              "theAble",
-              "queryable"
+              "hierarchyAble"
             ],
             "what": [
               "object",
@@ -9091,8 +9162,6 @@
               },
               "each": {
               },
-              "evaluate": {
-              },
               "every": {
               },
               "greg": {
@@ -9105,7 +9174,11 @@
               },
               "is": {
               },
+              "isQuery": {
+              },
               "it": {
+              },
+              "listable": {
               },
               "memorable": {
               },
@@ -9147,7 +9220,7 @@
                   "value": {
                     "concept": true,
                     "dead": true,
-                    "level": 1,
+                    "level": 0,
                     "marker": "unknown",
                     "range": {
                       "end": 16,
@@ -9198,7 +9271,7 @@
               {
                 "concept": true,
                 "dead": true,
-                "level": 1,
+                "level": 0,
                 "marker": "unknown",
                 "range": {
                   "end": 16,
@@ -9220,21 +9293,34 @@
           }
         },
         "punctuation2": {
+          "km": "punctuation2"
         },
         "sdefaults2": {
+          "km": "sdefaults2"
+        },
+        "self2": {
+          "km": "self2"
         },
         "stm2": {
+          "km": "stm2",
           "mentioned": [
           ],
           "variables": {
           }
         },
         "tokenize2": {
+          "km": "tokenize2"
+        },
+        "words2": {
+          "km": "words2",
+          "words": [
+          ]
         }
       },
       "processed": [
         {
           "context": {
+            "context_id": 4,
             "context_index": 3,
             "dead": true,
             "evalue": {
@@ -9246,7 +9332,7 @@
               "marker": "is",
               "one": {
                 "dead": true,
-                "level": 1,
+                "level": 0,
                 "marker": "property",
                 "object": {
                   "level": 0,
@@ -9264,7 +9350,7 @@
                 "objects": [
                   {
                     "dead": true,
-                    "level": 1,
+                    "level": 0,
                     "marker": "property",
                     "range": {
                       "end": 34,
@@ -9309,7 +9395,7 @@
                 "evalue": {
                   "concept": true,
                   "dead": true,
-                  "level": 1,
+                  "level": 0,
                   "marker": "unknown",
                   "range": {
                     "end": 16,
@@ -9328,12 +9414,14 @@
                   "object[0]"
                 ],
                 "instance": true,
-                "level": 1,
+                "isModule": true,
+                "isProcess": true,
+                "level": 0,
                 "marker": "property",
                 "objects": [
                   {
                     "dead": true,
-                    "level": 1,
+                    "level": 0,
                     "marker": "property",
                     "range": {
                       "end": 34,
@@ -9367,8 +9455,8 @@
                 },
                 "text": "your name",
                 "touchedBy": [
-                  "avatar#call17",
-                  "avatar#call16"
+                  "avatar#call18",
+                  "avatar#call17"
                 ],
                 "types": [
                   "property"
@@ -9394,7 +9482,7 @@
                 "what"
               ],
               "range": {
-                "end": 34,
+                "end": 21,
                 "start": 18
               },
               "text": "what",
@@ -9414,11 +9502,11 @@
             "text": "what is your name",
             "topLevel": true,
             "touchedBy": [
-              "avatar#call16"
+              "avatar#call17"
             ],
             "two": {
               "dead": true,
-              "level": 1,
+              "level": 0,
               "marker": "property",
               "object": {
                 "level": 0,
@@ -9436,7 +9524,7 @@
               "objects": [
                 {
                   "dead": true,
-                  "level": 1,
+                  "level": 0,
                   "marker": "property",
                   "range": {
                     "end": 34,
@@ -9478,9 +9566,12 @@
             },
             "word": "is"
           },
-          "generatedParenthesized": "((((my) (name)) is ((greg))))",
-          "paraphrases": "what is your name?",
-          "paraphrasesParenthesized": "(((what) is ((your) (name)))?)",
+          "generatedParenthesized": [
+          ],
+          "paraphrases": [
+          ],
+          "paraphrasesParenthesized": [
+          ],
           "responses": [
             "",
             "my name is greg"
@@ -9488,6 +9579,7 @@
         },
         {
           "context": {
+            "context_id": 2,
             "context_index": 1,
             "dead": true,
             "level": 2,
@@ -9495,7 +9587,7 @@
             "number": "one",
             "one": {
               "dead": true,
-              "level": 1,
+              "level": 0,
               "marker": "property",
               "number": "one",
               "object": {
@@ -9514,7 +9606,7 @@
               "objects": [
                 {
                   "dead": true,
-                  "level": 1,
+                  "level": 0,
                   "marker": "property",
                   "range": {
                     "end": 8,
@@ -9543,7 +9635,7 @@
                 }
               ],
               "range": {
-                "end": 16,
+                "end": 8,
                 "start": 0
               },
               "text": "your name",
@@ -9566,7 +9658,7 @@
             "two": {
               "concept": true,
               "dead": true,
-              "level": 1,
+              "level": 0,
               "marker": "unknown",
               "range": {
                 "end": 16,
@@ -9582,9 +9674,12 @@
             },
             "word": "is"
           },
-          "generatedParenthesized": "",
-          "paraphrases": "your name is greg",
-          "paraphrasesParenthesized": "(((your) (name)) is (greg))",
+          "generatedParenthesized": [
+          ],
+          "paraphrases": [
+          ],
+          "paraphrasesParenthesized": [
+          ],
           "responses": [
             "",
             "my name is greg"
@@ -9592,6 +9687,7 @@
         },
         {
           "context": {
+            "context_id": null,
             "context_index": 1,
             "dead": true,
             "default": true,
@@ -9599,24 +9695,20 @@
               "dead": true,
               "do": {
                 "left": "sentientBeing",
-                "range": {
-                  "end": 28,
-                  "start": 0
-                },
-                "right": "emotion",
-                "text": "sentientbeing1 feels emotion1"
+                "right": "emotion"
               },
               "emotion": {
                 "dead": true,
-                "level": 1,
-                "marker": "emotion",
+                "level": 0,
+                "marker": "unknown",
                 "range": {
                   "end": 28,
                   "start": 21
                 },
                 "text": "emotion1",
                 "types": [
-                  "emotion"
+                  "emotion",
+                  "unknown"
                 ],
                 "unknown": true,
                 "value": "emotion1",
@@ -9626,17 +9718,45 @@
                 "sentientBeing",
                 "emotion"
               ],
+              "interpolate": [
+                {
+                  "property": "sentientBeing"
+                },
+                {
+                  "number": "sentientBeing",
+                  "property": "operator"
+                },
+                {
+                  "property": "emotion"
+                }
+              ],
+              "isVerb": true,
               "level": 2,
               "marker": "feel",
               "number": "one",
+              "operator": {
+                "evaluateWord": true,
+                "imperative": false,
+                "isVerb": true,
+                "level": 0,
+                "marker": "feel",
+                "number": "one",
+                "range": {
+                  "end": 19,
+                  "start": 15
+                },
+                "text": "feels",
+                "value": "feel",
+                "word": "feels"
+              },
               "range": {
                 "end": 28,
                 "start": 0
               },
               "sentientBeing": {
                 "dead": true,
-                "level": 1,
-                "marker": "sentientBeing",
+                "level": 0,
+                "marker": "unknown",
                 "range": {
                   "end": 13,
                   "start": 0
@@ -9644,7 +9764,8 @@
                 "raw_text": "sentientBeing1",
                 "text": "sentientbeing1",
                 "types": [
-                  "sentientBeing"
+                  "sentientBeing",
+                  "unknown"
                 ],
                 "unknown": true,
                 "value": "sentientbeing1",
@@ -9675,7 +9796,7 @@
                 "dead": true,
                 "determiner": "the",
                 "focusableForPhrase": true,
-                "level": 1,
+                "level": 0,
                 "marker": "property",
                 "modifiers": [
                   "determiner"
@@ -9683,7 +9804,7 @@
                 "number": "one",
                 "object": {
                   "dead": true,
-                  "level": 1,
+                  "level": 0,
                   "marker": "object",
                   "range": {
                     "end": 64,
@@ -9704,7 +9825,7 @@
                     "dead": true,
                     "determiner": "the",
                     "focusableForPhrase": true,
-                    "level": 1,
+                    "level": 0,
                     "marker": "property",
                     "modifiers": [
                       "determiner"
@@ -9726,7 +9847,7 @@
                   },
                   {
                     "dead": true,
-                    "level": 1,
+                    "level": 0,
                     "marker": "object",
                     "range": {
                       "end": 64,
@@ -9744,7 +9865,7 @@
                 ],
                 "pullFromContext": true,
                 "range": {
-                  "end": 76,
+                  "end": 64,
                   "start": 36
                 },
                 "text": "the emotion of sentientbeing1",
@@ -9764,7 +9885,7 @@
               "text": "the emotion of sentientbeing1 is emotion1",
               "two": {
                 "dead": true,
-                "level": 1,
+                "level": 0,
                 "marker": "unknown",
                 "range": {
                   "end": 76,
@@ -9791,11 +9912,11 @@
           },
           "generatedParenthesized": [
           ],
-          "paraphrases": "sentientbeing1 feels emotion1 means the emotion of sentientbeing1 is emotion1",
+          "paraphrases": [
+          ],
           "paraphrasesParenthesized": [
           ],
           "responses": [
-            ""
           ]
         }
       ]
@@ -9918,7 +10039,7 @@
               {
                 "marker": [
                   "unknown",
-                  1
+                  0
                 ],
                 "range": {
                   "end": 8,
@@ -10003,7 +10124,7 @@
               {
                 "marker": [
                   "unknown",
-                  1
+                  0
                 ],
                 "range": {
                   "end": 8,
@@ -10023,7 +10144,7 @@
               {
                 "marker": [
                   "unknown",
-                  1
+                  0
                 ],
                 "range": {
                   "end": 16,
@@ -10042,7 +10163,7 @@
               },
               {
                 "marker": [
-                  "isEd",
+                  "is",
                   0
                 ],
                 "range": {
@@ -10088,7 +10209,7 @@
               {
                 "marker": [
                   "unknown",
-                  1
+                  0
                 ],
                 "range": {
                   "end": 8,
@@ -10108,7 +10229,7 @@
               {
                 "marker": [
                   "unknown",
-                  1
+                  0
                 ],
                 "range": {
                   "end": 16,
@@ -10127,7 +10248,7 @@
               },
               {
                 "marker": [
-                  "isEd",
+                  "is",
                   0
                 ],
                 "range": {
@@ -10148,7 +10269,7 @@
               {
                 "marker": [
                   "unknown",
-                  1
+                  0
                 ],
                 "range": {
                   "end": 34,
@@ -10173,7 +10294,7 @@
               {
                 "marker": [
                   "unknown",
-                  1
+                  0
                 ],
                 "range": {
                   "end": 8,
@@ -10193,7 +10314,7 @@
               {
                 "marker": [
                   "unknown",
-                  1
+                  0
                 ],
                 "range": {
                   "end": 16,
@@ -10212,7 +10333,7 @@
               },
               {
                 "marker": [
-                  "isEd",
+                  "is",
                   0
                 ],
                 "range": {
@@ -10233,7 +10354,7 @@
               {
                 "marker": [
                   "unknown",
-                  1
+                  0
                 ],
                 "range": {
                   "end": 34,
@@ -10248,7 +10369,7 @@
               {
                 "marker": [
                   "property",
-                  1
+                  0
                 ],
                 "range": {
                   "end": 8,
@@ -10268,7 +10389,7 @@
               {
                 "marker": [
                   "unknown",
-                  1
+                  0
                 ],
                 "range": {
                   "end": 16,
@@ -10287,7 +10408,7 @@
               },
               {
                 "marker": [
-                  "isEd",
+                  "is",
                   0
                 ],
                 "range": {
@@ -10308,7 +10429,7 @@
               {
                 "marker": [
                   "unknown",
-                  1
+                  0
                 ],
                 "range": {
                   "end": 34,
@@ -10323,7 +10444,7 @@
               {
                 "marker": [
                   "property",
-                  1
+                  0
                 ],
                 "range": {
                   "end": 8,
@@ -10343,7 +10464,7 @@
               {
                 "marker": [
                   "unknown",
-                  1
+                  0
                 ],
                 "range": {
                   "end": 16,
@@ -10373,7 +10494,7 @@
               {
                 "marker": [
                   "property",
-                  1
+                  0
                 ],
                 "range": {
                   "end": 34,
@@ -10418,7 +10539,7 @@
               {
                 "marker": [
                   "property",
-                  1
+                  0
                 ],
                 "range": {
                   "end": 34,
@@ -10433,7 +10554,7 @@
               {
                 "marker": [
                   "is",
-                  1
+                  2
                 ],
                 "range": {
                   "end": 16,
@@ -10442,12 +10563,32 @@
               },
               {
                 "marker": [
-                  "is",
+                  "what",
                   1
                 ],
                 "range": {
-                  "end": 34,
+                  "end": 21,
                   "start": 18
+                }
+              },
+              {
+                "marker": [
+                  "is",
+                  0
+                ],
+                "range": {
+                  "end": 24,
+                  "start": 23
+                }
+              },
+              {
+                "marker": [
+                  "property",
+                  0
+                ],
+                "range": {
+                  "end": 34,
+                  "start": 26
                 }
               }
             ]

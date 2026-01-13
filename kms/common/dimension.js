@@ -282,7 +282,7 @@ knowledgeModule({
     checks: {
       objects: [
         { km: 'properties' },
-        'measurementSystem',
+        { path: ['measurementSystem'] },
       ],
       context: [
         defaultContextCheck({ marker: 'metric_system', exported: true }),

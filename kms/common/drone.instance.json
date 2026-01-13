@@ -34,7 +34,7 @@
             "verb"
           ],
           "bridge": "{ ...next(operator), interpolate: [{ context: operator }] }",
-          "semantic": "({context, objects, api, mentioned}) => {\n            objects.calibration.startTime = api.now()\n            mentioned({ marker: 'point', ordinal: 0 })\n            // send command to drone to go forward\n          }"
+          "semantic": "({context, objects, api, mentioned}) => {\n            objects.calibration.startTime = api.now()\n            mentioned({ marker: 'point', ordinal: api.nextOrdinal() })\n            // send command to drone to go forward\n          }"
         },
         {
           "id": "pause",
