@@ -16,6 +16,7 @@ const dateTimeSelectors = require('./common/dateTimeSelectors')
 const dates = require('./common/dates')
 const dialogues = require('./common/dialogues')
 const dimension = require('./common/dimension')
+const drone = require('./common/drone')
 const edible = require('./common/edible')
 const emotions = require('./common/emotions')
 const english_helpers = require('./common/english_helpers')
@@ -58,7 +59,6 @@ const sizeable = require('./common/sizeable')
 const spock = require('./common/spock')
 const stgame = require('./common/stgame')
 const stm = require('./common/stm')
-const tank = require('./common/tank')
 const tell = require('./common/tell')
 const temperature = require('./common/temperature')
 const tester = require('./common/tester')
@@ -90,6 +90,7 @@ module.exports = {
   dates,
   dialogues,
   dimension,
+  drone,
   edible,
   emotions,
   english_helpers,
@@ -132,7 +133,6 @@ module.exports = {
   spock,
   stgame,
   stm,
-  tank,
   tell,
   temperature,
   tester,
