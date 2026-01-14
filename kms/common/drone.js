@@ -172,6 +172,7 @@ class API {
   }
 
   turn(angle) {
+    this._objects.runCommand = true
   }
 
   tilt_angle(angle) {
@@ -243,6 +244,7 @@ function expectDirection(args) {
   args.config.addSemantic({
     match: ({context, isA}) => isA(context.marker, 'direction'),
     apply: ({objects, context}) => {
+      objects.runCommand = true
       objects.current.direction = context.marker
     }
   })
@@ -268,6 +270,7 @@ function expectDistanceForMove(args) {
     apply: async ({context, objects, fragments, e}) => {
       const instantiation = await fragments("quantity in meters", { quantity: context })
       const result = await e(instantiation)
+      objects.runCommand = true
       objects.current.distance = result.evalue.amount.evalue.evalue
     }
   })
@@ -318,15 +321,27 @@ const template = {
           const result = await e(instantiation)
           const desired_speed = result.evalue.amount.evalue.evalue
           const desired_power = objects.calibration.power * (desired_speed / objects.calibration.speed)
+          objects.runCommand = true
           objects.current.power = desired_power 
         }
       })
 
       args.config.addSemantic({
+        match: ({context, objects, isA}) => objects.current.direction && objects.isCalibrated && context.marker == 'controlStart',
+        apply: ({context, objects, api}) => {
+          objects.runCommand = false  
+        }
+      })
+
+      args.config.addSemantic({
+        // match: ({context, objects, isA}) => objects.current.direction && objects.isCalibrated && (context.marker == 'controlEnd' || context.marker == 'controlBetween'),
         match: ({context, objects, isA}) => objects.current.direction && objects.isCalibrated && context.marker == 'controlEnd',
         apply: ({context, objects, api}) => {
           // send a command to the drone
-          api.sendCommand()
+          debugger
+          if (objects.runCommand) {
+            api.sendCommand()
+          }
         }
       })
     },
@@ -345,6 +360,7 @@ const template = {
           isA: ['verb'],
           bridge: "{ ...next(operator), direction: after[0], interpolate: [{ context: operator }, { property: 'direction' }] }",
           semantic: ({context, objects, api}) => {
+            objects.runCommand = true
             objects.current.direction = context.direction.marker
           },
           // check: { marker: 'turn', exported: true, extra: ['direction'] }
@@ -421,6 +437,7 @@ knowledgeModule( {
         { path: ['calibration'] }, 
         { path: ['history'] },
         { path: ['current'] },
+        { path: ['runCommand'] },
       ],
     }
   },

@@ -935,3 +935,6 @@ node inspect picarx -q 'calibrate\npause 1\nstop\n2 feet\nforward 2 meters per m
 node  tank -q 'turn left' -g -d
 node length -q 'evaluate 10 feet in meters and centimeters' -g -d
 node comparable -q "ascending is a sort ordering" -g -d
+
+node drone -q 'calibrate\nstop\n2 feet\nforward\nhi' -g -d
+node drone -q 'calibrate\nstop\n2 feet\nforward\ncall this point a' -g -d
