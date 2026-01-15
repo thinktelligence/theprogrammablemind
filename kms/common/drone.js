@@ -338,7 +338,6 @@ const template = {
         match: ({context, objects, isA}) => objects.current.direction && objects.isCalibrated && context.marker == 'controlEnd',
         apply: ({context, objects, api}) => {
           // send a command to the drone
-          debugger
           if (objects.runCommand) {
             api.sendCommand()
           }

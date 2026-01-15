@@ -53,13 +53,13 @@ knowledgeModule({
               ...defaultContextCheck(), 
               { 
                 property: 'quantity', 
-                filter: ['marker', 'value'],
+                check: ['marker', 'value'],
               },
               { 
                 property: 'pieces', 
-                filter: [
+                check: [
                   'marker', 'text',
-                  { property: 'count', filter: ['marker', 'value'] },
+                  { property: 'count', check: ['marker', 'value'] },
                 ] 
               }]
           },

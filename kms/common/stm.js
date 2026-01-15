@@ -282,7 +282,7 @@ knowledgeModule( {
              context: [defaultContextCheck({ extra: ['pullFromContext', 'stm_id'] })],
              objects: [ { path: ['mentioned'] }],
              // objects: [defaultContextCheck({ extra: ['mentioned'] })],
-             // objects: [{ property: 'mentioned', filter: helpers.defaultContextCheckProperties }],
+             // objects: [{ property: 'mentioned', check: helpers.defaultContextCheckProperties }],
           },
   },
 })

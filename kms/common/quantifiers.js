@@ -42,7 +42,7 @@
 //              ...defaultContextCheck(), 
 //              { 
 //                property: 'quantifier', 
-//                filter: ['marker', 'value'],
+//                check: ['marker', 'value'],
 //              },
 //          },
 //  },

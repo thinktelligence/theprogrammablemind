@@ -978,23 +978,23 @@ knowledgeModule( {
                 'show', 
                 { 
                   property: 'items', 
-                  filter: [
+                  check: [
                       'combo', 
                       'pieces', 
                       'size', 
                       'item_id', 
                       'id', 
-                      { property: 'food', filter: [ 'marker', 'value', 'text' ] }, 
-                      { property: 'modifications', filter: [ 'id', 'item_id', 'food' ] }, 
+                      { property: 'food', check: [ 'marker', 'value', 'text' ] }, 
+                      { property: 'modifications', check: [ 'id', 'item_id', 'food' ] }, 
                       'needsDrink'
                   ],
                 },
                 'changes', 
                 'response', 
-                { property: 'notAvailable', filter: [ 'marker', 'value', 'text' ] }, 
-                { property: 'notAvailableModification', filter: [ 'marker', 'value', 'text' ] }, 
-                { property: 'quantity', filter: ['marker', 'value', 'text' ] },
-                { property: 'pieces', filter: ['marker', 'value', 'text' ] },
+                { property: 'notAvailable', check: [ 'marker', 'value', 'text' ] }, 
+                { property: 'notAvailableModification', check: [ 'marker', 'value', 'text' ] }, 
+                { property: 'quantity', check: ['marker', 'value', 'text' ] },
+                { property: 'pieces', check: ['marker', 'value', 'text' ] },
               ],
               context: [
                 defaultContextCheck({ extra: ['comboNumber'] }),

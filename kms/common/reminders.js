@@ -417,7 +417,7 @@ knowledgeModule( {
       objects: [
         { 
           property: 'reminders',
-          filter: [ 
+          check: [ 
             'text', 
             'dateTimeSelectorText', 
             'nextISODate', 
@@ -425,7 +425,7 @@ knowledgeModule( {
             'stm',
             {
               property: 'dateTimeSelector', 
-              filter: ['marker', 'text', 'value'],
+              check: ['marker', 'text', 'value'],
             },
           ],
         }
