@@ -1,5 +1,5 @@
 const { knowledgeModule, flatten, where, Digraph } = require('./runtime').theprogrammablemind
-const { defaultContextCheck } = require('./helpers')
+const { defaultContextCheck, defaultContextCheckProperties } = require('./helpers')
 const { API }= require('./helpers/concept')
 const dialogues = require('./dialogues.js')
 const concept_tests = require('./concept.test.json')
@@ -27,25 +27,29 @@ config = {
       isA: ['verb'],
       words: [{ word: 'modifies', number: 'one', flatten: false }, { word: 'modify', number: 'many', flatten: true }],
       // bridge: "{ ...next(operator), modifiers: before, concept: after[0], flatten: true }"
-      bridge: "{ ...next(operator), modifiers: before[0], concept: after[0] }",
+      bridge: "{ ...next(operator), conceptModifiers: before[0], concept: after[0] }",
       semantic: {
         notes: 'define a modifier',
         where: where(),
         apply: ({config, query, km, context}) => {
           let modifiers
           if (context.literally) {
-            literalModifiers = context.modifiers[0]
+            literalModifiers = context.conceptModifiers[0]
             // modifiers = literalModifiers.value.map(modifier => modifier.value)
             modifiers = literalModifiers.value
             modifiers = modifiers.slice(0, -1).concat([literalModifiers.marker]).concat(modifiers.slice(-1))
           } else {
-            modifiers = context.modifiers
+            modifiers = context.conceptModifiers
             // modifiers = context.modifiers.map(modifier => modifier.value)
+          }
+          if (!modifiers) {
+            debugger
           }
           // km('concept').api.kindOfConcept({ config, modifiers, object: context.concept.value || context.concept.marker })
           km('concept').api.kindOfConcept({ config, modifiers, object: context.concept })
         }
       },
+      check: defaultContextCheckProperties(['concept', 'conceptModifiers']),
     },
     { id: "literally", bridge: "{ ...after[0], flatten: false, literally: true }" },
     { id: "concept" },
@@ -96,14 +100,14 @@ config = {
         const word = context.value[0].word
 
         for (const value of context.value) {
-          if (!(value.modifiers && value.modifiers.length == 1 && value.word == word)) {
+          if (!(value.conceptModifiers && value.conceptModifiers.length == 1 && value.word == word)) {
             return
           }
         }
         return true
       },
       apply: async ({g, context}) => {
-        const modifiers = context.value.map( (p) => p[p.modifiers[0]] )
+        const modifiers = context.value.map( (p) => p[p.conceptModifiers[0]] )
         context.word = context.value[0].word
         context.value = null
         context.modifiers = ['modifier']
@@ -121,13 +125,13 @@ config = {
       match: ({context}) => context.marker == 'modifies' && context.paraphrase,
       apply: async ({context, gp, gw}) => {
         const modifiers = []
-        for (modifier of context.modifiers) {
+        for (modifier of context.conceptModifiers) {
           modifiers.push(await gp(modifier))
         }
         if (context.literally) {
-          return `${modifiers.join(" ")} literally ${await gw(context, { number: context.modifiers[context.modifiers.length - 1] })} ${await gp(context.concept)}`
+          return `${modifiers.join(" ")} literally ${await gw(context, { number: context.conceptModifiers[context.conceptModifiers.length - 1] })} ${await gp(context.concept)}`
         } else {
-          return `${modifiers.join(" ")} ${await gw(context, { number: context.modifiers[context.modifiers.length - 1] })} ${await gp(context.concept)}`
+          return `${modifiers.join(" ")} ${await gw(context, { number: context.conceptModifiers[context.conceptModifiers.length - 1] })} ${await gp(context.concept)}`
         }
       }
       // const chosen = chooseNumber(context, word.singular, word.plural)
