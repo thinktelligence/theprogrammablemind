@@ -42,9 +42,6 @@ config = {
             modifiers = context.conceptModifiers
             // modifiers = context.modifiers.map(modifier => modifier.value)
           }
-          if (!modifiers) {
-            debugger
-          }
           // km('concept').api.kindOfConcept({ config, modifiers, object: context.concept.value || context.concept.marker })
           km('concept').api.kindOfConcept({ config, modifiers, object: context.concept })
         }
@@ -84,7 +81,7 @@ config = {
         },
       */
       where: where(),
-      match: ({context}) => {
+      match: ({context, callId}) => {
         if (!context.paraphrase) {
           return
         }
@@ -100,14 +97,14 @@ config = {
         const word = context.value[0].word
 
         for (const value of context.value) {
-          if (!(value.conceptModifiers && value.conceptModifiers.length == 1 && value.word == word)) {
+          if (!(value.modifiers && value.modifiers.length == 1 && value.word == word)) {
             return
           }
         }
         return true
       },
       apply: async ({g, context}) => {
-        const modifiers = context.value.map( (p) => p[p.conceptModifiers[0]] )
+        const modifiers = context.value.map( (p) => p[p.modifiers[0]] )
         context.word = context.value[0].word
         context.value = null
         context.modifiers = ['modifier']
