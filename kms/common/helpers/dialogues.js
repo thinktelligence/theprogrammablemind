@@ -83,6 +83,9 @@ class API {
     }
     const { word, value, number } = context;
     if (!value) {
+      if (config.exists(context.marker)) {
+        return context.marker
+      }
       return
     }
     // const concept = pluralize.singular(value)
