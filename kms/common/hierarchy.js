@@ -6,14 +6,14 @@ const pluralize = require('pluralize')
 const _ = require('lodash')
 const { isMany } = require('./helpers')
 
-function getTypes( km, concept, instance ) {
-  const propertiesAPI = km('properties').api;
+function getTypes( km, digraph, concept, instance ) {
+  // const propertiesAPI = km('properties').api;
   const conceptAPI = km('concept').api;
-  const digraph = propertiesAPI.digraph;
+  // const digraph = propertiesAPI.digraph;
   function intersect(set1, set2) {
     return new Set([...set1].filter(x => set2.has(x)))
   }
-  const descendants = digraph.descendants(concept.value)
+  const descendants = digraph.descendants(concept.value || concept.marker)
   const ancestors = digraph.ancestors(instance.evalue)
   const common = intersect(ancestors, descendants)
   const answer = Array.from(digraph.minima(common))
@@ -79,7 +79,7 @@ const config = {
           context.isResponse = true
           return
         }
-        instance = getTypes(km, concept, instance)
+        instance = getTypes(km, hierarchy, concept, instance)
 
         concept = _.cloneDeep(value)
         concept.isQuery = undefined
@@ -104,7 +104,7 @@ const config = {
       notes: 'type of pikachu',  // the types of type is the next one
       where: where(),
       match: ({context}) => context.marker == 'type' && context.evaluate && context.object && context.objects[context.objects.length-1].number == 'one' && pluralize.isSingular(context.objects[0].word),
-      apply: async ({context, objects, e, gs, km, log}) => {
+      apply: async ({context, hierarchy, objects, e, gs, km, log}) => {
         const concept = context.objects[0];
         const value = context.objects[1];
         let instance = await e(value)
@@ -112,7 +112,7 @@ const config = {
           context.evalue = { verbatim: instance.verbatim }
           return
         }
-        instance = getTypes(km, concept, instance)
+        instance = getTypes(km, hierarchy, concept, instance)
         context.evalue = instance
         if (context.evalue.value.length > 1) {
           context.number = 'many'
