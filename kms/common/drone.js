@@ -284,7 +284,7 @@ function expectCalibrationCompletion(args) {
       objects.calibration.speed = objects.calibration.distance / objects.calibration.duration
       objects.isCalibrated = true
       say(`The drone is calibrated. The speed is ${objects.calibration.speed.toFixed(4)} meters per second at 10 percent power`)
-      mentioned({ marker: 'point', ordinal: api.nextOrdinal(), distance: objects.calibration.distance })
+      mentioned({ marker: 'point', ordinal: api.nextOrdinal(), distance: objects.calibration.distance, description: "calibration stop" })
       _continue()
       expectDistanceForMove(args)
     }
@@ -370,7 +370,7 @@ const template = {
           bridge: "{ ...next(operator), interpolate: [{ context: operator }] }",
           semantic: ({context, objects, api, mentioned}) => {
             objects.calibration.startTime = api.now()
-            mentioned({ marker: 'point', ordinal: api.nextOrdinal() })
+            mentioned({ marker: 'point', ordinal: api.nextOrdinal(), description: "calibration start" })
             // send command to drone to go forward
           }
         },
@@ -426,7 +426,7 @@ knowledgeModule( {
     contents: drone_tests,
     checks: {
       context: [
-        defaultContextCheck({ marker: 'point', exported: true, extra: ['ordinal', { property: 'stm', check: ['id', 'names'] }] }),
+        defaultContextCheck({ marker: 'point', exported: true, extra: ['ordinal', 'description', { property: 'stm', check: ['id', 'names'] }] }),
         defaultContextCheck({ marker: 'turn', exported: true, extra: ['direction'] }),
         defaultContextCheck({ marker: 'history', exported: true, extra: ['pause', 'direction', 'power', 'turn'] }),
         defaultContextCheck(),
