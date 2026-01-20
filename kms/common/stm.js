@@ -97,7 +97,7 @@ class API {
         if (findPrevious && findCounter < 2) {
           continue
         }
-        if (condition()) {
+        if (condition(m)) {
           if (all) {
             allForAll(m)
           } else {
@@ -175,7 +175,7 @@ class API {
     if (!name) {
       return
     }
-    let valueNew = this.mentions({ context: { marker: name, value: name }, useHierarchy: false }) || name
+    let valueNew = this.mentions({ context: { marker: name, value: name }, useHierarchy: false, condition: (context) => context.isVariable }) || name
     if (valueNew && valueNew.value) {
       valueNew = valueNew.value
     }
@@ -183,7 +183,7 @@ class API {
   }
 
   setVariable(name, value) {
-    this.mentioned({ context: { marker: name }, value })
+    this.mentioned({ context: { marker: name, isVariable: true }, value })
   }
 }
 
