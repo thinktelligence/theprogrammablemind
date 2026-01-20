@@ -793,8 +793,7 @@ class API {
     if (!context) {
       return;
     }
-    return this._km("stm").api.getVariable(context.value);
-    // return context.value
+    return this._km("stm").api.getVariable(context) || context.value;
   }
 
   async getProperty(object, property, g) {

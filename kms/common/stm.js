@@ -171,11 +171,11 @@ class API {
     }
   }
 
-  getVariable(name) {
-    if (!name) {
+  getVariable(context) {
+    if (!context) {
       return
     }
-    let valueNew = this.mentions({ context: { marker: name, value: name }, useHierarchy: false, condition: (context) => context.isVariable }) || name
+    let valueNew = this.mentions({ context, useHierarchy: false, condition: (context) => context.isVariable })
     if (valueNew && valueNew.value) {
       valueNew = valueNew.value
     }

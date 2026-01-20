@@ -629,7 +629,10 @@ const config = {
           if (!objectContext.value) {
             return objectContext;
           }
-          const objectValue = kms.stm.api.getVariable(objectContext.value);
+          let objectValue = kms.stm.api.getVariable(objectContext);
+          if (!objectValue) {
+            objectValue = objectContext.value
+          }
           if (!await api.knownObject(objectValue)) {
             context.verbatim = `There is no object named "${await g({...objectContext, paraphrase: true})}"`
             return
