@@ -14,13 +14,10 @@ class API {
 
   // report is a context
   setName(context, name) {
-    if (!context.stm) {
-      context.stm = {}
-    }
-    if (!context.stm.names) {
-      context.stm.names = []
-    }
+    context.stm ??= {}
+    context.stm.names ??= []
     context.stm.names.push(name)
+    this.args.config.addWord(name, { id: context.marker, initial: `{ value: "${name}", pullFromContext: true, nameable_named: true }` })
   }
 
   get(type, name) {
@@ -70,8 +67,18 @@ class API {
   }
 }
 
-const api = new API()
-
+function initializer({config}) {
+  config.addArgs(({kms, mentioned}) => {
+    return {
+      mentioned: (args) => {
+        mentioned(args)
+        if (args.name) {
+          kms.nameable.api.setName(args.context, args.name)
+        }
+      },
+    }
+  })
+}
 const config = {
   name: 'nameable',
   operators: [
@@ -117,7 +124,6 @@ const config = {
         }
         const name = context.name.map((n) => n.text).join(' ')
         // const name = context.name.text
-        config.addWord(name, { id: nameable.marker, initial: `{ value: "${name}", pullFromContext: true, nameable_named: true }` })
         api.setName(nameable, name)
       },
       check: defaultContextCheckProperties(['nameable', 'name']),
@@ -134,6 +140,7 @@ knowledgeModule( {
   config,
   api: () => new API(),
   includes: [stm],
+  initializer,
 
   module,
   description: 'namable objects',

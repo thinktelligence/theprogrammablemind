@@ -182,8 +182,8 @@ class API {
     return valueNew
   }
 
-  setVariable(name, value) {
-    this.mentioned({ context: { marker: name, isVariable: true }, value })
+  setVariable(variableName, value) {
+    this.mentioned({ context: { marker: variableName, isVariable: true }, value })
   }
 }
 
@@ -192,8 +192,9 @@ const api = new API()
 const config = {
   name: 'stm',
   operators: [
-    "([stm_previous|previous] ([memorable]))",
-    "(([memorable]) [stm_before|before])",
+    "(<stm_current|current> ([memorable]))",
+    "(<stm_previous|previous> ([memorable]))",
+    "(([memorable]) <stm_before|before>)",
     "([remember] (memorable/*))",
   ],
   words: {
@@ -222,7 +223,13 @@ const config = {
     },
     { 
       id: 'stm_previous',
+      isA: ['adjective'],
       bridge: '{ ...after[0], modifiers: ["stm_previous"], stm_previous: operator, pullFromContext: true }',
+    },  
+    { 
+      id: 'stm_current',
+      isA: ['adjective'],
+      bridge: '{ ...after[0], modifiers: ["stm_current"], stm_current: operator, pullFromContext: true }',
     },  
     { 
       id: 'stm_before',
@@ -257,15 +264,15 @@ const config = {
 }
 
 function initializer({config}) {
-    config.addArgs(({kms}) => ({
-      mentioned: (args) => {
-        kms.stm.api.mentioned(args)
-      },
-      mentions: (args) => {
-        return kms.stm.api.mentions(args)
-      },
-    }))
-  }
+  config.addArgs(({kms}) => ({
+    mentioned: (args) => {
+      kms.stm.api.mentioned(args)
+    },
+    mentions: (args) => {
+      return kms.stm.api.mentions(args)
+    },
+  }))
+}
 
 knowledgeModule( { 
   config,
