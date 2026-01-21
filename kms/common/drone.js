@@ -345,7 +345,7 @@ const template = {
     "speed and power are properties",
     "point is a concept",
     // TODO fix/add this "position means point",
-    "points are nameable",
+    "points are nameable and memorable",
     (args) => {
       askForCalibrationDistance(args)
       askForEndTime(args)

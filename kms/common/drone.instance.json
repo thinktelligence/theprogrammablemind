@@ -4,7 +4,7 @@
     "around, forward, left, right, and backward are directions",
     "speed and power are properties",
     "point is a concept",
-    "points are nameable",
+    "points are nameable and memorable",
     {
       "apply": "(args) => {\n      askForCalibrationDistance(args)\n      askForEndTime(args)\n      askForStartTime(args)\n\n      expectDirection(args)\n      expectDistanceForCalibration(args)\n      expectCalibrationCompletion(args)\n\n      args.config.addSemantic({\n        match: ({context, isA}) => isA(context.marker, 'quantity') && isA(context.unit.marker, 'unitPerUnit'),\n        apply: async ({context, objects, api, fragments, e}) => {\n          // send a command to the drone\n          const instantiation = await fragments(\"quantity in meters per second\", { quantity: context })\n          const result = await e(instantiation)\n          const desired_speed = result.evalue.amount.evalue.evalue\n          const desired_power = objects.calibration.power * (desired_speed / objects.calibration.speed)\n          objects.runCommand = true\n          objects.current.power = desired_power \n        }\n      })\n\n      args.config.addSemantic({\n        match: ({context, objects, isA}) => objects.current.direction && objects.isCalibrated && context.marker == 'controlStart',\n        apply: ({context, objects, api}) => {\n          objects.runCommand = false  \n        }\n      })\n\n      args.config.addSemantic({\n        // match: ({context, objects, isA}) => objects.current.direction && objects.isCalibrated && (context.marker == 'controlEnd' || context.marker == 'controlBetween'),\n        match: ({context, objects, isA}) => objects.current.direction && objects.isCalibrated && context.marker == 'controlEnd',\n        apply: ({context, objects, api}) => {\n          // send a command to the drone\n          if (objects.runCommand) {\n            api.sendCommand()\n          }\n        }\n      })\n    }"
     },
@@ -1504,6 +1504,16 @@
           false
         ],
         [
+          "orderable",
+          "queryable",
+          false
+        ],
+        [
+          "orderable",
+          "theAble",
+          false
+        ],
+        [
           "ordering",
           "concept",
           false
@@ -1545,6 +1555,16 @@
         ],
         [
           "ordering_modifier",
+          "adjective",
+          false
+        ],
+        [
+          "ordinal",
+          "listable",
+          false
+        ],
+        [
+          "ordinalOnOrdered",
           "adjective",
           false
         ],
@@ -3962,6 +3982,16 @@
           false
         ],
         [
+          "orderable",
+          "queryable",
+          false
+        ],
+        [
+          "orderable",
+          "theAble",
+          false
+        ],
+        [
           "ordering",
           "concept",
           false
@@ -4003,6 +4033,16 @@
         ],
         [
           "ordering_modifier",
+          "adjective",
+          false
+        ],
+        [
+          "ordinal",
+          "listable",
+          false
+        ],
+        [
+          "ordinalOnOrdered",
           "adjective",
           false
         ],
@@ -8498,6 +8538,16 @@
           false
         ],
         [
+          "orderable",
+          "queryable",
+          false
+        ],
+        [
+          "orderable",
+          "theAble",
+          false
+        ],
+        [
           "ordering",
           "concept",
           false
@@ -8539,6 +8589,16 @@
         ],
         [
           "ordering_modifier",
+          "adjective",
+          false
+        ],
+        [
+          "ordinal",
+          "listable",
+          false
+        ],
+        [
+          "ordinalOnOrdered",
           "adjective",
           false
         ],
@@ -11307,6 +11367,16 @@
           false
         ],
         [
+          "orderable",
+          "queryable",
+          false
+        ],
+        [
+          "orderable",
+          "theAble",
+          false
+        ],
+        [
           "ordering",
           "concept",
           false
@@ -11348,6 +11418,16 @@
         ],
         [
           "ordering_modifier",
+          "adjective",
+          false
+        ],
+        [
+          "ordinal",
+          "listable",
+          false
+        ],
+        [
+          "ordinalOnOrdered",
           "adjective",
           false
         ],
@@ -14070,6 +14150,16 @@
           false
         ],
         [
+          "orderable",
+          "queryable",
+          false
+        ],
+        [
+          "orderable",
+          "theAble",
+          false
+        ],
+        [
           "ordering",
           "concept",
           false
@@ -14111,6 +14201,16 @@
         ],
         [
           "ordering_modifier",
+          "adjective",
+          false
+        ],
+        [
+          "ordinal",
+          "listable",
+          false
+        ],
+        [
+          "ordinalOnOrdered",
           "adjective",
           false
         ],
@@ -14858,6 +14958,10 @@
                 0
               ],
               [
+                "list",
+                0
+              ],
+              [
                 "point",
                 0
               ],
@@ -14867,6 +14971,27 @@
               ]
             ],
             "counter": 1
+          },
+          {
+            "op": [
+              "list",
+              0
+            ],
+            "ops": [
+              [
+                "is",
+                0
+              ],
+              [
+                "list",
+                0
+              ],
+              [
+                "point",
+                0
+              ]
+            ],
+            "counter": 2
           },
           {
             "op": [
@@ -14883,7 +15008,7 @@
                 0
               ]
             ],
-            "counter": 2
+            "counter": 3
           },
           {
             "op": [
@@ -14896,7 +15021,7 @@
                 0
               ]
             ],
-            "counter": 3
+            "counter": 4
           },
           {
             "op": [
@@ -14909,7 +15034,7 @@
                 1
               ]
             ],
-            "counter": 4
+            "counter": 5
           }
         ]
       },
@@ -14917,12 +15042,12 @@
       "contexts": [
         {
           "number": "many",
-          "text": "points are nameable",
+          "text": "points are nameable and memorable",
           "marker": "is",
           "word": "are",
           "range": {
             "start": 0,
-            "end": 18
+            "end": 32
           },
           "one": {
             "number": "many",
@@ -14941,20 +15066,64 @@
             "level": 0
           },
           "two": {
-            "value": "nameable",
-            "unknown": true,
-            "text": "nameable",
-            "marker": "unknown",
-            "word": "nameable",
+            "marker": "list",
+            "default": true,
+            "word": "and",
+            "text": "nameable and memorable",
             "range": {
               "start": 11,
-              "end": 18
+              "end": 32
             },
-            "dead": true,
             "types": [
+              "list",
+              "listable",
+              "memorable",
+              "queryable",
+              "theAble",
               "unknown"
             ],
-            "level": 0,
+            "listable": true,
+            "isList": true,
+            "value": [
+              {
+                "value": "nameable",
+                "unknown": true,
+                "text": "nameable",
+                "marker": "unknown",
+                "word": "nameable",
+                "range": {
+                  "start": 11,
+                  "end": 18
+                },
+                "dead": true,
+                "types": [
+                  "listable",
+                  "queryable",
+                  "theAble",
+                  "unknown"
+                ],
+                "level": 0
+              },
+              {
+                "word": "memorable",
+                "number": "one",
+                "text": "memorable",
+                "marker": "memorable",
+                "dead": true,
+                "range": {
+                  "start": 24,
+                  "end": 32
+                },
+                "types": [
+                  "listable",
+                  "memorable",
+                  "queryable",
+                  "theAble"
+                ],
+                "level": 0
+              }
+            ],
+            "level": 1,
             "concept": true
           },
           "dead": true,
@@ -14971,7 +15140,7 @@
         ""
       ],
       "paraphrases": [
-        "points are nameable"
+        "points are nameable and memorable"
       ],
       "paraphrasesParenthesized": [],
       "generatedParenthesized": [],
@@ -14985,11 +15154,33 @@
             0
           ],
           [
+            "list",
+            0
+          ],
+          [
+            "memorable",
+            0
+          ],
+          [
             "point",
             0
           ],
           [
             "unknown",
+            0
+          ]
+        ],
+        [
+          [
+            "is",
+            0
+          ],
+          [
+            "list",
+            1
+          ],
+          [
+            "point",
             0
           ]
         ]
@@ -15028,6 +15219,26 @@
                     "start": 11,
                     "end": 18
                   }
+                },
+                {
+                  "marker": [
+                    "list",
+                    0
+                  ],
+                  "range": {
+                    "start": 20,
+                    "end": 22
+                  }
+                },
+                {
+                  "marker": [
+                    "memorable",
+                    0
+                  ],
+                  "range": {
+                    "start": 24,
+                    "end": 32
+                  }
                 }
               ],
               "counter": 1
@@ -15063,6 +15274,26 @@
                     "start": 11,
                     "end": 18
                   }
+                },
+                {
+                  "marker": [
+                    "list",
+                    0
+                  ],
+                  "range": {
+                    "start": 20,
+                    "end": 22
+                  }
+                },
+                {
+                  "marker": [
+                    "memorable",
+                    0
+                  ],
+                  "range": {
+                    "start": 24,
+                    "end": 32
+                  }
                 }
               ],
               "counter": 2
@@ -15091,12 +15322,12 @@
                 },
                 {
                   "marker": [
-                    "unknown",
-                    0
+                    "list",
+                    1
                   ],
                   "range": {
                     "start": 11,
-                    "end": 18
+                    "end": 32
                   }
                 }
               ],
@@ -15106,12 +15337,32 @@
               "operators": [
                 {
                   "marker": [
-                    "is",
-                    1
+                    "point",
+                    0
                   ],
                   "range": {
                     "start": 0,
-                    "end": 18
+                    "end": 5
+                  }
+                },
+                {
+                  "marker": [
+                    "is",
+                    0
+                  ],
+                  "range": {
+                    "start": 7,
+                    "end": 9
+                  }
+                },
+                {
+                  "marker": [
+                    "list",
+                    1
+                  ],
+                  "range": {
+                    "start": 11,
+                    "end": 32
                   }
                 }
               ],
@@ -15122,15 +15373,30 @@
                 {
                   "marker": [
                     "is",
-                    2
+                    1
                   ],
                   "range": {
                     "start": 0,
-                    "end": 18
+                    "end": 32
                   }
                 }
               ],
               "counter": 5
+            },
+            {
+              "operators": [
+                {
+                  "marker": [
+                    "is",
+                    2
+                  ],
+                  "range": {
+                    "start": 0,
+                    "end": 32
+                  }
+                }
+              ],
+              "counter": 6
             }
           ],
           "length": 1
@@ -15138,9 +15404,9 @@
       ],
       "learned_contextual_priorities": [],
       "rtf_associations": [],
-      "query": "points are nameable",
+      "query": "points are nameable and memorable",
       "key": {
-        "query": "points are nameable"
+        "query": "points are nameable and memorable"
       }
     },
     {
@@ -16876,6 +17142,16 @@
           false
         ],
         [
+          "orderable",
+          "queryable",
+          false
+        ],
+        [
+          "orderable",
+          "theAble",
+          false
+        ],
+        [
           "ordering",
           "concept",
           false
@@ -16921,6 +17197,16 @@
           false
         ],
         [
+          "ordinal",
+          "listable",
+          false
+        ],
+        [
+          "ordinalOnOrdered",
+          "adjective",
+          false
+        ],
+        [
           "pause",
           "verb",
           false
@@ -16953,6 +17239,11 @@
         [
           "point",
           "isEder",
+          false
+        ],
+        [
+          "point",
+          "memorable",
           false
         ],
         [
@@ -19627,6 +19918,16 @@
           false
         ],
         [
+          "orderable",
+          "queryable",
+          false
+        ],
+        [
+          "orderable",
+          "theAble",
+          false
+        ],
+        [
           "ordering",
           "concept",
           false
@@ -19672,6 +19973,16 @@
           false
         ],
         [
+          "ordinal",
+          "listable",
+          false
+        ],
+        [
+          "ordinalOnOrdered",
+          "adjective",
+          false
+        ],
+        [
           "pause",
           "verb",
           false
@@ -19704,6 +20015,11 @@
         [
           "point",
           "isEder",
+          false
+        ],
+        [
+          "point",
+          "memorable",
           false
         ],
         [
@@ -21140,78 +21456,100 @@
         0
       ],
       [
-        "property",
-        0
-      ],
-      [
-        "unknown",
-        0
-      ]
-    ],
-    [
-      [
-        "is",
-        0
-      ],
-      [
-        "list",
-        0
-      ],
-      [
-        "unknown",
-        0
-      ]
-    ],
-    [
-      [
-        "is",
-        0
-      ],
-      [
-        "list",
-        1
-      ],
-      [
-        "property",
-        0
-      ]
-    ],
-    [
-      [
-        "is",
-        0
-      ],
-      [
-        "list",
-        1
-      ],
-      [
-        "unknown",
-        0
-      ]
-    ],
-    [
-      [
-        "is",
-        0
-      ],
-      [
-        "list",
-        1
-      ],
-      [
-        "unknown",
-        0
-      ]
-    ],
-    [
-      [
-        "is",
+        "memorable",
         0
       ],
       [
         "point",
         0
+      ],
+      [
+        "unknown",
+        0
+      ]
+    ],
+    [
+      [
+        "is",
+        0
+      ],
+      [
+        "list",
+        0
+      ],
+      [
+        "property",
+        0
+      ],
+      [
+        "unknown",
+        0
+      ]
+    ],
+    [
+      [
+        "is",
+        0
+      ],
+      [
+        "list",
+        0
+      ],
+      [
+        "unknown",
+        0
+      ]
+    ],
+    [
+      [
+        "is",
+        0
+      ],
+      [
+        "list",
+        1
+      ],
+      [
+        "point",
+        0
+      ]
+    ],
+    [
+      [
+        "is",
+        0
+      ],
+      [
+        "list",
+        1
+      ],
+      [
+        "property",
+        0
+      ]
+    ],
+    [
+      [
+        "is",
+        0
+      ],
+      [
+        "list",
+        1
+      ],
+      [
+        "unknown",
+        0
+      ]
+    ],
+    [
+      [
+        "is",
+        0
+      ],
+      [
+        "list",
+        1
       ],
       [
         "unknown",
@@ -23318,6 +23656,26 @@
                 "start": 11,
                 "end": 18
               }
+            },
+            {
+              "marker": [
+                "list",
+                0
+              ],
+              "range": {
+                "start": 20,
+                "end": 22
+              }
+            },
+            {
+              "marker": [
+                "memorable",
+                0
+              ],
+              "range": {
+                "start": 24,
+                "end": 32
+              }
             }
           ],
           "counter": 1
@@ -23353,6 +23711,26 @@
                 "start": 11,
                 "end": 18
               }
+            },
+            {
+              "marker": [
+                "list",
+                0
+              ],
+              "range": {
+                "start": 20,
+                "end": 22
+              }
+            },
+            {
+              "marker": [
+                "memorable",
+                0
+              ],
+              "range": {
+                "start": 24,
+                "end": 32
+              }
             }
           ],
           "counter": 2
@@ -23381,12 +23759,12 @@
             },
             {
               "marker": [
-                "unknown",
-                0
+                "list",
+                1
               ],
               "range": {
                 "start": 11,
-                "end": 18
+                "end": 32
               }
             }
           ],
@@ -23396,12 +23774,32 @@
           "operators": [
             {
               "marker": [
-                "is",
-                1
+                "point",
+                0
               ],
               "range": {
                 "start": 0,
-                "end": 18
+                "end": 5
+              }
+            },
+            {
+              "marker": [
+                "is",
+                0
+              ],
+              "range": {
+                "start": 7,
+                "end": 9
+              }
+            },
+            {
+              "marker": [
+                "list",
+                1
+              ],
+              "range": {
+                "start": 11,
+                "end": 32
               }
             }
           ],
@@ -23412,15 +23810,30 @@
             {
               "marker": [
                 "is",
-                2
+                1
               ],
               "range": {
                 "start": 0,
-                "end": 18
+                "end": 32
               }
             }
           ],
           "counter": 5
+        },
+        {
+          "operators": [
+            {
+              "marker": [
+                "is",
+                2
+              ],
+              "range": {
+                "start": 0,
+                "end": 32
+              }
+            }
+          ],
+          "counter": 6
         }
       ],
       "length": 1
