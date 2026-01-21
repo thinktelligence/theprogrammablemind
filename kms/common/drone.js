@@ -3,6 +3,7 @@ const { defaultContextCheck, getValue, setValue } = require('./helpers')
 const drone_tests = require('./drone.test.json')
 const drone_instance = require('./drone.instance.json')
 const hierarchy = require('./hierarchy')
+const ordinals = require('./ordinals')
 const nameable = require('./nameable')
 const rates = require('./rates')
 const help = require('./help')
@@ -86,6 +87,11 @@ https://www.amazon.ca/Freenove-Raspberry-Tracking-Avoidance-Ultrasonic/dp/B0BNDQ
 
   go to the last point
   go back 2 positions
+
+  call the first point start
+  call the second point fred
+  call the last point june
+  call the next point albert
 */
 
 class API {
@@ -106,6 +112,7 @@ class API {
     objects.current = {
       // direction: undefined,   // direction to go if going
       // power: undefined,       // power
+      // ordinal                 // ordinal of the current point or the current point that the recent movement started at
     }
     objects.history = []
     objects.isCalibrated = false
@@ -113,6 +120,41 @@ class API {
 
   nextOrdinal() {
     return this._objects.ordinal += 1
+  }
+
+  fromPointTo(fromPoint, fromAngleInDegrees, toPoint) {
+    const dx = toPoint.x - fromPoint.x;
+    const dy = toPoint.y - fromPoint.y;
+
+    const distance = Math.sqrt(dx * dx + dy * dy);
+
+    if (distance === 0) {
+      return { angle: 0, distance: 0 };
+    }
+
+    // Direction we WANT to face (in radians)
+    // Note: Math.atan2(y,x) → angle from positive x-axis (0 = right, 90° = up)
+    const desiredAngleRad = Math.atan2(dy, dx);
+
+    // Convert current angle to radians
+    const currentAngleRad = fromAngleInDegrees * Math.PI / 180;
+
+    // Difference in radians
+    let angleDiffRad = desiredAngleRad - currentAngleRad;
+
+    // Normalize to [-π, π]
+    angleDiffRad = ((angleDiffRad + Math.PI) % (2 * Math.PI)) - Math.PI;
+
+    // Convert back to degrees
+    let angleDegrees = angleDiffRad * 180 / Math.PI;
+
+    // Optional: round to reasonable precision
+    angleDegrees = Math.round(angleDegrees * 100) / 100;
+
+    return {
+        angle: angleDegrees,     // positive = turn right, negative = turn left
+        distance: Math.round(distance * 100) / 100   // or keep exact: distance
+    };
   }
 
   now() {
