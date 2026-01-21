@@ -224,7 +224,9 @@ class API {
   }
 
   stop() {
-    this._objects.history.push({ marker: 'history', power: 0, time: this.now() })
+    const time = this.now() // after the stop command has run. this is for the speed calculations
+    this._objects.history.push({ marker: 'history', power: 0, time })
+    return time
   }
 }
 
@@ -326,7 +328,9 @@ function expectCalibrationCompletion(args) {
       objects.calibration.speed = objects.calibration.distance / objects.calibration.duration
       objects.isCalibrated = true
       say(`The drone is calibrated. The speed is ${objects.calibration.speed.toFixed(4)} meters per second at 10 percent power`)
-      mentioned({ marker: 'point', ordinal: api.nextOrdinal(), distance: objects.calibration.distance, description: "calibration stop" })
+      const ordinal = api.nextOrdinal()
+      mentioned({ marker: 'point', ordinal, point: { x: 0, y: objects.calibration.distance }, distance: objects.calibration.distance, description: "calibration stop" })
+      objects.current.ordinal = ordinal
       _continue()
       expectDistanceForMove(args)
     }
@@ -381,6 +385,7 @@ const template = {
         apply: ({context, objects, api}) => {
           // send a command to the drone
           if (objects.runCommand) {
+            // debugger
             api.sendCommand()
           }
         }
@@ -412,8 +417,12 @@ const template = {
           bridge: "{ ...next(operator), interpolate: [{ context: operator }] }",
           semantic: ({context, objects, api, mentioned}) => {
             objects.calibration.startTime = api.now()
-            mentioned({ marker: 'point', ordinal: api.nextOrdinal(), description: "calibration start" })
-            // send command to drone to go forward
+            const ordinal = api.nextOrdinal()
+            mentioned({ marker: 'point', ordinal, point: { x: 0, y: 0 }, description: "calibration start" })
+            objects.current.ordinal = ordinal
+            
+            objects.current.direction = 'forward'
+            api.sendCommand()
           }
         },
         {
@@ -437,7 +446,8 @@ const template = {
             if (!objects.calibration.startTime) {
               // default will say how to calibrate
             } else {
-              objects.calibration.endTime = api.now()
+              const stopTime = api.stop()
+              objects.calibration.endTime = stopTime
               objects.calibration.duration = (objects.calibration.endTime - objects.calibration.startTime)/1000
             }
           }
