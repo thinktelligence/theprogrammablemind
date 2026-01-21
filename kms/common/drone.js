@@ -458,7 +458,7 @@ const template = {
 
 knowledgeModule( { 
   config: { name: 'drone' },
-  includes: [nameable, hierarchy, rates, help],
+  includes: [nameable, ordinals, hierarchy, rates, help],
   api: () => new API(),
 
   module,
@@ -468,9 +468,9 @@ knowledgeModule( {
     contents: drone_tests,
     checks: {
       context: [
-        defaultContextCheck({ marker: 'point', exported: true, extra: ['ordinal', 'description', { property: 'stm', check: ['id', 'names'] }] }),
+        defaultContextCheck({ marker: 'point', exported: true, extra: ['ordinal', { property: 'point', check: ['x', 'y'] }, 'description', { property: 'stm', check: ['id', 'names'] }] }),
         defaultContextCheck({ marker: 'turn', exported: true, extra: ['direction'] }),
-        defaultContextCheck({ marker: 'history', exported: true, extra: ['pause', 'direction', 'power', 'turn'] }),
+        defaultContextCheck({ marker: 'history', exported: true, extra: ['pause', 'direction', 'power', 'turn', 'time'] }),
         defaultContextCheck(),
       ],
       objects: [
