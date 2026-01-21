@@ -199,11 +199,11 @@ class API {
   // subclass and override the remaining to call the car
 
   forward(power) {
-    this._objects.history.push({ marker: 'history', direction: 'forward', power })
+    this._objects.history.push({ marker: 'history', direction: 'forward', power, time: this.now() })
   }
 
   backward(power) {
-    this._objects.history.push({ marker: 'history', direction: 'backward', power })
+    this._objects.history.push({ marker: 'history', direction: 'backward', power, time: this.now() })
   }
 
   // -angle is counterclockwise
@@ -224,7 +224,7 @@ class API {
   }
 
   stop() {
-    this._objects.history.push({ marker: 'history', power: 0 })
+    this._objects.history.push({ marker: 'history', power: 0, time: this.now() })
   }
 }
 
