@@ -178,6 +178,12 @@ class API {
       case 'backward':
         this.backward(command.power)
         break
+      case 'right':
+        this.rotate(90)
+        break
+      case 'left':
+        this.rotate(-90)
+        break
       case 'around':
         this.rotate(180)
         break
@@ -199,11 +205,15 @@ class API {
   // subclass and override the remaining to call the car
 
   forward(power) {
-    this._objects.history.push({ marker: 'history', direction: 'forward', power, time: this.now() })
+    const time = this.now()
+    this._objects.history.push({ marker: 'history', direction: 'forward', power, time })
+    return time
   }
 
   backward(power) {
-    this._objects.history.push({ marker: 'history', direction: 'backward', power, time: this.now() })
+    const time = this.now()
+    this._objects.history.push({ marker: 'history', direction: 'backward', power, time })
+    return time
   }
 
   // -angle is counterclockwise
@@ -224,7 +234,7 @@ class API {
   }
 
   stop() {
-    const time = this.now() // after the stop command has run. this is for the speed calculations
+    const time = this.now()
     this._objects.history.push({ marker: 'history', power: 0, time })
     return time
   }
@@ -416,13 +426,13 @@ const template = {
           isA: ['verb'],
           bridge: "{ ...next(operator), interpolate: [{ context: operator }] }",
           semantic: ({context, objects, api, mentioned}) => {
-            objects.calibration.startTime = api.now()
+            objects.current.direction = 'forward'
+            const startTime = api.forward(objects.calibration.power)
+            objects.calibration.startTime = startTime
+
             const ordinal = api.nextOrdinal()
             mentioned({ marker: 'point', ordinal, point: { x: 0, y: 0 }, description: "calibration start" })
             objects.current.ordinal = ordinal
-            
-            objects.current.direction = 'forward'
-            api.sendCommand()
           }
         },
         {
@@ -444,7 +454,10 @@ const template = {
           bridge: "{ ...next(operator), object: after[0], interpolate: [{ context: operator }, { property: 'object' }] }",
           semantic: ({context, objects, api, say}) => {
             if (!objects.calibration.startTime) {
-              // default will say how to calibrate
+              return // ignore
+            }
+            if (objects.calibration.speed) {
+              const stopTime = api.stop()
             } else {
               const stopTime = api.stop()
               objects.calibration.endTime = stopTime

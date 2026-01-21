@@ -938,3 +938,6 @@ node comparable -q "ascending is a sort ordering" -g -d
 
 node drone -q 'calibrate\nstop\n2 feet\nforward\nhi' -g -d
 node drone -q 'calibrate\nstop\n2 feet\nforward\ncall this point a' -g -d
+
+node drone -q 'calibrate\nstop\n2 feet\nforward\nstop' -g -d
+node drone -q 'calibrate\nstop\n2 feet\nforward\nstop\nturn right\nforward\nstop' -g -d
