@@ -96,6 +96,10 @@ https://www.amazon.ca/Freenove-Raspberry-Tracking-Avoidance-Ultrasonic/dp/B0BNDQ
   pause for 4 seconds
 */
 
+function degreesToRadians(degrees) {
+  return degrees * (Math.PI / 180);
+}
+
 class API {
   initialize({ objects }) {
     this._objects = objects
@@ -113,6 +117,7 @@ class API {
     }
     objects.current = {
       power: 0.1,
+      angleInDegrees: 0          //easier to debug
       // direction: undefined,   // direction to go if going
       // power: undefined,       // power
       // ordinal                 // ordinal of the current point or the current point that the recent movement started at
@@ -126,13 +131,21 @@ class API {
   }
 
   currentPoint() {
-    debugger
     if (!this._objects.current.endTime) {
       return null // in motion
     }
     const ordinal = this._objects.current.ordinal
-    const lastPoint = this.args.mentions({ context: { marker: 'point', ordinal } })
-    debugger
+    const lastPoint = this.args.mentions({ context: { marker: 'point' }, condition: (context) => context.ordinal == ordinal })
+
+    const durationInSeconds = (this._objects.current.endTime - this._objects.current.startTime) / 1000
+    const speedInMetersPerSecond = (this._objects.current.power / this._objects.calibration.power) * this._objects.calibration.speed
+    const direction = this._objects.current.direction
+    const distanceInMeters = speedInMetersPerSecond * durationInSeconds * (direction == 'forward' ? 1 : -1)
+    const angleInRadians = degreesToRadians(this._objects.current.angleInDegrees)
+
+    const xPrime = lastPoint.point.x + distanceInMeters * Math.sin(angleInRadians)
+    const yPrime = lastPoint.point.y + distanceInMeters * Math.cos(angleInRadians)
+    return { x: xPrime, y: yPrime }
   }
 
   fromPointTo(fromPoint, fromAngleInDegrees, toPoint) {
@@ -230,8 +243,10 @@ class API {
     return time
   }
 
-  rotate(angle) {
-    this.rotateDrone(angle)
+  // TODO allow saying turn while its moving and make that one moves so you can go back wiggly?
+  rotate(angleInDegrees) {
+    this.rotateDrone(angleInDegrees)
+    this._objects.current.angleInDegrees += angleInDegrees 
   }
 
   tiltAngle(angle) {
@@ -502,7 +517,7 @@ const template = {
               const stopTime = api.stop()
               const ordinal = api.nextOrdinal()
               const point = api.currentPoint()
-              mentioned({ marker: 'point', ordinal, point: { x: 0, y: objects.calibration.distance }, distance: objects.calibration.distance })
+              mentioned({ marker: 'point', ordinal, point })
               objects.current.ordinal = ordinal
             } else {
               const stopTime = api.stop()
