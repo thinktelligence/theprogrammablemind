@@ -452,12 +452,15 @@ const template = {
             1: "{ marker: 'drone' }",
           },
           bridge: "{ ...next(operator), object: after[0], interpolate: [{ context: operator }, { property: 'object' }] }",
-          semantic: ({context, objects, api, say}) => {
+          semantic: ({mentioned, context, objects, api, say}) => {
             if (!objects.calibration.startTime) {
               return // ignore
             }
             if (objects.calibration.speed) {
               const stopTime = api.stop()
+              const ordinal = api.nextOrdinal()
+              mentioned({ marker: 'point', ordinal, point: { x: 0, y: objects.calibration.distance }, distance: objects.calibration.distance })
+              objects.current.ordinal = ordinal
             } else {
               const stopTime = api.stop()
               objects.calibration.endTime = stopTime
