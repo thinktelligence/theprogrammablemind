@@ -92,6 +92,8 @@ https://www.amazon.ca/Freenove-Raspberry-Tracking-Avoidance-Ultrasonic/dp/B0BNDQ
   call the second point fred
   call the last point june
   call the next point albert
+
+  pause for 4 seconds
 */
 
 class API {
@@ -199,17 +201,22 @@ class API {
     }
   }
 
+  // this is for testing 
   pause(duration_seconds) {
     this._objects.history.push({ marker: 'history', pause: duration_seconds })
   }
 
   forward(power) {
     const time = this.forwardDrone(power)
+    this._objects.current.startTime = time
+    this._objects.current.endTime = null
     return time
   }
 
   backward(power) {
     const time = this.backwardDrone(power)
+    this._objects.current.startTime = time
+    this._objects.current.endTime = null
     return time
   }
 
@@ -227,10 +234,11 @@ class API {
 
   stop() {
     const time = this.stopDrone()
+    this._objects.current.endTime = time
     return time
   }
 
-  // subclass and override the remaining to call the car
+  // subclass and override the remaining to call the drone
 
   forwardDrone(power) {
     const time = this.now()
