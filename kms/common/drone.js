@@ -203,15 +203,42 @@ class API {
     this._objects.history.push({ marker: 'history', pause: duration_seconds })
   }
 
+  forward(power) {
+    const time = this.forwardDrone(power)
+    return time
+  }
+
+  backward(power) {
+    const time = this.backwardDrone(power)
+    return time
+  }
+
+  rotate(angle) {
+    this.rotateDrone(angle)
+  }
+
+  tiltAngle(angle) {
+    tiltAngleDrone(angle)
+  }
+
+  panAngle(angle) {
+    panAngleDrone(angle)
+  }
+
+  stop() {
+    const time = this.stopDrone()
+    return time
+  }
+
   // subclass and override the remaining to call the car
 
-  forward(power) {
+  forwardDrone(power) {
     const time = this.now()
     this._objects.history.push({ marker: 'history', direction: 'forward', power, time })
     return time
   }
 
-  backward(power) {
+  backwardDrone(power) {
     const time = this.now()
     this._objects.history.push({ marker: 'history', direction: 'backward', power, time })
     return time
@@ -220,21 +247,17 @@ class API {
   // -angle is counterclockwise
   // +angle is clockwise
 
-  rotate(angle) {
+  rotateDrone(angle) {
     this._objects.history.push({ marker: 'history', turn: angle })
   }
 
-  turn(angle) {
-    this._objects.runCommand = true
+  tiltAngleDrone(angle) {
   }
 
-  tilt_angle(angle) {
+  panAngleDrone(angle) {
   }
 
-  pan_angle(angle) {
-  }
-
-  stop() {
+  stopDrone() {
     const time = this.now()
     this._objects.history.push({ marker: 'history', power: 0, time })
     return time
