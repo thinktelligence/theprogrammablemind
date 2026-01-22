@@ -92,6 +92,8 @@ https://www.amazon.ca/Freenove-Raspberry-Tracking-Avoidance-Ultrasonic/dp/B0BNDQ
   call the second point fred
   call the last point june
   call the next point albert
+
+  pause for 4 seconds
 */
 
 class API {
@@ -209,19 +211,52 @@ class API {
     }
   }
 
+  // this is for testing 
   pause(duration_seconds) {
     this._objects.history.push({ marker: 'history', pause: duration_seconds })
   }
 
-  // subclass and override the remaining to call the car
-
   forward(power) {
+    const time = this.forwardDrone(power)
+    this._objects.current.startTime = time
+    this._objects.current.endTime = null
+    return time
+  }
+
+  backward(power) {
+    const time = this.backwardDrone(power)
+    this._objects.current.startTime = time
+    this._objects.current.endTime = null
+    return time
+  }
+
+  rotate(angle) {
+    this.rotateDrone(angle)
+  }
+
+  tiltAngle(angle) {
+    tiltAngleDrone(angle)
+  }
+
+  panAngle(angle) {
+    panAngleDrone(angle)
+  }
+
+  stop() {
+    const time = this.stopDrone()
+    this._objects.current.endTime = time
+    return time
+  }
+
+  // subclass and override the remaining to call the drone
+
+  forwardDrone(power) {
     const time = this.now()
     this._objects.history.push({ marker: 'history', direction: 'forward', power, time })
     return time
   }
 
-  backward(power) {
+  backwardDrone(power) {
     const time = this.now()
     this._objects.history.push({ marker: 'history', direction: 'backward', power, time })
     return time
@@ -230,21 +265,17 @@ class API {
   // -angle is counterclockwise
   // +angle is clockwise
 
-  rotate(angle) {
+  rotateDrone(angle) {
     this._objects.history.push({ marker: 'history', turn: angle })
   }
 
-  turn(angle) {
-    this._objects.runCommand = true
+  tiltAngleDrone(angle) {
   }
 
-  tilt_angle(angle) {
+  panAngleDrone(angle) {
   }
 
-  pan_angle(angle) {
-  }
-
-  stop() {
+  stopDrone() {
     const time = this.now()
     this._objects.history.push({ marker: 'history', power: 0, time })
     return time
