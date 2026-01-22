@@ -124,6 +124,10 @@ class API {
   }
 
   currentPoint() {
+    debugger
+    if (!this._objects.current.endTime) {
+      return null // in motion
+    }
     const ordinal = this._objects.current.ordinal
     const lastPoint = this.args.mentions({ context: { marker: 'point', ordinal } })
     debugger
@@ -466,6 +470,7 @@ const template = {
             if (objects.calibration.speed) {
               const stopTime = api.stop()
               const ordinal = api.nextOrdinal()
+              const point = api.currentPoint()
               mentioned({ marker: 'point', ordinal, point: { x: 0, y: objects.calibration.distance }, distance: objects.calibration.distance })
               objects.current.ordinal = ordinal
             } else {
