@@ -110,6 +110,7 @@ class API {
       speed: undefined,       // meters per second
     }
     objects.current = {
+      power: 0.1,
       // direction: undefined,   // direction to go if going
       // power: undefined,       // power
       // ordinal                 // ordinal of the current point or the current point that the recent movement started at
@@ -170,7 +171,7 @@ class API {
   }
 
   sendCommand() {
-    const command = { power: this._objects.calibration.power, ...this._objects.current }
+    const command = { power: this._objects.current.power, ...this._objects.current }
     switch (command.direction) {
       case 'forward':
         this.forward(command.power)
@@ -376,7 +377,7 @@ const template = {
           const instantiation = await fragments("quantity in meters per second", { quantity: context })
           const result = await e(instantiation)
           const desired_speed = result.evalue.amount.evalue.evalue
-          const desired_power = objects.calibration.power * (desired_speed / objects.calibration.speed)
+          const desired_power = objects.current.power * (desired_speed / objects.calibration.speed)
           objects.runCommand = true
           objects.current.power = desired_power 
         }
@@ -427,7 +428,7 @@ const template = {
           bridge: "{ ...next(operator), interpolate: [{ context: operator }] }",
           semantic: ({context, objects, api, mentioned}) => {
             objects.current.direction = 'forward'
-            const startTime = api.forward(objects.calibration.power)
+            const startTime = api.forward(objects.current.power)
             objects.calibration.startTime = startTime
 
             const ordinal = api.nextOrdinal()
