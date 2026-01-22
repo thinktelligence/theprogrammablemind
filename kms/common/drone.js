@@ -123,6 +123,12 @@ class API {
     return this._objects.ordinal += 1
   }
 
+  currentPoint() {
+    const ordinal = this._objects.current.ordinal
+    const lastPoint = this.args.mentions({ context: { marker: 'point', ordinal } })
+    debugger
+  }
+
   fromPointTo(fromPoint, fromAngleInDegrees, toPoint) {
     const dx = toPoint.x - fromPoint.x;
     const dy = toPoint.y - fromPoint.y;
