@@ -28,6 +28,10 @@ function degreesToRadians(degrees) {
   return degrees * (Math.PI / 180);
 }
 
+function radiansToDegrees(radians) {
+  return (radians * 180) / Math.PI;
+}
+
 function fromToDelta(from, currentAngleInDegrees, to) {
   // 1. Calculate distance (Pythagorean theorem)
   const dx = to.x - from.x;
@@ -92,4 +96,5 @@ module.exports = {
   fromToDelta,
   cartesianToPolar,
   degreesToRadians,
+  radiansToDegrees,
 }

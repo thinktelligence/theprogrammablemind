@@ -7,7 +7,7 @@ const ordinals = require('./ordinals')
 const nameable = require('./nameable')
 const rates = require('./rates')
 const help = require('./help')
-const { degreesToRadians, cartesianToPolar } = require('./helpers/drone')
+const { degreesToRadians, radiansToDegrees, cartesianToPolar } = require('./helpers/drone')
 
 /*
 todo
@@ -153,7 +153,6 @@ class API {
     const direction = this._objects.current.direction
     const distanceInMeters = speedInMetersPerSecond * durationInSeconds * (direction == 'forward' ? 1 : -1)
     const angleInRadians = degreesToRadians(this._objects.current.angleInDegrees)
-    debugger
 
     const yPrime = lastPoint.point.y + distanceInMeters * Math.sin(angleInRadians)
     const xPrime = lastPoint.point.x + distanceInMeters * Math.cos(angleInRadians)
@@ -188,12 +187,31 @@ class API {
   }
 
   sendCommand() {
+    const stopAtDistance = (distanceMeters) => {
+      const speed_meters_per_second = this._objects.calibration.speed
+      const duration_seconds = distanceMeters / speed_meters_per_second
+      this.pause(duration_seconds)
+      this.stop()
+      this.markCurrentPoint()
+    }
+
     if (this._objects.current.destination) {
       const currentPoint = this.args.mentions({ context: { marker: 'point' } })
       debugger
       const polar = cartesianToPolar(currentPoint.point, this._objects.current.destination.point)
+      const destinationAngleInDegrees = radiansToDegrees(polar.angle)
+      let angleDelta = destinationAngleInDegrees - this._objects.current.angleInDegrees
+      if (angleDelta > 180) {
+        angleDelta -= 360
+      } else if (angleDelta < -180) {
+        angleDelta += 360
+      }
+      this.rotate(angleDelta)
+      this.forward(this._objects.current.power)
+      stopAtDistance(polar.radius)
       return
     }
+
     const command = { power: this._objects.current.power, ...this._objects.current }
     switch (command.direction) {
       case 'forward':
@@ -214,14 +232,8 @@ class API {
     }
 
     if (command.distance) {
-      const distance_meters = command.distance
-      debugger
-      const speed_meters_per_second = this._objects.calibration.speed
-      const duration_seconds = distance_meters / speed_meters_per_second
-      debugger
-      this.pause(duration_seconds)
-      this.stop()
-      this.markCurrentPoint()
+      const distanceMeters = command.distance
+      stopAtDistance(distanceMeters)
     }
   }
 
