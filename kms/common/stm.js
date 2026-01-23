@@ -80,7 +80,6 @@ class API {
 
   mentions({ context, frameOfReference, useHierarchy=true, all, condition = (() => true) } = {}) {
     const mentioned = frameOfReference?.mentioned || this._objects.mentioned
-
     const findPrevious = !!context.stm_previous
     const forAll = []
     function addForAll(context) {

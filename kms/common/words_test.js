@@ -9,7 +9,7 @@ describe('words km', () => {
   })
 
   // 2nd Declension Tests
-  test('NEOS23 no find', async () => {
+  test('no find', async () => {
     await km.run(({addWordToDictionary, getWordFromDictionary, config}) => {
       const word = {
         id: 'be',
@@ -37,7 +37,7 @@ describe('words km', () => {
     })
   })
 
-  test('NEOS23 finds first', async () => {
+  test('finds first', async () => {
     await km.run(({addWordToDictionary, getWordFromDictionary, config}) => {
       const word = {
         id: 'be',

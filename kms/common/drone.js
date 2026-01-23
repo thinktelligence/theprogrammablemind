@@ -7,6 +7,7 @@ const ordinals = require('./ordinals')
 const nameable = require('./nameable')
 const rates = require('./rates')
 const help = require('./help')
+const { degreesToRadians, cartesianToPolar } = require('./helpers/drone')
 
 /*
 todo
@@ -96,10 +97,16 @@ https://www.amazon.ca/Freenove-Raspberry-Tracking-Avoidance-Ultrasonic/dp/B0BNDQ
   pause for 4 seconds
 */
 
-function degreesToRadians(degrees) {
-  return degrees * (Math.PI / 180);
-}
-
+/*
+                   ^
+                   y
+                   |
+                  90
+                   |
+       -180/180 <--^--> 0 -- x ->
+                   |
+                  -90
+*/
 class API {
   initialize({ objects }) {
     this._objects = objects
@@ -126,6 +133,10 @@ class API {
     objects.isCalibrated = false
   }
 
+  isCalibrated() {
+    return this._objects.isCalibrated
+  }
+
   nextOrdinal() {
     return this._objects.ordinal += 1
   }
@@ -142,45 +153,20 @@ class API {
     const direction = this._objects.current.direction
     const distanceInMeters = speedInMetersPerSecond * durationInSeconds * (direction == 'forward' ? 1 : -1)
     const angleInRadians = degreesToRadians(this._objects.current.angleInDegrees)
+    debugger
 
-    const xPrime = lastPoint.point.x + distanceInMeters * Math.sin(angleInRadians)
-    const yPrime = lastPoint.point.y + distanceInMeters * Math.cos(angleInRadians)
+    const yPrime = lastPoint.point.y + distanceInMeters * Math.sin(angleInRadians)
+    const xPrime = lastPoint.point.x + distanceInMeters * Math.cos(angleInRadians)
     return { x: xPrime, y: yPrime }
   }
 
-  fromPointTo(fromPoint, fromAngleInDegrees, toPoint) {
-    const dx = toPoint.x - fromPoint.x;
-    const dy = toPoint.y - fromPoint.y;
-
-    const distance = Math.sqrt(dx * dx + dy * dy);
-
-    if (distance === 0) {
-      return { angle: 0, distance: 0 };
-    }
-
-    // Direction we WANT to face (in radians)
-    // Note: Math.atan2(y,x) → angle from positive x-axis (0 = right, 90° = up)
-    const desiredAngleRad = Math.atan2(dy, dx);
-
-    // Convert current angle to radians
-    const currentAngleRad = fromAngleInDegrees * Math.PI / 180;
-
-    // Difference in radians
-    let angleDiffRad = desiredAngleRad - currentAngleRad;
-
-    // Normalize to [-π, π]
-    angleDiffRad = ((angleDiffRad + Math.PI) % (2 * Math.PI)) - Math.PI;
-
-    // Convert back to degrees
-    let angleDegrees = angleDiffRad * 180 / Math.PI;
-
-    // Optional: round to reasonable precision
-    angleDegrees = Math.round(angleDegrees * 100) / 100;
-
-    return {
-        angle: angleDegrees,     // positive = turn right, negative = turn left
-        distance: Math.round(distance * 100) / 100   // or keep exact: distance
-    };
+  markCurrentPoint() {
+    const ordinal = this.nextOrdinal()
+    const point = this.currentPoint()
+    this.args.mentioned({ marker: 'point', ordinal, point })
+    this._objects.current.ordinal = ordinal
+    this._objects.current.endTime = null
+    this._objects.current.startTime = null
   }
 
   now() {
@@ -195,7 +181,19 @@ class API {
     }
   }
 
+  // this is for testing 
+  pause(duration_in_seconds) {
+    this._objects.history.push({ marker: 'history', pause: duration_in_seconds })
+    this.testDate = new Date(this.testDate.getTime() + (duration_in_seconds-1)*1000)
+  }
+
   sendCommand() {
+    if (this._objects.current.destination) {
+      const currentPoint = this.args.mentions({ context: { marker: 'point' } })
+      debugger
+      const polar = cartesianToPolar(currentPoint.point, this._objects.current.destination.point)
+      return
+    }
     const command = { power: this._objects.current.power, ...this._objects.current }
     switch (command.direction) {
       case 'forward':
@@ -205,10 +203,10 @@ class API {
         this.backward(command.power)
         break
       case 'right':
-        this.rotate(90)
+        this.rotate(-90)
         break
       case 'left':
-        this.rotate(-90)
+        this.rotate(90)
         break
       case 'around':
         this.rotate(180)
@@ -217,16 +215,14 @@ class API {
 
     if (command.distance) {
       const distance_meters = command.distance
+      debugger
       const speed_meters_per_second = this._objects.calibration.speed
       const duration_seconds = distance_meters / speed_meters_per_second
+      debugger
       this.pause(duration_seconds)
       this.stop()
+      this.markCurrentPoint()
     }
-  }
-
-  // this is for testing 
-  pause(duration_seconds) {
-    this._objects.history.push({ marker: 'history', pause: duration_seconds })
   }
 
   forward(power) {
@@ -246,7 +242,7 @@ class API {
   // TODO allow saying turn while its moving and make that one moves so you can go back wiggly?
   rotate(angleInDegrees) {
     this.rotateDrone(angleInDegrees)
-    this._objects.current.angleInDegrees += angleInDegrees 
+    this._objects.current.angleInDegrees = (this._objects.current.angleInDegrees + angleInDegrees) % 360
   }
 
   tiltAngle(angle) {
@@ -396,7 +392,7 @@ function expectCalibrationCompletion(args) {
       objects.isCalibrated = true
       say(`The drone is calibrated. The speed is ${objects.calibration.speed.toFixed(4)} meters per second at 10 percent power`)
       const ordinal = api.nextOrdinal()
-      mentioned({ marker: 'point', ordinal, point: { x: 0, y: objects.calibration.distance }, distance: objects.calibration.distance, description: "calibration stop" })
+      mentioned({ marker: 'point', ordinal, point: { x: objects.calibration.distance, y: 0 }, distance: objects.calibration.distance, description: "calibration stop" })
       objects.current.ordinal = ordinal
       _continue()
       expectDistanceForMove(args)
@@ -416,7 +412,7 @@ const template = {
     "speed and power are properties",
     "point is a concept",
     // TODO fix/add this "position means point",
-    "points are nameable and memorable",
+    "points are nameable orderable and memorable",
     (args) => {
       askForCalibrationDistance(args)
       askForEndTime(args)
@@ -465,8 +461,21 @@ const template = {
         "([pause] ([number]))",
         "([stop] ([drone|])?)",
         "([go])",
+        "([toPoint|to] (point))",
       ],
       bridges: [
+        { 
+          id: "toPoint",
+          isA: ['preposition'],
+          bridge: "{ ...next(operator), operator: operator, point: after[0], interpolate: [{ property: 'operator' }, { property: 'point' }] }",
+          semantic: async ({objects, api, e, context}) => {
+            if (api.isCalibrated()) {
+              objects.runCommand = true
+              const point = await e(context.point)
+              objects.current.destination = point.evalue
+            }
+          }
+        },
         { id: "go" },
         {
           id: 'turn',
@@ -514,11 +523,15 @@ const template = {
               return // ignore
             }
             if (objects.calibration.speed) {
+              /*
               const stopTime = api.stop()
               const ordinal = api.nextOrdinal()
               const point = api.currentPoint()
               mentioned({ marker: 'point', ordinal, point })
               objects.current.ordinal = ordinal
+              */
+              api.stop()
+              api.markCurrentPoint()
             } else {
               const stopTime = api.stop()
               objects.calibration.endTime = stopTime
@@ -559,6 +572,7 @@ knowledgeModule( {
       ],
       objects: [
         { km: 'stm' },
+        { path: ['isCalibrated'] }, 
         { path: ['calibration'] }, 
         { path: ['history'] },
         { path: ['current'] },

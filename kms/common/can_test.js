@@ -9,7 +9,7 @@ describe('can km', () => {
     km = await canKM({ useCache: false })
   })
 
-  test('NEOS23 active to passive', async () => {
+  test('active to passive', async () => {
     await km.run(async ({fragments, s, gp, addWordToDictionary, getWordFromDictionary, config}) => {
       const fragment = await fragments("cansubject can canverb canobject")
       const context = fragment.contexts()[0]
@@ -23,7 +23,7 @@ describe('can km', () => {
     })
   })
 
-  test('NEOS23 passive to active', async () => {
+  test('passive to active', async () => {
     await km.run(async ({fragments, s, gp, addWordToDictionary, getWordFromDictionary, config}) => {
       const fragment = await fragments("canobject can be canverb by cansubject")
       const context = fragment.contexts()[0]
@@ -37,7 +37,7 @@ describe('can km', () => {
     })
   })
 
-  test('NEOS23 to passive handles mixes list', async () => {
+  test('to passive handles mixes list', async () => {
     await km.run(async ({fragments, s, gp, addWordToDictionary, getWordFromDictionary, config}) => {
       const fragmentPassive = await fragments("canobject can be canverb by cansubject")
       const contextPassive = fragmentPassive.contexts()[0]

@@ -941,3 +941,4 @@ node drone -q 'calibrate\nstop\n2 feet\nforward\ncall this point a' -g -d
 
 node drone -q 'calibrate\nstop\n2 feet\nforward\nstop' -g -d
 node drone -q 'calibrate\nstop\n2 feet\nforward\nstop\nturn right\nforward\nstop' -g -d
+node inspect drone -q 'calibrate\nstop\n2 feet\nforward\nstop\nturn right\nforward\nstop\ngo to the previous point' -g -d
