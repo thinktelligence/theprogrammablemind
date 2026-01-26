@@ -197,7 +197,6 @@ class API {
 
     if (this._objects.current.destination) {
       const currentPoint = this.args.mentions({ context: { marker: 'point' } })
-      debugger
       const polar = cartesianToPolar(currentPoint.point, this._objects.current.destination.point)
       const destinationAngleInDegrees = radiansToDegrees(polar.angle)
       let angleDelta = destinationAngleInDegrees - this._objects.current.angleInDegrees

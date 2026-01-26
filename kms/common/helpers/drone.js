@@ -16,7 +16,7 @@ function cartesianToPolar(O, P) {
     const radius = Math.hypot(dx, dy);
 
     // Angle in radians (-π to π)
-    let angle = Math.atan2(dy, dx);
+    const angle = Math.atan2(dy, dx);
 
     return {
         radius,
