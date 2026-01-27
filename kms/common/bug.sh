@@ -942,3 +942,27 @@ node drone -q 'calibrate\nstop\n2 feet\nforward\ncall this point a' -g -d
 node drone -q 'calibrate\nstop\n2 feet\nforward\nstop' -g -d
 node drone -q 'calibrate\nstop\n2 feet\nforward\nstop\nturn right\nforward\nstop' -g -d
 node inspect drone -q 'calibrate\nstop\n2 feet\nforward\nstop\nturn right\nforward\nstop\ngo to the previous point' -g -d
+
+
+
+0 - stop
+1 - 2 meters
+2 - help
+3 - calibrate
+4 - calibrate\nstop
+5 - calibrate\nstop\n2 feet
+6 - calibrate\nstop\n2 feet\nforward 2 meters per minute
+7 - calibrate\nstop\n2 feet\nbackward 2 meters per minute
+8 - calibrate\nstop\n2 feet\nbackward 2 meters
+9 - calibrate\nstop\n2 feet\nturn around
+10 - calibrate\nstop\n2 feet\nforward
+11 - calibrate\nstop\n2 feet\nforward\nhi
+12 - calibrate\nstop\n2 feet\nforward\nstop\nturn right\nforward\nstop
+13 - calibrate\nstop\n2 feet\nforward\nstop
+14 - calibrate\nstop\n2 feet\nforward\nstop\nforward
+15 - calibrate\nstop\n2 feet\nbackward\nstop
+16 - calibrate\nstop\n2 feet\nforward\nstop\nturn right\nforward\nstop\nforward\nstop
+17 - calibrate\nstop\n2 feet\nforward\nstop\nturn right\nforward\nstop\nthe previous point
+18 - to the previous point
+19 - calibrate\nstop\n2 feet\nforward\nstop\nturn right\nforward\nstop\ngo to the previous point
+

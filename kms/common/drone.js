@@ -95,7 +95,36 @@ https://www.amazon.ca/Freenove-Raspberry-Tracking-Avoidance-Ultrasonic/dp/B0BNDQ
   call the next point albert
 
   pause for 4 seconds
+
+  this way is north
+  turn west 
+  go three meters 
+  turn south 
+  go 1 foot
 */
+
+function expectDirection(args) {
+  args.config.addSemantic({
+    match: ({context, isA}) => isA(context.marker, 'direction'),
+    apply: ({objects, context}) => {
+      objects.runCommand = true
+      objects.current.direction = context.marker
+    }
+  })
+}
+
+function expectDistanceForMove(args) {
+  // TODO save id for recalibration
+  args.config.addSemantic({
+    match: ({context, isA}) => isA(context.marker, 'quantity') && !isA(context.unit.marker, 'unitPerUnit'),
+    apply: async ({context, objects, fragments, e}) => {
+      const instantiation = await fragments("quantity in meters", { quantity: context })
+      const result = await e(instantiation)
+      objects.runCommand = true
+      objects.current.distance = result.evalue.amount.evalue.evalue
+    }
+  })
+}
 
 /*
                    ^
@@ -115,11 +144,6 @@ class API {
     delete this.testDate
 
     objects.calibration = {
-      startTime: undefined,   // start time for calibration
-      endTime: undefined,     // end time for calibration
-      duration: undefined,    // end time - start time
-      distance: undefined,    // distance travelled during calibration in mm
-      power: 0.1,
       speed: undefined,       // meters per second
     }
     objects.current = {
@@ -131,6 +155,7 @@ class API {
     }
     objects.history = []
     objects.isCalibrated = false
+    objects.sonicTest = 5
   }
 
   isCalibrated() {
@@ -153,7 +178,6 @@ class API {
     const direction = this._objects.current.direction
     const distanceInMeters = speedInMetersPerSecond * durationInSeconds * (direction == 'forward' ? 1 : -1)
     const angleInRadians = degreesToRadians(this._objects.current.angleInDegrees)
-
     const yPrime = lastPoint.point.y + distanceInMeters * Math.sin(angleInRadians)
     const xPrime = lastPoint.point.x + distanceInMeters * Math.cos(angleInRadians)
     return { x: xPrime, y: yPrime }
@@ -250,6 +274,10 @@ class API {
     return time
   }
 
+  sonic() {
+    return this.sonicDrone()
+  }
+
   // TODO allow saying turn while its moving and make that one moves so you can go back wiggly?
   rotate(angleInDegrees) {
     this.rotateDrone(angleInDegrees)
@@ -272,6 +300,7 @@ class API {
 
   // subclass and override the remaining to call the drone
 
+  // CMD_MOTOR#1000#1000#
   forwardDrone(power) {
     const time = this.now()
     this._objects.history.push({ marker: 'history', direction: 'forward', power, time })
@@ -291,6 +320,20 @@ class API {
     this._objects.history.push({ marker: 'history', turn: angle })
   }
 
+  rotateDrone(angle) {
+    this._objects.history.push({ marker: 'history', turn: angle })
+  }
+
+  // distance in cm
+  sonicDrone() {
+    if (!this._objects.sonicTest) {
+      this.objects.sonicTest = 5
+    }
+    this.objects.sonicTest -= 1
+    this._objects.history.push({ marker: 'history', sonic: this.objects.sonicTest })
+    return this.objects.sonicTest
+  }
+
   tiltAngleDrone(angle) {
   }
 
@@ -304,7 +347,7 @@ class API {
   }
 }
 
-const howToCalibrate = "When you are ready say calibrate. The drone will drive forward at 10 percent power then say stop. Measure the distance and tell me that. Or you can say the speed of the drone at percentage of power."
+const howToCalibrate = "Put an object in front of the drone. When you are ready say calibrate."
 
 function askForProperty({
   ask,
@@ -330,33 +373,6 @@ function askForProperty({
   })
 }
 
-function askForCalibrationDistance(args) {
-  askForProperty({
-    ...args,
-    propertyPath: ['calibration', 'distance'],
-    query: "How far did the drone go?",
-    matchr: ({context, objects}) => objects.calibration.endTime && context.marker == 'quantity' && context.unit.dimension == 'length',
-  })
-}
-
-function askForEndTime(args) {
-  askForProperty({
-    ...args,
-    propertyPath: ['calibration', 'endTime'],
-    query: "Say stop when the drone has driven enough.",
-    matchr: () => false,
-  })
-}
-
-function askForStartTime(args) {
-  askForProperty({
-    ...args,
-    propertyPath: ['calibration', 'startTime'],
-    query: howToCalibrate,
-    matchr: () => false,
-  })
-}
-
 // expectProperty
 function expectDirection(args) {
   args.config.addSemantic({
@@ -364,19 +380,6 @@ function expectDirection(args) {
     apply: ({objects, context}) => {
       objects.runCommand = true
       objects.current.direction = context.marker
-    }
-  })
-}
-
-// expectProperty
-function expectDistanceForCalibration(args) {
-  args.config.addSemantic({
-    oneShot: true,
-    match: ({context, isA, objects}) => isA(context.marker, 'quantity') && !isA(context.unit.marker, 'unitPerUnit') && objects.calibration.startTime,
-    apply: async ({context, objects, fragments, e}) => {
-      const instantiation = await fragments("quantity in meters", { quantity: context })
-      const result = await e(instantiation)
-      objects.calibration.distance = result.evalue.amount.evalue.evalue
     }
   })
 }
@@ -390,23 +393,6 @@ function expectDistanceForMove(args) {
       const result = await e(instantiation)
       objects.runCommand = true
       objects.current.distance = result.evalue.amount.evalue.evalue
-    }
-  })
-}
-
-function expectCalibrationCompletion(args) {
-  args.config.addSemantic({
-    oneShot: true,
-    match: ({context, objects, isA}) => context.marker == 'controlEnd' && objects.calibration.distance && objects.calibration.duration && !objects.calibration.speed,
-    apply: ({api, context, objects, _continue, say, mentioned}) => {
-      objects.calibration.speed = objects.calibration.distance / objects.calibration.duration
-      objects.isCalibrated = true
-      say(`The drone is calibrated. The speed is ${objects.calibration.speed.toFixed(4)} meters per second at 10 percent power`)
-      const ordinal = api.nextOrdinal()
-      mentioned({ marker: 'point', ordinal, point: { x: objects.calibration.distance, y: 0 }, distance: objects.calibration.distance, description: "calibration stop" })
-      objects.current.ordinal = ordinal
-      _continue()
-      expectDistanceForMove(args)
     }
   })
 }
@@ -425,13 +411,8 @@ const template = {
     // TODO fix/add this "position means point",
     "points are nameable orderable and memorable",
     (args) => {
-      askForCalibrationDistance(args)
-      askForEndTime(args)
-      askForStartTime(args)
-
       expectDirection(args)
-      expectDistanceForCalibration(args)
-      expectCalibrationCompletion(args)
+      expectDistanceForMove(args)
 
       args.config.addSemantic({
         match: ({context, isA}) => isA(context.marker, 'quantity') && isA(context.unit.marker, 'unitPerUnit'),
@@ -500,15 +481,42 @@ const template = {
         },
         {
           id: 'calibrate',
+          words: ['configure'],
           isA: ['verb'],
           bridge: "{ ...next(operator), interpolate: [{ context: operator }] }",
-          semantic: ({context, objects, api, mentioned}) => {
-            objects.current.direction = 'forward'
-            const startTime = api.forward(objects.current.power)
-            objects.calibration.startTime = startTime
+          semantic: async ({context, objects, api, mentioned}) => {
+            let power = 20
+            let distance = 0
+            let moveTime = 500
+            for (; power < 30; ++power) {
+              const start = await api.sonic();
+              await api.forward(power)
+              await api.pause(moveTime)
+              await api.stop(power)
+              const end = await api.sonic();
+              if (end < start) {
+                distance = start - end
+                break;
+              }
+            }
+
+            // reset
+            await api.backward(power)
+            await api.pause(moveTime)
+            await api.stop(power)
+
+            console.log(`Distance ${distance} cm`)
+            console.log(`Time ${moveTime} ms`)
+            const metersPerSecond = (distance/100)/(moveTime/1000)
+            console.log(`M/S ${metersPerSecond}`)
+
+            objects.calibration.minPower = power
+            objects.current.power = power
+            objects.calibration.speed = metersPerSecond
+            objects.isCalibrated = true
 
             const ordinal = api.nextOrdinal()
-            mentioned({ marker: 'point', ordinal, point: { x: 0, y: 0 }, description: "calibration start" })
+            mentioned({ marker: 'point', ordinal, point: { x: 0, y: 0 }, description: "start" })
             objects.current.ordinal = ordinal
           }
         },
@@ -578,7 +586,7 @@ knowledgeModule( {
       context: [
         defaultContextCheck({ marker: 'point', exported: true, extra: ['ordinal', { property: 'point', check: ['x', 'y'] }, 'description', { property: 'stm', check: ['id', 'names'] }] }),
         defaultContextCheck({ marker: 'turn', exported: true, extra: ['direction'] }),
-        defaultContextCheck({ marker: 'history', exported: true, extra: ['pause', 'direction', 'power', 'turn', 'time'] }),
+        defaultContextCheck({ marker: 'history', exported: true, extra: ['pause', 'direction', 'power', 'turn', 'time', 'sonic'] }),
         defaultContextCheck(),
       ],
       objects: [
