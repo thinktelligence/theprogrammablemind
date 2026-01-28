@@ -170,6 +170,7 @@ class API {
     if (!this._objects.current.endTime) {
       return null // in motion
     }
+    debugger
     const ordinal = this._objects.current.ordinal
     const lastPoint = this.args.mentions({ context: { marker: 'point' }, condition: (context) => context.ordinal == ordinal })
 
@@ -192,30 +193,12 @@ class API {
     this._objects.current.startTime = null
   }
 
-  now() {
-    if (this.args.isProcess || this.args.isTest) {
-      if (!this.testDate) {
-        this.testDate = new Date(2025, 5, 29, 14, 52, 0)
-      }
-      this.testDate = new Date(this.testDate.getTime() + 1000)
-      return this.testDate
-    } else {
-      return new Date()
-    }
-  }
-
-  // this is for testing 
-  pause(duration_in_seconds) {
-    this._objects.history.push({ marker: 'history', pause: duration_in_seconds })
-    this.testDate = new Date(this.testDate.getTime() + (duration_in_seconds-1)*1000)
-  }
-
-  sendCommand() {
-    const stopAtDistance = (distanceMeters) => {
+  async sendCommand() {
+    const stopAtDistance = async (distanceMeters) => {
       const speed_meters_per_second = this._objects.calibration.speed
       const duration_seconds = distanceMeters / speed_meters_per_second
-      this.pause(duration_seconds)
-      this.stop()
+      await this.pause(duration_seconds)
+      await this.stop()
       this.markCurrentPoint()
     }
 
@@ -229,85 +212,103 @@ class API {
       } else if (angleDelta < -180) {
         angleDelta += 360
       }
-      this.rotate(angleDelta)
-      this.forward(this._objects.current.power)
-      stopAtDistance(polar.radius)
+      await this.rotate(angleDelta)
+      await this.forward(this._objects.current.power)
+      await stopAtDistance(polar.radius)
       return
     }
 
     const command = { power: this._objects.current.power, ...this._objects.current }
     switch (command.direction) {
       case 'forward':
-        this.forward(command.power)
+        await this.forward(command.power)
         break
       case 'backward':
-        this.backward(command.power)
+        await this.backward(command.power)
         break
       case 'right':
-        this.rotate(-90)
+        await this.rotate(-90)
         break
       case 'left':
-        this.rotate(90)
+        await this.rotate(90)
         break
       case 'around':
-        this.rotate(180)
+        await this.rotate(180)
         break
     }
 
     if (command.distance) {
       const distanceMeters = command.distance
-      stopAtDistance(distanceMeters)
+      await stopAtDistance(distanceMeters)
     }
   }
 
-  forward(power) {
-    const time = this.forwardDrone(power)
+  async forward(power) {
+    const time = await this.forwardDrone(power)
     this._objects.current.startTime = time
     this._objects.current.endTime = null
     return time
   }
 
-  backward(power) {
-    const time = this.backwardDrone(power)
+  async backward(power) {
+    const time = await this.backwardDrone(power)
     this._objects.current.startTime = time
     this._objects.current.endTime = null
     return time
   }
 
-  sonic() {
-    return this.sonicDrone()
+  async sonic() {
+    return await this.sonicDrone()
   }
 
   // TODO allow saying turn while its moving and make that one moves so you can go back wiggly?
-  rotate(angleInDegrees) {
-    this.rotateDrone(angleInDegrees)
+  async rotate(angleInDegrees) {
+    await this.rotateDrone(angleInDegrees)
     this._objects.current.angleInDegrees = (this._objects.current.angleInDegrees + angleInDegrees) % 360
   }
 
-  tiltAngle(angle) {
-    tiltAngleDrone(angle)
+  async tiltAngle(angle) {
+    await tiltAngleDrone(angle)
   }
 
-  panAngle(angle) {
-    panAngleDrone(angle)
+  async panAngle(angle) {
+    await panAngleDrone(angle)
   }
 
-  stop() {
-    const time = this.stopDrone()
+  async stop() {
+    const time = await this.stopDrone()
     this._objects.current.endTime = time
     return time
   }
 
   // subclass and override the remaining to call the drone
 
+  // this is for testing 
+  async pause(durationInSeconds) {
+    this._objects.history.push({ marker: 'history', pause: durationInSeconds })
+    this.testDate = new Date(this.testDate.getTime() + (durationInSeconds-1)*1000)
+  }
+
+  now() {
+    if (this.args.isProcess || this.args.isTest) {
+      if (!this.testDate) {
+        this.testDate = new Date(2025, 5, 29, 14, 52, 0)
+      }
+      this.testDate = new Date(this.testDate.getTime() + 1000)
+      return this.testDate
+    } else {
+      return new Date()
+    }
+  }
+
   // CMD_MOTOR#1000#1000#
-  forwardDrone(power) {
+  async forwardDrone(power) {
     const time = this.now()
     this._objects.history.push({ marker: 'history', direction: 'forward', power, time })
     return time
   }
 
-  backwardDrone(power) {
+  async backwardDrone(power) {
     const time = this.now()
     this._objects.history.push({ marker: 'history', direction: 'backward', power, time })
     return time
@@ -316,31 +317,27 @@ class API {
   // -angle is counterclockwise
   // +angle is clockwise
 
-  rotateDrone(angle) {
-    this._objects.history.push({ marker: 'history', turn: angle })
-  }
-
-  rotateDrone(angle) {
+  async rotateDrone(angle) {
     this._objects.history.push({ marker: 'history', turn: angle })
   }
 
   // distance in cm
-  sonicDrone() {
+  async sonicDrone() {
     if (!this._objects.sonicTest) {
-      this.objects.sonicTest = 5
+      this._objects.sonicTest = 5
     }
-    this.objects.sonicTest -= 1
-    this._objects.history.push({ marker: 'history', sonic: this.objects.sonicTest })
-    return this.objects.sonicTest
+    this._objects.sonicTest -= 1
+    this._objects.history.push({ marker: 'history', sonic: this._objects.sonicTest })
+    return this._objects.sonicTest
   }
 
-  tiltAngleDrone(angle) {
+  async tiltAngleDrone(angle) {
   }
 
-  panAngleDrone(angle) {
+  async panAngleDrone(angle) {
   }
 
-  stopDrone() {
+  async stopDrone() {
     const time = this.now()
     this._objects.history.push({ marker: 'history', power: 0, time })
     return time
@@ -437,11 +434,11 @@ const template = {
       args.config.addSemantic({
         // match: ({context, objects, isA}) => objects.current.direction && objects.isCalibrated && (context.marker == 'controlEnd' || context.marker == 'controlBetween'),
         match: ({context, objects, isA}) => objects.current.direction && objects.isCalibrated && context.marker == 'controlEnd',
-        apply: ({context, objects, api}) => {
+        apply: async ({context, objects, api}) => {
           // send a command to the drone
           if (objects.runCommand) {
             // debugger
-            api.sendCommand()
+            await api.sendCommand()
           }
         }
       })
@@ -511,6 +508,7 @@ const template = {
             console.log(`M/S ${metersPerSecond}`)
 
             objects.calibration.minPower = power
+            objects.calibration.power = power
             objects.current.power = power
             objects.calibration.speed = metersPerSecond
             objects.isCalibrated = true
@@ -537,7 +535,7 @@ const template = {
             1: "{ marker: 'drone' }",
           },
           bridge: "{ ...next(operator), object: after[0], interpolate: [{ context: operator }, { property: 'object' }] }",
-          semantic: ({mentioned, context, objects, api, say}) => {
+          semantic: async ({mentioned, context, objects, api, say}) => {
             if (!objects.calibration.startTime) {
               return // ignore
             }
@@ -549,10 +547,10 @@ const template = {
               mentioned({ marker: 'point', ordinal, point })
               objects.current.ordinal = ordinal
               */
-              api.stop()
+              await api.stop()
               api.markCurrentPoint()
             } else {
-              const stopTime = api.stop()
+              const stopTime = await api.stop()
               objects.calibration.endTime = stopTime
               objects.calibration.duration = (objects.calibration.endTime - objects.calibration.startTime)/1000
             }
