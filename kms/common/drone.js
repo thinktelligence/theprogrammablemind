@@ -136,8 +136,32 @@ function expectDistanceForMove(args) {
                    |
                   -90
 */
+
+class OverrideCheck {
+  constructor(base, checks) {
+    this.base = base
+    this.checks = checks
+  }
+
+  check(obj) {
+    for (const check of this.checks) {
+      if (obj[check] == this.base.prototype[check]) {
+        throw new Error(`For ${obj.constructor.name} you need to override ${check}`)
+      }
+    }
+  }
+}
+
 class API {
+  constructor() {
+    this.overrideCheck = new OverrideCheck(API, ['forwardDrone', 'backwardDrone', 'rotateDrone', 'sonicDrone', 'tiltAngleDrone', 'panAngleDrone', 'stopDrone', 'configured'])
+    this.overriden = this.constructor !== API
+  }
+
   initialize({ objects }) {
+    if (this.overriden) {
+      this.overrideCheck.check(this)
+    }
     this._objects = objects
     this._objects.defaultTime = { hour: 9, minute: 0, second: 0, millisecond: 0 }
     this._objects.ordinal = 0
@@ -154,12 +178,12 @@ class API {
       // ordinal                 // ordinal of the current point or the current point that the recent movement started at
     }
     objects.history = []
-    objects.isCalibrated = false
+    objects.calibration.isCalibrated = false
     objects.sonicTest = 5
   }
 
   isCalibrated() {
-    return this._objects.isCalibrated
+    return this._objects.calibration.isCalibrated
   }
 
   nextOrdinal() {
@@ -241,6 +265,15 @@ class API {
       const distanceMeters = command.distance
       await stopAtDistance(distanceMeters)
     }
+  }
+
+  setCalibration(calibration) {
+    Object.assign(this._objects.calibration, calibration)
+  }
+
+  // override this to save the calibration to not have to run it over and over again and be annoing. 
+  async calibrated() {
+    this._objects.history.push({ marker: 'history', calibration: this._objects.calibration })
   }
 
   async forward(power) {
@@ -425,15 +458,15 @@ const template = {
       })
 
       args.config.addSemantic({
-        match: ({context, objects, isA}) => objects.current.direction && objects.isCalibrated && context.marker == 'controlStart',
+        match: ({context, objects, isA}) => objects.current.direction && objects.calibration.isCalibrated && context.marker == 'controlStart',
         apply: ({context, objects, api}) => {
           objects.runCommand = false  
         }
       })
 
       args.config.addSemantic({
-        // match: ({context, objects, isA}) => objects.current.direction && objects.isCalibrated && (context.marker == 'controlEnd' || context.marker == 'controlBetween'),
-        match: ({context, objects, isA}) => objects.current.direction && objects.isCalibrated && context.marker == 'controlEnd',
+        // match: ({context, objects, isA}) => objects.current.direction && objects.calibration.isCalibrated && (context.marker == 'controlEnd' || context.marker == 'controlBetween'),
+        match: ({context, objects, isA}) => objects.current.direction && objects.calibration.isCalibrated && context.marker == 'controlEnd',
         apply: async ({context, objects, api}) => {
           // send a command to the drone
           if (objects.runCommand) {
@@ -484,7 +517,7 @@ const template = {
           semantic: async ({context, objects, api, mentioned}) => {
             let power = 20
             let distance = 0
-            let moveTime = 500
+            let moveTime = 0.5
             for (; power < 30; ++power) {
               const start = await api.sonic();
               await api.forward(power)
@@ -502,16 +535,16 @@ const template = {
             await api.pause(moveTime)
             await api.stop(power)
 
-            console.log(`Distance ${distance} cm`)
-            console.log(`Time ${moveTime} ms`)
+            // console.log(`Distance ${distance} cm`)
+            // console.log(`Time ${moveTime} ms`)
             const metersPerSecond = (distance/100)/(moveTime/1000)
-            console.log(`M/S ${metersPerSecond}`)
+            // console.log(`M/S ${metersPerSecond}`)
 
             objects.calibration.minPower = power
             objects.calibration.power = power
             objects.current.power = power
             objects.calibration.speed = metersPerSecond
-            objects.isCalibrated = true
+            objects.calibration.isCalibrated = true
 
             const ordinal = api.nextOrdinal()
             mentioned({ marker: 'point', ordinal, point: { x: 0, y: 0 }, description: "start" })
@@ -584,7 +617,7 @@ knowledgeModule( {
       context: [
         defaultContextCheck({ marker: 'point', exported: true, extra: ['ordinal', { property: 'point', check: ['x', 'y'] }, 'description', { property: 'stm', check: ['id', 'names'] }] }),
         defaultContextCheck({ marker: 'turn', exported: true, extra: ['direction'] }),
-        defaultContextCheck({ marker: 'history', exported: true, extra: ['pause', 'direction', 'power', 'turn', 'time', 'sonic'] }),
+        defaultContextCheck({ marker: 'history', exported: true, extra: ['pause', 'direction', 'power', 'turn', 'time', 'sonic', 'calibration'] }),
         defaultContextCheck(),
       ],
       objects: [
