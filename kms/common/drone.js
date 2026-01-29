@@ -195,12 +195,11 @@ class API {
     if (!this._objects.current.endTime) {
       return null // in motion
     }
-    debugger
     const ordinal = this._objects.current.ordinal
     const lastPoint = this.args.mentions({ context: { marker: 'point' }, condition: (context) => context.ordinal == ordinal })
 
     const durationInSeconds = (this._objects.current.endTime - this._objects.current.startTime) / 1000
-    const speedInMetersPerSecond = (this._objects.current.power / this._objects.calibration.power) * this._objects.calibration.speed
+    const speedInMetersPerSecond = (this._objects.current.power / this._objects.calibration.power) * this._objects.calibration.speedForward
     const direction = this._objects.current.direction
     const distanceInMeters = speedInMetersPerSecond * durationInSeconds * (direction == 'forward' ? 1 : -1)
     const angleInRadians = degreesToRadians(this._objects.current.angleInDegrees)
@@ -220,7 +219,7 @@ class API {
 
   async sendCommand() {
     const stopAtDistance = async (distanceMeters) => {
-      const speed_meters_per_second = this._objects.calibration.speed
+      const speed_meters_per_second = this._objects.calibration.speedForward
       const duration_seconds = distanceMeters / speed_meters_per_second
       await this.pause(duration_seconds)
       await this.stop()
@@ -279,6 +278,7 @@ class API {
   }
 
   async forward(power) {
+    this._objects.current.direction = 'forward'
     const time = await this.forwardDrone(power)
     this._objects.current.startTime = time
     this._objects.current.endTime = null
@@ -286,6 +286,7 @@ class API {
   }
 
   async backward(power) {
+    this._objects.current.direction = 'backward'
     const time = await this.backwardDrone(power)
     this._objects.current.startTime = time
     this._objects.current.endTime = null
@@ -339,12 +340,14 @@ class API {
   // CMD_MOTOR#1000#1000#
   async forwardDrone(power) {
     const time = this.now()
+    this._objects.sonicTest -= 1
     this._objects.history.push({ marker: 'history', direction: 'forward', power, time })
     return time
   }
 
   async backwardDrone(power) {
     const time = this.now()
+    this._objects.sonicTest += 1
     this._objects.history.push({ marker: 'history', direction: 'backward', power, time })
     return time
   }
@@ -358,10 +361,6 @@ class API {
 
   // distance in cm
   async sonicDrone() {
-    if (!this._objects.sonicTest) {
-      this._objects.sonicTest = 5
-    }
-    this._objects.sonicTest -= 1
     this._objects.history.push({ marker: 'history', sonic: this._objects.sonicTest })
     return this._objects.sonicTest
   }
@@ -453,7 +452,7 @@ const template = {
           const instantiation = await fragments("quantity in meters per second", { quantity: context })
           const result = await e(instantiation)
           const desired_speed = result.evalue.amount.evalue.evalue
-          const desired_power = objects.current.power * (desired_speed / objects.calibration.speed)
+          const desired_power = objects.current.power * (desired_speed / objects.calibration.speedForward)
           objects.runCommand = true
           objects.current.power = desired_power 
         }
@@ -471,9 +470,7 @@ const template = {
         match: ({context, objects, isA}) => objects.current.direction && objects.calibration.isCalibrated && context.marker == 'controlEnd',
         apply: async ({context, objects, api}) => {
           // send a command to the drone
-          debugger
           if (objects.runCommand) {
-            // debugger
             await api.sendCommand()
           }
         }
@@ -519,34 +516,43 @@ const template = {
           bridge: "{ ...next(operator), interpolate: [{ context: operator }] }",
           semantic: async ({context, objects, api, mentioned}) => {
             let power = 20
+            const moveTimeInSeconds = 0.5
             let distanceInCM = 0
-            let moveTimeInSeconds = 0.5
+            let startBackward
             for (; power < 30; ++power) {
               const start = await api.sonic();
               await api.forward(power)
               await api.pause(moveTimeInSeconds)
               await api.stop(power)
               const end = await api.sonic();
-              if (end < start) {
+              if (end !== start) {
                 distanceInCM = start - end
+                debugger
+                startBackward = end
                 break;
               }
             }
 
+            const metersPerSecondForward = (distanceInCM/100)/moveTimeInSeconds
+
             // reset
+
             await api.backward(power)
             await api.pause(moveTimeInSeconds)
             await api.stop(power)
+            const endBackward = await api.sonic();
 
+            const metersPerSecondBackward = ((endBackward-startBackward)/100)/moveTimeInSeconds
+    
             // console.log(`Distance ${distance} cm`)
             // console.log(`Time ${moveTime} ms`)
-            const metersPerSecond = (distanceInCM/100)/moveTimeInSeconds
             // console.log(`M/S ${metersPerSecond}`)
 
             objects.calibration.minPower = power
             objects.calibration.power = power
             objects.current.power = power
-            objects.calibration.speed = metersPerSecond
+            objects.calibration.speedForward = metersPerSecondForward
+            objects.calibration.speedBackward = metersPerSecondBackward
             objects.calibration.isCalibrated = true
 
             const ordinal = api.nextOrdinal()
@@ -577,14 +583,7 @@ const template = {
             if (!objects.calibration.startTime) {
               return // ignore
             }
-            if (objects.calibration.speed) {
-              /*
-              const stopTime = api.stop()
-              const ordinal = api.nextOrdinal()
-              const point = api.currentPoint()
-              mentioned({ marker: 'point', ordinal, point })
-              objects.current.ordinal = ordinal
-              */
+            if (objects.calibration.speedForward) {
               await api.stop()
               api.markCurrentPoint()
             } else {
