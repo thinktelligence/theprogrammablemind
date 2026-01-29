@@ -101,6 +101,8 @@ https://www.amazon.ca/Freenove-Raspberry-Tracking-Avoidance-Ultrasonic/dp/B0BNDQ
   go three meters 
   turn south 
   go 1 foot
+
+  forward for 4 seconds
 */
 
 function expectDirection(args) {
@@ -154,7 +156,7 @@ class OverrideCheck {
 
 class API {
   constructor() {
-    this.overrideCheck = new OverrideCheck(API, ['forwardDrone', 'backwardDrone', 'rotateDrone', 'sonicDrone', 'tiltAngleDrone', 'panAngleDrone', 'stopDrone', 'configured'])
+    this.overrideCheck = new OverrideCheck(API, ['forwardDrone', 'backwardDrone', 'rotateDrone', 'sonicDrone', 'tiltAngleDrone', 'panAngleDrone', 'stopDrone', 'saveCalibration'])
     this.overriden = this.constructor !== API
   }
 
@@ -273,7 +275,7 @@ class API {
 
   // override this to save the calibration to not have to run it over and over again and be annoing. 
   async saveCalibration() {
-    this._objects.history.push({ marker: 'history', calibration: this._objects.calibration })
+    this._objects.history.push({ marker: 'history', saveCalibration: true })
   }
 
   async forward(power) {
@@ -469,6 +471,7 @@ const template = {
         match: ({context, objects, isA}) => objects.current.direction && objects.calibration.isCalibrated && context.marker == 'controlEnd',
         apply: async ({context, objects, api}) => {
           // send a command to the drone
+          debugger
           if (objects.runCommand) {
             // debugger
             await api.sendCommand()
@@ -549,6 +552,8 @@ const template = {
             const ordinal = api.nextOrdinal()
             mentioned({ marker: 'point', ordinal, point: { x: 0, y: 0 }, description: "start" })
             objects.current.ordinal = ordinal
+
+            api.saveCalibration()
           }
         },
         {
@@ -617,7 +622,7 @@ knowledgeModule( {
       context: [
         defaultContextCheck({ marker: 'point', exported: true, extra: ['ordinal', { property: 'point', check: ['x', 'y'] }, 'description', { property: 'stm', check: ['id', 'names'] }] }),
         defaultContextCheck({ marker: 'turn', exported: true, extra: ['direction'] }),
-        defaultContextCheck({ marker: 'history', exported: true, extra: ['pause', 'direction', 'power', 'turn', 'time', 'sonic', 'calibration'] }),
+        defaultContextCheck({ marker: 'history', exported: true, extra: ['pause', 'direction', 'power', 'turn', 'time', 'sonic', 'saveCalibration'] }),
         defaultContextCheck(),
       ],
       objects: [
