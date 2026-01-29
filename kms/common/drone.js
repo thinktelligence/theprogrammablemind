@@ -278,7 +278,6 @@ class API {
   }
 
   async forward(power) {
-    this._objects.current.direction = 'forward'
     const time = await this.forwardDrone(power)
     this._objects.current.startTime = time
     this._objects.current.endTime = null
@@ -286,7 +285,6 @@ class API {
   }
 
   async backward(power) {
-    this._objects.current.direction = 'backward'
     const time = await this.backwardDrone(power)
     this._objects.current.startTime = time
     this._objects.current.endTime = null
