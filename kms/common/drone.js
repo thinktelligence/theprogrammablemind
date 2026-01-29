@@ -173,7 +173,6 @@ class API {
       speed: undefined,       // meters per second
     }
     objects.current = {
-      power: 0.1,
       angleInDegrees: 0          //easier to debug
       // direction: undefined,   // direction to go if going
       // power: undefined,       // power
@@ -271,10 +270,11 @@ class API {
 
   loadCalibration(calibration) {
     Object.assign(this._objects.calibration, calibration)
+    this._objects.current.power = this._objects.calibration.minPower
   }
 
   // override this to save the calibration to not have to run it over and over again and be annoing. 
-  async saveCalibration() {
+  async saveCalibration(calibration) {
     this._objects.history.push({ marker: 'history', saveCalibration: true })
   }
 
@@ -519,28 +519,28 @@ const template = {
           bridge: "{ ...next(operator), interpolate: [{ context: operator }] }",
           semantic: async ({context, objects, api, mentioned}) => {
             let power = 20
-            let distance = 0
-            let moveTime = 0.5
+            let distanceInCM = 0
+            let moveTimeInSeconds = 0.5
             for (; power < 30; ++power) {
               const start = await api.sonic();
               await api.forward(power)
-              await api.pause(moveTime)
+              await api.pause(moveTimeInSeconds)
               await api.stop(power)
               const end = await api.sonic();
               if (end < start) {
-                distance = start - end
+                distanceInCM = start - end
                 break;
               }
             }
 
             // reset
             await api.backward(power)
-            await api.pause(moveTime)
+            await api.pause(moveTimeInSeconds)
             await api.stop(power)
 
             // console.log(`Distance ${distance} cm`)
             // console.log(`Time ${moveTime} ms`)
-            const metersPerSecond = (distance/100)/(moveTime/1000)
+            const metersPerSecond = (distanceInCM/100)/moveTimeInSeconds
             // console.log(`M/S ${metersPerSecond}`)
 
             objects.calibration.minPower = power
@@ -553,7 +553,7 @@ const template = {
             mentioned({ marker: 'point', ordinal, point: { x: 0, y: 0 }, description: "start" })
             objects.current.ordinal = ordinal
 
-            api.saveCalibration()
+            api.saveCalibration(objects.calibration)
           }
         },
         {
