@@ -267,12 +267,12 @@ class API {
     }
   }
 
-  setCalibration(calibration) {
+  loadCalibration(calibration) {
     Object.assign(this._objects.calibration, calibration)
   }
 
   // override this to save the calibration to not have to run it over and over again and be annoing. 
-  async calibrated() {
+  async saveCalibration() {
     this._objects.history.push({ marker: 'history', calibration: this._objects.calibration })
   }
 
