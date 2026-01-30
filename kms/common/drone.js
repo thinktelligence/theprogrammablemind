@@ -221,7 +221,7 @@ class API {
     const stopAtDistance = async (direction, distanceMeters) => {
       const speed_meters_per_second = direction == 'forward' ? this._objects.calibration.speedForward : this._objects.calibration.speedBackward
       const duration_seconds = distanceMeters / speed_meters_per_second
-      await this.pause(duration_seconds)
+      await this.pause(duration_seconds, { batched: true })
       await this.stop()
       this.markCurrentPoint()
     }
@@ -245,10 +245,10 @@ class API {
     const command = { power: this._objects.current.power, ...this._objects.current }
     switch (command.direction) {
       case 'forward':
-        await this.forward(command.power)
+        await this.forward(command.power, { batched: command.distance })
         break
       case 'backward':
-        await this.backward(command.power)
+        await this.backward(command.power, { batched: command.distance })
         break
       case 'right':
         await this.rotate(-90)
@@ -277,16 +277,15 @@ class API {
     this._objects.history.push({ marker: 'history', saveCalibration: true })
   }
 
-  async forward(power) {
-    const time = await this.forwardDrone(power)
+  async forward(power, options) {
+    const time = await this.forwardDrone(power, options)
     this._objects.current.startTime = time
     this._objects.current.endTime = null
     return time
   }
 
-  async backward(power) {
-    debugger
-    const time = await this.backwardDrone(power)
+  async backward(power, options) {
+    const time = await this.backwardDrone(power, options)
     this._objects.current.startTime = time
     this._objects.current.endTime = null
     return time
@@ -310,17 +309,21 @@ class API {
     await panAngleDrone(angle)
   }
 
-  async stop() {
-    const time = await this.stopDrone()
+  async stop(options) {
+    const time = await this.stopDrone(options)
     this._objects.current.endTime = time
     return time
+  }
+
+  async pause(durationInSeconds, options) {
+    await this.pauseDrone(durationInSeconds, options)
   }
 
   // subclass and override the remaining to call the drone
 
   // this is for testing 
-  async pause(durationInSeconds) {
-    this._objects.history.push({ marker: 'history', pause: durationInSeconds })
+  async pauseDrone(durationInSeconds, options) {
+    this._objects.history.push({ marker: 'history', pause: durationInSeconds, ...options })
     this.testDate = new Date(this.testDate.getTime() + (durationInSeconds-1)*1000)
   }
 
@@ -337,17 +340,17 @@ class API {
   }
 
   // CMD_MOTOR#1000#1000#
-  async forwardDrone(power) {
+  async forwardDrone(power, options) {
     const time = this.now()
     this._objects.sonicTest -= 1
-    this._objects.history.push({ marker: 'history', direction: 'forward', power, time })
+    this._objects.history.push({ marker: 'history', direction: 'forward', power, time, ...options })
     return time
   }
 
-  async backwardDrone(power) {
+  async backwardDrone(power, options) {
     const time = this.now()
     this._objects.sonicTest += 1
-    this._objects.history.push({ marker: 'history', direction: 'backward', power, time })
+    this._objects.history.push({ marker: 'history', direction: 'backward', power, time, ...options })
     return time
   }
 
@@ -370,9 +373,9 @@ class API {
   async panAngleDrone(angle) {
   }
 
-  async stopDrone() {
+  async stopDrone(options) {
     const time = this.now()
-    this._objects.history.push({ marker: 'history', power: 0, time })
+    this._objects.history.push({ marker: 'history', power: 0, time, ...options })
     return time
   }
 }
@@ -520,9 +523,9 @@ const template = {
             let startBackward
             for (; power < 30; ++power) {
               const start = await api.sonic();
-              await api.forward(power)
-              await api.pause(moveTimeInSeconds)
-              await api.stop(power)
+              await api.forward(power, { batched: true })
+              await api.pause(moveTimeInSeconds, { batched: true })
+              await api.stop()
               const end = await api.sonic();
               if (end !== start) {
                 distanceInCM = start - end
@@ -535,9 +538,9 @@ const template = {
 
             // reset
 
-            await api.backward(power)
-            await api.pause(moveTimeInSeconds)
-            await api.stop(power)
+            await api.backward(power, { batched: true })
+            await api.pause(moveTimeInSeconds, { batched: true })
+            await api.stop()
             const endBackward = await api.sonic();
 
             const metersPerSecondBackward = ((endBackward-startBackward)/100)/moveTimeInSeconds
@@ -619,7 +622,7 @@ knowledgeModule( {
       context: [
         defaultContextCheck({ marker: 'point', exported: true, extra: ['ordinal', { property: 'point', check: ['x', 'y'] }, 'description', { property: 'stm', check: ['id', 'names'] }] }),
         defaultContextCheck({ marker: 'turn', exported: true, extra: ['direction'] }),
-        defaultContextCheck({ marker: 'history', exported: true, extra: ['pause', 'direction', 'power', 'turn', 'time', 'sonic', 'saveCalibration'] }),
+        defaultContextCheck({ marker: 'history', exported: true, extra: ['pause', 'direction', 'power', 'turn', 'time', 'sonic', 'saveCalibration', 'batched'] }),
         defaultContextCheck(),
       ],
       objects: [
