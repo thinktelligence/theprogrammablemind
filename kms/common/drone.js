@@ -218,8 +218,8 @@ class API {
   }
 
   async sendCommand() {
-    const stopAtDistance = async (distanceMeters) => {
-      const speed_meters_per_second = this._objects.calibration.speedForward
+    const stopAtDistance = async (direction, distanceMeters) => {
+      const speed_meters_per_second = direction == 'forward' ? this._objects.calibration.speedForward : this._objects.calibration.speedBackward
       const duration_seconds = distanceMeters / speed_meters_per_second
       await this.pause(duration_seconds)
       await this.stop()
@@ -263,7 +263,7 @@ class API {
 
     if (command.distance) {
       const distanceMeters = command.distance
-      await stopAtDistance(distanceMeters)
+      await stopAtDistance(command.direction, distanceMeters)
     }
   }
 
@@ -285,6 +285,7 @@ class API {
   }
 
   async backward(power) {
+    debugger
     const time = await this.backwardDrone(power)
     this._objects.current.startTime = time
     this._objects.current.endTime = null
@@ -525,7 +526,6 @@ const template = {
               const end = await api.sonic();
               if (end !== start) {
                 distanceInCM = start - end
-                debugger
                 startBackward = end
                 break;
               }
