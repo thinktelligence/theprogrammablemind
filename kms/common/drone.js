@@ -154,6 +154,22 @@ class OverrideCheck {
   }
 }
 
+/*
+L = track separation width (distance between the centers of the two tracks, measured side-to-side, in meters or whatever unit you like)
+
+v = ground speed of each track (in m/s) — assume same magnitude but opposite directionsleft track forward at +v
+right track backward at -v (or vice versa for the other direction)
+
+θ = desired turn angle in radians (convert degrees to radians with θ_rad = θ_deg × π / 180)
+
+The angular velocity ω (how fast the tank rotates, in rad/s) is:
+
+  ω = 2v / L
+
+The time t needed to turn by angle θ is:
+
+  t = θ / ω = (θ × L) / (2v)
+*/
 class API {
   constructor() {
     this.overrideCheck = new OverrideCheck(API, ['forwardDrone', 'backwardDrone', 'rotateDrone', 'sonicDrone', 'tiltAngleDrone', 'panAngleDrone', 'stopDrone', 'saveCalibration'])
@@ -171,9 +187,11 @@ class API {
 
     objects.calibration = {
       speed: undefined,       // meters per second
+      widthOfTankInMM: 188,
+      widthOfTreadInMM: 44,
     }
     objects.current = {
-      angleInDegrees: 0          //easier to debug
+      angleInRadians: 0          
       // direction: undefined,   // direction to go if going
       // power: undefined,       // power
       // ordinal                 // ordinal of the current point or the current point that the recent movement started at
@@ -202,7 +220,7 @@ class API {
     const speedInMetersPerSecond = (this._objects.current.power / this._objects.calibration.power) * this._objects.calibration.speedForward
     const direction = this._objects.current.direction
     const distanceInMeters = speedInMetersPerSecond * durationInSeconds * (direction == 'forward' ? 1 : -1)
-    const angleInRadians = degreesToRadians(this._objects.current.angleInDegrees)
+    const angleInRadians = this._objects.current.angleInRadians
     const yPrime = lastPoint.point.y + distanceInMeters * Math.sin(angleInRadians)
     const xPrime = lastPoint.point.x + distanceInMeters * Math.cos(angleInRadians)
     return { x: xPrime, y: yPrime }
@@ -230,7 +248,7 @@ class API {
       const currentPoint = this.args.mentions({ context: { marker: 'point' } })
       const polar = cartesianToPolar(currentPoint.point, this._objects.current.destination.point)
       const destinationAngleInDegrees = radiansToDegrees(polar.angle)
-      let angleDelta = destinationAngleInDegrees - this._objects.current.angleInDegrees
+      let angleDelta = destinationAngleInRadians - this._objects.current.angleInRadians
       if (angleDelta > 180) {
         angleDelta -= 360
       } else if (angleDelta < -180) {
@@ -296,9 +314,9 @@ class API {
   }
 
   // TODO allow saying turn while its moving and make that one moves so you can go back wiggly?
-  async rotate(angleInDegrees) {
-    await this.rotateDrone(angleInDegrees)
-    this._objects.current.angleInDegrees = (this._objects.current.angleInDegrees + angleInDegrees) % 360
+  async left(angleInRadians) {
+    await this.rotateDrone(angleInRadians)
+    this._objects.current.angleInRadians = (this._objects.current.angleInRadians + angleInRadians) % Math.PI
   }
 
   async tiltAngle(angle) {

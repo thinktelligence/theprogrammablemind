@@ -138,10 +138,12 @@
             "minPower": 20,
             "power": 20,
             "speedBackward": 0.02,
-            "speedForward": 0.02
+            "speedForward": 0.02,
+            "widthOfTankInMM": 188,
+            "widthOfTreadInMM": 44
           },
           "current": {
-            "angleInDegrees": 0,
+            "angleInRadians": 0,
             "endTime": "2025-06-29T21:52:03.000Z",
             "ordinal": 1,
             "power": 20,
@@ -1430,9 +1432,9 @@
                   "topLevel": true,
                   "touchedBy": [
                     "length#call2",
-                    "instance17#length#call2",
-                    "instance17#rates#call2",
-                    "instance17#drone#call2"
+                    "instance19#length#call2",
+                    "instance19#rates#call2",
+                    "instance19#drone#call2"
                   ],
                   "value": "equals",
                   "word": "="
@@ -2154,6 +2156,468 @@
                   "value": "inch",
                   "word": "inches"
                 }
+              },
+              {
+                "equality": {
+                  "context_id": null,
+                  "context_index": 1,
+                  "dead": true,
+                  "left": {
+                    "dead": true,
+                    "dimension": "length",
+                    "level": 0,
+                    "marker": "inch",
+                    "number": "many",
+                    "range": {
+                      "end": 5,
+                      "start": 0
+                    },
+                    "text": "inches",
+                    "types": [
+                      "inch"
+                    ],
+                    "value": "inch",
+                    "word": "inches"
+                  },
+                  "level": 1,
+                  "marker": "equals",
+                  "range": {
+                    "end": 33,
+                    "start": 0
+                  },
+                  "right": {
+                    "dead": true,
+                    "evaluate": true,
+                    "isResponse": true,
+                    "level": 1,
+                    "marker": "timesExpression",
+                    "number": "one",
+                    "range": {
+                      "end": 33,
+                      "start": 9
+                    },
+                    "text": "centimeters * 0.0328 * 12",
+                    "types": [
+                      "number",
+                      "timesExpression"
+                    ],
+                    "value": null,
+                    "word": "*",
+                    "x": {
+                      "dead": true,
+                      "evaluate": true,
+                      "isResponse": true,
+                      "level": 1,
+                      "marker": "timesExpression",
+                      "number": "one",
+                      "range": {
+                        "end": 28,
+                        "start": 9
+                      },
+                      "text": "centimeters * 0.0328",
+                      "types": [
+                        "number",
+                        "timesExpression"
+                      ],
+                      "value": null,
+                      "word": "*",
+                      "x": {
+                        "dead": true,
+                        "dimension": "length",
+                        "level": 0,
+                        "marker": "centimeter",
+                        "number": "many",
+                        "range": {
+                          "end": 19,
+                          "start": 9
+                        },
+                        "text": "centimeters",
+                        "types": [
+                          "centimeter"
+                        ],
+                        "value": "centimeter",
+                        "word": "centimeters"
+                      },
+                      "y": {
+                        "dead": true,
+                        "instance": true,
+                        "level": 1,
+                        "marker": "number",
+                        "range": {
+                          "end": 28,
+                          "start": 23
+                        },
+                        "text": "0.0328",
+                        "types": [
+                          "number"
+                        ],
+                        "value": 0.0328,
+                        "word": "0.0328"
+                      }
+                    },
+                    "y": {
+                      "dead": true,
+                      "instance": true,
+                      "level": 1,
+                      "marker": "integer",
+                      "range": {
+                        "end": 33,
+                        "start": 32
+                      },
+                      "text": "12",
+                      "types": [
+                        "integer"
+                      ],
+                      "value": 12,
+                      "word": "12"
+                    }
+                  },
+                  "text": "inches = centimeters * 0.0328 * 12",
+                  "topLevel": true,
+                  "touchedBy": [
+                    "length#call2",
+                    "instance16#length#call2",
+                    "instance16#rates#call2",
+                    "instance16#drone#call2"
+                  ],
+                  "value": "equals",
+                  "word": "="
+                },
+                "formula": {
+                  "dead": true,
+                  "evaluate": true,
+                  "isResponse": true,
+                  "level": 1,
+                  "marker": "timesExpression",
+                  "number": "one",
+                  "range": {
+                    "end": 33,
+                    "start": 9
+                  },
+                  "text": "centimeters * 0.0328 * 12",
+                  "types": [
+                    "number",
+                    "timesExpression"
+                  ],
+                  "value": null,
+                  "word": "*",
+                  "x": {
+                    "dead": true,
+                    "evaluate": true,
+                    "isResponse": true,
+                    "level": 1,
+                    "marker": "timesExpression",
+                    "number": "one",
+                    "range": {
+                      "end": 28,
+                      "start": 9
+                    },
+                    "text": "centimeters * 0.0328",
+                    "types": [
+                      "number",
+                      "timesExpression"
+                    ],
+                    "value": null,
+                    "word": "*",
+                    "x": {
+                      "dead": true,
+                      "dimension": "length",
+                      "level": 0,
+                      "marker": "centimeter",
+                      "number": "many",
+                      "range": {
+                        "end": 19,
+                        "start": 9
+                      },
+                      "text": "centimeters",
+                      "types": [
+                        "centimeter"
+                      ],
+                      "value": "centimeter",
+                      "word": "centimeters"
+                    },
+                    "y": {
+                      "dead": true,
+                      "instance": true,
+                      "level": 1,
+                      "marker": "number",
+                      "range": {
+                        "end": 28,
+                        "start": 23
+                      },
+                      "text": "0.0328",
+                      "types": [
+                        "number"
+                      ],
+                      "value": 0.0328,
+                      "word": "0.0328"
+                    }
+                  },
+                  "y": {
+                    "dead": true,
+                    "instance": true,
+                    "level": 1,
+                    "marker": "integer",
+                    "range": {
+                      "end": 33,
+                      "start": 32
+                    },
+                    "text": "12",
+                    "types": [
+                      "integer"
+                    ],
+                    "value": 12,
+                    "word": "12"
+                  }
+                },
+                "name": {
+                  "dead": true,
+                  "dimension": "length",
+                  "level": 0,
+                  "marker": "inch",
+                  "number": "many",
+                  "range": {
+                    "end": 5,
+                    "start": 0
+                  },
+                  "text": "inches",
+                  "types": [
+                    "inch"
+                  ],
+                  "value": "inch",
+                  "word": "inches"
+                }
+              },
+              {
+                "equality": {
+                  "context_id": null,
+                  "context_index": 1,
+                  "dead": true,
+                  "left": {
+                    "dead": true,
+                    "dimension": "length",
+                    "level": 0,
+                    "marker": "inch",
+                    "number": "many",
+                    "range": {
+                      "end": 5,
+                      "start": 0
+                    },
+                    "text": "inches",
+                    "types": [
+                      "inch"
+                    ],
+                    "value": "inch",
+                    "word": "inches"
+                  },
+                  "level": 1,
+                  "marker": "equals",
+                  "range": {
+                    "end": 26,
+                    "start": 0
+                  },
+                  "right": {
+                    "dead": true,
+                    "evaluate": true,
+                    "isResponse": true,
+                    "level": 1,
+                    "marker": "timesExpression",
+                    "number": "one",
+                    "range": {
+                      "end": 26,
+                      "start": 9
+                    },
+                    "text": "meters * 3.28 * 12",
+                    "types": [
+                      "number",
+                      "timesExpression"
+                    ],
+                    "value": null,
+                    "word": "*",
+                    "x": {
+                      "dead": true,
+                      "evaluate": true,
+                      "isResponse": true,
+                      "level": 1,
+                      "marker": "timesExpression",
+                      "number": "one",
+                      "range": {
+                        "end": 21,
+                        "start": 9
+                      },
+                      "text": "meters * 3.28",
+                      "types": [
+                        "number",
+                        "timesExpression"
+                      ],
+                      "value": null,
+                      "word": "*",
+                      "x": {
+                        "dead": true,
+                        "dimension": "length",
+                        "level": 0,
+                        "marker": "meter",
+                        "number": "many",
+                        "range": {
+                          "end": 14,
+                          "start": 9
+                        },
+                        "text": "meters",
+                        "types": [
+                          "meter"
+                        ],
+                        "value": "meter",
+                        "word": "meters"
+                      },
+                      "y": {
+                        "dead": true,
+                        "instance": true,
+                        "level": 1,
+                        "marker": "number",
+                        "range": {
+                          "end": 21,
+                          "start": 18
+                        },
+                        "text": "3.28",
+                        "types": [
+                          "number"
+                        ],
+                        "value": 3.28,
+                        "word": "3.28"
+                      }
+                    },
+                    "y": {
+                      "dead": true,
+                      "instance": true,
+                      "level": 1,
+                      "marker": "integer",
+                      "range": {
+                        "end": 26,
+                        "start": 25
+                      },
+                      "text": "12",
+                      "types": [
+                        "integer"
+                      ],
+                      "value": 12,
+                      "word": "12"
+                    }
+                  },
+                  "text": "inches = meters * 3.28 * 12",
+                  "topLevel": true,
+                  "touchedBy": [
+                    "length#call2",
+                    "instance17#length#call2",
+                    "instance17#rates#call2",
+                    "instance17#drone#call2"
+                  ],
+                  "value": "equals",
+                  "word": "="
+                },
+                "formula": {
+                  "dead": true,
+                  "evaluate": true,
+                  "isResponse": true,
+                  "level": 1,
+                  "marker": "timesExpression",
+                  "number": "one",
+                  "range": {
+                    "end": 26,
+                    "start": 9
+                  },
+                  "text": "meters * 3.28 * 12",
+                  "types": [
+                    "number",
+                    "timesExpression"
+                  ],
+                  "value": null,
+                  "word": "*",
+                  "x": {
+                    "dead": true,
+                    "evaluate": true,
+                    "isResponse": true,
+                    "level": 1,
+                    "marker": "timesExpression",
+                    "number": "one",
+                    "range": {
+                      "end": 21,
+                      "start": 9
+                    },
+                    "text": "meters * 3.28",
+                    "types": [
+                      "number",
+                      "timesExpression"
+                    ],
+                    "value": null,
+                    "word": "*",
+                    "x": {
+                      "dead": true,
+                      "dimension": "length",
+                      "level": 0,
+                      "marker": "meter",
+                      "number": "many",
+                      "range": {
+                        "end": 14,
+                        "start": 9
+                      },
+                      "text": "meters",
+                      "types": [
+                        "meter"
+                      ],
+                      "value": "meter",
+                      "word": "meters"
+                    },
+                    "y": {
+                      "dead": true,
+                      "instance": true,
+                      "level": 1,
+                      "marker": "number",
+                      "range": {
+                        "end": 21,
+                        "start": 18
+                      },
+                      "text": "3.28",
+                      "types": [
+                        "number"
+                      ],
+                      "value": 3.28,
+                      "word": "3.28"
+                    }
+                  },
+                  "y": {
+                    "dead": true,
+                    "instance": true,
+                    "level": 1,
+                    "marker": "integer",
+                    "range": {
+                      "end": 26,
+                      "start": 25
+                    },
+                    "text": "12",
+                    "types": [
+                      "integer"
+                    ],
+                    "value": 12,
+                    "word": "12"
+                  }
+                },
+                "name": {
+                  "dead": true,
+                  "dimension": "length",
+                  "level": 0,
+                  "marker": "inch",
+                  "number": "many",
+                  "range": {
+                    "end": 5,
+                    "start": 0
+                  },
+                  "text": "inches",
+                  "types": [
+                    "inch"
+                  ],
+                  "value": "inch",
+                  "word": "inches"
+                }
               }
             ],
             "kilometers": [
@@ -2241,9 +2705,9 @@
                   "topLevel": true,
                   "touchedBy": [
                     "length#call2",
-                    "instance18#length#call2",
-                    "instance18#rates#call2",
-                    "instance18#drone#call2"
+                    "instance20#length#call2",
+                    "instance20#rates#call2",
+                    "instance20#drone#call2"
                   ],
                   "value": "equals",
                   "word": "="
@@ -2887,9 +3351,9 @@
                   "topLevel": true,
                   "touchedBy": [
                     "length#call2",
-                    "instance19#length#call2",
-                    "instance19#rates#call2",
-                    "instance19#drone#call2"
+                    "instance21#length#call2",
+                    "instance21#rates#call2",
+                    "instance21#drone#call2"
                   ],
                   "value": "equals",
                   "word": "="
@@ -3050,9 +3514,9 @@
                   "topLevel": true,
                   "touchedBy": [
                     "length#call2",
-                    "instance16#length#call2",
-                    "instance16#rates#call2",
-                    "instance16#drone#call2"
+                    "instance18#length#call2",
+                    "instance18#rates#call2",
+                    "instance18#drone#call2"
                   ],
                   "value": "equals",
                   "word": "="
@@ -5707,10 +6171,12 @@
             "minPower": 20,
             "power": 20,
             "speedBackward": 0.02,
-            "speedForward": 0.02
+            "speedForward": 0.02,
+            "widthOfTankInMM": 188,
+            "widthOfTreadInMM": 44
           },
           "current": {
-            "angleInDegrees": 0,
+            "angleInRadians": 0,
             "direction": "forward",
             "endTime": null,
             "ordinal": 1,
@@ -7007,9 +7473,9 @@
                   "topLevel": true,
                   "touchedBy": [
                     "length#call2",
-                    "instance17#length#call2",
-                    "instance17#rates#call2",
-                    "instance17#drone#call2"
+                    "instance19#length#call2",
+                    "instance19#rates#call2",
+                    "instance19#drone#call2"
                   ],
                   "value": "equals",
                   "word": "="
@@ -7731,6 +8197,468 @@
                   "value": "inch",
                   "word": "inches"
                 }
+              },
+              {
+                "equality": {
+                  "context_id": null,
+                  "context_index": 1,
+                  "dead": true,
+                  "left": {
+                    "dead": true,
+                    "dimension": "length",
+                    "level": 0,
+                    "marker": "inch",
+                    "number": "many",
+                    "range": {
+                      "end": 5,
+                      "start": 0
+                    },
+                    "text": "inches",
+                    "types": [
+                      "inch"
+                    ],
+                    "value": "inch",
+                    "word": "inches"
+                  },
+                  "level": 1,
+                  "marker": "equals",
+                  "range": {
+                    "end": 33,
+                    "start": 0
+                  },
+                  "right": {
+                    "dead": true,
+                    "evaluate": true,
+                    "isResponse": true,
+                    "level": 1,
+                    "marker": "timesExpression",
+                    "number": "one",
+                    "range": {
+                      "end": 33,
+                      "start": 9
+                    },
+                    "text": "centimeters * 0.0328 * 12",
+                    "types": [
+                      "number",
+                      "timesExpression"
+                    ],
+                    "value": null,
+                    "word": "*",
+                    "x": {
+                      "dead": true,
+                      "evaluate": true,
+                      "isResponse": true,
+                      "level": 1,
+                      "marker": "timesExpression",
+                      "number": "one",
+                      "range": {
+                        "end": 28,
+                        "start": 9
+                      },
+                      "text": "centimeters * 0.0328",
+                      "types": [
+                        "number",
+                        "timesExpression"
+                      ],
+                      "value": null,
+                      "word": "*",
+                      "x": {
+                        "dead": true,
+                        "dimension": "length",
+                        "level": 0,
+                        "marker": "centimeter",
+                        "number": "many",
+                        "range": {
+                          "end": 19,
+                          "start": 9
+                        },
+                        "text": "centimeters",
+                        "types": [
+                          "centimeter"
+                        ],
+                        "value": "centimeter",
+                        "word": "centimeters"
+                      },
+                      "y": {
+                        "dead": true,
+                        "instance": true,
+                        "level": 1,
+                        "marker": "number",
+                        "range": {
+                          "end": 28,
+                          "start": 23
+                        },
+                        "text": "0.0328",
+                        "types": [
+                          "number"
+                        ],
+                        "value": 0.0328,
+                        "word": "0.0328"
+                      }
+                    },
+                    "y": {
+                      "dead": true,
+                      "instance": true,
+                      "level": 1,
+                      "marker": "integer",
+                      "range": {
+                        "end": 33,
+                        "start": 32
+                      },
+                      "text": "12",
+                      "types": [
+                        "integer"
+                      ],
+                      "value": 12,
+                      "word": "12"
+                    }
+                  },
+                  "text": "inches = centimeters * 0.0328 * 12",
+                  "topLevel": true,
+                  "touchedBy": [
+                    "length#call2",
+                    "instance16#length#call2",
+                    "instance16#rates#call2",
+                    "instance16#drone#call2"
+                  ],
+                  "value": "equals",
+                  "word": "="
+                },
+                "formula": {
+                  "dead": true,
+                  "evaluate": true,
+                  "isResponse": true,
+                  "level": 1,
+                  "marker": "timesExpression",
+                  "number": "one",
+                  "range": {
+                    "end": 33,
+                    "start": 9
+                  },
+                  "text": "centimeters * 0.0328 * 12",
+                  "types": [
+                    "number",
+                    "timesExpression"
+                  ],
+                  "value": null,
+                  "word": "*",
+                  "x": {
+                    "dead": true,
+                    "evaluate": true,
+                    "isResponse": true,
+                    "level": 1,
+                    "marker": "timesExpression",
+                    "number": "one",
+                    "range": {
+                      "end": 28,
+                      "start": 9
+                    },
+                    "text": "centimeters * 0.0328",
+                    "types": [
+                      "number",
+                      "timesExpression"
+                    ],
+                    "value": null,
+                    "word": "*",
+                    "x": {
+                      "dead": true,
+                      "dimension": "length",
+                      "level": 0,
+                      "marker": "centimeter",
+                      "number": "many",
+                      "range": {
+                        "end": 19,
+                        "start": 9
+                      },
+                      "text": "centimeters",
+                      "types": [
+                        "centimeter"
+                      ],
+                      "value": "centimeter",
+                      "word": "centimeters"
+                    },
+                    "y": {
+                      "dead": true,
+                      "instance": true,
+                      "level": 1,
+                      "marker": "number",
+                      "range": {
+                        "end": 28,
+                        "start": 23
+                      },
+                      "text": "0.0328",
+                      "types": [
+                        "number"
+                      ],
+                      "value": 0.0328,
+                      "word": "0.0328"
+                    }
+                  },
+                  "y": {
+                    "dead": true,
+                    "instance": true,
+                    "level": 1,
+                    "marker": "integer",
+                    "range": {
+                      "end": 33,
+                      "start": 32
+                    },
+                    "text": "12",
+                    "types": [
+                      "integer"
+                    ],
+                    "value": 12,
+                    "word": "12"
+                  }
+                },
+                "name": {
+                  "dead": true,
+                  "dimension": "length",
+                  "level": 0,
+                  "marker": "inch",
+                  "number": "many",
+                  "range": {
+                    "end": 5,
+                    "start": 0
+                  },
+                  "text": "inches",
+                  "types": [
+                    "inch"
+                  ],
+                  "value": "inch",
+                  "word": "inches"
+                }
+              },
+              {
+                "equality": {
+                  "context_id": null,
+                  "context_index": 1,
+                  "dead": true,
+                  "left": {
+                    "dead": true,
+                    "dimension": "length",
+                    "level": 0,
+                    "marker": "inch",
+                    "number": "many",
+                    "range": {
+                      "end": 5,
+                      "start": 0
+                    },
+                    "text": "inches",
+                    "types": [
+                      "inch"
+                    ],
+                    "value": "inch",
+                    "word": "inches"
+                  },
+                  "level": 1,
+                  "marker": "equals",
+                  "range": {
+                    "end": 26,
+                    "start": 0
+                  },
+                  "right": {
+                    "dead": true,
+                    "evaluate": true,
+                    "isResponse": true,
+                    "level": 1,
+                    "marker": "timesExpression",
+                    "number": "one",
+                    "range": {
+                      "end": 26,
+                      "start": 9
+                    },
+                    "text": "meters * 3.28 * 12",
+                    "types": [
+                      "number",
+                      "timesExpression"
+                    ],
+                    "value": null,
+                    "word": "*",
+                    "x": {
+                      "dead": true,
+                      "evaluate": true,
+                      "isResponse": true,
+                      "level": 1,
+                      "marker": "timesExpression",
+                      "number": "one",
+                      "range": {
+                        "end": 21,
+                        "start": 9
+                      },
+                      "text": "meters * 3.28",
+                      "types": [
+                        "number",
+                        "timesExpression"
+                      ],
+                      "value": null,
+                      "word": "*",
+                      "x": {
+                        "dead": true,
+                        "dimension": "length",
+                        "level": 0,
+                        "marker": "meter",
+                        "number": "many",
+                        "range": {
+                          "end": 14,
+                          "start": 9
+                        },
+                        "text": "meters",
+                        "types": [
+                          "meter"
+                        ],
+                        "value": "meter",
+                        "word": "meters"
+                      },
+                      "y": {
+                        "dead": true,
+                        "instance": true,
+                        "level": 1,
+                        "marker": "number",
+                        "range": {
+                          "end": 21,
+                          "start": 18
+                        },
+                        "text": "3.28",
+                        "types": [
+                          "number"
+                        ],
+                        "value": 3.28,
+                        "word": "3.28"
+                      }
+                    },
+                    "y": {
+                      "dead": true,
+                      "instance": true,
+                      "level": 1,
+                      "marker": "integer",
+                      "range": {
+                        "end": 26,
+                        "start": 25
+                      },
+                      "text": "12",
+                      "types": [
+                        "integer"
+                      ],
+                      "value": 12,
+                      "word": "12"
+                    }
+                  },
+                  "text": "inches = meters * 3.28 * 12",
+                  "topLevel": true,
+                  "touchedBy": [
+                    "length#call2",
+                    "instance17#length#call2",
+                    "instance17#rates#call2",
+                    "instance17#drone#call2"
+                  ],
+                  "value": "equals",
+                  "word": "="
+                },
+                "formula": {
+                  "dead": true,
+                  "evaluate": true,
+                  "isResponse": true,
+                  "level": 1,
+                  "marker": "timesExpression",
+                  "number": "one",
+                  "range": {
+                    "end": 26,
+                    "start": 9
+                  },
+                  "text": "meters * 3.28 * 12",
+                  "types": [
+                    "number",
+                    "timesExpression"
+                  ],
+                  "value": null,
+                  "word": "*",
+                  "x": {
+                    "dead": true,
+                    "evaluate": true,
+                    "isResponse": true,
+                    "level": 1,
+                    "marker": "timesExpression",
+                    "number": "one",
+                    "range": {
+                      "end": 21,
+                      "start": 9
+                    },
+                    "text": "meters * 3.28",
+                    "types": [
+                      "number",
+                      "timesExpression"
+                    ],
+                    "value": null,
+                    "word": "*",
+                    "x": {
+                      "dead": true,
+                      "dimension": "length",
+                      "level": 0,
+                      "marker": "meter",
+                      "number": "many",
+                      "range": {
+                        "end": 14,
+                        "start": 9
+                      },
+                      "text": "meters",
+                      "types": [
+                        "meter"
+                      ],
+                      "value": "meter",
+                      "word": "meters"
+                    },
+                    "y": {
+                      "dead": true,
+                      "instance": true,
+                      "level": 1,
+                      "marker": "number",
+                      "range": {
+                        "end": 21,
+                        "start": 18
+                      },
+                      "text": "3.28",
+                      "types": [
+                        "number"
+                      ],
+                      "value": 3.28,
+                      "word": "3.28"
+                    }
+                  },
+                  "y": {
+                    "dead": true,
+                    "instance": true,
+                    "level": 1,
+                    "marker": "integer",
+                    "range": {
+                      "end": 26,
+                      "start": 25
+                    },
+                    "text": "12",
+                    "types": [
+                      "integer"
+                    ],
+                    "value": 12,
+                    "word": "12"
+                  }
+                },
+                "name": {
+                  "dead": true,
+                  "dimension": "length",
+                  "level": 0,
+                  "marker": "inch",
+                  "number": "many",
+                  "range": {
+                    "end": 5,
+                    "start": 0
+                  },
+                  "text": "inches",
+                  "types": [
+                    "inch"
+                  ],
+                  "value": "inch",
+                  "word": "inches"
+                }
               }
             ],
             "kilometers": [
@@ -7818,9 +8746,9 @@
                   "topLevel": true,
                   "touchedBy": [
                     "length#call2",
-                    "instance18#length#call2",
-                    "instance18#rates#call2",
-                    "instance18#drone#call2"
+                    "instance20#length#call2",
+                    "instance20#rates#call2",
+                    "instance20#drone#call2"
                   ],
                   "value": "equals",
                   "word": "="
@@ -8464,9 +9392,9 @@
                   "topLevel": true,
                   "touchedBy": [
                     "length#call2",
-                    "instance19#length#call2",
-                    "instance19#rates#call2",
-                    "instance19#drone#call2"
+                    "instance21#length#call2",
+                    "instance21#rates#call2",
+                    "instance21#drone#call2"
                   ],
                   "value": "equals",
                   "word": "="
@@ -8627,9 +9555,9 @@
                   "topLevel": true,
                   "touchedBy": [
                     "length#call2",
-                    "instance16#length#call2",
-                    "instance16#rates#call2",
-                    "instance16#drone#call2"
+                    "instance18#length#call2",
+                    "instance18#rates#call2",
+                    "instance18#drone#call2"
                   ],
                   "value": "equals",
                   "word": "="
@@ -11396,10 +12324,12 @@
             "minPower": 20,
             "power": 20,
             "speedBackward": 0.02,
-            "speedForward": 0.02
+            "speedForward": 0.02,
+            "widthOfTankInMM": 188,
+            "widthOfTreadInMM": 44
           },
           "current": {
-            "angleInDegrees": 0,
+            "angleInRadians": 0,
             "direction": "forward",
             "distance": 2,
             "endTime": null,
@@ -12708,9 +13638,9 @@
                   "topLevel": true,
                   "touchedBy": [
                     "length#call2",
-                    "instance17#length#call2",
-                    "instance17#rates#call2",
-                    "instance17#drone#call2"
+                    "instance19#length#call2",
+                    "instance19#rates#call2",
+                    "instance19#drone#call2"
                   ],
                   "value": "equals",
                   "word": "="
@@ -13432,6 +14362,468 @@
                   "value": "inch",
                   "word": "inches"
                 }
+              },
+              {
+                "equality": {
+                  "context_id": null,
+                  "context_index": 1,
+                  "dead": true,
+                  "left": {
+                    "dead": true,
+                    "dimension": "length",
+                    "level": 0,
+                    "marker": "inch",
+                    "number": "many",
+                    "range": {
+                      "end": 5,
+                      "start": 0
+                    },
+                    "text": "inches",
+                    "types": [
+                      "inch"
+                    ],
+                    "value": "inch",
+                    "word": "inches"
+                  },
+                  "level": 1,
+                  "marker": "equals",
+                  "range": {
+                    "end": 33,
+                    "start": 0
+                  },
+                  "right": {
+                    "dead": true,
+                    "evaluate": true,
+                    "isResponse": true,
+                    "level": 1,
+                    "marker": "timesExpression",
+                    "number": "one",
+                    "range": {
+                      "end": 33,
+                      "start": 9
+                    },
+                    "text": "centimeters * 0.0328 * 12",
+                    "types": [
+                      "number",
+                      "timesExpression"
+                    ],
+                    "value": null,
+                    "word": "*",
+                    "x": {
+                      "dead": true,
+                      "evaluate": true,
+                      "isResponse": true,
+                      "level": 1,
+                      "marker": "timesExpression",
+                      "number": "one",
+                      "range": {
+                        "end": 28,
+                        "start": 9
+                      },
+                      "text": "centimeters * 0.0328",
+                      "types": [
+                        "number",
+                        "timesExpression"
+                      ],
+                      "value": null,
+                      "word": "*",
+                      "x": {
+                        "dead": true,
+                        "dimension": "length",
+                        "level": 0,
+                        "marker": "centimeter",
+                        "number": "many",
+                        "range": {
+                          "end": 19,
+                          "start": 9
+                        },
+                        "text": "centimeters",
+                        "types": [
+                          "centimeter"
+                        ],
+                        "value": "centimeter",
+                        "word": "centimeters"
+                      },
+                      "y": {
+                        "dead": true,
+                        "instance": true,
+                        "level": 1,
+                        "marker": "number",
+                        "range": {
+                          "end": 28,
+                          "start": 23
+                        },
+                        "text": "0.0328",
+                        "types": [
+                          "number"
+                        ],
+                        "value": 0.0328,
+                        "word": "0.0328"
+                      }
+                    },
+                    "y": {
+                      "dead": true,
+                      "instance": true,
+                      "level": 1,
+                      "marker": "integer",
+                      "range": {
+                        "end": 33,
+                        "start": 32
+                      },
+                      "text": "12",
+                      "types": [
+                        "integer"
+                      ],
+                      "value": 12,
+                      "word": "12"
+                    }
+                  },
+                  "text": "inches = centimeters * 0.0328 * 12",
+                  "topLevel": true,
+                  "touchedBy": [
+                    "length#call2",
+                    "instance16#length#call2",
+                    "instance16#rates#call2",
+                    "instance16#drone#call2"
+                  ],
+                  "value": "equals",
+                  "word": "="
+                },
+                "formula": {
+                  "dead": true,
+                  "evaluate": true,
+                  "isResponse": true,
+                  "level": 1,
+                  "marker": "timesExpression",
+                  "number": "one",
+                  "range": {
+                    "end": 33,
+                    "start": 9
+                  },
+                  "text": "centimeters * 0.0328 * 12",
+                  "types": [
+                    "number",
+                    "timesExpression"
+                  ],
+                  "value": null,
+                  "word": "*",
+                  "x": {
+                    "dead": true,
+                    "evaluate": true,
+                    "isResponse": true,
+                    "level": 1,
+                    "marker": "timesExpression",
+                    "number": "one",
+                    "range": {
+                      "end": 28,
+                      "start": 9
+                    },
+                    "text": "centimeters * 0.0328",
+                    "types": [
+                      "number",
+                      "timesExpression"
+                    ],
+                    "value": null,
+                    "word": "*",
+                    "x": {
+                      "dead": true,
+                      "dimension": "length",
+                      "level": 0,
+                      "marker": "centimeter",
+                      "number": "many",
+                      "range": {
+                        "end": 19,
+                        "start": 9
+                      },
+                      "text": "centimeters",
+                      "types": [
+                        "centimeter"
+                      ],
+                      "value": "centimeter",
+                      "word": "centimeters"
+                    },
+                    "y": {
+                      "dead": true,
+                      "instance": true,
+                      "level": 1,
+                      "marker": "number",
+                      "range": {
+                        "end": 28,
+                        "start": 23
+                      },
+                      "text": "0.0328",
+                      "types": [
+                        "number"
+                      ],
+                      "value": 0.0328,
+                      "word": "0.0328"
+                    }
+                  },
+                  "y": {
+                    "dead": true,
+                    "instance": true,
+                    "level": 1,
+                    "marker": "integer",
+                    "range": {
+                      "end": 33,
+                      "start": 32
+                    },
+                    "text": "12",
+                    "types": [
+                      "integer"
+                    ],
+                    "value": 12,
+                    "word": "12"
+                  }
+                },
+                "name": {
+                  "dead": true,
+                  "dimension": "length",
+                  "level": 0,
+                  "marker": "inch",
+                  "number": "many",
+                  "range": {
+                    "end": 5,
+                    "start": 0
+                  },
+                  "text": "inches",
+                  "types": [
+                    "inch"
+                  ],
+                  "value": "inch",
+                  "word": "inches"
+                }
+              },
+              {
+                "equality": {
+                  "context_id": null,
+                  "context_index": 1,
+                  "dead": true,
+                  "left": {
+                    "dead": true,
+                    "dimension": "length",
+                    "level": 0,
+                    "marker": "inch",
+                    "number": "many",
+                    "range": {
+                      "end": 5,
+                      "start": 0
+                    },
+                    "text": "inches",
+                    "types": [
+                      "inch"
+                    ],
+                    "value": "inch",
+                    "word": "inches"
+                  },
+                  "level": 1,
+                  "marker": "equals",
+                  "range": {
+                    "end": 26,
+                    "start": 0
+                  },
+                  "right": {
+                    "dead": true,
+                    "evaluate": true,
+                    "isResponse": true,
+                    "level": 1,
+                    "marker": "timesExpression",
+                    "number": "one",
+                    "range": {
+                      "end": 26,
+                      "start": 9
+                    },
+                    "text": "meters * 3.28 * 12",
+                    "types": [
+                      "number",
+                      "timesExpression"
+                    ],
+                    "value": null,
+                    "word": "*",
+                    "x": {
+                      "dead": true,
+                      "evaluate": true,
+                      "isResponse": true,
+                      "level": 1,
+                      "marker": "timesExpression",
+                      "number": "one",
+                      "range": {
+                        "end": 21,
+                        "start": 9
+                      },
+                      "text": "meters * 3.28",
+                      "types": [
+                        "number",
+                        "timesExpression"
+                      ],
+                      "value": null,
+                      "word": "*",
+                      "x": {
+                        "dead": true,
+                        "dimension": "length",
+                        "level": 0,
+                        "marker": "meter",
+                        "number": "many",
+                        "range": {
+                          "end": 14,
+                          "start": 9
+                        },
+                        "text": "meters",
+                        "types": [
+                          "meter"
+                        ],
+                        "value": "meter",
+                        "word": "meters"
+                      },
+                      "y": {
+                        "dead": true,
+                        "instance": true,
+                        "level": 1,
+                        "marker": "number",
+                        "range": {
+                          "end": 21,
+                          "start": 18
+                        },
+                        "text": "3.28",
+                        "types": [
+                          "number"
+                        ],
+                        "value": 3.28,
+                        "word": "3.28"
+                      }
+                    },
+                    "y": {
+                      "dead": true,
+                      "instance": true,
+                      "level": 1,
+                      "marker": "integer",
+                      "range": {
+                        "end": 26,
+                        "start": 25
+                      },
+                      "text": "12",
+                      "types": [
+                        "integer"
+                      ],
+                      "value": 12,
+                      "word": "12"
+                    }
+                  },
+                  "text": "inches = meters * 3.28 * 12",
+                  "topLevel": true,
+                  "touchedBy": [
+                    "length#call2",
+                    "instance17#length#call2",
+                    "instance17#rates#call2",
+                    "instance17#drone#call2"
+                  ],
+                  "value": "equals",
+                  "word": "="
+                },
+                "formula": {
+                  "dead": true,
+                  "evaluate": true,
+                  "isResponse": true,
+                  "level": 1,
+                  "marker": "timesExpression",
+                  "number": "one",
+                  "range": {
+                    "end": 26,
+                    "start": 9
+                  },
+                  "text": "meters * 3.28 * 12",
+                  "types": [
+                    "number",
+                    "timesExpression"
+                  ],
+                  "value": null,
+                  "word": "*",
+                  "x": {
+                    "dead": true,
+                    "evaluate": true,
+                    "isResponse": true,
+                    "level": 1,
+                    "marker": "timesExpression",
+                    "number": "one",
+                    "range": {
+                      "end": 21,
+                      "start": 9
+                    },
+                    "text": "meters * 3.28",
+                    "types": [
+                      "number",
+                      "timesExpression"
+                    ],
+                    "value": null,
+                    "word": "*",
+                    "x": {
+                      "dead": true,
+                      "dimension": "length",
+                      "level": 0,
+                      "marker": "meter",
+                      "number": "many",
+                      "range": {
+                        "end": 14,
+                        "start": 9
+                      },
+                      "text": "meters",
+                      "types": [
+                        "meter"
+                      ],
+                      "value": "meter",
+                      "word": "meters"
+                    },
+                    "y": {
+                      "dead": true,
+                      "instance": true,
+                      "level": 1,
+                      "marker": "number",
+                      "range": {
+                        "end": 21,
+                        "start": 18
+                      },
+                      "text": "3.28",
+                      "types": [
+                        "number"
+                      ],
+                      "value": 3.28,
+                      "word": "3.28"
+                    }
+                  },
+                  "y": {
+                    "dead": true,
+                    "instance": true,
+                    "level": 1,
+                    "marker": "integer",
+                    "range": {
+                      "end": 26,
+                      "start": 25
+                    },
+                    "text": "12",
+                    "types": [
+                      "integer"
+                    ],
+                    "value": 12,
+                    "word": "12"
+                  }
+                },
+                "name": {
+                  "dead": true,
+                  "dimension": "length",
+                  "level": 0,
+                  "marker": "inch",
+                  "number": "many",
+                  "range": {
+                    "end": 5,
+                    "start": 0
+                  },
+                  "text": "inches",
+                  "types": [
+                    "inch"
+                  ],
+                  "value": "inch",
+                  "word": "inches"
+                }
               }
             ],
             "kilometers": [
@@ -13519,9 +14911,9 @@
                   "topLevel": true,
                   "touchedBy": [
                     "length#call2",
-                    "instance18#length#call2",
-                    "instance18#rates#call2",
-                    "instance18#drone#call2"
+                    "instance20#length#call2",
+                    "instance20#rates#call2",
+                    "instance20#drone#call2"
                   ],
                   "value": "equals",
                   "word": "="
@@ -14165,9 +15557,9 @@
                   "topLevel": true,
                   "touchedBy": [
                     "length#call2",
-                    "instance19#length#call2",
-                    "instance19#rates#call2",
-                    "instance19#drone#call2"
+                    "instance21#length#call2",
+                    "instance21#rates#call2",
+                    "instance21#drone#call2"
                   ],
                   "value": "equals",
                   "word": "="
@@ -14328,9 +15720,9 @@
                   "topLevel": true,
                   "touchedBy": [
                     "length#call2",
-                    "instance16#length#call2",
-                    "instance16#rates#call2",
-                    "instance16#drone#call2"
+                    "instance18#length#call2",
+                    "instance18#rates#call2",
+                    "instance18#drone#call2"
                   ],
                   "value": "equals",
                   "word": "="
