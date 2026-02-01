@@ -2,7 +2,7 @@ const { knowledgeModule, where, Digraph } = require('./runtime').theprogrammable
 const { defaultContextCheck } = require('./helpers')
 const dimension = require('./dimension.js')
 const pressure_tests = require('./pressure.test.json')
-const pressure_instance = require('./pressure.instance.json')
+const instance = require('./pressure.instance.json')
 
 const template = {
   configs: [
@@ -27,7 +27,7 @@ knowledgeModule({
       context: [defaultContextCheck()],
     },
   },
-  instance: pressure_instance,
+  instance,
   template: {
     template,
   }

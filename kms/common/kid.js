@@ -7,7 +7,7 @@ const edible = require('./edible')
 ensureTestFile(module, 'kid', 'test')
 ensureTestFile(module, 'kid', 'instance')
 const kid_tests = require('./kid.test.json')
-const kid_instance = require('./kid.instance.json')
+const instance = require('./kid.instance.json')
 const pluralize = require('pluralize')
 
 const template = {
@@ -32,7 +32,6 @@ const template = {
 async function createConfig() {
   const config = new Config({ name: 'kid', }, module)
   await config.add(avatar, animals, edible, ordering)
-  // config.load(template, kid_instance)
   return config
 }
 
@@ -47,7 +46,7 @@ knowledgeModule({
             context: [defaultContextCheck()],
           },
         },
-  instance: kid_instance,
+  instance,
   template: {
     template,
   },

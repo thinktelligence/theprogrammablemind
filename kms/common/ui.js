@@ -5,7 +5,7 @@ const ordinals = require('./ordinals')
 const math = require('./math')
 const countable = require('./countable')
 const ui_tests = require('./ui.test.json')
-const ui_instance = require('./ui.instance.json')
+const instance = require('./ui.instance.json')
 
 class API {
   initialize({ objects }) {
@@ -186,7 +186,7 @@ knowledgeModule({
       context: [defaultContextCheck({ extra: ['operator', 'direction', 'moveable'] })],
     },
   },
-  instance: ui_instance,
+  instance,
   template: {
     template,
   }

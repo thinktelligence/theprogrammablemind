@@ -4,7 +4,7 @@ const dimension = require('./dimension.js')
 const length = require('./length.js')
 const time = require('./time.js')
 const rates_tests = require('./rates.test.json')
-const rates_instance = require('./rates.instance.json')
+const instance = require('./rates.instance.json')
 
 /*
   miles per hour
@@ -90,7 +90,7 @@ knowledgeModule({
       ],
     }
   },
-  instance: rates_instance,
+  instance,
   template: {
     template,
   }

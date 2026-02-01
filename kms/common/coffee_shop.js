@@ -2,7 +2,7 @@ const { knowledgeModule, where, Digraph } = require('./runtime').theprogrammable
 const { defaultContextCheck } = require('./helpers')
 const ordering_shop = require('./ordering_shop.js')
 const coffee_shop_tests = require('./coffee_shop.test.json')
-const coffee_shop_instance = require('./coffee_shop.instance.json')
+const instance = require('./coffee_shop.instance.json')
 
 const template = {
   configs: [
@@ -25,7 +25,7 @@ knowledgeModule({
       context: [defaultContextCheck()],
     }
   },
-  instance: coffee_shop_instance,
+  instance,
   template: {
     template,
   }

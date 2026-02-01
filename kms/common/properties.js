@@ -3,7 +3,7 @@ const { defaultContextCheck, words } = require('./helpers')
 const dialogues = require('./dialogues')
 const meta = require('./meta')
 const concept = require('./concept')
-const properties_instance = require('./properties.instance.json')
+const instance = require('./properties.instance.json')
 const properties_tests = require('./properties.test.json')
 const { API } = require('./helpers/properties')
 const { chooseNumber } = require('./helpers.js')
@@ -714,7 +714,7 @@ knowledgeModule( {
       bridges: true,
     }
   },
-  instance: properties_instance,
+  instance,
   template: {
     template,
   },

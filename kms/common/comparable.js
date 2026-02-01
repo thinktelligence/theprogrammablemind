@@ -4,7 +4,7 @@ const dialogues = require("./dialogues")
 const concept = require("./concept")
 const numbers = require("./numbers")
 const comparable_tests = require('./comparable.test.json')
-const comparable_instance = require('./comparable.instance.json')
+const instance = require('./comparable.instance.json')
 
 
 const config = {
@@ -70,7 +70,7 @@ const template = {
 knowledgeModule({ 
   config,
   includes: [dialogues, numbers, concept],
-  instance: comparable_instance,
+  instance,
   template: {
     template,
   },

@@ -2,7 +2,7 @@ const { knowledgeModule, where, Digraph } = require('./runtime').theprogrammable
 const { defaultContextCheck } = require('./helpers')
 const dimension = require('./dimension.js')
 const weight_tests = require('./weight.test.json')
-const weight_instance = require('./weight.instance.json')
+const instance = require('./weight.instance.json')
 
 /*
   x y and z are english/metric units
@@ -48,7 +48,7 @@ knowledgeModule({
       context: [defaultContextCheck()],
     }
   },
-  instance: weight_instance,
+  instance,
   template: {
     template,
   }

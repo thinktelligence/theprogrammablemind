@@ -8,7 +8,7 @@ const { propertyToArray, wordNumber, toEValue } = require('./helpers')
 const { table } = require('table')
 const _ = require('lodash')
 const reports_tests = require('./reports.test.json')
-const reports_instance = require('./reports.instance.json')
+const instance = require('./reports.instance.json')
 const { v4 : uuidv4, validate : validatev4 } = require('uuid');
 
 const template ={
@@ -630,7 +630,7 @@ knowledgeModule({
       context: [defaultContextCheck({ extra: ['name', 'index'] })],
     },
   },
-  instance: reports_instance,
+  instance,
   template: {
     template,
   },

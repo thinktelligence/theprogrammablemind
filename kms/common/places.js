@@ -1,7 +1,7 @@
 const { knowledgeModule, where } = require('./runtime').theprogrammablemind
 const hierarchy = require('./hierarchy')
 const animals_tests = require('./places.test.json')
-const animals_instance = require('./places.instance.json')
+const instance = require('./places.instance.json')
 
 const template ={
   configs: [
@@ -28,7 +28,7 @@ knowledgeModule( {
               name: './places.test.json',
               contents: animals_tests
             },
-      instance: animals_instance,
+      instance,
       template: {
         template,
       }

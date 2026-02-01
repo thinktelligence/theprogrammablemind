@@ -2,7 +2,7 @@ const { knowledgeModule, where } = require('./runtime').theprogrammablemind
 const { defaultContextCheck } = require('./helpers')
 const hierarchy = require('./hierarchy')
 const people_tests = require('./people.test.json')
-const people_instance = require('./people.instance.json')
+const instance = require('./people.instance.json')
 const { hashIndexesGet, hashIndexesSet, translationMapping, translationMappings, compose } = require('./helpers/meta.js')
 
 // TODO first name 
@@ -76,7 +76,7 @@ knowledgeModule( {
       objects: [{ km: 'properties' }],
     },
   },
-  instance: people_instance,
+  instance,
   template: {
     template,
   },

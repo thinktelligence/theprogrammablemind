@@ -2,7 +2,7 @@ const { knowledgeModule, where } = require('./runtime').theprogrammablemind
 const { defaultContextCheck } = require('./helpers')
 const crew = require('./crew')
 const kirk_tests = require('./kirk.test.json')
-const kirk_instance = require('./kirk.instance.json')
+const instance = require('./kirk.instance.json')
 
 const template = {
   configs: [
@@ -14,7 +14,7 @@ const template = {
 // TODO what is the name of you
 // TODO crew members -> who are the crew members
 
-kirk_instance.base = 'crew'
+instance.base = 'crew'
 
 // config.load(template, kirk_instance)
 knowledgeModule( {
@@ -30,7 +30,7 @@ knowledgeModule( {
             context: [defaultContextCheck()],
           }
         },
-  instance: kirk_instance,
+  instance,
   template: {
     template,
   },
