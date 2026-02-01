@@ -47,8 +47,8 @@ knowledgeModule({
             context: [defaultContextCheck()],
           },
         },
+  instance: kid_instance,
   template: {
     template,
-    instance: kid_instance,
   },
 })

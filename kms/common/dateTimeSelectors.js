@@ -160,9 +160,9 @@ knowledgeModule( {
       ],
     }
   },
+  instance: dateTimeSelectors_instance,
   template: {
     template,
-    instance: dateTimeSelectors_instance,
   },
 
 })

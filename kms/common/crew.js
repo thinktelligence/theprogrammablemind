@@ -71,8 +71,8 @@ knowledgeModule( {
             context: [defaultContextCheck()],
           }
         },
+  instance: crew_instance,
   template: {
     template,
-    instance: crew_instance,
   },
 })

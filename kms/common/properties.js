@@ -714,8 +714,8 @@ knowledgeModule( {
       bridges: true,
     }
   },
+  instance: properties_instance,
   template: {
     template,
-    instance: properties_instance,
   },
 })

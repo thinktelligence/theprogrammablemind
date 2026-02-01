@@ -191,8 +191,8 @@ knowledgeModule( {
     },
   },
 
+  instance: latin_instance,
   template: {
     template,
-    instance: latin_instance,
   },
 })

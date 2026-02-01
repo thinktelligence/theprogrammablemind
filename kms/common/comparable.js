@@ -70,9 +70,9 @@ const template = {
 knowledgeModule({ 
   config,
   includes: [dialogues, numbers, concept],
+  instance: comparable_instance,
   template: {
     template,
-    instance: comparable_instance
   },
 
   module,

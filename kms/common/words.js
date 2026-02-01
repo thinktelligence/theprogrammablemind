@@ -45,9 +45,9 @@ knowledgeModule( {
       context: [defaultContextCheck()],
     }
   },
+  instance: words_instance,
   template: {
     template,
-    instance: words_instance,
   },
 
 })

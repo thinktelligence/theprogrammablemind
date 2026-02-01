@@ -25,8 +25,8 @@ knowledgeModule({
       context: [defaultContextCheck()],
     }
   },
+  instance: coffee_shop_instance,
   template: {
     template,
-    instance: coffee_shop_instance
   }
 })

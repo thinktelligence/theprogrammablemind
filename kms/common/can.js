@@ -246,9 +246,9 @@ knowledgeModule( {
       ],
     },
   },
+  instance,
   template: {
     template,
-    instance,
   },
 
 })

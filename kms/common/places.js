@@ -28,8 +28,8 @@ knowledgeModule( {
               name: './places.test.json',
               contents: animals_tests
             },
+      instance: animals_instance,
       template: {
         template,
-        instance: animals_instance
       }
 })

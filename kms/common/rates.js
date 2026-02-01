@@ -90,8 +90,8 @@ knowledgeModule({
       ],
     }
   },
+  instance: rates_instance,
   template: {
     template,
-    instance: rates_instance
   }
 })

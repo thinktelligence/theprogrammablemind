@@ -39,8 +39,8 @@ knowledgeModule( {
               context: [defaultContextCheck()],
             }
           },
+    instance: animals_instance,
     template: {
       template,
-      instance: animals_instance
     }
 })

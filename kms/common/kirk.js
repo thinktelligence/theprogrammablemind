@@ -30,8 +30,8 @@ knowledgeModule( {
             context: [defaultContextCheck()],
           }
         },
+  instance: kirk_instance,
   template: {
     template,
-    instance: kirk_instance,
   },
 })

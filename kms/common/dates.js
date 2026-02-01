@@ -257,9 +257,9 @@ knowledgeModule( {
       ],
     }
   },
+  instance: dates_instance,
   template: {
     template,
-    instance: dates_instance,
   },
 
 })

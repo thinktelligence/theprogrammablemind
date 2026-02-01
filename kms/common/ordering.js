@@ -124,8 +124,8 @@ knowledgeModule( {
               context: [defaultContextCheck()],
             }
           },
+    instance: ordering_instance,
     template: {
       template, 
-      instance: ordering_instance
     }
 })

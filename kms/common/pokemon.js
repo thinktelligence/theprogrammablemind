@@ -65,8 +65,8 @@ knowledgeModule( {
             context: [defaultContextCheck()],
           },
         },
+  instance: pokemon_instance,
   template: {
     template,
-    instance: pokemon_instance,
   },
 })

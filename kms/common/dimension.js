@@ -275,7 +275,8 @@ knowledgeModule({
 
   module,
   description: 'Used to define numeric temperature such as currency, temperature or weight',
-  template: { template, instance },
+  instance,
+  template: { template },
   test: {
     name: './dimension.test.json',
     contents: tests,

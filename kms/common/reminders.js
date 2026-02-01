@@ -432,9 +432,9 @@ knowledgeModule( {
       ],
     },
   },
+  instance: reminders_instance,
   template: {
     template,
-    instance: reminders_instance,
   },
 
 })

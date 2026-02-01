@@ -630,8 +630,8 @@ knowledgeModule({
       context: [defaultContextCheck({ extra: ['name', 'index'] })],
     },
   },
+  instance: reports_instance,
   template: {
     template,
-    instance: reports_instance
   },
 })

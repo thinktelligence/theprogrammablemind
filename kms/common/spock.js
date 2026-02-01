@@ -26,8 +26,8 @@ knowledgeModule( {
             context: [defaultContextCheck()],
           },
         },
+  instance: spock_instance,
   template: {
     template,
-    instance: spock_instance,
   },
 })

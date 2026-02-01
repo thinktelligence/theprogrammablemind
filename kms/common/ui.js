@@ -186,8 +186,8 @@ knowledgeModule({
       context: [defaultContextCheck({ extra: ['operator', 'direction', 'moveable'] })],
     },
   },
+  instance: ui_instance,
   template: {
     template,
-    instance: ui_instance
   }
 })

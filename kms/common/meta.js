@@ -413,8 +413,8 @@ knowledgeModule({
       context: [defaultContextCheck()],
     },
   },
+  instance: meta_instance,
   template: {
     template,
-    instance: meta_instance,
   },
 })

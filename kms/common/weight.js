@@ -48,8 +48,8 @@ knowledgeModule({
       context: [defaultContextCheck()],
     }
   },
+  instance: weight_instance,
   template: {
     template,
-    instance: weight_instance
   }
 })

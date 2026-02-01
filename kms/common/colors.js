@@ -59,9 +59,9 @@ knowledgeModule( {
       context: [defaultContextCheck()],
     }
   },
+  instance: colors_instance,
   template: {
     template,
-    instance: colors_instance,
   },
 
 })

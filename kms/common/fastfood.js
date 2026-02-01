@@ -1001,8 +1001,8 @@ knowledgeModule( {
               ],
             },
           },
+    instance: fastfood_instance,
     template: {
       template,
-      instance: fastfood_instance,
     },
 })

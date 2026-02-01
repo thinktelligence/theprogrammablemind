@@ -86,7 +86,8 @@ knowledgeModule( {
 
   module,
   description: 'testing that async works',
-  template: { template, instance },
+  instance,
+  template: { template },
   test: {
     name: './async.test.json',
     contents: tests,

@@ -76,8 +76,8 @@ knowledgeModule( {
       objects: [{ km: 'properties' }],
     },
   },
+  instance: people_instance,
   template: {
     template,
-    instance: people_instance
   },
 })

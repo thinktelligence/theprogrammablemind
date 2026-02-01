@@ -22,8 +22,8 @@ knowledgeModule({
       context: [defaultContextCheck()],
     }
   },
+  instance: store_instance,
   template: {
     template,
-    instance: store_instance
   }
 })

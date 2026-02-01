@@ -120,7 +120,8 @@ knowledgeModule( {
 
   module,
   description: 'talking about math',
-  template: { template, instance },
+  instance,
+  template: { template },
   test: {
     name: './math.test.json',
     contents: tests,

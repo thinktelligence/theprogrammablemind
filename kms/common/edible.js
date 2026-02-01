@@ -86,8 +86,8 @@ knowledgeModule( {
                 context: [defaultContextCheck()],
               }
             },
+      instance: edible_instance,
       template: {
         template,
-        instance: edible_instance,
       },
 })

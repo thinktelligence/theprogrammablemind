@@ -36,8 +36,8 @@ knowledgeModule( {
             context: defaultContextCheck(),
           },
         },
+  instance: alice_instance,
   template: {
     template,
-    instance: alice_instance,
   },
 })

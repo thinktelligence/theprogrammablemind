@@ -210,5 +210,6 @@ knowledgeModule({
       context: [defaultContextCheck({ extra: ['one', 'two', 'events', 'time', 'timePoint', 'ampm'] })],
     }
   },
-  template: { template, instance },
+  instance,
+  template: { template },
 })

@@ -27,8 +27,8 @@ knowledgeModule({
       context: [defaultContextCheck()],
     },
   },
+  instance: pressure_instance,
   template: {
     template,
-    instance: pressure_instance,
   }
 })

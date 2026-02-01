@@ -27,8 +27,8 @@ knowledgeModule({
       context: [defaultContextCheck()],
     },
   },
+  instance: temperature_instance,
   template: {
     template,
-    instance: temperature_instance
   }
 })

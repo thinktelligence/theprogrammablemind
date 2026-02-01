@@ -373,9 +373,9 @@ knowledgeModule( {
       context: [defaultContextCheck()],
     },
   },
+  instance: scorekeeper_instance,
   template: {
     template,
-    instance: scorekeeper_instance
   },
 
 })

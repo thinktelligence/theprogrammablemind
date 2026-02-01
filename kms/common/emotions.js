@@ -69,9 +69,9 @@ knowledgeModule( {
                 context: [defaultContextCheck()],
               }
             },
+      instance: emotions_instance,
       template: {
         template,
-        instance: emotions_instance,
 
       },
 })

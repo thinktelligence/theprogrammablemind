@@ -27,8 +27,8 @@ knowledgeModule( {
           name: './wendy.test.json',
           contents: wendy_tests,
         },
+  instance: wendy_instance,
   template: {
     template,
-    instance: wendy_instance,
   },
 })

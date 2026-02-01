@@ -635,9 +635,9 @@ knowledgeModule( {
       ],
     }
   },
+  instance: drone_instance,
   template: {
     template,
-    instance: drone_instance,
   },
 
 })
