@@ -105,6 +105,7 @@ https://www.amazon.ca/Freenove-Raspberry-Tracking-Avoidance-Ultrasonic/dp/B0BNDQ
   forward for 4 seconds
 
   you are facing north. patrol between here and 100 feet to the west
+  this way is south
 */
 
 function expectDirection(args) {
@@ -271,10 +272,10 @@ class API {
         await this.backward(command.power, { batched: command.distance })
         break
       case 'right':
-        await this.rotate(-Math.PI/2)
+        await this.rotate(-Math.PI/4)
         break
       case 'left':
-        await this.rotate(Math.PI/2)
+        await this.rotate(Math.PI/4)
         break
       case 'around':
         await this.rotate(180)
