@@ -103,6 +103,8 @@ https://www.amazon.ca/Freenove-Raspberry-Tracking-Avoidance-Ultrasonic/dp/B0BNDQ
   go 1 foot
 
   forward for 4 seconds
+
+  you are facing north. patrol between here and 100 feet to the west
 */
 
 function expectDirection(args) {
@@ -269,10 +271,10 @@ class API {
         await this.backward(command.power, { batched: command.distance })
         break
       case 'right':
-        await this.rotate(-90)
+        await this.rotate(-Math.PI/2)
         break
       case 'left':
-        await this.rotate(90)
+        await this.rotate(Math.PI/2)
         break
       case 'around':
         await this.rotate(180)
@@ -314,7 +316,7 @@ class API {
   }
 
   // TODO allow saying turn while its moving and make that one moves so you can go back wiggly?
-  async left(angleInRadians) {
+  async rotate(angleInRadians) {
     await this.rotateDrone(angleInRadians)
     this._objects.current.angleInRadians = (this._objects.current.angleInRadians + angleInRadians) % Math.PI
   }
@@ -375,8 +377,8 @@ class API {
   // -angle is counterclockwise
   // +angle is clockwise
 
-  async rotateDrone(angle) {
-    this._objects.history.push({ marker: 'history', turn: angle })
+  async rotateDrone(angleInRadians) {
+    this._objects.history.push({ marker: 'history', turn: angleInRadians })
   }
 
   // distance in cm
@@ -425,6 +427,7 @@ function askForProperty({
 }
 
 // expectProperty
+/*
 function expectDirection(args) {
   args.config.addSemantic({
     match: ({context, isA}) => isA(context.marker, 'direction'),
@@ -447,6 +450,7 @@ function expectDistanceForMove(args) {
     }
   })
 }
+*/
 
 const template = {
   fragments: [ 
