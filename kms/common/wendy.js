@@ -27,7 +27,5 @@ knowledgeModule( {
           contents: wendy_tests,
         },
   instance,
-  template: {
-    template,
-  },
+  template,
 })

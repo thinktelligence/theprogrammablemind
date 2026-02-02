@@ -200,7 +200,7 @@ knowledgeModule({
   module,
   description: 'Formulas using math',
   instance,
-  template: { template },
+  template,
   test: {
     name: './formulas.test.json',
     contents: tests,

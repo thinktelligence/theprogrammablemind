@@ -29,7 +29,5 @@ knowledgeModule( {
               contents: animals_tests
             },
       instance,
-      template: {
-        template,
-      }
+      template,
 })

@@ -50,7 +50,7 @@ knowledgeModule({
   description: 'Control a undo/redos',
   createConfig,
   instance,
-  template: { template },
+  template,
   test: {
     name: './undo.test.json',
     contents: undo_tests,

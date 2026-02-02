@@ -40,7 +40,5 @@ knowledgeModule( {
             }
           },
     instance,
-    template: {
-      template,
-    }
+    template,
 })

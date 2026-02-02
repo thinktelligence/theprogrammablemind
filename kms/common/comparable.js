@@ -71,10 +71,7 @@ knowledgeModule({
   config,
   includes: [dialogues, numbers, concept],
   instance,
-  template: {
-    template,
-  },
-
+  template,
   module,
   description: 'Comparable things',
   test: {

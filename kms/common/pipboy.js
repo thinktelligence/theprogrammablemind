@@ -499,7 +499,7 @@ knowledgeModule({
   module,
   description: 'Control a pipboy with speech',
   instance,
-  template: { template },
+  template,
   test: {
     name: './pipboy.test.json',
     contents: pipboy_tests,
