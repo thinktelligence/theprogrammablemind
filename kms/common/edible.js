@@ -6,7 +6,7 @@ ensureTestFile(module, 'edible', 'test')
 ensureTestFile(module, 'edible', 'instance')
 
 const edible_tests = require('./edible.test.json')
-const edible_instance = require('./edible.instance.json')
+const instance = require('./edible.instance.json')
 
 // fix this
 // fix loading ordering not working
@@ -86,8 +86,6 @@ knowledgeModule( {
                 context: [defaultContextCheck()],
               }
             },
-      template: {
-        template,
-        instance: edible_instance,
-      },
+      instance,
+      template,
 })

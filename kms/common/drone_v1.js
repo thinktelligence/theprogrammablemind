@@ -1,7 +1,7 @@
 const { knowledgeModule, where } = require('./runtime').theprogrammablemind
 const { defaultContextCheck, getValue, setValue } = require('./helpers')
 const droneV1_tests = require('./drone_v1.test.json')
-const droneV1_instance = require('./drone_v1.instance.json')
+const instance = require('./drone_v1.instance.json')
 const hierarchy = require('./hierarchy')
 const ordinals = require('./ordinals')
 const nameable = require('./nameable')
@@ -591,9 +591,6 @@ knowledgeModule( {
       ],
     }
   },
-  template: {
-    template,
-    instance: droneV1_instance,
-  },
-
+  instance,
+  template,
 })

@@ -9,7 +9,7 @@ ensureTestFile(module, 'fastfood', 'test')
 ensureTestFile(module, 'fastfood', 'instance')
 
 const fastfood_tests = require('./fastfood.test.json')
-const fastfood_instance = require('./fastfood.instance.json')
+const instance = require('./fastfood.instance.json')
 
 /*
   hello -> to order
@@ -1001,8 +1001,6 @@ knowledgeModule( {
               ],
             },
           },
-    template: {
-      template,
-      instance: fastfood_instance,
-    },
+    instance,
+    template,
 })

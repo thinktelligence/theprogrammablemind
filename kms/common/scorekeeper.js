@@ -6,7 +6,7 @@ const pluralize = require('pluralize')
 //const people = require('./people')
 const properties = require('./properties')
 const scorekeeper_tests = require('./scorekeeper.test.json')
-const scorekeeper_instance = require('./scorekeeper.instance.json')
+const instance = require('./scorekeeper.instance.json')
 
 /*
 const game = {
@@ -373,9 +373,6 @@ knowledgeModule( {
       context: [defaultContextCheck()],
     },
   },
-  template: {
-    template,
-    instance: scorekeeper_instance
-  },
-
+  instance,
+  template,
 })

@@ -3,7 +3,7 @@ const { defaultContextCheck } = require('./helpers')
 const gdefaults = require("./gdefaults")
 const { conjugateVerb, getDeclensions } = require("./latin_helpers")
 const latin_tests = require('./latin.test.json')
-const latin_instance = require('./latin.instance.json')
+const instance = require('./latin.instance.json')
 
 /*
   marcus est vir
@@ -191,8 +191,6 @@ knowledgeModule( {
     },
   },
 
-  template: {
-    template,
-    instance: latin_instance,
-  },
+  instance,
+  template,
 })

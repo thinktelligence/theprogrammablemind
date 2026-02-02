@@ -5,7 +5,7 @@ ensureTestFile(module, 'alice', 'instance')
 
 const kid = require('./kid')
 const alice_tests = require('./alice.test.json')
-const alice_instance = require('./alice.instance.json')
+const instance = require('./alice.instance.json')
 
 const template = {
   configs: [
@@ -21,7 +21,6 @@ async function createConfig () {
 
 const config = createConfig()
 
-// config.load(template, alice_instance)
 knowledgeModule( {
   config: { name: 'alice', },
   includes: [kid],
@@ -36,8 +35,6 @@ knowledgeModule( {
             context: defaultContextCheck(),
           },
         },
-  template: {
-    template,
-    instance: alice_instance,
-  },
+  instance,
+  template,
 })

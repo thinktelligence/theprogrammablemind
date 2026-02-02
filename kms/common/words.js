@@ -1,7 +1,7 @@
 const { knowledgeModule, where } = require('./runtime').theprogrammablemind
 const { defaultContextCheck } = require('./helpers')
 const words_tests = require('./words.test.json')
-const words_instance = require('./words.instance.json')
+const instance = require('./words.instance.json')
 const tokenize = require('./tokenize')
 
 function initializer({objects, config, isModule}) {
@@ -45,9 +45,6 @@ knowledgeModule( {
       context: [defaultContextCheck()],
     }
   },
-  template: {
-    template,
-    instance: words_instance,
-  },
-
+  instance,
+  template,
 })

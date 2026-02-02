@@ -1,7 +1,7 @@
 const { knowledgeModule, where } = require('./runtime').theprogrammablemind
 const { defaultContextCheck } = require('./helpers')
 const dateTimeSelectors_tests = require('./dateTimeSelectors.test.json')
-const dateTimeSelectors_instance = require('./dateTimeSelectors.instance.json')
+const instance = require('./dateTimeSelectors.instance.json')
 const dates = require('./dates')
 const time = require('./time')
 const dateTimeSelectors_helpers = require('./helpers/dateTimeSelectors')
@@ -160,9 +160,6 @@ knowledgeModule( {
       ],
     }
   },
-  template: {
-    template,
-    instance: dateTimeSelectors_instance,
-  },
-
+  instance,
+  template,
 })

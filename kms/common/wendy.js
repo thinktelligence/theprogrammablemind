@@ -4,7 +4,7 @@ ensureTestFile(module, 'wendy', 'instance')
 
 const kid = require('./kid')
 const wendy_tests = require('./wendy.test.json')
-const wendy_instance = require('./wendy.instance.json')
+const instance = require('./wendy.instance.json')
 
 const template = {
   configs: [
@@ -18,7 +18,6 @@ async function createConfig() {
   return config
 }
 
-// config.load(template, wendy_instance)
 knowledgeModule( {
   module,
   description: 'Kia Simulator using a KM template',
@@ -27,8 +26,6 @@ knowledgeModule( {
           name: './wendy.test.json',
           contents: wendy_tests,
         },
-  template: {
-    template,
-    instance: wendy_instance,
-  },
+  instance,
+  template,
 })

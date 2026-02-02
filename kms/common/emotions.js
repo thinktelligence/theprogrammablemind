@@ -4,7 +4,7 @@ const hierarchy = require('./hierarchy')
 ensureTestFile(module, 'emotions', 'test')
 ensureTestFile(module, 'emotions', 'instance')
 const emotions_tests = require('./emotions.test.json')
-const emotions_instance = require('./emotions.instance.json')
+const instance = require('./emotions.instance.json')
 
 /*
 anger/angry
@@ -69,9 +69,6 @@ knowledgeModule( {
                 context: [defaultContextCheck()],
               }
             },
-      template: {
-        template,
-        instance: emotions_instance,
-
-      },
+      instance,
+      template,
 })

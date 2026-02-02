@@ -3,7 +3,7 @@ const { defaultContextCheck } = require('./helpers')
 const avatar = require('./avatar')
 const animals = require('./animals')
 const crew_tests = require('./crew.test.json')
-const crew_instance = require('./crew.instance.json')
+const instance = require('./crew.instance.json')
 const pluralize = require('pluralize')
 
 const template = {
@@ -56,7 +56,6 @@ function initializer({config, apis}) {
                 config }) 
 }
 
-// config.load(template, crew_instance)
 knowledgeModule( {
   config: { name: 'crew', },
   includes: [avatar, animals],
@@ -71,8 +70,6 @@ knowledgeModule( {
             context: [defaultContextCheck()],
           }
         },
-  template: {
-    template,
-    instance: crew_instance,
-  },
+  instance,
+  template,
 })

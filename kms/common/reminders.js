@@ -1,7 +1,7 @@
 const { knowledgeModule, where } = require('./runtime').theprogrammablemind
 const { defaultContextCheck } = require('./helpers')
 const reminders_tests = require('./reminders.test.json')
-const reminders_instance = require('./reminders.instance.json')
+const instance = require('./reminders.instance.json')
 const selfKM = require('./self')
 const dateTimeSelectors = require('./dateTimeSelectors')
 const helpers = require('./helpers')
@@ -432,9 +432,6 @@ knowledgeModule( {
       ],
     },
   },
-  template: {
-    template,
-    instance: reminders_instance,
-  },
-
+  instance,
+  template,
 })

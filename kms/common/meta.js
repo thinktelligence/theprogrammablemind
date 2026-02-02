@@ -5,7 +5,7 @@ const gdefaults = require('./gdefaults.js')
 ensureTestFile(module, 'meta', 'test')
 ensureTestFile(module, 'meta', 'instance')
 const meta_tests = require('./meta.test.json')
-const meta_instance = require('./meta.instance.json')
+const instance = require('./meta.instance.json')
 const { hashIndexesGet, hashIndexesSet, translationMapping, translationMappings } = require('./helpers/meta.js')
 const { zip, words } = require('./helpers.js')
 
@@ -413,8 +413,6 @@ knowledgeModule({
       context: [defaultContextCheck()],
     },
   },
-  template: {
-    template,
-    instance: meta_instance,
-  },
+  instance,
+  template,
 })

@@ -2,7 +2,7 @@ const { knowledgeModule, where } = require('./runtime').theprogrammablemind
 const { defaultContextCheck } = require('./helpers')
 const hierarchy = require('./hierarchy')
 const pokemon_tests = require('./pokemon.test.json')
-const pokemon_instance = require('./pokemon.instance.json')
+const instance = require('./pokemon.instance.json')
 const pluralize = require('pluralize')
 
 const template = {
@@ -65,8 +65,6 @@ knowledgeModule( {
             context: [defaultContextCheck()],
           },
         },
-  template: {
-    template,
-    instance: pokemon_instance,
-  },
+  instance,
+  template,
 })
