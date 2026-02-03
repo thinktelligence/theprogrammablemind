@@ -1,5 +1,5 @@
-const { knowledgeModule, where, Digraph } = require('./runtime').theprogrammablemind
-const { defaultContextCheck } = require('./helpers')
+const { knowledgeModule, where, Digraph, debug } = require('./runtime').theprogrammablemind
+const { defaultContextCheck, toEValue } = require('./helpers')
 const dimension = require('./dimension.js')
 const length = require('./length.js')
 const time = require('./time.js')
@@ -43,7 +43,10 @@ const template = {
               let evalue;
               if (toUnits.value == fromUnits.value) {
                 evalue = fromAmount
-                evalue.evalue = fromAmount.value
+                // if (!fromAmount.value) {
+                //  debugger
+                //}
+                evalue.evalue = fromAmount.evalue || fromAmount.value
               } else {
                 const formula = kms.formulas.api.get(toUnits, [fromUnits])
                 if (!formula) {
@@ -57,9 +60,9 @@ const template = {
               return evalue
             }
 
-            const evalueNumerator = await convert(context.from.unit.numerator, context.from.amount, context.to.numerator) 
-            const evalueDenominator = await convert(context.from.unit.denominator, 1, context.to.denominator) 
-            const evalue = { evalue: (evalueNumerator.evalue || evalueNumerator.value) / (evalueDenominator.evalue || evalueDenominator.evalue) }
+            const evalueNumerator = await convert(context.from.unit.numerator, context.from.amount, context.to.numerator)
+            const evalueDenominator = await convert(context.from.unit.denominator, 1, context.to.denominator)
+            const evalue = { evalue: (toEValue(evalueNumerator) || evalueNumerator.value) / (toEValue(evalueDenominator) || evalueDenominator.evalue) }
             context.evalue = {
               paraphrase: true,
               marker: 'quantity',

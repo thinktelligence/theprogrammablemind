@@ -239,6 +239,32 @@ class API {
   }
 
   async sendCommand() {
+    const objects = this._objects
+    const { fragments, e, say, gr } = this.args
+
+    // TODO account for forward vs backward speed
+    if (objects.current.power < objects.calibration.minPower) {
+      const unitsOfUser = objects.current.speedUnitsOfUser
+      const minimumValueInDroneUnits = await fragments("number meters per second", { number: { marker: 'integer', value: objects.calibration.speedForward } })
+      const valueInUsersUnits = await fragments("quantity in units", { quantity: minimumValueInDroneUnits, unit_length: unitsOfUser })
+      const evaluated = await e(valueInUsersUnits)
+      say(`The drone cannot go that slow. The minimum speed is ${await gr(evaluated.evalue)}`)
+      objects.runCommand = false
+      return
+    }
+
+    // TODO account for forward vs backward speed
+    if (objects.current.power > 100) {
+      const maximumSpeed = (100 / objects.calibration.power) * objects.calibration.speedForward
+      const unitsOfUser = objects.current.speedUnitsOfUser
+      const maximumValueInDroneUnits = await fragments("number meters per second", { number: { marker: 'integer', value: maximumSpeed } })
+      const valueInUsersUnits = await fragments("quantity in units", { quantity: maximumValueInDroneUnits, unit_length: unitsOfUser })
+      const evaluated = await e(valueInUsersUnits)
+      say(`The drone cannot go that fast. The maximum speed is ${await gr(evaluated.evalue)}`)
+      objects.runCommand = false
+      return
+    }
+
     const stopAtDistance = async (direction, distanceMeters) => {
       const speed_meters_per_second = direction == 'forward' ? this._objects.calibration.speedForward : this._objects.calibration.speedBackward
       const duration_seconds = distanceMeters / speed_meters_per_second
@@ -278,7 +304,7 @@ class API {
         await this.rotate(Math.PI/4)
         break
       case 'around':
-        await this.rotate(180)
+        await this.rotate(Math.PI/2)
         break
     }
 
@@ -363,14 +389,14 @@ class API {
   // CMD_MOTOR#1000#1000#
   async forwardDrone(power, options) {
     const time = this.now()
-    this._objects.sonicTest -= 1
+    this._objects.sonicTest -= 10 // make the speed about the same as the actual drone
     this._objects.history.push({ marker: 'history', direction: 'forward', power, time, ...options })
     return time
   }
 
   async backwardDrone(power, options) {
     const time = this.now()
-    this._objects.sonicTest += 1
+    this._objects.sonicTest += 10 // make the speed about the same as the actual drone
     this._objects.history.push({ marker: 'history', direction: 'backward', power, time, ...options })
     return time
   }
@@ -457,6 +483,8 @@ const template = {
   fragments: [ 
     "quantity in meters",
     "quantity in meters per second",
+    "number meters per second",
+    "quantity in units",
   ],
   configs: [
     "drone is a concept",
@@ -472,7 +500,7 @@ const template = {
 
       args.config.addSemantic({
         match: ({context, isA}) => isA(context.marker, 'quantity') && isA(context.unit.marker, 'unitPerUnit'),
-        apply: async ({context, objects, api, fragments, e}) => {
+        apply: async ({context, objects, api, gr, fragments, e, say}) => {
           // send a command to the drone
           const instantiation = await fragments("quantity in meters per second", { quantity: context })
           const result = await e(instantiation)
@@ -480,6 +508,7 @@ const template = {
           const desired_power = objects.current.power * (desired_speed / objects.calibration.speedForward)
           objects.runCommand = true
           objects.current.power = desired_power 
+          objects.current.speedUnitsOfUser = context.unit
         }
       })
 
@@ -604,7 +633,7 @@ const template = {
           },
           bridge: "{ ...next(operator), object: after[0], interpolate: [{ context: operator }, { property: 'object' }] }",
           semantic: async ({mentioned, context, objects, api, say}) => {
-            if (!objects.calibration.startTime) {
+            if (!objects.calibration.isCalibrated) {
               return // ignore
             }
             if (objects.calibration.speedForward) {
