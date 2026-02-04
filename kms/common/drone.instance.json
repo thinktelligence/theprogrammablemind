@@ -11,6 +11,7 @@
     {
       "operators": [
         "([calibrate])",
+        "([back])",
         "([turn] (direction))",
         "([pause] ([number]))",
         "([stop] ([drone|])?)",
@@ -18,6 +19,13 @@
         "([toPoint|to] (point))"
       ],
       "bridges": [
+        {
+          "id": "back",
+          "isA": [
+            "noun"
+          ],
+          "semantic": "async ({objects, mentions, api, e, context}) => {\n            if (api.isCalibrated()) {\n              objects.runCommand = true\n              const ordinal = objects.current.ordinal - 1\n              const lastPoint = mentions({ context: { marker: 'point' }, condition: (context) => context.ordinal == ordinal })\n              objects.current.destination = lastPoint\n            }\n          }"
+        },
         {
           "id": "toPoint",
           "isA": [
@@ -15681,6 +15689,7 @@
       "extraConfig": true,
       "operators": [
         "([calibrate])",
+        "([back])",
         "([turn] (direction))",
         "([pause] ([number]))",
         "([stop] ([drone|])?)",
@@ -15688,6 +15697,12 @@
         "([toPoint|to] (point))"
       ],
       "bridges": [
+        {
+          "id": "back",
+          "isA": [
+            "noun"
+          ]
+        },
         {
           "id": "toPoint",
           "isA": [
@@ -15855,6 +15870,11 @@
         [
           "atTime",
           "preposition",
+          false
+        ],
+        [
+          "back",
+          "noun",
           false
         ],
         [
@@ -18641,6 +18661,11 @@
         [
           "atTime",
           "preposition",
+          false
+        ],
+        [
+          "back",
+          "noun",
           false
         ],
         [
@@ -21701,6 +21726,11 @@
           false
         ],
         [
+          "back",
+          "noun",
+          false
+        ],
+        [
           "backward",
           "direction",
           false
@@ -24675,6 +24705,11 @@
         [
           "atTime",
           "preposition",
+          false
+        ],
+        [
+          "back",
+          "noun",
           false
         ],
         [
