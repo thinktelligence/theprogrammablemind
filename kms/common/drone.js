@@ -106,6 +106,8 @@ https://www.amazon.ca/Freenove-Raspberry-Tracking-Avoidance-Ultrasonic/dp/B0BNDQ
 
   you are facing north. patrol between here and 100 feet to the west
   this way is south
+
+  go back
 */
 
 function expectDirection(args) {
@@ -250,6 +252,7 @@ class API {
       const evaluated = await e(valueInUsersUnits)
       say(`The drone cannot go that slow. The minimum speed is ${await gr(evaluated.evalue)}`)
       objects.runCommand = false
+      objects.current.power = objects.calibration.minPower // reset
       return
     }
 
@@ -262,6 +265,7 @@ class API {
       const evaluated = await e(valueInUsersUnits)
       say(`The drone cannot go that fast. The maximum speed is ${await gr(evaluated.evalue)}`)
       objects.runCommand = false
+      objects.current.power = objects.calibration.minPower // reset
       return
     }
 
