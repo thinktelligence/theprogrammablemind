@@ -14,10 +14,18 @@ const sdefaults = require('./sdefaults')
 const config = {
   name: 'numbers',
   operators: [
+    // "([round] ([roundable]) ([to|]) )",
+    // { pattern: "([testNumber])", scope: 'testing' },
     "([number])",
     "([integer])",
   ],
   bridges: [
+    /*
+    { 
+      id: "testNumber", 
+      scope: 'testing',
+    },
+    */
     { 
       id: "number", 
       bridge: "{ instance: false, ...next(operator) }" 

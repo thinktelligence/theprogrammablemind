@@ -278,18 +278,16 @@ class API {
     }
 
     if (this._objects.current.destination) {
+      debugger
       const currentPoint = this.args.mentions({ context: { marker: 'point' } })
       const polar = cartesianToPolar(currentPoint.point, this._objects.current.destination.point)
-      const destinationAngleInDegrees = radiansToDegrees(polar.angle)
-      let angleDelta = destinationAngleInRadians - this._objects.current.angleInRadians
-      if (angleDelta > 180) {
-        angleDelta -= 360
-      } else if (angleDelta < -180) {
-        angleDelta += 360
-      }
+      const destinationAngleInRadians = polar.angle
+      let angleDelta = (destinationAngleInRadians - this._objects.current.angleInRadians)
+      debugger
       await this.rotate(angleDelta)
       await this.forward(this._objects.current.power)
-      await stopAtDistance(polar.radius)
+      await stopAtDistance("forward", polar.radius)
+      this._objects.current.destination = undefined
       return
     }
 
@@ -349,7 +347,7 @@ class API {
   // TODO allow saying turn while its moving and make that one moves so you can go back wiggly?
   async rotate(angleInRadians) {
     await this.rotateDrone(angleInRadians)
-    this._objects.current.angleInRadians = (this._objects.current.angleInRadians + angleInRadians) % Math.PI
+    this._objects.current.angleInRadians = (this._objects.current.angleInRadians + angleInRadians) % (2*Math.PI)
   }
 
   async tiltAngle(angle) {
@@ -537,6 +535,7 @@ const template = {
     {
       operators: [
         "([calibrate])",
+        "([back])",
         "([turn] (direction))",
         "([pause] ([number]))",
         "([stop] ([drone|])?)",
@@ -544,6 +543,18 @@ const template = {
         "([toPoint|to] (point))",
       ],
       bridges: [
+        {
+          id: "back",
+          isA: ['noun'],
+          semantic: async ({objects, mentions, api, e, context}) => {
+            if (api.isCalibrated()) {
+              objects.runCommand = true
+              const ordinal = objects.current.ordinal - 1
+              const lastPoint = mentions({ context: { marker: 'point' }, condition: (context) => context.ordinal == ordinal })
+              objects.current.destination = lastPoint
+            }
+          }
+        },
         { 
           id: "toPoint",
           isA: ['preposition'],

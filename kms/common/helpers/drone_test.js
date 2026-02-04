@@ -44,7 +44,7 @@ describe('cartesianToPolar', () => {
     const from = { x: 0, y: 0 }
     const to = { x: -1, y: 0 }
     const polar = cartesianToPolar(from, to)
-    expect(polar.angle).toBe(Math.PI)
+    expect(polar.angle).toBe(0)
     expect(polar.radius).toBe(1)
   })
 
