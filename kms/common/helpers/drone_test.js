@@ -15,14 +15,14 @@ const { cartesianToPolar } = require('./drone')
 */
 
 describe('cartesianToPolar', () => {
-  it('NEOS23 same spot', async () => {
+  it('same spot', async () => {
     const from = { x: 1, y: 1 }
     const polar = cartesianToPolar(from, from)
     expect(polar.angle).toBe(0)
     expect(polar.radius).toBe(0)
   })
 
-  it('NEOS23 go right to point from being aimed right', async () => {
+  it('go right to point from being aimed right', async () => {
     const from = { x: 0, y: 0 }
     const angle = 0
     const to = { x: 1, y: 0 }
@@ -31,7 +31,7 @@ describe('cartesianToPolar', () => {
     expect(polar.radius).toBe(1)
   })
 
-  it('NEOS23 go up to point from being aimed right', async () => {
+  it('go up to point from being aimed right', async () => {
     const from = { x: 0, y: 0 }
     const angle = 0
     const to = { x: 0, y: 1 }
@@ -40,7 +40,7 @@ describe('cartesianToPolar', () => {
     expect(polar.radius).toBe(1)
   })
 
-  it('NEOS23 go left to point from being aimed right', async () => {
+  it('go left to point from being aimed right', async () => {
     const from = { x: 0, y: 0 }
     const to = { x: -1, y: 0 }
     const polar = cartesianToPolar(from, to)
@@ -48,7 +48,7 @@ describe('cartesianToPolar', () => {
     expect(polar.radius).toBe(1)
   })
 
-  it('NEOS23 go down to point from being aimed right', async () => {
+  it('go down to point from being aimed right', async () => {
     const from = { x: 0, y: 0 }
     const to = { x: 0, y: -1 }
     const polar = cartesianToPolar(from, to)
