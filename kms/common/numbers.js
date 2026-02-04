@@ -78,15 +78,8 @@ const config = {
   generators: [
     { 
       where: where(),
-      match: ({context, isA}) => isA(context.marker, 'number', { extended: true }),
-      apply: ({context}) => {
-        debugger
-        value = `${context.value}` 
-        if (value.length < context.length) {
-          value = "0".repeat(context.length-value.length)+value
-        }
-        return value
-      }
+      match: ({context, isA}) => isA(context.marker, 'number', { extended: true }) && Number.isInteger(context.roundTo),
+      apply: ({context}) => `${context.value.toFixed(context.roundTo)}`,
     },
     { 
       where: where(),
