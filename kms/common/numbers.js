@@ -1,6 +1,7 @@
 const { knowledgeModule, where } = require('./runtime').theprogrammablemind
 const { defaultContextCheck } = require('./helpers')
 const numbers_tests = require('./numbers.test.json')
+const instance = require('./numbers.instance.json')
 const gdefaults = require('./gdefaults')
 const sdefaults = require('./sdefaults')
 
@@ -77,6 +78,18 @@ const config = {
   generators: [
     { 
       where: where(),
+      match: ({context, isA}) => isA(context.marker, 'number', { extended: true }),
+      apply: ({context}) => {
+        debugger
+        value = `${context.value}` 
+        if (value.length < context.length) {
+          value = "0".repeat(context.length-value.length)+value
+        }
+        return value
+      }
+    },
+    { 
+      where: where(),
       match: ({context, isA}) => isA(context.marker, 'number', { extended: true }) && context.leadingZeros && context.value >= 0, 
       apply: ({context}) => {
         value = `${context.value}` 
@@ -102,9 +115,18 @@ const config = {
   ],
 };
 
+const template = {
+  fragments: [
+    '10.2345', // used for unit tests
+  ]
+}
+
 knowledgeModule( { 
   config,
   includes: [gdefaults, sdefaults],
+
+  instance,
+  template,
 
   module,
   description: 'talking about numbers',
