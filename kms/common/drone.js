@@ -187,7 +187,6 @@ class API {
     }
     this._objects = objects
     this._objects.defaultTime = { hour: 9, minute: 0, second: 0, millisecond: 0 }
-    this._objects.ordinal = 0
     delete this.testDate
 
     objects.calibration = {
@@ -196,10 +195,10 @@ class API {
       widthOfTreadInMM: 44,
     }
     objects.current = {
-      angleInRadians: 0          
+      angleInRadians: 0,
       // direction: undefined,   // direction to go if going
       // power: undefined,       // power
-      // ordinal                 // ordinal of the current point or the current point that the recent movement started at
+      ordinal: 0,                 // ordinal of the current point or the current point that the recent movement started at
     }
     objects.history = []
     objects.calibration.isCalibrated = false
@@ -210,16 +209,23 @@ class API {
     return this._objects.calibration.isCalibrated
   }
 
+  currentOrdinal() {
+    return this._objects.current.ordinal
+  }
+
   nextOrdinal() {
-    return this._objects.ordinal += 1
+    return this._objects.current.ordinal += 1
   }
 
   currentPoint() {
-    if (!this._objects.current.endTime) {
+    if (this._objects.current.startTime && !this._objects.current.endTime) {
       return null // in motion
     }
-    const ordinal = this._objects.current.ordinal
+    const ordinal = this.currentOrdinal()
     const lastPoint = this.args.mentions({ context: { marker: 'point' }, condition: (context) => context.ordinal == ordinal })
+    if (!lastPoint) {
+      debugger
+    }
 
     const durationInSeconds = (this._objects.current.endTime - this._objects.current.startTime) / 1000
     const speedInMetersPerSecond = (this._objects.current.power / this._objects.calibration.power) * this._objects.calibration.speedForward
@@ -232,10 +238,9 @@ class API {
   }
 
   markCurrentPoint() {
-    const ordinal = this.nextOrdinal()
     const point = this.currentPoint()
+    const ordinal = this.nextOrdinal()
     this.args.mentioned({ marker: 'point', ordinal, point })
-    this._objects.current.ordinal = ordinal
     this._objects.current.endTime = null
     this._objects.current.startTime = null
   }
@@ -549,7 +554,7 @@ const template = {
           semantic: async ({objects, mentions, api, e, context}) => {
             if (api.isCalibrated()) {
               objects.runCommand = true
-              const ordinal = objects.current.ordinal - 1
+              const ordinal = api.currentOrdinal() - 1
               const lastPoint = mentions({ context: { marker: 'point' }, condition: (context) => context.ordinal == ordinal })
               objects.current.destination = lastPoint
             }
@@ -625,7 +630,6 @@ const template = {
 
             const ordinal = api.nextOrdinal()
             mentioned({ marker: 'point', ordinal, point: { x: 0, y: 0 }, description: "start" })
-            objects.current.ordinal = ordinal
 
             api.saveCalibration(objects.calibration)
           }
