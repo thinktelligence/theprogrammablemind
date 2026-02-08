@@ -24,6 +24,7 @@ const template = {
     "feet = centimeters * 0.0328",
     "inches = centimeters * 0.0328 * 12",
     "inches = meters * 3.28 * 12",
+    "meters = inches / 3.28 / 12",
     "miles = 5280 * feet",
     "feet = miles / 5280",
     "kilometers = meters / 1000",

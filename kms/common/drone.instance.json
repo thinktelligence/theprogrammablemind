@@ -6,11 +6,10 @@
     "point is a concept",
     "points are nameable orderable and memorable",
     {
-      "apply": "(args) => {\n      expectDirection(args)\n      expectDistanceForMove(args)\n\n      args.config.addSemantic({\n        match: ({context, isA}) => isA(context.marker, 'quantity') && isA(context.unit.marker, 'unitPerUnit'),\n        apply: async ({context, objects, api, gr, fragments, e, say}) => {\n          // send a command to the drone\n          const instantiation = await fragments(\"quantity in meters per second\", { quantity: context })\n          const result = await e(instantiation)\n          const desired_speed = result.evalue.amount.evalue.evalue\n          const desired_power = objects.current.power * (desired_speed / objects.calibration.speedForward)\n          objects.runCommand = true\n          objects.current.power = desired_power \n          objects.current.speedUnitsOfUser = context.unit\n        }\n      })\n\n      args.config.addSemantic({\n        match: ({context, objects, isA}) => objects.current.direction && objects.calibration.isCalibrated && context.marker == 'controlStart',\n        apply: ({context, objects, api}) => {\n          objects.runCommand = false  \n        }\n      })\n\n      args.config.addSemantic({\n        // match: ({context, objects, isA}) => objects.current.direction && objects.calibration.isCalibrated && (context.marker == 'controlEnd' || context.marker == 'controlBetween'),\n        match: ({context, objects, isA}) => objects.current.direction && objects.calibration.isCalibrated && context.marker == 'controlEnd',\n        apply: async ({context, objects, api}) => {\n          // send a command to the drone\n          if (objects.runCommand) {\n            await api.sendCommand()\n          }\n        }\n      })\n    }"
+      "apply": "(args) => {\n      expectDirection(args)\n      expectDistanceForMove(args)\n\n      args.config.addSemantic({\n        match: ({context, isA}) => isA(context.marker, 'quantity') && isA(context.unit.marker, 'unitPerUnit'),\n        apply: async ({context, objects, api, gr, fragments, e, say}) => {\n          // send a command to the drone\n          const instantiation = await fragments(\"quantity in meters per second\", { quantity: context })\n          const result = await e(instantiation)\n          const desired_speed = result.evalue.amount.evalue.evalue\n          objects.runCommand = true\n          objects.current.speed = desired_speed\n          objects.current.speedUnitsOfUser = context.unit\n        }\n      })\n\n      args.config.addSemantic({\n        match: ({context, objects, isA}) => objects.current.direction && context.marker == 'controlStart',\n        apply: ({context, objects, api}) => {\n          objects.runCommand = false  \n        }\n      })\n\n      args.config.addSemantic({\n        match: ({context, objects, isA}) => objects.current.direction && context.marker == 'controlEnd',\n        apply: async ({context, objects, api}) => {\n          // send a command to the drone\n          if (objects.runCommand) {\n            await api.sendCommand()\n          }\n        }\n      })\n    }"
     },
     {
       "operators": [
-        "([calibrate])",
         "([back])",
         "([turn] (direction))",
         "([pause] ([number]))",
@@ -24,7 +23,7 @@
           "isA": [
             "noun"
           ],
-          "semantic": "async ({objects, mentions, api, e, context}) => {\n            if (api.isCalibrated()) {\n              objects.runCommand = true\n              const ordinal = objects.current.ordinal - 1\n              const lastPoint = mentions({ context: { marker: 'point' }, condition: (context) => context.ordinal == ordinal })\n              objects.current.destination = lastPoint\n            }\n          }"
+          "semantic": "async ({objects, mentions, api, e, context}) => {\n            objects.runCommand = true\n            const ordinal = api.currentOrdinal() - 1\n            const lastPoint = mentions({ context: { marker: 'point' }, condition: (context) => context.ordinal == ordinal })\n            objects.current.destination = lastPoint\n          }"
         },
         {
           "id": "toPoint",
@@ -32,7 +31,7 @@
             "preposition"
           ],
           "bridge": "{ ...next(operator), operator: operator, point: after[0], interpolate: [{ property: 'operator' }, { property: 'point' }] }",
-          "semantic": "async ({objects, api, e, context}) => {\n            if (api.isCalibrated()) {\n              objects.runCommand = true\n              const point = await e(context.point)\n              objects.current.destination = point.evalue\n            }\n          }"
+          "semantic": "async ({objects, api, e, context}) => {\n            objects.runCommand = true\n            const point = await e(context.point)\n            objects.current.destination = point.evalue\n          }"
         },
         {
           "id": "go"
@@ -44,17 +43,6 @@
           ],
           "bridge": "{ ...next(operator), direction: after[0], interpolate: [{ context: operator }, { property: 'direction' }] }",
           "semantic": "({context, objects, api}) => {\n            objects.runCommand = true\n            objects.current.direction = context.direction.marker\n          }"
-        },
-        {
-          "id": "calibrate",
-          "words": [
-            "configure"
-          ],
-          "isA": [
-            "verb"
-          ],
-          "bridge": "{ ...next(operator), interpolate: [{ context: operator }] }",
-          "semantic": "async ({context, objects, api, mentioned}) => {\n            let power = 20\n            const moveTimeInSeconds = 0.5\n            let distanceInCM = 0\n            let startBackward\n            for (; power < 30; ++power) {\n              const start = await api.sonic();\n              await api.forward(power, { batched: true })\n              await api.pause(moveTimeInSeconds, { batched: true })\n              await api.stop()\n              const end = await api.sonic();\n              if (end !== start) {\n                distanceInCM = start - end\n                startBackward = end\n                break;\n              }\n            }\n\n            const metersPerSecondForward = (distanceInCM/100)/moveTimeInSeconds\n\n            // reset\n\n            await api.backward(power, { batched: true })\n            await api.pause(moveTimeInSeconds, { batched: true })\n            await api.stop()\n            const endBackward = await api.sonic();\n\n            const metersPerSecondBackward = ((endBackward-startBackward)/100)/moveTimeInSeconds\n    \n            // console.log(`Distance ${distance} cm`)\n            // console.log(`Time ${moveTime} ms`)\n            // console.log(`M/S ${metersPerSecond}`)\n\n            objects.calibration.minPower = power\n            objects.calibration.power = power\n            objects.current.power = power\n            objects.calibration.speedForward = metersPerSecondForward\n            objects.calibration.speedBackward = metersPerSecondBackward\n            objects.calibration.isCalibrated = true\n\n            const ordinal = api.nextOrdinal()\n            mentioned({ marker: 'point', ordinal, point: { x: 0, y: 0 }, description: \"start\" })\n            objects.current.ordinal = ordinal\n\n            api.saveCalibration(objects.calibration)\n          }"
         },
         {
           "id": "pause",
@@ -73,7 +61,7 @@
             "1": "{ marker: 'drone' }"
           },
           "bridge": "{ ...next(operator), object: after[0], interpolate: [{ context: operator }, { property: 'object' }] }",
-          "semantic": "async ({mentioned, context, objects, api, say}) => {\n            if (!objects.calibration.isCalibrated) {\n              return // ignore\n            }\n            if (objects.calibration.speedForward) {\n              await api.stop()\n              api.markCurrentPoint()\n            } else {\n              const stopTime = await api.stop()\n              objects.calibration.endTime = stopTime\n              objects.calibration.duration = (objects.calibration.endTime - objects.calibration.startTime)/1000\n            }\n          }"
+          "semantic": "async ({mentioned, context, objects, api, say}) => {\n            await api.stop()\n            api.markCurrentPoint()\n          }"
         }
       ],
       "generators": [
@@ -15683,12 +15671,11 @@
       }
     },
     {
-      "apply": "(args) => {\n      expectDirection(args)\n      expectDistanceForMove(args)\n\n      args.config.addSemantic({\n        match: ({context, isA}) => isA(context.marker, 'quantity') && isA(context.unit.marker, 'unitPerUnit'),\n        apply: async ({context, objects, api, gr, fragments, e, say}) => {\n          // send a command to the drone\n          const instantiation = await fragments(\"quantity in meters per second\", { quantity: context })\n          const result = await e(instantiation)\n          const desired_speed = result.evalue.amount.evalue.evalue\n          const desired_power = objects.current.power * (desired_speed / objects.calibration.speedForward)\n          objects.runCommand = true\n          objects.current.power = desired_power \n          objects.current.speedUnitsOfUser = context.unit\n        }\n      })\n\n      args.config.addSemantic({\n        match: ({context, objects, isA}) => objects.current.direction && objects.calibration.isCalibrated && context.marker == 'controlStart',\n        apply: ({context, objects, api}) => {\n          objects.runCommand = false  \n        }\n      })\n\n      args.config.addSemantic({\n        // match: ({context, objects, isA}) => objects.current.direction && objects.calibration.isCalibrated && (context.marker == 'controlEnd' || context.marker == 'controlBetween'),\n        match: ({context, objects, isA}) => objects.current.direction && objects.calibration.isCalibrated && context.marker == 'controlEnd',\n        apply: async ({context, objects, api}) => {\n          // send a command to the drone\n          if (objects.runCommand) {\n            await api.sendCommand()\n          }\n        }\n      })\n    }"
+      "apply": "(args) => {\n      expectDirection(args)\n      expectDistanceForMove(args)\n\n      args.config.addSemantic({\n        match: ({context, isA}) => isA(context.marker, 'quantity') && isA(context.unit.marker, 'unitPerUnit'),\n        apply: async ({context, objects, api, gr, fragments, e, say}) => {\n          // send a command to the drone\n          const instantiation = await fragments(\"quantity in meters per second\", { quantity: context })\n          const result = await e(instantiation)\n          const desired_speed = result.evalue.amount.evalue.evalue\n          objects.runCommand = true\n          objects.current.speed = desired_speed\n          objects.current.speedUnitsOfUser = context.unit\n        }\n      })\n\n      args.config.addSemantic({\n        match: ({context, objects, isA}) => objects.current.direction && context.marker == 'controlStart',\n        apply: ({context, objects, api}) => {\n          objects.runCommand = false  \n        }\n      })\n\n      args.config.addSemantic({\n        match: ({context, objects, isA}) => objects.current.direction && context.marker == 'controlEnd',\n        apply: async ({context, objects, api}) => {\n          // send a command to the drone\n          if (objects.runCommand) {\n            await api.sendCommand()\n          }\n        }\n      })\n    }"
     },
     {
       "extraConfig": true,
       "operators": [
-        "([calibrate])",
         "([back])",
         "([turn] (direction))",
         "([pause] ([number]))",
@@ -15719,16 +15706,6 @@
             "verb"
           ],
           "bridge": "{ ...next(operator), direction: after[0], interpolate: [{ context: operator }, { property: 'direction' }] }"
-        },
-        {
-          "id": "calibrate",
-          "words": [
-            "configure"
-          ],
-          "isA": [
-            "verb"
-          ],
-          "bridge": "{ ...next(operator), interpolate: [{ context: operator }] }"
         },
         {
           "id": "pause",
@@ -15924,11 +15901,6 @@
         ],
         [
           "calculate",
-          "verb",
-          false
-        ],
-        [
-          "calibrate",
           "verb",
           false
         ],
@@ -18715,11 +18687,6 @@
         ],
         [
           "calculate",
-          "verb",
-          false
-        ],
-        [
-          "calibrate",
           "verb",
           false
         ],
@@ -21781,11 +21748,6 @@
           false
         ],
         [
-          "calibrate",
-          "verb",
-          false
-        ],
-        [
           "call",
           "verb",
           false
@@ -24759,11 +24721,6 @@
         ],
         [
           "calculate",
-          "verb",
-          false
-        ],
-        [
-          "calibrate",
           "verb",
           false
         ],

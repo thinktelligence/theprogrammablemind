@@ -1,6 +1,22 @@
 const pluralize = require('pluralize')
 const { flatten } = require('./runtime').theprogrammablemind
 
+// check if member function of a class have been overriden by an subclass
+class OverrideCheck {
+  constructor(base, checks) {
+    this.base = base
+    this.checks = checks
+  }
+
+  check(obj) {
+    for (const check of this.checks) {
+      if (obj[check] == this.base.prototype[check]) {
+        throw new Error(`For ${obj.constructor.name} you need to override ${check}`)
+      }
+    }
+  }
+}
+
 function unshiftL(list, element, max) {
   if (list.length >= max) {
     list.pop()
@@ -402,5 +418,6 @@ module.exports = {
   requiredArgument,
   isA,
   removeProp,
-  concats
+  concats,
+  OverrideCheck,
 }

@@ -1,5 +1,5 @@
 const { knowledgeModule, where } = require('./runtime').theprogrammablemind
-const { defaultContextCheck, getValue, setValue } = require('./helpers')
+const { OverrideCheck, defaultContextCheck, getValue, setValue } = require('./helpers')
 const drone_tests = require('./drone.test.json')
 const instance = require('./drone.instance.json')
 const hierarchy = require('./hierarchy')
@@ -107,6 +107,8 @@ https://www.amazon.ca/Freenove-Raspberry-Tracking-Avoidance-Ultrasonic/dp/B0BNDQ
   you are facing north. patrol between here and 100 feet to the west
   this way is south
 
+  go forward for 1 second\nbackward 2 meters (implicit stop)
+
   go back
 */
 
@@ -121,14 +123,17 @@ function expectDirection(args) {
 }
 
 function expectDistanceForMove(args) {
-  // TODO save id for recalibration
   args.config.addSemantic({
     match: ({context, isA}) => isA(context.marker, 'quantity') && !isA(context.unit.marker, 'unitPerUnit'),
-    apply: async ({context, objects, fragments, e}) => {
+    apply: async ({context, objects, fragments, e, say, gp}) => {
       const instantiation = await fragments("quantity in meters", { quantity: context })
-      const result = await e(instantiation)
-      objects.runCommand = true
-      objects.current.distance = result.evalue.amount.evalue.evalue
+      try {
+        const result = await e(instantiation)
+        objects.runCommand = true
+        objects.current.distance = result.evalue.amount.evalue.evalue
+      } catch (e) {
+        say(`Don't know how to interpret ${await gp(context)} in meters`)
+      }
     }
   })
 }
@@ -143,21 +148,6 @@ function expectDistanceForMove(args) {
                    |
                   -90
 */
-
-class OverrideCheck {
-  constructor(base, checks) {
-    this.base = base
-    this.checks = checks
-  }
-
-  check(obj) {
-    for (const check of this.checks) {
-      if (obj[check] == this.base.prototype[check]) {
-        throw new Error(`For ${obj.constructor.name} you need to override ${check}`)
-      }
-    }
-  }
-}
 
 /*
 L = track separation width (distance between the centers of the two tracks, measured side-to-side, in meters or whatever unit you like)
@@ -177,7 +167,7 @@ The time t needed to turn by angle θ is:
 */
 class API {
   constructor() {
-    this.overrideCheck = new OverrideCheck(API, ['forwardDrone', 'backwardDrone', 'rotateDrone', 'sonicDrone', 'tiltAngleDrone', 'panAngleDrone', 'stopDrone', 'saveCalibration'])
+    this.overrideCheck = new OverrideCheck(API, ['forwardDrone', 'backwardDrone', 'rotateDrone', 'sonicDrone', 'tiltAngleDrone', 'panAngleDrone', 'stopDrone'])
     this.overriden = this.constructor !== API
   }
 
@@ -189,24 +179,15 @@ class API {
     this._objects.defaultTime = { hour: 9, minute: 0, second: 0, millisecond: 0 }
     delete this.testDate
 
-    objects.calibration = {
-      speed: undefined,       // meters per second
-      widthOfTankInMM: 188,
-      widthOfTreadInMM: 44,
-    }
     objects.current = {
       angleInRadians: 0,
-      // direction: undefined,   // direction to go if going
-      // power: undefined,       // power
+      speed: this.minimumSpeedDrone(),
       ordinal: 0,                 // ordinal of the current point or the current point that the recent movement started at
     }
     objects.history = []
-    objects.calibration.isCalibrated = false
     objects.sonicTest = 5
-  }
 
-  isCalibrated() {
-    return this._objects.calibration.isCalibrated
+    this.args.mentioned({ marker: 'point', ordinal: this.nextOrdinal(), point: { x: 0, y: 0 }, description: "start" })
   }
 
   currentOrdinal() {
@@ -218,17 +199,17 @@ class API {
   }
 
   currentPoint() {
-    if (this._objects.current.startTime && !this._objects.current.endTime) {
+    if (!this._objects.current.startTime || !this._objects.current.endTime) {
       return null // in motion
     }
     const ordinal = this.currentOrdinal()
     const lastPoint = this.args.mentions({ context: { marker: 'point' }, condition: (context) => context.ordinal == ordinal })
-    if (!lastPoint) {
-      debugger
+    if (!this._objects.current.startTime && !this._objects.current.endTime) {
+      return lastPoint // did not move
     }
 
     const durationInSeconds = (this._objects.current.endTime - this._objects.current.startTime) / 1000
-    const speedInMetersPerSecond = (this._objects.current.power / this._objects.calibration.power) * this._objects.calibration.speedForward
+    const speedInMetersPerSecond = this._objects.current.speed
     const direction = this._objects.current.direction
     const distanceInMeters = speedInMetersPerSecond * durationInSeconds * (direction == 'forward' ? 1 : -1)
     const angleInRadians = this._objects.current.angleInRadians
@@ -239,6 +220,9 @@ class API {
 
   markCurrentPoint() {
     const point = this.currentPoint()
+    if (!point) {
+      return
+    }
     const ordinal = this.nextOrdinal()
     this.args.mentioned({ marker: 'point', ordinal, point })
     this._objects.current.endTime = null
@@ -250,32 +234,33 @@ class API {
     const { fragments, e, say, gr } = this.args
 
     // TODO account for forward vs backward speed
-    if (objects.current.power < objects.calibration.minPower) {
+    const minimumSpeed = this.minimumSpeedDrone()
+    if (objects.current.speed < minimumSpeed) {
       const unitsOfUser = objects.current.speedUnitsOfUser
-      const minimumValueInDroneUnits = await fragments("number meters per second", { number: { marker: 'integer', value: objects.calibration.speedForward } })
+      const minimumValueInDroneUnits = await fragments("number meters per second", { number: { marker: 'integer', value: minimumSpeed } })
       const valueInUsersUnits = await fragments("quantity in units", { quantity: minimumValueInDroneUnits, unit_length: unitsOfUser })
       const evaluated = await e(valueInUsersUnits)
       say(`The drone cannot go that slow. The minimum speed is ${await gr(evaluated.evalue)}`)
       objects.runCommand = false
-      objects.current.power = objects.calibration.minPower // reset
+      objects.current.speed = minimumSpeed
       return
     }
 
     // TODO account for forward vs backward speed
-    if (objects.current.power > 100) {
-      const maximumSpeed = (100 / objects.calibration.power) * objects.calibration.speedForward
+    const maximumSpeed = this.maximumSpeedDrone()
+    if (objects.current.speed > maximumSpeed) {
       const unitsOfUser = objects.current.speedUnitsOfUser
       const maximumValueInDroneUnits = await fragments("number meters per second", { number: { marker: 'integer', value: maximumSpeed } })
       const valueInUsersUnits = await fragments("quantity in units", { quantity: maximumValueInDroneUnits, unit_length: unitsOfUser })
       const evaluated = await e(valueInUsersUnits)
       say(`The drone cannot go that fast. The maximum speed is ${await gr(evaluated.evalue)}`)
       objects.runCommand = false
-      objects.current.power = objects.calibration.minPower // reset
+      objects.current.speed = minimumSpeed
       return
     }
 
     const stopAtDistance = async (direction, distanceMeters) => {
-      const speed_meters_per_second = direction == 'forward' ? this._objects.calibration.speedForward : this._objects.calibration.speedBackward
+      const speed_meters_per_second = this._objects.current.speed
       const duration_seconds = distanceMeters / speed_meters_per_second
       await this.pause(duration_seconds, { batched: true })
       await this.stop()
@@ -283,26 +268,29 @@ class API {
     }
 
     if (this._objects.current.destination) {
-      debugger
-      const currentPoint = this.args.mentions({ context: { marker: 'point' } })
-      const polar = cartesianToPolar(currentPoint.point, this._objects.current.destination.point)
-      const destinationAngleInRadians = polar.angle
-      let angleDelta = (destinationAngleInRadians - this._objects.current.angleInRadians)
-      debugger
-      await this.rotate(angleDelta)
-      await this.forward(this._objects.current.power)
-      await stopAtDistance("forward", polar.radius)
-      this._objects.current.destination = undefined
+      const currentPoint = this.args.mentions({ context: { marker: 'point' } }).point
+      const destinationPoint = this._objects.current.destination.point
+      if (currentPoint.x == destinationPoint.x && currentPoint.y == destinationPoint.y) {
+        // already there
+      } else {
+        const polar = cartesianToPolar(currentPoint, destinationPoint)
+        const destinationAngleInRadians = polar.angle
+        const angleDelta = (destinationAngleInRadians - this._objects.current.angleInRadians)
+        await this.rotate(angleDelta)
+        await this.forward(this._objects.current.speed)
+        await stopAtDistance("forward", polar.radius)
+        this._objects.current.destination = undefined
+      }
       return
     }
 
-    const command = { power: this._objects.current.power, ...this._objects.current }
+    const command = { speed: this._objects.current.speed, ...this._objects.current }
     switch (command.direction) {
       case 'forward':
-        await this.forward(command.power, { batched: command.distance })
+        await this.forward(command.speed, { batched: command.distance })
         break
       case 'backward':
-        await this.backward(command.power, { batched: command.distance })
+        await this.backward(command.speed, { batched: command.distance })
         break
       case 'right':
         await this.rotate(-Math.PI/4)
@@ -321,25 +309,17 @@ class API {
     }
   }
 
-  loadCalibration(calibration) {
-    Object.assign(this._objects.calibration, calibration)
-    this._objects.current.power = this._objects.calibration.minPower
-  }
-
-  // override this to save the calibration to not have to run it over and over again and be annoing. 
-  async saveCalibration(calibration) {
-    this._objects.history.push({ marker: 'history', saveCalibration: true })
-  }
-
-  async forward(power, options) {
-    const time = await this.forwardDrone(power, options)
+  async forward(speed, options) {
+    await this.forwardDrone(speed, options)
+    const time = this.now()
     this._objects.current.startTime = time
     this._objects.current.endTime = null
     return time
   }
 
-  async backward(power, options) {
-    const time = await this.backwardDrone(power, options)
+  async backward(speed, options) {
+    await this.backwardDrone(speed, options)
+    const time = this.now()
     this._objects.current.startTime = time
     this._objects.current.endTime = null
     return time
@@ -364,8 +344,11 @@ class API {
   }
 
   async stop(options) {
-    const time = await this.stopDrone(options)
-    this._objects.current.endTime = time
+    await this.stopDrone(options)
+    const time = this.now()
+    if (this._objects.current.startTime) {
+      this._objects.current.endTime = time
+    }
     return time
   }
 
@@ -375,37 +358,46 @@ class API {
 
   // subclass and override the remaining to call the drone
 
-  // this is for testing 
   async pauseDrone(durationInSeconds, options) {
     this._objects.history.push({ marker: 'history', pause: durationInSeconds, ...options })
     this.testDate = new Date(this.testDate.getTime() + (durationInSeconds-1)*1000)
   }
 
-  now() {
+  // meters per second
+  minimumSpeedDrone() {
+    return 0.25
+  }
+
+  // meters per second
+  maximumSpeedDrone() {
+    return 1.2
+  }
+
+  now(lookahead = false) {
     if (this.args.isProcess || this.args.isTest) {
       if (!this.testDate) {
         this.testDate = new Date(2025, 5, 29, 14, 52, 0)
       }
-      this.testDate = new Date(this.testDate.getTime() + 1000)
-      return this.testDate
+      if (lookahead) {
+        return new Date(this.testDate.getTime() + 1000)
+      } else {
+        this.testDate = new Date(this.testDate.getTime() + 1000)
+        return this.testDate
+      }
     } else {
       return new Date()
     }
   }
 
   // CMD_MOTOR#1000#1000#
-  async forwardDrone(power, options) {
-    const time = this.now()
+  async forwardDrone(speed, options) {
     this._objects.sonicTest -= 10 // make the speed about the same as the actual drone
-    this._objects.history.push({ marker: 'history', direction: 'forward', power, time, ...options })
-    return time
+    this._objects.history.push({ marker: 'history', direction: 'forward', speed, time: this.now(true), ...options })
   }
 
-  async backwardDrone(power, options) {
-    const time = this.now()
+  async backwardDrone(speed, options) {
     this._objects.sonicTest += 10 // make the speed about the same as the actual drone
-    this._objects.history.push({ marker: 'history', direction: 'backward', power, time, ...options })
-    return time
+    this._objects.history.push({ marker: 'history', direction: 'backward', speed, time: this.now(true), ...options })
   }
 
   // -angle is counterclockwise
@@ -428,9 +420,7 @@ class API {
   }
 
   async stopDrone(options) {
-    const time = this.now()
-    this._objects.history.push({ marker: 'history', power: 0, time, ...options })
-    return time
+    this._objects.history.push({ marker: 'history', speed: 0, time: this.now(true), ...options })
   }
 }
 
@@ -512,23 +502,21 @@ const template = {
           const instantiation = await fragments("quantity in meters per second", { quantity: context })
           const result = await e(instantiation)
           const desired_speed = result.evalue.amount.evalue.evalue
-          const desired_power = objects.current.power * (desired_speed / objects.calibration.speedForward)
           objects.runCommand = true
-          objects.current.power = desired_power 
+          objects.current.speed = desired_speed
           objects.current.speedUnitsOfUser = context.unit
         }
       })
 
       args.config.addSemantic({
-        match: ({context, objects, isA}) => objects.current.direction && objects.calibration.isCalibrated && context.marker == 'controlStart',
+        match: ({context, objects, isA}) => objects.current.direction && context.marker == 'controlStart',
         apply: ({context, objects, api}) => {
           objects.runCommand = false  
         }
       })
 
       args.config.addSemantic({
-        // match: ({context, objects, isA}) => objects.current.direction && objects.calibration.isCalibrated && (context.marker == 'controlEnd' || context.marker == 'controlBetween'),
-        match: ({context, objects, isA}) => objects.current.direction && objects.calibration.isCalibrated && context.marker == 'controlEnd',
+        match: ({context, objects, isA}) => objects.current.direction && context.marker == 'controlEnd',
         apply: async ({context, objects, api}) => {
           // send a command to the drone
           if (objects.runCommand) {
@@ -539,7 +527,6 @@ const template = {
     },
     {
       operators: [
-        "([calibrate])",
         "([back])",
         "([turn] (direction))",
         "([pause] ([number]))",
@@ -552,12 +539,10 @@ const template = {
           id: "back",
           isA: ['noun'],
           semantic: async ({objects, mentions, api, e, context}) => {
-            if (api.isCalibrated()) {
-              objects.runCommand = true
-              const ordinal = api.currentOrdinal() - 1
-              const lastPoint = mentions({ context: { marker: 'point' }, condition: (context) => context.ordinal == ordinal })
-              objects.current.destination = lastPoint
-            }
+            objects.runCommand = true
+            const ordinal = api.currentOrdinal() - 1
+            const lastPoint = mentions({ context: { marker: 'point' }, condition: (context) => context.ordinal == ordinal })
+            objects.current.destination = lastPoint
           }
         },
         { 
@@ -565,11 +550,9 @@ const template = {
           isA: ['preposition'],
           bridge: "{ ...next(operator), operator: operator, point: after[0], interpolate: [{ property: 'operator' }, { property: 'point' }] }",
           semantic: async ({objects, api, e, context}) => {
-            if (api.isCalibrated()) {
-              objects.runCommand = true
-              const point = await e(context.point)
-              objects.current.destination = point.evalue
-            }
+            objects.runCommand = true
+            const point = await e(context.point)
+            objects.current.destination = point.evalue
           }
         },
         { id: "go" },
@@ -582,57 +565,6 @@ const template = {
             objects.current.direction = context.direction.marker
           },
           // check: { marker: 'turn', exported: true, extra: ['direction'] }
-        },
-        {
-          id: 'calibrate',
-          words: ['configure'],
-          isA: ['verb'],
-          bridge: "{ ...next(operator), interpolate: [{ context: operator }] }",
-          semantic: async ({context, objects, api, mentioned}) => {
-            let power = 20
-            const moveTimeInSeconds = 0.5
-            let distanceInCM = 0
-            let startBackward
-            for (; power < 30; ++power) {
-              const start = await api.sonic();
-              await api.forward(power, { batched: true })
-              await api.pause(moveTimeInSeconds, { batched: true })
-              await api.stop()
-              const end = await api.sonic();
-              if (end !== start) {
-                distanceInCM = start - end
-                startBackward = end
-                break;
-              }
-            }
-
-            const metersPerSecondForward = (distanceInCM/100)/moveTimeInSeconds
-
-            // reset
-
-            await api.backward(power, { batched: true })
-            await api.pause(moveTimeInSeconds, { batched: true })
-            await api.stop()
-            const endBackward = await api.sonic();
-
-            const metersPerSecondBackward = ((endBackward-startBackward)/100)/moveTimeInSeconds
-    
-            // console.log(`Distance ${distance} cm`)
-            // console.log(`Time ${moveTime} ms`)
-            // console.log(`M/S ${metersPerSecond}`)
-
-            objects.calibration.minPower = power
-            objects.calibration.power = power
-            objects.current.power = power
-            objects.calibration.speedForward = metersPerSecondForward
-            objects.calibration.speedBackward = metersPerSecondBackward
-            objects.calibration.isCalibrated = true
-
-            const ordinal = api.nextOrdinal()
-            mentioned({ marker: 'point', ordinal, point: { x: 0, y: 0 }, description: "start" })
-
-            api.saveCalibration(objects.calibration)
-          }
         },
         {
           id: 'pause',
@@ -652,17 +584,8 @@ const template = {
           },
           bridge: "{ ...next(operator), object: after[0], interpolate: [{ context: operator }, { property: 'object' }] }",
           semantic: async ({mentioned, context, objects, api, say}) => {
-            if (!objects.calibration.isCalibrated) {
-              return // ignore
-            }
-            if (objects.calibration.speedForward) {
-              await api.stop()
-              api.markCurrentPoint()
-            } else {
-              const stopTime = await api.stop()
-              objects.calibration.endTime = stopTime
-              objects.calibration.duration = (objects.calibration.endTime - objects.calibration.startTime)/1000
-            }
+            await api.stop()
+            api.markCurrentPoint()
           }
         },
       ],
@@ -693,13 +616,11 @@ knowledgeModule( {
       context: [
         defaultContextCheck({ marker: 'point', exported: true, extra: ['ordinal', { property: 'point', check: ['x', 'y'] }, 'description', { property: 'stm', check: ['id', 'names'] }] }),
         defaultContextCheck({ marker: 'turn', exported: true, extra: ['direction'] }),
-        defaultContextCheck({ marker: 'history', exported: true, extra: ['pause', 'direction', 'power', 'turn', 'time', 'sonic', 'saveCalibration', 'batched'] }),
+        defaultContextCheck({ marker: 'history', exported: true, extra: ['pause', 'direction', 'speed', 'turn', 'time', 'sonic', 'batched'] }),
         defaultContextCheck(),
       ],
       objects: [
         { km: 'stm' },
-        { path: ['isCalibrated'] }, 
-        { path: ['calibration'] }, 
         { path: ['history'] },
         { path: ['current'] },
         { path: ['runCommand'] },

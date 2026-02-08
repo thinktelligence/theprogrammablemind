@@ -968,3 +968,17 @@ node inspect drone -q 'calibrate\nstop\n2 feet\nforward\nstop\nturn right\nforwa
 
 node rates -q 'evaluate 10 meters per second in feet per hour' -g -d
 node inspect drone -q 'calibrate\nforward 1 meter per minute' -g -d
+
+0 - calibrate
+1 - calibrate\nforward
+2 - calibrate\nforward 2 meters
+3 - calibrate\nturn right
+4 - calibrate\nturn left
+5 - calibrate\nstop
+6 - calibrate\nturn around
+7 - calibrate\nforward\nhi
+8 - calibrate\nforward 1 meter per minute
+9 - calibrate\nforward 1000 meters per minute
+10 - calibrate\nforward 1 meter per hour\nbackward 2 meters
+11 - calibrate\nforward 1 meter\ngo back
+

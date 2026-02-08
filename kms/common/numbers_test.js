@@ -9,7 +9,7 @@ describe('numbers km', () => {
     km = await numbersKM({ useCache: false })
   })
 
-  test('NEOS23 no rounding default', async () => {
+  test('no rounding default', async () => {
     await km.run(async ({fragments, gp}) => {
       const fragment = await fragments("10.2345")
       const context = fragment.contexts()[0]
@@ -20,7 +20,7 @@ describe('numbers km', () => {
     })
   })
 
-  test('NEOS23 specified rounding 0 digits', async () => {
+  test('specified rounding 0 digits', async () => {
     await km.run(async ({fragments, gp}) => {
       const fragment = await fragments("10.2345")
       const context = fragment.contexts()[0]
@@ -32,7 +32,7 @@ describe('numbers km', () => {
     })
   })
 
-  test('NEOS23 specified rounding 2 digits', async () => {
+  test('specified rounding 2 digits', async () => {
     await km.run(async ({fragments, gp}) => {
       const fragment = await fragments("10.2345")
       const context = fragment.contexts()[0]
