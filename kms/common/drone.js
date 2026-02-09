@@ -167,7 +167,7 @@ The time t needed to turn by angle θ is:
 */
 class API {
   constructor() {
-    this.overrideCheck = new OverrideCheck(API, ['forwardDrone', 'backwardDrone', 'rotateDrone', 'sonicDrone', 'tiltAngleDrone', 'panAngleDrone', 'stopDrone'])
+    this.overrideCheck = new OverrideCheck(API, ['forwardDrone', 'backwardDrone', 'rotateDrone', 'sonicDrone', 'tiltAngleDrone', 'panAngleDrone', 'stopDrone', 'minimumSpeedDrone', 'maximumSpeedDrone'])
     this.overriden = this.constructor !== API
   }
 
@@ -175,6 +175,15 @@ class API {
     if (this.overriden) {
       this.overrideCheck.check(this)
     }
+
+    if (!this.minimumSpeedDrone()) {
+      throw new Error(`minimumSpeedDrone is not returning a positive number. Its returning ${this.minimumSpeedDrone()}`)
+    }
+
+    if (!this.maximumSpeedDrone()) {
+      throw new Error(`maximumSpeedDrone is not returning a positive number. Its returning ${this.maximumSpeedDrone()}`)
+    }
+
     this._objects = objects
     this._objects.defaultTime = { hour: 9, minute: 0, second: 0, millisecond: 0 }
     delete this.testDate
@@ -293,13 +302,13 @@ class API {
         await this.backward(command.speed, { batched: command.distance })
         break
       case 'right':
-        await this.rotate(-Math.PI/4)
+        await this.rotate(-Math.PI/2)
         break
       case 'left':
-        await this.rotate(Math.PI/4)
+        await this.rotate(Math.PI/2)
         break
       case 'around':
-        await this.rotate(Math.PI/2)
+        await this.rotate(Math.PI)
         break
     }
 
@@ -310,6 +319,7 @@ class API {
   }
 
   async forward(speed, options) {
+    debugger
     await this.forwardDrone(speed, options)
     const time = this.now()
     this._objects.current.startTime = time
