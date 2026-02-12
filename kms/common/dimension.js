@@ -1,5 +1,5 @@
 const { debug, knowledgeModule, where, Digraph } = require('./runtime').theprogrammablemind
-const { defaultObjectCheck, defaultContextCheck, defaultContextCheckProperties } = require('./helpers')
+const { toFinalValue, defaultObjectCheck, defaultContextCheck, defaultContextCheckProperties } = require('./helpers')
 const hierarchy = require('./hierarchy.js')
 const formulas = require('./formulas.js')
 const testing = require('./testing.js')
@@ -174,7 +174,7 @@ const config = {
         let fractionalPart = 0
         let scale = 1
         for (const evalue of evalues) {
-          const value = evalue.value.evalue * scale
+          const value = toFinalValue(evalue) * scale
           const integerPart = Math.trunc(value)
           fractionalPart = Math.abs(value - integerPart)
           evalue.value.evalue = integerPart

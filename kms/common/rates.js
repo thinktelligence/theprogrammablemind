@@ -1,5 +1,5 @@
 const { knowledgeModule, where, Digraph, debug } = require('./runtime').theprogrammablemind
-const { defaultContextCheck, toEValue } = require('./helpers')
+const { defaultContextCheck, toEValue, toFinalValue } = require('./helpers')
 const dimension = require('./dimension.js')
 const length = require('./length.js')
 const time = require('./time.js')
@@ -62,7 +62,7 @@ const template = {
 
             const evalueNumerator = await convert(context.from.unit.numerator, context.from.amount, context.to.numerator)
             const evalueDenominator = await convert(context.from.unit.denominator, 1, context.to.denominator)
-            const evalue = { evalue: (toEValue(evalueNumerator) || evalueNumerator.value) / (toEValue(evalueDenominator) || evalueDenominator.evalue) }
+            const evalue = { evalue: (toFinalValue(evalueNumerator) || evalueNumerator.value) / (toFinalValue(evalueDenominator) || evalueDenominator.evalue) }
             context.evalue = {
               paraphrase: true,
               marker: 'quantity',

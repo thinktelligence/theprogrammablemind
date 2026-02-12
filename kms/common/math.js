@@ -54,7 +54,8 @@ function mathematicalOperator(name, words, apply, before = []) {
             // context.evalue = { ...context, paraphrase: true, x: { ...context.x, value: x }, y: { ...context.y, value: y } }
             context.isResponse = false
           } else {
-            context.evalue = apply(x, y)
+            context.evalue = { marker: 'number', value: apply(x, y) }
+            // context.evalue = apply(x, y)
             context.evalue.isResponse = true
             context.evalue.paraphrase = false
             // context.paraphrase = false

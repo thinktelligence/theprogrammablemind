@@ -200,6 +200,17 @@ function toEValue(context) {
 	return context;
 }
 
+function toFinalValue(context) {
+  while( context.evalue || context.value ) {
+    if (context.evalue) {
+      context = context.evalue
+    } else {
+      context = context.value
+    }
+  }
+  return context;
+}
+
 function defaultObjectCheck(extra = []) {
   return {
     objects: [
@@ -405,6 +416,7 @@ module.exports = {
   defaultContextCheckProperties,
   defaultObjectCheck,
 	toEValue,
+  toFinalValue,
   millisecondsUntilHourOfDay,
   indent,
   isMany,

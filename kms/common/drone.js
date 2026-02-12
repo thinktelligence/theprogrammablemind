@@ -319,7 +319,6 @@ class API {
   }
 
   async forward(speed, options) {
-    debugger
     await this.forwardDrone(speed, options)
     const time = this.now()
     this._objects.current.startTime = time

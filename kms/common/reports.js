@@ -1,5 +1,5 @@
 const { knowledgeModule, where } = require('./runtime').theprogrammablemind
-const { defaultContextCheck } = require('./helpers')
+const { defaultContextCheck, toFinalValue } = require('./helpers')
 const currencyKM = require('./currency.js')
 const events = require('./events.js')
 const math = require('./math.js')
@@ -470,7 +470,7 @@ const config = {
             kms.stm.api.setVariable(p, { marker: p, value: product[p] })
           }
           for (const property of columns) {
-            const value = toEValue(await e({ marker: property, value: property }));
+            const value = toFinalValue(await e({ marker: property, value: property }));
             row.push(value)
           }
           data.push(row)
