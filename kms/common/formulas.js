@@ -175,7 +175,7 @@ const config = {
       after: ['mathematical_operator'],
       // TODO have this be per argument then 'is' can map to equals where this only applied to before[0] and not after[0]
       localHierarchy: [ ['unknown', 'expression'] ],
-      generatorp: async ({context, gp}) => `${await gp(context.left)} ${context.word} ${await gp(context.right)}`,
+      generatorpr: async ({context, gp}) => `${await gp(context.left)} ${context.word} ${await gp(context.right)}`,
       semantic: ({context, api}) => {
         // TODO make sure left is a single name
         // TODO calculate invertable formulas?
