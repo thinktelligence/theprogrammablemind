@@ -1,6 +1,6 @@
 const pluralize = require('pluralize')
 const { defaultContextCheck, getValue, isMany } = require('./helpers')
-const { knowledgeModule, where, flatten } = require('./runtime').theprogrammablemind
+const { debug, knowledgeModule, where, flatten } = require('./runtime').theprogrammablemind
 const tokenize = require('./tokenize.js')
 const words = require('./words.js')
 const gdefaults_tests = require('./gdefaults.test.json')
@@ -73,7 +73,9 @@ const config = {
 
     {
       where: where(),
-      match: ({context}) => context.evalue,
+      // match: ({context}) => context.evalue && !context.paraphrase,
+      match: ({context, callId}) => context.evalue,// && !context.paraphrase,
+      // match: ({context}) => context.evalue && context.isResponse,
       apply: async ({context, g}) => await g(context.evalue)
     },
 

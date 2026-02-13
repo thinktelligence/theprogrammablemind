@@ -506,10 +506,10 @@ const config = {
     {
       where: where(),
       match: ({context}) => context.marker === 'error',
-      apply: async ({context, gp}) => {
+      apply: async ({context, g, gp}) => {
         context.evalue = "That is not known"
         if (context.reason) {
-          context.evalue += ` because ${await gp(context.reason)}`
+          context.evalue += ` because ${await g(context.reason)}`
         }
         context.isResponse = true
       }

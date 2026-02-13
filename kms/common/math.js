@@ -32,7 +32,7 @@ function mathematicalOperator(name, words, apply, before = []) {
     { 
         where: where(),
         id: `${name}Operator`, level: 0, 
-        bridge: `{ ...next(operator), marker: next(operator('${name}Expression')), types: lub(append(['mathematicalExpression'], operator.types, before[0].types, after[0].types)), value: null, x: before[0], y: after[0], number: 'one', isResponse: true, evaluate: true }` ,
+        bridge: `{ ...next(operator), operator: operator, marker: next(operator('${name}Expression')), types: lub(append(['mathematicalExpression'], operator.types, before[0].types, after[0].types)), value: null, x: before[0], y: after[0], number: 'one', isResponse: true, evaluate: true, interpolate: [{ property: 'x' }, { property: 'operator' }, { property: 'y' }] }` ,
         // bridge: `{ ...next(operator), marker: next(operator('${name}Expression')), value: null, x: before[0], y: after[0], number: 'one', isResponse: true, evaluate: true }` ,
         isA: ['mathematical_operator'],
         before,
@@ -44,9 +44,9 @@ function mathematicalOperator(name, words, apply, before = []) {
     { 
         where: where(),
         id: `${name}Expression`, level: 0, 
-        bridge: "{ ...next(operator) }" ,
+        bridge: "{ ...next(operator) }",
         isA: ['mathematicalExpression'],
-        generatorp: async ({gp, context}) => `${await gp(context.x)} ${context.word} ${await gp(context.y)}`,
+        // generatorp: async ({gp, context}) => `${await gp(context.x)} ${context.word} ${await gp(context.y)}`,
         evaluator: async ({e, context}) => {
           const x = toValue(await e(context.x)) 
           const y = toValue(await e(context.y))
