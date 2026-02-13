@@ -9,6 +9,13 @@ async function sleep(ms) {
   });
 }
 
+let FAST = false
+
+const args = process.argv.slice(2);
+if (args.includes("--fast")) {
+  FAST = true
+}
+
 const tests = []
 const retrains = []
 tests.push(`npm run test`)
@@ -31,9 +38,16 @@ for (let file of package_json.files) {
   if (file.includes("_helper")) {
     continue
   }
+  if (FAST) {
+    if (file.includes("fastfood")) {
+      continue
+    }
+  }
 
   // console.log("file----", file)
-  retrains.push(`node ${file} -rtf -g`)
+  if (!FAST) {
+    retrains.push(`node ${file} -rtf -g`)
+  }
   tests.push(`node ${file} -tva -g`)
   // tests.push(`node tester -m ${file} -tva -tmn ${file} -g`)
   // tests.push(`node tester_rebuild -m ${file}`)

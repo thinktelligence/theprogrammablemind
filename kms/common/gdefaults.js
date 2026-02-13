@@ -28,12 +28,13 @@ const config = {
     {
       where: where(),
       match: ({context}) => context.isResponse && context.response,
-      apply: ({context, gp}) => gp(context.response),
+      apply: ({context, gr}) => gr(context.response),
     },
 
     {
       where: where(),
-      match: ({context}) => context.paraphrase && context.interpolate,
+      // match: ({context}) => context.paraphrase && context.interpolate,
+      match: ({context}) => context.interpolate,
       apply: async ({interpolate, context}) => {
         return interpolate(context.interpolate, context)
       }
@@ -74,7 +75,7 @@ const config = {
     {
       where: where(),
       // match: ({context}) => context.evalue && !context.paraphrase,
-      match: ({context, callId}) => context.evalue,// && !context.paraphrase,
+      match: ({context, callId}) => context.evalue && !context.paraphrase,
       // match: ({context}) => context.evalue && context.isResponse,
       apply: async ({context, g}) => await g(context.evalue)
     },
@@ -225,7 +226,8 @@ const config = {
 
     {
       where: where(),
-      match: ({context}) => context.paraphrase && context.word && context.number == 'one',
+      // match: ({context}) => context.paraphrase && context.word && context.number == 'one',
+      match: ({context}) => context.word && context.number == 'one',
       apply: ({context}) => {
         return pluralize.singular(context.word)
       }
@@ -233,7 +235,9 @@ const config = {
 
     {
       where: where(),
-      match: ({context}) => context.paraphrase && context.word,
+      // match: ({context}) => context.paraphrase && context.word,
+      // match: ({context}) => context.word && !context.value,
+      match: ({context}) => context.word,
       apply: ({context}) => `${context.word}` 
     },
 
@@ -252,7 +256,7 @@ const config = {
     {
       where: where(),
       match: ({context}) => context.value,
-      apply: async ({context, g}) => await g(context.value)
+      apply: async ({context, g, gr}) => g(context.value),
     },
 
     {

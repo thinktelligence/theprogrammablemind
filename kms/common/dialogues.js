@@ -355,8 +355,12 @@ const config = {
       notes: 'paraphrase a queryable response',
       // || context.evalue.paraphrase -> when the evalue acts as a paraphrase value
       match: ({context, hierarchy}) => hierarchy.isA(context.marker, 'queryable') && !context.isQuery && context.evalue && (!context.paraphrase || context.evalue.paraphrase),
-      apply: async ({context, g}) => {
-        return await g(context.evalue)
+      apply: async ({context, g, gr}) => {
+        if (context.isResponse) {
+          return await gr(context.evalue)
+        } else {
+          return await g(context.evalue)
+        }
       }
     },
     {
@@ -514,54 +518,6 @@ const config = {
         context.isResponse = true
       }
     },
-//  { 
-//    where: where(),
-//    notes: 'pull from context',
-//    // match: ({context}) => context.marker == 'it' && context.pullFromContext, // && context.value,
-//    match: ({context, callId}) => false && context.pullFromContext && !context.same, // && context.value,
-//    apply: async ({callId, context, kms, e, log, retry}) => {
-//      if (true) {
-//        /*
-//                 {
-//                    "marker": "unknown",
-//                    "range": {
-//                      "start": 65,
-//                      "end": 73
-//                    },
-//                    "word": "worth",
-//                    "text": "the worth",
-//                    "value": "worth",
-//                    "unknown": true,
-//                    "types": [
-//                      "unknown"
-//                    ],
-//                    "pullFromContext": true,
-//                    "concept": true,
-//                    "wantsValue": true,
-//                    "determiner": "the",
-//                    "modifiers": [
-//                      "determiner"
-//                    ],
-//                    "evaluate": true
-//                  }
-
-//        */
-//        context.value = kms.stm.api.mentions(context)
-//        if (!context.value) {
-//          // retry()
-//          context.value = { marker: 'answerNotKnown' }
-//          return
-//        }
-//        
-//        const instance = await e(context.value)
-//        if (instance.evalue && !instance.edefault) {
-//          context.value = instance.evalue
-//        }
-//        if (context.evaluate) {
-//          context.evalue = context.value
-//        }
-//    },
-//  },
     { 
       where: where(),
       notes: 'what x is y?',

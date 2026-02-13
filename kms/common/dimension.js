@@ -109,7 +109,8 @@ const config = {
       id: "quantity", 
       isA: ["noun"],
       bridge: "{ ...next(operator) }",
-      generatorpr: async ({context, gp, gr}) => `${await gr(context.amount)} ${await gp(context.unit)}`,
+      generatorp: async ({context, g, gp, gr}) => `${await g(context.amount)} ${await gp(context.unit)}`,
+      generatorr: async ({context, gp, gr}) => `${await gr(context.amount)} ${await gp(context.unit)}`,
     },
     { 
       id: "length", 

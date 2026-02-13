@@ -246,7 +246,7 @@ const config = {
         context.value = kms.stm.api.mentions({ context })
         if (!context.value) {
           // retry()
-          context.value = { marker: 'answerNotKnown' }
+          context.evalue = { marker: 'answerNotKnown' }
           return
         }
         

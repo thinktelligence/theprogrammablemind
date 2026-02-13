@@ -27,7 +27,7 @@ const config = {
         const percentage = number.value * scale.value / 100
         const result = { ...number, value: percentage, evalue: percentage, word: null, text: null }
         context.evalue = result
-        context.isReponse = true
+        context.isResponse = true
         context.paraphrase = false
       },
       generatorp: ({context}) => context.text,

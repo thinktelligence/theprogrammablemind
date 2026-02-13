@@ -70,7 +70,9 @@
           "isA": [
             "noun"
           ],
-          "bridge": "{ ...next(operator) }"
+          "bridge": "{ ...next(operator) }",
+          "generatorp": "async ({context, g, gp, gr}) => `${await g(context.amount)} ${await gp(context.unit)}`",
+          "generatorr": "async ({context, gp, gr}) => `${await gr(context.amount)} ${await gp(context.unit)}`"
         },
         {
           "id": "length",
@@ -84,7 +86,7 @@
           "id": "amount"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:122",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:123",
           "id": "degree",
           "words": [
             {
@@ -104,7 +106,7 @@
           "bridge": "{ marker: next(operator('quantity')), dead: true, unit: after[0], value: before[0].value, amount: before[0] }"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:135",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:136",
           "id": "convertToUnits",
           "bridge": "{ ...next(operator), from: before[0], to: after[0] }",
           "isA": [
@@ -20035,7 +20037,7 @@
           "id": "amount"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:122",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:123",
           "id": "degree",
           "words": [
             {
@@ -20054,7 +20056,7 @@
           "bridge": "{ marker: next(operator('quantity')), dead: true, unit: after[0], value: before[0].value, amount: before[0] }"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:135",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:136",
           "id": "convertToUnits",
           "bridge": "{ ...next(operator), from: before[0], to: after[0] }",
           "isA": [

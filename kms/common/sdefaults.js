@@ -57,8 +57,8 @@ const config = {
       priority: -1,
       match: ({context}) => context.semanticIsEvaluate,
       apply: async ({context, e}) => {
-        context.value = await e({ ...context, semanticIsEvaluate: false })
-        context.isResponse
+        context.evalue = await e({ ...context, semanticIsEvaluate: false })
+        context.isResponse = true
       }
     },
     {
