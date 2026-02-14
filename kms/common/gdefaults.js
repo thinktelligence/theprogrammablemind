@@ -237,7 +237,8 @@ const config = {
       where: where(),
       // match: ({context}) => context.paraphrase && context.word,
       // match: ({context}) => context.word && !context.value,
-      match: ({context}) => context.word,
+      //match: ({context}) => context.word && typeof context.value == 'string',
+      match: ({context}) => (context.paraphrase || typeof context.value == 'string') && context.word,
       apply: ({context}) => `${context.word}` 
     },
 
