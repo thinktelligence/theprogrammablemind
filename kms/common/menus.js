@@ -178,7 +178,7 @@ class UIAPI {
   }
 
   move(direction, steps = 1, units = undefined) {
-    this.menusAPI.move(direction, steps, units)
+    this.menusAPI.move(direction, this.args.toFinalValue(steps), units)
   }
 
   select(item) {
