@@ -1,4 +1,4 @@
-const { knowledgeModule, where, process:clientProcess } = require('./runtime').theprogrammablemind
+const { debug, knowledgeModule, where, process:clientProcess } = require('./runtime').theprogrammablemind
 const { defaultContextCheck } = require('./helpers')
 const gdefaults = require('./gdefaults.js')
 const createCurrencyKM = require('./currency.js')
@@ -173,22 +173,20 @@ function initializeApi(config, api) {
 }
 
 
-async function initializer({isModule, km}) {
-  if (!isModule) {
-    const timeKM = await createTimeKM()
-    const currencyKM = await createCurrencyKM()
-    const config = km('characters')
-    const api = new Sally(timeKM)
-    const api2 = new Bob(currencyKM)
-    await config.setApi(() => api2)
-    await config.setApi(() => api)
-  }
+async function demoInitializer(config) {
+  const timeKM = await createTimeKM()
+  const currencyKM = await createCurrencyKM()
+  const api = new Sally(timeKM)
+  const api2 = new Bob(currencyKM)
+  await config.setApi(() => api2)
+  await config.setApi(() => api)
 }
+
 // mode this to non-module init only
 knowledgeModule({
   config,
   includes: [gdefaults],
-  initializer,
+  demoInitializer,
   multiApiInitializer: initializeApi,
 
   module,
