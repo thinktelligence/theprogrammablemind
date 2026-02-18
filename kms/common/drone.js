@@ -274,15 +274,18 @@ class API {
     }
 
     const stopAtDistance = async (direction, distanceMeters) => {
-      const speed_meters_per_second = this._objects.current.speed
+      const speed_meters_per_second = objects.current.speed
       const duration_seconds = distanceMeters / speed_meters_per_second
       await this.pause(duration_seconds, { batched: true })
       await this.stop({ batched: true })
       this.markCurrentPoint()
     }
 
-    if (this._objects.current.path.length > 0) {
-      for (const destination of this._objects.current.path) {
+    if (objects.current.path.length > 0) {
+      if (objects.current.timeRepeats) {
+        this.startRepeats(objects.current.timeRepeats)
+      }
+      for (const destination of objects.current.path) {
         const destinationPoint = destination.point
         const currentPoint = this.args.mentions({ context: { marker: 'point' } }).point
         if (currentPoint.x == destinationPoint.x && currentPoint.y == destinationPoint.y) {
@@ -290,18 +293,22 @@ class API {
         } else {
           const polar = cartesianToPolar(currentPoint, destinationPoint)
           const destinationAngleInRadians = polar.angle
-          const angleDelta = (destinationAngleInRadians - this._objects.current.angleInRadians)
+          const angleDelta = (destinationAngleInRadians - objects.current.angleInRadians)
           await this.rotate(angleDelta)
-          await this.forward(this._objects.current.speed)
+          await this.forward(objects.current.speed)
           await stopAtDistance("forward", polar.radius)
         }
       }
+      if (objects.current.timeRepeats) {
+        this.endRepeats()
+      }
       await this.sendBatch()
-      this._objects.current.path = []
+      objects.current.path = []
+      objects.current.timeRepeats = 0
       return
     }
 
-    const command = { speed: this._objects.current.speed, ...this._objects.current }
+    const command = { speed: objects.current.speed, ...objects.current }
     switch (command.direction) {
       case 'forward':
         await this.forward(command.speed, { batched: command.distance })
@@ -325,6 +332,14 @@ class API {
       await stopAtDistance(command.direction, distanceMeters)
       await this.sendBatch()
     }
+  }
+
+  async startRepeats(n) {
+    await this.startRepeatsDrone()
+  }
+
+  async endRepeats(n) {
+    await this.endRepeatsDrone()
   }
 
   async sendBatch() {
@@ -379,6 +394,14 @@ class API {
   }
 
   // subclass and override the remaining to call the drone
+
+  async startRepeats(n) {
+    this._objects.history.push({ marker: 'startRepeats', n })
+  }
+
+  async endRepeats(n) {
+    this._objects.history.push({ marker: 'endRepeats', })
+  }
 
   async sendBatchDrone(durationInSeconds, options) {
     this._objects.history.push({ marker: 'sendBatch', pause: durationInSeconds, ...options })
@@ -627,6 +650,13 @@ const template = {
         },
       ],
       semantics: [
+        {
+          match: ({context}) => context.marker == 'timeRepeats',
+          apply: ({context, objects, toFinalValue}) => {
+            objects.runCommand = true
+            objects.current.timeRepeats = toFinalValue(context.repeats)
+          }
+        },
         {
           match: ({context, toArray}) => {
             if (context.marker !== 'list') {
