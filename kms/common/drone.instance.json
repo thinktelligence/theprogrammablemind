@@ -11,6 +11,7 @@
     {
       "operators": [
         "([back])",
+        "([forth])",
         "([turn] (direction))",
         "([pause] ([number]))",
         "([stop] ([drone|])?)",
@@ -23,7 +24,13 @@
           "isA": [
             "noun"
           ],
-          "semantic": "async ({objects, mentions, api, e, context}) => {\n            objects.runCommand = true\n            const ordinal = api.currentOrdinal() - 1\n            const lastPoint = mentions({ context: { marker: 'point' }, condition: (context) => context.ordinal == ordinal })\n            objects.current.destination = lastPoint\n          }"
+          "semantic": "async ({objects, mentions, api, e, context}) => {\n            objects.runCommand = true\n            const ordinal = api.currentOrdinal() - 1\n            const lastPoint = mentions({ context: { marker: 'point' }, condition: (context) => context.ordinal == ordinal })\n            objects.current.path.push(lastPoint)\n          }"
+        },
+        {
+          "id": "forth",
+          "isA": [
+            "noun"
+          ]
         },
         {
           "id": "toPoint",
@@ -31,7 +38,7 @@
             "preposition"
           ],
           "bridge": "{ ...next(operator), operator: operator, point: after[0], interpolate: [{ property: 'operator' }, { property: 'point' }] }",
-          "semantic": "async ({objects, api, e, context}) => {\n            objects.runCommand = true\n            const point = await e(context.point)\n            objects.current.destination = point.evalue\n          }"
+          "semantic": "async ({objects, api, e, context}) => {\n            objects.runCommand = true\n            const point = await e(context.point)\n            objects.current.path.push(point.evalue)\n          }"
         },
         {
           "id": "go"
@@ -70,7 +77,12 @@
           "apply": "() => ''"
         }
       ],
-      "semantics": []
+      "semantics": [
+        {
+          "match": "({context, toArray}) => {\n            if (context.marker !== 'list') {\n              return false\n            }\n\n            const array = toArray(context)\n            if (array[0].marker == 'back' && array[1].marker == 'forth') {\n              return true\n            }\n          }",
+          "apply": "({context, objects, api, mentions}) => {\n            objects.runCommand = true\n            objects.current.backAndForth = true\n            const ordinal = api.currentOrdinal()\n            const currentPoint = mentions({ context: { marker: 'point' }, condition: (context) => context.ordinal == ordinal })\n            const lastPoint = mentions({ context: { marker: 'point' }, condition: (context) => context.ordinal == ordinal-1 })\n            objects.current.path.push(lastPoint)\n            objects.current.path.push(currentPoint)\n          }"
+        }
+      ]
     }
   ],
   "resultss": [
@@ -15677,6 +15689,7 @@
       "extraConfig": true,
       "operators": [
         "([back])",
+        "([forth])",
         "([turn] (direction))",
         "([pause] ([number]))",
         "([stop] ([drone|])?)",
@@ -15686,6 +15699,12 @@
       "bridges": [
         {
           "id": "back",
+          "isA": [
+            "noun"
+          ]
+        },
+        {
+          "id": "forth",
           "isA": [
             "noun"
           ]
@@ -15728,7 +15747,9 @@
       "generators": [
         {}
       ],
-      "semantics": []
+      "semantics": [
+        {}
+      ]
     }
   ],
   "fragments": [
@@ -16302,6 +16323,11 @@
         [
           "formulaForVariable",
           "queryable",
+          false
+        ],
+        [
+          "forth",
+          "noun",
           false
         ],
         [
@@ -19088,6 +19114,11 @@
         [
           "formulaForVariable",
           "queryable",
+          false
+        ],
+        [
+          "forth",
+          "noun",
           false
         ],
         [
@@ -22148,6 +22179,11 @@
           false
         ],
         [
+          "forth",
+          "noun",
+          false
+        ],
+        [
           "forward",
           "direction",
           false
@@ -25122,6 +25158,11 @@
         [
           "formulaForVariable",
           "queryable",
+          false
+        ],
+        [
+          "forth",
+          "noun",
           false
         ],
         [

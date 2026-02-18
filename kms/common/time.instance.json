@@ -12,11 +12,17 @@
     {
       "operators": [
         "(([timePoint]) [ampm|])",
+        "(([integer]) [timeRepeats|] ([timePoint]))",
         "([atTime|at] (timePoint))",
         "([use] (([quantity]) [timeFormat|format]))",
         "([hourMinutes|] (integer) (colon) (integer))"
       ],
       "bridges": [
+        {
+          "id": "timeRepeats",
+          "convolution": true,
+          "bridge": "{ ...next(operator), repeats: before[0], time: after[0], interpolate: '${repeats} ${time}' }"
+        },
         {
           "id": "hourMinutes",
           "isA": [
@@ -28,7 +34,14 @@
         {
           "id": "timePoint",
           "words": [
-            "time"
+            {
+              "word": "time",
+              "number": "one"
+            },
+            {
+              "word": "times",
+              "number": "many"
+            }
           ],
           "isA": [
             "noun"
@@ -21365,11 +21378,17 @@
       "extraConfig": true,
       "operators": [
         "(([timePoint]) [ampm|])",
+        "(([integer]) [timeRepeats|] ([timePoint]))",
         "([atTime|at] (timePoint))",
         "([use] (([quantity]) [timeFormat|format]))",
         "([hourMinutes|] (integer) (colon) (integer))"
       ],
       "bridges": [
+        {
+          "id": "timeRepeats",
+          "convolution": true,
+          "bridge": "{ ...next(operator), repeats: before[0], time: after[0], interpolate: '${repeats} ${time}' }"
+        },
         {
           "id": "hourMinutes",
           "isA": [
@@ -21381,7 +21400,14 @@
         {
           "id": "timePoint",
           "words": [
-            "time"
+            {
+              "word": "time",
+              "number": "one"
+            },
+            {
+              "word": "times",
+              "number": "many"
+            }
           ],
           "isA": [
             "noun"
@@ -21437,27 +21463,27 @@
       },
       "generators": [
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/time.js:119"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/time.js:125"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/time.js:134"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/time.js:140"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/time.js:147"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/time.js:153"
         }
       ],
       "semantics": [
         {
           "notes": "evaluate time",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/time.js:156"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/time.js:162"
         },
         {
           "notes": "use time format working case",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/time.js:165"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/time.js:171"
         },
         {
           "notes": "use time format error case",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/time.js:173"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/time.js:179"
         }
       ]
     }

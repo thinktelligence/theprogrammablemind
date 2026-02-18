@@ -66,12 +66,18 @@ const template = {
     {
       operators: [
         "(([timePoint]) [ampm|])",
+        "(([integer]) [timeRepeats|] ([timePoint]))",
         "([atTime|at] (timePoint))",
         // "([use] (([timeUnit]) [timeFormat|format]))",
         "([use] (([quantity]) [timeFormat|format]))",
         "([hourMinutes|] (integer) (colon) (integer))",
       ],
       bridges: [
+        {
+          id: 'timeRepeats',
+          convolution: true,
+          bridge: "{ ...next(operator), repeats: before[0], time: after[0], interpolate: '${repeats} ${time}' }",
+        },
         {
           id: 'hourMinutes',
           isA: ['timePoint'],
@@ -80,7 +86,7 @@ const template = {
         },
         { 
           id: "timePoint",
-          words: ['time'],
+          words: helpers.words('time'),
           isA: ['noun'],
         },
         { 
