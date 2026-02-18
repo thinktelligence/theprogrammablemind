@@ -110,6 +110,10 @@ https://www.amazon.ca/Freenove-Raspberry-Tracking-Avoidance-Ultrasonic/dp/B0BNDQ
   go forward for 1 second\nbackward 2 meters (implicit stop)
 
   go back
+
+  go back and forth 3 times
+  go back and forth 2 meters
+  go back and forth 1 second
 */
 
 function expectDirection(args) {
@@ -190,6 +194,7 @@ class API {
 
     objects.current = {
       angleInRadians: 0,
+      path: [],
       speed: this.minimumSpeedDrone(),
       ordinal: 0,                 // ordinal of the current point or the current point that the recent movement started at
     }
@@ -272,24 +277,27 @@ class API {
       const speed_meters_per_second = this._objects.current.speed
       const duration_seconds = distanceMeters / speed_meters_per_second
       await this.pause(duration_seconds, { batched: true })
-      await this.stop()
+      await this.stop({ batched: true })
       this.markCurrentPoint()
     }
 
-    if (this._objects.current.destination) {
-      const currentPoint = this.args.mentions({ context: { marker: 'point' } }).point
-      const destinationPoint = this._objects.current.destination.point
-      if (currentPoint.x == destinationPoint.x && currentPoint.y == destinationPoint.y) {
-        // already there
-      } else {
-        const polar = cartesianToPolar(currentPoint, destinationPoint)
-        const destinationAngleInRadians = polar.angle
-        const angleDelta = (destinationAngleInRadians - this._objects.current.angleInRadians)
-        await this.rotate(angleDelta)
-        await this.forward(this._objects.current.speed)
-        await stopAtDistance("forward", polar.radius)
-        this._objects.current.destination = undefined
+    if (this._objects.current.path.length > 0) {
+      for (const destination of this._objects.current.path) {
+        const destinationPoint = destination.point
+        const currentPoint = this.args.mentions({ context: { marker: 'point' } }).point
+        if (currentPoint.x == destinationPoint.x && currentPoint.y == destinationPoint.y) {
+          // already there
+        } else {
+          const polar = cartesianToPolar(currentPoint, destinationPoint)
+          const destinationAngleInRadians = polar.angle
+          const angleDelta = (destinationAngleInRadians - this._objects.current.angleInRadians)
+          await this.rotate(angleDelta)
+          await this.forward(this._objects.current.speed)
+          await stopAtDistance("forward", polar.radius)
+        }
       }
+      await this.sendBatch()
+      this._objects.current.path = []
       return
     }
 
@@ -315,7 +323,12 @@ class API {
     if (command.distance) {
       const distanceMeters = command.distance
       await stopAtDistance(command.direction, distanceMeters)
+      await this.sendBatch()
     }
+  }
+
+  async sendBatch() {
+    await this.sendBatchDrone()
   }
 
   async forward(speed, options) {
@@ -366,6 +379,10 @@ class API {
   }
 
   // subclass and override the remaining to call the drone
+
+  async sendBatchDrone(durationInSeconds, options) {
+    this._objects.history.push({ marker: 'sendBatch', pause: durationInSeconds, ...options })
+  }
 
   async pauseDrone(durationInSeconds, options) {
     this._objects.history.push({ marker: 'history', pause: durationInSeconds, ...options })
@@ -537,6 +554,7 @@ const template = {
     {
       operators: [
         "([back])",
+        "([forth])",
         "([turn] (direction))",
         "([pause] ([number]))",
         "([stop] ([drone|])?)",
@@ -551,8 +569,12 @@ const template = {
             objects.runCommand = true
             const ordinal = api.currentOrdinal() - 1
             const lastPoint = mentions({ context: { marker: 'point' }, condition: (context) => context.ordinal == ordinal })
-            objects.current.destination = lastPoint
+            objects.current.path.push(lastPoint)
           }
+        },
+        {
+          id: "forth",
+          isA: ['noun'],
         },
         { 
           id: "toPoint",
@@ -561,7 +583,7 @@ const template = {
           semantic: async ({objects, api, e, context}) => {
             objects.runCommand = true
             const point = await e(context.point)
-            objects.current.destination = point.evalue
+            objects.current.path.push(point.evalue)
           }
         },
         { id: "go" },
@@ -605,7 +627,27 @@ const template = {
         },
       ],
       semantics: [
-      
+        {
+          match: ({context, toArray}) => {
+            if (context.marker !== 'list') {
+              return false
+            }
+
+            const array = toArray(context)
+            if (array[0].marker == 'back' && array[1].marker == 'forth') {
+              return true
+            }
+          },
+          apply: ({context, objects, api, mentions}) => {
+            objects.runCommand = true
+            objects.current.backAndForth = true
+            const ordinal = api.currentOrdinal()
+            const currentPoint = mentions({ context: { marker: 'point' }, condition: (context) => context.ordinal == ordinal })
+            const lastPoint = mentions({ context: { marker: 'point' }, condition: (context) => context.ordinal == ordinal-1 })
+            objects.current.path.push(lastPoint)
+            objects.current.path.push(currentPoint)
+          }
+        }
       ],
     },
   ],
