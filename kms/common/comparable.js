@@ -24,7 +24,8 @@ const config = {
       id: "compare", 
       convolution: true, 
       before: ['verb', 'article'],
-      bridge: "{ ...next(before[0]), property: after, postModifiers: append([after[0].marker], before[0].modifiers), [after[0].marker.id]: after[0] }" 
+      // bridge: "{ ...next(before[0]), property: after, postModifiers: append([after[0].marker], before[0].modifiers), [after[0].marker.id]: after[0] }" 
+      bridge: "{ ...after, condition: before[0], property: after[0], interpolate: [{ property: 'condition' }, { property: 'property' }] }" 
     },
     { 
       id: "comparable", 
@@ -70,7 +71,7 @@ knowledgeModule({
     name: './comparable.test.json',
     contents: comparable_tests,
     checks: {
-      context: [defaultContextCheck({ extra: ['ordering'] })],
+      context: [defaultContextCheck({ extra: ['ordering', 'condition'] })],
     }
   },
 })

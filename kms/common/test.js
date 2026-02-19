@@ -44,7 +44,7 @@ for (let file of package_json.files) {
     }
   }
 
-  retrains.push(`node ${file} -rtf -g`)
+  // retrains.push(`node ${file} -rtf -g`)
   tests.push(`node ${file} -tva -g`)
   if (!FAST) {
     tests.push(`node tester -m ${file} -tva -tmn ${file} -g`)

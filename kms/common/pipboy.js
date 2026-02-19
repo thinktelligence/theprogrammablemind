@@ -124,7 +124,7 @@ const config = {
     "([putOn|] ([wearable]))",
     "(([put]) <on>)",
     "([call] ([nameable]) ([outfit]))",
-    "((condition/1,2) <propertyCondition|> (weapon/0))",
+    "((condition != undefined) <propertyCondition|> (weapon/0))",
     // "([call] ([outfit]) ([outfitName]))",
     // wear the city outfit / wear a suit / wear a suit and hat / wear that
     // call this the town outfit
@@ -258,7 +258,8 @@ const config = {
        semantic: async ({api, context}) => {
          let condition
          if (context.item.condition) {
-           condition = { selector: context.item.condition.marker, property: context.item.condition.property[0].marker }
+           // { selector: 'highest', property: 'damage' }
+           condition = { selector: context.item.condition.condition.marker, property: context.item.condition.marker }
          }
          api.equip({ type: context.item.value, condition })
        }

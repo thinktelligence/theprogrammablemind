@@ -56481,6 +56481,16 @@
           "pistol",
           0
         ]
+      ],
+      [
+        [
+          "damage",
+          0
+        ],
+        [
+          "pistol",
+          0
+        ]
       ]
     ],
     "config": {
@@ -56488,7 +56498,35 @@
     "contexts": [
       {
         "condition": {
-          "damage": {
+          "condition": {
+            "dead": true,
+            "level": 0,
+            "marker": "highest",
+            "number": "one",
+            "range": {
+              "end": 6,
+              "start": 0
+            },
+            "text": "highest",
+            "types": [
+              "highest"
+            ],
+            "value": "highest",
+            "word": "highest"
+          },
+          "dead": true,
+          "interpolate": [
+            {
+              "property": "condition"
+            },
+            {
+              "property": "property"
+            }
+          ],
+          "level": 0,
+          "marker": "damage",
+          "number": "one",
+          "property": {
             "dead": true,
             "level": 0,
             "marker": "damage",
@@ -56504,41 +56542,16 @@
             "value": "damage",
             "word": "damage"
           },
-          "dead": true,
-          "default": true,
-          "level": 1,
-          "marker": "highest",
-          "postModifiers": [
-            "damage"
-          ],
-          "property": [
-            {
-              "dead": true,
-              "level": 0,
-              "marker": "damage",
-              "number": "one",
-              "range": {
-                "end": 13,
-                "start": 8
-              },
-              "text": "damage",
-              "types": [
-                "damage"
-              ],
-              "value": "damage",
-              "word": "damage"
-            }
-          ],
           "range": {
             "end": 13,
             "start": 0
           },
           "text": "highest damage",
           "types": [
-            "highest"
+            "damage"
           ],
-          "value": "highest",
-          "word": "highest"
+          "value": "damage",
+          "word": "damage"
         },
         "context_id": 2,
         "context_index": 1,
@@ -56562,6 +56575,7 @@
         "word": "pistol"
       }
     ],
+    "developerTest": false,
     "generatedParenthesized": [
       ""
     ],
@@ -56569,6 +56583,31 @@
       "opChoices": [
         {
           "counter": 1,
+          "op": [
+            "highest",
+            0
+          ],
+          "ops": [
+            [
+              "compare",
+              0
+            ],
+            [
+              "damage",
+              0
+            ],
+            [
+              "highest",
+              0
+            ],
+            [
+              "pistol",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 2,
           "op": [
             "damage",
             0
@@ -56589,7 +56628,7 @@
           ]
         },
         {
-          "counter": 2,
+          "counter": 3,
           "op": [
             "compare",
             0
@@ -56606,16 +56645,12 @@
           ]
         },
         {
-          "counter": 3,
+          "counter": 4,
           "op": [
             "pistol",
             0
           ],
           "ops": [
-            [
-              "compare",
-              0
-            ],
             [
               "pistol",
               0
@@ -56627,16 +56662,12 @@
           ]
         },
         {
-          "counter": 4,
+          "counter": 5,
           "op": [
             "propertyCondition",
             0
           ],
           "ops": [
-            [
-              "compare",
-              0
-            ],
             [
               "propertyCondition",
               0
@@ -56760,7 +56791,11 @@
               "suit"
             ],
             "concept": [
+              "condition",
               "edible"
+            ],
+            "condition": [
+              "superlative"
             ],
             "drink": [
               "cola",
@@ -56847,6 +56882,12 @@
             "sort_ordering": [
               "ascending",
               "descending"
+            ],
+            "superlative": [
+              "highest",
+              "lowest",
+              "maximum",
+              "minimum"
             ],
             "takeable": [
               "medicine",
@@ -56943,6 +56984,12 @@
             "ascending",
             "sort_ordering",
             "descending",
+            "condition",
+            "superlative",
+            "highest",
+            "lowest",
+            "maximum",
+            "minimum",
             "pistol",
             "weapon",
             "rifle",
@@ -57013,6 +57060,9 @@
               "theAble",
               "queryable"
             ],
+            "condition": [
+              "concept"
+            ],
             "damage": [
               "item_property"
             ],
@@ -57063,6 +57113,9 @@
             "hierarchyAble": [
               "queryable"
             ],
+            "highest": [
+              "superlative"
+            ],
             "hp": [
               "item_property"
             ],
@@ -57082,8 +57135,14 @@
             "listable": [
               "theAble"
             ],
+            "lowest": [
+              "superlative"
+            ],
             "luck": [
               "item_property"
+            ],
+            "maximum": [
+              "superlative"
             ],
             "meat": [
               "food"
@@ -57097,6 +57156,9 @@
             "mine": [
               "weapon",
               "explosive"
+            ],
+            "minimum": [
+              "superlative"
             ],
             "modifies": [
               "verb"
@@ -57173,6 +57235,9 @@
             ],
             "suit": [
               "clothe"
+            ],
+            "superlative": [
+              "condition"
             ],
             "that": [
               "thisitthat"
@@ -57254,6 +57319,8 @@
               },
               "concept": {
               },
+              "condition": {
+              },
               "damage": {
               },
               "descending": {
@@ -57290,6 +57357,8 @@
               },
               "hierarchyAble": {
               },
+              "highest": {
+              },
               "hp": {
               },
               "ifAble": {
@@ -57304,7 +57373,11 @@
               },
               "listable": {
               },
+              "lowest": {
+              },
               "luck": {
+              },
+              "maximum": {
               },
               "meat": {
               },
@@ -57313,6 +57386,8 @@
               "memorable": {
               },
               "mine": {
+              },
+              "minimum": {
               },
               "modifies": {
               },
@@ -57367,6 +57442,8 @@
               "stm_previous": {
               },
               "suit": {
+              },
+              "superlative": {
               },
               "takeable": {
               },
@@ -57439,7 +57516,35 @@
         {
           "context": {
             "condition": {
-              "damage": {
+              "condition": {
+                "dead": true,
+                "level": 0,
+                "marker": "highest",
+                "number": "one",
+                "range": {
+                  "end": 6,
+                  "start": 0
+                },
+                "text": "highest",
+                "types": [
+                  "highest"
+                ],
+                "value": "highest",
+                "word": "highest"
+              },
+              "dead": true,
+              "interpolate": [
+                {
+                  "property": "condition"
+                },
+                {
+                  "property": "property"
+                }
+              ],
+              "level": 0,
+              "marker": "damage",
+              "number": "one",
+              "property": {
                 "dead": true,
                 "level": 0,
                 "marker": "damage",
@@ -57455,41 +57560,16 @@
                 "value": "damage",
                 "word": "damage"
               },
-              "dead": true,
-              "default": true,
-              "level": 1,
-              "marker": "highest",
-              "postModifiers": [
-                "damage"
-              ],
-              "property": [
-                {
-                  "dead": true,
-                  "level": 0,
-                  "marker": "damage",
-                  "number": "one",
-                  "range": {
-                    "end": 13,
-                    "start": 8
-                  },
-                  "text": "damage",
-                  "types": [
-                    "damage"
-                  ],
-                  "value": "damage",
-                  "word": "damage"
-                }
-              ],
               "range": {
                 "end": 13,
                 "start": 0
               },
               "text": "highest damage",
               "types": [
-                "highest"
+                "damage"
               ],
-              "value": "highest",
-              "word": "highest"
+              "value": "damage",
+              "word": "damage"
             },
             "context_id": 2,
             "context_index": 1,
@@ -58195,11 +58275,21 @@
               {
                 "marker": [
                   "highest",
-                  1
+                  0
+                ],
+                "range": {
+                  "end": 6,
+                  "start": 0
+                }
+              },
+              {
+                "marker": [
+                  "damage",
+                  0
                 ],
                 "range": {
                   "end": 13,
-                  "start": 0
+                  "start": 8
                 }
               },
               {
@@ -58219,8 +58309,8 @@
             "operators": [
               {
                 "marker": [
-                  "highest",
-                  1
+                  "damage",
+                  0
                 ],
                 "range": {
                   "end": 13,
@@ -58241,6 +58331,31 @@
           },
           {
             "counter": 5,
+            "operators": [
+              {
+                "marker": [
+                  "damage",
+                  0
+                ],
+                "range": {
+                  "end": 13,
+                  "start": 0
+                }
+              },
+              {
+                "marker": [
+                  "pistol",
+                  0
+                ],
+                "range": {
+                  "end": 20,
+                  "start": 15
+                }
+              }
+            ]
+          },
+          {
+            "counter": 6,
             "operators": [
               {
                 "marker": [
