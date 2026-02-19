@@ -1,5 +1,5 @@
 const { flatten, knowledgeModule, where, debug } = require('./runtime').theprogrammablemind
-const { defaultContextCheck, concats, toFinalValue } = require('./helpers')
+const { defaultContextCheck, concats, toEValue, toFinalValue } = require('./helpers')
 const sdefaults_tests = require('./sdefaults.test.json')
 
 class API {
@@ -79,6 +79,7 @@ const config = {
 function initializer({objects, config, isModule}) {
   config.addArgs(() => ({
     toFinalValue,
+    toEValue,
   }))
 }
 

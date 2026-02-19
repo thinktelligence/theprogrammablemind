@@ -44,12 +44,11 @@ for (let file of package_json.files) {
     }
   }
 
-  // console.log("file----", file)
-  if (!FAST) {
-    retrains.push(`node ${file} -rtf -g`)
-  }
+  retrains.push(`node ${file} -rtf -g`)
   tests.push(`node ${file} -tva -g`)
-  tests.push(`node tester -m ${file} -tva -tmn ${file} -g`)
+  if (!FAST) {
+    tests.push(`node tester -m ${file} -tva -tmn ${file} -g`)
+  }
   // tests.push(`node tester_rebuild -m ${file}`)
 }
 

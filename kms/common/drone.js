@@ -114,6 +114,11 @@ https://www.amazon.ca/Freenove-Raspberry-Tracking-Avoidance-Ultrasonic/dp/B0BNDQ
   go back and forth 3 times
   go back and forth 2 meters
   go back and forth 1 second
+
+  what is the default speed
+  increase that by 2 times/20 percent/2 inches per second
+  amke the default speed 2 times faster
+  double the default speed  
 */
 
 function expectDirection(args) {
@@ -128,7 +133,7 @@ function expectDirection(args) {
 
 function expectDistanceForMove(args) {
   args.config.addSemantic({
-    match: ({context, isA}) => isA(context.marker, 'quantity') && !isA(context.unit.marker, 'unitPerUnit'),
+    match: ({context, isA}) => isA(context.marker, 'quantity') && context.unit && !isA(context.unit.marker, 'unitPerUnit'),
     apply: async ({context, objects, fragments, e, say, gp}) => {
       const instantiation = await fragments("quantity in meters", { quantity: context })
       try {
@@ -171,7 +176,9 @@ The time t needed to turn by angle θ is:
 */
 class API {
   constructor() {
-    this.overrideCheck = new OverrideCheck(API, ['forwardDrone', 'backwardDrone', 'rotateDrone', 'sonicDrone', 'tiltAngleDrone', 'panAngleDrone', 'stopDrone', 'minimumSpeedDrone', 'maximumSpeedDrone'])
+    const overrideMethods = Object.getOwnPropertyNames(API.prototype).filter(key => typeof API.prototype[key] === 'function' && key.endsWith('Drone'));
+    // this.overrideCheck = new OverrideCheck(API, ['forwardDrone', 'backwardDrone', 'rotateDrone', 'sonicDrone', 'tiltAngleDrone', 'panAngleDrone', 'stopDrone', 'minimumSpeedDrone', 'maximumSpeedDrone'])
+    this.overrideCheck = new OverrideCheck(API, overrideMethods)
     this.overriden = this.constructor !== API
   }
 
@@ -213,20 +220,28 @@ class API {
   }
 
   currentPoint() {
-    if (!this._objects.current.startTime || !this._objects.current.endTime) {
+    const current = this._objects.current
+    if (current.durationInSeconds) {
+      // okay
+    } else if (!current.startTime || !current.endTime) {
       return null // in motion
     }
     const ordinal = this.currentOrdinal()
     const lastPoint = this.args.mentions({ context: { marker: 'point' }, condition: (context) => context.ordinal == ordinal })
-    if (!this._objects.current.startTime && !this._objects.current.endTime) {
+    if (!current.startTime && !current.endTime && !current.durationInSeconds) {
       return lastPoint // did not move
     }
 
-    const durationInSeconds = (this._objects.current.endTime - this._objects.current.startTime) / 1000
-    const speedInMetersPerSecond = this._objects.current.speed
-    const direction = this._objects.current.direction
+    let durationInSeconds
+    if (current.durationInSeconds) {
+      durationInSeconds = current.durationInSeconds
+    } else {
+      durationInSeconds = (current.endTime - current.startTime) / 1000
+    }
+    const speedInMetersPerSecond = current.speed
+    const direction = current.direction
     const distanceInMeters = speedInMetersPerSecond * durationInSeconds * (direction == 'forward' ? 1 : -1)
-    const angleInRadians = this._objects.current.angleInRadians
+    const angleInRadians = current.angleInRadians
     const yPrime = lastPoint.point.y + distanceInMeters * Math.sin(angleInRadians)
     const xPrime = lastPoint.point.x + distanceInMeters * Math.cos(angleInRadians)
     return { x: xPrime, y: yPrime }
@@ -275,8 +290,8 @@ class API {
 
     const stopAtDistance = async (direction, distanceMeters) => {
       const speed_meters_per_second = objects.current.speed
-      const duration_seconds = distanceMeters / speed_meters_per_second
-      await this.pause(duration_seconds, { batched: true })
+      objects.current.durationInSeconds = distanceMeters / speed_meters_per_second
+      await this.pause(objects.current.durationInSeconds, { batched: true })
       await this.stop({ batched: true })
       this.markCurrentPoint()
     }
@@ -285,26 +300,28 @@ class API {
       if (objects.current.timeRepeats) {
         this.startRepeats(objects.current.timeRepeats)
       }
+      let currentPoint = this.args.mentions({ context: { marker: 'point' } }).point
       for (const destination of objects.current.path) {
         const destinationPoint = destination.point
-        const currentPoint = this.args.mentions({ context: { marker: 'point' } }).point
         if (currentPoint.x == destinationPoint.x && currentPoint.y == destinationPoint.y) {
           // already there
         } else {
           const polar = cartesianToPolar(currentPoint, destinationPoint)
           const destinationAngleInRadians = polar.angle
           const angleDelta = (destinationAngleInRadians - objects.current.angleInRadians)
-          await this.rotate(angleDelta)
-          await this.forward(objects.current.speed)
+          await this.rotate(angleDelta, { batched: true })
+          await this.forward(objects.current.speed, { batched: true })
           await stopAtDistance("forward", polar.radius)
         }
+        currentPoint = destinationPoint
       }
       if (objects.current.timeRepeats) {
-        this.endRepeats()
+        await this.endRepeats()
       }
       await this.sendBatch()
       objects.current.path = []
       objects.current.timeRepeats = 0
+      objects.current.durationInSeconds = 0
       return
     }
 
@@ -331,11 +348,12 @@ class API {
       const distanceMeters = command.distance
       await stopAtDistance(command.direction, distanceMeters)
       await this.sendBatch()
+      objects.current.durationInSeconds = 0
     }
   }
 
   async startRepeats(n) {
-    await this.startRepeatsDrone()
+    await this.startRepeatsDrone(n)
   }
 
   async endRepeats(n) {
@@ -395,11 +413,11 @@ class API {
 
   // subclass and override the remaining to call the drone
 
-  async startRepeats(n) {
-    this._objects.history.push({ marker: 'startRepeats', n })
+  async startRepeatsDrone(n) {
+    this._objects.history.push({ marker: 'history', repeats: n })
   }
 
-  async endRepeats(n) {
+  async endRepeatsDrone(n) {
     this._objects.history.push({ marker: 'endRepeats', })
   }
 
@@ -537,6 +555,8 @@ const template = {
     //TODO "forward left, right, backward are directions",
     "around, forward, left, right, and backward are directions",
     "speed and power are properties",
+    "speed and power are comparable",
+    "speed is a quantity",
     "point is a concept",
     // TODO fix/add this "position means point",
     "points are nameable orderable and memorable",
@@ -545,7 +565,7 @@ const template = {
       expectDistanceForMove(args)
 
       args.config.addSemantic({
-        match: ({context, isA}) => isA(context.marker, 'quantity') && isA(context.unit.marker, 'unitPerUnit'),
+        match: ({context, isA}) => isA(context.marker, 'quantity') && isA(context.unit?.marker, 'unitPerUnit'),
         apply: async ({context, objects, api, gr, fragments, e, say}) => {
           // send a command to the drone
           const instantiation = await fragments("quantity in meters per second", { quantity: context })
@@ -651,6 +671,13 @@ const template = {
       ],
       semantics: [
         {
+          match: ({context}) => context.marker == 'speed' && context.evaluate,
+          apply: async ({gp, context, objects, fragments, resolveEvaluate}) => {
+            const speed = await fragments("number meters per second", { number: { marker: 'integer', value: objects.current.speed } })
+            resolveEvaluate(context, speed)
+          }
+        },
+        {
           match: ({context}) => context.marker == 'timeRepeats',
           apply: ({context, objects, toFinalValue}) => {
             objects.runCommand = true
@@ -697,7 +724,7 @@ knowledgeModule( {
       context: [
         defaultContextCheck({ marker: 'point', exported: true, extra: ['ordinal', { property: 'point', check: ['x', 'y'] }, 'description', { property: 'stm', check: ['id', 'names'] }] }),
         defaultContextCheck({ marker: 'turn', exported: true, extra: ['direction'] }),
-        defaultContextCheck({ marker: 'history', exported: true, extra: ['pause', 'direction', 'speed', 'turn', 'time', 'sonic', 'batched'] }),
+        defaultContextCheck({ marker: 'history', exported: true, extra: ['pause', 'direction', 'speed', 'turn', 'time', 'sonic', 'batched', 'repeats'] }),
         defaultContextCheck(),
       ],
       objects: [

@@ -3,6 +3,70 @@
     "sort modifies ordering",
     "ascending is a sort ordering",
     "descending is a sort ordering",
+    "conditions are concepts",
+    "superlatives are conditions",
+    "highest, lowest, maximum and minimum are superlatives",
+    {
+      "name": "comparable",
+      "operators": [
+        "((condition/*) <compare|> ([comparable]))"
+      ],
+      "associations": {
+        "positive": [
+          {
+            "context": [
+              [
+                "article",
+                0
+              ],
+              [
+                "condition",
+                0
+              ],
+              [
+                "comparable",
+                0
+              ]
+            ],
+            "choose": 2
+          },
+          {
+            "context": [
+              [
+                "article",
+                0
+              ],
+              [
+                "condition",
+                0
+              ],
+              [
+                "comparable",
+                1
+              ]
+            ],
+            "choose": 2
+          }
+        ]
+      },
+      "bridges": [
+        {
+          "id": "compare",
+          "convolution": true,
+          "before": [
+            "verb",
+            "article"
+          ],
+          "bridge": "{ ...next(before[0]), property: after, postModifiers: append([after[0].marker], before[0].modifiers), [after[0].marker.id]: after[0] }"
+        },
+        {
+          "id": "comparable",
+          "isA": [
+            "theAble"
+          ]
+        }
+      ]
+    },
     {
       "operators": [
         "((comparable/*) [sortOrdering] (sort_ordering/*))"
@@ -49,11 +113,6 @@
           false
         ],
         [
-          "comparable",
-          "theAble",
-          false
-        ],
-        [
           "concept",
           "queryable",
           false
@@ -61,11 +120,6 @@
         [
           "concept",
           "theAble",
-          false
-        ],
-        [
-          "condition",
-          "condition",
           false
         ],
         [
@@ -86,11 +140,6 @@
         [
           "every",
           "article",
-          false
-        ],
-        [
-          "highest",
-          "condition",
           false
         ],
         [
@@ -141,11 +190,6 @@
         [
           "listable",
           "theAble",
-          false
-        ],
-        [
-          "lowest",
-          "condition",
           false
         ],
         [
@@ -579,11 +623,6 @@
           false
         ],
         [
-          "comparable",
-          "theAble",
-          false
-        ],
-        [
           "concept",
           "queryable",
           false
@@ -591,11 +630,6 @@
         [
           "concept",
           "theAble",
-          false
-        ],
-        [
-          "condition",
-          "condition",
           false
         ],
         [
@@ -616,11 +650,6 @@
         [
           "every",
           "article",
-          false
-        ],
-        [
-          "highest",
-          "condition",
           false
         ],
         [
@@ -671,11 +700,6 @@
         [
           "listable",
           "theAble",
-          false
-        ],
-        [
-          "lowest",
-          "condition",
           false
         ],
         [
@@ -1408,11 +1432,6 @@
           false
         ],
         [
-          "comparable",
-          "theAble",
-          false
-        ],
-        [
           "concept",
           "queryable",
           false
@@ -1420,11 +1439,6 @@
         [
           "concept",
           "theAble",
-          false
-        ],
-        [
-          "condition",
-          "condition",
           false
         ],
         [
@@ -1445,11 +1459,6 @@
         [
           "every",
           "article",
-          false
-        ],
-        [
-          "highest",
-          "condition",
           false
         ],
         [
@@ -1510,11 +1519,6 @@
         [
           "listable",
           "theAble",
-          false
-        ],
-        [
-          "lowest",
-          "condition",
           false
         ],
         [
@@ -2195,6 +2199,3182 @@
       }
     },
     {
+      "hierarchy": [
+        [
+          "a",
+          "article",
+          false
+        ],
+        [
+          "adjective",
+          "adjective",
+          false
+        ],
+        [
+          "article",
+          "article",
+          false
+        ],
+        [
+          "ascending",
+          "isEdee",
+          false
+        ],
+        [
+          "ascending",
+          "isEder",
+          false
+        ],
+        [
+          "ascending",
+          "ordering",
+          false
+        ],
+        [
+          "ascending",
+          "queryable",
+          false
+        ],
+        [
+          "ascending",
+          "sort_ordering",
+          false
+        ],
+        [
+          "ascending",
+          "theAble",
+          false
+        ],
+        [
+          "canBeQuestion",
+          "canBeQuestion",
+          false
+        ],
+        [
+          "concept",
+          "queryable",
+          false
+        ],
+        [
+          "concept",
+          "theAble",
+          false
+        ],
+        [
+          "descending",
+          "isEdee",
+          false
+        ],
+        [
+          "descending",
+          "isEder",
+          false
+        ],
+        [
+          "descending",
+          "ordering",
+          false
+        ],
+        [
+          "descending",
+          "queryable",
+          false
+        ],
+        [
+          "descending",
+          "sort_ordering",
+          false
+        ],
+        [
+          "descending",
+          "theAble",
+          false
+        ],
+        [
+          "distributable",
+          "queryable",
+          false
+        ],
+        [
+          "doubleQuote",
+          "queryable",
+          false
+        ],
+        [
+          "each",
+          "article",
+          false
+        ],
+        [
+          "every",
+          "article",
+          false
+        ],
+        [
+          "ifAble",
+          "ifAble",
+          false
+        ],
+        [
+          "integer",
+          "number",
+          false
+        ],
+        [
+          "is",
+          "canBeQuestion",
+          false
+        ],
+        [
+          "is",
+          "verb",
+          false
+        ],
+        [
+          "isEdee",
+          "isEdee",
+          false
+        ],
+        [
+          "isEder",
+          "isEder",
+          false
+        ],
+        [
+          "isQuery",
+          "verb",
+          false
+        ],
+        [
+          "it",
+          "pronoun",
+          false
+        ],
+        [
+          "it",
+          "queryable",
+          false
+        ],
+        [
+          "it",
+          "thisitthat",
+          false
+        ],
+        [
+          "it",
+          "toAble",
+          false
+        ],
+        [
+          "listable",
+          "theAble",
+          false
+        ],
+        [
+          "memorable",
+          "theAble",
+          false
+        ],
+        [
+          "modifies",
+          "verb",
+          false
+        ],
+        [
+          "negatable",
+          "queryable",
+          false
+        ],
+        [
+          "noun",
+          "theAble",
+          false
+        ],
+        [
+          "number",
+          "queryable",
+          false
+        ],
+        [
+          "orAble",
+          "ifAble",
+          false
+        ],
+        [
+          "ordering",
+          "concept",
+          false
+        ],
+        [
+          "ordering_modifier",
+          "adjective",
+          false
+        ],
+        [
+          "preposition",
+          "preposition",
+          false
+        ],
+        [
+          "pronoun",
+          "pronoun",
+          false
+        ],
+        [
+          "punctuation",
+          "punctuation",
+          false
+        ],
+        [
+          "queryable",
+          "listable",
+          false
+        ],
+        [
+          "questionMark",
+          "punctuation",
+          false
+        ],
+        [
+          "reason",
+          "queryable",
+          false
+        ],
+        [
+          "reason",
+          "theAble",
+          false
+        ],
+        [
+          "remember",
+          "verb",
+          false
+        ],
+        [
+          "sort",
+          "ordering_modifier",
+          false
+        ],
+        [
+          "sort_ordering",
+          "adjective",
+          true
+        ],
+        [
+          "sort_ordering",
+          "concept",
+          false
+        ],
+        [
+          "sort_ordering",
+          "ordering",
+          false
+        ],
+        [
+          "stm_before",
+          "adjective",
+          false
+        ],
+        [
+          "stm_current",
+          "adjective",
+          false
+        ],
+        [
+          "stm_previous",
+          "adjective",
+          false
+        ],
+        [
+          "that",
+          "thisitthat",
+          false
+        ],
+        [
+          "the",
+          "article",
+          false
+        ],
+        [
+          "theAble",
+          "queryable",
+          false
+        ],
+        [
+          "this",
+          "pronoun",
+          false
+        ],
+        [
+          "this",
+          "queryable",
+          false
+        ],
+        [
+          "this",
+          "thisitthat",
+          false
+        ],
+        [
+          "thisitthat",
+          "queryable",
+          false
+        ],
+        [
+          "to",
+          "preposition",
+          false
+        ],
+        [
+          "toAble",
+          "toAble",
+          false
+        ],
+        [
+          "verb",
+          "verb",
+          false
+        ],
+        [
+          "what",
+          "queryable",
+          false
+        ],
+        [
+          "whatAble",
+          "queryable",
+          false
+        ]
+      ],
+      "metadata": {
+        "opChoices": [
+          {
+            "op": [
+              "unknown",
+              0
+            ],
+            "ops": [
+              [
+                "is",
+                0
+              ],
+              [
+                "unknown",
+                0
+              ],
+              [
+                "unknown",
+                0
+              ]
+            ],
+            "counter": 1
+          },
+          {
+            "op": [
+              "unknown",
+              0
+            ],
+            "ops": [
+              [
+                "is",
+                0
+              ],
+              [
+                "unknown",
+                0
+              ]
+            ],
+            "counter": 2
+          },
+          {
+            "op": [
+              "is",
+              0
+            ],
+            "ops": [
+              [
+                "is",
+                0
+              ]
+            ],
+            "counter": 3
+          },
+          {
+            "op": [
+              "is",
+              1
+            ],
+            "ops": [
+              [
+                "is",
+                1
+              ]
+            ],
+            "counter": 4
+          }
+        ]
+      },
+      "trace": "undefined",
+      "contexts": [
+        {
+          "number": "many",
+          "text": "conditions are concepts",
+          "marker": "is",
+          "word": "are",
+          "range": {
+            "start": 0,
+            "end": 22
+          },
+          "one": {
+            "number": "many",
+            "value": "conditions",
+            "unknown": true,
+            "text": "conditions",
+            "marker": "unknown",
+            "word": "conditions",
+            "range": {
+              "start": 0,
+              "end": 9
+            },
+            "dead": true,
+            "types": [
+              "queryable",
+              "unknown"
+            ],
+            "level": 0
+          },
+          "two": {
+            "value": "concepts",
+            "unknown": true,
+            "text": "concepts",
+            "marker": "unknown",
+            "word": "concepts",
+            "range": {
+              "start": 15,
+              "end": 22
+            },
+            "dead": true,
+            "types": [
+              "queryable",
+              "unknown"
+            ],
+            "level": 0
+          },
+          "dead": true,
+          "level": 2,
+          "context_index": 1,
+          "topLevel": true,
+          "context_id": 2,
+          "touchedBy": [
+            "comparable#call2"
+          ]
+        }
+      ],
+      "generated": [
+        ""
+      ],
+      "paraphrases": [
+        "conditions are concepts"
+      ],
+      "paraphrasesParenthesized": [],
+      "generatedParenthesized": [],
+      "responses": [
+        ""
+      ],
+      "associations": [
+        [
+          [
+            "is",
+            0
+          ],
+          [
+            "unknown",
+            0
+          ]
+        ]
+      ],
+      "summaries": [
+        {
+          "summaries": [
+            {
+              "operators": [
+                {
+                  "marker": [
+                    "unknown",
+                    0
+                  ],
+                  "range": {
+                    "start": 0,
+                    "end": 9
+                  }
+                },
+                {
+                  "marker": [
+                    "is",
+                    0
+                  ],
+                  "range": {
+                    "start": 11,
+                    "end": 13
+                  }
+                },
+                {
+                  "marker": [
+                    "unknown",
+                    0
+                  ],
+                  "range": {
+                    "start": 15,
+                    "end": 22
+                  }
+                }
+              ],
+              "counter": 1
+            },
+            {
+              "operators": [
+                {
+                  "marker": [
+                    "unknown",
+                    0
+                  ],
+                  "range": {
+                    "start": 0,
+                    "end": 9
+                  }
+                },
+                {
+                  "marker": [
+                    "is",
+                    0
+                  ],
+                  "range": {
+                    "start": 11,
+                    "end": 13
+                  }
+                },
+                {
+                  "marker": [
+                    "unknown",
+                    0
+                  ],
+                  "range": {
+                    "start": 15,
+                    "end": 22
+                  }
+                }
+              ],
+              "counter": 2
+            },
+            {
+              "operators": [
+                {
+                  "marker": [
+                    "unknown",
+                    0
+                  ],
+                  "range": {
+                    "start": 0,
+                    "end": 9
+                  }
+                },
+                {
+                  "marker": [
+                    "is",
+                    0
+                  ],
+                  "range": {
+                    "start": 11,
+                    "end": 13
+                  }
+                },
+                {
+                  "marker": [
+                    "unknown",
+                    0
+                  ],
+                  "range": {
+                    "start": 15,
+                    "end": 22
+                  }
+                }
+              ],
+              "counter": 3
+            },
+            {
+              "operators": [
+                {
+                  "marker": [
+                    "is",
+                    1
+                  ],
+                  "range": {
+                    "start": 0,
+                    "end": 22
+                  }
+                }
+              ],
+              "counter": 4
+            },
+            {
+              "operators": [
+                {
+                  "marker": [
+                    "is",
+                    2
+                  ],
+                  "range": {
+                    "start": 0,
+                    "end": 22
+                  }
+                }
+              ],
+              "counter": 5
+            }
+          ],
+          "length": 1
+        }
+      ],
+      "learned_contextual_priorities": [],
+      "rtf_associations": [],
+      "query": "conditions are concepts",
+      "key": {
+        "query": "conditions are concepts"
+      }
+    },
+    {
+      "hierarchy": [
+        [
+          "a",
+          "article",
+          false
+        ],
+        [
+          "adjective",
+          "adjective",
+          false
+        ],
+        [
+          "article",
+          "article",
+          false
+        ],
+        [
+          "ascending",
+          "isEdee",
+          false
+        ],
+        [
+          "ascending",
+          "isEder",
+          false
+        ],
+        [
+          "ascending",
+          "ordering",
+          false
+        ],
+        [
+          "ascending",
+          "queryable",
+          false
+        ],
+        [
+          "ascending",
+          "sort_ordering",
+          false
+        ],
+        [
+          "ascending",
+          "theAble",
+          false
+        ],
+        [
+          "canBeQuestion",
+          "canBeQuestion",
+          false
+        ],
+        [
+          "concept",
+          "queryable",
+          false
+        ],
+        [
+          "concept",
+          "theAble",
+          false
+        ],
+        [
+          "condition",
+          "isEdee",
+          false
+        ],
+        [
+          "condition",
+          "isEder",
+          false
+        ],
+        [
+          "condition",
+          "queryable",
+          false
+        ],
+        [
+          "condition",
+          "theAble",
+          false
+        ],
+        [
+          "condition",
+          "unknown",
+          false
+        ],
+        [
+          "descending",
+          "isEdee",
+          false
+        ],
+        [
+          "descending",
+          "isEder",
+          false
+        ],
+        [
+          "descending",
+          "ordering",
+          false
+        ],
+        [
+          "descending",
+          "queryable",
+          false
+        ],
+        [
+          "descending",
+          "sort_ordering",
+          false
+        ],
+        [
+          "descending",
+          "theAble",
+          false
+        ],
+        [
+          "distributable",
+          "queryable",
+          false
+        ],
+        [
+          "doubleQuote",
+          "queryable",
+          false
+        ],
+        [
+          "each",
+          "article",
+          false
+        ],
+        [
+          "every",
+          "article",
+          false
+        ],
+        [
+          "ifAble",
+          "ifAble",
+          false
+        ],
+        [
+          "integer",
+          "number",
+          false
+        ],
+        [
+          "is",
+          "canBeQuestion",
+          false
+        ],
+        [
+          "is",
+          "verb",
+          false
+        ],
+        [
+          "isEdee",
+          "isEdee",
+          false
+        ],
+        [
+          "isEder",
+          "isEder",
+          false
+        ],
+        [
+          "isQuery",
+          "verb",
+          false
+        ],
+        [
+          "it",
+          "pronoun",
+          false
+        ],
+        [
+          "it",
+          "queryable",
+          false
+        ],
+        [
+          "it",
+          "thisitthat",
+          false
+        ],
+        [
+          "it",
+          "toAble",
+          false
+        ],
+        [
+          "listable",
+          "theAble",
+          false
+        ],
+        [
+          "memorable",
+          "theAble",
+          false
+        ],
+        [
+          "modifies",
+          "verb",
+          false
+        ],
+        [
+          "negatable",
+          "queryable",
+          false
+        ],
+        [
+          "noun",
+          "theAble",
+          false
+        ],
+        [
+          "number",
+          "queryable",
+          false
+        ],
+        [
+          "orAble",
+          "ifAble",
+          false
+        ],
+        [
+          "ordering",
+          "concept",
+          false
+        ],
+        [
+          "ordering_modifier",
+          "adjective",
+          false
+        ],
+        [
+          "preposition",
+          "preposition",
+          false
+        ],
+        [
+          "pronoun",
+          "pronoun",
+          false
+        ],
+        [
+          "punctuation",
+          "punctuation",
+          false
+        ],
+        [
+          "queryable",
+          "listable",
+          false
+        ],
+        [
+          "questionMark",
+          "punctuation",
+          false
+        ],
+        [
+          "reason",
+          "queryable",
+          false
+        ],
+        [
+          "reason",
+          "theAble",
+          false
+        ],
+        [
+          "remember",
+          "verb",
+          false
+        ],
+        [
+          "sort",
+          "ordering_modifier",
+          false
+        ],
+        [
+          "sort_ordering",
+          "adjective",
+          true
+        ],
+        [
+          "sort_ordering",
+          "concept",
+          false
+        ],
+        [
+          "sort_ordering",
+          "ordering",
+          false
+        ],
+        [
+          "stm_before",
+          "adjective",
+          false
+        ],
+        [
+          "stm_current",
+          "adjective",
+          false
+        ],
+        [
+          "stm_previous",
+          "adjective",
+          false
+        ],
+        [
+          "that",
+          "thisitthat",
+          false
+        ],
+        [
+          "the",
+          "article",
+          false
+        ],
+        [
+          "theAble",
+          "queryable",
+          false
+        ],
+        [
+          "this",
+          "pronoun",
+          false
+        ],
+        [
+          "this",
+          "queryable",
+          false
+        ],
+        [
+          "this",
+          "thisitthat",
+          false
+        ],
+        [
+          "thisitthat",
+          "queryable",
+          false
+        ],
+        [
+          "to",
+          "preposition",
+          false
+        ],
+        [
+          "toAble",
+          "toAble",
+          false
+        ],
+        [
+          "unknown",
+          "unknown",
+          false
+        ],
+        [
+          "verb",
+          "verb",
+          false
+        ],
+        [
+          "what",
+          "queryable",
+          false
+        ],
+        [
+          "whatAble",
+          "queryable",
+          false
+        ]
+      ],
+      "metadata": {
+        "opChoices": [
+          {
+            "op": [
+              "unknown",
+              0
+            ],
+            "ops": [
+              [
+                "condition",
+                0
+              ],
+              [
+                "is",
+                0
+              ],
+              [
+                "unknown",
+                0
+              ]
+            ],
+            "counter": 1
+          },
+          {
+            "op": [
+              "condition",
+              0
+            ],
+            "ops": [
+              [
+                "condition",
+                0
+              ],
+              [
+                "is",
+                0
+              ]
+            ],
+            "counter": 2
+          },
+          {
+            "op": [
+              "is",
+              0
+            ],
+            "ops": [
+              [
+                "is",
+                0
+              ]
+            ],
+            "counter": 3
+          },
+          {
+            "op": [
+              "is",
+              1
+            ],
+            "ops": [
+              [
+                "is",
+                1
+              ]
+            ],
+            "counter": 4
+          }
+        ]
+      },
+      "trace": "undefined",
+      "contexts": [
+        {
+          "number": "many",
+          "text": "superlatives are conditions",
+          "marker": "is",
+          "word": "are",
+          "range": {
+            "start": 0,
+            "end": 26
+          },
+          "one": {
+            "number": "many",
+            "value": "superlatives",
+            "unknown": true,
+            "text": "superlatives",
+            "marker": "unknown",
+            "word": "superlatives",
+            "range": {
+              "start": 0,
+              "end": 11
+            },
+            "dead": true,
+            "types": [
+              "queryable",
+              "unknown"
+            ],
+            "level": 0
+          },
+          "two": {
+            "value": "condition",
+            "number": "many",
+            "text": "conditions",
+            "marker": "condition",
+            "word": "conditions",
+            "range": {
+              "start": 17,
+              "end": 26
+            },
+            "dead": true,
+            "types": [
+              "condition"
+            ],
+            "level": 0
+          },
+          "dead": true,
+          "level": 2,
+          "context_index": 1,
+          "topLevel": true,
+          "context_id": 2,
+          "touchedBy": [
+            "comparable#call2"
+          ]
+        }
+      ],
+      "generated": [
+        ""
+      ],
+      "paraphrases": [
+        "superlatives are conditions"
+      ],
+      "paraphrasesParenthesized": [],
+      "generatedParenthesized": [],
+      "responses": [
+        ""
+      ],
+      "associations": [
+        [
+          [
+            "condition",
+            0
+          ],
+          [
+            "is",
+            0
+          ],
+          [
+            "unknown",
+            0
+          ]
+        ]
+      ],
+      "summaries": [
+        {
+          "summaries": [
+            {
+              "operators": [
+                {
+                  "marker": [
+                    "unknown",
+                    0
+                  ],
+                  "range": {
+                    "start": 0,
+                    "end": 11
+                  }
+                },
+                {
+                  "marker": [
+                    "is",
+                    0
+                  ],
+                  "range": {
+                    "start": 13,
+                    "end": 15
+                  }
+                },
+                {
+                  "marker": [
+                    "condition",
+                    0
+                  ],
+                  "range": {
+                    "start": 17,
+                    "end": 26
+                  }
+                }
+              ],
+              "counter": 1
+            },
+            {
+              "operators": [
+                {
+                  "marker": [
+                    "unknown",
+                    0
+                  ],
+                  "range": {
+                    "start": 0,
+                    "end": 11
+                  }
+                },
+                {
+                  "marker": [
+                    "is",
+                    0
+                  ],
+                  "range": {
+                    "start": 13,
+                    "end": 15
+                  }
+                },
+                {
+                  "marker": [
+                    "condition",
+                    0
+                  ],
+                  "range": {
+                    "start": 17,
+                    "end": 26
+                  }
+                }
+              ],
+              "counter": 2
+            },
+            {
+              "operators": [
+                {
+                  "marker": [
+                    "unknown",
+                    0
+                  ],
+                  "range": {
+                    "start": 0,
+                    "end": 11
+                  }
+                },
+                {
+                  "marker": [
+                    "is",
+                    0
+                  ],
+                  "range": {
+                    "start": 13,
+                    "end": 15
+                  }
+                },
+                {
+                  "marker": [
+                    "condition",
+                    0
+                  ],
+                  "range": {
+                    "start": 17,
+                    "end": 26
+                  }
+                }
+              ],
+              "counter": 3
+            },
+            {
+              "operators": [
+                {
+                  "marker": [
+                    "is",
+                    1
+                  ],
+                  "range": {
+                    "start": 0,
+                    "end": 26
+                  }
+                }
+              ],
+              "counter": 4
+            },
+            {
+              "operators": [
+                {
+                  "marker": [
+                    "is",
+                    2
+                  ],
+                  "range": {
+                    "start": 0,
+                    "end": 26
+                  }
+                }
+              ],
+              "counter": 5
+            }
+          ],
+          "length": 1
+        }
+      ],
+      "learned_contextual_priorities": [],
+      "rtf_associations": [],
+      "query": "superlatives are conditions",
+      "key": {
+        "query": "superlatives are conditions"
+      }
+    },
+    {
+      "hierarchy": [
+        [
+          "a",
+          "article",
+          false
+        ],
+        [
+          "adjective",
+          "adjective",
+          false
+        ],
+        [
+          "article",
+          "article",
+          false
+        ],
+        [
+          "ascending",
+          "isEdee",
+          false
+        ],
+        [
+          "ascending",
+          "isEder",
+          false
+        ],
+        [
+          "ascending",
+          "ordering",
+          false
+        ],
+        [
+          "ascending",
+          "queryable",
+          false
+        ],
+        [
+          "ascending",
+          "sort_ordering",
+          false
+        ],
+        [
+          "ascending",
+          "theAble",
+          false
+        ],
+        [
+          "canBeQuestion",
+          "canBeQuestion",
+          false
+        ],
+        [
+          "concept",
+          "queryable",
+          false
+        ],
+        [
+          "concept",
+          "theAble",
+          false
+        ],
+        [
+          "condition",
+          "isEdee",
+          false
+        ],
+        [
+          "condition",
+          "isEder",
+          false
+        ],
+        [
+          "condition",
+          "queryable",
+          false
+        ],
+        [
+          "condition",
+          "theAble",
+          false
+        ],
+        [
+          "condition",
+          "unknown",
+          false
+        ],
+        [
+          "descending",
+          "isEdee",
+          false
+        ],
+        [
+          "descending",
+          "isEder",
+          false
+        ],
+        [
+          "descending",
+          "ordering",
+          false
+        ],
+        [
+          "descending",
+          "queryable",
+          false
+        ],
+        [
+          "descending",
+          "sort_ordering",
+          false
+        ],
+        [
+          "descending",
+          "theAble",
+          false
+        ],
+        [
+          "distributable",
+          "queryable",
+          false
+        ],
+        [
+          "doubleQuote",
+          "queryable",
+          false
+        ],
+        [
+          "each",
+          "article",
+          false
+        ],
+        [
+          "every",
+          "article",
+          false
+        ],
+        [
+          "ifAble",
+          "ifAble",
+          false
+        ],
+        [
+          "integer",
+          "number",
+          false
+        ],
+        [
+          "is",
+          "canBeQuestion",
+          false
+        ],
+        [
+          "is",
+          "verb",
+          false
+        ],
+        [
+          "isEdee",
+          "isEdee",
+          false
+        ],
+        [
+          "isEder",
+          "isEder",
+          false
+        ],
+        [
+          "isQuery",
+          "verb",
+          false
+        ],
+        [
+          "it",
+          "pronoun",
+          false
+        ],
+        [
+          "it",
+          "queryable",
+          false
+        ],
+        [
+          "it",
+          "thisitthat",
+          false
+        ],
+        [
+          "it",
+          "toAble",
+          false
+        ],
+        [
+          "listable",
+          "theAble",
+          false
+        ],
+        [
+          "memorable",
+          "theAble",
+          false
+        ],
+        [
+          "modifies",
+          "verb",
+          false
+        ],
+        [
+          "negatable",
+          "queryable",
+          false
+        ],
+        [
+          "noun",
+          "theAble",
+          false
+        ],
+        [
+          "number",
+          "queryable",
+          false
+        ],
+        [
+          "orAble",
+          "ifAble",
+          false
+        ],
+        [
+          "ordering",
+          "concept",
+          false
+        ],
+        [
+          "ordering_modifier",
+          "adjective",
+          false
+        ],
+        [
+          "preposition",
+          "preposition",
+          false
+        ],
+        [
+          "pronoun",
+          "pronoun",
+          false
+        ],
+        [
+          "punctuation",
+          "punctuation",
+          false
+        ],
+        [
+          "queryable",
+          "listable",
+          false
+        ],
+        [
+          "questionMark",
+          "punctuation",
+          false
+        ],
+        [
+          "reason",
+          "queryable",
+          false
+        ],
+        [
+          "reason",
+          "theAble",
+          false
+        ],
+        [
+          "remember",
+          "verb",
+          false
+        ],
+        [
+          "sort",
+          "ordering_modifier",
+          false
+        ],
+        [
+          "sort_ordering",
+          "adjective",
+          true
+        ],
+        [
+          "sort_ordering",
+          "concept",
+          false
+        ],
+        [
+          "sort_ordering",
+          "ordering",
+          false
+        ],
+        [
+          "stm_before",
+          "adjective",
+          false
+        ],
+        [
+          "stm_current",
+          "adjective",
+          false
+        ],
+        [
+          "stm_previous",
+          "adjective",
+          false
+        ],
+        [
+          "superlative",
+          "condition",
+          false
+        ],
+        [
+          "superlative",
+          "isEdee",
+          false
+        ],
+        [
+          "superlative",
+          "isEder",
+          false
+        ],
+        [
+          "superlative",
+          "queryable",
+          false
+        ],
+        [
+          "superlative",
+          "theAble",
+          false
+        ],
+        [
+          "that",
+          "thisitthat",
+          false
+        ],
+        [
+          "the",
+          "article",
+          false
+        ],
+        [
+          "theAble",
+          "queryable",
+          false
+        ],
+        [
+          "this",
+          "pronoun",
+          false
+        ],
+        [
+          "this",
+          "queryable",
+          false
+        ],
+        [
+          "this",
+          "thisitthat",
+          false
+        ],
+        [
+          "thisitthat",
+          "queryable",
+          false
+        ],
+        [
+          "to",
+          "preposition",
+          false
+        ],
+        [
+          "toAble",
+          "toAble",
+          false
+        ],
+        [
+          "unknown",
+          "unknown",
+          false
+        ],
+        [
+          "verb",
+          "verb",
+          false
+        ],
+        [
+          "what",
+          "queryable",
+          false
+        ],
+        [
+          "whatAble",
+          "queryable",
+          false
+        ]
+      ],
+      "metadata": {
+        "opChoices": [
+          {
+            "op": [
+              "unknown",
+              0
+            ],
+            "ops": [
+              [
+                "comma",
+                0
+              ],
+              [
+                "comma",
+                0
+              ],
+              [
+                "is",
+                0
+              ],
+              [
+                "list",
+                0
+              ],
+              [
+                "superlative",
+                0
+              ],
+              [
+                "unknown",
+                0
+              ],
+              [
+                "unknown",
+                0
+              ],
+              [
+                "unknown",
+                0
+              ],
+              [
+                "unknown",
+                0
+              ]
+            ],
+            "counter": 1
+          },
+          {
+            "op": [
+              "unknown",
+              0
+            ],
+            "ops": [
+              [
+                "comma",
+                0
+              ],
+              [
+                "comma",
+                0
+              ],
+              [
+                "is",
+                0
+              ],
+              [
+                "list",
+                0
+              ],
+              [
+                "superlative",
+                0
+              ],
+              [
+                "unknown",
+                0
+              ],
+              [
+                "unknown",
+                0
+              ],
+              [
+                "unknown",
+                0
+              ]
+            ],
+            "counter": 2
+          },
+          {
+            "op": [
+              "unknown",
+              0
+            ],
+            "ops": [
+              [
+                "comma",
+                0
+              ],
+              [
+                "comma",
+                0
+              ],
+              [
+                "is",
+                0
+              ],
+              [
+                "list",
+                0
+              ],
+              [
+                "superlative",
+                0
+              ],
+              [
+                "unknown",
+                0
+              ],
+              [
+                "unknown",
+                0
+              ]
+            ],
+            "counter": 3
+          },
+          {
+            "op": [
+              "unknown",
+              0
+            ],
+            "ops": [
+              [
+                "comma",
+                0
+              ],
+              [
+                "comma",
+                0
+              ],
+              [
+                "is",
+                0
+              ],
+              [
+                "list",
+                0
+              ],
+              [
+                "superlative",
+                0
+              ],
+              [
+                "unknown",
+                0
+              ]
+            ],
+            "counter": 4
+          },
+          {
+            "op": [
+              "list",
+              0
+            ],
+            "ops": [
+              [
+                "comma",
+                0
+              ],
+              [
+                "comma",
+                0
+              ],
+              [
+                "is",
+                0
+              ],
+              [
+                "list",
+                0
+              ],
+              [
+                "superlative",
+                0
+              ]
+            ],
+            "counter": 5
+          },
+          {
+            "op": [
+              "comma",
+              0
+            ],
+            "ops": [
+              [
+                "comma",
+                0
+              ],
+              [
+                "comma",
+                0
+              ],
+              [
+                "is",
+                0
+              ],
+              [
+                "superlative",
+                0
+              ]
+            ],
+            "counter": 6
+          },
+          {
+            "op": [
+              "comma",
+              0
+            ],
+            "ops": [
+              [
+                "comma",
+                0
+              ],
+              [
+                "is",
+                0
+              ],
+              [
+                "superlative",
+                0
+              ]
+            ],
+            "counter": 7
+          },
+          {
+            "op": [
+              "list",
+              1
+            ],
+            "ops": [
+              [
+                "is",
+                0
+              ],
+              [
+                "list",
+                1
+              ],
+              [
+                "superlative",
+                0
+              ]
+            ],
+            "counter": 8
+          },
+          {
+            "op": [
+              "list",
+              1
+            ],
+            "ops": [
+              [
+                "is",
+                0
+              ],
+              [
+                "list",
+                1
+              ],
+              [
+                "superlative",
+                0
+              ]
+            ],
+            "counter": 9
+          },
+          {
+            "op": [
+              "superlative",
+              0
+            ],
+            "ops": [
+              [
+                "is",
+                0
+              ],
+              [
+                "superlative",
+                0
+              ]
+            ],
+            "counter": 10
+          },
+          {
+            "op": [
+              "is",
+              0
+            ],
+            "ops": [
+              [
+                "is",
+                0
+              ]
+            ],
+            "counter": 11
+          },
+          {
+            "op": [
+              "is",
+              1
+            ],
+            "ops": [
+              [
+                "is",
+                1
+              ]
+            ],
+            "counter": 12
+          }
+        ]
+      },
+      "trace": "undefined",
+      "contexts": [
+        {
+          "number": "many",
+          "text": "highest, lowest, maximum and minimum are superlatives",
+          "marker": "is",
+          "word": "are",
+          "range": {
+            "start": 0,
+            "end": 52
+          },
+          "one": {
+            "number": "many",
+            "marker": "list",
+            "default": true,
+            "word": "and",
+            "text": "highest, lowest, maximum and minimum",
+            "range": {
+              "start": 0,
+              "end": 35
+            },
+            "types": [
+              "list",
+              "queryable",
+              "unknown"
+            ],
+            "listable": true,
+            "isList": true,
+            "value": [
+              {
+                "value": "highest",
+                "unknown": true,
+                "text": "highest,",
+                "marker": "unknown",
+                "word": "highest",
+                "range": {
+                  "start": 0,
+                  "end": 7
+                },
+                "dead": true,
+                "decorators": {
+                  "after": {
+                    "word": ",",
+                    "value": ",",
+                    "depth": "+",
+                    "text": ",",
+                    "marker": "comma",
+                    "range": {
+                      "start": 7,
+                      "end": 7
+                    },
+                    "level": 0
+                  }
+                },
+                "no_convolutions": true,
+                "types": [
+                  "unknown"
+                ],
+                "level": 0
+              },
+              {
+                "value": "lowest",
+                "unknown": true,
+                "text": "lowest,",
+                "marker": "unknown",
+                "word": "lowest",
+                "range": {
+                  "start": 9,
+                  "end": 15
+                },
+                "dead": true,
+                "decorators": {
+                  "after": {
+                    "word": ",",
+                    "value": ",",
+                    "depth": "+",
+                    "text": ",",
+                    "marker": "comma",
+                    "range": {
+                      "start": 15,
+                      "end": 15
+                    },
+                    "level": 0
+                  }
+                },
+                "no_convolutions": true,
+                "types": [
+                  "unknown"
+                ],
+                "level": 0
+              },
+              {
+                "value": "maximum",
+                "unknown": true,
+                "text": "maximum",
+                "marker": "unknown",
+                "word": "maximum",
+                "range": {
+                  "start": 17,
+                  "end": 23
+                },
+                "dead": true,
+                "types": [
+                  "unknown"
+                ],
+                "level": 0
+              },
+              {
+                "value": "minimum",
+                "unknown": true,
+                "text": "minimum",
+                "marker": "unknown",
+                "word": "minimum",
+                "range": {
+                  "start": 29,
+                  "end": 35
+                },
+                "dead": true,
+                "types": [
+                  "unknown"
+                ],
+                "level": 0
+              }
+            ],
+            "level": 1
+          },
+          "two": {
+            "value": "superlative",
+            "number": "many",
+            "text": "superlatives",
+            "marker": "superlative",
+            "word": "superlatives",
+            "range": {
+              "start": 41,
+              "end": 52
+            },
+            "dead": true,
+            "types": [
+              "superlative"
+            ],
+            "level": 0
+          },
+          "dead": true,
+          "level": 2,
+          "context_index": 1,
+          "topLevel": true,
+          "context_id": 2,
+          "touchedBy": [
+            "comparable#call2"
+          ]
+        }
+      ],
+      "generated": [
+        ""
+      ],
+      "paraphrases": [
+        "highest, lowest, maximum and minimum are superlatives"
+      ],
+      "paraphrasesParenthesized": [],
+      "generatedParenthesized": [],
+      "responses": [
+        ""
+      ],
+      "associations": [
+        [
+          [
+            "comma",
+            0
+          ],
+          [
+            "is",
+            0
+          ],
+          [
+            "list",
+            0
+          ],
+          [
+            "superlative",
+            0
+          ],
+          [
+            "unknown",
+            0
+          ]
+        ],
+        [
+          [
+            "comma",
+            0
+          ],
+          [
+            "is",
+            0
+          ],
+          [
+            "list",
+            1
+          ],
+          [
+            "superlative",
+            0
+          ],
+          [
+            "unknown",
+            0
+          ]
+        ],
+        [
+          [
+            "is",
+            0
+          ],
+          [
+            "list",
+            1
+          ],
+          [
+            "superlative",
+            0
+          ]
+        ],
+        [
+          [
+            "is",
+            0
+          ],
+          [
+            "list",
+            1
+          ],
+          [
+            "superlative",
+            0
+          ],
+          [
+            "unknown",
+            0
+          ]
+        ]
+      ],
+      "summaries": [
+        {
+          "summaries": [
+            {
+              "operators": [
+                {
+                  "marker": [
+                    "unknown",
+                    0
+                  ],
+                  "range": {
+                    "start": 0,
+                    "end": 6
+                  }
+                },
+                {
+                  "marker": [
+                    "comma",
+                    0
+                  ],
+                  "range": {
+                    "start": 7,
+                    "end": 7
+                  }
+                },
+                {
+                  "marker": [
+                    "unknown",
+                    0
+                  ],
+                  "range": {
+                    "start": 9,
+                    "end": 14
+                  }
+                },
+                {
+                  "marker": [
+                    "comma",
+                    0
+                  ],
+                  "range": {
+                    "start": 15,
+                    "end": 15
+                  }
+                },
+                {
+                  "marker": [
+                    "unknown",
+                    0
+                  ],
+                  "range": {
+                    "start": 17,
+                    "end": 23
+                  }
+                },
+                {
+                  "marker": [
+                    "list",
+                    0
+                  ],
+                  "range": {
+                    "start": 25,
+                    "end": 27
+                  }
+                },
+                {
+                  "marker": [
+                    "unknown",
+                    0
+                  ],
+                  "range": {
+                    "start": 29,
+                    "end": 35
+                  }
+                },
+                {
+                  "marker": [
+                    "is",
+                    0
+                  ],
+                  "range": {
+                    "start": 37,
+                    "end": 39
+                  }
+                },
+                {
+                  "marker": [
+                    "superlative",
+                    0
+                  ],
+                  "range": {
+                    "start": 41,
+                    "end": 52
+                  }
+                }
+              ],
+              "counter": 1
+            },
+            {
+              "operators": [
+                {
+                  "marker": [
+                    "unknown",
+                    0
+                  ],
+                  "range": {
+                    "start": 0,
+                    "end": 6
+                  }
+                },
+                {
+                  "marker": [
+                    "comma",
+                    0
+                  ],
+                  "range": {
+                    "start": 7,
+                    "end": 7
+                  }
+                },
+                {
+                  "marker": [
+                    "unknown",
+                    0
+                  ],
+                  "range": {
+                    "start": 9,
+                    "end": 14
+                  }
+                },
+                {
+                  "marker": [
+                    "comma",
+                    0
+                  ],
+                  "range": {
+                    "start": 15,
+                    "end": 15
+                  }
+                },
+                {
+                  "marker": [
+                    "unknown",
+                    0
+                  ],
+                  "range": {
+                    "start": 17,
+                    "end": 23
+                  }
+                },
+                {
+                  "marker": [
+                    "list",
+                    0
+                  ],
+                  "range": {
+                    "start": 25,
+                    "end": 27
+                  }
+                },
+                {
+                  "marker": [
+                    "unknown",
+                    0
+                  ],
+                  "range": {
+                    "start": 29,
+                    "end": 35
+                  }
+                },
+                {
+                  "marker": [
+                    "is",
+                    0
+                  ],
+                  "range": {
+                    "start": 37,
+                    "end": 39
+                  }
+                },
+                {
+                  "marker": [
+                    "superlative",
+                    0
+                  ],
+                  "range": {
+                    "start": 41,
+                    "end": 52
+                  }
+                }
+              ],
+              "counter": 2
+            },
+            {
+              "operators": [
+                {
+                  "marker": [
+                    "unknown",
+                    0
+                  ],
+                  "range": {
+                    "start": 0,
+                    "end": 6
+                  }
+                },
+                {
+                  "marker": [
+                    "comma",
+                    0
+                  ],
+                  "range": {
+                    "start": 7,
+                    "end": 7
+                  }
+                },
+                {
+                  "marker": [
+                    "unknown",
+                    0
+                  ],
+                  "range": {
+                    "start": 9,
+                    "end": 14
+                  }
+                },
+                {
+                  "marker": [
+                    "comma",
+                    0
+                  ],
+                  "range": {
+                    "start": 15,
+                    "end": 15
+                  }
+                },
+                {
+                  "marker": [
+                    "unknown",
+                    0
+                  ],
+                  "range": {
+                    "start": 17,
+                    "end": 23
+                  }
+                },
+                {
+                  "marker": [
+                    "list",
+                    0
+                  ],
+                  "range": {
+                    "start": 25,
+                    "end": 27
+                  }
+                },
+                {
+                  "marker": [
+                    "unknown",
+                    0
+                  ],
+                  "range": {
+                    "start": 29,
+                    "end": 35
+                  }
+                },
+                {
+                  "marker": [
+                    "is",
+                    0
+                  ],
+                  "range": {
+                    "start": 37,
+                    "end": 39
+                  }
+                },
+                {
+                  "marker": [
+                    "superlative",
+                    0
+                  ],
+                  "range": {
+                    "start": 41,
+                    "end": 52
+                  }
+                }
+              ],
+              "counter": 3
+            },
+            {
+              "operators": [
+                {
+                  "marker": [
+                    "unknown",
+                    0
+                  ],
+                  "range": {
+                    "start": 0,
+                    "end": 6
+                  }
+                },
+                {
+                  "marker": [
+                    "comma",
+                    0
+                  ],
+                  "range": {
+                    "start": 7,
+                    "end": 7
+                  }
+                },
+                {
+                  "marker": [
+                    "unknown",
+                    0
+                  ],
+                  "range": {
+                    "start": 9,
+                    "end": 14
+                  }
+                },
+                {
+                  "marker": [
+                    "comma",
+                    0
+                  ],
+                  "range": {
+                    "start": 15,
+                    "end": 15
+                  }
+                },
+                {
+                  "marker": [
+                    "unknown",
+                    0
+                  ],
+                  "range": {
+                    "start": 17,
+                    "end": 23
+                  }
+                },
+                {
+                  "marker": [
+                    "list",
+                    0
+                  ],
+                  "range": {
+                    "start": 25,
+                    "end": 27
+                  }
+                },
+                {
+                  "marker": [
+                    "unknown",
+                    0
+                  ],
+                  "range": {
+                    "start": 29,
+                    "end": 35
+                  }
+                },
+                {
+                  "marker": [
+                    "is",
+                    0
+                  ],
+                  "range": {
+                    "start": 37,
+                    "end": 39
+                  }
+                },
+                {
+                  "marker": [
+                    "superlative",
+                    0
+                  ],
+                  "range": {
+                    "start": 41,
+                    "end": 52
+                  }
+                }
+              ],
+              "counter": 4
+            },
+            {
+              "operators": [
+                {
+                  "marker": [
+                    "unknown",
+                    0
+                  ],
+                  "range": {
+                    "start": 0,
+                    "end": 6
+                  }
+                },
+                {
+                  "marker": [
+                    "comma",
+                    0
+                  ],
+                  "range": {
+                    "start": 7,
+                    "end": 7
+                  }
+                },
+                {
+                  "marker": [
+                    "unknown",
+                    0
+                  ],
+                  "range": {
+                    "start": 9,
+                    "end": 14
+                  }
+                },
+                {
+                  "marker": [
+                    "comma",
+                    0
+                  ],
+                  "range": {
+                    "start": 15,
+                    "end": 15
+                  }
+                },
+                {
+                  "marker": [
+                    "unknown",
+                    0
+                  ],
+                  "range": {
+                    "start": 17,
+                    "end": 23
+                  }
+                },
+                {
+                  "marker": [
+                    "list",
+                    0
+                  ],
+                  "range": {
+                    "start": 25,
+                    "end": 27
+                  }
+                },
+                {
+                  "marker": [
+                    "unknown",
+                    0
+                  ],
+                  "range": {
+                    "start": 29,
+                    "end": 35
+                  }
+                },
+                {
+                  "marker": [
+                    "is",
+                    0
+                  ],
+                  "range": {
+                    "start": 37,
+                    "end": 39
+                  }
+                },
+                {
+                  "marker": [
+                    "superlative",
+                    0
+                  ],
+                  "range": {
+                    "start": 41,
+                    "end": 52
+                  }
+                }
+              ],
+              "counter": 5
+            },
+            {
+              "operators": [
+                {
+                  "marker": [
+                    "unknown",
+                    0
+                  ],
+                  "range": {
+                    "start": 0,
+                    "end": 6
+                  }
+                },
+                {
+                  "marker": [
+                    "comma",
+                    0
+                  ],
+                  "range": {
+                    "start": 7,
+                    "end": 7
+                  }
+                },
+                {
+                  "marker": [
+                    "unknown",
+                    0
+                  ],
+                  "range": {
+                    "start": 9,
+                    "end": 14
+                  }
+                },
+                {
+                  "marker": [
+                    "comma",
+                    0
+                  ],
+                  "range": {
+                    "start": 15,
+                    "end": 15
+                  }
+                },
+                {
+                  "marker": [
+                    "list",
+                    1
+                  ],
+                  "range": {
+                    "start": 17,
+                    "end": 35
+                  }
+                },
+                {
+                  "marker": [
+                    "is",
+                    0
+                  ],
+                  "range": {
+                    "start": 37,
+                    "end": 39
+                  }
+                },
+                {
+                  "marker": [
+                    "superlative",
+                    0
+                  ],
+                  "range": {
+                    "start": 41,
+                    "end": 52
+                  }
+                }
+              ],
+              "counter": 6
+            },
+            {
+              "operators": [
+                {
+                  "marker": [
+                    "unknown",
+                    0
+                  ],
+                  "range": {
+                    "start": 0,
+                    "end": 7
+                  }
+                },
+                {
+                  "marker": [
+                    "unknown",
+                    0
+                  ],
+                  "range": {
+                    "start": 9,
+                    "end": 14
+                  }
+                },
+                {
+                  "marker": [
+                    "comma",
+                    0
+                  ],
+                  "range": {
+                    "start": 15,
+                    "end": 15
+                  }
+                },
+                {
+                  "marker": [
+                    "list",
+                    1
+                  ],
+                  "range": {
+                    "start": 17,
+                    "end": 35
+                  }
+                },
+                {
+                  "marker": [
+                    "is",
+                    0
+                  ],
+                  "range": {
+                    "start": 37,
+                    "end": 39
+                  }
+                },
+                {
+                  "marker": [
+                    "superlative",
+                    0
+                  ],
+                  "range": {
+                    "start": 41,
+                    "end": 52
+                  }
+                }
+              ],
+              "counter": 7
+            },
+            {
+              "operators": [
+                {
+                  "marker": [
+                    "unknown",
+                    0
+                  ],
+                  "range": {
+                    "start": 0,
+                    "end": 7
+                  }
+                },
+                {
+                  "marker": [
+                    "unknown",
+                    0
+                  ],
+                  "range": {
+                    "start": 9,
+                    "end": 15
+                  }
+                },
+                {
+                  "marker": [
+                    "list",
+                    1
+                  ],
+                  "range": {
+                    "start": 17,
+                    "end": 35
+                  }
+                },
+                {
+                  "marker": [
+                    "is",
+                    0
+                  ],
+                  "range": {
+                    "start": 37,
+                    "end": 39
+                  }
+                },
+                {
+                  "marker": [
+                    "superlative",
+                    0
+                  ],
+                  "range": {
+                    "start": 41,
+                    "end": 52
+                  }
+                }
+              ],
+              "counter": 8
+            },
+            {
+              "operators": [
+                {
+                  "marker": [
+                    "unknown",
+                    0
+                  ],
+                  "range": {
+                    "start": 0,
+                    "end": 7
+                  }
+                },
+                {
+                  "marker": [
+                    "list",
+                    1
+                  ],
+                  "range": {
+                    "start": 9,
+                    "end": 35
+                  }
+                },
+                {
+                  "marker": [
+                    "is",
+                    0
+                  ],
+                  "range": {
+                    "start": 37,
+                    "end": 39
+                  }
+                },
+                {
+                  "marker": [
+                    "superlative",
+                    0
+                  ],
+                  "range": {
+                    "start": 41,
+                    "end": 52
+                  }
+                }
+              ],
+              "counter": 9
+            },
+            {
+              "operators": [
+                {
+                  "marker": [
+                    "list",
+                    1
+                  ],
+                  "range": {
+                    "start": 0,
+                    "end": 35
+                  }
+                },
+                {
+                  "marker": [
+                    "is",
+                    0
+                  ],
+                  "range": {
+                    "start": 37,
+                    "end": 39
+                  }
+                },
+                {
+                  "marker": [
+                    "superlative",
+                    0
+                  ],
+                  "range": {
+                    "start": 41,
+                    "end": 52
+                  }
+                }
+              ],
+              "counter": 10
+            },
+            {
+              "operators": [
+                {
+                  "marker": [
+                    "list",
+                    1
+                  ],
+                  "range": {
+                    "start": 0,
+                    "end": 35
+                  }
+                },
+                {
+                  "marker": [
+                    "is",
+                    0
+                  ],
+                  "range": {
+                    "start": 37,
+                    "end": 39
+                  }
+                },
+                {
+                  "marker": [
+                    "superlative",
+                    0
+                  ],
+                  "range": {
+                    "start": 41,
+                    "end": 52
+                  }
+                }
+              ],
+              "counter": 11
+            },
+            {
+              "operators": [
+                {
+                  "marker": [
+                    "is",
+                    1
+                  ],
+                  "range": {
+                    "start": 0,
+                    "end": 52
+                  }
+                }
+              ],
+              "counter": 12
+            },
+            {
+              "operators": [
+                {
+                  "marker": [
+                    "is",
+                    2
+                  ],
+                  "range": {
+                    "start": 0,
+                    "end": 52
+                  }
+                }
+              ],
+              "counter": 13
+            }
+          ],
+          "length": 1
+        }
+      ],
+      "learned_contextual_priorities": [],
+      "rtf_associations": [],
+      "query": "highest, lowest, maximum and minimum are superlatives",
+      "key": {
+        "query": "highest, lowest, maximum and minimum are superlatives"
+      }
+    },
+    {
+      "extraConfig": true,
+      "name": "comparable",
+      "operators": [
+        "((condition/*) <compare|> ([comparable]))"
+      ],
+      "associations": {
+        "positive": [
+          {
+            "context": [
+              [
+                "article",
+                0
+              ],
+              [
+                "condition",
+                0
+              ],
+              [
+                "comparable",
+                0
+              ]
+            ],
+            "choose": 2
+          },
+          {
+            "context": [
+              [
+                "article",
+                0
+              ],
+              [
+                "condition",
+                0
+              ],
+              [
+                "comparable",
+                1
+              ]
+            ],
+            "choose": 2
+          }
+        ]
+      },
+      "bridges": [
+        {
+          "id": "compare",
+          "convolution": true,
+          "before": [
+            "verb",
+            "article"
+          ],
+          "bridge": "{ ...next(before[0]), property: after, postModifiers: append([after[0].marker], before[0].modifiers), [after[0].marker.id]: after[0] }"
+        },
+        {
+          "id": "comparable",
+          "isA": [
+            "theAble"
+          ]
+        }
+      ]
+    },
+    {
       "extraConfig": true,
       "operators": [
         "((comparable/*) [sortOrdering] (sort_ordering/*))"
@@ -2302,6 +5482,96 @@
     ],
     [
       [
+        "comma",
+        0
+      ],
+      [
+        "is",
+        0
+      ],
+      [
+        "list",
+        0
+      ],
+      [
+        "superlative",
+        0
+      ],
+      [
+        "unknown",
+        0
+      ]
+    ],
+    [
+      [
+        "comma",
+        0
+      ],
+      [
+        "is",
+        0
+      ],
+      [
+        "list",
+        1
+      ],
+      [
+        "superlative",
+        0
+      ],
+      [
+        "unknown",
+        0
+      ]
+    ],
+    [
+      [
+        "condition",
+        0
+      ],
+      [
+        "is",
+        0
+      ],
+      [
+        "unknown",
+        0
+      ]
+    ],
+    [
+      [
+        "is",
+        0
+      ],
+      [
+        "list",
+        1
+      ],
+      [
+        "superlative",
+        0
+      ]
+    ],
+    [
+      [
+        "is",
+        0
+      ],
+      [
+        "list",
+        1
+      ],
+      [
+        "superlative",
+        0
+      ],
+      [
+        "unknown",
+        0
+      ]
+    ],
+    [
+      [
         "is",
         0
       ],
@@ -2321,6 +5591,16 @@
       ],
       [
         "sort_ordering",
+        0
+      ],
+      [
+        "unknown",
+        0
+      ]
+    ],
+    [
+      [
+        "is",
         0
       ],
       [
@@ -2911,6 +6191,1106 @@
             }
           ],
           "counter": 6
+        }
+      ],
+      "length": 1
+    },
+    {
+      "summaries": [
+        {
+          "operators": [
+            {
+              "marker": [
+                "unknown",
+                0
+              ],
+              "range": {
+                "start": 0,
+                "end": 9
+              }
+            },
+            {
+              "marker": [
+                "is",
+                0
+              ],
+              "range": {
+                "start": 11,
+                "end": 13
+              }
+            },
+            {
+              "marker": [
+                "unknown",
+                0
+              ],
+              "range": {
+                "start": 15,
+                "end": 22
+              }
+            }
+          ],
+          "counter": 1
+        },
+        {
+          "operators": [
+            {
+              "marker": [
+                "unknown",
+                0
+              ],
+              "range": {
+                "start": 0,
+                "end": 9
+              }
+            },
+            {
+              "marker": [
+                "is",
+                0
+              ],
+              "range": {
+                "start": 11,
+                "end": 13
+              }
+            },
+            {
+              "marker": [
+                "unknown",
+                0
+              ],
+              "range": {
+                "start": 15,
+                "end": 22
+              }
+            }
+          ],
+          "counter": 2
+        },
+        {
+          "operators": [
+            {
+              "marker": [
+                "unknown",
+                0
+              ],
+              "range": {
+                "start": 0,
+                "end": 9
+              }
+            },
+            {
+              "marker": [
+                "is",
+                0
+              ],
+              "range": {
+                "start": 11,
+                "end": 13
+              }
+            },
+            {
+              "marker": [
+                "unknown",
+                0
+              ],
+              "range": {
+                "start": 15,
+                "end": 22
+              }
+            }
+          ],
+          "counter": 3
+        },
+        {
+          "operators": [
+            {
+              "marker": [
+                "is",
+                1
+              ],
+              "range": {
+                "start": 0,
+                "end": 22
+              }
+            }
+          ],
+          "counter": 4
+        },
+        {
+          "operators": [
+            {
+              "marker": [
+                "is",
+                2
+              ],
+              "range": {
+                "start": 0,
+                "end": 22
+              }
+            }
+          ],
+          "counter": 5
+        }
+      ],
+      "length": 1
+    },
+    {
+      "summaries": [
+        {
+          "operators": [
+            {
+              "marker": [
+                "unknown",
+                0
+              ],
+              "range": {
+                "start": 0,
+                "end": 11
+              }
+            },
+            {
+              "marker": [
+                "is",
+                0
+              ],
+              "range": {
+                "start": 13,
+                "end": 15
+              }
+            },
+            {
+              "marker": [
+                "condition",
+                0
+              ],
+              "range": {
+                "start": 17,
+                "end": 26
+              }
+            }
+          ],
+          "counter": 1
+        },
+        {
+          "operators": [
+            {
+              "marker": [
+                "unknown",
+                0
+              ],
+              "range": {
+                "start": 0,
+                "end": 11
+              }
+            },
+            {
+              "marker": [
+                "is",
+                0
+              ],
+              "range": {
+                "start": 13,
+                "end": 15
+              }
+            },
+            {
+              "marker": [
+                "condition",
+                0
+              ],
+              "range": {
+                "start": 17,
+                "end": 26
+              }
+            }
+          ],
+          "counter": 2
+        },
+        {
+          "operators": [
+            {
+              "marker": [
+                "unknown",
+                0
+              ],
+              "range": {
+                "start": 0,
+                "end": 11
+              }
+            },
+            {
+              "marker": [
+                "is",
+                0
+              ],
+              "range": {
+                "start": 13,
+                "end": 15
+              }
+            },
+            {
+              "marker": [
+                "condition",
+                0
+              ],
+              "range": {
+                "start": 17,
+                "end": 26
+              }
+            }
+          ],
+          "counter": 3
+        },
+        {
+          "operators": [
+            {
+              "marker": [
+                "is",
+                1
+              ],
+              "range": {
+                "start": 0,
+                "end": 26
+              }
+            }
+          ],
+          "counter": 4
+        },
+        {
+          "operators": [
+            {
+              "marker": [
+                "is",
+                2
+              ],
+              "range": {
+                "start": 0,
+                "end": 26
+              }
+            }
+          ],
+          "counter": 5
+        }
+      ],
+      "length": 1
+    },
+    {
+      "summaries": [
+        {
+          "operators": [
+            {
+              "marker": [
+                "unknown",
+                0
+              ],
+              "range": {
+                "start": 0,
+                "end": 6
+              }
+            },
+            {
+              "marker": [
+                "comma",
+                0
+              ],
+              "range": {
+                "start": 7,
+                "end": 7
+              }
+            },
+            {
+              "marker": [
+                "unknown",
+                0
+              ],
+              "range": {
+                "start": 9,
+                "end": 14
+              }
+            },
+            {
+              "marker": [
+                "comma",
+                0
+              ],
+              "range": {
+                "start": 15,
+                "end": 15
+              }
+            },
+            {
+              "marker": [
+                "unknown",
+                0
+              ],
+              "range": {
+                "start": 17,
+                "end": 23
+              }
+            },
+            {
+              "marker": [
+                "list",
+                0
+              ],
+              "range": {
+                "start": 25,
+                "end": 27
+              }
+            },
+            {
+              "marker": [
+                "unknown",
+                0
+              ],
+              "range": {
+                "start": 29,
+                "end": 35
+              }
+            },
+            {
+              "marker": [
+                "is",
+                0
+              ],
+              "range": {
+                "start": 37,
+                "end": 39
+              }
+            },
+            {
+              "marker": [
+                "superlative",
+                0
+              ],
+              "range": {
+                "start": 41,
+                "end": 52
+              }
+            }
+          ],
+          "counter": 1
+        },
+        {
+          "operators": [
+            {
+              "marker": [
+                "unknown",
+                0
+              ],
+              "range": {
+                "start": 0,
+                "end": 6
+              }
+            },
+            {
+              "marker": [
+                "comma",
+                0
+              ],
+              "range": {
+                "start": 7,
+                "end": 7
+              }
+            },
+            {
+              "marker": [
+                "unknown",
+                0
+              ],
+              "range": {
+                "start": 9,
+                "end": 14
+              }
+            },
+            {
+              "marker": [
+                "comma",
+                0
+              ],
+              "range": {
+                "start": 15,
+                "end": 15
+              }
+            },
+            {
+              "marker": [
+                "unknown",
+                0
+              ],
+              "range": {
+                "start": 17,
+                "end": 23
+              }
+            },
+            {
+              "marker": [
+                "list",
+                0
+              ],
+              "range": {
+                "start": 25,
+                "end": 27
+              }
+            },
+            {
+              "marker": [
+                "unknown",
+                0
+              ],
+              "range": {
+                "start": 29,
+                "end": 35
+              }
+            },
+            {
+              "marker": [
+                "is",
+                0
+              ],
+              "range": {
+                "start": 37,
+                "end": 39
+              }
+            },
+            {
+              "marker": [
+                "superlative",
+                0
+              ],
+              "range": {
+                "start": 41,
+                "end": 52
+              }
+            }
+          ],
+          "counter": 2
+        },
+        {
+          "operators": [
+            {
+              "marker": [
+                "unknown",
+                0
+              ],
+              "range": {
+                "start": 0,
+                "end": 6
+              }
+            },
+            {
+              "marker": [
+                "comma",
+                0
+              ],
+              "range": {
+                "start": 7,
+                "end": 7
+              }
+            },
+            {
+              "marker": [
+                "unknown",
+                0
+              ],
+              "range": {
+                "start": 9,
+                "end": 14
+              }
+            },
+            {
+              "marker": [
+                "comma",
+                0
+              ],
+              "range": {
+                "start": 15,
+                "end": 15
+              }
+            },
+            {
+              "marker": [
+                "unknown",
+                0
+              ],
+              "range": {
+                "start": 17,
+                "end": 23
+              }
+            },
+            {
+              "marker": [
+                "list",
+                0
+              ],
+              "range": {
+                "start": 25,
+                "end": 27
+              }
+            },
+            {
+              "marker": [
+                "unknown",
+                0
+              ],
+              "range": {
+                "start": 29,
+                "end": 35
+              }
+            },
+            {
+              "marker": [
+                "is",
+                0
+              ],
+              "range": {
+                "start": 37,
+                "end": 39
+              }
+            },
+            {
+              "marker": [
+                "superlative",
+                0
+              ],
+              "range": {
+                "start": 41,
+                "end": 52
+              }
+            }
+          ],
+          "counter": 3
+        },
+        {
+          "operators": [
+            {
+              "marker": [
+                "unknown",
+                0
+              ],
+              "range": {
+                "start": 0,
+                "end": 6
+              }
+            },
+            {
+              "marker": [
+                "comma",
+                0
+              ],
+              "range": {
+                "start": 7,
+                "end": 7
+              }
+            },
+            {
+              "marker": [
+                "unknown",
+                0
+              ],
+              "range": {
+                "start": 9,
+                "end": 14
+              }
+            },
+            {
+              "marker": [
+                "comma",
+                0
+              ],
+              "range": {
+                "start": 15,
+                "end": 15
+              }
+            },
+            {
+              "marker": [
+                "unknown",
+                0
+              ],
+              "range": {
+                "start": 17,
+                "end": 23
+              }
+            },
+            {
+              "marker": [
+                "list",
+                0
+              ],
+              "range": {
+                "start": 25,
+                "end": 27
+              }
+            },
+            {
+              "marker": [
+                "unknown",
+                0
+              ],
+              "range": {
+                "start": 29,
+                "end": 35
+              }
+            },
+            {
+              "marker": [
+                "is",
+                0
+              ],
+              "range": {
+                "start": 37,
+                "end": 39
+              }
+            },
+            {
+              "marker": [
+                "superlative",
+                0
+              ],
+              "range": {
+                "start": 41,
+                "end": 52
+              }
+            }
+          ],
+          "counter": 4
+        },
+        {
+          "operators": [
+            {
+              "marker": [
+                "unknown",
+                0
+              ],
+              "range": {
+                "start": 0,
+                "end": 6
+              }
+            },
+            {
+              "marker": [
+                "comma",
+                0
+              ],
+              "range": {
+                "start": 7,
+                "end": 7
+              }
+            },
+            {
+              "marker": [
+                "unknown",
+                0
+              ],
+              "range": {
+                "start": 9,
+                "end": 14
+              }
+            },
+            {
+              "marker": [
+                "comma",
+                0
+              ],
+              "range": {
+                "start": 15,
+                "end": 15
+              }
+            },
+            {
+              "marker": [
+                "unknown",
+                0
+              ],
+              "range": {
+                "start": 17,
+                "end": 23
+              }
+            },
+            {
+              "marker": [
+                "list",
+                0
+              ],
+              "range": {
+                "start": 25,
+                "end": 27
+              }
+            },
+            {
+              "marker": [
+                "unknown",
+                0
+              ],
+              "range": {
+                "start": 29,
+                "end": 35
+              }
+            },
+            {
+              "marker": [
+                "is",
+                0
+              ],
+              "range": {
+                "start": 37,
+                "end": 39
+              }
+            },
+            {
+              "marker": [
+                "superlative",
+                0
+              ],
+              "range": {
+                "start": 41,
+                "end": 52
+              }
+            }
+          ],
+          "counter": 5
+        },
+        {
+          "operators": [
+            {
+              "marker": [
+                "unknown",
+                0
+              ],
+              "range": {
+                "start": 0,
+                "end": 6
+              }
+            },
+            {
+              "marker": [
+                "comma",
+                0
+              ],
+              "range": {
+                "start": 7,
+                "end": 7
+              }
+            },
+            {
+              "marker": [
+                "unknown",
+                0
+              ],
+              "range": {
+                "start": 9,
+                "end": 14
+              }
+            },
+            {
+              "marker": [
+                "comma",
+                0
+              ],
+              "range": {
+                "start": 15,
+                "end": 15
+              }
+            },
+            {
+              "marker": [
+                "list",
+                1
+              ],
+              "range": {
+                "start": 17,
+                "end": 35
+              }
+            },
+            {
+              "marker": [
+                "is",
+                0
+              ],
+              "range": {
+                "start": 37,
+                "end": 39
+              }
+            },
+            {
+              "marker": [
+                "superlative",
+                0
+              ],
+              "range": {
+                "start": 41,
+                "end": 52
+              }
+            }
+          ],
+          "counter": 6
+        },
+        {
+          "operators": [
+            {
+              "marker": [
+                "unknown",
+                0
+              ],
+              "range": {
+                "start": 0,
+                "end": 7
+              }
+            },
+            {
+              "marker": [
+                "unknown",
+                0
+              ],
+              "range": {
+                "start": 9,
+                "end": 14
+              }
+            },
+            {
+              "marker": [
+                "comma",
+                0
+              ],
+              "range": {
+                "start": 15,
+                "end": 15
+              }
+            },
+            {
+              "marker": [
+                "list",
+                1
+              ],
+              "range": {
+                "start": 17,
+                "end": 35
+              }
+            },
+            {
+              "marker": [
+                "is",
+                0
+              ],
+              "range": {
+                "start": 37,
+                "end": 39
+              }
+            },
+            {
+              "marker": [
+                "superlative",
+                0
+              ],
+              "range": {
+                "start": 41,
+                "end": 52
+              }
+            }
+          ],
+          "counter": 7
+        },
+        {
+          "operators": [
+            {
+              "marker": [
+                "unknown",
+                0
+              ],
+              "range": {
+                "start": 0,
+                "end": 7
+              }
+            },
+            {
+              "marker": [
+                "unknown",
+                0
+              ],
+              "range": {
+                "start": 9,
+                "end": 15
+              }
+            },
+            {
+              "marker": [
+                "list",
+                1
+              ],
+              "range": {
+                "start": 17,
+                "end": 35
+              }
+            },
+            {
+              "marker": [
+                "is",
+                0
+              ],
+              "range": {
+                "start": 37,
+                "end": 39
+              }
+            },
+            {
+              "marker": [
+                "superlative",
+                0
+              ],
+              "range": {
+                "start": 41,
+                "end": 52
+              }
+            }
+          ],
+          "counter": 8
+        },
+        {
+          "operators": [
+            {
+              "marker": [
+                "unknown",
+                0
+              ],
+              "range": {
+                "start": 0,
+                "end": 7
+              }
+            },
+            {
+              "marker": [
+                "list",
+                1
+              ],
+              "range": {
+                "start": 9,
+                "end": 35
+              }
+            },
+            {
+              "marker": [
+                "is",
+                0
+              ],
+              "range": {
+                "start": 37,
+                "end": 39
+              }
+            },
+            {
+              "marker": [
+                "superlative",
+                0
+              ],
+              "range": {
+                "start": 41,
+                "end": 52
+              }
+            }
+          ],
+          "counter": 9
+        },
+        {
+          "operators": [
+            {
+              "marker": [
+                "list",
+                1
+              ],
+              "range": {
+                "start": 0,
+                "end": 35
+              }
+            },
+            {
+              "marker": [
+                "is",
+                0
+              ],
+              "range": {
+                "start": 37,
+                "end": 39
+              }
+            },
+            {
+              "marker": [
+                "superlative",
+                0
+              ],
+              "range": {
+                "start": 41,
+                "end": 52
+              }
+            }
+          ],
+          "counter": 10
+        },
+        {
+          "operators": [
+            {
+              "marker": [
+                "list",
+                1
+              ],
+              "range": {
+                "start": 0,
+                "end": 35
+              }
+            },
+            {
+              "marker": [
+                "is",
+                0
+              ],
+              "range": {
+                "start": 37,
+                "end": 39
+              }
+            },
+            {
+              "marker": [
+                "superlative",
+                0
+              ],
+              "range": {
+                "start": 41,
+                "end": 52
+              }
+            }
+          ],
+          "counter": 11
+        },
+        {
+          "operators": [
+            {
+              "marker": [
+                "is",
+                1
+              ],
+              "range": {
+                "start": 0,
+                "end": 52
+              }
+            }
+          ],
+          "counter": 12
+        },
+        {
+          "operators": [
+            {
+              "marker": [
+                "is",
+                2
+              ],
+              "range": {
+                "start": 0,
+                "end": 52
+              }
+            }
+          ],
+          "counter": 13
         }
       ],
       "length": 1

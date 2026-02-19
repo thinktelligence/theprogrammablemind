@@ -984,3 +984,5 @@ node inspect drone -q 'calibrate\nforward 1 meter per minute' -g -d
 
 node  drone -q 'back and forth' -g -d
 node drone -q 'forward 2 meters\ngo back and forth 2 times' -g -d
+
+node drone -q 'what is the speed in inches per second' -g -d

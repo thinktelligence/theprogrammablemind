@@ -10,10 +10,7 @@ const instance = require('./comparable.instance.json')
 const config = {
   name: 'comparable',
   operators: [
-    "([condition|])",
-    "(([condition/*]) <compare|> ([comparable]))",
-    "([highest])",
-    "([lowest])",
+    "((condition/*) <compare|> ([comparable]))",
     // "((comparable/*) <sortOrdering|>)",
   ],
   associations: {
@@ -27,21 +24,12 @@ const config = {
       id: "compare", 
       convolution: true, 
       before: ['verb', 'article'],
-      // bridge: "{ ...after, comparison: append(before[0], after[0].comparison), modifiers: append([before[0].marker], after[0].modifiers), [before[0].marker]: before[0] }" 
-      // bridge: "{ ...after, comparison: append([], before[0].marker, after[0].comparison) }" 
       bridge: "{ ...next(before[0]), property: after, postModifiers: append([after[0].marker], before[0].modifiers), [after[0].marker.id]: after[0] }" 
-      // bridge: "{ ...next(operator), property: after, postModifiers: append([after[0].marker], before[0].modifiers), [after[0].marker.id]: after[0] }" 
-    },
-    { 
-      id: "condition", 
-      children: ['highest', 'lowest'],
     },
     { 
       id: "comparable", 
       isA: ['theAble'],
     },
-    { id: "lowest", },
-    { id: "highest", },
   ],
 };
 
@@ -50,6 +38,10 @@ const template = {
     "sort modifies ordering",
     "ascending is a sort ordering",
     "descending is a sort ordering",
+    "conditions are concepts",
+    "superlatives are conditions",
+    "highest, lowest, maximum and minimum are superlatives",
+    config,
     {
       operators: [
         "((comparable/*) [sortOrdering] (sort_ordering/*))",
@@ -63,12 +55,12 @@ const template = {
           bridge: "{ ...next(before[0]), ordering: after[0].value, sortOrder: after[0], postModifiers: append(['sortOrder'], before[0].postModifiers) }",
         },
       ],
-    }
+    },
   ],
 }
 
 knowledgeModule({ 
-  config,
+  config: { name: 'comparable' },
   includes: [dialogues, numbers, concept],
   instance,
   template,

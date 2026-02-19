@@ -24,18 +24,30 @@ const config = {
       id: 'evaluate',
       after: ['verb'],
       bridge: "{ ...next(operator), postModifiers: ['value'], value: after[0] }",
-      semantic: async ({context, e}) => {
-        context.response = (await e(context.value)).evalue
-        if (context.response) {
-          context.isResponse = true
-        }
+      semantic: async ({context, e, resolveResponse}) => {
+        resolveResponse(context, (await e(context.value)).evalue)
       }
     }
   ],
 };
 
+function initializer({objects, config, isModule}) {
+  config.addArgs(({config, api, isA}) => ({
+    resolveResponse: (context, value) => {
+      context.response = value
+      if (context.response) {
+        context.isResponse = true
+      }
+    },
+    resolveEvaluate: (context, value) => {
+      context.evalue = value
+    },
+  }))
+}
+
 knowledgeModule({ 
   config,
+  initializer,
   includes: [pos, gdefaults],
 
   module,
