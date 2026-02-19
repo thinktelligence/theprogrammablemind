@@ -79,6 +79,10 @@
       ],
       "semantics": [
         {
+          "match": "({context}) => context.marker == 'timeRepeats'",
+          "apply": "({context, objects, toFinalValue}) => {\n            objects.runCommand = true\n            objects.current.timeRepeats = toFinalValue(context.repeats)\n          }"
+        },
+        {
           "match": "({context, toArray}) => {\n            if (context.marker !== 'list') {\n              return false\n            }\n\n            const array = toArray(context)\n            if (array[0].marker == 'back' && array[1].marker == 'forth') {\n              return true\n            }\n          }",
           "apply": "({context, objects, api, mentions}) => {\n            objects.runCommand = true\n            objects.current.backAndForth = true\n            const ordinal = api.currentOrdinal()\n            const currentPoint = mentions({ context: { marker: 'point' }, condition: (context) => context.ordinal == ordinal })\n            const lastPoint = mentions({ context: { marker: 'point' }, condition: (context) => context.ordinal == ordinal-1 })\n            objects.current.path.push(lastPoint)\n            objects.current.path.push(currentPoint)\n          }"
         }
@@ -15748,6 +15752,7 @@
         {}
       ],
       "semantics": [
+        {},
         {}
       ]
     }
@@ -24299,7 +24304,6 @@
             ],
             "level": 0
           },
-          "value": "number",
           "amount": {
             "instance": false,
             "marker": "number",

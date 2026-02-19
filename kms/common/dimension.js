@@ -130,7 +130,8 @@ const config = {
     { 
       id: "amountOfCoordinate", 
       convolution: true, 
-      bridge: "{ marker: next(operator('quantity')), dead: true, unit: after[0], value: before[0].value, amount: before[0] }" 
+      // bridge: "{ marker: next(operator('quantity')), dead: true, unit: after[0], value: before[0].value, amount: before[0] }" 
+      bridge: "{ marker: next(operator('quantity')), dead: true, unit: after[0], amount: before[0] }" 
     },
     { 
       where: where(),

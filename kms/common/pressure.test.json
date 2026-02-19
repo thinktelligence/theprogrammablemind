@@ -143,8 +143,7 @@
                 ],
                 "value": "atmosphere",
                 "word": "atmospheres"
-              },
-              "value": 2
+              }
             },
             "level": 1,
             "marker": "convertToUnits",
@@ -184,12 +183,34 @@
                   "dead": true,
                   "evalue": 202650,
                   "instance": true,
+                  "interpolate": [
+                    {
+                      "property": "x"
+                    },
+                    {
+                      "property": "operator"
+                    },
+                    {
+                      "property": "y"
+                    }
+                  ],
                   "isModule": true,
                   "isProcess": true,
                   "isResponse": true,
                   "level": 1,
                   "marker": "timesExpression",
                   "number": "one",
+                  "operator": {
+                    "level": 0,
+                    "marker": "timesOperator",
+                    "range": {
+                      "end": 22,
+                      "start": 22
+                    },
+                    "text": "*",
+                    "value": "timesOperator",
+                    "word": "*"
+                  },
                   "range": {
                     "end": 29,
                     "start": 10
@@ -306,8 +327,7 @@
                 ],
                 "value": "atmosphere",
                 "word": "atmospheres"
-              },
-              "value": 2
+              }
             },
             "instance": true,
             "isModule": true,
@@ -431,8 +451,7 @@
               ],
               "value": "atmosphere",
               "word": "atmospheres"
-            },
-            "value": 2
+            }
           },
           "level": 1,
           "marker": "convertToUnits",
@@ -762,10 +781,32 @@
                   "right": {
                     "dead": true,
                     "evaluate": true,
+                    "interpolate": [
+                      {
+                        "property": "x"
+                      },
+                      {
+                        "property": "operator"
+                      },
+                      {
+                        "property": "y"
+                      }
+                    ],
                     "isResponse": true,
                     "level": 1,
                     "marker": "divideByExpression",
                     "number": "one",
+                    "operator": {
+                      "level": 0,
+                      "marker": "divideByOperator",
+                      "range": {
+                        "end": 22,
+                        "start": 22
+                      },
+                      "text": "/",
+                      "value": "divideByOperator",
+                      "word": "/"
+                    },
                     "range": {
                       "end": 29,
                       "start": 14
@@ -823,10 +864,32 @@
                 "formula": {
                   "dead": true,
                   "evaluate": true,
+                  "interpolate": [
+                    {
+                      "property": "x"
+                    },
+                    {
+                      "property": "operator"
+                    },
+                    {
+                      "property": "y"
+                    }
+                  ],
                   "isResponse": true,
                   "level": 1,
                   "marker": "divideByExpression",
                   "number": "one",
+                  "operator": {
+                    "level": 0,
+                    "marker": "divideByOperator",
+                    "range": {
+                      "end": 22,
+                      "start": 22
+                    },
+                    "text": "/",
+                    "value": "divideByOperator",
+                    "word": "/"
+                  },
                   "range": {
                     "end": 29,
                     "start": 14
@@ -923,10 +986,32 @@
                   "right": {
                     "dead": true,
                     "evaluate": true,
+                    "interpolate": [
+                      {
+                        "property": "x"
+                      },
+                      {
+                        "property": "operator"
+                      },
+                      {
+                        "property": "y"
+                      }
+                    ],
                     "isResponse": true,
                     "level": 1,
                     "marker": "timesExpression",
                     "number": "one",
+                    "operator": {
+                      "level": 0,
+                      "marker": "timesOperator",
+                      "range": {
+                        "end": 22,
+                        "start": 22
+                      },
+                      "text": "*",
+                      "value": "timesOperator",
+                      "word": "*"
+                    },
                     "range": {
                       "end": 29,
                       "start": 10
@@ -984,10 +1069,32 @@
                 "formula": {
                   "dead": true,
                   "evaluate": true,
+                  "interpolate": [
+                    {
+                      "property": "x"
+                    },
+                    {
+                      "property": "operator"
+                    },
+                    {
+                      "property": "y"
+                    }
+                  ],
                   "isResponse": true,
                   "level": 1,
                   "marker": "timesExpression",
                   "number": "one",
+                  "operator": {
+                    "level": 0,
+                    "marker": "timesOperator",
+                    "range": {
+                      "end": 22,
+                      "start": 22
+                    },
+                    "text": "*",
+                    "value": "timesOperator",
+                    "word": "*"
+                  },
                   "range": {
                     "end": 29,
                     "start": 10
@@ -1082,6 +1189,8 @@
         "properties2": {
           "children": {
             "adjective": [
+              "stm_previous",
+              "stm_current",
               "stm_before"
             ],
             "article": [
@@ -1100,7 +1209,7 @@
             "concept": [
               "formula",
               "dimension",
-              "unit"
+              "measurement_unit"
             ],
             "dimension": [
               "pressure"
@@ -1114,6 +1223,10 @@
             "listable": [
               "object",
               "queryable"
+            ],
+            "measurement_system": [
+              "metric_system",
+              "imperial_system"
             ],
             "object": [
               "what",
@@ -1170,6 +1283,10 @@
             "toAble": [
               "it"
             ],
+            "unit": [
+              "imperial_unit",
+              "metric_unit"
+            ],
             "unit_pressure": [
               "pascal",
               "atmosphere"
@@ -1221,8 +1338,10 @@
             "reason",
             "memorable",
             "remember",
-            "stm_before",
+            "stm_previous",
             "adjective",
+            "stm_current",
+            "stm_before",
             "orAble",
             "ifAble",
             "each",
@@ -1236,7 +1355,13 @@
             "descending",
             "formula",
             "dimension",
+            "measurement_unit",
+            "metric_system",
+            "measurement_system",
+            "imperial_system",
+            "imperial_unit",
             "unit",
+            "metric_unit",
             "pressure",
             "pascal",
             "unit_pressure",
@@ -1288,6 +1413,12 @@
             "hierarchyAble": [
               "queryable"
             ],
+            "imperial_system": [
+              "measurement_system"
+            ],
+            "imperial_unit": [
+              "unit"
+            ],
             "is": [
               "canBeQuestion",
               "verb"
@@ -1304,8 +1435,17 @@
             "listable": [
               "theAble"
             ],
+            "measurement_unit": [
+              "concept"
+            ],
             "memorable": [
               "theAble"
+            ],
+            "metric_system": [
+              "measurement_system"
+            ],
+            "metric_unit": [
+              "unit"
             ],
             "modifies": [
               "verb"
@@ -1356,6 +1496,12 @@
             "stm_before": [
               "adjective"
             ],
+            "stm_current": [
+              "adjective"
+            ],
+            "stm_previous": [
+              "adjective"
+            ],
             "that": [
               "thisitthat"
             ],
@@ -1375,9 +1521,6 @@
             ],
             "to": [
               "preposition"
-            ],
-            "unit": [
-              "concept"
             ],
             "unknown": [
               "hierarchyAble"
@@ -1440,6 +1583,10 @@
               },
               "ifAble": {
               },
+              "imperial_system": {
+              },
+              "imperial_unit": {
+              },
               "is": {
               },
               "isQuery": {
@@ -1448,7 +1595,15 @@
               },
               "listable": {
               },
+              "measurement_system": {
+              },
+              "measurement_unit": {
+              },
               "memorable": {
+              },
+              "metric_system": {
+              },
+              "metric_unit": {
               },
               "modifies": {
               },
@@ -1487,6 +1642,10 @@
               "sort_ordering": {
               },
               "stm_before": {
+              },
+              "stm_current": {
+              },
+              "stm_previous": {
               },
               "that": {
               },
@@ -1538,6 +1697,7 @@
           "mentioned": [
             {
               "fromSTM": true,
+              "isVariable": true,
               "marker": "atmosphere",
               "pullFromContext": false,
               "stm": {
@@ -1636,8 +1796,7 @@
                     ],
                     "value": "atmosphere",
                     "word": "atmospheres"
-                  },
-                  "value": 2
+                  }
                 },
                 "level": 1,
                 "marker": "convertToUnits",
@@ -1677,12 +1836,34 @@
                       "dead": true,
                       "evalue": 202650,
                       "instance": true,
+                      "interpolate": [
+                        {
+                          "property": "x"
+                        },
+                        {
+                          "property": "operator"
+                        },
+                        {
+                          "property": "y"
+                        }
+                      ],
                       "isModule": true,
                       "isProcess": true,
                       "isResponse": true,
                       "level": 1,
                       "marker": "timesExpression",
                       "number": "one",
+                      "operator": {
+                        "level": 0,
+                        "marker": "timesOperator",
+                        "range": {
+                          "end": 22,
+                          "start": 22
+                        },
+                        "text": "*",
+                        "value": "timesOperator",
+                        "word": "*"
+                      },
                       "range": {
                         "end": 29,
                         "start": 10
@@ -1799,8 +1980,7 @@
                     ],
                     "value": "atmosphere",
                     "word": "atmospheres"
-                  },
-                  "value": 2
+                  }
                 },
                 "instance": true,
                 "isModule": true,
@@ -1924,8 +2104,7 @@
                   ],
                   "value": "atmosphere",
                   "word": "atmospheres"
-                },
-                "value": 2
+                }
               },
               "level": 1,
               "marker": "convertToUnits",
@@ -1999,10 +2178,32 @@
             "right": {
               "dead": true,
               "evaluate": true,
+              "interpolate": [
+                {
+                  "property": "x"
+                },
+                {
+                  "property": "operator"
+                },
+                {
+                  "property": "y"
+                }
+              ],
               "isResponse": true,
               "level": 1,
               "marker": "divideByExpression",
               "number": "one",
+              "operator": {
+                "level": 0,
+                "marker": "divideByOperator",
+                "range": {
+                  "end": 22,
+                  "start": 22
+                },
+                "text": "/",
+                "value": "divideByOperator",
+                "word": "/"
+              },
               "range": {
                 "end": 29,
                 "start": 14
@@ -2097,10 +2298,32 @@
             "right": {
               "dead": true,
               "evaluate": true,
+              "interpolate": [
+                {
+                  "property": "x"
+                },
+                {
+                  "property": "operator"
+                },
+                {
+                  "property": "y"
+                }
+              ],
               "isResponse": true,
               "level": 1,
               "marker": "timesExpression",
               "number": "one",
+              "operator": {
+                "level": 0,
+                "marker": "timesOperator",
+                "range": {
+                  "end": 22,
+                  "start": 22
+                },
+                "text": "*",
+                "value": "timesOperator",
+                "word": "*"
+              },
               "range": {
                 "end": 29,
                 "start": 10
@@ -2399,88 +2622,89 @@
             "dead": true,
             "level": 2,
             "marker": "is",
-            "number": "many",
+            "number": "one",
             "one": {
-              "default": true,
-              "isList": true,
-              "level": 1,
-              "listable": true,
-              "marker": "list",
-              "number": "many",
+              "atomic": true,
+              "dead": true,
+              "level": 0,
+              "marker": "metric_unit",
+              "modifier_metric": {
+                "level": 0,
+                "marker": "metric",
+                "number": "one",
+                "range": {
+                  "end": 5,
+                  "start": 0
+                },
+                "text": "metric",
+                "types": [
+                  "metric"
+                ],
+                "value": "metric",
+                "word": "metric"
+              },
+              "modifiers": [
+                "modifier_metric"
+              ],
+              "number": "one",
               "range": {
-                "end": 17,
+                "end": 10,
                 "start": 0
               },
-              "text": "dimension and unit",
+              "text": "metric unit",
               "types": [
-                "list",
-                "unknown"
+                "metric_unit",
+                "unit"
               ],
-              "value": [
-                {
-                  "dead": true,
-                  "level": 0,
-                  "marker": "unknown",
-                  "range": {
-                    "end": 8,
-                    "start": 0
-                  },
-                  "text": "dimension",
-                  "types": [
-                    "unknown"
-                  ],
-                  "unknown": true,
-                  "value": "dimension",
-                  "word": "dimension"
-                },
-                {
-                  "dead": true,
-                  "level": 0,
-                  "marker": "unknown",
-                  "range": {
-                    "end": 17,
-                    "start": 14
-                  },
-                  "text": "unit",
-                  "types": [
-                    "unknown"
-                  ],
-                  "unknown": true,
-                  "value": "unit",
-                  "word": "unit"
-                }
-              ],
-              "word": "and"
+              "value": "metric_unit",
+              "word": "unit"
             },
             "range": {
-              "end": 30,
+              "end": 20,
               "start": 0
             },
-            "text": "dimension and unit are concepts",
+            "text": "metric unit is a unit",
             "topLevel": true,
             "touchedBy": [
               "dimension#call2",
-              "instance0#dimension#call2",
-              "instance0#pressure#call2"
+              "instance12#dimension#call2",
+              "instance12#pressure#call2"
             ],
             "two": {
               "concept": true,
               "dead": true,
-              "level": 0,
-              "marker": "unknown",
-              "range": {
-                "end": 30,
-                "start": 23
+              "determiner": {
+                "default": true,
+                "level": 0,
+                "marker": "a",
+                "range": {
+                  "end": 15,
+                  "start": 15
+                },
+                "text": "a",
+                "word": "a"
               },
-              "text": "concepts",
-              "types": [
-                "unknown"
+              "instance": true,
+              "level": 1,
+              "marker": "unit",
+              "modifiers": [
+                "determiner"
               ],
-              "unknown": true,
-              "value": "concepts",
-              "word": "concepts"
+              "number": "one",
+              "pullFromContext": false,
+              "range": {
+                "end": 20,
+                "start": 15
+              },
+              "text": "a unit",
+              "types": [
+                "unit"
+              ],
+              "value": "unit",
+              "wantsValue": true,
+              "word": "unit"
             },
-            "word": "are"
+            "word": "is"
           },
           "generatedParenthesized": [
           ],
@@ -3080,8 +3304,7 @@
                 ],
                 "value": "pascal",
                 "word": "pascals"
-              },
-              "value": 200000
+              }
             },
             "level": 1,
             "marker": "convertToUnits",
@@ -3121,12 +3344,34 @@
                   "dead": true,
                   "evalue": 1.9738,
                   "instance": true,
+                  "interpolate": [
+                    {
+                      "property": "x"
+                    },
+                    {
+                      "property": "operator"
+                    },
+                    {
+                      "property": "y"
+                    }
+                  ],
                   "isModule": true,
                   "isProcess": true,
                   "isResponse": true,
                   "level": 1,
                   "marker": "divideByExpression",
                   "number": "one",
+                  "operator": {
+                    "level": 0,
+                    "marker": "divideByOperator",
+                    "range": {
+                      "end": 22,
+                      "start": 22
+                    },
+                    "text": "/",
+                    "value": "divideByOperator",
+                    "word": "/"
+                  },
                   "range": {
                     "end": 29,
                     "start": 14
@@ -3243,8 +3488,7 @@
                 ],
                 "value": "pascal",
                 "word": "pascals"
-              },
-              "value": 200000
+              }
             },
             "instance": true,
             "isModule": true,
@@ -3368,8 +3612,7 @@
               ],
               "value": "pascal",
               "word": "pascals"
-            },
-            "value": 200000
+            }
           },
           "level": 1,
           "marker": "convertToUnits",
@@ -3699,10 +3942,32 @@
                   "right": {
                     "dead": true,
                     "evaluate": true,
+                    "interpolate": [
+                      {
+                        "property": "x"
+                      },
+                      {
+                        "property": "operator"
+                      },
+                      {
+                        "property": "y"
+                      }
+                    ],
                     "isResponse": true,
                     "level": 1,
                     "marker": "divideByExpression",
                     "number": "one",
+                    "operator": {
+                      "level": 0,
+                      "marker": "divideByOperator",
+                      "range": {
+                        "end": 22,
+                        "start": 22
+                      },
+                      "text": "/",
+                      "value": "divideByOperator",
+                      "word": "/"
+                    },
                     "range": {
                       "end": 29,
                       "start": 14
@@ -3760,10 +4025,32 @@
                 "formula": {
                   "dead": true,
                   "evaluate": true,
+                  "interpolate": [
+                    {
+                      "property": "x"
+                    },
+                    {
+                      "property": "operator"
+                    },
+                    {
+                      "property": "y"
+                    }
+                  ],
                   "isResponse": true,
                   "level": 1,
                   "marker": "divideByExpression",
                   "number": "one",
+                  "operator": {
+                    "level": 0,
+                    "marker": "divideByOperator",
+                    "range": {
+                      "end": 22,
+                      "start": 22
+                    },
+                    "text": "/",
+                    "value": "divideByOperator",
+                    "word": "/"
+                  },
                   "range": {
                     "end": 29,
                     "start": 14
@@ -3860,10 +4147,32 @@
                   "right": {
                     "dead": true,
                     "evaluate": true,
+                    "interpolate": [
+                      {
+                        "property": "x"
+                      },
+                      {
+                        "property": "operator"
+                      },
+                      {
+                        "property": "y"
+                      }
+                    ],
                     "isResponse": true,
                     "level": 1,
                     "marker": "timesExpression",
                     "number": "one",
+                    "operator": {
+                      "level": 0,
+                      "marker": "timesOperator",
+                      "range": {
+                        "end": 22,
+                        "start": 22
+                      },
+                      "text": "*",
+                      "value": "timesOperator",
+                      "word": "*"
+                    },
                     "range": {
                       "end": 29,
                       "start": 10
@@ -3921,10 +4230,32 @@
                 "formula": {
                   "dead": true,
                   "evaluate": true,
+                  "interpolate": [
+                    {
+                      "property": "x"
+                    },
+                    {
+                      "property": "operator"
+                    },
+                    {
+                      "property": "y"
+                    }
+                  ],
                   "isResponse": true,
                   "level": 1,
                   "marker": "timesExpression",
                   "number": "one",
+                  "operator": {
+                    "level": 0,
+                    "marker": "timesOperator",
+                    "range": {
+                      "end": 22,
+                      "start": 22
+                    },
+                    "text": "*",
+                    "value": "timesOperator",
+                    "word": "*"
+                  },
                   "range": {
                     "end": 29,
                     "start": 10
@@ -4019,6 +4350,8 @@
         "properties2": {
           "children": {
             "adjective": [
+              "stm_previous",
+              "stm_current",
               "stm_before"
             ],
             "article": [
@@ -4037,7 +4370,7 @@
             "concept": [
               "formula",
               "dimension",
-              "unit"
+              "measurement_unit"
             ],
             "dimension": [
               "pressure"
@@ -4051,6 +4384,10 @@
             "listable": [
               "object",
               "queryable"
+            ],
+            "measurement_system": [
+              "metric_system",
+              "imperial_system"
             ],
             "object": [
               "what",
@@ -4107,6 +4444,10 @@
             "toAble": [
               "it"
             ],
+            "unit": [
+              "imperial_unit",
+              "metric_unit"
+            ],
             "unit_pressure": [
               "pascal",
               "atmosphere"
@@ -4158,8 +4499,10 @@
             "reason",
             "memorable",
             "remember",
-            "stm_before",
+            "stm_previous",
             "adjective",
+            "stm_current",
+            "stm_before",
             "orAble",
             "ifAble",
             "each",
@@ -4173,7 +4516,13 @@
             "descending",
             "formula",
             "dimension",
+            "measurement_unit",
+            "metric_system",
+            "measurement_system",
+            "imperial_system",
+            "imperial_unit",
             "unit",
+            "metric_unit",
             "pressure",
             "pascal",
             "unit_pressure",
@@ -4225,6 +4574,12 @@
             "hierarchyAble": [
               "queryable"
             ],
+            "imperial_system": [
+              "measurement_system"
+            ],
+            "imperial_unit": [
+              "unit"
+            ],
             "is": [
               "canBeQuestion",
               "verb"
@@ -4241,8 +4596,17 @@
             "listable": [
               "theAble"
             ],
+            "measurement_unit": [
+              "concept"
+            ],
             "memorable": [
               "theAble"
+            ],
+            "metric_system": [
+              "measurement_system"
+            ],
+            "metric_unit": [
+              "unit"
             ],
             "modifies": [
               "verb"
@@ -4293,6 +4657,12 @@
             "stm_before": [
               "adjective"
             ],
+            "stm_current": [
+              "adjective"
+            ],
+            "stm_previous": [
+              "adjective"
+            ],
             "that": [
               "thisitthat"
             ],
@@ -4312,9 +4682,6 @@
             ],
             "to": [
               "preposition"
-            ],
-            "unit": [
-              "concept"
             ],
             "unknown": [
               "hierarchyAble"
@@ -4377,6 +4744,10 @@
               },
               "ifAble": {
               },
+              "imperial_system": {
+              },
+              "imperial_unit": {
+              },
               "is": {
               },
               "isQuery": {
@@ -4385,7 +4756,15 @@
               },
               "listable": {
               },
+              "measurement_system": {
+              },
+              "measurement_unit": {
+              },
               "memorable": {
+              },
+              "metric_system": {
+              },
+              "metric_unit": {
               },
               "modifies": {
               },
@@ -4424,6 +4803,10 @@
               "sort_ordering": {
               },
               "stm_before": {
+              },
+              "stm_current": {
+              },
+              "stm_previous": {
               },
               "that": {
               },
@@ -4475,6 +4858,7 @@
           "mentioned": [
             {
               "fromSTM": true,
+              "isVariable": true,
               "marker": "pascal",
               "pullFromContext": false,
               "stm": {
@@ -4573,8 +4957,7 @@
                     ],
                     "value": "pascal",
                     "word": "pascals"
-                  },
-                  "value": 200000
+                  }
                 },
                 "level": 1,
                 "marker": "convertToUnits",
@@ -4614,12 +4997,34 @@
                       "dead": true,
                       "evalue": 1.9738,
                       "instance": true,
+                      "interpolate": [
+                        {
+                          "property": "x"
+                        },
+                        {
+                          "property": "operator"
+                        },
+                        {
+                          "property": "y"
+                        }
+                      ],
                       "isModule": true,
                       "isProcess": true,
                       "isResponse": true,
                       "level": 1,
                       "marker": "divideByExpression",
                       "number": "one",
+                      "operator": {
+                        "level": 0,
+                        "marker": "divideByOperator",
+                        "range": {
+                          "end": 22,
+                          "start": 22
+                        },
+                        "text": "/",
+                        "value": "divideByOperator",
+                        "word": "/"
+                      },
                       "range": {
                         "end": 29,
                         "start": 14
@@ -4736,8 +5141,7 @@
                     ],
                     "value": "pascal",
                     "word": "pascals"
-                  },
-                  "value": 200000
+                  }
                 },
                 "instance": true,
                 "isModule": true,
@@ -4861,8 +5265,7 @@
                   ],
                   "value": "pascal",
                   "word": "pascals"
-                },
-                "value": 200000
+                }
               },
               "level": 1,
               "marker": "convertToUnits",
@@ -4936,10 +5339,32 @@
             "right": {
               "dead": true,
               "evaluate": true,
+              "interpolate": [
+                {
+                  "property": "x"
+                },
+                {
+                  "property": "operator"
+                },
+                {
+                  "property": "y"
+                }
+              ],
               "isResponse": true,
               "level": 1,
               "marker": "divideByExpression",
               "number": "one",
+              "operator": {
+                "level": 0,
+                "marker": "divideByOperator",
+                "range": {
+                  "end": 22,
+                  "start": 22
+                },
+                "text": "/",
+                "value": "divideByOperator",
+                "word": "/"
+              },
               "range": {
                 "end": 29,
                 "start": 14
@@ -5034,10 +5459,32 @@
             "right": {
               "dead": true,
               "evaluate": true,
+              "interpolate": [
+                {
+                  "property": "x"
+                },
+                {
+                  "property": "operator"
+                },
+                {
+                  "property": "y"
+                }
+              ],
               "isResponse": true,
               "level": 1,
               "marker": "timesExpression",
               "number": "one",
+              "operator": {
+                "level": 0,
+                "marker": "timesOperator",
+                "range": {
+                  "end": 22,
+                  "start": 22
+                },
+                "text": "*",
+                "value": "timesOperator",
+                "word": "*"
+              },
               "range": {
                 "end": 29,
                 "start": 10
@@ -5336,88 +5783,89 @@
             "dead": true,
             "level": 2,
             "marker": "is",
-            "number": "many",
+            "number": "one",
             "one": {
-              "default": true,
-              "isList": true,
-              "level": 1,
-              "listable": true,
-              "marker": "list",
-              "number": "many",
+              "atomic": true,
+              "dead": true,
+              "level": 0,
+              "marker": "metric_unit",
+              "modifier_metric": {
+                "level": 0,
+                "marker": "metric",
+                "number": "one",
+                "range": {
+                  "end": 5,
+                  "start": 0
+                },
+                "text": "metric",
+                "types": [
+                  "metric"
+                ],
+                "value": "metric",
+                "word": "metric"
+              },
+              "modifiers": [
+                "modifier_metric"
+              ],
+              "number": "one",
               "range": {
-                "end": 17,
+                "end": 10,
                 "start": 0
               },
-              "text": "dimension and unit",
+              "text": "metric unit",
               "types": [
-                "list",
-                "unknown"
+                "metric_unit",
+                "unit"
               ],
-              "value": [
-                {
-                  "dead": true,
-                  "level": 0,
-                  "marker": "unknown",
-                  "range": {
-                    "end": 8,
-                    "start": 0
-                  },
-                  "text": "dimension",
-                  "types": [
-                    "unknown"
-                  ],
-                  "unknown": true,
-                  "value": "dimension",
-                  "word": "dimension"
-                },
-                {
-                  "dead": true,
-                  "level": 0,
-                  "marker": "unknown",
-                  "range": {
-                    "end": 17,
-                    "start": 14
-                  },
-                  "text": "unit",
-                  "types": [
-                    "unknown"
-                  ],
-                  "unknown": true,
-                  "value": "unit",
-                  "word": "unit"
-                }
-              ],
-              "word": "and"
+              "value": "metric_unit",
+              "word": "unit"
             },
             "range": {
-              "end": 30,
+              "end": 20,
               "start": 0
             },
-            "text": "dimension and unit are concepts",
+            "text": "metric unit is a unit",
             "topLevel": true,
             "touchedBy": [
               "dimension#call2",
-              "instance0#dimension#call2",
-              "instance0#pressure#call2"
+              "instance12#dimension#call2",
+              "instance12#pressure#call2"
             ],
             "two": {
               "concept": true,
               "dead": true,
-              "level": 0,
-              "marker": "unknown",
-              "range": {
-                "end": 30,
-                "start": 23
+              "determiner": {
+                "default": true,
+                "level": 0,
+                "marker": "a",
+                "range": {
+                  "end": 15,
+                  "start": 15
+                },
+                "text": "a",
+                "word": "a"
               },
-              "text": "concepts",
-              "types": [
-                "unknown"
+              "instance": true,
+              "level": 1,
+              "marker": "unit",
+              "modifiers": [
+                "determiner"
               ],
-              "unknown": true,
-              "value": "concepts",
-              "word": "concepts"
+              "number": "one",
+              "pullFromContext": false,
+              "range": {
+                "end": 20,
+                "start": 15
+              },
+              "text": "a unit",
+              "types": [
+                "unit"
+              ],
+              "value": "unit",
+              "wantsValue": true,
+              "word": "unit"
             },
-            "word": "are"
+            "word": "is"
           },
           "generatedParenthesized": [
           ],
