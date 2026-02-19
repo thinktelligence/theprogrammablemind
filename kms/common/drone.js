@@ -672,8 +672,17 @@ const template = {
       semantics: [
         {
           match: ({context}) => context.marker == 'speed' && context.evaluate,
-          apply: async ({gp, context, objects, fragments, resolveEvaluate}) => {
-            const speed = await fragments("number meters per second", { number: { marker: 'integer', value: objects.current.speed } })
+          apply: async ({gp, context, objects, fragments, resolveEvaluate, api}) => {
+            let value = objects.current.speed
+            if (context.condition) {
+              if (['highest', 'maximum'].includes(context.condition.marker)) {
+                value = api.maximumSpeedDrone()
+              } else if (['lowest', 'minimum'].includes(context.condition.marker)) {
+                debugger
+                value = api.minimumSpeedDrone()
+              }
+            }
+            const speed = await fragments("number meters per second", { number: { marker: 'integer', value } })
             resolveEvaluate(context, speed)
           }
         },
