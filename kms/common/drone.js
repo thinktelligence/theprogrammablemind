@@ -675,7 +675,7 @@ const template = {
       semantics: [
         {
           match: ({context}) => context.marker == 'speed' && context.evaluate,
-          apply: async ({gp, context, objects, fragments, resolveEvaluate, api}) => {
+          apply: async ({gp, s, context, objects, fragments, resolveEvaluate, api}) => {
             let value = objects.current.speed
             if (context.condition) {
               if (['highest', 'maximum'].includes(context.condition.marker)) {
@@ -685,7 +685,8 @@ const template = {
               }
             }
             const speed = await fragments("number meters per second", { number: { marker: 'integer', value } })
-            resolveEvaluate(context, speed)
+            const preferred = await s({ marker: 'preferredUnits', quantity: speed }) 
+            resolveEvaluate(context, preferred.response || speed)
           }
         },
         {

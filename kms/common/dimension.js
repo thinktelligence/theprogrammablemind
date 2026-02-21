@@ -201,6 +201,9 @@ const config = {
       bridge: "{ ...next(operator), quantity: after[0], operator: operator, interpolate: [{ property: 'operator' }, { property: 'quantity' }] }",
       semantic: async ({context, e, api, toArray, resolveResponse}) => {
         const preferredUnits = api.getPreferredUnits(context.quantity)
+        if (!preferredUnits) {
+          return
+        }
         const from = context.quantity;
         const value = await e({ marker: 'convertToUnits', from, to: preferredUnits })
         resolveResponse(context, value.evalue)

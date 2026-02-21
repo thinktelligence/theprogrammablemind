@@ -69,10 +69,10 @@
             "verb"
           ],
           "bridge": "{ ...next(operator), quantity: after[0], operator: operator, interpolate: [{ property: 'operator' }, { property: 'quantity' }] }",
-          "semantic": "async ({context, e, api, toArray, resolveResponse}) => {\n        const preferredUnits = api.getPreferredUnits(context.quantity)\n        const from = context.quantity;\n        const value = await e({ marker: 'convertToUnits', from, to: preferredUnits })\n        resolveResponse(context, value.evalue)\n      }"
+          "semantic": "async ({context, e, api, toArray, resolveResponse}) => {\n        const preferredUnits = api.getPreferredUnits(context.quantity)\n        if (!preferredUnits) {\n          return\n        }\n        const from = context.quantity;\n        const value = await e({ marker: 'convertToUnits', from, to: preferredUnits })\n        resolveResponse(context, value.evalue)\n      }"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:210",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:213",
           "id": "useUnits",
           "isA": [
             "verb"
@@ -81,11 +81,11 @@
           "semantic": "({context, api}) => {\n        api.setPreferredUnits(context.units)\n      }"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:219",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:222",
           "id": "dimension"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:223",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:226",
           "id": "quantity",
           "isA": [
             "noun"
@@ -106,7 +106,7 @@
           "id": "amount"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:238",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:241",
           "id": "degree",
           "words": [
             {
@@ -126,7 +126,7 @@
           "bridge": "{ marker: next(operator('quantity')), dead: true, unit: after[0], amount: before[0] }"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:252",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:255",
           "id": "convertToUnits",
           "bridge": "{ ...next(operator), from: before[0], to: after[0] }",
           "isA": [
@@ -22744,7 +22744,7 @@
           "bridge": "{ ...next(operator), quantity: after[0], operator: operator, interpolate: [{ property: 'operator' }, { property: 'quantity' }] }"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:210",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:213",
           "id": "useUnits",
           "isA": [
             "verb"
@@ -22752,11 +22752,11 @@
           "bridge": "{ ...next(operator), units: after[0], operator: operator, interpolate: [{ property: 'operator' }, { property: 'units' }] }"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:219",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:222",
           "id": "dimension"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:223",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:226",
           "id": "quantity",
           "isA": [
             "noun"
@@ -22775,7 +22775,7 @@
           "id": "amount"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:238",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:241",
           "id": "degree",
           "words": [
             {
@@ -22794,7 +22794,7 @@
           "bridge": "{ marker: next(operator('quantity')), dead: true, unit: after[0], amount: before[0] }"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:252",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:255",
           "id": "convertToUnits",
           "bridge": "{ ...next(operator), from: before[0], to: after[0] }",
           "isA": [
