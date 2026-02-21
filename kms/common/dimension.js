@@ -35,6 +35,26 @@ class API {
   initialize({ config, objects }) {
     this._config = config
     this._objects = objects
+    objects.preferredUnits = []
+  }
+
+  getPreferredUnits(quantity) {
+    for (const unit of this._objects.preferredUnits) {
+      if (quantity.unit.marker == 'unitPerUnit') {
+        if (quantity.unit.numerator.dimension == unit.numerator.dimension &&
+            quantity.unit.denominator.dimension == unit.denominator.dimension) {
+          return unit
+        }
+      } else if (unit.dimension) {
+        if (unit.dimension == quantity.unit.dimension) {
+          return unit
+        }
+      }
+    }
+  }
+
+  setPreferredUnits(units) {
+    this._objects.preferredUnits.unshift(units)
   }
 
   setMeasurementSystem(measurementSystem) {
@@ -69,6 +89,78 @@ class API {
       })
     }
   }
+
+  async convertToUnits(context, from, tos) {
+    const {kms, e, error, toArray, gp, gr, toList} = this.args
+    let evalue;
+    let efrom = from
+    if (!from.unit) {
+      efrom = (await e(from)).evalue
+    }
+    async function convert(to) {
+      if (to.value == efrom.unit.value) {
+        evalue = efrom.amount
+        evalue.evalue = efrom.amount.value
+      } else {
+        const formula = kms.formulas.api.get(to, [efrom.unit])
+        if (!formula) {
+          const reason = { marker: 'reason', focusableForPhrase: true, evalue: { marker: 'noconversion', from: efrom.unit, to } }
+          kms.stm.api.mentioned({ context: reason })
+          error(reason)
+        }
+        kms.stm.api.setVariable(efrom.unit.value, efrom.amount)
+        evalue = await e(formula)
+      }
+      return evalue
+    }
+
+    let evalues = []
+    for (const to of tos) {
+      evalues.push({ value: await convert(to), to: structuredClone(to) })
+    }
+    evalues.sort((a, b) => a.evalue - b.evalue )
+
+    let fractionalPart = 0
+    let scale = 1
+    for (const evalue of evalues) {
+      const value = toFinalValue(evalue) * scale
+      const integerPart = Math.trunc(value)
+      fractionalPart = Math.abs(value - integerPart)
+      evalue.value.evalue = integerPart
+      scale = fractionalPart / value * scale
+    }
+    // evalues[evalues.length-1].value.evalue = Number((integerPart * (1+scale)).toFixed(4))
+    evalues[evalues.length-1].value.evalue += fractionalPart
+    evalues[evalues.length-1].value.evalue = Number(evalues[evalues.length-1].value.evalue.toFixed(4))
+
+    // remove the zeros
+    evalues = evalues.filter( (evalue) => evalue.value.evalue )
+
+    /*
+    '{
+        "marker":"dimension",
+        "unit":{"marker":"unit","range":{"start":19,"end":25},"word":"celcius","text":"celcius","value":"celcius","unknown":true,"types":["unit","unknown"]},
+        "value":10,
+        "amount":{"word":"degrees","number":"many","text":"10 degrees","marker":"degree","range":{"start":8,"end":17},"value":10,"amount":{"value":10,"text":"10","marker":"number","word":"10","range":{"start":8,"end":9},"types":["number"]}},
+          "text":"10 degrees celcius","range":{"start":8,"end":25}}'
+    */
+    evalues = evalues.map((evalue) => {
+      const number = evalue.value.evalue == 1 ? 'one' : 'many'
+      evalue.to.number = number
+      return { 
+        paraphrase: true,
+        marker: 'quantity',
+        level: 1,
+        unit: evalue.to,
+        amount: { evalue: evalue.value, paraphrase: undefined }
+      }
+    })
+    if (evalues.length > 1) {
+      return toList(evalues)
+    } else {
+      return evalues[0]
+    }
+  }
 }
 
 // eg, dimension == length; meters == unit; 2 meters == quantity
@@ -83,6 +175,8 @@ const config = {
     "((@<=quantity || context.possession == true) [convertToUnits|in] (unit))",
 
     "(([number]) [degree])",
+    "([useUnits|use] (unit))",
+    "([preferredUnits] (quantity))",
     { pattern: "([length])", scope: "testing" },
   ],
   priorities: [
@@ -100,6 +194,27 @@ const config = {
     },
   ],
   bridges: [
+    { 
+      where: where(),
+      id: "preferredUnits",
+      isA: ['verb'],
+      bridge: "{ ...next(operator), quantity: after[0], operator: operator, interpolate: [{ property: 'operator' }, { property: 'quantity' }] }",
+      semantic: async ({context, e, api, toArray, resolveResponse}) => {
+        const preferredUnits = api.getPreferredUnits(context.quantity)
+        const from = context.quantity;
+        const value = await e({ marker: 'convertToUnits', from, to: preferredUnits })
+        resolveResponse(context, value.evalue)
+      }
+    },
+    { 
+      where: where(),
+      id: "useUnits",
+      isA: ['verb'],
+      bridge: "{ ...next(operator), units: after[0], operator: operator, interpolate: [{ property: 'operator' }, { property: 'units' }] }",
+      semantic: ({context, api}) => {
+        api.setPreferredUnits(context.units)
+      }
+    },
     { 
       where: where(),
       id: "dimension", 
@@ -142,77 +257,10 @@ const config = {
       after: [['possession', 0], ['possession', 1]],
       generatorp: async ({context, g}) => `${await g(context.from)} ${context.word} ${await g(context.to)}`,
       // evaluator: ({context, kms, error}) => {
-      evaluator: async ({context, kms, e, error, toArray, gp, gr, toList}) => {
+      evaluator: async ({context, api, toArray, resolveEvaluate}) => {
         const from = context.from;
         const tos = toArray(context.to);
-        let evalue;
-        let efrom = from
-        if (!from.unit) {
-          efrom = (await e(from)).evalue
-        }
-        async function convert(to) {
-          if (to.value == efrom.unit.value) {
-            evalue = efrom.amount
-            evalue.evalue = efrom.amount.value
-          } else {
-            const formula = kms.formulas.api.get(to, [efrom.unit])
-            if (!formula) {
-              const reason = { marker: 'reason', focusableForPhrase: true, evalue: { marker: 'noconversion', from: efrom.unit, to } }
-              kms.stm.api.mentioned({ context: reason })
-              error(reason)
-            }
-            kms.stm.api.setVariable(efrom.unit.value, efrom.amount)
-            evalue = await e(formula)
-          }
-          return evalue
-        }
-
-        let evalues = []
-        for (const to of tos) {
-          evalues.push({ value: await convert(to), to: structuredClone(to) })
-        }
-        evalues.sort((a, b) => a.evalue - b.evalue )
-
-        let fractionalPart = 0
-        let scale = 1
-        for (const evalue of evalues) {
-          const value = toFinalValue(evalue) * scale
-          const integerPart = Math.trunc(value)
-          fractionalPart = Math.abs(value - integerPart)
-          evalue.value.evalue = integerPart
-          scale = fractionalPart / value * scale
-        }
-        // evalues[evalues.length-1].value.evalue = Number((integerPart * (1+scale)).toFixed(4))
-        evalues[evalues.length-1].value.evalue += fractionalPart
-        evalues[evalues.length-1].value.evalue = Number(evalues[evalues.length-1].value.evalue.toFixed(4))
-
-        // remove the zeros
-        evalues = evalues.filter( (evalue) => evalue.value.evalue )
-
-        /*
-        '{
-            "marker":"dimension",
-            "unit":{"marker":"unit","range":{"start":19,"end":25},"word":"celcius","text":"celcius","value":"celcius","unknown":true,"types":["unit","unknown"]},
-            "value":10,
-            "amount":{"word":"degrees","number":"many","text":"10 degrees","marker":"degree","range":{"start":8,"end":17},"value":10,"amount":{"value":10,"text":"10","marker":"number","word":"10","range":{"start":8,"end":9},"types":["number"]}},
-              "text":"10 degrees celcius","range":{"start":8,"end":25}}'
-        */
-        evalues = evalues.map((evalue) => {
-          const number = evalue.value.evalue == 1 ? 'one' : 'many'
-          evalue.to.number = number
-          return { 
-            paraphrase: true,
-            marker: 'quantity',
-            level: 1,
-            unit: evalue.to,
-            amount: { evalue: evalue.value, paraphrase: undefined }
-          }
-        })
-        if (evalues.length > 1) {
-          context.evalue = toList(evalues)
-        } else {
-          context.evalue = evalues[0]
-        }
+        resolveEvaluate(context, await api.convertToUnits(context, from, tos))
       },
     },
     { 
@@ -286,6 +334,7 @@ knowledgeModule({
       objects: [
         { km: 'properties' },
         { path: ['measurementSystem'] },
+        { path: ['preferredUnits'] },
       ],
       context: [
         defaultContextCheck({ marker: 'metric_system', exported: true }),

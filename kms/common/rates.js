@@ -92,6 +92,9 @@ knowledgeModule({
     name: './rates.test.json',
     contents: rates_tests,
     checks: {
+      objects: [
+        { km: 'dimension' },
+      ],
       context: [
         defaultContextCheck({ marker: 'unitPerUnit', exported: true, extra: ['numerator', 'denominator'] }),
         defaultContextCheck()

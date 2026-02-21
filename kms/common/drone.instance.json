@@ -82,7 +82,7 @@
       "semantics": [
         {
           "match": "({context}) => context.marker == 'speed' && context.evaluate",
-          "apply": "async ({gp, context, objects, fragments, resolveEvaluate}) => {\n            const speed = await fragments(\"number meters per second\", { number: { marker: 'integer', value: objects.current.speed } })\n            resolveEvaluate(context, speed)\n          }"
+          "apply": "async ({gp, context, objects, fragments, resolveEvaluate, api}) => {\n            let value = objects.current.speed\n            if (context.condition) {\n              if (['highest', 'maximum'].includes(context.condition.marker)) {\n                value = api.maximumSpeedDrone()\n              } else if (['lowest', 'minimum'].includes(context.condition.marker)) {\n                value = api.minimumSpeedDrone()\n              }\n            }\n            const speed = await fragments(\"number meters per second\", { number: { marker: 'integer', value } })\n            resolveEvaluate(context, speed)\n          }"
         },
         {
           "match": "({context}) => context.marker == 'timeRepeats'",
@@ -1794,6 +1794,11 @@
           false
         ],
         [
+          "preferredUnits",
+          "verb",
+          false
+        ],
+        [
           "preposition",
           "preposition",
           false
@@ -2320,6 +2325,11 @@
         ],
         [
           "useMeasurementSystem",
+          "verb",
+          false
+        ],
+        [
+          "useUnits",
           "verb",
           false
         ],
@@ -4497,6 +4507,11 @@
           false
         ],
         [
+          "preferredUnits",
+          "verb",
+          false
+        ],
+        [
           "preposition",
           "preposition",
           false
@@ -5023,6 +5038,11 @@
         ],
         [
           "useMeasurementSystem",
+          "verb",
+          false
+        ],
+        [
+          "useUnits",
           "verb",
           false
         ],
@@ -9264,6 +9284,11 @@
           false
         ],
         [
+          "preferredUnits",
+          "verb",
+          false
+        ],
+        [
           "preposition",
           "preposition",
           false
@@ -9830,6 +9855,11 @@
         ],
         [
           "useMeasurementSystem",
+          "verb",
+          false
+        ],
+        [
+          "useUnits",
           "verb",
           false
         ],
@@ -12353,6 +12383,11 @@
           false
         ],
         [
+          "preferredUnits",
+          "verb",
+          false
+        ],
+        [
           "preposition",
           "preposition",
           false
@@ -12954,6 +12989,11 @@
         ],
         [
           "useMeasurementSystem",
+          "verb",
+          false
+        ],
+        [
+          "useUnits",
           "verb",
           false
         ],
@@ -15409,6 +15449,11 @@
           false
         ],
         [
+          "preferredUnits",
+          "verb",
+          false
+        ],
+        [
           "preposition",
           "preposition",
           false
@@ -16015,6 +16060,11 @@
         ],
         [
           "useMeasurementSystem",
+          "verb",
+          false
+        ],
+        [
+          "useUnits",
           "verb",
           false
         ],
@@ -18506,6 +18556,11 @@
           false
         ],
         [
+          "preferredUnits",
+          "verb",
+          false
+        ],
+        [
           "preposition",
           "preposition",
           false
@@ -19117,6 +19172,11 @@
         ],
         [
           "useMeasurementSystem",
+          "verb",
+          false
+        ],
+        [
+          "useUnits",
           "verb",
           false
         ],
@@ -21569,6 +21629,11 @@
           false
         ],
         [
+          "preferredUnits",
+          "verb",
+          false
+        ],
+        [
           "preposition",
           "preposition",
           false
@@ -22180,6 +22245,11 @@
         ],
         [
           "useMeasurementSystem",
+          "verb",
+          false
+        ],
+        [
+          "useUnits",
           "verb",
           false
         ],
@@ -25111,6 +25181,11 @@
           false
         ],
         [
+          "preferredUnits",
+          "verb",
+          false
+        ],
+        [
           "preposition",
           "preposition",
           false
@@ -25737,6 +25812,11 @@
         ],
         [
           "useMeasurementSystem",
+          "verb",
+          false
+        ],
+        [
+          "useUnits",
           "verb",
           false
         ],
@@ -28142,6 +28222,11 @@
           false
         ],
         [
+          "preferredUnits",
+          "verb",
+          false
+        ],
+        [
           "preposition",
           "preposition",
           false
@@ -28768,6 +28853,11 @@
         ],
         [
           "useMeasurementSystem",
+          "verb",
+          false
+        ],
+        [
+          "useUnits",
           "verb",
           false
         ],
@@ -31444,6 +31534,11 @@
           false
         ],
         [
+          "preferredUnits",
+          "verb",
+          false
+        ],
+        [
           "preposition",
           "preposition",
           false
@@ -32070,6 +32165,11 @@
         ],
         [
           "useMeasurementSystem",
+          "verb",
+          false
+        ],
+        [
+          "useUnits",
           "verb",
           false
         ],
@@ -34665,6 +34765,11 @@
           false
         ],
         [
+          "preferredUnits",
+          "verb",
+          false
+        ],
+        [
           "preposition",
           "preposition",
           false
@@ -35291,6 +35396,11 @@
         ],
         [
           "useMeasurementSystem",
+          "verb",
+          false
+        ],
+        [
+          "useUnits",
           "verb",
           false
         ],

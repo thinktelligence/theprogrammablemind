@@ -26,6 +26,8 @@ const template = {
     "inches = meters * 3.28 * 12",
     "meters = inches / 3.28 / 12",
     "miles = 5280 * feet",
+    "inches = 5280 * 12 * miles",
+    "miles = inches / 5280 / 12",
     "miles = meters / 1909.34",
     "meters = miles * 1909.34",
     "feet = miles / 5280",
@@ -56,6 +58,9 @@ knowledgeModule({
     name: './length.test.json',
     contents: length_tests,
     checks: {
+      objects: [
+        { km: 'dimension' },
+      ],
       context: [defaultContextCheck()],
     }
   },

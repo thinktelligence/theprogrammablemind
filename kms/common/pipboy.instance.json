@@ -38,7 +38,7 @@
         "([putOn|] ([wearable]))",
         "(([put]) <on>)",
         "([call] ([nameable]) ([outfit]))",
-        "((condition/1,2) <propertyCondition|> (weapon/0))"
+        "((condition != undefined) <propertyCondition|> (weapon/0))"
       ],
       "hierarchy": [
         [
@@ -238,10 +238,10 @@
           ],
           "bridge": "{ ...next(operator), item: after[0] }",
           "generatorp": "async ({context, g}) => `equip ${await g(context.item)}`",
-          "semantic": "async ({api, context}) => {\n         let condition\n         if (context.item.condition) {\n           condition = { selector: context.item.condition.marker, property: context.item.condition.property[0].marker }\n         }\n         api.equip({ type: context.item.value, condition })\n       }"
+          "semantic": "async ({api, context}) => {\n         let condition\n         if (context.item.condition) {\n           // { selector: 'highest', property: 'damage' }\n           condition = { selector: context.item.condition.condition.marker, property: context.item.condition.marker }\n         }\n         api.equip({ type: context.item.value, condition })\n       }"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:267",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:268",
           "id": "toDrink",
           "isA": [
             "verb"
@@ -252,7 +252,7 @@
           "semantic": "async ({api, context, e}) => {\n         const value = await e(context.item)\n         api.drink(value.value)\n       }"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:279",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:280",
           "id": "eat",
           "localHierarchy": [
             [
@@ -269,7 +269,7 @@
           "semantic": "async ({api, context}) => {\n         api.eat(context.item.value)\n       }"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:291",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:292",
           "id": "take",
           "isA": [
             "verb"
@@ -280,7 +280,7 @@
           "semantic": "async ({api, context, e}) => {\n         const value = await e(context.item)\n         api.take(value.value)\n       }"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:303",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:304",
           "id": "nameable",
           "isA": [
             "theAble"
@@ -38588,7 +38588,7 @@
         "([putOn|] ([wearable]))",
         "(([put]) <on>)",
         "([call] ([nameable]) ([outfit]))",
-        "((condition/1,2) <propertyCondition|> (weapon/0))"
+        "((condition != undefined) <propertyCondition|> (weapon/0))"
       ],
       "hierarchy": [
         [
@@ -38774,7 +38774,7 @@
           "bridge": "{ ...next(operator), item: after[0] }"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:267",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:268",
           "id": "toDrink",
           "isA": [
             "verb"
@@ -38783,7 +38783,7 @@
           "bridge": "{ ...next(operator), item: after[0] }"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:279",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:280",
           "id": "eat",
           "localHierarchy": [
             [
@@ -38798,7 +38798,7 @@
           "bridge": "{ ...next(operator), item: after[0] }"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:291",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:292",
           "id": "take",
           "isA": [
             "verb"
@@ -38807,7 +38807,7 @@
           "bridge": "{ ...next(operator), item: after[0] }"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:303",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:304",
           "id": "nameable",
           "isA": [
             "theAble"

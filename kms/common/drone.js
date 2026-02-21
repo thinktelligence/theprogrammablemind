@@ -119,6 +119,9 @@ https://www.amazon.ca/Freenove-Raspberry-Tracking-Avoidance-Ultrasonic/dp/B0BNDQ
   increase that by 2 times/20 percent/2 inches per second
   amke the default speed 2 times faster
   double the default speed  
+
+  what is the speed
+  use inches per second and repeat that
 */
 
 function expectDirection(args) {
@@ -678,7 +681,6 @@ const template = {
               if (['highest', 'maximum'].includes(context.condition.marker)) {
                 value = api.maximumSpeedDrone()
               } else if (['lowest', 'minimum'].includes(context.condition.marker)) {
-                debugger
                 value = api.minimumSpeedDrone()
               }
             }
