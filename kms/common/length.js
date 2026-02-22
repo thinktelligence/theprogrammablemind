@@ -60,6 +60,7 @@ knowledgeModule({
     checks: {
       objects: [
         { km: 'dimension' },
+        { km: 'stm' },
       ],
       context: [defaultContextCheck()],
     }

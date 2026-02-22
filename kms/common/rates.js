@@ -94,6 +94,7 @@ knowledgeModule({
     checks: {
       objects: [
         { km: 'dimension' },
+        { km: 'stm' },
       ],
       context: [
         defaultContextCheck({ marker: 'unitPerUnit', exported: true, extra: ['numerator', 'denominator'] }),

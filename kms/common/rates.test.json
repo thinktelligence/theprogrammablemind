@@ -42640,6 +42640,7 @@
             "value": "second",
             "word": "second"
           },
+          "fromSTM": true,
           "interpolate": [
             {
               "context": {
@@ -42680,9 +42681,13 @@
             "value": "inch",
             "word": "inches"
           },
+          "pullFromContext": false,
           "range": {
             "end": 20,
             "start": 4
+          },
+          "stm": {
+            "id": 1
           },
           "text": "inches per second",
           "types": [
@@ -42693,6 +42698,7 @@
         "word": "use"
       }
     ],
+    "developerTest": false,
     "generatedParenthesized": [
       ""
     ],
@@ -42849,75 +42855,7 @@
           }
         },
         "dimension2": {
-          "km": "dimension2",
-          "preferredUnits": [
-            {
-              "dead": true,
-              "default": true,
-              "denominator": {
-                "dimension": "time",
-                "level": 0,
-                "marker": "second",
-                "number": "one",
-                "range": {
-                  "end": 20,
-                  "start": 15
-                },
-                "text": "second",
-                "value": "second",
-                "word": "second"
-              },
-              "interpolate": [
-                {
-                  "context": {
-                    "number": "many"
-                  },
-                  "property": "numerator"
-                },
-                {
-                  "context": {
-                    "default": true,
-                    "level": 0,
-                    "marker": "unitPerUnit",
-                    "range": {
-                      "end": 13,
-                      "start": 11
-                    },
-                    "text": "per",
-                    "word": "per"
-                  }
-                },
-                {
-                  "property": "denominator"
-                }
-              ],
-              "level": 0,
-              "marker": "unitPerUnit",
-              "numerator": {
-                "dead": true,
-                "dimension": "length",
-                "level": 0,
-                "marker": "inch",
-                "number": "many",
-                "range": {
-                  "end": 9,
-                  "start": 4
-                },
-                "text": "inches",
-                "value": "inch",
-                "word": "inches"
-              },
-              "range": {
-                "end": 20,
-                "start": 4
-              },
-              "text": "inches per second",
-              "types": [
-                "unitPerUnit"
-              ],
-              "word": "per"
-            }
-          ]
+          "km": "dimension2"
         },
         "evaluate2": {
           "km": "evaluate2"
@@ -44463,8 +44401,8 @@
                   "topLevel": true,
                   "touchedBy": [
                     "length#call2",
-                    "instance22#length#call2",
-                    "instance22#rates#call2"
+                    "instance24#length#call2",
+                    "instance24#rates#call2"
                   ],
                   "value": "equals",
                   "word": "="
@@ -46016,6 +45954,322 @@
                   "value": "inch",
                   "word": "inches"
                 }
+              },
+              {
+                "equality": {
+                  "context_id": null,
+                  "context_index": 1,
+                  "dead": true,
+                  "left": {
+                    "dead": true,
+                    "dimension": "length",
+                    "level": 0,
+                    "marker": "inch",
+                    "number": "many",
+                    "range": {
+                      "end": 5,
+                      "start": 0
+                    },
+                    "text": "inches",
+                    "types": [
+                      "inch"
+                    ],
+                    "value": "inch",
+                    "word": "inches"
+                  },
+                  "level": 1,
+                  "marker": "equals",
+                  "range": {
+                    "end": 25,
+                    "start": 0
+                  },
+                  "right": {
+                    "dead": true,
+                    "evaluate": true,
+                    "interpolate": [
+                      {
+                        "property": "x"
+                      },
+                      {
+                        "property": "operator"
+                      },
+                      {
+                        "property": "y"
+                      }
+                    ],
+                    "isResponse": true,
+                    "level": 1,
+                    "marker": "timesExpression",
+                    "number": "one",
+                    "operator": {
+                      "level": 0,
+                      "marker": "timesOperator",
+                      "range": {
+                        "end": 19,
+                        "start": 19
+                      },
+                      "text": "*",
+                      "value": "timesOperator",
+                      "word": "*"
+                    },
+                    "range": {
+                      "end": 25,
+                      "start": 9
+                    },
+                    "text": "5280 * 12 * miles",
+                    "types": [
+                      "number",
+                      "timesExpression"
+                    ],
+                    "value": null,
+                    "word": "*",
+                    "x": {
+                      "dead": true,
+                      "evaluate": true,
+                      "interpolate": [
+                        {
+                          "property": "x"
+                        },
+                        {
+                          "property": "operator"
+                        },
+                        {
+                          "property": "y"
+                        }
+                      ],
+                      "isResponse": true,
+                      "level": 1,
+                      "marker": "timesExpression",
+                      "number": "one",
+                      "operator": {
+                        "level": 0,
+                        "marker": "timesOperator",
+                        "range": {
+                          "end": 14,
+                          "start": 14
+                        },
+                        "text": "*",
+                        "value": "timesOperator",
+                        "word": "*"
+                      },
+                      "range": {
+                        "end": 17,
+                        "start": 9
+                      },
+                      "text": "5280 * 12",
+                      "types": [
+                        "number",
+                        "timesExpression"
+                      ],
+                      "value": null,
+                      "word": "*",
+                      "x": {
+                        "dead": true,
+                        "instance": true,
+                        "level": 1,
+                        "marker": "integer",
+                        "range": {
+                          "end": 12,
+                          "start": 9
+                        },
+                        "text": "5280",
+                        "types": [
+                          "integer"
+                        ],
+                        "value": 5280,
+                        "word": "5280"
+                      },
+                      "y": {
+                        "dead": true,
+                        "instance": true,
+                        "level": 1,
+                        "marker": "integer",
+                        "range": {
+                          "end": 17,
+                          "start": 16
+                        },
+                        "text": "12",
+                        "types": [
+                          "integer"
+                        ],
+                        "value": 12,
+                        "word": "12"
+                      }
+                    },
+                    "y": {
+                      "dimension": "length",
+                      "level": 0,
+                      "marker": "mile",
+                      "number": "many",
+                      "range": {
+                        "end": 25,
+                        "start": 21
+                      },
+                      "text": "miles",
+                      "types": [
+                        "mile"
+                      ],
+                      "value": "mile",
+                      "word": "miles"
+                    }
+                  },
+                  "text": "inches = 5280 * 12 * miles",
+                  "topLevel": true,
+                  "touchedBy": [
+                    "length#call2",
+                    "instance20#length#call2",
+                    "instance20#rates#call2"
+                  ],
+                  "value": "equals",
+                  "word": "="
+                },
+                "formula": {
+                  "dead": true,
+                  "evaluate": true,
+                  "interpolate": [
+                    {
+                      "property": "x"
+                    },
+                    {
+                      "property": "operator"
+                    },
+                    {
+                      "property": "y"
+                    }
+                  ],
+                  "isResponse": true,
+                  "level": 1,
+                  "marker": "timesExpression",
+                  "number": "one",
+                  "operator": {
+                    "level": 0,
+                    "marker": "timesOperator",
+                    "range": {
+                      "end": 19,
+                      "start": 19
+                    },
+                    "text": "*",
+                    "value": "timesOperator",
+                    "word": "*"
+                  },
+                  "range": {
+                    "end": 25,
+                    "start": 9
+                  },
+                  "text": "5280 * 12 * miles",
+                  "types": [
+                    "number",
+                    "timesExpression"
+                  ],
+                  "value": null,
+                  "word": "*",
+                  "x": {
+                    "dead": true,
+                    "evaluate": true,
+                    "interpolate": [
+                      {
+                        "property": "x"
+                      },
+                      {
+                        "property": "operator"
+                      },
+                      {
+                        "property": "y"
+                      }
+                    ],
+                    "isResponse": true,
+                    "level": 1,
+                    "marker": "timesExpression",
+                    "number": "one",
+                    "operator": {
+                      "level": 0,
+                      "marker": "timesOperator",
+                      "range": {
+                        "end": 14,
+                        "start": 14
+                      },
+                      "text": "*",
+                      "value": "timesOperator",
+                      "word": "*"
+                    },
+                    "range": {
+                      "end": 17,
+                      "start": 9
+                    },
+                    "text": "5280 * 12",
+                    "types": [
+                      "number",
+                      "timesExpression"
+                    ],
+                    "value": null,
+                    "word": "*",
+                    "x": {
+                      "dead": true,
+                      "instance": true,
+                      "level": 1,
+                      "marker": "integer",
+                      "range": {
+                        "end": 12,
+                        "start": 9
+                      },
+                      "text": "5280",
+                      "types": [
+                        "integer"
+                      ],
+                      "value": 5280,
+                      "word": "5280"
+                    },
+                    "y": {
+                      "dead": true,
+                      "instance": true,
+                      "level": 1,
+                      "marker": "integer",
+                      "range": {
+                        "end": 17,
+                        "start": 16
+                      },
+                      "text": "12",
+                      "types": [
+                        "integer"
+                      ],
+                      "value": 12,
+                      "word": "12"
+                    }
+                  },
+                  "y": {
+                    "dimension": "length",
+                    "level": 0,
+                    "marker": "mile",
+                    "number": "many",
+                    "range": {
+                      "end": 25,
+                      "start": 21
+                    },
+                    "text": "miles",
+                    "types": [
+                      "mile"
+                    ],
+                    "value": "mile",
+                    "word": "miles"
+                  }
+                },
+                "name": {
+                  "dead": true,
+                  "dimension": "length",
+                  "level": 0,
+                  "marker": "inch",
+                  "number": "many",
+                  "range": {
+                    "end": 5,
+                    "start": 0
+                  },
+                  "text": "inches",
+                  "types": [
+                    "inch"
+                  ],
+                  "value": "inch",
+                  "word": "inches"
+                }
               }
             ],
             "kilometers": [
@@ -46125,8 +46379,8 @@
                   "topLevel": true,
                   "touchedBy": [
                     "length#call2",
-                    "instance23#length#call2",
-                    "instance23#rates#call2"
+                    "instance25#length#call2",
+                    "instance25#rates#call2"
                   ],
                   "value": "equals",
                   "word": "="
@@ -47261,8 +47515,8 @@
                   "topLevel": true,
                   "touchedBy": [
                     "length#call2",
-                    "instance21#length#call2",
-                    "instance21#rates#call2"
+                    "instance23#length#call2",
+                    "instance23#rates#call2"
                   ],
                   "value": "equals",
                   "word": "="
@@ -47465,8 +47719,8 @@
                   "topLevel": true,
                   "touchedBy": [
                     "length#call2",
-                    "instance24#length#call2",
-                    "instance24#rates#call2"
+                    "instance26#length#call2",
+                    "instance26#rates#call2"
                   ],
                   "value": "equals",
                   "word": "="
@@ -47794,6 +48048,324 @@
                   "level": 1,
                   "marker": "equals",
                   "range": {
+                    "end": 25,
+                    "start": 0
+                  },
+                  "right": {
+                    "dead": true,
+                    "evaluate": true,
+                    "interpolate": [
+                      {
+                        "property": "x"
+                      },
+                      {
+                        "property": "operator"
+                      },
+                      {
+                        "property": "y"
+                      }
+                    ],
+                    "isResponse": true,
+                    "level": 1,
+                    "marker": "divideByExpression",
+                    "number": "one",
+                    "operator": {
+                      "level": 0,
+                      "marker": "divideByOperator",
+                      "range": {
+                        "end": 22,
+                        "start": 22
+                      },
+                      "text": "/",
+                      "value": "divideByOperator",
+                      "word": "/"
+                    },
+                    "range": {
+                      "end": 25,
+                      "start": 8
+                    },
+                    "text": "inches / 5280 / 12",
+                    "types": [
+                      "divideByExpression",
+                      "number"
+                    ],
+                    "value": null,
+                    "word": "/",
+                    "x": {
+                      "dead": true,
+                      "evaluate": true,
+                      "interpolate": [
+                        {
+                          "property": "x"
+                        },
+                        {
+                          "property": "operator"
+                        },
+                        {
+                          "property": "y"
+                        }
+                      ],
+                      "isResponse": true,
+                      "level": 1,
+                      "marker": "divideByExpression",
+                      "number": "one",
+                      "operator": {
+                        "level": 0,
+                        "marker": "divideByOperator",
+                        "range": {
+                          "end": 15,
+                          "start": 15
+                        },
+                        "text": "/",
+                        "value": "divideByOperator",
+                        "word": "/"
+                      },
+                      "range": {
+                        "end": 20,
+                        "start": 8
+                      },
+                      "text": "inches / 5280",
+                      "types": [
+                        "divideByExpression",
+                        "number"
+                      ],
+                      "value": null,
+                      "word": "/",
+                      "x": {
+                        "dead": true,
+                        "dimension": "length",
+                        "level": 0,
+                        "marker": "inch",
+                        "number": "many",
+                        "range": {
+                          "end": 13,
+                          "start": 8
+                        },
+                        "text": "inches",
+                        "types": [
+                          "inch"
+                        ],
+                        "value": "inch",
+                        "word": "inches"
+                      },
+                      "y": {
+                        "dead": true,
+                        "instance": true,
+                        "level": 1,
+                        "marker": "integer",
+                        "range": {
+                          "end": 20,
+                          "start": 17
+                        },
+                        "text": "5280",
+                        "types": [
+                          "integer"
+                        ],
+                        "value": 5280,
+                        "word": "5280"
+                      }
+                    },
+                    "y": {
+                      "dead": true,
+                      "instance": true,
+                      "level": 1,
+                      "marker": "integer",
+                      "range": {
+                        "end": 25,
+                        "start": 24
+                      },
+                      "text": "12",
+                      "types": [
+                        "integer"
+                      ],
+                      "value": 12,
+                      "word": "12"
+                    }
+                  },
+                  "text": "miles = inches / 5280 / 12",
+                  "topLevel": true,
+                  "touchedBy": [
+                    "length#call2",
+                    "instance21#length#call2",
+                    "instance21#rates#call2"
+                  ],
+                  "value": "equals",
+                  "word": "="
+                },
+                "formula": {
+                  "dead": true,
+                  "evaluate": true,
+                  "interpolate": [
+                    {
+                      "property": "x"
+                    },
+                    {
+                      "property": "operator"
+                    },
+                    {
+                      "property": "y"
+                    }
+                  ],
+                  "isResponse": true,
+                  "level": 1,
+                  "marker": "divideByExpression",
+                  "number": "one",
+                  "operator": {
+                    "level": 0,
+                    "marker": "divideByOperator",
+                    "range": {
+                      "end": 22,
+                      "start": 22
+                    },
+                    "text": "/",
+                    "value": "divideByOperator",
+                    "word": "/"
+                  },
+                  "range": {
+                    "end": 25,
+                    "start": 8
+                  },
+                  "text": "inches / 5280 / 12",
+                  "types": [
+                    "divideByExpression",
+                    "number"
+                  ],
+                  "value": null,
+                  "word": "/",
+                  "x": {
+                    "dead": true,
+                    "evaluate": true,
+                    "interpolate": [
+                      {
+                        "property": "x"
+                      },
+                      {
+                        "property": "operator"
+                      },
+                      {
+                        "property": "y"
+                      }
+                    ],
+                    "isResponse": true,
+                    "level": 1,
+                    "marker": "divideByExpression",
+                    "number": "one",
+                    "operator": {
+                      "level": 0,
+                      "marker": "divideByOperator",
+                      "range": {
+                        "end": 15,
+                        "start": 15
+                      },
+                      "text": "/",
+                      "value": "divideByOperator",
+                      "word": "/"
+                    },
+                    "range": {
+                      "end": 20,
+                      "start": 8
+                    },
+                    "text": "inches / 5280",
+                    "types": [
+                      "divideByExpression",
+                      "number"
+                    ],
+                    "value": null,
+                    "word": "/",
+                    "x": {
+                      "dead": true,
+                      "dimension": "length",
+                      "level": 0,
+                      "marker": "inch",
+                      "number": "many",
+                      "range": {
+                        "end": 13,
+                        "start": 8
+                      },
+                      "text": "inches",
+                      "types": [
+                        "inch"
+                      ],
+                      "value": "inch",
+                      "word": "inches"
+                    },
+                    "y": {
+                      "dead": true,
+                      "instance": true,
+                      "level": 1,
+                      "marker": "integer",
+                      "range": {
+                        "end": 20,
+                        "start": 17
+                      },
+                      "text": "5280",
+                      "types": [
+                        "integer"
+                      ],
+                      "value": 5280,
+                      "word": "5280"
+                    }
+                  },
+                  "y": {
+                    "dead": true,
+                    "instance": true,
+                    "level": 1,
+                    "marker": "integer",
+                    "range": {
+                      "end": 25,
+                      "start": 24
+                    },
+                    "text": "12",
+                    "types": [
+                      "integer"
+                    ],
+                    "value": 12,
+                    "word": "12"
+                  }
+                },
+                "name": {
+                  "dead": true,
+                  "dimension": "length",
+                  "level": 0,
+                  "marker": "mile",
+                  "number": "many",
+                  "range": {
+                    "end": 4,
+                    "start": 0
+                  },
+                  "text": "miles",
+                  "types": [
+                    "mile"
+                  ],
+                  "value": "mile",
+                  "word": "miles"
+                }
+              },
+              {
+                "equality": {
+                  "context_id": null,
+                  "context_index": 1,
+                  "dead": true,
+                  "left": {
+                    "dead": true,
+                    "dimension": "length",
+                    "level": 0,
+                    "marker": "mile",
+                    "number": "many",
+                    "range": {
+                      "end": 4,
+                      "start": 0
+                    },
+                    "text": "miles",
+                    "types": [
+                      "mile"
+                    ],
+                    "value": "mile",
+                    "word": "miles"
+                  },
+                  "level": 1,
+                  "marker": "equals",
+                  "range": {
                     "end": 23,
                     "start": 0
                   },
@@ -47875,8 +48447,8 @@
                   "topLevel": true,
                   "touchedBy": [
                     "length#call2",
-                    "instance20#length#call2",
-                    "instance20#rates#call2"
+                    "instance22#length#call2",
+                    "instance22#rates#call2"
                   ],
                   "value": "equals",
                   "word": "="
@@ -49864,6 +50436,77 @@
         "stm2": {
           "km": "stm2",
           "mentioned": [
+            {
+              "dead": true,
+              "default": true,
+              "denominator": {
+                "dimension": "time",
+                "level": 0,
+                "marker": "second",
+                "number": "one",
+                "range": {
+                  "end": 20,
+                  "start": 15
+                },
+                "text": "second",
+                "value": "second",
+                "word": "second"
+              },
+              "fromSTM": true,
+              "interpolate": [
+                {
+                  "context": {
+                    "number": "many"
+                  },
+                  "property": "numerator"
+                },
+                {
+                  "context": {
+                    "default": true,
+                    "level": 0,
+                    "marker": "unitPerUnit",
+                    "range": {
+                      "end": 13,
+                      "start": 11
+                    },
+                    "text": "per",
+                    "word": "per"
+                  }
+                },
+                {
+                  "property": "denominator"
+                }
+              ],
+              "level": 0,
+              "marker": "unitPerUnit",
+              "numerator": {
+                "dead": true,
+                "dimension": "length",
+                "level": 0,
+                "marker": "inch",
+                "number": "many",
+                "range": {
+                  "end": 9,
+                  "start": 4
+                },
+                "text": "inches",
+                "value": "inch",
+                "word": "inches"
+              },
+              "pullFromContext": false,
+              "range": {
+                "end": 20,
+                "start": 4
+              },
+              "stm": {
+                "id": 1
+              },
+              "text": "inches per second",
+              "types": [
+                "unitPerUnit"
+              ],
+              "word": "per"
+            }
           ],
           "variables": {
           }
@@ -49940,6 +50583,7 @@
                 "value": "second",
                 "word": "second"
               },
+              "fromSTM": true,
               "interpolate": [
                 {
                   "context": {
@@ -49980,9 +50624,13 @@
                 "value": "inch",
                 "word": "inches"
               },
+              "pullFromContext": false,
               "range": {
                 "end": 20,
                 "start": 4
+              },
+              "stm": {
+                "id": 1
               },
               "text": "inches per second",
               "types": [
@@ -50108,8 +50756,8 @@
             "topLevel": true,
             "touchedBy": [
               "length#call2",
-              "instance24#length#call2",
-              "instance24#rates#call2"
+              "instance26#length#call2",
+              "instance26#rates#call2"
             ],
             "value": "equals",
             "word": "="
@@ -50229,8 +50877,8 @@
             "topLevel": true,
             "touchedBy": [
               "length#call2",
-              "instance23#length#call2",
-              "instance23#rates#call2"
+              "instance25#length#call2",
+              "instance25#rates#call2"
             ],
             "value": "equals",
             "word": "="
@@ -50350,8 +50998,8 @@
             "topLevel": true,
             "touchedBy": [
               "length#call2",
-              "instance22#length#call2",
-              "instance22#rates#call2"
+              "instance24#length#call2",
+              "instance24#rates#call2"
             ],
             "value": "equals",
             "word": "="
@@ -50471,8 +51119,8 @@
             "topLevel": true,
             "touchedBy": [
               "length#call2",
-              "instance21#length#call2",
-              "instance21#rates#call2"
+              "instance23#length#call2",
+              "instance23#rates#call2"
             ],
             "value": "equals",
             "word": "="
@@ -50592,8 +51240,8 @@
             "topLevel": true,
             "touchedBy": [
               "length#call2",
-              "instance20#length#call2",
-              "instance20#rates#call2"
+              "instance22#length#call2",
+              "instance22#rates#call2"
             ],
             "value": "equals",
             "word": "="
@@ -60904,6 +61552,7 @@
             "value": "second",
             "word": "second"
           },
+          "fromSTM": true,
           "interpolate": [
             {
               "context": {
@@ -60944,9 +61593,13 @@
             "value": "inch",
             "word": "inches"
           },
+          "pullFromContext": false,
           "range": {
             "end": 20,
             "start": 4
+          },
+          "stm": {
+            "id": 1
           },
           "text": "inches per second",
           "types": [
@@ -61110,6 +61763,7 @@
               "value": "second",
               "word": "second"
             },
+            "fromSTM": true,
             "interpolate": [
               {
                 "context": {
@@ -61150,9 +61804,13 @@
               "value": "inch",
               "word": "inches"
             },
+            "pullFromContext": false,
             "range": {
               "end": 20,
               "start": 4
+            },
+            "stm": {
+              "id": 1
             },
             "text": "inches per second",
             "types": [
@@ -61466,75 +62124,7 @@
           }
         },
         "dimension2": {
-          "km": "dimension2",
-          "preferredUnits": [
-            {
-              "dead": true,
-              "default": true,
-              "denominator": {
-                "dimension": "time",
-                "level": 0,
-                "marker": "second",
-                "number": "one",
-                "range": {
-                  "end": 20,
-                  "start": 15
-                },
-                "text": "second",
-                "value": "second",
-                "word": "second"
-              },
-              "interpolate": [
-                {
-                  "context": {
-                    "number": "many"
-                  },
-                  "property": "numerator"
-                },
-                {
-                  "context": {
-                    "default": true,
-                    "level": 0,
-                    "marker": "unitPerUnit",
-                    "range": {
-                      "end": 13,
-                      "start": 11
-                    },
-                    "text": "per",
-                    "word": "per"
-                  }
-                },
-                {
-                  "property": "denominator"
-                }
-              ],
-              "level": 0,
-              "marker": "unitPerUnit",
-              "numerator": {
-                "dead": true,
-                "dimension": "length",
-                "level": 0,
-                "marker": "inch",
-                "number": "many",
-                "range": {
-                  "end": 9,
-                  "start": 4
-                },
-                "text": "inches",
-                "value": "inch",
-                "word": "inches"
-              },
-              "range": {
-                "end": 20,
-                "start": 4
-              },
-              "text": "inches per second",
-              "types": [
-                "unitPerUnit"
-              ],
-              "word": "per"
-            }
-          ]
+          "km": "dimension2"
         },
         "evaluate2": {
           "km": "evaluate2"
@@ -69121,7 +69711,7 @@
               "marker": "hour",
               "pullFromContext": false,
               "stm": {
-                "id": 2
+                "id": 3
               },
               "value": 1
             },
@@ -69131,7 +69721,7 @@
               "marker": "mile",
               "pullFromContext": false,
               "stm": {
-                "id": 1
+                "id": 2
               },
               "value": {
                 "dead": true,
@@ -69149,6 +69739,77 @@
                 "value": 10,
                 "word": "10"
               }
+            },
+            {
+              "dead": true,
+              "default": true,
+              "denominator": {
+                "dimension": "time",
+                "level": 0,
+                "marker": "second",
+                "number": "one",
+                "range": {
+                  "end": 20,
+                  "start": 15
+                },
+                "text": "second",
+                "value": "second",
+                "word": "second"
+              },
+              "fromSTM": true,
+              "interpolate": [
+                {
+                  "context": {
+                    "number": "many"
+                  },
+                  "property": "numerator"
+                },
+                {
+                  "context": {
+                    "default": true,
+                    "level": 0,
+                    "marker": "unitPerUnit",
+                    "range": {
+                      "end": 13,
+                      "start": 11
+                    },
+                    "text": "per",
+                    "word": "per"
+                  }
+                },
+                {
+                  "property": "denominator"
+                }
+              ],
+              "level": 0,
+              "marker": "unitPerUnit",
+              "numerator": {
+                "dead": true,
+                "dimension": "length",
+                "level": 0,
+                "marker": "inch",
+                "number": "many",
+                "range": {
+                  "end": 9,
+                  "start": 4
+                },
+                "text": "inches",
+                "value": "inch",
+                "word": "inches"
+              },
+              "pullFromContext": false,
+              "range": {
+                "end": 20,
+                "start": 4
+              },
+              "stm": {
+                "id": 1
+              },
+              "text": "inches per second",
+              "types": [
+                "unitPerUnit"
+              ],
+              "word": "per"
             }
           ],
           "variables": {
@@ -69329,6 +69990,7 @@
                   "value": "second",
                   "word": "second"
                 },
+                "fromSTM": true,
                 "interpolate": [
                   {
                     "context": {
@@ -69369,9 +70031,13 @@
                   "value": "inch",
                   "word": "inches"
                 },
+                "pullFromContext": false,
                 "range": {
                   "end": 20,
                   "start": 4
+                },
+                "stm": {
+                  "id": 1
                 },
                 "text": "inches per second",
                 "types": [
@@ -69450,6 +70116,7 @@
                 "value": "second",
                 "word": "second"
               },
+              "fromSTM": true,
               "interpolate": [
                 {
                   "context": {
@@ -69490,9 +70157,13 @@
                 "value": "inch",
                 "word": "inches"
               },
+              "pullFromContext": false,
               "range": {
                 "end": 20,
                 "start": 4
+              },
+              "stm": {
+                "id": 1
               },
               "text": "inches per second",
               "types": [

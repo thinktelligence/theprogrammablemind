@@ -35,26 +35,29 @@ class API {
   initialize({ config, objects }) {
     this._config = config
     this._objects = objects
-    objects.preferredUnits = []
   }
 
   getPreferredUnits(quantity) {
-    for (const unit of this._objects.preferredUnits) {
-      if (quantity.unit.marker == 'unitPerUnit') {
-        if (quantity.unit.numerator.dimension == unit.numerator.dimension &&
-            quantity.unit.denominator.dimension == unit.denominator.dimension) {
-          return unit
+    const preferredUnits = this.args.mentions({
+      context: { marker: 'unit' },
+      condition: (unit) => {
+        if (quantity.unit.marker == 'unitPerUnit') {
+          if (quantity.unit.numerator.dimension == unit.numerator.dimension &&
+              quantity.unit.denominator.dimension == unit.denominator.dimension) {
+            return true
+          }
+        } else if (unit.dimension) {
+          if (unit.dimension == quantity.unit.dimension) {
+            return true
+          }
         }
-      } else if (unit.dimension) {
-        if (unit.dimension == quantity.unit.dimension) {
-          return unit
-        }
-      }
-    }
+      },
+    })
+    return preferredUnits
   }
 
   setPreferredUnits(units) {
-    this._objects.preferredUnits.unshift(units)
+    this.args.mentioned(units)
   }
 
   setMeasurementSystem(measurementSystem) {
@@ -336,8 +339,8 @@ knowledgeModule({
     checks: {
       objects: [
         { km: 'properties' },
+        { km: 'stm' },
         { path: ['measurementSystem'] },
-        { path: ['preferredUnits'] },
       ],
       context: [
         defaultContextCheck({ marker: 'metric_system', exported: true }),
