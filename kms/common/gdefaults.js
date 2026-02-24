@@ -227,7 +227,7 @@ const config = {
     {
       where: where(),
       // match: ({context}) => context.paraphrase && context.word && context.number == 'one',
-      match: ({context}) => context.word && context.number == 'one',
+      match: ({context}) => context.word !== null && context.number == 'one',
       apply: ({context}) => {
         return pluralize.singular(context.word)
       }
@@ -244,37 +244,37 @@ const config = {
 
     {
       where: where(),
-      match: ({context}) => context.verbatim,
+      match: ({context}) => context.verbatim != null,
       apply: ({context}) => context.verbatim
     },
 
     {
       where: where(),
-      match: ({context}) => context.value && Array.isArray(context.value),
+      match: ({context}) => context.value != null && Array.isArray(context.value),
       apply: async ({context, gs}) => await gs(context.value)
     },
 
     {
       where: where(),
-      match: ({context}) => context.value,
+      match: ({context}) => context.value != null,
       apply: async ({context, g, gr}) => g(context.value),
     },
 
     {
       where: where(),
-      match: ({context}) => context.evalue,
+      match: ({context}) => context.evalue != null,
       apply: ({context}) => `the ${context.word}` 
     },
 
     {
       where: where(),
-      match: ({context}) => context.word,
+      match: ({context}) => context.word != null,
       apply: ({context}) => context.word,
     },
 
     {
       where: where(),
-      match: ({context}) => context.marker,
+      match: ({context}) => context.marker != null,
       apply: ({context}) => context.marker,
     },
 

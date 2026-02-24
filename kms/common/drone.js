@@ -552,6 +552,7 @@ const template = {
     "quantity in meters per second",
     "number meters per second",
     "quantity in units",
+    "number degrees",
   ],
   configs: [
     "drone is a concept",
@@ -687,6 +688,22 @@ const template = {
             const speed = await fragments("number meters per second", { number: { marker: 'integer', value } })
             const preferred = await s({ marker: 'preferredUnits', quantity: speed }) 
             resolveEvaluate(context, preferred.response || speed)
+          }
+        },
+        {
+          match: ({context}) => context.marker == 'direction' && context.evaluate,
+          apply: async ({gp, s, context, objects, fragments, resolveEvaluate, api}) => {
+            const value = objects.current.angleInRadians
+            const fi = await fragments("number degrees")
+            const direction = await fi.instantiate([
+              { 
+                match: ({path, pathEquals}) => pathEquals(path, ['0', 'amount']),
+                apply: ({context}) => {
+                  Object.assign(context, { marker: 'number', value: value })
+                }
+              }
+            ])
+            resolveEvaluate(context, direction)
           }
         },
         {
