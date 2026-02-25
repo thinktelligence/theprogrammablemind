@@ -5,6 +5,7 @@ const instance = require('./drone.instance.json')
 const hierarchy = require('./hierarchy')
 const ordinals = require('./ordinals')
 const nameable = require('./nameable')
+const compass = require('./compass')
 const rates = require('./rates')
 const help = require('./help')
 const { degreesToRadians, radiansToDegrees, cartesianToPolar } = require('./helpers/drone')
@@ -126,7 +127,7 @@ https://www.amazon.ca/Freenove-Raspberry-Tracking-Avoidance-Ultrasonic/dp/B0BNDQ
 
 function expectDirection(args) {
   args.config.addSemantic({
-    match: ({context, isA}) => isA(context.marker, 'direction'),
+    match: ({context, isA}) => isA(context.marker, 'direction') && !context.evaluate,
     apply: ({objects, context}) => {
       objects.runCommand = true
       objects.current.direction = context.marker
@@ -564,6 +565,7 @@ const template = {
     "point is a concept",
     // TODO fix/add this "position means point",
     "points are nameable orderable and memorable",
+    "drone modifies direction",
     (args) => {
       expectDirection(args)
       expectDistanceForMove(args)
@@ -691,7 +693,7 @@ const template = {
           }
         },
         {
-          match: ({context}) => context.marker == 'direction' && context.evaluate,
+          match: ({context}) => ['direction', 'drone_direction'].includes(context.marker) && context.evaluate,
           apply: async ({gp, s, context, objects, fragments, resolveEvaluate, api}) => {
             const value = objects.current.angleInRadians
             const fi = await fragments("number degrees")
@@ -741,7 +743,7 @@ const template = {
 
 knowledgeModule( { 
   config: { name: 'drone' },
-  includes: [nameable, ordinals, hierarchy, rates, help],
+  includes: [compass, nameable, ordinals, hierarchy, rates, help],
   api: () => new API(),
 
   module,

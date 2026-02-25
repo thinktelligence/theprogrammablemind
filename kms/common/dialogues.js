@@ -476,7 +476,12 @@ const config = {
         }
         // greg101
         if (focus == 'one') {
-          return `${await g(context.two)} ${isMany(context.one) || isMany(context.two) || isMany(context) ? "are" : "is"} ${await gp(context.one)}`
+          let number = 'one'
+          if (context.two.evalue && isMany(context.two.evalue)) {
+            number = 'many'
+          }
+          return `${await g(context.two)} ${number == 'many' ? "are" : "is"} ${await gp({ ...context.one, number })}`
+          // return `${await g(context.two)} ${isMany(context.one) || isMany(context.two) || isMany(context) ? "are" : "is"} ${await gp(context.one)}`
         } else {
           // TODO fix this using the assumed and that whole mess. change isResponse to useValue
           if (context.isResponse) {

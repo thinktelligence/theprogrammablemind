@@ -7,8 +7,8 @@ const instance = require('./compass.instance.json')
 const template = {
   configs: [
     "compass modifies direction",
-    "north, south, east and west are compass directions",
     "northwest, northeast, southwest and southeast are compass directions",
+    "north, south, east and west are compass directions",
   ],
 }
 

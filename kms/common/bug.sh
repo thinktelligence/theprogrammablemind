@@ -986,3 +986,8 @@ node  drone -q 'back and forth' -g -d
 node drone -q 'forward 2 meters\ngo back and forth 2 times' -g -d
 
 node drone -q 'what is the speed in inches per second' -g -d
+
+ 2026  node drone -q "what is the speed and direction of the drone" -g -d
+ 2027  node drone -q "what is the drone's speed and direction" -g -d
+ 2028  node drone -q "what is the speed and direction" -g -d
+

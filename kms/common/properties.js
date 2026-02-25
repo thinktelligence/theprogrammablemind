@@ -212,7 +212,7 @@ const config = {
       id: "propertyOf", 
       level: 1, 
       localHierarchy: [['property', 'queryable'], ['property', 'theAble'], ['property', 'unknown']],
-      bridge: "{ ...before[0], object: operator.object, objects: append(default(before[0].objects, before), operator.objects) }" 
+      bridge: "{ ...before[0], propertyOf: true, object: operator.object, objects: append(default(before[0].objects, before), operator.objects) }" 
     },
     { 
       id: "whose", 
@@ -402,27 +402,29 @@ const config = {
       // match: ({context}) => context.paraphrase && !context.modifiers && context.object, 
       match: ({context}) => !context.modifiers && context.object && !context.interpolate, 
       apply: async ({context, g, gs}) => {
-               if (context.objects) {
-                 const objects = [ ...context.objects ]
-                 objects.reverse()
-                 let phrase = ''
-                 let separator = ''
-                 for (let i = 0; i < objects.length-1; ++i) {
-                   phrase = phrase + separator + await g({...objects[i], paraphrase: context.paraphrase, possessive: true})
-                   separator = ' '
-                 }
-                 phrase = phrase + separator + await g({...objects[objects.length-1], paraphrase: context.paraphrase})
-                 return phrase
-               } else {
-                 const base = { ...context }
-                 base.object = undefined; // TODO make paraphrase be a default when paraphrasing?
-                 if (context.object.marker == 'objectPrefix') {
-                   return `${await g(context.object)} ${await g(base)}`
-                 } else {
-                   return `${await g({...context.object, paraphrase: context.paraphrase})}'s ${await g(base)}`
-                 }
-               }  
-             },
+        if (context.evalue) {
+          return await g(context.evalue)
+        } else if (context.objects) {
+          const objects = [ ...context.objects ]
+          objects.reverse()
+          let phrase = ''
+          let separator = ''
+          for (let i = 0; i < objects.length-1; ++i) {
+            phrase = phrase + separator + await g({...objects[i], paraphrase: context.paraphrase, possessive: true})
+            separator = ' '
+          }
+          phrase = phrase + separator + await g({...objects[objects.length-1], paraphrase: context.paraphrase})
+          return phrase
+        } else {
+          const base = { ...context }
+          base.object = undefined; // TODO make paraphrase be a default when paraphrasing?
+          if (context.object.marker == 'objectPrefix') {
+            return `${await g(context.object)} ${await g(base)}`
+          } else {
+            return `${await g({...context.object, paraphrase: context.paraphrase})}'s ${await g(base)}`
+          }
+        }  
+      },
     },
   ],
   semantics: [

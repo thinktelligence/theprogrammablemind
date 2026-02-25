@@ -245,7 +245,6 @@ const config = {
       id: "degree", 
       words: [{ word: 'degrees', number: 'many' }],
       isA: ['amount'],
-      callId: 'drone#call5',
       generatorpr: async ({context, g, callId}) => (context.amount != null) ? `${await g(context.amount)} ${context.word}` : context.word,
       bridge: "{ ...next(operator), value: before[0].value, amount: before[0] }",
     },
