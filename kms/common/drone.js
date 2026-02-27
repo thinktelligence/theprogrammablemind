@@ -1,4 +1,5 @@
 const { knowledgeModule, where } = require('./runtime').theprogrammablemind
+const { conjugateVerb } = require('./english_helpers')
 const { OverrideCheck, defaultContextCheck, getValue, setValue } = require('./helpers')
 const drone_tests = require('./drone.test.json')
 const instance = require('./drone.instance.json')
@@ -149,18 +150,26 @@ const compassToRadians = {
   'northeast':  7 * Math.PI / 4
 };
 
+async function handleDistance(args, distance) {
+  const {objects, fragments, e, say, gp} = args
+  if (!distance) {
+    distance = args.context
+  }
+  const instantiation = await fragments("quantity in meters", { quantity: distance })
+  try {
+    const result = await e(instantiation)
+    objects.runCommand = true
+    objects.current.distance = result.evalue.amount.evalue.evalue
+  } catch (e) {
+    say(`Don't know how to interpret ${await gp(distance)} in meters`)
+  }
+}
+
 function expectDistanceForMove(args) {
   args.config.addSemantic({
     match: ({context, isA}) => isA(context.marker, 'quantity') && context.unit && !isA(context.unit.marker, 'unitPerUnit'),
-    apply: async ({context, objects, fragments, e, say, gp}) => {
-      const instantiation = await fragments("quantity in meters", { quantity: context })
-      try {
-        const result = await e(instantiation)
-        objects.runCommand = true
-        objects.current.distance = result.evalue.amount.evalue.evalue
-      } catch (e) {
-        say(`Don't know how to interpret ${await gp(context)} in meters`)
-      }
+    apply: async (args) => {
+      await handleDistance(args)
     }
   })
 }
@@ -649,7 +658,6 @@ const template = {
         "([turn] (direction))",
         "([pause] ([number]))",
         "([stop] ([drone|])?)",
-        "([go])",
         "([toPoint|to] (point))",
       ],
       bridges: [
@@ -677,14 +685,44 @@ const template = {
             objects.current.path.push(point.evalue)
           }
         },
-        { id: "go" },
+        { 
+          id: "go",
+          level: 0,
+          isA: ['verb'],
+          words: [
+            ...conjugateVerb('go'),
+          ],
+          bridge: `{ 
+            ...next(operator), 
+            distance: distance?, 
+            direction: direction?,
+            operator: operator,
+            interpolate: [{ property: 'operator' }, { property: 'direction' }, { property: 'distance' }] 
+          }`,
+          selector: {
+            arguments: {
+              distance: "(@<= 'quantity' && context.unit.dimension == 'length')",
+              direction: "(@<= 'direction')",
+            },
+          },
+          semantic: async (args) => {
+            const {context, objects} = args
+            if (context.distance) {
+              await handleDistance(args, context.distance)
+            }
+            if (context.direction) {
+              objects.current.direction = context.direction.marker
+            }
+            objects.runCommand = true
+          },
+        },
         {
           id: 'turn',
           isA: ['verb'],
           bridge: "{ ...next(operator), direction: after[0], interpolate: [{ context: operator }, { property: 'direction' }] }",
           semantic: ({context, objects, api}) => {
-            objects.runCommand = true
             objects.current.direction = context.direction.marker
+            objects.runCommand = true
           },
           // check: { marker: 'turn', exported: true, extra: ['direction'] }
         },
@@ -803,6 +841,7 @@ knowledgeModule( {
     contents: drone_tests,
     checks: {
       context: [
+        defaultContextCheck({ marker: 'go', exported: true, extra: ['direction', 'distance'] }),
         defaultContextCheck({ marker: 'point', exported: true, extra: ['ordinal', { property: 'point', check: ['x', 'y'] }, 'description', { property: 'stm', check: ['id', 'names'] }] }),
         defaultContextCheck({ marker: 'turn', exported: true, extra: ['direction'] }),
         defaultContextCheck({ marker: 'history', exported: true, extra: ['pause', 'direction', 'speed', 'turn', 'time', 'sonic', 'batched', 'repeats'] }),
