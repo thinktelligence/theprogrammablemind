@@ -6,9 +6,10 @@ const hierarchy = require('./hierarchy')
 const ordinals = require('./ordinals')
 const nameable = require('./nameable')
 const compass = require('./compass')
+const angle = require('./angle')
 const rates = require('./rates')
 const help = require('./help')
-const { degreesToRadians, radiansToDegrees, cartesianToPolar } = require('./helpers/drone')
+const { rotateDelta, degreesToRadians, radiansToDegrees, cartesianToPolar } = require('./helpers/drone')
 
 /*
 todo
@@ -135,6 +136,19 @@ function expectDirection(args) {
   })
 }
 
+// it's lazy day
+
+const compassToRadians = {
+  'north':      0,
+  'northeast':  Math.PI / 4,
+  'east':       Math.PI / 2,
+  'southeast':  3 * Math.PI / 4,
+  'south':      Math.PI,
+  'southwest':  5 * Math.PI / 4,
+  'west':       3 * Math.PI / 2,
+  'northwest':  7 * Math.PI / 4
+};
+
 function expectDistanceForMove(args) {
   args.config.addSemantic({
     match: ({context, isA}) => isA(context.marker, 'quantity') && context.unit && !isA(context.unit.marker, 'unitPerUnit'),
@@ -208,6 +222,7 @@ class API {
       path: [],
       speed: this.minimumSpeedDrone(),
       ordinal: 0,                 // ordinal of the current point or the current point that the recent movement started at
+      compass: 'north',           // for now assume the drone start out point north. i will make that part of the conversation later
     }
     objects.history = []
     objects.sonicTest = 5
@@ -266,12 +281,27 @@ class API {
     const objects = this._objects
     const { fragments, e, say, gr } = this.args
 
+    async function quantityInMeters(from, to) {
+      const fi = await fragments("quantity in meters")
+      return await fi.instantiate([
+        { 
+          match: ({path, pathEquals}) => pathEquals(path, ['0', 'from']),
+          apply: ({context}) => Object.assign(context, from),
+        },
+        { 
+          match: ({path, pathEquals}) => pathEquals(path, ['0', 'to']),
+          apply: ({context}) => Object.assign(context, to),
+        },
+      ])
+    }
+
     // TODO account for forward vs backward speed
     const minimumSpeed = this.minimumSpeedDrone()
     if (objects.current.speed < minimumSpeed) {
       const unitsOfUser = objects.current.speedUnitsOfUser
       const minimumValueInDroneUnits = await fragments("number meters per second", { number: { marker: 'integer', value: minimumSpeed } })
-      const valueInUsersUnits = await fragments("quantity in units", { quantity: minimumValueInDroneUnits, unit_length: unitsOfUser })
+      // const valueInUsersUnits = await fragments("quantity in meters", { quantity: minimumValueInDroneUnits, meter: unitsOfUser })
+      const valueInUsersUnits = await quantityInMeters(minimumValueInDroneUnits, unitsOfUser )
       const evaluated = await e(valueInUsersUnits)
       say(`The drone cannot go that slow. The minimum speed is ${await gr(evaluated.evalue)}`)
       objects.runCommand = false
@@ -284,7 +314,8 @@ class API {
     if (objects.current.speed > maximumSpeed) {
       const unitsOfUser = objects.current.speedUnitsOfUser
       const maximumValueInDroneUnits = await fragments("number meters per second", { number: { marker: 'integer', value: maximumSpeed } })
-      const valueInUsersUnits = await fragments("quantity in units", { quantity: maximumValueInDroneUnits, unit_length: unitsOfUser })
+      // const valueInUsersUnits = await fragments("quantity in meters", { quantity: maximumValueInDroneUnits, meter: unitsOfUser })
+      const valueInUsersUnits = await quantityInMeters(maximumValueInDroneUnits, unitsOfUser )
       const evaluated = await e(valueInUsersUnits)
       say(`The drone cannot go that fast. The maximum speed is ${await gr(evaluated.evalue)}`)
       objects.runCommand = false
@@ -330,29 +361,37 @@ class API {
     }
 
     const command = { speed: objects.current.speed, ...objects.current }
-    switch (command.direction) {
-      case 'forward':
-        await this.forward(command.speed, { batched: command.distance })
-        break
-      case 'backward':
-        await this.backward(command.speed, { batched: command.distance })
-        break
-      case 'right':
-        await this.rotate(-Math.PI/2)
-        break
-      case 'left':
-        await this.rotate(Math.PI/2)
-        break
-      case 'around':
-        await this.rotate(Math.PI)
-        break
+    debugger
+    if (this.args.hierarchy.isA(command.direction, 'compass_direction')) {
+      const delta = rotateDelta(this._objects.current.angleInRadians, compassToRadians[command.direction])
+      await this.rotate(delta)
+    } else {
+      switch (command.direction) {
+        case 'forward':
+        case undefined:
+          await this.forward(command.speed, { batched: command.distance })
+          break
+        case 'backward':
+          await this.backward(command.speed, { batched: command.distance })
+          break
+        case 'right':
+          await this.rotate(-Math.PI/2)
+          break
+        case 'left':
+          await this.rotate(Math.PI/2)
+          break
+        case 'around':
+          await this.rotate(Math.PI)
+          break
+      }
     }
 
-    if (command.distance) {
+    if (command.distance > 0) {
       const distanceMeters = command.distance
       await stopAtDistance(command.direction, distanceMeters)
       await this.sendBatch()
       objects.current.durationInSeconds = 0
+      objects.current.distance = 0
     }
   }
 
@@ -677,6 +716,14 @@ const template = {
       ],
       semantics: [
         {
+          match: ({context}) => context.marker == 'thenTime',
+          apply: async ({objects, api}) => {
+            if (objects.runCommand) {
+              await api.sendCommand()
+            }
+          },
+        },
+        {
           match: ({context}) => context.marker == 'speed' && context.evaluate,
           apply: async ({gp, s, context, objects, fragments, resolveEvaluate, api}) => {
             let value = objects.current.speed
@@ -743,7 +790,7 @@ const template = {
 
 knowledgeModule( { 
   config: { name: 'drone' },
-  includes: [compass, nameable, ordinals, hierarchy, rates, help],
+  includes: [angle, compass, nameable, ordinals, hierarchy, rates, help],
   api: () => new API(),
 
   module,

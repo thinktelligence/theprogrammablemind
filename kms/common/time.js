@@ -65,6 +65,7 @@ const template = {
     "hours = days * 24",
     {
       operators: [
+        "([thenTime|then])",
         "(([timePoint]) [ampm|])",
         "(([integer]) [timeRepeats|] ([timePoint]))",
         "([atTime|at] (timePoint))",
@@ -73,6 +74,10 @@ const template = {
         "([hourMinutes|] (integer) (colon) (integer))",
       ],
       bridges: [
+        { 
+          id: 'thenTime',
+          after: ['verb'],
+        },
         {
           id: 'timeRepeats',
           convolution: true,

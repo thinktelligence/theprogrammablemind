@@ -32,8 +32,13 @@ function radiansToDegrees(radians) {
   return (radians * 180) / Math.PI;
 }
 
+function rotateDelta(currentRadians, targetRadians) {
+  return -(((targetRadians - currentRadians + Math.PI) % (2 * Math.PI)) - Math.PI)
+}
+
 module.exports = {
   cartesianToPolar,
   degreesToRadians,
   radiansToDegrees,
+  rotateDelta,
 }

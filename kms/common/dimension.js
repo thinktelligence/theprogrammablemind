@@ -139,14 +139,6 @@ class API {
     // remove the zeros
     evalues = evalues.filter( (evalue) => evalue.value.evalue )
 
-    /*
-    '{
-        "marker":"dimension",
-        "unit":{"marker":"unit","range":{"start":19,"end":25},"word":"celcius","text":"celcius","value":"celcius","unknown":true,"types":["unit","unknown"]},
-        "value":10,
-        "amount":{"word":"degrees","number":"many","text":"10 degrees","marker":"degree","range":{"start":8,"end":17},"value":10,"amount":{"value":10,"text":"10","marker":"number","word":"10","range":{"start":8,"end":9},"types":["number"]}},
-          "text":"10 degrees celcius","range":{"start":8,"end":25}}'
-    */
     evalues = evalues.map((evalue) => {
       const number = evalue.value.evalue == 1 ? 'one' : 'many'
       evalue.to.number = number
@@ -177,7 +169,6 @@ const config = {
     "(([amount]) [unit])",
     "((@<=quantity || context.possession == true) [convertToUnits|in] (unit))",
 
-    "(([number]) [degree])",
     "([useUnits|use] (unit))",
     "([preferredUnits] (quantity))",
     { pattern: "([length])", scope: "testing" },
@@ -239,15 +230,6 @@ const config = {
       bridge: "{ ...next(operator) }",
       scope: "testing" 
     },
-    { id: "amount", },
-    { 
-      where: where(),
-      id: "degree", 
-      words: [{ word: 'degrees', number: 'many' }],
-      isA: ['amount'],
-      generatorpr: async ({context, g, callId}) => (context.amount != null) ? `${await g(context.amount)} ${context.word}` : context.word,
-      bridge: "{ ...next(operator), value: before[0].value, amount: before[0] }",
-    },
     { 
       id: "amountOfCoordinate", 
       convolution: true, 
@@ -278,6 +260,7 @@ const config = {
 
 const template = {
   configs: [
+    "amount is a concept",
     "measurement modifies unit",
     "dimension and measurement unit are concepts",
     "unit means measurement unit",

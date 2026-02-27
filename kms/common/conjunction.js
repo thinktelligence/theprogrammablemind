@@ -1,7 +1,7 @@
 const { knowledgeModule, where } = require('./runtime').theprogrammablemind
-const gdefaults = require('./gdefaults.js')
+const stm = require('./stm.js')
 const conjunction_tests = require('./conjunction.test.json')
-const { defaultObjectCheck, defaultContextCheck, propertyToArray } = require('./helpers')
+const { toFinalValue, defaultObjectCheck, defaultContextCheck, propertyToArray } = require('./helpers')
 const { isA, asList, listable } = require('./helpers/conjunction.js')
 
 const config = {
@@ -40,6 +40,20 @@ const config = {
       bridge: "{ ...operator, value: append(before, operator.value) }"
     },
   ],
+  semantics: [
+    {
+      where: where(),
+      notes: 'evaluate elements of the list individually',
+      match: ({context, callId}) => context.marker == 'list' && context.evaluate,
+      apply: async ({context, toArray, toList, e, resolveEvaluate}) => {
+        const list = []
+        for (const element of toArray(context)) {
+          list.push(await e(element))
+        }
+        resolveEvaluate(context, toList(list))
+      }
+    },
+  ],
   generators: [
     {
       where: where(),
@@ -67,9 +81,9 @@ const config = {
       match: ({context, hierarchy}) => context.marker == 'list' && context.value,
       apply: async ({context, gs}) => {
         if (context.newLinesOnly) {
-          return await gs(context.value, '\n')
+          return await gs(toFinalValue(context), '\n')
         } else {
-          return await gs(context.value, ', ', ' and ')
+          return await gs(toFinalValue(context), ', ', ' and ')
         }
       }
     },
@@ -108,7 +122,7 @@ function initializer({objects, config, isModule}) {
 
 knowledgeModule( { 
   config,
-  includes: [gdefaults],
+  includes: [stm],
   initializer,
 
   module,

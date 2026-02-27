@@ -58,6 +58,7 @@ const config = {
       "nines": [{"id": "integer", "initial": "{ value: 9, integer: 'many', instance: true }" }],
       "ten": [{"id": "integer", "initial": "{ value: 10, instance: true }" }],
       "tens": [{"id": "integer", "initial": "{ value: 10, integer: 'many', instance: true }" }],
+      "pi": [{"id": "integer", "initial": { value: 3.1415926, integer: 'many', instance: true } }],
     },
     patterns: [
       { 

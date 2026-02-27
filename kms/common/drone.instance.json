@@ -87,7 +87,7 @@
         },
         {
           "match": "({context}) => ['direction', 'drone_direction'].includes(context.marker) && context.evaluate",
-          "apply": "async ({gp, s, context, objects, fragments, resolveEvaluate, api}) => {\n            debugger\n            const value = objects.current.angleInRadians\n            const fi = await fragments(\"number degrees\")\n            const direction = await fi.instantiate([\n              { \n                match: ({path, pathEquals}) => pathEquals(path, ['0', 'amount']),\n                apply: ({context}) => {\n                  Object.assign(context, { marker: 'number', value: value })\n                }\n              }\n            ])\n            resolveEvaluate(context, direction)\n          }"
+          "apply": "async ({gp, s, context, objects, fragments, resolveEvaluate, api}) => {\n            const value = objects.current.angleInRadians\n            const fi = await fragments(\"number degrees\")\n            const direction = await fi.instantiate([\n              { \n                match: ({path, pathEquals}) => pathEquals(path, ['0', 'amount']),\n                apply: ({context}) => {\n                  Object.assign(context, { marker: 'number', value: value })\n                }\n              }\n            ])\n            resolveEvaluate(context, direction)\n          }"
         },
         {
           "match": "({context}) => context.marker == 'timeRepeats'",
@@ -120,12 +120,87 @@
         ],
         [
           "amount",
+          "concept",
+          false
+        ],
+        [
           "amount",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "amount",
+          "isEdee",
+          false
+        ],
+        [
+          "amount",
+          "isEder",
+          false
+        ],
+        [
+          "amount",
+          "object",
+          false
+        ],
+        [
+          "amount",
+          "property",
+          false
+        ],
+        [
+          "amount",
+          "queryable",
+          false
+        ],
+        [
+          "amount",
+          "theAble",
           false
         ],
         [
           "ampm",
           "adjective",
+          false
+        ],
+        [
+          "angle",
+          "dimension",
+          false
+        ],
+        [
+          "angle",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "angle",
+          "isEdee",
+          false
+        ],
+        [
+          "angle",
+          "isEder",
+          false
+        ],
+        [
+          "angle",
+          "object",
+          false
+        ],
+        [
+          "angle",
+          "property",
+          false
+        ],
+        [
+          "angle",
+          "queryable",
+          false
+        ],
+        [
+          "angle",
+          "theAble",
           false
         ],
         [
@@ -415,7 +490,42 @@
         ],
         [
           "degree",
-          "amount",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "degree",
+          "isEdee",
+          false
+        ],
+        [
+          "degree",
+          "isEder",
+          false
+        ],
+        [
+          "degree",
+          "object",
+          false
+        ],
+        [
+          "degree",
+          "property",
+          false
+        ],
+        [
+          "degree",
+          "queryable",
+          false
+        ],
+        [
+          "degree",
+          "theAble",
+          false
+        ],
+        [
+          "degree",
+          "unit_angle",
           false
         ],
         [
@@ -2149,6 +2259,46 @@
           false
         ],
         [
+          "radian",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "radian",
+          "isEdee",
+          false
+        ],
+        [
+          "radian",
+          "isEder",
+          false
+        ],
+        [
+          "radian",
+          "object",
+          false
+        ],
+        [
+          "radian",
+          "property",
+          false
+        ],
+        [
+          "radian",
+          "queryable",
+          false
+        ],
+        [
+          "radian",
+          "theAble",
+          false
+        ],
+        [
+          "radian",
+          "unit_angle",
+          false
+        ],
+        [
           "readonly",
           "queryable",
           false
@@ -2650,6 +2800,46 @@
         ],
         [
           "unitPerUnit",
+          "unit",
+          false
+        ],
+        [
+          "unit_angle",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "unit_angle",
+          "isEdee",
+          false
+        ],
+        [
+          "unit_angle",
+          "isEder",
+          false
+        ],
+        [
+          "unit_angle",
+          "object",
+          false
+        ],
+        [
+          "unit_angle",
+          "property",
+          false
+        ],
+        [
+          "unit_angle",
+          "queryable",
+          false
+        ],
+        [
+          "unit_angle",
+          "theAble",
+          false
+        ],
+        [
+          "unit_angle",
           "unit",
           false
         ],
@@ -3248,12 +3438,87 @@
         ],
         [
           "amount",
+          "concept",
+          false
+        ],
+        [
           "amount",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "amount",
+          "isEdee",
+          false
+        ],
+        [
+          "amount",
+          "isEder",
+          false
+        ],
+        [
+          "amount",
+          "object",
+          false
+        ],
+        [
+          "amount",
+          "property",
+          false
+        ],
+        [
+          "amount",
+          "queryable",
+          false
+        ],
+        [
+          "amount",
+          "theAble",
           false
         ],
         [
           "ampm",
           "adjective",
+          false
+        ],
+        [
+          "angle",
+          "dimension",
+          false
+        ],
+        [
+          "angle",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "angle",
+          "isEdee",
+          false
+        ],
+        [
+          "angle",
+          "isEder",
+          false
+        ],
+        [
+          "angle",
+          "object",
+          false
+        ],
+        [
+          "angle",
+          "property",
+          false
+        ],
+        [
+          "angle",
+          "queryable",
+          false
+        ],
+        [
+          "angle",
+          "theAble",
           false
         ],
         [
@@ -3543,7 +3808,42 @@
         ],
         [
           "degree",
-          "amount",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "degree",
+          "isEdee",
+          false
+        ],
+        [
+          "degree",
+          "isEder",
+          false
+        ],
+        [
+          "degree",
+          "object",
+          false
+        ],
+        [
+          "degree",
+          "property",
+          false
+        ],
+        [
+          "degree",
+          "queryable",
+          false
+        ],
+        [
+          "degree",
+          "theAble",
+          false
+        ],
+        [
+          "degree",
+          "unit_angle",
           false
         ],
         [
@@ -5317,6 +5617,46 @@
           false
         ],
         [
+          "radian",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "radian",
+          "isEdee",
+          false
+        ],
+        [
+          "radian",
+          "isEder",
+          false
+        ],
+        [
+          "radian",
+          "object",
+          false
+        ],
+        [
+          "radian",
+          "property",
+          false
+        ],
+        [
+          "radian",
+          "queryable",
+          false
+        ],
+        [
+          "radian",
+          "theAble",
+          false
+        ],
+        [
+          "radian",
+          "unit_angle",
+          false
+        ],
+        [
           "readonly",
           "queryable",
           false
@@ -5818,6 +6158,46 @@
         ],
         [
           "unitPerUnit",
+          "unit",
+          false
+        ],
+        [
+          "unit_angle",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "unit_angle",
+          "isEdee",
+          false
+        ],
+        [
+          "unit_angle",
+          "isEder",
+          false
+        ],
+        [
+          "unit_angle",
+          "object",
+          false
+        ],
+        [
+          "unit_angle",
+          "property",
+          false
+        ],
+        [
+          "unit_angle",
+          "queryable",
+          false
+        ],
+        [
+          "unit_angle",
+          "theAble",
+          false
+        ],
+        [
+          "unit_angle",
           "unit",
           false
         ],
@@ -8247,12 +8627,87 @@
         ],
         [
           "amount",
+          "concept",
+          false
+        ],
+        [
           "amount",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "amount",
+          "isEdee",
+          false
+        ],
+        [
+          "amount",
+          "isEder",
+          false
+        ],
+        [
+          "amount",
+          "object",
+          false
+        ],
+        [
+          "amount",
+          "property",
+          false
+        ],
+        [
+          "amount",
+          "queryable",
+          false
+        ],
+        [
+          "amount",
+          "theAble",
           false
         ],
         [
           "ampm",
           "adjective",
+          false
+        ],
+        [
+          "angle",
+          "dimension",
+          false
+        ],
+        [
+          "angle",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "angle",
+          "isEdee",
+          false
+        ],
+        [
+          "angle",
+          "isEder",
+          false
+        ],
+        [
+          "angle",
+          "object",
+          false
+        ],
+        [
+          "angle",
+          "property",
+          false
+        ],
+        [
+          "angle",
+          "queryable",
+          false
+        ],
+        [
+          "angle",
+          "theAble",
           false
         ],
         [
@@ -8622,7 +9077,42 @@
         ],
         [
           "degree",
-          "amount",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "degree",
+          "isEdee",
+          false
+        ],
+        [
+          "degree",
+          "isEder",
+          false
+        ],
+        [
+          "degree",
+          "object",
+          false
+        ],
+        [
+          "degree",
+          "property",
+          false
+        ],
+        [
+          "degree",
+          "queryable",
+          false
+        ],
+        [
+          "degree",
+          "theAble",
+          false
+        ],
+        [
+          "degree",
+          "unit_angle",
           false
         ],
         [
@@ -10476,6 +10966,46 @@
           false
         ],
         [
+          "radian",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "radian",
+          "isEdee",
+          false
+        ],
+        [
+          "radian",
+          "isEder",
+          false
+        ],
+        [
+          "radian",
+          "object",
+          false
+        ],
+        [
+          "radian",
+          "property",
+          false
+        ],
+        [
+          "radian",
+          "queryable",
+          false
+        ],
+        [
+          "radian",
+          "theAble",
+          false
+        ],
+        [
+          "radian",
+          "unit_angle",
+          false
+        ],
+        [
           "readonly",
           "queryable",
           false
@@ -11017,6 +11547,46 @@
         ],
         [
           "unitPerUnit",
+          "unit",
+          false
+        ],
+        [
+          "unit_angle",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "unit_angle",
+          "isEdee",
+          false
+        ],
+        [
+          "unit_angle",
+          "isEder",
+          false
+        ],
+        [
+          "unit_angle",
+          "object",
+          false
+        ],
+        [
+          "unit_angle",
+          "property",
+          false
+        ],
+        [
+          "unit_angle",
+          "queryable",
+          false
+        ],
+        [
+          "unit_angle",
+          "theAble",
+          false
+        ],
+        [
+          "unit_angle",
           "unit",
           false
         ],
@@ -11731,12 +12301,87 @@
         ],
         [
           "amount",
+          "concept",
+          false
+        ],
+        [
           "amount",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "amount",
+          "isEdee",
+          false
+        ],
+        [
+          "amount",
+          "isEder",
+          false
+        ],
+        [
+          "amount",
+          "object",
+          false
+        ],
+        [
+          "amount",
+          "property",
+          false
+        ],
+        [
+          "amount",
+          "queryable",
+          false
+        ],
+        [
+          "amount",
+          "theAble",
           false
         ],
         [
           "ampm",
           "adjective",
+          false
+        ],
+        [
+          "angle",
+          "dimension",
+          false
+        ],
+        [
+          "angle",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "angle",
+          "isEdee",
+          false
+        ],
+        [
+          "angle",
+          "isEder",
+          false
+        ],
+        [
+          "angle",
+          "object",
+          false
+        ],
+        [
+          "angle",
+          "property",
+          false
+        ],
+        [
+          "angle",
+          "queryable",
+          false
+        ],
+        [
+          "angle",
+          "theAble",
           false
         ],
         [
@@ -12106,7 +12751,42 @@
         ],
         [
           "degree",
-          "amount",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "degree",
+          "isEdee",
+          false
+        ],
+        [
+          "degree",
+          "isEder",
+          false
+        ],
+        [
+          "degree",
+          "object",
+          false
+        ],
+        [
+          "degree",
+          "property",
+          false
+        ],
+        [
+          "degree",
+          "queryable",
+          false
+        ],
+        [
+          "degree",
+          "theAble",
+          false
+        ],
+        [
+          "degree",
+          "unit_angle",
           false
         ],
         [
@@ -13995,6 +14675,46 @@
           false
         ],
         [
+          "radian",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "radian",
+          "isEdee",
+          false
+        ],
+        [
+          "radian",
+          "isEder",
+          false
+        ],
+        [
+          "radian",
+          "object",
+          false
+        ],
+        [
+          "radian",
+          "property",
+          false
+        ],
+        [
+          "radian",
+          "queryable",
+          false
+        ],
+        [
+          "radian",
+          "theAble",
+          false
+        ],
+        [
+          "radian",
+          "unit_angle",
+          false
+        ],
+        [
           "readonly",
           "queryable",
           false
@@ -14571,6 +15291,46 @@
         ],
         [
           "unitPerUnit",
+          "unit",
+          false
+        ],
+        [
+          "unit_angle",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "unit_angle",
+          "isEdee",
+          false
+        ],
+        [
+          "unit_angle",
+          "isEder",
+          false
+        ],
+        [
+          "unit_angle",
+          "object",
+          false
+        ],
+        [
+          "unit_angle",
+          "property",
+          false
+        ],
+        [
+          "unit_angle",
+          "queryable",
+          false
+        ],
+        [
+          "unit_angle",
+          "theAble",
+          false
+        ],
+        [
+          "unit_angle",
           "unit",
           false
         ],
@@ -15212,12 +15972,87 @@
         ],
         [
           "amount",
+          "concept",
+          false
+        ],
+        [
           "amount",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "amount",
+          "isEdee",
+          false
+        ],
+        [
+          "amount",
+          "isEder",
+          false
+        ],
+        [
+          "amount",
+          "object",
+          false
+        ],
+        [
+          "amount",
+          "property",
+          false
+        ],
+        [
+          "amount",
+          "queryable",
+          false
+        ],
+        [
+          "amount",
+          "theAble",
           false
         ],
         [
           "ampm",
           "adjective",
+          false
+        ],
+        [
+          "angle",
+          "dimension",
+          false
+        ],
+        [
+          "angle",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "angle",
+          "isEdee",
+          false
+        ],
+        [
+          "angle",
+          "isEder",
+          false
+        ],
+        [
+          "angle",
+          "object",
+          false
+        ],
+        [
+          "angle",
+          "property",
+          false
+        ],
+        [
+          "angle",
+          "queryable",
+          false
+        ],
+        [
+          "angle",
+          "theAble",
           false
         ],
         [
@@ -15587,7 +16422,42 @@
         ],
         [
           "degree",
-          "amount",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "degree",
+          "isEdee",
+          false
+        ],
+        [
+          "degree",
+          "isEder",
+          false
+        ],
+        [
+          "degree",
+          "object",
+          false
+        ],
+        [
+          "degree",
+          "property",
+          false
+        ],
+        [
+          "degree",
+          "queryable",
+          false
+        ],
+        [
+          "degree",
+          "theAble",
+          false
+        ],
+        [
+          "degree",
+          "unit_angle",
           false
         ],
         [
@@ -17481,6 +18351,46 @@
           false
         ],
         [
+          "radian",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "radian",
+          "isEdee",
+          false
+        ],
+        [
+          "radian",
+          "isEder",
+          false
+        ],
+        [
+          "radian",
+          "object",
+          false
+        ],
+        [
+          "radian",
+          "property",
+          false
+        ],
+        [
+          "radian",
+          "queryable",
+          false
+        ],
+        [
+          "radian",
+          "theAble",
+          false
+        ],
+        [
+          "radian",
+          "unit_angle",
+          false
+        ],
+        [
           "readonly",
           "queryable",
           false
@@ -18062,6 +18972,46 @@
         ],
         [
           "unitPerUnit",
+          "unit",
+          false
+        ],
+        [
+          "unit_angle",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "unit_angle",
+          "isEdee",
+          false
+        ],
+        [
+          "unit_angle",
+          "isEder",
+          false
+        ],
+        [
+          "unit_angle",
+          "object",
+          false
+        ],
+        [
+          "unit_angle",
+          "property",
+          false
+        ],
+        [
+          "unit_angle",
+          "queryable",
+          false
+        ],
+        [
+          "unit_angle",
+          "theAble",
+          false
+        ],
+        [
+          "unit_angle",
           "unit",
           false
         ],
@@ -18739,12 +19689,87 @@
         ],
         [
           "amount",
+          "concept",
+          false
+        ],
+        [
           "amount",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "amount",
+          "isEdee",
+          false
+        ],
+        [
+          "amount",
+          "isEder",
+          false
+        ],
+        [
+          "amount",
+          "object",
+          false
+        ],
+        [
+          "amount",
+          "property",
+          false
+        ],
+        [
+          "amount",
+          "queryable",
+          false
+        ],
+        [
+          "amount",
+          "theAble",
           false
         ],
         [
           "ampm",
           "adjective",
+          false
+        ],
+        [
+          "angle",
+          "dimension",
+          false
+        ],
+        [
+          "angle",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "angle",
+          "isEdee",
+          false
+        ],
+        [
+          "angle",
+          "isEder",
+          false
+        ],
+        [
+          "angle",
+          "object",
+          false
+        ],
+        [
+          "angle",
+          "property",
+          false
+        ],
+        [
+          "angle",
+          "queryable",
+          false
+        ],
+        [
+          "angle",
+          "theAble",
           false
         ],
         [
@@ -19114,7 +20139,42 @@
         ],
         [
           "degree",
-          "amount",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "degree",
+          "isEdee",
+          false
+        ],
+        [
+          "degree",
+          "isEder",
+          false
+        ],
+        [
+          "degree",
+          "object",
+          false
+        ],
+        [
+          "degree",
+          "property",
+          false
+        ],
+        [
+          "degree",
+          "queryable",
+          false
+        ],
+        [
+          "degree",
+          "theAble",
+          false
+        ],
+        [
+          "degree",
+          "unit_angle",
           false
         ],
         [
@@ -21008,6 +22068,46 @@
           false
         ],
         [
+          "radian",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "radian",
+          "isEdee",
+          false
+        ],
+        [
+          "radian",
+          "isEder",
+          false
+        ],
+        [
+          "radian",
+          "object",
+          false
+        ],
+        [
+          "radian",
+          "property",
+          false
+        ],
+        [
+          "radian",
+          "queryable",
+          false
+        ],
+        [
+          "radian",
+          "theAble",
+          false
+        ],
+        [
+          "radian",
+          "unit_angle",
+          false
+        ],
+        [
           "readonly",
           "queryable",
           false
@@ -21594,6 +22694,46 @@
         ],
         [
           "unitPerUnit",
+          "unit",
+          false
+        ],
+        [
+          "unit_angle",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "unit_angle",
+          "isEdee",
+          false
+        ],
+        [
+          "unit_angle",
+          "isEder",
+          false
+        ],
+        [
+          "unit_angle",
+          "object",
+          false
+        ],
+        [
+          "unit_angle",
+          "property",
+          false
+        ],
+        [
+          "unit_angle",
+          "queryable",
+          false
+        ],
+        [
+          "unit_angle",
+          "theAble",
+          false
+        ],
+        [
+          "unit_angle",
           "unit",
           false
         ],
@@ -22192,12 +23332,87 @@
         ],
         [
           "amount",
+          "concept",
+          false
+        ],
+        [
           "amount",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "amount",
+          "isEdee",
+          false
+        ],
+        [
+          "amount",
+          "isEder",
+          false
+        ],
+        [
+          "amount",
+          "object",
+          false
+        ],
+        [
+          "amount",
+          "property",
+          false
+        ],
+        [
+          "amount",
+          "queryable",
+          false
+        ],
+        [
+          "amount",
+          "theAble",
           false
         ],
         [
           "ampm",
           "adjective",
+          false
+        ],
+        [
+          "angle",
+          "dimension",
+          false
+        ],
+        [
+          "angle",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "angle",
+          "isEdee",
+          false
+        ],
+        [
+          "angle",
+          "isEder",
+          false
+        ],
+        [
+          "angle",
+          "object",
+          false
+        ],
+        [
+          "angle",
+          "property",
+          false
+        ],
+        [
+          "angle",
+          "queryable",
+          false
+        ],
+        [
+          "angle",
+          "theAble",
           false
         ],
         [
@@ -22567,7 +23782,42 @@
         ],
         [
           "degree",
-          "amount",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "degree",
+          "isEdee",
+          false
+        ],
+        [
+          "degree",
+          "isEder",
+          false
+        ],
+        [
+          "degree",
+          "object",
+          false
+        ],
+        [
+          "degree",
+          "property",
+          false
+        ],
+        [
+          "degree",
+          "queryable",
+          false
+        ],
+        [
+          "degree",
+          "theAble",
+          false
+        ],
+        [
+          "degree",
+          "unit_angle",
           false
         ],
         [
@@ -24501,6 +25751,46 @@
           false
         ],
         [
+          "radian",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "radian",
+          "isEdee",
+          false
+        ],
+        [
+          "radian",
+          "isEder",
+          false
+        ],
+        [
+          "radian",
+          "object",
+          false
+        ],
+        [
+          "radian",
+          "property",
+          false
+        ],
+        [
+          "radian",
+          "queryable",
+          false
+        ],
+        [
+          "radian",
+          "theAble",
+          false
+        ],
+        [
+          "radian",
+          "unit_angle",
+          false
+        ],
+        [
           "readonly",
           "queryable",
           false
@@ -25087,6 +26377,46 @@
         ],
         [
           "unitPerUnit",
+          "unit",
+          false
+        ],
+        [
+          "unit_angle",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "unit_angle",
+          "isEdee",
+          false
+        ],
+        [
+          "unit_angle",
+          "isEder",
+          false
+        ],
+        [
+          "unit_angle",
+          "object",
+          false
+        ],
+        [
+          "unit_angle",
+          "property",
+          false
+        ],
+        [
+          "unit_angle",
+          "queryable",
+          false
+        ],
+        [
+          "unit_angle",
+          "theAble",
+          false
+        ],
+        [
+          "unit_angle",
           "unit",
           false
         ],
@@ -26061,12 +27391,87 @@
         ],
         [
           "amount",
+          "concept",
+          false
+        ],
+        [
           "amount",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "amount",
+          "isEdee",
+          false
+        ],
+        [
+          "amount",
+          "isEder",
+          false
+        ],
+        [
+          "amount",
+          "object",
+          false
+        ],
+        [
+          "amount",
+          "property",
+          false
+        ],
+        [
+          "amount",
+          "queryable",
+          false
+        ],
+        [
+          "amount",
+          "theAble",
           false
         ],
         [
           "ampm",
           "adjective",
+          false
+        ],
+        [
+          "angle",
+          "dimension",
+          false
+        ],
+        [
+          "angle",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "angle",
+          "isEdee",
+          false
+        ],
+        [
+          "angle",
+          "isEder",
+          false
+        ],
+        [
+          "angle",
+          "object",
+          false
+        ],
+        [
+          "angle",
+          "property",
+          false
+        ],
+        [
+          "angle",
+          "queryable",
+          false
+        ],
+        [
+          "angle",
+          "theAble",
           false
         ],
         [
@@ -26436,7 +27841,42 @@
         ],
         [
           "degree",
-          "amount",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "degree",
+          "isEdee",
+          false
+        ],
+        [
+          "degree",
+          "isEder",
+          false
+        ],
+        [
+          "degree",
+          "object",
+          false
+        ],
+        [
+          "degree",
+          "property",
+          false
+        ],
+        [
+          "degree",
+          "queryable",
+          false
+        ],
+        [
+          "degree",
+          "theAble",
+          false
+        ],
+        [
+          "degree",
+          "unit_angle",
           false
         ],
         [
@@ -28385,6 +29825,46 @@
           false
         ],
         [
+          "radian",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "radian",
+          "isEdee",
+          false
+        ],
+        [
+          "radian",
+          "isEder",
+          false
+        ],
+        [
+          "radian",
+          "object",
+          false
+        ],
+        [
+          "radian",
+          "property",
+          false
+        ],
+        [
+          "radian",
+          "queryable",
+          false
+        ],
+        [
+          "radian",
+          "theAble",
+          false
+        ],
+        [
+          "radian",
+          "unit_angle",
+          false
+        ],
+        [
           "readonly",
           "queryable",
           false
@@ -28971,6 +30451,46 @@
         ],
         [
           "unitPerUnit",
+          "unit",
+          false
+        ],
+        [
+          "unit_angle",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "unit_angle",
+          "isEdee",
+          false
+        ],
+        [
+          "unit_angle",
+          "isEder",
+          false
+        ],
+        [
+          "unit_angle",
+          "object",
+          false
+        ],
+        [
+          "unit_angle",
+          "property",
+          false
+        ],
+        [
+          "unit_angle",
+          "queryable",
+          false
+        ],
+        [
+          "unit_angle",
+          "theAble",
+          false
+        ],
+        [
+          "unit_angle",
           "unit",
           false
         ],
@@ -29564,12 +31084,87 @@
         ],
         [
           "amount",
+          "concept",
+          false
+        ],
+        [
           "amount",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "amount",
+          "isEdee",
+          false
+        ],
+        [
+          "amount",
+          "isEder",
+          false
+        ],
+        [
+          "amount",
+          "object",
+          false
+        ],
+        [
+          "amount",
+          "property",
+          false
+        ],
+        [
+          "amount",
+          "queryable",
+          false
+        ],
+        [
+          "amount",
+          "theAble",
           false
         ],
         [
           "ampm",
           "adjective",
+          false
+        ],
+        [
+          "angle",
+          "dimension",
+          false
+        ],
+        [
+          "angle",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "angle",
+          "isEdee",
+          false
+        ],
+        [
+          "angle",
+          "isEder",
+          false
+        ],
+        [
+          "angle",
+          "object",
+          false
+        ],
+        [
+          "angle",
+          "property",
+          false
+        ],
+        [
+          "angle",
+          "queryable",
+          false
+        ],
+        [
+          "angle",
+          "theAble",
           false
         ],
         [
@@ -29944,7 +31539,42 @@
         ],
         [
           "degree",
-          "amount",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "degree",
+          "isEdee",
+          false
+        ],
+        [
+          "degree",
+          "isEder",
+          false
+        ],
+        [
+          "degree",
+          "object",
+          false
+        ],
+        [
+          "degree",
+          "property",
+          false
+        ],
+        [
+          "degree",
+          "queryable",
+          false
+        ],
+        [
+          "degree",
+          "theAble",
+          false
+        ],
+        [
+          "degree",
+          "unit_angle",
           false
         ],
         [
@@ -31958,6 +33588,46 @@
           false
         ],
         [
+          "radian",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "radian",
+          "isEdee",
+          false
+        ],
+        [
+          "radian",
+          "isEder",
+          false
+        ],
+        [
+          "radian",
+          "object",
+          false
+        ],
+        [
+          "radian",
+          "property",
+          false
+        ],
+        [
+          "radian",
+          "queryable",
+          false
+        ],
+        [
+          "radian",
+          "theAble",
+          false
+        ],
+        [
+          "radian",
+          "unit_angle",
+          false
+        ],
+        [
           "readonly",
           "queryable",
           false
@@ -32559,6 +34229,46 @@
         ],
         [
           "unitPerUnit",
+          "unit",
+          false
+        ],
+        [
+          "unit_angle",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "unit_angle",
+          "isEdee",
+          false
+        ],
+        [
+          "unit_angle",
+          "isEder",
+          false
+        ],
+        [
+          "unit_angle",
+          "object",
+          false
+        ],
+        [
+          "unit_angle",
+          "property",
+          false
+        ],
+        [
+          "unit_angle",
+          "queryable",
+          false
+        ],
+        [
+          "unit_angle",
+          "theAble",
+          false
+        ],
+        [
+          "unit_angle",
           "unit",
           false
         ],
@@ -33080,12 +34790,87 @@
         ],
         [
           "amount",
+          "concept",
+          false
+        ],
+        [
           "amount",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "amount",
+          "isEdee",
+          false
+        ],
+        [
+          "amount",
+          "isEder",
+          false
+        ],
+        [
+          "amount",
+          "object",
+          false
+        ],
+        [
+          "amount",
+          "property",
+          false
+        ],
+        [
+          "amount",
+          "queryable",
+          false
+        ],
+        [
+          "amount",
+          "theAble",
           false
         ],
         [
           "ampm",
           "adjective",
+          false
+        ],
+        [
+          "angle",
+          "dimension",
+          false
+        ],
+        [
+          "angle",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "angle",
+          "isEdee",
+          false
+        ],
+        [
+          "angle",
+          "isEder",
+          false
+        ],
+        [
+          "angle",
+          "object",
+          false
+        ],
+        [
+          "angle",
+          "property",
+          false
+        ],
+        [
+          "angle",
+          "queryable",
+          false
+        ],
+        [
+          "angle",
+          "theAble",
           false
         ],
         [
@@ -33460,7 +35245,42 @@
         ],
         [
           "degree",
-          "amount",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "degree",
+          "isEdee",
+          false
+        ],
+        [
+          "degree",
+          "isEder",
+          false
+        ],
+        [
+          "degree",
+          "object",
+          false
+        ],
+        [
+          "degree",
+          "property",
+          false
+        ],
+        [
+          "degree",
+          "queryable",
+          false
+        ],
+        [
+          "degree",
+          "theAble",
+          false
+        ],
+        [
+          "degree",
+          "unit_angle",
           false
         ],
         [
@@ -35474,6 +37294,46 @@
           false
         ],
         [
+          "radian",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "radian",
+          "isEdee",
+          false
+        ],
+        [
+          "radian",
+          "isEder",
+          false
+        ],
+        [
+          "radian",
+          "object",
+          false
+        ],
+        [
+          "radian",
+          "property",
+          false
+        ],
+        [
+          "radian",
+          "queryable",
+          false
+        ],
+        [
+          "radian",
+          "theAble",
+          false
+        ],
+        [
+          "radian",
+          "unit_angle",
+          false
+        ],
+        [
           "readonly",
           "queryable",
           false
@@ -36075,6 +37935,46 @@
         ],
         [
           "unitPerUnit",
+          "unit",
+          false
+        ],
+        [
+          "unit_angle",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "unit_angle",
+          "isEdee",
+          false
+        ],
+        [
+          "unit_angle",
+          "isEder",
+          false
+        ],
+        [
+          "unit_angle",
+          "object",
+          false
+        ],
+        [
+          "unit_angle",
+          "property",
+          false
+        ],
+        [
+          "unit_angle",
+          "queryable",
+          false
+        ],
+        [
+          "unit_angle",
+          "theAble",
+          false
+        ],
+        [
+          "unit_angle",
           "unit",
           false
         ],
@@ -36867,12 +38767,87 @@
         ],
         [
           "amount",
+          "concept",
+          false
+        ],
+        [
           "amount",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "amount",
+          "isEdee",
+          false
+        ],
+        [
+          "amount",
+          "isEder",
+          false
+        ],
+        [
+          "amount",
+          "object",
+          false
+        ],
+        [
+          "amount",
+          "property",
+          false
+        ],
+        [
+          "amount",
+          "queryable",
+          false
+        ],
+        [
+          "amount",
+          "theAble",
           false
         ],
         [
           "ampm",
           "adjective",
+          false
+        ],
+        [
+          "angle",
+          "dimension",
+          false
+        ],
+        [
+          "angle",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "angle",
+          "isEdee",
+          false
+        ],
+        [
+          "angle",
+          "isEder",
+          false
+        ],
+        [
+          "angle",
+          "object",
+          false
+        ],
+        [
+          "angle",
+          "property",
+          false
+        ],
+        [
+          "angle",
+          "queryable",
+          false
+        ],
+        [
+          "angle",
+          "theAble",
           false
         ],
         [
@@ -37247,7 +39222,42 @@
         ],
         [
           "degree",
-          "amount",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "degree",
+          "isEdee",
+          false
+        ],
+        [
+          "degree",
+          "isEder",
+          false
+        ],
+        [
+          "degree",
+          "object",
+          false
+        ],
+        [
+          "degree",
+          "property",
+          false
+        ],
+        [
+          "degree",
+          "queryable",
+          false
+        ],
+        [
+          "degree",
+          "theAble",
+          false
+        ],
+        [
+          "degree",
+          "unit_angle",
           false
         ],
         [
@@ -39261,6 +41271,46 @@
           false
         ],
         [
+          "radian",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "radian",
+          "isEdee",
+          false
+        ],
+        [
+          "radian",
+          "isEder",
+          false
+        ],
+        [
+          "radian",
+          "object",
+          false
+        ],
+        [
+          "radian",
+          "property",
+          false
+        ],
+        [
+          "radian",
+          "queryable",
+          false
+        ],
+        [
+          "radian",
+          "theAble",
+          false
+        ],
+        [
+          "radian",
+          "unit_angle",
+          false
+        ],
+        [
           "readonly",
           "queryable",
           false
@@ -39862,6 +41912,46 @@
         ],
         [
           "unitPerUnit",
+          "unit",
+          false
+        ],
+        [
+          "unit_angle",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "unit_angle",
+          "isEdee",
+          false
+        ],
+        [
+          "unit_angle",
+          "isEder",
+          false
+        ],
+        [
+          "unit_angle",
+          "object",
+          false
+        ],
+        [
+          "unit_angle",
+          "property",
+          false
+        ],
+        [
+          "unit_angle",
+          "queryable",
+          false
+        ],
+        [
+          "unit_angle",
+          "theAble",
+          false
+        ],
+        [
+          "unit_angle",
           "unit",
           false
         ],
@@ -40573,12 +42663,87 @@
         ],
         [
           "amount",
+          "concept",
+          false
+        ],
+        [
           "amount",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "amount",
+          "isEdee",
+          false
+        ],
+        [
+          "amount",
+          "isEder",
+          false
+        ],
+        [
+          "amount",
+          "object",
+          false
+        ],
+        [
+          "amount",
+          "property",
+          false
+        ],
+        [
+          "amount",
+          "queryable",
+          false
+        ],
+        [
+          "amount",
+          "theAble",
           false
         ],
         [
           "ampm",
           "adjective",
+          false
+        ],
+        [
+          "angle",
+          "dimension",
+          false
+        ],
+        [
+          "angle",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "angle",
+          "isEdee",
+          false
+        ],
+        [
+          "angle",
+          "isEder",
+          false
+        ],
+        [
+          "angle",
+          "object",
+          false
+        ],
+        [
+          "angle",
+          "property",
+          false
+        ],
+        [
+          "angle",
+          "queryable",
+          false
+        ],
+        [
+          "angle",
+          "theAble",
           false
         ],
         [
@@ -40953,7 +43118,42 @@
         ],
         [
           "degree",
-          "amount",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "degree",
+          "isEdee",
+          false
+        ],
+        [
+          "degree",
+          "isEder",
+          false
+        ],
+        [
+          "degree",
+          "object",
+          false
+        ],
+        [
+          "degree",
+          "property",
+          false
+        ],
+        [
+          "degree",
+          "queryable",
+          false
+        ],
+        [
+          "degree",
+          "theAble",
+          false
+        ],
+        [
+          "degree",
+          "unit_angle",
           false
         ],
         [
@@ -42967,6 +45167,46 @@
           false
         ],
         [
+          "radian",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "radian",
+          "isEdee",
+          false
+        ],
+        [
+          "radian",
+          "isEder",
+          false
+        ],
+        [
+          "radian",
+          "object",
+          false
+        ],
+        [
+          "radian",
+          "property",
+          false
+        ],
+        [
+          "radian",
+          "queryable",
+          false
+        ],
+        [
+          "radian",
+          "theAble",
+          false
+        ],
+        [
+          "radian",
+          "unit_angle",
+          false
+        ],
+        [
           "readonly",
           "queryable",
           false
@@ -43568,6 +45808,46 @@
         ],
         [
           "unitPerUnit",
+          "unit",
+          false
+        ],
+        [
+          "unit_angle",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "unit_angle",
+          "isEdee",
+          false
+        ],
+        [
+          "unit_angle",
+          "isEder",
+          false
+        ],
+        [
+          "unit_angle",
+          "object",
+          false
+        ],
+        [
+          "unit_angle",
+          "property",
+          false
+        ],
+        [
+          "unit_angle",
+          "queryable",
+          false
+        ],
+        [
+          "unit_angle",
+          "theAble",
+          false
+        ],
+        [
+          "unit_angle",
           "unit",
           false
         ],
@@ -43809,7 +46089,7 @@
                 0
               ],
               [
-                "unit_length",
+                "unit_angle",
                 0
               ]
             ],
@@ -43817,7 +46097,7 @@
           },
           {
             "op": [
-              "unit_length",
+              "unit_angle",
               0
             ],
             "ops": [
@@ -43826,7 +46106,7 @@
                 0
               ],
               [
-                "unit_length",
+                "unit_angle",
                 0
               ]
             ],
@@ -43876,10 +46156,10 @@
             "level": 1
           },
           "to": {
-            "value": "unit_length",
+            "value": "unit_angle",
             "number": "many",
             "text": "units",
-            "marker": "unit_length",
+            "marker": "unit_angle",
             "word": "units",
             "range": {
               "start": 12,
@@ -43887,7 +46167,7 @@
             },
             "dead": true,
             "types": [
-              "unit_length"
+              "unit_angle"
             ],
             "level": 0
           },
@@ -43919,7 +46199,7 @@
             0
           ],
           [
-            "unit_length",
+            "unit_angle",
             0
           ]
         ],
@@ -43929,7 +46209,7 @@
             0
           ],
           [
-            "unit_length",
+            "unit_angle",
             0
           ]
         ]
@@ -43961,7 +46241,7 @@
                 },
                 {
                   "marker": [
-                    "unit_length",
+                    "unit_angle",
                     0
                   ],
                   "range": {
@@ -43996,7 +46276,7 @@
                 },
                 {
                   "marker": [
-                    "unit_length",
+                    "unit_angle",
                     0
                   ],
                   "range": {
@@ -44031,7 +46311,7 @@
                 },
                 {
                   "marker": [
-                    "unit_length",
+                    "unit_angle",
                     0
                   ],
                   "range": {
@@ -44088,12 +46368,87 @@
         ],
         [
           "amount",
+          "concept",
+          false
+        ],
+        [
           "amount",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "amount",
+          "isEdee",
+          false
+        ],
+        [
+          "amount",
+          "isEder",
+          false
+        ],
+        [
+          "amount",
+          "object",
+          false
+        ],
+        [
+          "amount",
+          "property",
+          false
+        ],
+        [
+          "amount",
+          "queryable",
+          false
+        ],
+        [
+          "amount",
+          "theAble",
           false
         ],
         [
           "ampm",
           "adjective",
+          false
+        ],
+        [
+          "angle",
+          "dimension",
+          false
+        ],
+        [
+          "angle",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "angle",
+          "isEdee",
+          false
+        ],
+        [
+          "angle",
+          "isEder",
+          false
+        ],
+        [
+          "angle",
+          "object",
+          false
+        ],
+        [
+          "angle",
+          "property",
+          false
+        ],
+        [
+          "angle",
+          "queryable",
+          false
+        ],
+        [
+          "angle",
+          "theAble",
           false
         ],
         [
@@ -44468,7 +46823,42 @@
         ],
         [
           "degree",
-          "amount",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "degree",
+          "isEdee",
+          false
+        ],
+        [
+          "degree",
+          "isEder",
+          false
+        ],
+        [
+          "degree",
+          "object",
+          false
+        ],
+        [
+          "degree",
+          "property",
+          false
+        ],
+        [
+          "degree",
+          "queryable",
+          false
+        ],
+        [
+          "degree",
+          "theAble",
+          false
+        ],
+        [
+          "degree",
+          "unit_angle",
           false
         ],
         [
@@ -46482,6 +48872,46 @@
           false
         ],
         [
+          "radian",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "radian",
+          "isEdee",
+          false
+        ],
+        [
+          "radian",
+          "isEder",
+          false
+        ],
+        [
+          "radian",
+          "object",
+          false
+        ],
+        [
+          "radian",
+          "property",
+          false
+        ],
+        [
+          "radian",
+          "queryable",
+          false
+        ],
+        [
+          "radian",
+          "theAble",
+          false
+        ],
+        [
+          "radian",
+          "unit_angle",
+          false
+        ],
+        [
           "readonly",
           "queryable",
           false
@@ -47087,6 +49517,46 @@
           false
         ],
         [
+          "unit_angle",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "unit_angle",
+          "isEdee",
+          false
+        ],
+        [
+          "unit_angle",
+          "isEder",
+          false
+        ],
+        [
+          "unit_angle",
+          "object",
+          false
+        ],
+        [
+          "unit_angle",
+          "property",
+          false
+        ],
+        [
+          "unit_angle",
+          "queryable",
+          false
+        ],
+        [
+          "unit_angle",
+          "theAble",
+          false
+        ],
+        [
+          "unit_angle",
+          "unit",
+          false
+        ],
+        [
           "unit_length",
           "hierarchyAble",
           false
@@ -47316,6 +49786,10 @@
             ],
             "ops": [
               [
+                "amountOfCoordinate",
+                0
+              ],
+              [
                 "degree",
                 0
               ],
@@ -47333,27 +49807,53 @@
             ],
             "ops": [
               [
+                "amountOfCoordinate",
+                0
+              ],
+              [
                 "degree",
                 0
               ]
             ],
             "counter": 2
+          },
+          {
+            "op": [
+              "amountOfCoordinate",
+              0
+            ],
+            "ops": [
+              [
+                "amountOfCoordinate",
+                0
+              ]
+            ],
+            "counter": 3
           }
         ]
       },
       "trace": "undefined",
       "contexts": [
         {
-          "word": "degrees",
-          "number": "many",
-          "text": "number degrees",
-          "marker": "degree",
-          "range": {
-            "start": 0,
-            "end": 13
-          },
+          "marker": "quantity",
           "dead": true,
-          "value": "number",
+          "unit": {
+            "value": "degree",
+            "number": "many",
+            "text": "degrees",
+            "dimension": "angle",
+            "marker": "degree",
+            "word": "degrees",
+            "range": {
+              "start": 7,
+              "end": 13
+            },
+            "dead": true,
+            "types": [
+              "degree"
+            ],
+            "level": 0
+          },
           "amount": {
             "instance": false,
             "marker": "number",
@@ -47370,6 +49870,11 @@
               "number"
             ],
             "level": 1
+          },
+          "text": "number degrees",
+          "range": {
+            "start": 0,
+            "end": 13
           },
           "level": 1,
           "context_index": 1,
@@ -47457,7 +49962,32 @@
               "operators": [
                 {
                   "marker": [
+                    "number",
+                    1
+                  ],
+                  "range": {
+                    "start": 0,
+                    "end": 5
+                  }
+                },
+                {
+                  "marker": [
                     "degree",
+                    0
+                  ],
+                  "range": {
+                    "start": 7,
+                    "end": 13
+                  }
+                }
+              ],
+              "counter": 3
+            },
+            {
+              "operators": [
+                {
+                  "marker": [
+                    "quantity",
                     1
                   ],
                   "range": {
@@ -47466,7 +49996,7 @@
                   }
                 }
               ],
-              "counter": 3
+              "counter": 4
             }
           ],
           "length": 1
@@ -47711,7 +50241,7 @@
         0
       ],
       [
-        "unit_length",
+        "unit_angle",
         0
       ]
     ],
@@ -47731,7 +50261,7 @@
         0
       ],
       [
-        "unit_length",
+        "unit_angle",
         0
       ]
     ],
@@ -51456,7 +53986,7 @@
             },
             {
               "marker": [
-                "unit_length",
+                "unit_angle",
                 0
               ],
               "range": {
@@ -51491,7 +54021,7 @@
             },
             {
               "marker": [
-                "unit_length",
+                "unit_angle",
                 0
               ],
               "range": {
@@ -51526,7 +54056,7 @@
             },
             {
               "marker": [
-                "unit_length",
+                "unit_angle",
                 0
               ],
               "range": {
@@ -51611,7 +54141,32 @@
           "operators": [
             {
               "marker": [
+                "number",
+                1
+              ],
+              "range": {
+                "start": 0,
+                "end": 5
+              }
+            },
+            {
+              "marker": [
                 "degree",
+                0
+              ],
+              "range": {
+                "start": 7,
+                "end": 13
+              }
+            }
+          ],
+          "counter": 3
+        },
+        {
+          "operators": [
+            {
+              "marker": [
+                "quantity",
                 1
               ],
               "range": {
@@ -51620,7 +54175,7 @@
               }
             }
           ],
-          "counter": 3
+          "counter": 4
         }
       ],
       "length": 1

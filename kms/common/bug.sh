@@ -990,4 +990,4 @@ node drone -q 'what is the speed in inches per second' -g -d
  2026  node drone -q "what is the speed and direction of the drone" -g -d
  2027  node drone -q "what is the drone's speed and direction" -g -d
  2028  node drone -q "what is the speed and direction" -g -d
-
+node inspect drone -q 'north' -g -d
