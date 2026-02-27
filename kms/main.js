@@ -7,6 +7,7 @@ const can = require('./common/can')
 const characters = require('./common/characters')
 const colors = require('./common/colors')
 const comparable = require('./common/comparable')
+const compass = require('./common/compass')
 const concept = require('./common/concept')
 const conjunction = require('./common/conjunction')
 const countable = require('./common/countable')
@@ -81,6 +82,7 @@ module.exports = {
   characters,
   colors,
   comparable,
+  compass,
   concept,
   conjunction,
   countable,
