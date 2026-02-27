@@ -42,8 +42,8 @@ class API {
       context: { marker: 'unit' },
       condition: (unit) => {
         if (quantity.unit.marker == 'unitPerUnit') {
-          if (quantity.unit.numerator.dimension == unit.numerator.dimension &&
-              quantity.unit.denominator.dimension == unit.denominator.dimension) {
+          if (quantity.unit.numerator?.dimension == unit.numerator?.dimension &&
+              quantity.unit.denominator?.dimension == unit.denominator?.dimension) {
             return true
           }
         } else if (unit.dimension) {

@@ -37,7 +37,7 @@ const template = {
         {
           where: where(),
           match: ({context}) => context.marker == 'convertToUnits' && context.evaluate && (context.from?.unit?.marker == 'unitPerUnit' || context.to.marker == 'unitPerUnit'),
-          apply: async ({context, kms, e, callId, resolveEvaluate, toEValue, error}) => {
+          apply: async ({mentioned, context, kms, e, callId, resolveEvaluate, toEValue, error}) => {
 
             async function convert(fromUnits, fromAmount, toUnits) {
               let evalue;
@@ -64,7 +64,9 @@ const template = {
               resolveEvaluate(context.from, await e(context.from))
             }
 
+
             const from = toEValue(context.from)
+            mentioned(context.to)
             const evalueNumerator = await convert(from.unit.numerator, from.amount, context.to.numerator)
             const evalueDenominator = await convert(from.unit.denominator, 1, context.to.denominator)
             const evalue = { evalue: (toFinalValue(evalueNumerator) || evalueNumerator.value) / (toFinalValue(evalueDenominator) || evalueDenominator.evalue) }

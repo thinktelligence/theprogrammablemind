@@ -13,6 +13,14 @@ const help = require('./help')
 const { rotateDelta, degreesToRadians, radiansToDegrees, cartesianToPolar } = require('./helpers/drone')
 
 /*
+
+turn right 2 times
+go back and forth 2 times - missing reset between loops
+180 degree turns not working
+go 20 percent faster
+lower and raise crane
+round to 2 digits
+
 todo
 
   VOSK
@@ -354,8 +362,10 @@ class API {
           const destinationAngleInRadians = polar.angle
           const angleDelta = (destinationAngleInRadians - objects.current.angleInRadians)
           await this.rotate(angleDelta, { batched: true })
-          await this.forward(objects.current.speed, { batched: true })
-          await stopAtDistance("forward", polar.radius)
+          if (!destination.aimOnly) {
+            await this.forward(objects.current.speed, { batched: true })
+            await stopAtDistance("forward", polar.radius)
+          }
         }
         currentPoint = destinationPoint
       }
@@ -776,6 +786,7 @@ const template = {
               }
             }
             const speed = await fragments("number meters per second", { number: { marker: 'integer', value } })
+            debugger
             const preferred = await s({ marker: 'preferredUnits', quantity: speed }) 
             resolveEvaluate(context, preferred.response || speed)
           }
@@ -822,6 +833,7 @@ const template = {
             const lastPoint = mentions({ context: { marker: 'point' }, condition: (context) => context.ordinal == ordinal-1 })
             objects.current.path.push(lastPoint)
             objects.current.path.push(currentPoint)
+            // objects.current.path.push({ ...lastPoint, aimOnly: true })
           }
         }
       ],
