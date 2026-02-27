@@ -15,7 +15,6 @@ const { rotateDelta, degreesToRadians, radiansToDegrees, cartesianToPolar } = re
 /*
 
 turn right 2 times
-go back and forth 2 times - missing reset between loops
 180 degree turns not working
 go 20 percent faster
 lower and raise crane
@@ -429,6 +428,14 @@ class API {
     await this.sendBatchDrone()
   }
 
+  async armAction(action) {
+    return this.armActionDrone(action)
+  }
+
+  async clawAction(action) {
+    return this.clawActionDrone(action)
+  }
+
   async forward(speed, options) {
     await this.forwardDrone(speed, options)
     const time = this.now()
@@ -477,6 +484,14 @@ class API {
   }
 
   // subclass and override the remaining to call the drone
+
+  async armActionDrone(action) {
+    this._objects.history.push({ marker: 'history', armAction: action })
+  }
+
+  async clawActionDrone(action) {
+    this._objects.history.push({ marker: 'history', clawAction: action })
+  }
 
   async startRepeatsDrone(n) {
     this._objects.history.push({ marker: 'history', repeats: n })
@@ -617,7 +632,7 @@ const template = {
     "number degrees",
   ],
   configs: [
-    "drone is a concept",
+    "arm, claw and drone are concepts",
     //TODO "forward left, right, backward are directions",
     "around, forward, left, right, and backward are directions",
     "speed and power are properties",
@@ -663,6 +678,10 @@ const template = {
     },
     {
       operators: [
+        "([lift] (arm))",
+        "([lower] (arm))",
+        "([open] (claw))",
+        "([close] (claw))",
         "([back])",
         "([forth])",
         "([turn] (direction))",
@@ -671,6 +690,46 @@ const template = {
         "([toPoint|to] (point))",
       ],
       bridges: [
+        {
+          id: 'lift',
+          isA: ['verb'],
+          bridge: `{
+            ...next(operator), operator: operator, object: after[0], interpolate: [{ property: 'operator'}, { property: 'object' }]
+          }`,
+          semantic: ({api}) => {
+            api.armAction('up')
+          }
+        },
+        {
+          id: 'lower',
+          isA: ['verb'],
+          bridge: `{
+            ...next(operator), operator: operator, object: after[0], interpolate: [{ property: 'operator'}, { property: 'object' }]
+          }`,
+          semantic: ({api}) => {
+            api.armAction('down')
+          }
+        },
+        {
+          id: 'open',
+          isA: ['verb'],
+          bridge: `{
+            ...next(operator), operator: operator, object: after[0], interpolate: [{ property: 'operator'}, { property: 'object' }]
+          }`,
+          semantic: ({api}) => {
+            api.clawAction('open')
+          }
+        },
+        {
+          id: 'close',
+          isA: ['verb'],
+          bridge: `{
+            ...next(operator), operator: operator, object: after[0], interpolate: [{ property: 'operator'}, { property: 'object' }]
+          }`,
+          semantic: ({api}) => {
+            api.clawAction('close')
+          }
+        },
         {
           id: "back",
           isA: ['noun'],
@@ -855,7 +914,7 @@ knowledgeModule( {
         defaultContextCheck({ marker: 'go', exported: true, extra: ['direction', 'distance'] }),
         defaultContextCheck({ marker: 'point', exported: true, extra: ['ordinal', { property: 'point', check: ['x', 'y'] }, 'description', { property: 'stm', check: ['id', 'names'] }] }),
         defaultContextCheck({ marker: 'turn', exported: true, extra: ['direction'] }),
-        defaultContextCheck({ marker: 'history', exported: true, extra: ['pause', 'direction', 'speed', 'turn', 'time', 'sonic', 'batched', 'repeats'] }),
+        defaultContextCheck({ marker: 'history', exported: true, extra: ['pause', 'direction', 'speed', 'turn', 'time', 'sonic', 'batched', 'repeats', 'armAction', 'clawAction'] }),
         defaultContextCheck(),
       ],
       objects: [
