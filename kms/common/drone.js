@@ -140,13 +140,13 @@ function expectDirection(args) {
 
 const compassToRadians = {
   'north':      0,
-  'northeast':  Math.PI / 4,
-  'east':       Math.PI / 2,
-  'southeast':  3 * Math.PI / 4,
+  'northwest':  Math.PI / 4,
+  'west':       Math.PI / 2,
+  'southwest':  3 * Math.PI / 4,
   'south':      Math.PI,
-  'southwest':  5 * Math.PI / 4,
-  'west':       3 * Math.PI / 2,
-  'northwest':  7 * Math.PI / 4
+  'southeast':  5 * Math.PI / 4,
+  'east':       3 * Math.PI / 2,
+  'northeast':  7 * Math.PI / 4
 };
 
 function expectDistanceForMove(args) {
@@ -361,10 +361,13 @@ class API {
     }
 
     const command = { speed: objects.current.speed, ...objects.current }
-    debugger
     if (this.args.hierarchy.isA(command.direction, 'compass_direction')) {
+      // console.log('current', this._objects.current.angleInRadians)
+      // console.log('want', compassToRadians[command.direction])
       const delta = rotateDelta(this._objects.current.angleInRadians, compassToRadians[command.direction])
+      // console.log('delta', delta)
       await this.rotate(delta)
+      // console.log('new current', this._objects.current.angleInRadians)
     } else {
       switch (command.direction) {
         case 'forward':

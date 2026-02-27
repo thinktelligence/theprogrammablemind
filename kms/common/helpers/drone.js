@@ -33,7 +33,7 @@ function radiansToDegrees(radians) {
 }
 
 function rotateDelta(currentRadians, targetRadians) {
-  return -(((targetRadians - currentRadians + Math.PI) % (2 * Math.PI)) - Math.PI)
+  return (((targetRadians - currentRadians + Math.PI) % (2 * Math.PI)) - Math.PI)
 }
 
 module.exports = {

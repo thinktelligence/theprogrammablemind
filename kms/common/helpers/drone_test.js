@@ -60,22 +60,22 @@ describe('cartesianToPolar', () => {
 describe('rotateDelta', () => {
   it('same spot', async () => {
     const delta  = rotateDelta(0, 0)
-    expect(delta).toBe(-0)
+    expect(delta).toBe(0)
   })
 
   it('west', async () => {
     const delta  = rotateDelta(0, Math.PI/2)
-    expect(delta).toBe(-Math.PI/2)
+    expect(delta).toBe(Math.PI/2)
   })
 
   it('east', async () => {
     const delta = rotateDelta(0, Math.PI*3/2)
-    expect(delta).toBe(Math.PI/2)
+    expect(delta).toBe(-Math.PI/2)
   })
 
   it('south', async () => {
     const delta = rotateDelta(0, Math.PI)
-    expect(delta).toBe(Math.PI)
+    expect(delta).toBe(-Math.PI)
   })
 })
 
