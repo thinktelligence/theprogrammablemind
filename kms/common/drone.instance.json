@@ -18,7 +18,6 @@
         "([turn] (direction))",
         "([pause] ([number]))",
         "([stop] ([drone|])?)",
-        "([go])",
         "([toPoint|to] (point))"
       ],
       "bridges": [
@@ -44,7 +43,141 @@
           "semantic": "async ({objects, api, e, context}) => {\n            objects.runCommand = true\n            const point = await e(context.point)\n            objects.current.path.push(point.evalue)\n          }"
         },
         {
-          "id": "go"
+          "id": "go",
+          "level": 0,
+          "isA": [
+            "verb"
+          ],
+          "words": [
+            {
+              "form": "infinitive",
+              "word": "go",
+              "tense": "infinitive",
+              "aspect": null,
+              "number": "none",
+              "person": "none"
+            },
+            {
+              "form": "finite",
+              "word": "go",
+              "tense": "present",
+              "aspect": "simple",
+              "number": "singular",
+              "person": "first"
+            },
+            {
+              "form": "finite",
+              "word": "go",
+              "tense": "present",
+              "aspect": "simple",
+              "number": "singular",
+              "person": "second"
+            },
+            {
+              "form": "finite",
+              "word": "goes",
+              "tense": "present",
+              "aspect": "simple",
+              "number": "singular",
+              "person": "third"
+            },
+            {
+              "form": "finite",
+              "word": "go",
+              "tense": "present",
+              "aspect": "simple",
+              "number": "plural",
+              "person": "first"
+            },
+            {
+              "form": "finite",
+              "word": "go",
+              "tense": "present",
+              "aspect": "simple",
+              "number": "plural",
+              "person": "second"
+            },
+            {
+              "form": "finite",
+              "word": "go",
+              "tense": "present",
+              "aspect": "simple",
+              "number": "plural",
+              "person": "third"
+            },
+            {
+              "form": "finite",
+              "word": "went",
+              "tense": "past",
+              "aspect": "simple",
+              "number": "singular",
+              "person": "first"
+            },
+            {
+              "form": "finite",
+              "word": "went",
+              "tense": "past",
+              "aspect": "simple",
+              "number": "singular",
+              "person": "second"
+            },
+            {
+              "form": "finite",
+              "word": "went",
+              "tense": "past",
+              "aspect": "simple",
+              "number": "singular",
+              "person": "third"
+            },
+            {
+              "form": "finite",
+              "word": "went",
+              "tense": "past",
+              "aspect": "simple",
+              "number": "plural",
+              "person": "first"
+            },
+            {
+              "form": "finite",
+              "word": "went",
+              "tense": "past",
+              "aspect": "simple",
+              "number": "plural",
+              "person": "second"
+            },
+            {
+              "form": "finite",
+              "word": "went",
+              "tense": "past",
+              "aspect": "simple",
+              "number": "plural",
+              "person": "third"
+            },
+            {
+              "form": "pastParticiple",
+              "word": "gone",
+              "tense": "perfect",
+              "aspect": "perfect",
+              "number": "none",
+              "person": "none"
+            },
+            {
+              "form": "presentParticiple",
+              "word": "going",
+              "tense": "progressive",
+              "aspect": "continuous",
+              "number": "none",
+              "person": "none"
+            }
+          ],
+          "bridge": "{ \n            ...next(operator), \n            distance: distance?, \n            direction: direction?,\n            operator: operator,\n            interpolate: [{ property: 'operator' }, { property: 'direction' }, { property: 'distance' }] \n          }",
+          "selector": {
+            "arguments": {
+              "distance": "(@<= 'quantity' && context.unit.dimension == 'length')",
+              "direction": "(@<= 'direction')"
+            }
+          },
+          "semantic": "async (args) => {\n            const {context, objects} = args\n            if (context.distance) {\n              await handleDistance(args, context.distance)\n            }\n            if (context.direction) {\n              objects.current.direction = context.direction.marker\n            }\n            objects.runCommand = true\n          }"
         },
         {
           "id": "turn",
@@ -52,7 +185,7 @@
             "verb"
           ],
           "bridge": "{ ...next(operator), direction: after[0], interpolate: [{ context: operator }, { property: 'direction' }] }",
-          "semantic": "({context, objects, api}) => {\n            objects.runCommand = true\n            objects.current.direction = context.direction.marker\n          }"
+          "semantic": "({context, objects, api}) => {\n            objects.current.direction = context.direction.marker\n            objects.runCommand = true\n          }"
         },
         {
           "id": "pause",
@@ -82,6 +215,10 @@
       ],
       "semantics": [
         {
+          "match": "({context}) => context.marker == 'thenTime'",
+          "apply": "async ({objects, api}) => {\n            if (objects.runCommand) {\n              await api.sendCommand()\n            }\n          }"
+        },
+        {
           "match": "({context}) => context.marker == 'speed' && context.evaluate",
           "apply": "async ({gp, s, context, objects, fragments, resolveEvaluate, api}) => {\n            let value = objects.current.speed\n            if (context.condition) {\n              if (['highest', 'maximum'].includes(context.condition.marker)) {\n                value = api.maximumSpeedDrone()\n              } else if (['lowest', 'minimum'].includes(context.condition.marker)) {\n                value = api.minimumSpeedDrone()\n              }\n            }\n            const speed = await fragments(\"number meters per second\", { number: { marker: 'integer', value } })\n            const preferred = await s({ marker: 'preferredUnits', quantity: speed }) \n            resolveEvaluate(context, preferred.response || speed)\n          }"
         },
@@ -95,7 +232,7 @@
         },
         {
           "match": "({context, toArray}) => {\n            if (context.marker !== 'list') {\n              return false\n            }\n\n            const array = toArray(context)\n            if (array[0].marker == 'back' && array[1].marker == 'forth') {\n              return true\n            }\n          }",
-          "apply": "({context, objects, api, mentions}) => {\n            objects.runCommand = true\n            objects.current.backAndForth = true\n            const ordinal = api.currentOrdinal()\n            const currentPoint = mentions({ context: { marker: 'point' }, condition: (context) => context.ordinal == ordinal })\n            const lastPoint = mentions({ context: { marker: 'point' }, condition: (context) => context.ordinal == ordinal-1 })\n            objects.current.path.push(lastPoint)\n            objects.current.path.push(currentPoint)\n          }"
+          "apply": "({context, objects, api, mentions}) => {\n            objects.runCommand = true\n            objects.current.backAndForth = true\n            const ordinal = api.currentOrdinal()\n            const currentPoint = mentions({ context: { marker: 'point' }, condition: (context) => context.ordinal == ordinal })\n            const lastPoint = mentions({ context: { marker: 'point' }, condition: (context) => context.ordinal == ordinal-1 })\n            objects.current.path.push(lastPoint)\n            objects.current.path.push(currentPoint)\n            // objects.current.path.push({ ...lastPoint, aimOnly: true })\n          }"
         }
       ]
     }
@@ -31002,7 +31139,6 @@
         "([turn] (direction))",
         "([pause] ([number]))",
         "([stop] ([drone|])?)",
-        "([go])",
         "([toPoint|to] (point))"
       ],
       "bridges": [
@@ -31026,7 +31162,140 @@
           "bridge": "{ ...next(operator), operator: operator, point: after[0], interpolate: [{ property: 'operator' }, { property: 'point' }] }"
         },
         {
-          "id": "go"
+          "id": "go",
+          "level": 0,
+          "isA": [
+            "verb"
+          ],
+          "words": [
+            {
+              "form": "infinitive",
+              "word": "go",
+              "tense": "infinitive",
+              "aspect": null,
+              "number": "none",
+              "person": "none"
+            },
+            {
+              "form": "finite",
+              "word": "go",
+              "tense": "present",
+              "aspect": "simple",
+              "number": "singular",
+              "person": "first"
+            },
+            {
+              "form": "finite",
+              "word": "go",
+              "tense": "present",
+              "aspect": "simple",
+              "number": "singular",
+              "person": "second"
+            },
+            {
+              "form": "finite",
+              "word": "goes",
+              "tense": "present",
+              "aspect": "simple",
+              "number": "singular",
+              "person": "third"
+            },
+            {
+              "form": "finite",
+              "word": "go",
+              "tense": "present",
+              "aspect": "simple",
+              "number": "plural",
+              "person": "first"
+            },
+            {
+              "form": "finite",
+              "word": "go",
+              "tense": "present",
+              "aspect": "simple",
+              "number": "plural",
+              "person": "second"
+            },
+            {
+              "form": "finite",
+              "word": "go",
+              "tense": "present",
+              "aspect": "simple",
+              "number": "plural",
+              "person": "third"
+            },
+            {
+              "form": "finite",
+              "word": "went",
+              "tense": "past",
+              "aspect": "simple",
+              "number": "singular",
+              "person": "first"
+            },
+            {
+              "form": "finite",
+              "word": "went",
+              "tense": "past",
+              "aspect": "simple",
+              "number": "singular",
+              "person": "second"
+            },
+            {
+              "form": "finite",
+              "word": "went",
+              "tense": "past",
+              "aspect": "simple",
+              "number": "singular",
+              "person": "third"
+            },
+            {
+              "form": "finite",
+              "word": "went",
+              "tense": "past",
+              "aspect": "simple",
+              "number": "plural",
+              "person": "first"
+            },
+            {
+              "form": "finite",
+              "word": "went",
+              "tense": "past",
+              "aspect": "simple",
+              "number": "plural",
+              "person": "second"
+            },
+            {
+              "form": "finite",
+              "word": "went",
+              "tense": "past",
+              "aspect": "simple",
+              "number": "plural",
+              "person": "third"
+            },
+            {
+              "form": "pastParticiple",
+              "word": "gone",
+              "tense": "perfect",
+              "aspect": "perfect",
+              "number": "none",
+              "person": "none"
+            },
+            {
+              "form": "presentParticiple",
+              "word": "going",
+              "tense": "progressive",
+              "aspect": "continuous",
+              "number": "none",
+              "person": "none"
+            }
+          ],
+          "bridge": "{ \n            ...next(operator), \n            distance: distance?, \n            direction: direction?,\n            operator: operator,\n            interpolate: [{ property: 'operator' }, { property: 'direction' }, { property: 'distance' }] \n          }",
+          "selector": {
+            "arguments": {
+              "distance": "(@<= 'quantity' && context.unit.dimension == 'length')",
+              "direction": "(@<= 'direction')"
+            }
+          }
         },
         {
           "id": "turn",
@@ -31057,6 +31326,7 @@
         {}
       ],
       "semantics": [
+        {},
         {},
         {},
         {},
@@ -32020,6 +32290,11 @@
         [
           "forward",
           "theAble",
+          false
+        ],
+        [
+          "go",
+          "verb",
           false
         ],
         [
@@ -35726,6 +36001,11 @@
         [
           "forward",
           "theAble",
+          false
+        ],
+        [
+          "go",
+          "verb",
           false
         ],
         [
@@ -39706,6 +39986,11 @@
           false
         ],
         [
+          "go",
+          "verb",
+          false
+        ],
+        [
           "hasCountOfPieces",
           "countable",
           false
@@ -43602,6 +43887,11 @@
           false
         ],
         [
+          "go",
+          "verb",
+          false
+        ],
+        [
           "hasCountOfPieces",
           "countable",
           false
@@ -47304,6 +47594,11 @@
         [
           "forward",
           "theAble",
+          false
+        ],
+        [
+          "go",
+          "verb",
           false
         ],
         [

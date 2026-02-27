@@ -786,7 +786,6 @@ const template = {
               }
             }
             const speed = await fragments("number meters per second", { number: { marker: 'integer', value } })
-            debugger
             const preferred = await s({ marker: 'preferredUnits', quantity: speed }) 
             resolveEvaluate(context, preferred.response || speed)
           }
