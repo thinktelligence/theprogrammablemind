@@ -450,8 +450,8 @@ class API {
   }
 
   // TODO allow saying turn while its moving and make that one moves so you can go back wiggly?
-  async rotate(angleInRadians) {
-    await this.rotateDrone(angleInRadians)
+  async rotate(angleInRadians, options) {
+    await this.rotateDrone(angleInRadians, options)
     this._objects.current.angleInRadians = (this._objects.current.angleInRadians + angleInRadians) % (2*Math.PI)
   }
 
@@ -535,8 +535,8 @@ class API {
   // -angle is counterclockwise
   // +angle is clockwise
 
-  async rotateDrone(angleInRadians) {
-    this._objects.history.push({ marker: 'history', turn: angleInRadians })
+  async rotateDrone(angleInRadians, options) {
+    this._objects.history.push({ marker: 'history', turn: angleInRadians, ...options })
   }
 
   // distance in cm
