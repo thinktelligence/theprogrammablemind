@@ -13,12 +13,16 @@ const help = require('./help')
 const { rotateDelta, degreesToRadians, radiansToDegrees, cartesianToPolar } = require('./helpers/drone')
 
 /*
-
+turn right 45 degrees
 turn right 2 times
 180 degree turns not working
 go 20 percent faster
 lower and raise crane
 round to 2 digits
+
+go north 1 foot east 1 foot south 1 foot west 1 foot. call this square 2. do square 2 two times
+
+turn left go forward 1 foot <- the turn is lost
 
 todo
 
@@ -211,7 +215,6 @@ The time t needed to turn by angle θ is:
 class API {
   constructor() {
     const overrideMethods = Object.getOwnPropertyNames(API.prototype).filter(key => typeof API.prototype[key] === 'function' && key.endsWith('Drone'));
-    // this.overrideCheck = new OverrideCheck(API, ['forwardDrone', 'backwardDrone', 'rotateDrone', 'sonicDrone', 'tiltAngleDrone', 'panAngleDrone', 'stopDrone', 'minimumSpeedDrone', 'maximumSpeedDrone'])
     this.overrideCheck = new OverrideCheck(API, overrideMethods)
     this.overriden = this.constructor !== API
   }
@@ -294,6 +297,10 @@ class API {
   }
 
   async sendCommand() {
+    if (!this._objects.runCommand) {
+      return
+    }
+    this._objects.runCommand = false
     const objects = this._objects
     const { fragments, e, say, gr } = this.args
 
@@ -551,6 +558,9 @@ class API {
   // +angle is clockwise
 
   async rotateDrone(angleInRadians, options) {
+    if (angleInRadians == 0) {
+      debugger
+    }
     this._objects.history.push({ marker: 'history', turn: angleInRadians, ...options })
   }
 
@@ -789,9 +799,10 @@ const template = {
           id: 'turn',
           isA: ['verb'],
           bridge: "{ ...next(operator), direction: after[0], interpolate: [{ context: operator }, { property: 'direction' }] }",
-          semantic: ({context, objects, api}) => {
+          semantic: async ({context, objects, api}) => {
             objects.current.direction = context.direction.marker
             objects.runCommand = true
+            await api.sendCommand()
           },
           // check: { marker: 'turn', exported: true, extra: ['direction'] }
         },
