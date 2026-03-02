@@ -27,8 +27,27 @@
         },
         {
           "id": "timeRepeats",
+          "before": [
+            "verb"
+          ],
           "convolution": true,
-          "bridge": "{ ...next(operator), repeats: before[0], time: after[0], interpolate: '${repeats} ${time}' }"
+          "bridge": "{ ...next(operator), repeats: before[0], time: after[0], interpolate: '${repeats} ${time}' }",
+          "check": [
+            "marker",
+            "text",
+            "verbatim",
+            "value",
+            "evalue",
+            "isResponse",
+            {
+              "properties": "modifiers"
+            },
+            {
+              "properties": "postModifiers"
+            },
+            "time",
+            "repeats"
+          ]
         },
         {
           "id": "hourMinutes",
@@ -2401,6 +2420,28 @@
           [
             "list",
             0
+          ],
+          [
+            "propertyOf",
+            0
+          ],
+          [
+            "unit",
+            0
+          ],
+          [
+            "unknown",
+            0
+          ]
+        ],
+        [
+          [
+            "is",
+            0
+          ],
+          [
+            "list",
+            1
           ],
           [
             "propertyOf",
@@ -23786,8 +23827,27 @@
         },
         {
           "id": "timeRepeats",
+          "before": [
+            "verb"
+          ],
           "convolution": true,
-          "bridge": "{ ...next(operator), repeats: before[0], time: after[0], interpolate: '${repeats} ${time}' }"
+          "bridge": "{ ...next(operator), repeats: before[0], time: after[0], interpolate: '${repeats} ${time}' }",
+          "check": [
+            "marker",
+            "text",
+            "verbatim",
+            "value",
+            "evalue",
+            "isResponse",
+            {
+              "properties": "modifiers"
+            },
+            {
+              "properties": "postModifiers"
+            },
+            "time",
+            "repeats"
+          ]
         },
         {
           "id": "hourMinutes",
@@ -23863,27 +23923,27 @@
       },
       "generators": [
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/time.js:130"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/time.js:132"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/time.js:145"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/time.js:147"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/time.js:158"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/time.js:160"
         }
       ],
       "semantics": [
         {
           "notes": "evaluate time",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/time.js:167"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/time.js:169"
         },
         {
           "notes": "use time format working case",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/time.js:176"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/time.js:178"
         },
         {
           "notes": "use time format error case",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/time.js:184"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/time.js:186"
         }
       ]
     }
@@ -24299,6 +24359,28 @@
       [
         "list",
         0
+      ],
+      [
+        "propertyOf",
+        0
+      ],
+      [
+        "unit",
+        0
+      ],
+      [
+        "unknown",
+        0
+      ]
+    ],
+    [
+      [
+        "is",
+        0
+      ],
+      [
+        "list",
+        1
       ],
       [
         "propertyOf",

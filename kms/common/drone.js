@@ -179,6 +179,7 @@ async function handleDistance(args, distance) {
 function expectDistanceForMove(args) {
   args.config.addSemantic({
     match: ({context, isA}) => isA(context.marker, 'quantity') && context.unit && !isA(context.unit.marker, 'unitPerUnit'),
+    match: ({context, isA}) => isA(context.marker, 'quantity') && context.unit && isA(context.unit.dimension, 'length'),
     apply: async (args) => {
       await handleDistance(args)
     }
@@ -301,6 +302,7 @@ class API {
     if (!this._objects.runCommand) {
       return
     }
+
     delete this._objects.runCommand
     const objects = this._objects
     const { fragments, e, say, gr } = this.args
@@ -385,19 +387,30 @@ class API {
       objects.current.durationInSeconds = 0
       return
     }
-
     const command = { speed: objects.current.speed, ...objects.current }
-    if (this.args.hierarchy.isA(command.direction, 'compass_direction')) {
-      // console.log('current', this._objects.current.angleInRadians)
-      // console.log('want', compassToRadians[command.direction])
-      const delta = rotateDelta(this._objects.current.angleInRadians, compassToRadians[command.direction])
-      // console.log('delta', delta)
-      await this.rotate(delta)
+    if (this.args.hierarchy.isA(command.direction, 'compass_direction') || ['left', 'right', 'around'].includes(command.direction)) {
+      let delta = 0
+      if (command.direction == 'right') {
+        delta = -objects.current.turnAngle || -Math.PI/2
+      } else if (command.direction == 'left') {
+        delta = objects.current.turnAngle || Math.PI/2
+      } else if (command.direction == 'around') {
+        delta = Math.PI
+      } else {
+        delta = rotateDelta(objects.current.angleInRadians, compassToRadians[command.direction])
+      }
+     
+      const repeats = objects.current.timeRepeats || 1
+      for (let i = 0; i < repeats; ++i) {
+        await this.rotate(delta, { batched: true })
+      }
+
       if (!objects.current.justTurn) {
         await this.forward(command.speed, { batched: command.distance })
       }
+      await this.sendBatch()
       delete objects.current.justTurn
-      // console.log('new current', this._objects.current.angleInRadians)
+      delete objects.current.turnAngle
     } else {
       switch (command.direction) {
         case 'forward':
@@ -642,6 +655,7 @@ const template = {
     "number meters per second",
     "quantity in units",
     "number degrees",
+    "40 degrees in radians",
   ],
   configs: [
     "arm, claw and drone are concepts",
@@ -696,7 +710,7 @@ const template = {
         "([close] (claw))",
         "([back])",
         "([forth])",
-        "([turn] (direction))",
+        // "([turn] (direction))",
         "([pause] ([number]))",
         "([stop] ([drone|])?)",
         "([toPoint|to] (point))",
@@ -800,10 +814,50 @@ const template = {
         {
           id: 'turn',
           isA: ['verb'],
-          bridge: "{ ...next(operator), direction: after[0], interpolate: [{ context: operator }, { property: 'direction' }] }",
-          semantic: async ({context, objects, api}) => {
-            objects.current.direction = context.direction.marker
-            objects.current.justTurn = true
+          words: ['turn'],
+          bridge: `{ 
+            ...next(operator), 
+            direction: direction, 
+            repeats: repeats?, 
+            angle: angle?,
+            interpolate: [{ context: operator }, { property: 'direction' }, { property: 'angle' }, { property: 'repeats' }] }
+          `,
+          selector: {
+            arguments: {
+              direction: "(@<= 'direction')",
+              repeats: "(@<= 'timeRepeats')",
+              angle: "(@<= 'quantity' && context.unit.dimension == 'angle')",
+            },
+          },
+          semantic: async ({context, fragments, objects, e, s, api, say, toFinalValue}) => {
+            const current = objects.current
+            current.direction = context.direction.marker
+            if (context.repeats) {
+              current.timeRepeats = toFinalValue(context.repeats.repeats)
+            }
+            const toRadians = async (angle) => {
+              const fi = await fragments("40 degrees in radians")
+              return await fi.instantiate([
+                { 
+                  match: ({path, pathEquals}) => pathEquals(path, ['0', 'from']),
+                  apply: ({context}) => {
+                    Object.assign(context, angle)
+                  }
+                }
+              ])
+            }
+            if (context.angle) {
+              const instantiation = await toRadians(context.angle)
+              try {
+                const result = await e(instantiation)
+                current.turnAngle = toFinalValue(result.evalue.amount)
+                objects.runCommand = true
+              } catch (e) {
+                say(`Don't know how to interpret ${await gp(context.angle)} in radians`)
+                return
+              }
+            }
+            current.justTurn = true
             objects.runCommand = true
             await api.sendCommand()
           },
@@ -926,7 +980,7 @@ knowledgeModule( {
       context: [
         defaultContextCheck({ marker: 'go', exported: true, extra: ['direction', 'distance'] }),
         defaultContextCheck({ marker: 'point', exported: true, extra: ['ordinal', { property: 'point', check: ['x', 'y'] }, 'description', { property: 'stm', check: ['id', 'names'] }] }),
-        defaultContextCheck({ marker: 'turn', exported: true, extra: ['direction'] }),
+        defaultContextCheck({ marker: 'turn', exported: true, extra: ['direction', 'repeats'] }),
         defaultContextCheck({ marker: 'history', exported: true, extra: ['pause', 'direction', 'speed', 'turn', 'time', 'sonic', 'batched', 'repeats', 'armAction', 'clawAction'] }),
         defaultContextCheck(),
       ],

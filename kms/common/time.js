@@ -1,5 +1,5 @@
 const { knowledgeModule, where } = require('./runtime').theprogrammablemind
-const { defaultContextCheck } = require('./helpers')
+const { defaultContextCheck, defaultContextCheckProperties } = require('./helpers')
 const tell = require('./tell')
 const dimension = require('./dimension')
 const helpers = require('./helpers')
@@ -80,8 +80,10 @@ const template = {
         },
         {
           id: 'timeRepeats',
+          before: ['verb'],
           convolution: true,
           bridge: "{ ...next(operator), repeats: before[0], time: after[0], interpolate: '${repeats} ${time}' }",
+          check: defaultContextCheckProperties(['time', 'repeats'])
         },
         {
           id: 'hourMinutes',
@@ -218,7 +220,9 @@ knowledgeModule({
     name: './time.test.json',
     contents: time_tests,
     checks: {
-      context: [defaultContextCheck({ extra: ['one', 'two', 'events', 'time', 'timePoint', 'ampm'] })],
+      context: [
+        defaultContextCheck({ extra: ['one', 'two', 'events', 'time', 'timePoint', 'ampm'] })
+      ],
     }
   },
   instance,
