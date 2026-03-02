@@ -13,12 +13,13 @@ const help = require('./help')
 const { rotateDelta, degreesToRadians, radiansToDegrees, cartesianToPolar } = require('./helpers/drone')
 
 /*
-turn right 45 degrees
-turn right 2 times
 180 degree turns not working
 go 20 percent faster
 lower and raise crane
 round to 2 digits
+
+DONE turn right 45 degrees
+DONE turn right 2 times
 
 go north 1 foot east 1 foot south 1 foot west 1 foot. call this square 2. do square 2 two times
 
