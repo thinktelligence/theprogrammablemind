@@ -242,6 +242,7 @@ class API {
       speed: this.minimumSpeedDrone(),
       ordinal: 0,                 // ordinal of the current point or the current point that the recent movement started at
       compass: 'north',           // for now assume the drone start out point north. i will make that part of the conversation later
+      direction: 'forward',
     }
     objects.history = []
     objects.sonicTest = 5
@@ -300,7 +301,7 @@ class API {
     if (!this._objects.runCommand) {
       return
     }
-    this._objects.runCommand = false
+    delete this._objects.runCommand
     const objects = this._objects
     const { fragments, e, say, gr } = this.args
 
@@ -392,6 +393,10 @@ class API {
       const delta = rotateDelta(this._objects.current.angleInRadians, compassToRadians[command.direction])
       // console.log('delta', delta)
       await this.rotate(delta)
+      if (!objects.current.justTurn) {
+        await this.forward(command.speed, { batched: command.distance })
+      }
+      delete objects.current.justTurn
       // console.log('new current', this._objects.current.angleInRadians)
     } else {
       switch (command.direction) {
@@ -558,10 +563,7 @@ class API {
   // +angle is clockwise
 
   async rotateDrone(angleInRadians, options) {
-    if (angleInRadians == 0) {
-      debugger
-    }
-    this._objects.history.push({ marker: 'history', turn: angleInRadians, ...options })
+    this._objects.history.push({ marker: 'history', time: this.now(true), turn: angleInRadians, ...options })
   }
 
   // distance in cm
@@ -801,6 +803,7 @@ const template = {
           bridge: "{ ...next(operator), direction: after[0], interpolate: [{ context: operator }, { property: 'direction' }] }",
           semantic: async ({context, objects, api}) => {
             objects.current.direction = context.direction.marker
+            objects.current.justTurn = true
             objects.runCommand = true
             await api.sendCommand()
           },
@@ -879,7 +882,6 @@ const template = {
         {
           match: ({context}) => context.marker == 'timeRepeats',
           apply: ({context, objects, toFinalValue}) => {
-            objects.runCommand = true
             objects.current.timeRepeats = toFinalValue(context.repeats)
           }
         },
