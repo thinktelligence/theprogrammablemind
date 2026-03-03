@@ -86,14 +86,7 @@ const config = {
     "([call] ([nameable]) (!@<=endOfSentence)*)",
     { pattern: "([getNamesByType] (type))", scope: "testing" },
     { pattern: "([m1])", scope: "testing" },
-//    { pattern: "([testPullFromContext] ([memorable]))", scope: "testing" }
   ],
-  words: {
-    literals: {
-//      "m1": [{"id": "memorable", scope: "testing", "initial": "{ value: 'm1' }" }],
-//      "m2": [{"id": "memorable", scope: "testing", "initial": "{ value: 'm2' }" }],
-    },
-  },
   bridges: [
     {
       id: 'm1',

@@ -662,6 +662,7 @@ const template = {
     "quantity in meters per second",
     "number meters per second",
     "quantity in units",
+    "paths are nameable and memorable",
     "number degrees",
     "40 degrees in radians",
   ],
