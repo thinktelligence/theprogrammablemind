@@ -219,10 +219,16 @@ const config = {
     { 
       where: where(),
       id: "quantity", 
-      isA: ["noun"],
-      bridge: "{ ...next(operator) }",
-      generatorp: async ({context, g, gp, gr}) => `${await g(context.amount)} ${await gp(context.unit)}`,
-      generatorr: async ({context, gp, gr}) => `${await gr(context.amount)} ${await gp(context.unit)}`,
+      isA: ['noun'],
+      // bridge: "{ ...next(operator) }",
+      generatorp: {
+        level: 1, 
+        apply: async ({context, g, gp, gr}) => `${await g(context.amount)} ${await gp(context.unit)}`,
+      },
+      generatorr: {
+        level: 1,
+        apply: async ({context, gp, gr}) => `${await gr(context.amount)} ${await gp(context.unit)}`,
+      },
     },
     { 
       id: "length", 
