@@ -22,6 +22,7 @@
     },
     {
       "operators": [
+        "([do] (path))",
         "([lift|lift,raise] (@<= arm || @<= claw))",
         "([lower] (@<= arm || @<=claw))",
         "([open] (claw))",
@@ -33,6 +34,14 @@
         "([toPoint|to] (point))"
       ],
       "bridges": [
+        {
+          "id": "do",
+          "isA": [
+            "verb"
+          ],
+          "bridge": "{\n            ...next(operator), operator: operator, path: after[0], interpolate: [{ property: 'operator'}, { property: 'path' }]\n          }",
+          "semantic": "async ({context, e, toEValue, objects}) => {\n            const evaluated = await(e(context.path))\n            const path = toEValue(evaluated)\n            for (const point of path.points) {\n              objects.current.path.push(point)\n            }\n            objects.runCommand = true\n          }"
+        },
         {
           "id": "lift",
           "isA": [
@@ -270,7 +279,7 @@
       "semantics": [
         {
           "match": "({context}) => context.marker == 'path' && context.pullFromContext && context.evaluate",
-          "apply": "async ({context, fragments, stm, objects, mentions}) => {\n            debugger\n            const wut = mentions({ context: { marker: 'point' }, all: true })\n            const point = await (await fragments('path')).instantiate()\n            debugger\n          }"
+          "apply": "async ({context, fragments, stm, objects, mentioned, mentions, resolveEvaluate, _continue}) => {\n            const points = mentions({ context: { marker: 'point' }, all: true })\n            const path = (await fragments('path')).contexts()[0]\n            path.points = points\n            // resolveEvaluate(context, path)\n            await mentioned(path)\n            _continue()\n          }"
         },
         {
           "match": "({context}) => context.marker == 'thenTime'",
@@ -36351,6 +36360,7 @@
     {
       "extraConfig": true,
       "operators": [
+        "([do] (path))",
         "([lift|lift,raise] (@<= arm || @<= claw))",
         "([lower] (@<= arm || @<=claw))",
         "([open] (claw))",
@@ -36362,6 +36372,13 @@
         "([toPoint|to] (point))"
       ],
       "bridges": [
+        {
+          "id": "do",
+          "isA": [
+            "verb"
+          ],
+          "bridge": "{\n            ...next(operator), operator: operator, path: after[0], interpolate: [{ property: 'operator'}, { property: 'path' }]\n          }"
+        },
         {
           "id": "lift",
           "isA": [
@@ -37329,6 +37346,11 @@
         [
           "divideByOperator",
           "mathematical_operator",
+          false
+        ],
+        [
+          "do",
+          "verb",
           false
         ],
         [
@@ -41124,6 +41146,11 @@
         [
           "divideByOperator",
           "mathematical_operator",
+          false
+        ],
+        [
+          "do",
+          "verb",
           false
         ],
         [
@@ -45154,6 +45181,11 @@
         [
           "divideByOperator",
           "mathematical_operator",
+          false
+        ],
+        [
+          "do",
+          "verb",
           false
         ],
         [
@@ -49208,6 +49240,11 @@
           false
         ],
         [
+          "do",
+          "verb",
+          false
+        ],
+        [
           "doubleQuote",
           "queryable",
           false
@@ -52999,6 +53036,11 @@
         [
           "divideByOperator",
           "mathematical_operator",
+          false
+        ],
+        [
+          "do",
+          "verb",
           false
         ],
         [
@@ -56815,6 +56857,11 @@
         [
           "divideByOperator",
           "mathematical_operator",
+          false
+        ],
+        [
+          "do",
+          "verb",
           false
         ],
         [
@@ -60878,6 +60925,11 @@
         [
           "divideByOperator",
           "mathematical_operator",
+          false
+        ],
+        [
+          "do",
+          "verb",
           false
         ],
         [
