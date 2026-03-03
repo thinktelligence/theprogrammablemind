@@ -17,7 +17,7 @@ DONE turn right 2 times\nturn around <- no reset of times
 DONE lower/raise the claw
 again
 
-
+call the first point the start
 180 degree turns not working
 go 20 percent faster
 lower and raise crane
@@ -662,14 +662,20 @@ const template = {
     "quantity in meters per second",
     "number meters per second",
     "quantity in units",
-    "paths are nameable and memorable",
     "number degrees",
     "40 degrees in radians",
+    "path",
   ],
   configs: [
     "arm, claw and drone are concepts",
     //TODO "forward left, right, backward are directions",
     "around, forward, left, right, and backward are directions",
+    "paths are nameable and memorable",
+    {
+      hierarchy: [
+        ['thisitthat', 'path'],
+      ],
+    },
     "speed and power are properties",
     "speed and power are comparable",
     "speed is a quantity",
@@ -713,6 +719,7 @@ const template = {
     },
     {
       operators: [
+        "([do] (path))",
         "([lift|lift,raise] (@<= arm || @<= claw))",
         "([lower] (@<= arm || @<=claw))",
         "([open] (claw))",
@@ -725,6 +732,21 @@ const template = {
         "([toPoint|to] (point))",
       ],
       bridges: [
+        {
+          id: 'do',
+          isA: ['verb'],
+          bridge: `{
+            ...next(operator), operator: operator, path: after[0], interpolate: [{ property: 'operator'}, { property: 'path' }]
+          }`,
+          semantic: async ({context, e, toEValue, objects}) => {
+            const evaluated = await(e(context.path))
+            const path = toEValue(evaluated)
+            for (const point of path.points) {
+              objects.current.path.push(point)
+            }
+            objects.runCommand = true
+          }
+        },
         {
           id: 'lift',
           isA: ['verb'],
@@ -903,6 +925,17 @@ const template = {
       ],
       semantics: [
         {
+          match: ({context}) => context.marker == 'path' && context.pullFromContext && context.evaluate,
+          apply: async ({context, fragments, stm, objects, mentioned, mentions, resolveEvaluate, _continue}) => {
+            const points = mentions({ context: { marker: 'point' }, all: true })
+            const path = (await fragments('path')).contexts()[0]
+            path.points = points
+            // resolveEvaluate(context, path)
+            await mentioned(path)
+            _continue()
+          },
+        },
+        {
           match: ({context}) => context.marker == 'thenTime',
           apply: async ({objects, api}) => {
             if (objects.runCommand) {
@@ -987,6 +1020,7 @@ knowledgeModule( {
     contents: drone_tests,
     checks: {
       context: [
+        defaultContextCheck({ marker: 'path', exported: true, extra: ['points', { property: 'stm', check: ['id', 'names'] }] }),
         defaultContextCheck({ marker: 'go', exported: true, extra: ['direction', 'distance'] }),
         defaultContextCheck({ marker: 'point', exported: true, extra: ['ordinal', { property: 'point', check: ['x', 'y'] }, 'description', { property: 'stm', check: ['id', 'names'] }] }),
         defaultContextCheck({ marker: 'turn', exported: true, extra: ['direction', 'repeats'] }),
