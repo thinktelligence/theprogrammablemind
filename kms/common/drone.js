@@ -13,6 +13,11 @@ const help = require('./help')
 const { rotateDelta, degreesToRadians, radiansToDegrees, cartesianToPolar } = require('./helpers/drone')
 
 /*
+DONE turn right 2 times\nturn around <- no reset of times
+DONE lower/raise the claw
+again
+
+
 180 degree turns not working
 go 20 percent faster
 lower and raise crane
@@ -412,6 +417,7 @@ class API {
       await this.sendBatch()
       delete objects.current.justTurn
       delete objects.current.turnAngle
+      delete objects.current.timeRepeats
     } else {
       switch (command.direction) {
         case 'forward':
@@ -705,8 +711,8 @@ const template = {
     },
     {
       operators: [
-        "([lift] (arm))",
-        "([lower] (arm))",
+        "([lift|lift,raise] (@<= arm || @<= claw))",
+        "([lower] (@<= arm || @<=claw))",
         "([open] (claw))",
         "([close] (claw))",
         "([back])",
