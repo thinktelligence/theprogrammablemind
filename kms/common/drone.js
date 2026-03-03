@@ -413,8 +413,9 @@ class API {
 
       if (!objects.current.justTurn) {
         await this.forward(command.speed, { batched: command.distance })
+      } else {
+        await this.sendBatch()
       }
-      await this.sendBatch()
       delete objects.current.justTurn
       delete objects.current.turnAngle
       delete objects.current.timeRepeats
