@@ -16,6 +16,15 @@ const { rotateDelta, degreesToRadians, radiansToDegrees, cartesianToPolar } = re
 DONE turn right 2 times\nturn around <- no reset of times
 DONE lower/raise the claw
 again
+go to the start of patrol 1 not working
+go back to the start
+call this patrol 1
+call that patrol 1
+call this path patrol 1
+call that path patrol 1
+
+DONE the start of patrol 1
+DONE the end of patrol 1
 
 call the first point the start
 180 degree turns not working
@@ -157,15 +166,20 @@ function expectDirection(args) {
 // it's lazy day
 
 const compassToRadians = {
-  'north':      0,
-  'northwest':  Math.PI / 4,
-  'west':       Math.PI / 2,
-  'southwest':  3 * Math.PI / 4,
-  'south':      Math.PI,
-  'southeast':  5 * Math.PI / 4,
-  'east':       3 * Math.PI / 2,
-  'northeast':  7 * Math.PI / 4
+  'north':      Math.PI / 2,          //  90°  → north
+  'northeast':  Math.PI / 4,          //  45°  → northeast
+  'east':       0,                    //   0°  → east
+  'southeast':  -Math.PI / 4,         // -45°  → southeast
+  'south':      -Math.PI / 2,         // -90°  → south
+  'southwest':  -3 * Math.PI / 4,     // -135° → southwest
+  'west':       Math.PI,              // 180°  → west  (or -Math.PI, same angle)
+  'northwest':  3 * Math.PI / 4       // 135°  → northwest
 };
+
+function roundTo(num, decimals = 2) {
+  const factor = 10 ** decimals;           // or Math.pow(10, decimals)
+  return Math.round(num * factor) / factor;
+}
 
 async function handleDistance(args, distance) {
   const {objects, fragments, e, say, gp} = args
@@ -193,14 +207,21 @@ function expectDistanceForMove(args) {
 }
 
 /*
+
+  90R means 90 degrees in radians
+
+                   N
+
                    ^
                    y
                    |
-                  90
+                  90R
                    |
-       -180/180 <--^--> 0 -- x ->
+   W -180R/180R <--^--> 0R -- x -> E
                    |
-                  -90
+                  -90R
+
+                   S
 */
 
 /*
@@ -244,7 +265,7 @@ class API {
     delete this.testDate
 
     objects.current = {
-      angleInRadians: 0,
+      angleInRadians: Math.PI/2,
       path: [],
       speed: this.minimumSpeedDrone(),
       ordinal: 0,                 // ordinal of the current point or the current point that the recent movement started at
@@ -286,10 +307,10 @@ class API {
     }
     const speedInMetersPerSecond = current.speed
     const direction = current.direction
-    const distanceInMeters = speedInMetersPerSecond * durationInSeconds * (direction == 'forward' ? 1 : -1)
+    const distanceInMeters = Math.abs(speedInMetersPerSecond * durationInSeconds * (direction == 'forward' ? 1 : -1))
     const angleInRadians = current.angleInRadians
-    const yPrime = lastPoint.point.y + distanceInMeters * Math.sin(angleInRadians)
-    const xPrime = lastPoint.point.x + distanceInMeters * Math.cos(angleInRadians)
+    const yPrime = roundTo(lastPoint.point.y + distanceInMeters * Math.sin(angleInRadians), 2)
+    const xPrime = roundTo(lastPoint.point.x + distanceInMeters * Math.cos(angleInRadians), 2)
     return { x: xPrime, y: yPrime }
   }
 
@@ -368,6 +389,10 @@ class API {
         this.startRepeats(objects.current.timeRepeats)
       }
       let currentPoint = this.args.mentions({ context: { marker: 'point' } }).point
+      if (objects.current.path.length > 1) {
+        debugger
+      }
+      this._objects.history.push({ marker: 'history', debug: 'doing path' })
       for (const destination of objects.current.path) {
         const destinationPoint = destination.point
         if (currentPoint.x == destinationPoint.x && currentPoint.y == destinationPoint.y) {
@@ -491,6 +516,12 @@ class API {
 
   // TODO allow saying turn while its moving and make that one moves so you can go back wiggly?
   async rotate(angleInRadians, options) {
+    let shortestRotate = angleInRadians
+    if (shortestRotate > Math.PI) {
+      shortestRotate = shortestRotate - Math.PI*2
+    } else if (shortestRotate < -Math.PI) {
+      shortestRotate = shortestRotate + Math.PI*2
+    }
     await this.rotateDrone(angleInRadians, options)
     this._objects.current.angleInRadians = (this._objects.current.angleInRadians + angleInRadians) % (2*Math.PI)
   }
@@ -662,7 +693,7 @@ const template = {
     "quantity in meters per second",
     "number meters per second",
     "quantity in units",
-    "number degrees",
+    "number radians",
     "40 degrees in radians",
     "path",
   ],
@@ -671,6 +702,8 @@ const template = {
     //TODO "forward left, right, backward are directions",
     "around, forward, left, right, and backward are directions",
     "paths are nameable and memorable",
+    "start and end are properties of path",
+    "start and end are points",
     {
       hierarchy: [
         ['thisitthat', 'path'],
@@ -804,6 +837,7 @@ const template = {
         { 
           id: "toPoint",
           isA: ['preposition'],
+          after: [['propertyOf', 1]],
           bridge: "{ ...next(operator), operator: operator, point: after[0], interpolate: [{ property: 'operator' }, { property: 'point' }] }",
           semantic: async ({objects, api, e, context}) => {
             objects.runCommand = true
@@ -822,22 +856,29 @@ const template = {
             ...next(operator), 
             distance: distance?, 
             direction: direction?,
+            to: to?,
             operator: operator,
-            interpolate: [{ property: 'operator' }, { property: 'direction' }, { property: 'distance' }] 
+            interpolate: [{ property: 'operator' }, { property: 'direction' }, { property: 'to' }, { property: 'distance' }] 
           }`,
           selector: {
             arguments: {
               distance: "(@<= 'quantity' && context.unit.dimension == 'length')",
               direction: "(@<= 'direction')",
+              to: "(@<= 'toPoint')",
             },
           },
           semantic: async (args) => {
-            const {context, objects} = args
+            const {context, objects, e, toEValue} = args
             if (context.distance) {
               await handleDistance(args, context.distance)
             }
             if (context.direction) {
               objects.current.direction = context.direction.marker
+            }
+            if (context.to) {
+              const evaluation = await e(context.to.point)
+              const point = toEValue(evaluation)
+              objects.current.path.push(point)
             }
             objects.runCommand = true
           },
@@ -922,15 +963,18 @@ const template = {
           match: ({context}) => context.marker == 'help' && !context.paraphrase && context.isResponse,
           apply: () => ''
         },
+        {
+          match: ({context}) => context.marker == 'point' && context.point,
+          apply: ({context}) => `(${context.point.x.toFixed(2)}, ${context.point.y.toFixed(2)})`
+        },
       ],
       semantics: [
         {
-          match: ({context}) => context.marker == 'path' && context.pullFromContext && context.evaluate,
-          apply: async ({context, fragments, stm, objects, mentioned, mentions, resolveEvaluate, _continue}) => {
+          match: ({context, contextHierarchy}) => context.marker == 'path' && context.pullFromContext && context.evaluate && !contextHierarchy.under('do'),
+          apply: async ({context, fragments, stm, objects, mentioned, mentions, resolveEvaluate, _continue, contextHierarchy}) => {
             const points = mentions({ context: { marker: 'point' }, all: true })
             const path = (await fragments('path')).contexts()[0]
-            path.points = points
-            // resolveEvaluate(context, path)
+            path.points = points.reverse()
             await mentioned(path)
             _continue()
           },
@@ -942,6 +986,20 @@ const template = {
               await api.sendCommand()
             }
           },
+        },
+        {
+          match: ({context}) => context.evaluate && ['start', 'end'].includes(context.marker) && context.objects && context.objects[1].marker == 'path',
+          apply: async ({gp, s, context, objects, fragments, resolveEvaluate, api, mentions}) => {
+            const path = mentions({ context: context.objects[1] })
+            if (!path?.points) {
+              return
+            }
+            if (context.marker == 'start') {
+              resolveEvaluate(context, path?.points[0])
+            } else if (context.marker == 'end') {
+              resolveEvaluate(context, path?.points[path?.points.length-1])
+            }
+          }
         },
         {
           match: ({context}) => context.marker == 'speed' && context.evaluate,
@@ -963,7 +1021,7 @@ const template = {
           match: ({context}) => ['direction', 'drone_direction'].includes(context.marker) && context.evaluate,
           apply: async ({gp, s, context, objects, fragments, resolveEvaluate, api}) => {
             const value = objects.current.angleInRadians
-            const fi = await fragments("number degrees")
+            const fi = await fragments("number radians")
             const direction = await fi.instantiate([
               { 
                 match: ({path, pathEquals}) => pathEquals(path, ['0', 'amount']),
@@ -972,7 +1030,9 @@ const template = {
                 }
               }
             ])
-            resolveEvaluate(context, direction)
+            const preferred = await s({ marker: 'preferredUnits', quantity: direction }) 
+            const sss = await gp(direction)
+            resolveEvaluate(context, preferred.response || direction)
           }
         },
         {
@@ -1024,7 +1084,7 @@ knowledgeModule( {
         defaultContextCheck({ marker: 'go', exported: true, extra: ['direction', 'distance'] }),
         defaultContextCheck({ marker: 'point', exported: true, extra: ['ordinal', { property: 'point', check: ['x', 'y'] }, 'description', { property: 'stm', check: ['id', 'names'] }] }),
         defaultContextCheck({ marker: 'turn', exported: true, extra: ['direction', 'repeats'] }),
-        defaultContextCheck({ marker: 'history', exported: true, extra: ['pause', 'direction', 'speed', 'turn', 'time', 'sonic', 'batched', 'repeats', 'armAction', 'clawAction'] }),
+        defaultContextCheck({ marker: 'history', exported: true, extra: ['debug', 'pause', 'direction', 'speed', 'turn', 'time', 'sonic', 'batched', 'repeats', 'armAction', 'clawAction'] }),
         defaultContextCheck(),
       ],
       objects: [

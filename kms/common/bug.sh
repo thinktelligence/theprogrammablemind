@@ -992,3 +992,5 @@ node drone -q 'what is the speed in inches per second' -g -d
  2028  node drone -q "what is the speed and direction" -g -d
 node inspect drone -q 'north' -g -d
 node drone -q 'north 1 foot\neast 2 feet\ncall that path patrol 1' -g -d
+node  drone -q "north 1 foot\neast 2 feet\ncall the path patrol 1\ndo patrol 1\ngo to the start of patrol 1" -g -d
+node  drone -q "to the start of the path" -g -d 

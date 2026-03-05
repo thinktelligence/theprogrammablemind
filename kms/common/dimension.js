@@ -223,10 +223,12 @@ const config = {
       // bridge: "{ ...next(operator) }",
       generatorp: {
         level: 1, 
+        match: ({context}) => context.amount && context.unit,
         apply: async ({context, g, gp, gr}) => `${await g(context.amount)} ${await gp(context.unit)}`,
       },
       generatorr: {
         level: 1,
+        match: ({context}) => context.amount && context.unit,
         apply: async ({context, gp, gr}) => `${await gr(context.amount)} ${await gp(context.unit)}`,
       },
     },
