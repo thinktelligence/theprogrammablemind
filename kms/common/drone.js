@@ -15,9 +15,12 @@ const { rotateDelta, degreesToRadians, radiansToDegrees, cartesianToPolar } = re
 /*
 DONE turn right 2 times\nturn around <- no reset of times
 DONE lower/raise the claw
+start again / start here / starting here / restart
 again
 go to the start of patrol 1 not working
 go back to the start
+go back 2 points/turns
+go back and forth to the start
 call this patrol 1
 call that patrol 1
 call this path patrol 1
@@ -389,9 +392,6 @@ class API {
         this.startRepeats(objects.current.timeRepeats)
       }
       let currentPoint = this.args.mentions({ context: { marker: 'point' } }).point
-      if (objects.current.path.length > 1) {
-        debugger
-      }
       this._objects.history.push({ marker: 'history', debug: 'doing path' })
       for (const destination of objects.current.path) {
         const destinationPoint = destination.point
@@ -753,6 +753,7 @@ const template = {
     {
       operators: [
         "([do] (path))",
+        "([patrol] (path))",
         "([lift|lift,raise] (@<= arm || @<= claw))",
         "([lower] (@<= arm || @<=claw))",
         "([open] (claw))",
@@ -765,6 +766,28 @@ const template = {
         "([toPoint|to] (point))",
       ],
       bridges: [
+        {
+          id: 'patrol',
+          isA: ['verb'],
+          bridge: `{
+            ...next(operator), operator: operator, path: after[0], interpolate: [{ property: 'operator'}, { property: 'path' }]
+          }`,
+          semantic: async ({context, e, toEValue, objects}) => {
+            const evaluated = await(e(context.path))
+            const path = toEValue(evaluated)
+            for (const point of path.points) {
+              objects.current.path.push(point)
+            }
+            // if the patrol does not start and end at the same spot then 
+            // go back to the start along the same path
+            if (JSON.stringify(path.points[0].point) !== JSON.stringify(path.points[path.points.length-1].point)) {
+              for (const point of [...path.points].reverse()) {
+                objects.current.path.push(point)
+              }
+            }
+            objects.runCommand = true
+          }
+        },
         {
           id: 'do',
           isA: ['verb'],
