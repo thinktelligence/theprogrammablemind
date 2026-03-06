@@ -25,6 +25,7 @@
     {
       "operators": [
         "([do] (path))",
+        "([patrol] (path))",
         "([lift|lift,raise] (@<= arm || @<= claw))",
         "([lower] (@<= arm || @<=claw))",
         "([open] (claw))",
@@ -36,6 +37,14 @@
         "([toPoint|to] (point))"
       ],
       "bridges": [
+        {
+          "id": "patrol",
+          "isA": [
+            "verb"
+          ],
+          "bridge": "{\n            ...next(operator), operator: operator, path: after[0], interpolate: [{ property: 'operator'}, { property: 'path' }]\n          }",
+          "semantic": "async ({context, e, toEValue, objects}) => {\n            const evaluated = await(e(context.path))\n            const path = toEValue(evaluated)\n            for (const point of path.points) {\n              objects.current.path.push(point)\n            }\n            // if the patrol does not start and end at the same spot then \n            // go back to the start along the same path\n            if (JSON.stringify(path.points[0].point) !== JSON.stringify(path.points[path.points.length-1].point)) {\n              for (const point of [...path.points].reverse()) {\n                objects.current.path.push(point)\n              }\n            }\n            objects.runCommand = true\n          }"
+        },
         {
           "id": "do",
           "isA": [
@@ -291,8 +300,8 @@
       ],
       "semantics": [
         {
-          "match": "({context, contextHierarchy}) => context.marker == 'path' && context.pullFromContext && context.evaluate && !contextHierarchy.under('do')",
-          "apply": "async ({context, fragments, stm, objects, mentioned, mentions, resolveEvaluate, _continue, contextHierarchy}) => {\n            const points = mentions({ context: { marker: 'point' }, all: true })\n            const path = (await fragments('path')).contexts()[0]\n            path.points = points.reverse()\n            await mentioned(path)\n            _continue()\n          }"
+          "match": "({context, contextHierarchy}) => {\n            if (!context.pullFromContext || !context.evaluate || contextHierarchy.under('do')) {\n              return false\n            }\n            \n            if (context.marker == 'path' || context.marker == 'this' || context.marker == 'that') {\n              return true\n            }\n          }",
+          "apply": "async ({context, fragments, stm, objects, mentioned, mentions, resolveEvaluate, _continue, contextHierarchy}) => {\n            debugger\n            const points = mentions({ context: { marker: 'point' }, all: true })\n            const path = (await fragments('path')).contexts()[0]\n            path.points = points.reverse()\n            await mentioned(path)\n            _continue()\n          }"
         },
         {
           "match": "({context}) => context.marker == 'thenTime'",
@@ -380,6 +389,11 @@
           false
         ],
         [
+          "amount",
+          "thisAble",
+          false
+        ],
+        [
           "ampm",
           "adjective",
           false
@@ -425,6 +439,11 @@
           false
         ],
         [
+          "angle",
+          "thisAble",
+          false
+        ],
+        [
           "article",
           "article",
           false
@@ -467,6 +486,11 @@
         [
           "ascending",
           "theAble",
+          false
+        ],
+        [
+          "ascending",
+          "thisAble",
           false
         ],
         [
@@ -537,6 +561,11 @@
         [
           "centimeter",
           "theAble",
+          false
+        ],
+        [
+          "centimeter",
+          "thisAble",
           false
         ],
         [
@@ -690,6 +719,11 @@
           false
         ],
         [
+          "condition",
+          "thisAble",
+          false
+        ],
+        [
           "convertToUnits",
           "expression",
           false
@@ -746,6 +780,11 @@
         ],
         [
           "degree",
+          "thisAble",
+          false
+        ],
+        [
+          "degree",
           "unit_angle",
           false
         ],
@@ -790,6 +829,11 @@
           false
         ],
         [
+          "descending",
+          "thisAble",
+          false
+        ],
+        [
           "dimension",
           "concept",
           false
@@ -827,6 +871,11 @@
         [
           "dimension",
           "theAble",
+          false
+        ],
+        [
+          "dimension",
+          "thisAble",
           false
         ],
         [
@@ -940,6 +989,11 @@
           false
         ],
         [
+          "east",
+          "thisAble",
+          false
+        ],
+        [
           "event",
           "event",
           false
@@ -996,6 +1050,11 @@
         ],
         [
           "foot",
+          "thisAble",
+          false
+        ],
+        [
+          "foot",
           "unit_length",
           false
         ],
@@ -1042,6 +1101,11 @@
         [
           "formula",
           "theAble",
+          false
+        ],
+        [
+          "formula",
+          "thisAble",
           false
         ],
         [
@@ -1115,6 +1179,11 @@
           false
         ],
         [
+          "highest",
+          "thisAble",
+          false
+        ],
+        [
           "hour",
           "hierarchyAble",
           false
@@ -1147,6 +1216,11 @@
         [
           "hour",
           "theAble",
+          false
+        ],
+        [
+          "hour",
+          "thisAble",
           false
         ],
         [
@@ -1356,6 +1430,11 @@
         ],
         [
           "inch",
+          "thisAble",
+          false
+        ],
+        [
+          "inch",
           "unit_length",
           false
         ],
@@ -1462,6 +1541,11 @@
         [
           "lowest",
           "theAble",
+          false
+        ],
+        [
+          "lowest",
+          "thisAble",
           false
         ],
         [
@@ -1607,6 +1691,11 @@
         [
           "maximum",
           "theAble",
+          false
+        ],
+        [
+          "maximum",
+          "thisAble",
           false
         ],
         [
@@ -1801,6 +1890,11 @@
         ],
         [
           "meter",
+          "thisAble",
+          false
+        ],
+        [
+          "meter",
           "unit_length",
           false
         ],
@@ -1991,6 +2085,11 @@
         ],
         [
           "mile",
+          "thisAble",
+          false
+        ],
+        [
+          "mile",
           "unit_length",
           false
         ],
@@ -2032,6 +2131,11 @@
         [
           "millimeter",
           "theAble",
+          false
+        ],
+        [
+          "millimeter",
+          "thisAble",
           false
         ],
         [
@@ -2080,6 +2184,11 @@
           false
         ],
         [
+          "minimum",
+          "thisAble",
+          false
+        ],
+        [
           "minusExpression",
           "mathematicalExpression",
           false
@@ -2122,6 +2231,11 @@
         [
           "minute",
           "theAble",
+          false
+        ],
+        [
+          "minute",
+          "thisAble",
           false
         ],
         [
@@ -2185,6 +2299,11 @@
           false
         ],
         [
+          "north",
+          "thisAble",
+          false
+        ],
+        [
           "northeast",
           "compass_direction",
           false
@@ -2225,6 +2344,11 @@
           false
         ],
         [
+          "northeast",
+          "thisAble",
+          false
+        ],
+        [
           "northwest",
           "compass_direction",
           false
@@ -2262,11 +2386,21 @@
         [
           "northwest",
           "theAble",
+          false
+        ],
+        [
+          "northwest",
+          "thisAble",
           false
         ],
         [
           "noun",
           "theAble",
+          false
+        ],
+        [
+          "noun",
+          "thisAble",
           false
         ],
         [
@@ -2516,6 +2650,11 @@
         ],
         [
           "radian",
+          "thisAble",
+          false
+        ],
+        [
+          "radian",
           "unit_angle",
           false
         ],
@@ -2572,6 +2711,11 @@
         [
           "second",
           "theAble",
+          false
+        ],
+        [
+          "second",
+          "thisAble",
           false
         ],
         [
@@ -2715,6 +2859,11 @@
           false
         ],
         [
+          "south",
+          "thisAble",
+          false
+        ],
+        [
           "southeast",
           "compass_direction",
           false
@@ -2755,6 +2904,11 @@
           false
         ],
         [
+          "southeast",
+          "thisAble",
+          false
+        ],
+        [
           "southwest",
           "compass_direction",
           false
@@ -2792,6 +2946,11 @@
         [
           "southwest",
           "theAble",
+          false
+        ],
+        [
+          "southwest",
+          "thisAble",
           false
         ],
         [
@@ -2847,6 +3006,11 @@
         [
           "superlative",
           "theAble",
+          false
+        ],
+        [
+          "superlative",
+          "thisAble",
           false
         ],
         [
@@ -2927,6 +3091,11 @@
         [
           "this",
           "thisitthat",
+          false
+        ],
+        [
+          "thisAble",
+          "thisAble",
           false
         ],
         [
@@ -3061,6 +3230,11 @@
         ],
         [
           "unit_angle",
+          "thisAble",
+          false
+        ],
+        [
+          "unit_angle",
           "unit",
           false
         ],
@@ -3097,6 +3271,11 @@
         [
           "unit_length",
           "theAble",
+          false
+        ],
+        [
+          "unit_length",
+          "thisAble",
           false
         ],
         [
@@ -3142,6 +3321,11 @@
         [
           "unit_time",
           "theAble",
+          false
+        ],
+        [
+          "unit_time",
+          "thisAble",
           false
         ],
         [
@@ -3207,6 +3391,11 @@
         [
           "west",
           "theAble",
+          false
+        ],
+        [
+          "west",
+          "thisAble",
           false
         ],
         [
@@ -3277,6 +3466,11 @@
         [
           "year",
           "theAble",
+          false
+        ],
+        [
+          "year",
+          "thisAble",
           false
         ],
         [
@@ -4290,6 +4484,11 @@
           false
         ],
         [
+          "amount",
+          "thisAble",
+          false
+        ],
+        [
           "ampm",
           "adjective",
           false
@@ -4335,6 +4534,11 @@
           false
         ],
         [
+          "angle",
+          "thisAble",
+          false
+        ],
+        [
           "arm",
           "concept",
           false
@@ -4372,6 +4576,11 @@
         [
           "arm",
           "theAble",
+          false
+        ],
+        [
+          "arm",
+          "thisAble",
           false
         ],
         [
@@ -4417,6 +4626,11 @@
         [
           "ascending",
           "theAble",
+          false
+        ],
+        [
+          "ascending",
+          "thisAble",
           false
         ],
         [
@@ -4491,6 +4705,11 @@
         ],
         [
           "centimeter",
+          "thisAble",
+          false
+        ],
+        [
+          "centimeter",
           "unit_length",
           false
         ],
@@ -4532,6 +4751,11 @@
         [
           "claw",
           "theAble",
+          false
+        ],
+        [
+          "claw",
+          "thisAble",
           false
         ],
         [
@@ -4680,6 +4904,11 @@
           false
         ],
         [
+          "condition",
+          "thisAble",
+          false
+        ],
+        [
           "convertToUnits",
           "expression",
           false
@@ -4736,6 +4965,11 @@
         ],
         [
           "degree",
+          "thisAble",
+          false
+        ],
+        [
+          "degree",
           "unit_angle",
           false
         ],
@@ -4780,6 +5014,11 @@
           false
         ],
         [
+          "descending",
+          "thisAble",
+          false
+        ],
+        [
           "dimension",
           "concept",
           false
@@ -4817,6 +5056,11 @@
         [
           "dimension",
           "theAble",
+          false
+        ],
+        [
+          "dimension",
+          "thisAble",
           false
         ],
         [
@@ -4925,6 +5169,11 @@
           false
         ],
         [
+          "drone",
+          "thisAble",
+          false
+        ],
+        [
           "each",
           "article",
           false
@@ -4967,6 +5216,11 @@
         [
           "east",
           "theAble",
+          false
+        ],
+        [
+          "east",
+          "thisAble",
           false
         ],
         [
@@ -5026,6 +5280,11 @@
         ],
         [
           "foot",
+          "thisAble",
+          false
+        ],
+        [
+          "foot",
           "unit_length",
           false
         ],
@@ -5072,6 +5331,11 @@
         [
           "formula",
           "theAble",
+          false
+        ],
+        [
+          "formula",
+          "thisAble",
           false
         ],
         [
@@ -5145,6 +5409,11 @@
           false
         ],
         [
+          "highest",
+          "thisAble",
+          false
+        ],
+        [
           "hour",
           "hierarchyAble",
           false
@@ -5177,6 +5446,11 @@
         [
           "hour",
           "theAble",
+          false
+        ],
+        [
+          "hour",
+          "thisAble",
           false
         ],
         [
@@ -5386,6 +5660,11 @@
         ],
         [
           "inch",
+          "thisAble",
+          false
+        ],
+        [
+          "inch",
           "unit_length",
           false
         ],
@@ -5492,6 +5771,11 @@
         [
           "lowest",
           "theAble",
+          false
+        ],
+        [
+          "lowest",
+          "thisAble",
           false
         ],
         [
@@ -5637,6 +5921,11 @@
         [
           "maximum",
           "theAble",
+          false
+        ],
+        [
+          "maximum",
+          "thisAble",
           false
         ],
         [
@@ -5831,6 +6120,11 @@
         ],
         [
           "meter",
+          "thisAble",
+          false
+        ],
+        [
+          "meter",
           "unit_length",
           false
         ],
@@ -6021,6 +6315,11 @@
         ],
         [
           "mile",
+          "thisAble",
+          false
+        ],
+        [
+          "mile",
           "unit_length",
           false
         ],
@@ -6062,6 +6361,11 @@
         [
           "millimeter",
           "theAble",
+          false
+        ],
+        [
+          "millimeter",
+          "thisAble",
           false
         ],
         [
@@ -6110,6 +6414,11 @@
           false
         ],
         [
+          "minimum",
+          "thisAble",
+          false
+        ],
+        [
           "minusExpression",
           "mathematicalExpression",
           false
@@ -6152,6 +6461,11 @@
         [
           "minute",
           "theAble",
+          false
+        ],
+        [
+          "minute",
+          "thisAble",
           false
         ],
         [
@@ -6215,6 +6529,11 @@
           false
         ],
         [
+          "north",
+          "thisAble",
+          false
+        ],
+        [
           "northeast",
           "compass_direction",
           false
@@ -6255,6 +6574,11 @@
           false
         ],
         [
+          "northeast",
+          "thisAble",
+          false
+        ],
+        [
           "northwest",
           "compass_direction",
           false
@@ -6292,11 +6616,21 @@
         [
           "northwest",
           "theAble",
+          false
+        ],
+        [
+          "northwest",
+          "thisAble",
           false
         ],
         [
           "noun",
           "theAble",
+          false
+        ],
+        [
+          "noun",
+          "thisAble",
           false
         ],
         [
@@ -6546,6 +6880,11 @@
         ],
         [
           "radian",
+          "thisAble",
+          false
+        ],
+        [
+          "radian",
           "unit_angle",
           false
         ],
@@ -6602,6 +6941,11 @@
         [
           "second",
           "theAble",
+          false
+        ],
+        [
+          "second",
+          "thisAble",
           false
         ],
         [
@@ -6745,6 +7089,11 @@
           false
         ],
         [
+          "south",
+          "thisAble",
+          false
+        ],
+        [
           "southeast",
           "compass_direction",
           false
@@ -6785,6 +7134,11 @@
           false
         ],
         [
+          "southeast",
+          "thisAble",
+          false
+        ],
+        [
           "southwest",
           "compass_direction",
           false
@@ -6822,6 +7176,11 @@
         [
           "southwest",
           "theAble",
+          false
+        ],
+        [
+          "southwest",
+          "thisAble",
           false
         ],
         [
@@ -6877,6 +7236,11 @@
         [
           "superlative",
           "theAble",
+          false
+        ],
+        [
+          "superlative",
+          "thisAble",
           false
         ],
         [
@@ -6957,6 +7321,11 @@
         [
           "this",
           "thisitthat",
+          false
+        ],
+        [
+          "thisAble",
+          "thisAble",
           false
         ],
         [
@@ -7091,6 +7460,11 @@
         ],
         [
           "unit_angle",
+          "thisAble",
+          false
+        ],
+        [
+          "unit_angle",
           "unit",
           false
         ],
@@ -7127,6 +7501,11 @@
         [
           "unit_length",
           "theAble",
+          false
+        ],
+        [
+          "unit_length",
+          "thisAble",
           false
         ],
         [
@@ -7172,6 +7551,11 @@
         [
           "unit_time",
           "theAble",
+          false
+        ],
+        [
+          "unit_time",
+          "thisAble",
           false
         ],
         [
@@ -7237,6 +7621,11 @@
         [
           "west",
           "theAble",
+          false
+        ],
+        [
+          "west",
+          "thisAble",
           false
         ],
         [
@@ -7307,6 +7696,11 @@
         [
           "year",
           "theAble",
+          false
+        ],
+        [
+          "year",
+          "thisAble",
           false
         ],
         [
@@ -9559,6 +9953,11 @@
           false
         ],
         [
+          "amount",
+          "thisAble",
+          false
+        ],
+        [
           "ampm",
           "adjective",
           false
@@ -9604,6 +10003,11 @@
           false
         ],
         [
+          "angle",
+          "thisAble",
+          false
+        ],
+        [
           "arm",
           "concept",
           false
@@ -9644,6 +10048,11 @@
           false
         ],
         [
+          "arm",
+          "thisAble",
+          false
+        ],
+        [
           "around",
           "direction",
           false
@@ -9681,6 +10090,11 @@
         [
           "around",
           "theAble",
+          false
+        ],
+        [
+          "around",
+          "thisAble",
           false
         ],
         [
@@ -9729,6 +10143,11 @@
           false
         ],
         [
+          "ascending",
+          "thisAble",
+          false
+        ],
+        [
           "atTime",
           "preposition",
           false
@@ -9771,6 +10190,11 @@
         [
           "backward",
           "theAble",
+          false
+        ],
+        [
+          "backward",
+          "thisAble",
           false
         ],
         [
@@ -9840,6 +10264,11 @@
         ],
         [
           "centimeter",
+          "thisAble",
+          false
+        ],
+        [
+          "centimeter",
           "unit_length",
           false
         ],
@@ -9881,6 +10310,11 @@
         [
           "claw",
           "theAble",
+          false
+        ],
+        [
+          "claw",
+          "thisAble",
           false
         ],
         [
@@ -10029,6 +10463,11 @@
           false
         ],
         [
+          "condition",
+          "thisAble",
+          false
+        ],
+        [
           "convertToUnits",
           "expression",
           false
@@ -10085,6 +10524,11 @@
         ],
         [
           "degree",
+          "thisAble",
+          false
+        ],
+        [
+          "degree",
           "unit_angle",
           false
         ],
@@ -10129,6 +10573,11 @@
           false
         ],
         [
+          "descending",
+          "thisAble",
+          false
+        ],
+        [
           "dimension",
           "concept",
           false
@@ -10166,6 +10615,11 @@
         [
           "dimension",
           "theAble",
+          false
+        ],
+        [
+          "dimension",
+          "thisAble",
           false
         ],
         [
@@ -10274,6 +10728,11 @@
           false
         ],
         [
+          "drone",
+          "thisAble",
+          false
+        ],
+        [
           "each",
           "article",
           false
@@ -10316,6 +10775,11 @@
         [
           "east",
           "theAble",
+          false
+        ],
+        [
+          "east",
+          "thisAble",
           false
         ],
         [
@@ -10375,6 +10839,11 @@
         ],
         [
           "foot",
+          "thisAble",
+          false
+        ],
+        [
+          "foot",
           "unit_length",
           false
         ],
@@ -10421,6 +10890,11 @@
         [
           "formula",
           "theAble",
+          false
+        ],
+        [
+          "formula",
+          "thisAble",
           false
         ],
         [
@@ -10471,6 +10945,11 @@
         [
           "forward",
           "theAble",
+          false
+        ],
+        [
+          "forward",
+          "thisAble",
           false
         ],
         [
@@ -10534,6 +11013,11 @@
           false
         ],
         [
+          "highest",
+          "thisAble",
+          false
+        ],
+        [
           "hour",
           "hierarchyAble",
           false
@@ -10566,6 +11050,11 @@
         [
           "hour",
           "theAble",
+          false
+        ],
+        [
+          "hour",
+          "thisAble",
           false
         ],
         [
@@ -10775,6 +11264,11 @@
         ],
         [
           "inch",
+          "thisAble",
+          false
+        ],
+        [
+          "inch",
           "unit_length",
           false
         ],
@@ -10874,6 +11368,11 @@
           false
         ],
         [
+          "left",
+          "thisAble",
+          false
+        ],
+        [
           "length",
           "dimension",
           false
@@ -10921,6 +11420,11 @@
         [
           "lowest",
           "theAble",
+          false
+        ],
+        [
+          "lowest",
+          "thisAble",
           false
         ],
         [
@@ -11066,6 +11570,11 @@
         [
           "maximum",
           "theAble",
+          false
+        ],
+        [
+          "maximum",
+          "thisAble",
           false
         ],
         [
@@ -11260,6 +11769,11 @@
         ],
         [
           "meter",
+          "thisAble",
+          false
+        ],
+        [
+          "meter",
           "unit_length",
           false
         ],
@@ -11450,6 +11964,11 @@
         ],
         [
           "mile",
+          "thisAble",
+          false
+        ],
+        [
+          "mile",
           "unit_length",
           false
         ],
@@ -11491,6 +12010,11 @@
         [
           "millimeter",
           "theAble",
+          false
+        ],
+        [
+          "millimeter",
+          "thisAble",
           false
         ],
         [
@@ -11539,6 +12063,11 @@
           false
         ],
         [
+          "minimum",
+          "thisAble",
+          false
+        ],
+        [
           "minusExpression",
           "mathematicalExpression",
           false
@@ -11581,6 +12110,11 @@
         [
           "minute",
           "theAble",
+          false
+        ],
+        [
+          "minute",
+          "thisAble",
           false
         ],
         [
@@ -11644,6 +12178,11 @@
           false
         ],
         [
+          "north",
+          "thisAble",
+          false
+        ],
+        [
           "northeast",
           "compass_direction",
           false
@@ -11684,6 +12223,11 @@
           false
         ],
         [
+          "northeast",
+          "thisAble",
+          false
+        ],
+        [
           "northwest",
           "compass_direction",
           false
@@ -11721,11 +12265,21 @@
         [
           "northwest",
           "theAble",
+          false
+        ],
+        [
+          "northwest",
+          "thisAble",
           false
         ],
         [
           "noun",
           "theAble",
+          false
+        ],
+        [
+          "noun",
+          "thisAble",
           false
         ],
         [
@@ -11975,6 +12529,11 @@
         ],
         [
           "radian",
+          "thisAble",
+          false
+        ],
+        [
+          "radian",
           "unit_angle",
           false
         ],
@@ -12039,6 +12598,11 @@
           false
         ],
         [
+          "right",
+          "thisAble",
+          false
+        ],
+        [
           "second",
           "hierarchyAble",
           false
@@ -12071,6 +12635,11 @@
         [
           "second",
           "theAble",
+          false
+        ],
+        [
+          "second",
+          "thisAble",
           false
         ],
         [
@@ -12214,6 +12783,11 @@
           false
         ],
         [
+          "south",
+          "thisAble",
+          false
+        ],
+        [
           "southeast",
           "compass_direction",
           false
@@ -12254,6 +12828,11 @@
           false
         ],
         [
+          "southeast",
+          "thisAble",
+          false
+        ],
+        [
           "southwest",
           "compass_direction",
           false
@@ -12291,6 +12870,11 @@
         [
           "southwest",
           "theAble",
+          false
+        ],
+        [
+          "southwest",
+          "thisAble",
           false
         ],
         [
@@ -12346,6 +12930,11 @@
         [
           "superlative",
           "theAble",
+          false
+        ],
+        [
+          "superlative",
+          "thisAble",
           false
         ],
         [
@@ -12426,6 +13015,11 @@
         [
           "this",
           "thisitthat",
+          false
+        ],
+        [
+          "thisAble",
+          "thisAble",
           false
         ],
         [
@@ -12560,6 +13154,11 @@
         ],
         [
           "unit_angle",
+          "thisAble",
+          false
+        ],
+        [
+          "unit_angle",
           "unit",
           false
         ],
@@ -12596,6 +13195,11 @@
         [
           "unit_length",
           "theAble",
+          false
+        ],
+        [
+          "unit_length",
+          "thisAble",
           false
         ],
         [
@@ -12641,6 +13245,11 @@
         [
           "unit_time",
           "theAble",
+          false
+        ],
+        [
+          "unit_time",
+          "thisAble",
           false
         ],
         [
@@ -12706,6 +13315,11 @@
         [
           "west",
           "theAble",
+          false
+        ],
+        [
+          "west",
+          "thisAble",
           false
         ],
         [
@@ -12776,6 +13390,11 @@
         [
           "year",
           "theAble",
+          false
+        ],
+        [
+          "year",
+          "thisAble",
           false
         ],
         [
@@ -13323,6 +13942,11 @@
           false
         ],
         [
+          "amount",
+          "thisAble",
+          false
+        ],
+        [
           "ampm",
           "adjective",
           false
@@ -13368,6 +13992,11 @@
           false
         ],
         [
+          "angle",
+          "thisAble",
+          false
+        ],
+        [
           "arm",
           "concept",
           false
@@ -13408,6 +14037,11 @@
           false
         ],
         [
+          "arm",
+          "thisAble",
+          false
+        ],
+        [
           "around",
           "direction",
           false
@@ -13445,6 +14079,11 @@
         [
           "around",
           "theAble",
+          false
+        ],
+        [
+          "around",
+          "thisAble",
           false
         ],
         [
@@ -13493,6 +14132,11 @@
           false
         ],
         [
+          "ascending",
+          "thisAble",
+          false
+        ],
+        [
           "atTime",
           "preposition",
           false
@@ -13535,6 +14179,11 @@
         [
           "backward",
           "theAble",
+          false
+        ],
+        [
+          "backward",
+          "thisAble",
           false
         ],
         [
@@ -13604,6 +14253,11 @@
         ],
         [
           "centimeter",
+          "thisAble",
+          false
+        ],
+        [
+          "centimeter",
           "unit_length",
           false
         ],
@@ -13645,6 +14299,11 @@
         [
           "claw",
           "theAble",
+          false
+        ],
+        [
+          "claw",
+          "thisAble",
           false
         ],
         [
@@ -13793,6 +14452,11 @@
           false
         ],
         [
+          "condition",
+          "thisAble",
+          false
+        ],
+        [
           "convertToUnits",
           "expression",
           false
@@ -13849,6 +14513,11 @@
         ],
         [
           "degree",
+          "thisAble",
+          false
+        ],
+        [
+          "degree",
           "unit_angle",
           false
         ],
@@ -13893,6 +14562,11 @@
           false
         ],
         [
+          "descending",
+          "thisAble",
+          false
+        ],
+        [
           "dimension",
           "concept",
           false
@@ -13930,6 +14604,11 @@
         [
           "dimension",
           "theAble",
+          false
+        ],
+        [
+          "dimension",
+          "thisAble",
           false
         ],
         [
@@ -14038,6 +14717,11 @@
           false
         ],
         [
+          "drone",
+          "thisAble",
+          false
+        ],
+        [
           "each",
           "article",
           false
@@ -14080,6 +14764,11 @@
         [
           "east",
           "theAble",
+          false
+        ],
+        [
+          "east",
+          "thisAble",
           false
         ],
         [
@@ -14139,6 +14828,11 @@
         ],
         [
           "foot",
+          "thisAble",
+          false
+        ],
+        [
+          "foot",
           "unit_length",
           false
         ],
@@ -14185,6 +14879,11 @@
         [
           "formula",
           "theAble",
+          false
+        ],
+        [
+          "formula",
+          "thisAble",
           false
         ],
         [
@@ -14235,6 +14934,11 @@
         [
           "forward",
           "theAble",
+          false
+        ],
+        [
+          "forward",
+          "thisAble",
           false
         ],
         [
@@ -14298,6 +15002,11 @@
           false
         ],
         [
+          "highest",
+          "thisAble",
+          false
+        ],
+        [
           "hour",
           "hierarchyAble",
           false
@@ -14330,6 +15039,11 @@
         [
           "hour",
           "theAble",
+          false
+        ],
+        [
+          "hour",
+          "thisAble",
           false
         ],
         [
@@ -14539,6 +15253,11 @@
         ],
         [
           "inch",
+          "thisAble",
+          false
+        ],
+        [
+          "inch",
           "unit_length",
           false
         ],
@@ -14638,6 +15357,11 @@
           false
         ],
         [
+          "left",
+          "thisAble",
+          false
+        ],
+        [
           "length",
           "dimension",
           false
@@ -14685,6 +15409,11 @@
         [
           "lowest",
           "theAble",
+          false
+        ],
+        [
+          "lowest",
+          "thisAble",
           false
         ],
         [
@@ -14830,6 +15559,11 @@
         [
           "maximum",
           "theAble",
+          false
+        ],
+        [
+          "maximum",
+          "thisAble",
           false
         ],
         [
@@ -15024,6 +15758,11 @@
         ],
         [
           "meter",
+          "thisAble",
+          false
+        ],
+        [
+          "meter",
           "unit_length",
           false
         ],
@@ -15214,6 +15953,11 @@
         ],
         [
           "mile",
+          "thisAble",
+          false
+        ],
+        [
+          "mile",
           "unit_length",
           false
         ],
@@ -15255,6 +15999,11 @@
         [
           "millimeter",
           "theAble",
+          false
+        ],
+        [
+          "millimeter",
+          "thisAble",
           false
         ],
         [
@@ -15303,6 +16052,11 @@
           false
         ],
         [
+          "minimum",
+          "thisAble",
+          false
+        ],
+        [
           "minusExpression",
           "mathematicalExpression",
           false
@@ -15345,6 +16099,11 @@
         [
           "minute",
           "theAble",
+          false
+        ],
+        [
+          "minute",
+          "thisAble",
           false
         ],
         [
@@ -15408,6 +16167,11 @@
           false
         ],
         [
+          "north",
+          "thisAble",
+          false
+        ],
+        [
           "northeast",
           "compass_direction",
           false
@@ -15448,6 +16212,11 @@
           false
         ],
         [
+          "northeast",
+          "thisAble",
+          false
+        ],
+        [
           "northwest",
           "compass_direction",
           false
@@ -15485,11 +16254,21 @@
         [
           "northwest",
           "theAble",
+          false
+        ],
+        [
+          "northwest",
+          "thisAble",
           false
         ],
         [
           "noun",
           "theAble",
+          false
+        ],
+        [
+          "noun",
+          "thisAble",
           false
         ],
         [
@@ -15683,6 +16462,11 @@
           false
         ],
         [
+          "path",
+          "thisAble",
+          false
+        ],
+        [
           "plusExpression",
           "mathematicalExpression",
           false
@@ -15784,6 +16568,11 @@
         ],
         [
           "radian",
+          "thisAble",
+          false
+        ],
+        [
+          "radian",
           "unit_angle",
           false
         ],
@@ -15848,6 +16637,11 @@
           false
         ],
         [
+          "right",
+          "thisAble",
+          false
+        ],
+        [
           "second",
           "hierarchyAble",
           false
@@ -15880,6 +16674,11 @@
         [
           "second",
           "theAble",
+          false
+        ],
+        [
+          "second",
+          "thisAble",
           false
         ],
         [
@@ -16023,6 +16822,11 @@
           false
         ],
         [
+          "south",
+          "thisAble",
+          false
+        ],
+        [
           "southeast",
           "compass_direction",
           false
@@ -16063,6 +16867,11 @@
           false
         ],
         [
+          "southeast",
+          "thisAble",
+          false
+        ],
+        [
           "southwest",
           "compass_direction",
           false
@@ -16100,6 +16909,11 @@
         [
           "southwest",
           "theAble",
+          false
+        ],
+        [
+          "southwest",
+          "thisAble",
           false
         ],
         [
@@ -16155,6 +16969,11 @@
         [
           "superlative",
           "theAble",
+          false
+        ],
+        [
+          "superlative",
+          "thisAble",
           false
         ],
         [
@@ -16235,6 +17054,11 @@
         [
           "this",
           "thisitthat",
+          false
+        ],
+        [
+          "thisAble",
+          "thisAble",
           false
         ],
         [
@@ -16369,6 +17193,11 @@
         ],
         [
           "unit_angle",
+          "thisAble",
+          false
+        ],
+        [
+          "unit_angle",
           "unit",
           false
         ],
@@ -16405,6 +17234,11 @@
         [
           "unit_length",
           "theAble",
+          false
+        ],
+        [
+          "unit_length",
+          "thisAble",
           false
         ],
         [
@@ -16450,6 +17284,11 @@
         [
           "unit_time",
           "theAble",
+          false
+        ],
+        [
+          "unit_time",
+          "thisAble",
           false
         ],
         [
@@ -16515,6 +17354,11 @@
         [
           "west",
           "theAble",
+          false
+        ],
+        [
+          "west",
+          "thisAble",
           false
         ],
         [
@@ -16585,6 +17429,11 @@
         [
           "year",
           "theAble",
+          false
+        ],
+        [
+          "year",
+          "thisAble",
           false
         ],
         [
@@ -17514,6 +18363,11 @@
           false
         ],
         [
+          "amount",
+          "thisAble",
+          false
+        ],
+        [
           "ampm",
           "adjective",
           false
@@ -17559,6 +18413,11 @@
           false
         ],
         [
+          "angle",
+          "thisAble",
+          false
+        ],
+        [
           "arm",
           "concept",
           false
@@ -17599,6 +18458,11 @@
           false
         ],
         [
+          "arm",
+          "thisAble",
+          false
+        ],
+        [
           "around",
           "direction",
           false
@@ -17636,6 +18500,11 @@
         [
           "around",
           "theAble",
+          false
+        ],
+        [
+          "around",
+          "thisAble",
           false
         ],
         [
@@ -17684,6 +18553,11 @@
           false
         ],
         [
+          "ascending",
+          "thisAble",
+          false
+        ],
+        [
           "atTime",
           "preposition",
           false
@@ -17726,6 +18600,11 @@
         [
           "backward",
           "theAble",
+          false
+        ],
+        [
+          "backward",
+          "thisAble",
           false
         ],
         [
@@ -17795,6 +18674,11 @@
         ],
         [
           "centimeter",
+          "thisAble",
+          false
+        ],
+        [
+          "centimeter",
           "unit_length",
           false
         ],
@@ -17836,6 +18720,11 @@
         [
           "claw",
           "theAble",
+          false
+        ],
+        [
+          "claw",
+          "thisAble",
           false
         ],
         [
@@ -17984,6 +18873,11 @@
           false
         ],
         [
+          "condition",
+          "thisAble",
+          false
+        ],
+        [
           "convertToUnits",
           "expression",
           false
@@ -18040,6 +18934,11 @@
         ],
         [
           "degree",
+          "thisAble",
+          false
+        ],
+        [
+          "degree",
           "unit_angle",
           false
         ],
@@ -18084,6 +18983,11 @@
           false
         ],
         [
+          "descending",
+          "thisAble",
+          false
+        ],
+        [
           "dimension",
           "concept",
           false
@@ -18121,6 +19025,11 @@
         [
           "dimension",
           "theAble",
+          false
+        ],
+        [
+          "dimension",
+          "thisAble",
           false
         ],
         [
@@ -18229,6 +19138,11 @@
           false
         ],
         [
+          "drone",
+          "thisAble",
+          false
+        ],
+        [
           "each",
           "article",
           false
@@ -18274,6 +19188,11 @@
           false
         ],
         [
+          "east",
+          "thisAble",
+          false
+        ],
+        [
           "end",
           "hierarchyAble",
           false
@@ -18306,6 +19225,11 @@
         [
           "end",
           "theAble",
+          false
+        ],
+        [
+          "end",
+          "thisAble",
           false
         ],
         [
@@ -18365,6 +19289,11 @@
         ],
         [
           "foot",
+          "thisAble",
+          false
+        ],
+        [
+          "foot",
           "unit_length",
           false
         ],
@@ -18411,6 +19340,11 @@
         [
           "formula",
           "theAble",
+          false
+        ],
+        [
+          "formula",
+          "thisAble",
           false
         ],
         [
@@ -18461,6 +19395,11 @@
         [
           "forward",
           "theAble",
+          false
+        ],
+        [
+          "forward",
+          "thisAble",
           false
         ],
         [
@@ -18524,6 +19463,11 @@
           false
         ],
         [
+          "highest",
+          "thisAble",
+          false
+        ],
+        [
           "hour",
           "hierarchyAble",
           false
@@ -18556,6 +19500,11 @@
         [
           "hour",
           "theAble",
+          false
+        ],
+        [
+          "hour",
+          "thisAble",
           false
         ],
         [
@@ -18765,6 +19714,11 @@
         ],
         [
           "inch",
+          "thisAble",
+          false
+        ],
+        [
+          "inch",
           "unit_length",
           false
         ],
@@ -18864,6 +19818,11 @@
           false
         ],
         [
+          "left",
+          "thisAble",
+          false
+        ],
+        [
           "length",
           "dimension",
           false
@@ -18911,6 +19870,11 @@
         [
           "lowest",
           "theAble",
+          false
+        ],
+        [
+          "lowest",
+          "thisAble",
           false
         ],
         [
@@ -19056,6 +20020,11 @@
         [
           "maximum",
           "theAble",
+          false
+        ],
+        [
+          "maximum",
+          "thisAble",
           false
         ],
         [
@@ -19250,6 +20219,11 @@
         ],
         [
           "meter",
+          "thisAble",
+          false
+        ],
+        [
+          "meter",
           "unit_length",
           false
         ],
@@ -19440,6 +20414,11 @@
         ],
         [
           "mile",
+          "thisAble",
+          false
+        ],
+        [
+          "mile",
           "unit_length",
           false
         ],
@@ -19481,6 +20460,11 @@
         [
           "millimeter",
           "theAble",
+          false
+        ],
+        [
+          "millimeter",
+          "thisAble",
           false
         ],
         [
@@ -19529,6 +20513,11 @@
           false
         ],
         [
+          "minimum",
+          "thisAble",
+          false
+        ],
+        [
           "minusExpression",
           "mathematicalExpression",
           false
@@ -19571,6 +20560,11 @@
         [
           "minute",
           "theAble",
+          false
+        ],
+        [
+          "minute",
+          "thisAble",
           false
         ],
         [
@@ -19634,6 +20628,11 @@
           false
         ],
         [
+          "north",
+          "thisAble",
+          false
+        ],
+        [
           "northeast",
           "compass_direction",
           false
@@ -19674,6 +20673,11 @@
           false
         ],
         [
+          "northeast",
+          "thisAble",
+          false
+        ],
+        [
           "northwest",
           "compass_direction",
           false
@@ -19711,11 +20715,21 @@
         [
           "northwest",
           "theAble",
+          false
+        ],
+        [
+          "northwest",
+          "thisAble",
           false
         ],
         [
           "noun",
           "theAble",
+          false
+        ],
+        [
+          "noun",
+          "thisAble",
           false
         ],
         [
@@ -19909,6 +20923,11 @@
           false
         ],
         [
+          "path",
+          "thisAble",
+          false
+        ],
+        [
           "plusExpression",
           "mathematicalExpression",
           false
@@ -20010,6 +21029,11 @@
         ],
         [
           "radian",
+          "thisAble",
+          false
+        ],
+        [
+          "radian",
           "unit_angle",
           false
         ],
@@ -20074,6 +21098,11 @@
           false
         ],
         [
+          "right",
+          "thisAble",
+          false
+        ],
+        [
           "second",
           "hierarchyAble",
           false
@@ -20106,6 +21135,11 @@
         [
           "second",
           "theAble",
+          false
+        ],
+        [
+          "second",
+          "thisAble",
           false
         ],
         [
@@ -20249,6 +21283,11 @@
           false
         ],
         [
+          "south",
+          "thisAble",
+          false
+        ],
+        [
           "southeast",
           "compass_direction",
           false
@@ -20289,6 +21328,11 @@
           false
         ],
         [
+          "southeast",
+          "thisAble",
+          false
+        ],
+        [
           "southwest",
           "compass_direction",
           false
@@ -20329,6 +21373,11 @@
           false
         ],
         [
+          "southwest",
+          "thisAble",
+          false
+        ],
+        [
           "start",
           "hierarchyAble",
           false
@@ -20361,6 +21410,11 @@
         [
           "start",
           "theAble",
+          false
+        ],
+        [
+          "start",
+          "thisAble",
           false
         ],
         [
@@ -20416,6 +21470,11 @@
         [
           "superlative",
           "theAble",
+          false
+        ],
+        [
+          "superlative",
+          "thisAble",
           false
         ],
         [
@@ -20496,6 +21555,11 @@
         [
           "this",
           "thisitthat",
+          false
+        ],
+        [
+          "thisAble",
+          "thisAble",
           false
         ],
         [
@@ -20630,6 +21694,11 @@
         ],
         [
           "unit_angle",
+          "thisAble",
+          false
+        ],
+        [
+          "unit_angle",
           "unit",
           false
         ],
@@ -20666,6 +21735,11 @@
         [
           "unit_length",
           "theAble",
+          false
+        ],
+        [
+          "unit_length",
+          "thisAble",
           false
         ],
         [
@@ -20711,6 +21785,11 @@
         [
           "unit_time",
           "theAble",
+          false
+        ],
+        [
+          "unit_time",
+          "thisAble",
           false
         ],
         [
@@ -20776,6 +21855,11 @@
         [
           "west",
           "theAble",
+          false
+        ],
+        [
+          "west",
+          "thisAble",
           false
         ],
         [
@@ -20846,6 +21930,11 @@
         [
           "year",
           "theAble",
+          false
+        ],
+        [
+          "year",
+          "thisAble",
           false
         ],
         [
@@ -21403,6 +22492,11 @@
           false
         ],
         [
+          "amount",
+          "thisAble",
+          false
+        ],
+        [
           "ampm",
           "adjective",
           false
@@ -21448,6 +22542,11 @@
           false
         ],
         [
+          "angle",
+          "thisAble",
+          false
+        ],
+        [
           "arm",
           "concept",
           false
@@ -21488,6 +22587,11 @@
           false
         ],
         [
+          "arm",
+          "thisAble",
+          false
+        ],
+        [
           "around",
           "direction",
           false
@@ -21525,6 +22629,11 @@
         [
           "around",
           "theAble",
+          false
+        ],
+        [
+          "around",
+          "thisAble",
           false
         ],
         [
@@ -21573,6 +22682,11 @@
           false
         ],
         [
+          "ascending",
+          "thisAble",
+          false
+        ],
+        [
           "atTime",
           "preposition",
           false
@@ -21615,6 +22729,11 @@
         [
           "backward",
           "theAble",
+          false
+        ],
+        [
+          "backward",
+          "thisAble",
           false
         ],
         [
@@ -21684,6 +22803,11 @@
         ],
         [
           "centimeter",
+          "thisAble",
+          false
+        ],
+        [
+          "centimeter",
           "unit_length",
           false
         ],
@@ -21725,6 +22849,11 @@
         [
           "claw",
           "theAble",
+          false
+        ],
+        [
+          "claw",
+          "thisAble",
           false
         ],
         [
@@ -21873,6 +23002,11 @@
           false
         ],
         [
+          "condition",
+          "thisAble",
+          false
+        ],
+        [
           "convertToUnits",
           "expression",
           false
@@ -21929,6 +23063,11 @@
         ],
         [
           "degree",
+          "thisAble",
+          false
+        ],
+        [
+          "degree",
           "unit_angle",
           false
         ],
@@ -21973,6 +23112,11 @@
           false
         ],
         [
+          "descending",
+          "thisAble",
+          false
+        ],
+        [
           "dimension",
           "concept",
           false
@@ -22010,6 +23154,11 @@
         [
           "dimension",
           "theAble",
+          false
+        ],
+        [
+          "dimension",
+          "thisAble",
           false
         ],
         [
@@ -22118,6 +23267,11 @@
           false
         ],
         [
+          "drone",
+          "thisAble",
+          false
+        ],
+        [
           "each",
           "article",
           false
@@ -22163,6 +23317,11 @@
           false
         ],
         [
+          "east",
+          "thisAble",
+          false
+        ],
+        [
           "end",
           "hierarchyAble",
           false
@@ -22200,6 +23359,11 @@
         [
           "end",
           "theAble",
+          false
+        ],
+        [
+          "end",
+          "thisAble",
           false
         ],
         [
@@ -22259,6 +23423,11 @@
         ],
         [
           "foot",
+          "thisAble",
+          false
+        ],
+        [
+          "foot",
           "unit_length",
           false
         ],
@@ -22305,6 +23474,11 @@
         [
           "formula",
           "theAble",
+          false
+        ],
+        [
+          "formula",
+          "thisAble",
           false
         ],
         [
@@ -22355,6 +23529,11 @@
         [
           "forward",
           "theAble",
+          false
+        ],
+        [
+          "forward",
+          "thisAble",
           false
         ],
         [
@@ -22418,6 +23597,11 @@
           false
         ],
         [
+          "highest",
+          "thisAble",
+          false
+        ],
+        [
           "hour",
           "hierarchyAble",
           false
@@ -22450,6 +23634,11 @@
         [
           "hour",
           "theAble",
+          false
+        ],
+        [
+          "hour",
+          "thisAble",
           false
         ],
         [
@@ -22659,6 +23848,11 @@
         ],
         [
           "inch",
+          "thisAble",
+          false
+        ],
+        [
+          "inch",
           "unit_length",
           false
         ],
@@ -22758,6 +23952,11 @@
           false
         ],
         [
+          "left",
+          "thisAble",
+          false
+        ],
+        [
           "length",
           "dimension",
           false
@@ -22805,6 +24004,11 @@
         [
           "lowest",
           "theAble",
+          false
+        ],
+        [
+          "lowest",
+          "thisAble",
           false
         ],
         [
@@ -22950,6 +24154,11 @@
         [
           "maximum",
           "theAble",
+          false
+        ],
+        [
+          "maximum",
+          "thisAble",
           false
         ],
         [
@@ -23144,6 +24353,11 @@
         ],
         [
           "meter",
+          "thisAble",
+          false
+        ],
+        [
+          "meter",
           "unit_length",
           false
         ],
@@ -23334,6 +24548,11 @@
         ],
         [
           "mile",
+          "thisAble",
+          false
+        ],
+        [
+          "mile",
           "unit_length",
           false
         ],
@@ -23375,6 +24594,11 @@
         [
           "millimeter",
           "theAble",
+          false
+        ],
+        [
+          "millimeter",
+          "thisAble",
           false
         ],
         [
@@ -23423,6 +24647,11 @@
           false
         ],
         [
+          "minimum",
+          "thisAble",
+          false
+        ],
+        [
           "minusExpression",
           "mathematicalExpression",
           false
@@ -23465,6 +24694,11 @@
         [
           "minute",
           "theAble",
+          false
+        ],
+        [
+          "minute",
+          "thisAble",
           false
         ],
         [
@@ -23528,6 +24762,11 @@
           false
         ],
         [
+          "north",
+          "thisAble",
+          false
+        ],
+        [
           "northeast",
           "compass_direction",
           false
@@ -23568,6 +24807,11 @@
           false
         ],
         [
+          "northeast",
+          "thisAble",
+          false
+        ],
+        [
           "northwest",
           "compass_direction",
           false
@@ -23605,11 +24849,21 @@
         [
           "northwest",
           "theAble",
+          false
+        ],
+        [
+          "northwest",
+          "thisAble",
           false
         ],
         [
           "noun",
           "theAble",
+          false
+        ],
+        [
+          "noun",
+          "thisAble",
           false
         ],
         [
@@ -23803,6 +25057,11 @@
           false
         ],
         [
+          "path",
+          "thisAble",
+          false
+        ],
+        [
           "plusExpression",
           "mathematicalExpression",
           false
@@ -23845,6 +25104,11 @@
         [
           "point",
           "theAble",
+          false
+        ],
+        [
+          "point",
+          "thisAble",
           false
         ],
         [
@@ -23939,6 +25203,11 @@
         ],
         [
           "radian",
+          "thisAble",
+          false
+        ],
+        [
+          "radian",
           "unit_angle",
           false
         ],
@@ -24003,6 +25272,11 @@
           false
         ],
         [
+          "right",
+          "thisAble",
+          false
+        ],
+        [
           "second",
           "hierarchyAble",
           false
@@ -24035,6 +25309,11 @@
         [
           "second",
           "theAble",
+          false
+        ],
+        [
+          "second",
+          "thisAble",
           false
         ],
         [
@@ -24178,6 +25457,11 @@
           false
         ],
         [
+          "south",
+          "thisAble",
+          false
+        ],
+        [
           "southeast",
           "compass_direction",
           false
@@ -24218,6 +25502,11 @@
           false
         ],
         [
+          "southeast",
+          "thisAble",
+          false
+        ],
+        [
           "southwest",
           "compass_direction",
           false
@@ -24255,6 +25544,11 @@
         [
           "southwest",
           "theAble",
+          false
+        ],
+        [
+          "southwest",
+          "thisAble",
           false
         ],
         [
@@ -24295,6 +25589,11 @@
         [
           "start",
           "theAble",
+          false
+        ],
+        [
+          "start",
+          "thisAble",
           false
         ],
         [
@@ -24350,6 +25649,11 @@
         [
           "superlative",
           "theAble",
+          false
+        ],
+        [
+          "superlative",
+          "thisAble",
           false
         ],
         [
@@ -24430,6 +25734,11 @@
         [
           "this",
           "thisitthat",
+          false
+        ],
+        [
+          "thisAble",
+          "thisAble",
           false
         ],
         [
@@ -24569,6 +25878,11 @@
         ],
         [
           "unit_angle",
+          "thisAble",
+          false
+        ],
+        [
+          "unit_angle",
           "unit",
           false
         ],
@@ -24605,6 +25919,11 @@
         [
           "unit_length",
           "theAble",
+          false
+        ],
+        [
+          "unit_length",
+          "thisAble",
           false
         ],
         [
@@ -24650,6 +25969,11 @@
         [
           "unit_time",
           "theAble",
+          false
+        ],
+        [
+          "unit_time",
+          "thisAble",
           false
         ],
         [
@@ -24715,6 +26039,11 @@
         [
           "west",
           "theAble",
+          false
+        ],
+        [
+          "west",
+          "thisAble",
           false
         ],
         [
@@ -24785,6 +26114,11 @@
         [
           "year",
           "theAble",
+          false
+        ],
+        [
+          "year",
+          "thisAble",
           false
         ],
         [
@@ -25322,6 +26656,11 @@
           false
         ],
         [
+          "amount",
+          "thisAble",
+          false
+        ],
+        [
           "ampm",
           "adjective",
           false
@@ -25367,6 +26706,11 @@
           false
         ],
         [
+          "angle",
+          "thisAble",
+          false
+        ],
+        [
           "arm",
           "concept",
           false
@@ -25407,6 +26751,11 @@
           false
         ],
         [
+          "arm",
+          "thisAble",
+          false
+        ],
+        [
           "around",
           "direction",
           false
@@ -25444,6 +26793,11 @@
         [
           "around",
           "theAble",
+          false
+        ],
+        [
+          "around",
+          "thisAble",
           false
         ],
         [
@@ -25492,6 +26846,11 @@
           false
         ],
         [
+          "ascending",
+          "thisAble",
+          false
+        ],
+        [
           "atTime",
           "preposition",
           false
@@ -25534,6 +26893,11 @@
         [
           "backward",
           "theAble",
+          false
+        ],
+        [
+          "backward",
+          "thisAble",
           false
         ],
         [
@@ -25603,6 +26967,11 @@
         ],
         [
           "centimeter",
+          "thisAble",
+          false
+        ],
+        [
+          "centimeter",
           "unit_length",
           false
         ],
@@ -25644,6 +27013,11 @@
         [
           "claw",
           "theAble",
+          false
+        ],
+        [
+          "claw",
+          "thisAble",
           false
         ],
         [
@@ -25792,6 +27166,11 @@
           false
         ],
         [
+          "condition",
+          "thisAble",
+          false
+        ],
+        [
           "convertToUnits",
           "expression",
           false
@@ -25848,6 +27227,11 @@
         ],
         [
           "degree",
+          "thisAble",
+          false
+        ],
+        [
+          "degree",
           "unit_angle",
           false
         ],
@@ -25892,6 +27276,11 @@
           false
         ],
         [
+          "descending",
+          "thisAble",
+          false
+        ],
+        [
           "dimension",
           "concept",
           false
@@ -25929,6 +27318,11 @@
         [
           "dimension",
           "theAble",
+          false
+        ],
+        [
+          "dimension",
+          "thisAble",
           false
         ],
         [
@@ -26037,6 +27431,11 @@
           false
         ],
         [
+          "drone",
+          "thisAble",
+          false
+        ],
+        [
           "each",
           "article",
           false
@@ -26082,6 +27481,11 @@
           false
         ],
         [
+          "east",
+          "thisAble",
+          false
+        ],
+        [
           "end",
           "hierarchyAble",
           false
@@ -26119,6 +27523,11 @@
         [
           "end",
           "theAble",
+          false
+        ],
+        [
+          "end",
+          "thisAble",
           false
         ],
         [
@@ -26178,6 +27587,11 @@
         ],
         [
           "foot",
+          "thisAble",
+          false
+        ],
+        [
+          "foot",
           "unit_length",
           false
         ],
@@ -26224,6 +27638,11 @@
         [
           "formula",
           "theAble",
+          false
+        ],
+        [
+          "formula",
+          "thisAble",
           false
         ],
         [
@@ -26274,6 +27693,11 @@
         [
           "forward",
           "theAble",
+          false
+        ],
+        [
+          "forward",
+          "thisAble",
           false
         ],
         [
@@ -26337,6 +27761,11 @@
           false
         ],
         [
+          "highest",
+          "thisAble",
+          false
+        ],
+        [
           "hour",
           "hierarchyAble",
           false
@@ -26369,6 +27798,11 @@
         [
           "hour",
           "theAble",
+          false
+        ],
+        [
+          "hour",
+          "thisAble",
           false
         ],
         [
@@ -26578,6 +28012,11 @@
         ],
         [
           "inch",
+          "thisAble",
+          false
+        ],
+        [
+          "inch",
           "unit_length",
           false
         ],
@@ -26677,6 +28116,11 @@
           false
         ],
         [
+          "left",
+          "thisAble",
+          false
+        ],
+        [
           "length",
           "dimension",
           false
@@ -26724,6 +28168,11 @@
         [
           "lowest",
           "theAble",
+          false
+        ],
+        [
+          "lowest",
+          "thisAble",
           false
         ],
         [
@@ -26869,6 +28318,11 @@
         [
           "maximum",
           "theAble",
+          false
+        ],
+        [
+          "maximum",
+          "thisAble",
           false
         ],
         [
@@ -27063,6 +28517,11 @@
         ],
         [
           "meter",
+          "thisAble",
+          false
+        ],
+        [
+          "meter",
           "unit_length",
           false
         ],
@@ -27253,6 +28712,11 @@
         ],
         [
           "mile",
+          "thisAble",
+          false
+        ],
+        [
+          "mile",
           "unit_length",
           false
         ],
@@ -27294,6 +28758,11 @@
         [
           "millimeter",
           "theAble",
+          false
+        ],
+        [
+          "millimeter",
+          "thisAble",
           false
         ],
         [
@@ -27342,6 +28811,11 @@
           false
         ],
         [
+          "minimum",
+          "thisAble",
+          false
+        ],
+        [
           "minusExpression",
           "mathematicalExpression",
           false
@@ -27384,6 +28858,11 @@
         [
           "minute",
           "theAble",
+          false
+        ],
+        [
+          "minute",
+          "thisAble",
           false
         ],
         [
@@ -27447,6 +28926,11 @@
           false
         ],
         [
+          "north",
+          "thisAble",
+          false
+        ],
+        [
           "northeast",
           "compass_direction",
           false
@@ -27487,6 +28971,11 @@
           false
         ],
         [
+          "northeast",
+          "thisAble",
+          false
+        ],
+        [
           "northwest",
           "compass_direction",
           false
@@ -27524,11 +29013,21 @@
         [
           "northwest",
           "theAble",
+          false
+        ],
+        [
+          "northwest",
+          "thisAble",
           false
         ],
         [
           "noun",
           "theAble",
+          false
+        ],
+        [
+          "noun",
+          "thisAble",
           false
         ],
         [
@@ -27722,6 +29221,11 @@
           false
         ],
         [
+          "path",
+          "thisAble",
+          false
+        ],
+        [
           "plusExpression",
           "mathematicalExpression",
           false
@@ -27767,6 +29271,11 @@
           false
         ],
         [
+          "point",
+          "thisAble",
+          false
+        ],
+        [
           "power",
           "hierarchyAble",
           false
@@ -27799,6 +29308,11 @@
         [
           "power",
           "theAble",
+          false
+        ],
+        [
+          "power",
+          "thisAble",
           false
         ],
         [
@@ -27893,6 +29407,11 @@
         ],
         [
           "radian",
+          "thisAble",
+          false
+        ],
+        [
+          "radian",
           "unit_angle",
           false
         ],
@@ -27957,6 +29476,11 @@
           false
         ],
         [
+          "right",
+          "thisAble",
+          false
+        ],
+        [
           "second",
           "hierarchyAble",
           false
@@ -27989,6 +29513,11 @@
         [
           "second",
           "theAble",
+          false
+        ],
+        [
+          "second",
+          "thisAble",
           false
         ],
         [
@@ -28132,6 +29661,11 @@
           false
         ],
         [
+          "south",
+          "thisAble",
+          false
+        ],
+        [
           "southeast",
           "compass_direction",
           false
@@ -28172,6 +29706,11 @@
           false
         ],
         [
+          "southeast",
+          "thisAble",
+          false
+        ],
+        [
           "southwest",
           "compass_direction",
           false
@@ -28212,6 +29751,11 @@
           false
         ],
         [
+          "southwest",
+          "thisAble",
+          false
+        ],
+        [
           "speed",
           "hierarchyAble",
           false
@@ -28244,6 +29788,11 @@
         [
           "speed",
           "theAble",
+          false
+        ],
+        [
+          "speed",
+          "thisAble",
           false
         ],
         [
@@ -28284,6 +29833,11 @@
         [
           "start",
           "theAble",
+          false
+        ],
+        [
+          "start",
+          "thisAble",
           false
         ],
         [
@@ -28339,6 +29893,11 @@
         [
           "superlative",
           "theAble",
+          false
+        ],
+        [
+          "superlative",
+          "thisAble",
           false
         ],
         [
@@ -28419,6 +29978,11 @@
         [
           "this",
           "thisitthat",
+          false
+        ],
+        [
+          "thisAble",
+          "thisAble",
           false
         ],
         [
@@ -28558,6 +30122,11 @@
         ],
         [
           "unit_angle",
+          "thisAble",
+          false
+        ],
+        [
+          "unit_angle",
           "unit",
           false
         ],
@@ -28594,6 +30163,11 @@
         [
           "unit_length",
           "theAble",
+          false
+        ],
+        [
+          "unit_length",
+          "thisAble",
           false
         ],
         [
@@ -28639,6 +30213,11 @@
         [
           "unit_time",
           "theAble",
+          false
+        ],
+        [
+          "unit_time",
+          "thisAble",
           false
         ],
         [
@@ -28704,6 +30283,11 @@
         [
           "west",
           "theAble",
+          false
+        ],
+        [
+          "west",
+          "thisAble",
           false
         ],
         [
@@ -28774,6 +30358,11 @@
         [
           "year",
           "theAble",
+          false
+        ],
+        [
+          "year",
+          "thisAble",
           false
         ],
         [
@@ -29238,6 +30827,11 @@
           false
         ],
         [
+          "amount",
+          "thisAble",
+          false
+        ],
+        [
           "ampm",
           "adjective",
           false
@@ -29283,6 +30877,11 @@
           false
         ],
         [
+          "angle",
+          "thisAble",
+          false
+        ],
+        [
           "arm",
           "concept",
           false
@@ -29323,6 +30922,11 @@
           false
         ],
         [
+          "arm",
+          "thisAble",
+          false
+        ],
+        [
           "around",
           "direction",
           false
@@ -29360,6 +30964,11 @@
         [
           "around",
           "theAble",
+          false
+        ],
+        [
+          "around",
+          "thisAble",
           false
         ],
         [
@@ -29408,6 +31017,11 @@
           false
         ],
         [
+          "ascending",
+          "thisAble",
+          false
+        ],
+        [
           "atTime",
           "preposition",
           false
@@ -29450,6 +31064,11 @@
         [
           "backward",
           "theAble",
+          false
+        ],
+        [
+          "backward",
+          "thisAble",
           false
         ],
         [
@@ -29519,6 +31138,11 @@
         ],
         [
           "centimeter",
+          "thisAble",
+          false
+        ],
+        [
+          "centimeter",
           "unit_length",
           false
         ],
@@ -29560,6 +31184,11 @@
         [
           "claw",
           "theAble",
+          false
+        ],
+        [
+          "claw",
+          "thisAble",
           false
         ],
         [
@@ -29708,6 +31337,11 @@
           false
         ],
         [
+          "condition",
+          "thisAble",
+          false
+        ],
+        [
           "convertToUnits",
           "expression",
           false
@@ -29764,6 +31398,11 @@
         ],
         [
           "degree",
+          "thisAble",
+          false
+        ],
+        [
+          "degree",
           "unit_angle",
           false
         ],
@@ -29808,6 +31447,11 @@
           false
         ],
         [
+          "descending",
+          "thisAble",
+          false
+        ],
+        [
           "dimension",
           "concept",
           false
@@ -29845,6 +31489,11 @@
         [
           "dimension",
           "theAble",
+          false
+        ],
+        [
+          "dimension",
+          "thisAble",
           false
         ],
         [
@@ -29953,6 +31602,11 @@
           false
         ],
         [
+          "drone",
+          "thisAble",
+          false
+        ],
+        [
           "each",
           "article",
           false
@@ -29998,6 +31652,11 @@
           false
         ],
         [
+          "east",
+          "thisAble",
+          false
+        ],
+        [
           "end",
           "hierarchyAble",
           false
@@ -30035,6 +31694,11 @@
         [
           "end",
           "theAble",
+          false
+        ],
+        [
+          "end",
+          "thisAble",
           false
         ],
         [
@@ -30094,6 +31758,11 @@
         ],
         [
           "foot",
+          "thisAble",
+          false
+        ],
+        [
+          "foot",
           "unit_length",
           false
         ],
@@ -30140,6 +31809,11 @@
         [
           "formula",
           "theAble",
+          false
+        ],
+        [
+          "formula",
+          "thisAble",
           false
         ],
         [
@@ -30190,6 +31864,11 @@
         [
           "forward",
           "theAble",
+          false
+        ],
+        [
+          "forward",
+          "thisAble",
           false
         ],
         [
@@ -30253,6 +31932,11 @@
           false
         ],
         [
+          "highest",
+          "thisAble",
+          false
+        ],
+        [
           "hour",
           "hierarchyAble",
           false
@@ -30285,6 +31969,11 @@
         [
           "hour",
           "theAble",
+          false
+        ],
+        [
+          "hour",
+          "thisAble",
           false
         ],
         [
@@ -30494,6 +32183,11 @@
         ],
         [
           "inch",
+          "thisAble",
+          false
+        ],
+        [
+          "inch",
           "unit_length",
           false
         ],
@@ -30593,6 +32287,11 @@
           false
         ],
         [
+          "left",
+          "thisAble",
+          false
+        ],
+        [
           "length",
           "dimension",
           false
@@ -30640,6 +32339,11 @@
         [
           "lowest",
           "theAble",
+          false
+        ],
+        [
+          "lowest",
+          "thisAble",
           false
         ],
         [
@@ -30785,6 +32489,11 @@
         [
           "maximum",
           "theAble",
+          false
+        ],
+        [
+          "maximum",
+          "thisAble",
           false
         ],
         [
@@ -30979,6 +32688,11 @@
         ],
         [
           "meter",
+          "thisAble",
+          false
+        ],
+        [
+          "meter",
           "unit_length",
           false
         ],
@@ -31169,6 +32883,11 @@
         ],
         [
           "mile",
+          "thisAble",
+          false
+        ],
+        [
+          "mile",
           "unit_length",
           false
         ],
@@ -31210,6 +32929,11 @@
         [
           "millimeter",
           "theAble",
+          false
+        ],
+        [
+          "millimeter",
+          "thisAble",
           false
         ],
         [
@@ -31258,6 +32982,11 @@
           false
         ],
         [
+          "minimum",
+          "thisAble",
+          false
+        ],
+        [
           "minusExpression",
           "mathematicalExpression",
           false
@@ -31300,6 +33029,11 @@
         [
           "minute",
           "theAble",
+          false
+        ],
+        [
+          "minute",
+          "thisAble",
           false
         ],
         [
@@ -31363,6 +33097,11 @@
           false
         ],
         [
+          "north",
+          "thisAble",
+          false
+        ],
+        [
           "northeast",
           "compass_direction",
           false
@@ -31403,6 +33142,11 @@
           false
         ],
         [
+          "northeast",
+          "thisAble",
+          false
+        ],
+        [
           "northwest",
           "compass_direction",
           false
@@ -31440,11 +33184,21 @@
         [
           "northwest",
           "theAble",
+          false
+        ],
+        [
+          "northwest",
+          "thisAble",
           false
         ],
         [
           "noun",
           "theAble",
+          false
+        ],
+        [
+          "noun",
+          "thisAble",
           false
         ],
         [
@@ -31638,6 +33392,11 @@
           false
         ],
         [
+          "path",
+          "thisAble",
+          false
+        ],
+        [
           "plusExpression",
           "mathematicalExpression",
           false
@@ -31683,6 +33442,11 @@
           false
         ],
         [
+          "point",
+          "thisAble",
+          false
+        ],
+        [
           "power",
           "comparable",
           false
@@ -31720,6 +33484,11 @@
         [
           "power",
           "theAble",
+          false
+        ],
+        [
+          "power",
+          "thisAble",
           false
         ],
         [
@@ -31814,6 +33583,11 @@
         ],
         [
           "radian",
+          "thisAble",
+          false
+        ],
+        [
+          "radian",
           "unit_angle",
           false
         ],
@@ -31878,6 +33652,11 @@
           false
         ],
         [
+          "right",
+          "thisAble",
+          false
+        ],
+        [
           "second",
           "hierarchyAble",
           false
@@ -31910,6 +33689,11 @@
         [
           "second",
           "theAble",
+          false
+        ],
+        [
+          "second",
+          "thisAble",
           false
         ],
         [
@@ -32053,6 +33837,11 @@
           false
         ],
         [
+          "south",
+          "thisAble",
+          false
+        ],
+        [
           "southeast",
           "compass_direction",
           false
@@ -32093,6 +33882,11 @@
           false
         ],
         [
+          "southeast",
+          "thisAble",
+          false
+        ],
+        [
           "southwest",
           "compass_direction",
           false
@@ -32130,6 +33924,11 @@
         [
           "southwest",
           "theAble",
+          false
+        ],
+        [
+          "southwest",
+          "thisAble",
           false
         ],
         [
@@ -32173,6 +33972,11 @@
           false
         ],
         [
+          "speed",
+          "thisAble",
+          false
+        ],
+        [
           "start",
           "hierarchyAble",
           false
@@ -32210,6 +34014,11 @@
         [
           "start",
           "theAble",
+          false
+        ],
+        [
+          "start",
+          "thisAble",
           false
         ],
         [
@@ -32265,6 +34074,11 @@
         [
           "superlative",
           "theAble",
+          false
+        ],
+        [
+          "superlative",
+          "thisAble",
           false
         ],
         [
@@ -32345,6 +34159,11 @@
         [
           "this",
           "thisitthat",
+          false
+        ],
+        [
+          "thisAble",
+          "thisAble",
           false
         ],
         [
@@ -32484,6 +34303,11 @@
         ],
         [
           "unit_angle",
+          "thisAble",
+          false
+        ],
+        [
+          "unit_angle",
           "unit",
           false
         ],
@@ -32520,6 +34344,11 @@
         [
           "unit_length",
           "theAble",
+          false
+        ],
+        [
+          "unit_length",
+          "thisAble",
           false
         ],
         [
@@ -32565,6 +34394,11 @@
         [
           "unit_time",
           "theAble",
+          false
+        ],
+        [
+          "unit_time",
+          "thisAble",
           false
         ],
         [
@@ -32630,6 +34464,11 @@
         [
           "west",
           "theAble",
+          false
+        ],
+        [
+          "west",
+          "thisAble",
           false
         ],
         [
@@ -32700,6 +34539,11 @@
         [
           "year",
           "theAble",
+          false
+        ],
+        [
+          "year",
+          "thisAble",
           false
         ],
         [
@@ -33120,6 +34964,11 @@
           false
         ],
         [
+          "amount",
+          "thisAble",
+          false
+        ],
+        [
           "ampm",
           "adjective",
           false
@@ -33165,6 +35014,11 @@
           false
         ],
         [
+          "angle",
+          "thisAble",
+          false
+        ],
+        [
           "arm",
           "concept",
           false
@@ -33205,6 +35059,11 @@
           false
         ],
         [
+          "arm",
+          "thisAble",
+          false
+        ],
+        [
           "around",
           "direction",
           false
@@ -33242,6 +35101,11 @@
         [
           "around",
           "theAble",
+          false
+        ],
+        [
+          "around",
+          "thisAble",
           false
         ],
         [
@@ -33290,6 +35154,11 @@
           false
         ],
         [
+          "ascending",
+          "thisAble",
+          false
+        ],
+        [
           "atTime",
           "preposition",
           false
@@ -33332,6 +35201,11 @@
         [
           "backward",
           "theAble",
+          false
+        ],
+        [
+          "backward",
+          "thisAble",
           false
         ],
         [
@@ -33401,6 +35275,11 @@
         ],
         [
           "centimeter",
+          "thisAble",
+          false
+        ],
+        [
+          "centimeter",
           "unit_length",
           false
         ],
@@ -33442,6 +35321,11 @@
         [
           "claw",
           "theAble",
+          false
+        ],
+        [
+          "claw",
+          "thisAble",
           false
         ],
         [
@@ -33590,6 +35474,11 @@
           false
         ],
         [
+          "condition",
+          "thisAble",
+          false
+        ],
+        [
           "convertToUnits",
           "expression",
           false
@@ -33646,6 +35535,11 @@
         ],
         [
           "degree",
+          "thisAble",
+          false
+        ],
+        [
+          "degree",
           "unit_angle",
           false
         ],
@@ -33690,6 +35584,11 @@
           false
         ],
         [
+          "descending",
+          "thisAble",
+          false
+        ],
+        [
           "dimension",
           "concept",
           false
@@ -33727,6 +35626,11 @@
         [
           "dimension",
           "theAble",
+          false
+        ],
+        [
+          "dimension",
+          "thisAble",
           false
         ],
         [
@@ -33835,6 +35739,11 @@
           false
         ],
         [
+          "drone",
+          "thisAble",
+          false
+        ],
+        [
           "each",
           "article",
           false
@@ -33880,6 +35789,11 @@
           false
         ],
         [
+          "east",
+          "thisAble",
+          false
+        ],
+        [
           "end",
           "hierarchyAble",
           false
@@ -33917,6 +35831,11 @@
         [
           "end",
           "theAble",
+          false
+        ],
+        [
+          "end",
+          "thisAble",
           false
         ],
         [
@@ -33976,6 +35895,11 @@
         ],
         [
           "foot",
+          "thisAble",
+          false
+        ],
+        [
+          "foot",
           "unit_length",
           false
         ],
@@ -34022,6 +35946,11 @@
         [
           "formula",
           "theAble",
+          false
+        ],
+        [
+          "formula",
+          "thisAble",
           false
         ],
         [
@@ -34072,6 +36001,11 @@
         [
           "forward",
           "theAble",
+          false
+        ],
+        [
+          "forward",
+          "thisAble",
           false
         ],
         [
@@ -34135,6 +36069,11 @@
           false
         ],
         [
+          "highest",
+          "thisAble",
+          false
+        ],
+        [
           "hour",
           "hierarchyAble",
           false
@@ -34167,6 +36106,11 @@
         [
           "hour",
           "theAble",
+          false
+        ],
+        [
+          "hour",
+          "thisAble",
           false
         ],
         [
@@ -34376,6 +36320,11 @@
         ],
         [
           "inch",
+          "thisAble",
+          false
+        ],
+        [
+          "inch",
           "unit_length",
           false
         ],
@@ -34475,6 +36424,11 @@
           false
         ],
         [
+          "left",
+          "thisAble",
+          false
+        ],
+        [
           "length",
           "dimension",
           false
@@ -34522,6 +36476,11 @@
         [
           "lowest",
           "theAble",
+          false
+        ],
+        [
+          "lowest",
+          "thisAble",
           false
         ],
         [
@@ -34667,6 +36626,11 @@
         [
           "maximum",
           "theAble",
+          false
+        ],
+        [
+          "maximum",
+          "thisAble",
           false
         ],
         [
@@ -34861,6 +36825,11 @@
         ],
         [
           "meter",
+          "thisAble",
+          false
+        ],
+        [
+          "meter",
           "unit_length",
           false
         ],
@@ -35051,6 +37020,11 @@
         ],
         [
           "mile",
+          "thisAble",
+          false
+        ],
+        [
+          "mile",
           "unit_length",
           false
         ],
@@ -35092,6 +37066,11 @@
         [
           "millimeter",
           "theAble",
+          false
+        ],
+        [
+          "millimeter",
+          "thisAble",
           false
         ],
         [
@@ -35140,6 +37119,11 @@
           false
         ],
         [
+          "minimum",
+          "thisAble",
+          false
+        ],
+        [
           "minusExpression",
           "mathematicalExpression",
           false
@@ -35182,6 +37166,11 @@
         [
           "minute",
           "theAble",
+          false
+        ],
+        [
+          "minute",
+          "thisAble",
           false
         ],
         [
@@ -35245,6 +37234,11 @@
           false
         ],
         [
+          "north",
+          "thisAble",
+          false
+        ],
+        [
           "northeast",
           "compass_direction",
           false
@@ -35285,6 +37279,11 @@
           false
         ],
         [
+          "northeast",
+          "thisAble",
+          false
+        ],
+        [
           "northwest",
           "compass_direction",
           false
@@ -35322,11 +37321,21 @@
         [
           "northwest",
           "theAble",
+          false
+        ],
+        [
+          "northwest",
+          "thisAble",
           false
         ],
         [
           "noun",
           "theAble",
+          false
+        ],
+        [
+          "noun",
+          "thisAble",
           false
         ],
         [
@@ -35520,6 +37529,11 @@
           false
         ],
         [
+          "path",
+          "thisAble",
+          false
+        ],
+        [
           "plusExpression",
           "mathematicalExpression",
           false
@@ -35565,6 +37579,11 @@
           false
         ],
         [
+          "point",
+          "thisAble",
+          false
+        ],
+        [
           "power",
           "comparable",
           false
@@ -35602,6 +37621,11 @@
         [
           "power",
           "theAble",
+          false
+        ],
+        [
+          "power",
+          "thisAble",
           false
         ],
         [
@@ -35696,6 +37720,11 @@
         ],
         [
           "radian",
+          "thisAble",
+          false
+        ],
+        [
+          "radian",
           "unit_angle",
           false
         ],
@@ -35760,6 +37789,11 @@
           false
         ],
         [
+          "right",
+          "thisAble",
+          false
+        ],
+        [
           "second",
           "hierarchyAble",
           false
@@ -35792,6 +37826,11 @@
         [
           "second",
           "theAble",
+          false
+        ],
+        [
+          "second",
+          "thisAble",
           false
         ],
         [
@@ -35935,6 +37974,11 @@
           false
         ],
         [
+          "south",
+          "thisAble",
+          false
+        ],
+        [
           "southeast",
           "compass_direction",
           false
@@ -35975,6 +38019,11 @@
           false
         ],
         [
+          "southeast",
+          "thisAble",
+          false
+        ],
+        [
           "southwest",
           "compass_direction",
           false
@@ -36012,6 +38061,11 @@
         [
           "southwest",
           "theAble",
+          false
+        ],
+        [
+          "southwest",
+          "thisAble",
           false
         ],
         [
@@ -36060,6 +38114,11 @@
           false
         ],
         [
+          "speed",
+          "thisAble",
+          false
+        ],
+        [
           "start",
           "hierarchyAble",
           false
@@ -36097,6 +38156,11 @@
         [
           "start",
           "theAble",
+          false
+        ],
+        [
+          "start",
+          "thisAble",
           false
         ],
         [
@@ -36152,6 +38216,11 @@
         [
           "superlative",
           "theAble",
+          false
+        ],
+        [
+          "superlative",
+          "thisAble",
           false
         ],
         [
@@ -36232,6 +38301,11 @@
         [
           "this",
           "thisitthat",
+          false
+        ],
+        [
+          "thisAble",
+          "thisAble",
           false
         ],
         [
@@ -36371,6 +38445,11 @@
         ],
         [
           "unit_angle",
+          "thisAble",
+          false
+        ],
+        [
+          "unit_angle",
           "unit",
           false
         ],
@@ -36407,6 +38486,11 @@
         [
           "unit_length",
           "theAble",
+          false
+        ],
+        [
+          "unit_length",
+          "thisAble",
           false
         ],
         [
@@ -36452,6 +38536,11 @@
         [
           "unit_time",
           "theAble",
+          false
+        ],
+        [
+          "unit_time",
+          "thisAble",
           false
         ],
         [
@@ -36517,6 +38606,11 @@
         [
           "west",
           "theAble",
+          false
+        ],
+        [
+          "west",
+          "thisAble",
           false
         ],
         [
@@ -36587,6 +38681,11 @@
         [
           "year",
           "theAble",
+          false
+        ],
+        [
+          "year",
+          "thisAble",
           false
         ],
         [
@@ -37007,6 +39106,11 @@
           false
         ],
         [
+          "amount",
+          "thisAble",
+          false
+        ],
+        [
           "ampm",
           "adjective",
           false
@@ -37052,6 +39156,11 @@
           false
         ],
         [
+          "angle",
+          "thisAble",
+          false
+        ],
+        [
           "arm",
           "concept",
           false
@@ -37092,6 +39201,11 @@
           false
         ],
         [
+          "arm",
+          "thisAble",
+          false
+        ],
+        [
           "around",
           "direction",
           false
@@ -37129,6 +39243,11 @@
         [
           "around",
           "theAble",
+          false
+        ],
+        [
+          "around",
+          "thisAble",
           false
         ],
         [
@@ -37177,6 +39296,11 @@
           false
         ],
         [
+          "ascending",
+          "thisAble",
+          false
+        ],
+        [
           "atTime",
           "preposition",
           false
@@ -37219,6 +39343,11 @@
         [
           "backward",
           "theAble",
+          false
+        ],
+        [
+          "backward",
+          "thisAble",
           false
         ],
         [
@@ -37288,6 +39417,11 @@
         ],
         [
           "centimeter",
+          "thisAble",
+          false
+        ],
+        [
+          "centimeter",
           "unit_length",
           false
         ],
@@ -37329,6 +39463,11 @@
         [
           "claw",
           "theAble",
+          false
+        ],
+        [
+          "claw",
+          "thisAble",
           false
         ],
         [
@@ -37477,6 +39616,11 @@
           false
         ],
         [
+          "condition",
+          "thisAble",
+          false
+        ],
+        [
           "convertToUnits",
           "expression",
           false
@@ -37533,6 +39677,11 @@
         ],
         [
           "degree",
+          "thisAble",
+          false
+        ],
+        [
+          "degree",
           "unit_angle",
           false
         ],
@@ -37577,6 +39726,11 @@
           false
         ],
         [
+          "descending",
+          "thisAble",
+          false
+        ],
+        [
           "dimension",
           "concept",
           false
@@ -37614,6 +39768,11 @@
         [
           "dimension",
           "theAble",
+          false
+        ],
+        [
+          "dimension",
+          "thisAble",
           false
         ],
         [
@@ -37722,6 +39881,11 @@
           false
         ],
         [
+          "drone",
+          "thisAble",
+          false
+        ],
+        [
           "each",
           "article",
           false
@@ -37767,6 +39931,11 @@
           false
         ],
         [
+          "east",
+          "thisAble",
+          false
+        ],
+        [
           "end",
           "hierarchyAble",
           false
@@ -37804,6 +39973,11 @@
         [
           "end",
           "theAble",
+          false
+        ],
+        [
+          "end",
+          "thisAble",
           false
         ],
         [
@@ -37863,6 +40037,11 @@
         ],
         [
           "foot",
+          "thisAble",
+          false
+        ],
+        [
+          "foot",
           "unit_length",
           false
         ],
@@ -37909,6 +40088,11 @@
         [
           "formula",
           "theAble",
+          false
+        ],
+        [
+          "formula",
+          "thisAble",
           false
         ],
         [
@@ -37959,6 +40143,11 @@
         [
           "forward",
           "theAble",
+          false
+        ],
+        [
+          "forward",
+          "thisAble",
           false
         ],
         [
@@ -38022,6 +40211,11 @@
           false
         ],
         [
+          "highest",
+          "thisAble",
+          false
+        ],
+        [
           "hour",
           "hierarchyAble",
           false
@@ -38054,6 +40248,11 @@
         [
           "hour",
           "theAble",
+          false
+        ],
+        [
+          "hour",
+          "thisAble",
           false
         ],
         [
@@ -38263,6 +40462,11 @@
         ],
         [
           "inch",
+          "thisAble",
+          false
+        ],
+        [
+          "inch",
           "unit_length",
           false
         ],
@@ -38362,6 +40566,11 @@
           false
         ],
         [
+          "left",
+          "thisAble",
+          false
+        ],
+        [
           "length",
           "dimension",
           false
@@ -38409,6 +40618,11 @@
         [
           "lowest",
           "theAble",
+          false
+        ],
+        [
+          "lowest",
+          "thisAble",
           false
         ],
         [
@@ -38554,6 +40768,11 @@
         [
           "maximum",
           "theAble",
+          false
+        ],
+        [
+          "maximum",
+          "thisAble",
           false
         ],
         [
@@ -38748,6 +40967,11 @@
         ],
         [
           "meter",
+          "thisAble",
+          false
+        ],
+        [
+          "meter",
           "unit_length",
           false
         ],
@@ -38938,6 +41162,11 @@
         ],
         [
           "mile",
+          "thisAble",
+          false
+        ],
+        [
+          "mile",
           "unit_length",
           false
         ],
@@ -38979,6 +41208,11 @@
         [
           "millimeter",
           "theAble",
+          false
+        ],
+        [
+          "millimeter",
+          "thisAble",
           false
         ],
         [
@@ -39027,6 +41261,11 @@
           false
         ],
         [
+          "minimum",
+          "thisAble",
+          false
+        ],
+        [
           "minusExpression",
           "mathematicalExpression",
           false
@@ -39069,6 +41308,11 @@
         [
           "minute",
           "theAble",
+          false
+        ],
+        [
+          "minute",
+          "thisAble",
           false
         ],
         [
@@ -39132,6 +41376,11 @@
           false
         ],
         [
+          "north",
+          "thisAble",
+          false
+        ],
+        [
           "northeast",
           "compass_direction",
           false
@@ -39172,6 +41421,11 @@
           false
         ],
         [
+          "northeast",
+          "thisAble",
+          false
+        ],
+        [
           "northwest",
           "compass_direction",
           false
@@ -39209,11 +41463,21 @@
         [
           "northwest",
           "theAble",
+          false
+        ],
+        [
+          "northwest",
+          "thisAble",
           false
         ],
         [
           "noun",
           "theAble",
+          false
+        ],
+        [
+          "noun",
+          "thisAble",
           false
         ],
         [
@@ -39407,6 +41671,11 @@
           false
         ],
         [
+          "path",
+          "thisAble",
+          false
+        ],
+        [
           "plusExpression",
           "mathematicalExpression",
           false
@@ -39457,6 +41726,11 @@
           false
         ],
         [
+          "point",
+          "thisAble",
+          false
+        ],
+        [
           "power",
           "comparable",
           false
@@ -39494,6 +41768,11 @@
         [
           "power",
           "theAble",
+          false
+        ],
+        [
+          "power",
+          "thisAble",
           false
         ],
         [
@@ -39588,6 +41867,11 @@
         ],
         [
           "radian",
+          "thisAble",
+          false
+        ],
+        [
+          "radian",
           "unit_angle",
           false
         ],
@@ -39652,6 +41936,11 @@
           false
         ],
         [
+          "right",
+          "thisAble",
+          false
+        ],
+        [
           "second",
           "hierarchyAble",
           false
@@ -39684,6 +41973,11 @@
         [
           "second",
           "theAble",
+          false
+        ],
+        [
+          "second",
+          "thisAble",
           false
         ],
         [
@@ -39827,6 +42121,11 @@
           false
         ],
         [
+          "south",
+          "thisAble",
+          false
+        ],
+        [
           "southeast",
           "compass_direction",
           false
@@ -39867,6 +42166,11 @@
           false
         ],
         [
+          "southeast",
+          "thisAble",
+          false
+        ],
+        [
           "southwest",
           "compass_direction",
           false
@@ -39904,6 +42208,11 @@
         [
           "southwest",
           "theAble",
+          false
+        ],
+        [
+          "southwest",
+          "thisAble",
           false
         ],
         [
@@ -39952,6 +42261,11 @@
           false
         ],
         [
+          "speed",
+          "thisAble",
+          false
+        ],
+        [
           "start",
           "hierarchyAble",
           false
@@ -39989,6 +42303,11 @@
         [
           "start",
           "theAble",
+          false
+        ],
+        [
+          "start",
+          "thisAble",
           false
         ],
         [
@@ -40044,6 +42363,11 @@
         [
           "superlative",
           "theAble",
+          false
+        ],
+        [
+          "superlative",
+          "thisAble",
           false
         ],
         [
@@ -40124,6 +42448,11 @@
         [
           "this",
           "thisitthat",
+          false
+        ],
+        [
+          "thisAble",
+          "thisAble",
           false
         ],
         [
@@ -40263,6 +42592,11 @@
         ],
         [
           "unit_angle",
+          "thisAble",
+          false
+        ],
+        [
+          "unit_angle",
           "unit",
           false
         ],
@@ -40299,6 +42633,11 @@
         [
           "unit_length",
           "theAble",
+          false
+        ],
+        [
+          "unit_length",
+          "thisAble",
           false
         ],
         [
@@ -40344,6 +42683,11 @@
         [
           "unit_time",
           "theAble",
+          false
+        ],
+        [
+          "unit_time",
+          "thisAble",
           false
         ],
         [
@@ -40409,6 +42753,11 @@
         [
           "west",
           "theAble",
+          false
+        ],
+        [
+          "west",
+          "thisAble",
           false
         ],
         [
@@ -40479,6 +42828,11 @@
         [
           "year",
           "theAble",
+          false
+        ],
+        [
+          "year",
+          "thisAble",
           false
         ],
         [
@@ -41276,6 +43630,11 @@
           false
         ],
         [
+          "amount",
+          "thisAble",
+          false
+        ],
+        [
           "ampm",
           "adjective",
           false
@@ -41321,6 +43680,11 @@
           false
         ],
         [
+          "angle",
+          "thisAble",
+          false
+        ],
+        [
           "arm",
           "concept",
           false
@@ -41361,6 +43725,11 @@
           false
         ],
         [
+          "arm",
+          "thisAble",
+          false
+        ],
+        [
           "around",
           "direction",
           false
@@ -41398,6 +43767,11 @@
         [
           "around",
           "theAble",
+          false
+        ],
+        [
+          "around",
+          "thisAble",
           false
         ],
         [
@@ -41446,6 +43820,11 @@
           false
         ],
         [
+          "ascending",
+          "thisAble",
+          false
+        ],
+        [
           "atTime",
           "preposition",
           false
@@ -41488,6 +43867,11 @@
         [
           "backward",
           "theAble",
+          false
+        ],
+        [
+          "backward",
+          "thisAble",
           false
         ],
         [
@@ -41557,6 +43941,11 @@
         ],
         [
           "centimeter",
+          "thisAble",
+          false
+        ],
+        [
+          "centimeter",
           "unit_length",
           false
         ],
@@ -41598,6 +43987,11 @@
         [
           "claw",
           "theAble",
+          false
+        ],
+        [
+          "claw",
+          "thisAble",
           false
         ],
         [
@@ -41746,6 +44140,11 @@
           false
         ],
         [
+          "condition",
+          "thisAble",
+          false
+        ],
+        [
           "convertToUnits",
           "expression",
           false
@@ -41802,6 +44201,11 @@
         ],
         [
           "degree",
+          "thisAble",
+          false
+        ],
+        [
+          "degree",
           "unit_angle",
           false
         ],
@@ -41846,6 +44250,11 @@
           false
         ],
         [
+          "descending",
+          "thisAble",
+          false
+        ],
+        [
           "dimension",
           "concept",
           false
@@ -41883,6 +44292,11 @@
         [
           "dimension",
           "theAble",
+          false
+        ],
+        [
+          "dimension",
+          "thisAble",
           false
         ],
         [
@@ -41991,6 +44405,11 @@
           false
         ],
         [
+          "drone",
+          "thisAble",
+          false
+        ],
+        [
           "each",
           "article",
           false
@@ -42036,6 +44455,11 @@
           false
         ],
         [
+          "east",
+          "thisAble",
+          false
+        ],
+        [
           "end",
           "hierarchyAble",
           false
@@ -42073,6 +44497,11 @@
         [
           "end",
           "theAble",
+          false
+        ],
+        [
+          "end",
+          "thisAble",
           false
         ],
         [
@@ -42132,6 +44561,11 @@
         ],
         [
           "foot",
+          "thisAble",
+          false
+        ],
+        [
+          "foot",
           "unit_length",
           false
         ],
@@ -42178,6 +44612,11 @@
         [
           "formula",
           "theAble",
+          false
+        ],
+        [
+          "formula",
+          "thisAble",
           false
         ],
         [
@@ -42228,6 +44667,11 @@
         [
           "forward",
           "theAble",
+          false
+        ],
+        [
+          "forward",
+          "thisAble",
           false
         ],
         [
@@ -42291,6 +44735,11 @@
           false
         ],
         [
+          "highest",
+          "thisAble",
+          false
+        ],
+        [
           "hour",
           "hierarchyAble",
           false
@@ -42323,6 +44772,11 @@
         [
           "hour",
           "theAble",
+          false
+        ],
+        [
+          "hour",
+          "thisAble",
           false
         ],
         [
@@ -42532,6 +44986,11 @@
         ],
         [
           "inch",
+          "thisAble",
+          false
+        ],
+        [
+          "inch",
           "unit_length",
           false
         ],
@@ -42631,6 +45090,11 @@
           false
         ],
         [
+          "left",
+          "thisAble",
+          false
+        ],
+        [
           "length",
           "dimension",
           false
@@ -42678,6 +45142,11 @@
         [
           "lowest",
           "theAble",
+          false
+        ],
+        [
+          "lowest",
+          "thisAble",
           false
         ],
         [
@@ -42823,6 +45292,11 @@
         [
           "maximum",
           "theAble",
+          false
+        ],
+        [
+          "maximum",
+          "thisAble",
           false
         ],
         [
@@ -43017,6 +45491,11 @@
         ],
         [
           "meter",
+          "thisAble",
+          false
+        ],
+        [
+          "meter",
           "unit_length",
           false
         ],
@@ -43207,6 +45686,11 @@
         ],
         [
           "mile",
+          "thisAble",
+          false
+        ],
+        [
+          "mile",
           "unit_length",
           false
         ],
@@ -43248,6 +45732,11 @@
         [
           "millimeter",
           "theAble",
+          false
+        ],
+        [
+          "millimeter",
+          "thisAble",
           false
         ],
         [
@@ -43296,6 +45785,11 @@
           false
         ],
         [
+          "minimum",
+          "thisAble",
+          false
+        ],
+        [
           "minusExpression",
           "mathematicalExpression",
           false
@@ -43338,6 +45832,11 @@
         [
           "minute",
           "theAble",
+          false
+        ],
+        [
+          "minute",
+          "thisAble",
           false
         ],
         [
@@ -43401,6 +45900,11 @@
           false
         ],
         [
+          "north",
+          "thisAble",
+          false
+        ],
+        [
           "northeast",
           "compass_direction",
           false
@@ -43441,6 +45945,11 @@
           false
         ],
         [
+          "northeast",
+          "thisAble",
+          false
+        ],
+        [
           "northwest",
           "compass_direction",
           false
@@ -43478,11 +45987,21 @@
         [
           "northwest",
           "theAble",
+          false
+        ],
+        [
+          "northwest",
+          "thisAble",
           false
         ],
         [
           "noun",
           "theAble",
+          false
+        ],
+        [
+          "noun",
+          "thisAble",
           false
         ],
         [
@@ -43676,6 +46195,11 @@
           false
         ],
         [
+          "path",
+          "thisAble",
+          false
+        ],
+        [
           "plusExpression",
           "mathematicalExpression",
           false
@@ -43741,6 +46265,11 @@
           false
         ],
         [
+          "point",
+          "thisAble",
+          false
+        ],
+        [
           "power",
           "comparable",
           false
@@ -43778,6 +46307,11 @@
         [
           "power",
           "theAble",
+          false
+        ],
+        [
+          "power",
+          "thisAble",
           false
         ],
         [
@@ -43872,6 +46406,11 @@
         ],
         [
           "radian",
+          "thisAble",
+          false
+        ],
+        [
+          "radian",
           "unit_angle",
           false
         ],
@@ -43936,6 +46475,11 @@
           false
         ],
         [
+          "right",
+          "thisAble",
+          false
+        ],
+        [
           "second",
           "hierarchyAble",
           false
@@ -43968,6 +46512,11 @@
         [
           "second",
           "theAble",
+          false
+        ],
+        [
+          "second",
+          "thisAble",
           false
         ],
         [
@@ -44111,6 +46660,11 @@
           false
         ],
         [
+          "south",
+          "thisAble",
+          false
+        ],
+        [
           "southeast",
           "compass_direction",
           false
@@ -44151,6 +46705,11 @@
           false
         ],
         [
+          "southeast",
+          "thisAble",
+          false
+        ],
+        [
           "southwest",
           "compass_direction",
           false
@@ -44188,6 +46747,11 @@
         [
           "southwest",
           "theAble",
+          false
+        ],
+        [
+          "southwest",
+          "thisAble",
           false
         ],
         [
@@ -44236,6 +46800,11 @@
           false
         ],
         [
+          "speed",
+          "thisAble",
+          false
+        ],
+        [
           "start",
           "hierarchyAble",
           false
@@ -44273,6 +46842,11 @@
         [
           "start",
           "theAble",
+          false
+        ],
+        [
+          "start",
+          "thisAble",
           false
         ],
         [
@@ -44328,6 +46902,11 @@
         [
           "superlative",
           "theAble",
+          false
+        ],
+        [
+          "superlative",
+          "thisAble",
           false
         ],
         [
@@ -44408,6 +46987,11 @@
         [
           "this",
           "thisitthat",
+          false
+        ],
+        [
+          "thisAble",
+          "thisAble",
           false
         ],
         [
@@ -44547,6 +47131,11 @@
         ],
         [
           "unit_angle",
+          "thisAble",
+          false
+        ],
+        [
+          "unit_angle",
           "unit",
           false
         ],
@@ -44583,6 +47172,11 @@
         [
           "unit_length",
           "theAble",
+          false
+        ],
+        [
+          "unit_length",
+          "thisAble",
           false
         ],
         [
@@ -44628,6 +47222,11 @@
         [
           "unit_time",
           "theAble",
+          false
+        ],
+        [
+          "unit_time",
+          "thisAble",
           false
         ],
         [
@@ -44693,6 +47292,11 @@
         [
           "west",
           "theAble",
+          false
+        ],
+        [
+          "west",
+          "thisAble",
           false
         ],
         [
@@ -44763,6 +47367,11 @@
         [
           "year",
           "theAble",
+          false
+        ],
+        [
+          "year",
+          "thisAble",
           false
         ],
         [
@@ -45054,6 +47663,7 @@
       "extraConfig": true,
       "operators": [
         "([do] (path))",
+        "([patrol] (path))",
         "([lift|lift,raise] (@<= arm || @<= claw))",
         "([lower] (@<= arm || @<=claw))",
         "([open] (claw))",
@@ -45065,6 +47675,13 @@
         "([toPoint|to] (point))"
       ],
       "bridges": [
+        {
+          "id": "patrol",
+          "isA": [
+            "verb"
+          ],
+          "bridge": "{\n            ...next(operator), operator: operator, path: after[0], interpolate: [{ property: 'operator'}, { property: 'path' }]\n          }"
+        },
         {
           "id": "do",
           "isA": [
@@ -45371,6 +47988,11 @@
           false
         ],
         [
+          "amount",
+          "thisAble",
+          false
+        ],
+        [
           "ampm",
           "adjective",
           false
@@ -45416,6 +48038,11 @@
           false
         ],
         [
+          "angle",
+          "thisAble",
+          false
+        ],
+        [
           "arm",
           "concept",
           false
@@ -45456,6 +48083,11 @@
           false
         ],
         [
+          "arm",
+          "thisAble",
+          false
+        ],
+        [
           "around",
           "direction",
           false
@@ -45493,6 +48125,11 @@
         [
           "around",
           "theAble",
+          false
+        ],
+        [
+          "around",
+          "thisAble",
           false
         ],
         [
@@ -45538,6 +48175,11 @@
         [
           "ascending",
           "theAble",
+          false
+        ],
+        [
+          "ascending",
+          "thisAble",
           false
         ],
         [
@@ -45588,6 +48230,11 @@
         [
           "backward",
           "theAble",
+          false
+        ],
+        [
+          "backward",
+          "thisAble",
           false
         ],
         [
@@ -45657,6 +48304,11 @@
         ],
         [
           "centimeter",
+          "thisAble",
+          false
+        ],
+        [
+          "centimeter",
           "unit_length",
           false
         ],
@@ -45698,6 +48350,11 @@
         [
           "claw",
           "theAble",
+          false
+        ],
+        [
+          "claw",
+          "thisAble",
           false
         ],
         [
@@ -45851,6 +48508,11 @@
           false
         ],
         [
+          "condition",
+          "thisAble",
+          false
+        ],
+        [
           "convertToUnits",
           "expression",
           false
@@ -45907,6 +48569,11 @@
         ],
         [
           "degree",
+          "thisAble",
+          false
+        ],
+        [
+          "degree",
           "unit_angle",
           false
         ],
@@ -45951,6 +48618,11 @@
           false
         ],
         [
+          "descending",
+          "thisAble",
+          false
+        ],
+        [
           "dimension",
           "concept",
           false
@@ -45988,6 +48660,11 @@
         [
           "dimension",
           "theAble",
+          false
+        ],
+        [
+          "dimension",
+          "thisAble",
           false
         ],
         [
@@ -46106,6 +48783,11 @@
           false
         ],
         [
+          "drone",
+          "thisAble",
+          false
+        ],
+        [
           "drone_direction",
           "adjective",
           true
@@ -46201,6 +48883,11 @@
           false
         ],
         [
+          "east",
+          "thisAble",
+          false
+        ],
+        [
           "end",
           "hierarchyAble",
           false
@@ -46238,6 +48925,11 @@
         [
           "end",
           "theAble",
+          false
+        ],
+        [
+          "end",
+          "thisAble",
           false
         ],
         [
@@ -46297,6 +48989,11 @@
         ],
         [
           "foot",
+          "thisAble",
+          false
+        ],
+        [
+          "foot",
           "unit_length",
           false
         ],
@@ -46343,6 +49040,11 @@
         [
           "formula",
           "theAble",
+          false
+        ],
+        [
+          "formula",
+          "thisAble",
           false
         ],
         [
@@ -46398,6 +49100,11 @@
         [
           "forward",
           "theAble",
+          false
+        ],
+        [
+          "forward",
+          "thisAble",
           false
         ],
         [
@@ -46466,6 +49173,11 @@
           false
         ],
         [
+          "highest",
+          "thisAble",
+          false
+        ],
+        [
           "hour",
           "hierarchyAble",
           false
@@ -46498,6 +49210,11 @@
         [
           "hour",
           "theAble",
+          false
+        ],
+        [
+          "hour",
+          "thisAble",
           false
         ],
         [
@@ -46707,6 +49424,11 @@
         ],
         [
           "inch",
+          "thisAble",
+          false
+        ],
+        [
+          "inch",
           "unit_length",
           false
         ],
@@ -46806,6 +49528,11 @@
           false
         ],
         [
+          "left",
+          "thisAble",
+          false
+        ],
+        [
           "length",
           "dimension",
           false
@@ -46863,6 +49590,11 @@
         [
           "lowest",
           "theAble",
+          false
+        ],
+        [
+          "lowest",
+          "thisAble",
           false
         ],
         [
@@ -47008,6 +49740,11 @@
         [
           "maximum",
           "theAble",
+          false
+        ],
+        [
+          "maximum",
+          "thisAble",
           false
         ],
         [
@@ -47202,6 +49939,11 @@
         ],
         [
           "meter",
+          "thisAble",
+          false
+        ],
+        [
+          "meter",
           "unit_length",
           false
         ],
@@ -47392,6 +50134,11 @@
         ],
         [
           "mile",
+          "thisAble",
+          false
+        ],
+        [
+          "mile",
           "unit_length",
           false
         ],
@@ -47433,6 +50180,11 @@
         [
           "millimeter",
           "theAble",
+          false
+        ],
+        [
+          "millimeter",
+          "thisAble",
           false
         ],
         [
@@ -47481,6 +50233,11 @@
           false
         ],
         [
+          "minimum",
+          "thisAble",
+          false
+        ],
+        [
           "minusExpression",
           "mathematicalExpression",
           false
@@ -47523,6 +50280,11 @@
         [
           "minute",
           "theAble",
+          false
+        ],
+        [
+          "minute",
+          "thisAble",
           false
         ],
         [
@@ -47586,6 +50348,11 @@
           false
         ],
         [
+          "north",
+          "thisAble",
+          false
+        ],
+        [
           "northeast",
           "compass_direction",
           false
@@ -47626,6 +50393,11 @@
           false
         ],
         [
+          "northeast",
+          "thisAble",
+          false
+        ],
+        [
           "northwest",
           "compass_direction",
           false
@@ -47663,11 +50435,21 @@
         [
           "northwest",
           "theAble",
+          false
+        ],
+        [
+          "northwest",
+          "thisAble",
           false
         ],
         [
           "noun",
           "theAble",
+          false
+        ],
+        [
+          "noun",
+          "thisAble",
           false
         ],
         [
@@ -47866,6 +50648,16 @@
           false
         ],
         [
+          "path",
+          "thisAble",
+          false
+        ],
+        [
+          "patrol",
+          "verb",
+          false
+        ],
+        [
           "pause",
           "verb",
           false
@@ -47936,6 +50728,11 @@
           false
         ],
         [
+          "point",
+          "thisAble",
+          false
+        ],
+        [
           "power",
           "comparable",
           false
@@ -47973,6 +50770,11 @@
         [
           "power",
           "theAble",
+          false
+        ],
+        [
+          "power",
+          "thisAble",
           false
         ],
         [
@@ -48067,6 +50869,11 @@
         ],
         [
           "radian",
+          "thisAble",
+          false
+        ],
+        [
+          "radian",
           "unit_angle",
           false
         ],
@@ -48131,6 +50938,11 @@
           false
         ],
         [
+          "right",
+          "thisAble",
+          false
+        ],
+        [
           "second",
           "hierarchyAble",
           false
@@ -48163,6 +50975,11 @@
         [
           "second",
           "theAble",
+          false
+        ],
+        [
+          "second",
+          "thisAble",
           false
         ],
         [
@@ -48306,6 +51123,11 @@
           false
         ],
         [
+          "south",
+          "thisAble",
+          false
+        ],
+        [
           "southeast",
           "compass_direction",
           false
@@ -48346,6 +51168,11 @@
           false
         ],
         [
+          "southeast",
+          "thisAble",
+          false
+        ],
+        [
           "southwest",
           "compass_direction",
           false
@@ -48383,6 +51210,11 @@
         [
           "southwest",
           "theAble",
+          false
+        ],
+        [
+          "southwest",
+          "thisAble",
           false
         ],
         [
@@ -48431,6 +51263,11 @@
           false
         ],
         [
+          "speed",
+          "thisAble",
+          false
+        ],
+        [
           "start",
           "hierarchyAble",
           false
@@ -48468,6 +51305,11 @@
         [
           "start",
           "theAble",
+          false
+        ],
+        [
+          "start",
+          "thisAble",
           false
         ],
         [
@@ -48528,6 +51370,11 @@
         [
           "superlative",
           "theAble",
+          false
+        ],
+        [
+          "superlative",
+          "thisAble",
           false
         ],
         [
@@ -48608,6 +51455,11 @@
         [
           "this",
           "thisitthat",
+          false
+        ],
+        [
+          "thisAble",
+          "thisAble",
           false
         ],
         [
@@ -48757,6 +51609,11 @@
         ],
         [
           "unit_angle",
+          "thisAble",
+          false
+        ],
+        [
+          "unit_angle",
           "unit",
           false
         ],
@@ -48793,6 +51650,11 @@
         [
           "unit_length",
           "theAble",
+          false
+        ],
+        [
+          "unit_length",
+          "thisAble",
           false
         ],
         [
@@ -48838,6 +51700,11 @@
         [
           "unit_time",
           "theAble",
+          false
+        ],
+        [
+          "unit_time",
+          "thisAble",
           false
         ],
         [
@@ -48903,6 +51770,11 @@
         [
           "west",
           "theAble",
+          false
+        ],
+        [
+          "west",
+          "thisAble",
           false
         ],
         [
@@ -48973,6 +51845,11 @@
         [
           "year",
           "theAble",
+          false
+        ],
+        [
+          "year",
+          "thisAble",
           false
         ],
         [
@@ -49251,6 +52128,11 @@
           false
         ],
         [
+          "amount",
+          "thisAble",
+          false
+        ],
+        [
           "ampm",
           "adjective",
           false
@@ -49296,6 +52178,11 @@
           false
         ],
         [
+          "angle",
+          "thisAble",
+          false
+        ],
+        [
           "arm",
           "concept",
           false
@@ -49336,6 +52223,11 @@
           false
         ],
         [
+          "arm",
+          "thisAble",
+          false
+        ],
+        [
           "around",
           "direction",
           false
@@ -49373,6 +52265,11 @@
         [
           "around",
           "theAble",
+          false
+        ],
+        [
+          "around",
+          "thisAble",
           false
         ],
         [
@@ -49418,6 +52315,11 @@
         [
           "ascending",
           "theAble",
+          false
+        ],
+        [
+          "ascending",
+          "thisAble",
           false
         ],
         [
@@ -49468,6 +52370,11 @@
         [
           "backward",
           "theAble",
+          false
+        ],
+        [
+          "backward",
+          "thisAble",
           false
         ],
         [
@@ -49537,6 +52444,11 @@
         ],
         [
           "centimeter",
+          "thisAble",
+          false
+        ],
+        [
+          "centimeter",
           "unit_length",
           false
         ],
@@ -49578,6 +52490,11 @@
         [
           "claw",
           "theAble",
+          false
+        ],
+        [
+          "claw",
+          "thisAble",
           false
         ],
         [
@@ -49731,6 +52648,11 @@
           false
         ],
         [
+          "condition",
+          "thisAble",
+          false
+        ],
+        [
           "convertToUnits",
           "expression",
           false
@@ -49787,6 +52709,11 @@
         ],
         [
           "degree",
+          "thisAble",
+          false
+        ],
+        [
+          "degree",
           "unit_angle",
           false
         ],
@@ -49831,6 +52758,11 @@
           false
         ],
         [
+          "descending",
+          "thisAble",
+          false
+        ],
+        [
           "dimension",
           "concept",
           false
@@ -49868,6 +52800,11 @@
         [
           "dimension",
           "theAble",
+          false
+        ],
+        [
+          "dimension",
+          "thisAble",
           false
         ],
         [
@@ -49986,6 +52923,11 @@
           false
         ],
         [
+          "drone",
+          "thisAble",
+          false
+        ],
+        [
           "drone_direction",
           "adjective",
           true
@@ -50081,6 +53023,11 @@
           false
         ],
         [
+          "east",
+          "thisAble",
+          false
+        ],
+        [
           "end",
           "hierarchyAble",
           false
@@ -50118,6 +53065,11 @@
         [
           "end",
           "theAble",
+          false
+        ],
+        [
+          "end",
+          "thisAble",
           false
         ],
         [
@@ -50177,6 +53129,11 @@
         ],
         [
           "foot",
+          "thisAble",
+          false
+        ],
+        [
+          "foot",
           "unit_length",
           false
         ],
@@ -50223,6 +53180,11 @@
         [
           "formula",
           "theAble",
+          false
+        ],
+        [
+          "formula",
+          "thisAble",
           false
         ],
         [
@@ -50278,6 +53240,11 @@
         [
           "forward",
           "theAble",
+          false
+        ],
+        [
+          "forward",
+          "thisAble",
           false
         ],
         [
@@ -50346,6 +53313,11 @@
           false
         ],
         [
+          "highest",
+          "thisAble",
+          false
+        ],
+        [
           "hour",
           "hierarchyAble",
           false
@@ -50378,6 +53350,11 @@
         [
           "hour",
           "theAble",
+          false
+        ],
+        [
+          "hour",
+          "thisAble",
           false
         ],
         [
@@ -50587,6 +53564,11 @@
         ],
         [
           "inch",
+          "thisAble",
+          false
+        ],
+        [
+          "inch",
           "unit_length",
           false
         ],
@@ -50686,6 +53668,11 @@
           false
         ],
         [
+          "left",
+          "thisAble",
+          false
+        ],
+        [
           "length",
           "dimension",
           false
@@ -50743,6 +53730,11 @@
         [
           "lowest",
           "theAble",
+          false
+        ],
+        [
+          "lowest",
+          "thisAble",
           false
         ],
         [
@@ -50888,6 +53880,11 @@
         [
           "maximum",
           "theAble",
+          false
+        ],
+        [
+          "maximum",
+          "thisAble",
           false
         ],
         [
@@ -51082,6 +54079,11 @@
         ],
         [
           "meter",
+          "thisAble",
+          false
+        ],
+        [
+          "meter",
           "unit_length",
           false
         ],
@@ -51272,6 +54274,11 @@
         ],
         [
           "mile",
+          "thisAble",
+          false
+        ],
+        [
+          "mile",
           "unit_length",
           false
         ],
@@ -51313,6 +54320,11 @@
         [
           "millimeter",
           "theAble",
+          false
+        ],
+        [
+          "millimeter",
+          "thisAble",
           false
         ],
         [
@@ -51361,6 +54373,11 @@
           false
         ],
         [
+          "minimum",
+          "thisAble",
+          false
+        ],
+        [
           "minusExpression",
           "mathematicalExpression",
           false
@@ -51403,6 +54420,11 @@
         [
           "minute",
           "theAble",
+          false
+        ],
+        [
+          "minute",
+          "thisAble",
           false
         ],
         [
@@ -51466,6 +54488,11 @@
           false
         ],
         [
+          "north",
+          "thisAble",
+          false
+        ],
+        [
           "northeast",
           "compass_direction",
           false
@@ -51506,6 +54533,11 @@
           false
         ],
         [
+          "northeast",
+          "thisAble",
+          false
+        ],
+        [
           "northwest",
           "compass_direction",
           false
@@ -51543,11 +54575,21 @@
         [
           "northwest",
           "theAble",
+          false
+        ],
+        [
+          "northwest",
+          "thisAble",
           false
         ],
         [
           "noun",
           "theAble",
+          false
+        ],
+        [
+          "noun",
+          "thisAble",
           false
         ],
         [
@@ -51746,6 +54788,16 @@
           false
         ],
         [
+          "path",
+          "thisAble",
+          false
+        ],
+        [
+          "patrol",
+          "verb",
+          false
+        ],
+        [
           "pause",
           "verb",
           false
@@ -51816,6 +54868,11 @@
           false
         ],
         [
+          "point",
+          "thisAble",
+          false
+        ],
+        [
           "power",
           "comparable",
           false
@@ -51853,6 +54910,11 @@
         [
           "power",
           "theAble",
+          false
+        ],
+        [
+          "power",
+          "thisAble",
           false
         ],
         [
@@ -51947,6 +55009,11 @@
         ],
         [
           "radian",
+          "thisAble",
+          false
+        ],
+        [
+          "radian",
           "unit_angle",
           false
         ],
@@ -52011,6 +55078,11 @@
           false
         ],
         [
+          "right",
+          "thisAble",
+          false
+        ],
+        [
           "second",
           "hierarchyAble",
           false
@@ -52043,6 +55115,11 @@
         [
           "second",
           "theAble",
+          false
+        ],
+        [
+          "second",
+          "thisAble",
           false
         ],
         [
@@ -52186,6 +55263,11 @@
           false
         ],
         [
+          "south",
+          "thisAble",
+          false
+        ],
+        [
           "southeast",
           "compass_direction",
           false
@@ -52226,6 +55308,11 @@
           false
         ],
         [
+          "southeast",
+          "thisAble",
+          false
+        ],
+        [
           "southwest",
           "compass_direction",
           false
@@ -52263,6 +55350,11 @@
         [
           "southwest",
           "theAble",
+          false
+        ],
+        [
+          "southwest",
+          "thisAble",
           false
         ],
         [
@@ -52311,6 +55403,11 @@
           false
         ],
         [
+          "speed",
+          "thisAble",
+          false
+        ],
+        [
           "start",
           "hierarchyAble",
           false
@@ -52348,6 +55445,11 @@
         [
           "start",
           "theAble",
+          false
+        ],
+        [
+          "start",
+          "thisAble",
           false
         ],
         [
@@ -52408,6 +55510,11 @@
         [
           "superlative",
           "theAble",
+          false
+        ],
+        [
+          "superlative",
+          "thisAble",
           false
         ],
         [
@@ -52488,6 +55595,11 @@
         [
           "this",
           "thisitthat",
+          false
+        ],
+        [
+          "thisAble",
+          "thisAble",
           false
         ],
         [
@@ -52637,6 +55749,11 @@
         ],
         [
           "unit_angle",
+          "thisAble",
+          false
+        ],
+        [
+          "unit_angle",
           "unit",
           false
         ],
@@ -52673,6 +55790,11 @@
         [
           "unit_length",
           "theAble",
+          false
+        ],
+        [
+          "unit_length",
+          "thisAble",
           false
         ],
         [
@@ -52718,6 +55840,11 @@
         [
           "unit_time",
           "theAble",
+          false
+        ],
+        [
+          "unit_time",
+          "thisAble",
           false
         ],
         [
@@ -52783,6 +55910,11 @@
         [
           "west",
           "theAble",
+          false
+        ],
+        [
+          "west",
+          "thisAble",
           false
         ],
         [
@@ -52853,6 +55985,11 @@
         [
           "year",
           "theAble",
+          false
+        ],
+        [
+          "year",
+          "thisAble",
           false
         ],
         [
@@ -53366,6 +56503,11 @@
           false
         ],
         [
+          "amount",
+          "thisAble",
+          false
+        ],
+        [
           "ampm",
           "adjective",
           false
@@ -53411,6 +56553,11 @@
           false
         ],
         [
+          "angle",
+          "thisAble",
+          false
+        ],
+        [
           "arm",
           "concept",
           false
@@ -53451,6 +56598,11 @@
           false
         ],
         [
+          "arm",
+          "thisAble",
+          false
+        ],
+        [
           "around",
           "direction",
           false
@@ -53488,6 +56640,11 @@
         [
           "around",
           "theAble",
+          false
+        ],
+        [
+          "around",
+          "thisAble",
           false
         ],
         [
@@ -53533,6 +56690,11 @@
         [
           "ascending",
           "theAble",
+          false
+        ],
+        [
+          "ascending",
+          "thisAble",
           false
         ],
         [
@@ -53583,6 +56745,11 @@
         [
           "backward",
           "theAble",
+          false
+        ],
+        [
+          "backward",
+          "thisAble",
           false
         ],
         [
@@ -53652,6 +56819,11 @@
         ],
         [
           "centimeter",
+          "thisAble",
+          false
+        ],
+        [
+          "centimeter",
           "unit_length",
           false
         ],
@@ -53693,6 +56865,11 @@
         [
           "claw",
           "theAble",
+          false
+        ],
+        [
+          "claw",
+          "thisAble",
           false
         ],
         [
@@ -53846,6 +57023,11 @@
           false
         ],
         [
+          "condition",
+          "thisAble",
+          false
+        ],
+        [
           "convertToUnits",
           "expression",
           false
@@ -53902,6 +57084,11 @@
         ],
         [
           "degree",
+          "thisAble",
+          false
+        ],
+        [
+          "degree",
           "unit_angle",
           false
         ],
@@ -53946,6 +57133,11 @@
           false
         ],
         [
+          "descending",
+          "thisAble",
+          false
+        ],
+        [
           "dimension",
           "concept",
           false
@@ -53983,6 +57175,11 @@
         [
           "dimension",
           "theAble",
+          false
+        ],
+        [
+          "dimension",
+          "thisAble",
           false
         ],
         [
@@ -54101,6 +57298,11 @@
           false
         ],
         [
+          "drone",
+          "thisAble",
+          false
+        ],
+        [
           "drone_direction",
           "adjective",
           true
@@ -54196,6 +57398,11 @@
           false
         ],
         [
+          "east",
+          "thisAble",
+          false
+        ],
+        [
           "end",
           "hierarchyAble",
           false
@@ -54233,6 +57440,11 @@
         [
           "end",
           "theAble",
+          false
+        ],
+        [
+          "end",
+          "thisAble",
           false
         ],
         [
@@ -54292,6 +57504,11 @@
         ],
         [
           "foot",
+          "thisAble",
+          false
+        ],
+        [
+          "foot",
           "unit_length",
           false
         ],
@@ -54338,6 +57555,11 @@
         [
           "formula",
           "theAble",
+          false
+        ],
+        [
+          "formula",
+          "thisAble",
           false
         ],
         [
@@ -54393,6 +57615,11 @@
         [
           "forward",
           "theAble",
+          false
+        ],
+        [
+          "forward",
+          "thisAble",
           false
         ],
         [
@@ -54461,6 +57688,11 @@
           false
         ],
         [
+          "highest",
+          "thisAble",
+          false
+        ],
+        [
           "hour",
           "hierarchyAble",
           false
@@ -54493,6 +57725,11 @@
         [
           "hour",
           "theAble",
+          false
+        ],
+        [
+          "hour",
+          "thisAble",
           false
         ],
         [
@@ -54702,6 +57939,11 @@
         ],
         [
           "inch",
+          "thisAble",
+          false
+        ],
+        [
+          "inch",
           "unit_length",
           false
         ],
@@ -54801,6 +58043,11 @@
           false
         ],
         [
+          "left",
+          "thisAble",
+          false
+        ],
+        [
           "length",
           "dimension",
           false
@@ -54858,6 +58105,11 @@
         [
           "lowest",
           "theAble",
+          false
+        ],
+        [
+          "lowest",
+          "thisAble",
           false
         ],
         [
@@ -55003,6 +58255,11 @@
         [
           "maximum",
           "theAble",
+          false
+        ],
+        [
+          "maximum",
+          "thisAble",
           false
         ],
         [
@@ -55197,6 +58454,11 @@
         ],
         [
           "meter",
+          "thisAble",
+          false
+        ],
+        [
+          "meter",
           "unit_length",
           false
         ],
@@ -55387,6 +58649,11 @@
         ],
         [
           "mile",
+          "thisAble",
+          false
+        ],
+        [
+          "mile",
           "unit_length",
           false
         ],
@@ -55428,6 +58695,11 @@
         [
           "millimeter",
           "theAble",
+          false
+        ],
+        [
+          "millimeter",
+          "thisAble",
           false
         ],
         [
@@ -55476,6 +58748,11 @@
           false
         ],
         [
+          "minimum",
+          "thisAble",
+          false
+        ],
+        [
           "minusExpression",
           "mathematicalExpression",
           false
@@ -55518,6 +58795,11 @@
         [
           "minute",
           "theAble",
+          false
+        ],
+        [
+          "minute",
+          "thisAble",
           false
         ],
         [
@@ -55581,6 +58863,11 @@
           false
         ],
         [
+          "north",
+          "thisAble",
+          false
+        ],
+        [
           "northeast",
           "compass_direction",
           false
@@ -55621,6 +58908,11 @@
           false
         ],
         [
+          "northeast",
+          "thisAble",
+          false
+        ],
+        [
           "northwest",
           "compass_direction",
           false
@@ -55658,11 +58950,21 @@
         [
           "northwest",
           "theAble",
+          false
+        ],
+        [
+          "northwest",
+          "thisAble",
           false
         ],
         [
           "noun",
           "theAble",
+          false
+        ],
+        [
+          "noun",
+          "thisAble",
           false
         ],
         [
@@ -55861,6 +59163,16 @@
           false
         ],
         [
+          "path",
+          "thisAble",
+          false
+        ],
+        [
+          "patrol",
+          "verb",
+          false
+        ],
+        [
           "pause",
           "verb",
           false
@@ -55931,6 +59243,11 @@
           false
         ],
         [
+          "point",
+          "thisAble",
+          false
+        ],
+        [
           "power",
           "comparable",
           false
@@ -55968,6 +59285,11 @@
         [
           "power",
           "theAble",
+          false
+        ],
+        [
+          "power",
+          "thisAble",
           false
         ],
         [
@@ -56062,6 +59384,11 @@
         ],
         [
           "radian",
+          "thisAble",
+          false
+        ],
+        [
+          "radian",
           "unit_angle",
           false
         ],
@@ -56126,6 +59453,11 @@
           false
         ],
         [
+          "right",
+          "thisAble",
+          false
+        ],
+        [
           "second",
           "hierarchyAble",
           false
@@ -56158,6 +59490,11 @@
         [
           "second",
           "theAble",
+          false
+        ],
+        [
+          "second",
+          "thisAble",
           false
         ],
         [
@@ -56301,6 +59638,11 @@
           false
         ],
         [
+          "south",
+          "thisAble",
+          false
+        ],
+        [
           "southeast",
           "compass_direction",
           false
@@ -56341,6 +59683,11 @@
           false
         ],
         [
+          "southeast",
+          "thisAble",
+          false
+        ],
+        [
           "southwest",
           "compass_direction",
           false
@@ -56378,6 +59725,11 @@
         [
           "southwest",
           "theAble",
+          false
+        ],
+        [
+          "southwest",
+          "thisAble",
           false
         ],
         [
@@ -56426,6 +59778,11 @@
           false
         ],
         [
+          "speed",
+          "thisAble",
+          false
+        ],
+        [
           "start",
           "hierarchyAble",
           false
@@ -56463,6 +59820,11 @@
         [
           "start",
           "theAble",
+          false
+        ],
+        [
+          "start",
+          "thisAble",
           false
         ],
         [
@@ -56523,6 +59885,11 @@
         [
           "superlative",
           "theAble",
+          false
+        ],
+        [
+          "superlative",
+          "thisAble",
           false
         ],
         [
@@ -56603,6 +59970,11 @@
         [
           "this",
           "thisitthat",
+          false
+        ],
+        [
+          "thisAble",
+          "thisAble",
           false
         ],
         [
@@ -56752,6 +60124,11 @@
         ],
         [
           "unit_angle",
+          "thisAble",
+          false
+        ],
+        [
+          "unit_angle",
           "unit",
           false
         ],
@@ -56788,6 +60165,11 @@
         [
           "unit_length",
           "theAble",
+          false
+        ],
+        [
+          "unit_length",
+          "thisAble",
           false
         ],
         [
@@ -56833,6 +60215,11 @@
         [
           "unit_time",
           "theAble",
+          false
+        ],
+        [
+          "unit_time",
+          "thisAble",
           false
         ],
         [
@@ -56898,6 +60285,11 @@
         [
           "west",
           "theAble",
+          false
+        ],
+        [
+          "west",
+          "thisAble",
           false
         ],
         [
@@ -56968,6 +60360,11 @@
         [
           "year",
           "theAble",
+          false
+        ],
+        [
+          "year",
+          "thisAble",
           false
         ],
         [
@@ -57502,6 +60899,11 @@
           false
         ],
         [
+          "amount",
+          "thisAble",
+          false
+        ],
+        [
           "ampm",
           "adjective",
           false
@@ -57547,6 +60949,11 @@
           false
         ],
         [
+          "angle",
+          "thisAble",
+          false
+        ],
+        [
           "arm",
           "concept",
           false
@@ -57587,6 +60994,11 @@
           false
         ],
         [
+          "arm",
+          "thisAble",
+          false
+        ],
+        [
           "around",
           "direction",
           false
@@ -57624,6 +61036,11 @@
         [
           "around",
           "theAble",
+          false
+        ],
+        [
+          "around",
+          "thisAble",
           false
         ],
         [
@@ -57669,6 +61086,11 @@
         [
           "ascending",
           "theAble",
+          false
+        ],
+        [
+          "ascending",
+          "thisAble",
           false
         ],
         [
@@ -57719,6 +61141,11 @@
         [
           "backward",
           "theAble",
+          false
+        ],
+        [
+          "backward",
+          "thisAble",
           false
         ],
         [
@@ -57788,6 +61215,11 @@
         ],
         [
           "centimeter",
+          "thisAble",
+          false
+        ],
+        [
+          "centimeter",
           "unit_length",
           false
         ],
@@ -57829,6 +61261,11 @@
         [
           "claw",
           "theAble",
+          false
+        ],
+        [
+          "claw",
+          "thisAble",
           false
         ],
         [
@@ -57982,6 +61419,11 @@
           false
         ],
         [
+          "condition",
+          "thisAble",
+          false
+        ],
+        [
           "convertToUnits",
           "expression",
           false
@@ -58038,6 +61480,11 @@
         ],
         [
           "degree",
+          "thisAble",
+          false
+        ],
+        [
+          "degree",
           "unit_angle",
           false
         ],
@@ -58082,6 +61529,11 @@
           false
         ],
         [
+          "descending",
+          "thisAble",
+          false
+        ],
+        [
           "dimension",
           "concept",
           false
@@ -58119,6 +61571,11 @@
         [
           "dimension",
           "theAble",
+          false
+        ],
+        [
+          "dimension",
+          "thisAble",
           false
         ],
         [
@@ -58237,6 +61694,11 @@
           false
         ],
         [
+          "drone",
+          "thisAble",
+          false
+        ],
+        [
           "drone_direction",
           "adjective",
           true
@@ -58332,6 +61794,11 @@
           false
         ],
         [
+          "east",
+          "thisAble",
+          false
+        ],
+        [
           "end",
           "hierarchyAble",
           false
@@ -58369,6 +61836,11 @@
         [
           "end",
           "theAble",
+          false
+        ],
+        [
+          "end",
+          "thisAble",
           false
         ],
         [
@@ -58428,6 +61900,11 @@
         ],
         [
           "foot",
+          "thisAble",
+          false
+        ],
+        [
+          "foot",
           "unit_length",
           false
         ],
@@ -58474,6 +61951,11 @@
         [
           "formula",
           "theAble",
+          false
+        ],
+        [
+          "formula",
+          "thisAble",
           false
         ],
         [
@@ -58529,6 +62011,11 @@
         [
           "forward",
           "theAble",
+          false
+        ],
+        [
+          "forward",
+          "thisAble",
           false
         ],
         [
@@ -58597,6 +62084,11 @@
           false
         ],
         [
+          "highest",
+          "thisAble",
+          false
+        ],
+        [
           "hour",
           "hierarchyAble",
           false
@@ -58629,6 +62121,11 @@
         [
           "hour",
           "theAble",
+          false
+        ],
+        [
+          "hour",
+          "thisAble",
           false
         ],
         [
@@ -58838,6 +62335,11 @@
         ],
         [
           "inch",
+          "thisAble",
+          false
+        ],
+        [
+          "inch",
           "unit_length",
           false
         ],
@@ -58937,6 +62439,11 @@
           false
         ],
         [
+          "left",
+          "thisAble",
+          false
+        ],
+        [
           "length",
           "dimension",
           false
@@ -58994,6 +62501,11 @@
         [
           "lowest",
           "theAble",
+          false
+        ],
+        [
+          "lowest",
+          "thisAble",
           false
         ],
         [
@@ -59139,6 +62651,11 @@
         [
           "maximum",
           "theAble",
+          false
+        ],
+        [
+          "maximum",
+          "thisAble",
           false
         ],
         [
@@ -59333,6 +62850,11 @@
         ],
         [
           "meter",
+          "thisAble",
+          false
+        ],
+        [
+          "meter",
           "unit_length",
           false
         ],
@@ -59523,6 +63045,11 @@
         ],
         [
           "mile",
+          "thisAble",
+          false
+        ],
+        [
+          "mile",
           "unit_length",
           false
         ],
@@ -59564,6 +63091,11 @@
         [
           "millimeter",
           "theAble",
+          false
+        ],
+        [
+          "millimeter",
+          "thisAble",
           false
         ],
         [
@@ -59612,6 +63144,11 @@
           false
         ],
         [
+          "minimum",
+          "thisAble",
+          false
+        ],
+        [
           "minusExpression",
           "mathematicalExpression",
           false
@@ -59654,6 +63191,11 @@
         [
           "minute",
           "theAble",
+          false
+        ],
+        [
+          "minute",
+          "thisAble",
           false
         ],
         [
@@ -59717,6 +63259,11 @@
           false
         ],
         [
+          "north",
+          "thisAble",
+          false
+        ],
+        [
           "northeast",
           "compass_direction",
           false
@@ -59757,6 +63304,11 @@
           false
         ],
         [
+          "northeast",
+          "thisAble",
+          false
+        ],
+        [
           "northwest",
           "compass_direction",
           false
@@ -59794,11 +63346,21 @@
         [
           "northwest",
           "theAble",
+          false
+        ],
+        [
+          "northwest",
+          "thisAble",
           false
         ],
         [
           "noun",
           "theAble",
+          false
+        ],
+        [
+          "noun",
+          "thisAble",
           false
         ],
         [
@@ -59997,6 +63559,16 @@
           false
         ],
         [
+          "path",
+          "thisAble",
+          false
+        ],
+        [
+          "patrol",
+          "verb",
+          false
+        ],
+        [
           "pause",
           "verb",
           false
@@ -60067,6 +63639,11 @@
           false
         ],
         [
+          "point",
+          "thisAble",
+          false
+        ],
+        [
           "power",
           "comparable",
           false
@@ -60104,6 +63681,11 @@
         [
           "power",
           "theAble",
+          false
+        ],
+        [
+          "power",
+          "thisAble",
           false
         ],
         [
@@ -60198,6 +63780,11 @@
         ],
         [
           "radian",
+          "thisAble",
+          false
+        ],
+        [
+          "radian",
           "unit_angle",
           false
         ],
@@ -60262,6 +63849,11 @@
           false
         ],
         [
+          "right",
+          "thisAble",
+          false
+        ],
+        [
           "second",
           "hierarchyAble",
           false
@@ -60294,6 +63886,11 @@
         [
           "second",
           "theAble",
+          false
+        ],
+        [
+          "second",
+          "thisAble",
           false
         ],
         [
@@ -60437,6 +64034,11 @@
           false
         ],
         [
+          "south",
+          "thisAble",
+          false
+        ],
+        [
           "southeast",
           "compass_direction",
           false
@@ -60477,6 +64079,11 @@
           false
         ],
         [
+          "southeast",
+          "thisAble",
+          false
+        ],
+        [
           "southwest",
           "compass_direction",
           false
@@ -60514,6 +64121,11 @@
         [
           "southwest",
           "theAble",
+          false
+        ],
+        [
+          "southwest",
+          "thisAble",
           false
         ],
         [
@@ -60562,6 +64174,11 @@
           false
         ],
         [
+          "speed",
+          "thisAble",
+          false
+        ],
+        [
           "start",
           "hierarchyAble",
           false
@@ -60599,6 +64216,11 @@
         [
           "start",
           "theAble",
+          false
+        ],
+        [
+          "start",
+          "thisAble",
           false
         ],
         [
@@ -60659,6 +64281,11 @@
         [
           "superlative",
           "theAble",
+          false
+        ],
+        [
+          "superlative",
+          "thisAble",
           false
         ],
         [
@@ -60739,6 +64366,11 @@
         [
           "this",
           "thisitthat",
+          false
+        ],
+        [
+          "thisAble",
+          "thisAble",
           false
         ],
         [
@@ -60888,6 +64520,11 @@
         ],
         [
           "unit_angle",
+          "thisAble",
+          false
+        ],
+        [
+          "unit_angle",
           "unit",
           false
         ],
@@ -60924,6 +64561,11 @@
         [
           "unit_length",
           "theAble",
+          false
+        ],
+        [
+          "unit_length",
+          "thisAble",
           false
         ],
         [
@@ -60969,6 +64611,11 @@
         [
           "unit_time",
           "theAble",
+          false
+        ],
+        [
+          "unit_time",
+          "thisAble",
           false
         ],
         [
@@ -61034,6 +64681,11 @@
         [
           "west",
           "theAble",
+          false
+        ],
+        [
+          "west",
+          "thisAble",
           false
         ],
         [
@@ -61104,6 +64756,11 @@
         [
           "year",
           "theAble",
+          false
+        ],
+        [
+          "year",
+          "thisAble",
           false
         ],
         [
@@ -61381,6 +65038,11 @@
           false
         ],
         [
+          "amount",
+          "thisAble",
+          false
+        ],
+        [
           "ampm",
           "adjective",
           false
@@ -61426,6 +65088,11 @@
           false
         ],
         [
+          "angle",
+          "thisAble",
+          false
+        ],
+        [
           "arm",
           "concept",
           false
@@ -61466,6 +65133,11 @@
           false
         ],
         [
+          "arm",
+          "thisAble",
+          false
+        ],
+        [
           "around",
           "direction",
           false
@@ -61503,6 +65175,11 @@
         [
           "around",
           "theAble",
+          false
+        ],
+        [
+          "around",
+          "thisAble",
           false
         ],
         [
@@ -61548,6 +65225,11 @@
         [
           "ascending",
           "theAble",
+          false
+        ],
+        [
+          "ascending",
+          "thisAble",
           false
         ],
         [
@@ -61598,6 +65280,11 @@
         [
           "backward",
           "theAble",
+          false
+        ],
+        [
+          "backward",
+          "thisAble",
           false
         ],
         [
@@ -61667,6 +65354,11 @@
         ],
         [
           "centimeter",
+          "thisAble",
+          false
+        ],
+        [
+          "centimeter",
           "unit_length",
           false
         ],
@@ -61708,6 +65400,11 @@
         [
           "claw",
           "theAble",
+          false
+        ],
+        [
+          "claw",
+          "thisAble",
           false
         ],
         [
@@ -61861,6 +65558,11 @@
           false
         ],
         [
+          "condition",
+          "thisAble",
+          false
+        ],
+        [
           "convertToUnits",
           "expression",
           false
@@ -61917,6 +65619,11 @@
         ],
         [
           "degree",
+          "thisAble",
+          false
+        ],
+        [
+          "degree",
           "unit_angle",
           false
         ],
@@ -61961,6 +65668,11 @@
           false
         ],
         [
+          "descending",
+          "thisAble",
+          false
+        ],
+        [
           "dimension",
           "concept",
           false
@@ -61998,6 +65710,11 @@
         [
           "dimension",
           "theAble",
+          false
+        ],
+        [
+          "dimension",
+          "thisAble",
           false
         ],
         [
@@ -62116,6 +65833,11 @@
           false
         ],
         [
+          "drone",
+          "thisAble",
+          false
+        ],
+        [
           "drone_direction",
           "adjective",
           true
@@ -62211,6 +65933,11 @@
           false
         ],
         [
+          "east",
+          "thisAble",
+          false
+        ],
+        [
           "end",
           "hierarchyAble",
           false
@@ -62248,6 +65975,11 @@
         [
           "end",
           "theAble",
+          false
+        ],
+        [
+          "end",
+          "thisAble",
           false
         ],
         [
@@ -62307,6 +66039,11 @@
         ],
         [
           "foot",
+          "thisAble",
+          false
+        ],
+        [
+          "foot",
           "unit_length",
           false
         ],
@@ -62353,6 +66090,11 @@
         [
           "formula",
           "theAble",
+          false
+        ],
+        [
+          "formula",
+          "thisAble",
           false
         ],
         [
@@ -62408,6 +66150,11 @@
         [
           "forward",
           "theAble",
+          false
+        ],
+        [
+          "forward",
+          "thisAble",
           false
         ],
         [
@@ -62476,6 +66223,11 @@
           false
         ],
         [
+          "highest",
+          "thisAble",
+          false
+        ],
+        [
           "hour",
           "hierarchyAble",
           false
@@ -62508,6 +66260,11 @@
         [
           "hour",
           "theAble",
+          false
+        ],
+        [
+          "hour",
+          "thisAble",
           false
         ],
         [
@@ -62717,6 +66474,11 @@
         ],
         [
           "inch",
+          "thisAble",
+          false
+        ],
+        [
+          "inch",
           "unit_length",
           false
         ],
@@ -62816,6 +66578,11 @@
           false
         ],
         [
+          "left",
+          "thisAble",
+          false
+        ],
+        [
           "length",
           "dimension",
           false
@@ -62873,6 +66640,11 @@
         [
           "lowest",
           "theAble",
+          false
+        ],
+        [
+          "lowest",
+          "thisAble",
           false
         ],
         [
@@ -63018,6 +66790,11 @@
         [
           "maximum",
           "theAble",
+          false
+        ],
+        [
+          "maximum",
+          "thisAble",
           false
         ],
         [
@@ -63212,6 +66989,11 @@
         ],
         [
           "meter",
+          "thisAble",
+          false
+        ],
+        [
+          "meter",
           "unit_length",
           false
         ],
@@ -63402,6 +67184,11 @@
         ],
         [
           "mile",
+          "thisAble",
+          false
+        ],
+        [
+          "mile",
           "unit_length",
           false
         ],
@@ -63443,6 +67230,11 @@
         [
           "millimeter",
           "theAble",
+          false
+        ],
+        [
+          "millimeter",
+          "thisAble",
           false
         ],
         [
@@ -63491,6 +67283,11 @@
           false
         ],
         [
+          "minimum",
+          "thisAble",
+          false
+        ],
+        [
           "minusExpression",
           "mathematicalExpression",
           false
@@ -63533,6 +67330,11 @@
         [
           "minute",
           "theAble",
+          false
+        ],
+        [
+          "minute",
+          "thisAble",
           false
         ],
         [
@@ -63596,6 +67398,11 @@
           false
         ],
         [
+          "north",
+          "thisAble",
+          false
+        ],
+        [
           "northeast",
           "compass_direction",
           false
@@ -63636,6 +67443,11 @@
           false
         ],
         [
+          "northeast",
+          "thisAble",
+          false
+        ],
+        [
           "northwest",
           "compass_direction",
           false
@@ -63673,11 +67485,21 @@
         [
           "northwest",
           "theAble",
+          false
+        ],
+        [
+          "northwest",
+          "thisAble",
           false
         ],
         [
           "noun",
           "theAble",
+          false
+        ],
+        [
+          "noun",
+          "thisAble",
           false
         ],
         [
@@ -63876,6 +67698,16 @@
           false
         ],
         [
+          "path",
+          "thisAble",
+          false
+        ],
+        [
+          "patrol",
+          "verb",
+          false
+        ],
+        [
           "pause",
           "verb",
           false
@@ -63946,6 +67778,11 @@
           false
         ],
         [
+          "point",
+          "thisAble",
+          false
+        ],
+        [
           "power",
           "comparable",
           false
@@ -63983,6 +67820,11 @@
         [
           "power",
           "theAble",
+          false
+        ],
+        [
+          "power",
+          "thisAble",
           false
         ],
         [
@@ -64077,6 +67919,11 @@
         ],
         [
           "radian",
+          "thisAble",
+          false
+        ],
+        [
+          "radian",
           "unit_angle",
           false
         ],
@@ -64141,6 +67988,11 @@
           false
         ],
         [
+          "right",
+          "thisAble",
+          false
+        ],
+        [
           "second",
           "hierarchyAble",
           false
@@ -64173,6 +68025,11 @@
         [
           "second",
           "theAble",
+          false
+        ],
+        [
+          "second",
+          "thisAble",
           false
         ],
         [
@@ -64316,6 +68173,11 @@
           false
         ],
         [
+          "south",
+          "thisAble",
+          false
+        ],
+        [
           "southeast",
           "compass_direction",
           false
@@ -64356,6 +68218,11 @@
           false
         ],
         [
+          "southeast",
+          "thisAble",
+          false
+        ],
+        [
           "southwest",
           "compass_direction",
           false
@@ -64393,6 +68260,11 @@
         [
           "southwest",
           "theAble",
+          false
+        ],
+        [
+          "southwest",
+          "thisAble",
           false
         ],
         [
@@ -64441,6 +68313,11 @@
           false
         ],
         [
+          "speed",
+          "thisAble",
+          false
+        ],
+        [
           "start",
           "hierarchyAble",
           false
@@ -64478,6 +68355,11 @@
         [
           "start",
           "theAble",
+          false
+        ],
+        [
+          "start",
+          "thisAble",
           false
         ],
         [
@@ -64538,6 +68420,11 @@
         [
           "superlative",
           "theAble",
+          false
+        ],
+        [
+          "superlative",
+          "thisAble",
           false
         ],
         [
@@ -64618,6 +68505,11 @@
         [
           "this",
           "thisitthat",
+          false
+        ],
+        [
+          "thisAble",
+          "thisAble",
           false
         ],
         [
@@ -64767,6 +68659,11 @@
         ],
         [
           "unit_angle",
+          "thisAble",
+          false
+        ],
+        [
+          "unit_angle",
           "unit",
           false
         ],
@@ -64803,6 +68700,11 @@
         [
           "unit_length",
           "theAble",
+          false
+        ],
+        [
+          "unit_length",
+          "thisAble",
           false
         ],
         [
@@ -64848,6 +68750,11 @@
         [
           "unit_time",
           "theAble",
+          false
+        ],
+        [
+          "unit_time",
+          "thisAble",
           false
         ],
         [
@@ -64913,6 +68820,11 @@
         [
           "west",
           "theAble",
+          false
+        ],
+        [
+          "west",
+          "thisAble",
           false
         ],
         [
@@ -64983,6 +68895,11 @@
         [
           "year",
           "theAble",
+          false
+        ],
+        [
+          "year",
+          "thisAble",
           false
         ],
         [
@@ -65282,6 +69199,11 @@
           false
         ],
         [
+          "amount",
+          "thisAble",
+          false
+        ],
+        [
           "ampm",
           "adjective",
           false
@@ -65327,6 +69249,11 @@
           false
         ],
         [
+          "angle",
+          "thisAble",
+          false
+        ],
+        [
           "arm",
           "concept",
           false
@@ -65367,6 +69294,11 @@
           false
         ],
         [
+          "arm",
+          "thisAble",
+          false
+        ],
+        [
           "around",
           "direction",
           false
@@ -65404,6 +69336,11 @@
         [
           "around",
           "theAble",
+          false
+        ],
+        [
+          "around",
+          "thisAble",
           false
         ],
         [
@@ -65449,6 +69386,11 @@
         [
           "ascending",
           "theAble",
+          false
+        ],
+        [
+          "ascending",
+          "thisAble",
           false
         ],
         [
@@ -65499,6 +69441,11 @@
         [
           "backward",
           "theAble",
+          false
+        ],
+        [
+          "backward",
+          "thisAble",
           false
         ],
         [
@@ -65568,6 +69515,11 @@
         ],
         [
           "centimeter",
+          "thisAble",
+          false
+        ],
+        [
+          "centimeter",
           "unit_length",
           false
         ],
@@ -65609,6 +69561,11 @@
         [
           "claw",
           "theAble",
+          false
+        ],
+        [
+          "claw",
+          "thisAble",
           false
         ],
         [
@@ -65762,6 +69719,11 @@
           false
         ],
         [
+          "condition",
+          "thisAble",
+          false
+        ],
+        [
           "convertToUnits",
           "expression",
           false
@@ -65818,6 +69780,11 @@
         ],
         [
           "degree",
+          "thisAble",
+          false
+        ],
+        [
+          "degree",
           "unit_angle",
           false
         ],
@@ -65862,6 +69829,11 @@
           false
         ],
         [
+          "descending",
+          "thisAble",
+          false
+        ],
+        [
           "dimension",
           "concept",
           false
@@ -65899,6 +69871,11 @@
         [
           "dimension",
           "theAble",
+          false
+        ],
+        [
+          "dimension",
+          "thisAble",
           false
         ],
         [
@@ -66017,6 +69994,11 @@
           false
         ],
         [
+          "drone",
+          "thisAble",
+          false
+        ],
+        [
           "drone_direction",
           "adjective",
           true
@@ -66112,6 +70094,11 @@
           false
         ],
         [
+          "east",
+          "thisAble",
+          false
+        ],
+        [
           "end",
           "hierarchyAble",
           false
@@ -66149,6 +70136,11 @@
         [
           "end",
           "theAble",
+          false
+        ],
+        [
+          "end",
+          "thisAble",
           false
         ],
         [
@@ -66208,6 +70200,11 @@
         ],
         [
           "foot",
+          "thisAble",
+          false
+        ],
+        [
+          "foot",
           "unit_length",
           false
         ],
@@ -66254,6 +70251,11 @@
         [
           "formula",
           "theAble",
+          false
+        ],
+        [
+          "formula",
+          "thisAble",
           false
         ],
         [
@@ -66309,6 +70311,11 @@
         [
           "forward",
           "theAble",
+          false
+        ],
+        [
+          "forward",
+          "thisAble",
           false
         ],
         [
@@ -66377,6 +70384,11 @@
           false
         ],
         [
+          "highest",
+          "thisAble",
+          false
+        ],
+        [
           "hour",
           "hierarchyAble",
           false
@@ -66409,6 +70421,11 @@
         [
           "hour",
           "theAble",
+          false
+        ],
+        [
+          "hour",
+          "thisAble",
           false
         ],
         [
@@ -66618,6 +70635,11 @@
         ],
         [
           "inch",
+          "thisAble",
+          false
+        ],
+        [
+          "inch",
           "unit_length",
           false
         ],
@@ -66717,6 +70739,11 @@
           false
         ],
         [
+          "left",
+          "thisAble",
+          false
+        ],
+        [
           "length",
           "dimension",
           false
@@ -66774,6 +70801,11 @@
         [
           "lowest",
           "theAble",
+          false
+        ],
+        [
+          "lowest",
+          "thisAble",
           false
         ],
         [
@@ -66919,6 +70951,11 @@
         [
           "maximum",
           "theAble",
+          false
+        ],
+        [
+          "maximum",
+          "thisAble",
           false
         ],
         [
@@ -67113,6 +71150,11 @@
         ],
         [
           "meter",
+          "thisAble",
+          false
+        ],
+        [
+          "meter",
           "unit_length",
           false
         ],
@@ -67303,6 +71345,11 @@
         ],
         [
           "mile",
+          "thisAble",
+          false
+        ],
+        [
+          "mile",
           "unit_length",
           false
         ],
@@ -67344,6 +71391,11 @@
         [
           "millimeter",
           "theAble",
+          false
+        ],
+        [
+          "millimeter",
+          "thisAble",
           false
         ],
         [
@@ -67392,6 +71444,11 @@
           false
         ],
         [
+          "minimum",
+          "thisAble",
+          false
+        ],
+        [
           "minusExpression",
           "mathematicalExpression",
           false
@@ -67434,6 +71491,11 @@
         [
           "minute",
           "theAble",
+          false
+        ],
+        [
+          "minute",
+          "thisAble",
           false
         ],
         [
@@ -67497,6 +71559,11 @@
           false
         ],
         [
+          "north",
+          "thisAble",
+          false
+        ],
+        [
           "northeast",
           "compass_direction",
           false
@@ -67537,6 +71604,11 @@
           false
         ],
         [
+          "northeast",
+          "thisAble",
+          false
+        ],
+        [
           "northwest",
           "compass_direction",
           false
@@ -67574,11 +71646,21 @@
         [
           "northwest",
           "theAble",
+          false
+        ],
+        [
+          "northwest",
+          "thisAble",
           false
         ],
         [
           "noun",
           "theAble",
+          false
+        ],
+        [
+          "noun",
+          "thisAble",
           false
         ],
         [
@@ -67777,6 +71859,16 @@
           false
         ],
         [
+          "path",
+          "thisAble",
+          false
+        ],
+        [
+          "patrol",
+          "verb",
+          false
+        ],
+        [
           "pause",
           "verb",
           false
@@ -67847,6 +71939,11 @@
           false
         ],
         [
+          "point",
+          "thisAble",
+          false
+        ],
+        [
           "power",
           "comparable",
           false
@@ -67884,6 +71981,11 @@
         [
           "power",
           "theAble",
+          false
+        ],
+        [
+          "power",
+          "thisAble",
           false
         ],
         [
@@ -67978,6 +72080,11 @@
         ],
         [
           "radian",
+          "thisAble",
+          false
+        ],
+        [
+          "radian",
           "unit_angle",
           false
         ],
@@ -68042,6 +72149,11 @@
           false
         ],
         [
+          "right",
+          "thisAble",
+          false
+        ],
+        [
           "second",
           "hierarchyAble",
           false
@@ -68074,6 +72186,11 @@
         [
           "second",
           "theAble",
+          false
+        ],
+        [
+          "second",
+          "thisAble",
           false
         ],
         [
@@ -68217,6 +72334,11 @@
           false
         ],
         [
+          "south",
+          "thisAble",
+          false
+        ],
+        [
           "southeast",
           "compass_direction",
           false
@@ -68257,6 +72379,11 @@
           false
         ],
         [
+          "southeast",
+          "thisAble",
+          false
+        ],
+        [
           "southwest",
           "compass_direction",
           false
@@ -68294,6 +72421,11 @@
         [
           "southwest",
           "theAble",
+          false
+        ],
+        [
+          "southwest",
+          "thisAble",
           false
         ],
         [
@@ -68342,6 +72474,11 @@
           false
         ],
         [
+          "speed",
+          "thisAble",
+          false
+        ],
+        [
           "start",
           "hierarchyAble",
           false
@@ -68379,6 +72516,11 @@
         [
           "start",
           "theAble",
+          false
+        ],
+        [
+          "start",
+          "thisAble",
           false
         ],
         [
@@ -68439,6 +72581,11 @@
         [
           "superlative",
           "theAble",
+          false
+        ],
+        [
+          "superlative",
+          "thisAble",
           false
         ],
         [
@@ -68519,6 +72666,11 @@
         [
           "this",
           "thisitthat",
+          false
+        ],
+        [
+          "thisAble",
+          "thisAble",
           false
         ],
         [
@@ -68668,6 +72820,11 @@
         ],
         [
           "unit_angle",
+          "thisAble",
+          false
+        ],
+        [
+          "unit_angle",
           "unit",
           false
         ],
@@ -68704,6 +72861,11 @@
         [
           "unit_length",
           "theAble",
+          false
+        ],
+        [
+          "unit_length",
+          "thisAble",
           false
         ],
         [
@@ -68749,6 +72911,11 @@
         [
           "unit_time",
           "theAble",
+          false
+        ],
+        [
+          "unit_time",
+          "thisAble",
           false
         ],
         [
@@ -68814,6 +72981,11 @@
         [
           "west",
           "theAble",
+          false
+        ],
+        [
+          "west",
+          "thisAble",
           false
         ],
         [
@@ -68884,6 +73056,11 @@
         [
           "year",
           "theAble",
+          false
+        ],
+        [
+          "year",
+          "thisAble",
           false
         ],
         [
@@ -69430,6 +73607,11 @@
           false
         ],
         [
+          "amount",
+          "thisAble",
+          false
+        ],
+        [
           "ampm",
           "adjective",
           false
@@ -69475,6 +73657,11 @@
           false
         ],
         [
+          "angle",
+          "thisAble",
+          false
+        ],
+        [
           "arm",
           "concept",
           false
@@ -69515,6 +73702,11 @@
           false
         ],
         [
+          "arm",
+          "thisAble",
+          false
+        ],
+        [
           "around",
           "direction",
           false
@@ -69552,6 +73744,11 @@
         [
           "around",
           "theAble",
+          false
+        ],
+        [
+          "around",
+          "thisAble",
           false
         ],
         [
@@ -69597,6 +73794,11 @@
         [
           "ascending",
           "theAble",
+          false
+        ],
+        [
+          "ascending",
+          "thisAble",
           false
         ],
         [
@@ -69647,6 +73849,11 @@
         [
           "backward",
           "theAble",
+          false
+        ],
+        [
+          "backward",
+          "thisAble",
           false
         ],
         [
@@ -69716,6 +73923,11 @@
         ],
         [
           "centimeter",
+          "thisAble",
+          false
+        ],
+        [
+          "centimeter",
           "unit_length",
           false
         ],
@@ -69757,6 +73969,11 @@
         [
           "claw",
           "theAble",
+          false
+        ],
+        [
+          "claw",
+          "thisAble",
           false
         ],
         [
@@ -69910,6 +74127,11 @@
           false
         ],
         [
+          "condition",
+          "thisAble",
+          false
+        ],
+        [
           "convertToUnits",
           "expression",
           false
@@ -69966,6 +74188,11 @@
         ],
         [
           "degree",
+          "thisAble",
+          false
+        ],
+        [
+          "degree",
           "unit_angle",
           false
         ],
@@ -70010,6 +74237,11 @@
           false
         ],
         [
+          "descending",
+          "thisAble",
+          false
+        ],
+        [
           "dimension",
           "concept",
           false
@@ -70047,6 +74279,11 @@
         [
           "dimension",
           "theAble",
+          false
+        ],
+        [
+          "dimension",
+          "thisAble",
           false
         ],
         [
@@ -70165,6 +74402,11 @@
           false
         ],
         [
+          "drone",
+          "thisAble",
+          false
+        ],
+        [
           "drone_direction",
           "adjective",
           true
@@ -70260,6 +74502,11 @@
           false
         ],
         [
+          "east",
+          "thisAble",
+          false
+        ],
+        [
           "end",
           "hierarchyAble",
           false
@@ -70297,6 +74544,11 @@
         [
           "end",
           "theAble",
+          false
+        ],
+        [
+          "end",
+          "thisAble",
           false
         ],
         [
@@ -70356,6 +74608,11 @@
         ],
         [
           "foot",
+          "thisAble",
+          false
+        ],
+        [
+          "foot",
           "unit_length",
           false
         ],
@@ -70402,6 +74659,11 @@
         [
           "formula",
           "theAble",
+          false
+        ],
+        [
+          "formula",
+          "thisAble",
           false
         ],
         [
@@ -70457,6 +74719,11 @@
         [
           "forward",
           "theAble",
+          false
+        ],
+        [
+          "forward",
+          "thisAble",
           false
         ],
         [
@@ -70525,6 +74792,11 @@
           false
         ],
         [
+          "highest",
+          "thisAble",
+          false
+        ],
+        [
           "hour",
           "hierarchyAble",
           false
@@ -70557,6 +74829,11 @@
         [
           "hour",
           "theAble",
+          false
+        ],
+        [
+          "hour",
+          "thisAble",
           false
         ],
         [
@@ -70766,6 +75043,11 @@
         ],
         [
           "inch",
+          "thisAble",
+          false
+        ],
+        [
+          "inch",
           "unit_length",
           false
         ],
@@ -70865,6 +75147,11 @@
           false
         ],
         [
+          "left",
+          "thisAble",
+          false
+        ],
+        [
           "length",
           "dimension",
           false
@@ -70922,6 +75209,11 @@
         [
           "lowest",
           "theAble",
+          false
+        ],
+        [
+          "lowest",
+          "thisAble",
           false
         ],
         [
@@ -71067,6 +75359,11 @@
         [
           "maximum",
           "theAble",
+          false
+        ],
+        [
+          "maximum",
+          "thisAble",
           false
         ],
         [
@@ -71261,6 +75558,11 @@
         ],
         [
           "meter",
+          "thisAble",
+          false
+        ],
+        [
+          "meter",
           "unit_length",
           false
         ],
@@ -71451,6 +75753,11 @@
         ],
         [
           "mile",
+          "thisAble",
+          false
+        ],
+        [
+          "mile",
           "unit_length",
           false
         ],
@@ -71492,6 +75799,11 @@
         [
           "millimeter",
           "theAble",
+          false
+        ],
+        [
+          "millimeter",
+          "thisAble",
           false
         ],
         [
@@ -71540,6 +75852,11 @@
           false
         ],
         [
+          "minimum",
+          "thisAble",
+          false
+        ],
+        [
           "minusExpression",
           "mathematicalExpression",
           false
@@ -71582,6 +75899,11 @@
         [
           "minute",
           "theAble",
+          false
+        ],
+        [
+          "minute",
+          "thisAble",
           false
         ],
         [
@@ -71645,6 +75967,11 @@
           false
         ],
         [
+          "north",
+          "thisAble",
+          false
+        ],
+        [
           "northeast",
           "compass_direction",
           false
@@ -71685,6 +76012,11 @@
           false
         ],
         [
+          "northeast",
+          "thisAble",
+          false
+        ],
+        [
           "northwest",
           "compass_direction",
           false
@@ -71722,11 +76054,21 @@
         [
           "northwest",
           "theAble",
+          false
+        ],
+        [
+          "northwest",
+          "thisAble",
           false
         ],
         [
           "noun",
           "theAble",
+          false
+        ],
+        [
+          "noun",
+          "thisAble",
           false
         ],
         [
@@ -71925,6 +76267,16 @@
           false
         ],
         [
+          "path",
+          "thisAble",
+          false
+        ],
+        [
+          "patrol",
+          "verb",
+          false
+        ],
+        [
           "pause",
           "verb",
           false
@@ -71995,6 +76347,11 @@
           false
         ],
         [
+          "point",
+          "thisAble",
+          false
+        ],
+        [
           "power",
           "comparable",
           false
@@ -72032,6 +76389,11 @@
         [
           "power",
           "theAble",
+          false
+        ],
+        [
+          "power",
+          "thisAble",
           false
         ],
         [
@@ -72126,6 +76488,11 @@
         ],
         [
           "radian",
+          "thisAble",
+          false
+        ],
+        [
+          "radian",
           "unit_angle",
           false
         ],
@@ -72190,6 +76557,11 @@
           false
         ],
         [
+          "right",
+          "thisAble",
+          false
+        ],
+        [
           "second",
           "hierarchyAble",
           false
@@ -72222,6 +76594,11 @@
         [
           "second",
           "theAble",
+          false
+        ],
+        [
+          "second",
+          "thisAble",
           false
         ],
         [
@@ -72365,6 +76742,11 @@
           false
         ],
         [
+          "south",
+          "thisAble",
+          false
+        ],
+        [
           "southeast",
           "compass_direction",
           false
@@ -72405,6 +76787,11 @@
           false
         ],
         [
+          "southeast",
+          "thisAble",
+          false
+        ],
+        [
           "southwest",
           "compass_direction",
           false
@@ -72442,6 +76829,11 @@
         [
           "southwest",
           "theAble",
+          false
+        ],
+        [
+          "southwest",
+          "thisAble",
           false
         ],
         [
@@ -72490,6 +76882,11 @@
           false
         ],
         [
+          "speed",
+          "thisAble",
+          false
+        ],
+        [
           "start",
           "hierarchyAble",
           false
@@ -72527,6 +76924,11 @@
         [
           "start",
           "theAble",
+          false
+        ],
+        [
+          "start",
+          "thisAble",
           false
         ],
         [
@@ -72587,6 +76989,11 @@
         [
           "superlative",
           "theAble",
+          false
+        ],
+        [
+          "superlative",
+          "thisAble",
           false
         ],
         [
@@ -72667,6 +77074,11 @@
         [
           "this",
           "thisitthat",
+          false
+        ],
+        [
+          "thisAble",
+          "thisAble",
           false
         ],
         [
@@ -72816,6 +77228,11 @@
         ],
         [
           "unit_angle",
+          "thisAble",
+          false
+        ],
+        [
+          "unit_angle",
           "unit",
           false
         ],
@@ -72852,6 +77269,11 @@
         [
           "unit_length",
           "theAble",
+          false
+        ],
+        [
+          "unit_length",
+          "thisAble",
           false
         ],
         [
@@ -72897,6 +77319,11 @@
         [
           "unit_time",
           "theAble",
+          false
+        ],
+        [
+          "unit_time",
+          "thisAble",
           false
         ],
         [
@@ -72962,6 +77389,11 @@
         [
           "west",
           "theAble",
+          false
+        ],
+        [
+          "west",
+          "thisAble",
           false
         ],
         [
@@ -73032,6 +77464,11 @@
         [
           "year",
           "theAble",
+          false
+        ],
+        [
+          "year",
+          "thisAble",
           false
         ],
         [

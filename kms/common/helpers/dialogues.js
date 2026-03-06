@@ -121,6 +121,7 @@ class API {
       config.addWord(word, { id: concept, initial: JSON.stringify(initial) } )
       const baseTypes = [
         'theAble',
+        'thisAble',
         'queryable',
         'isEdee',
         'isEder',

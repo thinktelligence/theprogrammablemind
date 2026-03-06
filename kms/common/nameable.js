@@ -127,7 +127,13 @@ const config = {
       words: helpers.words('nameable'),
       children: ['thisitthat'],
     },
-  ]
+  ],
+  associations: {
+    positive: [
+      { context: [['call', 0], ['that', 0]], choose: 0 },
+    ],
+  },
+
 }
 
 knowledgeModule( { 

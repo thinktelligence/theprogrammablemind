@@ -9,18 +9,14 @@ const config = {
   operators: [
     "([thisitthat|])",
     "([it])",
-    "([this])",
-    "([that])",
     "([everything])",
     "([queryable])",
-  /*
-    "(<what> ([whatAble|]))",
-    "([what:optional])",
-  */
     "(<each> ([distributable]))",
     "(<every> ([distributable]))",
     "(<the|> ([theAble]))",
     "(<a|a,an> ([theAble|]))",
+    "(<this> ([thisAble])?)",
+    "(<that> ([thisAble])?)",
   ],
   associations: {
     positive: [
@@ -83,13 +79,23 @@ const config = {
       id: "this", 
       level: 0, 
       isA: ['thisitthat'], 
-      bridge: "{ ...next(operator), unknown: true, pullFromContext: true }" 
+      optional: {
+        1: "{ ...operator, interpolate: [{property: 'this'}] }",
+      },
+      bridge: "{ interpolate: [{property: 'this'}, {property: 'object'}], ...next(after[0]), unknown: true, this: operator, object: after[0], pullFromContext: true }" 
     },
     { 
       id: "that", 
       level: 0, 
       isA: ['thisitthat'], 
-      bridge: "{ ...next(operator), unknown: true, pullFromContext: true }" 
+      optional: {
+        1: "{ ...operator, interpolate: [{property: 'that'}] }",
+      },
+      bridge: "{ interpolate: [{property: 'that'}, {property: 'object'}], ...next(after[0]), unknown: true, that: operator, object: after[0], pullFromContext: true }" 
+    },
+    { 
+      id: "thisAble", 
+      children: ['noun'],
     },
   ],
   words: {

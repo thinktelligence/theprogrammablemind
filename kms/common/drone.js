@@ -13,17 +13,14 @@ const help = require('./help')
 const { rotateDelta, degreesToRadians, radiansToDegrees, cartesianToPolar } = require('./helpers/drone')
 
 /*
-DONE turn right 2 times\nturn around <- no reset of times
-DONE lower/raise the claw
 start again / start here / starting here / restart
 again
-go to the start of patrol 1 not working
 go back to the start
 go back 2 points/turns
-go back and forth to the start
-call this patrol 1
+go back and forth to the start!?!?
+DONE call this patrol 1
+DONE call this path patrol 1
 call that patrol 1
-call this path patrol 1
 call that path patrol 1
 
 DONE the start of patrol 1
@@ -37,6 +34,9 @@ round to 2 digits
 
 DONE turn right 45 degrees
 DONE turn right 2 times
+DONE turn right 2 times\nturn around <- no reset of times
+DONE lower/raise the claw
+DONE go to the start/end of patrol 1 not working
 
 go north 1 foot east 1 foot south 1 foot west 1 foot. call this square 2. do square 2 two times
 
@@ -993,8 +993,17 @@ const template = {
       ],
       semantics: [
         {
-          match: ({context, contextHierarchy}) => context.marker == 'path' && context.pullFromContext && context.evaluate && !contextHierarchy.under('do'),
+          match: ({context, contextHierarchy}) => {
+            if (!context.pullFromContext || !context.evaluate || contextHierarchy.under('do')) {
+              return false
+            }
+            
+            if (context.marker == 'path' || context.marker == 'this' || context.marker == 'that') {
+              return true
+            }
+          },
           apply: async ({context, fragments, stm, objects, mentioned, mentions, resolveEvaluate, _continue, contextHierarchy}) => {
+            debugger
             const points = mentions({ context: { marker: 'point' }, all: true })
             const path = (await fragments('path')).contexts()[0]
             path.points = points.reverse()
