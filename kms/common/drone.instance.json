@@ -301,7 +301,7 @@
       "semantics": [
         {
           "match": "({context, contextHierarchy}) => {\n            if (!context.pullFromContext || !context.evaluate || contextHierarchy.under('do')) {\n              return false\n            }\n            \n            if (context.marker == 'path' || context.marker == 'this' || context.marker == 'that') {\n              return true\n            }\n          }",
-          "apply": "async ({context, fragments, stm, objects, mentioned, mentions, resolveEvaluate, _continue, contextHierarchy}) => {\n            debugger\n            const points = mentions({ context: { marker: 'point' }, all: true })\n            const path = (await fragments('path')).contexts()[0]\n            path.points = points.reverse()\n            await mentioned(path)\n            _continue()\n          }"
+          "apply": "async ({context, fragments, stm, objects, mentioned, mentions, resolveEvaluate, _continue, contextHierarchy}) => {\n            const points = mentions({ context: { marker: 'point' }, all: true })\n            const path = (await fragments('path')).contexts()[0]\n            path.points = points.reverse()\n            await mentioned(path)\n            _continue()\n          }"
         },
         {
           "match": "({context}) => context.marker == 'thenTime'",
@@ -3844,6 +3844,20 @@
             "comma",
             0
           ],
+          [
+            "is",
+            0
+          ],
+          [
+            "list",
+            1
+          ],
+          [
+            "unknown",
+            0
+          ]
+        ],
+        [
           [
             "is",
             0
@@ -78137,6 +78151,20 @@
       [
         "propertyOf",
         1
+      ]
+    ],
+    [
+      [
+        "is",
+        0
+      ],
+      [
+        "list",
+        1
+      ],
+      [
+        "unknown",
+        0
       ]
     ],
     [
