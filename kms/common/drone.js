@@ -1,6 +1,6 @@
 const { knowledgeModule, where } = require('./runtime').theprogrammablemind
 const { conjugateVerb } = require('./english_helpers')
-const { OverrideCheck, defaultContextCheck, getValue, setValue } = require('./helpers')
+const { OverrideCheck, defaultContextCheckProperties, defaultContextCheck, getValue, setValue } = require('./helpers')
 const drone_tests = require('./drone.test.json')
 const instance = require('./drone.instance.json')
 const hierarchy = require('./hierarchy')
@@ -13,6 +13,11 @@ const help = require('./help')
 const { rotateDelta, degreesToRadians, radiansToDegrees, cartesianToPolar } = require('./helpers/drone')
 
 /*
+
+go back
+go back another point
+go back again
+go back to the start
 
 ?? elipses of the verb go or some kind of conjunction?!?!?
 go forward 1 meter turn right forward 2 meters stop
@@ -400,21 +405,25 @@ class API {
       }
       let currentPoint = this.args.mentions({ context: { marker: 'point' } }).point
       this._objects.history.push({ marker: 'history', debug: 'doing path' })
-      for (const destination of objects.current.path) {
-        const destinationPoint = destination.point
-        if (currentPoint.x == destinationPoint.x && currentPoint.y == destinationPoint.y) {
-          // already there
+      for (const pathComponent of objects.current.path) {
+        if (pathComponent.marker == 'pause') {
+          this.pause(pathComponent.pauseSeconds, { batched: true })
         } else {
-          const polar = cartesianToPolar(currentPoint, destinationPoint)
-          const destinationAngleInRadians = polar.angle
-          const angleDelta = (destinationAngleInRadians - objects.current.angleInRadians)
-          await this.rotate(angleDelta, { batched: true })
-          if (!destination.aimOnly) {
-            await this.forward(objects.current.speed, { batched: true })
-            await stopAtDistance("forward", polar.radius)
+          const destinationPoint = pathComponent.point
+          if (currentPoint.x == destinationPoint.x && currentPoint.y == destinationPoint.y) {
+            // already there
+          } else {
+            const polar = cartesianToPolar(currentPoint, destinationPoint)
+            const destinationAngleInRadians = polar.angle
+            const angleDelta = (destinationAngleInRadians - objects.current.angleInRadians)
+            await this.rotate(angleDelta, { batched: true })
+            if (!pathComponent .aimOnly) {
+              await this.forward(objects.current.speed, { batched: true })
+              await stopAtDistance("forward", polar.radius)
+            }
           }
+          currentPoint = destinationPoint
         }
-        currentPoint = destinationPoint
       }
       if (objects.current.timeRepeats) {
         await this.endRepeats()
@@ -768,12 +777,17 @@ const template = {
         "([close] (claw))",
         "([back])",
         "([forth])",
+        "([pathComponent])",
         // "([turn] (direction))",
         // "([pause] ([number]))",
         "([stop] ([drone|])?)",
         "([toPoint|to] (point))",
       ],
       bridges: [
+        { 
+          id: 'pathComponent',
+          children: ['point', 'pause'],
+        },
         {
           id: 'patrol',
           isA: ['verb'],
@@ -971,6 +985,7 @@ const template = {
           isA: ['verb'],
           words: ['pause'],
           bridge: "{ ...operator, time: or(time?, forTime), interpolate: [{ context: operator }, { property: 'time' }] }",
+          check: defaultContextCheckProperties(['time']),
           selector: {
             arguments: {
               forTime: "(@<= 'forQuantity' && context.quantity.unit.dimension == 'time')",
@@ -985,6 +1000,7 @@ const template = {
             const instantiation = await fragments("quantity in seconds", { quantity: time})
             const result = await e(instantiation)
             const seconds = toFinalValue(toFinalValue(result).amount)
+            context.pauseSeconds = seconds
             mentioned(context)
             api.pause(seconds)
           }
@@ -1024,9 +1040,10 @@ const template = {
             }
           },
           apply: async ({context, fragments, stm, objects, mentioned, mentions, resolveEvaluate, _continue, contextHierarchy}) => {
-            const points = mentions({ context: { marker: 'point' }, all: true })
+            // const points = mentions({ context: { marker: 'point' }, all: true })
+            const pathComponents = mentions({ context: { marker: 'pathComponent' }, all: true })
             const path = (await fragments('path')).contexts()[0]
-            path.points = points.reverse()
+            path.points = pathComponents.reverse()
             await mentioned(path)
             _continue()
           },

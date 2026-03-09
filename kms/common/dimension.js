@@ -227,6 +227,7 @@ const config = {
       where: where(),
       id: "quantity", 
       isA: ['noun'],
+      check: defaultContextCheckProperties(['amount', 'unit']),
       // bridge: "{ ...next(operator) }",
       generatorp: {
         level: 1, 

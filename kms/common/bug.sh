@@ -995,3 +995,4 @@ node drone -q 'north 1 foot\neast 2 feet\ncall that path patrol 1' -g -d
 node  drone -q "north 1 foot\neast 2 feet\ncall the path patrol 1\ndo patrol 1\ngo to the start of patrol 1" -g -d
 node  drone -q "to the start of the path" -g -d 
 node drone -q 'forward 1 meter\nwest 1 meter\ncall the path route 1\npatrol route 1' -g -d
+node drone -q 'forward 1 foot\npause 10 seconds\ngo back\ncall that path route 1' -g -d
