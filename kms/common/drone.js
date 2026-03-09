@@ -13,8 +13,11 @@ const help = require('./help')
 const { rotateDelta, degreesToRadians, radiansToDegrees, cartesianToPolar } = require('./helpers/drone')
 
 /*
-turn left go forward 1 foot <- the turn is lost
 
+?? elipses of the verb go or some kind of conjunction?!?!?
+go forward 1 meter turn right forward 2 meters stop
+
+the patrol called patrol 1 is forward 1 meter pause 10 second west 1 meter pause again then back to the start
 
 start again / start here / starting here / restart
 again
@@ -28,6 +31,7 @@ go 20 percent faster
 lower and raise crane
 round to 2 digits
 
+DONE turn left go forward 1 foot <- the turn is lost
 DONE call this patrol 1
 DONE call this path patrol 1
 DONE call that patrol 1
@@ -80,7 +84,6 @@ https://www.amazon.ca/Freenove-Raspberry-Tracking-Avoidance-Ultrasonic/dp/B0BNDQ
   convert from length to a some kind of standard number
   shut up/dont talk/be quiet -> stop saying responses
 
-  use it to measure distances -> go forward. stop. how far was that
 
   call this point a
   move 5 feet
@@ -102,6 +105,7 @@ https://www.amazon.ca/Freenove-Raspberry-Tracking-Avoidance-Ultrasonic/dp/B0BNDQ
   this is jeff
   say hi
 
+  use it to measure distances -> go forward. stop. how far was that
 
   say your names
   car 1 do patrol one
@@ -153,7 +157,7 @@ https://www.amazon.ca/Freenove-Raspberry-Tracking-Avoidance-Ultrasonic/dp/B0BNDQ
   amke the default speed 2 times faster
   double the default speed  
 
-  what is the speed
+#  what is the speed
   use inches per second and repeat that
 */
 
