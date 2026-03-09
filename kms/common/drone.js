@@ -935,7 +935,7 @@ const template = {
             if (context.repeats) {
               current.timeRepeats = toFinalValue(context.repeats.repeats)
             }
-            const toRadians = async (angle) => {
+            async function toRadians(angle) {
               const fi = await fragments("40 degrees in radians")
               return await fi.instantiate([
                 { 

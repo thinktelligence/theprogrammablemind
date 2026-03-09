@@ -1,6 +1,7 @@
 const { knowledgeModule, where } = require('./runtime').theprogrammablemind
 const { defaultContextCheck, defaultContextCheckProperties } = require('./helpers')
 const helpers = require('./helpers')
+const englishHelpers = require('./english_helpers')
 const stm = require('./stm')
 const nameable_tests = require('./nameable.test.json')
 
@@ -83,7 +84,8 @@ const config = {
   name: 'nameable',
   operators: [
     // "([call] ([nameable]) (name))",
-    "([call] ([nameable]) (!@<=endOfSentence)*)",
+    "([call|] ([nameable]) (!@<=endOfSentence)*)",
+    "((nameable) [isCalled|is] (call) (!@<=endOfSentence)*)",
     { pattern: "([getNamesByType] (type))", scope: "testing" },
     { pattern: "([m1])", scope: "testing" },
   ],
@@ -104,10 +106,32 @@ const config = {
       }
     },
     {
+      id: 'isCalled',
+      before: ['verb'],
+      bridge: [
+        { "apply": true, "bridge": "{ ...after[0], isCalled: operator }", "set": "operator" },
+        {
+          "rewire": [
+            { "from": 'before[0]', "to": 'after[0]' },
+            { "from": 'after[1]', "to": 'after[1]' },
+          ]
+        },
+        { "apply": true, "operator": "operator", "set": "context" },
+        { "apply": true, bridge: "{ ...context, interpolate: [{ property: 'nameable' }, { property: 'isCalled' }, { property: 'operator' }, { property: 'name' }] }" },
+      ],
+    },
+    {
       id: 'call',
       isA: ['verb'],
-      bridge: "{ ...next(operator), nameable: after[0], name: after[1:][0] }",
-      generatorp: async ({context, g, gs}) => `call ${await g(context.nameable)} ${await gs(context.name)}`,
+      words: englishHelpers.conjugateVerb('call'),
+      bridge: `{ 
+        ...next(operator), 
+        nameable: after[0], 
+        name: after[1:][0], 
+        operator: operator, 
+        interpolate: [ { property: 'operator' }, { property: 'nameable' }, { property: 'name' } ] }
+      `,
+      // generatorp: async ({context, g, gs}) => `call ${await g(context.nameable)} ${await gs(context.name)}`,
       semantic: async ({config, context, api, e, verbatim, g}) => {
         // TODO find report being referred to
         // debugger

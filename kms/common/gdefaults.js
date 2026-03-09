@@ -364,7 +364,11 @@ function initializer({config}) {
                     value = { ...value, ...element.context }
                   }
                   strings.push(separator)
-                  strings.push(await args.gp(value))
+                  if (Array.isArray(value)) {
+                    strings.push(await args.gsp(value))
+                  } else {
+                    strings.push(await args.gp(value))
+                  }
                   separator = ' '
                 }
               } else if (element.context) {
