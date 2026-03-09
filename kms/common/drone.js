@@ -19,6 +19,8 @@ go forward 1 meter turn right forward 2 meters stop
 
 the patrol called patrol 1 is forward 1 meter pause 10 second west 1 meter pause again then back to the start
 
+do a 5 second pause at each point / add a 10 second pause to each point / pause of 5 seconds
+
 start again / start here / starting here / restart
 again
 go back to the start
@@ -575,7 +577,7 @@ class API {
   }
 
   async pauseDrone(durationInSeconds, options) {
-    this._objects.history.push({ marker: 'history', pause: durationInSeconds, ...options })
+    this._objects.history.push({ marker: 'history', pause: durationInSeconds, time: this.now(true, durationInSeconds*1000), ...options })
     this.testDate = new Date(this.testDate.getTime() + (durationInSeconds-1)*1000)
   }
 
@@ -589,15 +591,15 @@ class API {
     return 1.2
   }
 
-  now(lookahead = false) {
+  now(lookahead = false, pause = 1000) {
     if (this.args.isProcess || this.args.isTest) {
       if (!this.testDate) {
         this.testDate = new Date(2025, 5, 29, 14, 52, 0)
       }
       if (lookahead) {
-        return new Date(this.testDate.getTime() + 1000)
+        return new Date(this.testDate.getTime() + pause)
       } else {
-        this.testDate = new Date(this.testDate.getTime() + 1000)
+        this.testDate = new Date(this.testDate.getTime() + pause)
         return this.testDate
       }
     } else {
@@ -695,6 +697,7 @@ function expectDistanceForMove(args) {
 const template = {
   fragments: [ 
     "quantity in meters",
+    "quantity in seconds",
     "quantity in meters per second",
     "number meters per second",
     "quantity in units",
@@ -766,7 +769,7 @@ const template = {
         "([back])",
         "([forth])",
         // "([turn] (direction))",
-        "([pause] ([number]))",
+        // "([pause] ([number]))",
         "([stop] ([drone|])?)",
         "([toPoint|to] (point))",
       ],
@@ -966,11 +969,24 @@ const template = {
         {
           id: 'pause',
           isA: ['verb'],
-          bridge: "{ ...operator, time: after[0], interpolate: [{ context: operator }, { property: 'time' }] }",
-          semantic: async ({context}) => {
-            // why doesn't nodejs add a sleep function. I always have to look up how to do this because its not fucking memorable.
-            // function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
-            // await sleep(context.time.value*1000) 
+          words: ['pause'],
+          bridge: "{ ...operator, time: or(time?, forTime), interpolate: [{ context: operator }, { property: 'time' }] }",
+          selector: {
+            arguments: {
+              forTime: "(@<= 'forQuantity' && context.quantity.unit.dimension == 'time')",
+              time: "(@<= 'quantity' && context.unit.dimension == 'time')",
+            },
+          },
+          semantic: async ({context, mentioned, api, e, fragments, toFinalValue}) => {
+            let time = context.time 
+            if (time.marker == 'forQuantity') {
+              time = time.quantity
+            }
+            const instantiation = await fragments("quantity in seconds", { quantity: time})
+            const result = await e(instantiation)
+            const seconds = toFinalValue(toFinalValue(result).amount)
+            mentioned(context)
+            api.pause(seconds)
           }
         },
         {

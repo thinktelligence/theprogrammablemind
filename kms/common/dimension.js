@@ -168,6 +168,7 @@ const config = {
     "((amount/* || number/*) [amountOfCoordinate|] ([unit]))",
     "(([amount]) [unit])",
     "((@<=quantity || context.possession == true) [convertToUnits|in] (unit))",
+    "([forQuantity|for] (@<= quantity && !context.unit.dimension == null))",
 
     "([useUnits|use] (unit))",
     "([preferredUnits] (quantity))",
@@ -188,6 +189,12 @@ const config = {
     },
   ],
   bridges: [
+    {
+      id: 'forQuantity',
+      isA: ['preposition'],
+      bridge: "{ ...operator, quantity: after[0], operator: operator, interpolate: [ { property: 'operator' }, { property: 'quantity' } ] }",
+      check: defaultContextCheckProperties(['quantity']),
+    },
     { 
       where: where(),
       id: "preferredUnits",
@@ -241,6 +248,7 @@ const config = {
     { 
       id: "amountOfCoordinate", 
       convolution: true, 
+      before: ['preposition'],
       // bridge: "{ marker: next(operator('quantity')), dead: true, unit: after[0], value: before[0].value, amount: before[0] }" 
       bridge: "{ marker: next(operator('quantity')), dead: true, unit: after[0], amount: before[0] }" 
     },
