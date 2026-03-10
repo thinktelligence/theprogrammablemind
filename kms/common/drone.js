@@ -14,7 +14,6 @@ const help = require('./help')
 const { rotateDelta, degreesToRadians, radiansToDegrees, cartesianToPolar } = require('./helpers/drone')
 
 /*
-
 go back
 go back another point
 go back again
@@ -871,11 +870,15 @@ const template = {
         {
           id: "back",
           isA: ['noun'],
-          semantic: async ({objects, mentions, api, e, context}) => {
-            objects.runCommand = true
+          semantic: async ({objects, mentions, api, e, context, say}) => {
             const ordinal = api.currentOrdinal() - 1
             const lastPoint = mentions({ context: { marker: 'point' }, condition: (context) => context.ordinal == ordinal })
+            if (!lastPoint) {
+              say(`There is no previous point to go back to`)
+              return
+            }
             objects.current.path.push(lastPoint)
+            objects.runCommand = true
           }
         },
         {
@@ -896,7 +899,8 @@ const template = {
         { 
           id: "go",
           level: 0,
-          isA: ['verb'],
+          // convolution: true,
+          isA: ['verb', 'action'],
           words: [
             ...conjugateVerb('go'),
           ],

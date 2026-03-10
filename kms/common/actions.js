@@ -7,9 +7,22 @@ const instance = require('./actions.instance.json')
 const config = {
   name: 'actions',
   operators: [
-    "([doAction|do] (action))",
+    "([doAction|do] ([action]))",
+    "((action) <again>)",
   ],
   bridges: [
+    {
+      id: 'action',
+    },
+    {
+      id: 'again',
+      bridge: `{
+        ...before[0],
+        action: before[0],
+        again: operator,
+        interpolate: [{ property: 'action' }, { property: 'again' }]
+      }`
+    },
     { 
       id: 'doAction', 
       isA: ['verb'],
@@ -26,7 +39,6 @@ const config = {
 
 const template = {
   configs: [
-    "actions are a concept",
     config,
   ],
 }
