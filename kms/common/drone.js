@@ -7,6 +7,7 @@ const hierarchy = require('./hierarchy')
 const ordinals = require('./ordinals')
 const nameable = require('./nameable')
 const compass = require('./compass')
+const actions = require('./actions')
 const angle = require('./angle')
 const rates = require('./rates')
 const help = require('./help')
@@ -718,7 +719,7 @@ const template = {
     "arm, claw and drone are concepts",
     //TODO "forward left, right, backward are directions",
     "around, forward, left, right, and backward are directions",
-    "paths are nameable and memorable",
+    "paths are nameable actions and memorable",
     "start and end are properties of path",
     "start and end are points",
     {
@@ -769,7 +770,7 @@ const template = {
     },
     {
       operators: [
-        "([do] (path))",
+        // "([do] (path))",
         "([patrol] (path))",
         "([lift|lift,raise] (@<= arm || @<= claw))",
         "([lower] (@<= arm || @<=claw))",
@@ -810,6 +811,7 @@ const template = {
             objects.runCommand = true
           }
         },
+        /*
         {
           id: 'do',
           isA: ['verb'],
@@ -825,6 +827,7 @@ const template = {
             objects.runCommand = true
           }
         },
+        */
         {
           id: 'lift',
           isA: ['verb'],
@@ -1030,8 +1033,19 @@ const template = {
       ],
       semantics: [
         {
+          match: ({context}) => context.marker == 'doAction',
+          apply: async ({context, e, toEValue, objects}) => {
+            const evaluated = await(e(context.action))
+            const path = toEValue(evaluated)
+            for (const point of path.points) {
+              objects.current.path.push(point)
+            }
+            objects.runCommand = true
+          }
+        },
+        {
           match: ({context, contextHierarchy}) => {
-            if (!context.pullFromContext || !context.evaluate || contextHierarchy.under('do')) {
+            if (!context.pullFromContext || !context.evaluate || contextHierarchy.under('doAction')) {
               return false
             }
             
@@ -1139,7 +1153,7 @@ const template = {
 
 knowledgeModule( { 
   config: { name: 'drone' },
-  includes: [angle, compass, nameable, ordinals, hierarchy, rates, help],
+  includes: [actions, angle, compass, nameable, ordinals, hierarchy, rates, help],
   api: () => new API(),
 
   module,
