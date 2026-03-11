@@ -90,7 +90,7 @@
           "isA": [
             "noun"
           ],
-          "semantic": "async ({objects, mentions, api, e, context, say}) => {\n            const ordinal = api.currentOrdinal() - 1\n            const lastPoint = mentions({ context: { marker: 'point' }, condition: (context) => context.ordinal == ordinal })\n            if (!lastPoint) {\n              say(`There is no previous point to go back to`)\n              return\n            }\n            objects.current.path.push(lastPoint)\n            objects.runCommand = true\n          }"
+          "semantic": "async ({objects, mentions, api, e, context, say}) => {\n            await api.back()\n          }"
         },
         {
           "id": "forth",
@@ -249,7 +249,7 @@
               "to": "(@<= 'toPoint')"
             }
           },
-          "semantic": "async (args) => {\n            const {context, objects, e, toEValue} = args\n            if (context.distance) {\n              await handleDistance(args, context.distance)\n            }\n            if (context.direction) {\n              objects.current.direction = context.direction.marker\n            }\n            if (context.to) {\n              const evaluation = await e(context.to.point)\n              const point = toEValue(evaluation)\n              objects.current.path.push(point)\n            }\n            objects.runCommand = true\n          }"
+          "semantic": "async (args) => {\n            const {context, objects, e, toArray, toEValue} = args\n            if (context.distance) {\n              await handleDistance(args, context.distance)\n            }\n            if (context.direction) {\n              const array = toArray(context.direction)\n              if (array.length == 2 && array[0].marker == 'back' && array[1].marker == 'forth') {\n                await args.api.backAndForth()\n              } else if (context.direction.marker == 'back') {\n                await args.api.back()\n              } else {\n                objects.current.direction = context.direction.marker\n              }\n            }\n            if (context.to) {\n              const evaluation = await e(context.to.point)\n              const point = toEValue(evaluation)\n              objects.current.path.push(point)\n            }\n            objects.runCommand = true\n          }"
         },
         {
           "id": "turn",
@@ -326,11 +326,11 @@
       "semantics": [
         {
           "match": "({context}) => context.marker == 'doAction'",
-          "apply": "async ({context, e, toEValue, objects}) => {\n            const evaluated = await(e(context.action))\n            const path = toEValue(evaluated)\n            for (const point of path.points) {\n              objects.current.path.push(point)\n            }\n            objects.runCommand = true\n          }"
+          "apply": "async ({context, e, toEValue, objects}) => {\n            const evaluated = await(e(context.action))\n            const path = toEValue(evaluated)\n            debugger\n            const wut = await(e(path))\n            for (const point of path.points) {\n              objects.current.path.push(point)\n            }\n            objects.runCommand = true\n          }"
         },
         {
           "match": "({context, contextHierarchy}) => {\n            if (!context.pullFromContext || !context.evaluate || contextHierarchy.under('doAction')) {\n              return false\n            }\n            \n            if (context.marker == 'path' || context.marker == 'this' || context.marker == 'that') {\n              return true\n            }\n          }",
-          "apply": "async ({context, fragments, stm, objects, mentioned, mentions, resolveEvaluate, _continue, contextHierarchy}) => {\n            // const points = mentions({ context: { marker: 'point' }, all: true })\n            const pathComponents = mentions({ context: { marker: 'pathComponent' }, all: true })\n            const path = (await fragments('path')).contexts()[0]\n            path.points = pathComponents.reverse()\n            await mentioned(path)\n            _continue()\n          }"
+          "apply": "async ({context, fragments, stm, objects, mentioned, mentions, resolveEvaluate, _continue, contextHierarchy}) => {\n            // const points = mentions({ context: { marker: 'point' }, all: true })\n            const pathComponents = mentions({ context: { marker: 'pathComponent' }, all: true })\n            const path = (await fragments('path')).contexts()[0]\n            delete path.value\n            path.points = pathComponents.reverse()\n            await mentioned(path)\n            _continue()\n          }"
         },
         {
           "match": "({context}) => context.marker == 'thenTime'",
@@ -354,7 +354,7 @@
         },
         {
           "match": "({context, toArray}) => {\n            if (context.marker !== 'list') {\n              return false\n            }\n\n            const array = toArray(context)\n            if (array[0].marker == 'back' && array[1].marker == 'forth') {\n              return true\n            }\n          }",
-          "apply": "({context, objects, api, mentions}) => {\n            objects.runCommand = true\n            objects.current.backAndForth = true\n            const ordinal = api.currentOrdinal()\n            const currentPoint = mentions({ context: { marker: 'point' }, condition: (context) => context.ordinal == ordinal })\n            const lastPoint = mentions({ context: { marker: 'point' }, condition: (context) => context.ordinal == ordinal-1 })\n            objects.current.path.push(lastPoint)\n            objects.current.path.push(currentPoint)\n            // objects.current.path.push({ ...lastPoint, aimOnly: true })\n          }"
+          "apply": "async ({api}) => {\n            await api.backAndForth()\n          }"
         }
       ]
     }

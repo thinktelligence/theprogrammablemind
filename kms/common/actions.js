@@ -35,6 +35,16 @@ const config = {
       }`,
     },
   ],
+  semantics: [
+    {
+      priority: -1,
+      match: ({context, isA}) => isA(context.marker, 'action'),
+      apply: ({context, _continue, mentioned}) => {
+        mentioned(context)
+        _continue()
+      }
+    },
+  ],
 };
 
 const template = {

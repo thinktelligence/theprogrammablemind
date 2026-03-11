@@ -920,6 +920,7 @@ const template = {
           words: [
             ...conjugateVerb('go'),
           ],
+          check: defaultContextCheckProperties(['direction', 'distance', 'to']),
           bridge: `{ 
             ...next(operator), 
             distance: distance?, 
@@ -1084,6 +1085,7 @@ const template = {
             // const points = mentions({ context: { marker: 'point' }, all: true })
             const pathComponents = mentions({ context: { marker: 'pathComponent' }, all: true })
             const path = (await fragments('path')).contexts()[0]
+            delete path.value
             path.points = pathComponents.reverse()
             await mentioned(path)
             _continue()
@@ -1184,7 +1186,6 @@ knowledgeModule( {
     checks: {
       context: [
         defaultContextCheck({ marker: 'path', exported: true, extra: ['points', { property: 'stm', check: ['id', 'names'] }] }),
-        defaultContextCheck({ marker: 'go', exported: true, extra: ['direction', 'distance'] }),
         defaultContextCheck({ marker: 'point', exported: true, extra: ['ordinal', { property: 'point', check: ['x', 'y'] }, 'description', { property: 'stm', check: ['id', 'names'] }] }),
         defaultContextCheck({ marker: 'turn', exported: true, extra: ['direction', 'repeats'] }),
         defaultContextCheck({ marker: 'history', exported: true, extra: ['debug', 'pause', 'direction', 'speed', 'turn', 'time', 'sonic', 'batched', 'repeats', 'armAction', 'clawAction'] }),

@@ -1,4 +1,4 @@
-const { knowledgeModule, where } = require('./runtime').theprogrammablemind
+const { knowledgeModule, where, debug } = require('./runtime').theprogrammablemind
 const { defaultContextCheck } = require('./helpers')
 const helpers = require('./helpers')
 const articles = require('./articles')
@@ -96,6 +96,9 @@ class API {
         if (findPrevious && findCounter < 2) {
           continue
         }
+        if (context.nameable_named && m.nameable_named) {
+          continue
+        }
         if (condition(m)) {
           if (all) {
             allForAll(m)
@@ -118,6 +121,9 @@ class API {
         if (findPrevious && findCounter < 2) {
           continue
         }
+        if (context.nameable_named && m.nameable_named) {
+          continue
+        }
         if (condition(m)) {
           if (all) {
             addForAll(m)
@@ -132,6 +138,9 @@ class API {
           if (parent != 'unknown' && this.isA(m.marker, parent)) {
             findCounter += 1
             if (findPrevious && findCounter < 2) {
+              continue
+            }
+            if (context.nameable_named && m.nameable_named) {
               continue
             }
             if (condition(m)) {
@@ -244,6 +253,7 @@ const config = {
       match: ({context, callId}) => context.pullFromContext && !context.same, // && context.value,
       apply: async ({callId, context, kms, e, log, retry}) => {
         context.value = kms.stm.api.mentions({ context })
+
         if (!context.value) {
           // retry()
           context.evalue = { marker: 'answerNotKnown' }
