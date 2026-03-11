@@ -1,8 +1,8 @@
 {
   "configs": [
     "arm, claw and drone are concepts",
-    "around, forward, left, right, and backward are directions",
-    "paths are nameable actions and memorable",
+    "around, forward, left, right, back, forth and backward are directions",
+    "paths are nameable and memorable",
     "start and end are properties of path",
     "start and end are points",
     {
@@ -10,6 +10,10 @@
         [
           "thisitthat",
           "path"
+        ],
+        [
+          "path",
+          "action"
         ]
       ]
     },
@@ -29,8 +33,6 @@
         "([lower] (@<= arm || @<=claw))",
         "([open] (claw))",
         "([close] (claw))",
-        "([back])",
-        "([forth])",
         "([pathComponent])",
         "([stop] ([drone|])?)",
         "([toPoint|to] (point))"
@@ -88,7 +90,7 @@
           "isA": [
             "noun"
           ],
-          "semantic": "async ({objects, mentions, api, e, context}) => {\n            objects.runCommand = true\n            const ordinal = api.currentOrdinal() - 1\n            const lastPoint = mentions({ context: { marker: 'point' }, condition: (context) => context.ordinal == ordinal })\n            objects.current.path.push(lastPoint)\n          }"
+          "semantic": "async ({objects, mentions, api, e, context, say}) => {\n            const ordinal = api.currentOrdinal() - 1\n            const lastPoint = mentions({ context: { marker: 'point' }, condition: (context) => context.ordinal == ordinal })\n            if (!lastPoint) {\n              say(`There is no previous point to go back to`)\n              return\n            }\n            objects.current.path.push(lastPoint)\n            objects.runCommand = true\n          }"
         },
         {
           "id": "forth",
@@ -114,7 +116,8 @@
           "id": "go",
           "level": 0,
           "isA": [
-            "verb"
+            "verb",
+            "action"
           ],
           "words": [
             {
@@ -323,10 +326,10 @@
       "semantics": [
         {
           "match": "({context}) => context.marker == 'doAction'",
-          "apply": "async ({context, e, toEValue, objects}) => {\n            const evaluated = await(e(context.path))\n            const path = toEValue(evaluated)\n            for (const point of path.points) {\n              objects.current.path.push(point)\n            }\n            objects.runCommand = true\n          }"
+          "apply": "async ({context, e, toEValue, objects}) => {\n            const evaluated = await(e(context.action))\n            const path = toEValue(evaluated)\n            for (const point of path.points) {\n              objects.current.path.push(point)\n            }\n            objects.runCommand = true\n          }"
         },
         {
-          "match": "({context, contextHierarchy}) => {\n            if (!context.pullFromContext || !context.evaluate || contextHierarchy.under('do')) {\n              return false\n            }\n            \n            if (context.marker == 'path' || context.marker == 'this' || context.marker == 'that') {\n              return true\n            }\n          }",
+          "match": "({context, contextHierarchy}) => {\n            if (!context.pullFromContext || !context.evaluate || contextHierarchy.under('doAction')) {\n              return false\n            }\n            \n            if (context.marker == 'path' || context.marker == 'this' || context.marker == 'that') {\n              return true\n            }\n          }",
           "apply": "async ({context, fragments, stm, objects, mentioned, mentions, resolveEvaluate, _continue, contextHierarchy}) => {\n            // const points = mentions({ context: { marker: 'point' }, all: true })\n            const pathComponents = mentions({ context: { marker: 'pathComponent' }, all: true })\n            const path = (await fragments('path')).contexts()[0]\n            path.points = pathComponents.reverse()\n            await mentioned(path)\n            _continue()\n          }"
         },
         {
@@ -362,51 +365,6 @@
         [
           "a",
           "article",
-          false
-        ],
-        [
-          "action",
-          "concept",
-          false
-        ],
-        [
-          "action",
-          "hierarchyAble",
-          false
-        ],
-        [
-          "action",
-          "isEdee",
-          false
-        ],
-        [
-          "action",
-          "isEder",
-          false
-        ],
-        [
-          "action",
-          "object",
-          false
-        ],
-        [
-          "action",
-          "property",
-          false
-        ],
-        [
-          "action",
-          "queryable",
-          false
-        ],
-        [
-          "action",
-          "theAble",
-          false
-        ],
-        [
-          "action",
-          "thisAble",
           false
         ],
         [
@@ -4515,51 +4473,6 @@
           false
         ],
         [
-          "action",
-          "concept",
-          false
-        ],
-        [
-          "action",
-          "hierarchyAble",
-          false
-        ],
-        [
-          "action",
-          "isEdee",
-          false
-        ],
-        [
-          "action",
-          "isEder",
-          false
-        ],
-        [
-          "action",
-          "object",
-          false
-        ],
-        [
-          "action",
-          "property",
-          false
-        ],
-        [
-          "action",
-          "queryable",
-          false
-        ],
-        [
-          "action",
-          "theAble",
-          false
-        ],
-        [
-          "action",
-          "thisAble",
-          false
-        ],
-        [
           "adjective",
           "adjective",
           false
@@ -7870,11 +7783,27 @@
                 0
               ],
               [
+                "comma",
+                0
+              ],
+              [
                 "direction",
                 0
               ],
               [
                 "is",
+                0
+              ],
+              [
+                "list",
+                0
+              ],
+              [
+                "unknown",
+                0
+              ],
+              [
+                "unknown",
                 0
               ],
               [
@@ -7923,11 +7852,27 @@
                 0
               ],
               [
+                "comma",
+                0
+              ],
+              [
                 "direction",
                 0
               ],
               [
                 "is",
+                0
+              ],
+              [
+                "list",
+                0
+              ],
+              [
+                "unknown",
+                0
+              ],
+              [
+                "unknown",
                 0
               ],
               [
@@ -7972,11 +7917,27 @@
                 0
               ],
               [
+                "comma",
+                0
+              ],
+              [
                 "direction",
                 0
               ],
               [
                 "is",
+                0
+              ],
+              [
+                "list",
+                0
+              ],
+              [
+                "unknown",
+                0
+              ],
+              [
+                "unknown",
                 0
               ],
               [
@@ -8017,11 +7978,27 @@
                 0
               ],
               [
+                "comma",
+                0
+              ],
+              [
                 "direction",
                 0
               ],
               [
                 "is",
+                0
+              ],
+              [
+                "list",
+                0
+              ],
+              [
+                "unknown",
+                0
+              ],
+              [
+                "unknown",
                 0
               ],
               [
@@ -8058,11 +8035,27 @@
                 0
               ],
               [
+                "comma",
+                0
+              ],
+              [
                 "direction",
                 0
               ],
               [
                 "is",
+                0
+              ],
+              [
+                "list",
+                0
+              ],
+              [
+                "unknown",
+                0
+              ],
+              [
+                "unknown",
                 0
               ],
               [
@@ -8074,10 +8067,14 @@
           },
           {
             "op": [
-              "comma",
+              "unknown",
               0
             ],
             "ops": [
+              [
+                "comma",
+                0
+              ],
               [
                 "comma",
                 0
@@ -8100,6 +8097,18 @@
               ],
               [
                 "is",
+                0
+              ],
+              [
+                "list",
+                0
+              ],
+              [
+                "unknown",
+                0
+              ],
+              [
+                "unknown",
                 0
               ]
             ],
@@ -8107,10 +8116,18 @@
           },
           {
             "op": [
-              "comma",
+              "unknown",
               0
             ],
             "ops": [
+              [
+                "comma",
+                0
+              ],
+              [
+                "comma",
+                0
+              ],
               [
                 "comma",
                 0
@@ -8129,6 +8146,14 @@
               ],
               [
                 "is",
+                0
+              ],
+              [
+                "list",
+                0
+              ],
+              [
+                "unknown",
                 0
               ]
             ],
@@ -8136,10 +8161,22 @@
           },
           {
             "op": [
-              "comma",
+              "list",
               0
             ],
             "ops": [
+              [
+                "comma",
+                0
+              ],
+              [
+                "comma",
+                0
+              ],
+              [
+                "comma",
+                0
+              ],
               [
                 "comma",
                 0
@@ -8154,6 +8191,10 @@
               ],
               [
                 "is",
+                0
+              ],
+              [
+                "list",
                 0
               ]
             ],
@@ -8165,6 +8206,22 @@
               0
             ],
             "ops": [
+              [
+                "comma",
+                0
+              ],
+              [
+                "comma",
+                0
+              ],
+              [
+                "comma",
+                0
+              ],
+              [
+                "comma",
+                0
+              ],
               [
                 "comma",
                 0
@@ -8182,20 +8239,32 @@
           },
           {
             "op": [
-              "list",
+              "comma",
               0
             ],
             "ops": [
+              [
+                "comma",
+                0
+              ],
+              [
+                "comma",
+                0
+              ],
+              [
+                "comma",
+                0
+              ],
+              [
+                "comma",
+                0
+              ],
               [
                 "direction",
                 0
               ],
               [
                 "is",
-                0
-              ],
-              [
-                "list",
                 0
               ]
             ],
@@ -8203,10 +8272,22 @@
           },
           {
             "op": [
-              "list",
-              1
+              "comma",
+              0
             ],
             "ops": [
+              [
+                "comma",
+                0
+              ],
+              [
+                "comma",
+                0
+              ],
+              [
+                "comma",
+                0
+              ],
               [
                 "direction",
                 0
@@ -8214,20 +8295,24 @@
               [
                 "is",
                 0
-              ],
-              [
-                "list",
-                1
               ]
             ],
             "counter": 11
           },
           {
             "op": [
-              "list",
-              1
+              "comma",
+              0
             ],
             "ops": [
+              [
+                "comma",
+                0
+              ],
+              [
+                "comma",
+                0
+              ],
               [
                 "direction",
                 0
@@ -8235,13 +8320,30 @@
               [
                 "is",
                 0
-              ],
-              [
-                "list",
-                1
               ]
             ],
             "counter": 12
+          },
+          {
+            "op": [
+              "comma",
+              0
+            ],
+            "ops": [
+              [
+                "comma",
+                0
+              ],
+              [
+                "direction",
+                0
+              ],
+              [
+                "is",
+                0
+              ]
+            ],
+            "counter": 13
           },
           {
             "op": [
@@ -8262,7 +8364,91 @@
                 1
               ]
             ],
-            "counter": 13
+            "counter": 14
+          },
+          {
+            "op": [
+              "list",
+              1
+            ],
+            "ops": [
+              [
+                "direction",
+                0
+              ],
+              [
+                "is",
+                0
+              ],
+              [
+                "list",
+                1
+              ]
+            ],
+            "counter": 15
+          },
+          {
+            "op": [
+              "list",
+              1
+            ],
+            "ops": [
+              [
+                "direction",
+                0
+              ],
+              [
+                "is",
+                0
+              ],
+              [
+                "list",
+                1
+              ]
+            ],
+            "counter": 16
+          },
+          {
+            "op": [
+              "list",
+              1
+            ],
+            "ops": [
+              [
+                "direction",
+                0
+              ],
+              [
+                "is",
+                0
+              ],
+              [
+                "list",
+                1
+              ]
+            ],
+            "counter": 17
+          },
+          {
+            "op": [
+              "list",
+              1
+            ],
+            "ops": [
+              [
+                "direction",
+                0
+              ],
+              [
+                "is",
+                0
+              ],
+              [
+                "list",
+                1
+              ]
+            ],
+            "counter": 18
           },
           {
             "op": [
@@ -8279,7 +8465,7 @@
                 0
               ]
             ],
-            "counter": 14
+            "counter": 19
           },
           {
             "op": [
@@ -8292,7 +8478,7 @@
                 0
               ]
             ],
-            "counter": 15
+            "counter": 20
           },
           {
             "op": [
@@ -8305,7 +8491,7 @@
                 1
               ]
             ],
-            "counter": 16
+            "counter": 21
           }
         ]
       },
@@ -8313,22 +8499,22 @@
       "contexts": [
         {
           "number": "many",
-          "text": "around, forward, left, right, and backward are directions",
+          "text": "around, forward, left, right, back, forth and backward are directions",
           "marker": "is",
           "word": "are",
           "range": {
             "start": 0,
-            "end": 56
+            "end": 68
           },
           "one": {
             "number": "many",
             "marker": "list",
             "default": true,
             "word": "and",
-            "text": "around, forward, left, right, and backward",
+            "text": "around, forward, left, right, back, forth and backward",
             "range": {
               "start": 0,
-              "end": 41
+              "end": 53
             },
             "types": [
               "list",
@@ -8462,14 +8648,61 @@
                 "level": 0
               },
               {
+                "value": "back",
+                "unknown": true,
+                "text": "back,",
+                "marker": "unknown",
+                "word": "back",
+                "range": {
+                  "start": 30,
+                  "end": 34
+                },
+                "dead": true,
+                "decorators": {
+                  "after": {
+                    "word": ",",
+                    "value": ",",
+                    "depth": "+",
+                    "text": ",",
+                    "marker": "comma",
+                    "range": {
+                      "start": 34,
+                      "end": 34
+                    },
+                    "level": 0
+                  }
+                },
+                "no_convolutions": true,
+                "types": [
+                  "unknown"
+                ],
+                "level": 0
+              },
+              {
+                "value": "forth",
+                "unknown": true,
+                "text": "forth",
+                "marker": "unknown",
+                "word": "forth",
+                "range": {
+                  "start": 36,
+                  "end": 40
+                },
+                "dead": true,
+                "types": [
+                  "unknown"
+                ],
+                "level": 0
+              },
+              {
                 "value": "backward",
                 "unknown": true,
                 "text": "backward",
                 "marker": "unknown",
                 "word": "backward",
                 "range": {
-                  "start": 34,
-                  "end": 41
+                  "start": 46,
+                  "end": 53
                 },
                 "dead": true,
                 "types": [
@@ -8487,8 +8720,8 @@
             "marker": "direction",
             "word": "directions",
             "range": {
-              "start": 47,
-              "end": 56
+              "start": 59,
+              "end": 68
             },
             "dead": true,
             "types": [
@@ -8511,7 +8744,7 @@
         ""
       ],
       "paraphrases": [
-        "around, forward, left, right and backward are directions"
+        "around, forward, left, right, back, forth and backward are directions"
       ],
       "paraphrasesParenthesized": [],
       "generatedParenthesized": [],
@@ -8543,6 +8776,10 @@
         ],
         [
           [
+            "comma",
+            0
+          ],
+          [
             "direction",
             0
           ],
@@ -8552,7 +8789,7 @@
           ],
           [
             "list",
-            0
+            1
           ],
           [
             "unknown",
@@ -8689,12 +8926,22 @@
                 },
                 {
                   "marker": [
-                    "list",
+                    "unknown",
                     0
                   ],
                   "range": {
                     "start": 30,
-                    "end": 32
+                    "end": 33
+                  }
+                },
+                {
+                  "marker": [
+                    "comma",
+                    0
+                  ],
+                  "range": {
+                    "start": 34,
+                    "end": 34
                   }
                 },
                 {
@@ -8703,8 +8950,28 @@
                     0
                   ],
                   "range": {
-                    "start": 34,
-                    "end": 41
+                    "start": 36,
+                    "end": 40
+                  }
+                },
+                {
+                  "marker": [
+                    "list",
+                    0
+                  ],
+                  "range": {
+                    "start": 42,
+                    "end": 44
+                  }
+                },
+                {
+                  "marker": [
+                    "unknown",
+                    0
+                  ],
+                  "range": {
+                    "start": 46,
+                    "end": 53
                   }
                 },
                 {
@@ -8713,8 +8980,8 @@
                     0
                   ],
                   "range": {
-                    "start": 43,
-                    "end": 45
+                    "start": 55,
+                    "end": 57
                   }
                 },
                 {
@@ -8723,8 +8990,8 @@
                     0
                   ],
                   "range": {
-                    "start": 47,
-                    "end": 56
+                    "start": 59,
+                    "end": 68
                   }
                 }
               ],
@@ -8814,12 +9081,22 @@
                 },
                 {
                   "marker": [
-                    "list",
+                    "unknown",
                     0
                   ],
                   "range": {
                     "start": 30,
-                    "end": 32
+                    "end": 33
+                  }
+                },
+                {
+                  "marker": [
+                    "comma",
+                    0
+                  ],
+                  "range": {
+                    "start": 34,
+                    "end": 34
                   }
                 },
                 {
@@ -8828,8 +9105,28 @@
                     0
                   ],
                   "range": {
-                    "start": 34,
-                    "end": 41
+                    "start": 36,
+                    "end": 40
+                  }
+                },
+                {
+                  "marker": [
+                    "list",
+                    0
+                  ],
+                  "range": {
+                    "start": 42,
+                    "end": 44
+                  }
+                },
+                {
+                  "marker": [
+                    "unknown",
+                    0
+                  ],
+                  "range": {
+                    "start": 46,
+                    "end": 53
                   }
                 },
                 {
@@ -8838,8 +9135,8 @@
                     0
                   ],
                   "range": {
-                    "start": 43,
-                    "end": 45
+                    "start": 55,
+                    "end": 57
                   }
                 },
                 {
@@ -8848,8 +9145,8 @@
                     0
                   ],
                   "range": {
-                    "start": 47,
-                    "end": 56
+                    "start": 59,
+                    "end": 68
                   }
                 }
               ],
@@ -8939,12 +9236,22 @@
                 },
                 {
                   "marker": [
-                    "list",
+                    "unknown",
                     0
                   ],
                   "range": {
                     "start": 30,
-                    "end": 32
+                    "end": 33
+                  }
+                },
+                {
+                  "marker": [
+                    "comma",
+                    0
+                  ],
+                  "range": {
+                    "start": 34,
+                    "end": 34
                   }
                 },
                 {
@@ -8953,8 +9260,28 @@
                     0
                   ],
                   "range": {
-                    "start": 34,
-                    "end": 41
+                    "start": 36,
+                    "end": 40
+                  }
+                },
+                {
+                  "marker": [
+                    "list",
+                    0
+                  ],
+                  "range": {
+                    "start": 42,
+                    "end": 44
+                  }
+                },
+                {
+                  "marker": [
+                    "unknown",
+                    0
+                  ],
+                  "range": {
+                    "start": 46,
+                    "end": 53
                   }
                 },
                 {
@@ -8963,8 +9290,8 @@
                     0
                   ],
                   "range": {
-                    "start": 43,
-                    "end": 45
+                    "start": 55,
+                    "end": 57
                   }
                 },
                 {
@@ -8973,8 +9300,8 @@
                     0
                   ],
                   "range": {
-                    "start": 47,
-                    "end": 56
+                    "start": 59,
+                    "end": 68
                   }
                 }
               ],
@@ -9064,12 +9391,22 @@
                 },
                 {
                   "marker": [
-                    "list",
+                    "unknown",
                     0
                   ],
                   "range": {
                     "start": 30,
-                    "end": 32
+                    "end": 33
+                  }
+                },
+                {
+                  "marker": [
+                    "comma",
+                    0
+                  ],
+                  "range": {
+                    "start": 34,
+                    "end": 34
                   }
                 },
                 {
@@ -9078,8 +9415,28 @@
                     0
                   ],
                   "range": {
-                    "start": 34,
-                    "end": 41
+                    "start": 36,
+                    "end": 40
+                  }
+                },
+                {
+                  "marker": [
+                    "list",
+                    0
+                  ],
+                  "range": {
+                    "start": 42,
+                    "end": 44
+                  }
+                },
+                {
+                  "marker": [
+                    "unknown",
+                    0
+                  ],
+                  "range": {
+                    "start": 46,
+                    "end": 53
                   }
                 },
                 {
@@ -9088,8 +9445,8 @@
                     0
                   ],
                   "range": {
-                    "start": 43,
-                    "end": 45
+                    "start": 55,
+                    "end": 57
                   }
                 },
                 {
@@ -9098,8 +9455,8 @@
                     0
                   ],
                   "range": {
-                    "start": 47,
-                    "end": 56
+                    "start": 59,
+                    "end": 68
                   }
                 }
               ],
@@ -9189,12 +9546,22 @@
                 },
                 {
                   "marker": [
-                    "list",
+                    "unknown",
                     0
                   ],
                   "range": {
                     "start": 30,
-                    "end": 32
+                    "end": 33
+                  }
+                },
+                {
+                  "marker": [
+                    "comma",
+                    0
+                  ],
+                  "range": {
+                    "start": 34,
+                    "end": 34
                   }
                 },
                 {
@@ -9203,8 +9570,28 @@
                     0
                   ],
                   "range": {
-                    "start": 34,
-                    "end": 41
+                    "start": 36,
+                    "end": 40
+                  }
+                },
+                {
+                  "marker": [
+                    "list",
+                    0
+                  ],
+                  "range": {
+                    "start": 42,
+                    "end": 44
+                  }
+                },
+                {
+                  "marker": [
+                    "unknown",
+                    0
+                  ],
+                  "range": {
+                    "start": 46,
+                    "end": 53
                   }
                 },
                 {
@@ -9213,8 +9600,8 @@
                     0
                   ],
                   "range": {
-                    "start": 43,
-                    "end": 45
+                    "start": 55,
+                    "end": 57
                   }
                 },
                 {
@@ -9223,8 +9610,8 @@
                     0
                   ],
                   "range": {
-                    "start": 47,
-                    "end": 56
+                    "start": 59,
+                    "end": 68
                   }
                 }
               ],
@@ -9314,12 +9701,22 @@
                 },
                 {
                   "marker": [
-                    "list",
+                    "unknown",
                     0
                   ],
                   "range": {
                     "start": 30,
-                    "end": 32
+                    "end": 33
+                  }
+                },
+                {
+                  "marker": [
+                    "comma",
+                    0
+                  ],
+                  "range": {
+                    "start": 34,
+                    "end": 34
                   }
                 },
                 {
@@ -9328,8 +9725,28 @@
                     0
                   ],
                   "range": {
-                    "start": 34,
-                    "end": 41
+                    "start": 36,
+                    "end": 40
+                  }
+                },
+                {
+                  "marker": [
+                    "list",
+                    0
+                  ],
+                  "range": {
+                    "start": 42,
+                    "end": 44
+                  }
+                },
+                {
+                  "marker": [
+                    "unknown",
+                    0
+                  ],
+                  "range": {
+                    "start": 46,
+                    "end": 53
                   }
                 },
                 {
@@ -9338,8 +9755,8 @@
                     0
                   ],
                   "range": {
-                    "start": 43,
-                    "end": 45
+                    "start": 55,
+                    "end": 57
                   }
                 },
                 {
@@ -9348,12 +9765,457 @@
                     0
                   ],
                   "range": {
-                    "start": 47,
-                    "end": 56
+                    "start": 59,
+                    "end": 68
                   }
                 }
               ],
               "counter": 6
+            },
+            {
+              "operators": [
+                {
+                  "marker": [
+                    "unknown",
+                    0
+                  ],
+                  "range": {
+                    "start": 0,
+                    "end": 5
+                  }
+                },
+                {
+                  "marker": [
+                    "comma",
+                    0
+                  ],
+                  "range": {
+                    "start": 6,
+                    "end": 6
+                  }
+                },
+                {
+                  "marker": [
+                    "unknown",
+                    0
+                  ],
+                  "range": {
+                    "start": 8,
+                    "end": 14
+                  }
+                },
+                {
+                  "marker": [
+                    "comma",
+                    0
+                  ],
+                  "range": {
+                    "start": 15,
+                    "end": 15
+                  }
+                },
+                {
+                  "marker": [
+                    "unknown",
+                    0
+                  ],
+                  "range": {
+                    "start": 17,
+                    "end": 20
+                  }
+                },
+                {
+                  "marker": [
+                    "comma",
+                    0
+                  ],
+                  "range": {
+                    "start": 21,
+                    "end": 21
+                  }
+                },
+                {
+                  "marker": [
+                    "unknown",
+                    0
+                  ],
+                  "range": {
+                    "start": 23,
+                    "end": 27
+                  }
+                },
+                {
+                  "marker": [
+                    "comma",
+                    0
+                  ],
+                  "range": {
+                    "start": 28,
+                    "end": 28
+                  }
+                },
+                {
+                  "marker": [
+                    "unknown",
+                    0
+                  ],
+                  "range": {
+                    "start": 30,
+                    "end": 33
+                  }
+                },
+                {
+                  "marker": [
+                    "comma",
+                    0
+                  ],
+                  "range": {
+                    "start": 34,
+                    "end": 34
+                  }
+                },
+                {
+                  "marker": [
+                    "unknown",
+                    0
+                  ],
+                  "range": {
+                    "start": 36,
+                    "end": 40
+                  }
+                },
+                {
+                  "marker": [
+                    "list",
+                    0
+                  ],
+                  "range": {
+                    "start": 42,
+                    "end": 44
+                  }
+                },
+                {
+                  "marker": [
+                    "unknown",
+                    0
+                  ],
+                  "range": {
+                    "start": 46,
+                    "end": 53
+                  }
+                },
+                {
+                  "marker": [
+                    "is",
+                    0
+                  ],
+                  "range": {
+                    "start": 55,
+                    "end": 57
+                  }
+                },
+                {
+                  "marker": [
+                    "direction",
+                    0
+                  ],
+                  "range": {
+                    "start": 59,
+                    "end": 68
+                  }
+                }
+              ],
+              "counter": 7
+            },
+            {
+              "operators": [
+                {
+                  "marker": [
+                    "unknown",
+                    0
+                  ],
+                  "range": {
+                    "start": 0,
+                    "end": 5
+                  }
+                },
+                {
+                  "marker": [
+                    "comma",
+                    0
+                  ],
+                  "range": {
+                    "start": 6,
+                    "end": 6
+                  }
+                },
+                {
+                  "marker": [
+                    "unknown",
+                    0
+                  ],
+                  "range": {
+                    "start": 8,
+                    "end": 14
+                  }
+                },
+                {
+                  "marker": [
+                    "comma",
+                    0
+                  ],
+                  "range": {
+                    "start": 15,
+                    "end": 15
+                  }
+                },
+                {
+                  "marker": [
+                    "unknown",
+                    0
+                  ],
+                  "range": {
+                    "start": 17,
+                    "end": 20
+                  }
+                },
+                {
+                  "marker": [
+                    "comma",
+                    0
+                  ],
+                  "range": {
+                    "start": 21,
+                    "end": 21
+                  }
+                },
+                {
+                  "marker": [
+                    "unknown",
+                    0
+                  ],
+                  "range": {
+                    "start": 23,
+                    "end": 27
+                  }
+                },
+                {
+                  "marker": [
+                    "comma",
+                    0
+                  ],
+                  "range": {
+                    "start": 28,
+                    "end": 28
+                  }
+                },
+                {
+                  "marker": [
+                    "unknown",
+                    0
+                  ],
+                  "range": {
+                    "start": 30,
+                    "end": 33
+                  }
+                },
+                {
+                  "marker": [
+                    "comma",
+                    0
+                  ],
+                  "range": {
+                    "start": 34,
+                    "end": 34
+                  }
+                },
+                {
+                  "marker": [
+                    "unknown",
+                    0
+                  ],
+                  "range": {
+                    "start": 36,
+                    "end": 40
+                  }
+                },
+                {
+                  "marker": [
+                    "list",
+                    0
+                  ],
+                  "range": {
+                    "start": 42,
+                    "end": 44
+                  }
+                },
+                {
+                  "marker": [
+                    "unknown",
+                    0
+                  ],
+                  "range": {
+                    "start": 46,
+                    "end": 53
+                  }
+                },
+                {
+                  "marker": [
+                    "is",
+                    0
+                  ],
+                  "range": {
+                    "start": 55,
+                    "end": 57
+                  }
+                },
+                {
+                  "marker": [
+                    "direction",
+                    0
+                  ],
+                  "range": {
+                    "start": 59,
+                    "end": 68
+                  }
+                }
+              ],
+              "counter": 8
+            },
+            {
+              "operators": [
+                {
+                  "marker": [
+                    "unknown",
+                    0
+                  ],
+                  "range": {
+                    "start": 0,
+                    "end": 5
+                  }
+                },
+                {
+                  "marker": [
+                    "comma",
+                    0
+                  ],
+                  "range": {
+                    "start": 6,
+                    "end": 6
+                  }
+                },
+                {
+                  "marker": [
+                    "unknown",
+                    0
+                  ],
+                  "range": {
+                    "start": 8,
+                    "end": 14
+                  }
+                },
+                {
+                  "marker": [
+                    "comma",
+                    0
+                  ],
+                  "range": {
+                    "start": 15,
+                    "end": 15
+                  }
+                },
+                {
+                  "marker": [
+                    "unknown",
+                    0
+                  ],
+                  "range": {
+                    "start": 17,
+                    "end": 20
+                  }
+                },
+                {
+                  "marker": [
+                    "comma",
+                    0
+                  ],
+                  "range": {
+                    "start": 21,
+                    "end": 21
+                  }
+                },
+                {
+                  "marker": [
+                    "unknown",
+                    0
+                  ],
+                  "range": {
+                    "start": 23,
+                    "end": 27
+                  }
+                },
+                {
+                  "marker": [
+                    "comma",
+                    0
+                  ],
+                  "range": {
+                    "start": 28,
+                    "end": 28
+                  }
+                },
+                {
+                  "marker": [
+                    "unknown",
+                    0
+                  ],
+                  "range": {
+                    "start": 30,
+                    "end": 33
+                  }
+                },
+                {
+                  "marker": [
+                    "comma",
+                    0
+                  ],
+                  "range": {
+                    "start": 34,
+                    "end": 34
+                  }
+                },
+                {
+                  "marker": [
+                    "list",
+                    1
+                  ],
+                  "range": {
+                    "start": 36,
+                    "end": 53
+                  }
+                },
+                {
+                  "marker": [
+                    "is",
+                    0
+                  ],
+                  "range": {
+                    "start": 55,
+                    "end": 57
+                  }
+                },
+                {
+                  "marker": [
+                    "direction",
+                    0
+                  ],
+                  "range": {
+                    "start": 59,
+                    "end": 68
+                  }
+                }
+              ],
+              "counter": 9
             },
             {
               "operators": [
@@ -9429,22 +10291,32 @@
                 },
                 {
                   "marker": [
-                    "list",
-                    0
-                  ],
-                  "range": {
-                    "start": 30,
-                    "end": 32
-                  }
-                },
-                {
-                  "marker": [
                     "unknown",
                     0
                   ],
                   "range": {
+                    "start": 30,
+                    "end": 33
+                  }
+                },
+                {
+                  "marker": [
+                    "comma",
+                    0
+                  ],
+                  "range": {
                     "start": 34,
-                    "end": 41
+                    "end": 34
+                  }
+                },
+                {
+                  "marker": [
+                    "list",
+                    1
+                  ],
+                  "range": {
+                    "start": 36,
+                    "end": 53
                   }
                 },
                 {
@@ -9453,8 +10325,8 @@
                     0
                   ],
                   "range": {
-                    "start": 43,
-                    "end": 45
+                    "start": 55,
+                    "end": 57
                   }
                 },
                 {
@@ -9463,12 +10335,12 @@
                     0
                   ],
                   "range": {
-                    "start": 47,
-                    "end": 56
+                    "start": 59,
+                    "end": 68
                   }
                 }
               ],
-              "counter": 7
+              "counter": 10
             },
             {
               "operators": [
@@ -9534,22 +10406,32 @@
                 },
                 {
                   "marker": [
-                    "list",
-                    0
-                  ],
-                  "range": {
-                    "start": 30,
-                    "end": 32
-                  }
-                },
-                {
-                  "marker": [
                     "unknown",
                     0
                   ],
                   "range": {
+                    "start": 30,
+                    "end": 33
+                  }
+                },
+                {
+                  "marker": [
+                    "comma",
+                    0
+                  ],
+                  "range": {
                     "start": 34,
-                    "end": 41
+                    "end": 34
+                  }
+                },
+                {
+                  "marker": [
+                    "list",
+                    1
+                  ],
+                  "range": {
+                    "start": 36,
+                    "end": 53
                   }
                 },
                 {
@@ -9558,8 +10440,8 @@
                     0
                   ],
                   "range": {
-                    "start": 43,
-                    "end": 45
+                    "start": 55,
+                    "end": 57
                   }
                 },
                 {
@@ -9568,12 +10450,12 @@
                     0
                   ],
                   "range": {
-                    "start": 47,
-                    "end": 56
+                    "start": 59,
+                    "end": 68
                   }
                 }
               ],
-              "counter": 8
+              "counter": 11
             },
             {
               "operators": [
@@ -9629,22 +10511,32 @@
                 },
                 {
                   "marker": [
-                    "list",
-                    0
-                  ],
-                  "range": {
-                    "start": 30,
-                    "end": 32
-                  }
-                },
-                {
-                  "marker": [
                     "unknown",
                     0
                   ],
                   "range": {
+                    "start": 30,
+                    "end": 33
+                  }
+                },
+                {
+                  "marker": [
+                    "comma",
+                    0
+                  ],
+                  "range": {
                     "start": 34,
-                    "end": 41
+                    "end": 34
+                  }
+                },
+                {
+                  "marker": [
+                    "list",
+                    1
+                  ],
+                  "range": {
+                    "start": 36,
+                    "end": 53
                   }
                 },
                 {
@@ -9653,8 +10545,8 @@
                     0
                   ],
                   "range": {
-                    "start": 43,
-                    "end": 45
+                    "start": 55,
+                    "end": 57
                   }
                 },
                 {
@@ -9663,12 +10555,192 @@
                     0
                   ],
                   "range": {
-                    "start": 47,
-                    "end": 56
+                    "start": 59,
+                    "end": 68
                   }
                 }
               ],
-              "counter": 9
+              "counter": 12
+            },
+            {
+              "operators": [
+                {
+                  "marker": [
+                    "unknown",
+                    0
+                  ],
+                  "range": {
+                    "start": 0,
+                    "end": 6
+                  }
+                },
+                {
+                  "marker": [
+                    "unknown",
+                    0
+                  ],
+                  "range": {
+                    "start": 8,
+                    "end": 15
+                  }
+                },
+                {
+                  "marker": [
+                    "unknown",
+                    0
+                  ],
+                  "range": {
+                    "start": 17,
+                    "end": 21
+                  }
+                },
+                {
+                  "marker": [
+                    "unknown",
+                    0
+                  ],
+                  "range": {
+                    "start": 23,
+                    "end": 28
+                  }
+                },
+                {
+                  "marker": [
+                    "unknown",
+                    0
+                  ],
+                  "range": {
+                    "start": 30,
+                    "end": 33
+                  }
+                },
+                {
+                  "marker": [
+                    "comma",
+                    0
+                  ],
+                  "range": {
+                    "start": 34,
+                    "end": 34
+                  }
+                },
+                {
+                  "marker": [
+                    "list",
+                    1
+                  ],
+                  "range": {
+                    "start": 36,
+                    "end": 53
+                  }
+                },
+                {
+                  "marker": [
+                    "is",
+                    0
+                  ],
+                  "range": {
+                    "start": 55,
+                    "end": 57
+                  }
+                },
+                {
+                  "marker": [
+                    "direction",
+                    0
+                  ],
+                  "range": {
+                    "start": 59,
+                    "end": 68
+                  }
+                }
+              ],
+              "counter": 13
+            },
+            {
+              "operators": [
+                {
+                  "marker": [
+                    "unknown",
+                    0
+                  ],
+                  "range": {
+                    "start": 0,
+                    "end": 6
+                  }
+                },
+                {
+                  "marker": [
+                    "unknown",
+                    0
+                  ],
+                  "range": {
+                    "start": 8,
+                    "end": 15
+                  }
+                },
+                {
+                  "marker": [
+                    "unknown",
+                    0
+                  ],
+                  "range": {
+                    "start": 17,
+                    "end": 21
+                  }
+                },
+                {
+                  "marker": [
+                    "unknown",
+                    0
+                  ],
+                  "range": {
+                    "start": 23,
+                    "end": 28
+                  }
+                },
+                {
+                  "marker": [
+                    "unknown",
+                    0
+                  ],
+                  "range": {
+                    "start": 30,
+                    "end": 34
+                  }
+                },
+                {
+                  "marker": [
+                    "list",
+                    1
+                  ],
+                  "range": {
+                    "start": 36,
+                    "end": 53
+                  }
+                },
+                {
+                  "marker": [
+                    "is",
+                    0
+                  ],
+                  "range": {
+                    "start": 55,
+                    "end": 57
+                  }
+                },
+                {
+                  "marker": [
+                    "direction",
+                    0
+                  ],
+                  "range": {
+                    "start": 59,
+                    "end": 68
+                  }
+                }
+              ],
+              "counter": 14
             },
             {
               "operators": [
@@ -9715,21 +10787,11 @@
                 {
                   "marker": [
                     "list",
-                    0
+                    1
                   ],
                   "range": {
                     "start": 30,
-                    "end": 32
-                  }
-                },
-                {
-                  "marker": [
-                    "unknown",
-                    0
-                  ],
-                  "range": {
-                    "start": 34,
-                    "end": 41
+                    "end": 53
                   }
                 },
                 {
@@ -9738,8 +10800,8 @@
                     0
                   ],
                   "range": {
-                    "start": 43,
-                    "end": 45
+                    "start": 55,
+                    "end": 57
                   }
                 },
                 {
@@ -9748,12 +10810,12 @@
                     0
                   ],
                   "range": {
-                    "start": 47,
-                    "end": 56
+                    "start": 59,
+                    "end": 68
                   }
                 }
               ],
-              "counter": 10
+              "counter": 15
             },
             {
               "operators": [
@@ -9794,7 +10856,7 @@
                   ],
                   "range": {
                     "start": 23,
-                    "end": 41
+                    "end": 53
                   }
                 },
                 {
@@ -9803,8 +10865,8 @@
                     0
                   ],
                   "range": {
-                    "start": 43,
-                    "end": 45
+                    "start": 55,
+                    "end": 57
                   }
                 },
                 {
@@ -9813,12 +10875,12 @@
                     0
                   ],
                   "range": {
-                    "start": 47,
-                    "end": 56
+                    "start": 59,
+                    "end": 68
                   }
                 }
               ],
-              "counter": 11
+              "counter": 16
             },
             {
               "operators": [
@@ -9849,7 +10911,7 @@
                   ],
                   "range": {
                     "start": 17,
-                    "end": 41
+                    "end": 53
                   }
                 },
                 {
@@ -9858,8 +10920,8 @@
                     0
                   ],
                   "range": {
-                    "start": 43,
-                    "end": 45
+                    "start": 55,
+                    "end": 57
                   }
                 },
                 {
@@ -9868,12 +10930,12 @@
                     0
                   ],
                   "range": {
-                    "start": 47,
-                    "end": 56
+                    "start": 59,
+                    "end": 68
                   }
                 }
               ],
-              "counter": 12
+              "counter": 17
             },
             {
               "operators": [
@@ -9894,7 +10956,7 @@
                   ],
                   "range": {
                     "start": 8,
-                    "end": 41
+                    "end": 53
                   }
                 },
                 {
@@ -9903,8 +10965,8 @@
                     0
                   ],
                   "range": {
-                    "start": 43,
-                    "end": 45
+                    "start": 55,
+                    "end": 57
                   }
                 },
                 {
@@ -9913,12 +10975,12 @@
                     0
                   ],
                   "range": {
-                    "start": 47,
-                    "end": 56
+                    "start": 59,
+                    "end": 68
                   }
                 }
               ],
-              "counter": 13
+              "counter": 18
             },
             {
               "operators": [
@@ -9929,7 +10991,7 @@
                   ],
                   "range": {
                     "start": 0,
-                    "end": 41
+                    "end": 53
                   }
                 },
                 {
@@ -9938,8 +11000,8 @@
                     0
                   ],
                   "range": {
-                    "start": 43,
-                    "end": 45
+                    "start": 55,
+                    "end": 57
                   }
                 },
                 {
@@ -9948,12 +11010,12 @@
                     0
                   ],
                   "range": {
-                    "start": 47,
-                    "end": 56
+                    "start": 59,
+                    "end": 68
                   }
                 }
               ],
-              "counter": 14
+              "counter": 19
             },
             {
               "operators": [
@@ -9964,7 +11026,7 @@
                   ],
                   "range": {
                     "start": 0,
-                    "end": 41
+                    "end": 53
                   }
                 },
                 {
@@ -9973,8 +11035,8 @@
                     0
                   ],
                   "range": {
-                    "start": 43,
-                    "end": 45
+                    "start": 55,
+                    "end": 57
                   }
                 },
                 {
@@ -9983,12 +11045,12 @@
                     1
                   ],
                   "range": {
-                    "start": 47,
-                    "end": 56
+                    "start": 59,
+                    "end": 68
                   }
                 }
               ],
-              "counter": 15
+              "counter": 20
             },
             {
               "operators": [
@@ -9999,11 +11061,11 @@
                   ],
                   "range": {
                     "start": 0,
-                    "end": 56
+                    "end": 68
                   }
                 }
               ],
-              "counter": 16
+              "counter": 21
             },
             {
               "operators": [
@@ -10014,11 +11076,11 @@
                   ],
                   "range": {
                     "start": 0,
-                    "end": 56
+                    "end": 68
                   }
                 }
               ],
-              "counter": 17
+              "counter": 22
             }
           ],
           "length": 1
@@ -10026,9 +11088,9 @@
       ],
       "learned_contextual_priorities": [],
       "rtf_associations": [],
-      "query": "around, forward, left, right, and backward are directions",
+      "query": "around, forward, left, right, back, forth and backward are directions",
       "key": {
-        "query": "around, forward, left, right, and backward are directions"
+        "query": "around, forward, left, right, back, forth and backward are directions"
       }
     },
     {
@@ -10036,51 +11098,6 @@
         [
           "a",
           "article",
-          false
-        ],
-        [
-          "action",
-          "concept",
-          false
-        ],
-        [
-          "action",
-          "hierarchyAble",
-          false
-        ],
-        [
-          "action",
-          "isEdee",
-          false
-        ],
-        [
-          "action",
-          "isEder",
-          false
-        ],
-        [
-          "action",
-          "object",
-          false
-        ],
-        [
-          "action",
-          "property",
-          false
-        ],
-        [
-          "action",
-          "queryable",
-          false
-        ],
-        [
-          "action",
-          "theAble",
-          false
-        ],
-        [
-          "action",
-          "thisAble",
           false
         ],
         [
@@ -10331,6 +11348,51 @@
         [
           "atTime",
           "preposition",
+          false
+        ],
+        [
+          "back",
+          "direction",
+          false
+        ],
+        [
+          "back",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "back",
+          "isEdee",
+          false
+        ],
+        [
+          "back",
+          "isEder",
+          false
+        ],
+        [
+          "back",
+          "object",
+          false
+        ],
+        [
+          "back",
+          "property",
+          false
+        ],
+        [
+          "back",
+          "queryable",
+          false
+        ],
+        [
+          "back",
+          "theAble",
+          false
+        ],
+        [
+          "back",
+          "thisAble",
           false
         ],
         [
@@ -11096,6 +12158,51 @@
         [
           "formulaForVariable",
           "queryable",
+          false
+        ],
+        [
+          "forth",
+          "direction",
+          false
+        ],
+        [
+          "forth",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "forth",
+          "isEdee",
+          false
+        ],
+        [
+          "forth",
+          "isEder",
+          false
+        ],
+        [
+          "forth",
+          "object",
+          false
+        ],
+        [
+          "forth",
+          "property",
+          false
+        ],
+        [
+          "forth",
+          "queryable",
+          false
+        ],
+        [
+          "forth",
+          "theAble",
+          false
+        ],
+        [
+          "forth",
+          "thisAble",
           false
         ],
         [
@@ -13603,10 +14710,6 @@
             ],
             "ops": [
               [
-                "action",
-                0
-              ],
-              [
                 "is",
                 0
               ],
@@ -13632,10 +14735,6 @@
             ],
             "ops": [
               [
-                "action",
-                0
-              ],
-              [
                 "is",
                 0
               ],
@@ -13652,14 +14751,10 @@
           },
           {
             "op": [
-              "action",
+              "list",
               0
             ],
             "ops": [
-              [
-                "action",
-                0
-              ],
               [
                 "is",
                 0
@@ -13673,16 +14768,12 @@
           },
           {
             "op": [
-              "list",
+              "is",
               0
             ],
             "ops": [
               [
                 "is",
-                0
-              ],
-              [
-                "list",
                 0
               ]
             ],
@@ -13690,46 +14781,16 @@
           },
           {
             "op": [
-              "list",
+              "is",
               1
             ],
             "ops": [
               [
                 "is",
-                0
-              ],
-              [
-                "list",
                 1
               ]
             ],
             "counter": 5
-          },
-          {
-            "op": [
-              "is",
-              0
-            ],
-            "ops": [
-              [
-                "is",
-                0
-              ]
-            ],
-            "counter": 6
-          },
-          {
-            "op": [
-              "is",
-              1
-            ],
-            "ops": [
-              [
-                "is",
-                1
-              ]
-            ],
-            "counter": 7
           }
         ]
       },
@@ -13737,12 +14798,12 @@
       "contexts": [
         {
           "number": "many",
-          "text": "paths are nameable actions and memorable",
+          "text": "paths are nameable and memorable",
           "marker": "is",
           "word": "are",
           "range": {
             "start": 0,
-            "end": 39
+            "end": 31
           },
           "one": {
             "number": "many",
@@ -13765,15 +14826,17 @@
             "marker": "list",
             "default": true,
             "word": "and",
-            "text": "nameable actions and memorable",
+            "text": "nameable and memorable",
             "range": {
               "start": 10,
-              "end": 39
+              "end": 31
             },
             "types": [
-              "action",
               "list",
+              "listable",
               "memorable",
+              "queryable",
+              "theAble",
               "unknown"
             ],
             "listable": true,
@@ -13791,21 +14854,11 @@
                 },
                 "dead": true,
                 "types": [
+                  "listable",
+                  "queryable",
+                  "theAble",
                   "unknown"
                 ],
-                "level": 0
-              },
-              {
-                "value": "action",
-                "number": "many",
-                "text": "actions",
-                "marker": "action",
-                "word": "actions",
-                "range": {
-                  "start": 19,
-                  "end": 25
-                },
-                "dead": true,
                 "level": 0
               },
               {
@@ -13815,9 +14868,15 @@
                 "marker": "memorable",
                 "dead": true,
                 "range": {
-                  "start": 31,
-                  "end": 39
+                  "start": 23,
+                  "end": 31
                 },
+                "types": [
+                  "listable",
+                  "memorable",
+                  "queryable",
+                  "theAble"
+                ],
                 "level": 0
               }
             ],
@@ -13838,7 +14897,7 @@
         ""
       ],
       "paraphrases": [
-        "paths are nameable, actions and memorable"
+        "paths are nameable and memorable"
       ],
       "paraphrasesParenthesized": [],
       "generatedParenthesized": [],
@@ -13847,10 +14906,6 @@
       ],
       "associations": [
         [
-          [
-            "action",
-            0
-          ],
           [
             "is",
             0
@@ -13920,22 +14975,12 @@
                 },
                 {
                   "marker": [
-                    "action",
-                    0
-                  ],
-                  "range": {
-                    "start": 19,
-                    "end": 25
-                  }
-                },
-                {
-                  "marker": [
                     "list",
                     0
                   ],
                   "range": {
-                    "start": 27,
-                    "end": 29
+                    "start": 19,
+                    "end": 21
                   }
                 },
                 {
@@ -13944,8 +14989,8 @@
                     0
                   ],
                   "range": {
-                    "start": 31,
-                    "end": 39
+                    "start": 23,
+                    "end": 31
                   }
                 }
               ],
@@ -13985,22 +15030,12 @@
                 },
                 {
                   "marker": [
-                    "action",
-                    0
-                  ],
-                  "range": {
-                    "start": 19,
-                    "end": 25
-                  }
-                },
-                {
-                  "marker": [
                     "list",
                     0
                   ],
                   "range": {
-                    "start": 27,
-                    "end": 29
+                    "start": 19,
+                    "end": 21
                   }
                 },
                 {
@@ -14009,8 +15044,8 @@
                     0
                   ],
                   "range": {
-                    "start": 31,
-                    "end": 39
+                    "start": 23,
+                    "end": 31
                   }
                 }
               ],
@@ -14050,22 +15085,12 @@
                 },
                 {
                   "marker": [
-                    "action",
-                    0
-                  ],
-                  "range": {
-                    "start": 19,
-                    "end": 25
-                  }
-                },
-                {
-                  "marker": [
                     "list",
                     0
                   ],
                   "range": {
-                    "start": 27,
-                    "end": 29
+                    "start": 19,
+                    "end": 21
                   }
                 },
                 {
@@ -14074,8 +15099,8 @@
                     0
                   ],
                   "range": {
-                    "start": 31,
-                    "end": 39
+                    "start": 23,
+                    "end": 31
                   }
                 }
               ],
@@ -14105,42 +15130,12 @@
                 },
                 {
                   "marker": [
-                    "unknown",
-                    0
+                    "list",
+                    1
                   ],
                   "range": {
                     "start": 10,
-                    "end": 17
-                  }
-                },
-                {
-                  "marker": [
-                    "action",
-                    0
-                  ],
-                  "range": {
-                    "start": 19,
-                    "end": 25
-                  }
-                },
-                {
-                  "marker": [
-                    "list",
-                    0
-                  ],
-                  "range": {
-                    "start": 27,
-                    "end": 29
-                  }
-                },
-                {
-                  "marker": [
-                    "memorable",
-                    0
-                  ],
-                  "range": {
-                    "start": 31,
-                    "end": 39
+                    "end": 31
                   }
                 }
               ],
@@ -14150,96 +15145,16 @@
               "operators": [
                 {
                   "marker": [
-                    "unknown",
-                    0
-                  ],
-                  "range": {
-                    "start": 0,
-                    "end": 4
-                  }
-                },
-                {
-                  "marker": [
                     "is",
-                    0
-                  ],
-                  "range": {
-                    "start": 6,
-                    "end": 8
-                  }
-                },
-                {
-                  "marker": [
-                    "unknown",
-                    0
-                  ],
-                  "range": {
-                    "start": 10,
-                    "end": 17
-                  }
-                },
-                {
-                  "marker": [
-                    "list",
                     1
                   ],
                   "range": {
-                    "start": 19,
-                    "end": 39
+                    "start": 0,
+                    "end": 31
                   }
                 }
               ],
               "counter": 5
-            },
-            {
-              "operators": [
-                {
-                  "marker": [
-                    "unknown",
-                    0
-                  ],
-                  "range": {
-                    "start": 0,
-                    "end": 4
-                  }
-                },
-                {
-                  "marker": [
-                    "is",
-                    0
-                  ],
-                  "range": {
-                    "start": 6,
-                    "end": 8
-                  }
-                },
-                {
-                  "marker": [
-                    "list",
-                    1
-                  ],
-                  "range": {
-                    "start": 10,
-                    "end": 39
-                  }
-                }
-              ],
-              "counter": 6
-            },
-            {
-              "operators": [
-                {
-                  "marker": [
-                    "is",
-                    1
-                  ],
-                  "range": {
-                    "start": 0,
-                    "end": 39
-                  }
-                }
-              ],
-              "counter": 7
             },
             {
               "operators": [
@@ -14250,11 +15165,11 @@
                   ],
                   "range": {
                     "start": 0,
-                    "end": 39
+                    "end": 31
                   }
                 }
               ],
-              "counter": 8
+              "counter": 6
             }
           ],
           "length": 1
@@ -14262,9 +15177,9 @@
       ],
       "learned_contextual_priorities": [],
       "rtf_associations": [],
-      "query": "paths are nameable actions and memorable",
+      "query": "paths are nameable and memorable",
       "key": {
-        "query": "paths are nameable actions and memorable"
+        "query": "paths are nameable and memorable"
       }
     },
     {
@@ -14272,51 +15187,6 @@
         [
           "a",
           "article",
-          false
-        ],
-        [
-          "action",
-          "concept",
-          false
-        ],
-        [
-          "action",
-          "hierarchyAble",
-          false
-        ],
-        [
-          "action",
-          "isEdee",
-          false
-        ],
-        [
-          "action",
-          "isEder",
-          false
-        ],
-        [
-          "action",
-          "object",
-          false
-        ],
-        [
-          "action",
-          "property",
-          false
-        ],
-        [
-          "action",
-          "queryable",
-          false
-        ],
-        [
-          "action",
-          "theAble",
-          false
-        ],
-        [
-          "action",
-          "thisAble",
           false
         ],
         [
@@ -14567,6 +15437,51 @@
         [
           "atTime",
           "preposition",
+          false
+        ],
+        [
+          "back",
+          "direction",
+          false
+        ],
+        [
+          "back",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "back",
+          "isEdee",
+          false
+        ],
+        [
+          "back",
+          "isEder",
+          false
+        ],
+        [
+          "back",
+          "object",
+          false
+        ],
+        [
+          "back",
+          "property",
+          false
+        ],
+        [
+          "back",
+          "queryable",
+          false
+        ],
+        [
+          "back",
+          "theAble",
+          false
+        ],
+        [
+          "back",
+          "thisAble",
           false
         ],
         [
@@ -15332,6 +16247,51 @@
         [
           "formulaForVariable",
           "queryable",
+          false
+        ],
+        [
+          "forth",
+          "direction",
+          false
+        ],
+        [
+          "forth",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "forth",
+          "isEdee",
+          false
+        ],
+        [
+          "forth",
+          "isEder",
+          false
+        ],
+        [
+          "forth",
+          "object",
+          false
+        ],
+        [
+          "forth",
+          "property",
+          false
+        ],
+        [
+          "forth",
+          "queryable",
+          false
+        ],
+        [
+          "forth",
+          "theAble",
+          false
+        ],
+        [
+          "forth",
+          "thisAble",
           false
         ],
         [
@@ -16852,11 +17812,6 @@
         [
           "ordinalOnOrdered",
           "adjective",
-          false
-        ],
-        [
-          "path",
-          "action",
           false
         ],
         [
@@ -18756,51 +19711,6 @@
           false
         ],
         [
-          "action",
-          "concept",
-          false
-        ],
-        [
-          "action",
-          "hierarchyAble",
-          false
-        ],
-        [
-          "action",
-          "isEdee",
-          false
-        ],
-        [
-          "action",
-          "isEder",
-          false
-        ],
-        [
-          "action",
-          "object",
-          false
-        ],
-        [
-          "action",
-          "property",
-          false
-        ],
-        [
-          "action",
-          "queryable",
-          false
-        ],
-        [
-          "action",
-          "theAble",
-          false
-        ],
-        [
-          "action",
-          "thisAble",
-          false
-        ],
-        [
           "adjective",
           "adjective",
           false
@@ -19048,6 +19958,51 @@
         [
           "atTime",
           "preposition",
+          false
+        ],
+        [
+          "back",
+          "direction",
+          false
+        ],
+        [
+          "back",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "back",
+          "isEdee",
+          false
+        ],
+        [
+          "back",
+          "isEder",
+          false
+        ],
+        [
+          "back",
+          "object",
+          false
+        ],
+        [
+          "back",
+          "property",
+          false
+        ],
+        [
+          "back",
+          "queryable",
+          false
+        ],
+        [
+          "back",
+          "theAble",
+          false
+        ],
+        [
+          "back",
+          "thisAble",
           false
         ],
         [
@@ -19853,6 +20808,51 @@
         [
           "formulaForVariable",
           "queryable",
+          false
+        ],
+        [
+          "forth",
+          "direction",
+          false
+        ],
+        [
+          "forth",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "forth",
+          "isEdee",
+          false
+        ],
+        [
+          "forth",
+          "isEder",
+          false
+        ],
+        [
+          "forth",
+          "object",
+          false
+        ],
+        [
+          "forth",
+          "property",
+          false
+        ],
+        [
+          "forth",
+          "queryable",
+          false
+        ],
+        [
+          "forth",
+          "theAble",
+          false
+        ],
+        [
+          "forth",
+          "thisAble",
           false
         ],
         [
@@ -21373,11 +22373,6 @@
         [
           "ordinalOnOrdered",
           "adjective",
-          false
-        ],
-        [
-          "path",
-          "action",
           false
         ],
         [
@@ -22934,6 +23929,10 @@
         [
           "thisitthat",
           "path"
+        ],
+        [
+          "path",
+          "action"
         ]
       ]
     },
@@ -22946,47 +23945,7 @@
         ],
         [
           "action",
-          "concept",
-          false
-        ],
-        [
           "action",
-          "hierarchyAble",
-          false
-        ],
-        [
-          "action",
-          "isEdee",
-          false
-        ],
-        [
-          "action",
-          "isEder",
-          false
-        ],
-        [
-          "action",
-          "object",
-          false
-        ],
-        [
-          "action",
-          "property",
-          false
-        ],
-        [
-          "action",
-          "queryable",
-          false
-        ],
-        [
-          "action",
-          "theAble",
-          false
-        ],
-        [
-          "action",
-          "thisAble",
           false
         ],
         [
@@ -23237,6 +24196,51 @@
         [
           "atTime",
           "preposition",
+          false
+        ],
+        [
+          "back",
+          "direction",
+          false
+        ],
+        [
+          "back",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "back",
+          "isEdee",
+          false
+        ],
+        [
+          "back",
+          "isEder",
+          false
+        ],
+        [
+          "back",
+          "object",
+          false
+        ],
+        [
+          "back",
+          "property",
+          false
+        ],
+        [
+          "back",
+          "queryable",
+          false
+        ],
+        [
+          "back",
+          "theAble",
+          false
+        ],
+        [
+          "back",
+          "thisAble",
           false
         ],
         [
@@ -24047,6 +25051,51 @@
         [
           "formulaForVariable",
           "queryable",
+          false
+        ],
+        [
+          "forth",
+          "direction",
+          false
+        ],
+        [
+          "forth",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "forth",
+          "isEdee",
+          false
+        ],
+        [
+          "forth",
+          "isEder",
+          false
+        ],
+        [
+          "forth",
+          "object",
+          false
+        ],
+        [
+          "forth",
+          "property",
+          false
+        ],
+        [
+          "forth",
+          "queryable",
+          false
+        ],
+        [
+          "forth",
+          "theAble",
+          false
+        ],
+        [
+          "forth",
+          "thisAble",
           false
         ],
         [
@@ -27170,47 +28219,7 @@
         ],
         [
           "action",
-          "concept",
-          false
-        ],
-        [
           "action",
-          "hierarchyAble",
-          false
-        ],
-        [
-          "action",
-          "isEdee",
-          false
-        ],
-        [
-          "action",
-          "isEder",
-          false
-        ],
-        [
-          "action",
-          "object",
-          false
-        ],
-        [
-          "action",
-          "property",
-          false
-        ],
-        [
-          "action",
-          "queryable",
-          false
-        ],
-        [
-          "action",
-          "theAble",
-          false
-        ],
-        [
-          "action",
-          "thisAble",
           false
         ],
         [
@@ -27461,6 +28470,51 @@
         [
           "atTime",
           "preposition",
+          false
+        ],
+        [
+          "back",
+          "direction",
+          false
+        ],
+        [
+          "back",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "back",
+          "isEdee",
+          false
+        ],
+        [
+          "back",
+          "isEder",
+          false
+        ],
+        [
+          "back",
+          "object",
+          false
+        ],
+        [
+          "back",
+          "property",
+          false
+        ],
+        [
+          "back",
+          "queryable",
+          false
+        ],
+        [
+          "back",
+          "theAble",
+          false
+        ],
+        [
+          "back",
+          "thisAble",
           false
         ],
         [
@@ -28271,6 +29325,51 @@
         [
           "formulaForVariable",
           "queryable",
+          false
+        ],
+        [
+          "forth",
+          "direction",
+          false
+        ],
+        [
+          "forth",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "forth",
+          "isEdee",
+          false
+        ],
+        [
+          "forth",
+          "isEder",
+          false
+        ],
+        [
+          "forth",
+          "object",
+          false
+        ],
+        [
+          "forth",
+          "property",
+          false
+        ],
+        [
+          "forth",
+          "queryable",
+          false
+        ],
+        [
+          "forth",
+          "theAble",
+          false
+        ],
+        [
+          "forth",
+          "thisAble",
           false
         ],
         [
@@ -31401,47 +32500,7 @@
         ],
         [
           "action",
-          "concept",
-          false
-        ],
-        [
           "action",
-          "hierarchyAble",
-          false
-        ],
-        [
-          "action",
-          "isEdee",
-          false
-        ],
-        [
-          "action",
-          "isEder",
-          false
-        ],
-        [
-          "action",
-          "object",
-          false
-        ],
-        [
-          "action",
-          "property",
-          false
-        ],
-        [
-          "action",
-          "queryable",
-          false
-        ],
-        [
-          "action",
-          "theAble",
-          false
-        ],
-        [
-          "action",
-          "thisAble",
           false
         ],
         [
@@ -31692,6 +32751,51 @@
         [
           "atTime",
           "preposition",
+          false
+        ],
+        [
+          "back",
+          "direction",
+          false
+        ],
+        [
+          "back",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "back",
+          "isEdee",
+          false
+        ],
+        [
+          "back",
+          "isEder",
+          false
+        ],
+        [
+          "back",
+          "object",
+          false
+        ],
+        [
+          "back",
+          "property",
+          false
+        ],
+        [
+          "back",
+          "queryable",
+          false
+        ],
+        [
+          "back",
+          "theAble",
+          false
+        ],
+        [
+          "back",
+          "thisAble",
           false
         ],
         [
@@ -32502,6 +33606,51 @@
         [
           "formulaForVariable",
           "queryable",
+          false
+        ],
+        [
+          "forth",
+          "direction",
+          false
+        ],
+        [
+          "forth",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "forth",
+          "isEdee",
+          false
+        ],
+        [
+          "forth",
+          "isEder",
+          false
+        ],
+        [
+          "forth",
+          "object",
+          false
+        ],
+        [
+          "forth",
+          "property",
+          false
+        ],
+        [
+          "forth",
+          "queryable",
+          false
+        ],
+        [
+          "forth",
+          "theAble",
+          false
+        ],
+        [
+          "forth",
+          "thisAble",
           false
         ],
         [
@@ -35598,47 +36747,7 @@
         ],
         [
           "action",
-          "concept",
-          false
-        ],
-        [
           "action",
-          "hierarchyAble",
-          false
-        ],
-        [
-          "action",
-          "isEdee",
-          false
-        ],
-        [
-          "action",
-          "isEder",
-          false
-        ],
-        [
-          "action",
-          "object",
-          false
-        ],
-        [
-          "action",
-          "property",
-          false
-        ],
-        [
-          "action",
-          "queryable",
-          false
-        ],
-        [
-          "action",
-          "theAble",
-          false
-        ],
-        [
-          "action",
-          "thisAble",
           false
         ],
         [
@@ -35889,6 +36998,51 @@
         [
           "atTime",
           "preposition",
+          false
+        ],
+        [
+          "back",
+          "direction",
+          false
+        ],
+        [
+          "back",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "back",
+          "isEdee",
+          false
+        ],
+        [
+          "back",
+          "isEder",
+          false
+        ],
+        [
+          "back",
+          "object",
+          false
+        ],
+        [
+          "back",
+          "property",
+          false
+        ],
+        [
+          "back",
+          "queryable",
+          false
+        ],
+        [
+          "back",
+          "theAble",
+          false
+        ],
+        [
+          "back",
+          "thisAble",
           false
         ],
         [
@@ -36699,6 +37853,51 @@
         [
           "formulaForVariable",
           "queryable",
+          false
+        ],
+        [
+          "forth",
+          "direction",
+          false
+        ],
+        [
+          "forth",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "forth",
+          "isEdee",
+          false
+        ],
+        [
+          "forth",
+          "isEder",
+          false
+        ],
+        [
+          "forth",
+          "object",
+          false
+        ],
+        [
+          "forth",
+          "property",
+          false
+        ],
+        [
+          "forth",
+          "queryable",
+          false
+        ],
+        [
+          "forth",
+          "theAble",
+          false
+        ],
+        [
+          "forth",
+          "thisAble",
           false
         ],
         [
@@ -39800,47 +40999,7 @@
         ],
         [
           "action",
-          "concept",
-          false
-        ],
-        [
           "action",
-          "hierarchyAble",
-          false
-        ],
-        [
-          "action",
-          "isEdee",
-          false
-        ],
-        [
-          "action",
-          "isEder",
-          false
-        ],
-        [
-          "action",
-          "object",
-          false
-        ],
-        [
-          "action",
-          "property",
-          false
-        ],
-        [
-          "action",
-          "queryable",
-          false
-        ],
-        [
-          "action",
-          "theAble",
-          false
-        ],
-        [
-          "action",
-          "thisAble",
           false
         ],
         [
@@ -40091,6 +41250,51 @@
         [
           "atTime",
           "preposition",
+          false
+        ],
+        [
+          "back",
+          "direction",
+          false
+        ],
+        [
+          "back",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "back",
+          "isEdee",
+          false
+        ],
+        [
+          "back",
+          "isEder",
+          false
+        ],
+        [
+          "back",
+          "object",
+          false
+        ],
+        [
+          "back",
+          "property",
+          false
+        ],
+        [
+          "back",
+          "queryable",
+          false
+        ],
+        [
+          "back",
+          "theAble",
+          false
+        ],
+        [
+          "back",
+          "thisAble",
           false
         ],
         [
@@ -40901,6 +42105,51 @@
         [
           "formulaForVariable",
           "queryable",
+          false
+        ],
+        [
+          "forth",
+          "direction",
+          false
+        ],
+        [
+          "forth",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "forth",
+          "isEdee",
+          false
+        ],
+        [
+          "forth",
+          "isEder",
+          false
+        ],
+        [
+          "forth",
+          "object",
+          false
+        ],
+        [
+          "forth",
+          "property",
+          false
+        ],
+        [
+          "forth",
+          "queryable",
+          false
+        ],
+        [
+          "forth",
+          "theAble",
+          false
+        ],
+        [
+          "forth",
+          "thisAble",
           false
         ],
         [
@@ -44384,47 +45633,7 @@
         ],
         [
           "action",
-          "concept",
-          false
-        ],
-        [
           "action",
-          "hierarchyAble",
-          false
-        ],
-        [
-          "action",
-          "isEdee",
-          false
-        ],
-        [
-          "action",
-          "isEder",
-          false
-        ],
-        [
-          "action",
-          "object",
-          false
-        ],
-        [
-          "action",
-          "property",
-          false
-        ],
-        [
-          "action",
-          "queryable",
-          false
-        ],
-        [
-          "action",
-          "theAble",
-          false
-        ],
-        [
-          "action",
-          "thisAble",
           false
         ],
         [
@@ -44675,6 +45884,51 @@
         [
           "atTime",
           "preposition",
+          false
+        ],
+        [
+          "back",
+          "direction",
+          false
+        ],
+        [
+          "back",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "back",
+          "isEdee",
+          false
+        ],
+        [
+          "back",
+          "isEder",
+          false
+        ],
+        [
+          "back",
+          "object",
+          false
+        ],
+        [
+          "back",
+          "property",
+          false
+        ],
+        [
+          "back",
+          "queryable",
+          false
+        ],
+        [
+          "back",
+          "theAble",
+          false
+        ],
+        [
+          "back",
+          "thisAble",
           false
         ],
         [
@@ -45485,6 +46739,51 @@
         [
           "formulaForVariable",
           "queryable",
+          false
+        ],
+        [
+          "forth",
+          "direction",
+          false
+        ],
+        [
+          "forth",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "forth",
+          "isEdee",
+          false
+        ],
+        [
+          "forth",
+          "isEder",
+          false
+        ],
+        [
+          "forth",
+          "object",
+          false
+        ],
+        [
+          "forth",
+          "property",
+          false
+        ],
+        [
+          "forth",
+          "queryable",
+          false
+        ],
+        [
+          "forth",
+          "theAble",
+          false
+        ],
+        [
+          "forth",
+          "thisAble",
           false
         ],
         [
@@ -48530,8 +49829,6 @@
         "([lower] (@<= arm || @<=claw))",
         "([open] (claw))",
         "([close] (claw))",
-        "([back])",
-        "([forth])",
         "([pathComponent])",
         "([stop] ([drone|])?)",
         "([toPoint|to] (point))"
@@ -48608,7 +49905,8 @@
           "id": "go",
           "level": 0,
           "isA": [
-            "verb"
+            "verb",
+            "action"
           ],
           "words": [
             {
@@ -48826,47 +50124,7 @@
         ],
         [
           "action",
-          "concept",
-          false
-        ],
-        [
           "action",
-          "hierarchyAble",
-          false
-        ],
-        [
-          "action",
-          "isEdee",
-          false
-        ],
-        [
-          "action",
-          "isEder",
-          false
-        ],
-        [
-          "action",
-          "object",
-          false
-        ],
-        [
-          "action",
-          "property",
-          false
-        ],
-        [
-          "action",
-          "queryable",
-          false
-        ],
-        [
-          "action",
-          "theAble",
-          false
-        ],
-        [
-          "action",
-          "thisAble",
           false
         ],
         [
@@ -49121,7 +50379,52 @@
         ],
         [
           "back",
+          "direction",
+          false
+        ],
+        [
+          "back",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "back",
+          "isEdee",
+          false
+        ],
+        [
+          "back",
+          "isEder",
+          false
+        ],
+        [
+          "back",
           "noun",
+          false
+        ],
+        [
+          "back",
+          "object",
+          false
+        ],
+        [
+          "back",
+          "property",
+          false
+        ],
+        [
+          "back",
+          "queryable",
+          false
+        ],
+        [
+          "back",
+          "theAble",
+          false
+        ],
+        [
+          "back",
+          "thisAble",
           false
         ],
         [
@@ -49996,7 +51299,52 @@
         ],
         [
           "forth",
+          "direction",
+          false
+        ],
+        [
+          "forth",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "forth",
+          "isEdee",
+          false
+        ],
+        [
+          "forth",
+          "isEder",
+          false
+        ],
+        [
+          "forth",
           "noun",
+          false
+        ],
+        [
+          "forth",
+          "object",
+          false
+        ],
+        [
+          "forth",
+          "property",
+          false
+        ],
+        [
+          "forth",
+          "queryable",
+          false
+        ],
+        [
+          "forth",
+          "theAble",
+          false
+        ],
+        [
+          "forth",
+          "thisAble",
           false
         ],
         [
@@ -50042,6 +51390,11 @@
         [
           "forward",
           "thisAble",
+          false
+        ],
+        [
+          "go",
+          "action",
           false
         ],
         [
@@ -53036,47 +54389,7 @@
         ],
         [
           "action",
-          "concept",
-          false
-        ],
-        [
           "action",
-          "hierarchyAble",
-          false
-        ],
-        [
-          "action",
-          "isEdee",
-          false
-        ],
-        [
-          "action",
-          "isEder",
-          false
-        ],
-        [
-          "action",
-          "object",
-          false
-        ],
-        [
-          "action",
-          "property",
-          false
-        ],
-        [
-          "action",
-          "queryable",
-          false
-        ],
-        [
-          "action",
-          "theAble",
-          false
-        ],
-        [
-          "action",
-          "thisAble",
           false
         ],
         [
@@ -53331,7 +54644,52 @@
         ],
         [
           "back",
+          "direction",
+          false
+        ],
+        [
+          "back",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "back",
+          "isEdee",
+          false
+        ],
+        [
+          "back",
+          "isEder",
+          false
+        ],
+        [
+          "back",
           "noun",
+          false
+        ],
+        [
+          "back",
+          "object",
+          false
+        ],
+        [
+          "back",
+          "property",
+          false
+        ],
+        [
+          "back",
+          "queryable",
+          false
+        ],
+        [
+          "back",
+          "theAble",
+          false
+        ],
+        [
+          "back",
+          "thisAble",
           false
         ],
         [
@@ -54206,7 +55564,52 @@
         ],
         [
           "forth",
+          "direction",
+          false
+        ],
+        [
+          "forth",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "forth",
+          "isEdee",
+          false
+        ],
+        [
+          "forth",
+          "isEder",
+          false
+        ],
+        [
+          "forth",
           "noun",
+          false
+        ],
+        [
+          "forth",
+          "object",
+          false
+        ],
+        [
+          "forth",
+          "property",
+          false
+        ],
+        [
+          "forth",
+          "queryable",
+          false
+        ],
+        [
+          "forth",
+          "theAble",
+          false
+        ],
+        [
+          "forth",
+          "thisAble",
           false
         ],
         [
@@ -54252,6 +55655,11 @@
         [
           "forward",
           "thisAble",
+          false
+        ],
+        [
+          "go",
+          "action",
           false
         ],
         [
@@ -57246,47 +58654,7 @@
         ],
         [
           "action",
-          "concept",
-          false
-        ],
-        [
           "action",
-          "hierarchyAble",
-          false
-        ],
-        [
-          "action",
-          "isEdee",
-          false
-        ],
-        [
-          "action",
-          "isEder",
-          false
-        ],
-        [
-          "action",
-          "object",
-          false
-        ],
-        [
-          "action",
-          "property",
-          false
-        ],
-        [
-          "action",
-          "queryable",
-          false
-        ],
-        [
-          "action",
-          "theAble",
-          false
-        ],
-        [
-          "action",
-          "thisAble",
           false
         ],
         [
@@ -57541,7 +58909,52 @@
         ],
         [
           "back",
+          "direction",
+          false
+        ],
+        [
+          "back",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "back",
+          "isEdee",
+          false
+        ],
+        [
+          "back",
+          "isEder",
+          false
+        ],
+        [
+          "back",
           "noun",
+          false
+        ],
+        [
+          "back",
+          "object",
+          false
+        ],
+        [
+          "back",
+          "property",
+          false
+        ],
+        [
+          "back",
+          "queryable",
+          false
+        ],
+        [
+          "back",
+          "theAble",
+          false
+        ],
+        [
+          "back",
+          "thisAble",
           false
         ],
         [
@@ -58416,7 +59829,52 @@
         ],
         [
           "forth",
+          "direction",
+          false
+        ],
+        [
+          "forth",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "forth",
+          "isEdee",
+          false
+        ],
+        [
+          "forth",
+          "isEder",
+          false
+        ],
+        [
+          "forth",
           "noun",
+          false
+        ],
+        [
+          "forth",
+          "object",
+          false
+        ],
+        [
+          "forth",
+          "property",
+          false
+        ],
+        [
+          "forth",
+          "queryable",
+          false
+        ],
+        [
+          "forth",
+          "theAble",
+          false
+        ],
+        [
+          "forth",
+          "thisAble",
           false
         ],
         [
@@ -58462,6 +59920,11 @@
         [
           "forward",
           "thisAble",
+          false
+        ],
+        [
+          "go",
+          "action",
           false
         ],
         [
@@ -61691,47 +63154,7 @@
         ],
         [
           "action",
-          "concept",
-          false
-        ],
-        [
           "action",
-          "hierarchyAble",
-          false
-        ],
-        [
-          "action",
-          "isEdee",
-          false
-        ],
-        [
-          "action",
-          "isEder",
-          false
-        ],
-        [
-          "action",
-          "object",
-          false
-        ],
-        [
-          "action",
-          "property",
-          false
-        ],
-        [
-          "action",
-          "queryable",
-          false
-        ],
-        [
-          "action",
-          "theAble",
-          false
-        ],
-        [
-          "action",
-          "thisAble",
           false
         ],
         [
@@ -61986,7 +63409,52 @@
         ],
         [
           "back",
+          "direction",
+          false
+        ],
+        [
+          "back",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "back",
+          "isEdee",
+          false
+        ],
+        [
+          "back",
+          "isEder",
+          false
+        ],
+        [
+          "back",
           "noun",
+          false
+        ],
+        [
+          "back",
+          "object",
+          false
+        ],
+        [
+          "back",
+          "property",
+          false
+        ],
+        [
+          "back",
+          "queryable",
+          false
+        ],
+        [
+          "back",
+          "theAble",
+          false
+        ],
+        [
+          "back",
+          "thisAble",
           false
         ],
         [
@@ -62861,7 +64329,52 @@
         ],
         [
           "forth",
+          "direction",
+          false
+        ],
+        [
+          "forth",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "forth",
+          "isEdee",
+          false
+        ],
+        [
+          "forth",
+          "isEder",
+          false
+        ],
+        [
+          "forth",
           "noun",
+          false
+        ],
+        [
+          "forth",
+          "object",
+          false
+        ],
+        [
+          "forth",
+          "property",
+          false
+        ],
+        [
+          "forth",
+          "queryable",
+          false
+        ],
+        [
+          "forth",
+          "theAble",
+          false
+        ],
+        [
+          "forth",
+          "thisAble",
           false
         ],
         [
@@ -62907,6 +64420,11 @@
         [
           "forward",
           "thisAble",
+          false
+        ],
+        [
+          "go",
+          "action",
           false
         ],
         [
@@ -66157,47 +67675,7 @@
         ],
         [
           "action",
-          "concept",
-          false
-        ],
-        [
           "action",
-          "hierarchyAble",
-          false
-        ],
-        [
-          "action",
-          "isEdee",
-          false
-        ],
-        [
-          "action",
-          "isEder",
-          false
-        ],
-        [
-          "action",
-          "object",
-          false
-        ],
-        [
-          "action",
-          "property",
-          false
-        ],
-        [
-          "action",
-          "queryable",
-          false
-        ],
-        [
-          "action",
-          "theAble",
-          false
-        ],
-        [
-          "action",
-          "thisAble",
           false
         ],
         [
@@ -66452,7 +67930,52 @@
         ],
         [
           "back",
+          "direction",
+          false
+        ],
+        [
+          "back",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "back",
+          "isEdee",
+          false
+        ],
+        [
+          "back",
+          "isEder",
+          false
+        ],
+        [
+          "back",
           "noun",
+          false
+        ],
+        [
+          "back",
+          "object",
+          false
+        ],
+        [
+          "back",
+          "property",
+          false
+        ],
+        [
+          "back",
+          "queryable",
+          false
+        ],
+        [
+          "back",
+          "theAble",
+          false
+        ],
+        [
+          "back",
+          "thisAble",
           false
         ],
         [
@@ -67327,7 +68850,52 @@
         ],
         [
           "forth",
+          "direction",
+          false
+        ],
+        [
+          "forth",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "forth",
+          "isEdee",
+          false
+        ],
+        [
+          "forth",
+          "isEder",
+          false
+        ],
+        [
+          "forth",
           "noun",
+          false
+        ],
+        [
+          "forth",
+          "object",
+          false
+        ],
+        [
+          "forth",
+          "property",
+          false
+        ],
+        [
+          "forth",
+          "queryable",
+          false
+        ],
+        [
+          "forth",
+          "theAble",
+          false
+        ],
+        [
+          "forth",
+          "thisAble",
           false
         ],
         [
@@ -67373,6 +68941,11 @@
         [
           "forward",
           "thisAble",
+          false
+        ],
+        [
+          "go",
+          "action",
           false
         ],
         [
@@ -70366,47 +71939,7 @@
         ],
         [
           "action",
-          "concept",
-          false
-        ],
-        [
           "action",
-          "hierarchyAble",
-          false
-        ],
-        [
-          "action",
-          "isEdee",
-          false
-        ],
-        [
-          "action",
-          "isEder",
-          false
-        ],
-        [
-          "action",
-          "object",
-          false
-        ],
-        [
-          "action",
-          "property",
-          false
-        ],
-        [
-          "action",
-          "queryable",
-          false
-        ],
-        [
-          "action",
-          "theAble",
-          false
-        ],
-        [
-          "action",
-          "thisAble",
           false
         ],
         [
@@ -70661,7 +72194,52 @@
         ],
         [
           "back",
+          "direction",
+          false
+        ],
+        [
+          "back",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "back",
+          "isEdee",
+          false
+        ],
+        [
+          "back",
+          "isEder",
+          false
+        ],
+        [
+          "back",
           "noun",
+          false
+        ],
+        [
+          "back",
+          "object",
+          false
+        ],
+        [
+          "back",
+          "property",
+          false
+        ],
+        [
+          "back",
+          "queryable",
+          false
+        ],
+        [
+          "back",
+          "theAble",
+          false
+        ],
+        [
+          "back",
+          "thisAble",
           false
         ],
         [
@@ -71536,7 +73114,52 @@
         ],
         [
           "forth",
+          "direction",
+          false
+        ],
+        [
+          "forth",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "forth",
+          "isEdee",
+          false
+        ],
+        [
+          "forth",
+          "isEder",
+          false
+        ],
+        [
+          "forth",
           "noun",
+          false
+        ],
+        [
+          "forth",
+          "object",
+          false
+        ],
+        [
+          "forth",
+          "property",
+          false
+        ],
+        [
+          "forth",
+          "queryable",
+          false
+        ],
+        [
+          "forth",
+          "theAble",
+          false
+        ],
+        [
+          "forth",
+          "thisAble",
           false
         ],
         [
@@ -71582,6 +73205,11 @@
         [
           "forward",
           "thisAble",
+          false
+        ],
+        [
+          "go",
+          "action",
           false
         ],
         [
@@ -74597,47 +76225,7 @@
         ],
         [
           "action",
-          "concept",
-          false
-        ],
-        [
           "action",
-          "hierarchyAble",
-          false
-        ],
-        [
-          "action",
-          "isEdee",
-          false
-        ],
-        [
-          "action",
-          "isEder",
-          false
-        ],
-        [
-          "action",
-          "object",
-          false
-        ],
-        [
-          "action",
-          "property",
-          false
-        ],
-        [
-          "action",
-          "queryable",
-          false
-        ],
-        [
-          "action",
-          "theAble",
-          false
-        ],
-        [
-          "action",
-          "thisAble",
           false
         ],
         [
@@ -74892,7 +76480,52 @@
         ],
         [
           "back",
+          "direction",
+          false
+        ],
+        [
+          "back",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "back",
+          "isEdee",
+          false
+        ],
+        [
+          "back",
+          "isEder",
+          false
+        ],
+        [
+          "back",
           "noun",
+          false
+        ],
+        [
+          "back",
+          "object",
+          false
+        ],
+        [
+          "back",
+          "property",
+          false
+        ],
+        [
+          "back",
+          "queryable",
+          false
+        ],
+        [
+          "back",
+          "theAble",
+          false
+        ],
+        [
+          "back",
+          "thisAble",
           false
         ],
         [
@@ -75767,7 +77400,52 @@
         ],
         [
           "forth",
+          "direction",
+          false
+        ],
+        [
+          "forth",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "forth",
+          "isEdee",
+          false
+        ],
+        [
+          "forth",
+          "isEder",
+          false
+        ],
+        [
+          "forth",
           "noun",
+          false
+        ],
+        [
+          "forth",
+          "object",
+          false
+        ],
+        [
+          "forth",
+          "property",
+          false
+        ],
+        [
+          "forth",
+          "queryable",
+          false
+        ],
+        [
+          "forth",
+          "theAble",
+          false
+        ],
+        [
+          "forth",
+          "thisAble",
           false
         ],
         [
@@ -75813,6 +77491,11 @@
         [
           "forward",
           "thisAble",
+          false
+        ],
+        [
+          "go",
+          "action",
           false
         ],
         [
@@ -79075,47 +80758,7 @@
         ],
         [
           "action",
-          "concept",
-          false
-        ],
-        [
           "action",
-          "hierarchyAble",
-          false
-        ],
-        [
-          "action",
-          "isEdee",
-          false
-        ],
-        [
-          "action",
-          "isEder",
-          false
-        ],
-        [
-          "action",
-          "object",
-          false
-        ],
-        [
-          "action",
-          "property",
-          false
-        ],
-        [
-          "action",
-          "queryable",
-          false
-        ],
-        [
-          "action",
-          "theAble",
-          false
-        ],
-        [
-          "action",
-          "thisAble",
           false
         ],
         [
@@ -79370,7 +81013,52 @@
         ],
         [
           "back",
+          "direction",
+          false
+        ],
+        [
+          "back",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "back",
+          "isEdee",
+          false
+        ],
+        [
+          "back",
+          "isEder",
+          false
+        ],
+        [
+          "back",
           "noun",
+          false
+        ],
+        [
+          "back",
+          "object",
+          false
+        ],
+        [
+          "back",
+          "property",
+          false
+        ],
+        [
+          "back",
+          "queryable",
+          false
+        ],
+        [
+          "back",
+          "theAble",
+          false
+        ],
+        [
+          "back",
+          "thisAble",
           false
         ],
         [
@@ -80245,7 +81933,52 @@
         ],
         [
           "forth",
+          "direction",
+          false
+        ],
+        [
+          "forth",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "forth",
+          "isEdee",
+          false
+        ],
+        [
+          "forth",
+          "isEder",
+          false
+        ],
+        [
+          "forth",
           "noun",
+          false
+        ],
+        [
+          "forth",
+          "object",
+          false
+        ],
+        [
+          "forth",
+          "property",
+          false
+        ],
+        [
+          "forth",
+          "queryable",
+          false
+        ],
+        [
+          "forth",
+          "theAble",
+          false
+        ],
+        [
+          "forth",
+          "thisAble",
           false
         ],
         [
@@ -80291,6 +82024,11 @@
         [
           "forward",
           "thisAble",
+          false
+        ],
+        [
+          "go",
+          "action",
           false
         ],
         [
@@ -83198,7 +84936,11 @@
     ],
     [
       [
-        "action",
+        "comma",
+        0
+      ],
+      [
+        "direction",
         0
       ],
       [
@@ -83207,10 +84949,6 @@
       ],
       [
         "list",
-        0
-      ],
-      [
-        "memorable",
         0
       ],
       [
@@ -83233,7 +84971,7 @@
       ],
       [
         "list",
-        0
+        1
       ],
       [
         "unknown",
@@ -83471,24 +85209,6 @@
       ],
       [
         "list",
-        0
-      ],
-      [
-        "unknown",
-        0
-      ]
-    ],
-    [
-      [
-        "direction",
-        0
-      ],
-      [
-        "is",
-        0
-      ],
-      [
-        "list",
         1
       ]
     ],
@@ -83583,6 +85303,24 @@
       ],
       [
         "point",
+        0
+      ],
+      [
+        "unknown",
+        0
+      ]
+    ],
+    [
+      [
+        "is",
+        0
+      ],
+      [
+        "list",
+        0
+      ],
+      [
+        "memorable",
         0
       ],
       [
@@ -84475,12 +86213,22 @@
             },
             {
               "marker": [
-                "list",
+                "unknown",
                 0
               ],
               "range": {
                 "start": 30,
-                "end": 32
+                "end": 33
+              }
+            },
+            {
+              "marker": [
+                "comma",
+                0
+              ],
+              "range": {
+                "start": 34,
+                "end": 34
               }
             },
             {
@@ -84489,8 +86237,28 @@
                 0
               ],
               "range": {
-                "start": 34,
-                "end": 41
+                "start": 36,
+                "end": 40
+              }
+            },
+            {
+              "marker": [
+                "list",
+                0
+              ],
+              "range": {
+                "start": 42,
+                "end": 44
+              }
+            },
+            {
+              "marker": [
+                "unknown",
+                0
+              ],
+              "range": {
+                "start": 46,
+                "end": 53
               }
             },
             {
@@ -84499,8 +86267,8 @@
                 0
               ],
               "range": {
-                "start": 43,
-                "end": 45
+                "start": 55,
+                "end": 57
               }
             },
             {
@@ -84509,8 +86277,8 @@
                 0
               ],
               "range": {
-                "start": 47,
-                "end": 56
+                "start": 59,
+                "end": 68
               }
             }
           ],
@@ -84600,12 +86368,22 @@
             },
             {
               "marker": [
-                "list",
+                "unknown",
                 0
               ],
               "range": {
                 "start": 30,
-                "end": 32
+                "end": 33
+              }
+            },
+            {
+              "marker": [
+                "comma",
+                0
+              ],
+              "range": {
+                "start": 34,
+                "end": 34
               }
             },
             {
@@ -84614,8 +86392,28 @@
                 0
               ],
               "range": {
-                "start": 34,
-                "end": 41
+                "start": 36,
+                "end": 40
+              }
+            },
+            {
+              "marker": [
+                "list",
+                0
+              ],
+              "range": {
+                "start": 42,
+                "end": 44
+              }
+            },
+            {
+              "marker": [
+                "unknown",
+                0
+              ],
+              "range": {
+                "start": 46,
+                "end": 53
               }
             },
             {
@@ -84624,8 +86422,8 @@
                 0
               ],
               "range": {
-                "start": 43,
-                "end": 45
+                "start": 55,
+                "end": 57
               }
             },
             {
@@ -84634,8 +86432,8 @@
                 0
               ],
               "range": {
-                "start": 47,
-                "end": 56
+                "start": 59,
+                "end": 68
               }
             }
           ],
@@ -84725,12 +86523,22 @@
             },
             {
               "marker": [
-                "list",
+                "unknown",
                 0
               ],
               "range": {
                 "start": 30,
-                "end": 32
+                "end": 33
+              }
+            },
+            {
+              "marker": [
+                "comma",
+                0
+              ],
+              "range": {
+                "start": 34,
+                "end": 34
               }
             },
             {
@@ -84739,8 +86547,28 @@
                 0
               ],
               "range": {
-                "start": 34,
-                "end": 41
+                "start": 36,
+                "end": 40
+              }
+            },
+            {
+              "marker": [
+                "list",
+                0
+              ],
+              "range": {
+                "start": 42,
+                "end": 44
+              }
+            },
+            {
+              "marker": [
+                "unknown",
+                0
+              ],
+              "range": {
+                "start": 46,
+                "end": 53
               }
             },
             {
@@ -84749,8 +86577,8 @@
                 0
               ],
               "range": {
-                "start": 43,
-                "end": 45
+                "start": 55,
+                "end": 57
               }
             },
             {
@@ -84759,8 +86587,8 @@
                 0
               ],
               "range": {
-                "start": 47,
-                "end": 56
+                "start": 59,
+                "end": 68
               }
             }
           ],
@@ -84850,12 +86678,22 @@
             },
             {
               "marker": [
-                "list",
+                "unknown",
                 0
               ],
               "range": {
                 "start": 30,
-                "end": 32
+                "end": 33
+              }
+            },
+            {
+              "marker": [
+                "comma",
+                0
+              ],
+              "range": {
+                "start": 34,
+                "end": 34
               }
             },
             {
@@ -84864,8 +86702,28 @@
                 0
               ],
               "range": {
-                "start": 34,
-                "end": 41
+                "start": 36,
+                "end": 40
+              }
+            },
+            {
+              "marker": [
+                "list",
+                0
+              ],
+              "range": {
+                "start": 42,
+                "end": 44
+              }
+            },
+            {
+              "marker": [
+                "unknown",
+                0
+              ],
+              "range": {
+                "start": 46,
+                "end": 53
               }
             },
             {
@@ -84874,8 +86732,8 @@
                 0
               ],
               "range": {
-                "start": 43,
-                "end": 45
+                "start": 55,
+                "end": 57
               }
             },
             {
@@ -84884,8 +86742,8 @@
                 0
               ],
               "range": {
-                "start": 47,
-                "end": 56
+                "start": 59,
+                "end": 68
               }
             }
           ],
@@ -84975,12 +86833,22 @@
             },
             {
               "marker": [
-                "list",
+                "unknown",
                 0
               ],
               "range": {
                 "start": 30,
-                "end": 32
+                "end": 33
+              }
+            },
+            {
+              "marker": [
+                "comma",
+                0
+              ],
+              "range": {
+                "start": 34,
+                "end": 34
               }
             },
             {
@@ -84989,8 +86857,28 @@
                 0
               ],
               "range": {
-                "start": 34,
-                "end": 41
+                "start": 36,
+                "end": 40
+              }
+            },
+            {
+              "marker": [
+                "list",
+                0
+              ],
+              "range": {
+                "start": 42,
+                "end": 44
+              }
+            },
+            {
+              "marker": [
+                "unknown",
+                0
+              ],
+              "range": {
+                "start": 46,
+                "end": 53
               }
             },
             {
@@ -84999,8 +86887,8 @@
                 0
               ],
               "range": {
-                "start": 43,
-                "end": 45
+                "start": 55,
+                "end": 57
               }
             },
             {
@@ -85009,8 +86897,8 @@
                 0
               ],
               "range": {
-                "start": 47,
-                "end": 56
+                "start": 59,
+                "end": 68
               }
             }
           ],
@@ -85100,12 +86988,22 @@
             },
             {
               "marker": [
-                "list",
+                "unknown",
                 0
               ],
               "range": {
                 "start": 30,
-                "end": 32
+                "end": 33
+              }
+            },
+            {
+              "marker": [
+                "comma",
+                0
+              ],
+              "range": {
+                "start": 34,
+                "end": 34
               }
             },
             {
@@ -85114,8 +87012,28 @@
                 0
               ],
               "range": {
-                "start": 34,
-                "end": 41
+                "start": 36,
+                "end": 40
+              }
+            },
+            {
+              "marker": [
+                "list",
+                0
+              ],
+              "range": {
+                "start": 42,
+                "end": 44
+              }
+            },
+            {
+              "marker": [
+                "unknown",
+                0
+              ],
+              "range": {
+                "start": 46,
+                "end": 53
               }
             },
             {
@@ -85124,8 +87042,8 @@
                 0
               ],
               "range": {
-                "start": 43,
-                "end": 45
+                "start": 55,
+                "end": 57
               }
             },
             {
@@ -85134,12 +87052,457 @@
                 0
               ],
               "range": {
-                "start": 47,
-                "end": 56
+                "start": 59,
+                "end": 68
               }
             }
           ],
           "counter": 6
+        },
+        {
+          "operators": [
+            {
+              "marker": [
+                "unknown",
+                0
+              ],
+              "range": {
+                "start": 0,
+                "end": 5
+              }
+            },
+            {
+              "marker": [
+                "comma",
+                0
+              ],
+              "range": {
+                "start": 6,
+                "end": 6
+              }
+            },
+            {
+              "marker": [
+                "unknown",
+                0
+              ],
+              "range": {
+                "start": 8,
+                "end": 14
+              }
+            },
+            {
+              "marker": [
+                "comma",
+                0
+              ],
+              "range": {
+                "start": 15,
+                "end": 15
+              }
+            },
+            {
+              "marker": [
+                "unknown",
+                0
+              ],
+              "range": {
+                "start": 17,
+                "end": 20
+              }
+            },
+            {
+              "marker": [
+                "comma",
+                0
+              ],
+              "range": {
+                "start": 21,
+                "end": 21
+              }
+            },
+            {
+              "marker": [
+                "unknown",
+                0
+              ],
+              "range": {
+                "start": 23,
+                "end": 27
+              }
+            },
+            {
+              "marker": [
+                "comma",
+                0
+              ],
+              "range": {
+                "start": 28,
+                "end": 28
+              }
+            },
+            {
+              "marker": [
+                "unknown",
+                0
+              ],
+              "range": {
+                "start": 30,
+                "end": 33
+              }
+            },
+            {
+              "marker": [
+                "comma",
+                0
+              ],
+              "range": {
+                "start": 34,
+                "end": 34
+              }
+            },
+            {
+              "marker": [
+                "unknown",
+                0
+              ],
+              "range": {
+                "start": 36,
+                "end": 40
+              }
+            },
+            {
+              "marker": [
+                "list",
+                0
+              ],
+              "range": {
+                "start": 42,
+                "end": 44
+              }
+            },
+            {
+              "marker": [
+                "unknown",
+                0
+              ],
+              "range": {
+                "start": 46,
+                "end": 53
+              }
+            },
+            {
+              "marker": [
+                "is",
+                0
+              ],
+              "range": {
+                "start": 55,
+                "end": 57
+              }
+            },
+            {
+              "marker": [
+                "direction",
+                0
+              ],
+              "range": {
+                "start": 59,
+                "end": 68
+              }
+            }
+          ],
+          "counter": 7
+        },
+        {
+          "operators": [
+            {
+              "marker": [
+                "unknown",
+                0
+              ],
+              "range": {
+                "start": 0,
+                "end": 5
+              }
+            },
+            {
+              "marker": [
+                "comma",
+                0
+              ],
+              "range": {
+                "start": 6,
+                "end": 6
+              }
+            },
+            {
+              "marker": [
+                "unknown",
+                0
+              ],
+              "range": {
+                "start": 8,
+                "end": 14
+              }
+            },
+            {
+              "marker": [
+                "comma",
+                0
+              ],
+              "range": {
+                "start": 15,
+                "end": 15
+              }
+            },
+            {
+              "marker": [
+                "unknown",
+                0
+              ],
+              "range": {
+                "start": 17,
+                "end": 20
+              }
+            },
+            {
+              "marker": [
+                "comma",
+                0
+              ],
+              "range": {
+                "start": 21,
+                "end": 21
+              }
+            },
+            {
+              "marker": [
+                "unknown",
+                0
+              ],
+              "range": {
+                "start": 23,
+                "end": 27
+              }
+            },
+            {
+              "marker": [
+                "comma",
+                0
+              ],
+              "range": {
+                "start": 28,
+                "end": 28
+              }
+            },
+            {
+              "marker": [
+                "unknown",
+                0
+              ],
+              "range": {
+                "start": 30,
+                "end": 33
+              }
+            },
+            {
+              "marker": [
+                "comma",
+                0
+              ],
+              "range": {
+                "start": 34,
+                "end": 34
+              }
+            },
+            {
+              "marker": [
+                "unknown",
+                0
+              ],
+              "range": {
+                "start": 36,
+                "end": 40
+              }
+            },
+            {
+              "marker": [
+                "list",
+                0
+              ],
+              "range": {
+                "start": 42,
+                "end": 44
+              }
+            },
+            {
+              "marker": [
+                "unknown",
+                0
+              ],
+              "range": {
+                "start": 46,
+                "end": 53
+              }
+            },
+            {
+              "marker": [
+                "is",
+                0
+              ],
+              "range": {
+                "start": 55,
+                "end": 57
+              }
+            },
+            {
+              "marker": [
+                "direction",
+                0
+              ],
+              "range": {
+                "start": 59,
+                "end": 68
+              }
+            }
+          ],
+          "counter": 8
+        },
+        {
+          "operators": [
+            {
+              "marker": [
+                "unknown",
+                0
+              ],
+              "range": {
+                "start": 0,
+                "end": 5
+              }
+            },
+            {
+              "marker": [
+                "comma",
+                0
+              ],
+              "range": {
+                "start": 6,
+                "end": 6
+              }
+            },
+            {
+              "marker": [
+                "unknown",
+                0
+              ],
+              "range": {
+                "start": 8,
+                "end": 14
+              }
+            },
+            {
+              "marker": [
+                "comma",
+                0
+              ],
+              "range": {
+                "start": 15,
+                "end": 15
+              }
+            },
+            {
+              "marker": [
+                "unknown",
+                0
+              ],
+              "range": {
+                "start": 17,
+                "end": 20
+              }
+            },
+            {
+              "marker": [
+                "comma",
+                0
+              ],
+              "range": {
+                "start": 21,
+                "end": 21
+              }
+            },
+            {
+              "marker": [
+                "unknown",
+                0
+              ],
+              "range": {
+                "start": 23,
+                "end": 27
+              }
+            },
+            {
+              "marker": [
+                "comma",
+                0
+              ],
+              "range": {
+                "start": 28,
+                "end": 28
+              }
+            },
+            {
+              "marker": [
+                "unknown",
+                0
+              ],
+              "range": {
+                "start": 30,
+                "end": 33
+              }
+            },
+            {
+              "marker": [
+                "comma",
+                0
+              ],
+              "range": {
+                "start": 34,
+                "end": 34
+              }
+            },
+            {
+              "marker": [
+                "list",
+                1
+              ],
+              "range": {
+                "start": 36,
+                "end": 53
+              }
+            },
+            {
+              "marker": [
+                "is",
+                0
+              ],
+              "range": {
+                "start": 55,
+                "end": 57
+              }
+            },
+            {
+              "marker": [
+                "direction",
+                0
+              ],
+              "range": {
+                "start": 59,
+                "end": 68
+              }
+            }
+          ],
+          "counter": 9
         },
         {
           "operators": [
@@ -85215,22 +87578,32 @@
             },
             {
               "marker": [
-                "list",
-                0
-              ],
-              "range": {
-                "start": 30,
-                "end": 32
-              }
-            },
-            {
-              "marker": [
                 "unknown",
                 0
               ],
               "range": {
+                "start": 30,
+                "end": 33
+              }
+            },
+            {
+              "marker": [
+                "comma",
+                0
+              ],
+              "range": {
                 "start": 34,
-                "end": 41
+                "end": 34
+              }
+            },
+            {
+              "marker": [
+                "list",
+                1
+              ],
+              "range": {
+                "start": 36,
+                "end": 53
               }
             },
             {
@@ -85239,8 +87612,8 @@
                 0
               ],
               "range": {
-                "start": 43,
-                "end": 45
+                "start": 55,
+                "end": 57
               }
             },
             {
@@ -85249,12 +87622,12 @@
                 0
               ],
               "range": {
-                "start": 47,
-                "end": 56
+                "start": 59,
+                "end": 68
               }
             }
           ],
-          "counter": 7
+          "counter": 10
         },
         {
           "operators": [
@@ -85320,22 +87693,32 @@
             },
             {
               "marker": [
-                "list",
-                0
-              ],
-              "range": {
-                "start": 30,
-                "end": 32
-              }
-            },
-            {
-              "marker": [
                 "unknown",
                 0
               ],
               "range": {
+                "start": 30,
+                "end": 33
+              }
+            },
+            {
+              "marker": [
+                "comma",
+                0
+              ],
+              "range": {
                 "start": 34,
-                "end": 41
+                "end": 34
+              }
+            },
+            {
+              "marker": [
+                "list",
+                1
+              ],
+              "range": {
+                "start": 36,
+                "end": 53
               }
             },
             {
@@ -85344,8 +87727,8 @@
                 0
               ],
               "range": {
-                "start": 43,
-                "end": 45
+                "start": 55,
+                "end": 57
               }
             },
             {
@@ -85354,12 +87737,12 @@
                 0
               ],
               "range": {
-                "start": 47,
-                "end": 56
+                "start": 59,
+                "end": 68
               }
             }
           ],
-          "counter": 8
+          "counter": 11
         },
         {
           "operators": [
@@ -85415,22 +87798,32 @@
             },
             {
               "marker": [
-                "list",
-                0
-              ],
-              "range": {
-                "start": 30,
-                "end": 32
-              }
-            },
-            {
-              "marker": [
                 "unknown",
                 0
               ],
               "range": {
+                "start": 30,
+                "end": 33
+              }
+            },
+            {
+              "marker": [
+                "comma",
+                0
+              ],
+              "range": {
                 "start": 34,
-                "end": 41
+                "end": 34
+              }
+            },
+            {
+              "marker": [
+                "list",
+                1
+              ],
+              "range": {
+                "start": 36,
+                "end": 53
               }
             },
             {
@@ -85439,8 +87832,8 @@
                 0
               ],
               "range": {
-                "start": 43,
-                "end": 45
+                "start": 55,
+                "end": 57
               }
             },
             {
@@ -85449,12 +87842,192 @@
                 0
               ],
               "range": {
-                "start": 47,
-                "end": 56
+                "start": 59,
+                "end": 68
               }
             }
           ],
-          "counter": 9
+          "counter": 12
+        },
+        {
+          "operators": [
+            {
+              "marker": [
+                "unknown",
+                0
+              ],
+              "range": {
+                "start": 0,
+                "end": 6
+              }
+            },
+            {
+              "marker": [
+                "unknown",
+                0
+              ],
+              "range": {
+                "start": 8,
+                "end": 15
+              }
+            },
+            {
+              "marker": [
+                "unknown",
+                0
+              ],
+              "range": {
+                "start": 17,
+                "end": 21
+              }
+            },
+            {
+              "marker": [
+                "unknown",
+                0
+              ],
+              "range": {
+                "start": 23,
+                "end": 28
+              }
+            },
+            {
+              "marker": [
+                "unknown",
+                0
+              ],
+              "range": {
+                "start": 30,
+                "end": 33
+              }
+            },
+            {
+              "marker": [
+                "comma",
+                0
+              ],
+              "range": {
+                "start": 34,
+                "end": 34
+              }
+            },
+            {
+              "marker": [
+                "list",
+                1
+              ],
+              "range": {
+                "start": 36,
+                "end": 53
+              }
+            },
+            {
+              "marker": [
+                "is",
+                0
+              ],
+              "range": {
+                "start": 55,
+                "end": 57
+              }
+            },
+            {
+              "marker": [
+                "direction",
+                0
+              ],
+              "range": {
+                "start": 59,
+                "end": 68
+              }
+            }
+          ],
+          "counter": 13
+        },
+        {
+          "operators": [
+            {
+              "marker": [
+                "unknown",
+                0
+              ],
+              "range": {
+                "start": 0,
+                "end": 6
+              }
+            },
+            {
+              "marker": [
+                "unknown",
+                0
+              ],
+              "range": {
+                "start": 8,
+                "end": 15
+              }
+            },
+            {
+              "marker": [
+                "unknown",
+                0
+              ],
+              "range": {
+                "start": 17,
+                "end": 21
+              }
+            },
+            {
+              "marker": [
+                "unknown",
+                0
+              ],
+              "range": {
+                "start": 23,
+                "end": 28
+              }
+            },
+            {
+              "marker": [
+                "unknown",
+                0
+              ],
+              "range": {
+                "start": 30,
+                "end": 34
+              }
+            },
+            {
+              "marker": [
+                "list",
+                1
+              ],
+              "range": {
+                "start": 36,
+                "end": 53
+              }
+            },
+            {
+              "marker": [
+                "is",
+                0
+              ],
+              "range": {
+                "start": 55,
+                "end": 57
+              }
+            },
+            {
+              "marker": [
+                "direction",
+                0
+              ],
+              "range": {
+                "start": 59,
+                "end": 68
+              }
+            }
+          ],
+          "counter": 14
         },
         {
           "operators": [
@@ -85501,21 +88074,11 @@
             {
               "marker": [
                 "list",
-                0
+                1
               ],
               "range": {
                 "start": 30,
-                "end": 32
-              }
-            },
-            {
-              "marker": [
-                "unknown",
-                0
-              ],
-              "range": {
-                "start": 34,
-                "end": 41
+                "end": 53
               }
             },
             {
@@ -85524,8 +88087,8 @@
                 0
               ],
               "range": {
-                "start": 43,
-                "end": 45
+                "start": 55,
+                "end": 57
               }
             },
             {
@@ -85534,12 +88097,12 @@
                 0
               ],
               "range": {
-                "start": 47,
-                "end": 56
+                "start": 59,
+                "end": 68
               }
             }
           ],
-          "counter": 10
+          "counter": 15
         },
         {
           "operators": [
@@ -85580,7 +88143,7 @@
               ],
               "range": {
                 "start": 23,
-                "end": 41
+                "end": 53
               }
             },
             {
@@ -85589,8 +88152,8 @@
                 0
               ],
               "range": {
-                "start": 43,
-                "end": 45
+                "start": 55,
+                "end": 57
               }
             },
             {
@@ -85599,12 +88162,12 @@
                 0
               ],
               "range": {
-                "start": 47,
-                "end": 56
+                "start": 59,
+                "end": 68
               }
             }
           ],
-          "counter": 11
+          "counter": 16
         },
         {
           "operators": [
@@ -85635,7 +88198,7 @@
               ],
               "range": {
                 "start": 17,
-                "end": 41
+                "end": 53
               }
             },
             {
@@ -85644,8 +88207,8 @@
                 0
               ],
               "range": {
-                "start": 43,
-                "end": 45
+                "start": 55,
+                "end": 57
               }
             },
             {
@@ -85654,12 +88217,12 @@
                 0
               ],
               "range": {
-                "start": 47,
-                "end": 56
+                "start": 59,
+                "end": 68
               }
             }
           ],
-          "counter": 12
+          "counter": 17
         },
         {
           "operators": [
@@ -85680,7 +88243,7 @@
               ],
               "range": {
                 "start": 8,
-                "end": 41
+                "end": 53
               }
             },
             {
@@ -85689,8 +88252,8 @@
                 0
               ],
               "range": {
-                "start": 43,
-                "end": 45
+                "start": 55,
+                "end": 57
               }
             },
             {
@@ -85699,12 +88262,12 @@
                 0
               ],
               "range": {
-                "start": 47,
-                "end": 56
+                "start": 59,
+                "end": 68
               }
             }
           ],
-          "counter": 13
+          "counter": 18
         },
         {
           "operators": [
@@ -85715,7 +88278,7 @@
               ],
               "range": {
                 "start": 0,
-                "end": 41
+                "end": 53
               }
             },
             {
@@ -85724,8 +88287,8 @@
                 0
               ],
               "range": {
-                "start": 43,
-                "end": 45
+                "start": 55,
+                "end": 57
               }
             },
             {
@@ -85734,12 +88297,12 @@
                 0
               ],
               "range": {
-                "start": 47,
-                "end": 56
+                "start": 59,
+                "end": 68
               }
             }
           ],
-          "counter": 14
+          "counter": 19
         },
         {
           "operators": [
@@ -85750,7 +88313,7 @@
               ],
               "range": {
                 "start": 0,
-                "end": 41
+                "end": 53
               }
             },
             {
@@ -85759,8 +88322,8 @@
                 0
               ],
               "range": {
-                "start": 43,
-                "end": 45
+                "start": 55,
+                "end": 57
               }
             },
             {
@@ -85769,12 +88332,12 @@
                 1
               ],
               "range": {
-                "start": 47,
-                "end": 56
+                "start": 59,
+                "end": 68
               }
             }
           ],
-          "counter": 15
+          "counter": 20
         },
         {
           "operators": [
@@ -85785,11 +88348,11 @@
               ],
               "range": {
                 "start": 0,
-                "end": 56
+                "end": 68
               }
             }
           ],
-          "counter": 16
+          "counter": 21
         },
         {
           "operators": [
@@ -85800,11 +88363,11 @@
               ],
               "range": {
                 "start": 0,
-                "end": 56
+                "end": 68
               }
             }
           ],
-          "counter": 17
+          "counter": 22
         }
       ],
       "length": 1
@@ -85845,22 +88408,12 @@
             },
             {
               "marker": [
-                "action",
-                0
-              ],
-              "range": {
-                "start": 19,
-                "end": 25
-              }
-            },
-            {
-              "marker": [
                 "list",
                 0
               ],
               "range": {
-                "start": 27,
-                "end": 29
+                "start": 19,
+                "end": 21
               }
             },
             {
@@ -85869,8 +88422,8 @@
                 0
               ],
               "range": {
-                "start": 31,
-                "end": 39
+                "start": 23,
+                "end": 31
               }
             }
           ],
@@ -85910,22 +88463,12 @@
             },
             {
               "marker": [
-                "action",
-                0
-              ],
-              "range": {
-                "start": 19,
-                "end": 25
-              }
-            },
-            {
-              "marker": [
                 "list",
                 0
               ],
               "range": {
-                "start": 27,
-                "end": 29
+                "start": 19,
+                "end": 21
               }
             },
             {
@@ -85934,8 +88477,8 @@
                 0
               ],
               "range": {
-                "start": 31,
-                "end": 39
+                "start": 23,
+                "end": 31
               }
             }
           ],
@@ -85975,22 +88518,12 @@
             },
             {
               "marker": [
-                "action",
-                0
-              ],
-              "range": {
-                "start": 19,
-                "end": 25
-              }
-            },
-            {
-              "marker": [
                 "list",
                 0
               ],
               "range": {
-                "start": 27,
-                "end": 29
+                "start": 19,
+                "end": 21
               }
             },
             {
@@ -85999,8 +88532,8 @@
                 0
               ],
               "range": {
-                "start": 31,
-                "end": 39
+                "start": 23,
+                "end": 31
               }
             }
           ],
@@ -86030,42 +88563,12 @@
             },
             {
               "marker": [
-                "unknown",
-                0
+                "list",
+                1
               ],
               "range": {
                 "start": 10,
-                "end": 17
-              }
-            },
-            {
-              "marker": [
-                "action",
-                0
-              ],
-              "range": {
-                "start": 19,
-                "end": 25
-              }
-            },
-            {
-              "marker": [
-                "list",
-                0
-              ],
-              "range": {
-                "start": 27,
-                "end": 29
-              }
-            },
-            {
-              "marker": [
-                "memorable",
-                0
-              ],
-              "range": {
-                "start": 31,
-                "end": 39
+                "end": 31
               }
             }
           ],
@@ -86075,96 +88578,16 @@
           "operators": [
             {
               "marker": [
-                "unknown",
-                0
-              ],
-              "range": {
-                "start": 0,
-                "end": 4
-              }
-            },
-            {
-              "marker": [
                 "is",
-                0
-              ],
-              "range": {
-                "start": 6,
-                "end": 8
-              }
-            },
-            {
-              "marker": [
-                "unknown",
-                0
-              ],
-              "range": {
-                "start": 10,
-                "end": 17
-              }
-            },
-            {
-              "marker": [
-                "list",
                 1
               ],
               "range": {
-                "start": 19,
-                "end": 39
+                "start": 0,
+                "end": 31
               }
             }
           ],
           "counter": 5
-        },
-        {
-          "operators": [
-            {
-              "marker": [
-                "unknown",
-                0
-              ],
-              "range": {
-                "start": 0,
-                "end": 4
-              }
-            },
-            {
-              "marker": [
-                "is",
-                0
-              ],
-              "range": {
-                "start": 6,
-                "end": 8
-              }
-            },
-            {
-              "marker": [
-                "list",
-                1
-              ],
-              "range": {
-                "start": 10,
-                "end": 39
-              }
-            }
-          ],
-          "counter": 6
-        },
-        {
-          "operators": [
-            {
-              "marker": [
-                "is",
-                1
-              ],
-              "range": {
-                "start": 0,
-                "end": 39
-              }
-            }
-          ],
-          "counter": 7
         },
         {
           "operators": [
@@ -86175,11 +88598,11 @@
               ],
               "range": {
                 "start": 0,
-                "end": 39
+                "end": 31
               }
             }
           ],
-          "counter": 8
+          "counter": 6
         }
       ],
       "length": 1

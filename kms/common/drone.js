@@ -28,7 +28,7 @@ do a 5 second pause at each point / add a 10 second pause to each point / pause 
 
 start again / start here / starting here / restart
 again
-go back to the start
+go back to the start => follows path | go to the start => does not follow the path | go to the start following the path
 go back 2 points/turns
 go back and forth to the start!?!?
 
@@ -526,6 +526,30 @@ class API {
     return time
   }
 
+  async back() {
+    const objects = this._objects
+    const ordinal = this.currentOrdinal() - 1
+    const lastPoint = this.args.mentions({ context: { marker: 'point' }, condition: (context) => context.ordinal == ordinal })
+    if (!lastPoint) {
+      this.args.say(`There is no previous point to go back to`)
+      return
+    }
+    objects.current.path.push(lastPoint)
+    objects.runCommand = true
+  }
+
+  async backAndForth() {
+    const objects = this._objects
+    const current = objects.current
+    current.backAndForth = true
+    const ordinal = this.currentOrdinal()
+    const currentPoint = this.args.mentions({ context: { marker: 'point' }, condition: (context) => context.ordinal == ordinal })
+    const lastPoint = this.args.mentions({ context: { marker: 'point' }, condition: (context) => context.ordinal == ordinal-1 })
+    current.path.push(lastPoint)
+    current.path.push(currentPoint)
+    objects.runCommand = true
+  }
+
   async sonic() {
     return await this.sonicDrone()
   }
@@ -717,13 +741,14 @@ const template = {
   configs: [
     "arm, claw and drone are concepts",
     //TODO "forward left, right, backward are directions",
-    "around, forward, left, right, and backward are directions",
-    "paths are nameable actions and memorable",
+    "around, forward, left, right, back, forth and backward are directions",
+    "paths are nameable and memorable",
     "start and end are properties of path",
     "start and end are points",
     {
       hierarchy: [
         ['thisitthat', 'path'],
+        ['path', 'action'],
       ],
     },
     "speed and power are properties",
@@ -775,8 +800,6 @@ const template = {
         "([lower] (@<= arm || @<=claw))",
         "([open] (claw))",
         "([close] (claw))",
-        "([back])",
-        "([forth])",
         "([pathComponent])",
         // "([turn] (direction))",
         // "([pause] ([number]))",
@@ -868,17 +891,10 @@ const template = {
           }
         },
         {
-          id: "back",
+          id: 'back',
           isA: ['noun'],
           semantic: async ({objects, mentions, api, e, context, say}) => {
-            const ordinal = api.currentOrdinal() - 1
-            const lastPoint = mentions({ context: { marker: 'point' }, condition: (context) => context.ordinal == ordinal })
-            if (!lastPoint) {
-              say(`There is no previous point to go back to`)
-              return
-            }
-            objects.current.path.push(lastPoint)
-            objects.runCommand = true
+            await api.back()
           }
         },
         {
@@ -920,12 +936,19 @@ const template = {
             },
           },
           semantic: async (args) => {
-            const {context, objects, e, toEValue} = args
+            const {context, objects, e, toArray, toEValue} = args
             if (context.distance) {
               await handleDistance(args, context.distance)
             }
             if (context.direction) {
-              objects.current.direction = context.direction.marker
+              const array = toArray(context.direction)
+              if (array.length == 2 && array[0].marker == 'back' && array[1].marker == 'forth') {
+                await args.api.backAndForth()
+              } else if (context.direction.marker == 'back') {
+                await args.api.back()
+              } else {
+                objects.current.direction = context.direction.marker
+              }
             }
             if (context.to) {
               const evaluation = await e(context.to.point)
@@ -1139,15 +1162,8 @@ const template = {
               return true
             }
           },
-          apply: ({context, objects, api, mentions}) => {
-            objects.runCommand = true
-            objects.current.backAndForth = true
-            const ordinal = api.currentOrdinal()
-            const currentPoint = mentions({ context: { marker: 'point' }, condition: (context) => context.ordinal == ordinal })
-            const lastPoint = mentions({ context: { marker: 'point' }, condition: (context) => context.ordinal == ordinal-1 })
-            objects.current.path.push(lastPoint)
-            objects.current.path.push(currentPoint)
-            // objects.current.path.push({ ...lastPoint, aimOnly: true })
+          apply: async ({api}) => {
+            await api.backAndForth()
           }
         }
       ],
