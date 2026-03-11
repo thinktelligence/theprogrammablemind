@@ -1,4 +1,5 @@
 const tpm = require('./common/runtime').theprogrammablemind
+const actions = require('./common/actions')
 const angle = require('./common/angle')
 const animals = require('./common/animals')
 const articles = require('./common/articles')
@@ -75,6 +76,7 @@ const yesno = require('./common/yesno')
 
 module.exports = {
   Config: tpm.Config,
+  actions,
   angle,
   animals,
   articles,
