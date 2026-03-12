@@ -1,4 +1,4 @@
-const { cartesianToPolar, rotateDelta } = require('./drone')
+const { smallestRotate, cartesianToPolar, rotateDelta } = require('./drone')
 
 /*
                  ^
@@ -77,5 +77,44 @@ describe('rotateDelta', () => {
     const delta = rotateDelta(0, Math.PI)
     expect(delta).toBe(-Math.PI)
   })
+}
+)
+describe('smallestRotate', () => {
+  it('no change', async () => {
+    const delta = smallestRotate(0)
+    expect(delta).toBe(0)
+  })
+
+  it('0 < x < 180', async () => {
+    const delta = smallestRotate(Math.PI/4)
+    expect(delta).toBe(Math.PI/4)
+  })
+
+  it('180 < x < 360', async () => {
+    const delta = smallestRotate(Math.PI + Math.PI/4)
+    expect(delta).toBe(-Math.PI*3/4)
+  })
+
+  it('x > 360', async () => {
+    const delta = smallestRotate(4*Math.PI)
+    expect(delta).toBe(0)
+  })
+
+  it('0 > x > -180', async () => {
+    const delta = smallestRotate(-Math.PI/4)
+    expect(delta).toBe(-Math.PI/4)
+  })
+
+  it('-180 > x > -360', async () => {
+    const delta = smallestRotate(-(Math.PI + Math.PI/4))
+    expect(delta).toBe(Math.PI*3/4)
+  })
+
+  it('x < -360', async () => {
+    const delta = smallestRotate(-4*Math.PI)
+    expect(delta).toBe(-0)
+  })
+
+
 })
 

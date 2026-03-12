@@ -32,8 +32,19 @@ function radiansToDegrees(radians) {
   return (radians * 180) / Math.PI;
 }
 
+function smallestRotate(angle) {
+  angle = angle % (Math.PI*2)
+  if (angle > 0 && angle > Math.PI) {
+    angle = -(Math.PI*2 - angle)
+  }
+  if (angle < 0 && angle < -Math.PI) {
+    angle = Math.PI*2 + angle
+  }
+  return angle
+}
+
 function rotateDelta(currentRadians, targetRadians) {
-  return (((targetRadians - currentRadians + Math.PI) % (2 * Math.PI)) - Math.PI)
+  return smallestRotate(((targetRadians - currentRadians + Math.PI) % (2 * Math.PI)) - Math.PI)
 }
 
 module.exports = {
@@ -41,4 +52,5 @@ module.exports = {
   degreesToRadians,
   radiansToDegrees,
   rotateDelta,
+  smallestRotate,
 }
