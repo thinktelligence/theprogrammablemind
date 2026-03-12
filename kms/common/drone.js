@@ -11,13 +11,16 @@ const actions = require('./actions')
 const angle = require('./angle')
 const rates = require('./rates')
 const help = require('./help')
-const { rotateDelta, degreesToRadians, radiansToDegrees, cartesianToPolar } = require('./helpers/drone')
+const { rotateDelta, degreesToRadians, radiansToDegrees, cartesianToPolar, smallestRotate } = require('./helpers/drone')
 
 /*
 go back
 go back another point
 go back again
 go back to the start
+
+forward 1 foot\nwest 1 foot\ngo back to the start         <<<<<<<<  turn the longer way not he shorter way
+forward 1 foot\nwest 1 foot\ncall the path route 1\ngo to the start of route 1\npatrol route 1\npatrol route 1   <<<<< does the patrol more than once
 
 ?? elipses of the verb go or some kind of conjunction?!?!?
 go forward 1 meter turn right forward 2 meters stop
@@ -563,7 +566,7 @@ class API {
       shortestRotate = shortestRotate + Math.PI*2
     }
     await this.rotateDrone(angleInRadians, options)
-    this._objects.current.angleInRadians = (this._objects.current.angleInRadians + angleInRadians) % (2*Math.PI)
+    this._objects.current.angleInRadians = smallestRotate(this._objects.current.angleInRadians + angleInRadians)
   }
 
   async tiltAngle(angle) {
