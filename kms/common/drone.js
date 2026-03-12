@@ -418,7 +418,8 @@ class API {
           } else {
             const polar = cartesianToPolar(currentPoint, destinationPoint)
             const destinationAngleInRadians = polar.angle
-            const angleDelta = (destinationAngleInRadians - objects.current.angleInRadians)
+            // const angleDelta = (destinationAngleInRadians - objects.current.angleInRadians)
+            const angleDelta = rotateDelta(objects.current.angleInRadians, destinationAngleInRadians)
             await this.rotate(angleDelta, { batched: true })
             if (!pathComponent .aimOnly) {
               await this.forward(objects.current.speed, { batched: true })
