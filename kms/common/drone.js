@@ -14,10 +14,14 @@ const help = require('./help')
 const { rotateDelta, degreesToRadians, radiansToDegrees, cartesianToPolar, smallestRotate } = require('./helpers/drone')
 
 /*
-go back
+DONE go back
 go back another point
 go back again
 go back to the start
+
+turn left\nturn back
+
+do route 1 pausing 10 seconds at each point
 
 forward 1 foot\nwest 1 foot\ngo back to the start         <<<<<<<<  turn the longer way not he shorter way
 forward 1 foot\nwest 1 foot\ncall the path route 1\ngo to the start of route 1\npatrol route 1\npatrol route 1   <<<<< does the patrol more than once
@@ -530,9 +534,14 @@ class API {
     return time
   }
 
-  async back() {
+  async back(points) {
     const objects = this._objects
-    const ordinal = this.currentOrdinal() - 1
+    let ordinal
+    if (points?.quantity?.value) {
+      ordinal = this.currentOrdinal() - points.quantity?.value
+    } else {
+      ordinal = this.currentOrdinal() - 1
+    }
     const lastPoint = this.args.mentions({ context: { marker: 'point' }, condition: (context) => context.ordinal == ordinal })
     if (!lastPoint) {
       this.args.say(`There is no previous point to go back to`)
@@ -760,7 +769,7 @@ const template = {
     "speed is a quantity",
     "point is a concept",
     // TODO fix/add this "position means point",
-    "points are nameable orderable and memorable",
+    "points are nameable orderable countable and memorable",
     "drone modifies direction",
     (args) => {
       expectDirection(args)
@@ -805,12 +814,22 @@ const template = {
         "([open] (claw))",
         "([close] (claw))",
         "([pathComponent])",
+        "(<another> (point))",
         // "([turn] (direction))",
         // "([pause] ([number]))",
         "([stop] ([drone|])?)",
         "([toPoint|to] (point))",
       ],
       bridges: [
+        { 
+          id: 'another',
+          bridge: `{
+            ...next(after[0]),
+            another: operator,
+            after: after[0],
+            interpolate: [ { property: 'another' }, { property: 'after' } ]
+          }`,
+        },
         { 
           id: 'pathComponent',
           children: ['point', 'pause'],
@@ -929,15 +948,17 @@ const template = {
             ...next(operator), 
             distance: distance?, 
             direction: direction?,
+            points: points?,
             to: to?,
             operator: operator,
-            interpolate: [{ property: 'operator' }, { property: 'direction' }, { property: 'to' }, { property: 'distance' }] 
+            interpolate: [{ property: 'operator' }, { property: 'direction' }, { property: 'points' }, { property: 'to' }, { property: 'distance' }] 
           }`,
           selector: {
             arguments: {
               distance: "(@<= 'quantity' && context.unit.dimension == 'length')",
               direction: "(@<= 'direction')",
               to: "(@<= 'toPoint')",
+              points: "(@<= 'point')",
             },
           },
           semantic: async (args) => {
@@ -950,7 +971,7 @@ const template = {
               if (array.length == 2 && array[0].marker == 'back' && array[1].marker == 'forth') {
                 await args.api.backAndForth()
               } else if (context.direction.marker == 'back') {
-                await args.api.back()
+                await args.api.back(context.points)
               } else {
                 objects.current.direction = context.direction.marker
               }

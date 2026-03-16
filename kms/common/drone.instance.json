@@ -21,7 +21,7 @@
     "speed and power are comparable",
     "speed is a quantity",
     "point is a concept",
-    "points are nameable orderable and memorable",
+    "points are nameable orderable countable and memorable",
     "drone modifies direction",
     {
       "apply": "(args) => {\n      expectDirection(args)\n      expectDistanceForMove(args)\n\n      args.config.addSemantic({\n        match: ({context, isA}) => isA(context.marker, 'quantity') && isA(context.unit?.marker, 'unitPerUnit'),\n        apply: async ({context, objects, api, gr, fragments, e, say}) => {\n          // send a command to the drone\n          const instantiation = await fragments(\"quantity in meters per second\", { quantity: context })\n          const result = await e(instantiation)\n          const desired_speed = result.evalue.amount.evalue.evalue\n          objects.runCommand = true\n          objects.current.speed = desired_speed\n          objects.current.speedUnitsOfUser = context.unit\n        }\n      })\n\n      args.config.addSemantic({\n        match: ({context, objects, isA}) => objects.current.direction && context.marker == 'controlStart',\n        apply: ({context, objects, api}) => {\n          objects.runCommand = false  \n        }\n      })\n\n      args.config.addSemantic({\n        match: ({context, objects, isA}) => objects.current.direction && context.marker == 'controlEnd',\n        apply: async ({context, objects, api}) => {\n          // send a command to the drone\n          if (objects.runCommand) {\n            await api.sendCommand()\n          }\n        }\n      })\n    }"
@@ -34,10 +34,15 @@
         "([open] (claw))",
         "([close] (claw))",
         "([pathComponent])",
+        "(<another> (point))",
         "([stop] ([drone|])?)",
         "([toPoint|to] (point))"
       ],
       "bridges": [
+        {
+          "id": "another",
+          "bridge": "{\n            ...next(after[0]),\n            another: operator,\n            after: after[0],\n            interpolate: [ { property: 'another' }, { property: 'after' } ]\n          }"
+        },
         {
           "id": "pathComponent",
           "children": [
@@ -241,15 +246,33 @@
               "person": "none"
             }
           ],
-          "bridge": "{ \n            ...next(operator), \n            distance: distance?, \n            direction: direction?,\n            to: to?,\n            operator: operator,\n            interpolate: [{ property: 'operator' }, { property: 'direction' }, { property: 'to' }, { property: 'distance' }] \n          }",
+          "check": [
+            "marker",
+            "text",
+            "verbatim",
+            "value",
+            "evalue",
+            "isResponse",
+            {
+              "properties": "modifiers"
+            },
+            {
+              "properties": "postModifiers"
+            },
+            "direction",
+            "distance",
+            "to"
+          ],
+          "bridge": "{ \n            ...next(operator), \n            distance: distance?, \n            direction: direction?,\n            points: points?,\n            to: to?,\n            operator: operator,\n            interpolate: [{ property: 'operator' }, { property: 'direction' }, { property: 'points' }, { property: 'to' }, { property: 'distance' }] \n          }",
           "selector": {
             "arguments": {
               "distance": "(@<= 'quantity' && context.unit.dimension == 'length')",
               "direction": "(@<= 'direction')",
-              "to": "(@<= 'toPoint')"
+              "to": "(@<= 'toPoint')",
+              "points": "(@<= 'point')"
             }
           },
-          "semantic": "async (args) => {\n            const {context, objects, e, toArray, toEValue} = args\n            if (context.distance) {\n              await handleDistance(args, context.distance)\n            }\n            if (context.direction) {\n              const array = toArray(context.direction)\n              if (array.length == 2 && array[0].marker == 'back' && array[1].marker == 'forth') {\n                await args.api.backAndForth()\n              } else if (context.direction.marker == 'back') {\n                await args.api.back()\n              } else {\n                objects.current.direction = context.direction.marker\n              }\n            }\n            if (context.to) {\n              const evaluation = await e(context.to.point)\n              const point = toEValue(evaluation)\n              objects.current.path.push(point)\n            }\n            objects.runCommand = true\n          }"
+          "semantic": "async (args) => {\n            const {context, objects, e, toArray, toEValue} = args\n            if (context.distance) {\n              await handleDistance(args, context.distance)\n            }\n            if (context.direction) {\n              const array = toArray(context.direction)\n              if (array.length == 2 && array[0].marker == 'back' && array[1].marker == 'forth') {\n                await args.api.backAndForth()\n              } else if (context.direction.marker == 'back') {\n                await args.api.back(context.points)\n              } else {\n                objects.current.direction = context.direction.marker\n              }\n            }\n            if (context.to) {\n              const evaluation = await e(context.to.point)\n              const point = toEValue(evaluation)\n              objects.current.path.push(point)\n            }\n            objects.runCommand = true\n          }"
         },
         {
           "id": "turn",
@@ -326,7 +349,7 @@
       "semantics": [
         {
           "match": "({context}) => context.marker == 'doAction'",
-          "apply": "async ({context, e, toEValue, objects}) => {\n            const evaluated = await(e(context.action))\n            const path = toEValue(evaluated)\n            debugger\n            const wut = await(e(path))\n            for (const point of path.points) {\n              objects.current.path.push(point)\n            }\n            objects.runCommand = true\n          }"
+          "apply": "async ({context, e, toEValue, objects}) => {\n            const evaluated = await(e(context.action))\n            const path = toEValue(evaluated)\n            for (const point of path.points) {\n              objects.current.path.push(point)\n            }\n            objects.runCommand = true\n          }"
         },
         {
           "match": "({context, contextHierarchy}) => {\n            if (!context.pullFromContext || !context.evaluate || contextHierarchy.under('doAction')) {\n              return false\n            }\n            \n            if (context.marker == 'path' || context.marker == 'this' || context.marker == 'that') {\n              return true\n            }\n          }",
@@ -44926,7 +44949,7 @@
           },
           {
             "op": [
-              "point",
+              "list",
               0
             ],
             "ops": [
@@ -44951,6 +44974,31 @@
           },
           {
             "op": [
+              "point",
+              0
+            ],
+            "ops": [
+              [
+                "is",
+                0
+              ],
+              [
+                "list",
+                1
+              ],
+              [
+                "orderable",
+                0
+              ],
+              [
+                "point",
+                0
+              ]
+            ],
+            "counter": 3
+          },
+          {
+            "op": [
               "orderable",
               0
             ],
@@ -44961,27 +45009,10 @@
               ],
               [
                 "list",
-                0
+                1
               ],
               [
                 "orderable",
-                0
-              ]
-            ],
-            "counter": 3
-          },
-          {
-            "op": [
-              "list",
-              0
-            ],
-            "ops": [
-              [
-                "is",
-                0
-              ],
-              [
-                "list",
                 0
               ]
             ],
@@ -45006,6 +45037,23 @@
           },
           {
             "op": [
+              "list",
+              1
+            ],
+            "ops": [
+              [
+                "is",
+                0
+              ],
+              [
+                "list",
+                1
+              ]
+            ],
+            "counter": 6
+          },
+          {
+            "op": [
               "is",
               0
             ],
@@ -45015,7 +45063,7 @@
                 0
               ]
             ],
-            "counter": 6
+            "counter": 7
           },
           {
             "op": [
@@ -45028,7 +45076,7 @@
                 1
               ]
             ],
-            "counter": 7
+            "counter": 8
           }
         ]
       },
@@ -45036,12 +45084,12 @@
       "contexts": [
         {
           "number": "many",
-          "text": "points are nameable orderable and memorable",
+          "text": "points are nameable orderable countable and memorable",
           "marker": "is",
           "word": "are",
           "range": {
             "start": 0,
-            "end": 42
+            "end": 52
           },
           "one": {
             "number": "many",
@@ -45063,12 +45111,13 @@
             "marker": "list",
             "default": true,
             "word": "and",
-            "text": "nameable orderable and memorable",
+            "text": "nameable orderable countable and memorable",
             "range": {
               "start": 11,
-              "end": 42
+              "end": 52
             },
             "types": [
+              "countable",
               "list",
               "listable",
               "memorable",
@@ -45116,14 +45165,33 @@
                 "level": 1
               },
               {
+                "marker": "countable",
+                "value": "countable",
+                "default": true,
+                "text": "countable",
+                "dead": true,
+                "word": "countable",
+                "range": {
+                  "start": 30,
+                  "end": 38
+                },
+                "types": [
+                  "countable",
+                  "listable",
+                  "queryable",
+                  "theAble"
+                ],
+                "level": 0
+              },
+              {
                 "word": "memorable",
                 "number": "one",
                 "text": "memorable",
                 "marker": "memorable",
                 "dead": true,
                 "range": {
-                  "start": 34,
-                  "end": 42
+                  "start": 44,
+                  "end": 52
                 },
                 "types": [
                   "listable",
@@ -45151,7 +45219,7 @@
         ""
       ],
       "paraphrases": [
-        "points are nameable, orderable and memorable"
+        "points are nameable, orderable, countable and memorable"
       ],
       "paraphrasesParenthesized": [],
       "generatedParenthesized": [],
@@ -45160,6 +45228,10 @@
       ],
       "associations": [
         [
+          [
+            "countable",
+            0
+          ],
           [
             "is",
             0
@@ -45192,10 +45264,10 @@
           ],
           [
             "list",
-            0
+            1
           ],
           [
-            "memorable",
+            "orderable",
             0
           ],
           [
@@ -45287,12 +45359,22 @@
                 },
                 {
                   "marker": [
-                    "list",
+                    "countable",
                     0
                   ],
                   "range": {
                     "start": 30,
-                    "end": 32
+                    "end": 38
+                  }
+                },
+                {
+                  "marker": [
+                    "list",
+                    0
+                  ],
+                  "range": {
+                    "start": 40,
+                    "end": 42
                   }
                 },
                 {
@@ -45301,8 +45383,8 @@
                     0
                   ],
                   "range": {
-                    "start": 34,
-                    "end": 42
+                    "start": 44,
+                    "end": 52
                   }
                 }
               ],
@@ -45352,12 +45434,22 @@
                 },
                 {
                   "marker": [
-                    "list",
+                    "countable",
                     0
                   ],
                   "range": {
                     "start": 30,
-                    "end": 32
+                    "end": 38
+                  }
+                },
+                {
+                  "marker": [
+                    "list",
+                    0
+                  ],
+                  "range": {
+                    "start": 40,
+                    "end": 42
                   }
                 },
                 {
@@ -45366,8 +45458,8 @@
                     0
                   ],
                   "range": {
-                    "start": 34,
-                    "end": 42
+                    "start": 44,
+                    "end": 52
                   }
                 }
               ],
@@ -45418,25 +45510,70 @@
                 {
                   "marker": [
                     "list",
-                    0
+                    1
                   ],
                   "range": {
                     "start": 30,
-                    "end": 32
-                  }
-                },
-                {
-                  "marker": [
-                    "memorable",
-                    0
-                  ],
-                  "range": {
-                    "start": 34,
-                    "end": 42
+                    "end": 52
                   }
                 }
               ],
               "counter": 3
+            },
+            {
+              "operators": [
+                {
+                  "marker": [
+                    "point",
+                    0
+                  ],
+                  "range": {
+                    "start": 0,
+                    "end": 5
+                  }
+                },
+                {
+                  "marker": [
+                    "is",
+                    0
+                  ],
+                  "range": {
+                    "start": 7,
+                    "end": 9
+                  }
+                },
+                {
+                  "marker": [
+                    "unknown",
+                    0
+                  ],
+                  "range": {
+                    "start": 11,
+                    "end": 18
+                  }
+                },
+                {
+                  "marker": [
+                    "orderable",
+                    0
+                  ],
+                  "range": {
+                    "start": 20,
+                    "end": 28
+                  }
+                },
+                {
+                  "marker": [
+                    "list",
+                    1
+                  ],
+                  "range": {
+                    "start": 30,
+                    "end": 52
+                  }
+                }
+              ],
+              "counter": 4
             },
             {
               "operators": [
@@ -45483,25 +45620,15 @@
                 {
                   "marker": [
                     "list",
-                    0
+                    1
                   ],
                   "range": {
                     "start": 30,
-                    "end": 32
-                  }
-                },
-                {
-                  "marker": [
-                    "memorable",
-                    0
-                  ],
-                  "range": {
-                    "start": 34,
-                    "end": 42
+                    "end": 52
                   }
                 }
               ],
-              "counter": 4
+              "counter": 5
             },
             {
               "operators": [
@@ -45542,11 +45669,11 @@
                   ],
                   "range": {
                     "start": 20,
-                    "end": 42
+                    "end": 52
                   }
                 }
               ],
-              "counter": 5
+              "counter": 6
             },
             {
               "operators": [
@@ -45577,22 +45704,7 @@
                   ],
                   "range": {
                     "start": 11,
-                    "end": 42
-                  }
-                }
-              ],
-              "counter": 6
-            },
-            {
-              "operators": [
-                {
-                  "marker": [
-                    "is",
-                    1
-                  ],
-                  "range": {
-                    "start": 0,
-                    "end": 42
+                    "end": 52
                   }
                 }
               ],
@@ -45603,15 +45715,30 @@
                 {
                   "marker": [
                     "is",
-                    2
+                    1
                   ],
                   "range": {
                     "start": 0,
-                    "end": 42
+                    "end": 52
                   }
                 }
               ],
               "counter": 8
+            },
+            {
+              "operators": [
+                {
+                  "marker": [
+                    "is",
+                    2
+                  ],
+                  "range": {
+                    "start": 0,
+                    "end": 52
+                  }
+                }
+              ],
+              "counter": 9
             }
           ],
           "length": 1
@@ -45619,9 +45746,9 @@
       ],
       "learned_contextual_priorities": [],
       "rtf_associations": [],
-      "query": "points are nameable orderable and memorable",
+      "query": "points are nameable orderable countable and memorable",
       "key": {
-        "query": "points are nameable orderable and memorable"
+        "query": "points are nameable orderable countable and memorable"
       }
     },
     {
@@ -48378,6 +48505,11 @@
         ],
         [
           "point",
+          "countable",
+          false
+        ],
+        [
+          "point",
           "hierarchyAble",
           false
         ],
@@ -49830,10 +49962,15 @@
         "([open] (claw))",
         "([close] (claw))",
         "([pathComponent])",
+        "(<another> (point))",
         "([stop] ([drone|])?)",
         "([toPoint|to] (point))"
       ],
       "bridges": [
+        {
+          "id": "another",
+          "bridge": "{\n            ...next(after[0]),\n            another: operator,\n            after: after[0],\n            interpolate: [ { property: 'another' }, { property: 'after' } ]\n          }"
+        },
         {
           "id": "pathComponent",
           "children": [
@@ -50030,12 +50167,30 @@
               "person": "none"
             }
           ],
-          "bridge": "{ \n            ...next(operator), \n            distance: distance?, \n            direction: direction?,\n            to: to?,\n            operator: operator,\n            interpolate: [{ property: 'operator' }, { property: 'direction' }, { property: 'to' }, { property: 'distance' }] \n          }",
+          "check": [
+            "marker",
+            "text",
+            "verbatim",
+            "value",
+            "evalue",
+            "isResponse",
+            {
+              "properties": "modifiers"
+            },
+            {
+              "properties": "postModifiers"
+            },
+            "direction",
+            "distance",
+            "to"
+          ],
+          "bridge": "{ \n            ...next(operator), \n            distance: distance?, \n            direction: direction?,\n            points: points?,\n            to: to?,\n            operator: operator,\n            interpolate: [{ property: 'operator' }, { property: 'direction' }, { property: 'points' }, { property: 'to' }, { property: 'distance' }] \n          }",
           "selector": {
             "arguments": {
               "distance": "(@<= 'quantity' && context.unit.dimension == 'length')",
               "direction": "(@<= 'direction')",
-              "to": "(@<= 'toPoint')"
+              "to": "(@<= 'toPoint')",
+              "points": "(@<= 'point')"
             }
           }
         },
@@ -52980,6 +53135,11 @@
         [
           "point",
           "concept",
+          false
+        ],
+        [
+          "point",
+          "countable",
           false
         ],
         [
@@ -57249,6 +57409,11 @@
         ],
         [
           "point",
+          "countable",
+          false
+        ],
+        [
+          "point",
           "hierarchyAble",
           false
         ],
@@ -61510,6 +61675,11 @@
         [
           "point",
           "concept",
+          false
+        ],
+        [
+          "point",
+          "countable",
           false
         ],
         [
@@ -66010,6 +66180,11 @@
         [
           "point",
           "concept",
+          false
+        ],
+        [
+          "point",
+          "countable",
           false
         ],
         [
@@ -70535,6 +70710,11 @@
         ],
         [
           "point",
+          "countable",
+          false
+        ],
+        [
+          "point",
           "hierarchyAble",
           false
         ],
@@ -74795,6 +74975,11 @@
         [
           "point",
           "concept",
+          false
+        ],
+        [
+          "point",
+          "countable",
           false
         ],
         [
@@ -79081,6 +79266,11 @@
         [
           "point",
           "concept",
+          false
+        ],
+        [
+          "point",
+          "countable",
           false
         ],
         [
@@ -83618,6 +83808,11 @@
         ],
         [
           "point",
+          "countable",
+          false
+        ],
+        [
+          "point",
           "hierarchyAble",
           false
         ],
@@ -85186,6 +85381,36 @@
     ],
     [
       [
+        "countable",
+        0
+      ],
+      [
+        "is",
+        0
+      ],
+      [
+        "list",
+        0
+      ],
+      [
+        "memorable",
+        0
+      ],
+      [
+        "orderable",
+        0
+      ],
+      [
+        "point",
+        0
+      ],
+      [
+        "unknown",
+        0
+      ]
+    ],
+    [
+      [
         "direction",
         0
       ],
@@ -85276,54 +85501,6 @@
         0
       ],
       [
-        "orderable",
-        0
-      ],
-      [
-        "point",
-        0
-      ],
-      [
-        "unknown",
-        0
-      ]
-    ],
-    [
-      [
-        "is",
-        0
-      ],
-      [
-        "list",
-        0
-      ],
-      [
-        "memorable",
-        0
-      ],
-      [
-        "point",
-        0
-      ],
-      [
-        "unknown",
-        0
-      ]
-    ],
-    [
-      [
-        "is",
-        0
-      ],
-      [
-        "list",
-        0
-      ],
-      [
-        "memorable",
-        0
-      ],
-      [
         "unknown",
         0
       ]
@@ -85380,6 +85557,28 @@
       [
         "list",
         1
+      ]
+    ],
+    [
+      [
+        "is",
+        0
+      ],
+      [
+        "list",
+        1
+      ],
+      [
+        "orderable",
+        0
+      ],
+      [
+        "point",
+        0
+      ],
+      [
+        "unknown",
+        0
       ]
     ],
     [
@@ -90073,12 +90272,22 @@
             },
             {
               "marker": [
-                "list",
+                "countable",
                 0
               ],
               "range": {
                 "start": 30,
-                "end": 32
+                "end": 38
+              }
+            },
+            {
+              "marker": [
+                "list",
+                0
+              ],
+              "range": {
+                "start": 40,
+                "end": 42
               }
             },
             {
@@ -90087,8 +90296,8 @@
                 0
               ],
               "range": {
-                "start": 34,
-                "end": 42
+                "start": 44,
+                "end": 52
               }
             }
           ],
@@ -90138,12 +90347,22 @@
             },
             {
               "marker": [
-                "list",
+                "countable",
                 0
               ],
               "range": {
                 "start": 30,
-                "end": 32
+                "end": 38
+              }
+            },
+            {
+              "marker": [
+                "list",
+                0
+              ],
+              "range": {
+                "start": 40,
+                "end": 42
               }
             },
             {
@@ -90152,8 +90371,8 @@
                 0
               ],
               "range": {
-                "start": 34,
-                "end": 42
+                "start": 44,
+                "end": 52
               }
             }
           ],
@@ -90204,25 +90423,70 @@
             {
               "marker": [
                 "list",
-                0
+                1
               ],
               "range": {
                 "start": 30,
-                "end": 32
-              }
-            },
-            {
-              "marker": [
-                "memorable",
-                0
-              ],
-              "range": {
-                "start": 34,
-                "end": 42
+                "end": 52
               }
             }
           ],
           "counter": 3
+        },
+        {
+          "operators": [
+            {
+              "marker": [
+                "point",
+                0
+              ],
+              "range": {
+                "start": 0,
+                "end": 5
+              }
+            },
+            {
+              "marker": [
+                "is",
+                0
+              ],
+              "range": {
+                "start": 7,
+                "end": 9
+              }
+            },
+            {
+              "marker": [
+                "unknown",
+                0
+              ],
+              "range": {
+                "start": 11,
+                "end": 18
+              }
+            },
+            {
+              "marker": [
+                "orderable",
+                0
+              ],
+              "range": {
+                "start": 20,
+                "end": 28
+              }
+            },
+            {
+              "marker": [
+                "list",
+                1
+              ],
+              "range": {
+                "start": 30,
+                "end": 52
+              }
+            }
+          ],
+          "counter": 4
         },
         {
           "operators": [
@@ -90269,25 +90533,15 @@
             {
               "marker": [
                 "list",
-                0
+                1
               ],
               "range": {
                 "start": 30,
-                "end": 32
-              }
-            },
-            {
-              "marker": [
-                "memorable",
-                0
-              ],
-              "range": {
-                "start": 34,
-                "end": 42
+                "end": 52
               }
             }
           ],
-          "counter": 4
+          "counter": 5
         },
         {
           "operators": [
@@ -90328,11 +90582,11 @@
               ],
               "range": {
                 "start": 20,
-                "end": 42
+                "end": 52
               }
             }
           ],
-          "counter": 5
+          "counter": 6
         },
         {
           "operators": [
@@ -90363,22 +90617,7 @@
               ],
               "range": {
                 "start": 11,
-                "end": 42
-              }
-            }
-          ],
-          "counter": 6
-        },
-        {
-          "operators": [
-            {
-              "marker": [
-                "is",
-                1
-              ],
-              "range": {
-                "start": 0,
-                "end": 42
+                "end": 52
               }
             }
           ],
@@ -90389,15 +90628,30 @@
             {
               "marker": [
                 "is",
-                2
+                1
               ],
               "range": {
                 "start": 0,
-                "end": 42
+                "end": 52
               }
             }
           ],
           "counter": 8
+        },
+        {
+          "operators": [
+            {
+              "marker": [
+                "is",
+                2
+              ],
+              "range": {
+                "start": 0,
+                "end": 52
+              }
+            }
+          ],
+          "counter": 9
         }
       ],
       "length": 1
