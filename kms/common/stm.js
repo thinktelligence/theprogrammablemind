@@ -78,7 +78,7 @@ class API {
     helpers.unshiftL(frameOfReference.mentioned, concept, this.maximumMentioned)
   }
 
-  mentions({ context, frameOfReference, useHierarchy=true, all, condition = (() => true) } = {}) {
+  mentions({ context, frameOfReference, useHierarchy=true, all, lastN, condition = (() => true) } = {}) {
     const mentioned = frameOfReference?.mentioned || this._objects.mentioned
     const findPrevious = !!context.stm_previous
     const forAll = []
@@ -91,6 +91,9 @@ class API {
     // care about value first
     let findCounter = 0
     for (const m of mentioned) {
+      if (lastN === 0) {
+        break
+      }
       if (context.value && (context.value == m.marker || context.value == m.value)) {
         findCounter += 1
         if (findPrevious && findCounter < 2) {
@@ -100,13 +103,20 @@ class API {
           continue
         }
         if (condition(m)) {
-          if (all) {
-            allForAll(m)
+          if (all || lastN) {
+            addForAll(m)
+            if (lastN) {
+              lastN -= 1
+            }
           } else {
             return m
           }
         }
       }
+    }
+
+    if (lastN === 0) {
+      return forAll
     }
 
     if (!useHierarchy) {
@@ -116,6 +126,9 @@ class API {
     // care about marker second
     findCounter = 0
     for (const m of mentioned) {
+      if (lastN === 0) {
+        break
+      }
       if (context.marker != 'unknown' && this.isA(m.marker, context.marker)) {
         findCounter += 1
         if (findPrevious && findCounter < 2) {
@@ -125,8 +138,11 @@ class API {
           continue
         }
         if (condition(m)) {
-          if (all) {
+          if (all || lastN) {
             addForAll(m)
+            if (lastN) {
+              lastN -= 1
+            }
           } else {
             return m
           }
@@ -144,7 +160,10 @@ class API {
               continue
             }
             if (condition(m)) {
-              if (all) {
+              if (all || lastN) {
+                if (lastN) {
+                  lastN -= 1
+                }
                 addForAll(m)
               } else {
                 return m
@@ -155,17 +174,27 @@ class API {
       }
     }
 
+    if (lastN === 0) {
+      return forAll
+    }
+
     findCounter = 0
     if (context.types && context.types.length == 1) {
       for (const m of mentioned) {
+        if (lastN === 0) {
+          break
+        }
         if (context.unknown) {
           findCounter += 1
           if (findPrevious && findCounter < 2) {
             continue
           }
           if (condition(m)) {
-            if (all) {
+            if (all || lastN) {
               addForAll(m)
+              if (lastN) {
+                lastN -= 1
+              }
             } else {
               return m
             }
@@ -174,7 +203,7 @@ class API {
       }
     }
 
-    if (all) {
+    if (all || lastN) {
       return forAll
     }
   }
@@ -251,15 +280,20 @@ const config = {
       notes: 'pull from context',
       // match: ({context}) => context.marker == 'it' && context.pullFromContext, // && context.value,
       match: ({context, callId}) => context.pullFromContext && !context.same, // && context.value,
-      apply: async ({callId, context, kms, e, log, retry}) => {
-        context.value = kms.stm.api.mentions({ context })
+      apply: async ({callId, toList, context, kms, e, log, retry}) => {
+        if (context.ordinal?.marker == 'ordinal' && context.ordinal?.value == -1) {
+          const lastN = context.quantity.value || 1
+          context.value = toList(kms.stm.api.mentions({ context, lastN }))
+        } else {
+          context.value = kms.stm.api.mentions({ context })
+        }
 
         if (!context.value) {
           // retry()
           context.evalue = { marker: 'answerNotKnown' }
           return
         }
-        
+       
         const instance = await e(context.value)
         if (instance.evalue && !instance.edefault) {
           context.value = instance.evalue

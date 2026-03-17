@@ -18,6 +18,8 @@ DONE go back
 go back another point
 go back again
 go back to the start
+go back 2 points along route 1
+go to the start of route 2
 
 turn left\nturn back
 

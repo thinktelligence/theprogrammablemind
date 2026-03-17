@@ -484,6 +484,7 @@ const config = {
                           context.evaluate &&
                           !(context.types || []).includes('property') &&
                           // !context.value &&  // greghere
+                          !context.ordinal &&
                           (api.objects && api.objects.children && api.objects.children[context.marker]) &&
                           !context.evaluate.toConcept,
       apply: ({context, objects, api, km}) => {
