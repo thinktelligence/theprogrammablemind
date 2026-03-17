@@ -1115,7 +1115,30 @@ const template = {
             delete path.value
             path.points = pathComponents.reverse()
             await mentioned(path)
-            _continue()
+
+            _continue() // let the call pick the object out from the stm
+          },
+        },
+        {
+          match: ({context, contextHierarchy}) => {
+            if (!context.pullFromContext || !context.evaluate || !contextHierarchy.under('call') || context.notUnderCall) {
+              return false
+            }
+            
+            if (context.marker == 'point' || context.marker == 'ordinal') {
+              return true
+            }
+          },
+          apply: async ({context, e, fragments, stm, toEValue, toArray, objects, mentioned, mentions, resolveEvaluate, _continue, contextHierarchy}) => {
+            const evaluated = await e({...context, notUnderCall: true})
+            const pointsContext = toEValue(evaluated)
+            const pathComponents = toArray(pointsContext)
+
+            const path = (await fragments('path')).contexts()[0]
+            delete path.value
+            path.points = pathComponents.reverse()
+            await mentioned(path)
+            resolveEvaluate(context, path)
           },
         },
         {
