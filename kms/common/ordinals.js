@@ -31,6 +31,19 @@ const config = {
       bridge: "{ ...after[0], ordinal: before[0], modifiers: append(['ordinal'], after[0].modifiers) }" 
     },
   ],
+  semantics: [
+    {
+      where: where(),
+      match: ({context}) => context.marker == 'mentions' && context.evaluate,
+      apply: async ({callId, _continue, toList, context, kms, e, log, retry}) => {
+        if (context.args?.context?.ordinal?.marker == 'ordinal' && context.args?.context?.ordinal?.value == -1) {
+          const lastN = context.args.context.quantity.value || 1
+          context.args.lastN = lastN
+        }
+        _continue()
+      }
+    },
+  ],
   words: {
     "literals": {
       "first": [{"id": "ordinal", "initial": "{ value: 1, ordinal: true, instance: true }" }],

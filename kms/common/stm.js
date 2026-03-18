@@ -278,8 +278,7 @@ const config = {
     {
       where: where(),
       match: ({context}) => context.marker == 'mentions' && context.evaluate,
-      apply: ({context, kms, resolveEvaluate}) => {
-        // debugger
+      apply: ({context, kms, toList, resolveEvaluate}) => {
         resolveEvaluate(context, kms.stm.api.mentions(context.args))
       }
     },
@@ -288,12 +287,10 @@ const config = {
       notes: 'pull from context',
       // match: ({context}) => context.marker == 'it' && context.pullFromContext, // && context.value,
       match: ({context, callId}) => context.pullFromContext && !context.same, // && context.value,
-      apply: async ({callId, toList, context, kms, e, log, retry}) => {
-        if (context.ordinal?.marker == 'ordinal' && context.ordinal?.value == -1) {
-          const lastN = context.quantity.value || 1
-          context.value = toList(kms.stm.api.mentions({ context, lastN }))
-        } else {
-          context.value = kms.stm.api.mentions({ context })
+      apply: async ({callId, mentions, toList, context, kms, e, log, retry}) => {
+        context.value = (await mentions({ context }))
+        if (Array.isArray(context.value)) {
+          context.value = toList(context.value)
         }
 
         if (!context.value) {
@@ -315,17 +312,17 @@ const config = {
 }
 
 function initializer({config}) {
-  config.addArgs(({kms, e, toEValue}) => ({
+  config.addArgs(({kms, e}) => ({
     mentioned: (args) => {
       kms.stm.api.mentioned(args)
     },
     mentions: async (args) => {
-      const result = await e({ marker: 'mentions', args, debug: true })
+      const result = await e({ marker: 'mentions', args })
       // evalue will return the argument if there is no evalue. dont want that for this case
       if (!result.evalue) {
         return
       }
-      return toEValue(result)
+      return helpers.toEValue(result)
     },
   }))
 }
