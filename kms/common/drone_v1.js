@@ -141,12 +141,12 @@ class API {
     return this._objects.ordinal += 1
   }
 
-  currentPoint() {
+  async currentPoint() {
     if (!this._objects.current.endTime) {
       return null // in motion
     }
     const ordinal = this._objects.current.ordinal
-    const lastPoint = this.args.mentions({ context: { marker: 'point' }, condition: (context) => context.ordinal == ordinal })
+    const lastPoint = await this.args.mentions({ context: { marker: 'point' }, condition: (context) => context.ordinal == ordinal })
 
     const durationInSeconds = (this._objects.current.endTime - this._objects.current.startTime) / 1000
     const speedInMetersPerSecond = (this._objects.current.power / this._objects.calibration.power) * this._objects.calibration.speed
@@ -159,9 +159,9 @@ class API {
     return { x: xPrime, y: yPrime }
   }
 
-  markCurrentPoint() {
+  async markCurrentPoint() {
     const ordinal = this.nextOrdinal()
-    const point = this.currentPoint()
+    const point = await this.currentPoint()
     this.args.mentioned({ marker: 'point', ordinal, point })
     this._objects.current.ordinal = ordinal
     this._objects.current.endTime = null
@@ -186,17 +186,17 @@ class API {
     this.testDate = new Date(this.testDate.getTime() + (duration_in_seconds-1)*1000)
   }
 
-  sendCommand() {
-    const stopAtDistance = (distanceMeters) => {
+  async sendCommand() {
+    const stopAtDistance = async (distanceMeters) => {
       const speed_meters_per_second = this._objects.calibration.speed
       const duration_seconds = distanceMeters / speed_meters_per_second
       this.pause(duration_seconds)
       this.stop()
-      this.markCurrentPoint()
+      await this.markCurrentPoint()
     }
 
     if (this._objects.current.destination) {
-      const currentPoint = this.args.mentions({ context: { marker: 'point' } })
+      const currentPoint = await this.args.mentions({ context: { marker: 'point' } })
       const polar = cartesianToPolar(currentPoint.point, this._objects.current.destination.point)
       const destinationAngleInDegrees = radiansToDegrees(polar.angle)
       let angleDelta = destinationAngleInDegrees - this._objects.current.angleInDegrees
@@ -207,7 +207,7 @@ class API {
       }
       this.rotate(angleDelta)
       this.forward(this._objects.current.power)
-      stopAtDistance(polar.radius)
+      await stopAtDistance(polar.radius)
       return
     }
 
@@ -232,7 +232,7 @@ class API {
 
     if (command.distance) {
       const distanceMeters = command.distance
-      stopAtDistance(distanceMeters)
+      await stopAtDistance(distanceMeters)
     }
   }
 
@@ -456,11 +456,11 @@ const template = {
       args.config.addSemantic({
         // match: ({context, objects, isA}) => objects.current.direction && objects.isCalibrated && (context.marker == 'controlEnd' || context.marker == 'controlBetween'),
         match: ({context, objects, isA}) => objects.current.direction && objects.isCalibrated && context.marker == 'controlEnd',
-        apply: ({context, objects, api}) => {
+        apply: async ({context, objects, api}) => {
           // send a command to the drone
           if (objects.runCommand) {
             // debugger
-            api.sendCommand()
+            await api.sendCommand()
           }
         }
       })
@@ -529,7 +529,7 @@ const template = {
             1: "{ marker: 'drone' }",
           },
           bridge: "{ ...next(operator), object: after[0], interpolate: [{ context: operator }, { property: 'object' }] }",
-          semantic: ({mentioned, context, objects, api, say}) => {
+          semantic: async ({mentioned, context, objects, api, say}) => {
             if (!objects.calibration.startTime) {
               return // ignore
             }
@@ -542,7 +542,7 @@ const template = {
               objects.current.ordinal = ordinal
               */
               api.stop()
-              api.markCurrentPoint()
+              await api.markCurrentPoint()
             } else {
               const stopTime = api.stop()
               objects.calibration.endTime = stopTime

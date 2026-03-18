@@ -311,10 +311,7 @@ function initializer({config}) {
     mentioned: (args) => {
       kms.stm.api.mentioned(args)
     },
-    mentions: (args) => {
-      return kms.stm.api.mentions(args)
-    },
-    amentions: async (args) => {
+    mentions: async (args) => {
       return await kms.stm.api.mentions(args)
     },
   }))

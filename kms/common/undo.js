@@ -16,8 +16,8 @@ const template = {
         {
           id: 'undo_undo',
           semantic: async (args) => {
-            const { amentions } = args
-            const action = await amentions({ context: { marker: 'action_undo' } })
+            const { mentions } = args
+            const action = await mentions({ context: { marker: 'action_undo' } })
             action.undo(args)
           }
         },

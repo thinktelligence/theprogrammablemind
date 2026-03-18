@@ -353,7 +353,7 @@
         },
         {
           "match": "({context, contextHierarchy}) => {\n            if (!context.pullFromContext || !context.evaluate || contextHierarchy.under('doAction')) {\n              return false\n            }\n            \n            if (context.marker == 'path' || context.marker == 'this' || context.marker == 'that') {\n              return true\n            }\n          }",
-          "apply": "async ({context, fragments, stm, objects, mentioned, mentions, resolveEvaluate, _continue, contextHierarchy}) => {\n            // const points = mentions({ context: { marker: 'point' }, all: true })\n            const pathComponents = mentions({ context: { marker: 'pathComponent' }, all: true })\n            const path = (await fragments('path')).contexts()[0]\n            delete path.value\n            path.points = pathComponents.reverse()\n            await mentioned(path)\n\n            _continue() // let the call pick the object out from the stm\n          }"
+          "apply": "async ({context, fragments, stm, objects, mentioned, mentions, resolveEvaluate, _continue, contextHierarchy}) => {\n            const pathComponents = await mentions({ context: { marker: 'pathComponent' }, all: true })\n            const path = (await fragments('path')).contexts()[0]\n            delete path.value\n            path.points = pathComponents.reverse()\n            await mentioned(path)\n\n            _continue() // let the call pick the object out from the stm\n          }"
         },
         {
           "match": "({context, contextHierarchy}) => {\n            if (!context.pullFromContext || !context.evaluate || !contextHierarchy.under('call') || context.notUnderCall) {\n              return false\n            }\n            \n            if (context.marker == 'point' || context.marker == 'ordinal') {\n              return true\n            }\n          }",
@@ -365,7 +365,7 @@
         },
         {
           "match": "({context}) => context.evaluate && ['start', 'end'].includes(context.marker) && context.objects && context.objects[1].marker == 'path'",
-          "apply": "async ({gp, s, context, objects, fragments, resolveEvaluate, api, mentions}) => {\n            const path = mentions({ context: context.objects[1] })\n            if (!path?.points) {\n              return\n            }\n            if (context.marker == 'start') {\n              resolveEvaluate(context, path?.points[0])\n            } else if (context.marker == 'end') {\n              resolveEvaluate(context, path?.points[path?.points.length-1])\n            }\n          }"
+          "apply": "async ({gp, s, context, objects, fragments, resolveEvaluate, api, mentions}) => {\n            const path = await mentions({ context: context.objects[1] })\n            if (!path?.points) {\n              return\n            }\n            if (context.marker == 'start') {\n              resolveEvaluate(context, path?.points[0])\n            } else if (context.marker == 'end') {\n              resolveEvaluate(context, path?.points[path?.points.length-1])\n            }\n          }"
         },
         {
           "match": "({context}) => context.marker == 'speed' && context.evaluate",

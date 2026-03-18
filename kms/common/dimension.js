@@ -38,7 +38,7 @@ class API {
   }
 
   async getPreferredUnits(quantity) {
-    const preferredUnits = await this.args.amentions({
+    const preferredUnits = await this.args.mentions({
       context: { marker: 'unit' },
       condition: (unit) => {
         if (quantity.unit.marker == 'unitPerUnit') {
