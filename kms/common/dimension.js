@@ -37,8 +37,8 @@ class API {
     this._objects = objects
   }
 
-  getPreferredUnits(quantity) {
-    const preferredUnits = this.args.mentions({
+  async getPreferredUnits(quantity) {
+    const preferredUnits = await this.args.amentions({
       context: { marker: 'unit' },
       condition: (unit) => {
         if (quantity.unit.marker == 'unitPerUnit') {
@@ -201,7 +201,7 @@ const config = {
       isA: ['verb'],
       bridge: "{ ...next(operator), quantity: after[0], operator: operator, interpolate: [{ property: 'operator' }, { property: 'quantity' }] }",
       semantic: async ({context, e, api, toArray, resolveResponse}) => {
-        const preferredUnits = api.getPreferredUnits(context.quantity)
+        const preferredUnits = await api.getPreferredUnits(context.quantity)
         if (!preferredUnits) {
           return
         }

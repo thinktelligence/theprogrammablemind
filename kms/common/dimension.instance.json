@@ -92,7 +92,7 @@
             "verb"
           ],
           "bridge": "{ ...next(operator), quantity: after[0], operator: operator, interpolate: [{ property: 'operator' }, { property: 'quantity' }] }",
-          "semantic": "async ({context, e, api, toArray, resolveResponse}) => {\n        const preferredUnits = api.getPreferredUnits(context.quantity)\n        if (!preferredUnits) {\n          return\n        }\n        const from = context.quantity;\n        const value = await e({ marker: 'convertToUnits', from, to: preferredUnits })\n        resolveResponse(context, value.evalue)\n      }"
+          "semantic": "async ({context, e, api, toArray, resolveResponse}) => {\n        const preferredUnits = await api.getPreferredUnits(context.quantity)\n        if (!preferredUnits) {\n          return\n        }\n        const from = context.quantity;\n        const value = await e({ marker: 'convertToUnits', from, to: preferredUnits })\n        resolveResponse(context, value.evalue)\n      }"
         },
         {
           "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:214",

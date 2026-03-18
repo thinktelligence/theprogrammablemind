@@ -15,9 +15,9 @@ const template = {
         // TODO needs work around multiple undo calls and not calling already undon stuff
         {
           id: 'undo_undo',
-          semantic: (args) => {
-            const { mentions } = args
-            const action = mentions({ context: { marker: 'action_undo' } })
+          semantic: async (args) => {
+            const { amentions } = args
+            const action = await amentions({ context: { marker: 'action_undo' } })
             action.undo(args)
           }
         },

@@ -333,7 +333,7 @@
             "1": "{ marker: 'drone' }"
           },
           "bridge": "{ ...next(operator), object: after[0], interpolate: [{ context: operator }, { property: 'object' }] }",
-          "semantic": "async ({mentioned, context, objects, api, say}) => {\n            await api.stop()\n            api.markCurrentPoint()\n          }"
+          "semantic": "async ({mentioned, context, objects, api, say}) => {\n            await api.stop()\n            await api.markCurrentPoint()\n          }"
         }
       ],
       "generators": [
@@ -353,7 +353,11 @@
         },
         {
           "match": "({context, contextHierarchy}) => {\n            if (!context.pullFromContext || !context.evaluate || contextHierarchy.under('doAction')) {\n              return false\n            }\n            \n            if (context.marker == 'path' || context.marker == 'this' || context.marker == 'that') {\n              return true\n            }\n          }",
-          "apply": "async ({context, fragments, stm, objects, mentioned, mentions, resolveEvaluate, _continue, contextHierarchy}) => {\n            // const points = mentions({ context: { marker: 'point' }, all: true })\n            const pathComponents = mentions({ context: { marker: 'pathComponent' }, all: true })\n            const path = (await fragments('path')).contexts()[0]\n            delete path.value\n            path.points = pathComponents.reverse()\n            await mentioned(path)\n            _continue()\n          }"
+          "apply": "async ({context, fragments, stm, objects, mentioned, mentions, resolveEvaluate, _continue, contextHierarchy}) => {\n            // const points = mentions({ context: { marker: 'point' }, all: true })\n            const pathComponents = mentions({ context: { marker: 'pathComponent' }, all: true })\n            const path = (await fragments('path')).contexts()[0]\n            delete path.value\n            path.points = pathComponents.reverse()\n            await mentioned(path)\n\n            _continue() // let the call pick the object out from the stm\n          }"
+        },
+        {
+          "match": "({context, contextHierarchy}) => {\n            if (!context.pullFromContext || !context.evaluate || !contextHierarchy.under('call') || context.notUnderCall) {\n              return false\n            }\n            \n            if (context.marker == 'point' || context.marker == 'ordinal') {\n              return true\n            }\n          }",
+          "apply": "async ({context, e, fragments, stm, toEValue, toArray, objects, mentioned, mentions, resolveEvaluate, _continue, contextHierarchy}) => {\n            const evaluated = await e({...context, notUnderCall: true})\n            const pointsContext = toEValue(evaluated)\n            const pathComponents = toArray(pointsContext)\n\n            const path = (await fragments('path')).contexts()[0]\n            delete path.value\n            path.points = pathComponents.reverse()\n            await mentioned(path)\n            resolveEvaluate(context, path)\n          }"
         },
         {
           "match": "({context}) => context.marker == 'thenTime'",
@@ -50258,6 +50262,7 @@
         {}
       ],
       "semantics": [
+        {},
         {},
         {},
         {},

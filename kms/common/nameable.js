@@ -21,17 +21,6 @@ class API {
     this.args.config.addWord(name, { id: context.marker, initial: `{ value: "${name}", pullFromContext: true, nameable_named: true }` })
   }
 
-  get(type, name) {
-    return this.args.kms.stm.api.mentions({ 
-      context: type, 
-      condition: (context) => {
-        if (context.stm && context.stm.names) {
-          return context.stm.names.includes(name)
-        }
-      }
-    })
-  }
-
   getNamesByType(type) {
     const contexts = this.args.kms.stm.api.getByType(type)
     const names = new Set()

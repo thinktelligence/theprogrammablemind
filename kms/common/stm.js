@@ -314,6 +314,9 @@ function initializer({config}) {
     mentions: (args) => {
       return kms.stm.api.mentions(args)
     },
+    amentions: async (args) => {
+      return await kms.stm.api.mentions(args)
+    },
   }))
 }
 
