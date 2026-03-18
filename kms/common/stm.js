@@ -275,6 +275,14 @@ const config = {
     },  
   ],
   semantics: [
+    {
+      where: where(),
+      match: ({context}) => context.marker == 'mentions' && context.evaluate,
+      apply: ({context, kms, resolveEvaluate}) => {
+        // debugger
+        resolveEvaluate(context, kms.stm.api.mentions(context.args))
+      }
+    },
     { 
       where: where(),
       notes: 'pull from context',
@@ -307,12 +315,17 @@ const config = {
 }
 
 function initializer({config}) {
-  config.addArgs(({kms}) => ({
+  config.addArgs(({kms, e, toEValue}) => ({
     mentioned: (args) => {
       kms.stm.api.mentioned(args)
     },
     mentions: async (args) => {
-      return await kms.stm.api.mentions(args)
+      const result = await e({ marker: 'mentions', args, debug: true })
+      // evalue will return the argument if there is no evalue. dont want that for this case
+      if (!result.evalue) {
+        return
+      }
+      return toEValue(result)
     },
   }))
 }
