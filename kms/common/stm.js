@@ -1,6 +1,7 @@
 const { knowledgeModule, where, debug } = require('./runtime').theprogrammablemind
 const { defaultContextCheck } = require('./helpers')
 const helpers = require('./helpers')
+const helpers_conjunction = require('./helpers/conjunction')
 const articles = require('./articles')
 const evaluate = require('./evaluate')
 const stm_tests = require('./stm.test.json')
@@ -322,7 +323,7 @@ function initializer({config}) {
       if (!result.evalue) {
         return
       }
-      return helpers.toEValue(result)
+      return helpers_conjunction.asList(helpers.toEValue(result), true)
     },
   }))
 }

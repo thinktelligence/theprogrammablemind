@@ -1108,8 +1108,8 @@ const template = {
               return true
             }
           },
-          apply: async ({context, fragments, stm, objects, mentioned, mentions, resolveEvaluate, _continue, contextHierarchy}) => {
-            const pathComponents = await mentions({ context: { marker: 'pathComponent' }, all: true })
+          apply: async ({context, toArray, fragments, stm, objects, mentioned, mentions, resolveEvaluate, _continue, contextHierarchy}) => {
+            const pathComponents = toArray(await mentions({ context: { marker: 'pathComponent' }, all: true }))
             const path = (await fragments('path')).contexts()[0]
             delete path.value
             path.points = pathComponents.reverse()
