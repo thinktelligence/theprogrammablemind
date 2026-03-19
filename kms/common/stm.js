@@ -69,12 +69,8 @@ class API {
       concept.value = value
     }
     concept.fromSTM = true
-    if (!concept.stm) {
-      concept.stm = {}
-    }
-    if (!concept.stm.id) {
-      concept.stm.id = this.getId()
-    }
+    concept.stm ??= {}
+    concept.stm.id ??= this.getId()
     frameOfReference.mentioned = (frameOfReference.mentioned || []).filter( (context) => context.stm && context.stm.id != concept.stm.id )
     helpers.unshiftL(frameOfReference.mentioned, concept, this.maximumMentioned)
   }
