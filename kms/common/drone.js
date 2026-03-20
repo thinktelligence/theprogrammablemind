@@ -1100,7 +1100,7 @@ const template = {
         },
         {
           match: ({context, contextHierarchy}) => {
-            if (!context.pullFromContext || !context.evaluate || contextHierarchy.under('doAction')) {
+            if (!context.pullFromContext || !context.evaluate || contextHierarchy.under(['doAction', 'evaluate'])) {
               return false
             }
             
@@ -1108,11 +1108,12 @@ const template = {
               return true
             }
           },
-          apply: async ({context, toArray, fragments, stm, objects, mentioned, mentions, resolveEvaluate, _continue, contextHierarchy}) => {
+          apply: async ({context, frameOfReference, toArray, fragments, stm, objects, mentioned, mentions, resolveEvaluate, _continue, contextHierarchy}) => {
             const pathComponents = toArray(await mentions({ context: { marker: 'pathComponent' }, all: true }))
             const path = (await fragments('path')).contexts()[0]
             delete path.value
             path.points = pathComponents.reverse()
+            frameOfReference(path, { mentioned: 'points', reversed: true })
             await mentioned(path)
 
             _continue() // let the call pick the object out from the stm

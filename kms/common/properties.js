@@ -1,4 +1,4 @@
-const { knowledgeModule, where } = require('./runtime').theprogrammablemind
+const { knowledgeModule, where, debug } = require('./runtime').theprogrammablemind
 const { defaultContextCheck, words } = require('./helpers')
 const dialogues = require('./dialogues')
 const meta = require('./meta')
@@ -625,7 +625,7 @@ const config = {
                       !context.evaluate.toConcept, // && !context.value,
                       // greghere
       // match: ({context, hierarchy}) => hierarchy.isA(context.marker, 'property') && context.evaluate,
-      apply: async ({context, api, kms, objects, g, s, log}) => {
+      apply: async ({callId, context, api, kms, objects, g, s, log, mentions}) => {
         const toDo = [ ...context.objects ]
 
         async function toValue(objectContext) {
@@ -664,12 +664,21 @@ const config = {
             return
           }
 
+          let fromMentions
           if (!await api.knownProperty(currentContext, nextContext)) {
-            context.verbatim = `There is no property ${await g({...nextContext, paraphrase: true})} of ${await g({...currentContext, paraphrase: true})}`
-            return
+            fromMentions = await mentions({ context: nextContext, frameOfReference: currentContext })
+            if (!fromMentions) {
+              context.verbatim = `There is no property ${await g({...nextContext, paraphrase: true})} of ${await g({...currentContext, paraphrase: true})}`
+              return
+            }
           }
-          currentContext = await api.getProperty(currentValue, nextValue, g)
-          currentValue = currentContext.value
+          if (fromMentions) {
+            currentContext = fromMentions
+            currentValue = fromMentions // TODO not sure what is right here so just do something and fix when actually needed SOP
+          } else {
+            currentContext = await api.getProperty(currentValue, nextValue, g)
+            currentValue = currentContext.value
+          }
         }
         context.focusable = ['object[0]']
         context.evalue = currentContext

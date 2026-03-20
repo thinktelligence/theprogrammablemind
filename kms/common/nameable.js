@@ -1,4 +1,4 @@
-const { knowledgeModule, where } = require('./runtime').theprogrammablemind
+const { knowledgeModule, where, debug } = require('./runtime').theprogrammablemind
 const { defaultContextCheck, defaultContextCheckProperties } = require('./helpers')
 const helpers = require('./helpers')
 const englishHelpers = require('./english_helpers')
@@ -49,17 +49,6 @@ class API {
   getNames(nameable) {
     return (nameable.stm && nameable.stm.names) || []
   }
-
-  /*
-  getNames() {
-    const current = this.current()
-    console.log('getReportNames current', JSON.stringify(current, null, 2))
-    return Object.keys(this.objects.namedReports).map( (name) => {
-      const selected = (current.names || []).includes(name)
-      return { name, selected, id: name }
-    })
-  }
-  */
 
   setCurrent(name) {
     const context = this.objects.named[name]
@@ -158,7 +147,24 @@ const config = {
       { context: [['call', 0], ['that', 0]], choose: 0 },
     ],
   },
-
+  semantics: [
+    {
+      where: where(),
+      match: ({context}) => context.marker == 'mentions' && context.evaluate && context.args.context.nameable_named,
+      apply: async ({callId, _continue, toList, context, kms, e, log, retry}) => {
+        context.args.condition ??= () => true
+        const oldCondition = context.args.condition
+        const name = context.args.context.value
+        context.args.condition = (context) => {
+          if (!context.stm?.names?.includes(name)) {
+            return
+          }
+          return oldCondition(context)
+        }
+        _continue()
+      }
+    },
+  ],
 }
 
 knowledgeModule( { 

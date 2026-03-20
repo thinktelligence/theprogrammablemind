@@ -76,12 +76,35 @@ class API {
   }
 
   mentions({ context, frameOfReference, useHierarchy=true, all, lastN, condition = (() => true) } = {}) {
-    const mentioned = frameOfReference?.mentioned || this._objects.mentioned
+    let mentioned = this._objects.mentioned
+    let reversed = false
+    if (frameOfReference) {
+      if (frameOfReference.stm?.mentioned) {
+        mentioned = [...frameOfReference[frameOfReference.stm.mentioned]]
+        if (frameOfReference.stm.reversed) {
+          mentioned.reverse()
+          reversed = true
+        }
+      } else {
+        if (typeof frameOfReference?.mentioned == 'string') {
+          mentioned = frameOfReference[frameOfReference.mentioned]
+        } else {
+          mentioned = frameOfReference.mentioned
+        }
+      }
+    }
+    if (!mentioned) {
+      return
+    }
     const findPrevious = !!context.stm_previous
     const forAll = []
     function addForAll(context) {
       if (!forAll.find( (c) => c.stm.id == context.stm.id)) {
-        forAll.push(context)
+        if (reversed) {
+          forAll.unshift(context)
+        } else {
+          forAll.push(context)
+        }
       }
     }
 
@@ -206,7 +229,7 @@ class API {
   }
 
   getVariable(context) {
-    if (!context) {
+    if (!context || context.marker == 'mentions') {
       return
     }
     let valueNew = this.mentions({ context, useHierarchy: false, condition: (context) => context.isVariable })
@@ -271,6 +294,13 @@ const config = {
       bridge: '{ ...before[0], postModifiers: ["stm_previous"], stm_previous: operator, pullFromContext: true }',
     },  
   ],
+  generators: [
+    {
+      where: where(),
+      match: ({context}) => context.stm?.names,
+      apply: ({context}) => context.stm.names[0],
+    }
+  ],
   semantics: [
     {
       where: where(),
@@ -309,11 +339,29 @@ const config = {
 }
 
 function initializer({config}) {
-  config.addArgs(({kms, e}) => ({
+  config.addArgs(({kms, e, toList}) => ({
     mentioned: (args) => {
       kms.stm.api.mentioned(args)
     },
+
+    frameOfReference: (context, { mentioned, reversed } = {}) => {
+      context.stm ??= {}
+      if (mentioned !== null) {
+        context.stm.mentioned = mentioned // name of property that has the mentioned objects
+      }
+      if (reversed !== null) {
+        context.stm.reversed = reversed   // true iff the list is oldest first rather than newest first
+      }
+    },
+
     mentions: async (args) => {
+      if (args.frameOfReference?.nameable_named) {
+        const result = await e(args.frameOfReference)
+        if (result.evalue) {
+          args.frameOfReference = result.evalue
+        }
+      }
+
       const result = await e({ marker: 'mentions', args })
       // evalue will return the argument if there is no evalue. dont want that for this case
       if (!result.evalue) {

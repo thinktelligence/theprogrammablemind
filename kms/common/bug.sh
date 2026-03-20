@@ -996,3 +996,9 @@ node  drone -q "north 1 foot\neast 2 feet\ncall the path patrol 1\ndo patrol 1\n
 node  drone -q "to the start of the path" -g -d 
 node drone -q 'forward 1 meter\nwest 1 meter\ncall the path route 1\npatrol route 1' -g -d
 node drone -q 'forward 1 foot\npause 10 seconds\ngo back\ncall that path route 1' -g -d
+node drone -q 'forward 1 foot\nwest 1 foot\ncall the path route 1\ngo to the start of route 1\nsouth 1 foot\nevaluate the last point of route 1' -g -d
+node drone -q 'forward 1 foot\nwest 1 foot\ncall the path route 1\ngo to the start of route 1\nsouth 1 foot\nevaluate the first 2 points of route 1' -g -d
+node drone -q 'forward 1 foot\nwest 1 foot\ncall the path route 1\ngo to the start of route 1\nsouth 1 foot\nevaluate the first and fourth point of route 1' -g -d
+node drone -q 'forward 1 foot\nwest 1 foot\ncall the path route 1\ngo to the start of route 1\nsouth 1 foot\nevaluate the last 2 points of route 1' -g -d
+node drone -q 'forward 1 foot\nwest 1 foot\ncall the path route 1\ngo to the start of route 1\nsouth 1 foot\nevaluate the points of route 1' -g -d
+node drone -q 'forward 1 foot\nwest 1 foot\ncall the path route 1\ngo to the start of route 1\nsouth 1 foot\nevaluate all the points of route 1' -g -d
