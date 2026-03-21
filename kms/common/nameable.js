@@ -16,9 +16,9 @@ class API {
   // report is a context
   setName(context, name) {
     context.namespaced ??= {}
-    context.namespaced.stm ??= {}
-    context.namespaced.stm.names ??= []
-    context.namespaced.stm.names.push(name)
+    context.namespaced.nameable ??= {}
+    context.namespaced.nameable.names ??= []
+    context.namespaced.nameable.names.push(name)
     this.args.config.addWord(name, { id: context.marker, initial: `{ value: "${name}", pullFromContext: true, nameable_named: true }` })
   }
 
@@ -27,8 +27,8 @@ class API {
     return this.args.kms.stm.api.mentions({ 
       context: type, 
       condition: (context) => {
-        if (context.namespaced?.stm && context.namespaced.stm.names) {
-          return context.namespaced.stm.names.includes(name)
+        if (context.namespaced?.nameable && context.namespaced.nameable.names) {
+          return context.namespaced.nameable.names.includes(name)
         }
       }
     })
@@ -38,8 +38,8 @@ class API {
     const contexts = this.args.kms.stm.api.getByType(type)
     const names = new Set()
     for (const context of contexts) {
-      if (context.namespaced?.stm?.names) {
-        for (const name of context.namespaced.stm.names) {
+      if (context.namespaced?.nameable?.names) {
+        for (const name of context.namespaced.nameable.names) {
           names.add(name)
         }
       }
@@ -48,7 +48,7 @@ class API {
   }
 
   getNames(nameable) {
-    return (nameable.namespaced?.stm && nameable.namespaced.stm.names) || []
+    return (nameable.namespaced?.nameable && nameable.namespaced.nameable.names) || []
   }
 
   setCurrent(name) {
@@ -148,6 +148,13 @@ const config = {
       { context: [['call', 0], ['that', 0]], choose: 0 },
     ],
   },
+  generators: [
+    {
+      where: where(),
+      match: ({context}) => context.namespaced?.nameable?.names,
+      apply: ({context}) => context.namespaced.nameable.names[0],
+    }
+  ],
   semantics: [
     {
       where: where(),
@@ -157,7 +164,7 @@ const config = {
         const oldCondition = context.args.condition
         const name = context.args.context.value
         context.args.condition = (context) => {
-          if (!context.namespaced?.stm?.names?.includes(name)) {
+          if (!context.namespaced?.nameable?.names?.includes(name)) {
             return
           }
           return oldCondition(context)

@@ -295,13 +295,6 @@ const config = {
       bridge: '{ ...before[0], postModifiers: ["stm_previous"], stm_previous: operator, pullFromContext: true }',
     },  
   ],
-  generators: [
-    {
-      where: where(),
-      match: ({context}) => context.namespaced?.stm?.names,
-      apply: ({context}) => context.namespaced.stm.names[0],
-    }
-  ],
   semantics: [
     {
       where: where(),
