@@ -576,7 +576,12 @@ knowledgeModule( {
     contents: droneV1_tests,
     checks: {
       context: [
-        defaultContextCheck({ marker: 'point', exported: true, extra: ['ordinal', { property: 'point', check: ['x', 'y'] }, 'description', { property: 'stm', check: ['id', 'names'] }] }),
+        defaultContextCheck({ marker: 'point', exported: true, extra: [
+          'ordinal', 
+          { property: 'point', check: ['x', 'y'] }, 
+          'description', 
+          { property: 'namespaced', check: [{ property: 'stm', check: ['id', 'names'] }] },
+        ] }),
         defaultContextCheck({ marker: 'turn', exported: true, extra: ['direction'] }),
         defaultContextCheck({ marker: 'history', exported: true, extra: ['pause', 'direction', 'power', 'turn', 'time'] }),
         defaultContextCheck(),

@@ -69,9 +69,10 @@ class API {
       concept.value = value
     }
     concept.fromSTM = true
-    concept.stm ??= {}
-    concept.stm.id ??= this.getId()
-    frameOfReference.mentioned = (frameOfReference.mentioned || []).filter( (context) => context.stm && context.stm.id != concept.stm.id )
+    concept.namespaced ??= {}
+    concept.namespaced.stm ??= {}
+    concept.namespaced.stm.id ??= this.getId()
+    frameOfReference.mentioned = (frameOfReference.mentioned || []).filter( (context) => context.namespaced?.stm && context.namespaced.stm.id != concept.namespaced.stm.id )
     helpers.unshiftL(frameOfReference.mentioned, concept, this.maximumMentioned)
   }
 
@@ -79,9 +80,9 @@ class API {
     let mentioned = this._objects.mentioned
     let reversed = false
     if (frameOfReference) {
-      if (frameOfReference.stm?.mentioned) {
-        mentioned = [...frameOfReference[frameOfReference.stm.mentioned]]
-        if (frameOfReference.stm.reversed) {
+      if (frameOfReference.namespaced?.stm?.mentioned) {
+        mentioned = [...frameOfReference[frameOfReference.namespaced.stm.mentioned]]
+        if (frameOfReference.namespaced.stm.reversed) {
           mentioned.reverse()
           reversed = true
         }
@@ -99,7 +100,7 @@ class API {
     const findPrevious = !!context.stm_previous
     const forAll = []
     function addForAll(context) {
-      if (!forAll.find( (c) => c.stm.id == context.stm.id)) {
+      if (!forAll.find( (c) => c.namespaced.stm.id == context.namespaced.stm.id)) {
         if (reversed) {
           forAll.unshift(context)
         } else {
@@ -297,8 +298,8 @@ const config = {
   generators: [
     {
       where: where(),
-      match: ({context}) => context.stm?.names,
-      apply: ({context}) => context.stm.names[0],
+      match: ({context}) => context.namespaced?.stm?.names,
+      apply: ({context}) => context.namespaced.stm.names[0],
     }
   ],
   semantics: [
@@ -345,12 +346,13 @@ function initializer({config}) {
     },
 
     frameOfReference: (context, { mentioned, reversed } = {}) => {
-      context.stm ??= {}
+      context.namespaced ??= {}
+      context.namespaced.stm ??= {}
       if (mentioned !== null) {
-        context.stm.mentioned = mentioned // name of property that has the mentioned objects
+        context.namespaced.stm.mentioned = mentioned // name of property that has the mentioned objects
       }
       if (reversed !== null) {
-        context.stm.reversed = reversed   // true iff the list is oldest first rather than newest first
+        context.namespaced.stm.reversed = reversed   // true iff the list is oldest first rather than newest first
       }
     },
 
