@@ -418,7 +418,10 @@ class API {
         if (pathComponent.marker == 'pause') {
           this.pause(pathComponent.pauseSeconds, { batched: true })
         } else {
-          const destinationPoint = pathComponent.point
+          const points = this.args.toArray(pathComponent)
+          // const destinationPoint = pathComponent.point
+          const destinationPoint = points[0].point || points[0]
+          debugger
           if (currentPoint.x == destinationPoint.x && currentPoint.y == destinationPoint.y) {
             // already there
           } else {
