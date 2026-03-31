@@ -357,7 +357,7 @@
         },
         {
           "match": "({context, contextHierarchy}) => {\n            if (!context.pullFromContext || !context.evaluate || !contextHierarchy.under('call') || context.notUnderCall) {\n              return false\n            }\n            \n            if (context.marker == 'point' || context.marker == 'ordinal') {\n              return true\n            }\n          }",
-          "apply": "async ({context, e, fragments, stm, toEValue, toArray, objects, mentioned, mentions, resolveEvaluate, _continue, contextHierarchy}) => {\n            const evaluated = await e({...context, notUnderCall: true})\n            const pointsContext = toEValue(evaluated)\n            const pathComponents = toArray(pointsContext)\n\n            const path = (await fragments('path')).contexts()[0]\n            delete path.value\n            path.points = pathComponents.reverse()\n            await mentioned(path)\n            resolveEvaluate(context, path)\n          }"
+          "apply": "async ({context, e, fragments, stm, toEValue, toArray, objects, mentioned, mentions, resolveEvaluate, _continue, contextHierarchy}) => {\n            const evaluated = await e({...context, notUnderCall: true})\n            const pointsContext = toEValue(evaluated)\n            const pathComponents = toArray(pointsContext)\n\n            const path = (await fragments('path')).contexts()[0]\n            delete path.value\n            path.points = [...pathComponents]\n            await mentioned(path)\n            resolveEvaluate(context, path)\n          }"
         },
         {
           "match": "({context}) => context.marker == 'thenTime'",
@@ -45314,6 +45314,24 @@
             "unknown",
             0
           ]
+        ],
+        [
+          [
+            "is",
+            0
+          ],
+          [
+            "list",
+            1
+          ],
+          [
+            "point",
+            0
+          ],
+          [
+            "unknown",
+            0
+          ]
         ]
       ],
       "summaries": [
@@ -85619,6 +85637,24 @@
       ],
       [
         "point",
+        0
+      ]
+    ],
+    [
+      [
+        "is",
+        0
+      ],
+      [
+        "list",
+        1
+      ],
+      [
+        "point",
+        0
+      ],
+      [
+        "unknown",
         0
       ]
     ],

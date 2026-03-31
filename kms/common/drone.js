@@ -1136,7 +1136,7 @@ const template = {
 
             const path = (await fragments('path')).contexts()[0]
             delete path.value
-            path.points = pathComponents.reverse()
+            path.points = [...pathComponents]
             await mentioned(path)
             resolveEvaluate(context, path)
           },

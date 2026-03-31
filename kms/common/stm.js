@@ -76,7 +76,7 @@ class API {
     helpers.unshiftL(frameOfReference.mentioned, concept, this.maximumMentioned)
   }
 
-  mentions({ context, frameOfReference, useHierarchy=true, all, lastN, condition = (() => true) } = {}) {
+  mentions({ context, frameOfReference, useHierarchy=true, all, condition = (() => true), filter = ((result) => result) } = {}) {
     let mentioned = this._objects.mentioned
     let reversed = false
     if (frameOfReference) {
@@ -112,9 +112,6 @@ class API {
     // care about value first
     let findCounter = 0
     for (const m of mentioned) {
-      if (lastN === 0) {
-        break
-      }
       if (context.value && (context.value == m.marker || context.value == m.value)) {
         findCounter += 1
         if (findPrevious && findCounter < 2) {
@@ -124,20 +121,17 @@ class API {
           continue
         }
         if (condition(m)) {
-          if (all || lastN) {
+          if (all) {
             addForAll(m)
-            if (lastN) {
-              lastN -= 1
-            }
           } else {
-            return m
+            return filter(m)
           }
         }
       }
     }
 
-    if (lastN === 0) {
-      return forAll
+    if (forAll.length > 0) {
+      return filter(forAll)
     }
 
     if (!useHierarchy) {
@@ -147,9 +141,6 @@ class API {
     // care about marker second
     findCounter = 0
     for (const m of mentioned) {
-      if (lastN === 0) {
-        break
-      }
       if (context.marker != 'unknown' && this.isA(m.marker, context.marker)) {
         findCounter += 1
         if (findPrevious && findCounter < 2) {
@@ -159,13 +150,10 @@ class API {
           continue
         }
         if (condition(m)) {
-          if (all || lastN) {
+          if (all) {
             addForAll(m)
-            if (lastN) {
-              lastN -= 1
-            }
           } else {
-            return m
+            return filter(m)
           }
         }
       }
@@ -181,13 +169,10 @@ class API {
               continue
             }
             if (condition(m)) {
-              if (all || lastN) {
-                if (lastN) {
-                  lastN -= 1
-                }
+              if (all) {
                 addForAll(m)
               } else {
-                return m
+                return filter(m)
               }
             }
           }
@@ -195,37 +180,31 @@ class API {
       }
     }
 
-    if (lastN === 0) {
-      return forAll
+    if (forAll.length > 0) {
+      return filter(forAll)
     }
 
     findCounter = 0
     if (context.types && context.types.length == 1) {
       for (const m of mentioned) {
-        if (lastN === 0) {
-          break
-        }
         if (context.unknown) {
           findCounter += 1
           if (findPrevious && findCounter < 2) {
             continue
           }
           if (condition(m)) {
-            if (all || lastN) {
+            if (all) {
               addForAll(m)
-              if (lastN) {
-                lastN -= 1
-              }
             } else {
-              return m
+              return filter(m)
             }
           }
         }
       }
     }
 
-    if (all || lastN) {
-      return forAll
+    if (forAll.length > 0) {
+      return filter(forAll)
     }
   }
 
