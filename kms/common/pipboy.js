@@ -417,7 +417,7 @@ const config = {
        generatorp: ({context, g}) => `${context.marker} ${g(context.type)}`,
        isA: ['verby'],
        semantic: ({context, kms}) => {
-         kms.dialogues.api.mentioned({
+         kms.dialogues.api.remember({
            marker: context.type.marker,
            value: context.type.marker
          })

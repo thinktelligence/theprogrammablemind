@@ -626,7 +626,7 @@ const config = {
                       !context.evaluate.toConcept, // && !context.value,
                       // greghere
       // match: ({context, hierarchy}) => hierarchy.isA(context.marker, 'property') && context.evaluate,
-      apply: async ({callId, context, api, kms, objects, g, s, log, mentions}) => {
+      apply: async ({callId, context, api, kms, objects, g, s, log, recall}) => {
         const toDo = [ ...context.objects ]
 
         async function toValue(objectContext) {
@@ -667,7 +667,7 @@ const config = {
 
           let fromMentions
           if (!await api.knownProperty(currentContext, nextContext)) {
-            fromMentions = await mentions({ context: nextContext, all: nextContext.number == 'many', frameOfReference: currentContext })
+            fromMentions = await recall({ context: nextContext, all: nextContext.number == 'many', frameOfReference: currentContext })
             if (!fromMentions) {
               context.verbatim = `There is no property ${await g({...nextContext, paraphrase: true})} of ${await g({...currentContext, paraphrase: true})}`
               return

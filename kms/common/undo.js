@@ -16,8 +16,8 @@ const template = {
         {
           id: 'undo_undo',
           semantic: async (args) => {
-            const { mentions } = args
-            const action = await mentions({ context: { marker: 'action_undo' } })
+            const { recall } = args
+            const action = await recall({ context: { marker: 'action_undo' } })
             action.undo(args)
           }
         },
@@ -25,9 +25,9 @@ const template = {
           id: 'action_undo',
           words: words('action'),
           scope: "testing",
-          semantic: ({ context, mentioned, isModule }) => {
+          semantic: ({ context, remember, isModule }) => {
             if (!isModule) {
-              mentioned({ context })
+              remember({ context })
               context.undo = ({objects}) => objects.undone = context
             }
           }

@@ -41,7 +41,7 @@ class API {
     return this._objects.mentioned.filter( (context) => this.isA(context.marker, type) )
   }
 
-  mentioned(args) {
+  remember(args) {
     let concept, value, frameOfReference
     if (!args.context) {
       concept = args
@@ -76,7 +76,7 @@ class API {
     helpers.unshiftL(frameOfReference.mentioned, concept, this.maximumMentioned)
   }
 
-  mentions({ context, frameOfReference, useHierarchy=true, all, condition = (() => true), filter = ((result) => result) } = {}) {
+  recall({ context, frameOfReference, useHierarchy=true, all, condition = (() => true), filter = ((result) => result) } = {}) {
     let mentioned = this._objects.mentioned
     let reversed = false
     if (frameOfReference) {
@@ -212,7 +212,7 @@ class API {
     if (!context || context.marker == 'mentions') {
       return
     }
-    let valueNew = this.mentions({ context, useHierarchy: false, condition: (context) => context.isVariable })
+    let valueNew = this.recall({ context, useHierarchy: false, condition: (context) => context.isVariable })
     if (valueNew && valueNew.value) {
       valueNew = valueNew.value
     }
@@ -220,7 +220,7 @@ class API {
   }
 
   setVariable(variableName, value) {
-    this.mentioned({ context: { marker: variableName, isVariable: true }, value })
+    this.remember({ context: { marker: variableName, isVariable: true }, value })
   }
 }
 
@@ -255,7 +255,7 @@ const config = {
         if (value == context.rememberee.value) {
           value = context.rememberee
         }
-        api.mentioned({ context: value })
+        api.remember({ context: value })
       },
     },
     { 
@@ -279,7 +279,7 @@ const config = {
       where: where(),
       match: ({context}) => context.marker == 'mentions' && context.evaluate,
       apply: ({context, kms, toList, resolveEvaluate}) => {
-        resolveEvaluate(context, kms.stm.api.mentions(context.args))
+        resolveEvaluate(context, kms.stm.api.recall(context.args))
       }
     },
     { 
@@ -287,8 +287,8 @@ const config = {
       notes: 'pull from context',
       // match: ({context}) => context.marker == 'it' && context.pullFromContext, // && context.value,
       match: ({context, callId}) => context.pullFromContext && !context.same, // && context.value,
-      apply: async ({callId, mentions, toList, context, kms, e, log, retry}) => {
-        context.value = (await mentions({ context }))
+      apply: async ({callId, recall, toList, context, kms, e, log, retry}) => {
+        context.value = (await recall({ context }))
         if (Array.isArray(context.value)) {
           context.value = toList(context.value)
         }
@@ -313,8 +313,8 @@ const config = {
 
 function initializer({config}) {
   config.addArgs(({kms, e, toList}) => ({
-    mentioned: (args) => {
-      kms.stm.api.mentioned(args)
+    remember: (args) => {
+      kms.stm.api.remember(args)
     },
 
     frameOfReference: (context, { mentioned, reversed } = {}) => {
@@ -328,7 +328,7 @@ function initializer({config}) {
       }
     },
 
-    mentions: async (args) => {
+    recall: async (args) => {
       if (args.frameOfReference?.nameable_named) {
         const result = await e(args.frameOfReference)
         if (result.evalue) {

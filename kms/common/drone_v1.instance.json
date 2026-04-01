@@ -43,7 +43,7 @@
             "verb"
           ],
           "bridge": "{ ...next(operator), interpolate: [{ context: operator }] }",
-          "semantic": "({context, objects, api, mentioned}) => {\n            objects.current.direction = 'forward'\n            const startTime = api.forward(objects.current.power)\n            objects.calibration.startTime = startTime\n\n            const ordinal = api.nextOrdinal()\n            mentioned({ marker: 'point', ordinal, point: { x: 0, y: 0 }, description: \"calibration start\" })\n            objects.current.ordinal = ordinal\n          }"
+          "semantic": "({context, objects, api, remember}) => {\n            objects.current.direction = 'forward'\n            const startTime = api.forward(objects.current.power)\n            objects.calibration.startTime = startTime\n\n            const ordinal = api.nextOrdinal()\n            remember({ marker: 'point', ordinal, point: { x: 0, y: 0 }, description: \"calibration start\" })\n            objects.current.ordinal = ordinal\n          }"
         },
         {
           "id": "pause",
@@ -62,7 +62,7 @@
             "1": "{ marker: 'drone' }"
           },
           "bridge": "{ ...next(operator), object: after[0], interpolate: [{ context: operator }, { property: 'object' }] }",
-          "semantic": "async ({mentioned, context, objects, api, say}) => {\n            if (!objects.calibration.startTime) {\n              return // ignore\n            }\n            if (objects.calibration.speed) {\n              /*\n              const stopTime = api.stop()\n              const ordinal = api.nextOrdinal()\n              const point = api.currentPoint()\n              mentioned({ marker: 'point', ordinal, point })\n              objects.current.ordinal = ordinal\n              */\n              api.stop()\n              await api.markCurrentPoint()\n            } else {\n              const stopTime = api.stop()\n              objects.calibration.endTime = stopTime\n              objects.calibration.duration = (objects.calibration.endTime - objects.calibration.startTime)/1000\n            }\n          }"
+          "semantic": "async ({remember, context, objects, api, say}) => {\n            if (!objects.calibration.startTime) {\n              return // ignore\n            }\n            if (objects.calibration.speed) {\n              /*\n              const stopTime = api.stop()\n              const ordinal = api.nextOrdinal()\n              const point = api.currentPoint()\n              remember({ marker: 'point', ordinal, point })\n              objects.current.ordinal = ordinal\n              */\n              api.stop()\n              await api.markCurrentPoint()\n            } else {\n              const stopTime = api.stop()\n              objects.calibration.endTime = stopTime\n              objects.calibration.duration = (objects.calibration.endTime - objects.calibration.startTime)/1000\n            }\n          }"
         }
       ],
       "generators": [

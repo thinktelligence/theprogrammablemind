@@ -106,7 +106,7 @@ class API {
     const id = ++this._objects.id
     reminder.id = id
     this._objects.reminders.push(reminder)
-    this.args.mentioned({ context: reminder })
+    this.args.remember({ context: reminder })
     this._objects.current = id
   }
 

@@ -21,9 +21,9 @@ describe('drone km', () => {
   })
 
   test('NEO23 load causes define start point to be mentioned', async () => {
-    await km.run(async ({mentions, api}) => {
+    await km.run(async ({recall, api}) => {
       const ordinal = km.api.currentOrdinal()
-      const lastPoint = await mentions({ context: { marker: 'point' }, condition: (context) => context.ordinal == ordinal })
+      const lastPoint = await recall({ context: { marker: 'point' }, condition: (context) => context.ordinal == ordinal })
       expect(lastPoint.description).toBe('start')
     })
   })

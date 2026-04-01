@@ -146,7 +146,7 @@ class API {
       return null // in motion
     }
     const ordinal = this._objects.current.ordinal
-    const lastPoint = await this.args.mentions({ context: { marker: 'point' }, condition: (context) => context.ordinal == ordinal })
+    const lastPoint = await this.args.recall({ context: { marker: 'point' }, condition: (context) => context.ordinal == ordinal })
 
     const durationInSeconds = (this._objects.current.endTime - this._objects.current.startTime) / 1000
     const speedInMetersPerSecond = (this._objects.current.power / this._objects.calibration.power) * this._objects.calibration.speed
@@ -162,7 +162,7 @@ class API {
   async markCurrentPoint() {
     const ordinal = this.nextOrdinal()
     const point = await this.currentPoint()
-    this.args.mentioned({ marker: 'point', ordinal, point })
+    this.args.remember({ marker: 'point', ordinal, point })
     this._objects.current.ordinal = ordinal
     this._objects.current.endTime = null
     this._objects.current.startTime = null
@@ -196,7 +196,7 @@ class API {
     }
 
     if (this._objects.current.destination) {
-      const currentPoint = await this.args.mentions({ context: { marker: 'point' } })
+      const currentPoint = await this.args.recall({ context: { marker: 'point' } })
       const polar = cartesianToPolar(currentPoint.point, this._objects.current.destination.point)
       const destinationAngleInDegrees = radiansToDegrees(polar.angle)
       let angleDelta = destinationAngleInDegrees - this._objects.current.angleInDegrees
@@ -398,12 +398,12 @@ function expectCalibrationCompletion(args) {
   args.config.addSemantic({
     oneShot: true,
     match: ({context, objects, isA}) => context.marker == 'controlEnd' && objects.calibration.distance && objects.calibration.duration && !objects.calibration.speed,
-    apply: ({api, context, objects, _continue, say, mentioned}) => {
+    apply: ({api, context, objects, _continue, say, remember}) => {
       objects.calibration.speed = objects.calibration.distance / objects.calibration.duration
       objects.isCalibrated = true
       say(`The drone is calibrated. The speed is ${objects.calibration.speed.toFixed(4)} meters per second at 10 percent power`)
       const ordinal = api.nextOrdinal()
-      mentioned({ marker: 'point', ordinal, point: { x: objects.calibration.distance, y: 0 }, distance: objects.calibration.distance, description: "calibration stop" })
+      remember({ marker: 'point', ordinal, point: { x: objects.calibration.distance, y: 0 }, distance: objects.calibration.distance, description: "calibration stop" })
       objects.current.ordinal = ordinal
       _continue()
       expectDistanceForMove(args)
@@ -502,13 +502,13 @@ const template = {
           id: 'calibrate',
           isA: ['verb'],
           bridge: "{ ...next(operator), interpolate: [{ context: operator }] }",
-          semantic: ({context, objects, api, mentioned}) => {
+          semantic: ({context, objects, api, remember}) => {
             objects.current.direction = 'forward'
             const startTime = api.forward(objects.current.power)
             objects.calibration.startTime = startTime
 
             const ordinal = api.nextOrdinal()
-            mentioned({ marker: 'point', ordinal, point: { x: 0, y: 0 }, description: "calibration start" })
+            remember({ marker: 'point', ordinal, point: { x: 0, y: 0 }, description: "calibration start" })
             objects.current.ordinal = ordinal
           }
         },
@@ -529,7 +529,7 @@ const template = {
             1: "{ marker: 'drone' }",
           },
           bridge: "{ ...next(operator), object: after[0], interpolate: [{ context: operator }, { property: 'object' }] }",
-          semantic: async ({mentioned, context, objects, api, say}) => {
+          semantic: async ({remember, context, objects, api, say}) => {
             if (!objects.calibration.startTime) {
               return // ignore
             }
@@ -538,7 +538,7 @@ const template = {
               const stopTime = api.stop()
               const ordinal = api.nextOrdinal()
               const point = api.currentPoint()
-              mentioned({ marker: 'point', ordinal, point })
+              remember({ marker: 'point', ordinal, point })
               objects.current.ordinal = ordinal
               */
               api.stop()

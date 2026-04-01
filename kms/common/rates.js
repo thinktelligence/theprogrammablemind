@@ -37,7 +37,7 @@ const template = {
         {
           where: where(),
           match: ({context}) => context.marker == 'convertToUnits' && context.evaluate && (context.from?.unit?.marker == 'unitPerUnit' || context.to.marker == 'unitPerUnit'),
-          apply: async ({mentioned, context, kms, e, callId, resolveEvaluate, toEValue, error}) => {
+          apply: async ({remember, context, kms, e, callId, resolveEvaluate, toEValue, error}) => {
 
             async function convert(fromUnits, fromAmount, toUnits) {
               let evalue;
@@ -51,7 +51,7 @@ const template = {
                 const formula = kms.formulas.api.get(toUnits, [fromUnits])
                 if (!formula) {
                   const reason = { marker: 'reason', focusableForPhrase: true, evalue: { marker: 'noconversion', from: fromUnits, to: toUnits } }
-                  kms.stm.api.mentioned({ context: reason })
+                  kms.stm.api.remember({ context: reason })
                   error(reason)
                 }
                 kms.stm.api.setVariable(fromUnits.value, fromAmount)
@@ -66,7 +66,7 @@ const template = {
 
 
             const from = toEValue(context.from)
-            mentioned(context.to)
+            remember(context.to)
             const evalueNumerator = await convert(from.unit.numerator, from.amount, context.to.numerator)
             const evalueDenominator = await convert(from.unit.denominator, 1, context.to.denominator)
             const evalue = { evalue: (toFinalValue(evalueNumerator) || evalueNumerator.value) / (toFinalValue(evalueDenominator) || evalueDenominator.evalue) }

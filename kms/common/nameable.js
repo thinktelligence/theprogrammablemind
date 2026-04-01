@@ -24,7 +24,7 @@ class API {
 
   // used by mongo km
   get(type, name) {
-    return this.args.kms.stm.api.mentions({ 
+    return this.args.kms.stm.api.recall({ 
       context: type, 
       condition: (context) => {
         if (context.namespaced?.nameable && context.namespaced.nameable.names) {
@@ -54,16 +54,16 @@ class API {
   setCurrent(name) {
     const context = this.objects.named[name]
     if (context) {
-      this.args.km('stm').api.mentioned({ context })
+      this.args.km('stm').api.remember({ context })
     }
   }
 }
 
 function initializer({config}) {
-  config.addArgs(({kms, mentioned}) => {
+  config.addArgs(({kms, remember}) => {
     return {
-      mentioned: (args) => {
-        mentioned(args)
+      remember: (args) => {
+        remember(args)
         if (args.name) {
           kms.nameable.api.setName(args.context, args.name)
         }

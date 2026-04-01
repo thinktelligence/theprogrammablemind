@@ -306,7 +306,7 @@ class API {
     objects.history = []
     objects.sonicTest = 5
 
-    this.args.mentioned({ marker: 'point', ordinal: this.nextOrdinal(), point: { x: 0, y: 0 }, description: "start" })
+    this.args.remember({ marker: 'point', ordinal: this.nextOrdinal(), point: { x: 0, y: 0 }, description: "start" })
   }
 
   currentOrdinal() {
@@ -325,7 +325,7 @@ class API {
       return null // in motion
     }
     const ordinal = this.currentOrdinal()
-    const lastPoint = await this.args.mentions({ context: { marker: 'point' }, condition: (context) => context.ordinal == ordinal })
+    const lastPoint = await this.args.recall({ context: { marker: 'point' }, condition: (context) => context.ordinal == ordinal })
     if (!current.startTime && !current.endTime && !current.durationInSeconds) {
       return lastPoint // did not move
     }
@@ -351,7 +351,7 @@ class API {
       return
     }
     const ordinal = this.nextOrdinal()
-    this.args.mentioned({ marker: 'point', ordinal, point })
+    this.args.remember({ marker: 'point', ordinal, point })
     this._objects.current.endTime = null
     this._objects.current.startTime = null
   }
@@ -419,7 +419,7 @@ class API {
       if (objects.current.timeRepeats) {
         this.startRepeats(objects.current.timeRepeats)
       }
-      let currentPoint = (await this.args.mentions({ context: { marker: 'point' } })).point
+      let currentPoint = (await this.args.recall({ context: { marker: 'point' } })).point
       this._objects.history.push({ marker: 'history', debug: 'doing path' })
       for (const pathComponent of objects.current.path) {
         if (pathComponent.marker == 'pause') {
@@ -428,7 +428,6 @@ class API {
           const points = this.args.toArray(pathComponent)
           // const destinationPoint = pathComponent.point
           const destinationPoint = points[0].point || points[0]
-          debugger
           if (currentPoint.x == destinationPoint.x && currentPoint.y == destinationPoint.y) {
             // already there
           } else {
@@ -554,7 +553,7 @@ class API {
     } else {
       ordinal = this.currentOrdinal() - 1
     }
-    const lastPoint = await this.args.mentions({ context: { marker: 'point' }, condition: (context) => context.ordinal == ordinal })
+    const lastPoint = await this.args.recall({ context: { marker: 'point' }, condition: (context) => context.ordinal == ordinal })
     if (!lastPoint) {
       this.args.say(`There is no previous point to go back to`)
       return
@@ -568,8 +567,8 @@ class API {
     const current = objects.current
     current.backAndForth = true
     const ordinal = this.currentOrdinal()
-    const currentPoint = await this.args.mentions({ context: { marker: 'point' }, condition: (context) => context.ordinal == ordinal })
-    const lastPoint = await this.args.mentions({ context: { marker: 'point' }, condition: (context) => context.ordinal == ordinal-1 })
+    const currentPoint = await this.args.recall({ context: { marker: 'point' }, condition: (context) => context.ordinal == ordinal })
+    const lastPoint = await this.args.recall({ context: { marker: 'point' }, condition: (context) => context.ordinal == ordinal-1 })
     current.path.push(lastPoint)
     current.path.push(currentPoint)
     objects.runCommand = true
@@ -928,7 +927,7 @@ const template = {
         {
           id: 'back',
           isA: ['noun'],
-          semantic: async ({objects, mentions, api, e, context, say}) => {
+          semantic: async ({objects, api, e, context, say}) => {
             await api.back()
           }
         },
@@ -1060,7 +1059,7 @@ const template = {
               time: "(@<= 'quantity' && context.unit.dimension == 'time')",
             },
           },
-          semantic: async ({context, mentioned, api, e, fragments, toFinalValue}) => {
+          semantic: async ({context, remember, api, e, fragments, toFinalValue}) => {
             let time = context.time 
             if (time.marker == 'forQuantity') {
               time = time.quantity
@@ -1069,7 +1068,7 @@ const template = {
             const result = await e(instantiation)
             const seconds = toFinalValue(toFinalValue(result).amount)
             context.pauseSeconds = seconds
-            mentioned(context)
+            remember(context)
             api.pause(seconds)
           }
         },
@@ -1080,7 +1079,7 @@ const template = {
             1: "{ marker: 'drone' }",
           },
           bridge: "{ ...next(operator), object: after[0], interpolate: [{ context: operator }, { property: 'object' }] }",
-          semantic: async ({mentioned, context, objects, api, say}) => {
+          semantic: async ({context, objects, api, say}) => {
             await api.stop()
             await api.markCurrentPoint()
           }
@@ -1118,14 +1117,14 @@ const template = {
               return true
             }
           },
-          apply: async ({context, frameOfReference, toArray, fragments, stm, objects, mentioned, mentions, resolveEvaluate, _continue, contextHierarchy}) => {
-            const pathComponents = toArray(await mentions({ context: { marker: 'pathComponent' }, all: true }))
+          apply: async ({context, frameOfReference, toArray, fragments, stm, objects, remember, recall, resolveEvaluate, _continue, contextHierarchy}) => {
+            const pathComponents = toArray(await recall({ context: { marker: 'pathComponent' }, all: true }))
             const path = (await fragments('path')).contexts()[0]
             delete path.value
             path.instance = true
             path.points = pathComponents.reverse()
             frameOfReference(path, { mentioned: 'points', reversed: true })
-            await mentioned(path)
+            await remember(path)
 
             _continue() // let the call pick the object out from the stm
           },
@@ -1140,7 +1139,7 @@ const template = {
               return true
             }
           },
-          apply: async ({context, e, fragments, stm, toEValue, toArray, objects, mentioned, mentions, resolveEvaluate, _continue, contextHierarchy}) => {
+          apply: async ({context, e, fragments, stm, toEValue, toArray, objects, remember, recall, resolveEvaluate, _continue, contextHierarchy}) => {
             const evaluated = await e({...context, notUnderCall: true})
             const pointsContext = toEValue(evaluated)
             const pathComponents = toArray(pointsContext)
@@ -1148,7 +1147,7 @@ const template = {
             const path = (await fragments('path')).contexts()[0]
             delete path.value
             path.points = [...pathComponents]
-            await mentioned(path)
+            await remember(path)
             resolveEvaluate(context, path)
           },
         },
@@ -1162,8 +1161,8 @@ const template = {
         },
         {
           match: ({context}) => context.evaluate && ['start', 'end'].includes(context.marker) && context.objects && context.objects[1].marker == 'path',
-          apply: async ({gp, s, context, objects, fragments, resolveEvaluate, api, mentions}) => {
-            const path = await mentions({ context: context.objects[1] })
+          apply: async ({gp, s, context, objects, fragments, resolveEvaluate, api, recall}) => {
+            const path = await recall({ context: context.objects[1] })
             if (!path?.points) {
               return
             }

@@ -544,12 +544,12 @@ const config = {
           concept = two;
           value = one;
         }
-        // km('dialogues').api.mentioned(concept)
+        // km('dialogues').api.remember(concept)
         // TODO wtf is the next line?
         value = JSON.parse(JSON.stringify(value))
         const instance = await e(value)
         if (false && instance.evalue) {
-          km('stm').api.mentioned({ context: value })
+          km('stm').api.remember({ context: value })
         }
         if (instance.verbatim) {
           context.evalue = { verbatim: instance.verbatim }
@@ -647,7 +647,7 @@ const config = {
           for (const child of propertyToArray(one)) {
             await api.makeObject({ context: child, config, types: context.two.types || [] })
             kms.stm.api.setVariable(child.value, two)
-            kms.stm.api.mentioned({ context: child, value: two })
+            kms.stm.api.remember({ context: child, value: two })
           }
         }
       }

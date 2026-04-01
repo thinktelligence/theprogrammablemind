@@ -38,7 +38,7 @@ class API {
   }
 
   async getPreferredUnits(quantity) {
-    const preferredUnits = await this.args.mentions({
+    const preferredUnits = await this.args.recall({
       context: { marker: 'unit' },
       condition: (unit) => {
         if (quantity.unit.marker == 'unitPerUnit') {
@@ -57,7 +57,7 @@ class API {
   }
 
   setPreferredUnits(units) {
-    this.args.mentioned(units)
+    this.args.remember(units)
   }
 
   setMeasurementSystem(measurementSystem) {
@@ -108,7 +108,7 @@ class API {
         const formula = kms.formulas.api.get(to, [efrom.unit])
         if (!formula) {
           const reason = { marker: 'reason', focusableForPhrase: true, evalue: { marker: 'noconversion', from: efrom.unit, to } }
-          kms.stm.api.mentioned({ context: reason })
+          kms.stm.api.remember({ context: reason })
           error(reason)
         }
         kms.stm.api.setVariable(efrom.unit.value, efrom.amount)

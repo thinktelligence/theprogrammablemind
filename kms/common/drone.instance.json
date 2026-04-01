@@ -95,7 +95,7 @@
           "isA": [
             "noun"
           ],
-          "semantic": "async ({objects, mentions, api, e, context, say}) => {\n            await api.back()\n          }"
+          "semantic": "async ({objects, api, e, context, say}) => {\n            await api.back()\n          }"
         },
         {
           "id": "forth",
@@ -322,7 +322,7 @@
               "time": "(@<= 'quantity' && context.unit.dimension == 'time')"
             }
           },
-          "semantic": "async ({context, mentioned, api, e, fragments, toFinalValue}) => {\n            let time = context.time \n            if (time.marker == 'forQuantity') {\n              time = time.quantity\n            }\n            const instantiation = await fragments(\"quantity in seconds\", { quantity: time})\n            const result = await e(instantiation)\n            const seconds = toFinalValue(toFinalValue(result).amount)\n            context.pauseSeconds = seconds\n            mentioned(context)\n            api.pause(seconds)\n          }"
+          "semantic": "async ({context, remember, api, e, fragments, toFinalValue}) => {\n            let time = context.time \n            if (time.marker == 'forQuantity') {\n              time = time.quantity\n            }\n            const instantiation = await fragments(\"quantity in seconds\", { quantity: time})\n            const result = await e(instantiation)\n            const seconds = toFinalValue(toFinalValue(result).amount)\n            context.pauseSeconds = seconds\n            remember(context)\n            api.pause(seconds)\n          }"
         },
         {
           "id": "stop",
@@ -333,7 +333,7 @@
             "1": "{ marker: 'drone' }"
           },
           "bridge": "{ ...next(operator), object: after[0], interpolate: [{ context: operator }, { property: 'object' }] }",
-          "semantic": "async ({mentioned, context, objects, api, say}) => {\n            await api.stop()\n            await api.markCurrentPoint()\n          }"
+          "semantic": "async ({context, objects, api, say}) => {\n            await api.stop()\n            await api.markCurrentPoint()\n          }"
         }
       ],
       "generators": [
@@ -353,11 +353,11 @@
         },
         {
           "match": "({context, contextHierarchy}) => {\n            if (!context.pullFromContext || !context.evaluate || contextHierarchy.under(['doAction', 'evaluate'])) {\n              return false\n            }\n            \n            if (context.marker == 'path' || context.marker == 'this' || context.marker == 'that') {\n              return true\n            }\n          }",
-          "apply": "async ({context, frameOfReference, toArray, fragments, stm, objects, mentioned, mentions, resolveEvaluate, _continue, contextHierarchy}) => {\n            const pathComponents = toArray(await mentions({ context: { marker: 'pathComponent' }, all: true }))\n            const path = (await fragments('path')).contexts()[0]\n            delete path.value\n            path.instance = true\n            path.points = pathComponents.reverse()\n            frameOfReference(path, { mentioned: 'points', reversed: true })\n            await mentioned(path)\n\n            _continue() // let the call pick the object out from the stm\n          }"
+          "apply": "async ({context, frameOfReference, toArray, fragments, stm, objects, remember, recall, resolveEvaluate, _continue, contextHierarchy}) => {\n            const pathComponents = toArray(await recall({ context: { marker: 'pathComponent' }, all: true }))\n            const path = (await fragments('path')).contexts()[0]\n            delete path.value\n            path.instance = true\n            path.points = pathComponents.reverse()\n            frameOfReference(path, { mentioned: 'points', reversed: true })\n            await remember(path)\n\n            _continue() // let the call pick the object out from the stm\n          }"
         },
         {
           "match": "({context, contextHierarchy}) => {\n            if (!context.pullFromContext || !context.evaluate || !contextHierarchy.under('call') || context.notUnderCall) {\n              return false\n            }\n            \n            if (context.marker == 'point' || context.marker == 'ordinal') {\n              return true\n            }\n          }",
-          "apply": "async ({context, e, fragments, stm, toEValue, toArray, objects, mentioned, mentions, resolveEvaluate, _continue, contextHierarchy}) => {\n            const evaluated = await e({...context, notUnderCall: true})\n            const pointsContext = toEValue(evaluated)\n            const pathComponents = toArray(pointsContext)\n\n            const path = (await fragments('path')).contexts()[0]\n            delete path.value\n            path.points = [...pathComponents]\n            await mentioned(path)\n            resolveEvaluate(context, path)\n          }"
+          "apply": "async ({context, e, fragments, stm, toEValue, toArray, objects, remember, recall, resolveEvaluate, _continue, contextHierarchy}) => {\n            const evaluated = await e({...context, notUnderCall: true})\n            const pointsContext = toEValue(evaluated)\n            const pathComponents = toArray(pointsContext)\n\n            const path = (await fragments('path')).contexts()[0]\n            delete path.value\n            path.points = [...pathComponents]\n            await remember(path)\n            resolveEvaluate(context, path)\n          }"
         },
         {
           "match": "({context}) => context.marker == 'thenTime'",
@@ -365,7 +365,7 @@
         },
         {
           "match": "({context}) => context.evaluate && ['start', 'end'].includes(context.marker) && context.objects && context.objects[1].marker == 'path'",
-          "apply": "async ({gp, s, context, objects, fragments, resolveEvaluate, api, mentions}) => {\n            const path = await mentions({ context: context.objects[1] })\n            if (!path?.points) {\n              return\n            }\n            if (context.marker == 'start') {\n              resolveEvaluate(context, path?.points[0])\n            } else if (context.marker == 'end') {\n              resolveEvaluate(context, path?.points[path?.points.length-1])\n            }\n          }"
+          "apply": "async ({gp, s, context, objects, fragments, resolveEvaluate, api, recall}) => {\n            const path = await recall({ context: context.objects[1] })\n            if (!path?.points) {\n              return\n            }\n            if (context.marker == 'start') {\n              resolveEvaluate(context, path?.points[0])\n            } else if (context.marker == 'end') {\n              resolveEvaluate(context, path?.points[path?.points.length-1])\n            }\n          }"
         },
         {
           "match": "({context}) => context.marker == 'speed' && context.evaluate",
