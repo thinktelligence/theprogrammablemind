@@ -1139,14 +1139,16 @@ const template = {
               return true
             }
           },
-          apply: async ({context, e, fragments, stm, toEValue, toArray, objects, remember, recall, resolveEvaluate, _continue, contextHierarchy}) => {
+          apply: async ({frameOfReference, context, e, fragments, stm, toEValue, toArray, objects, remember, recall, resolveEvaluate, _continue, contextHierarchy}) => {
             const evaluated = await e({...context, notUnderCall: true})
             const pointsContext = toEValue(evaluated)
             const pathComponents = toArray(pointsContext)
 
             const path = (await fragments('path')).contexts()[0]
             delete path.value
+            path.instance = true
             path.points = [...pathComponents]
+            frameOfReference(path, { mentioned: 'points', reversed: true })
             await remember(path)
             resolveEvaluate(context, path)
           },

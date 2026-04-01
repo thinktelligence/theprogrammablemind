@@ -628,7 +628,6 @@ const config = {
       // match: ({context, hierarchy}) => hierarchy.isA(context.marker, 'property') && context.evaluate,
       apply: async ({callId, context, api, kms, objects, g, s, log, recall}) => {
         const toDo = [ ...context.objects ]
-
         async function toValue(objectContext) {
           if (!objectContext.value) {
             return objectContext;
