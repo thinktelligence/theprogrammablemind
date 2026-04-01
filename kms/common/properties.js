@@ -485,6 +485,7 @@ const config = {
                           !(context.types || []).includes('property') &&
                           // !context.value &&  // greghere
                           !context.ordinal &&
+                          (!context.objects || context.objects.length !== 2 || !context.objects[1].instance) &&
                           (api.objects && api.objects.children && api.objects.children[context.marker]) &&
                           !context.evaluate.toConcept,
       apply: ({context, objects, api, km}) => {
@@ -666,7 +667,7 @@ const config = {
 
           let fromMentions
           if (!await api.knownProperty(currentContext, nextContext)) {
-            fromMentions = await mentions({ context: nextContext, frameOfReference: currentContext })
+            fromMentions = await mentions({ context: nextContext, all: nextContext.number == 'many', frameOfReference: currentContext })
             if (!fromMentions) {
               context.verbatim = `There is no property ${await g({...nextContext, paraphrase: true})} of ${await g({...currentContext, paraphrase: true})}`
               return

@@ -14,6 +14,10 @@ const help = require('./help')
 const { rotateDelta, degreesToRadians, radiansToDegrees, cartesianToPolar, smallestRotate } = require('./helpers/drone')
 
 /*
+NEED TO CHECK ON ACTUAL DRONE
+
+   go to the second point of route 1
+
 DONE go back
 go back another point
 go back again
@@ -27,6 +31,9 @@ do route 1 pausing 10 seconds at each point
 
 forward 1 foot\nwest 1 foot\ngo back to the start         <<<<<<<<  turn the longer way not he shorter way
 forward 1 foot\nwest 1 foot\ncall the path route 1\ngo to the start of route 1\npatrol route 1\npatrol route 1   <<<<< does the patrol more than once
+call that route 1
+what are the paths
+list the paths
 
 ?? elipses of the verb go or some kind of conjunction?!?!?
 go forward 1 meter turn right forward 2 meters stop
@@ -1115,6 +1122,7 @@ const template = {
             const pathComponents = toArray(await mentions({ context: { marker: 'pathComponent' }, all: true }))
             const path = (await fragments('path')).contexts()[0]
             delete path.value
+            path.instance = true
             path.points = pathComponents.reverse()
             frameOfReference(path, { mentioned: 'points', reversed: true })
             await mentioned(path)
@@ -1241,6 +1249,7 @@ knowledgeModule( {
         defaultContextCheck({ marker: 'path', exported: true, 
           extra: [
             'points', 
+            'instance',
             { 
               property: 'namespaced', 
               check: [
