@@ -1,4 +1,5 @@
 const { knowledgeModule, where } = require('./runtime').theprogrammablemind
+const _ = require('lodash')
 const { conjugateVerb } = require('./english_helpers')
 const { OverrideCheck, defaultContextCheckProperties, defaultContextCheck, getValue, setValue } = require('./helpers')
 const drone_tests = require('./drone.test.json')
@@ -17,6 +18,8 @@ const { rotateDelta, degreesToRadians, radiansToDegrees, cartesianToPolar, small
 NEED TO CHECK ON ACTUAL DRONE
 
    go to the second point of route 1
+   forward 1 foot\nwest 1 foot\ncall the path route 1\npatrol route 1 pausing at each point for 5 seconds
+   forward 1 foot\nwest 1 foot\ncall the path route 1\npatrol route 1 pausing at the last point for 5 seconds
 
 DONE go back
 go back another point
@@ -28,6 +31,7 @@ go to the start of route 2
 turn left\nturn back
 
 do route 1 pausing 10 seconds at each point
+do route 1 pausing 10 seconds every six inches
 
 forward 1 foot\nwest 1 foot\ngo back to the start         <<<<<<<<  turn the longer way not he shorter way
 forward 1 foot\nwest 1 foot\ncall the path route 1\ngo to the start of route 1\npatrol route 1\npatrol route 1   <<<<< does the patrol more than once
@@ -753,6 +757,7 @@ function expectDistanceForMove(args) {
 
 const template = {
   fragments: [ 
+    "point of path",
     "quantity in meters",
     "quantity in seconds",
     "quantity in meters per second",
@@ -779,6 +784,12 @@ const template = {
     "speed and power are comparable",
     "speed is a quantity",
     "point is a concept",
+    {
+      hierarchy: [
+        ['point', 'distributable'],
+      ],
+    },
+    // TODO "each can modify point",  // in order to automatically set it up so it works without having to know the hierarchy
     // TODO fix/add this "position means point",
     "points are nameable orderable countable and memorable",
     "drone modifies direction",
@@ -819,12 +830,14 @@ const template = {
     {
       operators: [
         // "([do] (path))",
-        "([patrol] (path))",
+        "([patrol] (path) (@<= 'pause' && context.form == 'presentParticiple')?)",
+          //    pausing: "",
         "([lift|lift,raise] (@<= arm || @<= claw))",
         "([lower] (@<= arm || @<=claw))",
         "([open] (claw))",
         "([close] (claw))",
         "([pathComponent])",
+        "([atPoint|at] (point))",
         "(<another> (point))",
         // "([turn] (direction))",
         // "([pause] ([number]))",
@@ -832,6 +845,16 @@ const template = {
         "([toPoint|to] (point))",
       ],
       bridges: [
+        { 
+          id: 'atPoint',
+          isA: ['preposition'],
+          bridge: `{
+            ...next(operator),
+            positions: after,
+            operator: operator,
+            interpolate: [ { property: 'operator' }, { property: 'positions' } ]
+          }`,
+        },
         { 
           id: 'another',
           bridge: `{
@@ -848,10 +871,13 @@ const template = {
         {
           id: 'patrol',
           isA: ['verb'],
+          optional: { 
+            2: "{ marker: 'pause', invisible: true }"
+          },
           bridge: `{
-            ...next(operator), operator: operator, path: after[0], interpolate: [{ property: 'operator'}, { property: 'path' }]
+            ...next(operator), operator: operator, path: after[0], pause: after[1], interpolate: [{ property: 'operator'}, { property: 'path' }, { property: 'pause' }]
           }`,
-          semantic: async ({context, e, toEValue, objects}) => {
+          semantic: async ({context, e, toEValue, toFinalValue, toArray, fragments, objects}) => {
             const evaluated = await(e(context.path))
             const path = toEValue(evaluated)
             for (const point of path.points) {
@@ -859,10 +885,51 @@ const template = {
             }
             // if the patrol does not start and end at the same spot then 
             // go back to the start along the same path
-            if (JSON.stringify(path.points[0].point) !== JSON.stringify(path.points[path.points.length-1].point)) {
-              for (const point of [...path.points].reverse()) {
-                objects.current.path.push(point)
+            const pausings = path.points.map((_) => 0)
+            if (!context.pause?.invisible) {
+              const instantiation = await fragments("quantity in seconds", { quantity: context.pause.time.quantity })
+              const result = await e(instantiation)
+              const seconds = toFinalValue(toFinalValue(result).amount)
+              if (context.pause.atPoint.positions) {
+                const positions = toArray(context.pause.atPoint.positions)
+                for (const position of positions) {
+                  if (position.distributer) {
+                    for (let i = 0; i < pausings.length; ++i) {
+                      pausings[i] = seconds
+                    }
+                  } else {
+                    const fragment = await fragments("point of path")
+                    const fi = await fragments("point of path")
+                    const pointOfPath = await fi.instantiate([
+                      { 
+                        match: ({path, pathEquals}) => pathEquals(path, ['0', 'objects', '0']),
+                        apply: ({context}) => {
+                          Object.assign(context, position)
+                        }
+                      },
+                      { 
+                        match: ({path, pathEquals}) => pathEquals(path, ['0', 'objects', '1']),
+                        apply: ({context}) => {
+                          Object.assign(context, path)
+                        }
+                      }
+                    ])
+                    const points = toArray(toFinalValue(await e(pointOfPath)))
+                    for (const point of points) {
+                      pausings[point.index] = seconds
+                    }
+                  }
+                }
               }
+            }
+            if (JSON.stringify(path.points[0].point) !== JSON.stringify(path.points[path.points.length-1].point)) {
+              // for (const point of [...path.points].reverse()) {
+              _.zipWith([...path.points].reverse(), pausings, (point, pause) => {
+                objects.current.path.push(point)
+                if (pause > 0) {
+                  objects.current.path.push({ marker: 'pause', pauseSeconds: pause })
+                }
+              })
             }
             objects.runCommand = true
           }
@@ -1049,14 +1116,18 @@ const template = {
         },
         {
           id: 'pause',
+          before: ['patrol'],
           isA: ['verb'],
-          words: ['pause'],
-          bridge: "{ ...operator, time: or(time?, forTime), interpolate: [{ context: operator }, { property: 'time' }] }",
+          words: [
+            ...conjugateVerb('pause'),
+          ],
+          bridge: "{ ...operator, time: or(time?, forTime), atPoint: atPoint?, interpolate: [{ context: operator }, { property: 'time' }, { property: 'atPoint' }] }",
           check: defaultContextCheckProperties(['time']),
           selector: {
             arguments: {
               forTime: "(@<= 'forQuantity' && context.quantity.unit.dimension == 'time')",
               time: "(@<= 'quantity' && context.unit.dimension == 'time')",
+              atPoint: "(@<= 'atPoint')",
             },
           },
           semantic: async ({context, remember, api, e, fragments, toFinalValue}) => {
@@ -1122,7 +1193,7 @@ const template = {
             const path = (await fragments('path')).contexts()[0]
             delete path.value
             path.instance = true
-            path.points = pathComponents.reverse()
+            path.points = pathComponents.reverse().map((point, index) => { return {...point, index} })
             frameOfReference(path, { mentioned: 'points', reversed: true })
             await remember(path)
 
@@ -1147,7 +1218,7 @@ const template = {
             const path = (await fragments('path')).contexts()[0]
             delete path.value
             path.instance = true
-            path.points = [...pathComponents]
+            path.points = [...pathComponents].map((point, index) => { return {...point, index} })
             frameOfReference(path, { mentioned: 'points', reversed: true })
             await remember(path)
             resolveEvaluate(context, path)

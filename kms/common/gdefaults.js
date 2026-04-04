@@ -360,6 +360,9 @@ function initializer({config}) {
               } else if (element.property) {
                 value = context[element.property]
                 if (value) {
+                  if (value.invisible) {
+                    continue
+                  }
                   if (element.context) {
                     value = { ...value, ...element.context }
                   }
