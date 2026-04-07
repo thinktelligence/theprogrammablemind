@@ -1000,14 +1000,15 @@ const template = {
         },
         {
           id: 'turn',
-          isA: ['verb'],
+          isA: ['verb', 'repeatable'],
           words: ['turn'],
           bridge: `{ 
             ...next(operator), 
             direction: direction, 
-            repeats: repeats?, 
+            operator: operator,
             angle: angle?,
-            interpolate: [{ context: operator }, { property: 'direction' }, { property: 'angle' }, { property: 'repeats' }] }
+            interpolate: append(default(operator.interpolate, [{ property: 'operator'}]), [{ property: 'direction' }, { property: 'angle' }])
+          }
           `,
           selector: {
             arguments: {
