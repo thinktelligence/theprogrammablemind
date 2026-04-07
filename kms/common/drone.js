@@ -847,15 +847,18 @@ const template = {
         },
         {
           id: 'patrol',
-          isA: ['verb'],
+          isA: ['verb', 'repeatable'],
           bridge: `{
-            ...next(operator), operator: operator, path: after[0], interpolate: [{ property: 'operator'}, { property: 'path' }]
+            ...next(operator), operator: operator, path: after[0], interpolate: append(default(operator.interpolate, [{ property: 'operator'}]), [{ property: 'path' }])
           }`,
-          semantic: async ({context, e, toEValue, objects}) => {
+          semantic: async ({context, e, toEValue, toFinalValue, objects}) => {
             const evaluated = await(e(context.path))
             const path = toEValue(evaluated)
             for (const point of path.points) {
               objects.current.path.push(point)
+            }
+            if (context.repeats) {
+              objects.current.timeRepeats = toFinalValue(context.repeats)
             }
             // if the patrol does not start and end at the same spot then 
             // go back to the start along the same path

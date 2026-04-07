@@ -66,6 +66,7 @@ const template = {
     {
       operators: [
         "([thenTime|then])",
+        "([repeatable])",
         "(([timePoint]) [ampm|])",
         "(([integer]) [timeRepeats|] ([timePoint]))",
         "([atTime|at] (timePoint))",
@@ -75,14 +76,32 @@ const template = {
       ],
       bridges: [
         { 
+          id: 'repeatable',
+          check: defaultContextCheckProperties(['repeats'])
+        },
+        { 
           id: 'thenTime',
           after: ['verb'],
         },
         {
           id: 'timeRepeats',
+          level: 0,
           before: ['verb'],
           convolution: true,
           bridge: "{ ...next(operator), repeats: before[0], time: after[0], interpolate: '${repeats} ${time}' }",
+          check: defaultContextCheckProperties(['time', 'repeats'])
+        },
+        {
+          id: 'timeRepeats',
+          level: 1,
+          before: ['verb'],
+          bridge: "{ ...repeatable, repeats: operator, checks: append(repeatable.checks, ['repeats']),  repeatable: repeatable, interpolate: [{ property: 'repeatable' }, { property: 'repeats', byPosition: true }] }",
+          selector: {
+            loose: "repeatable",
+            arguments: {
+              repeatable: "(@<= 'repeatable')",
+            },
+          },
           check: defaultContextCheckProperties(['time', 'repeats'])
         },
         {

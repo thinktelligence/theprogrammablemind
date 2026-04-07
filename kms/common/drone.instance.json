@@ -53,10 +53,11 @@
         {
           "id": "patrol",
           "isA": [
-            "verb"
+            "verb",
+            "repeatable"
           ],
-          "bridge": "{\n            ...next(operator), operator: operator, path: after[0], interpolate: [{ property: 'operator'}, { property: 'path' }]\n          }",
-          "semantic": "async ({context, e, toEValue, objects}) => {\n            const evaluated = await(e(context.path))\n            const path = toEValue(evaluated)\n            for (const point of path.points) {\n              objects.current.path.push(point)\n            }\n            // if the patrol does not start and end at the same spot then \n            // go back to the start along the same path\n            if (JSON.stringify(path.points[0].point) !== JSON.stringify(path.points[path.points.length-1].point)) {\n              for (const point of [...path.points].reverse()) {\n                objects.current.path.push(point)\n              }\n            }\n            objects.runCommand = true\n          }"
+          "bridge": "{\n            ...next(operator), operator: operator, path: after[0], interpolate: append(default(operator.interpolate, [{ property: 'operator'}]), [{ property: 'path' }])\n          }",
+          "semantic": "async ({context, e, toEValue, toFinalValue, objects}) => {\n            const evaluated = await(e(context.path))\n            const path = toEValue(evaluated)\n            for (const point of path.points) {\n              objects.current.path.push(point)\n            }\n            if (context.repeats) {\n              objects.current.timeRepeats = toFinalValue(context.repeats)\n            }\n            // if the patrol does not start and end at the same spot then \n            // go back to the start along the same path\n            if (JSON.stringify(path.points[0].point) !== JSON.stringify(path.points[path.points.length-1].point)) {\n              for (const point of [...path.points].reverse()) {\n                objects.current.path.push(point)\n              }\n            }\n            objects.runCommand = true\n          }"
         },
         {
           "id": "lift",
@@ -357,7 +358,7 @@
         },
         {
           "match": "({context, contextHierarchy}) => {\n            if (!context.pullFromContext || !context.evaluate || !contextHierarchy.under('call') || context.notUnderCall) {\n              return false\n            }\n            \n            if (context.marker == 'point' || context.marker == 'ordinal') {\n              return true\n            }\n          }",
-          "apply": "async ({context, e, fragments, stm, toEValue, toArray, objects, remember, recall, resolveEvaluate, _continue, contextHierarchy}) => {\n            const evaluated = await e({...context, notUnderCall: true})\n            const pointsContext = toEValue(evaluated)\n            const pathComponents = toArray(pointsContext)\n\n            const path = (await fragments('path')).contexts()[0]\n            delete path.value\n            path.points = [...pathComponents]\n            await remember(path)\n            resolveEvaluate(context, path)\n          }"
+          "apply": "async ({frameOfReference, context, e, fragments, stm, toEValue, toArray, objects, remember, recall, resolveEvaluate, _continue, contextHierarchy}) => {\n            const evaluated = await e({...context, notUnderCall: true})\n            const pointsContext = toEValue(evaluated)\n            const pathComponents = toArray(pointsContext)\n\n            const path = (await fragments('path')).contexts()[0]\n            delete path.value\n            path.instance = true\n            path.points = [...pathComponents]\n            frameOfReference(path, { mentioned: 'points', reversed: true })\n            await remember(path)\n            resolveEvaluate(context, path)\n          }"
         },
         {
           "match": "({context}) => context.marker == 'thenTime'",
@@ -45314,24 +45315,6 @@
             "unknown",
             0
           ]
-        ],
-        [
-          [
-            "is",
-            0
-          ],
-          [
-            "list",
-            1
-          ],
-          [
-            "point",
-            0
-          ],
-          [
-            "unknown",
-            0
-          ]
         ]
       ],
       "summaries": [
@@ -50003,9 +49986,10 @@
         {
           "id": "patrol",
           "isA": [
-            "verb"
+            "verb",
+            "repeatable"
           ],
-          "bridge": "{\n            ...next(operator), operator: operator, path: after[0], interpolate: [{ property: 'operator'}, { property: 'path' }]\n          }"
+          "bridge": "{\n            ...next(operator), operator: operator, path: after[0], interpolate: append(default(operator.interpolate, [{ property: 'operator'}]), [{ property: 'path' }])\n          }"
         },
         {
           "id": "lift",
@@ -53132,6 +53116,11 @@
         ],
         [
           "patrol",
+          "repeatable",
+          false
+        ],
+        [
+          "patrol",
           "verb",
           false
         ],
@@ -53388,6 +53377,11 @@
         [
           "remember",
           "verb",
+          false
+        ],
+        [
+          "repeatable",
+          "repeatable",
           false
         ],
         [
@@ -57402,6 +57396,11 @@
         ],
         [
           "patrol",
+          "repeatable",
+          false
+        ],
+        [
+          "patrol",
           "verb",
           false
         ],
@@ -57658,6 +57657,11 @@
         [
           "remember",
           "verb",
+          false
+        ],
+        [
+          "repeatable",
+          "repeatable",
           false
         ],
         [
@@ -61672,6 +61676,11 @@
         ],
         [
           "patrol",
+          "repeatable",
+          false
+        ],
+        [
+          "patrol",
           "verb",
           false
         ],
@@ -61928,6 +61937,11 @@
         [
           "remember",
           "verb",
+          false
+        ],
+        [
+          "repeatable",
+          "repeatable",
           false
         ],
         [
@@ -66177,6 +66191,11 @@
         ],
         [
           "patrol",
+          "repeatable",
+          false
+        ],
+        [
+          "patrol",
           "verb",
           false
         ],
@@ -66433,6 +66452,11 @@
         [
           "remember",
           "verb",
+          false
+        ],
+        [
+          "repeatable",
+          "repeatable",
           false
         ],
         [
@@ -70703,6 +70727,11 @@
         ],
         [
           "patrol",
+          "repeatable",
+          false
+        ],
+        [
+          "patrol",
           "verb",
           false
         ],
@@ -70959,6 +70988,11 @@
         [
           "remember",
           "verb",
+          false
+        ],
+        [
+          "repeatable",
+          "repeatable",
           false
         ],
         [
@@ -74972,6 +75006,11 @@
         ],
         [
           "patrol",
+          "repeatable",
+          false
+        ],
+        [
+          "patrol",
           "verb",
           false
         ],
@@ -75228,6 +75267,11 @@
         [
           "remember",
           "verb",
+          false
+        ],
+        [
+          "repeatable",
+          "repeatable",
           false
         ],
         [
@@ -79263,6 +79307,11 @@
         ],
         [
           "patrol",
+          "repeatable",
+          false
+        ],
+        [
+          "patrol",
           "verb",
           false
         ],
@@ -79519,6 +79568,11 @@
         [
           "remember",
           "verb",
+          false
+        ],
+        [
+          "repeatable",
+          "repeatable",
           false
         ],
         [
@@ -83801,6 +83855,11 @@
         ],
         [
           "patrol",
+          "repeatable",
+          false
+        ],
+        [
+          "patrol",
           "verb",
           false
         ],
@@ -84057,6 +84116,11 @@
         [
           "remember",
           "verb",
+          false
+        ],
+        [
+          "repeatable",
+          "repeatable",
           false
         ],
         [
@@ -85637,24 +85701,6 @@
       ],
       [
         "point",
-        0
-      ]
-    ],
-    [
-      [
-        "is",
-        0
-      ],
-      [
-        "list",
-        1
-      ],
-      [
-        "point",
-        0
-      ],
-      [
-        "unknown",
         0
       ]
     ],

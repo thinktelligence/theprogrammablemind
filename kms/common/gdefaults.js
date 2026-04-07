@@ -319,6 +319,7 @@ function initializer({config}) {
           if (Array.isArray(interpolate)) {
             const strings = []
             let separator = ''
+            const byPosition = []
             for (const element of interpolate) {
               // { "word": { "marker": "canPassive" } ie { word: <selectionCriteria> }
               if (element.word) {
@@ -363,13 +364,20 @@ function initializer({config}) {
                   if (element.context) {
                     value = { ...value, ...element.context }
                   }
-                  strings.push(separator)
-                  if (Array.isArray(value)) {
-                    strings.push(await args.gsp(value))
-                  } else {
-                    strings.push(await args.gp(value))
+                  const handleProperty = async function(value) {
+                    strings.push(separator)
+                    if (Array.isArray(value)) {
+                      strings.push(await args.gsp(value))
+                    } else {
+                      strings.push(await args.gp(value))
+                    }
+                    separator = ' '
                   }
-                  separator = ' '
+                  if (element.byPosition) {
+                    byPosition.push(((value) => () => handleProperty(value))(value))
+                  } else {
+                    await handleProperty(value)
+                  }
                 }
               } else if (element.context) {
                 let value = element.context
@@ -389,6 +397,9 @@ function initializer({config}) {
                   separator = ' '
                 }
               }
+            }
+            for (const bp of byPosition) {
+              await bp()
             }
             return strings.join('')
           } else {

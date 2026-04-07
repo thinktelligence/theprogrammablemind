@@ -12,6 +12,7 @@
     {
       "operators": [
         "([thenTime|then])",
+        "([repeatable])",
         "(([timePoint]) [ampm|])",
         "(([integer]) [timeRepeats|] ([timePoint]))",
         "([atTime|at] (timePoint))",
@@ -20,6 +21,24 @@
       ],
       "bridges": [
         {
+          "id": "repeatable",
+          "check": [
+            "marker",
+            "text",
+            "verbatim",
+            "value",
+            "evalue",
+            "isResponse",
+            {
+              "properties": "modifiers"
+            },
+            {
+              "properties": "postModifiers"
+            },
+            "repeats"
+          ]
+        },
+        {
           "id": "thenTime",
           "after": [
             "verb"
@@ -27,11 +46,42 @@
         },
         {
           "id": "timeRepeats",
+          "level": 0,
           "before": [
             "verb"
           ],
           "convolution": true,
           "bridge": "{ ...next(operator), repeats: before[0], time: after[0], interpolate: '${repeats} ${time}' }",
+          "check": [
+            "marker",
+            "text",
+            "verbatim",
+            "value",
+            "evalue",
+            "isResponse",
+            {
+              "properties": "modifiers"
+            },
+            {
+              "properties": "postModifiers"
+            },
+            "time",
+            "repeats"
+          ]
+        },
+        {
+          "id": "timeRepeats",
+          "level": 1,
+          "before": [
+            "verb"
+          ],
+          "bridge": "{ ...repeatable, repeats: operator, checks: append(repeatable.checks, ['repeats']),  repeatable: repeatable, interpolate: [{ property: 'repeatable' }, { property: 'repeats', byPosition: true }] }",
+          "selector": {
+            "loose": "repeatable",
+            "arguments": {
+              "repeatable": "(@<= 'repeatable')"
+            }
+          },
           "check": [
             "marker",
             "text",
@@ -24620,6 +24670,7 @@
       "extraConfig": true,
       "operators": [
         "([thenTime|then])",
+        "([repeatable])",
         "(([timePoint]) [ampm|])",
         "(([integer]) [timeRepeats|] ([timePoint]))",
         "([atTime|at] (timePoint))",
@@ -24628,6 +24679,24 @@
       ],
       "bridges": [
         {
+          "id": "repeatable",
+          "check": [
+            "marker",
+            "text",
+            "verbatim",
+            "value",
+            "evalue",
+            "isResponse",
+            {
+              "properties": "modifiers"
+            },
+            {
+              "properties": "postModifiers"
+            },
+            "repeats"
+          ]
+        },
+        {
           "id": "thenTime",
           "after": [
             "verb"
@@ -24635,11 +24704,42 @@
         },
         {
           "id": "timeRepeats",
+          "level": 0,
           "before": [
             "verb"
           ],
           "convolution": true,
           "bridge": "{ ...next(operator), repeats: before[0], time: after[0], interpolate: '${repeats} ${time}' }",
+          "check": [
+            "marker",
+            "text",
+            "verbatim",
+            "value",
+            "evalue",
+            "isResponse",
+            {
+              "properties": "modifiers"
+            },
+            {
+              "properties": "postModifiers"
+            },
+            "time",
+            "repeats"
+          ]
+        },
+        {
+          "id": "timeRepeats",
+          "level": 1,
+          "before": [
+            "verb"
+          ],
+          "bridge": "{ ...repeatable, repeats: operator, checks: append(repeatable.checks, ['repeats']),  repeatable: repeatable, interpolate: [{ property: 'repeatable' }, { property: 'repeats', byPosition: true }] }",
+          "selector": {
+            "loose": "repeatable",
+            "arguments": {
+              "repeatable": "(@<= 'repeatable')"
+            }
+          },
           "check": [
             "marker",
             "text",
@@ -24731,27 +24831,27 @@
       },
       "generators": [
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/time.js:132"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/time.js:151"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/time.js:147"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/time.js:166"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/time.js:160"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/time.js:179"
         }
       ],
       "semantics": [
         {
           "notes": "evaluate time",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/time.js:169"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/time.js:188"
         },
         {
           "notes": "use time format working case",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/time.js:178"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/time.js:197"
         },
         {
           "notes": "use time format error case",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/time.js:186"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/time.js:205"
         }
       ]
     }
