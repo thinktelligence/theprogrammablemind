@@ -1143,23 +1143,26 @@ const template = {
       semantics: [
         {
           match: ({context}) => context.marker == 'doAction',
-          apply: async ({context, fragments, e, toEValue, toFinalValue, objects}) => {
-            const evaluated = await(e(context.action))
-            const path = toEValue(evaluated)
-            let pauseTimeInSeconds = 0
-            if (context.pause) {
-              const instantiation = await fragments("quantity in seconds", { quantity: context.pause.time })
-              const result = await e(instantiation)
-              const seconds = toFinalValue(toFinalValue(result).amount)
-              pauseTimeInSeconds = seconds
-            }
-            for (const point of path.points) {
-              objects.current.path.push(point)
-              if (pauseTimeInSeconds) {
-                objects.current.path.push({ marker: 'pause', pauseSeconds: pauseTimeInSeconds })
+          apply: async ({context, fragments, e, s, toEValue, toFinalValue, objects}) => {
+            // await s({ ...context, marker: 'patrol', path: context.action})
+            if (true) {
+              const evaluated = await(e(context.action))
+              const path = toEValue(evaluated)
+              let pauseTimeInSeconds = 0
+              if (context.pause) {
+                const instantiation = await fragments("quantity in seconds", { quantity: context.pause.time })
+                const result = await e(instantiation)
+                const seconds = toFinalValue(toFinalValue(result).amount)
+                pauseTimeInSeconds = seconds
               }
+              for (const point of path.points) {
+                objects.current.path.push(point)
+                if (pauseTimeInSeconds) {
+                  objects.current.path.push({ marker: 'pause', pauseSeconds: pauseTimeInSeconds })
+                }
+              }
+              objects.runCommand = true
             }
-            objects.runCommand = true
           }
         },
         {

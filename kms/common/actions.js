@@ -1,6 +1,7 @@
 const { knowledgeModule, where, Digraph } = require('./runtime').theprogrammablemind
 const { defaultContextCheckProperties, defaultContextCheck } = require('./helpers')
 const dialogues = require("./dialogues")
+const time = require("./time")
 const tests = require('./actions.test.json')
 const instance = require('./actions.instance.json')
 
@@ -55,7 +56,7 @@ const template = {
 
 knowledgeModule({ 
   config: { name: 'actions' },
-  includes: [dialogues],
+  includes: [dialogues, time],
   instance,
   template,
   module,

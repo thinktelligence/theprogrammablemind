@@ -364,7 +364,7 @@ function initializer({config}) {
                   if (element.context) {
                     value = { ...value, ...element.context }
                   }
-                  const handleProperty = async function(value) {
+                  async function handleProperty(value) {
                     strings.push(separator)
                     if (Array.isArray(value)) {
                       strings.push(await args.gsp(value))
