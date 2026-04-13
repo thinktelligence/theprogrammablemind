@@ -25,7 +25,7 @@ const config = {
     },
     { 
       id: 'doAction', 
-      isA: ['verb'],
+      isA: ['verb', 'repeatable'],
       check: defaultContextCheckProperties(['action']),
       bridge: `{
         ...next(operator),

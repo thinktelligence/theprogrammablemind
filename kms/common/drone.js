@@ -16,7 +16,8 @@ const { rotateDelta, degreesToRadians, radiansToDegrees, cartesianToPolar, small
 /*
 NEED TO CHECK ON ACTUAL DRONE
 
-   go to the second point of route 1
+  go to the second point of route 1
+  do route 1 pausing 10 seconds at each point
 
 DONE go back
 go back another point
@@ -25,9 +26,14 @@ go back to the start
 go back 2 points along route 1
 go to the start of route 2
 
+do route 1 skipping point 2
+
+TODO should there be two hierarchy one as a concept car is a vehicle and one as a word car is a noun
+
 turn left\nturn back
 
 do route 1 pausing 10 seconds at each point
+do route 1 pausing 1 second at point 1 and 2 seconds for the rest
 
 forward 1 foot\nwest 1 foot\ngo back to the start         <<<<<<<<  turn the longer way not he shorter way
 forward 1 foot\nwest 1 foot\ncall the path route 1\ngo to the start of route 1\npatrol route 1\npatrol route 1   <<<<< does the patrol more than once
@@ -771,6 +777,7 @@ const template = {
     "start and end are points",
     {
       hierarchy: [
+        ['point', 'distributable'],
         ['thisitthat', 'path'],
         ['path', 'action'],
       ],
@@ -830,8 +837,14 @@ const template = {
         // "([pause] ([number]))",
         "([stop] ([drone|])?)",
         "([toPoint|to] (point))",
+        "([atPoint|at] (point))",
       ],
       bridges: [
+        { 
+          id: 'atPoint',
+          isA: ['preposition'],
+          bridge: "{ ...next(operator), point: after[0], operator: operator, interpolate: [{ property: 'operator' }, { property: 'point' }] }"
+        },
         { 
           id: 'another',
           bridge: `{
@@ -851,7 +864,7 @@ const template = {
           bridge: `{
             ...next(operator), operator: operator, path: after[0], interpolate: append(default(operator.interpolate, [{ property: 'operator'}]), [{ property: 'path' }])
           }`,
-          semantic: async ({context, e, toEValue, toFinalValue, objects}) => {
+          semantic: async ({context, e, fragments, toEValue, toFinalValue, objects}) => {
             const evaluated = await(e(context.path))
             const path = toEValue(evaluated)
             for (const point of path.points) {
@@ -862,9 +875,22 @@ const template = {
             }
             // if the patrol does not start and end at the same spot then 
             // go back to the start along the same path
+
+
+            let pauseTimeInSeconds
+            if (context.pause) {
+              const instantiation = await fragments("quantity in seconds", { quantity: context.pause.time })
+              const result = await e(instantiation)
+              const seconds = toFinalValue(toFinalValue(result).amount)
+              pauseTimeInSeconds = seconds
+            }
+
             if (JSON.stringify(path.points[0].point) !== JSON.stringify(path.points[path.points.length-1].point)) {
               for (const point of [...path.points].reverse()) {
                 objects.current.path.push(point)
+                if (pauseTimeInSeconds) {
+                  objects.current.path.push({ marker: 'pause', pauseSeconds: pauseTimeInSeconds })
+                }
               }
             }
             objects.runCommand = true
@@ -1054,13 +1080,16 @@ const template = {
         {
           id: 'pause',
           isA: ['verb'],
-          words: ['pause'],
-          bridge: "{ ...operator, time: or(time?, forTime), interpolate: [{ context: operator }, { property: 'time' }] }",
+          words: [
+            ...conjugateVerb('pause'),
+          ],
+          bridge: "{ ...next(operator), time: or(time?, forTime), operator: operator, atPoint: atPoint?, interpolate: [{ property: 'operator' }, { property: 'time' }, { property: 'atPoint' }] }",
           check: defaultContextCheckProperties(['time']),
           selector: {
             arguments: {
               forTime: "(@<= 'forQuantity' && context.quantity.unit.dimension == 'time')",
               time: "(@<= 'quantity' && context.unit.dimension == 'time')",
+              atPoint: "(@<= 'atPoint')",
             },
           },
           semantic: async ({context, remember, api, e, fragments, toFinalValue}) => {
@@ -1075,6 +1104,18 @@ const template = {
             remember(context)
             api.pause(seconds)
           }
+        },
+        {
+          id: 'pause',
+          level: 1,
+          bridge: "{ ...repeatable, pause: operator, checks: append(repeatable.checks, ['pause']),  repeatable: repeatable, interpolate: [{ property: 'repeatable' }, { property: 'pause', byPosition: true }] }",
+          selector: {
+            loose: "repeatable",
+            arguments: {
+              repeatable: "(@<= 'repeatable')",
+            },
+          },
+          check: defaultContextCheckProperties(['repeatable', 'repeats'])
         },
         {
           id: 'stop',
@@ -1102,11 +1143,21 @@ const template = {
       semantics: [
         {
           match: ({context}) => context.marker == 'doAction',
-          apply: async ({context, e, toEValue, objects}) => {
+          apply: async ({context, fragments, e, toEValue, toFinalValue, objects}) => {
             const evaluated = await(e(context.action))
             const path = toEValue(evaluated)
+            let pauseTimeInSeconds = 0
+            if (context.pause) {
+              const instantiation = await fragments("quantity in seconds", { quantity: context.pause.time })
+              const result = await e(instantiation)
+              const seconds = toFinalValue(toFinalValue(result).amount)
+              pauseTimeInSeconds = seconds
+            }
             for (const point of path.points) {
               objects.current.path.push(point)
+              if (pauseTimeInSeconds) {
+                objects.current.path.push({ marker: 'pause', pauseSeconds: pauseTimeInSeconds })
+              }
             }
             objects.runCommand = true
           }
