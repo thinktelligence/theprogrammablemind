@@ -20,11 +20,47 @@ describe('drone km', () => {
     km = await droneKM({ useCache: false })
   })
 
-  test('NEO23 load causes define start point to be mentioned', async () => {
+  test('load causes define start point to be mentioned', async () => {
     await km.run(async ({recall, api}) => {
       const ordinal = km.api.currentOrdinal()
       const lastPoint = await recall({ context: { marker: 'point' }, condition: (context) => context.ordinal == ordinal })
       expect(lastPoint.description).toBe('start')
     })
+  })
+
+  test('test maximum speed error', async () => {
+    const context = await km.run(async ({fragments}) => {
+      return await fragments("forward", {}) 
+    })
+    const inserted = []
+    km.addArgs((args) => {
+      return {
+        insert: (context) => {
+          inserted.push(context)
+        }
+      }
+    })
+    km.api._objects.current.speed = 10
+    await km.processContext(context)
+    await km.api.sendCommand()
+    expect(inserted[0].verbatim).toBe('The drone cannot go that fast. The maximum speed is 1.2 meters per second')
+  })
+
+  test('NEO23 test minimum speed error', async () => {
+    const context = await km.run(async ({fragments}) => {
+      return await fragments("forward", {}) 
+    })
+    const inserted = []
+    km.addArgs((args) => {
+      return {
+        insert: (context) => {
+          inserted.push(context)
+        }
+      }
+    })
+    km.api._objects.current.speed = 0
+    await km.processContext(context)
+    await km.api.sendCommand()
+    expect(inserted[0].verbatim).toBe('The drone cannot go that fast. The minimum speed is 0.25 meters per second')
   })
 })

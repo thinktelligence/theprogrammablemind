@@ -158,7 +158,7 @@ const config = {
   semantics: [
     {
       where: where(),
-      match: ({context}) => context.marker == 'mentions' && context.evaluate && context.args.context.nameable_named,
+      match: ({context}) => context.marker == 'mentions' && context.evaluate && context.args?.context?.nameable_named,
       apply: async ({callId, _continue, toList, context, kms, e, log, retry}) => {
         context.args.condition ??= () => true
         const oldCondition = context.args.condition

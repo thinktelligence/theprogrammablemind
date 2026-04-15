@@ -1007,3 +1007,6 @@ node drone -q 'forward 1 foot\nwest 1 foot\ncall the path route 1\ngo to the sta
 node drone -q 'forward 1 foot\nwest 1 foot\ncall the path route 1\ngo to the start of route 1\nsouth 1 foot\nevaluate the first and last 2 points of route 1' -g -d
 hmmmm -> node length -q 'what are the units of length' -g -d -tva -v
 node drone -q 'forward 1 foot\nwest 1 foot\ncall the path route 1\ndo route 1 pausing 10 seconds at each point' -g -d
+node drone -q 'forward 1 meter\ncall that path big bad path\npatrol big bad path' -g -d
+node drone -q 'forward 1 meter\nnorth\nforward 1 meter' -g -d
+go to the second point of route 1

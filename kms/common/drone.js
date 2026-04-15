@@ -19,6 +19,7 @@ NEED TO CHECK ON ACTUAL DRONE
   go to the second point of route 1
   do route 1 pausing 10 seconds at each point
 
+  what is the drone's position
 DONE go back
 go back another point
 go back again
@@ -26,6 +27,8 @@ go back to the start
 go back 2 points along route 1
 go to the start of route 2
 
+go forward 1 foot\nturn left\ngo forward again\n
+                              do it again
 do route 1 skipping point 2
 
 TODO should there be two hierarchy one as a concept car is a vehicle and one as a word car is a noun
@@ -282,6 +285,22 @@ class API {
     const overrideMethods = Object.getOwnPropertyNames(API.prototype).filter(key => typeof API.prototype[key] === 'function' && key.endsWith('Drone'));
     this.overrideCheck = new OverrideCheck(API, overrideMethods)
     this.overriden = this.constructor !== API
+    this.startPoint = { x: 0, y: 0 }
+    this.startAngle = Math.PI/2
+    this.startCompass = 'north'
+  }
+
+  setStartPoint(point) {
+    this.startPoint = point
+  }
+
+  setStartAngle(angleInRadians, compass) {
+    this.startAngle = angleInRadians
+    this.startCompass = compass
+  }
+
+  setSpeed(metersPerSecond) {
+    this._objects.current.speed = metersPerSecond
   }
 
   initialize({ objects }) {
@@ -289,11 +308,11 @@ class API {
       this.overrideCheck.check(this)
     }
 
-    if (!this.minimumSpeedDrone()) {
+    if (this.minimumSpeedDrone() == null) {
       throw new Error(`minimumSpeedDrone is not returning a positive number. Its returning ${this.minimumSpeedDrone()}`)
     }
 
-    if (!this.maximumSpeedDrone()) {
+    if (this.maximumSpeedDrone() == null) {
       throw new Error(`maximumSpeedDrone is not returning a positive number. Its returning ${this.maximumSpeedDrone()}`)
     }
 
@@ -302,17 +321,17 @@ class API {
     delete this.testDate
 
     objects.current = {
-      angleInRadians: Math.PI/2,
+      angleInRadians: this.startAngle,
       path: [],
       speed: this.minimumSpeedDrone(),
       ordinal: 0,                 // ordinal of the current point or the current point that the recent movement started at
-      compass: 'north',           // for now assume the drone start out point north. i will make that part of the conversation later
+      compass: this.startCompass,
       direction: 'forward',
     }
     objects.history = []
     objects.sonicTest = 5
 
-    this.args.remember({ marker: 'point', ordinal: this.nextOrdinal(), point: { x: 0, y: 0 }, description: "start" })
+    this.args.remember({ marker: 'point', ordinal: this.nextOrdinal(), point: this.startPoint, description: "start" })
   }
 
   currentOrdinal() {
@@ -391,9 +410,13 @@ class API {
       const unitsOfUser = objects.current.speedUnitsOfUser
       const minimumValueInDroneUnits = await fragments("number meters per second", { number: { marker: 'integer', value: minimumSpeed } })
       // const valueInUsersUnits = await fragments("quantity in meters", { quantity: minimumValueInDroneUnits, meter: unitsOfUser })
-      const valueInUsersUnits = await quantityInMeters(minimumValueInDroneUnits, unitsOfUser )
-      const evaluated = await e(valueInUsersUnits)
-      say(`The drone cannot go that slow. The minimum speed is ${await gr(evaluated.evalue)}`)
+      if (unitsOfUser) {
+        const valueInUsersUnits = await quantityInMeters(minimumValueInDroneUnits, unitsOfUser )
+        const evaluated = await e(valueInUsersUnits)
+        say(`The drone cannot go that slow. The minimum speed is ${await gr(evaluated.evalue)}`)
+      } else {
+        say(`The drone cannot go that fast. The minimum speed is ${await gr(minimumValueInDroneUnits)}`)
+      }
       objects.runCommand = false
       objects.current.speed = minimumSpeed
       return
@@ -405,9 +428,13 @@ class API {
       const unitsOfUser = objects.current.speedUnitsOfUser
       const maximumValueInDroneUnits = await fragments("number meters per second", { number: { marker: 'integer', value: maximumSpeed } })
       // const valueInUsersUnits = await fragments("quantity in meters", { quantity: maximumValueInDroneUnits, meter: unitsOfUser })
-      const valueInUsersUnits = await quantityInMeters(maximumValueInDroneUnits, unitsOfUser )
-      const evaluated = await e(valueInUsersUnits)
-      say(`The drone cannot go that fast. The maximum speed is ${await gr(evaluated.evalue)}`)
+      if (unitsOfUser) {
+        const valueInUsersUnits = await quantityInMeters(maximumValueInDroneUnits, unitsOfUser)
+        const evaluated = await e(valueInUsersUnits)
+        say(`The drone cannot go that fast. The maximum speed is ${await gr(evaluated.evalue)}`)
+      } else {
+        say(`The drone cannot go that fast. The maximum speed is ${await gr(maximumValueInDroneUnits)}`)
+      }
       objects.runCommand = false
       objects.current.speed = minimumSpeed
       return
@@ -767,6 +794,7 @@ const template = {
     "number radians",
     "40 degrees in radians",
     "path",
+    "forward",
   ],
   configs: [
     "arm, claw and drone are concepts",
@@ -1167,7 +1195,7 @@ const template = {
         },
         {
           match: ({context, contextHierarchy}) => {
-            if (!context.pullFromContext || !context.evaluate || contextHierarchy.under(['doAction', 'evaluate'])) {
+            if (!context.pullFromContext || !context.evaluate || contextHierarchy.under(['doAction', 'evaluate', 'patrol'])) {
               return false
             }
             
