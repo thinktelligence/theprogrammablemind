@@ -51,6 +51,10 @@ class API {
       frameOfReference = args.frameOfReference
     }
 
+    if (concept.pullFromContext) {
+      return
+    }
+
     if (!frameOfReference) {
       frameOfReference = this._objects
     }

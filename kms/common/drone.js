@@ -16,6 +16,11 @@ const { rotateDelta, degreesToRadians, radiansToDegrees, cartesianToPolar, small
 /*
 NEED TO CHECK ON ACTUAL DRONE
 
+  patrols x do that again
+  go to the end of the patrol
+  patrol x three times
+  patrol x for 5 minutes
+
   go to the second point of route 1
   do route 1 pausing 10 seconds at each point
 
