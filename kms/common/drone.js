@@ -17,9 +17,10 @@ const { rotateDelta, degreesToRadians, radiansToDegrees, cartesianToPolar, small
 NEED TO CHECK ON ACTUAL DRONE
 
   patrols x do that again
-  go to the end of the patrol
+  DONE go to the end of the patrol
   patrol x three times
   patrol x for 5 minutes
+  node drone -q 'north 1 meter\neast 1 meter\ncall that route 2\nwhat is the second point of route 2' -g -
 
   go to the second point of route 1
   do route 1 pausing 10 seconds at each point

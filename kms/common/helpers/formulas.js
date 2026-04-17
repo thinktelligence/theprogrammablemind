@@ -97,6 +97,7 @@ class API {
   }
 
   gets(name) {
+    // debugger
     if (!this._objects.formulas[name.value]) {
       return []
     }
@@ -131,6 +132,11 @@ class API {
 
   // currently only supportings x = f(x) type formulas
   add(name, formula, equality) {
+    /*
+    if (name.value == 'minute' || name.value == 'minutes') {
+      debugger
+    }
+    */ // greg66
     if (!this._objects.formulas[name.value]) {
       this._objects.formulas[name.value] = []
     }

@@ -165,7 +165,7 @@ const config = {
   operators: [
     "([quantity])",
     "([unit])",
-    "((amount/* || number/*) [amountOfCoordinate|] ([unit]))",
+    "((amount/* || number/* || mathematicalExpression/*) [amountOfCoordinate|] ([unit]))",
     "(([amount]) [unit])",
     "((@<=quantity || context.possession == true) [convertToUnits|in] (unit))",
     "([forQuantity|for] (@<= quantity && !context.unit.dimension == null))",
@@ -270,7 +270,7 @@ const config = {
     },
     { 
       id: "unit", 
-      isA: ['number'],
+      isA: ['mathematicalExpression'],
     },
   ],
 };

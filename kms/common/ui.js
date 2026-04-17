@@ -54,7 +54,7 @@ const config = {
     "([right])",
     "([stop] ([action]))",
     "([listening])",
-    "(([direction]) [moveAmount|] (number/* || quantity != null))"
+    "(([direction]) [moveAmount|] (mathematicalExpression/* || number/* || quantity != null))"
     // "(([direction]) [moveAmount|] (number/* || context.quantity))"
     // "(([direction]) [moveAmount|] (number/*))"
   ],

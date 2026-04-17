@@ -76,10 +76,10 @@ const config = {
   operators: [
     "([mathematicalExpression])",
     "([mathematical_operator])",
-    "(([number|]) [plusOperator] ([number|]))",
-    "(([number|]) [minusOperator] ([number|]))",
-    "(([number|]) [timesOperator] ([number|]))",
-    "(([number|]) [divideByOperator|] ([number|]))",
+    "((number/* || mathematicalExpression/*) [plusOperator] (number/* || mathematicalExpression/*))",
+    "((number/* || mathematicalExpression/*) [minusOperator] (number/* || mathematicalExpression/*))",
+    "((number/* || mathematicalExpression/*) [timesOperator] (number/* || mathematicalExpression/*))",
+    "((number/* || mathematicalExpression/*) [divideByOperator|] (number/* || mathematicalExpression/*))",
     "([plusExpression|])", 
     "([minusExpression|])", 
     "([timesExpression|])", 
@@ -91,7 +91,8 @@ const config = {
     { 
       id: "mathematicalExpression",
       // isA: ['queryable', 'theAble'],
-      isA: ['concept', 'number'],
+      //isA: ['concept', 'number'],
+      isA: ['concept'],
     },
     { 
       id: "mathematical_operator", 
