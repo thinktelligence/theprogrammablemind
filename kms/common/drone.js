@@ -1201,7 +1201,7 @@ const template = {
         },
         {
           match: ({context, contextHierarchy}) => {
-            if (!context.pullFromContext || !context.evaluate || contextHierarchy.under(['doAction', 'evaluate', 'patrol'])) {
+            if (!context.pullFromContext || !context.evaluate || contextHierarchy.under(['doAction', 'evaluate', 'patrol']) || context.instance) {
               return false
             }
             
