@@ -19,10 +19,12 @@ NEED TO CHECK ON ACTUAL DRONE
   patrols x do that again
   DONE go to the end of the patrol
   patrol x three times
+  patrol x continuously
   patrol x for 5 minutes
-  node drone -q 'north 1 meter\neast 1 meter\ncall that route 2\nwhat is the second point of route 2' -g -
+  DONE node drone -q 'north 1 meter\neast 1 meter\ncall that route 2\nwhat is the second point of route 2' -g -
 
-  go to the second point of route 1
+  go to the start
+  DONE go to the second point of route 1
   do route 1 pausing 10 seconds at each point
 
   what is the drone's position
@@ -455,13 +457,14 @@ class API {
     }
 
     if (objects.current.path.length > 0) {
-      if (objects.current.timeRepeats) {
-        this.startRepeats(objects.current.timeRepeats)
-      }
       let currentPoint = (await this.args.recall({ context: { marker: 'point' } })).point
       this._objects.history.push({ marker: 'history', debug: 'doing path' })
-      for (const pathComponent of objects.current.path) {
-        if (pathComponent.marker == 'pause') {
+      for (const [pathIndex, pathComponent] of objects.current.path.entries()) {
+        if (pathComponent.repeatStart) {
+          if (objects.current.timeRepeats) {
+            this.startRepeats(objects.current.timeRepeats)
+          }
+        } else if (pathComponent.marker == 'pause') {
           this.pause(pathComponent.pauseSeconds, { batched: true })
         } else {
           const points = this.args.toArray(pathComponent)
@@ -475,12 +478,12 @@ class API {
             // const angleDelta = (destinationAngleInRadians - objects.current.angleInRadians)
             const angleDelta = rotateDelta(objects.current.angleInRadians, destinationAngleInRadians)
             await this.rotate(angleDelta, { batched: true })
-            if (!pathComponent .aimOnly) {
+            if (!pathComponent.aimOnly) {
               await this.forward(objects.current.speed, { batched: true })
               await stopAtDistance("forward", polar.radius)
+              currentPoint = destinationPoint
             }
           }
-          currentPoint = destinationPoint
         }
       }
       if (objects.current.timeRepeats) {
@@ -608,6 +611,7 @@ class API {
     const ordinal = this.currentOrdinal()
     const currentPoint = await this.args.recall({ context: { marker: 'point' }, condition: (context) => context.ordinal == ordinal })
     const lastPoint = await this.args.recall({ context: { marker: 'point' }, condition: (context) => context.ordinal == ordinal-1 })
+    current.path.push({ repeatStart: true })
     current.path.push(lastPoint)
     current.path.push(currentPoint)
     objects.runCommand = true
@@ -901,16 +905,7 @@ const template = {
           semantic: async ({context, e, fragments, toEValue, toFinalValue, objects}) => {
             const evaluated = await(e(context.path))
             const path = toEValue(evaluated)
-            for (const point of path.points) {
-              objects.current.path.push(point)
-            }
-            if (context.repeats) {
-              objects.current.timeRepeats = toFinalValue(context.repeats)
-            }
-            // if the patrol does not start and end at the same spot then 
-            // go back to the start along the same path
-
-
+            
             let pauseTimeInSeconds
             if (context.pause) {
               const instantiation = await fragments("quantity in seconds", { quantity: context.pause.time })
@@ -919,13 +914,35 @@ const template = {
               pauseTimeInSeconds = seconds
             }
 
+            // get to the start of the patrol  
+            objects.current.path.push(path.points[0])
+            objects.current.path.push({ aimOnly: true, ...path.points[1] })
+            objects.current.path.push({ repeatStart: true })
+            for (const point of path.points) {
+              objects.current.path.push(point)
+              if (pauseTimeInSeconds) {
+                objects.current.path.push({ marker: 'pause', pauseSeconds: pauseTimeInSeconds })
+              }
+            }
+            if (context.repeats) {
+              objects.current.timeRepeats = toFinalValue(context.repeats.repeats)
+            }
+            // if the patrol does not start and end at the same spot then 
+            // go back to the start along the same path
+
+
+            // if the start is not the end of the patrol then go backwards along the patrol
             if (JSON.stringify(path.points[0].point) !== JSON.stringify(path.points[path.points.length-1].point)) {
-              for (const point of [...path.points].reverse()) {
+              for (const point of [...path.points].reverse().slice(1)) {
                 objects.current.path.push(point)
                 if (pauseTimeInSeconds) {
                   objects.current.path.push({ marker: 'pause', pauseSeconds: pauseTimeInSeconds })
                 }
               }
+
+              const secondPoint = path.points[1]
+              objects.current.path.push({ ...secondPoint, aimOnly: true })
+
             }
             objects.runCommand = true
           }

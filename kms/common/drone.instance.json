@@ -69,7 +69,7 @@
             "repeatable"
           ],
           "bridge": "{\n            ...next(operator), operator: operator, path: after[0], interpolate: append(default(operator.interpolate, [{ property: 'operator'}]), [{ property: 'path' }])\n          }",
-          "semantic": "async ({context, e, fragments, toEValue, toFinalValue, objects}) => {\n            const evaluated = await(e(context.path))\n            const path = toEValue(evaluated)\n            for (const point of path.points) {\n              objects.current.path.push(point)\n            }\n            if (context.repeats) {\n              objects.current.timeRepeats = toFinalValue(context.repeats)\n            }\n            // if the patrol does not start and end at the same spot then \n            // go back to the start along the same path\n\n\n            let pauseTimeInSeconds\n            if (context.pause) {\n              const instantiation = await fragments(\"quantity in seconds\", { quantity: context.pause.time })\n              const result = await e(instantiation)\n              const seconds = toFinalValue(toFinalValue(result).amount)\n              pauseTimeInSeconds = seconds\n            }\n\n            if (JSON.stringify(path.points[0].point) !== JSON.stringify(path.points[path.points.length-1].point)) {\n              for (const point of [...path.points].reverse()) {\n                objects.current.path.push(point)\n                if (pauseTimeInSeconds) {\n                  objects.current.path.push({ marker: 'pause', pauseSeconds: pauseTimeInSeconds })\n                }\n              }\n            }\n            objects.runCommand = true\n          }"
+          "semantic": "async ({context, e, fragments, toEValue, toFinalValue, objects}) => {\n            const evaluated = await(e(context.path))\n            const path = toEValue(evaluated)\n            \n            let pauseTimeInSeconds\n            if (context.pause) {\n              const instantiation = await fragments(\"quantity in seconds\", { quantity: context.pause.time })\n              const result = await e(instantiation)\n              const seconds = toFinalValue(toFinalValue(result).amount)\n              pauseTimeInSeconds = seconds\n            }\n\n            // get to the start of the patrol  \n            debugger\n            objects.current.path.push(path.points[0])\n            objects.current.path.push({ aimOnly: true, ...path.points[1] })\n            objects.current.path.push({ repeatStart: true })\n            for (const point of path.points) {\n              objects.current.path.push(point)\n              if (pauseTimeInSeconds) {\n                objects.current.path.push({ marker: 'pause', pauseSeconds: pauseTimeInSeconds })\n              }\n            }\n            if (context.repeats) {\n              objects.current.timeRepeats = toFinalValue(context.repeats.repeats)\n            }\n            // if the patrol does not start and end at the same spot then \n            // go back to the start along the same path\n\n\n            // if the start is not the end of the patrol then go backwards along the patrol\n            if (JSON.stringify(path.points[0].point) !== JSON.stringify(path.points[path.points.length-1].point)) {\n              for (const point of [...path.points].reverse().slice(1)) {\n                objects.current.path.push(point)\n                if (pauseTimeInSeconds) {\n                  objects.current.path.push({ marker: 'pause', pauseSeconds: pauseTimeInSeconds })\n                }\n              }\n\n              const secondPoint = path.points[1]\n              objects.current.path.push({ ...secondPoint, aimOnly: true })\n\n            }\n            objects.runCommand = true\n          }"
         },
         {
           "id": "lift",
@@ -513,7 +513,7 @@
           "apply": "async ({context, fragments, e, s, toEValue, toFinalValue, objects}) => {\n            // await s({ ...context, marker: 'patrol', path: context.action})\n            if (true) {\n              const evaluated = await(e(context.action))\n              const path = toEValue(evaluated)\n              let pauseTimeInSeconds = 0\n              if (context.pause) {\n                const instantiation = await fragments(\"quantity in seconds\", { quantity: context.pause.time })\n                const result = await e(instantiation)\n                const seconds = toFinalValue(toFinalValue(result).amount)\n                pauseTimeInSeconds = seconds\n              }\n              for (const point of path.points) {\n                objects.current.path.push(point)\n                if (pauseTimeInSeconds) {\n                  objects.current.path.push({ marker: 'pause', pauseSeconds: pauseTimeInSeconds })\n                }\n              }\n              objects.runCommand = true\n            }\n          }"
         },
         {
-          "match": "({context, contextHierarchy}) => {\n            if (!context.pullFromContext || !context.evaluate || contextHierarchy.under(['doAction', 'evaluate', 'patrol'])) {\n              return false\n            }\n            \n            if (context.marker == 'path' || context.marker == 'this' || context.marker == 'that') {\n              return true\n            }\n          }",
+          "match": "({context, contextHierarchy}) => {\n            if (!context.pullFromContext || !context.evaluate || contextHierarchy.under(['doAction', 'evaluate', 'patrol']) || context.instance) {\n              return false\n            }\n            \n            if (context.marker == 'path' || context.marker == 'this' || context.marker == 'that') {\n              return true\n            }\n          }",
           "apply": "async ({context, frameOfReference, toArray, fragments, stm, objects, remember, recall, resolveEvaluate, _continue, contextHierarchy}) => {\n            const pathComponents = toArray(await recall({ context: { marker: 'pathComponent' }, all: true }))\n            const path = (await fragments('path')).contexts()[0]\n            delete path.value\n            path.instance = true\n            path.points = pathComponents.reverse()\n            frameOfReference(path, { mentioned: 'points', reversed: true })\n            await remember(path)\n\n            _continue() // let the call pick the object out from the stm\n          }"
         },
         {
@@ -2368,6 +2368,51 @@
         [
           "millimeter",
           "unit_length",
+          false
+        ],
+        [
+          "millisecond",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "millisecond",
+          "isEdee",
+          false
+        ],
+        [
+          "millisecond",
+          "isEder",
+          false
+        ],
+        [
+          "millisecond",
+          "object",
+          false
+        ],
+        [
+          "millisecond",
+          "property",
+          false
+        ],
+        [
+          "millisecond",
+          "queryable",
+          false
+        ],
+        [
+          "millisecond",
+          "theAble",
+          false
+        ],
+        [
+          "millisecond",
+          "thisAble",
+          false
+        ],
+        [
+          "millisecond",
+          "unit_time",
           false
         ],
         [
@@ -6613,6 +6658,51 @@
         [
           "millimeter",
           "unit_length",
+          false
+        ],
+        [
+          "millisecond",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "millisecond",
+          "isEdee",
+          false
+        ],
+        [
+          "millisecond",
+          "isEder",
+          false
+        ],
+        [
+          "millisecond",
+          "object",
+          false
+        ],
+        [
+          "millisecond",
+          "property",
+          false
+        ],
+        [
+          "millisecond",
+          "queryable",
+          false
+        ],
+        [
+          "millisecond",
+          "theAble",
+          false
+        ],
+        [
+          "millisecond",
+          "thisAble",
+          false
+        ],
+        [
+          "millisecond",
+          "unit_time",
           false
         ],
         [
@@ -13519,6 +13609,51 @@
           false
         ],
         [
+          "millisecond",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "millisecond",
+          "isEdee",
+          false
+        ],
+        [
+          "millisecond",
+          "isEder",
+          false
+        ],
+        [
+          "millisecond",
+          "object",
+          false
+        ],
+        [
+          "millisecond",
+          "property",
+          false
+        ],
+        [
+          "millisecond",
+          "queryable",
+          false
+        ],
+        [
+          "millisecond",
+          "theAble",
+          false
+        ],
+        [
+          "millisecond",
+          "thisAble",
+          false
+        ],
+        [
+          "millisecond",
+          "unit_time",
+          false
+        ],
+        [
           "minimum",
           "hierarchyAble",
           false
@@ -17610,6 +17745,51 @@
         [
           "millimeter",
           "unit_length",
+          false
+        ],
+        [
+          "millisecond",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "millisecond",
+          "isEdee",
+          false
+        ],
+        [
+          "millisecond",
+          "isEder",
+          false
+        ],
+        [
+          "millisecond",
+          "object",
+          false
+        ],
+        [
+          "millisecond",
+          "property",
+          false
+        ],
+        [
+          "millisecond",
+          "queryable",
+          false
+        ],
+        [
+          "millisecond",
+          "theAble",
+          false
+        ],
+        [
+          "millisecond",
+          "thisAble",
+          false
+        ],
+        [
+          "millisecond",
+          "unit_time",
           false
         ],
         [
@@ -22179,6 +22359,51 @@
           false
         ],
         [
+          "millisecond",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "millisecond",
+          "isEdee",
+          false
+        ],
+        [
+          "millisecond",
+          "isEder",
+          false
+        ],
+        [
+          "millisecond",
+          "object",
+          false
+        ],
+        [
+          "millisecond",
+          "property",
+          false
+        ],
+        [
+          "millisecond",
+          "queryable",
+          false
+        ],
+        [
+          "millisecond",
+          "theAble",
+          false
+        ],
+        [
+          "millisecond",
+          "thisAble",
+          false
+        ],
+        [
+          "millisecond",
+          "unit_time",
+          false
+        ],
+        [
           "minimum",
           "hierarchyAble",
           false
@@ -26428,6 +26653,51 @@
         [
           "millimeter",
           "unit_length",
+          false
+        ],
+        [
+          "millisecond",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "millisecond",
+          "isEdee",
+          false
+        ],
+        [
+          "millisecond",
+          "isEder",
+          false
+        ],
+        [
+          "millisecond",
+          "object",
+          false
+        ],
+        [
+          "millisecond",
+          "property",
+          false
+        ],
+        [
+          "millisecond",
+          "queryable",
+          false
+        ],
+        [
+          "millisecond",
+          "theAble",
+          false
+        ],
+        [
+          "millisecond",
+          "thisAble",
+          false
+        ],
+        [
+          "millisecond",
+          "unit_time",
           false
         ],
         [
@@ -30712,6 +30982,51 @@
         [
           "millimeter",
           "unit_length",
+          false
+        ],
+        [
+          "millisecond",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "millisecond",
+          "isEdee",
+          false
+        ],
+        [
+          "millisecond",
+          "isEder",
+          false
+        ],
+        [
+          "millisecond",
+          "object",
+          false
+        ],
+        [
+          "millisecond",
+          "property",
+          false
+        ],
+        [
+          "millisecond",
+          "queryable",
+          false
+        ],
+        [
+          "millisecond",
+          "theAble",
+          false
+        ],
+        [
+          "millisecond",
+          "thisAble",
+          false
+        ],
+        [
+          "millisecond",
+          "unit_time",
           false
         ],
         [
@@ -35006,6 +35321,51 @@
           false
         ],
         [
+          "millisecond",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "millisecond",
+          "isEdee",
+          false
+        ],
+        [
+          "millisecond",
+          "isEder",
+          false
+        ],
+        [
+          "millisecond",
+          "object",
+          false
+        ],
+        [
+          "millisecond",
+          "property",
+          false
+        ],
+        [
+          "millisecond",
+          "queryable",
+          false
+        ],
+        [
+          "millisecond",
+          "theAble",
+          false
+        ],
+        [
+          "millisecond",
+          "thisAble",
+          false
+        ],
+        [
+          "millisecond",
+          "unit_time",
+          false
+        ],
+        [
           "minimum",
           "hierarchyAble",
           false
@@ -39260,6 +39620,51 @@
         [
           "millimeter",
           "unit_length",
+          false
+        ],
+        [
+          "millisecond",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "millisecond",
+          "isEdee",
+          false
+        ],
+        [
+          "millisecond",
+          "isEder",
+          false
+        ],
+        [
+          "millisecond",
+          "object",
+          false
+        ],
+        [
+          "millisecond",
+          "property",
+          false
+        ],
+        [
+          "millisecond",
+          "queryable",
+          false
+        ],
+        [
+          "millisecond",
+          "theAble",
+          false
+        ],
+        [
+          "millisecond",
+          "thisAble",
+          false
+        ],
+        [
+          "millisecond",
+          "unit_time",
           false
         ],
         [
@@ -43525,6 +43930,51 @@
           false
         ],
         [
+          "millisecond",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "millisecond",
+          "isEdee",
+          false
+        ],
+        [
+          "millisecond",
+          "isEder",
+          false
+        ],
+        [
+          "millisecond",
+          "object",
+          false
+        ],
+        [
+          "millisecond",
+          "property",
+          false
+        ],
+        [
+          "millisecond",
+          "queryable",
+          false
+        ],
+        [
+          "millisecond",
+          "theAble",
+          false
+        ],
+        [
+          "millisecond",
+          "thisAble",
+          false
+        ],
+        [
+          "millisecond",
+          "unit_time",
+          false
+        ],
+        [
           "minimum",
           "hierarchyAble",
           false
@@ -45534,6 +45984,24 @@
           ],
           [
             "point",
+            0
+          ]
+        ],
+        [
+          [
+            "is",
+            0
+          ],
+          [
+            "list",
+            1
+          ],
+          [
+            "point",
+            0
+          ],
+          [
+            "unknown",
             0
           ]
         ],
@@ -48270,6 +48738,51 @@
         [
           "millimeter",
           "unit_length",
+          false
+        ],
+        [
+          "millisecond",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "millisecond",
+          "isEdee",
+          false
+        ],
+        [
+          "millisecond",
+          "isEder",
+          false
+        ],
+        [
+          "millisecond",
+          "object",
+          false
+        ],
+        [
+          "millisecond",
+          "property",
+          false
+        ],
+        [
+          "millisecond",
+          "queryable",
+          false
+        ],
+        [
+          "millisecond",
+          "theAble",
+          false
+        ],
+        [
+          "millisecond",
+          "thisAble",
+          false
+        ],
+        [
+          "millisecond",
+          "unit_time",
           false
         ],
         [
@@ -53055,6 +53568,51 @@
           false
         ],
         [
+          "millisecond",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "millisecond",
+          "isEdee",
+          false
+        ],
+        [
+          "millisecond",
+          "isEder",
+          false
+        ],
+        [
+          "millisecond",
+          "object",
+          false
+        ],
+        [
+          "millisecond",
+          "property",
+          false
+        ],
+        [
+          "millisecond",
+          "queryable",
+          false
+        ],
+        [
+          "millisecond",
+          "theAble",
+          false
+        ],
+        [
+          "millisecond",
+          "thisAble",
+          false
+        ],
+        [
+          "millisecond",
+          "unit_time",
+          false
+        ],
+        [
           "minimum",
           "hierarchyAble",
           false
@@ -57350,6 +57908,51 @@
           false
         ],
         [
+          "millisecond",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "millisecond",
+          "isEdee",
+          false
+        ],
+        [
+          "millisecond",
+          "isEder",
+          false
+        ],
+        [
+          "millisecond",
+          "object",
+          false
+        ],
+        [
+          "millisecond",
+          "property",
+          false
+        ],
+        [
+          "millisecond",
+          "queryable",
+          false
+        ],
+        [
+          "millisecond",
+          "theAble",
+          false
+        ],
+        [
+          "millisecond",
+          "thisAble",
+          false
+        ],
+        [
+          "millisecond",
+          "unit_time",
+          false
+        ],
+        [
           "minimum",
           "hierarchyAble",
           false
@@ -61642,6 +62245,51 @@
         [
           "millimeter",
           "unit_length",
+          false
+        ],
+        [
+          "millisecond",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "millisecond",
+          "isEdee",
+          false
+        ],
+        [
+          "millisecond",
+          "isEder",
+          false
+        ],
+        [
+          "millisecond",
+          "object",
+          false
+        ],
+        [
+          "millisecond",
+          "property",
+          false
+        ],
+        [
+          "millisecond",
+          "queryable",
+          false
+        ],
+        [
+          "millisecond",
+          "theAble",
+          false
+        ],
+        [
+          "millisecond",
+          "thisAble",
+          false
+        ],
+        [
+          "millisecond",
+          "unit_time",
           false
         ],
         [
@@ -66172,6 +66820,51 @@
         [
           "millimeter",
           "unit_length",
+          false
+        ],
+        [
+          "millisecond",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "millisecond",
+          "isEdee",
+          false
+        ],
+        [
+          "millisecond",
+          "isEder",
+          false
+        ],
+        [
+          "millisecond",
+          "object",
+          false
+        ],
+        [
+          "millisecond",
+          "property",
+          false
+        ],
+        [
+          "millisecond",
+          "queryable",
+          false
+        ],
+        [
+          "millisecond",
+          "theAble",
+          false
+        ],
+        [
+          "millisecond",
+          "thisAble",
+          false
+        ],
+        [
+          "millisecond",
+          "unit_time",
           false
         ],
         [
@@ -70726,6 +71419,51 @@
           false
         ],
         [
+          "millisecond",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "millisecond",
+          "isEdee",
+          false
+        ],
+        [
+          "millisecond",
+          "isEder",
+          false
+        ],
+        [
+          "millisecond",
+          "object",
+          false
+        ],
+        [
+          "millisecond",
+          "property",
+          false
+        ],
+        [
+          "millisecond",
+          "queryable",
+          false
+        ],
+        [
+          "millisecond",
+          "theAble",
+          false
+        ],
+        [
+          "millisecond",
+          "thisAble",
+          false
+        ],
+        [
+          "millisecond",
+          "unit_time",
+          false
+        ],
+        [
           "minimum",
           "hierarchyAble",
           false
@@ -75017,6 +75755,51 @@
         [
           "millimeter",
           "unit_length",
+          false
+        ],
+        [
+          "millisecond",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "millisecond",
+          "isEdee",
+          false
+        ],
+        [
+          "millisecond",
+          "isEder",
+          false
+        ],
+        [
+          "millisecond",
+          "object",
+          false
+        ],
+        [
+          "millisecond",
+          "property",
+          false
+        ],
+        [
+          "millisecond",
+          "queryable",
+          false
+        ],
+        [
+          "millisecond",
+          "theAble",
+          false
+        ],
+        [
+          "millisecond",
+          "thisAble",
+          false
+        ],
+        [
+          "millisecond",
+          "unit_time",
           false
         ],
         [
@@ -79333,6 +80116,51 @@
         [
           "millimeter",
           "unit_length",
+          false
+        ],
+        [
+          "millisecond",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "millisecond",
+          "isEdee",
+          false
+        ],
+        [
+          "millisecond",
+          "isEder",
+          false
+        ],
+        [
+          "millisecond",
+          "object",
+          false
+        ],
+        [
+          "millisecond",
+          "property",
+          false
+        ],
+        [
+          "millisecond",
+          "queryable",
+          false
+        ],
+        [
+          "millisecond",
+          "theAble",
+          false
+        ],
+        [
+          "millisecond",
+          "thisAble",
+          false
+        ],
+        [
+          "millisecond",
+          "unit_time",
           false
         ],
         [
@@ -83899,6 +84727,51 @@
           false
         ],
         [
+          "millisecond",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "millisecond",
+          "isEdee",
+          false
+        ],
+        [
+          "millisecond",
+          "isEder",
+          false
+        ],
+        [
+          "millisecond",
+          "object",
+          false
+        ],
+        [
+          "millisecond",
+          "property",
+          false
+        ],
+        [
+          "millisecond",
+          "queryable",
+          false
+        ],
+        [
+          "millisecond",
+          "theAble",
+          false
+        ],
+        [
+          "millisecond",
+          "thisAble",
+          false
+        ],
+        [
+          "millisecond",
+          "unit_time",
+          false
+        ],
+        [
           "minimum",
           "hierarchyAble",
           false
@@ -88075,6 +88948,51 @@
           false
         ],
         [
+          "millisecond",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "millisecond",
+          "isEdee",
+          false
+        ],
+        [
+          "millisecond",
+          "isEder",
+          false
+        ],
+        [
+          "millisecond",
+          "object",
+          false
+        ],
+        [
+          "millisecond",
+          "property",
+          false
+        ],
+        [
+          "millisecond",
+          "queryable",
+          false
+        ],
+        [
+          "millisecond",
+          "theAble",
+          false
+        ],
+        [
+          "millisecond",
+          "thisAble",
+          false
+        ],
+        [
+          "millisecond",
+          "unit_time",
+          false
+        ],
+        [
           "minimum",
           "hierarchyAble",
           false
@@ -90402,6 +91320,24 @@
       ],
       [
         "point",
+        0
+      ]
+    ],
+    [
+      [
+        "is",
+        0
+      ],
+      [
+        "list",
+        1
+      ],
+      [
+        "point",
+        0
+      ],
+      [
+        "unknown",
         0
       ]
     ],
