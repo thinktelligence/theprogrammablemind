@@ -18,14 +18,14 @@ NEED TO CHECK ON ACTUAL DRONE
 
   patrols x do that again
   DONE go to the end of the patrol
-  patrol x three times
+  DONE patrol x three times
   patrol x continuously
   patrol x for 5 minutes
+  go to the start
   DONE node drone -q 'north 1 meter\neast 1 meter\ncall that route 2\nwhat is the second point of route 2' -g -
 
-  go to the start
   DONE go to the second point of route 1
-  do route 1 pausing 10 seconds at each point
+  DONE do route 1 pausing 10 seconds at each point
 
   what is the drone's position
 DONE go back
@@ -43,7 +43,7 @@ TODO should there be two hierarchy one as a concept car is a vehicle and one as 
 
 turn left\nturn back
 
-do route 1 pausing 10 seconds at each point
+DONE do route 1 pausing 10 seconds at each point
 do route 1 pausing 1 second at point 1 and 2 seconds for the rest
 
 forward 1 foot\nwest 1 foot\ngo back to the start         <<<<<<<<  turn the longer way not he shorter way
@@ -813,6 +813,7 @@ const template = {
     "paths are nameable and memorable",
     "start and end are properties of path",
     "start and end are points",
+    "rest and remaining are concepts",
     {
       hierarchy: [
         ['point', 'distributable'],
@@ -876,8 +877,33 @@ const template = {
         "([stop] ([drone|])?)",
         "([toPoint|to] (point))",
         "([atPoint|at] (point))",
+        // "([forRest|for] (rest/* || remaining/*))",
+        "((context.unit.dimension == 'time') [timeAtPoint|] (atPoint))",
+        // "((context.unit.dimension == 'time') [timeForRest|] (forRest))",
       ],
       bridges: [
+        /*
+        { 
+          id: 'forRest',
+          isA: ['preposition'],
+          bridge: "{ ...next(operator), rest: after[0], operator: operator, interpolate: [{ property: 'operator' }, { property: 'rest' }] }"
+        },
+        { 
+          id: 'timeForRest',
+          before: ['verb'],
+          after: ['preposition'],
+          convolution: true,
+          bridge: "{ ...next(operator), time: before[0], point: after[0], operator: operator, interpolate: [{ property: 'time' }, { property: 'point' }] }"
+        },
+        */
+        { 
+          id: 'timeAtPoint',
+          before: ['verb'],
+          after: ['preposition'],
+          convolution: true,
+          bridge: "{ ...next(operator), time: before[0], point: after[0], operator: operator, interpolate: [{ property: 'time' }, { property: 'point' }] }",
+          check: defaultContextCheckProperties(['time', 'point']),
+        },
         { 
           id: 'atPoint',
           isA: ['preposition'],
@@ -908,7 +934,7 @@ const template = {
             
             let pauseTimeInSeconds
             if (context.pause) {
-              const instantiation = await fragments("quantity in seconds", { quantity: context.pause.time })
+              const instantiation = await fragments("quantity in seconds", { quantity: context.pause.timeAtPoint.time })
               const result = await e(instantiation)
               const seconds = toFinalValue(toFinalValue(result).amount)
               pauseTimeInSeconds = seconds
@@ -1134,17 +1160,19 @@ const template = {
           words: [
             ...conjugateVerb('pause'),
           ],
-          bridge: "{ ...next(operator), time: or(time?, forTime), operator: operator, atPoint: atPoint?, interpolate: [{ property: 'operator' }, { property: 'time' }, { property: 'atPoint' }] }",
-          check: defaultContextCheckProperties(['time']),
+          bridge: "{ ...next(operator), timeAtPoint: timeAtPoint?, time: or(time?, forTime?), operator: operator, atPoint: atPoint?, interpolate: [{ property: 'operator' }, { property: 'time' }, { property: 'forTime' }, { property: 'atPoint' }, { property: 'timeAtPoint' } ] }",
+          check: defaultContextCheckProperties(['timeAtPoint']),
           selector: {
             arguments: {
               forTime: "(@<= 'forQuantity' && context.quantity.unit.dimension == 'time')",
               time: "(@<= 'quantity' && context.unit.dimension == 'time')",
               atPoint: "(@<= 'atPoint')",
+              timeAtPoint: "(@<= 'timeAtPoint')",
             },
           },
           semantic: async ({context, remember, api, e, fragments, toFinalValue}) => {
             let time = context.time 
+            debugger
             if (time.marker == 'forQuantity') {
               time = time.quantity
             }
@@ -1201,7 +1229,8 @@ const template = {
               const path = toEValue(evaluated)
               let pauseTimeInSeconds = 0
               if (context.pause) {
-                const instantiation = await fragments("quantity in seconds", { quantity: context.pause.time })
+                debugger
+                const instantiation = await fragments("quantity in seconds", { quantity: context.pause.timeAtPoint.time })
                 const result = await e(instantiation)
                 const seconds = toFinalValue(toFinalValue(result).amount)
                 pauseTimeInSeconds = seconds

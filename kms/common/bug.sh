@@ -1014,3 +1014,8 @@ second point 2nd not time-seconds
 
 node drone -q 'forward 1 foot\ncall the path route 1\npatrol route 1 3 times' -g -d
 node drone -q 'forward 2 meters\ngo back and forth 2 times' -g -d
+forward 1 foot\nwest 1 foot\ncall the path route 1\npatrol route 1 pausing 10 seconds at each point
+node drone -q '1 second at the first point and 2 seconds for the rest' -g -d
+
+node drone -q '1 second at the first and last point' -g -d
+node drone -q 'pausing (2 seconds at the first point) and (3 seconds at the third point)' -g -d
