@@ -281,6 +281,19 @@ const config = {
   semantics: [
     {
       where: where(),
+      match: ({context}) => context.marker == 'mentions' && context.evaluate && context.args?.context?.distributer,
+      apply: async ({callId, _continue, toList, context, kms, e, log, toArray, retry}) => {
+        context.args.filter ??= (r) => r
+        context.args.all = true
+        const oldFilter = context.args.filter
+        context.args.filter = (result) => {
+          return oldFilter(result)
+        }
+        _continue()
+      }
+    },
+    {
+      where: where(),
       match: ({context}) => context.marker == 'mentions' && context.evaluate,
       apply: ({context, kms, toList, resolveEvaluate}) => {
         resolveEvaluate(context, kms.stm.api.recall(context.args))

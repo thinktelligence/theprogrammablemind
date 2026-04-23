@@ -1,4 +1,4 @@
-const { knowledgeModule, where, stableId } = require('./runtime').theprogrammablemind
+const { knowledgeModule, where, stableId, debug } = require('./runtime').theprogrammablemind
 const gdefaults = require('./gdefaults.js')
 const pos = require('./pos.js')
 const { defaultContextCheck } = require('./helpers')
@@ -63,7 +63,6 @@ const config = {
       id: "theAble", 
       children: ['noun'],
     },
-
     { 
       id: "thisitthat", 
       isA: ['queryable'], 

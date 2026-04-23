@@ -16,6 +16,7 @@ const { rotateDelta, degreesToRadians, radiansToDegrees, cartesianToPolar, small
 /*
 NEED TO CHECK ON ACTUAL DRONE
 
+  stopping 2 seconds at each point
   patrols x do that again
   DONE go to the end of the patrol
   DONE patrol x three times
@@ -928,16 +929,24 @@ const template = {
           bridge: `{
             ...next(operator), operator: operator, path: after[0], interpolate: append(default(operator.interpolate, [{ property: 'operator'}]), [{ property: 'path' }])
           }`,
-          semantic: async ({context, e, fragments, toEValue, toFinalValue, objects}) => {
+          semantic: async ({context, e, toArray, fragments, toEValue, toFinalValue, recall, objects}) => {
             const evaluated = await(e(context.path))
             const path = toEValue(evaluated)
-            
-            let pauseTimeInSeconds
+           
+            // ordinal to pause time in seconds 
+            let pauseTimeInSeconds = {}
             if (context.pause) {
-              const instantiation = await fragments("quantity in seconds", { quantity: context.pause.timeAtPoint.time })
-              const result = await e(instantiation)
-              const seconds = toFinalValue(toFinalValue(result).amount)
-              pauseTimeInSeconds = seconds
+              const timeAtPoints = toArray(context.pause.timeAtPoint)
+              for (const timeAtPoint of timeAtPoints) {
+                const instantiation = await fragments("quantity in seconds", { quantity: timeAtPoint.time })
+                const result = await e(instantiation)
+                const seconds = toFinalValue(toFinalValue(result).amount)
+
+                const points = await recall({ context: timeAtPoint.point.point, frameOfReference: path })
+                for (const point of toArray(points)) {
+                  pauseTimeInSeconds[point.ordinal] = seconds
+                }
+              }
             }
 
             // get to the start of the patrol  
@@ -946,8 +955,8 @@ const template = {
             objects.current.path.push({ repeatStart: true })
             for (const point of path.points) {
               objects.current.path.push(point)
-              if (pauseTimeInSeconds) {
-                objects.current.path.push({ marker: 'pause', pauseSeconds: pauseTimeInSeconds })
+              if (pauseTimeInSeconds[point.ordinal]) {
+                objects.current.path.push({ marker: 'pause', pauseSeconds: pauseTimeInSeconds[point.ordinal] })
               }
             }
             if (context.repeats) {
@@ -961,8 +970,8 @@ const template = {
             if (JSON.stringify(path.points[0].point) !== JSON.stringify(path.points[path.points.length-1].point)) {
               for (const point of [...path.points].reverse().slice(1)) {
                 objects.current.path.push(point)
-                if (pauseTimeInSeconds) {
-                  objects.current.path.push({ marker: 'pause', pauseSeconds: pauseTimeInSeconds })
+                if (pauseTimeInSeconds[point.ordinal]) {
+                  objects.current.path.push({ marker: 'pause', pauseSeconds: pauseTimeInSeconds[point.ordinal] })
                 }
               }
 
