@@ -17,6 +17,8 @@ const { rotateDelta, degreesToRadians, radiansToDegrees, cartesianToPolar, small
 NEED TO CHECK ON ACTUAL DRONE
 
   DONE fix DO so it can do all the stuff partol can do <<<<<<<<<<<<<<<<<<<
+  start again. start a new path
+  the last 3 points are called path 1
 
   stopping 2 seconds at each point
   patrols x do that again
@@ -1346,16 +1348,25 @@ const template = {
           }
         },
         {
-          match: ({context}) => context.evaluate && ['start', 'end'].includes(context.marker),
-          apply: async ({gp, s, context, objects, fragments, resolveEvaluate, api, recall}) => {
+          match: ({context, contextHierarchy}) => 
+              context.evaluate && 
+              ['start', 'end', 'point'].includes(context.marker) && 
+              !context.propertyOf && 
+              contextHierarchy.under('go') &&
+              !contextHierarchy.under('call'),
+          apply: async ({gp, s, toArray, context, objects, fragments, resolveEvaluate, api, recall}) => {
             const path = await recall({ context: { marker: 'path' } })
             if (!path?.points) {
               return
             }
+            
             if (context.marker == 'start') {
               resolveEvaluate(context, path?.points[0])
             } else if (context.marker == 'end') {
               resolveEvaluate(context, path?.points[path?.points.length-1])
+            } else {
+              const points = await recall({ context, frameOfReference: path })
+              resolveEvaluate(context, toArray(points)[0])
             }
           }
         },
