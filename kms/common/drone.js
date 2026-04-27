@@ -27,6 +27,7 @@ NEED TO CHECK ON ACTUAL DRONE
   go to the start
   DONE node drone -q 'north 1 meter\neast 1 meter\ncall that route 2\nwhat is the second point of route 2' -g -
 
+  go to the start along the path / following the path
   pausing 1 second at the first point and 5 at the last
 
   DONE go to the second point of route 1
@@ -1334,6 +1335,20 @@ const template = {
           match: ({context}) => context.evaluate && ['start', 'end'].includes(context.marker) && context.objects && context.objects[1].marker == 'path',
           apply: async ({gp, s, context, objects, fragments, resolveEvaluate, api, recall}) => {
             const path = await recall({ context: context.objects[1] })
+            if (!path?.points) {
+              return
+            }
+            if (context.marker == 'start') {
+              resolveEvaluate(context, path?.points[0])
+            } else if (context.marker == 'end') {
+              resolveEvaluate(context, path?.points[path?.points.length-1])
+            }
+          }
+        },
+        {
+          match: ({context}) => context.evaluate && ['start', 'end'].includes(context.marker),
+          apply: async ({gp, s, context, objects, fragments, resolveEvaluate, api, recall}) => {
+            const path = await recall({ context: { marker: 'path' } })
             if (!path?.points) {
               return
             }
