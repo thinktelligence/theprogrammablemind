@@ -91,7 +91,7 @@ config = {
         if ((context.value || []).length < 2) {
           return
         }
-        if (!context.value[0].word) {
+        if (!context?.value[0]?.word) {
           return
         }
         const word = context.value[0].word

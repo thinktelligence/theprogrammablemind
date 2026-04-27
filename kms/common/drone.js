@@ -813,6 +813,20 @@ const template = {
     "around, forward, left, right, back, forth and backward are directions",
     "paths are nameable and memorable",
     "start and end are properties of path",
+    ({apis}) => {
+      apis('properties').addHierarchyWatcher({
+        match: ({childId}) => childId == 'point',
+        apply: ({config, childId}) => {
+          config.updateBridge(childId, ({ bridge }) => {
+            if (!bridge.init) {
+              bridge.init = {}
+            }
+            bridge.init['notConjunctableWith'] = ['quantity']
+          })
+        }
+      })
+    },
+
     "start and end are points",
     "rest and remaining are concepts",
     {
@@ -932,9 +946,11 @@ const template = {
           semantic: async ({context, e, toArray, fragments, toEValue, toFinalValue, recall, objects}) => {
             const evaluated = await(e(context.path))
             const path = toEValue(evaluated)
-           
+          
+            // TODO put this in a common place for use by do+patrol 
+
             // ordinal to pause time in seconds 
-            let pauseTimeInSeconds = {}
+            const pauseTimeInSeconds = {}
             if (context.pause) {
               const timeAtPoints = toArray(context.pause.timeAtPoint)
               for (const timeAtPoint of timeAtPoints) {
@@ -1181,6 +1197,9 @@ const template = {
           },
           semantic: async ({context, remember, api, e, fragments, toFinalValue}) => {
             let time = context.time 
+            if (!time) {
+              return
+            }
             debugger
             if (time.marker == 'forQuantity') {
               time = time.quantity
