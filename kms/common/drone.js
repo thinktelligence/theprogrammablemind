@@ -16,6 +16,8 @@ const { rotateDelta, degreesToRadians, radiansToDegrees, cartesianToPolar, small
 /*
 NEED TO CHECK ON ACTUAL DRONE
 
+  DONE fix DO so it can do all the stuff partol can do <<<<<<<<<<<<<<<<<<<
+
   stopping 2 seconds at each point
   patrols x do that again
   DONE go to the end of the patrol
@@ -24,6 +26,8 @@ NEED TO CHECK ON ACTUAL DRONE
   patrol x for 5 minutes
   go to the start
   DONE node drone -q 'north 1 meter\neast 1 meter\ncall that route 2\nwhat is the second point of route 2' -g -
+
+  pausing 1 second at the first point and 5 at the last
 
   DONE go to the second point of route 1
   DONE do route 1 pausing 10 seconds at each point
@@ -993,7 +997,6 @@ const template = {
 
               const secondPoint = path.points[1]
               objects.current.path.push({ ...secondPoint, aimOnly: true })
-
             }
             objects.runCommand = true
           }
@@ -1251,8 +1254,8 @@ const template = {
         {
           match: ({context}) => context.marker == 'doAction',
           apply: async ({context, fragments, e, s, toEValue, toFinalValue, objects}) => {
-            // await s({ ...context, marker: 'patrol', path: context.action})
-            if (true) {
+            await s({ ...context, marker: 'patrol', path: context.action})
+            if (false) {
               const evaluated = await(e(context.action))
               const path = toEValue(evaluated)
               let pauseTimeInSeconds = 0
