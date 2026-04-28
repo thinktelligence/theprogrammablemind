@@ -80,7 +80,7 @@ class API {
     helpers.unshiftL(frameOfReference.mentioned, concept, this.maximumMentioned)
   }
 
-  recall({ context, frameOfReference, useHierarchy=true, all, condition = (() => true), filter = ((result) => result) } = {}) {
+  recall({ context, frameOfReference, useHierarchy=true, all, stopCondition = (() => false), condition = (() => true), filter = ((result) => result) } = {}) {
     let mentioned = this._objects.mentioned
     let reversed = false
     if (frameOfReference) {
@@ -116,6 +116,9 @@ class API {
     // care about value first
     let findCounter = 0
     for (const m of mentioned) {
+      if (stopCondition(m)) {
+        break
+      }
       if (context.value && (context.value == m.marker || context.value == m.value)) {
         findCounter += 1
         if (findPrevious && findCounter < 2) {
@@ -145,6 +148,9 @@ class API {
     // care about marker second
     findCounter = 0
     for (const m of mentioned) {
+      if (stopCondition(m)) {
+        break
+      }
       if (context.marker != 'unknown' && this.isA(m.marker, context.marker)) {
         findCounter += 1
         if (findPrevious && findCounter < 2) {
@@ -164,6 +170,9 @@ class API {
       // if (context.types && context.types.includes(m.marker)) {
       if (context.types) {
         for (const parent of context.types) {
+          if (stopCondition(m)) {
+            break
+          }
           if (parent != 'unknown' && this.isA(m.marker, parent)) {
             findCounter += 1
             if (findPrevious && findCounter < 2) {
@@ -195,6 +204,9 @@ class API {
           findCounter += 1
           if (findPrevious && findCounter < 2) {
             continue
+          }
+          if (stopCondition(m)) {
+            break
           }
           if (condition(m)) {
             if (all) {

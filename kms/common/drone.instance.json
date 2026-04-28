@@ -41,6 +41,7 @@
         "([lower] (@<= arm || @<=claw))",
         "([open] (claw))",
         "([close] (claw))",
+        "([startPath|start] (path))",
         "([pathComponent])",
         "(<another> (point))",
         "([stop] ([drone|])?)",
@@ -49,6 +50,14 @@
         "((context.unit.dimension == 'time') [timeAtPoint|] (atPoint))"
       ],
       "bridges": [
+        {
+          "id": "startPath",
+          "isA": [
+            "verb"
+          ],
+          "bridge": "{ ...next(operator), path: after[0], operator: operator, interpolate: [{ property: 'operator' }, { property: 'path' }] }",
+          "semantic": "async ({context, remember, recall}) => {\n            const point = await recall({ context: { marker: 'point' } })\n            remember(context) \n            remember(point) // put the last point before the startPath so when the new path is generated this is the start point\n          }"
+        },
         {
           "id": "timeAtPoint",
           "before": [
@@ -101,7 +110,7 @@
             "repeatable"
           ],
           "bridge": "{\n            ...next(operator), operator: operator, path: after[0], interpolate: append(default(operator.interpolate, [{ property: 'operator'}]), [{ property: 'path' }])\n          }",
-          "semantic": "async ({context, e, toArray, fragments, toEValue, toFinalValue, recall, objects}) => {\n            const evaluated = await(e(context.path))\n            const path = toEValue(evaluated)\n          \n            // TODO put this in a common place for use by do+patrol \n\n            // ordinal to pause time in seconds \n            let pauseTimeInSeconds = {}\n            if (context.pause) {\n              const timeAtPoints = toArray(context.pause.timeAtPoint)\n              for (const timeAtPoint of timeAtPoints) {\n                const instantiation = await fragments(\"quantity in seconds\", { quantity: timeAtPoint.time })\n                const result = await e(instantiation)\n                const seconds = toFinalValue(toFinalValue(result).amount)\n\n                const points = await recall({ context: timeAtPoint.point.point, frameOfReference: path })\n                for (const point of toArray(points)) {\n                  pauseTimeInSeconds[point.ordinal] = seconds\n                }\n              }\n            }\n\n            // get to the start of the patrol  \n            objects.current.path.push(path.points[0])\n            objects.current.path.push({ aimOnly: true, ...path.points[1] })\n            objects.current.path.push({ repeatStart: true })\n            for (const point of path.points) {\n              objects.current.path.push(point)\n              if (pauseTimeInSeconds[point.ordinal]) {\n                objects.current.path.push({ marker: 'pause', pauseSeconds: pauseTimeInSeconds[point.ordinal] })\n              }\n            }\n            if (context.repeats) {\n              objects.current.timeRepeats = toFinalValue(context.repeats.repeats)\n            }\n            // if the patrol does not start and end at the same spot then \n            // go back to the start along the same path\n\n\n            // if the start is not the end of the patrol then go backwards along the patrol\n            if (JSON.stringify(path.points[0].point) !== JSON.stringify(path.points[path.points.length-1].point)) {\n              for (const point of [...path.points].reverse().slice(1)) {\n                objects.current.path.push(point)\n                if (pauseTimeInSeconds[point.ordinal]) {\n                  objects.current.path.push({ marker: 'pause', pauseSeconds: pauseTimeInSeconds[point.ordinal] })\n                }\n              }\n\n              const secondPoint = path.points[1]\n              objects.current.path.push({ ...secondPoint, aimOnly: true })\n\n            }\n            objects.runCommand = true\n          }"
+          "semantic": "async ({context, e, toArray, fragments, toEValue, toFinalValue, recall, objects}) => {\n            const evaluated = await(e(context.path))\n            const path = toEValue(evaluated)\n          \n            // TODO put this in a common place for use by do+patrol \n\n            // ordinal to pause time in seconds \n            const pauseTimeInSeconds = {}\n            if (context.pause) {\n              const timeAtPoints = toArray(context.pause.timeAtPoint)\n              for (const timeAtPoint of timeAtPoints) {\n                const instantiation = await fragments(\"quantity in seconds\", { quantity: timeAtPoint.time })\n                const result = await e(instantiation)\n                const seconds = toFinalValue(toFinalValue(result).amount)\n\n                const points = await recall({ context: timeAtPoint.point.point, frameOfReference: path })\n                for (const point of toArray(points)) {\n                  pauseTimeInSeconds[point.ordinal] = seconds\n                }\n              }\n            }\n\n            // get to the start of the patrol  \n            objects.current.path.push(path.points[0])\n            objects.current.path.push({ aimOnly: true, ...path.points[1] })\n            objects.current.path.push({ repeatStart: true })\n            for (const point of path.points) {\n              objects.current.path.push(point)\n              if (pauseTimeInSeconds[point.ordinal]) {\n                objects.current.path.push({ marker: 'pause', pauseSeconds: pauseTimeInSeconds[point.ordinal] })\n              }\n            }\n            if (context.repeats) {\n              objects.current.timeRepeats = toFinalValue(context.repeats.repeats)\n            }\n            // if the patrol does not start and end at the same spot then \n            // go back to the start along the same path\n\n\n            // if the start is not the end of the patrol then go backwards along the patrol\n            if (JSON.stringify(path.points[0].point) !== JSON.stringify(path.points[path.points.length-1].point)) {\n              for (const point of [...path.points].reverse().slice(1)) {\n                objects.current.path.push(point)\n                if (pauseTimeInSeconds[point.ordinal]) {\n                  objects.current.path.push({ marker: 'pause', pauseSeconds: pauseTimeInSeconds[point.ordinal] })\n                }\n              }\n\n              const secondPoint = path.points[1]\n              objects.current.path.push({ ...secondPoint, aimOnly: true })\n            }\n            objects.runCommand = true\n          }"
         },
         {
           "id": "lift",
@@ -543,11 +552,11 @@
       "semantics": [
         {
           "match": "({context}) => context.marker == 'doAction'",
-          "apply": "async ({context, fragments, e, s, toEValue, toFinalValue, objects}) => {\n            // await s({ ...context, marker: 'patrol', path: context.action})\n            if (true) {\n              const evaluated = await(e(context.action))\n              const path = toEValue(evaluated)\n              let pauseTimeInSeconds = 0\n              if (context.pause) {\n                debugger\n                const instantiation = await fragments(\"quantity in seconds\", { quantity: context.pause.timeAtPoint.time })\n                const result = await e(instantiation)\n                const seconds = toFinalValue(toFinalValue(result).amount)\n                pauseTimeInSeconds = seconds\n              }\n              for (const point of path.points) {\n                objects.current.path.push(point)\n                if (pauseTimeInSeconds) {\n                  objects.current.path.push({ marker: 'pause', pauseSeconds: pauseTimeInSeconds })\n                }\n              }\n              objects.runCommand = true\n            }\n          }"
+          "apply": "async ({context, fragments, e, s, toEValue, toFinalValue, objects}) => {\n            await s({ ...context, marker: 'patrol', path: context.action})\n          }"
         },
         {
           "match": "({context, contextHierarchy}) => {\n            if (!context.pullFromContext || !context.evaluate || contextHierarchy.under(['doAction', 'evaluate', 'patrol']) || context.instance) {\n              return false\n            }\n            \n            if (context.marker == 'path' || context.marker == 'this' || context.marker == 'that') {\n              return true\n            }\n          }",
-          "apply": "async ({context, frameOfReference, toArray, fragments, stm, objects, remember, recall, resolveEvaluate, _continue, contextHierarchy}) => {\n            const pathComponents = toArray(await recall({ context: { marker: 'pathComponent' }, all: true }))\n            const path = (await fragments('path')).contexts()[0]\n            delete path.value\n            path.instance = true\n            path.points = pathComponents.reverse()\n            frameOfReference(path, { mentioned: 'points', reversed: true })\n            await remember(path)\n\n            _continue() // let the call pick the object out from the stm\n          }"
+          "apply": "async ({context, frameOfReference, toArray, fragments, objects, remember, recall, resolveEvaluate, _continue, contextHierarchy}) => {\n            const pathComponents = toArray(await recall({ \n                                      context: { marker: 'pathComponent' }, \n                                      all: true,\n                                      stopCondition: (context) => context.marker == 'startPath',\n                                   }))\n            const path = (await fragments('path')).contexts()[0]\n            delete path.value\n            path.instance = true\n            path.points = pathComponents.reverse()\n            frameOfReference(path, { mentioned: 'points', reversed: true })\n            await remember(path)\n\n            _continue() // let the call pick the object out from the stm\n          }"
         },
         {
           "match": "({context, contextHierarchy}) => {\n            if (!context.pullFromContext || !context.evaluate || !contextHierarchy.under('call') || context.notUnderCall) {\n              return false\n            }\n            \n            if (context.marker == 'point' || context.marker == 'ordinal') {\n              return true\n            }\n          }",
@@ -560,6 +569,10 @@
         {
           "match": "({context}) => context.evaluate && ['start', 'end'].includes(context.marker) && context.objects && context.objects[1].marker == 'path'",
           "apply": "async ({gp, s, context, objects, fragments, resolveEvaluate, api, recall}) => {\n            const path = await recall({ context: context.objects[1] })\n            if (!path?.points) {\n              return\n            }\n            if (context.marker == 'start') {\n              resolveEvaluate(context, path?.points[0])\n            } else if (context.marker == 'end') {\n              resolveEvaluate(context, path?.points[path?.points.length-1])\n            }\n          }"
+        },
+        {
+          "match": "({context, contextHierarchy}) => \n              context.evaluate && \n              ['start', 'end', 'point'].includes(context.marker) && \n              !context.propertyOf && \n              contextHierarchy.under('go') &&\n              !contextHierarchy.under('call')",
+          "apply": "async ({gp, s, toArray, context, objects, fragments, resolveEvaluate, api, recall}) => {\n            const path = await recall({ context: { marker: 'path' } })\n            if (!path?.points) {\n              return\n            }\n            \n            if (context.marker == 'start') {\n              resolveEvaluate(context, path?.points[0])\n            } else if (context.marker == 'end') {\n              resolveEvaluate(context, path?.points[path?.points.length-1])\n            } else {\n              const points = await recall({ context, frameOfReference: path })\n              resolveEvaluate(context, toArray(points)[0])\n            }\n          }"
         },
         {
           "match": "({context}) => context.marker == 'speed' && context.evaluate",
@@ -55711,6 +55724,7 @@
         "([lower] (@<= arm || @<=claw))",
         "([open] (claw))",
         "([close] (claw))",
+        "([startPath|start] (path))",
         "([pathComponent])",
         "(<another> (point))",
         "([stop] ([drone|])?)",
@@ -55719,6 +55733,13 @@
         "((context.unit.dimension == 'time') [timeAtPoint|] (atPoint))"
       ],
       "bridges": [
+        {
+          "id": "startPath",
+          "isA": [
+            "verb"
+          ],
+          "bridge": "{ ...next(operator), path: after[0], operator: operator, interpolate: [{ property: 'operator' }, { property: 'path' }] }"
+        },
         {
           "id": "timeAtPoint",
           "before": [
@@ -56194,6 +56215,7 @@
         {}
       ],
       "semantics": [
+        {},
         {},
         {},
         {},
@@ -59872,6 +59894,11 @@
         [
           "start",
           "thisAble",
+          false
+        ],
+        [
+          "startPath",
+          "verb",
           false
         ],
         [
@@ -64305,6 +64332,11 @@
           false
         ],
         [
+          "startPath",
+          "verb",
+          false
+        ],
+        [
           "stm_before",
           "adjective",
           false
@@ -68732,6 +68764,11 @@
         [
           "start",
           "thisAble",
+          false
+        ],
+        [
+          "startPath",
+          "verb",
           false
         ],
         [
@@ -73397,6 +73434,11 @@
         [
           "start",
           "thisAble",
+          false
+        ],
+        [
+          "startPath",
+          "verb",
           false
         ],
         [
@@ -78086,6 +78128,11 @@
           false
         ],
         [
+          "startPath",
+          "verb",
+          false
+        ],
+        [
           "stm_before",
           "adjective",
           false
@@ -82512,6 +82559,11 @@
         [
           "start",
           "thisAble",
+          false
+        ],
+        [
+          "startPath",
+          "verb",
           false
         ],
         [
@@ -86963,6 +87015,11 @@
         [
           "start",
           "thisAble",
+          false
+        ],
+        [
+          "startPath",
+          "verb",
           false
         ],
         [
@@ -91664,6 +91721,11 @@
           false
         ],
         [
+          "startPath",
+          "verb",
+          false
+        ],
+        [
           "stm_before",
           "adjective",
           false
@@ -95972,6 +96034,11 @@
         [
           "start",
           "thisAble",
+          false
+        ],
+        [
+          "startPath",
+          "verb",
           false
         ],
         [

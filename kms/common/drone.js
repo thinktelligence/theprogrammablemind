@@ -1,4 +1,4 @@
-const { knowledgeModule, where } = require('./runtime').theprogrammablemind
+const { knowledgeModule, where, debug } = require('./runtime').theprogrammablemind
 const { conjugateVerb } = require('./english_helpers')
 const { OverrideCheck, defaultContextCheckProperties, defaultContextCheck, getValue, setValue } = require('./helpers')
 const drone_tests = require('./drone.test.json')
@@ -892,6 +892,7 @@ const template = {
         "([lower] (@<= arm || @<=claw))",
         "([open] (claw))",
         "([close] (claw))",
+        "([startPath|start] (path))",
         "([pathComponent])",
         "(<another> (point))",
         // "([turn] (direction))",
@@ -904,20 +905,16 @@ const template = {
         // "((context.unit.dimension == 'time') [timeForRest|] (forRest))",
       ],
       bridges: [
-        /*
         { 
-          id: 'forRest',
-          isA: ['preposition'],
-          bridge: "{ ...next(operator), rest: after[0], operator: operator, interpolate: [{ property: 'operator' }, { property: 'rest' }] }"
+          id: 'startPath',
+          isA: ['verb'],
+          bridge: "{ ...next(operator), path: after[0], operator: operator, interpolate: [{ property: 'operator' }, { property: 'path' }] }",
+          semantic: async ({context, remember, recall}) => {
+            const point = await recall({ context: { marker: 'point' } })
+            remember(context) 
+            remember(point) // put the last point before the startPath so when the new path is generated this is the start point
+          },
         },
-        { 
-          id: 'timeForRest',
-          before: ['verb'],
-          after: ['preposition'],
-          convolution: true,
-          bridge: "{ ...next(operator), time: before[0], point: after[0], operator: operator, interpolate: [{ property: 'time' }, { property: 'point' }] }"
-        },
-        */
         { 
           id: 'timeAtPoint',
           before: ['verb'],
@@ -1258,25 +1255,6 @@ const template = {
           match: ({context}) => context.marker == 'doAction',
           apply: async ({context, fragments, e, s, toEValue, toFinalValue, objects}) => {
             await s({ ...context, marker: 'patrol', path: context.action})
-            if (false) {
-              const evaluated = await(e(context.action))
-              const path = toEValue(evaluated)
-              let pauseTimeInSeconds = 0
-              if (context.pause) {
-                debugger
-                const instantiation = await fragments("quantity in seconds", { quantity: context.pause.timeAtPoint.time })
-                const result = await e(instantiation)
-                const seconds = toFinalValue(toFinalValue(result).amount)
-                pauseTimeInSeconds = seconds
-              }
-              for (const point of path.points) {
-                objects.current.path.push(point)
-                if (pauseTimeInSeconds) {
-                  objects.current.path.push({ marker: 'pause', pauseSeconds: pauseTimeInSeconds })
-                }
-              }
-              objects.runCommand = true
-            }
           }
         },
         {
@@ -1289,8 +1267,12 @@ const template = {
               return true
             }
           },
-          apply: async ({context, frameOfReference, toArray, fragments, stm, objects, remember, recall, resolveEvaluate, _continue, contextHierarchy}) => {
-            const pathComponents = toArray(await recall({ context: { marker: 'pathComponent' }, all: true }))
+          apply: async ({context, frameOfReference, toArray, fragments, objects, remember, recall, resolveEvaluate, _continue, contextHierarchy}) => {
+            const pathComponents = toArray(await recall({ 
+                                      context: { marker: 'pathComponent' }, 
+                                      all: true,
+                                      stopCondition: (context) => context.marker == 'startPath',
+                                   }))
             const path = (await fragments('path')).contexts()[0]
             delete path.value
             path.instance = true
