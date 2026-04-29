@@ -4,11 +4,52 @@
       "name": "actions",
       "operators": [
         "([doAction|do] ([action]))",
-        "((action) <again>)"
+        "((action) <again>)",
+        "((action) [thenAction|then] (action))"
       ],
       "bridges": [
         {
           "id": "action"
+        },
+        {
+          "id": "thenAction",
+          "level": 0,
+          "isA": [
+            "action"
+          ],
+          "before": [
+            "doAction"
+          ],
+          "selector": {
+            "left": [
+              {
+                "pattern": "(action))"
+              }
+            ],
+            "right": [
+              {
+                "pattern": "(action)"
+              }
+            ],
+            "passthrough": true
+          },
+          "bridge": "{ \n        ...next(operator),\n        operator: operator, \n        listable: true, \n        isList: true, \n        before: before, \n        after: after, \n        value: append(before, after)\n      }"
+        },
+        {
+          "id": "thenAction",
+          "level": 1,
+          "before": [
+            "doAction"
+          ],
+          "selector": {
+            "left": [
+              {
+                "pattern": "(action)"
+              }
+            ],
+            "passthrough": true
+          },
+          "bridge": "{ ...next(operator), value: append(before, operator.value) }"
         },
         {
           "id": "again",
@@ -38,6 +79,25 @@
           "bridge": "{\n        ...next(operator),\n        operator: operator,\n        action: after[0],\n        interpolate: [{ property: 'operator' }, { property: 'action' }]\n      }"
         }
       ],
+      "words": {
+        "patterns": [
+          {
+            "pattern": [
+              "action",
+              {
+                "type": "digit"
+              }
+            ],
+            "allow_partial_matches": false,
+            "defs": [
+              {
+                "id": "action",
+                "initial": "{ value: text, instance: true }"
+              }
+            ]
+          }
+        ]
+      },
       "semantics": [
         {
           "match": "({context, isA}) => isA(context.marker, 'action')",
@@ -52,11 +112,52 @@
       "name": "actions",
       "operators": [
         "([doAction|do] ([action]))",
-        "((action) <again>)"
+        "((action) <again>)",
+        "((action) [thenAction|then] (action))"
       ],
       "bridges": [
         {
           "id": "action"
+        },
+        {
+          "id": "thenAction",
+          "level": 0,
+          "isA": [
+            "action"
+          ],
+          "before": [
+            "doAction"
+          ],
+          "selector": {
+            "left": [
+              {
+                "pattern": "(action))"
+              }
+            ],
+            "right": [
+              {
+                "pattern": "(action)"
+              }
+            ],
+            "passthrough": true
+          },
+          "bridge": "{ \n        ...next(operator),\n        operator: operator, \n        listable: true, \n        isList: true, \n        before: before, \n        after: after, \n        value: append(before, after)\n      }"
+        },
+        {
+          "id": "thenAction",
+          "level": 1,
+          "before": [
+            "doAction"
+          ],
+          "selector": {
+            "left": [
+              {
+                "pattern": "(action)"
+              }
+            ],
+            "passthrough": true
+          },
+          "bridge": "{ ...next(operator), value: append(before, operator.value) }"
         },
         {
           "id": "again",
@@ -86,6 +187,25 @@
           "bridge": "{\n        ...next(operator),\n        operator: operator,\n        action: after[0],\n        interpolate: [{ property: 'operator' }, { property: 'action' }]\n      }"
         }
       ],
+      "words": {
+        "patterns": [
+          {
+            "pattern": [
+              "action",
+              {
+                "type": "digit"
+              }
+            ],
+            "allow_partial_matches": false,
+            "defs": [
+              {
+                "id": "action",
+                "initial": "{ value: text, instance: true }"
+              }
+            ]
+          }
+        ]
+      },
       "semantics": [
         {
           "priority": -1

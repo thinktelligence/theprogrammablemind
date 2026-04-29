@@ -56,7 +56,22 @@
             "verb"
           ],
           "bridge": "{ ...next(operator), path: after[0], operator: operator, interpolate: [{ property: 'operator' }, { property: 'path' }] }",
-          "semantic": "async ({context, remember, recall}) => {\n            const point = await recall({ context: { marker: 'point' } })\n            remember(context) \n            remember(point) // put the last point before the startPath so when the new path is generated this is the start point\n          }"
+          "check": [
+            "marker",
+            "text",
+            "verbatim",
+            "value",
+            "evalue",
+            "isResponse",
+            {
+              "properties": "modifiers"
+            },
+            {
+              "properties": "postModifiers"
+            },
+            "path"
+          ],
+          "semantic": "async ({context, remember, recall, verbatim, g}) => {\n            const point = await recall({ context: { marker: 'point' } })\n            remember(context) \n            remember(point) // put the last point before the startPath so when the new path is generated this is the start point\n            verbatim(`New path started from ${await g(point)}`)\n          }"
         },
         {
           "id": "timeAtPoint",
@@ -90,11 +105,42 @@
           "isA": [
             "preposition"
           ],
-          "bridge": "{ ...next(operator), point: after[0], operator: operator, interpolate: [{ property: 'operator' }, { property: 'point' }] }"
+          "bridge": "{ ...next(operator), point: after[0], operator: operator, interpolate: [{ property: 'operator' }, { property: 'point' }] }",
+          "check": [
+            "marker",
+            "text",
+            "verbatim",
+            "value",
+            "evalue",
+            "isResponse",
+            {
+              "properties": "modifiers"
+            },
+            {
+              "properties": "postModifiers"
+            },
+            "point"
+          ]
         },
         {
           "id": "another",
-          "bridge": "{\n            ...next(after[0]),\n            another: operator,\n            after: after[0],\n            interpolate: [ { property: 'another' }, { property: 'after' } ]\n          }"
+          "bridge": "{\n            ...next(after[0]),\n            another: operator,\n            after: after[0],\n            interpolate: [ { property: 'another' }, { property: 'after' } ]\n          }",
+          "check": [
+            "marker",
+            "text",
+            "verbatim",
+            "value",
+            "evalue",
+            "isResponse",
+            {
+              "properties": "modifiers"
+            },
+            {
+              "properties": "postModifiers"
+            },
+            "another",
+            "after"
+          ]
         },
         {
           "id": "pathComponent",
@@ -110,6 +156,21 @@
             "repeatable"
           ],
           "bridge": "{\n            ...next(operator), operator: operator, path: after[0], interpolate: append(default(operator.interpolate, [{ property: 'operator'}]), [{ property: 'path' }])\n          }",
+          "check": [
+            "marker",
+            "text",
+            "verbatim",
+            "value",
+            "evalue",
+            "isResponse",
+            {
+              "properties": "modifiers"
+            },
+            {
+              "properties": "postModifiers"
+            },
+            "path"
+          ],
           "semantic": "async ({context, e, toArray, fragments, toEValue, toFinalValue, recall, objects}) => {\n            const evaluated = await(e(context.path))\n            const path = toEValue(evaluated)\n          \n            // TODO put this in a common place for use by do+patrol \n\n            // ordinal to pause time in seconds \n            const pauseTimeInSeconds = {}\n            if (context.pause) {\n              const timeAtPoints = toArray(context.pause.timeAtPoint)\n              for (const timeAtPoint of timeAtPoints) {\n                const instantiation = await fragments(\"quantity in seconds\", { quantity: timeAtPoint.time })\n                const result = await e(instantiation)\n                const seconds = toFinalValue(toFinalValue(result).amount)\n\n                const points = await recall({ context: timeAtPoint.point.point, frameOfReference: path })\n                for (const point of toArray(points)) {\n                  pauseTimeInSeconds[point.ordinal] = seconds\n                }\n              }\n            }\n\n            // get to the start of the patrol  \n            objects.current.path.push(path.points[0])\n            objects.current.path.push({ aimOnly: true, ...path.points[1] })\n            objects.current.path.push({ repeatStart: true })\n            for (const point of path.points) {\n              objects.current.path.push(point)\n              if (pauseTimeInSeconds[point.ordinal]) {\n                objects.current.path.push({ marker: 'pause', pauseSeconds: pauseTimeInSeconds[point.ordinal] })\n              }\n            }\n            if (context.repeats) {\n              objects.current.timeRepeats = toFinalValue(context.repeats.repeats)\n            }\n            // if the patrol does not start and end at the same spot then \n            // go back to the start along the same path\n\n\n            // if the start is not the end of the patrol then go backwards along the patrol\n            if (JSON.stringify(path.points[0].point) !== JSON.stringify(path.points[path.points.length-1].point)) {\n              for (const point of [...path.points].reverse().slice(1)) {\n                objects.current.path.push(point)\n                if (pauseTimeInSeconds[point.ordinal]) {\n                  objects.current.path.push({ marker: 'pause', pauseSeconds: pauseTimeInSeconds[point.ordinal] })\n                }\n              }\n\n              const secondPoint = path.points[1]\n              objects.current.path.push({ ...secondPoint, aimOnly: true })\n            }\n            objects.runCommand = true\n          }"
         },
         {
@@ -118,6 +179,21 @@
             "verb"
           ],
           "bridge": "{\n            ...next(operator), operator: operator, object: after[0], interpolate: [{ property: 'operator'}, { property: 'object' }]\n          }",
+          "check": [
+            "marker",
+            "text",
+            "verbatim",
+            "value",
+            "evalue",
+            "isResponse",
+            {
+              "properties": "modifiers"
+            },
+            {
+              "properties": "postModifiers"
+            },
+            "object"
+          ],
           "semantic": "({api}) => {\n            api.armAction('up')\n          }"
         },
         {
@@ -126,6 +202,21 @@
             "verb"
           ],
           "bridge": "{\n            ...next(operator), operator: operator, object: after[0], interpolate: [{ property: 'operator'}, { property: 'object' }]\n          }",
+          "check": [
+            "marker",
+            "text",
+            "verbatim",
+            "value",
+            "evalue",
+            "isResponse",
+            {
+              "properties": "modifiers"
+            },
+            {
+              "properties": "postModifiers"
+            },
+            "object"
+          ],
           "semantic": "({api}) => {\n            api.armAction('down')\n          }"
         },
         {
@@ -134,6 +225,21 @@
             "verb"
           ],
           "bridge": "{\n            ...next(operator), operator: operator, object: after[0], interpolate: [{ property: 'operator'}, { property: 'object' }]\n          }",
+          "check": [
+            "marker",
+            "text",
+            "verbatim",
+            "value",
+            "evalue",
+            "isResponse",
+            {
+              "properties": "modifiers"
+            },
+            {
+              "properties": "postModifiers"
+            },
+            "object"
+          ],
           "semantic": "({api}) => {\n            api.clawAction('open')\n          }"
         },
         {
@@ -142,6 +248,21 @@
             "verb"
           ],
           "bridge": "{\n            ...next(operator), operator: operator, object: after[0], interpolate: [{ property: 'operator'}, { property: 'object' }]\n          }",
+          "check": [
+            "marker",
+            "text",
+            "verbatim",
+            "value",
+            "evalue",
+            "isResponse",
+            {
+              "properties": "modifiers"
+            },
+            {
+              "properties": "postModifiers"
+            },
+            "object"
+          ],
           "semantic": "({api}) => {\n            api.clawAction('close')\n          }"
         },
         {
@@ -169,6 +290,21 @@
             ]
           ],
           "bridge": "{ ...next(operator), operator: operator, point: after[0], interpolate: [{ property: 'operator' }, { property: 'point' }] }",
+          "check": [
+            "marker",
+            "text",
+            "verbatim",
+            "value",
+            "evalue",
+            "isResponse",
+            {
+              "properties": "modifiers"
+            },
+            {
+              "properties": "postModifiers"
+            },
+            "point"
+          ],
           "semantic": "async ({objects, api, e, context}) => {\n            objects.runCommand = true\n            const point = await e(context.point)\n            objects.current.path.push(point.evalue)\n          }"
         },
         {
@@ -315,7 +451,8 @@
             },
             "direction",
             "distance",
-            "to"
+            "to",
+            "points"
           ],
           "bridge": "{ \n            ...next(operator), \n            distance: distance?, \n            direction: direction?,\n            points: points?,\n            to: to?,\n            operator: operator,\n            interpolate: [{ property: 'operator' }, { property: 'direction' }, { property: 'points' }, { property: 'to' }, { property: 'distance' }] \n          }",
           "selector": {
@@ -338,6 +475,22 @@
             "turn"
           ],
           "bridge": "{ \n            ...next(operator), \n            direction: direction, \n            operator: operator,\n            angle: angle?,\n            interpolate: append(default(operator.interpolate, [{ property: 'operator'}]), [{ property: 'direction' }, { property: 'angle' }])\n          }\n          ",
+          "check": [
+            "marker",
+            "text",
+            "verbatim",
+            "value",
+            "evalue",
+            "isResponse",
+            {
+              "properties": "modifiers"
+            },
+            {
+              "properties": "postModifiers"
+            },
+            "direction",
+            "angle"
+          ],
           "selector": {
             "arguments": {
               "direction": "(@<= 'direction')",
@@ -599,6 +752,11 @@
         [
           "a",
           "article",
+          false
+        ],
+        [
+          "action",
+          "action",
           false
         ],
         [
@@ -3399,6 +3557,11 @@
         [
           "theAble",
           "queryable",
+          false
+        ],
+        [
+          "thenAction",
+          "action",
           false
         ],
         [
@@ -4136,7 +4299,7 @@
         ""
       ],
       "paraphrases": [
-        "arm, claw and drone are concepts"
+        "arm claw and drone are concepts"
       ],
       "paraphrasesParenthesized": [],
       "generatedParenthesized": [],
@@ -4167,20 +4330,6 @@
             "comma",
             0
           ],
-          [
-            "is",
-            0
-          ],
-          [
-            "list",
-            1
-          ],
-          [
-            "unknown",
-            0
-          ]
-        ],
-        [
           [
             "is",
             0
@@ -4768,6 +4917,11 @@
         [
           "a",
           "article",
+          false
+        ],
+        [
+          "action",
+          "action",
           false
         ],
         [
@@ -7703,6 +7857,11 @@
         [
           "theAble",
           "queryable",
+          false
+        ],
+        [
+          "thenAction",
+          "action",
           false
         ],
         [
@@ -9092,7 +9251,7 @@
         ""
       ],
       "paraphrases": [
-        "around, forward, left, right, back, forth and backward are directions"
+        "around forward left right back forth and backward are directions"
       ],
       "paraphrasesParenthesized": [],
       "generatedParenthesized": [],
@@ -11449,6 +11608,11 @@
           false
         ],
         [
+          "action",
+          "action",
+          false
+        ],
+        [
           "adjective",
           "adjective",
           false
@@ -14696,6 +14860,11 @@
         [
           "theAble",
           "queryable",
+          false
+        ],
+        [
+          "thenAction",
+          "action",
           false
         ],
         [
@@ -15588,6 +15757,11 @@
           false
         ],
         [
+          "action",
+          "action",
+          false
+        ],
+        [
           "adjective",
           "adjective",
           false
@@ -18885,6 +19059,11 @@
         [
           "theAble",
           "queryable",
+          false
+        ],
+        [
+          "thenAction",
+          "action",
           false
         ],
         [
@@ -20162,6 +20341,11 @@
           false
         ],
         [
+          "action",
+          "action",
+          false
+        ],
+        [
           "adjective",
           "adjective",
           false
@@ -23539,6 +23723,11 @@
         [
           "theAble",
           "queryable",
+          false
+        ],
+        [
+          "thenAction",
+          "action",
           false
         ],
         [
@@ -24432,6 +24621,11 @@
           false
         ],
         [
+          "action",
+          "action",
+          false
+        ],
+        [
           "adjective",
           "adjective",
           false
@@ -27859,6 +28053,11 @@
         [
           "theAble",
           "queryable",
+          false
+        ],
+        [
+          "thenAction",
+          "action",
           false
         ],
         [
@@ -32374,6 +32573,11 @@
           false
         ],
         [
+          "thenAction",
+          "action",
+          false
+        ],
+        [
           "this",
           "pronoun",
           false
@@ -36873,6 +37077,11 @@
           false
         ],
         [
+          "thenAction",
+          "action",
+          false
+        ],
+        [
           "this",
           "pronoun",
           false
@@ -41309,6 +41518,11 @@
           false
         ],
         [
+          "thenAction",
+          "action",
+          false
+        ],
+        [
           "this",
           "pronoun",
           false
@@ -45703,6 +45917,11 @@
         [
           "theAble",
           "queryable",
+          false
+        ],
+        [
+          "thenAction",
+          "action",
           false
         ],
         [
@@ -50108,6 +50327,11 @@
           false
         ],
         [
+          "thenAction",
+          "action",
+          false
+        ],
+        [
           "this",
           "pronoun",
           false
@@ -50819,7 +51043,7 @@
         ""
       ],
       "paraphrases": [
-        "points are nameable, orderable, countable and memorable"
+        "points are nameable orderable countable and memorable"
       ],
       "paraphrasesParenthesized": [],
       "generatedParenthesized": [],
@@ -50890,24 +51114,6 @@
           ],
           [
             "point",
-            0
-          ]
-        ],
-        [
-          [
-            "is",
-            0
-          ],
-          [
-            "list",
-            1
-          ],
-          [
-            "point",
-            0
-          ],
-          [
-            "unknown",
             0
           ]
         ],
@@ -55032,6 +55238,11 @@
           false
         ],
         [
+          "thenAction",
+          "action",
+          false
+        ],
+        [
           "this",
           "pronoun",
           false
@@ -55738,7 +55949,22 @@
           "isA": [
             "verb"
           ],
-          "bridge": "{ ...next(operator), path: after[0], operator: operator, interpolate: [{ property: 'operator' }, { property: 'path' }] }"
+          "bridge": "{ ...next(operator), path: after[0], operator: operator, interpolate: [{ property: 'operator' }, { property: 'path' }] }",
+          "check": [
+            "marker",
+            "text",
+            "verbatim",
+            "value",
+            "evalue",
+            "isResponse",
+            {
+              "properties": "modifiers"
+            },
+            {
+              "properties": "postModifiers"
+            },
+            "path"
+          ]
         },
         {
           "id": "timeAtPoint",
@@ -55772,11 +55998,42 @@
           "isA": [
             "preposition"
           ],
-          "bridge": "{ ...next(operator), point: after[0], operator: operator, interpolate: [{ property: 'operator' }, { property: 'point' }] }"
+          "bridge": "{ ...next(operator), point: after[0], operator: operator, interpolate: [{ property: 'operator' }, { property: 'point' }] }",
+          "check": [
+            "marker",
+            "text",
+            "verbatim",
+            "value",
+            "evalue",
+            "isResponse",
+            {
+              "properties": "modifiers"
+            },
+            {
+              "properties": "postModifiers"
+            },
+            "point"
+          ]
         },
         {
           "id": "another",
-          "bridge": "{\n            ...next(after[0]),\n            another: operator,\n            after: after[0],\n            interpolate: [ { property: 'another' }, { property: 'after' } ]\n          }"
+          "bridge": "{\n            ...next(after[0]),\n            another: operator,\n            after: after[0],\n            interpolate: [ { property: 'another' }, { property: 'after' } ]\n          }",
+          "check": [
+            "marker",
+            "text",
+            "verbatim",
+            "value",
+            "evalue",
+            "isResponse",
+            {
+              "properties": "modifiers"
+            },
+            {
+              "properties": "postModifiers"
+            },
+            "another",
+            "after"
+          ]
         },
         {
           "id": "pathComponent",
@@ -55791,35 +56048,110 @@
             "verb",
             "repeatable"
           ],
-          "bridge": "{\n            ...next(operator), operator: operator, path: after[0], interpolate: append(default(operator.interpolate, [{ property: 'operator'}]), [{ property: 'path' }])\n          }"
+          "bridge": "{\n            ...next(operator), operator: operator, path: after[0], interpolate: append(default(operator.interpolate, [{ property: 'operator'}]), [{ property: 'path' }])\n          }",
+          "check": [
+            "marker",
+            "text",
+            "verbatim",
+            "value",
+            "evalue",
+            "isResponse",
+            {
+              "properties": "modifiers"
+            },
+            {
+              "properties": "postModifiers"
+            },
+            "path"
+          ]
         },
         {
           "id": "lift",
           "isA": [
             "verb"
           ],
-          "bridge": "{\n            ...next(operator), operator: operator, object: after[0], interpolate: [{ property: 'operator'}, { property: 'object' }]\n          }"
+          "bridge": "{\n            ...next(operator), operator: operator, object: after[0], interpolate: [{ property: 'operator'}, { property: 'object' }]\n          }",
+          "check": [
+            "marker",
+            "text",
+            "verbatim",
+            "value",
+            "evalue",
+            "isResponse",
+            {
+              "properties": "modifiers"
+            },
+            {
+              "properties": "postModifiers"
+            },
+            "object"
+          ]
         },
         {
           "id": "lower",
           "isA": [
             "verb"
           ],
-          "bridge": "{\n            ...next(operator), operator: operator, object: after[0], interpolate: [{ property: 'operator'}, { property: 'object' }]\n          }"
+          "bridge": "{\n            ...next(operator), operator: operator, object: after[0], interpolate: [{ property: 'operator'}, { property: 'object' }]\n          }",
+          "check": [
+            "marker",
+            "text",
+            "verbatim",
+            "value",
+            "evalue",
+            "isResponse",
+            {
+              "properties": "modifiers"
+            },
+            {
+              "properties": "postModifiers"
+            },
+            "object"
+          ]
         },
         {
           "id": "open",
           "isA": [
             "verb"
           ],
-          "bridge": "{\n            ...next(operator), operator: operator, object: after[0], interpolate: [{ property: 'operator'}, { property: 'object' }]\n          }"
+          "bridge": "{\n            ...next(operator), operator: operator, object: after[0], interpolate: [{ property: 'operator'}, { property: 'object' }]\n          }",
+          "check": [
+            "marker",
+            "text",
+            "verbatim",
+            "value",
+            "evalue",
+            "isResponse",
+            {
+              "properties": "modifiers"
+            },
+            {
+              "properties": "postModifiers"
+            },
+            "object"
+          ]
         },
         {
           "id": "close",
           "isA": [
             "verb"
           ],
-          "bridge": "{\n            ...next(operator), operator: operator, object: after[0], interpolate: [{ property: 'operator'}, { property: 'object' }]\n          }"
+          "bridge": "{\n            ...next(operator), operator: operator, object: after[0], interpolate: [{ property: 'operator'}, { property: 'object' }]\n          }",
+          "check": [
+            "marker",
+            "text",
+            "verbatim",
+            "value",
+            "evalue",
+            "isResponse",
+            {
+              "properties": "modifiers"
+            },
+            {
+              "properties": "postModifiers"
+            },
+            "object"
+          ]
         },
         {
           "id": "back",
@@ -55844,7 +56176,22 @@
               1
             ]
           ],
-          "bridge": "{ ...next(operator), operator: operator, point: after[0], interpolate: [{ property: 'operator' }, { property: 'point' }] }"
+          "bridge": "{ ...next(operator), operator: operator, point: after[0], interpolate: [{ property: 'operator' }, { property: 'point' }] }",
+          "check": [
+            "marker",
+            "text",
+            "verbatim",
+            "value",
+            "evalue",
+            "isResponse",
+            {
+              "properties": "modifiers"
+            },
+            {
+              "properties": "postModifiers"
+            },
+            "point"
+          ]
         },
         {
           "id": "go",
@@ -55990,7 +56337,8 @@
             },
             "direction",
             "distance",
-            "to"
+            "to",
+            "points"
           ],
           "bridge": "{ \n            ...next(operator), \n            distance: distance?, \n            direction: direction?,\n            points: points?,\n            to: to?,\n            operator: operator,\n            interpolate: [{ property: 'operator' }, { property: 'direction' }, { property: 'points' }, { property: 'to' }, { property: 'distance' }] \n          }",
           "selector": {
@@ -56012,6 +56360,22 @@
             "turn"
           ],
           "bridge": "{ \n            ...next(operator), \n            direction: direction, \n            operator: operator,\n            angle: angle?,\n            interpolate: append(default(operator.interpolate, [{ property: 'operator'}]), [{ property: 'direction' }, { property: 'angle' }])\n          }\n          ",
+          "check": [
+            "marker",
+            "text",
+            "verbatim",
+            "value",
+            "evalue",
+            "isResponse",
+            {
+              "properties": "modifiers"
+            },
+            {
+              "properties": "postModifiers"
+            },
+            "direction",
+            "angle"
+          ],
           "selector": {
             "arguments": {
               "direction": "(@<= 'direction')",
@@ -60029,6 +60393,11 @@
         [
           "theAble",
           "queryable",
+          false
+        ],
+        [
+          "thenAction",
+          "action",
           false
         ],
         [
@@ -64467,6 +64836,11 @@
           false
         ],
         [
+          "thenAction",
+          "action",
+          false
+        ],
+        [
           "this",
           "pronoun",
           false
@@ -68899,6 +69273,11 @@
         [
           "theAble",
           "queryable",
+          false
+        ],
+        [
+          "thenAction",
+          "action",
           false
         ],
         [
@@ -73569,6 +73948,11 @@
         [
           "theAble",
           "queryable",
+          false
+        ],
+        [
+          "thenAction",
+          "action",
           false
         ],
         [
@@ -78263,6 +78647,11 @@
           false
         ],
         [
+          "thenAction",
+          "action",
+          false
+        ],
+        [
           "this",
           "pronoun",
           false
@@ -82694,6 +83083,11 @@
         [
           "theAble",
           "queryable",
+          false
+        ],
+        [
+          "thenAction",
+          "action",
           false
         ],
         [
@@ -87150,6 +87544,11 @@
         [
           "theAble",
           "queryable",
+          false
+        ],
+        [
+          "thenAction",
+          "action",
           false
         ],
         [
@@ -91856,6 +92255,11 @@
           false
         ],
         [
+          "thenAction",
+          "action",
+          false
+        ],
+        [
           "this",
           "pronoun",
           false
@@ -96172,6 +96576,11 @@
           false
         ],
         [
+          "thenAction",
+          "action",
+          false
+        ],
+        [
           "this",
           "pronoun",
           false
@@ -97254,24 +97663,6 @@
         1
       ],
       [
-        "point",
-        0
-      ],
-      [
-        "unknown",
-        0
-      ]
-    ],
-    [
-      [
-        "is",
-        0
-      ],
-      [
-        "list",
-        1
-      ],
-      [
         "property",
         0
       ]
@@ -97306,20 +97697,6 @@
       [
         "propertyOf",
         1
-      ]
-    ],
-    [
-      [
-        "is",
-        0
-      ],
-      [
-        "list",
-        1
-      ],
-      [
-        "unknown",
-        0
       ]
     ],
     [

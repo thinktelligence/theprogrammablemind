@@ -5,16 +5,53 @@ const time = require("./time")
 const tests = require('./actions.test.json')
 const instance = require('./actions.instance.json')
 
+/*
+  do patrol 1 then patrol 2 then patrol 3
+  do patrol 1 patrol 2 and then patrol 3
+*/
+
 const config = {
   name: 'actions',
   operators: [
     "([doAction|do] ([action]))",
     "((action) <again>)",
+    "((action) [thenAction|then] (action))",
   ],
   bridges: [
     {
       id: 'action',
     },
+    {
+      id: "thenAction",
+      level: 0,
+      isA: ['action'],
+      before: ['doAction'],
+      selector: {
+          left: [ { pattern: '(action))' } ],
+          right: [ { pattern: '(action)' } ],
+          passthrough: true
+      },
+      bridge: `{ 
+        ...next(operator),
+        operator: operator, 
+        listable: true, 
+        isList: true, 
+        before: before, 
+        after: after, 
+        value: append(before, after)
+      }`
+    },
+    {
+      id: "thenAction",
+      level: 1,
+      before: ['doAction'],
+      selector: {
+          left: [ { pattern: '(action)' } ],
+          passthrough: true
+     },
+      bridge: "{ ...next(operator), value: append(before, operator.value) }"
+    },
+
     {
       id: 'again',
       bridge: `{
@@ -36,6 +73,11 @@ const config = {
       }`,
     },
   ],
+  words: {
+    patterns: [
+      { "pattern": ["action", { type: 'digit' }], allow_partial_matches: false, defs: [{id: "action", initial: "{ value: text, instance: true }" }]},
+    ],
+  },
   semantics: [
     {
       priority: -1,

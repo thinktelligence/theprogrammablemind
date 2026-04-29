@@ -55,6 +55,13 @@ const config = {
   generators: [
     {
       where: where(),
+      match: ({context, callId}) => context.listable,
+      apply: ({context, gs}) => {
+        return gs(context.value, ' ', ' ' + context.word + ' ')
+      },
+    },
+    {
+      where: where(),
       notes: 'handle lists with yes no',
       match: ({context, hierarchy}) => context.marker == 'list' && context.paraphrase && context.value && context.value.length > 0 && context.value[0].marker == 'yesno',
       apply: async ({context, g, gs}) => {

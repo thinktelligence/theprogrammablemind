@@ -909,10 +909,12 @@ const template = {
           id: 'startPath',
           isA: ['verb'],
           bridge: "{ ...next(operator), path: after[0], operator: operator, interpolate: [{ property: 'operator' }, { property: 'path' }] }",
-          semantic: async ({context, remember, recall}) => {
+          check: defaultContextCheckProperties(['path']),
+          semantic: async ({context, remember, recall, verbatim, g}) => {
             const point = await recall({ context: { marker: 'point' } })
             remember(context) 
             remember(point) // put the last point before the startPath so when the new path is generated this is the start point
+            verbatim(`New path started from ${await g(point)}`)
           },
         },
         { 
@@ -926,7 +928,8 @@ const template = {
         { 
           id: 'atPoint',
           isA: ['preposition'],
-          bridge: "{ ...next(operator), point: after[0], operator: operator, interpolate: [{ property: 'operator' }, { property: 'point' }] }"
+          bridge: "{ ...next(operator), point: after[0], operator: operator, interpolate: [{ property: 'operator' }, { property: 'point' }] }",
+          check: defaultContextCheckProperties(['point']),
         },
         { 
           id: 'another',
@@ -936,6 +939,7 @@ const template = {
             after: after[0],
             interpolate: [ { property: 'another' }, { property: 'after' } ]
           }`,
+          check: defaultContextCheckProperties(['another', 'after']),
         },
         { 
           id: 'pathComponent',
@@ -947,6 +951,7 @@ const template = {
           bridge: `{
             ...next(operator), operator: operator, path: after[0], interpolate: append(default(operator.interpolate, [{ property: 'operator'}]), [{ property: 'path' }])
           }`,
+          check: defaultContextCheckProperties(['path']),
           semantic: async ({context, e, toArray, fragments, toEValue, toFinalValue, recall, objects}) => {
             const evaluated = await(e(context.path))
             const path = toEValue(evaluated)
@@ -1024,6 +1029,7 @@ const template = {
           bridge: `{
             ...next(operator), operator: operator, object: after[0], interpolate: [{ property: 'operator'}, { property: 'object' }]
           }`,
+          check: defaultContextCheckProperties(['object']),
           semantic: ({api}) => {
             api.armAction('up')
           }
@@ -1034,6 +1040,7 @@ const template = {
           bridge: `{
             ...next(operator), operator: operator, object: after[0], interpolate: [{ property: 'operator'}, { property: 'object' }]
           }`,
+          check: defaultContextCheckProperties(['object']),
           semantic: ({api}) => {
             api.armAction('down')
           }
@@ -1044,6 +1051,7 @@ const template = {
           bridge: `{
             ...next(operator), operator: operator, object: after[0], interpolate: [{ property: 'operator'}, { property: 'object' }]
           }`,
+          check: defaultContextCheckProperties(['object']),
           semantic: ({api}) => {
             api.clawAction('open')
           }
@@ -1054,6 +1062,7 @@ const template = {
           bridge: `{
             ...next(operator), operator: operator, object: after[0], interpolate: [{ property: 'operator'}, { property: 'object' }]
           }`,
+          check: defaultContextCheckProperties(['object']),
           semantic: ({api}) => {
             api.clawAction('close')
           }
@@ -1074,6 +1083,7 @@ const template = {
           isA: ['preposition'],
           after: [['propertyOf', 1]],
           bridge: "{ ...next(operator), operator: operator, point: after[0], interpolate: [{ property: 'operator' }, { property: 'point' }] }",
+          check: defaultContextCheckProperties(['point']),
           semantic: async ({objects, api, e, context}) => {
             objects.runCommand = true
             const point = await e(context.point)
@@ -1088,7 +1098,7 @@ const template = {
           words: [
             ...conjugateVerb('go'),
           ],
-          check: defaultContextCheckProperties(['direction', 'distance', 'to']),
+          check: defaultContextCheckProperties(['direction', 'distance', 'to', 'points']),
           bridge: `{ 
             ...next(operator), 
             distance: distance?, 
@@ -1141,6 +1151,7 @@ const template = {
             interpolate: append(default(operator.interpolate, [{ property: 'operator'}]), [{ property: 'direction' }, { property: 'angle' }])
           }
           `,
+          check: defaultContextCheckProperties(['direction', 'angle']),
           selector: {
             arguments: {
               direction: "(@<= 'direction')",

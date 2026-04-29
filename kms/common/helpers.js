@@ -161,12 +161,15 @@ function focus(context) {
 // fromList
 function propertyToArray(value) {
   if (Array.isArray(value)) {
-    return value
-  } else if (value.marker == 'list') {
-    return value.value
-  } else {
-    return [value]
+    return value;
   }
+
+  if (value?.marker === 'list') {
+    return value.value.flatMap(item => propertyToArray(item));
+  }
+
+  // Single value → wrap in array
+  return [value];
 }
 
 // values is marker: 'list' or some context

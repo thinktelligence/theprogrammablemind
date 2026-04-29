@@ -11,6 +11,34 @@ newDateMock = (date) => {
 }
 
 describe('helpers', () => {
+  describe('propertyToArray', () => {
+    it('NEO23 nested conjunctions', async () => {
+      const list = {
+        "marker": "list",
+        "value": [
+          {
+            "marker": "list",
+            "value": [
+              {
+                "marker": "action1",
+              },
+              {
+                "marker": "action2",
+              }
+            ],
+            "word": "and"
+          },
+          {
+            "marker": "action3",
+          }
+        ],
+      }
+
+      const array = await helpers.propertyToArray(list)
+      expect(array).toStrictEqual([ { marker: 'action1' }, { marker: 'action2' }, { marker: 'action3' } ])
+    })
+  })
+
   describe('processTemplateString', () => {
     function evaluate(expression) {
       return `evaluated(${expression})`
