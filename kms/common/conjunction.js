@@ -55,31 +55,12 @@ const config = {
   generators: [
     {
       where: where(),
-      match: ({context, callId}) => context.listable,
-      apply: ({context, gs}) => {
-        return gs(context.value, ' ', ' ' + context.word + ' ')
-      },
-    },
-    {
-      where: where(),
       notes: 'handle lists with yes no',
       match: ({context, hierarchy}) => context.marker == 'list' && context.paraphrase && context.value && context.value.length > 0 && context.value[0].marker == 'yesno',
       apply: async ({context, g, gs}) => {
         return `${await g(context.value[0])} ${await gs(context.value.slice(1), ', ', ' and ')}`
       }
     },
-
-    /*
-    {
-      where: where(),
-      notes: 'handle lists with truthValue set',
-      match: ({context, hierarchy}) => context.marker == 'list' && context.hasOwnProperty('truthValue'),
-      apply: async ({context, g, gs}) => {
-        return context.truthValue ? 'yes' : 'no'
-      }
-    },
-    */
-
     {
       where: where(),
       notes: 'handle lists',
@@ -91,6 +72,14 @@ const config = {
           return await gs(toFinalValue(context), ', ', ' and ')
         }
       }
+    },
+
+    {
+      where: where(),
+      match: ({context, callId}) => context.listable,
+      apply: ({context, gs}) => {
+        return gs(context.value, ' ', ' ' + context.word + ' ')
+      },
     },
   ],
 };
