@@ -1214,7 +1214,6 @@ const template = {
             if (!time) {
               return
             }
-            debugger
             if (time.marker == 'forQuantity') {
               time = time.quantity
             }

@@ -651,7 +651,7 @@
               "timeAtPoint": "(@<= 'timeAtPoint')"
             }
           },
-          "semantic": "async ({context, remember, api, e, fragments, toFinalValue}) => {\n            let time = context.time \n            if (!time) {\n              return\n            }\n            debugger\n            if (time.marker == 'forQuantity') {\n              time = time.quantity\n            }\n            const instantiation = await fragments(\"quantity in seconds\", { quantity: time})\n            const result = await e(instantiation)\n            const seconds = toFinalValue(toFinalValue(result).amount)\n            context.pauseSeconds = seconds\n            remember(context)\n            api.pause(seconds)\n          }"
+          "semantic": "async ({context, remember, api, e, fragments, toFinalValue}) => {\n            let time = context.time \n            if (!time) {\n              return\n            }\n            if (time.marker == 'forQuantity') {\n              time = time.quantity\n            }\n            const instantiation = await fragments(\"quantity in seconds\", { quantity: time})\n            const result = await e(instantiation)\n            const seconds = toFinalValue(toFinalValue(result).amount)\n            context.pauseSeconds = seconds\n            remember(context)\n            api.pause(seconds)\n          }"
         },
         {
           "id": "pause",

@@ -648,6 +648,7 @@ class API {
           context.isResponse = true
           if (context.evalue.value.length == 0) {
             context.evalue.marker = 'answerNotKnown';
+            context.evalue.listable = true
             context.evalue.value = [];
           } else {
             // context.evalue.truthValue = true

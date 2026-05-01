@@ -26,14 +26,17 @@ const config = {
       // match: ({context}) => context.flatten || context.listable || (Array.isArray(context.value) && context.value.some((value) => value.flatten)),
       apply: async ({config, km, context, s, _continue}) => {
         const [flats, wf] = flatten(['list'], context)
-        if (!wf) {
-          debugger
-          _continue()
-          return
-        }
         const evalues = []
+        if (context.flatten) {
+          context.flatten = false
+        } else {
+          context.value.map((c) => c.flatten = false)
+        }
         for (const flat of flats) {
-          const result = await s({ ...flat, flatten: false })
+          // const updateThis = { ...flat, flatten: false }
+          flat.flatten = false
+          const result = await s(flat)
+          // const result = await s({ ...flat, flatten: false })
           if (result.evalue) {
             evalues.push(result.evalue)
           }
