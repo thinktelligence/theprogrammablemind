@@ -16,9 +16,14 @@ const { rotateDelta, degreesToRadians, radiansToDegrees, cartesianToPolar, small
 /*
 NEED TO CHECK ON ACTUAL DRONE
 
+  patrol back and forth 2 times
+
   DONE fix DO so it can do all the stuff partol can do <<<<<<<<<<<<<<<<<<<
   start again. start a new path
   the last 3 points are called path 1
+  go forward 1 meter and then turn north
+  go forward 1 meter and turn north
+
 
   stopping 2 seconds at each point
   patrols x do that again
@@ -1094,7 +1099,7 @@ const template = {
           id: "go",
           level: 0,
           // convolution: true,
-          isA: ['verb', 'action'],
+          isA: ['verb', 'action', 'repeatable'],
           words: [
             ...conjugateVerb('go'),
           ],
@@ -1106,7 +1111,7 @@ const template = {
             points: points?,
             to: to?,
             operator: operator,
-            interpolate: [{ property: 'operator' }, { property: 'direction' }, { property: 'points' }, { property: 'to' }, { property: 'distance' }] 
+            interpolate: append(default(operator.interpolate, [{ property: 'operator' }]), [{ property: 'direction' }, { property: 'points' }, { property: 'to' }, { property: 'distance' }])
           }`,
           selector: {
             arguments: {
@@ -1117,7 +1122,7 @@ const template = {
             },
           },
           semantic: async (args) => {
-            const {context, objects, e, toArray, toEValue} = args
+            const {api, toFinalValue, context, objects, e, toArray, toEValue} = args
             if (context.distance) {
               await handleDistance(args, context.distance)
             }
@@ -1131,17 +1136,22 @@ const template = {
                 objects.current.direction = context.direction.marker
               }
             }
+            if (context.repeats) {
+              objects.current.timeRepeats = toFinalValue(context.repeats.repeats)
+            }
             if (context.to) {
               const evaluation = await e(context.to.point)
               const point = toEValue(evaluation)
               objects.current.path.push(point)
             }
             objects.runCommand = true
+            await api.sendCommand()
           },
         },
         {
           id: 'turn',
-          isA: ['verb', 'repeatable'],
+          isA: ['verb', 'action', 'repeatable'],
+          before: ['thenAction'],
           words: ['turn'],
           bridge: `{ 
             ...next(operator), 
@@ -1187,6 +1197,9 @@ const template = {
                 return
               }
             }
+            if (context.repeats) {
+              objects.current.timeRepeats = toFinalValue(context.repeats.repeats)
+            }
             current.justTurn = true
             objects.runCommand = true
             await api.sendCommand()
@@ -1214,6 +1227,7 @@ const template = {
             if (!time) {
               return
             }
+            debugger
             if (time.marker == 'forQuantity') {
               time = time.quantity
             }
@@ -1317,14 +1331,16 @@ const template = {
             resolveEvaluate(context, path)
           },
         },
+        /*
         {
-          match: ({context}) => context.marker == 'thenAction',
+          match: ({context}) => context.marker == 'thenTime',
           apply: async ({objects, api}) => {
             if (objects.runCommand) {
               await api.sendCommand()
             }
           },
         },
+        */
         {
           match: ({context}) => context.evaluate && ['start', 'end'].includes(context.marker) && context.objects && context.objects[1].marker == 'path',
           apply: async ({gp, s, context, objects, fragments, resolveEvaluate, api, recall}) => {

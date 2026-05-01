@@ -37,7 +37,7 @@ describe('can km', () => {
     })
   })
 
-  test('NEO23 to passive handles mixed list', async () => {
+  test('to passive handles mixes list', async () => {
     await km.run(async ({fragments, s, gp, addWordToDictionary, getWordFromDictionary, config}) => {
       const fragmentPassive = await fragments("canobject can be canverb by cansubject")
       const contextPassive = fragmentPassive.contexts()[0]

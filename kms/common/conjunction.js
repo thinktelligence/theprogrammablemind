@@ -21,8 +21,8 @@ const config = {
       */
       selector: {
           match: "same", 
-          left: [ { pattern: '($type && context.instance == variables.instance && !@<=$contexts[1].notConjunctableWith))' } ], 
-          right: [ { pattern: '($type && context.instance == variables.instance && !@<=$contexts[-1].notConjunctableWith))' } ], 
+          left: [ { pattern: '($type && context.instance == variables.instance && context.dead == variables.dead && !@<=$contexts[1].notConjunctableWith))' } ], 
+          right: [ { pattern: '($type && context.instance == variables.instance && context.dead == variables.dead && !@<=$contexts[-1].notConjunctableWith))' } ], 
           passthrough: true
       }, 
       bridge: "{ ...next(operator), listable: true, isList: true, value: append(before, after) }"
@@ -32,7 +32,7 @@ const config = {
       level: 1, 
       selector: {
           match: "same", 
-          left: [ { pattern: '($type && context.instance == variables.instance)' } ], 
+          left: [ { pattern: '($type && context.instance == variables.instance && context.dead == variables.dead)' } ], 
           passthrough: true
      }, 
       bridge: "{ ...operator, value: append(before, operator.value) }"

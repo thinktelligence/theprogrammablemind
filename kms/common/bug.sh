@@ -1019,3 +1019,7 @@ node drone -q '1 second at the first point and 2 seconds for the rest' -g -d
 
 node drone -q '1 second at the first and last point' -g -d
 node drone -q 'pausing (2 seconds at the first point) and (3 seconds at the third point)' -g -d
+
+
+node drone -q 'forward 2 meters\ngo back and forth' -g -d -tva -v
+node can -q 'joe can make coffee\nwho can coffee be made by' -g -d -tva

@@ -21,6 +21,7 @@
             "doAction"
           ],
           "selector": {
+            "match": "same",
             "left": [
               {
                 "pattern": "(action))"
@@ -49,7 +50,8 @@
             ],
             "passthrough": true
           },
-          "bridge": "{ ...next(operator), value: append(before, operator.value) }"
+          "bridge": "{ ...next(operator), value: append(before, operator.value) }",
+          "semantic": "async ({context, toArray, s}) => {\n        for (const action of toArray(context)) {\n          await s(action)\n        }\n      }"
         },
         {
           "id": "again",
@@ -129,6 +131,7 @@
             "doAction"
           ],
           "selector": {
+            "match": "same",
             "left": [
               {
                 "pattern": "(action))"

@@ -312,7 +312,8 @@
           "level": 0,
           "isA": [
             "verb",
-            "action"
+            "action",
+            "repeatable"
           ],
           "words": [
             {
@@ -454,7 +455,7 @@
             "to",
             "points"
           ],
-          "bridge": "{ \n            ...next(operator), \n            distance: distance?, \n            direction: direction?,\n            points: points?,\n            to: to?,\n            operator: operator,\n            interpolate: [{ property: 'operator' }, { property: 'direction' }, { property: 'points' }, { property: 'to' }, { property: 'distance' }] \n          }",
+          "bridge": "{ \n            ...next(operator), \n            distance: distance?, \n            direction: direction?,\n            points: points?,\n            to: to?,\n            operator: operator,\n            interpolate: append(default(operator.interpolate, [{ property: 'operator' }]), [{ property: 'direction' }, { property: 'points' }, { property: 'to' }, { property: 'distance' }])\n          }",
           "selector": {
             "arguments": {
               "distance": "(@<= 'quantity' && context.unit.dimension == 'length')",
@@ -463,13 +464,17 @@
               "points": "(@<= 'point')"
             }
           },
-          "semantic": "async (args) => {\n            const {context, objects, e, toArray, toEValue} = args\n            if (context.distance) {\n              await handleDistance(args, context.distance)\n            }\n            if (context.direction) {\n              const array = toArray(context.direction)\n              if (array.length == 2 && array[0].marker == 'back' && array[1].marker == 'forth') {\n                await args.api.backAndForth()\n              } else if (context.direction.marker == 'back') {\n                await args.api.back(context.points)\n              } else {\n                objects.current.direction = context.direction.marker\n              }\n            }\n            if (context.to) {\n              const evaluation = await e(context.to.point)\n              const point = toEValue(evaluation)\n              objects.current.path.push(point)\n            }\n            objects.runCommand = true\n          }"
+          "semantic": "async (args) => {\n            const {api, toFinalValue, context, objects, e, toArray, toEValue} = args\n            if (context.distance) {\n              await handleDistance(args, context.distance)\n            }\n            if (context.direction) {\n              const array = toArray(context.direction)\n              if (array.length == 2 && array[0].marker == 'back' && array[1].marker == 'forth') {\n                await args.api.backAndForth()\n              } else if (context.direction.marker == 'back') {\n                await args.api.back(context.points)\n              } else {\n                objects.current.direction = context.direction.marker\n              }\n            }\n            if (context.repeats) {\n              objects.current.timeRepeats = toFinalValue(context.repeats.repeats)\n            }\n            if (context.to) {\n              const evaluation = await e(context.to.point)\n              const point = toEValue(evaluation)\n              objects.current.path.push(point)\n            }\n            objects.runCommand = true\n            await api.sendCommand()\n          }"
         },
         {
           "id": "turn",
           "isA": [
             "verb",
+            "action",
             "repeatable"
+          ],
+          "before": [
+            "thenAction"
           ],
           "words": [
             "turn"
@@ -498,7 +503,7 @@
               "angle": "(@<= 'quantity' && context.unit.dimension == 'angle')"
             }
           },
-          "semantic": "async ({context, fragments, objects, e, s, api, say, toFinalValue}) => {\n            const current = objects.current\n            current.direction = context.direction.marker\n            if (context.repeats) {\n              current.timeRepeats = toFinalValue(context.repeats.repeats)\n            }\n            async function toRadians(angle) {\n              const fi = await fragments(\"40 degrees in radians\")\n              return await fi.instantiate([\n                { \n                  match: ({path, pathEquals}) => pathEquals(path, ['0', 'from']),\n                  apply: ({context}) => {\n                    Object.assign(context, angle)\n                  }\n                }\n              ])\n            }\n            if (context.angle) {\n              const instantiation = await toRadians(context.angle)\n              try {\n                const result = await e(instantiation)\n                current.turnAngle = toFinalValue(result.evalue.amount)\n                objects.runCommand = true\n              } catch (e) {\n                say(`Don't know how to interpret ${await gp(context.angle)} in radians`)\n                return\n              }\n            }\n            current.justTurn = true\n            objects.runCommand = true\n            await api.sendCommand()\n          }"
+          "semantic": "async ({context, fragments, objects, e, s, api, say, toFinalValue}) => {\n            const current = objects.current\n            current.direction = context.direction.marker\n            if (context.repeats) {\n              current.timeRepeats = toFinalValue(context.repeats.repeats)\n            }\n            async function toRadians(angle) {\n              const fi = await fragments(\"40 degrees in radians\")\n              return await fi.instantiate([\n                { \n                  match: ({path, pathEquals}) => pathEquals(path, ['0', 'from']),\n                  apply: ({context}) => {\n                    Object.assign(context, angle)\n                  }\n                }\n              ])\n            }\n            if (context.angle) {\n              const instantiation = await toRadians(context.angle)\n              try {\n                const result = await e(instantiation)\n                current.turnAngle = toFinalValue(result.evalue.amount)\n                objects.runCommand = true\n              } catch (e) {\n                say(`Don't know how to interpret ${await gp(context.angle)} in radians`)\n                return\n              }\n            }\n            if (context.repeats) {\n              objects.current.timeRepeats = toFinalValue(context.repeats.repeats)\n            }\n            current.justTurn = true\n            objects.runCommand = true\n            await api.sendCommand()\n          }"
         },
         {
           "id": "pause",
@@ -651,7 +656,7 @@
               "timeAtPoint": "(@<= 'timeAtPoint')"
             }
           },
-          "semantic": "async ({context, remember, api, e, fragments, toFinalValue}) => {\n            let time = context.time \n            if (!time) {\n              return\n            }\n            if (time.marker == 'forQuantity') {\n              time = time.quantity\n            }\n            const instantiation = await fragments(\"quantity in seconds\", { quantity: time})\n            const result = await e(instantiation)\n            const seconds = toFinalValue(toFinalValue(result).amount)\n            context.pauseSeconds = seconds\n            remember(context)\n            api.pause(seconds)\n          }"
+          "semantic": "async ({context, remember, api, e, fragments, toFinalValue}) => {\n            let time = context.time \n            if (!time) {\n              return\n            }\n            debugger\n            if (time.marker == 'forQuantity') {\n              time = time.quantity\n            }\n            const instantiation = await fragments(\"quantity in seconds\", { quantity: time})\n            const result = await e(instantiation)\n            const seconds = toFinalValue(toFinalValue(result).amount)\n            context.pauseSeconds = seconds\n            remember(context)\n            api.pause(seconds)\n          }"
         },
         {
           "id": "pause",
@@ -714,10 +719,6 @@
         {
           "match": "({context, contextHierarchy}) => {\n            if (!context.pullFromContext || !context.evaluate || !contextHierarchy.under('call') || context.notUnderCall) {\n              return false\n            }\n            \n            if (context.marker == 'point' || context.marker == 'ordinal') {\n              return true\n            }\n          }",
           "apply": "async ({frameOfReference, context, e, fragments, stm, toEValue, toArray, objects, remember, recall, resolveEvaluate, _continue, contextHierarchy}) => {\n            const evaluated = await e({...context, notUnderCall: true})\n            const pointsContext = toEValue(evaluated)\n            const pathComponents = toArray(pointsContext)\n\n            const path = (await fragments('path')).contexts()[0]\n            delete path.value\n            path.instance = true\n            path.points = [...pathComponents]\n            frameOfReference(path, { mentioned: 'points', reversed: true })\n            await remember(path)\n            resolveEvaluate(context, path)\n          }"
-        },
-        {
-          "match": "({context}) => context.marker == 'thenAction'",
-          "apply": "async ({objects, api}) => {\n            if (objects.runCommand) {\n              await api.sendCommand()\n            }\n          }"
         },
         {
           "match": "({context}) => context.evaluate && ['start', 'end'].includes(context.marker) && context.objects && context.objects[1].marker == 'path'",
@@ -56212,7 +56213,8 @@
           "level": 0,
           "isA": [
             "verb",
-            "action"
+            "action",
+            "repeatable"
           ],
           "words": [
             {
@@ -56354,7 +56356,7 @@
             "to",
             "points"
           ],
-          "bridge": "{ \n            ...next(operator), \n            distance: distance?, \n            direction: direction?,\n            points: points?,\n            to: to?,\n            operator: operator,\n            interpolate: [{ property: 'operator' }, { property: 'direction' }, { property: 'points' }, { property: 'to' }, { property: 'distance' }] \n          }",
+          "bridge": "{ \n            ...next(operator), \n            distance: distance?, \n            direction: direction?,\n            points: points?,\n            to: to?,\n            operator: operator,\n            interpolate: append(default(operator.interpolate, [{ property: 'operator' }]), [{ property: 'direction' }, { property: 'points' }, { property: 'to' }, { property: 'distance' }])\n          }",
           "selector": {
             "arguments": {
               "distance": "(@<= 'quantity' && context.unit.dimension == 'length')",
@@ -56368,7 +56370,11 @@
           "id": "turn",
           "isA": [
             "verb",
+            "action",
             "repeatable"
+          ],
+          "before": [
+            "thenAction"
           ],
           "words": [
             "turn"
@@ -56593,7 +56599,6 @@
         {}
       ],
       "semantics": [
-        {},
         {},
         {},
         {},
@@ -57897,6 +57902,11 @@
         [
           "go",
           "action",
+          false
+        ],
+        [
+          "go",
+          "repeatable",
           false
         ],
         [
@@ -60477,6 +60487,11 @@
         [
           "toPoint",
           "preposition",
+          false
+        ],
+        [
+          "turn",
+          "action",
           false
         ],
         [
@@ -62341,6 +62356,11 @@
         ],
         [
           "go",
+          "repeatable",
+          false
+        ],
+        [
+          "go",
           "verb",
           false
         ],
@@ -64917,6 +64937,11 @@
         [
           "toPoint",
           "preposition",
+          false
+        ],
+        [
+          "turn",
+          "action",
           false
         ],
         [
@@ -66781,6 +66806,11 @@
         ],
         [
           "go",
+          "repeatable",
+          false
+        ],
+        [
+          "go",
           "verb",
           false
         ],
@@ -69357,6 +69387,11 @@
         [
           "toPoint",
           "preposition",
+          false
+        ],
+        [
+          "turn",
+          "action",
           false
         ],
         [
@@ -71456,6 +71491,11 @@
         ],
         [
           "go",
+          "repeatable",
+          false
+        ],
+        [
+          "go",
           "verb",
           false
         ],
@@ -74032,6 +74072,11 @@
         [
           "toPoint",
           "preposition",
+          false
+        ],
+        [
+          "turn",
+          "action",
           false
         ],
         [
@@ -76152,6 +76197,11 @@
         ],
         [
           "go",
+          "repeatable",
+          false
+        ],
+        [
+          "go",
           "verb",
           false
         ],
@@ -78728,6 +78778,11 @@
         [
           "toPoint",
           "preposition",
+          false
+        ],
+        [
+          "turn",
+          "action",
           false
         ],
         [
@@ -80591,6 +80646,11 @@
         ],
         [
           "go",
+          "repeatable",
+          false
+        ],
+        [
+          "go",
           "verb",
           false
         ],
@@ -83167,6 +83227,11 @@
         [
           "toPoint",
           "preposition",
+          false
+        ],
+        [
+          "turn",
+          "action",
           false
         ],
         [
@@ -85052,6 +85117,11 @@
         ],
         [
           "go",
+          "repeatable",
+          false
+        ],
+        [
+          "go",
           "verb",
           false
         ],
@@ -87628,6 +87698,11 @@
         [
           "toPoint",
           "preposition",
+          false
+        ],
+        [
+          "turn",
+          "action",
           false
         ],
         [
@@ -89760,6 +89835,11 @@
         ],
         [
           "go",
+          "repeatable",
+          false
+        ],
+        [
+          "go",
           "verb",
           false
         ],
@@ -92336,6 +92416,11 @@
         [
           "toPoint",
           "preposition",
+          false
+        ],
+        [
+          "turn",
+          "action",
           false
         ],
         [
@@ -94081,6 +94166,11 @@
         ],
         [
           "go",
+          "repeatable",
+          false
+        ],
+        [
+          "go",
           "verb",
           false
         ],
@@ -96657,6 +96747,11 @@
         [
           "toPoint",
           "preposition",
+          false
+        ],
+        [
+          "turn",
+          "action",
           false
         ],
         [

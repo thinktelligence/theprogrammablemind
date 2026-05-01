@@ -20,6 +20,7 @@ const config = {
   bridges: [
     {
       id: 'action',
+      // isA: ['thisitthat'],
     },
     {
       id: "thenAction",
@@ -27,6 +28,7 @@ const config = {
       isA: ['action'],
       before: ['doAction'],
       selector: {
+          match: "same",
           left: [ { pattern: '(action))' } ],
           right: [ { pattern: '(action)' } ],
           passthrough: true
@@ -48,8 +50,13 @@ const config = {
       selector: {
           left: [ { pattern: '(action)' } ],
           passthrough: true
-     },
-      bridge: "{ ...next(operator), value: append(before, operator.value) }"
+      },
+      bridge: "{ ...next(operator), value: append(before, operator.value) }",
+      semantic: async ({context, toArray, s}) => {
+        for (const action of toArray(context)) {
+          await s(action)
+        }
+      },
     },
 
     {
