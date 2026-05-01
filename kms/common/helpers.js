@@ -164,8 +164,25 @@ function propertyToArray(value) {
     return value;
   }
 
-  if (value?.marker === 'list') {
-    return value.value.flatMap(item => propertyToArray(item));
+  if (true) {
+    if (value.marker == 'list') {
+      if (!value?.listable) {
+        debugger
+        throw "dude1"
+      }
+    }
+
+    if (value?.listable) {
+      if (value.marker !== 'list') {
+        debugger
+        throw "dude2"
+      }
+      return value.value.flatMap(item => propertyToArray(item));
+    }
+  } else {
+    if (value.marker == 'list') {
+      return value.value.flatMap(item => propertyToArray(item));
+    }
   }
 
   // Single value → wrap in array
@@ -184,6 +201,7 @@ function concats(values) {
   }
   return {
     marker: 'list',
+    listable: true,
     value: combined
   }
 }

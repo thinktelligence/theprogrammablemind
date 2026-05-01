@@ -12,12 +12,14 @@ newDateMock = (date) => {
 
 describe('helpers', () => {
   describe('propertyToArray', () => {
-    it('NEO23 nested conjunctions', async () => {
+    it('nested conjunctions', async () => {
       const list = {
         "marker": "list",
+        listable: true,
         "value": [
           {
             "marker": "list",
+            listable: true,
             "value": [
               {
                 "marker": "action1",

@@ -1319,7 +1319,7 @@ const template = {
           },
         },
         {
-          match: ({context}) => context.marker == 'thenTime',
+          match: ({context}) => context.marker == 'thenAction',
           apply: async ({objects, api}) => {
             if (objects.runCommand) {
               await api.sendCommand()

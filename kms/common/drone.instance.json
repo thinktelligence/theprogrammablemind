@@ -716,7 +716,7 @@
           "apply": "async ({frameOfReference, context, e, fragments, stm, toEValue, toArray, objects, remember, recall, resolveEvaluate, _continue, contextHierarchy}) => {\n            const evaluated = await e({...context, notUnderCall: true})\n            const pointsContext = toEValue(evaluated)\n            const pathComponents = toArray(pointsContext)\n\n            const path = (await fragments('path')).contexts()[0]\n            delete path.value\n            path.instance = true\n            path.points = [...pathComponents]\n            frameOfReference(path, { mentioned: 'points', reversed: true })\n            await remember(path)\n            resolveEvaluate(context, path)\n          }"
         },
         {
-          "match": "({context}) => context.marker == 'thenTime'",
+          "match": "({context}) => context.marker == 'thenAction'",
           "apply": "async ({objects, api}) => {\n            if (objects.runCommand) {\n              await api.sendCommand()\n            }\n          }"
         },
         {
@@ -4330,6 +4330,20 @@
             "comma",
             0
           ],
+          [
+            "is",
+            0
+          ],
+          [
+            "list",
+            1
+          ],
+          [
+            "unknown",
+            0
+          ]
+        ],
+        [
           [
             "is",
             0
@@ -97697,6 +97711,20 @@
       [
         "propertyOf",
         1
+      ]
+    ],
+    [
+      [
+        "is",
+        0
+      ],
+      [
+        "list",
+        1
+      ],
+      [
+        "unknown",
+        0
       ]
     ],
     [

@@ -110,6 +110,7 @@ config = {
         context.modifiers = ['modifier']
         context.modifier = {
           marker: 'list',
+          listable: true,
           paraphrase: true,
           value: modifiers
         }

@@ -46,7 +46,7 @@ describe('drone km', () => {
     expect(inserted[0].verbatim).toBe('The drone cannot go that fast. The maximum speed is 1.2 meters per second')
   })
 
-  test('NEO23 test minimum speed error', async () => {
+  test('test minimum speed error', async () => {
     const context = await km.run(async ({fragments}) => {
       return await fragments("forward", {}) 
     })

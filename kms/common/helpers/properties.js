@@ -170,7 +170,7 @@ class API {
         }
         const selected = instance.evalue.value.map( (r) => r[property] )
         context.constraints = undefined;
-        context.evalue = { marker: 'list', value: selected }
+        context.evalue = { marker: 'list', listable: true, value: selected }
       },
     })
     config.addGenerator({
@@ -575,9 +575,9 @@ class API {
               const response = _.clone(context)
               response.isResponse = true
               response.query = undefined
-              context.evalue = { marker: 'list', value: [response] }
+              context.evalue = { marker: 'list', listable: true, value: [response] }
             } else {
-              context.evalue = { marker: 'list', value: unflatten(matches) }
+              context.evalue = { marker: 'list', listable: true, value: unflatten(matches) }
               context.evalue.isResponse = true
             }
             context.evalue.truthValue = matches.length > 0
@@ -588,8 +588,8 @@ class API {
             }
 
             // ADD this line back and remove it to check
-            // context.response = { marker: 'list', value: [response], isResponse: true }
-            // Object.assign(context, { marker: 'list', value: responses, focusable: ['value'], paraphrase: true, truthValue: matches.length > 0 })
+            // context.response = { marker: 'list', listable: true, value: [response], isResponse: true }
+            // Object.assign(context, { marker: 'list', listable: true, value: responses, focusable: ['value'], paraphrase: true, truthValue: matches.length > 0 })
           } else {
             // see if anything is preferred greg
             // what does greg like
@@ -598,7 +598,7 @@ class API {
               // Object.assign(context, { marker: 'idontknow', query: _.clone(context) })
               context.evalue = { marker: 'idontknow', query: _.clone(context), isResponse: true }
             } else {
-              context.evalue = { marker: 'list', value: matches, isResponse: true }
+              context.evalue = { marker: 'list', listable: true, value: matches, isResponse: true }
             }
             context.isResponse = true
             context.evalue.truthValue = matches.length > 0 && matches[0].marker == ordering.marker
@@ -641,6 +641,7 @@ class API {
           const api = km('properties').api
           context.evalue = {
             marker: 'list',
+            listable: true,
             value: unflatten(api.relation_get(context, before.concat(after).map( (arg) => arg.tag ) ))
           }
           context.evalue.isResponse = true
@@ -815,7 +816,7 @@ class API {
           values.push(`${await g(key)}: ${await g({ ...objectProps[key].value, paraphrase: true })}`)
         }
       }
-      return { marker: 'list', value: values }
+      return { marker: 'list', listable: true, value: values }
     } else {
       return (await this.propertiesFH.getValue([object, property])).value
     }

@@ -24,6 +24,7 @@ function getTypes( km, digraph, concept, instance ) {
   instance = {
     marker: 'list', 
     value: words,
+    listable: true,
     paraphrase: true,
   }
   instance.focus = true
@@ -278,6 +279,7 @@ const config = {
         const values = children.map( (t) => conceptApi.getWordForValue(t, { number: isA(type, 'concept') ? 'one' : 'many'}))
         context.evalue = {
           marker: 'list',
+          listable: true,
           value: values,
         }
         if (children.length > 1) {

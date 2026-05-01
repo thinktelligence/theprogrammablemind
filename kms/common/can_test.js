@@ -37,7 +37,7 @@ describe('can km', () => {
     })
   })
 
-  test('to passive handles mixes list', async () => {
+  test('NEO23 to passive handles mixes list', async () => {
     await km.run(async ({fragments, s, gp, addWordToDictionary, getWordFromDictionary, config}) => {
       const fragmentPassive = await fragments("canobject can be canverb by cansubject")
       const contextPassive = fragmentPassive.contexts()[0]
@@ -45,6 +45,7 @@ describe('can km', () => {
       const contextActive = fragmentActive.contexts()[0]
       
       const context = helpers.concats([contextPassive, contextActive])
+      // here
       const contextPrime = await s({ ...context, toVoice: 'passive', flatten: false }) // , { debug: { apply: true } })
       console.log(JSON.stringify(contextPrime, null, 2))
       const text = await gp(contextPrime)

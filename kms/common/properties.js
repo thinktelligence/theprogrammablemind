@@ -495,6 +495,7 @@ const config = {
         context.hierarchy = true
         context.evalue = { 
           marker: 'list', 
+          listable: true,
           // value: api.objects.children[context.marker]
           value: phrases,
         }

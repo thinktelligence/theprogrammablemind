@@ -5,6 +5,7 @@ function asList(context, maybe=false) {
     return {
       marker: 'list',
       // types: [context.marker],
+      listable: true,
       value: context
     }
   } else if (context.marker === 'list') {
@@ -15,6 +16,7 @@ function asList(context, maybe=false) {
   } else {
     return {
       marker: 'list',
+      listable: true,
       types: [context.marker],
       value: [context]
     }

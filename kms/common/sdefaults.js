@@ -24,8 +24,13 @@ const config = {
       // match: ({context}) => context.flatten || context.listable && context.value[0].flatten,
       match: ({context}) => context.flatten || context.listable && context.value.some((value) => value.flatten),
       // match: ({context}) => context.flatten || context.listable || (Array.isArray(context.value) && context.value.some((value) => value.flatten)),
-      apply: async ({config, km, context, s}) => {
+      apply: async ({config, km, context, s, _continue}) => {
         const [flats, wf] = flatten(['list'], context)
+        if (!wf) {
+          debugger
+          _continue()
+          return
+        }
         const evalues = []
         for (const flat of flats) {
           const result = await s({ ...flat, flatten: false })
