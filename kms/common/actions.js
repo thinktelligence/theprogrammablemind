@@ -82,7 +82,7 @@ const config = {
   ],
   words: {
     patterns: [
-      { "pattern": ["action", { type: 'digit' }], allow_partial_matches: false, defs: [{id: "action", initial: "{ value: text, instance: true }" }]},
+      { "pattern": ["action", { type: 'digit' }], allow_partial_matches: false, defs: [{id: "action", initial: "{ value: text, instance: true, dead: true }" }]},
     ],
   },
   semantics: [
