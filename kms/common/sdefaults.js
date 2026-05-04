@@ -22,22 +22,44 @@ const config = {
       where: where(),
       priority: -1,
       // match: ({context}) => context.flatten || context.listable && context.value[0].flatten,
-      match: ({context}) => context.flatten || context.listable && context.value.some((value) => value.flatten),
+      match: ({context}) => {
+        if (debug.get('greg23') == 2) {
+          debugger
+        }
+        if (context.contextIdProcessed) {
+          if (context.contextIdProcessed.includes(context.contextId)) {
+            return
+          }
+          context.contextIdProcessed.push(context.contextId)
+        }
+        return context.flatten || context.listable && context.value.some((value) => value.flatten)
+      },
       // match: ({context}) => context.flatten || context.listable || (Array.isArray(context.value) && context.value.some((value) => value.flatten)),
       apply: async ({config, km, context, s, _continue}) => {
         const [flats, wf] = flatten(['list'], context)
-        const evalues = []
-        if (context.flatten) {
-          context.flatten = false
-        } else {
-          context.value.map((c) => c.flatten = false)
+
+        if (debug.get('greg23') == 2) {
+          debugger
         }
+        let contextIdCounter = 1
+        const contextIdProcessed = []
+        function setContextId(context) {
+          if (!context.contextId) {
+            context.contextId = contextIdCounter
+            contextIdCounter += 1
+          }
+          if (!context.contextIdProcessed) {
+            context.contextIdProcessed = contextIdProcessed
+          }
+        }
+        const evalues = []
         for (const flat of flats) {
-          // const updateThis = { ...flat, flatten: false }
-          flat.flatten = false
+          setContextId(flat)
+          debug.counter('greg23')
+          debugger
           const result = await s(flat)
-          // const result = await s({ ...flat, flatten: false })
           if (result.evalue) {
+            flat = result.evalue
             evalues.push(result.evalue)
           }
         }
@@ -45,6 +67,7 @@ const config = {
           context.evalue = concats(evalues)
           context.isResponse = true
         }
+        contextIdProcessed.length = 0
       }
     },
     {
