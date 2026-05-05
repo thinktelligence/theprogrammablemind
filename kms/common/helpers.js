@@ -164,7 +164,7 @@ function propertyToArray(value) {
     return value;
   }
 
-  if (value?.listable) {
+  if (value?.listable || value?.marker == 'list') {
     return value.value.flatMap(item => propertyToArray(item));
   }
 
