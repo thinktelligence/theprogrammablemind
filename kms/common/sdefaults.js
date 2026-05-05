@@ -14,6 +14,33 @@ class API {
   }
 }
 
+// TODO generalize this for avoiding recusive call without changing the context properties
+
+function okay(args, condition) {
+  if (condition(args)) {
+    const { context } = args
+
+    if (!context.control) {
+      context.control = {
+        seen: [],
+        nextId: 2,
+      }
+      context.control_id = 1
+    }
+
+    if (!context.control_id) {
+      context.control_id = context.control.nextId
+      context.control.nextId += 1
+    }
+    if (context.control.seen.includes(context.control_id)) {
+      return false
+    }
+    context.control.seen.push(context.control_id)
+    return true
+  }
+  return false
+}
+
 const config = {
   name: 'sdefaults',
   semantics: [
@@ -22,44 +49,17 @@ const config = {
       where: where(),
       priority: -1,
       // match: ({context}) => context.flatten || context.listable && context.value[0].flatten,
-      match: ({context}) => {
-        if (debug.get('greg23') == 2) {
-          debugger
-        }
-        if (context.contextIdProcessed) {
-          if (context.contextIdProcessed.includes(context.contextId)) {
-            return
-          }
-          context.contextIdProcessed.push(context.contextId)
-        }
-        return context.flatten || context.listable && context.value.some((value) => value.flatten)
-      },
+      match: (args) => okay(args, ({context}) => (context.flatten || context.listable && context.value.some((value) => value.flatten))),
       // match: ({context}) => context.flatten || context.listable || (Array.isArray(context.value) && context.value.some((value) => value.flatten)),
       apply: async ({config, km, context, s, _continue}) => {
         const [flats, wf] = flatten(['list'], context)
-
-        if (debug.get('greg23') == 2) {
-          debugger
-        }
-        let contextIdCounter = 1
-        const contextIdProcessed = []
-        function setContextId(context) {
-          if (!context.contextId) {
-            context.contextId = contextIdCounter
-            contextIdCounter += 1
-          }
-          if (!context.contextIdProcessed) {
-            context.contextIdProcessed = contextIdProcessed
-          }
-        }
         const evalues = []
         for (const flat of flats) {
-          setContextId(flat)
-          debug.counter('greg23')
-          debugger
+          if (!flat.control) {
+            flat.control = context.control
+          }
           const result = await s(flat)
           if (result.evalue) {
-            flat = result.evalue
             evalues.push(result.evalue)
           }
         }
@@ -67,18 +67,22 @@ const config = {
           context.evalue = concats(evalues)
           context.isResponse = true
         }
-        contextIdProcessed.length = 0
+        context.control.seen.length = 0
       }
     },
     {
       notes: 'flatten relation',
       where: where(),
       priority: -1,
-      match: ({context}) => context.flatten && context.relation,
+      // match: ({context}) => context.flatten && context.relation,
+      match: (args) => okay(args, ({context}) => (context.flatten && context.relation)),
       apply: async ({config, km, context, s}) => {
         const [flats, wf] = flatten(['list'], context)
         for (const flat of flats) {
-          await s({ ...flat, flatten: false })
+          if (!flat.control) {
+            flat.control = context.control
+          }
+          await s(flat)
         }
       }
     },

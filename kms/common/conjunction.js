@@ -76,7 +76,7 @@ const config = {
 
     {
       where: where(),
-      match: ({context, callId}) => context.listable,
+      match: ({context, callId}) => context.listable && context.value,
       apply: ({context, gs}) => {
         return gs(context.value, ' ', ' ' + context.word + ' ')
       },
