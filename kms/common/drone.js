@@ -16,6 +16,13 @@ const { rotateDelta, degreesToRadians, radiansToDegrees, cartesianToPolar, small
 /*
 NEED TO CHECK ON ACTUAL DRONE
 
+  base <number> is a pattern for base names
+  2 feet north and 1 foot east is called base 1
+  2 feet north 1 foot east is called base 1
+  2 feet north 1 foot east is base 1
+  delete route 2 / delete that route / delete that
+  maybe have status as the drone moves liek "patrolling route 1" etc
+
   patrol back and forth 2 times
 
   DONE fix DO so it can do all the stuff partol can do <<<<<<<<<<<<<<<<<<<
@@ -952,61 +959,65 @@ const template = {
         },
         {
           id: 'patrol',
-          isA: ['verb', 'repeatable'],
+          isA: ['verb', 'repeatable', 'action'],
           bridge: `{
             ...next(operator), operator: operator, path: after[0], interpolate: append(default(operator.interpolate, [{ property: 'operator'}]), [{ property: 'path' }])
           }`,
           check: defaultContextCheckProperties(['path']),
           semantic: async ({context, e, toArray, fragments, toEValue, toFinalValue, recall, objects}) => {
-            const evaluated = await(e(context.path))
-            const path = toEValue(evaluated)
-          
-            // TODO put this in a common place for use by do+patrol 
+            debugger
+            const paths = toArray(context.path)
+            for (const context_path of paths) {
+              const evaluated = await(e(context_path))
+              const path = toEValue(evaluated)
+            
+              // TODO put this in a common place for use by do+patrol 
 
-            // ordinal to pause time in seconds 
-            const pauseTimeInSeconds = {}
-            if (context.pause) {
-              const timeAtPoints = toArray(context.pause.timeAtPoint)
-              for (const timeAtPoint of timeAtPoints) {
-                const instantiation = await fragments("quantity in seconds", { quantity: timeAtPoint.time })
-                const result = await e(instantiation)
-                const seconds = toFinalValue(toFinalValue(result).amount)
+              // ordinal to pause time in seconds 
+              const pauseTimeInSeconds = {}
+              if (context.pause) {
+                const timeAtPoints = toArray(context.pause.timeAtPoint)
+                for (const timeAtPoint of timeAtPoints) {
+                  const instantiation = await fragments("quantity in seconds", { quantity: timeAtPoint.time })
+                  const result = await e(instantiation)
+                  const seconds = toFinalValue(toFinalValue(result).amount)
 
-                const points = await recall({ context: timeAtPoint.point.point, frameOfReference: path })
-                for (const point of toArray(points)) {
-                  pauseTimeInSeconds[point.ordinal] = seconds
+                  const points = await recall({ context: timeAtPoint.point.point, frameOfReference: path })
+                  for (const point of toArray(points)) {
+                    pauseTimeInSeconds[point.ordinal] = seconds
+                  }
                 }
               }
-            }
 
-            // get to the start of the patrol  
-            objects.current.path.push(path.points[0])
-            objects.current.path.push({ aimOnly: true, ...path.points[1] })
-            objects.current.path.push({ repeatStart: true })
-            for (const point of path.points) {
-              objects.current.path.push(point)
-              if (pauseTimeInSeconds[point.ordinal]) {
-                objects.current.path.push({ marker: 'pause', pauseSeconds: pauseTimeInSeconds[point.ordinal] })
-              }
-            }
-            if (context.repeats) {
-              objects.current.timeRepeats = toFinalValue(context.repeats.repeats)
-            }
-            // if the patrol does not start and end at the same spot then 
-            // go back to the start along the same path
-
-
-            // if the start is not the end of the patrol then go backwards along the patrol
-            if (JSON.stringify(path.points[0].point) !== JSON.stringify(path.points[path.points.length-1].point)) {
-              for (const point of [...path.points].reverse().slice(1)) {
+              // get to the start of the patrol  
+              objects.current.path.push(path.points[0])
+              objects.current.path.push({ aimOnly: true, ...path.points[1] })
+              objects.current.path.push({ repeatStart: true })
+              for (const point of path.points) {
                 objects.current.path.push(point)
                 if (pauseTimeInSeconds[point.ordinal]) {
                   objects.current.path.push({ marker: 'pause', pauseSeconds: pauseTimeInSeconds[point.ordinal] })
                 }
               }
+              if (context.repeats) {
+                objects.current.timeRepeats = toFinalValue(context.repeats.repeats)
+              }
+              // if the patrol does not start and end at the same spot then 
+              // go back to the start along the same path
 
-              const secondPoint = path.points[1]
-              objects.current.path.push({ ...secondPoint, aimOnly: true })
+
+              // if the start is not the end of the patrol then go backwards along the patrol
+              if (JSON.stringify(path.points[0].point) !== JSON.stringify(path.points[path.points.length-1].point)) {
+                for (const point of [...path.points].reverse().slice(1)) {
+                  objects.current.path.push(point)
+                  if (pauseTimeInSeconds[point.ordinal]) {
+                    objects.current.path.push({ marker: 'pause', pauseSeconds: pauseTimeInSeconds[point.ordinal] })
+                  }
+                }
+
+                const secondPoint = path.points[1]
+                objects.current.path.push({ ...secondPoint, aimOnly: true })
+              }
             }
             objects.runCommand = true
           }
