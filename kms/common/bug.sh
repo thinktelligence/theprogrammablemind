@@ -1023,3 +1023,7 @@ node drone -q 'pausing (2 seconds at the first point) and (3 seconds at the thir
 
 node drone -q 'forward 2 meters\ngo back and forth' -g -d -tva -v
 node can -q 'joe can make coffee\nwho can coffee be made by' -g -d -tva
+
+node drone -q 'north 1 meter\ncall that path route 1\ngo to the start\nstart a new path\nsouth 1 meter\ncall that path route 2\nwhat are the points of route 1' -g -d
+node drone -q 'forward 1 foot\nwest 1 foot\ncall the path route 1\nwhat are the points of route 1' -g -d
+node drone -q 'forward 1 foot\nwest 1 foot\ncall the path route 1\nevaluate the points of route 1' -g -d

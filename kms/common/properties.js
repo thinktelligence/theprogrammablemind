@@ -638,7 +638,7 @@ const config = {
             objectValue = objectContext.value
           }
           if (!await api.knownObject(objectValue)) {
-            context.verbatim = `There is no object named "${await g({...objectContext, paraphrase: true})}"`
+            objectContext.verbatim = `There is no object named "${await g({...objectContext, paraphrase: true})}"`
             return
           }
           return objectValue
