@@ -965,7 +965,6 @@ const template = {
           }`,
           check: defaultContextCheckProperties(['path']),
           semantic: async ({context, e, toArray, fragments, toEValue, toFinalValue, recall, objects}) => {
-            debugger
             const paths = toArray(context.path)
             for (const context_path of paths) {
               const evaluated = await(e(context_path))
@@ -1489,7 +1488,7 @@ knowledgeModule( {
         }),
         defaultContextCheck({ marker: 'turn', exported: true, extra: ['direction', 'repeats'] }),
         defaultContextCheck({ marker: 'history', exported: true, extra: ['debug', 'pause', 'direction', 'speed', 'turn', 'time', 'sonic', 'batched', 'repeats', 'armAction', 'clawAction'] }),
-        defaultContextCheck(),
+        // defaultContextCheck(),
       ],
       objects: [
         { km: 'stm' },

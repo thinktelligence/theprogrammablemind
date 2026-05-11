@@ -153,7 +153,8 @@
           "id": "patrol",
           "isA": [
             "verb",
-            "repeatable"
+            "repeatable",
+            "action"
           ],
           "bridge": "{\n            ...next(operator), operator: operator, path: after[0], interpolate: append(default(operator.interpolate, [{ property: 'operator'}]), [{ property: 'path' }])\n          }",
           "check": [
@@ -171,7 +172,7 @@
             },
             "path"
           ],
-          "semantic": "async ({context, e, toArray, fragments, toEValue, toFinalValue, recall, objects}) => {\n            const evaluated = await(e(context.path))\n            const path = toEValue(evaluated)\n          \n            // TODO put this in a common place for use by do+patrol \n\n            // ordinal to pause time in seconds \n            const pauseTimeInSeconds = {}\n            if (context.pause) {\n              const timeAtPoints = toArray(context.pause.timeAtPoint)\n              for (const timeAtPoint of timeAtPoints) {\n                const instantiation = await fragments(\"quantity in seconds\", { quantity: timeAtPoint.time })\n                const result = await e(instantiation)\n                const seconds = toFinalValue(toFinalValue(result).amount)\n\n                const points = await recall({ context: timeAtPoint.point.point, frameOfReference: path })\n                for (const point of toArray(points)) {\n                  pauseTimeInSeconds[point.ordinal] = seconds\n                }\n              }\n            }\n\n            // get to the start of the patrol  \n            objects.current.path.push(path.points[0])\n            objects.current.path.push({ aimOnly: true, ...path.points[1] })\n            objects.current.path.push({ repeatStart: true })\n            for (const point of path.points) {\n              objects.current.path.push(point)\n              if (pauseTimeInSeconds[point.ordinal]) {\n                objects.current.path.push({ marker: 'pause', pauseSeconds: pauseTimeInSeconds[point.ordinal] })\n              }\n            }\n            if (context.repeats) {\n              objects.current.timeRepeats = toFinalValue(context.repeats.repeats)\n            }\n            // if the patrol does not start and end at the same spot then \n            // go back to the start along the same path\n\n\n            // if the start is not the end of the patrol then go backwards along the patrol\n            if (JSON.stringify(path.points[0].point) !== JSON.stringify(path.points[path.points.length-1].point)) {\n              for (const point of [...path.points].reverse().slice(1)) {\n                objects.current.path.push(point)\n                if (pauseTimeInSeconds[point.ordinal]) {\n                  objects.current.path.push({ marker: 'pause', pauseSeconds: pauseTimeInSeconds[point.ordinal] })\n                }\n              }\n\n              const secondPoint = path.points[1]\n              objects.current.path.push({ ...secondPoint, aimOnly: true })\n            }\n            objects.runCommand = true\n          }"
+          "semantic": "async ({context, e, toArray, fragments, toEValue, toFinalValue, recall, objects}) => {\n            const paths = toArray(context.path)\n            for (const context_path of paths) {\n              const evaluated = await(e(context_path))\n              const path = toEValue(evaluated)\n            \n              // TODO put this in a common place for use by do+patrol \n\n              // ordinal to pause time in seconds \n              const pauseTimeInSeconds = {}\n              if (context.pause) {\n                const timeAtPoints = toArray(context.pause.timeAtPoint)\n                for (const timeAtPoint of timeAtPoints) {\n                  const instantiation = await fragments(\"quantity in seconds\", { quantity: timeAtPoint.time })\n                  const result = await e(instantiation)\n                  const seconds = toFinalValue(toFinalValue(result).amount)\n\n                  const points = await recall({ context: timeAtPoint.point.point, frameOfReference: path })\n                  for (const point of toArray(points)) {\n                    pauseTimeInSeconds[point.ordinal] = seconds\n                  }\n                }\n              }\n\n              // get to the start of the patrol  \n              objects.current.path.push(path.points[0])\n              objects.current.path.push({ aimOnly: true, ...path.points[1] })\n              objects.current.path.push({ repeatStart: true })\n              for (const point of path.points) {\n                objects.current.path.push(point)\n                if (pauseTimeInSeconds[point.ordinal]) {\n                  objects.current.path.push({ marker: 'pause', pauseSeconds: pauseTimeInSeconds[point.ordinal] })\n                }\n              }\n              if (context.repeats) {\n                objects.current.timeRepeats = toFinalValue(context.repeats.repeats)\n              }\n              // if the patrol does not start and end at the same spot then \n              // go back to the start along the same path\n\n\n              // if the start is not the end of the patrol then go backwards along the patrol\n              if (JSON.stringify(path.points[0].point) !== JSON.stringify(path.points[path.points.length-1].point)) {\n                for (const point of [...path.points].reverse().slice(1)) {\n                  objects.current.path.push(point)\n                  if (pauseTimeInSeconds[point.ordinal]) {\n                    objects.current.path.push({ marker: 'pause', pauseSeconds: pauseTimeInSeconds[point.ordinal] })\n                  }\n                }\n\n                const secondPoint = path.points[1]\n                objects.current.path.push({ ...secondPoint, aimOnly: true })\n              }\n            }\n            objects.runCommand = true\n          }"
         },
         {
           "id": "lift",
@@ -1208,6 +1209,16 @@
         [
           "degree",
           "unit_angle",
+          false
+        ],
+        [
+          "deletable",
+          "deletable",
+          false
+        ],
+        [
+          "delete",
+          "verb",
           false
         ],
         [
@@ -2277,6 +2288,11 @@
         ],
         [
           "memorable",
+          "deletable",
+          false
+        ],
+        [
+          "memorable",
           "theAble",
           false
         ],
@@ -3148,6 +3164,11 @@
         [
           "reason",
           "theAble",
+          false
+        ],
+        [
+          "recall",
+          "verb",
           false
         ],
         [
@@ -5466,6 +5487,16 @@
           false
         ],
         [
+          "deletable",
+          "deletable",
+          false
+        ],
+        [
+          "delete",
+          "verb",
+          false
+        ],
+        [
           "descending",
           "hierarchyAble",
           false
@@ -6577,6 +6608,11 @@
         ],
         [
           "memorable",
+          "deletable",
+          false
+        ],
+        [
+          "memorable",
           "theAble",
           false
         ],
@@ -7448,6 +7484,11 @@
         [
           "reason",
           "theAble",
+          false
+        ],
+        [
+          "recall",
+          "verb",
           false
         ],
         [
@@ -12289,6 +12330,16 @@
           false
         ],
         [
+          "deletable",
+          "deletable",
+          false
+        ],
+        [
+          "delete",
+          "verb",
+          false
+        ],
+        [
           "descending",
           "hierarchyAble",
           false
@@ -13535,6 +13586,11 @@
         ],
         [
           "memorable",
+          "deletable",
+          false
+        ],
+        [
+          "memorable",
           "theAble",
           false
         ],
@@ -14406,6 +14462,11 @@
         [
           "reason",
           "theAble",
+          false
+        ],
+        [
+          "recall",
+          "verb",
           false
         ],
         [
@@ -15401,10 +15462,7 @@
             },
             "types": [
               "list",
-              "listable",
               "memorable",
-              "queryable",
-              "theAble",
               "unknown"
             ],
             "listable": true,
@@ -15421,12 +15479,6 @@
                   "end": 17
                 },
                 "dead": true,
-                "types": [
-                  "listable",
-                  "queryable",
-                  "theAble",
-                  "unknown"
-                ],
                 "level": 0
               },
               {
@@ -15439,12 +15491,6 @@
                   "start": 23,
                   "end": 31
                 },
-                "types": [
-                  "listable",
-                  "memorable",
-                  "queryable",
-                  "theAble"
-                ],
                 "level": 0
               }
             ],
@@ -16435,6 +16481,16 @@
         [
           "degree",
           "unit_angle",
+          false
+        ],
+        [
+          "deletable",
+          "deletable",
+          false
+        ],
+        [
+          "delete",
+          "verb",
           false
         ],
         [
@@ -17684,6 +17740,11 @@
         ],
         [
           "memorable",
+          "deletable",
+          false
+        ],
+        [
+          "memorable",
           "theAble",
           false
         ],
@@ -18605,6 +18666,11 @@
         [
           "reason",
           "theAble",
+          false
+        ],
+        [
+          "recall",
+          "verb",
           false
         ],
         [
@@ -21022,6 +21088,16 @@
           false
         ],
         [
+          "deletable",
+          "deletable",
+          false
+        ],
+        [
+          "delete",
+          "verb",
+          false
+        ],
+        [
           "descending",
           "hierarchyAble",
           false
@@ -22308,6 +22384,11 @@
         ],
         [
           "memorable",
+          "deletable",
+          false
+        ],
+        [
+          "memorable",
           "theAble",
           false
         ],
@@ -23229,6 +23310,11 @@
         [
           "reason",
           "theAble",
+          false
+        ],
+        [
+          "recall",
+          "verb",
           false
         ],
         [
@@ -25302,6 +25388,16 @@
           false
         ],
         [
+          "deletable",
+          "deletable",
+          false
+        ],
+        [
+          "delete",
+          "verb",
+          false
+        ],
+        [
           "descending",
           "hierarchyAble",
           false
@@ -26593,6 +26689,11 @@
         ],
         [
           "memorable",
+          "deletable",
+          false
+        ],
+        [
+          "memorable",
           "theAble",
           false
         ],
@@ -27554,6 +27655,11 @@
         [
           "reason",
           "theAble",
+          false
+        ],
+        [
+          "recall",
+          "verb",
           false
         ],
         [
@@ -29719,6 +29825,16 @@
           false
         ],
         [
+          "deletable",
+          "deletable",
+          false
+        ],
+        [
+          "delete",
+          "verb",
+          false
+        ],
+        [
           "descending",
           "hierarchyAble",
           false
@@ -31010,6 +31126,11 @@
         ],
         [
           "memorable",
+          "deletable",
+          false
+        ],
+        [
+          "memorable",
           "theAble",
           false
         ],
@@ -31981,6 +32102,11 @@
         [
           "reason",
           "theAble",
+          false
+        ],
+        [
+          "recall",
+          "verb",
           false
         ],
         [
@@ -34143,6 +34269,16 @@
           false
         ],
         [
+          "deletable",
+          "deletable",
+          false
+        ],
+        [
+          "delete",
+          "verb",
+          false
+        ],
+        [
           "descending",
           "hierarchyAble",
           false
@@ -35434,6 +35570,11 @@
         ],
         [
           "memorable",
+          "deletable",
+          false
+        ],
+        [
+          "memorable",
           "theAble",
           false
         ],
@@ -36445,6 +36586,11 @@
         [
           "reason",
           "theAble",
+          false
+        ],
+        [
+          "recall",
+          "verb",
           false
         ],
         [
@@ -38574,6 +38720,16 @@
           false
         ],
         [
+          "deletable",
+          "deletable",
+          false
+        ],
+        [
+          "delete",
+          "verb",
+          false
+        ],
+        [
           "descending",
           "hierarchyAble",
           false
@@ -39865,6 +40021,11 @@
         ],
         [
           "memorable",
+          "deletable",
+          false
+        ],
+        [
+          "memorable",
           "theAble",
           false
         ],
@@ -40881,6 +41042,11 @@
         [
           "reason",
           "theAble",
+          false
+        ],
+        [
+          "recall",
+          "verb",
           false
         ],
         [
@@ -42971,6 +43137,16 @@
           false
         ],
         [
+          "deletable",
+          "deletable",
+          false
+        ],
+        [
+          "delete",
+          "verb",
+          false
+        ],
+        [
           "descending",
           "hierarchyAble",
           false
@@ -44262,6 +44438,11 @@
         ],
         [
           "memorable",
+          "deletable",
+          false
+        ],
+        [
+          "memorable",
           "theAble",
           false
         ],
@@ -45278,6 +45459,11 @@
         [
           "reason",
           "theAble",
+          false
+        ],
+        [
+          "recall",
+          "verb",
           false
         ],
         [
@@ -47373,6 +47559,16 @@
           false
         ],
         [
+          "deletable",
+          "deletable",
+          false
+        ],
+        [
+          "delete",
+          "verb",
+          false
+        ],
+        [
           "descending",
           "hierarchyAble",
           false
@@ -48664,6 +48860,11 @@
         ],
         [
           "memorable",
+          "deletable",
+          false
+        ],
+        [
+          "memorable",
           "theAble",
           false
         ],
@@ -49685,6 +49886,11 @@
         [
           "reason",
           "theAble",
+          false
+        ],
+        [
+          "recall",
+          "verb",
           false
         ],
         [
@@ -50944,11 +51150,8 @@
             "types": [
               "countable",
               "list",
-              "listable",
               "memorable",
               "orderable",
-              "queryable",
-              "theAble",
               "unknown"
             ],
             "listable": true,
@@ -50981,12 +51184,6 @@
                   "end": 28
                 },
                 "dead": true,
-                "types": [
-                  "listable",
-                  "orderable",
-                  "queryable",
-                  "theAble"
-                ],
                 "level": 1
               },
               {
@@ -51000,12 +51197,6 @@
                   "start": 30,
                   "end": 38
                 },
-                "types": [
-                  "countable",
-                  "listable",
-                  "queryable",
-                  "theAble"
-                ],
                 "level": 0
               },
               {
@@ -51018,12 +51209,6 @@
                   "start": 44,
                   "end": 52
                 },
-                "types": [
-                  "listable",
-                  "memorable",
-                  "queryable",
-                  "theAble"
-                ],
                 "level": 0
               }
             ],
@@ -51115,24 +51300,6 @@
           ],
           [
             "point",
-            0
-          ]
-        ],
-        [
-          [
-            "is",
-            0
-          ],
-          [
-            "list",
-            1
-          ],
-          [
-            "point",
-            0
-          ],
-          [
-            "unknown",
             0
           ]
         ],
@@ -52279,6 +52446,16 @@
         [
           "degree",
           "unit_angle",
+          false
+        ],
+        [
+          "deletable",
+          "deletable",
+          false
+        ],
+        [
+          "delete",
+          "verb",
           false
         ],
         [
@@ -53573,6 +53750,11 @@
         ],
         [
           "memorable",
+          "deletable",
+          false
+        ],
+        [
+          "memorable",
           "theAble",
           false
         ],
@@ -54614,6 +54796,11 @@
         [
           "reason",
           "theAble",
+          false
+        ],
+        [
+          "recall",
+          "verb",
           false
         ],
         [
@@ -56065,7 +56252,8 @@
           "id": "patrol",
           "isA": [
             "verb",
-            "repeatable"
+            "repeatable",
+            "action"
           ],
           "bridge": "{\n            ...next(operator), operator: operator, path: after[0], interpolate: append(default(operator.interpolate, [{ property: 'operator'}]), [{ property: 'path' }])\n          }",
           "check": [
@@ -57316,6 +57504,16 @@
         [
           "degree",
           "unit_angle",
+          false
+        ],
+        [
+          "deletable",
+          "deletable",
+          false
+        ],
+        [
+          "delete",
+          "verb",
           false
         ],
         [
@@ -58695,6 +58893,11 @@
         ],
         [
           "memorable",
+          "deletable",
+          false
+        ],
+        [
+          "memorable",
           "theAble",
           false
         ],
@@ -59510,6 +59713,11 @@
         ],
         [
           "patrol",
+          "action",
+          false
+        ],
+        [
+          "patrol",
           "repeatable",
           false
         ],
@@ -59771,6 +59979,11 @@
         [
           "reason",
           "theAble",
+          false
+        ],
+        [
+          "recall",
+          "verb",
           false
         ],
         [
@@ -61769,6 +61982,16 @@
           false
         ],
         [
+          "deletable",
+          "deletable",
+          false
+        ],
+        [
+          "delete",
+          "verb",
+          false
+        ],
+        [
           "descending",
           "hierarchyAble",
           false
@@ -63145,6 +63368,11 @@
         ],
         [
           "memorable",
+          "deletable",
+          false
+        ],
+        [
+          "memorable",
           "theAble",
           false
         ],
@@ -63960,6 +64188,11 @@
         ],
         [
           "patrol",
+          "action",
+          false
+        ],
+        [
+          "patrol",
           "repeatable",
           false
         ],
@@ -64221,6 +64454,11 @@
         [
           "reason",
           "theAble",
+          false
+        ],
+        [
+          "recall",
+          "verb",
           false
         ],
         [
@@ -66219,6 +66457,16 @@
           false
         ],
         [
+          "deletable",
+          "deletable",
+          false
+        ],
+        [
+          "delete",
+          "verb",
+          false
+        ],
+        [
           "descending",
           "hierarchyAble",
           false
@@ -67595,6 +67843,11 @@
         ],
         [
           "memorable",
+          "deletable",
+          false
+        ],
+        [
+          "memorable",
           "theAble",
           false
         ],
@@ -68410,6 +68663,11 @@
         ],
         [
           "patrol",
+          "action",
+          false
+        ],
+        [
+          "patrol",
           "repeatable",
           false
         ],
@@ -68671,6 +68929,11 @@
         [
           "reason",
           "theAble",
+          false
+        ],
+        [
+          "recall",
+          "verb",
           false
         ],
         [
@@ -70904,6 +71167,16 @@
           false
         ],
         [
+          "deletable",
+          "deletable",
+          false
+        ],
+        [
+          "delete",
+          "verb",
+          false
+        ],
+        [
           "descending",
           "hierarchyAble",
           false
@@ -72280,6 +72553,11 @@
         ],
         [
           "memorable",
+          "deletable",
+          false
+        ],
+        [
+          "memorable",
           "theAble",
           false
         ],
@@ -73095,6 +73373,11 @@
         ],
         [
           "patrol",
+          "action",
+          false
+        ],
+        [
+          "patrol",
           "repeatable",
           false
         ],
@@ -73356,6 +73639,11 @@
         [
           "reason",
           "theAble",
+          false
+        ],
+        [
+          "recall",
+          "verb",
           false
         ],
         [
@@ -75610,6 +75898,16 @@
           false
         ],
         [
+          "deletable",
+          "deletable",
+          false
+        ],
+        [
+          "delete",
+          "verb",
+          false
+        ],
+        [
           "descending",
           "hierarchyAble",
           false
@@ -76986,6 +77284,11 @@
         ],
         [
           "memorable",
+          "deletable",
+          false
+        ],
+        [
+          "memorable",
           "theAble",
           false
         ],
@@ -77801,6 +78104,11 @@
         ],
         [
           "patrol",
+          "action",
+          false
+        ],
+        [
+          "patrol",
           "repeatable",
           false
         ],
@@ -78062,6 +78370,11 @@
         [
           "reason",
           "theAble",
+          false
+        ],
+        [
+          "recall",
+          "verb",
           false
         ],
         [
@@ -80059,6 +80372,16 @@
           false
         ],
         [
+          "deletable",
+          "deletable",
+          false
+        ],
+        [
+          "delete",
+          "verb",
+          false
+        ],
+        [
           "descending",
           "hierarchyAble",
           false
@@ -81435,6 +81758,11 @@
         ],
         [
           "memorable",
+          "deletable",
+          false
+        ],
+        [
+          "memorable",
           "theAble",
           false
         ],
@@ -82250,6 +82578,11 @@
         ],
         [
           "patrol",
+          "action",
+          false
+        ],
+        [
+          "patrol",
           "repeatable",
           false
         ],
@@ -82511,6 +82844,11 @@
         [
           "reason",
           "theAble",
+          false
+        ],
+        [
+          "recall",
+          "verb",
           false
         ],
         [
@@ -84530,6 +84868,16 @@
           false
         ],
         [
+          "deletable",
+          "deletable",
+          false
+        ],
+        [
+          "delete",
+          "verb",
+          false
+        ],
+        [
           "descending",
           "hierarchyAble",
           false
@@ -85906,6 +86254,11 @@
         ],
         [
           "memorable",
+          "deletable",
+          false
+        ],
+        [
+          "memorable",
           "theAble",
           false
         ],
@@ -86721,6 +87074,11 @@
         ],
         [
           "patrol",
+          "action",
+          false
+        ],
+        [
+          "patrol",
           "repeatable",
           false
         ],
@@ -86982,6 +87340,11 @@
         [
           "reason",
           "theAble",
+          false
+        ],
+        [
+          "recall",
+          "verb",
           false
         ],
         [
@@ -89248,6 +89611,16 @@
           false
         ],
         [
+          "deletable",
+          "deletable",
+          false
+        ],
+        [
+          "delete",
+          "verb",
+          false
+        ],
+        [
           "descending",
           "hierarchyAble",
           false
@@ -90624,6 +90997,11 @@
         ],
         [
           "memorable",
+          "deletable",
+          false
+        ],
+        [
+          "memorable",
           "theAble",
           false
         ],
@@ -91439,6 +91817,11 @@
         ],
         [
           "patrol",
+          "action",
+          false
+        ],
+        [
+          "patrol",
           "repeatable",
           false
         ],
@@ -91700,6 +92083,11 @@
         [
           "reason",
           "theAble",
+          false
+        ],
+        [
+          "recall",
+          "verb",
           false
         ],
         [
@@ -93579,6 +93967,16 @@
           false
         ],
         [
+          "deletable",
+          "deletable",
+          false
+        ],
+        [
+          "delete",
+          "verb",
+          false
+        ],
+        [
           "descending",
           "hierarchyAble",
           false
@@ -94955,6 +95353,11 @@
         ],
         [
           "memorable",
+          "deletable",
+          false
+        ],
+        [
+          "memorable",
           "theAble",
           false
         ],
@@ -95770,6 +96173,11 @@
         ],
         [
           "patrol",
+          "action",
+          false
+        ],
+        [
+          "patrol",
           "repeatable",
           false
         ],
@@ -96031,6 +96439,11 @@
         [
           "reason",
           "theAble",
+          false
+        ],
+        [
+          "recall",
+          "verb",
           false
         ],
         [
@@ -97745,24 +98158,6 @@
       ],
       [
         "point",
-        0
-      ]
-    ],
-    [
-      [
-        "is",
-        0
-      ],
-      [
-        "list",
-        1
-      ],
-      [
-        "point",
-        0
-      ],
-      [
-        "unknown",
         0
       ]
     ],

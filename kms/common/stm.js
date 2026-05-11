@@ -1,5 +1,5 @@
 const { knowledgeModule, where, debug } = require('./runtime').theprogrammablemind
-const { defaultContextCheck } = require('./helpers')
+const { defaultContextCheckProperties, defaultContextCheck } = require('./helpers')
 const helpers = require('./helpers')
 const helpers_conjunction = require('./helpers/conjunction')
 const articles = require('./articles')
@@ -81,7 +81,7 @@ class API {
   }
 
   recall({ context, frameOfReference, useHierarchy=true, all, stopCondition = (() => false), condition = (() => true), filter = ((result) => result) } = {}) {
-    let mentioned = this._objects.mentioned
+    let mentioned = this._objects.mentioned.filter((m) => !m.namespaced?.stm?.deleted)
     let reversed = false
     if (frameOfReference) {
       if (frameOfReference.namespaced?.stm?.mentioned) {
@@ -101,7 +101,7 @@ class API {
     if (!mentioned) {
       return
     }
-    const findPrevious = !!context.stm_previous
+    const findPrevious = !!context?.stm_previous
     const forAll = []
     function addForAll(context) {
       if (!forAll.find( (c) => c.namespaced.stm.id == context.namespaced.stm.id)) {
@@ -249,6 +249,8 @@ const config = {
     "(<stm_previous|previous> ([memorable]))",
     "(([memorable]) <stm_before|before>)",
     "([remember] (memorable/*))",
+    "([recall] (memorable/*))",
+    "([delete|delete,forget] ([deletable]))",
   ],
   words: {
     literals: {
@@ -258,9 +260,34 @@ const config = {
   },
   bridges: [
     { 
+      id: 'deletable', 
+    },
+    { 
+      id: 'delete', 
+      isA: ['verb'],
+      bridge: "{ ...next(operator), deletable: after[0], operator: operator, interpolate: [{ property: 'operator' }, { property: 'deletable' }] }",
+      semantic: async ({context, recall}) => {
+        const object = await recall({ context: context.deletable })
+        if (object) {
+          object.namespaced.stm.deleted = true
+        }
+      }
+    },
+    { 
       id: 'memorable', 
-      isA: ['theAble'],
-      words: helpers.words('memorable') 
+      isA: ['theAble', 'deletable'],
+      words: helpers.words('memorable'),
+      check: defaultContextCheckProperties(),
+    },
+    { 
+      id: 'recall', 
+      bridge: "{ ...next(operator), postModifiers: ['recallee'], recallee: after[0] }",
+      isA: ['verb'],
+      semantic: async ({context, recall, resolveResponse, e}) => {
+        const object = await recall({ context: context.recallee })
+        debugger
+        resolveResponse(context, object)
+      },
     },
     { 
       id: 'remember', 
@@ -323,7 +350,6 @@ const config = {
         }
 
         if (!context.value) {
-          // retry()
           context.evalue = { marker: 'answerNotKnown' }
           return
         }
@@ -387,10 +413,19 @@ knowledgeModule( {
     name: './stm.test.json',
     contents: stm_tests,
     checks: {
-             context: [defaultContextCheck({ extra: ['pullFromContext', 'stm_id'] })],
-             objects: [{ path: ['mentioned'] }],
-             // objects: [defaultContextCheck({ extra: ['mentioned'] })],
-             // objects: [{ property: 'mentioned', check: helpers.defaultContextCheckProperties }],
-          },
+              context: [defaultContextCheck({ extra: ['pullFromContext', 'stm_id'] })],
+              objects: [
+                { 
+                  property: 'mentioned', 
+                  check: [{ 
+                    property: (key) => typeof key == 'number',
+                    check: [{ 
+                      property: 'namespaced', 
+                      check: [{ property: 'stm', check: ['id', 'deleted', 'named'] }]
+                    }] 
+                  }] ,
+                },
+              ],
+            },
   },
 })

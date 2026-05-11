@@ -1028,3 +1028,5 @@ node drone -q 'north 1 meter\ncall that path route 1\ngo to the start\nstart a n
 node drone -q 'forward 1 foot\nwest 1 foot\ncall the path route 1\nwhat are the points of route 1' -g -d
 node drone -q 'forward 1 foot\nwest 1 foot\ncall the path route 1\nevaluate the points of route 1' -g -d
 node drone -q 'forward 1 meter\ncall that route 1\ngo to the start\nstart a path\nsouth 1 meter\ncall that route 2\npatrol route 1 then patrol route 2' -g -d
+
+node    stm -q 'remember m1\ndelete m1' -g -d -tva

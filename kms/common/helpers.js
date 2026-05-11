@@ -227,7 +227,7 @@ function defaultObjectCheck(extra = []) {
   }
 }
 
-function defaultContextCheckProperties(extra) {
+function defaultContextCheckProperties(extra = []) {
   return ['marker', 'text', 'verbatim', 'value', 'evalue', 'isResponse', { properties: 'modifiers' }, { properties: 'postModifiers' }, ...extra]
 }
 
@@ -236,6 +236,7 @@ function defaultContextCheck({marker, extra = [], exported = false} = {}) {
   if (marker) {
     match = ({context}) => context.marker == marker
   } else {
+    match = () => true
   }
   return {
     marker,
