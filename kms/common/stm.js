@@ -270,6 +270,9 @@ const config = {
         const object = await recall({ context: context.deletable })
         if (object) {
           object.namespaced.stm.deleted = true
+          for (const callback of object.namespaced.stm.callbacks || []) {
+            callback.callback(object)
+          }
         }
       }
     },
@@ -285,7 +288,6 @@ const config = {
       isA: ['verb'],
       semantic: async ({context, recall, resolveResponse, e}) => {
         const object = await recall({ context: context.recallee })
-        debugger
         resolveResponse(context, object)
       },
     },
@@ -381,6 +383,23 @@ function initializer({config}) {
       if (reversed !== null) {
         context.namespaced.stm.reversed = reversed   // true iff the list is oldest first rather than newest first
       }
+    },
+
+    addCallback: (context, callback) => {
+      // init
+      context.namespaced ??= {}
+      context.namespaced.stm ??= {}
+      context.namespaced.stm.callbackCounter ??= 1
+      context.namespaced.stm.callbacks ??= []
+
+      // meat
+      context.namespaced.stm.callbackCounter += 1
+      const counter = context.namespaced.stm.callbackCounter
+      context.namespaced.stm.callbacks.push({ callback, counter })
+      callback.removeCallback = () => {
+        context.namespaced.stm.callbacks = context.namespaced.stm.callbacks.filter((cb) => cb.counter != counter)
+      }
+      return counter
     },
 
     recall: async (args) => {

@@ -964,11 +964,15 @@ const template = {
             ...next(operator), operator: operator, path: after[0], interpolate: append(default(operator.interpolate, [{ property: 'operator'}]), [{ property: 'path' }])
           }`,
           check: defaultContextCheckProperties(['path']),
-          semantic: async ({context, e, toArray, fragments, toEValue, toFinalValue, recall, objects}) => {
+          semantic: async ({context, g, e, toArray, fragments, toEValue, toFinalValue, recall, objects, verbatim}) => {
             const paths = toArray(context.path)
             for (const context_path of paths) {
               const evaluated = await(e(context_path))
               const path = toEValue(evaluated)
+              if (path.marker == 'answerNotKnown') {
+                verbatim(`${await g(context_path)} is not a known path`)
+                continue
+              }
             
               // TODO put this in a common place for use by do+patrol 
 
