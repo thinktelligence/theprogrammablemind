@@ -20,8 +20,8 @@ NEED TO CHECK ON ACTUAL DRONE
   2 feet north and 1 foot east is called base 1
   2 feet north 1 foot east is called base 1
   2 feet north 1 foot east is base 1
-  delete route 2 / delete that route / delete that
-  maybe have status as the drone moves liek "patrolling route 1" etc
+  DONE delete route 2 / delete that route / delete that
+  DONE maybe have status as the drone moves liek "patrolling route 1" etc
 
   patrol back and forth 2 times
 
@@ -480,13 +480,16 @@ class API {
       let currentPoint = (await this.args.recall({ context: { marker: 'point' } })).point
       this._objects.history.push({ marker: 'history', debug: 'doing path' })
       for (const [pathIndex, pathComponent] of objects.current.path.entries()) {
-        if (pathComponent.repeatStart) {
+        if (pathComponent.message) {
+          this.messageDrone(pathComponent.message)
+        } else if (pathComponent.repeatStart) {
           if (objects.current.timeRepeats) {
             this.startRepeats(objects.current.timeRepeats)
           }
         } else if (pathComponent.marker == 'pause') {
           this.pause(pathComponent.pauseSeconds, { batched: true })
         } else {
+          debugger
           const points = this.args.toArray(pathComponent)
           // const destinationPoint = pathComponent.point
           const destinationPoint = points[0].point || points[0]
@@ -672,6 +675,10 @@ class API {
 
   async pause(durationInSeconds, options) {
     await this.pauseDrone(durationInSeconds, options)
+  }
+
+  async messageDrone(message) {
+    this._objects.history.push({ marker: 'message', message })
   }
 
   // subclass and override the remaining to call the drone
@@ -973,7 +980,9 @@ const template = {
                 verbatim(`${await g(context_path)} is not a known path`)
                 continue
               }
-            
+           
+              objects.current.path.push({ message: await g(context) })
+
               // TODO put this in a common place for use by do+patrol 
 
               // ordinal to pause time in seconds 
@@ -1491,6 +1500,7 @@ knowledgeModule( {
           ] 
         }),
         defaultContextCheck({ marker: 'turn', exported: true, extra: ['direction', 'repeats'] }),
+        defaultContextCheck({ marker: 'message', exported: true, extra: ['message'] }),
         defaultContextCheck({ marker: 'history', exported: true, extra: ['debug', 'pause', 'direction', 'speed', 'turn', 'time', 'sonic', 'batched', 'repeats', 'armAction', 'clawAction'] }),
         // defaultContextCheck(),
       ],
