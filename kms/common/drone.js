@@ -16,6 +16,8 @@ const { rotateDelta, degreesToRadians, radiansToDegrees, cartesianToPolar, small
 /*
 NEED TO CHECK ON ACTUAL DRONE
 
+  do route 1 skipping point 2
+
   base <number> is a pattern for base names
   2 feet north and 1 foot east is called base 1
   2 feet north 1 foot east is called base 1
@@ -57,7 +59,6 @@ go to the start of route 2
 
 go forward 1 foot\nturn left\ngo forward again\n
                               do it again
-do route 1 skipping point 2
 
 TODO should there be two hierarchy one as a concept car is a vehicle and one as a word car is a noun
 
@@ -913,6 +914,7 @@ const template = {
         "([close] (claw))",
         "([startPath|start] (path))",
         "([pathComponent])",
+        "([skipPoint|] (point))",
         "(<another> (point))",
         // "([turn] (direction))",
         // "([pause] ([number]))",
@@ -924,6 +926,31 @@ const template = {
         // "((context.unit.dimension == 'time') [timeForRest|] (forRest))",
       ],
       bridges: [
+        { 
+          id: 'skipPoint',
+          words: ['skip', 'skipping'],
+          isA: ['verb'],
+          bridge: "{ ...next(operator), points: after[0], operator: operator, interpolate: [{ property: 'operator' }, { property: 'points' }] }",
+          check: defaultContextCheckProperties(['points']),
+        },
+        {
+          id: 'skipPoint',
+          level: 1,
+          bridge: `{ 
+            ...repeatable, 
+            skip: operator, 
+            checks: append(repeatable.checks, ['skip']),  
+            repeatable: repeatable, 
+            interpolate: [{ property: 'repeatable' }, { property: 'skip', byPosition: true }] 
+          }`,
+          selector: {
+            loose: "repeatable",
+            arguments: {
+              repeatable: "(@<= 'repeatable')",
+            },
+          },
+          check: defaultContextCheckProperties(['repeatable', 'repeats'])
+        },
         { 
           id: 'startPath',
           isA: ['verb'],
@@ -968,7 +995,10 @@ const template = {
           id: 'patrol',
           isA: ['verb', 'repeatable', 'action'],
           bridge: `{
-            ...next(operator), operator: operator, path: after[0], interpolate: append(default(operator.interpolate, [{ property: 'operator'}]), [{ property: 'path' }])
+            ...next(operator), 
+            operator: operator, 
+            path: after[0], 
+            interpolate: append(default(operator.interpolate, [{ property: 'operator'}]), [{ property: 'path' }])
           }`,
           check: defaultContextCheckProperties(['path']),
           semantic: async ({context, g, e, toArray, fragments, toEValue, toFinalValue, recall, objects, verbatim}) => {
@@ -1001,11 +1031,19 @@ const template = {
                 }
               }
 
+              let skipPoints = []
+              if (context.skip) {
+                skipPoints = toArray(await recall({ context: context.skip.points, frameOfReference: path }))
+              }
+
               // get to the start of the patrol  
               objects.current.path.push(path.points[0])
               objects.current.path.push({ aimOnly: true, ...path.points[1] })
               objects.current.path.push({ repeatStart: true })
               for (const point of path.points) {
+                if (skipPoints.find((skipPoint) => skipPoint.ordinal == point.ordinal)) {
+                  continue
+                }
                 objects.current.path.push(point)
                 if (pauseTimeInSeconds[point.ordinal]) {
                   objects.current.path.push({ marker: 'pause', pauseSeconds: pauseTimeInSeconds[point.ordinal] })
@@ -1021,6 +1059,9 @@ const template = {
               // if the start is not the end of the patrol then go backwards along the patrol
               if (JSON.stringify(path.points[0].point) !== JSON.stringify(path.points[path.points.length-1].point)) {
                 for (const point of [...path.points].reverse().slice(1)) {
+                  if (skipPoints.find((skipPoint) => skipPoint.ordinal == point.ordinal)) {
+                    continue
+                  }
                   objects.current.path.push(point)
                   if (pauseTimeInSeconds[point.ordinal]) {
                     objects.current.path.push({ marker: 'pause', pauseSeconds: pauseTimeInSeconds[point.ordinal] })
