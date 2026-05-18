@@ -1,5 +1,6 @@
 const { knowledgeModule, where } = require('./runtime').theprogrammablemind
 const { defaultContextCheck } = require('./helpers')
+const logging = require('./logging')
 const tokenize_tests = require('./tokenize.test.json')
 
 const config = {
@@ -61,6 +62,7 @@ function initializer({objects, config, isModule}) {
 
 knowledgeModule( { 
   config,
+  includes: [logging],
   initializer,
 
   module,

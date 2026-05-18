@@ -43,6 +43,7 @@
         "([close] (claw))",
         "([startPath|start] (path))",
         "([pathComponent])",
+        "([skipPoint|] (point))",
         "(<another> (point))",
         "([stop] ([drone|])?)",
         "([toPoint|to] (point))",
@@ -50,6 +51,59 @@
         "((context.unit.dimension == 'time') [timeAtPoint|] (atPoint))"
       ],
       "bridges": [
+        {
+          "id": "skipPoint",
+          "words": [
+            "skip",
+            "skipping"
+          ],
+          "isA": [
+            "verb"
+          ],
+          "bridge": "{ ...next(operator), points: after[0], operator: operator, interpolate: [{ property: 'operator' }, { property: 'points' }] }",
+          "check": [
+            "marker",
+            "text",
+            "verbatim",
+            "value",
+            "evalue",
+            "isResponse",
+            {
+              "properties": "modifiers"
+            },
+            {
+              "properties": "postModifiers"
+            },
+            "points"
+          ]
+        },
+        {
+          "id": "skipPoint",
+          "level": 1,
+          "bridge": "{ \n            ...repeatable, \n            skip: operator, \n            checks: append(repeatable.checks, ['skip']),  \n            repeatable: repeatable, \n            interpolate: [{ property: 'repeatable' }, { property: 'skip', byPosition: true }] \n          }",
+          "selector": {
+            "loose": "repeatable",
+            "arguments": {
+              "repeatable": "(@<= 'repeatable')"
+            }
+          },
+          "check": [
+            "marker",
+            "text",
+            "verbatim",
+            "value",
+            "evalue",
+            "isResponse",
+            {
+              "properties": "modifiers"
+            },
+            {
+              "properties": "postModifiers"
+            },
+            "repeatable",
+            "repeats"
+          ]
+        },
         {
           "id": "startPath",
           "isA": [
@@ -156,7 +210,7 @@
             "repeatable",
             "action"
           ],
-          "bridge": "{\n            ...next(operator), operator: operator, path: after[0], interpolate: append(default(operator.interpolate, [{ property: 'operator'}]), [{ property: 'path' }])\n          }",
+          "bridge": "{\n            ...next(operator), \n            operator: operator, \n            path: after[0], \n            interpolate: append(default(operator.interpolate, [{ property: 'operator'}]), [{ property: 'path' }])\n          }",
           "check": [
             "marker",
             "text",
@@ -172,7 +226,7 @@
             },
             "path"
           ],
-          "semantic": "async ({context, g, e, toArray, fragments, toEValue, toFinalValue, recall, objects, verbatim}) => {\n            const paths = toArray(context.path)\n            for (const context_path of paths) {\n              const evaluated = await(e(context_path))\n              const path = toEValue(evaluated)\n              if (path.marker == 'answerNotKnown') {\n                verbatim(`${await g(context_path)} is not a known path`)\n                continue\n              }\n           \n              objects.current.path.push({ message: await g(context) })\n\n              // TODO put this in a common place for use by do+patrol \n\n              // ordinal to pause time in seconds \n              const pauseTimeInSeconds = {}\n              if (context.pause) {\n                const timeAtPoints = toArray(context.pause.timeAtPoint)\n                for (const timeAtPoint of timeAtPoints) {\n                  const instantiation = await fragments(\"quantity in seconds\", { quantity: timeAtPoint.time })\n                  const result = await e(instantiation)\n                  const seconds = toFinalValue(toFinalValue(result).amount)\n\n                  const points = await recall({ context: timeAtPoint.point.point, frameOfReference: path })\n                  for (const point of toArray(points)) {\n                    pauseTimeInSeconds[point.ordinal] = seconds\n                  }\n                }\n              }\n\n              // get to the start of the patrol  \n              objects.current.path.push(path.points[0])\n              objects.current.path.push({ aimOnly: true, ...path.points[1] })\n              objects.current.path.push({ repeatStart: true })\n              for (const point of path.points) {\n                objects.current.path.push(point)\n                if (pauseTimeInSeconds[point.ordinal]) {\n                  objects.current.path.push({ marker: 'pause', pauseSeconds: pauseTimeInSeconds[point.ordinal] })\n                }\n              }\n              if (context.repeats) {\n                objects.current.timeRepeats = toFinalValue(context.repeats.repeats)\n              }\n              // if the patrol does not start and end at the same spot then \n              // go back to the start along the same path\n\n\n              // if the start is not the end of the patrol then go backwards along the patrol\n              if (JSON.stringify(path.points[0].point) !== JSON.stringify(path.points[path.points.length-1].point)) {\n                for (const point of [...path.points].reverse().slice(1)) {\n                  objects.current.path.push(point)\n                  if (pauseTimeInSeconds[point.ordinal]) {\n                    objects.current.path.push({ marker: 'pause', pauseSeconds: pauseTimeInSeconds[point.ordinal] })\n                  }\n                }\n\n                const secondPoint = path.points[1]\n                objects.current.path.push({ ...secondPoint, aimOnly: true })\n              }\n            }\n            objects.runCommand = true\n          }"
+          "semantic": "async ({context, g, e, toArray, fragments, toEValue, toFinalValue, recall, objects, verbatim}) => {\n            const paths = toArray(context.path)\n            for (const context_path of paths) {\n              const evaluated = await(e(context_path))\n              const path = toEValue(evaluated)\n              if (path.marker == 'answerNotKnown') {\n                verbatim(`${await g(context_path)} is not a known path`)\n                continue\n              }\n           \n              objects.current.path.push({ message: await g(context) })\n\n              // TODO put this in a common place for use by do+patrol \n\n              // ordinal to pause time in seconds \n              const pauseTimeInSeconds = {}\n              if (context.pause) {\n                const timeAtPoints = toArray(context.pause.timeAtPoint)\n                for (const timeAtPoint of timeAtPoints) {\n                  const instantiation = await fragments(\"quantity in seconds\", { quantity: timeAtPoint.time })\n                  const result = await e(instantiation)\n                  const seconds = toFinalValue(toFinalValue(result).amount)\n\n                  const points = await recall({ context: timeAtPoint.point.point, frameOfReference: path })\n                  for (const point of toArray(points)) {\n                    pauseTimeInSeconds[point.ordinal] = seconds\n                  }\n                }\n              }\n\n              let skipPoints = []\n              if (context.skip) {\n                skipPoints = toArray(await recall({ context: context.skip.points, frameOfReference: path }))\n              }\n\n              // get to the start of the patrol  \n              objects.current.path.push(path.points[0])\n              objects.current.path.push({ aimOnly: true, ...path.points[1] })\n              objects.current.path.push({ repeatStart: true })\n              for (const point of path.points) {\n                if (skipPoints.find((skipPoint) => skipPoint.ordinal == point.ordinal)) {\n                  continue\n                }\n                objects.current.path.push(point)\n                if (pauseTimeInSeconds[point.ordinal]) {\n                  objects.current.path.push({ marker: 'pause', pauseSeconds: pauseTimeInSeconds[point.ordinal] })\n                }\n              }\n              if (context.repeats) {\n                objects.current.timeRepeats = toFinalValue(context.repeats.repeats)\n              }\n              // if the patrol does not start and end at the same spot then \n              // go back to the start along the same path\n\n\n              // if the start is not the end of the patrol then go backwards along the patrol\n              if (JSON.stringify(path.points[0].point) !== JSON.stringify(path.points[path.points.length-1].point)) {\n                for (const point of [...path.points].reverse().slice(1)) {\n                  if (skipPoints.find((skipPoint) => skipPoint.ordinal == point.ordinal)) {\n                    continue\n                  }\n                  objects.current.path.push(point)\n                  if (pauseTimeInSeconds[point.ordinal]) {\n                    objects.current.path.push({ marker: 'pause', pauseSeconds: pauseTimeInSeconds[point.ordinal] })\n                  }\n                }\n\n                const secondPoint = path.points[1]\n                objects.current.path.push({ ...secondPoint, aimOnly: true })\n              }\n            }\n            objects.runCommand = true\n          }"
         },
         {
           "id": "lift",
@@ -56143,6 +56197,7 @@
         "([close] (claw))",
         "([startPath|start] (path))",
         "([pathComponent])",
+        "([skipPoint|] (point))",
         "(<another> (point))",
         "([stop] ([drone|])?)",
         "([toPoint|to] (point))",
@@ -56150,6 +56205,59 @@
         "((context.unit.dimension == 'time') [timeAtPoint|] (atPoint))"
       ],
       "bridges": [
+        {
+          "id": "skipPoint",
+          "words": [
+            "skip",
+            "skipping"
+          ],
+          "isA": [
+            "verb"
+          ],
+          "bridge": "{ ...next(operator), points: after[0], operator: operator, interpolate: [{ property: 'operator' }, { property: 'points' }] }",
+          "check": [
+            "marker",
+            "text",
+            "verbatim",
+            "value",
+            "evalue",
+            "isResponse",
+            {
+              "properties": "modifiers"
+            },
+            {
+              "properties": "postModifiers"
+            },
+            "points"
+          ]
+        },
+        {
+          "id": "skipPoint",
+          "level": 1,
+          "bridge": "{ \n            ...repeatable, \n            skip: operator, \n            checks: append(repeatable.checks, ['skip']),  \n            repeatable: repeatable, \n            interpolate: [{ property: 'repeatable' }, { property: 'skip', byPosition: true }] \n          }",
+          "selector": {
+            "loose": "repeatable",
+            "arguments": {
+              "repeatable": "(@<= 'repeatable')"
+            }
+          },
+          "check": [
+            "marker",
+            "text",
+            "verbatim",
+            "value",
+            "evalue",
+            "isResponse",
+            {
+              "properties": "modifiers"
+            },
+            {
+              "properties": "postModifiers"
+            },
+            "repeatable",
+            "repeats"
+          ]
+        },
         {
           "id": "startPath",
           "isA": [
@@ -56255,7 +56363,7 @@
             "repeatable",
             "action"
           ],
-          "bridge": "{\n            ...next(operator), operator: operator, path: after[0], interpolate: append(default(operator.interpolate, [{ property: 'operator'}]), [{ property: 'path' }])\n          }",
+          "bridge": "{\n            ...next(operator), \n            operator: operator, \n            path: after[0], \n            interpolate: append(default(operator.interpolate, [{ property: 'operator'}]), [{ property: 'path' }])\n          }",
           "check": [
             "marker",
             "text",
@@ -60174,6 +60282,11 @@
         [
           "second",
           "unit_time",
+          false
+        ],
+        [
+          "skipPoint",
+          "verb",
           false
         ],
         [
@@ -64652,6 +64765,11 @@
           false
         ],
         [
+          "skipPoint",
+          "verb",
+          false
+        ],
+        [
           "sort",
           "hierarchyAble",
           false
@@ -69124,6 +69242,11 @@
         [
           "second",
           "unit_time",
+          false
+        ],
+        [
+          "skipPoint",
+          "verb",
           false
         ],
         [
@@ -73834,6 +73957,11 @@
         [
           "second",
           "unit_time",
+          false
+        ],
+        [
+          "skipPoint",
+          "verb",
           false
         ],
         [
@@ -78568,6 +78696,11 @@
           false
         ],
         [
+          "skipPoint",
+          "verb",
+          false
+        ],
+        [
           "sort",
           "hierarchyAble",
           false
@@ -83039,6 +83172,11 @@
         [
           "second",
           "unit_time",
+          false
+        ],
+        [
+          "skipPoint",
+          "verb",
           false
         ],
         [
@@ -87535,6 +87673,11 @@
         [
           "second",
           "unit_time",
+          false
+        ],
+        [
+          "skipPoint",
+          "verb",
           false
         ],
         [
@@ -92281,6 +92424,11 @@
           false
         ],
         [
+          "skipPoint",
+          "verb",
+          false
+        ],
+        [
           "sort",
           "hierarchyAble",
           false
@@ -96634,6 +96782,11 @@
         [
           "second",
           "unit_time",
+          false
+        ],
+        [
+          "skipPoint",
+          "verb",
           false
         ],
         [

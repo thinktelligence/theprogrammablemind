@@ -1547,6 +1547,7 @@ knowledgeModule( {
       ],
       objects: [
         { km: 'stm' },
+        { km: 'logging' },
         { path: ['history'] },
         { path: ['current'] },
         { path: ['runCommand'] },
