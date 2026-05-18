@@ -100,7 +100,7 @@ const template = {
           level: 0,
           before: ['verb'],
           convolution: true,
-          bridge: "{ ...next(operator), repeats: before[0], time: after[0], interpolate: '${repeats} ${time}' }",
+          bridge: "{ ...next(operator), repeats: before[0], time: after[0], interpolate: [{ property: 'repeats' }, { property: 'time' }] }",
           check: defaultContextCheckProperties(['time', 'repeats'])
         },
         {
@@ -114,7 +114,7 @@ const template = {
               repeatable: "(@<= 'repeatable')",
             },
           },
-          check: defaultContextCheckProperties(['time', 'repeats'])
+          check: defaultContextCheckProperties(['time', 'repeats']),
         },
         {
           id: 'hourMinutes',
