@@ -132,7 +132,7 @@ const config = {
   semantics: [
     {
       priority: -1,
-      match: ({context, isA}) => isA(context.marker, 'action'),
+      match: ({context, isA}) => isA(context.marker, 'action') || context.marker == 'doAction',
       apply: async ({context, _continue, testLog, g, remember}) => {
         remember(context)
         await testLog(() => g(context))

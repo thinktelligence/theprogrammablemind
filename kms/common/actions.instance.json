@@ -142,7 +142,7 @@
       },
       "semantics": [
         {
-          "match": "({context, isA}) => isA(context.marker, 'action')",
+          "match": "({context, isA}) => isA(context.marker, 'action') || context.marker == 'doAction'",
           "apply": "async ({context, _continue, testLog, g, remember}) => {\n        remember(context)\n        await testLog(() => g(context))\n        _continue()\n      }"
         }
       ]
