@@ -196,6 +196,22 @@ const template = {
 
       semantics: [
         {
+          where: where(),
+          priority: -1,
+          match: (args) => args.callOnce(args, ({context}) => context.repeats) && args.context.repeats?.repeats,
+          apply: async ({context, e, s, handlerStack}) => {
+            debugger // timeRepeats
+            const v = (await e(context.repeats.repeats)).evalue
+            for (let i = 0; i < v; ++i) {
+              if (context.action) {
+                await s(context.action)
+              } else {
+                await s({ ...context, repeats: undefined })
+              }
+            }
+          }
+        },
+        {
           notes: 'evaluate time',
           where: where(),
           match: ({objects, context, api}) => context.marker == 'timePoint' && context.evaluate, 

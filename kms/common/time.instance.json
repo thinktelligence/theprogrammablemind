@@ -191,6 +191,10 @@
       ],
       "semantics": [
         {
+          "match": "(args) => args.callOnce(args, ({context}) => context.repeats) && args.context.repeats?.repeats",
+          "apply": "async ({context, e, s, handlerStack}) => {\n            debugger // timeRepeats\n            const v = (await e(context.repeats.repeats)).evalue\n            for (let i = 0; i < v; ++i) {\n              if (context.action) {\n                await s(context.action)\n              } else {\n                await s({ ...context, repeats: undefined })\n              }\n            }\n          }"
+        },
+        {
           "match": "({objects, context, api}) => context.marker == 'timePoint' && context.evaluate",
           "apply": "({objects, context, api}) => {\n            context.evalue = api.newDate()\n            context.format = objects.format\n          }"
         },
@@ -35907,16 +35911,20 @@
       ],
       "semantics": [
         {
+          "where": "/home/dev/code/theprogrammablemind/kms/common/time.js:199",
+          "priority": -1
+        },
+        {
           "notes": "evaluate time",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/time.js:200"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/time.js:216"
         },
         {
           "notes": "use time format working case",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/time.js:209"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/time.js:225"
         },
         {
           "notes": "use time format error case",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/time.js:217"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/time.js:233"
         }
       ]
     }
