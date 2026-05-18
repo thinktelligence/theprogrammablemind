@@ -43,6 +43,14 @@ class API {
     }
   }
 
+  async sleep(ms) {
+    if (this.args.isProcess || this.args.isTest) {
+      await this.args.testLog(`sleep(${ms})`)
+    } else {
+      await new Promise(r => setTimeout(r, ms));
+    }
+  }
+
   newDate() {
     return new Date()
   }
@@ -60,6 +68,8 @@ const template = {
     "seconds = minutes * 60",
     "hours = seconds / 3600",
     "seconds = hours * 3600",
+    "milliseconds = minutes * 60 * 1000",
+    "minutes = milliseconds / 1000 / 60",
     "milliseconds = seconds * 1000",
     "seconds = milliseconds / 1000",
     "minutes = seconds / 60",

@@ -89,8 +89,9 @@ const config = {
     {
       priority: -1,
       match: ({context, isA}) => isA(context.marker, 'action'),
-      apply: ({context, _continue, remember}) => {
+      apply: async ({context, _continue, testLog, g, remember}) => {
         remember(context)
+        await testLog(() => g(context))
         _continue()
       }
     },
@@ -98,6 +99,9 @@ const config = {
 };
 
 const template = {
+  fragments: [ 
+    "quantity in milliseconds",
+  ],
   configs: [
     config,
   ],
@@ -113,5 +117,8 @@ knowledgeModule({
   test: {
     name: './actions.test.json',
     contents: tests,
+    checks: {
+      objects: [ { km: 'logging' } ],
+    },
   },
 })
