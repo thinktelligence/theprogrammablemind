@@ -5,9 +5,47 @@
       "operators": [
         "([doAction|do] ([action]))",
         "((action) <again>)",
-        "((action) [thenAction|then] (action))"
+        "((action) [thenAction|then] (action))",
+        "([delayTime|in] (context.unit.dimension == 'time'))"
       ],
       "bridges": [
+        {
+          "id": "delayTime",
+          "isA": [
+            "preposition",
+            "action"
+          ],
+          "bridge": "{\n        ...next(operator),\n        operator: operator,\n        delayTime: after[0],\n        interpolate: [ { property: 'operator' }, { property: 'delayTime' } ]\n      }",
+          "check": [
+            "marker",
+            "text",
+            "verbatim",
+            "value",
+            "evalue",
+            "isResponse",
+            {
+              "properties": "modifiers"
+            },
+            {
+              "properties": "postModifiers"
+            },
+            "delayTime"
+          ]
+        },
+        {
+          "id": "delayTime",
+          "after": [
+            "doAction"
+          ],
+          "level": 1,
+          "bridge": "{\n        ...next(operator),\n        operator: operator,\n        checks: append(action.checks, ['action']),\n        action: action,\n        interpolate: [{ property: 'operator' }, { property: 'action', byPosition: true }]\n      }",
+          "selector": {
+            "arguments": {
+              "action": "(@<= 'doAction')"
+            }
+          },
+          "semantic": "async ({context, fragments, e, toFinalValue, kms}) => {\n        const instantiation = await fragments(\"quantity in milliseconds\", { quantity: context.delayTime })\n        const result = await e(instantiation)\n        const milliseconds = toFinalValue(toFinalValue(result).amount)\n        kms.time.api.sleep(milliseconds)\n        await e(context.action)\n      }"
+        },
         {
           "id": "action"
         },
@@ -78,7 +116,9 @@
             },
             "action"
           ],
-          "bridge": "{\n        ...next(operator),\n        operator: operator,\n        action: after[0],\n        interpolate: [{ property: 'operator' }, { property: 'action' }]\n      }"
+          "bridge": "{\n        ...next(operator),\n        operator: operator,\n        action: after[0],\n        interpolate: append(default(operator.interpolate, [{ property: 'operator' }]), [{ property: 'action' }])\n      }",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/actions.js:118",
+          "semantic": "async ({context, toArray, s}) => {\n        debugger // doAction\n        for (const action of toArray(context.action)) {\n          await s(action)\n        }\n      }"
         }
       ],
       "words": {
@@ -115,9 +155,46 @@
       "operators": [
         "([doAction|do] ([action]))",
         "((action) <again>)",
-        "((action) [thenAction|then] (action))"
+        "((action) [thenAction|then] (action))",
+        "([delayTime|in] (context.unit.dimension == 'time'))"
       ],
       "bridges": [
+        {
+          "id": "delayTime",
+          "isA": [
+            "preposition",
+            "action"
+          ],
+          "bridge": "{\n        ...next(operator),\n        operator: operator,\n        delayTime: after[0],\n        interpolate: [ { property: 'operator' }, { property: 'delayTime' } ]\n      }",
+          "check": [
+            "marker",
+            "text",
+            "verbatim",
+            "value",
+            "evalue",
+            "isResponse",
+            {
+              "properties": "modifiers"
+            },
+            {
+              "properties": "postModifiers"
+            },
+            "delayTime"
+          ]
+        },
+        {
+          "id": "delayTime",
+          "after": [
+            "doAction"
+          ],
+          "level": 1,
+          "bridge": "{\n        ...next(operator),\n        operator: operator,\n        checks: append(action.checks, ['action']),\n        action: action,\n        interpolate: [{ property: 'operator' }, { property: 'action', byPosition: true }]\n      }",
+          "selector": {
+            "arguments": {
+              "action": "(@<= 'doAction')"
+            }
+          }
+        },
         {
           "id": "action"
         },
@@ -187,7 +264,8 @@
             },
             "action"
           ],
-          "bridge": "{\n        ...next(operator),\n        operator: operator,\n        action: after[0],\n        interpolate: [{ property: 'operator' }, { property: 'action' }]\n      }"
+          "bridge": "{\n        ...next(operator),\n        operator: operator,\n        action: after[0],\n        interpolate: append(default(operator.interpolate, [{ property: 'operator' }]), [{ property: 'action' }])\n      }",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/actions.js:118"
         }
       ],
       "words": {
@@ -442,6 +520,16 @@
         [
           "countable",
           "hierarchyAble",
+          false
+        ],
+        [
+          "delayTime",
+          "action",
+          false
+        ],
+        [
+          "delayTime",
+          "preposition",
           false
         ],
         [

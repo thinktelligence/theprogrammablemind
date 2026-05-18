@@ -16,8 +16,45 @@ const config = {
     "([doAction|do] ([action]))",
     "((action) <again>)",
     "((action) [thenAction|then] (action))",
+    "([delayTime|in] (context.unit.dimension == 'time'))",
   ],
   bridges: [
+    {
+      id: 'delayTime',
+      isA: ['preposition', 'action'],
+      bridge: `{
+        ...next(operator),
+        operator: operator,
+        delayTime: after[0],
+        interpolate: [ { property: 'operator' }, { property: 'delayTime' } ]
+      }`,
+      check: defaultContextCheckProperties(['delayTime'])
+    },
+    {
+      id: 'delayTime',
+      after: ['doAction'],
+      level: 1,
+      bridge: `{
+        ...next(operator),
+        operator: operator,
+        checks: append(action.checks, ['action']),
+        action: action,
+        interpolate: [{ property: 'operator' }, { property: 'action', byPosition: true }]
+      }`,
+      selector: {
+        // loose: "action",
+        arguments: {
+          action: "(@<= 'doAction')",
+        },
+      },
+      semantic: async ({context, fragments, e, toFinalValue, kms}) => {
+        const instantiation = await fragments("quantity in milliseconds", { quantity: context.delayTime })
+        const result = await e(instantiation)
+        const milliseconds = toFinalValue(toFinalValue(result).amount)
+        kms.time.api.sleep(milliseconds)
+        await e(context.action)
+      }
+    },
     {
       id: 'action',
       // isA: ['thisitthat'],
@@ -76,8 +113,15 @@ const config = {
         ...next(operator),
         operator: operator,
         action: after[0],
-        interpolate: [{ property: 'operator' }, { property: 'action' }]
+        interpolate: append(default(operator.interpolate, [{ property: 'operator' }]), [{ property: 'action' }])
       }`,
+      where: where(),
+      semantic: async ({context, toArray, s}) => {
+        debugger // doAction
+        for (const action of toArray(context.action)) {
+          await s(action)
+        }
+      },
     },
   ],
   words: {
