@@ -490,7 +490,6 @@ class API {
         } else if (pathComponent.marker == 'pause') {
           this.pause(pathComponent.pauseSeconds, { batched: true })
         } else {
-          debugger
           const points = this.args.toArray(pathComponent)
           // const destinationPoint = pathComponent.point
           const destinationPoint = points[0].point || points[0]
@@ -1547,7 +1546,6 @@ knowledgeModule( {
       ],
       objects: [
         { km: 'stm' },
-        { km: 'logging' },
         { path: ['history'] },
         { path: ['current'] },
         { path: ['runCommand'] },

@@ -1030,3 +1030,7 @@ node drone -q 'forward 1 foot\nwest 1 foot\ncall the path route 1\nevaluate the 
 node drone -q 'forward 1 meter\ncall that route 1\ngo to the start\nstart a path\nsouth 1 meter\ncall that route 2\npatrol route 1 then patrol route 2' -g -d
 
 node    stm -q 'remember m1\ndelete m1' -g -d -tva
+
+
+ node actions -q 'in 5 minutes do action1' -g -d
+ node dimension -q 'c1 is a dimension\na1 and b1 are units of d1\nwhat are 10 a1 in b1\nwhat is the reason' -g -d

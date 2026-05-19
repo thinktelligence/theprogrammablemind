@@ -19,9 +19,7 @@ class API {
 
 function initializer({config}) {
   config.addArgs(({kms, e, toList}) => ({
-    testLog: (message) => {
-      kms.logging.api.log(message)
-    },
+    testLog: (message) => kms.logging.api.log(message)
   }))
 }
 

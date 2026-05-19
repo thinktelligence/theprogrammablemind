@@ -117,7 +117,6 @@ const config = {
       }`,
       where: where(),
       semantic: async ({context, toArray, s}) => {
-        debugger // doAction
         for (const action of toArray(context.action)) {
           await s(action)
         }
@@ -132,7 +131,7 @@ const config = {
   semantics: [
     {
       priority: -1,
-      match: ({context, isA}) => isA(context.marker, 'action') || context.marker == 'doAction',
+      match: ({context, isA}) => !context.pullFromContext && (isA(context.marker, 'action') || context.marker == 'doAction'),
       apply: async ({context, _continue, testLog, g, remember}) => {
         remember(context)
         await testLog(() => g(context))
