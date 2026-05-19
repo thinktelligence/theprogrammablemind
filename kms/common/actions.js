@@ -44,7 +44,7 @@ const config = {
       selector: {
         // loose: "action",
         arguments: {
-          action: "(@<= 'doAction')",
+          action: "(@<= 'action')",
         },
       },
       semantic: async ({context, fragments, e, toFinalValue, kms}) => {
