@@ -12,6 +12,7 @@ const comparable = require('./common/comparable')
 const compass = require('./common/compass')
 const concept = require('./common/concept')
 const conjunction = require('./common/conjunction')
+const control = require('./common/control')
 const countable = require('./common/countable')
 const crew = require('./common/crew')
 const currency = require('./common/currency')
@@ -36,6 +37,7 @@ const kirk = require('./common/kirk')
 const latin = require('./common/latin')
 const latin_helpers = require('./common/latin_helpers')
 const length = require('./common/length')
+const logging = require('./common/logging')
 const math = require('./common/math')
 const menus = require('./common/menus')
 const meta = require('./common/meta')
@@ -89,6 +91,7 @@ module.exports = {
   compass,
   concept,
   conjunction,
+  control,
   countable,
   crew,
   currency,
@@ -113,6 +116,7 @@ module.exports = {
   latin,
   latin_helpers,
   length,
+  logging,
   math,
   menus,
   meta,
