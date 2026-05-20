@@ -705,7 +705,11 @@ class API {
 
   async pauseDrone(durationInSeconds, options) {
     this._objects.history.push({ marker: 'history', pause: durationInSeconds, time: this.now(true, durationInSeconds*1000), ...options })
-    this.testDate = new Date(this.testDate.getTime() + (durationInSeconds-1)*1000)
+    if (false) {
+      this.testDate = new Date(this.testDate.getTime() + (durationInSeconds-1)*1000)
+    } else {
+      this.testDate = new Date(this.now(false, 0).getTime() + (durationInSeconds-1)*1000)
+    }
   }
 
   // meters per second
