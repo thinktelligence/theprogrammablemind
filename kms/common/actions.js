@@ -32,6 +32,7 @@ const config = {
     },
     {
       id: 'delayTime',
+      where: where(),
       after: ['doAction'],
       level: 1,
       bridge: `{
@@ -47,12 +48,12 @@ const config = {
           action: "(@<= 'action')",
         },
       },
-      semantic: async ({context, fragments, e, toFinalValue, kms}) => {
+      semantic: async ({context, fragments, e, s, toFinalValue, kms}) => {
         const instantiation = await fragments("quantity in milliseconds", { quantity: context.delayTime })
         const result = await e(instantiation)
         const milliseconds = toFinalValue(toFinalValue(result).amount)
-        kms.time.api.sleep(milliseconds)
-        await e(context.action)
+        await kms.time.api.sleep(milliseconds)
+        await s(context.action)
       }
     },
     {

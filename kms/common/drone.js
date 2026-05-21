@@ -16,6 +16,10 @@ const { rotateDelta, degreesToRadians, radiansToDegrees, cartesianToPolar, small
 /*
 NEED TO CHECK ON ACTUAL DRONE
 
+  again 2 times
+  2 more times
+  do that again 3 times
+
   do route 1 skipping point 2
 
   base <number> is a pattern for base names
