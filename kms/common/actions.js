@@ -67,7 +67,7 @@ const config = {
       before: ['doAction'],
       selector: {
           match: "same",
-          left: [ { pattern: '(action))' } ],
+          left: [ { pattern: '(action)' } ],
           right: [ { pattern: '(action)' } ],
           passthrough: true
       },
