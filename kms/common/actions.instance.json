@@ -6,7 +6,7 @@
         "([doAction|do] ([action]))",
         "((action) <again>)",
         "((action) [thenAction|then] (action))",
-        "([delayTime|in] (context.unit.dimension == 'time'))"
+        "([delayTime|in,after] (context.unit.dimension == 'time'))"
       ],
       "bridges": [
         {
@@ -34,17 +34,18 @@
         },
         {
           "id": "delayTime",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/actions.js:35",
           "after": [
             "doAction"
           ],
           "level": 1,
-          "bridge": "{\n        ...next(operator),\n        operator: operator,\n        checks: append(action.checks, ['action']),\n        action: action,\n        interpolate: [{ property: 'operator' }, { property: 'action', byPosition: true }]\n      }",
+          "bridge": "{\n        ...next(operator),\n        operator: operator,\n        checks: append(action.checks, ['action']),\n        action: action,\n        interpolate: [{ property: 'operator', byPosition: true }, { property: 'action', byPosition: true }]\n      }",
           "selector": {
             "arguments": {
-              "action": "(@<= 'doAction')"
+              "action": "(@<= 'action' || @<= 'doAction')"
             }
           },
-          "semantic": "async ({context, fragments, e, toFinalValue, kms}) => {\n        debugger\n        const instantiation = await fragments(\"quantity in milliseconds\", { quantity: context.delayTime })\n        const result = await e(instantiation)\n        const milliseconds = toFinalValue(toFinalValue(result).amount)\n        kms.time.api.sleep(milliseconds)\n        await e(context.action)\n      }"
+          "semantic": "async ({context, fragments, e, s, toFinalValue, kms}) => {\n        const instantiation = await fragments(\"quantity in milliseconds\", { quantity: context.delayTime })\n        const result = await e(instantiation)\n        const milliseconds = toFinalValue(toFinalValue(result).amount)\n        await kms.time.api.sleep(milliseconds)\n        await s(context.action)\n      }"
         },
         {
           "id": "action"
@@ -118,7 +119,7 @@
           ],
           "bridge": "{\n        ...next(operator),\n        operator: operator,\n        action: after[0],\n        interpolate: append(default(operator.interpolate, [{ property: 'operator' }]), [{ property: 'action' }])\n      }",
           "where": "/home/dev/code/theprogrammablemind/kms/common/actions.js:119",
-          "semantic": "async ({context, toArray, s}) => {\n        debugger // doAction\n        for (const action of toArray(context.action)) {\n          await s(action)\n        }\n      }"
+          "semantic": "async ({context, toArray, s}) => {\n        for (const action of toArray(context.action)) {\n          await s(action)\n        }\n      }"
         }
       ],
       "words": {
@@ -143,7 +144,7 @@
       "semantics": [
         {
           "match": "({context, isA}) => !context.pullFromContext && (isA(context.marker, 'action') || context.marker == 'doAction')",
-          "apply": "async ({context, _continue, testLog, g, remember}) => {\n        remember(context)\n        debugger\n        await testLog(() => g(context))\n        _continue()\n      }"
+          "apply": "async ({context, _continue, testLog, g, remember}) => {\n        remember(context)\n        await testLog(() => g(context))\n        _continue()\n      }"
         }
       ]
     }
@@ -156,7 +157,7 @@
         "([doAction|do] ([action]))",
         "((action) <again>)",
         "((action) [thenAction|then] (action))",
-        "([delayTime|in] (context.unit.dimension == 'time'))"
+        "([delayTime|in,after] (context.unit.dimension == 'time'))"
       ],
       "bridges": [
         {
@@ -184,14 +185,15 @@
         },
         {
           "id": "delayTime",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/actions.js:35",
           "after": [
             "doAction"
           ],
           "level": 1,
-          "bridge": "{\n        ...next(operator),\n        operator: operator,\n        checks: append(action.checks, ['action']),\n        action: action,\n        interpolate: [{ property: 'operator' }, { property: 'action', byPosition: true }]\n      }",
+          "bridge": "{\n        ...next(operator),\n        operator: operator,\n        checks: append(action.checks, ['action']),\n        action: action,\n        interpolate: [{ property: 'operator', byPosition: true }, { property: 'action', byPosition: true }]\n      }",
           "selector": {
             "arguments": {
-              "action": "(@<= 'doAction')"
+              "action": "(@<= 'action' || @<= 'doAction')"
             }
           }
         },

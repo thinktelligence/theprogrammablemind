@@ -16,7 +16,7 @@ const config = {
     "([doAction|do] ([action]))",
     "((action) <again>)",
     "((action) [thenAction|then] (action))",
-    "([delayTime|in] (context.unit.dimension == 'time'))",
+    "([delayTime|in,after] (context.unit.dimension == 'time'))",
   ],
   bridges: [
     {
@@ -40,12 +40,12 @@ const config = {
         operator: operator,
         checks: append(action.checks, ['action']),
         action: action,
-        interpolate: [{ property: 'operator' }, { property: 'action', byPosition: true }]
+        interpolate: [{ property: 'operator', byPosition: true }, { property: 'action', byPosition: true }]
       }`,
       selector: {
         // loose: "action",
         arguments: {
-          action: "(@<= 'action')",
+          action: "(@<= 'action' || @<= 'doAction')",
         },
       },
       semantic: async ({context, fragments, e, s, toFinalValue, kms}) => {

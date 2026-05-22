@@ -380,7 +380,17 @@ function initializer({config}) {
                     separator = ' '
                   }
                   if (element.byPosition) {
-                    byPosition.push(((value) => () => handleProperty(value))(value))
+                    const element = { start: value.range.start, insert: ((value) => () => handleProperty(value))(value) }
+                    if (byPosition.length == 0) {
+                      byPosition.push(element)
+                    } else {
+                      const index = byPosition.findIndex((element) => element.start < value.range.start)
+                      if (index == -1) {
+                        byPosition.unshift(element)
+                      } else {
+                        byPosition.splice(index+1, 0, element)
+                      }
+                    }
                   } else {
                     await handleProperty(value)
                   }
@@ -404,8 +414,8 @@ function initializer({config}) {
                 }
               }
             }
-            for (const bp of byPosition) {
-              await bp()
+            for (const { insert } of byPosition) {
+              await insert()
             }
             return strings.join('')
           } else {
