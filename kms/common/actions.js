@@ -1,4 +1,4 @@
-const { knowledgeModule, where, Digraph } = require('./runtime').theprogrammablemind
+const { knowledgeModule, where, Digraph, debug } = require('./runtime').theprogrammablemind
 const { defaultContextCheckProperties, defaultContextCheck } = require('./helpers')
 const dialogues = require("./dialogues")
 const time = require("./time")
@@ -67,8 +67,8 @@ const config = {
       before: ['doAction'],
       selector: {
           match: "same",
-          left: [ { pattern: '(action))' } ],
-          right: [ { pattern: '(action)' } ],
+          left: [ { pattern: '(@<= action || (@<=doAction && context.operator.level == 1))' } ],
+          right: [ { pattern: '(@<= action || (@<=doAction && context.operator.level == 1))' } ],
           passthrough: true
       },
       bridge: `{ 
@@ -86,15 +86,19 @@ const config = {
       level: 1,
       before: ['doAction'],
       selector: {
-          left: [ { pattern: '(action)' } ],
+          left: [ { pattern: '(@<=action || (@<=doAction))' } ],
           passthrough: true
       },
+      where: where(),
       bridge: "{ ...next(operator), value: append(before, operator.value) }",
-      semantic: async ({context, toArray, s}) => {
-        for (const action of toArray(context)) {
-          await s(action)
-        }
-      },
+      semantic: {
+        match: ({context}) => context.isList,
+        apply: async ({context, toArray, s}) => {
+          for (const action of toArray(context)) {
+            await s(action)
+          }
+        },
+      }
     },
 
     {
