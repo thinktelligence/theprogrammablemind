@@ -63,12 +63,12 @@
             "match": "same",
             "left": [
               {
-                "pattern": "(action)"
+                "pattern": "(@<= action || (@<=doAction && context.operator.level == 1))"
               }
             ],
             "right": [
               {
-                "pattern": "(action)"
+                "pattern": "(@<= action || (@<=doAction && context.operator.level == 1))"
               }
             ],
             "passthrough": true
@@ -84,13 +84,14 @@
           "selector": {
             "left": [
               {
-                "pattern": "(action)"
+                "pattern": "(@<=action || (@<=doAction && context.operator.level == 1))"
               }
             ],
             "passthrough": true
           },
+          "where": "/home/dev/code/theprogrammablemind/kms/common/actions.js:92",
           "bridge": "{ ...next(operator), value: append(before, operator.value) }",
-          "semantic": "async ({context, toArray, s}) => {\n        for (const action of toArray(context)) {\n          await s(action)\n        }\n      }"
+          "semantic": "[object Object]"
         },
         {
           "id": "again",
@@ -118,7 +119,7 @@
             "action"
           ],
           "bridge": "{\n        ...next(operator),\n        operator: operator,\n        action: after[0],\n        interpolate: append(default(operator.interpolate, [{ property: 'operator' }]), [{ property: 'action' }])\n      }",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/actions.js:119",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/actions.js:123",
           "semantic": "async ({context, toArray, s}) => {\n        for (const action of toArray(context.action)) {\n          await s(action)\n        }\n      }"
         }
       ],
@@ -213,12 +214,12 @@
             "match": "same",
             "left": [
               {
-                "pattern": "(action)"
+                "pattern": "(@<= action || (@<=doAction && context.operator.level == 1))"
               }
             ],
             "right": [
               {
-                "pattern": "(action)"
+                "pattern": "(@<= action || (@<=doAction && context.operator.level == 1))"
               }
             ],
             "passthrough": true
@@ -234,12 +235,14 @@
           "selector": {
             "left": [
               {
-                "pattern": "(action)"
+                "pattern": "(@<=action || (@<=doAction && context.operator.level == 1))"
               }
             ],
             "passthrough": true
           },
-          "bridge": "{ ...next(operator), value: append(before, operator.value) }"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/actions.js:92",
+          "bridge": "{ ...next(operator), value: append(before, operator.value) }",
+          "semantic": {}
         },
         {
           "id": "again",
@@ -267,7 +270,7 @@
             "action"
           ],
           "bridge": "{\n        ...next(operator),\n        operator: operator,\n        action: after[0],\n        interpolate: append(default(operator.interpolate, [{ property: 'operator' }]), [{ property: 'action' }])\n      }",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/actions.js:119"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/actions.js:123"
         }
       ],
       "words": {

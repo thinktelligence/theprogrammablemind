@@ -86,7 +86,7 @@ const config = {
       level: 1,
       before: ['doAction'],
       selector: {
-          left: [ { pattern: '(@<=action || (@<=doAction))' } ],
+          left: [ { pattern: '(@<=action || (@<=doAction && context.operator.level == 1))' } ],
           passthrough: true
       },
       where: where(),
