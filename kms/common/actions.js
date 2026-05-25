@@ -67,8 +67,8 @@ const config = {
       before: ['doAction'],
       selector: {
           match: "same",
-          left: [ { pattern: '(@<= action || (@<=doAction && context.operator.level == 1))' } ],
-          right: [ { pattern: '(@<= action || (@<=doAction && context.operator.level == 1))' } ],
+          left: [ { pattern: '(@<= action || (@<=doAction && context.marker.level == 1))' } ],
+          right: [ { pattern: '(@<= action || (@<=doAction && context.marker.level == 1))' } ],
           passthrough: true
       },
       bridge: `{ 
@@ -86,7 +86,7 @@ const config = {
       level: 1,
       before: ['doAction'],
       selector: {
-          left: [ { pattern: '(@<=action || (@<=doAction && context.operator.level == 1))' } ],
+          left: [ { pattern: '(@<=action || (@<=doAction && context.marker.level == 1))' } ],
           passthrough: true
       },
       where: where(),
