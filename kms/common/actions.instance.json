@@ -48,7 +48,10 @@
           "semantic": "async ({context, fragments, e, s, toFinalValue, kms}) => {\n        const instantiation = await fragments(\"quantity in milliseconds\", { quantity: context.delayTime })\n        const result = await e(instantiation)\n        const milliseconds = toFinalValue(toFinalValue(result).amount)\n        await kms.time.api.sleep(milliseconds)\n        await s(context.action)\n      }"
         },
         {
-          "id": "action"
+          "id": "action",
+          "isA": [
+            "thisAble"
+          ]
         },
         {
           "id": "thenAction",
@@ -95,7 +98,16 @@
         },
         {
           "id": "again",
-          "bridge": "{\n        ...before[0],\n        action: before[0],\n        again: operator,\n        interpolate: [{ property: 'action' }, { property: 'again' }]\n      }"
+          "before": [
+            "doAction"
+          ],
+          "bridge": "{\n        ...before[0],\n        action: before[0],\n        again: operator,\n        interpolate: [{ property: 'action' }, { property: 'again' }]\n      }",
+          "localHierarchy": [
+            [
+              "thisitthat",
+              "action"
+            ]
+          ]
         },
         {
           "id": "doAction",
@@ -119,7 +131,13 @@
             "action"
           ],
           "bridge": "{\n        ...next(operator),\n        operator: operator,\n        action: after[0],\n        interpolate: append(default(operator.interpolate, [{ property: 'operator' }]), [{ property: 'action' }])\n      }",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/actions.js:123",
+          "localHierarchy": [
+            [
+              "thisitthat",
+              "action"
+            ]
+          ],
+          "where": "/home/dev/code/theprogrammablemind/kms/common/actions.js:126",
           "semantic": "async ({context, toArray, s}) => {\n        for (const action of toArray(context.action)) {\n          await s(action)\n        }\n      }"
         }
       ],
@@ -144,7 +162,7 @@
       },
       "semantics": [
         {
-          "match": "({context, isA}) => !context.pullFromContext && (isA(context.marker, 'action') || context.marker == 'doAction')",
+          "match": "({context, isA}) => !context.pullFromContext && (isA(context.marker, 'action') || isA(context.marker, 'doAction'))",
           "apply": "async ({context, _continue, testLog, g, remember}) => {\n        remember(context)\n        await testLog(() => g(context))\n        _continue()\n      }"
         }
       ]
@@ -199,7 +217,10 @@
           }
         },
         {
-          "id": "action"
+          "id": "action",
+          "isA": [
+            "thisAble"
+          ]
         },
         {
           "id": "thenAction",
@@ -246,7 +267,16 @@
         },
         {
           "id": "again",
-          "bridge": "{\n        ...before[0],\n        action: before[0],\n        again: operator,\n        interpolate: [{ property: 'action' }, { property: 'again' }]\n      }"
+          "before": [
+            "doAction"
+          ],
+          "bridge": "{\n        ...before[0],\n        action: before[0],\n        again: operator,\n        interpolate: [{ property: 'action' }, { property: 'again' }]\n      }",
+          "localHierarchy": [
+            [
+              "thisitthat",
+              "action"
+            ]
+          ]
         },
         {
           "id": "doAction",
@@ -270,7 +300,13 @@
             "action"
           ],
           "bridge": "{\n        ...next(operator),\n        operator: operator,\n        action: after[0],\n        interpolate: append(default(operator.interpolate, [{ property: 'operator' }]), [{ property: 'action' }])\n      }",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/actions.js:123"
+          "localHierarchy": [
+            [
+              "thisitthat",
+              "action"
+            ]
+          ],
+          "where": "/home/dev/code/theprogrammablemind/kms/common/actions.js:126"
         }
       ],
       "words": {
@@ -309,7 +345,7 @@
         ],
         [
           "action",
-          "action",
+          "thisAble",
           false
         ],
         [

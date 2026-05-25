@@ -58,7 +58,7 @@ const config = {
     },
     {
       id: 'action',
-      // isA: ['thisitthat'],
+      isA: ['thisAble'],
     },
     {
       id: "thenAction",
@@ -103,12 +103,14 @@ const config = {
 
     {
       id: 'again',
+      before: ['doAction'],
       bridge: `{
         ...before[0],
         action: before[0],
         again: operator,
         interpolate: [{ property: 'action' }, { property: 'again' }]
-      }`
+      }`,
+      localHierarchy: [['thisitthat', 'action']],
     },
     { 
       id: 'doAction', 
@@ -120,6 +122,7 @@ const config = {
         action: after[0],
         interpolate: append(default(operator.interpolate, [{ property: 'operator' }]), [{ property: 'action' }])
       }`,
+      localHierarchy: [['thisitthat', 'action']],
       where: where(),
       semantic: async ({context, toArray, s}) => {
         for (const action of toArray(context.action)) {
@@ -136,7 +139,7 @@ const config = {
   semantics: [
     {
       priority: -1,
-      match: ({context, isA}) => !context.pullFromContext && (isA(context.marker, 'action') || context.marker == 'doAction'),
+      match: ({context, isA}) => !context.pullFromContext && (isA(context.marker, 'action') || isA(context.marker, 'doAction')),
       apply: async ({context, _continue, testLog, g, remember}) => {
         remember(context)
         await testLog(() => g(context))

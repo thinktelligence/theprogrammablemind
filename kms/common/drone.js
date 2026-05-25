@@ -1170,7 +1170,7 @@ const template = {
           id: "go",
           level: 0,
           // convolution: true,
-          isA: ['verb', 'action', 'repeatable'],
+          isA: ['verb', 'repeatable', 'doAction'],
           words: [
             ...conjugateVerb('go'),
           ],
