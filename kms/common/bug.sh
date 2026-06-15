@@ -1034,3 +1034,8 @@ node    stm -q 'remember m1\ndelete m1' -g -d -tva
 
  node actions -q 'in 5 minutes do action1' -g -d
  node dimension -q 'c1 is a dimension\na1 and b1 are units of d1\nwhat are 10 a1 in b1\nwhat is the reason' -g -d
+
+ node wp -q 'bold the first word of the second and third paragraph' -g -d -tva -v
+ node wp -q 'capitalize the underlined text' -g -d
+node reports -q 'show the quantity descending and the price ascending list the products' -g -d
+node menus -q "menus and menu items are showable" -g -d

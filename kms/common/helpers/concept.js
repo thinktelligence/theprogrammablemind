@@ -107,6 +107,7 @@ class API {
       convolution: true,
       isA: [{ parent: 'adjective', instance: true }],
       associator_return_type: [modifiersObjectId, 0],
+      useForArgumentInference: false,
       // isA: ['adjective'],
       before: ['verb'],
       // bridge: `{ ...after[0], ${modifierProperties}, atomic: true, dead: true, marker: next(operator('${modifiersObjectId}')), value: '${modifiersObjectId}', modifiers: append([${modifierList}], after[0].modifiers)}`, 
