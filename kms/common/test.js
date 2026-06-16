@@ -38,11 +38,6 @@ for (let file of package_json.files) {
   if (file.includes("_helper")) {
     continue
   }
-  if (FAST) {
-    if (file.includes("fastfood")) {
-      continue
-    }
-  }
 
   retrains.push(`node ${file} -rtf -g`)
   tests.push(`node ${file} -tva -g`)
