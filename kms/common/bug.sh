@@ -1039,3 +1039,5 @@ node    stm -q 'remember m1\ndelete m1' -g -d -tva
  node wp -q 'capitalize the underlined text' -g -d
 node reports -q 'show the quantity descending and the price ascending list the products' -g -d
 node menus -q "menus and menu items are showable" -g -d
+
+node drone -q '2 seconds at the first and 3 seconds at the last point' -g -d

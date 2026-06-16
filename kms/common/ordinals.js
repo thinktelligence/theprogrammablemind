@@ -16,7 +16,8 @@ const config = {
     { 
       id: "ordinal", 
       isA: ["listable"],
-      bridge: "{ instance: false, ordinal: true, ...next(operator) }" 
+      bridge: "{ instance: false, ordinal: true, ...next(operator) }",
+      init: { 'notConjunctableWith':['quantity'] },
     },
     { 
       id: "orderable", 
