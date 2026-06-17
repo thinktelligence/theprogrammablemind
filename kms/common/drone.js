@@ -1,5 +1,4 @@
 const { knowledgeModule, where, debug, OverrideCheck } = require('./runtime').theprogrammablemind
-debugger
 const { conjugateVerb } = require('./english_helpers')
 const { defaultContextCheckProperties, defaultContextCheck, getValue, setValue } = require('./helpers')
 const drone_tests = require('./drone.test.json')
