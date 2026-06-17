@@ -9,7 +9,7 @@ describe('numbers km', () => {
     km = await KM({ useCache: false })
   })
 
-  test('NEOS23 addCallback', async () => {
+  test('addCallback', async () => {
     await km.run(async ({remember, recall, addCallback}) => {
       await remember({ marker: 'test' })
       const obj = await recall({ context: { marker: 'test' } })
@@ -19,7 +19,7 @@ describe('numbers km', () => {
     })
   })
 
-  test('NEOS23 removeCallback', async () => {
+  test('removeCallback', async () => {
     await km.run(async ({remember, recall, addCallback}) => {
       await remember({ marker: 'test' })
       const obj = await recall({ context: { marker: 'test' } })
@@ -34,7 +34,7 @@ describe('numbers km', () => {
     })
   })
 
-  test('NEO23 callback on delete', async () => {
+  test('callback on delete', async () => {
     await km.run(async ({remember, recall, s, addCallback}) => {
       await remember({ marker: 'test' })
       const obj = await recall({ context: { marker: 'test' } })

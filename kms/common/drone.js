@@ -1,6 +1,7 @@
-const { knowledgeModule, where, debug } = require('./runtime').theprogrammablemind
+const { knowledgeModule, where, debug, OverrideCheck } = require('./runtime').theprogrammablemind
+debugger
 const { conjugateVerb } = require('./english_helpers')
-const { OverrideCheck, defaultContextCheckProperties, defaultContextCheck, getValue, setValue } = require('./helpers')
+const { defaultContextCheckProperties, defaultContextCheck, getValue, setValue } = require('./helpers')
 const drone_tests = require('./drone.test.json')
 const instance = require('./drone.instance.json')
 const hierarchy = require('./hierarchy')
@@ -315,9 +316,6 @@ The time t needed to turn by angle θ is:
 */
 class API {
   constructor() {
-    const overrideMethods = Object.getOwnPropertyNames(API.prototype).filter(key => typeof API.prototype[key] === 'function' && key.endsWith('Drone'));
-    this.overrideCheck = new OverrideCheck(API, overrideMethods)
-    this.overriden = this.constructor !== API
     this.startPoint = { x: 0, y: 0 }
     this.startAngle = Math.PI/2
     this.startCompass = 'north'
@@ -337,8 +335,11 @@ class API {
   }
 
   initialize({ objects }) {
+    const overriden = this.constructor !== API
+    debugger
     if (this.overriden) {
-      this.overrideCheck.check(this)
+      const overrideCheck = new OverrideCheck(API, 'Drone')
+      overrideCheck.check(this)
     }
 
     if (this.minimumSpeedDrone() == null) {
