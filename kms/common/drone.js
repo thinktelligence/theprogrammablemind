@@ -335,7 +335,6 @@ class API {
 
   initialize({ objects }) {
     const overriden = this.constructor !== API
-    debugger
     if (this.overriden) {
       const overrideCheck = new OverrideCheck(API, 'Drone')
       overrideCheck.check(this)

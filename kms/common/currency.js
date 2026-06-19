@@ -5,11 +5,13 @@ const currency_tests = require('./currency.test.json')
 
 class API {
 
+  baseAPI = API
+
   initialize() {
   }
 
   // map currency word to the unit that will be put in the context
-  getUnits() {
+  getUnitsAPI() {
     return {
       'dollars': 'dollar', 
       'dollar': 'dollar',
@@ -20,7 +22,7 @@ class API {
     } 
   }
 
-  getUnitWords() {
+  getUnitWordsAPI() {
     return [
       { units: 'dollar', one: 'dollar', many: 'dollars' },
       { units: 'pound', one: 'pound', many: 'pounds' },
@@ -28,7 +30,7 @@ class API {
     ]
   }
 
-  convertTo(amount, fromUnits, toUnits) {
+  convertToAPI(amount, fromUnits, toUnits) {
     const conversion = {
     "dollar": { "euro": 0.82, "pound": 0.71, },
     "euro": { "dollar": 1.22, "pound": 0.82, },
@@ -78,7 +80,7 @@ const config = {
       apply: ({objects, api, context}) => {
         const from = context.from
         const to = context.to
-        const value = api.convertTo(from.amount.value, from.units, to.units)
+        const value = api.convertToAPI(from.amount.value, from.units, to.units)
         context.marker = 'currency'
         context.isAbstract = false
         context.amount = { value }
@@ -91,12 +93,12 @@ const config = {
 
 function initializer({config, objects, apis, addWord, addGenerator, baseConfig, uuid}) {
   const api = apis('currency')
-  units = api.getUnits()
+  units = api.getUnitsAPI()
   for (word in units) {
     def = {"id": "currency", "initial": { units: units[word] }, uuid}
     addWord(word, def)
   }
-  unitWords = api.getUnitWords();
+  unitWords = api.getUnitWordsAPI();
   for (const words of unitWords) {
       addGenerator({
         match: ({context}) => context.marker == 'currency' && context.units == words.units && context.value == 1 && context.isAbstract, 
