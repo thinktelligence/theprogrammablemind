@@ -62,7 +62,7 @@ class API {
 
 const template = {
   configs: [
-    "years hours minutes milliseconds and seconds are units of time",
+    "years, months, days, hours, minutes, milliseconds and seconds are units of time",
     "hours = minutes / 60",
     "minutes = hours * 60",
     "seconds = minutes * 60",

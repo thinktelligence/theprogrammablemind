@@ -211,7 +211,6 @@ function getAsk(config) {
   }
 }
 
-
 function initializer({objects, config, isModule}) {
   config.addArgs(({config, api, isA}) => ({ 
     getUUIDScoped: (uuid) => { 

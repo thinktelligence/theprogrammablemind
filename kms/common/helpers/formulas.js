@@ -33,10 +33,10 @@ function match(values, head, value) {
   return true
 }
 
-function unify(rule, value) {
+async function unify(rule, value) {
   const values = { ...rule.values }
   if (match(values, rule.head(values), value)) {
-    return rule.body(values)
+    return await rule.body(values)
   }
 }
 
@@ -53,41 +53,88 @@ function f(values, variable) {
   }
 }
 
-const rules = [
-  // same
-  {
-    values: { x: null, y: null },
-    head: (values) => { return { marker: 'equals', left: f(values, 'x'), right: f(values, 'y') } },
-    body: ({x, y}) => { return { marker: 'equals', left: x, right: y } }
+const headConstructor = {
+  equals: (x, y) => {
+    return { marker: 'equals', left: x, right: y }
   },
-  // reflexive
-  {
-    values: { x: null, y: null },
-    head: (values) => { return { marker: 'equals', left: f(values, 'x'), right: f(values, 'y') } },
-    body: ({x, y}) => { return { marker: 'equals', left: y, right: x } }
+  add: (x, y) => {
+    return { marker: 'plusExpression', x, y }
   },
-  /*
-  {
-    values: { x: null, y: null, z: null },
-    head: (values) => { return { marker: 'equals', left: f(values, 'x'), right: { marker: "+", x: f(values, 'y'), y: f(values, 'z') } } },
-    body: ({x, y, z}) => { return { marker: 'equals', left: x, right: { marker: "+", x: y, y: z } } }
+  subtract: (x, y) => {
+    return { marker: 'minusExpression', x, y }
   },
-  */
-]
+  multiply: (x, y) => {
+    return { marker: 'timesExpression', x, y }
+  },
+  divide: (x, y) => {
+    return { marker: 'divideByExpression', x, y }
+  },
+}
 
-function solveFor(expression, variable, isVariable = (expression) => typeof expression.value != 'number') {
+function rules({ equals, add, subtract, multiply, divide}) {
+  return [
+    // same
+    {
+      values: { x: null, y: null },
+      head: (values) => headConstructor.equals(f(values, 'x'), f(values, 'y')),
+      body: async ({x, y}) => await equals(x, y),
+    },
+    // reflexive
+    {
+      values: { x: null, y: null },
+      head: (values) => headConstructor.equals(f(values, 'x'), f(values, 'y')),
+      body: async ({x, y}) => await equals(y, x),
+    },
+    // x = y + z => y = x - z
+    {
+      values: { x: null, y: null, z: null },
+      head: (values) => headConstructor.equals(f(values, 'x'), headConstructor.add(f(values, 'y'), f(values, 'z'))),
+      body: async ({x, y, z}) => await equals(y, await subtract(x, z)),
+    },
+    // x = y - z => y = x + z
+    {
+      values: { x: null, y: null, z: null },
+      head: (values) => headConstructor.equals(f(values, 'x'), headConstructor.subtract(f(values, 'y'), f(values, 'z'))),
+      body: async ({x, y, z}) => await equals(y, await add(x, z))
+    },
+    // x = y * z => y = x / z
+    {
+      values: { x: null, y: null, z: null },
+      head: (values) => headConstructor.equals(f(values, 'x'), headConstructor.multiply(f(values, 'y'), f(values, 'z'))),
+      body: async ({x, y, z}) => await equals(y, await divide(x, z))
+    },
+    // x = y / z => y = x * z
+    {
+      values: { x: null, y: null, z: null },
+      head: (values) => headConstructor.equals(f(values, 'x'), headConstructor.divide(f(values, 'y'), f(values, 'z'))),
+      body: async ({x, y, z}) => await equals(y, await multiply(x, z))
+    },
+  ]
+}
+
+async function solveFor(constructors, expression, variable, isVariable = (expression) => typeof expression.value != 'number') {
   function sameVar(c1, c2) {
     return c1.value == c2.value
   }
 
   const lVars = getVariables(expression.left, isVariable)
   const rVars = getVariables(expression.right, isVariable)
+
   if (lVars.length == 1 && sameVar(lVars[0], variable) && !rVars.some((c) => sameVar(c, variable))) {
     return expression
   }
+
+  for (const rule of rules(constructors)) {
+    const transformation = await unify(rule, expression)
+    if (transformation && sameVar(variable, transformation.left)) {
+      return transformation
+    }
+  }
+
   if (rVars.length == 1 && sameVar(rVars[0], variable) && !lVars.some((c) => sameVar(c, variable))) {
     return { ...expression, left: expression.right, right: expression.left }
   }
+
 }
 
 class API {
@@ -97,7 +144,6 @@ class API {
   }
 
   gets(name) {
-    // debugger
     if (!this._objects.formulas[name.value]) {
       return []
     }
@@ -132,11 +178,6 @@ class API {
 
   // currently only supportings x = f(x) type formulas
   add(name, formula, equality) {
-    /*
-    if (name.value == 'minute' || name.value == 'minutes') {
-      debugger
-    }
-    */ // greg66
     if (!this._objects.formulas[name.value]) {
       this._objects.formulas[name.value] = []
     }

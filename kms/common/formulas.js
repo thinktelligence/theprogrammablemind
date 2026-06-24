@@ -133,8 +133,25 @@ const config = {
       id: 'solve', 
       bridge: "{ ...next(operator), equality: after[0], variable: after[2] }",
       generatorp: async ({context, gp}) => `${context.word} ${await gp(context.equality)} for ${await gp(context.variable)}`,
-      semantic: ({context}) => {
-        context.response = solveFor(context.equality, context.variable)
+      semantic: async ({context, fragments}) => {
+        const constructors = {
+          equals: async (x, y) => {
+            return await fragments("x = y", {x, y})
+          },
+          add: async (x, y) => {
+            return await fragments("x + y", {x, y})
+          },
+          subtract: async (x, y) => {
+            return await fragments("x - y", {x, y})
+          },
+          multiply: async (x, y) => {
+            return await fragments("x * y", {x, y})
+          },
+          divide: async (x, y) => {
+            return await fragments("x / y", {x, y})
+          },
+        }
+        context.response = await solveFor(constructors, context.equality, context.variable)
         context.isResponse = true
         context.value = null
         if (!context.response) {
@@ -186,6 +203,13 @@ const config = {
 };
 
 const template = {
+  fragments: [
+    "x = y",
+    "x + y",
+    "x - y",
+    "x * y",
+    "x / y",
+  ],
   configs: [
     "formulas are concepts",
     config,
