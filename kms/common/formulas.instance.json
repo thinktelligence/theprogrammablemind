@@ -35,7 +35,7 @@
       ],
       "bridges": [
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/formulas.js:120",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/formulas.js:84",
           "id": "formulaForVariable",
           "isA": [
             "preposition",
@@ -44,14 +44,14 @@
           "convolution": true,
           "bridge": "{ number: before[0].number, ...next(operator), what: before[0], equality: after[0], variable: after[1] }",
           "generatorp": "async ({context, g}) => `${await g(context.what)} ${await g(context.equality)} ${await g(context.variable)}`",
-          "evaluator": "({context, api, objects}) => {\n        const formulas = api.gets(context.variable).map((f) => { return { ...f.equality, paraphrase: true } })\n        context.evalue = { marker: 'list', value: formulas }\n      }"
+          "evaluator": "({context, api, objects, verbatim}) => {\n        const formulas = api.gets(context.variable).map((f) => { return { ...f.equality, paraphrase: true } })\n        if (formulas.length > 0) {\n          context.evalue = { marker: 'list', value: formulas }\n        } else {\n          context.evalue = { marker: 'answerNotKnown' }\n        }\n      }"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/formulas.js:132",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/formulas.js:100",
           "id": "solve",
           "bridge": "{ ...next(operator), equality: after[0], variable: after[2] }",
           "generatorp": "async ({context, gp}) => `${context.word} ${await gp(context.equality)} for ${await gp(context.variable)}`",
-          "semantic": "async ({context, fragments}) => {\n        const constructors = {\n          equals: async (x, y) => {\n            return await fragments(\"x = y\", {x, y})\n          },\n          add: async (x, y) => {\n            return await fragments(\"x + y\", {x, y})\n          },\n          subtract: async (x, y) => {\n            return await fragments(\"x - y\", {x, y})\n          },\n          multiply: async (x, y) => {\n            return await fragments(\"x * y\", {x, y})\n          },\n          divide: async (x, y) => {\n            return await fragments(\"x / y\", {x, y})\n          },\n        }\n        context.response = await solveFor(constructors, context.equality, context.variable)\n        context.isResponse = true\n        context.value = null\n        if (!context.response) {\n          // TODO some KM for talking to the user wrt brief+avatar\n          context.verbatim = `Solving failed`\n        }\n      }"
+          "semantic": "async ({api, context, fragments}) => {\n        try {\n          context.response = await api.solveFor(context.equality, context.variable)\n          context.isResponse = true\n          context.value = null\n        } catch( e ) {\n        }\n        if (!context.response) {\n          // TODO some KM for talking to the user wrt brief+avatar\n          context.verbatim = `Solving failed`\n        }\n      }"
         },
         {
           "id": "forVariable",
@@ -73,7 +73,7 @@
           ]
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/formulas.js:176",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/formulas.js:130",
           "id": "calculate",
           "isA": [
             "verb"
@@ -89,7 +89,7 @@
           "semantic": "async ({context, e}) => {\n        context.evalue = await e(context.expression)\n        context.isResponse = true\n      }"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/formulas.js:188",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/formulas.js:142",
           "id": "equals",
           "bridge": "{ ...next(operator), left: before[0], right: after[0] }",
           "words": [
@@ -104,7 +104,7 @@
               "expression"
             ]
           ],
-          "semantic": "({context, api}) => {\n        // TODO make sure left is a single name\n        // TODO calculate invertable formulas?\n        debugger // greg23\n        api.add(context.left, context.right, context)\n      }"
+          "semantic": "async ({context, api}) => {\n        // TODO make sure left is a single name\n        // TODO calculate invertable formulas?\n        const lvariables = getVariables(context.left)\n        const rvariables = getVariables(context.right)\n        if (lvariables.length == 1 && rvariables.length < 2) {\n          api.add(context.left, context.right, context)\n          if (rvariables.length == 1) {\n            const inverse = await api.solveFor(context, rvariables[0])\n            if (inverse) {\n              api.add(inverse.left, inverse.right, inverse)\n            }\n          }\n        }\n      }"
         }
       ]
     }
@@ -1532,12 +1532,12 @@
       ],
       "semantics": [
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/formulas.js:109"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/formulas.js:73"
         }
       ],
       "bridges": [
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/formulas.js:120",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/formulas.js:84",
           "id": "formulaForVariable",
           "isA": [
             "preposition",
@@ -1547,7 +1547,7 @@
           "bridge": "{ number: before[0].number, ...next(operator), what: before[0], equality: after[0], variable: after[1] }"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/formulas.js:132",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/formulas.js:100",
           "id": "solve",
           "bridge": "{ ...next(operator), equality: after[0], variable: after[2] }"
         },
@@ -1571,7 +1571,7 @@
           ]
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/formulas.js:176",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/formulas.js:130",
           "id": "calculate",
           "isA": [
             "verb"
@@ -1585,7 +1585,7 @@
           ]
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/formulas.js:188",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/formulas.js:142",
           "id": "equals",
           "bridge": "{ ...next(operator), left: before[0], right: after[0] }",
           "words": [

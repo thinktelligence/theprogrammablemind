@@ -144,6 +144,15 @@ describe('helpers', () => {
       expect(actual).toStrictEqual(expected)
     })
 
+    /*
+    it('NEOS23 x1 = y1*z1 + 1 => y1 = (x1 - 1)/z1', async () => {
+      const { equals, add, subtract, multiply, divide} = constructors
+      const actual = await unify(rules(constructors)[2], await equals('x1', await add('y1', '1')))
+      const expected = await equals('y1', await subtract('x1', '1'))
+      expect(actual).toStrictEqual(expected)
+    })
+    */
+
     xit('x = y match', async () => {
       const value = { marker: 'equals', left: 'x', right: { marker: '+', x: 'y', y: 'z' } }
 

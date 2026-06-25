@@ -54,42 +54,6 @@ const template = {
   what is the formula for meters in inches
   put the formalua in the mentioned. that starts acting like short term memory / use template "x is a formula" to put the formula in long term memory / add a phrase rememer that x equals ... / forget that x = ...
 */
-/*
-class API {
-  initialize() {
-    this.objects.formulas = {}
-  }
-
-  gets(name) {
-    if (!this.objects.formulas[name.value]) {
-      return []
-    }
-    if (this.objects.formulas[name.value].length == 0) {
-      return []
-    }
-    return this.objects.formulas[name.value]
-  }
-
-  get(name) {
-    return this.gets(name)[0]
-  }
-
-  // currently only supportings x = f(x) type formulas
-  add(name, formula, equality) {
-    if (!this.objects.formulas[name.value]) {
-      this.objects.formulas[name.value] = []
-    }
-    this.objects.formulas[name.value].push({ name, formula, equality })
-  }
-
-  remove(name) {
-    if (!this.objects.formulas[name.value]) {
-      return
-    }
-    this.objects.formulas[name.value].pop()
-  }
-}
-*/
 
 const config = {
   name: 'formulas',
@@ -123,9 +87,13 @@ const config = {
       convolution: true,
       bridge: "{ number: before[0].number, ...next(operator), what: before[0], equality: after[0], variable: after[1] }",
       generatorp: async ({context, g}) => `${await g(context.what)} ${await g(context.equality)} ${await g(context.variable)}`,
-      evaluator: ({context, api, objects}) => {
+      evaluator: ({context, api, objects, verbatim}) => {
         const formulas = api.gets(context.variable).map((f) => { return { ...f.equality, paraphrase: true } })
-        context.evalue = { marker: 'list', value: formulas }
+        if (formulas.length > 0) {
+          context.evalue = { marker: 'list', value: formulas }
+        } else {
+          context.evalue = { marker: 'answerNotKnown' }
+        }
       }
     },
     {
@@ -133,27 +101,13 @@ const config = {
       id: 'solve', 
       bridge: "{ ...next(operator), equality: after[0], variable: after[2] }",
       generatorp: async ({context, gp}) => `${context.word} ${await gp(context.equality)} for ${await gp(context.variable)}`,
-      semantic: async ({context, fragments}) => {
-        const constructors = {
-          equals: async (x, y) => {
-            return await fragments("x = y", {x, y})
-          },
-          add: async (x, y) => {
-            return await fragments("x + y", {x, y})
-          },
-          subtract: async (x, y) => {
-            return await fragments("x - y", {x, y})
-          },
-          multiply: async (x, y) => {
-            return await fragments("x * y", {x, y})
-          },
-          divide: async (x, y) => {
-            return await fragments("x / y", {x, y})
-          },
+      semantic: async ({api, context, fragments}) => {
+        try {
+          context.response = await api.solveFor(context.equality, context.variable)
+          context.isResponse = true
+          context.value = null
+        } catch( e ) {
         }
-        context.response = await solveFor(constructors, context.equality, context.variable)
-        context.isResponse = true
-        context.value = null
         if (!context.response) {
           // TODO some KM for talking to the user wrt brief+avatar
           context.verbatim = `Solving failed`
@@ -193,10 +147,20 @@ const config = {
       // TODO have this be per argument then 'is' can map to equals where this only applied to before[0] and not after[0]
       localHierarchy: [ ['unknown', 'expression'] ],
       generatorpr: async ({context, gp}) => `${await gp(context.left)} ${context.word} ${await gp(context.right)}`,
-      semantic: ({context, api}) => {
+      semantic: async ({context, api}) => {
         // TODO make sure left is a single name
         // TODO calculate invertable formulas?
-        api.add(context.left, context.right, context)
+        const lvariables = getVariables(context.left)
+        const rvariables = getVariables(context.right)
+        if (lvariables.length == 1 && rvariables.length < 2) {
+          api.add(context.left, context.right, context)
+          if (rvariables.length == 1) {
+            const inverse = await api.solveFor(context, rvariables[0])
+            if (inverse) {
+              api.add(inverse.left, inverse.right, inverse)
+            }
+          }
+        }
       }
     },
   ]

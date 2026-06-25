@@ -1,11 +1,17 @@
-operators = ['plusExpression', 'minusExpression', 'timesExpression', 'divideByExpression']
+const { debug } = require('../runtime').theprogrammablemind
+
+operators = ['equals', 'plusExpression', 'minusExpression', 'timesExpression', 'divideByExpression']
 
 function getVariables(expression, isVariable = (expression) => typeof expression.value != 'number') {
   if (!expression) {
     return []
   }
   if (operators.includes(expression.marker)) {
-    return getVariables(expression.x, isVariable).concat(getVariables(expression.y, isVariable)).sort()
+    if (expression.marker == 'equals') {
+      return getVariables(expression.left, isVariable).concat(getVariables(expression.right, isVariable)).sort()
+    } else {
+      return getVariables(expression.x, isVariable).concat(getVariables(expression.y, isVariable)).sort()
+    }
   }
   if (isVariable(expression)) {
     return [expression]
@@ -131,7 +137,7 @@ async function solveFor(constructors, expression, variable, isVariable = (expres
     }
   }
 
-  if (rVars.length == 1 && sameVar(rVars[0], variable) && !lVars.some((c) => sameVar(c, variable))) {
+  if (lVars.length == 1 && sameVar(lVars[0], variable) && !rVars.some((c) => sameVar(c, variable))) {
     return { ...expression, left: expression.right, right: expression.left }
   }
 
@@ -141,6 +147,28 @@ class API {
   initialize({ objects }) {
     this._objects = objects
     this._objects.formulas = {}
+  }
+
+  async solveFor(equality, variable) {
+    const constructors = {
+      equals: async (x, y) => {
+        return await this.args.fragments("x = y", {x, y})
+      },
+      add: async (x, y) => {
+        return await this.args.fragments("x + y", {x, y})
+      },
+      subtract: async (x, y) => {
+        return await this.args.fragments("x - y", {x, y})
+      },
+      multiply: async (x, y) => {
+        return await this.args.fragments("x * y", {x, y})
+      },
+      divide: async (x, y) => {
+        return await this.args.fragments("x / y", {x, y})
+      },
+    }
+
+    return await solveFor(constructors, equality, variable)
   }
 
   gets(name) {
@@ -178,6 +206,9 @@ class API {
 
   // currently only supportings x = f(x) type formulas
   add(name, formula, equality) {
+    if (!name.value) {
+      throw new Error("saving a formula with no name")
+    }
     if (!this._objects.formulas[name.value]) {
       this._objects.formulas[name.value] = []
     }

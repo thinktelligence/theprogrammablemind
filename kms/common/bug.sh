@@ -1041,3 +1041,5 @@ node reports -q 'show the quantity descending and the price ascending list the p
 node menus -q "menus and menu items are showable" -g -d
 
 node drone -q '2 seconds at the first and 3 seconds at the last point' -g -d
+
+node formulas -q 'year = month / 12\nwhat are the formulas for month' -g -d
