@@ -76,6 +76,7 @@ const template = {
     "minutes = seconds / 60",
     "day = hours / 24",
     "hours = days * 24",
+    "age is a concept",
     {
       operators: [
         "([thenTime|then])",
@@ -86,8 +87,13 @@ const template = {
         // "([use] (([timeUnit]) [timeFormat|format]))",
         "([use] (([quantity]) [timeFormat|format]))",
         "([hourMinutes|] (integer) (colon) (integer))",
+        "((@<= 'quantity' && context.unit.dimension == 'time') [ageMarker|old])",
       ],
       bridges: [
+        { 
+          id: 'ageMarker',
+          bridge: "{ ...before[0], checks: append(before.checks, ['repeats']), isAge: true, age: operator, interpolate: append(before[0].interpolate, [{ property: 'age' }]) }",
+        },
         { 
           id: 'repeatable',
           check: defaultContextCheckProperties(['repeats'])

@@ -231,12 +231,12 @@ const config = {
       // bridge: "{ ...next(operator) }",
       generatorp: {
         level: 1, 
-        match: ({context}) => context.amount && context.unit,
+        match: ({context}) => context.amount && context.unit && !context.interpolate,
         apply: async ({context, g, gp, gr}) => `${await g(context.amount)} ${await gp(context.unit)}`,
       },
       generatorr: {
         level: 1,
-        match: ({context}) => context.amount && context.unit,
+        match: ({context}) => context.amount && context.unit && !context.interpolate,
         apply: async ({context, gp, gr}) => `${await gr(context.amount)} ${await gp(context.unit)}`,
       },
     },
@@ -251,7 +251,7 @@ const config = {
       convolution: true, 
       before: ['preposition'],
       // bridge: "{ marker: next(operator('quantity')), dead: true, unit: after[0], value: before[0].value, amount: before[0] }" 
-      bridge: "{ marker: next(operator('quantity')), dead: true, unit: after[0], amount: before[0] }" 
+      bridge: "{ marker: next(operator('quantity')), dead: true, unit: after[0], amount: before[0], interpolate: [ { property: 'amount' }, { property: 'unit' } ] }" 
     },
     { 
       where: where(),

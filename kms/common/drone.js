@@ -440,7 +440,7 @@ class API {
     const minimumSpeed = this.minimumSpeedDrone()
     if (objects.current.speed < minimumSpeed) {
       const unitsOfUser = objects.current.speedUnitsOfUser
-      const minimumValueInDroneUnits = await fragments("number meters per second", { number: { marker: 'integer', value: minimumSpeed } })
+      const minimumValueInDroneUnits = await fragments("number meters per second", { number: { marker: 'integer', value: minimumSpeed, word: undefined } })
       // const valueInUsersUnits = await fragments("quantity in meters", { quantity: minimumValueInDroneUnits, meter: unitsOfUser })
       if (unitsOfUser) {
         const valueInUsersUnits = await quantityInMeters(minimumValueInDroneUnits, unitsOfUser )
@@ -458,7 +458,7 @@ class API {
     const maximumSpeed = this.maximumSpeedDrone()
     if (objects.current.speed > maximumSpeed) {
       const unitsOfUser = objects.current.speedUnitsOfUser
-      const maximumValueInDroneUnits = await fragments("number meters per second", { number: { marker: 'integer', value: maximumSpeed } })
+      const maximumValueInDroneUnits = await fragments("number meters per second", { number: { marker: 'integer', value: maximumSpeed, word: undefined } })
       // const valueInUsersUnits = await fragments("quantity in meters", { quantity: maximumValueInDroneUnits, meter: unitsOfUser })
       if (unitsOfUser) {
         const valueInUsersUnits = await quantityInMeters(maximumValueInDroneUnits, unitsOfUser)
@@ -1458,7 +1458,7 @@ const template = {
                 value = api.minimumSpeedDrone()
               }
             }
-            const speed = await fragments("number meters per second", { number: { marker: 'integer', value } })
+            const speed = await fragments("number meters per second", { number: { marker: 'integer', value, word: undefined} })
             const preferred = await s({ marker: 'preferredUnits', quantity: speed }) 
             resolveEvaluate(context, preferred.response || speed)
           }
@@ -1472,7 +1472,7 @@ const template = {
               { 
                 match: ({path, pathEquals}) => pathEquals(path, ['0', 'amount']),
                 apply: ({context}) => {
-                  Object.assign(context, { marker: 'number', value: value })
+                  Object.assign(context, { marker: 'number', value: value, word: undefined })
                 }
               }
             ])
