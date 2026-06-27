@@ -643,11 +643,14 @@ const config = {
         }
 
         // if not isA add to stm
+        // debug.counter('greg57', { breakAt: 1 })
         if (!onePrime.sameWasProcessed && !twoPrime.sameWasProcessed) {
           for (const child of propertyToArray(one)) {
             await api.makeObject({ context: child, config, types: context.two.types || [] })
-            kms.stm.api.setVariable(child.value, two)
-            kms.stm.api.remember({ context: child, value: two })
+            if (two.determiner?.marker !== 'a') {
+              kms.stm.api.setVariable(child.value, two)
+              kms.stm.api.remember({ context: child, value: two })
+            }
           }
         }
       }
