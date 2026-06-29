@@ -71,14 +71,6 @@ V2
 //
 //   value is (has, value)
 
-const template = {
-  fragments: [
-    "the property1 of object1 is value1",
-  ],
-  configs: [
-  ],
-}
-
 const api = new API();
 
 const config = {
@@ -172,12 +164,14 @@ const config = {
       localHierarchy: [['property', 'queryable'], ['property', 'theAble'], ['property', 'unknown']],
       bridge: "{ ...next(operator) }" 
     },
+    /*
     { 
       id: "property", 
       words: ['properties'],
       isA: ['queryable', 'theAble'],
       level: 0, 
     },
+    */
     { 
       id: "object", 
       isA: ['queryable', 'theAble', 'listable'],
@@ -479,8 +473,10 @@ const config = {
     {
       notes: 'crew members. evaluate a concepts to get instances',
       where: where(),
+      // greg99: who are the crew members
       match: ({context, hierarchy, api}) => 
-                          hierarchy.isA(context.marker, 'concept') && 
+                          // (hierarchy.isA(context.marker, 'concept') && !hierarchy.isA(context.marker, 'property')) &&
+                          hierarchy.isA(context.marker, 'concept') && !context.propertyOf &&
                           context.evaluate &&
                           !(context.types || []).includes('property') &&
                           // !context.value &&  // greghere
@@ -488,7 +484,7 @@ const config = {
                           (!context.objects || context.objects.length !== 2 || !context.objects[1].instance) &&
                           (api.objects && api.objects.children && api.objects.children[context.marker]) &&
                           !context.evaluate.toConcept,
-      apply: ({context, objects, api, km}) => {
+      apply: ({context, hierarchy, objects, api, km}) => {
         const values = api.objects.children[context.marker]
         const phrases = values.map( (value) => km('concept').api.getWordForValue(value) )
         // context.focusableForPhrase = true
@@ -620,6 +616,7 @@ const config = {
     {
       notes: 'get/evaluate a property',
       where: where(),
+      // greg99: what is the name of kirk
       match: ({context, hierarchy}) => 
                       hierarchy.isA(context.marker, 'property') && 
                       context.evaluate && 
@@ -696,8 +693,19 @@ function initializer({objects, config, isModule}) {
   }))
 }
 
+const template = {
+  fragments: [
+    "the property1 of object1 is value1",
+  ],
+  configs: [
+    "property is a concept",
+    config
+  ],
+}
+
+
 knowledgeModule( { 
-  config,
+  config: { name: 'properties' },
   api: () => new API(),
   includes: [concept, meta, dialogues],
   initializer,

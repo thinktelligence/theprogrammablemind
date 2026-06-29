@@ -5,6 +5,7 @@ const hierarchy_tests = require('./hierarchy.test.json')
 const pluralize = require('pluralize')
 const _ = require('lodash')
 const { isMany } = require('./helpers')
+const { wordsForNoun } = require('./english_helpers')
 
 function getTypes( km, digraph, concept, instance ) {
   // const propertiesAPI = km('properties').api;
@@ -37,12 +38,15 @@ const config = {
   name: 'hierarchy',
   operators: [
     // "([hierarchyAble|])",
-    "([type|type,types])",
+    "([type|])",
   ],
   bridges: [
     // // { id: 'hierarchyAble', level: 0, bridge: "{ ...next(operator) }" },
     // { id: 'type', level: 0, bridge: "{ ...next(operator), value: 'type' }" },
-    { id: 'type' },
+    { 
+      id: 'type',
+      words: wordsForNoun('type'),
+    },
   ],
   hierarchy: [
     // ['unknown', 'hierarchyAble'],
@@ -276,7 +280,13 @@ const config = {
         const conceptApi = km('concept').api
         const type = pluralize.singular(context.object.value);
         const children = api.children(type)
-        const values = children.map( (t) => conceptApi.getWordForValue(t, { number: isA(type, 'concept') ? 'one' : 'many'}))
+        // const values = children.map( (t) => conceptApi.getWordForValue(t, { number: isA(type, 'concept') ? 'one' : 'many'}))
+
+        let number = context.number || (isA(type, 'concept') ? 'one' : 'many')
+        if (isA(context.object, 'property')) {
+          number = 'one'
+        }
+        const values = children.map( (t) => conceptApi.getWordForValue(t, { number, }))
         context.evalue = {
           marker: 'list',
           listable: true,

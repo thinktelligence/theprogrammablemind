@@ -1,3 +1,5 @@
+const pluralize = require('pluralize')
+
 function conjugateVerb(infinitive) {
   if (typeof infinitive !== 'string' || infinitive.trim() === '') {
     throw new Error('Input must be a non-empty string');
@@ -329,8 +331,15 @@ function getInfinitive(form) {
   return word;
 }
 
+function wordsForNoun(word, additional = {}) {
+  return [
+    { word: pluralize.singular(word), number: 'one', ...additional }, { word: pluralize.plural(word), number: 'many', ...additional }
+  ]
+}
+
 module.exports = { 
   conjugateVerb,
   getInfinitive,
+  wordsForNoun,
 }
 
