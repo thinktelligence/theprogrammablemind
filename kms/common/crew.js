@@ -11,6 +11,14 @@ const template = {
       "crew modifies member",
       "kirk's name is jim",
       "kirk's rank is captain",
+      ({config}) => {
+        config.updateBridge('rank', ({ bridge }) => {
+          if (!bridge.init) {
+            bridge.init = {}
+          }
+          bridge.init['typeIsSingular'] = true
+        })
+      },
       "kirk's eyes are blue",
       "kirk is a captain",
       "kirk is a crew member",

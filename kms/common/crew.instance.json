@@ -3,6 +3,9 @@
     "crew modifies member",
     "kirk's name is jim",
     "kirk's rank is captain",
+    {
+      "apply": "({config}) => {\n        config.updateBridge('rank', ({ bridge }) => {\n          if (!bridge.init) {\n            bridge.init = {}\n          }\n          bridge.init['typeIsSingular'] = true\n        })\n      }"
+    },
     "kirk's eyes are blue",
     "kirk is a captain",
     "kirk is a crew member",
@@ -5045,6 +5048,9 @@
       "key": {
         "query": "kirk's rank is captain"
       }
+    },
+    {
+      "apply": "({config}) => {\n        config.updateBridge('rank', ({ bridge }) => {\n          if (!bridge.init) {\n            bridge.init = {}\n          }\n          bridge.init['typeIsSingular'] = true\n        })\n      }"
     },
     {
       "hierarchy": [
@@ -12156,6 +12162,7 @@
             "number": "one",
             "value": "rank",
             "text": "spock's rank",
+            "typeIsSingular": true,
             "marker": "rank",
             "word": "rank",
             "range": {
@@ -12189,6 +12196,7 @@
                 "value": "rank",
                 "number": "one",
                 "text": "rank",
+                "typeIsSingular": true,
                 "marker": "rank",
                 "word": "rank",
                 "range": {
@@ -22267,6 +22275,7 @@
             "number": "one",
             "value": "rank",
             "text": "mccoy's rank",
+            "typeIsSingular": true,
             "marker": "rank",
             "word": "rank",
             "range": {
@@ -22300,6 +22309,7 @@
                 "value": "rank",
                 "number": "one",
                 "text": "rank",
+                "typeIsSingular": true,
                 "marker": "rank",
                 "word": "rank",
                 "range": {

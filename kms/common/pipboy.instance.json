@@ -16,6 +16,9 @@
     "cola and pop are drinks",
     "medicine and stimpaks are takeable",
     "item modifies property",
+    {
+      "apply": "({config}) => {\n      config.updateBridge('item_property', ({ bridge }) => {\n        if (!bridge.init) {\n          bridge.init = {}\n        }\n        bridge.init['typeIsSingular'] = true\n      })\n    }"
+    },
     "damage luck hp rads value ap charisma range and accuracy are item properties",
     {
       "name": "pipboy",
@@ -35841,6 +35844,9 @@
       }
     },
     {
+      "apply": "({config}) => {\n      config.updateBridge('item_property', ({ bridge }) => {\n        if (!bridge.init) {\n          bridge.init = {}\n        }\n        bridge.init['typeIsSingular'] = true\n      })\n    }"
+    },
+    {
       "hierarchy": [
         [
           "a",
@@ -39175,6 +39181,7 @@
             "modifiers": [
               "modifier_item"
             ],
+            "typeIsSingular": true,
             "level": 0,
             "concept": true
           },

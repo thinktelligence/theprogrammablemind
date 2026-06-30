@@ -283,9 +283,17 @@ const config = {
         // const values = children.map( (t) => conceptApi.getWordForValue(t, { number: isA(type, 'concept') ? 'one' : 'many'}))
 
         let number = context.number || (isA(type, 'concept') ? 'one' : 'many')
-        if (isA(context.object, 'property')) {
+        debugger
+        if (context.object.typeIsSingular) {
           number = 'one'
         }
+        /*
+        if (isA(context, 'type')) {
+          number = 'many'
+        } else if (isA(context.object, 'property')) {
+          number = 'one'
+        }
+        */
         const values = children.map( (t) => conceptApi.getWordForValue(t, { number, }))
         context.evalue = {
           marker: 'list',

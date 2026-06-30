@@ -487,6 +487,14 @@ const template = {
     "cola and pop are drinks",
     "medicine and stimpaks are takeable",
     "item modifies property",
+    ({config}) => {
+      config.updateBridge('item_property', ({ bridge }) => {
+        if (!bridge.init) {
+          bridge.init = {}
+        }
+        bridge.init['typeIsSingular'] = true
+      })
+    },
     "damage luck hp rads value ap charisma range and accuracy are item properties",
     config,
   ]
