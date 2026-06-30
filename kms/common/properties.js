@@ -218,7 +218,7 @@ const config = {
       id: "objectPrefix", 
       level: 0, 
       localHierarchy: [['property', 'queryable'], ['property', 'theAble'], ['property', 'unknown']],
-      bridge: '{ ...after[0], object: operator, objects: [after[0], operator] }' 
+      bridge: '{ ...after[0], object: operator, isProperty: true, objects: [after[0], operator] }' 
     },
   ],
   words: {
@@ -476,7 +476,7 @@ const config = {
       // greg99: who are the crew members
       match: ({context, hierarchy, api}) => 
                           // (hierarchy.isA(context.marker, 'concept') && !hierarchy.isA(context.marker, 'property')) &&
-                          hierarchy.isA(context.marker, 'concept') && !context.propertyOf &&
+                          hierarchy.isA(context.marker, 'concept') && !context.propertyOf && !context.isProperty &&
                           context.evaluate &&
                           !(context.types || []).includes('property') &&
                           // !context.value &&  // greghere

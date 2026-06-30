@@ -316,7 +316,7 @@
               "unknown"
             ]
           ],
-          "bridge": "{ ...after[0], object: operator, objects: [after[0], operator] }"
+          "bridge": "{ ...after[0], object: operator, isProperty: true, objects: [after[0], operator] }"
         }
       ],
       "words": {
@@ -848,7 +848,7 @@
           "apply": "({context, km, objects}) => {\n        km('properties').api.setReadOnly([context.same.value]) \n        context.sameWasProcessed = true\n      }"
         },
         {
-          "match": "({context, hierarchy, api}) => \n                          // (hierarchy.isA(context.marker, 'concept') && !hierarchy.isA(context.marker, 'property')) &&\n                          hierarchy.isA(context.marker, 'concept') && !context.propertyOf &&\n                          context.evaluate &&\n                          !(context.types || []).includes('property') &&\n                          // !context.value &&  // greghere\n                          !context.ordinal &&\n                          (!context.objects || context.objects.length !== 2 || !context.objects[1].instance) &&\n                          (api.objects && api.objects.children && api.objects.children[context.marker]) &&\n                          !context.evaluate.toConcept",
+          "match": "({context, hierarchy, api}) => \n                          // (hierarchy.isA(context.marker, 'concept') && !hierarchy.isA(context.marker, 'property')) &&\n                          hierarchy.isA(context.marker, 'concept') && !context.propertyOf && !context.isProperty &&\n                          context.evaluate &&\n                          !(context.types || []).includes('property') &&\n                          // !context.value &&  // greghere\n                          !context.ordinal &&\n                          (!context.objects || context.objects.length !== 2 || !context.objects[1].instance) &&\n                          (api.objects && api.objects.children && api.objects.children[context.marker]) &&\n                          !context.evaluate.toConcept",
           "apply": "({context, hierarchy, objects, api, km}) => {\n        const values = api.objects.children[context.marker]\n        const phrases = values.map( (value) => km('concept').api.getWordForValue(value) )\n        // context.focusableForPhrase = true\n        context.hierarchy = true\n        context.evalue = { \n          marker: 'list', \n          listable: true,\n          // value: api.objects.children[context.marker]\n          value: phrases,\n        }\n      }"
         },
         {
@@ -1809,7 +1809,7 @@
               "unknown"
             ]
           ],
-          "bridge": "{ ...after[0], object: operator, objects: [after[0], operator] }"
+          "bridge": "{ ...after[0], object: operator, isProperty: true, objects: [after[0], operator] }"
         }
       ],
       "words": {
