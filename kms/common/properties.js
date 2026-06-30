@@ -473,12 +473,12 @@ const config = {
     {
       notes: 'crew members. evaluate a concepts to get instances',
       where: where(),
-      // greg99: who are the crew members
       match: ({context, hierarchy, api, isA}) => 
                           (debug.breakAt('length#call3') || true) &&
                           // (hierarchy.isA(context.marker, 'concept') && !hierarchy.isA(context.marker, 'property')) &&
                           // concept unless its a property then use the property handler unless its a dimension "unit of dimension" acts like hierarchy
                           hierarchy.isA(context.marker, 'concept') && ((!context.propertyOf && !context.isProperty) || isA(context.object, 'dimension')) &&
+                          (!context.pullFromContext || context.number == 'many') &&
                           context.evaluate &&
                           !(context.types || []).includes('property') &&
                           // !context.value &&  // greghere
@@ -618,7 +618,6 @@ const config = {
     {
       notes: 'get/evaluate a property',
       where: where(),
-      // greg99: what is the name of kirk
       match: ({context, hierarchy}) => 
                       hierarchy.isA(context.marker, 'property') && 
                       context.evaluate && 

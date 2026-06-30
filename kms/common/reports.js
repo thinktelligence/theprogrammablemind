@@ -397,6 +397,8 @@ const config = {
     positive: [
       { context: [['show', 0], ['article', 0], ['property', 2]], choose: { index: 0, increment: true } },
       { context: [['show', 0], ['thisitthat', 0]], choose: { index: 0, increment: true } },
+      { context: [['report', 0], ['show', 0], ['report', 0]], choose: { index: 0, increment: true } },
+      { context: [['report', 0], ['list', 0], ['report', 0]], choose: { index: 0, increment: true } },
     ]
   },
   generators: [

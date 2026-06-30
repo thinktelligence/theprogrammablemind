@@ -283,7 +283,6 @@ const config = {
         // const values = children.map( (t) => conceptApi.getWordForValue(t, { number: isA(type, 'concept') ? 'one' : 'many'}))
 
         let number = context.number || (isA(type, 'concept') ? 'one' : 'many')
-        debugger
         if (context.object.typeIsSingular) {
           number = 'one'
         }
