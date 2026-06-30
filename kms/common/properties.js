@@ -474,9 +474,11 @@ const config = {
       notes: 'crew members. evaluate a concepts to get instances',
       where: where(),
       // greg99: who are the crew members
-      match: ({context, hierarchy, api}) => 
+      match: ({context, hierarchy, api, isA}) => 
+                          (debug.breakAt('length#call3') || true) &&
                           // (hierarchy.isA(context.marker, 'concept') && !hierarchy.isA(context.marker, 'property')) &&
-                          hierarchy.isA(context.marker, 'concept') && !context.propertyOf && !context.isProperty &&
+                          // concept unless its a property then use the property handler unless its a dimension "unit of dimension" acts like hierarchy
+                          hierarchy.isA(context.marker, 'concept') && ((!context.propertyOf && !context.isProperty) || isA(context.object, 'dimension')) &&
                           context.evaluate &&
                           !(context.types || []).includes('property') &&
                           // !context.value &&  // greghere

@@ -848,7 +848,7 @@
           "apply": "({context, km, objects}) => {\n        km('properties').api.setReadOnly([context.same.value]) \n        context.sameWasProcessed = true\n      }"
         },
         {
-          "match": "({context, hierarchy, api}) => \n                          // (hierarchy.isA(context.marker, 'concept') && !hierarchy.isA(context.marker, 'property')) &&\n                          hierarchy.isA(context.marker, 'concept') && !context.propertyOf && !context.isProperty &&\n                          context.evaluate &&\n                          !(context.types || []).includes('property') &&\n                          // !context.value &&  // greghere\n                          !context.ordinal &&\n                          (!context.objects || context.objects.length !== 2 || !context.objects[1].instance) &&\n                          (api.objects && api.objects.children && api.objects.children[context.marker]) &&\n                          !context.evaluate.toConcept",
+          "match": "({context, hierarchy, api, isA}) => \n                          (debug.breakAt('length#call3') || true) &&\n                          // (hierarchy.isA(context.marker, 'concept') && !hierarchy.isA(context.marker, 'property')) &&\n                          // concept unless its a property then use the property handler unless its a dimension \"unit of dimension\" acts like hierarchy\n                          hierarchy.isA(context.marker, 'concept') && ((!context.propertyOf && !context.isProperty) || isA(context.object, 'dimension')) &&\n                          context.evaluate &&\n                          !(context.types || []).includes('property') &&\n                          // !context.value &&  // greghere\n                          !context.ordinal &&\n                          (!context.objects || context.objects.length !== 2 || !context.objects[1].instance) &&\n                          (api.objects && api.objects.children && api.objects.children[context.marker]) &&\n                          !context.evaluate.toConcept",
           "apply": "({context, hierarchy, objects, api, km}) => {\n        const values = api.objects.children[context.marker]\n        const phrases = values.map( (value) => km('concept').api.getWordForValue(value) )\n        // context.focusableForPhrase = true\n        context.hierarchy = true\n        context.evalue = { \n          marker: 'list', \n          listable: true,\n          // value: api.objects.children[context.marker]\n          value: phrases,\n        }\n      }"
         },
         {
@@ -2340,19 +2340,19 @@
         },
         {
           "notes": "greg has eyes",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:502"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:504"
         },
         {
           "notes": "greg has eyes?",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:515"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:517"
         },
         {
           "notes": "set the property of an object",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:541"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:543"
         },
         {
           "notes": "get/evaluate a property",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:618"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:620"
         }
       ]
     }
