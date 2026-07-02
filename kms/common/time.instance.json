@@ -14,7 +14,7 @@
     "minutes = seconds / 60",
     "day = hours / 24",
     "hours = days * 24",
-    "age is a concept",
+    "age is a property",
     {
       "operators": [
         "([thenTime|then])",
@@ -24,12 +24,24 @@
         "([atTime|at] (timePoint))",
         "([use] (([quantity]) [timeFormat|format]))",
         "([hourMinutes|] (integer) (colon) (integer))",
-        "((@<= 'quantity' && context.unit.dimension == 'time') [ageMarker|old])"
+        "((@<= 'quantity' && context.unit.dimension == 'time') [ageMarker|old])",
+        "((@<=unknown) [hasPropertyValue|is,is2] (context.isPropertyValue == true))"
       ],
       "bridges": [
         {
+          "id": "hasPropertyValue",
+          "isA": [
+            "verb"
+          ],
+          "enhanced_associations": true,
+          "bridge": "{ ...operator, object: before[0], operator: operator, propertyValue: after[0], interpolate: [{ property: 'object' }, { property: 'operator' }, { property: 'propertyValue' }] }"
+        },
+        {
           "id": "ageMarker",
-          "bridge": "{ ...before[0], checks: append(before.checks, ['repeats']), isAge: true, age: operator, interpolate: append(before[0].interpolate, [{ property: 'age' }]) }"
+          "isA": [
+            "adjective"
+          ],
+          "bridge": "{ ...before[0], checks: append(before.checks, ['repeats']), isAge: true, isPropertyValue: true, age: operator, interpolate: append(before[0].interpolate, [{ property: 'age' }]) }"
         },
         {
           "id": "repeatable",
@@ -44396,11 +44408,36 @@
                 0
               ],
               [
+                "property",
+                0
+              ],
+              [
                 "unknown",
                 0
               ]
             ],
             "counter": 1
+          },
+          {
+            "op": [
+              "property",
+              0
+            ],
+            "ops": [
+              [
+                "a",
+                0
+              ],
+              [
+                "is",
+                0
+              ],
+              [
+                "property",
+                0
+              ]
+            ],
+            "counter": 2
           },
           {
             "op": [
@@ -44417,7 +44454,7 @@
                 0
               ]
             ],
-            "counter": 2
+            "counter": 3
           },
           {
             "op": [
@@ -44430,7 +44467,7 @@
                 0
               ]
             ],
-            "counter": 3
+            "counter": 4
           },
           {
             "op": [
@@ -44443,7 +44480,7 @@
                 1
               ]
             ],
-            "counter": 4
+            "counter": 5
           }
         ]
       },
@@ -44451,12 +44488,12 @@
       "contexts": [
         {
           "number": "one",
-          "text": "age is a concept",
+          "text": "age is a property",
           "marker": "is",
           "word": "is",
           "range": {
             "start": 0,
-            "end": 15
+            "end": 16
           },
           "one": {
             "number": "one",
@@ -44476,22 +44513,21 @@
             "level": 0
           },
           "two": {
-            "marker": "concept",
-            "value": "concept",
-            "default": true,
-            "text": "a concept",
-            "dead": true,
-            "word": "concept",
+            "value": "property",
+            "number": "one",
+            "text": "a property",
+            "marker": "property",
+            "word": "property",
             "range": {
               "start": 7,
-              "end": 15
+              "end": 16
             },
+            "dead": true,
             "types": [
-              "concept"
+              "property"
             ],
             "pullFromContext": false,
             "concept": true,
-            "number": "one",
             "wantsValue": true,
             "determiner": {
               "marker": "a",
@@ -44523,7 +44559,7 @@
         ""
       ],
       "paraphrases": [
-        "age is a concept"
+        "age is a property"
       ],
       "paraphrasesParenthesized": [],
       "generatedParenthesized": [],
@@ -44537,11 +44573,11 @@
             0
           ],
           [
-            "concept",
+            "is",
             0
           ],
           [
-            "is",
+            "property",
             0
           ],
           [
@@ -44551,11 +44587,11 @@
         ],
         [
           [
-            "concept",
+            "is",
             0
           ],
           [
-            "is",
+            "property",
             0
           ],
           [
@@ -44601,12 +44637,12 @@
                 },
                 {
                   "marker": [
-                    "concept",
+                    "property",
                     0
                   ],
                   "range": {
                     "start": 9,
-                    "end": 15
+                    "end": 16
                   }
                 }
               ],
@@ -44646,12 +44682,12 @@
                 },
                 {
                   "marker": [
-                    "concept",
+                    "property",
                     0
                   ],
                   "range": {
                     "start": 9,
-                    "end": 15
+                    "end": 16
                   }
                 }
               ],
@@ -44681,12 +44717,22 @@
                 },
                 {
                   "marker": [
-                    "concept",
+                    "a",
                     0
                   ],
                   "range": {
                     "start": 7,
-                    "end": 15
+                    "end": 7
+                  }
+                },
+                {
+                  "marker": [
+                    "property",
+                    0
+                  ],
+                  "range": {
+                    "start": 9,
+                    "end": 16
                   }
                 }
               ],
@@ -44696,12 +44742,32 @@
               "operators": [
                 {
                   "marker": [
-                    "is",
-                    1
+                    "unknown",
+                    0
                   ],
                   "range": {
                     "start": 0,
-                    "end": 15
+                    "end": 2
+                  }
+                },
+                {
+                  "marker": [
+                    "is",
+                    0
+                  ],
+                  "range": {
+                    "start": 4,
+                    "end": 5
+                  }
+                },
+                {
+                  "marker": [
+                    "property",
+                    0
+                  ],
+                  "range": {
+                    "start": 7,
+                    "end": 16
                   }
                 }
               ],
@@ -44712,15 +44778,30 @@
                 {
                   "marker": [
                     "is",
-                    2
+                    1
                   ],
                   "range": {
                     "start": 0,
-                    "end": 15
+                    "end": 16
                   }
                 }
               ],
               "counter": 5
+            },
+            {
+              "operators": [
+                {
+                  "marker": [
+                    "is",
+                    2
+                  ],
+                  "range": {
+                    "start": 0,
+                    "end": 16
+                  }
+                }
+              ],
+              "counter": 6
             }
           ],
           "length": 1
@@ -44728,9 +44809,9 @@
       ],
       "learned_contextual_priorities": [],
       "rtf_associations": [],
-      "query": "age is a concept",
+      "query": "age is a property",
       "key": {
-        "query": "age is a concept"
+        "query": "age is a property"
       }
     },
     {
@@ -44743,12 +44824,24 @@
         "([atTime|at] (timePoint))",
         "([use] (([quantity]) [timeFormat|format]))",
         "([hourMinutes|] (integer) (colon) (integer))",
-        "((@<= 'quantity' && context.unit.dimension == 'time') [ageMarker|old])"
+        "((@<= 'quantity' && context.unit.dimension == 'time') [ageMarker|old])",
+        "((@<=unknown) [hasPropertyValue|is,is2] (context.isPropertyValue == true))"
       ],
       "bridges": [
         {
+          "id": "hasPropertyValue",
+          "isA": [
+            "verb"
+          ],
+          "enhanced_associations": true,
+          "bridge": "{ ...operator, object: before[0], operator: operator, propertyValue: after[0], interpolate: [{ property: 'object' }, { property: 'operator' }, { property: 'propertyValue' }] }"
+        },
+        {
           "id": "ageMarker",
-          "bridge": "{ ...before[0], checks: append(before.checks, ['repeats']), isAge: true, age: operator, interpolate: append(before[0].interpolate, [{ property: 'age' }]) }"
+          "isA": [
+            "adjective"
+          ],
+          "bridge": "{ ...before[0], checks: append(before.checks, ['repeats']), isAge: true, isPropertyValue: true, age: operator, interpolate: append(before[0].interpolate, [{ property: 'age' }]) }"
         },
         {
           "id": "repeatable",
@@ -44903,31 +44996,31 @@
       },
       "generators": [
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/time.js:170"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/time.js:182"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/time.js:185"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/time.js:197"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/time.js:198"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/time.js:210"
         }
       ],
       "semantics": [
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/time.js:206",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/time.js:218",
           "priority": -1
         },
         {
           "notes": "evaluate time",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/time.js:222"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/time.js:234"
         },
         {
           "notes": "use time format working case",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/time.js:231"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/time.js:243"
         },
         {
           "notes": "use time format error case",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/time.js:239"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/time.js:251"
         }
       ]
     }
@@ -44941,11 +45034,11 @@
         0
       ],
       [
-        "concept",
+        "is",
         0
       ],
       [
-        "is",
+        "property",
         0
       ],
       [
@@ -44998,20 +45091,6 @@
       ],
       [
         "unit",
-        0
-      ],
-      [
-        "unknown",
-        0
-      ]
-    ],
-    [
-      [
-        "concept",
-        0
-      ],
-      [
-        "is",
         0
       ],
       [
@@ -45522,6 +45601,20 @@
       ],
       [
         "unit",
+        0
+      ]
+    ],
+    [
+      [
+        "is",
+        0
+      ],
+      [
+        "property",
+        0
+      ],
+      [
+        "unknown",
         0
       ]
     ]
@@ -51498,12 +51591,12 @@
             },
             {
               "marker": [
-                "concept",
+                "property",
                 0
               ],
               "range": {
                 "start": 9,
-                "end": 15
+                "end": 16
               }
             }
           ],
@@ -51543,12 +51636,12 @@
             },
             {
               "marker": [
-                "concept",
+                "property",
                 0
               ],
               "range": {
                 "start": 9,
-                "end": 15
+                "end": 16
               }
             }
           ],
@@ -51578,12 +51671,22 @@
             },
             {
               "marker": [
-                "concept",
+                "a",
                 0
               ],
               "range": {
                 "start": 7,
-                "end": 15
+                "end": 7
+              }
+            },
+            {
+              "marker": [
+                "property",
+                0
+              ],
+              "range": {
+                "start": 9,
+                "end": 16
               }
             }
           ],
@@ -51593,12 +51696,32 @@
           "operators": [
             {
               "marker": [
-                "is",
-                1
+                "unknown",
+                0
               ],
               "range": {
                 "start": 0,
-                "end": 15
+                "end": 2
+              }
+            },
+            {
+              "marker": [
+                "is",
+                0
+              ],
+              "range": {
+                "start": 4,
+                "end": 5
+              }
+            },
+            {
+              "marker": [
+                "property",
+                0
+              ],
+              "range": {
+                "start": 7,
+                "end": 16
               }
             }
           ],
@@ -51609,15 +51732,30 @@
             {
               "marker": [
                 "is",
-                2
+                1
               ],
               "range": {
                 "start": 0,
-                "end": 15
+                "end": 16
               }
             }
           ],
           "counter": 5
+        },
+        {
+          "operators": [
+            {
+              "marker": [
+                "is",
+                2
+              ],
+              "range": {
+                "start": 0,
+                "end": 16
+              }
+            }
+          ],
+          "counter": 6
         }
       ],
       "length": 1

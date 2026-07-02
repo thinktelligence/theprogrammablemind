@@ -1045,3 +1045,4 @@ node drone -q '2 seconds at the first and 3 seconds at the last point' -g -d
 node formulas -q 'year = month / 12\nwhat are the formulas for month' -g -d
 
 node edible -q 'what are the types of food' -g -d 
+node time -q 'joe is 24 years old' -g -d

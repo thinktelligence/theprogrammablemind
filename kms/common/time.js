@@ -76,7 +76,7 @@ const template = {
     "minutes = seconds / 60",
     "day = hours / 24",
     "hours = days * 24",
-    "age is a concept",
+    "age is a property",
     {
       operators: [
         "([thenTime|then])",
@@ -88,11 +88,23 @@ const template = {
         "([use] (([quantity]) [timeFormat|format]))",
         "([hourMinutes|] (integer) (colon) (integer))",
         "((@<= 'quantity' && context.unit.dimension == 'time') [ageMarker|old])",
+        // "((@<= object || @==unknown) [hasPropertyValue|is,is2] (context.isPropertyValue == true))",
+        "((@<=unknown) [hasPropertyValue|is,is2] (context.isPropertyValue == true))",
       ],
       bridges: [
+        {
+          id: 'hasPropertyValue',
+          isA: ['verb'],
+          // localHierarchy: [
+          //   ['unknown', 'object'],
+          // ],
+          enhanced_associations: true,
+          bridge: "{ ...operator, object: before[0], operator: operator, propertyValue: after[0], interpolate: [{ property: 'object' }, { property: 'operator' }, { property: 'propertyValue' }] }",
+        },
         { 
           id: 'ageMarker',
-          bridge: "{ ...before[0], checks: append(before.checks, ['repeats']), isAge: true, age: operator, interpolate: append(before[0].interpolate, [{ property: 'age' }]) }",
+          isA: ['adjective'],
+          bridge: "{ ...before[0], checks: append(before.checks, ['repeats']), isAge: true, isPropertyValue: true, age: operator, interpolate: append(before[0].interpolate, [{ property: 'age' }]) }",
         },
         { 
           id: 'repeatable',
