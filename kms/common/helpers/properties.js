@@ -834,7 +834,6 @@ class API {
         return handler.setValue([object, property], value, has)
       }
     }
-
     this.propertiesFH.setValue([object, property], value, has)
     if (has && value) {
       let values = this._objects.property[property] || []

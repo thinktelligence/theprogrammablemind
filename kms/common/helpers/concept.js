@@ -22,7 +22,7 @@ class API {
     if (include_concept) {
       types.push('concept');
     }
-  
+
     for (const type of types) {
       config.addHierarchy(id, type)
     }

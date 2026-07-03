@@ -45,6 +45,10 @@ const template = {
     // 5'2"
     // 10cm 10 cm
     // 5C / 5 degrees C
+    async ({addPropertyMarker}) => {
+      await addPropertyMarker('height', 'length', 'tall')
+    },
+
   ],
 }
 

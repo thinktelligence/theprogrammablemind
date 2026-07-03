@@ -2,6 +2,10 @@
   "configs": [
     "property is a concept",
     {
+      "query": "concept is a property",
+      "isFragment": true
+    },
+    {
       "name": "properties",
       "associations": {
         "positive": [
@@ -105,7 +109,7 @@
           ],
           "enhanced_associations": true,
           "bridge": "{ ...operator, object: before[0], operator: operator, propertyValue: after[0], interpolate: [{ property: 'object' }, { property: 'operator' }, { property: 'propertyValue' }] }",
-          "semantic": "async ({context, e, fragments}) => {\n        const propertyType = {\n          marker: context.propertyValue.propertyType,\n          level: 0,\n          value: context.propertyValue.propertyType,\n        }\n\n        const instance = await fragments(\"the property of object is value\", { property: propertyType, object: context.object, value: context.propertyValue })\n        await e(instance)\n      }"
+          "semantic": "async ({context, e, fragments}) => {\n        const propertyType = {\n          marker: context.propertyValue.propertyType,\n          level: 0,\n          value: context.propertyValue.propertyType,\n        }\n\n        const instance = await fragments(\"the property of object is value\", { property: propertyType, object: context.object, value: context.propertyValue })\n        instance.greg = 23\n        await e(instance)\n      }"
         },
         {
           "id": "propertyRelation",
@@ -861,7 +865,7 @@
           "apply": "({context, km, objects}) => {\n        km('properties').api.setReadOnly([context.same.value]) \n        context.sameWasProcessed = true\n      }"
         },
         {
-          "match": "({context, hierarchy, api, isA}) => \n                          (debug.breakAt('length#call3') || true) &&\n                          // (hierarchy.isA(context.marker, 'concept') && !hierarchy.isA(context.marker, 'property')) &&\n                          // concept unless its a property then use the property handler unless its a dimension \"unit of dimension\" acts like hierarchy\n                          hierarchy.isA(context.marker, 'concept') && ((!context.propertyOf && !context.isProperty) || isA(context.object, 'dimension')) &&\n                          (!context.pullFromContext || context.number == 'many') &&\n                          context.evaluate &&\n                          !(context.types || []).includes('property') &&\n                          // !context.value &&  // greghere\n                          !context.ordinal &&\n                          (!context.objects || context.objects.length !== 2 || !context.objects[1].instance) &&\n                          (api.objects && api.objects.children && api.objects.children[context.marker]) &&\n                          !context.evaluate.toConcept",
+          "match": "({context, hierarchy, api, isA}) => \n                          // (hierarchy.isA(context.marker, 'concept') && !hierarchy.isA(context.marker, 'property')) &&\n                          // concept unless its a property then use the property handler unless its a dimension \"unit of dimension\" acts like hierarchy\n                          hierarchy.isA(context.marker, 'concept') && ((!context.propertyOf && !context.isProperty) || isA(context.object, 'dimension')) &&\n                          (!context.pullFromContext || context.number == 'many') &&\n                          context.evaluate &&\n                          !(context.types || []).includes('property') &&\n                          // !context.value &&  // greghere\n                          !context.ordinal &&\n                          (!context.objects || context.objects.length !== 2 || !context.objects[1].instance) &&\n                          (api.objects && api.objects.children && api.objects.children[context.marker]) &&\n                          !context.evaluate.toConcept",
           "apply": "({context, hierarchy, objects, api, km}) => {\n        const values = api.objects.children[context.marker]\n        const phrases = values.map( (value) => km('concept').api.getWordForValue(value) )\n        // context.focusableForPhrase = true\n        context.hierarchy = true\n        context.evalue = { \n          marker: 'list', \n          listable: true,\n          // value: api.objects.children[context.marker]\n          value: phrases,\n        }\n      }"
         },
         {
@@ -1505,6 +1509,668 @@
       "query": "property is a concept",
       "key": {
         "query": "property is a concept"
+      }
+    },
+    {
+      "hierarchy": [
+        [
+          "a",
+          "article",
+          false
+        ],
+        [
+          "adjective",
+          "adjective",
+          false
+        ],
+        [
+          "article",
+          "article",
+          false
+        ],
+        [
+          "canBeQuestion",
+          "canBeQuestion",
+          false
+        ],
+        [
+          "concept",
+          "queryable",
+          false
+        ],
+        [
+          "concept",
+          "theAble",
+          false
+        ],
+        [
+          "deletable",
+          "deletable",
+          false
+        ],
+        [
+          "delete",
+          "verb",
+          false
+        ],
+        [
+          "distributable",
+          "queryable",
+          false
+        ],
+        [
+          "doubleQuote",
+          "queryable",
+          false
+        ],
+        [
+          "each",
+          "article",
+          false
+        ],
+        [
+          "every",
+          "article",
+          false
+        ],
+        [
+          "ifAble",
+          "ifAble",
+          false
+        ],
+        [
+          "is",
+          "canBeQuestion",
+          false
+        ],
+        [
+          "is",
+          "verb",
+          false
+        ],
+        [
+          "isEdee",
+          "isEdee",
+          false
+        ],
+        [
+          "isEder",
+          "isEder",
+          false
+        ],
+        [
+          "isQuery",
+          "verb",
+          false
+        ],
+        [
+          "it",
+          "pronoun",
+          false
+        ],
+        [
+          "it",
+          "queryable",
+          false
+        ],
+        [
+          "it",
+          "thisitthat",
+          false
+        ],
+        [
+          "it",
+          "toAble",
+          false
+        ],
+        [
+          "listable",
+          "theAble",
+          false
+        ],
+        [
+          "memorable",
+          "deletable",
+          false
+        ],
+        [
+          "memorable",
+          "theAble",
+          false
+        ],
+        [
+          "modifies",
+          "verb",
+          false
+        ],
+        [
+          "negatable",
+          "queryable",
+          false
+        ],
+        [
+          "noun",
+          "theAble",
+          false
+        ],
+        [
+          "noun",
+          "thisAble",
+          false
+        ],
+        [
+          "orAble",
+          "ifAble",
+          false
+        ],
+        [
+          "preposition",
+          "preposition",
+          false
+        ],
+        [
+          "pronoun",
+          "pronoun",
+          false
+        ],
+        [
+          "property",
+          "concept",
+          false
+        ],
+        [
+          "property",
+          "isEdee",
+          false
+        ],
+        [
+          "property",
+          "isEder",
+          false
+        ],
+        [
+          "property",
+          "queryable",
+          false
+        ],
+        [
+          "property",
+          "theAble",
+          false
+        ],
+        [
+          "property",
+          "thisAble",
+          false
+        ],
+        [
+          "punctuation",
+          "punctuation",
+          false
+        ],
+        [
+          "queryable",
+          "listable",
+          false
+        ],
+        [
+          "questionMark",
+          "punctuation",
+          false
+        ],
+        [
+          "reason",
+          "queryable",
+          false
+        ],
+        [
+          "reason",
+          "theAble",
+          false
+        ],
+        [
+          "recall",
+          "verb",
+          false
+        ],
+        [
+          "remember",
+          "verb",
+          false
+        ],
+        [
+          "stm_before",
+          "adjective",
+          false
+        ],
+        [
+          "stm_current",
+          "adjective",
+          false
+        ],
+        [
+          "stm_previous",
+          "adjective",
+          false
+        ],
+        [
+          "that",
+          "thisitthat",
+          false
+        ],
+        [
+          "the",
+          "article",
+          false
+        ],
+        [
+          "theAble",
+          "queryable",
+          false
+        ],
+        [
+          "this",
+          "pronoun",
+          false
+        ],
+        [
+          "this",
+          "queryable",
+          false
+        ],
+        [
+          "this",
+          "thisitthat",
+          false
+        ],
+        [
+          "thisAble",
+          "thisAble",
+          false
+        ],
+        [
+          "thisitthat",
+          "queryable",
+          false
+        ],
+        [
+          "to",
+          "preposition",
+          false
+        ],
+        [
+          "toAble",
+          "toAble",
+          false
+        ],
+        [
+          "verb",
+          "verb",
+          false
+        ],
+        [
+          "what",
+          "queryable",
+          false
+        ],
+        [
+          "whatAble",
+          "queryable",
+          false
+        ]
+      ],
+      "metadata": {
+        "opChoices": [
+          {
+            "op": [
+              "property",
+              0
+            ],
+            "ops": [
+              [
+                "a",
+                0
+              ],
+              [
+                "is",
+                0
+              ],
+              [
+                "property",
+                0
+              ]
+            ],
+            "counter": 1
+          },
+          {
+            "op": [
+              "a",
+              0
+            ],
+            "ops": [
+              [
+                "a",
+                0
+              ],
+              [
+                "is",
+                0
+              ]
+            ],
+            "counter": 2
+          },
+          {
+            "op": [
+              "is",
+              0
+            ],
+            "ops": [
+              [
+                "is",
+                0
+              ]
+            ],
+            "counter": 3
+          },
+          {
+            "op": [
+              "is",
+              1
+            ],
+            "ops": [
+              [
+                "is",
+                1
+              ]
+            ],
+            "counter": 4
+          }
+        ]
+      },
+      "trace": "undefined",
+      "contexts": [
+        {
+          "number": "one",
+          "text": "concept is a property",
+          "marker": "is",
+          "word": "is",
+          "range": {
+            "start": 0,
+            "end": 20
+          },
+          "one": {
+            "number": "one",
+            "marker": "concept",
+            "value": "concept",
+            "default": true,
+            "text": "concept",
+            "dead": true,
+            "word": "concept",
+            "range": {
+              "start": 0,
+              "end": 6
+            },
+            "types": [
+              "concept"
+            ],
+            "level": 0
+          },
+          "two": {
+            "value": "property",
+            "number": "one",
+            "text": "a property",
+            "marker": "property",
+            "word": "property",
+            "range": {
+              "start": 11,
+              "end": 20
+            },
+            "dead": true,
+            "types": [
+              "property"
+            ],
+            "pullFromContext": false,
+            "concept": true,
+            "wantsValue": true,
+            "determiner": {
+              "marker": "a",
+              "default": true,
+              "word": "a",
+              "text": "a",
+              "range": {
+                "start": 11,
+                "end": 11
+              },
+              "level": 0
+            },
+            "modifiers": [
+              "determiner"
+            ],
+            "level": 0
+          },
+          "dead": true,
+          "level": 2,
+          "context_index": 1,
+          "topLevel": true,
+          "context_id": 2,
+          "touchedBy": [
+            "properties#call2"
+          ]
+        }
+      ],
+      "generated": [
+        ""
+      ],
+      "paraphrases": [
+        "concept is a property"
+      ],
+      "paraphrasesParenthesized": [],
+      "generatedParenthesized": [],
+      "responses": [
+        ""
+      ],
+      "associations": [
+        [
+          [
+            "a",
+            0
+          ],
+          [
+            "concept",
+            0
+          ],
+          [
+            "is",
+            0
+          ],
+          [
+            "property",
+            0
+          ]
+        ],
+        [
+          [
+            "concept",
+            0
+          ],
+          [
+            "is",
+            0
+          ],
+          [
+            "property",
+            0
+          ]
+        ]
+      ],
+      "summaries": [
+        {
+          "summaries": [
+            {
+              "operators": [
+                {
+                  "marker": [
+                    "concept",
+                    0
+                  ],
+                  "range": {
+                    "start": 0,
+                    "end": 6
+                  }
+                },
+                {
+                  "marker": [
+                    "is",
+                    0
+                  ],
+                  "range": {
+                    "start": 8,
+                    "end": 9
+                  }
+                },
+                {
+                  "marker": [
+                    "a",
+                    0
+                  ],
+                  "range": {
+                    "start": 11,
+                    "end": 11
+                  }
+                },
+                {
+                  "marker": [
+                    "property",
+                    0
+                  ],
+                  "range": {
+                    "start": 13,
+                    "end": 20
+                  }
+                }
+              ],
+              "counter": 1
+            },
+            {
+              "operators": [
+                {
+                  "marker": [
+                    "concept",
+                    0
+                  ],
+                  "range": {
+                    "start": 0,
+                    "end": 6
+                  }
+                },
+                {
+                  "marker": [
+                    "is",
+                    0
+                  ],
+                  "range": {
+                    "start": 8,
+                    "end": 9
+                  }
+                },
+                {
+                  "marker": [
+                    "a",
+                    0
+                  ],
+                  "range": {
+                    "start": 11,
+                    "end": 11
+                  }
+                },
+                {
+                  "marker": [
+                    "property",
+                    0
+                  ],
+                  "range": {
+                    "start": 13,
+                    "end": 20
+                  }
+                }
+              ],
+              "counter": 2
+            },
+            {
+              "operators": [
+                {
+                  "marker": [
+                    "concept",
+                    0
+                  ],
+                  "range": {
+                    "start": 0,
+                    "end": 6
+                  }
+                },
+                {
+                  "marker": [
+                    "is",
+                    0
+                  ],
+                  "range": {
+                    "start": 8,
+                    "end": 9
+                  }
+                },
+                {
+                  "marker": [
+                    "property",
+                    0
+                  ],
+                  "range": {
+                    "start": 11,
+                    "end": 20
+                  }
+                }
+              ],
+              "counter": 3
+            },
+            {
+              "operators": [
+                {
+                  "marker": [
+                    "is",
+                    1
+                  ],
+                  "range": {
+                    "start": 0,
+                    "end": 20
+                  }
+                }
+              ],
+              "counter": 4
+            },
+            {
+              "operators": [
+                {
+                  "marker": [
+                    "is",
+                    2
+                  ],
+                  "range": {
+                    "start": 0,
+                    "end": 20
+                  }
+                }
+              ],
+              "counter": 5
+            }
+          ],
+          "length": 1
+        }
+      ],
+      "learned_contextual_priorities": [],
+      "rtf_associations": [],
+      "query": "concept is a property",
+      "isFragment": true,
+      "key": {
+        "query": "concept is a property"
       }
     },
     {
@@ -2301,83 +2967,83 @@
       "generators": [
         {
           "notes": "expression with constraints",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:293"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:297"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:315"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:319"
         },
         {
           "notes": "add possession ending",
           "priority": -1,
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:322"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:326"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:336"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:340"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:341"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:345"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:346"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:350"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:351"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:355"
         },
         {
           "notes": "negative do questions",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:357"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:361"
         },
         {
           "notes": "do questions",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:366"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:370"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:380"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:384"
         },
         {
           "notes": "the property of object",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:388"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:392"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:412"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:416"
         },
         {
           "notes": "object's property",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:421"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:425"
         }
       ],
       "semantics": [
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:452"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:456"
         },
         {
           "notes": "wants is xfx between wanter and wantee",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:463",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:467",
           "priority": -1
         },
         {
           "notes": "marking something as readonly",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:477"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:481"
         },
         {
           "notes": "crew members. evaluate a concepts to get instances",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:501"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:505"
         },
         {
           "notes": "greg has eyes",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:530"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:533"
         },
         {
           "notes": "greg has eyes?",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:543"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:546"
         },
         {
           "notes": "set the property of an object",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:569"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:572"
         },
         {
           "notes": "get/evaluate a property",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:646"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:649"
         }
       ]
     }
@@ -4687,7 +5353,39 @@
         0
       ],
       [
+        "property",
+        0
+      ]
+    ],
+    [
+      [
+        "a",
+        0
+      ],
+      [
+        "concept",
+        0
+      ],
+      [
+        "is",
+        0
+      ],
+      [
         "unknown",
+        0
+      ]
+    ],
+    [
+      [
+        "concept",
+        0
+      ],
+      [
+        "is",
+        0
+      ],
+      [
+        "property",
         0
       ]
     ],
@@ -4960,6 +5658,166 @@
               ],
               "range": {
                 "start": 12,
+                "end": 20
+              }
+            }
+          ],
+          "counter": 3
+        },
+        {
+          "operators": [
+            {
+              "marker": [
+                "is",
+                1
+              ],
+              "range": {
+                "start": 0,
+                "end": 20
+              }
+            }
+          ],
+          "counter": 4
+        },
+        {
+          "operators": [
+            {
+              "marker": [
+                "is",
+                2
+              ],
+              "range": {
+                "start": 0,
+                "end": 20
+              }
+            }
+          ],
+          "counter": 5
+        }
+      ],
+      "length": 1
+    },
+    {
+      "summaries": [
+        {
+          "operators": [
+            {
+              "marker": [
+                "concept",
+                0
+              ],
+              "range": {
+                "start": 0,
+                "end": 6
+              }
+            },
+            {
+              "marker": [
+                "is",
+                0
+              ],
+              "range": {
+                "start": 8,
+                "end": 9
+              }
+            },
+            {
+              "marker": [
+                "a",
+                0
+              ],
+              "range": {
+                "start": 11,
+                "end": 11
+              }
+            },
+            {
+              "marker": [
+                "property",
+                0
+              ],
+              "range": {
+                "start": 13,
+                "end": 20
+              }
+            }
+          ],
+          "counter": 1
+        },
+        {
+          "operators": [
+            {
+              "marker": [
+                "concept",
+                0
+              ],
+              "range": {
+                "start": 0,
+                "end": 6
+              }
+            },
+            {
+              "marker": [
+                "is",
+                0
+              ],
+              "range": {
+                "start": 8,
+                "end": 9
+              }
+            },
+            {
+              "marker": [
+                "a",
+                0
+              ],
+              "range": {
+                "start": 11,
+                "end": 11
+              }
+            },
+            {
+              "marker": [
+                "property",
+                0
+              ],
+              "range": {
+                "start": 13,
+                "end": 20
+              }
+            }
+          ],
+          "counter": 2
+        },
+        {
+          "operators": [
+            {
+              "marker": [
+                "concept",
+                0
+              ],
+              "range": {
+                "start": 0,
+                "end": 6
+              }
+            },
+            {
+              "marker": [
+                "is",
+                0
+              ],
+              "range": {
+                "start": 8,
+                "end": 9
+              }
+            },
+            {
+              "marker": [
+                "property",
+                0
+              ],
+              "range": {
+                "start": 11,
                 "end": 20
               }
             }

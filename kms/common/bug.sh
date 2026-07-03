@@ -1046,3 +1046,4 @@ node formulas -q 'year = month / 12\nwhat are the formulas for month' -g -d
 
 node edible -q 'what are the types of food' -g -d 
 node time -q 'joe is 24 years old' -g -d
+node length -q "joe is 5 feet tall\nwhat is joe's height" -g -d

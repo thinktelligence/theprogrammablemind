@@ -76,12 +76,12 @@ const api = new API();
 // 24 years old -> old indicates that the property is age
 
 function addPropertyMarker(args) {
-  return async (property, markerWord) => {
+  return async (property, dimension, markerWord) => {
     const { fragments, s, config } = args
     const instance = await fragments("concept is a property", { concept: { marker: property, level: 0, value: property, word: property } })
     await s(instance)
     const propertyMarker = `${property}Marker`
-    config.addOperator(`((@<= 'quantity' && context.unit.dimension == 'time') [${propertyMarker}|${markerWord}])`)
+    config.addOperator(`((@<= 'quantity' && context.unit.dimension == ${dimension}) [${propertyMarker}|${markerWord}])`)
     config.addBridge({
       id: propertyMarker,
       isA: ['adjective'],
@@ -140,6 +140,7 @@ const config = {
         }
 
         const instance = await fragments("the property of object is value", { property: propertyType, object: context.object, value: context.propertyValue })
+        instance.greg = 23
         await e(instance)
       }
     },
@@ -502,7 +503,6 @@ const config = {
       notes: 'crew members. evaluate a concepts to get instances',
       where: where(),
       match: ({context, hierarchy, api, isA}) => 
-                          (debug.breakAt('length#call3') || true) &&
                           // (hierarchy.isA(context.marker, 'concept') && !hierarchy.isA(context.marker, 'property')) &&
                           // concept unless its a property then use the property handler unless its a dimension "unit of dimension" acts like hierarchy
                           hierarchy.isA(context.marker, 'concept') && ((!context.propertyOf && !context.isProperty) || isA(context.object, 'dimension')) &&
@@ -729,6 +729,7 @@ const template = {
   ],
   configs: [
     "property is a concept",
+    { query: "concept is a property", isFragment: true },
     config
   ],
 }

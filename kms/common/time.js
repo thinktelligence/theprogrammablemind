@@ -68,7 +68,7 @@ const template = {
     { query: "concept is a property", isFragment: true },
     async ({addPropertyMarker}) => {
       // 24 years old -> is an age
-      await addPropertyMarker('age', 'old')
+      await addPropertyMarker('age', 'time', 'old')
     },
     "years, months, days, hours, minutes, milliseconds and seconds are units of time",
     "years = months / 12",
