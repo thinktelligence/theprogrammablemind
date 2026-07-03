@@ -61,7 +61,15 @@ class API {
 
 
 const template = {
+  fragments: [
+    // "concept is a property",
+  ],
   configs: [
+    { query: "concept is a property", isFragment: true },
+    async ({addPropertyMarker}) => {
+      // 24 years old -> is an age
+      await addPropertyMarker('age', 'old')
+    },
     "years, months, days, hours, minutes, milliseconds and seconds are units of time",
     "years = months / 12",
     "hours = minutes / 60",
@@ -76,7 +84,6 @@ const template = {
     "minutes = seconds / 60",
     "day = hours / 24",
     "hours = days * 24",
-    "age is a property",
     {
       operators: [
         "([thenTime|then])",
@@ -87,25 +94,8 @@ const template = {
         // "([use] (([timeUnit]) [timeFormat|format]))",
         "([use] (([quantity]) [timeFormat|format]))",
         "([hourMinutes|] (integer) (colon) (integer))",
-        "((@<= 'quantity' && context.unit.dimension == 'time') [ageMarker|old])",
-        // "((@<= object || @==unknown) [hasPropertyValue|is,is2] (context.isPropertyValue == true))",
-        "((@<=unknown) [hasPropertyValue|is,is2] (context.isPropertyValue == true))",
       ],
       bridges: [
-        {
-          id: 'hasPropertyValue',
-          isA: ['verb'],
-          // localHierarchy: [
-          //   ['unknown', 'object'],
-          // ],
-          enhanced_associations: true,
-          bridge: "{ ...operator, object: before[0], operator: operator, propertyValue: after[0], interpolate: [{ property: 'object' }, { property: 'operator' }, { property: 'propertyValue' }] }",
-        },
-        { 
-          id: 'ageMarker',
-          isA: ['adjective'],
-          bridge: "{ ...before[0], checks: append(before.checks, ['repeats']), isAge: true, isPropertyValue: true, age: operator, interpolate: append(before[0].interpolate, [{ property: 'age' }]) }",
-        },
         { 
           id: 'repeatable',
           check: defaultContextCheckProperties(['repeats'])

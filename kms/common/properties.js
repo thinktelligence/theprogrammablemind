@@ -73,6 +73,24 @@ V2
 
 const api = new API();
 
+// 24 years old -> old indicates that the property is age
+
+function addPropertyMarker(args) {
+  return async (property, markerWord) => {
+    const { fragments, s, config } = args
+    const instance = await fragments("concept is a property", { concept: { marker: property, level: 0, value: property, word: property } })
+    await s(instance)
+    const propertyMarker = `${property}Marker`
+    config.addOperator(`((@<= 'quantity' && context.unit.dimension == 'time') [${propertyMarker}|${markerWord}])`)
+    config.addBridge({
+      id: propertyMarker,
+      isA: ['adjective'],
+      enhanced_associations: true,
+      bridge: `{ ...before[0], checks: append(before.checks, ['repeats']), propertyType: '${property}', : true, isPropertyValue: true, ${property}: operator, interpolate: append(before[0].interpolate, [{ property: '${property}' }]) }`,
+    })
+  }
+}
+
 const config = {
   name: 'properties',
   associations: {
@@ -99,23 +117,33 @@ const config = {
     // "(([have/1]) <questionMark|>)",
     // the plural of cat is cats what is the plural of cat?
     // does greg have ears (yes) greg does not have ears does greg have ears (no)
+    // TODO fix @=unknown does not work?!??
+    "((@<= object || @<=unknown) [hasPropertyValue|is] (context.isPropertyValue == true))",
   ],
-  /*
-    [('is', 0), ('property', 0)]-('property', 0)
-
-
-    got from -> 
-    ['property', 'queryable']
-    "(([queryable]) [is|is,are] ([queryable|]))"
-
-    <> implies output is property/1 so that should be used to put propertyOf/0 below property/1
-    "(([property]) <([propertyOf|of] ([object]))>)",
-  */
+  // TODO remove these and use localHierarchy if needed
   hierarchy: [
     ['unknown', 'hierarchyAble'],
     ['what', 'object'],
   ],
   bridges: [
+    {
+      id: 'hasPropertyValue',
+      isA: ['verb'],
+      preferOver: ['is'],
+      enhanced_associations: true,
+      bridge: "{ ...operator, object: before[0], operator: operator, propertyValue: after[0], interpolate: [{ property: 'object' }, { property: 'operator' }, { property: 'propertyValue' }] }",
+      semantic: async ({context, e, fragments}) => {
+        const propertyType = {
+          marker: context.propertyValue.propertyType,
+          level: 0,
+          value: context.propertyValue.propertyType,
+        }
+
+        const instance = await fragments("the property of object is value", { property: propertyType, object: context.object, value: context.propertyValue })
+        await e(instance)
+      }
+    },
+
     { 
       id: 'propertyRelation', 
       // scope: 'development',
@@ -688,15 +716,16 @@ const config = {
 };
 
 function initializer({objects, config, isModule}) {
-  // debugger
-  config.addArgs(({config, api, isA}) => ({
-    makeObject: api('properties').makeObject,
+  config.addArgs((args) => ({
+    makeObject: args.api('properties').makeObject,
+    addPropertyMarker: addPropertyMarker(args),
   }))
 }
 
 const template = {
   fragments: [
     "the property1 of object1 is value1",
+    "the property of object is value",
   ],
   configs: [
     "property is a concept",

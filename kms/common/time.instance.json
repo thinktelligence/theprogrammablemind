@@ -1,5 +1,12 @@
 {
   "configs": [
+    {
+      "query": "concept is a property",
+      "isFragment": true
+    },
+    {
+      "apply": "async ({addPropertyMarker}) => {\n      // 24 years old -> is an age\n      await addPropertyMarker('age', 'old')\n    }"
+    },
     "years, months, days, hours, minutes, milliseconds and seconds are units of time",
     "years = months / 12",
     "hours = minutes / 60",
@@ -14,7 +21,6 @@
     "minutes = seconds / 60",
     "day = hours / 24",
     "hours = days * 24",
-    "age is a property",
     {
       "operators": [
         "([thenTime|then])",
@@ -23,26 +29,9 @@
         "(([integer]) [timeRepeats|] ([timePoint]))",
         "([atTime|at] (timePoint))",
         "([use] (([quantity]) [timeFormat|format]))",
-        "([hourMinutes|] (integer) (colon) (integer))",
-        "((@<= 'quantity' && context.unit.dimension == 'time') [ageMarker|old])",
-        "((@<=unknown) [hasPropertyValue|is,is2] (context.isPropertyValue == true))"
+        "([hourMinutes|] (integer) (colon) (integer))"
       ],
       "bridges": [
-        {
-          "id": "hasPropertyValue",
-          "isA": [
-            "verb"
-          ],
-          "enhanced_associations": true,
-          "bridge": "{ ...operator, object: before[0], operator: operator, propertyValue: after[0], interpolate: [{ property: 'object' }, { property: 'operator' }, { property: 'propertyValue' }] }"
-        },
-        {
-          "id": "ageMarker",
-          "isA": [
-            "adjective"
-          ],
-          "bridge": "{ ...before[0], checks: append(before.checks, ['repeats']), isAge: true, isPropertyValue: true, age: operator, interpolate: append(before[0].interpolate, [{ property: 'age' }]) }"
-        },
         {
           "id": "repeatable",
           "check": [
@@ -649,6 +638,2296 @@
         [
           "hasCountOfPieces",
           "countable",
+          false
+        ],
+        [
+          "hasPropertyValue",
+          "verb",
+          false
+        ],
+        [
+          "have",
+          "canBeDoQuestion",
+          false
+        ],
+        [
+          "have",
+          "canBeQuestion",
+          false
+        ],
+        [
+          "hierarchyAble",
+          "queryable",
+          false
+        ],
+        [
+          "highest",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "highest",
+          "isEdee",
+          false
+        ],
+        [
+          "highest",
+          "isEder",
+          false
+        ],
+        [
+          "highest",
+          "object",
+          false
+        ],
+        [
+          "highest",
+          "property",
+          false
+        ],
+        [
+          "highest",
+          "queryable",
+          false
+        ],
+        [
+          "highest",
+          "superlative",
+          false
+        ],
+        [
+          "highest",
+          "theAble",
+          false
+        ],
+        [
+          "highest",
+          "thisAble",
+          false
+        ],
+        [
+          "ifAble",
+          "ifAble",
+          false
+        ],
+        [
+          "imperial",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "imperial",
+          "isEdee",
+          false
+        ],
+        [
+          "imperial",
+          "isEder",
+          false
+        ],
+        [
+          "imperial",
+          "object",
+          false
+        ],
+        [
+          "imperial",
+          "property",
+          false
+        ],
+        [
+          "imperial",
+          "queryable",
+          false
+        ],
+        [
+          "imperial",
+          "system_modifier",
+          false
+        ],
+        [
+          "imperial",
+          "theAble",
+          false
+        ],
+        [
+          "imperial",
+          "unit_modifier",
+          false
+        ],
+        [
+          "imperial_system",
+          "adjective",
+          true
+        ],
+        [
+          "imperial_system",
+          "concept",
+          false
+        ],
+        [
+          "imperial_system",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "imperial_system",
+          "isEdee",
+          false
+        ],
+        [
+          "imperial_system",
+          "isEder",
+          false
+        ],
+        [
+          "imperial_system",
+          "measurement_system",
+          false
+        ],
+        [
+          "imperial_system",
+          "object",
+          false
+        ],
+        [
+          "imperial_system",
+          "property",
+          false
+        ],
+        [
+          "imperial_system",
+          "queryable",
+          false
+        ],
+        [
+          "imperial_system",
+          "system",
+          false
+        ],
+        [
+          "imperial_system",
+          "theAble",
+          false
+        ],
+        [
+          "imperial_unit",
+          "adjective",
+          true
+        ],
+        [
+          "imperial_unit",
+          "concept",
+          false
+        ],
+        [
+          "imperial_unit",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "imperial_unit",
+          "isEdee",
+          false
+        ],
+        [
+          "imperial_unit",
+          "isEder",
+          false
+        ],
+        [
+          "imperial_unit",
+          "object",
+          false
+        ],
+        [
+          "imperial_unit",
+          "property",
+          false
+        ],
+        [
+          "imperial_unit",
+          "queryable",
+          false
+        ],
+        [
+          "imperial_unit",
+          "theAble",
+          false
+        ],
+        [
+          "imperial_unit",
+          "unit",
+          false
+        ],
+        [
+          "integer",
+          "number",
+          false
+        ],
+        [
+          "is",
+          "canBeQuestion",
+          false
+        ],
+        [
+          "is",
+          "event",
+          false
+        ],
+        [
+          "is",
+          "verb",
+          false
+        ],
+        [
+          "isEdee",
+          "isEdee",
+          false
+        ],
+        [
+          "isEder",
+          "isEder",
+          false
+        ],
+        [
+          "isQuery",
+          "verb",
+          false
+        ],
+        [
+          "it",
+          "pronoun",
+          false
+        ],
+        [
+          "it",
+          "queryable",
+          false
+        ],
+        [
+          "it",
+          "thisitthat",
+          false
+        ],
+        [
+          "it",
+          "toAble",
+          false
+        ],
+        [
+          "length",
+          "dimension",
+          false
+        ],
+        [
+          "listable",
+          "theAble",
+          false
+        ],
+        [
+          "lowest",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "lowest",
+          "isEdee",
+          false
+        ],
+        [
+          "lowest",
+          "isEder",
+          false
+        ],
+        [
+          "lowest",
+          "object",
+          false
+        ],
+        [
+          "lowest",
+          "property",
+          false
+        ],
+        [
+          "lowest",
+          "queryable",
+          false
+        ],
+        [
+          "lowest",
+          "superlative",
+          false
+        ],
+        [
+          "lowest",
+          "theAble",
+          false
+        ],
+        [
+          "lowest",
+          "thisAble",
+          false
+        ],
+        [
+          "mathematical",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "mathematical",
+          "isEdee",
+          false
+        ],
+        [
+          "mathematical",
+          "isEder",
+          false
+        ],
+        [
+          "mathematical",
+          "object",
+          false
+        ],
+        [
+          "mathematical",
+          "operator_modifier",
+          false
+        ],
+        [
+          "mathematical",
+          "property",
+          false
+        ],
+        [
+          "mathematical",
+          "queryable",
+          false
+        ],
+        [
+          "mathematical",
+          "theAble",
+          false
+        ],
+        [
+          "mathematicalExpression",
+          "concept",
+          false
+        ],
+        [
+          "mathematicalExpression",
+          "expression",
+          false
+        ],
+        [
+          "mathematical_operator",
+          "adjective",
+          true
+        ],
+        [
+          "mathematical_operator",
+          "concept",
+          false
+        ],
+        [
+          "mathematical_operator",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "mathematical_operator",
+          "isEdee",
+          false
+        ],
+        [
+          "mathematical_operator",
+          "isEder",
+          false
+        ],
+        [
+          "mathematical_operator",
+          "object",
+          false
+        ],
+        [
+          "mathematical_operator",
+          "operator",
+          false
+        ],
+        [
+          "mathematical_operator",
+          "property",
+          false
+        ],
+        [
+          "mathematical_operator",
+          "queryable",
+          false
+        ],
+        [
+          "mathematical_operator",
+          "theAble",
+          false
+        ],
+        [
+          "maximum",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "maximum",
+          "isEdee",
+          false
+        ],
+        [
+          "maximum",
+          "isEder",
+          false
+        ],
+        [
+          "maximum",
+          "object",
+          false
+        ],
+        [
+          "maximum",
+          "property",
+          false
+        ],
+        [
+          "maximum",
+          "queryable",
+          false
+        ],
+        [
+          "maximum",
+          "superlative",
+          false
+        ],
+        [
+          "maximum",
+          "theAble",
+          false
+        ],
+        [
+          "maximum",
+          "thisAble",
+          false
+        ],
+        [
+          "measurement",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "measurement",
+          "isEdee",
+          false
+        ],
+        [
+          "measurement",
+          "isEder",
+          false
+        ],
+        [
+          "measurement",
+          "object",
+          false
+        ],
+        [
+          "measurement",
+          "property",
+          false
+        ],
+        [
+          "measurement",
+          "queryable",
+          false
+        ],
+        [
+          "measurement",
+          "system_modifier",
+          false
+        ],
+        [
+          "measurement",
+          "theAble",
+          false
+        ],
+        [
+          "measurement",
+          "unit_modifier",
+          false
+        ],
+        [
+          "measurement_system",
+          "adjective",
+          true
+        ],
+        [
+          "measurement_system",
+          "concept",
+          false
+        ],
+        [
+          "measurement_system",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "measurement_system",
+          "isEdee",
+          false
+        ],
+        [
+          "measurement_system",
+          "isEder",
+          false
+        ],
+        [
+          "measurement_system",
+          "object",
+          false
+        ],
+        [
+          "measurement_system",
+          "property",
+          false
+        ],
+        [
+          "measurement_system",
+          "queryable",
+          false
+        ],
+        [
+          "measurement_system",
+          "system",
+          false
+        ],
+        [
+          "measurement_system",
+          "theAble",
+          false
+        ],
+        [
+          "measurement_unit",
+          "adjective",
+          true
+        ],
+        [
+          "measurement_unit",
+          "concept",
+          false
+        ],
+        [
+          "measurement_unit",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "measurement_unit",
+          "isEdee",
+          false
+        ],
+        [
+          "measurement_unit",
+          "isEder",
+          false
+        ],
+        [
+          "measurement_unit",
+          "object",
+          false
+        ],
+        [
+          "measurement_unit",
+          "property",
+          false
+        ],
+        [
+          "measurement_unit",
+          "queryable",
+          false
+        ],
+        [
+          "measurement_unit",
+          "theAble",
+          false
+        ],
+        [
+          "measurement_unit",
+          "unit",
+          false
+        ],
+        [
+          "memorable",
+          "deletable",
+          false
+        ],
+        [
+          "memorable",
+          "theAble",
+          false
+        ],
+        [
+          "metric",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "metric",
+          "isEdee",
+          false
+        ],
+        [
+          "metric",
+          "isEder",
+          false
+        ],
+        [
+          "metric",
+          "object",
+          false
+        ],
+        [
+          "metric",
+          "property",
+          false
+        ],
+        [
+          "metric",
+          "queryable",
+          false
+        ],
+        [
+          "metric",
+          "system_modifier",
+          false
+        ],
+        [
+          "metric",
+          "theAble",
+          false
+        ],
+        [
+          "metric",
+          "unit_modifier",
+          false
+        ],
+        [
+          "metric_system",
+          "adjective",
+          true
+        ],
+        [
+          "metric_system",
+          "concept",
+          false
+        ],
+        [
+          "metric_system",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "metric_system",
+          "isEdee",
+          false
+        ],
+        [
+          "metric_system",
+          "isEder",
+          false
+        ],
+        [
+          "metric_system",
+          "measurement_system",
+          false
+        ],
+        [
+          "metric_system",
+          "object",
+          false
+        ],
+        [
+          "metric_system",
+          "property",
+          false
+        ],
+        [
+          "metric_system",
+          "queryable",
+          false
+        ],
+        [
+          "metric_system",
+          "system",
+          false
+        ],
+        [
+          "metric_system",
+          "theAble",
+          false
+        ],
+        [
+          "metric_unit",
+          "adjective",
+          true
+        ],
+        [
+          "metric_unit",
+          "concept",
+          false
+        ],
+        [
+          "metric_unit",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "metric_unit",
+          "isEdee",
+          false
+        ],
+        [
+          "metric_unit",
+          "isEder",
+          false
+        ],
+        [
+          "metric_unit",
+          "object",
+          false
+        ],
+        [
+          "metric_unit",
+          "property",
+          false
+        ],
+        [
+          "metric_unit",
+          "queryable",
+          false
+        ],
+        [
+          "metric_unit",
+          "theAble",
+          false
+        ],
+        [
+          "metric_unit",
+          "unit",
+          false
+        ],
+        [
+          "minimum",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "minimum",
+          "isEdee",
+          false
+        ],
+        [
+          "minimum",
+          "isEder",
+          false
+        ],
+        [
+          "minimum",
+          "object",
+          false
+        ],
+        [
+          "minimum",
+          "property",
+          false
+        ],
+        [
+          "minimum",
+          "queryable",
+          false
+        ],
+        [
+          "minimum",
+          "superlative",
+          false
+        ],
+        [
+          "minimum",
+          "theAble",
+          false
+        ],
+        [
+          "minimum",
+          "thisAble",
+          false
+        ],
+        [
+          "minusExpression",
+          "mathematicalExpression",
+          false
+        ],
+        [
+          "minusOperator",
+          "mathematical_operator",
+          false
+        ],
+        [
+          "modifies",
+          "verb",
+          false
+        ],
+        [
+          "negatable",
+          "queryable",
+          false
+        ],
+        [
+          "noun",
+          "theAble",
+          false
+        ],
+        [
+          "noun",
+          "thisAble",
+          false
+        ],
+        [
+          "number",
+          "expression",
+          false
+        ],
+        [
+          "number",
+          "quantifier",
+          false
+        ],
+        [
+          "number",
+          "queryable",
+          false
+        ],
+        [
+          "object",
+          "listable",
+          false
+        ],
+        [
+          "object",
+          "queryable",
+          false
+        ],
+        [
+          "object",
+          "theAble",
+          false
+        ],
+        [
+          "operator",
+          "concept",
+          false
+        ],
+        [
+          "operator",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "operator",
+          "isEdee",
+          false
+        ],
+        [
+          "operator",
+          "isEder",
+          false
+        ],
+        [
+          "operator",
+          "object",
+          false
+        ],
+        [
+          "operator",
+          "property",
+          false
+        ],
+        [
+          "operator",
+          "queryable",
+          false
+        ],
+        [
+          "operator",
+          "theAble",
+          false
+        ],
+        [
+          "operator_modifier",
+          "adjective",
+          false
+        ],
+        [
+          "orAble",
+          "ifAble",
+          false
+        ],
+        [
+          "ordering",
+          "concept",
+          false
+        ],
+        [
+          "ordering",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "ordering",
+          "isEdee",
+          false
+        ],
+        [
+          "ordering",
+          "isEder",
+          false
+        ],
+        [
+          "ordering",
+          "object",
+          false
+        ],
+        [
+          "ordering",
+          "property",
+          false
+        ],
+        [
+          "ordering",
+          "queryable",
+          false
+        ],
+        [
+          "ordering",
+          "theAble",
+          false
+        ],
+        [
+          "ordering_modifier",
+          "adjective",
+          false
+        ],
+        [
+          "plusExpression",
+          "mathematicalExpression",
+          false
+        ],
+        [
+          "plusOperator",
+          "mathematical_operator",
+          false
+        ],
+        [
+          "preferredUnits",
+          "verb",
+          false
+        ],
+        [
+          "preposition",
+          "preposition",
+          false
+        ],
+        [
+          "pronoun",
+          "pronoun",
+          false
+        ],
+        [
+          "property",
+          "concept",
+          false
+        ],
+        [
+          "property",
+          "isEdee",
+          false
+        ],
+        [
+          "property",
+          "isEder",
+          false
+        ],
+        [
+          "property",
+          "queryable",
+          false
+        ],
+        [
+          "property",
+          "theAble",
+          false
+        ],
+        [
+          "property",
+          "thisAble",
+          false
+        ],
+        [
+          "propertyOf",
+          "preposition",
+          false
+        ],
+        [
+          "punctuation",
+          "punctuation",
+          false
+        ],
+        [
+          "quantifier",
+          "quantifier",
+          false
+        ],
+        [
+          "quantity",
+          "noun",
+          false
+        ],
+        [
+          "queryable",
+          "listable",
+          false
+        ],
+        [
+          "questionMark",
+          "punctuation",
+          false
+        ],
+        [
+          "readonly",
+          "queryable",
+          false
+        ],
+        [
+          "reason",
+          "queryable",
+          false
+        ],
+        [
+          "reason",
+          "theAble",
+          false
+        ],
+        [
+          "recall",
+          "verb",
+          false
+        ],
+        [
+          "remember",
+          "verb",
+          false
+        ],
+        [
+          "sort",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "sort",
+          "isEdee",
+          false
+        ],
+        [
+          "sort",
+          "isEder",
+          false
+        ],
+        [
+          "sort",
+          "object",
+          false
+        ],
+        [
+          "sort",
+          "ordering_modifier",
+          false
+        ],
+        [
+          "sort",
+          "property",
+          false
+        ],
+        [
+          "sort",
+          "queryable",
+          false
+        ],
+        [
+          "sort",
+          "theAble",
+          false
+        ],
+        [
+          "sortOrdering",
+          "adjective",
+          false
+        ],
+        [
+          "sort_ordering",
+          "adjective",
+          true
+        ],
+        [
+          "sort_ordering",
+          "concept",
+          false
+        ],
+        [
+          "sort_ordering",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "sort_ordering",
+          "isEdee",
+          false
+        ],
+        [
+          "sort_ordering",
+          "isEder",
+          false
+        ],
+        [
+          "sort_ordering",
+          "object",
+          false
+        ],
+        [
+          "sort_ordering",
+          "ordering",
+          false
+        ],
+        [
+          "sort_ordering",
+          "property",
+          false
+        ],
+        [
+          "sort_ordering",
+          "queryable",
+          false
+        ],
+        [
+          "sort_ordering",
+          "theAble",
+          false
+        ],
+        [
+          "stm_before",
+          "adjective",
+          false
+        ],
+        [
+          "stm_current",
+          "adjective",
+          false
+        ],
+        [
+          "stm_previous",
+          "adjective",
+          false
+        ],
+        [
+          "superlative",
+          "condition",
+          false
+        ],
+        [
+          "superlative",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "superlative",
+          "isEdee",
+          false
+        ],
+        [
+          "superlative",
+          "isEder",
+          false
+        ],
+        [
+          "superlative",
+          "object",
+          false
+        ],
+        [
+          "superlative",
+          "property",
+          false
+        ],
+        [
+          "superlative",
+          "queryable",
+          false
+        ],
+        [
+          "superlative",
+          "theAble",
+          false
+        ],
+        [
+          "superlative",
+          "thisAble",
+          false
+        ],
+        [
+          "system",
+          "concept",
+          false
+        ],
+        [
+          "system",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "system",
+          "isEdee",
+          false
+        ],
+        [
+          "system",
+          "isEder",
+          false
+        ],
+        [
+          "system",
+          "object",
+          false
+        ],
+        [
+          "system",
+          "property",
+          false
+        ],
+        [
+          "system",
+          "queryable",
+          false
+        ],
+        [
+          "system",
+          "theAble",
+          false
+        ],
+        [
+          "system_modifier",
+          "adjective",
+          false
+        ],
+        [
+          "testingValue",
+          "testingValue",
+          false
+        ],
+        [
+          "that",
+          "thisitthat",
+          false
+        ],
+        [
+          "the",
+          "article",
+          false
+        ],
+        [
+          "theAble",
+          "queryable",
+          false
+        ],
+        [
+          "this",
+          "pronoun",
+          false
+        ],
+        [
+          "this",
+          "queryable",
+          false
+        ],
+        [
+          "this",
+          "thisitthat",
+          false
+        ],
+        [
+          "thisAble",
+          "thisAble",
+          false
+        ],
+        [
+          "thisitthat",
+          "queryable",
+          false
+        ],
+        [
+          "timesExpression",
+          "mathematicalExpression",
+          false
+        ],
+        [
+          "timesOperator",
+          "mathematical_operator",
+          false
+        ],
+        [
+          "to",
+          "preposition",
+          false
+        ],
+        [
+          "toAble",
+          "toAble",
+          false
+        ],
+        [
+          "type",
+          "property",
+          false
+        ],
+        [
+          "type",
+          "whatAble",
+          false
+        ],
+        [
+          "unit",
+          "concept",
+          false
+        ],
+        [
+          "unit",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "unit",
+          "isEdee",
+          false
+        ],
+        [
+          "unit",
+          "isEder",
+          false
+        ],
+        [
+          "unit",
+          "mathematicalExpression",
+          false
+        ],
+        [
+          "unit",
+          "object",
+          false
+        ],
+        [
+          "unit",
+          "property",
+          false
+        ],
+        [
+          "unit",
+          "queryable",
+          false
+        ],
+        [
+          "unit",
+          "theAble",
+          false
+        ],
+        [
+          "unit_modifier",
+          "adjective",
+          false
+        ],
+        [
+          "unknown",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "useMeasurementSystem",
+          "verb",
+          false
+        ],
+        [
+          "useUnits",
+          "verb",
+          false
+        ],
+        [
+          "verb",
+          "verb",
+          false
+        ],
+        [
+          "what",
+          "object",
+          false
+        ],
+        [
+          "what",
+          "queryable",
+          false
+        ],
+        [
+          "whatAble",
+          "queryable",
+          false
+        ],
+        [
+          "whose",
+          "object",
+          false
+        ],
+        [
+          "x",
+          "number",
+          false
+        ],
+        [
+          "xfx",
+          "queryable",
+          false
+        ],
+        [
+          "y",
+          "number",
+          false
+        ]
+      ],
+      "metadata": {
+        "opChoices": [
+          {
+            "op": [
+              "property",
+              0
+            ],
+            "ops": [
+              [
+                "a",
+                0
+              ],
+              [
+                "is",
+                0
+              ],
+              [
+                "property",
+                0
+              ]
+            ],
+            "counter": 1
+          },
+          {
+            "op": [
+              "a",
+              0
+            ],
+            "ops": [
+              [
+                "a",
+                0
+              ],
+              [
+                "is",
+                0
+              ]
+            ],
+            "counter": 2
+          },
+          {
+            "op": [
+              "is",
+              0
+            ],
+            "ops": [
+              [
+                "is",
+                0
+              ]
+            ],
+            "counter": 3
+          },
+          {
+            "op": [
+              "is",
+              1
+            ],
+            "ops": [
+              [
+                "is",
+                1
+              ]
+            ],
+            "counter": 4
+          }
+        ]
+      },
+      "trace": "undefined",
+      "contexts": [
+        {
+          "number": "one",
+          "text": "concept is a property",
+          "marker": "is",
+          "word": "is",
+          "range": {
+            "start": 0,
+            "end": 20
+          },
+          "one": {
+            "number": "one",
+            "marker": "concept",
+            "value": "concept",
+            "default": true,
+            "text": "concept",
+            "dead": true,
+            "word": "concept",
+            "range": {
+              "start": 0,
+              "end": 6
+            },
+            "types": [
+              "concept"
+            ],
+            "level": 0
+          },
+          "two": {
+            "value": "property",
+            "number": "one",
+            "text": "a property",
+            "marker": "property",
+            "word": "property",
+            "range": {
+              "start": 11,
+              "end": 20
+            },
+            "dead": true,
+            "types": [
+              "property"
+            ],
+            "pullFromContext": false,
+            "concept": true,
+            "wantsValue": true,
+            "determiner": {
+              "marker": "a",
+              "default": true,
+              "word": "a",
+              "text": "a",
+              "range": {
+                "start": 11,
+                "end": 11
+              },
+              "level": 0
+            },
+            "modifiers": [
+              "determiner"
+            ],
+            "level": 0
+          },
+          "dead": true,
+          "level": 2,
+          "context_index": 1,
+          "topLevel": true,
+          "context_id": 2,
+          "touchedBy": [
+            "time#call2"
+          ]
+        }
+      ],
+      "generated": [
+        ""
+      ],
+      "paraphrases": [
+        "concept is a property"
+      ],
+      "paraphrasesParenthesized": [],
+      "generatedParenthesized": [],
+      "responses": [
+        ""
+      ],
+      "associations": [
+        [
+          [
+            "a",
+            0
+          ],
+          [
+            "concept",
+            0
+          ],
+          [
+            "is",
+            0
+          ],
+          [
+            "property",
+            0
+          ]
+        ],
+        [
+          [
+            "concept",
+            0
+          ],
+          [
+            "is",
+            0
+          ],
+          [
+            "property",
+            0
+          ]
+        ]
+      ],
+      "summaries": [
+        {
+          "summaries": [
+            {
+              "operators": [
+                {
+                  "marker": [
+                    "concept",
+                    0
+                  ],
+                  "range": {
+                    "start": 0,
+                    "end": 6
+                  }
+                },
+                {
+                  "marker": [
+                    "is",
+                    0
+                  ],
+                  "range": {
+                    "start": 8,
+                    "end": 9
+                  }
+                },
+                {
+                  "marker": [
+                    "a",
+                    0
+                  ],
+                  "range": {
+                    "start": 11,
+                    "end": 11
+                  }
+                },
+                {
+                  "marker": [
+                    "property",
+                    0
+                  ],
+                  "range": {
+                    "start": 13,
+                    "end": 20
+                  }
+                }
+              ],
+              "counter": 1
+            },
+            {
+              "operators": [
+                {
+                  "marker": [
+                    "concept",
+                    0
+                  ],
+                  "range": {
+                    "start": 0,
+                    "end": 6
+                  }
+                },
+                {
+                  "marker": [
+                    "is",
+                    0
+                  ],
+                  "range": {
+                    "start": 8,
+                    "end": 9
+                  }
+                },
+                {
+                  "marker": [
+                    "a",
+                    0
+                  ],
+                  "range": {
+                    "start": 11,
+                    "end": 11
+                  }
+                },
+                {
+                  "marker": [
+                    "property",
+                    0
+                  ],
+                  "range": {
+                    "start": 13,
+                    "end": 20
+                  }
+                }
+              ],
+              "counter": 2
+            },
+            {
+              "operators": [
+                {
+                  "marker": [
+                    "concept",
+                    0
+                  ],
+                  "range": {
+                    "start": 0,
+                    "end": 6
+                  }
+                },
+                {
+                  "marker": [
+                    "is",
+                    0
+                  ],
+                  "range": {
+                    "start": 8,
+                    "end": 9
+                  }
+                },
+                {
+                  "marker": [
+                    "property",
+                    0
+                  ],
+                  "range": {
+                    "start": 11,
+                    "end": 20
+                  }
+                }
+              ],
+              "counter": 3
+            },
+            {
+              "operators": [
+                {
+                  "marker": [
+                    "is",
+                    1
+                  ],
+                  "range": {
+                    "start": 0,
+                    "end": 20
+                  }
+                }
+              ],
+              "counter": 4
+            },
+            {
+              "operators": [
+                {
+                  "marker": [
+                    "is",
+                    2
+                  ],
+                  "range": {
+                    "start": 0,
+                    "end": 20
+                  }
+                }
+              ],
+              "counter": 5
+            }
+          ],
+          "length": 1
+        }
+      ],
+      "learned_contextual_priorities": [],
+      "rtf_associations": [],
+      "query": "concept is a property",
+      "isFragment": true,
+      "key": {
+        "query": "concept is a property"
+      }
+    },
+    {
+      "apply": "async ({addPropertyMarker}) => {\n      // 24 years old -> is an age\n      await addPropertyMarker('age', 'old')\n    }"
+    },
+    {
+      "hierarchy": [
+        [
+          "a",
+          "article",
+          false
+        ],
+        [
+          "adjective",
+          "adjective",
+          false
+        ],
+        [
+          "age",
+          "isEdee",
+          false
+        ],
+        [
+          "age",
+          "isEder",
+          false
+        ],
+        [
+          "age",
+          "property",
+          false
+        ],
+        [
+          "age",
+          "queryable",
+          false
+        ],
+        [
+          "age",
+          "theAble",
+          false
+        ],
+        [
+          "age",
+          "thisAble",
+          false
+        ],
+        [
+          "ageMarker",
+          "adjective",
+          false
+        ],
+        [
+          "all",
+          "quantifier",
+          false
+        ],
+        [
+          "amount",
+          "concept",
+          false
+        ],
+        [
+          "amount",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "amount",
+          "isEdee",
+          false
+        ],
+        [
+          "amount",
+          "isEder",
+          false
+        ],
+        [
+          "amount",
+          "object",
+          false
+        ],
+        [
+          "amount",
+          "property",
+          false
+        ],
+        [
+          "amount",
+          "queryable",
+          false
+        ],
+        [
+          "amount",
+          "theAble",
+          false
+        ],
+        [
+          "amount",
+          "thisAble",
+          false
+        ],
+        [
+          "article",
+          "article",
+          false
+        ],
+        [
+          "ascending",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "ascending",
+          "isEdee",
+          false
+        ],
+        [
+          "ascending",
+          "isEder",
+          false
+        ],
+        [
+          "ascending",
+          "object",
+          false
+        ],
+        [
+          "ascending",
+          "property",
+          false
+        ],
+        [
+          "ascending",
+          "queryable",
+          false
+        ],
+        [
+          "ascending",
+          "sort_ordering",
+          false
+        ],
+        [
+          "ascending",
+          "theAble",
+          false
+        ],
+        [
+          "ascending",
+          "thisAble",
+          false
+        ],
+        [
+          "between",
+          "preposition",
+          false
+        ],
+        [
+          "calculate",
+          "verb",
+          false
+        ],
+        [
+          "canBeDoQuestion",
+          "canBeDoQuestion",
+          false
+        ],
+        [
+          "canBeQuestion",
+          "canBeQuestion",
+          false
+        ],
+        [
+          "comparable",
+          "theAble",
+          false
+        ],
+        [
+          "concept",
+          "queryable",
+          false
+        ],
+        [
+          "concept",
+          "theAble",
+          false
+        ],
+        [
+          "condition",
+          "concept",
+          false
+        ],
+        [
+          "condition",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "condition",
+          "isEdee",
+          false
+        ],
+        [
+          "condition",
+          "isEder",
+          false
+        ],
+        [
+          "condition",
+          "object",
+          false
+        ],
+        [
+          "condition",
+          "property",
+          false
+        ],
+        [
+          "condition",
+          "queryable",
+          false
+        ],
+        [
+          "condition",
+          "theAble",
+          false
+        ],
+        [
+          "condition",
+          "thisAble",
+          false
+        ],
+        [
+          "convertToUnits",
+          "expression",
+          false
+        ],
+        [
+          "convertToUnits",
+          "queryable",
+          false
+        ],
+        [
+          "convertToUnits",
+          "testingValue",
+          false
+        ],
+        [
+          "countable",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "deletable",
+          "deletable",
+          false
+        ],
+        [
+          "delete",
+          "verb",
+          false
+        ],
+        [
+          "descending",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "descending",
+          "isEdee",
+          false
+        ],
+        [
+          "descending",
+          "isEder",
+          false
+        ],
+        [
+          "descending",
+          "object",
+          false
+        ],
+        [
+          "descending",
+          "property",
+          false
+        ],
+        [
+          "descending",
+          "queryable",
+          false
+        ],
+        [
+          "descending",
+          "sort_ordering",
+          false
+        ],
+        [
+          "descending",
+          "theAble",
+          false
+        ],
+        [
+          "descending",
+          "thisAble",
+          false
+        ],
+        [
+          "dimension",
+          "concept",
+          false
+        ],
+        [
+          "dimension",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "dimension",
+          "isEdee",
+          false
+        ],
+        [
+          "dimension",
+          "isEder",
+          false
+        ],
+        [
+          "dimension",
+          "object",
+          false
+        ],
+        [
+          "dimension",
+          "property",
+          false
+        ],
+        [
+          "dimension",
+          "queryable",
+          false
+        ],
+        [
+          "dimension",
+          "theAble",
+          false
+        ],
+        [
+          "dimension",
+          "thisAble",
+          false
+        ],
+        [
+          "distributable",
+          "queryable",
+          false
+        ],
+        [
+          "divideByExpression",
+          "mathematicalExpression",
+          false
+        ],
+        [
+          "divideByOperator",
+          "mathematical_operator",
+          false
+        ],
+        [
+          "doubleQuote",
+          "queryable",
+          false
+        ],
+        [
+          "each",
+          "article",
+          false
+        ],
+        [
+          "event",
+          "event",
+          false
+        ],
+        [
+          "every",
+          "article",
+          false
+        ],
+        [
+          "expression",
+          "expression",
+          false
+        ],
+        [
+          "forQuantity",
+          "preposition",
+          false
+        ],
+        [
+          "forVariable",
+          "preposition",
+          false
+        ],
+        [
+          "formula",
+          "concept",
+          false
+        ],
+        [
+          "formula",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "formula",
+          "isEdee",
+          false
+        ],
+        [
+          "formula",
+          "isEder",
+          false
+        ],
+        [
+          "formula",
+          "object",
+          false
+        ],
+        [
+          "formula",
+          "property",
+          false
+        ],
+        [
+          "formula",
+          "queryable",
+          false
+        ],
+        [
+          "formula",
+          "theAble",
+          false
+        ],
+        [
+          "formula",
+          "thisAble",
+          false
+        ],
+        [
+          "formulaForVariable",
+          "preposition",
+          false
+        ],
+        [
+          "formulaForVariable",
+          "queryable",
+          false
+        ],
+        [
+          "hasCountOfPieces",
+          "countable",
+          false
+        ],
+        [
+          "hasPropertyValue",
+          "verb",
           false
         ],
         [
@@ -6226,6 +8505,41 @@
           false
         ],
         [
+          "age",
+          "isEdee",
+          false
+        ],
+        [
+          "age",
+          "isEder",
+          false
+        ],
+        [
+          "age",
+          "property",
+          false
+        ],
+        [
+          "age",
+          "queryable",
+          false
+        ],
+        [
+          "age",
+          "theAble",
+          false
+        ],
+        [
+          "age",
+          "thisAble",
+          false
+        ],
+        [
+          "ageMarker",
+          "adjective",
+          false
+        ],
+        [
           "all",
           "quantifier",
           false
@@ -6678,6 +8992,11 @@
         [
           "hasCountOfPieces",
           "countable",
+          false
+        ],
+        [
+          "hasPropertyValue",
+          "verb",
           false
         ],
         [
@@ -8954,6 +11273,41 @@
           false
         ],
         [
+          "age",
+          "isEdee",
+          false
+        ],
+        [
+          "age",
+          "isEder",
+          false
+        ],
+        [
+          "age",
+          "property",
+          false
+        ],
+        [
+          "age",
+          "queryable",
+          false
+        ],
+        [
+          "age",
+          "theAble",
+          false
+        ],
+        [
+          "age",
+          "thisAble",
+          false
+        ],
+        [
+          "ageMarker",
+          "adjective",
+          false
+        ],
+        [
           "all",
           "quantifier",
           false
@@ -9406,6 +11760,11 @@
         [
           "hasCountOfPieces",
           "countable",
+          false
+        ],
+        [
+          "hasPropertyValue",
+          "verb",
           false
         ],
         [
@@ -11682,6 +14041,41 @@
           false
         ],
         [
+          "age",
+          "isEdee",
+          false
+        ],
+        [
+          "age",
+          "isEder",
+          false
+        ],
+        [
+          "age",
+          "property",
+          false
+        ],
+        [
+          "age",
+          "queryable",
+          false
+        ],
+        [
+          "age",
+          "theAble",
+          false
+        ],
+        [
+          "age",
+          "thisAble",
+          false
+        ],
+        [
+          "ageMarker",
+          "adjective",
+          false
+        ],
+        [
           "all",
           "quantifier",
           false
@@ -12134,6 +14528,11 @@
         [
           "hasCountOfPieces",
           "countable",
+          false
+        ],
+        [
+          "hasPropertyValue",
+          "verb",
           false
         ],
         [
@@ -14410,6 +16809,41 @@
           false
         ],
         [
+          "age",
+          "isEdee",
+          false
+        ],
+        [
+          "age",
+          "isEder",
+          false
+        ],
+        [
+          "age",
+          "property",
+          false
+        ],
+        [
+          "age",
+          "queryable",
+          false
+        ],
+        [
+          "age",
+          "theAble",
+          false
+        ],
+        [
+          "age",
+          "thisAble",
+          false
+        ],
+        [
+          "ageMarker",
+          "adjective",
+          false
+        ],
+        [
           "all",
           "quantifier",
           false
@@ -14862,6 +17296,11 @@
         [
           "hasCountOfPieces",
           "countable",
+          false
+        ],
+        [
+          "hasPropertyValue",
+          "verb",
           false
         ],
         [
@@ -17138,6 +19577,41 @@
           false
         ],
         [
+          "age",
+          "isEdee",
+          false
+        ],
+        [
+          "age",
+          "isEder",
+          false
+        ],
+        [
+          "age",
+          "property",
+          false
+        ],
+        [
+          "age",
+          "queryable",
+          false
+        ],
+        [
+          "age",
+          "theAble",
+          false
+        ],
+        [
+          "age",
+          "thisAble",
+          false
+        ],
+        [
+          "ageMarker",
+          "adjective",
+          false
+        ],
+        [
           "all",
           "quantifier",
           false
@@ -17590,6 +20064,11 @@
         [
           "hasCountOfPieces",
           "countable",
+          false
+        ],
+        [
+          "hasPropertyValue",
+          "verb",
           false
         ],
         [
@@ -19866,6 +22345,41 @@
           false
         ],
         [
+          "age",
+          "isEdee",
+          false
+        ],
+        [
+          "age",
+          "isEder",
+          false
+        ],
+        [
+          "age",
+          "property",
+          false
+        ],
+        [
+          "age",
+          "queryable",
+          false
+        ],
+        [
+          "age",
+          "theAble",
+          false
+        ],
+        [
+          "age",
+          "thisAble",
+          false
+        ],
+        [
+          "ageMarker",
+          "adjective",
+          false
+        ],
+        [
           "all",
           "quantifier",
           false
@@ -20318,6 +22832,11 @@
         [
           "hasCountOfPieces",
           "countable",
+          false
+        ],
+        [
+          "hasPropertyValue",
+          "verb",
           false
         ],
         [
@@ -22594,6 +25113,41 @@
           false
         ],
         [
+          "age",
+          "isEdee",
+          false
+        ],
+        [
+          "age",
+          "isEder",
+          false
+        ],
+        [
+          "age",
+          "property",
+          false
+        ],
+        [
+          "age",
+          "queryable",
+          false
+        ],
+        [
+          "age",
+          "theAble",
+          false
+        ],
+        [
+          "age",
+          "thisAble",
+          false
+        ],
+        [
+          "ageMarker",
+          "adjective",
+          false
+        ],
+        [
           "all",
           "quantifier",
           false
@@ -23046,6 +25600,11 @@
         [
           "hasCountOfPieces",
           "countable",
+          false
+        ],
+        [
+          "hasPropertyValue",
+          "verb",
           false
         ],
         [
@@ -25555,6 +28114,41 @@
           false
         ],
         [
+          "age",
+          "isEdee",
+          false
+        ],
+        [
+          "age",
+          "isEder",
+          false
+        ],
+        [
+          "age",
+          "property",
+          false
+        ],
+        [
+          "age",
+          "queryable",
+          false
+        ],
+        [
+          "age",
+          "theAble",
+          false
+        ],
+        [
+          "age",
+          "thisAble",
+          false
+        ],
+        [
+          "ageMarker",
+          "adjective",
+          false
+        ],
+        [
           "all",
           "quantifier",
           false
@@ -26007,6 +28601,11 @@
         [
           "hasCountOfPieces",
           "countable",
+          false
+        ],
+        [
+          "hasPropertyValue",
+          "verb",
           false
         ],
         [
@@ -28516,6 +31115,41 @@
           false
         ],
         [
+          "age",
+          "isEdee",
+          false
+        ],
+        [
+          "age",
+          "isEder",
+          false
+        ],
+        [
+          "age",
+          "property",
+          false
+        ],
+        [
+          "age",
+          "queryable",
+          false
+        ],
+        [
+          "age",
+          "theAble",
+          false
+        ],
+        [
+          "age",
+          "thisAble",
+          false
+        ],
+        [
+          "ageMarker",
+          "adjective",
+          false
+        ],
+        [
           "all",
           "quantifier",
           false
@@ -28968,6 +31602,11 @@
         [
           "hasCountOfPieces",
           "countable",
+          false
+        ],
+        [
+          "hasPropertyValue",
+          "verb",
           false
         ],
         [
@@ -31244,6 +33883,41 @@
           false
         ],
         [
+          "age",
+          "isEdee",
+          false
+        ],
+        [
+          "age",
+          "isEder",
+          false
+        ],
+        [
+          "age",
+          "property",
+          false
+        ],
+        [
+          "age",
+          "queryable",
+          false
+        ],
+        [
+          "age",
+          "theAble",
+          false
+        ],
+        [
+          "age",
+          "thisAble",
+          false
+        ],
+        [
+          "ageMarker",
+          "adjective",
+          false
+        ],
+        [
           "all",
           "quantifier",
           false
@@ -31696,6 +34370,11 @@
         [
           "hasCountOfPieces",
           "countable",
+          false
+        ],
+        [
+          "hasPropertyValue",
+          "verb",
           false
         ],
         [
@@ -33972,6 +36651,41 @@
           false
         ],
         [
+          "age",
+          "isEdee",
+          false
+        ],
+        [
+          "age",
+          "isEder",
+          false
+        ],
+        [
+          "age",
+          "property",
+          false
+        ],
+        [
+          "age",
+          "queryable",
+          false
+        ],
+        [
+          "age",
+          "theAble",
+          false
+        ],
+        [
+          "age",
+          "thisAble",
+          false
+        ],
+        [
+          "ageMarker",
+          "adjective",
+          false
+        ],
+        [
           "all",
           "quantifier",
           false
@@ -34424,6 +37138,11 @@
         [
           "hasCountOfPieces",
           "countable",
+          false
+        ],
+        [
+          "hasPropertyValue",
+          "verb",
           false
         ],
         [
@@ -36700,6 +39419,41 @@
           false
         ],
         [
+          "age",
+          "isEdee",
+          false
+        ],
+        [
+          "age",
+          "isEder",
+          false
+        ],
+        [
+          "age",
+          "property",
+          false
+        ],
+        [
+          "age",
+          "queryable",
+          false
+        ],
+        [
+          "age",
+          "theAble",
+          false
+        ],
+        [
+          "age",
+          "thisAble",
+          false
+        ],
+        [
+          "ageMarker",
+          "adjective",
+          false
+        ],
+        [
           "all",
           "quantifier",
           false
@@ -37152,6 +39906,11 @@
         [
           "hasCountOfPieces",
           "countable",
+          false
+        ],
+        [
+          "hasPropertyValue",
+          "verb",
           false
         ],
         [
@@ -39428,6 +42187,41 @@
           false
         ],
         [
+          "age",
+          "isEdee",
+          false
+        ],
+        [
+          "age",
+          "isEder",
+          false
+        ],
+        [
+          "age",
+          "property",
+          false
+        ],
+        [
+          "age",
+          "queryable",
+          false
+        ],
+        [
+          "age",
+          "theAble",
+          false
+        ],
+        [
+          "age",
+          "thisAble",
+          false
+        ],
+        [
+          "ageMarker",
+          "adjective",
+          false
+        ],
+        [
           "all",
           "quantifier",
           false
@@ -39880,6 +42674,11 @@
         [
           "hasCountOfPieces",
           "countable",
+          false
+        ],
+        [
+          "hasPropertyValue",
+          "verb",
           false
         ],
         [
@@ -42144,2677 +44943,6 @@
       }
     },
     {
-      "hierarchy": [
-        [
-          "a",
-          "article",
-          false
-        ],
-        [
-          "adjective",
-          "adjective",
-          false
-        ],
-        [
-          "all",
-          "quantifier",
-          false
-        ],
-        [
-          "amount",
-          "concept",
-          false
-        ],
-        [
-          "amount",
-          "hierarchyAble",
-          false
-        ],
-        [
-          "amount",
-          "isEdee",
-          false
-        ],
-        [
-          "amount",
-          "isEder",
-          false
-        ],
-        [
-          "amount",
-          "object",
-          false
-        ],
-        [
-          "amount",
-          "property",
-          false
-        ],
-        [
-          "amount",
-          "queryable",
-          false
-        ],
-        [
-          "amount",
-          "theAble",
-          false
-        ],
-        [
-          "amount",
-          "thisAble",
-          false
-        ],
-        [
-          "article",
-          "article",
-          false
-        ],
-        [
-          "ascending",
-          "hierarchyAble",
-          false
-        ],
-        [
-          "ascending",
-          "isEdee",
-          false
-        ],
-        [
-          "ascending",
-          "isEder",
-          false
-        ],
-        [
-          "ascending",
-          "object",
-          false
-        ],
-        [
-          "ascending",
-          "property",
-          false
-        ],
-        [
-          "ascending",
-          "queryable",
-          false
-        ],
-        [
-          "ascending",
-          "sort_ordering",
-          false
-        ],
-        [
-          "ascending",
-          "theAble",
-          false
-        ],
-        [
-          "ascending",
-          "thisAble",
-          false
-        ],
-        [
-          "between",
-          "preposition",
-          false
-        ],
-        [
-          "calculate",
-          "verb",
-          false
-        ],
-        [
-          "canBeDoQuestion",
-          "canBeDoQuestion",
-          false
-        ],
-        [
-          "canBeQuestion",
-          "canBeQuestion",
-          false
-        ],
-        [
-          "comparable",
-          "theAble",
-          false
-        ],
-        [
-          "concept",
-          "queryable",
-          false
-        ],
-        [
-          "concept",
-          "theAble",
-          false
-        ],
-        [
-          "condition",
-          "concept",
-          false
-        ],
-        [
-          "condition",
-          "hierarchyAble",
-          false
-        ],
-        [
-          "condition",
-          "isEdee",
-          false
-        ],
-        [
-          "condition",
-          "isEder",
-          false
-        ],
-        [
-          "condition",
-          "object",
-          false
-        ],
-        [
-          "condition",
-          "property",
-          false
-        ],
-        [
-          "condition",
-          "queryable",
-          false
-        ],
-        [
-          "condition",
-          "theAble",
-          false
-        ],
-        [
-          "condition",
-          "thisAble",
-          false
-        ],
-        [
-          "convertToUnits",
-          "expression",
-          false
-        ],
-        [
-          "convertToUnits",
-          "queryable",
-          false
-        ],
-        [
-          "convertToUnits",
-          "testingValue",
-          false
-        ],
-        [
-          "countable",
-          "hierarchyAble",
-          false
-        ],
-        [
-          "day",
-          "hierarchyAble",
-          false
-        ],
-        [
-          "day",
-          "isEdee",
-          false
-        ],
-        [
-          "day",
-          "isEder",
-          false
-        ],
-        [
-          "day",
-          "object",
-          false
-        ],
-        [
-          "day",
-          "property",
-          false
-        ],
-        [
-          "day",
-          "queryable",
-          false
-        ],
-        [
-          "day",
-          "theAble",
-          false
-        ],
-        [
-          "day",
-          "thisAble",
-          false
-        ],
-        [
-          "day",
-          "unit_time",
-          false
-        ],
-        [
-          "deletable",
-          "deletable",
-          false
-        ],
-        [
-          "delete",
-          "verb",
-          false
-        ],
-        [
-          "descending",
-          "hierarchyAble",
-          false
-        ],
-        [
-          "descending",
-          "isEdee",
-          false
-        ],
-        [
-          "descending",
-          "isEder",
-          false
-        ],
-        [
-          "descending",
-          "object",
-          false
-        ],
-        [
-          "descending",
-          "property",
-          false
-        ],
-        [
-          "descending",
-          "queryable",
-          false
-        ],
-        [
-          "descending",
-          "sort_ordering",
-          false
-        ],
-        [
-          "descending",
-          "theAble",
-          false
-        ],
-        [
-          "descending",
-          "thisAble",
-          false
-        ],
-        [
-          "dimension",
-          "concept",
-          false
-        ],
-        [
-          "dimension",
-          "hierarchyAble",
-          false
-        ],
-        [
-          "dimension",
-          "isEdee",
-          false
-        ],
-        [
-          "dimension",
-          "isEder",
-          false
-        ],
-        [
-          "dimension",
-          "object",
-          false
-        ],
-        [
-          "dimension",
-          "property",
-          false
-        ],
-        [
-          "dimension",
-          "queryable",
-          false
-        ],
-        [
-          "dimension",
-          "theAble",
-          false
-        ],
-        [
-          "dimension",
-          "thisAble",
-          false
-        ],
-        [
-          "distributable",
-          "queryable",
-          false
-        ],
-        [
-          "divideByExpression",
-          "mathematicalExpression",
-          false
-        ],
-        [
-          "divideByOperator",
-          "mathematical_operator",
-          false
-        ],
-        [
-          "doubleQuote",
-          "queryable",
-          false
-        ],
-        [
-          "each",
-          "article",
-          false
-        ],
-        [
-          "event",
-          "event",
-          false
-        ],
-        [
-          "every",
-          "article",
-          false
-        ],
-        [
-          "expression",
-          "expression",
-          false
-        ],
-        [
-          "forQuantity",
-          "preposition",
-          false
-        ],
-        [
-          "forVariable",
-          "preposition",
-          false
-        ],
-        [
-          "formula",
-          "concept",
-          false
-        ],
-        [
-          "formula",
-          "hierarchyAble",
-          false
-        ],
-        [
-          "formula",
-          "isEdee",
-          false
-        ],
-        [
-          "formula",
-          "isEder",
-          false
-        ],
-        [
-          "formula",
-          "object",
-          false
-        ],
-        [
-          "formula",
-          "property",
-          false
-        ],
-        [
-          "formula",
-          "queryable",
-          false
-        ],
-        [
-          "formula",
-          "theAble",
-          false
-        ],
-        [
-          "formula",
-          "thisAble",
-          false
-        ],
-        [
-          "formulaForVariable",
-          "preposition",
-          false
-        ],
-        [
-          "formulaForVariable",
-          "queryable",
-          false
-        ],
-        [
-          "hasCountOfPieces",
-          "countable",
-          false
-        ],
-        [
-          "have",
-          "canBeDoQuestion",
-          false
-        ],
-        [
-          "have",
-          "canBeQuestion",
-          false
-        ],
-        [
-          "hierarchyAble",
-          "queryable",
-          false
-        ],
-        [
-          "highest",
-          "hierarchyAble",
-          false
-        ],
-        [
-          "highest",
-          "isEdee",
-          false
-        ],
-        [
-          "highest",
-          "isEder",
-          false
-        ],
-        [
-          "highest",
-          "object",
-          false
-        ],
-        [
-          "highest",
-          "property",
-          false
-        ],
-        [
-          "highest",
-          "queryable",
-          false
-        ],
-        [
-          "highest",
-          "superlative",
-          false
-        ],
-        [
-          "highest",
-          "theAble",
-          false
-        ],
-        [
-          "highest",
-          "thisAble",
-          false
-        ],
-        [
-          "hour",
-          "hierarchyAble",
-          false
-        ],
-        [
-          "hour",
-          "isEdee",
-          false
-        ],
-        [
-          "hour",
-          "isEder",
-          false
-        ],
-        [
-          "hour",
-          "object",
-          false
-        ],
-        [
-          "hour",
-          "property",
-          false
-        ],
-        [
-          "hour",
-          "queryable",
-          false
-        ],
-        [
-          "hour",
-          "theAble",
-          false
-        ],
-        [
-          "hour",
-          "thisAble",
-          false
-        ],
-        [
-          "hour",
-          "unit_time",
-          false
-        ],
-        [
-          "ifAble",
-          "ifAble",
-          false
-        ],
-        [
-          "imperial",
-          "hierarchyAble",
-          false
-        ],
-        [
-          "imperial",
-          "isEdee",
-          false
-        ],
-        [
-          "imperial",
-          "isEder",
-          false
-        ],
-        [
-          "imperial",
-          "object",
-          false
-        ],
-        [
-          "imperial",
-          "property",
-          false
-        ],
-        [
-          "imperial",
-          "queryable",
-          false
-        ],
-        [
-          "imperial",
-          "system_modifier",
-          false
-        ],
-        [
-          "imperial",
-          "theAble",
-          false
-        ],
-        [
-          "imperial",
-          "unit_modifier",
-          false
-        ],
-        [
-          "imperial_system",
-          "adjective",
-          true
-        ],
-        [
-          "imperial_system",
-          "concept",
-          false
-        ],
-        [
-          "imperial_system",
-          "hierarchyAble",
-          false
-        ],
-        [
-          "imperial_system",
-          "isEdee",
-          false
-        ],
-        [
-          "imperial_system",
-          "isEder",
-          false
-        ],
-        [
-          "imperial_system",
-          "measurement_system",
-          false
-        ],
-        [
-          "imperial_system",
-          "object",
-          false
-        ],
-        [
-          "imperial_system",
-          "property",
-          false
-        ],
-        [
-          "imperial_system",
-          "queryable",
-          false
-        ],
-        [
-          "imperial_system",
-          "system",
-          false
-        ],
-        [
-          "imperial_system",
-          "theAble",
-          false
-        ],
-        [
-          "imperial_unit",
-          "adjective",
-          true
-        ],
-        [
-          "imperial_unit",
-          "concept",
-          false
-        ],
-        [
-          "imperial_unit",
-          "hierarchyAble",
-          false
-        ],
-        [
-          "imperial_unit",
-          "isEdee",
-          false
-        ],
-        [
-          "imperial_unit",
-          "isEder",
-          false
-        ],
-        [
-          "imperial_unit",
-          "object",
-          false
-        ],
-        [
-          "imperial_unit",
-          "property",
-          false
-        ],
-        [
-          "imperial_unit",
-          "queryable",
-          false
-        ],
-        [
-          "imperial_unit",
-          "theAble",
-          false
-        ],
-        [
-          "imperial_unit",
-          "unit",
-          false
-        ],
-        [
-          "integer",
-          "number",
-          false
-        ],
-        [
-          "is",
-          "canBeQuestion",
-          false
-        ],
-        [
-          "is",
-          "event",
-          false
-        ],
-        [
-          "is",
-          "verb",
-          false
-        ],
-        [
-          "isEdee",
-          "isEdee",
-          false
-        ],
-        [
-          "isEder",
-          "isEder",
-          false
-        ],
-        [
-          "isQuery",
-          "verb",
-          false
-        ],
-        [
-          "it",
-          "pronoun",
-          false
-        ],
-        [
-          "it",
-          "queryable",
-          false
-        ],
-        [
-          "it",
-          "thisitthat",
-          false
-        ],
-        [
-          "it",
-          "toAble",
-          false
-        ],
-        [
-          "length",
-          "dimension",
-          false
-        ],
-        [
-          "listable",
-          "theAble",
-          false
-        ],
-        [
-          "lowest",
-          "hierarchyAble",
-          false
-        ],
-        [
-          "lowest",
-          "isEdee",
-          false
-        ],
-        [
-          "lowest",
-          "isEder",
-          false
-        ],
-        [
-          "lowest",
-          "object",
-          false
-        ],
-        [
-          "lowest",
-          "property",
-          false
-        ],
-        [
-          "lowest",
-          "queryable",
-          false
-        ],
-        [
-          "lowest",
-          "superlative",
-          false
-        ],
-        [
-          "lowest",
-          "theAble",
-          false
-        ],
-        [
-          "lowest",
-          "thisAble",
-          false
-        ],
-        [
-          "mathematical",
-          "hierarchyAble",
-          false
-        ],
-        [
-          "mathematical",
-          "isEdee",
-          false
-        ],
-        [
-          "mathematical",
-          "isEder",
-          false
-        ],
-        [
-          "mathematical",
-          "object",
-          false
-        ],
-        [
-          "mathematical",
-          "operator_modifier",
-          false
-        ],
-        [
-          "mathematical",
-          "property",
-          false
-        ],
-        [
-          "mathematical",
-          "queryable",
-          false
-        ],
-        [
-          "mathematical",
-          "theAble",
-          false
-        ],
-        [
-          "mathematicalExpression",
-          "concept",
-          false
-        ],
-        [
-          "mathematicalExpression",
-          "expression",
-          false
-        ],
-        [
-          "mathematical_operator",
-          "adjective",
-          true
-        ],
-        [
-          "mathematical_operator",
-          "concept",
-          false
-        ],
-        [
-          "mathematical_operator",
-          "hierarchyAble",
-          false
-        ],
-        [
-          "mathematical_operator",
-          "isEdee",
-          false
-        ],
-        [
-          "mathematical_operator",
-          "isEder",
-          false
-        ],
-        [
-          "mathematical_operator",
-          "object",
-          false
-        ],
-        [
-          "mathematical_operator",
-          "operator",
-          false
-        ],
-        [
-          "mathematical_operator",
-          "property",
-          false
-        ],
-        [
-          "mathematical_operator",
-          "queryable",
-          false
-        ],
-        [
-          "mathematical_operator",
-          "theAble",
-          false
-        ],
-        [
-          "maximum",
-          "hierarchyAble",
-          false
-        ],
-        [
-          "maximum",
-          "isEdee",
-          false
-        ],
-        [
-          "maximum",
-          "isEder",
-          false
-        ],
-        [
-          "maximum",
-          "object",
-          false
-        ],
-        [
-          "maximum",
-          "property",
-          false
-        ],
-        [
-          "maximum",
-          "queryable",
-          false
-        ],
-        [
-          "maximum",
-          "superlative",
-          false
-        ],
-        [
-          "maximum",
-          "theAble",
-          false
-        ],
-        [
-          "maximum",
-          "thisAble",
-          false
-        ],
-        [
-          "measurement",
-          "hierarchyAble",
-          false
-        ],
-        [
-          "measurement",
-          "isEdee",
-          false
-        ],
-        [
-          "measurement",
-          "isEder",
-          false
-        ],
-        [
-          "measurement",
-          "object",
-          false
-        ],
-        [
-          "measurement",
-          "property",
-          false
-        ],
-        [
-          "measurement",
-          "queryable",
-          false
-        ],
-        [
-          "measurement",
-          "system_modifier",
-          false
-        ],
-        [
-          "measurement",
-          "theAble",
-          false
-        ],
-        [
-          "measurement",
-          "unit_modifier",
-          false
-        ],
-        [
-          "measurement_system",
-          "adjective",
-          true
-        ],
-        [
-          "measurement_system",
-          "concept",
-          false
-        ],
-        [
-          "measurement_system",
-          "hierarchyAble",
-          false
-        ],
-        [
-          "measurement_system",
-          "isEdee",
-          false
-        ],
-        [
-          "measurement_system",
-          "isEder",
-          false
-        ],
-        [
-          "measurement_system",
-          "object",
-          false
-        ],
-        [
-          "measurement_system",
-          "property",
-          false
-        ],
-        [
-          "measurement_system",
-          "queryable",
-          false
-        ],
-        [
-          "measurement_system",
-          "system",
-          false
-        ],
-        [
-          "measurement_system",
-          "theAble",
-          false
-        ],
-        [
-          "measurement_unit",
-          "adjective",
-          true
-        ],
-        [
-          "measurement_unit",
-          "concept",
-          false
-        ],
-        [
-          "measurement_unit",
-          "hierarchyAble",
-          false
-        ],
-        [
-          "measurement_unit",
-          "isEdee",
-          false
-        ],
-        [
-          "measurement_unit",
-          "isEder",
-          false
-        ],
-        [
-          "measurement_unit",
-          "object",
-          false
-        ],
-        [
-          "measurement_unit",
-          "property",
-          false
-        ],
-        [
-          "measurement_unit",
-          "queryable",
-          false
-        ],
-        [
-          "measurement_unit",
-          "theAble",
-          false
-        ],
-        [
-          "measurement_unit",
-          "unit",
-          false
-        ],
-        [
-          "memorable",
-          "deletable",
-          false
-        ],
-        [
-          "memorable",
-          "theAble",
-          false
-        ],
-        [
-          "metric",
-          "hierarchyAble",
-          false
-        ],
-        [
-          "metric",
-          "isEdee",
-          false
-        ],
-        [
-          "metric",
-          "isEder",
-          false
-        ],
-        [
-          "metric",
-          "object",
-          false
-        ],
-        [
-          "metric",
-          "property",
-          false
-        ],
-        [
-          "metric",
-          "queryable",
-          false
-        ],
-        [
-          "metric",
-          "system_modifier",
-          false
-        ],
-        [
-          "metric",
-          "theAble",
-          false
-        ],
-        [
-          "metric",
-          "unit_modifier",
-          false
-        ],
-        [
-          "metric_system",
-          "adjective",
-          true
-        ],
-        [
-          "metric_system",
-          "concept",
-          false
-        ],
-        [
-          "metric_system",
-          "hierarchyAble",
-          false
-        ],
-        [
-          "metric_system",
-          "isEdee",
-          false
-        ],
-        [
-          "metric_system",
-          "isEder",
-          false
-        ],
-        [
-          "metric_system",
-          "measurement_system",
-          false
-        ],
-        [
-          "metric_system",
-          "object",
-          false
-        ],
-        [
-          "metric_system",
-          "property",
-          false
-        ],
-        [
-          "metric_system",
-          "queryable",
-          false
-        ],
-        [
-          "metric_system",
-          "system",
-          false
-        ],
-        [
-          "metric_system",
-          "theAble",
-          false
-        ],
-        [
-          "metric_unit",
-          "adjective",
-          true
-        ],
-        [
-          "metric_unit",
-          "concept",
-          false
-        ],
-        [
-          "metric_unit",
-          "hierarchyAble",
-          false
-        ],
-        [
-          "metric_unit",
-          "isEdee",
-          false
-        ],
-        [
-          "metric_unit",
-          "isEder",
-          false
-        ],
-        [
-          "metric_unit",
-          "object",
-          false
-        ],
-        [
-          "metric_unit",
-          "property",
-          false
-        ],
-        [
-          "metric_unit",
-          "queryable",
-          false
-        ],
-        [
-          "metric_unit",
-          "theAble",
-          false
-        ],
-        [
-          "metric_unit",
-          "unit",
-          false
-        ],
-        [
-          "millisecond",
-          "hierarchyAble",
-          false
-        ],
-        [
-          "millisecond",
-          "isEdee",
-          false
-        ],
-        [
-          "millisecond",
-          "isEder",
-          false
-        ],
-        [
-          "millisecond",
-          "object",
-          false
-        ],
-        [
-          "millisecond",
-          "property",
-          false
-        ],
-        [
-          "millisecond",
-          "queryable",
-          false
-        ],
-        [
-          "millisecond",
-          "theAble",
-          false
-        ],
-        [
-          "millisecond",
-          "thisAble",
-          false
-        ],
-        [
-          "millisecond",
-          "unit_time",
-          false
-        ],
-        [
-          "minimum",
-          "hierarchyAble",
-          false
-        ],
-        [
-          "minimum",
-          "isEdee",
-          false
-        ],
-        [
-          "minimum",
-          "isEder",
-          false
-        ],
-        [
-          "minimum",
-          "object",
-          false
-        ],
-        [
-          "minimum",
-          "property",
-          false
-        ],
-        [
-          "minimum",
-          "queryable",
-          false
-        ],
-        [
-          "minimum",
-          "superlative",
-          false
-        ],
-        [
-          "minimum",
-          "theAble",
-          false
-        ],
-        [
-          "minimum",
-          "thisAble",
-          false
-        ],
-        [
-          "minusExpression",
-          "mathematicalExpression",
-          false
-        ],
-        [
-          "minusOperator",
-          "mathematical_operator",
-          false
-        ],
-        [
-          "minute",
-          "hierarchyAble",
-          false
-        ],
-        [
-          "minute",
-          "isEdee",
-          false
-        ],
-        [
-          "minute",
-          "isEder",
-          false
-        ],
-        [
-          "minute",
-          "object",
-          false
-        ],
-        [
-          "minute",
-          "property",
-          false
-        ],
-        [
-          "minute",
-          "queryable",
-          false
-        ],
-        [
-          "minute",
-          "theAble",
-          false
-        ],
-        [
-          "minute",
-          "thisAble",
-          false
-        ],
-        [
-          "minute",
-          "unit_time",
-          false
-        ],
-        [
-          "modifies",
-          "verb",
-          false
-        ],
-        [
-          "month",
-          "hierarchyAble",
-          false
-        ],
-        [
-          "month",
-          "isEdee",
-          false
-        ],
-        [
-          "month",
-          "isEder",
-          false
-        ],
-        [
-          "month",
-          "object",
-          false
-        ],
-        [
-          "month",
-          "property",
-          false
-        ],
-        [
-          "month",
-          "queryable",
-          false
-        ],
-        [
-          "month",
-          "theAble",
-          false
-        ],
-        [
-          "month",
-          "thisAble",
-          false
-        ],
-        [
-          "month",
-          "unit_time",
-          false
-        ],
-        [
-          "negatable",
-          "queryable",
-          false
-        ],
-        [
-          "noun",
-          "theAble",
-          false
-        ],
-        [
-          "noun",
-          "thisAble",
-          false
-        ],
-        [
-          "number",
-          "expression",
-          false
-        ],
-        [
-          "number",
-          "quantifier",
-          false
-        ],
-        [
-          "number",
-          "queryable",
-          false
-        ],
-        [
-          "object",
-          "listable",
-          false
-        ],
-        [
-          "object",
-          "queryable",
-          false
-        ],
-        [
-          "object",
-          "theAble",
-          false
-        ],
-        [
-          "operator",
-          "concept",
-          false
-        ],
-        [
-          "operator",
-          "hierarchyAble",
-          false
-        ],
-        [
-          "operator",
-          "isEdee",
-          false
-        ],
-        [
-          "operator",
-          "isEder",
-          false
-        ],
-        [
-          "operator",
-          "object",
-          false
-        ],
-        [
-          "operator",
-          "property",
-          false
-        ],
-        [
-          "operator",
-          "queryable",
-          false
-        ],
-        [
-          "operator",
-          "theAble",
-          false
-        ],
-        [
-          "operator_modifier",
-          "adjective",
-          false
-        ],
-        [
-          "orAble",
-          "ifAble",
-          false
-        ],
-        [
-          "ordering",
-          "concept",
-          false
-        ],
-        [
-          "ordering",
-          "hierarchyAble",
-          false
-        ],
-        [
-          "ordering",
-          "isEdee",
-          false
-        ],
-        [
-          "ordering",
-          "isEder",
-          false
-        ],
-        [
-          "ordering",
-          "object",
-          false
-        ],
-        [
-          "ordering",
-          "property",
-          false
-        ],
-        [
-          "ordering",
-          "queryable",
-          false
-        ],
-        [
-          "ordering",
-          "theAble",
-          false
-        ],
-        [
-          "ordering_modifier",
-          "adjective",
-          false
-        ],
-        [
-          "plusExpression",
-          "mathematicalExpression",
-          false
-        ],
-        [
-          "plusOperator",
-          "mathematical_operator",
-          false
-        ],
-        [
-          "preferredUnits",
-          "verb",
-          false
-        ],
-        [
-          "preposition",
-          "preposition",
-          false
-        ],
-        [
-          "pronoun",
-          "pronoun",
-          false
-        ],
-        [
-          "property",
-          "concept",
-          false
-        ],
-        [
-          "property",
-          "isEdee",
-          false
-        ],
-        [
-          "property",
-          "isEder",
-          false
-        ],
-        [
-          "property",
-          "queryable",
-          false
-        ],
-        [
-          "property",
-          "theAble",
-          false
-        ],
-        [
-          "property",
-          "thisAble",
-          false
-        ],
-        [
-          "propertyOf",
-          "preposition",
-          false
-        ],
-        [
-          "punctuation",
-          "punctuation",
-          false
-        ],
-        [
-          "quantifier",
-          "quantifier",
-          false
-        ],
-        [
-          "quantity",
-          "noun",
-          false
-        ],
-        [
-          "queryable",
-          "listable",
-          false
-        ],
-        [
-          "questionMark",
-          "punctuation",
-          false
-        ],
-        [
-          "readonly",
-          "queryable",
-          false
-        ],
-        [
-          "reason",
-          "queryable",
-          false
-        ],
-        [
-          "reason",
-          "theAble",
-          false
-        ],
-        [
-          "recall",
-          "verb",
-          false
-        ],
-        [
-          "remember",
-          "verb",
-          false
-        ],
-        [
-          "second",
-          "hierarchyAble",
-          false
-        ],
-        [
-          "second",
-          "isEdee",
-          false
-        ],
-        [
-          "second",
-          "isEder",
-          false
-        ],
-        [
-          "second",
-          "object",
-          false
-        ],
-        [
-          "second",
-          "property",
-          false
-        ],
-        [
-          "second",
-          "queryable",
-          false
-        ],
-        [
-          "second",
-          "theAble",
-          false
-        ],
-        [
-          "second",
-          "thisAble",
-          false
-        ],
-        [
-          "second",
-          "unit_time",
-          false
-        ],
-        [
-          "sort",
-          "hierarchyAble",
-          false
-        ],
-        [
-          "sort",
-          "isEdee",
-          false
-        ],
-        [
-          "sort",
-          "isEder",
-          false
-        ],
-        [
-          "sort",
-          "object",
-          false
-        ],
-        [
-          "sort",
-          "ordering_modifier",
-          false
-        ],
-        [
-          "sort",
-          "property",
-          false
-        ],
-        [
-          "sort",
-          "queryable",
-          false
-        ],
-        [
-          "sort",
-          "theAble",
-          false
-        ],
-        [
-          "sortOrdering",
-          "adjective",
-          false
-        ],
-        [
-          "sort_ordering",
-          "adjective",
-          true
-        ],
-        [
-          "sort_ordering",
-          "concept",
-          false
-        ],
-        [
-          "sort_ordering",
-          "hierarchyAble",
-          false
-        ],
-        [
-          "sort_ordering",
-          "isEdee",
-          false
-        ],
-        [
-          "sort_ordering",
-          "isEder",
-          false
-        ],
-        [
-          "sort_ordering",
-          "object",
-          false
-        ],
-        [
-          "sort_ordering",
-          "ordering",
-          false
-        ],
-        [
-          "sort_ordering",
-          "property",
-          false
-        ],
-        [
-          "sort_ordering",
-          "queryable",
-          false
-        ],
-        [
-          "sort_ordering",
-          "theAble",
-          false
-        ],
-        [
-          "stm_before",
-          "adjective",
-          false
-        ],
-        [
-          "stm_current",
-          "adjective",
-          false
-        ],
-        [
-          "stm_previous",
-          "adjective",
-          false
-        ],
-        [
-          "superlative",
-          "condition",
-          false
-        ],
-        [
-          "superlative",
-          "hierarchyAble",
-          false
-        ],
-        [
-          "superlative",
-          "isEdee",
-          false
-        ],
-        [
-          "superlative",
-          "isEder",
-          false
-        ],
-        [
-          "superlative",
-          "object",
-          false
-        ],
-        [
-          "superlative",
-          "property",
-          false
-        ],
-        [
-          "superlative",
-          "queryable",
-          false
-        ],
-        [
-          "superlative",
-          "theAble",
-          false
-        ],
-        [
-          "superlative",
-          "thisAble",
-          false
-        ],
-        [
-          "system",
-          "concept",
-          false
-        ],
-        [
-          "system",
-          "hierarchyAble",
-          false
-        ],
-        [
-          "system",
-          "isEdee",
-          false
-        ],
-        [
-          "system",
-          "isEder",
-          false
-        ],
-        [
-          "system",
-          "object",
-          false
-        ],
-        [
-          "system",
-          "property",
-          false
-        ],
-        [
-          "system",
-          "queryable",
-          false
-        ],
-        [
-          "system",
-          "theAble",
-          false
-        ],
-        [
-          "system_modifier",
-          "adjective",
-          false
-        ],
-        [
-          "testingValue",
-          "testingValue",
-          false
-        ],
-        [
-          "that",
-          "thisitthat",
-          false
-        ],
-        [
-          "the",
-          "article",
-          false
-        ],
-        [
-          "theAble",
-          "queryable",
-          false
-        ],
-        [
-          "this",
-          "pronoun",
-          false
-        ],
-        [
-          "this",
-          "queryable",
-          false
-        ],
-        [
-          "this",
-          "thisitthat",
-          false
-        ],
-        [
-          "thisAble",
-          "thisAble",
-          false
-        ],
-        [
-          "thisitthat",
-          "queryable",
-          false
-        ],
-        [
-          "timesExpression",
-          "mathematicalExpression",
-          false
-        ],
-        [
-          "timesOperator",
-          "mathematical_operator",
-          false
-        ],
-        [
-          "to",
-          "preposition",
-          false
-        ],
-        [
-          "toAble",
-          "toAble",
-          false
-        ],
-        [
-          "type",
-          "property",
-          false
-        ],
-        [
-          "type",
-          "whatAble",
-          false
-        ],
-        [
-          "unit",
-          "concept",
-          false
-        ],
-        [
-          "unit",
-          "hierarchyAble",
-          false
-        ],
-        [
-          "unit",
-          "isEdee",
-          false
-        ],
-        [
-          "unit",
-          "isEder",
-          false
-        ],
-        [
-          "unit",
-          "mathematicalExpression",
-          false
-        ],
-        [
-          "unit",
-          "object",
-          false
-        ],
-        [
-          "unit",
-          "property",
-          false
-        ],
-        [
-          "unit",
-          "queryable",
-          false
-        ],
-        [
-          "unit",
-          "theAble",
-          false
-        ],
-        [
-          "unit_modifier",
-          "adjective",
-          false
-        ],
-        [
-          "unit_time",
-          "hierarchyAble",
-          false
-        ],
-        [
-          "unit_time",
-          "isEdee",
-          false
-        ],
-        [
-          "unit_time",
-          "isEder",
-          false
-        ],
-        [
-          "unit_time",
-          "object",
-          false
-        ],
-        [
-          "unit_time",
-          "property",
-          false
-        ],
-        [
-          "unit_time",
-          "queryable",
-          false
-        ],
-        [
-          "unit_time",
-          "theAble",
-          false
-        ],
-        [
-          "unit_time",
-          "thisAble",
-          false
-        ],
-        [
-          "unit_time",
-          "unit",
-          false
-        ],
-        [
-          "unknown",
-          "hierarchyAble",
-          false
-        ],
-        [
-          "useMeasurementSystem",
-          "verb",
-          false
-        ],
-        [
-          "useUnits",
-          "verb",
-          false
-        ],
-        [
-          "verb",
-          "verb",
-          false
-        ],
-        [
-          "what",
-          "object",
-          false
-        ],
-        [
-          "what",
-          "queryable",
-          false
-        ],
-        [
-          "whatAble",
-          "queryable",
-          false
-        ],
-        [
-          "whose",
-          "object",
-          false
-        ],
-        [
-          "x",
-          "number",
-          false
-        ],
-        [
-          "xfx",
-          "queryable",
-          false
-        ],
-        [
-          "y",
-          "number",
-          false
-        ],
-        [
-          "year",
-          "hierarchyAble",
-          false
-        ],
-        [
-          "year",
-          "isEdee",
-          false
-        ],
-        [
-          "year",
-          "isEder",
-          false
-        ],
-        [
-          "year",
-          "object",
-          false
-        ],
-        [
-          "year",
-          "property",
-          false
-        ],
-        [
-          "year",
-          "queryable",
-          false
-        ],
-        [
-          "year",
-          "theAble",
-          false
-        ],
-        [
-          "year",
-          "thisAble",
-          false
-        ],
-        [
-          "year",
-          "unit_time",
-          false
-        ]
-      ],
-      "metadata": {
-        "opChoices": [
-          {
-            "op": [
-              "unknown",
-              0
-            ],
-            "ops": [
-              [
-                "a",
-                0
-              ],
-              [
-                "is",
-                0
-              ],
-              [
-                "property",
-                0
-              ],
-              [
-                "unknown",
-                0
-              ]
-            ],
-            "counter": 1
-          },
-          {
-            "op": [
-              "property",
-              0
-            ],
-            "ops": [
-              [
-                "a",
-                0
-              ],
-              [
-                "is",
-                0
-              ],
-              [
-                "property",
-                0
-              ]
-            ],
-            "counter": 2
-          },
-          {
-            "op": [
-              "a",
-              0
-            ],
-            "ops": [
-              [
-                "a",
-                0
-              ],
-              [
-                "is",
-                0
-              ]
-            ],
-            "counter": 3
-          },
-          {
-            "op": [
-              "is",
-              0
-            ],
-            "ops": [
-              [
-                "is",
-                0
-              ]
-            ],
-            "counter": 4
-          },
-          {
-            "op": [
-              "is",
-              1
-            ],
-            "ops": [
-              [
-                "is",
-                1
-              ]
-            ],
-            "counter": 5
-          }
-        ]
-      },
-      "trace": "undefined",
-      "contexts": [
-        {
-          "number": "one",
-          "text": "age is a property",
-          "marker": "is",
-          "word": "is",
-          "range": {
-            "start": 0,
-            "end": 16
-          },
-          "one": {
-            "number": "one",
-            "value": "age",
-            "unknown": true,
-            "text": "age",
-            "marker": "unknown",
-            "word": "age",
-            "range": {
-              "start": 0,
-              "end": 2
-            },
-            "dead": true,
-            "types": [
-              "unknown"
-            ],
-            "level": 0
-          },
-          "two": {
-            "value": "property",
-            "number": "one",
-            "text": "a property",
-            "marker": "property",
-            "word": "property",
-            "range": {
-              "start": 7,
-              "end": 16
-            },
-            "dead": true,
-            "types": [
-              "property"
-            ],
-            "pullFromContext": false,
-            "concept": true,
-            "wantsValue": true,
-            "determiner": {
-              "marker": "a",
-              "default": true,
-              "word": "a",
-              "text": "a",
-              "range": {
-                "start": 7,
-                "end": 7
-              },
-              "level": 0
-            },
-            "modifiers": [
-              "determiner"
-            ],
-            "level": 0
-          },
-          "dead": true,
-          "level": 2,
-          "context_index": 1,
-          "topLevel": true,
-          "context_id": 2,
-          "touchedBy": [
-            "time#call2"
-          ]
-        }
-      ],
-      "generated": [
-        ""
-      ],
-      "paraphrases": [
-        "age is a property"
-      ],
-      "paraphrasesParenthesized": [],
-      "generatedParenthesized": [],
-      "responses": [
-        ""
-      ],
-      "associations": [
-        [
-          [
-            "a",
-            0
-          ],
-          [
-            "is",
-            0
-          ],
-          [
-            "property",
-            0
-          ],
-          [
-            "unknown",
-            0
-          ]
-        ],
-        [
-          [
-            "is",
-            0
-          ],
-          [
-            "property",
-            0
-          ],
-          [
-            "unknown",
-            0
-          ]
-        ]
-      ],
-      "summaries": [
-        {
-          "summaries": [
-            {
-              "operators": [
-                {
-                  "marker": [
-                    "unknown",
-                    0
-                  ],
-                  "range": {
-                    "start": 0,
-                    "end": 2
-                  }
-                },
-                {
-                  "marker": [
-                    "is",
-                    0
-                  ],
-                  "range": {
-                    "start": 4,
-                    "end": 5
-                  }
-                },
-                {
-                  "marker": [
-                    "a",
-                    0
-                  ],
-                  "range": {
-                    "start": 7,
-                    "end": 7
-                  }
-                },
-                {
-                  "marker": [
-                    "property",
-                    0
-                  ],
-                  "range": {
-                    "start": 9,
-                    "end": 16
-                  }
-                }
-              ],
-              "counter": 1
-            },
-            {
-              "operators": [
-                {
-                  "marker": [
-                    "unknown",
-                    0
-                  ],
-                  "range": {
-                    "start": 0,
-                    "end": 2
-                  }
-                },
-                {
-                  "marker": [
-                    "is",
-                    0
-                  ],
-                  "range": {
-                    "start": 4,
-                    "end": 5
-                  }
-                },
-                {
-                  "marker": [
-                    "a",
-                    0
-                  ],
-                  "range": {
-                    "start": 7,
-                    "end": 7
-                  }
-                },
-                {
-                  "marker": [
-                    "property",
-                    0
-                  ],
-                  "range": {
-                    "start": 9,
-                    "end": 16
-                  }
-                }
-              ],
-              "counter": 2
-            },
-            {
-              "operators": [
-                {
-                  "marker": [
-                    "unknown",
-                    0
-                  ],
-                  "range": {
-                    "start": 0,
-                    "end": 2
-                  }
-                },
-                {
-                  "marker": [
-                    "is",
-                    0
-                  ],
-                  "range": {
-                    "start": 4,
-                    "end": 5
-                  }
-                },
-                {
-                  "marker": [
-                    "a",
-                    0
-                  ],
-                  "range": {
-                    "start": 7,
-                    "end": 7
-                  }
-                },
-                {
-                  "marker": [
-                    "property",
-                    0
-                  ],
-                  "range": {
-                    "start": 9,
-                    "end": 16
-                  }
-                }
-              ],
-              "counter": 3
-            },
-            {
-              "operators": [
-                {
-                  "marker": [
-                    "unknown",
-                    0
-                  ],
-                  "range": {
-                    "start": 0,
-                    "end": 2
-                  }
-                },
-                {
-                  "marker": [
-                    "is",
-                    0
-                  ],
-                  "range": {
-                    "start": 4,
-                    "end": 5
-                  }
-                },
-                {
-                  "marker": [
-                    "property",
-                    0
-                  ],
-                  "range": {
-                    "start": 7,
-                    "end": 16
-                  }
-                }
-              ],
-              "counter": 4
-            },
-            {
-              "operators": [
-                {
-                  "marker": [
-                    "is",
-                    1
-                  ],
-                  "range": {
-                    "start": 0,
-                    "end": 16
-                  }
-                }
-              ],
-              "counter": 5
-            },
-            {
-              "operators": [
-                {
-                  "marker": [
-                    "is",
-                    2
-                  ],
-                  "range": {
-                    "start": 0,
-                    "end": 16
-                  }
-                }
-              ],
-              "counter": 6
-            }
-          ],
-          "length": 1
-        }
-      ],
-      "learned_contextual_priorities": [],
-      "rtf_associations": [],
-      "query": "age is a property",
-      "key": {
-        "query": "age is a property"
-      }
-    },
-    {
       "extraConfig": true,
       "operators": [
         "([thenTime|then])",
@@ -44823,26 +44951,9 @@
         "(([integer]) [timeRepeats|] ([timePoint]))",
         "([atTime|at] (timePoint))",
         "([use] (([quantity]) [timeFormat|format]))",
-        "([hourMinutes|] (integer) (colon) (integer))",
-        "((@<= 'quantity' && context.unit.dimension == 'time') [ageMarker|old])",
-        "((@<=unknown) [hasPropertyValue|is,is2] (context.isPropertyValue == true))"
+        "([hourMinutes|] (integer) (colon) (integer))"
       ],
       "bridges": [
-        {
-          "id": "hasPropertyValue",
-          "isA": [
-            "verb"
-          ],
-          "enhanced_associations": true,
-          "bridge": "{ ...operator, object: before[0], operator: operator, propertyValue: after[0], interpolate: [{ property: 'object' }, { property: 'operator' }, { property: 'propertyValue' }] }"
-        },
-        {
-          "id": "ageMarker",
-          "isA": [
-            "adjective"
-          ],
-          "bridge": "{ ...before[0], checks: append(before.checks, ['repeats']), isAge: true, isPropertyValue: true, age: operator, interpolate: append(before[0].interpolate, [{ property: 'age' }]) }"
-        },
         {
           "id": "repeatable",
           "check": [
@@ -44996,31 +45107,31 @@
       },
       "generators": [
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/time.js:182"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/time.js:172"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/time.js:197"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/time.js:187"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/time.js:210"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/time.js:200"
         }
       ],
       "semantics": [
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/time.js:218",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/time.js:208",
           "priority": -1
         },
         {
           "notes": "evaluate time",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/time.js:234"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/time.js:224"
         },
         {
           "notes": "use time format working case",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/time.js:243"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/time.js:233"
         },
         {
           "notes": "use time format error case",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/time.js:251"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/time.js:241"
         }
       ]
     }
@@ -45034,15 +45145,15 @@
         0
       ],
       [
+        "concept",
+        0
+      ],
+      [
         "is",
         0
       ],
       [
         "property",
-        0
-      ],
-      [
-        "unknown",
         0
       ]
     ],
@@ -45095,6 +45206,20 @@
       ],
       [
         "unknown",
+        0
+      ]
+    ],
+    [
+      [
+        "concept",
+        0
+      ],
+      [
+        "is",
+        0
+      ],
+      [
+        "property",
         0
       ]
     ],
@@ -45603,23 +45728,169 @@
         "unit",
         0
       ]
-    ],
-    [
-      [
-        "is",
-        0
-      ],
-      [
-        "property",
-        0
-      ],
-      [
-        "unknown",
-        0
-      ]
     ]
   ],
   "summaries": [
+    {
+      "summaries": [
+        {
+          "operators": [
+            {
+              "marker": [
+                "concept",
+                0
+              ],
+              "range": {
+                "start": 0,
+                "end": 6
+              }
+            },
+            {
+              "marker": [
+                "is",
+                0
+              ],
+              "range": {
+                "start": 8,
+                "end": 9
+              }
+            },
+            {
+              "marker": [
+                "a",
+                0
+              ],
+              "range": {
+                "start": 11,
+                "end": 11
+              }
+            },
+            {
+              "marker": [
+                "property",
+                0
+              ],
+              "range": {
+                "start": 13,
+                "end": 20
+              }
+            }
+          ],
+          "counter": 1
+        },
+        {
+          "operators": [
+            {
+              "marker": [
+                "concept",
+                0
+              ],
+              "range": {
+                "start": 0,
+                "end": 6
+              }
+            },
+            {
+              "marker": [
+                "is",
+                0
+              ],
+              "range": {
+                "start": 8,
+                "end": 9
+              }
+            },
+            {
+              "marker": [
+                "a",
+                0
+              ],
+              "range": {
+                "start": 11,
+                "end": 11
+              }
+            },
+            {
+              "marker": [
+                "property",
+                0
+              ],
+              "range": {
+                "start": 13,
+                "end": 20
+              }
+            }
+          ],
+          "counter": 2
+        },
+        {
+          "operators": [
+            {
+              "marker": [
+                "concept",
+                0
+              ],
+              "range": {
+                "start": 0,
+                "end": 6
+              }
+            },
+            {
+              "marker": [
+                "is",
+                0
+              ],
+              "range": {
+                "start": 8,
+                "end": 9
+              }
+            },
+            {
+              "marker": [
+                "property",
+                0
+              ],
+              "range": {
+                "start": 11,
+                "end": 20
+              }
+            }
+          ],
+          "counter": 3
+        },
+        {
+          "operators": [
+            {
+              "marker": [
+                "is",
+                1
+              ],
+              "range": {
+                "start": 0,
+                "end": 20
+              }
+            }
+          ],
+          "counter": 4
+        },
+        {
+          "operators": [
+            {
+              "marker": [
+                "is",
+                2
+              ],
+              "range": {
+                "start": 0,
+                "end": 20
+              }
+            }
+          ],
+          "counter": 5
+        }
+      ],
+      "length": 1
+    },
     {
       "summaries": [
         {
@@ -51551,211 +51822,6 @@
             }
           ],
           "counter": 5
-        }
-      ],
-      "length": 1
-    },
-    {
-      "summaries": [
-        {
-          "operators": [
-            {
-              "marker": [
-                "unknown",
-                0
-              ],
-              "range": {
-                "start": 0,
-                "end": 2
-              }
-            },
-            {
-              "marker": [
-                "is",
-                0
-              ],
-              "range": {
-                "start": 4,
-                "end": 5
-              }
-            },
-            {
-              "marker": [
-                "a",
-                0
-              ],
-              "range": {
-                "start": 7,
-                "end": 7
-              }
-            },
-            {
-              "marker": [
-                "property",
-                0
-              ],
-              "range": {
-                "start": 9,
-                "end": 16
-              }
-            }
-          ],
-          "counter": 1
-        },
-        {
-          "operators": [
-            {
-              "marker": [
-                "unknown",
-                0
-              ],
-              "range": {
-                "start": 0,
-                "end": 2
-              }
-            },
-            {
-              "marker": [
-                "is",
-                0
-              ],
-              "range": {
-                "start": 4,
-                "end": 5
-              }
-            },
-            {
-              "marker": [
-                "a",
-                0
-              ],
-              "range": {
-                "start": 7,
-                "end": 7
-              }
-            },
-            {
-              "marker": [
-                "property",
-                0
-              ],
-              "range": {
-                "start": 9,
-                "end": 16
-              }
-            }
-          ],
-          "counter": 2
-        },
-        {
-          "operators": [
-            {
-              "marker": [
-                "unknown",
-                0
-              ],
-              "range": {
-                "start": 0,
-                "end": 2
-              }
-            },
-            {
-              "marker": [
-                "is",
-                0
-              ],
-              "range": {
-                "start": 4,
-                "end": 5
-              }
-            },
-            {
-              "marker": [
-                "a",
-                0
-              ],
-              "range": {
-                "start": 7,
-                "end": 7
-              }
-            },
-            {
-              "marker": [
-                "property",
-                0
-              ],
-              "range": {
-                "start": 9,
-                "end": 16
-              }
-            }
-          ],
-          "counter": 3
-        },
-        {
-          "operators": [
-            {
-              "marker": [
-                "unknown",
-                0
-              ],
-              "range": {
-                "start": 0,
-                "end": 2
-              }
-            },
-            {
-              "marker": [
-                "is",
-                0
-              ],
-              "range": {
-                "start": 4,
-                "end": 5
-              }
-            },
-            {
-              "marker": [
-                "property",
-                0
-              ],
-              "range": {
-                "start": 7,
-                "end": 16
-              }
-            }
-          ],
-          "counter": 4
-        },
-        {
-          "operators": [
-            {
-              "marker": [
-                "is",
-                1
-              ],
-              "range": {
-                "start": 0,
-                "end": 16
-              }
-            }
-          ],
-          "counter": 5
-        },
-        {
-          "operators": [
-            {
-              "marker": [
-                "is",
-                2
-              ],
-              "range": {
-                "start": 0,
-                "end": 16
-              }
-            }
-          ],
-          "counter": 6
         }
       ],
       "length": 1
