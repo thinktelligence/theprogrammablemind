@@ -670,46 +670,54 @@ const config = {
           return objectValue
         }
 
-        let currentContext = toDo.pop()
-        let currentValue = await toValue(currentContext)
-        while (toDo.length > 0) {
-          const nextContext = toDo.pop()
-          const nextValue = await toValue(nextContext)
-          if (!nextValue) {
-            // TODO maybe this I aware so it can say "I don't know about blah..." and below
-            // if (currentContext.unknown || !currentContext.value) {
-            if (!api.conceptExists(currentContext.value)) {
-              // api.conceptExists(currentContext)
+        async function processOne(toDo) {
+          let currentContext = toDo.pop()
+          let currentValue = await toValue(currentContext)
+          while (toDo.length > 0) {
+            const nextContext = toDo.pop()
+            const nextValue = await toValue(nextContext)
+            if (!nextValue) {
+              // TODO maybe this I aware so it can say "I don't know about blah..." and below
+              // if (currentContext.unknown || !currentContext.value) {
+              if (!api.conceptExists(currentContext.value)) {
+                // api.conceptExists(currentContext)
+                const objectPhrase = await g({...currentContext, paraphrase: true})
+                context.verbatim = `What "${objectPhrase}" means is unknown`
+                return
+              }
+
+              const propertyPhrase = await g({...nextContext, paraphrase: true})
               const objectPhrase = await g({...currentContext, paraphrase: true})
-              context.verbatim = `What "${objectPhrase}" means is unknown`
+              context.verbatim = `There is no interpretation for "${propertyPhrase} of ${objectPhrase}"`
               return
             }
 
-            const propertyPhrase = await g({...nextContext, paraphrase: true})
-            const objectPhrase = await g({...currentContext, paraphrase: true})
-            context.verbatim = `There is no interpretation for "${propertyPhrase} of ${objectPhrase}"`
-            return
-          }
-
-          let fromMentions
-          if (!await api.knownProperty(currentContext, nextContext)) {
-            fromMentions = await recall({ context: nextContext, all: nextContext.number == 'many', frameOfReference: currentContext })
-            if (!fromMentions) {
-              context.verbatim = `There is no property ${await g({...nextContext, paraphrase: true})} of ${await g({...currentContext, paraphrase: true})}`
-              return
+            let fromMentions
+            if (!await api.knownProperty(currentContext, nextContext)) {
+              fromMentions = await recall({ context: nextContext, all: nextContext.number == 'many', frameOfReference: currentContext })
+              if (!fromMentions) {
+                context.verbatim = `There is no property ${await g({...nextContext, paraphrase: true})} of ${await g({...currentContext, paraphrase: true})}`
+                return
+              }
+            }
+            if (fromMentions) {
+              currentContext = fromMentions
+              currentValue = fromMentions // TODO not sure what is right here so just do something and fix when actually needed SOP
+            } else {
+              currentContext = await api.getProperty(currentValue, nextValue, g)
+              currentValue = currentContext.value
             }
           }
-          if (fromMentions) {
-            currentContext = fromMentions
-            currentValue = fromMentions // TODO not sure what is right here so just do something and fix when actually needed SOP
-          } else {
-            currentContext = await api.getProperty(currentValue, nextValue, g)
-            currentValue = currentContext.value
-          }
+          return currentContext
         }
-        context.focusable = ['object[0]']
-        context.evalue = currentContext
-        context.object = undefined;
+
+        const currentContext = await processOne(toDo)
+
+        if (currentContext) {
+          context.focusable = ['object[0]']
+          context.evalue = currentContext
+          context.object = undefined;
+        }
       }
     }
   ]

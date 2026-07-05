@@ -882,7 +882,7 @@
         },
         {
           "match": "({context, hierarchy}) => \n                      hierarchy.isA(context.marker, 'property') && \n                      context.evaluate && \n                      context.objects &&\n                      !context.evaluate.toConcept",
-          "apply": "async ({callId, context, api, kms, objects, g, s, log, recall}) => {\n        const toDo = [ ...context.objects ]\n        async function toValue(objectContext) {\n          if (!objectContext.value) {\n            return objectContext;\n          }\n          let objectValue = kms.stm.api.getVariable(objectContext);\n          if (!objectValue) {\n            objectValue = objectContext.value\n          }\n          if (!await api.knownObject(objectValue)) {\n            objectContext.verbatim = `There is no object named \"${await g({...objectContext, paraphrase: true})}\"`\n            return\n          }\n          return objectValue\n        }\n\n        let currentContext = toDo.pop()\n        let currentValue = await toValue(currentContext)\n        while (toDo.length > 0) {\n          const nextContext = toDo.pop()\n          const nextValue = await toValue(nextContext)\n          if (!nextValue) {\n            // TODO maybe this I aware so it can say \"I don't know about blah...\" and below\n            // if (currentContext.unknown || !currentContext.value) {\n            if (!api.conceptExists(currentContext.value)) {\n              // api.conceptExists(currentContext)\n              const objectPhrase = await g({...currentContext, paraphrase: true})\n              context.verbatim = `What \"${objectPhrase}\" means is unknown`\n              return\n            }\n\n            const propertyPhrase = await g({...nextContext, paraphrase: true})\n            const objectPhrase = await g({...currentContext, paraphrase: true})\n            context.verbatim = `There is no interpretation for \"${propertyPhrase} of ${objectPhrase}\"`\n            return\n          }\n\n          let fromMentions\n          if (!await api.knownProperty(currentContext, nextContext)) {\n            fromMentions = await recall({ context: nextContext, all: nextContext.number == 'many', frameOfReference: currentContext })\n            if (!fromMentions) {\n              context.verbatim = `There is no property ${await g({...nextContext, paraphrase: true})} of ${await g({...currentContext, paraphrase: true})}`\n              return\n            }\n          }\n          if (fromMentions) {\n            currentContext = fromMentions\n            currentValue = fromMentions // TODO not sure what is right here so just do something and fix when actually needed SOP\n          } else {\n            currentContext = await api.getProperty(currentValue, nextValue, g)\n            currentValue = currentContext.value\n          }\n        }\n        context.focusable = ['object[0]']\n        context.evalue = currentContext\n        context.object = undefined;\n      }"
+          "apply": "async ({callId, context, api, kms, objects, g, s, log, recall}) => {\n        const toDo = [ ...context.objects ]\n        async function toValue(objectContext) {\n          if (!objectContext.value) {\n            return objectContext;\n          }\n          let objectValue = kms.stm.api.getVariable(objectContext);\n          if (!objectValue) {\n            objectValue = objectContext.value\n          }\n          if (!await api.knownObject(objectValue)) {\n            objectContext.verbatim = `There is no object named \"${await g({...objectContext, paraphrase: true})}\"`\n            return\n          }\n          return objectValue\n        }\n\n        async function processOne(toDo) {\n          let currentContext = toDo.pop()\n          let currentValue = await toValue(currentContext)\n          while (toDo.length > 0) {\n            const nextContext = toDo.pop()\n            const nextValue = await toValue(nextContext)\n            if (!nextValue) {\n              // TODO maybe this I aware so it can say \"I don't know about blah...\" and below\n              // if (currentContext.unknown || !currentContext.value) {\n              if (!api.conceptExists(currentContext.value)) {\n                // api.conceptExists(currentContext)\n                const objectPhrase = await g({...currentContext, paraphrase: true})\n                context.verbatim = `What \"${objectPhrase}\" means is unknown`\n                return\n              }\n\n              const propertyPhrase = await g({...nextContext, paraphrase: true})\n              const objectPhrase = await g({...currentContext, paraphrase: true})\n              context.verbatim = `There is no interpretation for \"${propertyPhrase} of ${objectPhrase}\"`\n              return\n            }\n\n            let fromMentions\n            if (!await api.knownProperty(currentContext, nextContext)) {\n              fromMentions = await recall({ context: nextContext, all: nextContext.number == 'many', frameOfReference: currentContext })\n              if (!fromMentions) {\n                context.verbatim = `There is no property ${await g({...nextContext, paraphrase: true})} of ${await g({...currentContext, paraphrase: true})}`\n                return\n              }\n            }\n            if (fromMentions) {\n              currentContext = fromMentions\n              currentValue = fromMentions // TODO not sure what is right here so just do something and fix when actually needed SOP\n            } else {\n              currentContext = await api.getProperty(currentValue, nextValue, g)\n              currentValue = currentContext.value\n            }\n          }\n          return currentContext\n        }\n\n        const currentContext = await processOne(toDo)\n\n        if (currentContext) {\n          context.focusable = ['object[0]']\n          context.evalue = currentContext\n          context.object = undefined;\n        }\n      }"
         }
       ]
     }
@@ -2967,83 +2967,83 @@
       "generators": [
         {
           "notes": "expression with constraints",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:297"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:296"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:319"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:318"
         },
         {
           "notes": "add possession ending",
           "priority": -1,
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:326"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:325"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:340"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:339"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:345"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:344"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:350"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:349"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:355"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:354"
         },
         {
           "notes": "negative do questions",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:361"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:360"
         },
         {
           "notes": "do questions",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:370"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:369"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:384"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:383"
         },
         {
           "notes": "the property of object",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:392"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:391"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:416"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:415"
         },
         {
           "notes": "object's property",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:425"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:424"
         }
       ],
       "semantics": [
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:456"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:455"
         },
         {
           "notes": "wants is xfx between wanter and wantee",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:467",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:466",
           "priority": -1
         },
         {
           "notes": "marking something as readonly",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:481"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:480"
         },
         {
           "notes": "crew members. evaluate a concepts to get instances",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:505"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:504"
         },
         {
           "notes": "greg has eyes",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:533"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:532"
         },
         {
           "notes": "greg has eyes?",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:546"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:545"
         },
         {
           "notes": "set the property of an object",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:572"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:571"
         },
         {
           "notes": "get/evaluate a property",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:649"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:648"
         }
       ]
     }
