@@ -20,6 +20,7 @@ const config = {
   ],
   bridges: [
     {
+      where: where(),
       id: 'delayTime',
       isA: ['preposition', 'action'],
       bridge: `{
@@ -31,6 +32,7 @@ const config = {
       check: defaultContextCheckProperties(['delayTime'])
     },
     {
+      where: where(),
       id: 'delayTime',
       where: where(),
       after: ['doAction'],
@@ -57,10 +59,12 @@ const config = {
       }
     },
     {
+      where: where(),
       id: 'action',
       isA: ['thisAble'],
     },
     {
+      where: where(),
       id: "thenAction",
       level: 0,
       isA: ['action'],
@@ -82,6 +86,7 @@ const config = {
       }`
     },
     {
+      where: where(),
       id: "thenAction",
       level: 1,
       before: ['doAction'],
@@ -102,6 +107,7 @@ const config = {
     },
 
     {
+      where: where(),
       id: 'again',
       before: ['doAction'],
       bridge: `{
@@ -113,6 +119,7 @@ const config = {
       localHierarchy: [['thisitthat', 'action']],
     },
     { 
+      where: where(),
       id: 'doAction', 
       isA: ['verb', 'repeatable'],
       check: defaultContextCheckProperties(['action']),
@@ -138,6 +145,7 @@ const config = {
   },
   semantics: [
     {
+      where: where(),
       priority: -1,
       match: ({context, isA}) => !context.pullFromContext && (isA(context.marker, 'action') || isA(context.marker, 'doAction')),
       apply: async ({context, _continue, testLog, g, remember}) => {

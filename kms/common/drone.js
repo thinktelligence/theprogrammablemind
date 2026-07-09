@@ -1345,12 +1345,14 @@ const template = {
       ],
       semantics: [
         {
+          where: where(),
           match: ({context}) => context.marker == 'doAction',
           apply: async ({context, fragments, e, s, toEValue, toFinalValue, objects}) => {
             await s({ ...context, marker: 'patrol', path: context.action})
           }
         },
         {
+          where: where(),
           match: ({context, contextHierarchy}) => {
             if (!context.pullFromContext || !context.evaluate || contextHierarchy.under(['doAction', 'evaluate', 'patrol']) || context.instance) {
               return false
@@ -1377,6 +1379,7 @@ const template = {
           },
         },
         {
+          where: where(),
           match: ({context, contextHierarchy}) => {
             if (!context.pullFromContext || !context.evaluate || !contextHierarchy.under('call') || context.notUnderCall) {
               return false
@@ -1411,6 +1414,7 @@ const template = {
         },
         */
         {
+          where: where(),
           match: ({context}) => context.evaluate && ['start', 'end'].includes(context.marker) && context.objects && context.objects[1].marker == 'path',
           apply: async ({gp, s, context, objects, fragments, resolveEvaluate, api, recall}) => {
             const path = await recall({ context: context.objects[1] })
@@ -1482,12 +1486,14 @@ const template = {
           }
         },
         {
+          where: where(),
           match: ({context}) => context.marker == 'timeRepeats',
           apply: ({context, objects, toFinalValue}) => {
             objects.current.timeRepeats = toFinalValue(context.repeats)
           }
         },
         {
+          where: where(),
           match: ({context, toArray}) => {
             if (context.marker !== 'list') {
               return false
