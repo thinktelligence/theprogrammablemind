@@ -2,15 +2,31 @@ const { propertyToArray } = require('../helpers.js')
 
 function asList(context, maybe=false) {
   if (Array.isArray(context)) {
+    const noEmptyLists = []
+    for (const value of context) {
+      if (!value) {
+        continue
+      }
+      if (value.marker == 'list' && value.value.length == 0) {
+        continue
+      }
+      noEmptyLists.push(value)
+    }
+    if (maybe) {
+      if (noEmptyLists.length == 1) {
+        return noEmptyLists[0]
+      }
+    }
     return {
       marker: 'list',
       // types: [context.marker],
       listable: true,
-      value: context
+      value: noEmptyLists
     }
   } else if (context.marker === 'list') {
     return context
   }
+
   if (maybe) {
     return context
   } else {
