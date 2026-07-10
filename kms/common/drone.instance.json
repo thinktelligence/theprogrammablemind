@@ -823,7 +823,7 @@
       "semantics": [
         {
           "match": "({context}) => context.marker == 'doAction'",
-          "apply": "async ({context, fragments, e, s, toEValue, toFinalValue, objects}) => {\n            await s({ ...context, marker: 'patrol', path: context.action})\n          }"
+          "apply": "async ({context, fragments, e, s, toEValue, toFinalValue, namespaced, objects}) => {\n            const updated = { ...context, marker: 'patrol', path: context.action }\n            namespaced.set('actions', updated, 'logged', true)\n            await s(updated)\n            // await s({ ...context, marker: 'patrol', path: context.action })\n          }"
         },
         {
           "match": "({context, contextHierarchy}) => {\n            if (!context.pullFromContext || !context.evaluate || contextHierarchy.under(['doAction', 'evaluate', 'patrol']) || context.instance) {\n              return false\n            }\n            \n            if (context.marker == 'path' || context.marker == 'this' || context.marker == 'that') {\n              return true\n            }\n          }",
@@ -53734,6 +53734,24 @@
             "unknown",
             0
           ]
+        ],
+        [
+          [
+            "is",
+            0
+          ],
+          [
+            "list",
+            1
+          ],
+          [
+            "point",
+            0
+          ],
+          [
+            "unknown",
+            0
+          ]
         ]
       ],
       "summaries": [
@@ -59516,22 +59534,22 @@
           "where": "/home/dev/code/theprogrammablemind/kms/common/drone.js:1352"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/drone.js:1359"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/drone.js:1362"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/drone.js:1386"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/drone.js:1389"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/drone.js:1421"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/drone.js:1424"
         },
         {},
         {},
         {},
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/drone.js:1492"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/drone.js:1495"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/drone.js:1499"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/drone.js:1502"
         }
       ]
     }
@@ -102699,6 +102717,24 @@
       ],
       [
         "point",
+        0
+      ]
+    ],
+    [
+      [
+        "is",
+        0
+      ],
+      [
+        "list",
+        1
+      ],
+      [
+        "point",
+        0
+      ],
+      [
+        "unknown",
         0
       ]
     ],

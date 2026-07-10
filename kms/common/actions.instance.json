@@ -142,7 +142,7 @@
               "action"
             ]
           ],
-          "semantic": "async ({context, toArray, s}) => {\n        for (const action of toArray(context.action)) {\n          await s(action)\n        }\n      }"
+          "semantic": "async ({context, toArray, s}) => {\n        for (const action of toArray(context.action)) {\n          if (action.evaluate) {\n            debugger\n          }\n          // debug.counter('greg24', { breakAt: [1,2] })\n          await s(action)\n        }\n      }"
         }
       ],
       "words": {
@@ -166,7 +166,7 @@
       },
       "semantics": [
         {
-          "match": "({context, isA}) => !context.pullFromContext && (isA(context.marker, 'action') || isA(context.marker, 'doAction'))",
+          "match": "({context, isA, stack, namespaced}) => {\n        if (!context.pullFromContext && context.evaluate && (isA(context.marker, 'action') || isA(context.marker, 'doAction'))) {\n          debugger\n        }\n        return !context.pullFromContext && !context.evaluate && (isA(context.marker, 'action') || isA(context.marker, 'doAction')) && !namespaced.get('actions', context, 'logged')\n      }",
           "apply": "async ({context, _continue, testLog, g, remember}) => {\n        remember(context)\n        await testLog(() => g(context))\n        _continue()\n      }"
         }
       ]
@@ -338,7 +338,7 @@
       },
       "semantics": [
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/actions.js:148",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/actions.js:152",
           "priority": -1
         }
       ]

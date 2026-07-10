@@ -55,6 +55,8 @@ class API {
       return
     }
 
+    concept.evaluate = false
+
     if (!frameOfReference) {
       frameOfReference = this._objects
     }
@@ -345,7 +347,8 @@ const config = {
       notes: 'pull from context',
       // match: ({context}) => context.marker == 'it' && context.pullFromContext, // && context.value,
       match: ({context, callId}) => context.pullFromContext && !context.same, // && context.value,
-      apply: async ({callId, recall, toList, context, kms, e, log, retry}) => {
+      apply: async ({callId, s, debug, recall, toList, context, kms, e, log, retry}) => {
+        // debug.counter('greg23', { breakAt: 1 })
         context.value = (await recall({ context }))
         if (Array.isArray(context.value)) {
           context.value = toList(context.value)
@@ -355,13 +358,17 @@ const config = {
           context.evalue = { marker: 'answerNotKnown' }
           return
         }
-       
-        const instance = await e(context.value)
-        if (instance.evalue && !instance.edefault) {
-          context.value = instance.evalue
-        }
-        if (context.evaluate) {
-          context.evalue = context.value
+      
+        if (context.evaluate) { 
+          const instance = await e(context.value)
+          if (instance.evalue && !instance.edefault) {
+            context.value = instance.evalue
+          }
+          if (context.evaluate) {
+            context.evalue = context.value
+          }
+        } else {
+          await s(context.value)
         }
       },
     },

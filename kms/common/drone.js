@@ -1351,8 +1351,11 @@ const template = {
         {
           where: where(),
           match: ({context}) => context.marker == 'doAction',
-          apply: async ({context, fragments, e, s, toEValue, toFinalValue, objects}) => {
-            await s({ ...context, marker: 'patrol', path: context.action})
+          apply: async ({context, fragments, e, s, toEValue, toFinalValue, namespaced, objects}) => {
+            const updated = { ...context, marker: 'patrol', path: context.action }
+            namespaced.set('actions', updated, 'logged', true)
+            await s(updated)
+            // await s({ ...context, marker: 'patrol', path: context.action })
           }
         },
         {

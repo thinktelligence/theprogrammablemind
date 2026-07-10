@@ -147,7 +147,7 @@ const config = {
     {
       where: where(),
       priority: -1,
-      match: ({context, isA}) => !context.pullFromContext && (isA(context.marker, 'action') || isA(context.marker, 'doAction')),
+      match: ({context, isA, stack, namespaced}) => !context.pullFromContext && !context.evaluate && (isA(context.marker, 'action') || isA(context.marker, 'doAction')) && !namespaced.get('actions', context, 'logged'),
       apply: async ({context, _continue, testLog, g, remember}) => {
         remember(context)
         await testLog(() => g(context))
