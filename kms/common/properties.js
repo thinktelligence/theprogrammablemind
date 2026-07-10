@@ -131,7 +131,7 @@ const config = {
       isA: ['verb'],
       preferOver: ['is'],
       enhanced_associations: true,
-      bridge: "{ ...operator, object: before[0], operator: operator, propertyValue: after[0], interpolate: [{ property: 'object' }, { property: 'operator' }, { property: 'propertyValue' }] }",
+      bridge: "{ ...operator, object: before[0], flatten: true, operator: operator, propertyValue: after[0], interpolate: [{ property: 'object' }, { property: 'operator' }, { property: 'propertyValue' }] }",
       semantic: async ({context, e, fragments}) => {
         const propertyType = {
           marker: context.propertyValue.propertyType,

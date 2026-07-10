@@ -911,6 +911,10 @@ const template = {
       })
     },
     {
+      priorities: [
+        { context: [['ordinal', 0], ['list', 1], ['ordinal', 0], ['ordinalOnOrdered', 0], ['point', 0]], ordered: true, choose: [1] },
+        { context: [['ordinal', 1], ['list', 1], ['ordinal', 1], ['ordinalOnOrdered', 0], ['point', 0]], ordered: true, choose: [1] },
+      ],
       operators: [
         // "([do] (path))",
         "([patrol] (path))",
@@ -1481,7 +1485,6 @@ const template = {
               }
             ])
             const preferred = await s({ marker: 'preferredUnits', quantity: direction }) 
-            const sss = await gp(direction)
             resolveEvaluate(context, preferred.response || direction)
           }
         },

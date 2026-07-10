@@ -35,6 +35,64 @@
       "apply": "(args) => {\n      expectDirection(args)\n      expectDistanceForMove(args)\n\n      args.config.addSemantic({\n        match: ({context, isA}) => isA(context.marker, 'quantity') && isA(context.unit?.marker, 'unitPerUnit'),\n        apply: async ({context, objects, api, gr, fragments, e, say}) => {\n          // send a command to the drone\n          const instantiation = await fragments(\"quantity in meters per second\", { quantity: context })\n          const result = await e(instantiation)\n          const desired_speed = result.evalue.amount.evalue.evalue\n          objects.runCommand = true\n          objects.current.speed = desired_speed\n          objects.current.speedUnitsOfUser = context.unit\n        }\n      })\n\n      args.config.addSemantic({\n        match: ({context, objects, isA}) => objects.current.direction && context.marker == 'controlStart',\n        apply: ({context, objects, api}) => {\n          objects.runCommand = false  \n        }\n      })\n\n      args.config.addSemantic({\n        match: ({context, objects, isA}) => objects.current.direction && context.marker == 'controlEnd',\n        apply: async ({context, objects, api}) => {\n          // send a command to the drone\n          if (objects.runCommand) {\n            await api.sendCommand()\n          }\n        }\n      })\n    }"
     },
     {
+      "priorities": [
+        {
+          "context": [
+            [
+              "ordinal",
+              0
+            ],
+            [
+              "list",
+              1
+            ],
+            [
+              "ordinal",
+              0
+            ],
+            [
+              "ordinalOnOrdered",
+              0
+            ],
+            [
+              "point",
+              0
+            ]
+          ],
+          "ordered": true,
+          "choose": [
+            1
+          ]
+        },
+        {
+          "context": [
+            [
+              "ordinal",
+              1
+            ],
+            [
+              "list",
+              1
+            ],
+            [
+              "ordinal",
+              1
+            ],
+            [
+              "ordinalOnOrdered",
+              0
+            ],
+            [
+              "point",
+              0
+            ]
+          ],
+          "ordered": true,
+          "choose": [
+            1
+          ]
+        }
+      ],
       "operators": [
         "([patrol] (path))",
         "([lift|lift,raise] (@<= arm || @<= claw))",
@@ -789,7 +847,7 @@
         },
         {
           "match": "({context}) => ['direction', 'drone_direction'].includes(context.marker) && context.evaluate",
-          "apply": "async ({gp, s, context, objects, fragments, resolveEvaluate, api}) => {\n            const value = objects.current.angleInRadians\n            const fi = await fragments(\"number radians\")\n            const direction = await fi.instantiate([\n              { \n                match: ({path, pathEquals}) => pathEquals(path, ['0', 'amount']),\n                apply: ({context}) => {\n                  Object.assign(context, { marker: 'number', value: value, word: undefined })\n                }\n              }\n            ])\n            const preferred = await s({ marker: 'preferredUnits', quantity: direction }) \n            const sss = await gp(direction)\n            resolveEvaluate(context, preferred.response || direction)\n          }"
+          "apply": "async ({gp, s, context, objects, fragments, resolveEvaluate, api}) => {\n            const value = objects.current.angleInRadians\n            const fi = await fragments(\"number radians\")\n            const direction = await fi.instantiate([\n              { \n                match: ({path, pathEquals}) => pathEquals(path, ['0', 'amount']),\n                apply: ({context}) => {\n                  Object.assign(context, { marker: 'number', value: value, word: undefined })\n                }\n              }\n            ])\n            const preferred = await s({ marker: 'preferredUnits', quantity: direction }) \n            resolveEvaluate(context, preferred.response || direction)\n          }"
         },
         {
           "match": "({context}) => context.marker == 'timeRepeats'",
@@ -4601,20 +4659,6 @@
             "comma",
             0
           ],
-          [
-            "is",
-            0
-          ],
-          [
-            "list",
-            1
-          ],
-          [
-            "unknown",
-            0
-          ]
-        ],
-        [
           [
             "is",
             0
@@ -53690,24 +53734,6 @@
             "unknown",
             0
           ]
-        ],
-        [
-          [
-            "is",
-            0
-          ],
-          [
-            "list",
-            1
-          ],
-          [
-            "point",
-            0
-          ],
-          [
-            "unknown",
-            0
-          ]
         ]
       ],
       "summaries": [
@@ -58718,6 +58744,64 @@
     },
     {
       "extraConfig": true,
+      "priorities": [
+        {
+          "context": [
+            [
+              "ordinal",
+              0
+            ],
+            [
+              "list",
+              1
+            ],
+            [
+              "ordinal",
+              0
+            ],
+            [
+              "ordinalOnOrdered",
+              0
+            ],
+            [
+              "point",
+              0
+            ]
+          ],
+          "ordered": true,
+          "choose": [
+            1
+          ]
+        },
+        {
+          "context": [
+            [
+              "ordinal",
+              1
+            ],
+            [
+              "list",
+              1
+            ],
+            [
+              "ordinal",
+              1
+            ],
+            [
+              "ordinalOnOrdered",
+              0
+            ],
+            [
+              "point",
+              0
+            ]
+          ],
+          "ordered": true,
+          "choose": [
+            1
+          ]
+        }
+      ],
       "operators": [
         "([patrol] (path))",
         "([lift|lift,raise] (@<= arm || @<= claw))",
@@ -59429,25 +59513,25 @@
       ],
       "semantics": [
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/drone.js:1348"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/drone.js:1352"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/drone.js:1355"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/drone.js:1359"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/drone.js:1382"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/drone.js:1386"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/drone.js:1417"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/drone.js:1421"
         },
         {},
         {},
         {},
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/drone.js:1489"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/drone.js:1492"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/drone.js:1496"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/drone.js:1499"
         }
       ]
     }
@@ -102646,24 +102730,6 @@
         1
       ],
       [
-        "point",
-        0
-      ],
-      [
-        "unknown",
-        0
-      ]
-    ],
-    [
-      [
-        "is",
-        0
-      ],
-      [
-        "list",
-        1
-      ],
-      [
         "property",
         0
       ]
@@ -102698,20 +102764,6 @@
       [
         "propertyOf",
         1
-      ]
-    ],
-    [
-      [
-        "is",
-        0
-      ],
-      [
-        "list",
-        1
-      ],
-      [
-        "unknown",
-        0
       ]
     ],
     [

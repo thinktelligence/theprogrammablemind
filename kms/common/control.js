@@ -19,10 +19,16 @@ function initializer({config}) {
           context.control_id = context.control.nextId
           context.control.nextId += 1
         }
+
         if (context.control.seen.includes(context.control_id)) {
           return false
         }
+
         context.control.seen.push(context.control_id)
+        args._finally( () => {
+          const index = context.control.seen.find((value) => context.control_id)
+          context.control.seen.splice(index, 1)
+        })
         return true
       }
       return false

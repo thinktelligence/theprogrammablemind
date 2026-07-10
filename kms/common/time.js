@@ -214,7 +214,10 @@ const template = {
               if (context.action) {
                 await s(context.action)
               } else {
-                await s({ ...context, repeats: undefined })
+                const repeats = context.repeats
+                context.repeats = undefined
+                await s(context)
+                context.repeats = repeats
               }
             }
           }

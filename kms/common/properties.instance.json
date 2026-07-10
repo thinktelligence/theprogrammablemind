@@ -108,7 +108,7 @@
             "is"
           ],
           "enhanced_associations": true,
-          "bridge": "{ ...operator, object: before[0], operator: operator, propertyValue: after[0], interpolate: [{ property: 'object' }, { property: 'operator' }, { property: 'propertyValue' }] }",
+          "bridge": "{ ...operator, object: before[0], flatten: true, operator: operator, propertyValue: after[0], interpolate: [{ property: 'object' }, { property: 'operator' }, { property: 'propertyValue' }] }",
           "semantic": "async ({context, e, fragments}) => {\n        const propertyType = {\n          marker: context.propertyValue.propertyType,\n          level: 0,\n          value: context.propertyValue.propertyType,\n        }\n\n        const instance = await fragments(\"the property of object is value\", { property: propertyType, object: context.object, value: context.propertyValue })\n        instance.greg = 23\n        await e(instance)\n      }"
         },
         {
@@ -2277,7 +2277,7 @@
             "is"
           ],
           "enhanced_associations": true,
-          "bridge": "{ ...operator, object: before[0], operator: operator, propertyValue: after[0], interpolate: [{ property: 'object' }, { property: 'operator' }, { property: 'propertyValue' }] }"
+          "bridge": "{ ...operator, object: before[0], flatten: true, operator: operator, propertyValue: after[0], interpolate: [{ property: 'object' }, { property: 'operator' }, { property: 'propertyValue' }] }"
         },
         {
           "id": "propertyRelation",
