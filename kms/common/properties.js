@@ -725,7 +725,6 @@ const config = {
         if (results.length > 0) {
           context.focusable = ['object[0]']
           // context.evalue = currentContext
-          debugger
           context.evalue = asList(results, true)
           context.object = undefined;
         }

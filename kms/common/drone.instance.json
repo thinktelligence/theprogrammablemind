@@ -842,11 +842,11 @@
           "apply": "async ({gp, s, toArray, context, objects, fragments, resolveEvaluate, api, recall}) => {\n            const path = await recall({ context: { marker: 'path' } })\n            if (!path?.points) {\n              return\n            }\n            \n            if (context.marker == 'start') {\n              resolveEvaluate(context, path?.points[0])\n            } else if (context.marker == 'end') {\n              resolveEvaluate(context, path?.points[path?.points.length-1])\n            } else {\n              const points = await recall({ context, frameOfReference: path })\n              resolveEvaluate(context, toArray(points)[0])\n            }\n          }"
         },
         {
-          "match": "({context}) => context.marker == 'speed' && context.evaluate",
-          "apply": "async ({gp, s, context, objects, fragments, resolveEvaluate, api}) => {\n            let value = objects.current.speed\n            if (context.condition) {\n              if (['highest', 'maximum'].includes(context.condition.marker)) {\n                value = api.maximumSpeedDrone()\n              } else if (['lowest', 'minimum'].includes(context.condition.marker)) {\n                value = api.minimumSpeedDrone()\n              }\n            }\n            const speed = await fragments(\"number meters per second\", { number: { marker: 'integer', value, word: undefined} })\n            const preferred = await s({ marker: 'preferredUnits', quantity: speed }) \n            resolveEvaluate(context, preferred.response || speed)\n          }"
+          "match": "({context}) => {\n            // from stm lookup\n            if (context.marker == 'mentions' && context.evaluate && context.args.context.marker == 'speed') {\n              return true\n            }\n            // from property directly\n            if (context.marker == 'speed' && context.evaluate) {\n              return true\n            }\n          }",
+          "apply": "async ({gp, s, context, objects, fragments, resolveEvaluate, api}) => {\n            debugger\n            let return_context = context\n            if (context.marker == 'speed') {\n              // okay\n            } else {\n              // stm lookup\n              return_context = context\n              context = context.args.context\n            }\n            let value = objects.current.speed\n            if (context.condition) {\n              if (['highest', 'maximum'].includes(context.condition.marker)) {\n                value = api.maximumSpeedDrone()\n              } else if (['lowest', 'minimum'].includes(context.condition.marker)) {\n                value = api.minimumSpeedDrone()\n              }\n            }\n            const speed = await fragments(\"number meters per second\", { number: { marker: 'integer', value, word: undefined} })\n            const preferred = await s({ marker: 'preferredUnits', quantity: speed }) \n            resolveEvaluate(return_context, preferred.response || speed)\n          }"
         },
         {
-          "match": "({context}) => ['direction', 'drone_direction'].includes(context.marker) && context.evaluate",
+          "match": "({context}) => {\n            if (context.marker == 'mentions' && context.evaluate && ['direction', 'drone_direction'].includes(context.args.context.marker)) {\n              return true\n            }\n            if (['direction', 'drone_direction'].includes(context.marker) && context.evaluate) {\n              return true\n            }\n          }",
           "apply": "async ({gp, s, context, objects, fragments, resolveEvaluate, api}) => {\n            const value = objects.current.angleInRadians\n            const fi = await fragments(\"number radians\")\n            const direction = await fi.instantiate([\n              { \n                match: ({path, pathEquals}) => pathEquals(path, ['0', 'amount']),\n                apply: ({context}) => {\n                  Object.assign(context, { marker: 'number', value: value, word: undefined })\n                }\n              }\n            ])\n            const preferred = await s({ marker: 'preferredUnits', quantity: direction }) \n            resolveEvaluate(context, preferred.response || direction)\n          }"
         },
         {
@@ -59724,13 +59724,17 @@
           "where": "/home/dev/code/theprogrammablemind/kms/common/drone.js:1424"
         },
         {},
-        {},
-        {},
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/drone.js:1495"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/drone.js:1462"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/drone.js:1502"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/drone.js:1497"
+        },
+        {
+          "where": "/home/dev/code/theprogrammablemind/kms/common/drone.js:1523"
+        },
+        {
+          "where": "/home/dev/code/theprogrammablemind/kms/common/drone.js:1530"
         }
       ]
     }

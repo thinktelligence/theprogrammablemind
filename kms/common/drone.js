@@ -1459,8 +1459,26 @@ const template = {
           }
         },
         {
-          match: ({context}) => context.marker == 'speed' && context.evaluate,
+          where: where(),
+          match: ({context}) => {
+            // from stm lookup
+            if (context.marker == 'mentions' && context.evaluate && context.args.context.marker == 'speed') {
+              return true
+            }
+            // from property directly
+            if (context.marker == 'speed' && context.evaluate) {
+              return true
+            }
+          },
           apply: async ({gp, s, context, objects, fragments, resolveEvaluate, api}) => {
+            let return_context = context
+            if (context.marker == 'speed') {
+              // okay
+            } else {
+              // stm lookup
+              return_context = context
+              context = context.args.context
+            }
             let value = objects.current.speed
             if (context.condition) {
               if (['highest', 'maximum'].includes(context.condition.marker)) {
@@ -1471,11 +1489,20 @@ const template = {
             }
             const speed = await fragments("number meters per second", { number: { marker: 'integer', value, word: undefined} })
             const preferred = await s({ marker: 'preferredUnits', quantity: speed }) 
-            resolveEvaluate(context, preferred.response || speed)
+            resolveEvaluate(return_context, preferred.response || speed)
           }
         },
         {
-          match: ({context}) => ['direction', 'drone_direction'].includes(context.marker) && context.evaluate,
+          where: where(),
+          // recallOverride(context(), frameOfReference())
+          match: ({context}) => {
+            if (context.marker == 'mentions' && context.evaluate && ['direction', 'drone_direction'].includes(context.args.context.marker)) {
+              return true
+            }
+            if (['direction', 'drone_direction'].includes(context.marker) && context.evaluate) {
+              return true
+            }
+          },
           apply: async ({gp, s, context, objects, fragments, resolveEvaluate, api}) => {
             const value = objects.current.angleInRadians
             const fi = await fragments("number radians")

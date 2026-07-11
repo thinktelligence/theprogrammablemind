@@ -1052,3 +1052,4 @@ node drone -q "joe is 24 years old and 5 feet tall" -g -d
 node combined -q "joe is 24 years old and 5 feet tall\nwhat is joe's height and age" -g -d
 0 - joe is 24 years old and 5 feet tall\nwhat is joe's height\nwhat is joe's age
 1 - joe is 24 years old and 5 feet tall\nwhat is joe's height and age
+what is the drone's speed and direction
