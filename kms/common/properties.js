@@ -577,7 +577,6 @@ const config = {
       match: ({context, hierarchy, uuid}) => hierarchy.isA(context.marker, 'property') && context.same && context.objects && !context[`disable${uuid}`],
       apply: async (args) => {
         const {context, fragments, objects, km, api, log, s, uuid} = args
-        // greg55
         const objectContext = context.object;
         const propertyContext = context;
         const objectId = context.object.value
@@ -651,14 +650,13 @@ const config = {
       notes: 'get/evaluate a property',
       where: where(),
       match: ({context, hierarchy}) => 
-                      hierarchy.isA(context.marker, 'property') && 
+                      (hierarchy.isA(context.marker, 'property') || (hierarchy.isA(context.marker, 'list') && context.possession)) && 
                       context.evaluate && 
                       context.objects &&
                       !context.evaluate.toConcept, // && !context.value,
                       // greghere
       // match: ({context, hierarchy}) => hierarchy.isA(context.marker, 'property') && context.evaluate,
-      apply: async ({callId, context, api, kms, objects, g, s, log, recall}) => {
-        const toDo = [ ...context.objects ]
+      apply: async ({callId, flatten, asList, context, api, kms, objects, g, s, log, recall}) => {
         async function toValue(objectContext) {
           if (!objectContext.value) {
             return objectContext;
@@ -715,11 +713,20 @@ const config = {
           return currentContext
         }
 
-        const currentContext = await processOne(toDo)
+        debug.breakAt('combined#call27')
+        // const toDo = [ ...context.objects ]
+        const [toDos, _] = flatten(['list'], context.objects)
+        const results = []
+        for (const toDo of toDos) {
+          const one = await processOne(toDo)
+          results.push(one)
+        }
 
-        if (currentContext) {
+        if (results.length > 0) {
           context.focusable = ['object[0]']
-          context.evalue = currentContext
+          // context.evalue = currentContext
+          debugger
+          context.evalue = asList(results, true)
           context.object = undefined;
         }
       }
