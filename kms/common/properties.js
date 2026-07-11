@@ -84,7 +84,7 @@ function addPropertyMarker(args) {
     config.addOperator(`((@<= 'quantity' && context.unit.dimension == ${dimension}) [${propertyMarker}|${markerWord}])`)
     config.addBridge({
       id: propertyMarker,
-      isA: ['adjective'],
+      isA: ['adjective', 'propertyMarker'],
       enhanced_associations: true,
       bridge: `{ ...before[0], checks: append(before.checks, ['repeats']), propertyType: '${property}', : true, isPropertyValue: true, ${property}: operator, interpolate: append(before[0].interpolate, [{ property: '${property}' }]) }`,
     })
@@ -102,6 +102,7 @@ const config = {
   },
 
   operators: [
+    "([propertyMarker|])",
     "([hierarchyAble|])",
     { pattern: "([propertyRelation|])" }, // , scope: 'development' },
     "(([property]) <([propertyOf|of] ([object]))>)",
@@ -154,6 +155,9 @@ const config = {
         context.evalue.isResponse = true
         context.evalue.paraphrase = false
       }
+    },
+    { 
+      id: 'propertyMarker', 
     },
     { 
       id: 'xfx', 

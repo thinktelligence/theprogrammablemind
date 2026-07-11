@@ -854,7 +854,7 @@ const template = {
             if (!bridge.init) {
               bridge.init = {}
             }
-            bridge.init['notConjunctableWith'] = ['quantity']
+            bridge.init['notConjunctableWith'] = ['quantity', 'number']
           })
         }
       })

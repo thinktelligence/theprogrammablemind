@@ -249,7 +249,8 @@ const config = {
     { 
       id: "amountOfCoordinate", 
       convolution: true, 
-      before: ['preposition'],
+      before: ['preposition', 'propertyMarker'],
+      after: ['mathematical_operator'],
       // bridge: "{ marker: next(operator('quantity')), dead: true, unit: after[0], value: before[0].value, amount: before[0] }" 
       bridge: "{ marker: next(operator('quantity')), dead: true, unit: after[0], amount: before[0], interpolate: [ { property: 'amount' }, { property: 'unit' } ] }" 
     },
