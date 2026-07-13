@@ -489,10 +489,10 @@ const template = {
     "item modifies property",
     ({config}) => {
       config.updateBridge('item_property', ({ bridge }) => {
-        if (!bridge.init) {
-          bridge.init = {}
+        if (!bridge.initial) {
+          bridge.initial = {}
         }
-        bridge.init['typeIsSingular'] = true
+        bridge.initial['typeIsSingular'] = true
       })
     },
     "damage luck hp rads value ap charisma range and accuracy are item properties",

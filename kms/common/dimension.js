@@ -287,11 +287,10 @@ const template = {
         match: ({parentId, isA}) => isA(parentId, 'unit') && parentId.startsWith('unit_'),
         apply: ({config, childId, parent, parentId}) => {
           config.updateBridge(childId, ({ bridge }) => {
-            if (!bridge.init) {
-              bridge.init = {}
+            if (!bridge.initial) {
+              bridge.initial = {}
             }
-            // bridge.init['dimension'] = parent.object.marker
-            bridge.init['dimension'] = parent.object.value
+            bridge.initial['dimension'] = parent.object.value
           })
         }
       })

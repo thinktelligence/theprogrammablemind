@@ -851,10 +851,10 @@ const template = {
         match: ({childId}) => childId == 'point',
         apply: ({config, childId}) => {
           config.updateBridge(childId, ({ bridge }) => {
-            if (!bridge.init) {
-              bridge.init = {}
+            if (!bridge.initial) {
+              bridge.initial = {}
             }
-            bridge.init['notConjunctableWith'] = ['quantity', 'number']
+            bridge.initial['notConjunctableWith'] = ['quantity', 'number']
           })
         }
       })

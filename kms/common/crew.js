@@ -13,10 +13,10 @@ const template = {
       "kirk's rank is captain",
       ({config}) => {
         config.updateBridge('rank', ({ bridge }) => {
-          if (!bridge.init) {
-            bridge.init = {}
+          if (!bridge.initial) {
+            bridge.initial = {}
           }
-          bridge.init['typeIsSingular'] = true
+          bridge.initial['typeIsSingular'] = true
         })
       },
       "kirk's eyes are blue",
