@@ -1,5 +1,5 @@
 const { knowledgeModule, where, debug } = require('./runtime').theprogrammablemind
-const { defaultContextCheck, words } = require('./helpers')
+const { defaultContextCheckProperties, defaultContextCheck, words } = require('./helpers')
 const dialogues = require('./dialogues')
 const meta = require('./meta')
 const concept = require('./concept')
@@ -76,16 +76,24 @@ const api = new API();
 // 24 years old -> old indicates that the property is age
 
 function addPropertyMarker(args) {
-  return async (property, dimension, markerWord) => {
+  return async (property, dimension, markerWordOrWords) => {
+    let markerWords = markerWordOrWords
+    if (!Array.isArray(markerWordOrWords)) {
+      markerWords = [markerWords]
+    }
+
     const { fragments, s, config } = args
     const instance = await fragments("concept is a property", { concept: { marker: property, level: 0, value: property, word: property } })
     await s(instance)
     const propertyMarker = `${property}Marker`
-    config.addOperator(`((@<= 'quantity' && context.unit.dimension == ${dimension}) [${propertyMarker}|${markerWord}])`)
+    config.addOperator(`((@<= 'quantity' && context.unit.dimension == ${dimension}) [${propertyMarker}|])`)
     config.addBridge({
       id: propertyMarker,
-      isA: ['adjective', 'propertyMarker'],
+      words: markerWords,
+      isA: ['adjective', 'propertyMarker', 'queryable'],
       enhanced_associations: true,
+      initial: { markedProperty: property },
+      check: defaultContextCheckProperties(['markedProperty']),
       bridge: `{ ...before[0], checks: append(before.checks, ['repeats']), propertyType: '${property}', : true, isPropertyValue: true, ${property}: operator, interpolate: append(before[0].interpolate, [{ property: '${property}' }]) }`,
     })
   }
@@ -109,6 +117,7 @@ const config = {
     "(<whose> ([property]))",
     // "((modifier) [modifies] (concept))", 
     // "([concept])",
+    "(<howPropertyMarker|how> ([propertyMarker]))",
     "([readonly])", 
     "(<objectPrefix|> ([property]))",
     "(<(([object]) [possession|])> ([property|]))",
@@ -127,6 +136,10 @@ const config = {
     ['what', 'object'],
   ],
   bridges: [
+    {
+      id: 'howPropertyMarker',
+      bridge: "{ ...after[0], query: ['what'], how: operator, operator: after[0], interpolate: [ { property: 'how' }, { property: 'operator' } ] }",
+    },
     {
       id: 'hasPropertyValue',
       isA: ['verb'],
@@ -455,6 +468,24 @@ const config = {
     },
   ],
   semantics: [
+    {
+      where: where(),
+      notes: "how deep is the pool",
+      priority: -1,
+      match: ({context}) => context.marker == 'is' && (context.one.how || context.two.how),
+      apply: async ({ context, kms }) => {
+        debugger
+        debugger
+        let propertyMarkerContext = context.one
+        let objectContext = context.two
+        if (context.two.how) {
+          howContext = context.two
+          otherContext = context.one
+        }
+        const property = propertyMarkerContext.markedProperty
+        debugger
+      }
+    },
     {
       where: where(),
       match: ({context}) => context.marker == 'concept' && context.same,
