@@ -443,7 +443,7 @@ const config = {
     },
     { 
       where: where(),
-      notes: 'x is y (not a response)',
+      notes: 'x is y',
       match: ({context, hierarchy}) => hierarchy.isA(context.marker, 'is') && !context.evalue,
       apply: async ({context, g, gp, gr, callId}) => {
         if ((context.two.evalue || {}).marker == 'answerNotKnown') {
@@ -452,6 +452,10 @@ const config = {
 
         if (!context.isResponse) {
           return `${await gp(context.one)} ${isMany(context.one) || isMany(context.two) || isMany(context) ? "are" : "is"} ${await g(context.two)}`
+        }
+
+        if (context.response) {
+          context = context.response
         }
 
         function hasFocus(property) {
@@ -481,7 +485,6 @@ const config = {
             number = 'many'
           }
           return `${await g(context.two)} ${number == 'many' ? "are" : "is"} ${await gp({ ...context.one, number })}`
-          // return `${await g(context.two)} ${isMany(context.one) || isMany(context.two) || isMany(context) ? "are" : "is"} ${await gp(context.one)}`
         } else {
           // TODO fix this using the assumed and that whole mess. change isResponse to useValue
           if (context.isResponse) {

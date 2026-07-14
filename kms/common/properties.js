@@ -154,7 +154,6 @@ const config = {
         }
 
         const instance = await fragments("the property of object is value", { property: propertyType, object: context.object, value: context.propertyValue })
-        instance.greg = 23
         await e(instance)
       }
     },
@@ -473,17 +472,27 @@ const config = {
       notes: "how deep is the pool",
       priority: -1,
       match: ({context}) => context.marker == 'is' && (context.one.how || context.two.how),
-      apply: async ({ context, kms }) => {
-        debugger
-        debugger
+      apply: async ({ resolveResponse, g, context, toArray, toList, fragments, kms, e, toEValue }) => {
         let propertyMarkerContext = context.one
-        let objectContext = context.two
+        let object = context.two
         if (context.two.how) {
-          howContext = context.two
-          otherContext = context.one
+          propertyMakerContext = context.two
+          object = context.one
         }
-        const property = propertyMarkerContext.markedProperty
+        const pmcs = toArray(propertyMarkerContext)
+        const properties = []
+        for (const pmc of pmcs) {
+          const property = pmc.markedProperty
+          properties.push({ marker: property, value: property, word: property })
+        }
         debugger
+        const propertyOfObject = await fragments("the property of object", { property: toList(properties, true), object })
+        const value = toEValue(await e(propertyOfObject))
+        value.focusableForPhrase = true
+        propertyOfObject.focusableForPhrase = false
+        const response = await fragments("the property is value", { property: propertyOfObject, value })
+        response.isResponse = true
+        resolveResponse(context, response) 
       }
     },
     {
@@ -665,11 +674,10 @@ const config = {
     {
       notes: 'get/evaluate a property',
       where: where(),
-      match: ({context, hierarchy}) => 
-                      (hierarchy.isA(context.marker, 'property') || (hierarchy.isA(context.marker, 'list') && context.possession)) && 
-                      context.evaluate && 
-                      context.objects &&
-                      !context.evaluate.toConcept, // && !context.value,
+      match: ({context, hierarchy, toArray}) => {
+                      // (hierarchy.isA(context.marker, 'property') || (hierarchy.isA(context.marker, 'list') && context.possession)) && 
+        return (toArray(context).every((value) => hierarchy.isA(value.marker, 'property')) || (hierarchy.isA(context.marker, 'list') && context.possession)) && context.evaluate && context.objects && !context.evaluate.toConcept
+      },
                       // greghere
       // match: ({context, hierarchy}) => hierarchy.isA(context.marker, 'property') && context.evaluate,
       apply: async ({callId, flatten, asList, context, api, kms, objects, g, s, log, recall}) => {
@@ -760,6 +768,8 @@ const template = {
   fragments: [
     "the property1 of object1 is value1",
     "the property of object is value",
+    "the property of object",
+    "the property is value",
   ],
   configs: [
     "property is a concept",

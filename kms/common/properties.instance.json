@@ -81,6 +81,7 @@
         },
         "(([property]) <([propertyOf|of] ([object]))>)",
         "(<whose> ([property]))",
+        "(<howPropertyMarker|how> ([propertyMarker]))",
         "([readonly])",
         "(<objectPrefix|> ([property]))",
         "(<(([object]) [possession|])> ([property|]))",
@@ -101,6 +102,10 @@
       ],
       "bridges": [
         {
+          "id": "howPropertyMarker",
+          "bridge": "{ ...after[0], query: ['what'], how: operator, operator: after[0], interpolate: [ { property: 'how' }, { property: 'operator' } ] }"
+        },
+        {
           "id": "hasPropertyValue",
           "isA": [
             "verb"
@@ -110,7 +115,7 @@
           ],
           "enhanced_associations": true,
           "bridge": "{ ...operator, object: before[0], flatten: true, operator: operator, propertyValue: after[0], interpolate: [{ property: 'object' }, { property: 'operator' }, { property: 'propertyValue' }] }",
-          "semantic": "async ({context, e, fragments}) => {\n        const propertyType = {\n          marker: context.propertyValue.propertyType,\n          level: 0,\n          value: context.propertyValue.propertyType,\n        }\n\n        const instance = await fragments(\"the property of object is value\", { property: propertyType, object: context.object, value: context.propertyValue })\n        instance.greg = 23\n        await e(instance)\n      }"
+          "semantic": "async ({context, e, fragments}) => {\n        const propertyType = {\n          marker: context.propertyValue.propertyType,\n          level: 0,\n          value: context.propertyValue.propertyType,\n        }\n\n        const instance = await fragments(\"the property of object is value\", { property: propertyType, object: context.object, value: context.propertyValue })\n        await e(instance)\n      }"
         },
         {
           "id": "propertyRelation",
@@ -857,6 +862,10 @@
       ],
       "semantics": [
         {
+          "match": "({context}) => context.marker == 'is' && (context.one.how || context.two.how)",
+          "apply": "async ({ resolveResponse, g, context, toArray, toList, fragments, kms, e, toEValue }) => {\n        let propertyMarkerContext = context.one\n        let object = context.two\n        if (context.two.how) {\n          propertyMakerContext = context.two\n          object = context.one\n        }\n        const pmcs = toArray(propertyMarkerContext)\n        const properties = []\n        for (const pmc of pmcs) {\n          const property = pmc.markedProperty\n          properties.push({ marker: property, value: property, word: property })\n        }\n        debugger\n        const propertyOfObject = await fragments(\"the property of object\", { property: toList(properties, true), object })\n        const value = toEValue(await e(propertyOfObject))\n        value.focusableForPhrase = true\n        propertyOfObject.focusableForPhrase = false\n        const response = await fragments(\"the property is value\", { property: propertyOfObject, value })\n        response.isResponse = true\n        resolveResponse(context, response) \n      }"
+        },
+        {
           "match": "({context}) => context.marker == 'concept' && context.same",
           "apply": "async (args) => {\n        const {context} = args\n        await args.makeObject({ ...args, context: context.same })\n        context.sameWasProcessed = true\n      }"
         },
@@ -882,10 +891,10 @@
         },
         {
           "match": "({context, hierarchy, uuid}) => hierarchy.isA(context.marker, 'property') && context.same && context.objects && !context[`disable${uuid}`]",
-          "apply": "async (args) => {\n        const {context, fragments, objects, km, api, log, s, uuid} = args\n        const objectContext = context.object;\n        const propertyContext = context;\n        const objectId = context.object.value\n\n        await api.makeObject({ ...args, context: objectContext })\n        await api.makeObject({ ...args, context: propertyContext })\n        // const propertyId = context.value\n        /*\n        const propertyId = context.marker\n        if (context.marker != context.value) {\n        }\n        */\n        // const propertyId = context.marker\n        /*\n        // greg HERE\n        */\n        propertyContext[`disable${uuid}`] = true\n        const propertyId = (await km(\"dialogues\").api.evaluateToConcept(propertyContext, context, log, s)).evalue;\n        try{\n          // greg\n          // api.makeObject({config, context: objectContext, doPluralize: false})\n          // api.addWord(propertyContext)\n          // api.addWord(objectContext)\n          // propertyContext.objects = null;\n          api.setProperty(pluralize.singular(objectId), pluralize.singular(propertyId), context.same, true)\n          context.sameWasProcessed = true\n        } catch (e) {\n          log(`Error processing set property of an object: ${e}`)\n          const config = km('properties')\n          const value = await api.getProperty(objectId, propertyId)\n          if (value.value == context.same.value) {\n            context.evalue = [\n              { marker: 'yesno', value: true, paraphrase: true },\n            ]\n            context.isResponse = true\n            context.sameWasProcessed = true\n          } else {\n            debugger\n            const mappings = {\n              property1: { word: propertyContext.word, value: propertyContext.value, paraphrase: true },\n              object1: { word: objectContext.word, value: objectContext.value, paraphrase: true },\n              value1: value,\n            }\n            // run the query 'the property of object' then copy that here and template it\n            context.evalue = [\n              { marker: 'yesno', value: false, paraphrase: true },\n            ]\n            context.evalue = context.evalue.concat(await fragments(\"the property1 of object1 is value1\", mappings))\n            context.evalue.forEach( (r) => r.paraphrase = true )\n            context.isResponse = true\n            context.sameWasProcessed = true\n          }\n        }\n      }"
+          "apply": "async (args) => {\n        const {context, fragments, objects, km, api, log, s, uuid} = args\n        const objectContext = context.object;\n        const propertyContext = context;\n        const objectId = context.object.value\n\n        await api.makeObject({ ...args, context: objectContext })\n        await api.makeObject({ ...args, context: propertyContext })\n        // const propertyId = context.value\n        /*\n        const propertyId = context.marker\n        if (context.marker != context.value) {\n        }\n        */\n        // const propertyId = context.marker\n        /*\n        // greg HERE\n        */\n        propertyContext[`disable${uuid}`] = true\n        const propertyId = (await km(\"dialogues\").api.evaluateToConcept(propertyContext, context, log, s)).evalue;\n        try{\n          // greg\n          // api.makeObject({config, context: objectContext, doPluralize: false})\n          // api.addWord(propertyContext)\n          // api.addWord(objectContext)\n          // propertyContext.objects = null;\n          api.setProperty(pluralize.singular(objectId), pluralize.singular(propertyId), context.same, true)\n          context.sameWasProcessed = true\n        } catch (e) {\n          log(`Error processing set property of an object: ${e}`)\n          const config = km('properties')\n          const value = await api.getProperty(objectId, propertyId)\n          if (value.value == context.same.value) {\n            context.evalue = [\n              { marker: 'yesno', value: true, paraphrase: true },\n            ]\n            context.isResponse = true\n            context.sameWasProcessed = true\n          } else {\n            const mappings = {\n              property1: { word: propertyContext.word, value: propertyContext.value, paraphrase: true },\n              object1: { word: objectContext.word, value: objectContext.value, paraphrase: true },\n              value1: value,\n            }\n            // run the query 'the property of object' then copy that here and template it\n            context.evalue = [\n              { marker: 'yesno', value: false, paraphrase: true },\n            ]\n            context.evalue = context.evalue.concat(await fragments(\"the property1 of object1 is value1\", mappings))\n            context.evalue.forEach( (r) => r.paraphrase = true )\n            context.isResponse = true\n            context.sameWasProcessed = true\n          }\n        }\n      }"
         },
         {
-          "match": "({context, hierarchy}) => \n                      (hierarchy.isA(context.marker, 'property') || (hierarchy.isA(context.marker, 'list') && context.possession)) && \n                      context.evaluate && \n                      context.objects &&\n                      !context.evaluate.toConcept",
+          "match": "({context, hierarchy, toArray}) => {\n                      // (hierarchy.isA(context.marker, 'property') || (hierarchy.isA(context.marker, 'list') && context.possession)) && \n        return (toArray(context).every((value) => hierarchy.isA(value.marker, 'property')) || (hierarchy.isA(context.marker, 'list') && context.possession)) && context.evaluate && context.objects && !context.evaluate.toConcept\n      }",
           "apply": "async ({callId, flatten, asList, context, api, kms, objects, g, s, log, recall}) => {\n        async function toValue(objectContext) {\n          if (!objectContext.value) {\n            return objectContext;\n          }\n          let objectValue = kms.stm.api.getVariable(objectContext);\n          if (!objectValue) {\n            objectValue = objectContext.value\n          }\n          if (!await api.knownObject(objectValue)) {\n            objectContext.verbatim = `There is no object named \"${await g({...objectContext, paraphrase: true})}\"`\n            return\n          }\n          return objectValue\n        }\n\n        async function processOne(toDo) {\n          let currentContext = toDo.pop()\n          let currentValue = await toValue(currentContext)\n          while (toDo.length > 0) {\n            const nextContext = toDo.pop()\n            const nextValue = await toValue(nextContext)\n            if (!nextValue) {\n              // TODO maybe this I aware so it can say \"I don't know about blah...\" and below\n              // if (currentContext.unknown || !currentContext.value) {\n              if (!api.conceptExists(currentContext.value)) {\n                // api.conceptExists(currentContext)\n                const objectPhrase = await g({...currentContext, paraphrase: true})\n                context.verbatim = `What \"${objectPhrase}\" means is unknown`\n                return\n              }\n\n              const propertyPhrase = await g({...nextContext, paraphrase: true})\n              const objectPhrase = await g({...currentContext, paraphrase: true})\n              context.verbatim = `There is no interpretation for \"${propertyPhrase} of ${objectPhrase}\"`\n              return\n            }\n\n            let fromMentions\n            if (!await api.knownProperty(currentContext, nextContext)) {\n              fromMentions = await recall({ context: nextContext, all: nextContext.number == 'many', frameOfReference: currentContext })\n              if (!fromMentions) {\n                context.verbatim = `There is no property ${await g({...nextContext, paraphrase: true})} of ${await g({...currentContext, paraphrase: true})}`\n                return\n              }\n            }\n            if (fromMentions) {\n              currentContext = fromMentions\n              currentValue = fromMentions // TODO not sure what is right here so just do something and fix when actually needed SOP\n            } else {\n              currentContext = await api.getProperty(currentValue, nextValue, g)\n              currentValue = currentContext.value\n            }\n          }\n          return currentContext\n        }\n\n        debug.breakAt('combined#call27')\n        // const toDo = [ ...context.objects ]\n        const [toDos, _] = flatten(['list'], context.objects)\n        const results = []\n        for (const toDo of toDos) {\n          const one = await processOne(toDo)\n          results.push(one)\n        }\n\n        if (results.length > 0) {\n          context.focusable = ['object[0]']\n          // context.evalue = currentContext\n          context.evalue = asList(results, true)\n          context.object = undefined;\n        }\n      }"
         }
       ]
@@ -2254,6 +2263,7 @@
         },
         "(([property]) <([propertyOf|of] ([object]))>)",
         "(<whose> ([property]))",
+        "(<howPropertyMarker|how> ([propertyMarker]))",
         "([readonly])",
         "(<objectPrefix|> ([property]))",
         "(<(([object]) [possession|])> ([property|]))",
@@ -2273,6 +2283,10 @@
         ]
       ],
       "bridges": [
+        {
+          "id": "howPropertyMarker",
+          "bridge": "{ ...after[0], query: ['what'], how: operator, operator: after[0], interpolate: [ { property: 'how' }, { property: 'operator' } ] }"
+        },
         {
           "id": "hasPropertyValue",
           "isA": [
@@ -2975,83 +2989,88 @@
       "generators": [
         {
           "notes": "expression with constraints",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:300"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:312"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:322"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:334"
         },
         {
           "notes": "add possession ending",
           "priority": -1,
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:329"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:341"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:343"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:355"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:348"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:360"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:353"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:365"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:358"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:370"
         },
         {
           "notes": "negative do questions",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:364"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:376"
         },
         {
           "notes": "do questions",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:373"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:385"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:387"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:399"
         },
         {
           "notes": "the property of object",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:395"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:407"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:419"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:431"
         },
         {
           "notes": "object's property",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:428"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:440"
         }
       ],
       "semantics": [
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:459"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:471",
+          "notes": "how deep is the pool",
+          "priority": -1
+        },
+        {
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:499"
         },
         {
           "notes": "wants is xfx between wanter and wantee",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:470",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:510",
           "priority": -1
         },
         {
           "notes": "marking something as readonly",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:484"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:524"
         },
         {
           "notes": "crew members. evaluate a concepts to get instances",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:508"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:548"
         },
         {
           "notes": "greg has eyes",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:536"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:576"
         },
         {
           "notes": "greg has eyes?",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:549"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:589"
         },
         {
           "notes": "set the property of an object",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:575"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:615"
         },
         {
           "notes": "get/evaluate a property",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:637"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:676"
         }
       ]
     }
@@ -5343,6 +5362,1575 @@
       "key": {
         "query": "the property of object is value"
       }
+    },
+    {
+      "hierarchy": [
+        [
+          "a",
+          "article",
+          false
+        ],
+        [
+          "adjective",
+          "adjective",
+          false
+        ],
+        [
+          "article",
+          "article",
+          false
+        ],
+        [
+          "between",
+          "preposition",
+          false
+        ],
+        [
+          "canBeDoQuestion",
+          "canBeDoQuestion",
+          false
+        ],
+        [
+          "canBeQuestion",
+          "canBeQuestion",
+          false
+        ],
+        [
+          "concept",
+          "queryable",
+          false
+        ],
+        [
+          "concept",
+          "theAble",
+          false
+        ],
+        [
+          "deletable",
+          "deletable",
+          false
+        ],
+        [
+          "delete",
+          "verb",
+          false
+        ],
+        [
+          "distributable",
+          "queryable",
+          false
+        ],
+        [
+          "doubleQuote",
+          "queryable",
+          false
+        ],
+        [
+          "each",
+          "article",
+          false
+        ],
+        [
+          "every",
+          "article",
+          false
+        ],
+        [
+          "hasPropertyValue",
+          "verb",
+          false
+        ],
+        [
+          "have",
+          "canBeDoQuestion",
+          false
+        ],
+        [
+          "have",
+          "canBeQuestion",
+          false
+        ],
+        [
+          "hierarchyAble",
+          "queryable",
+          false
+        ],
+        [
+          "ifAble",
+          "ifAble",
+          false
+        ],
+        [
+          "is",
+          "canBeQuestion",
+          false
+        ],
+        [
+          "is",
+          "verb",
+          false
+        ],
+        [
+          "isEdee",
+          "isEdee",
+          false
+        ],
+        [
+          "isEder",
+          "isEder",
+          false
+        ],
+        [
+          "isQuery",
+          "verb",
+          false
+        ],
+        [
+          "it",
+          "pronoun",
+          false
+        ],
+        [
+          "it",
+          "queryable",
+          false
+        ],
+        [
+          "it",
+          "thisitthat",
+          false
+        ],
+        [
+          "it",
+          "toAble",
+          false
+        ],
+        [
+          "listable",
+          "theAble",
+          false
+        ],
+        [
+          "memorable",
+          "deletable",
+          false
+        ],
+        [
+          "memorable",
+          "theAble",
+          false
+        ],
+        [
+          "modifies",
+          "verb",
+          false
+        ],
+        [
+          "negatable",
+          "queryable",
+          false
+        ],
+        [
+          "noun",
+          "theAble",
+          false
+        ],
+        [
+          "noun",
+          "thisAble",
+          false
+        ],
+        [
+          "object",
+          "listable",
+          false
+        ],
+        [
+          "object",
+          "queryable",
+          false
+        ],
+        [
+          "object",
+          "theAble",
+          false
+        ],
+        [
+          "orAble",
+          "ifAble",
+          false
+        ],
+        [
+          "preposition",
+          "preposition",
+          false
+        ],
+        [
+          "pronoun",
+          "pronoun",
+          false
+        ],
+        [
+          "property",
+          "concept",
+          false
+        ],
+        [
+          "property",
+          "isEdee",
+          false
+        ],
+        [
+          "property",
+          "isEder",
+          false
+        ],
+        [
+          "property",
+          "queryable",
+          false
+        ],
+        [
+          "property",
+          "theAble",
+          false
+        ],
+        [
+          "property",
+          "thisAble",
+          false
+        ],
+        [
+          "propertyOf",
+          "preposition",
+          false
+        ],
+        [
+          "punctuation",
+          "punctuation",
+          false
+        ],
+        [
+          "queryable",
+          "listable",
+          false
+        ],
+        [
+          "questionMark",
+          "punctuation",
+          false
+        ],
+        [
+          "readonly",
+          "queryable",
+          false
+        ],
+        [
+          "reason",
+          "queryable",
+          false
+        ],
+        [
+          "reason",
+          "theAble",
+          false
+        ],
+        [
+          "recall",
+          "verb",
+          false
+        ],
+        [
+          "remember",
+          "verb",
+          false
+        ],
+        [
+          "stm_before",
+          "adjective",
+          false
+        ],
+        [
+          "stm_current",
+          "adjective",
+          false
+        ],
+        [
+          "stm_previous",
+          "adjective",
+          false
+        ],
+        [
+          "that",
+          "thisitthat",
+          false
+        ],
+        [
+          "the",
+          "article",
+          false
+        ],
+        [
+          "theAble",
+          "queryable",
+          false
+        ],
+        [
+          "this",
+          "pronoun",
+          false
+        ],
+        [
+          "this",
+          "queryable",
+          false
+        ],
+        [
+          "this",
+          "thisitthat",
+          false
+        ],
+        [
+          "thisAble",
+          "thisAble",
+          false
+        ],
+        [
+          "thisitthat",
+          "queryable",
+          false
+        ],
+        [
+          "to",
+          "preposition",
+          false
+        ],
+        [
+          "toAble",
+          "toAble",
+          false
+        ],
+        [
+          "unknown",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "verb",
+          "verb",
+          false
+        ],
+        [
+          "what",
+          "object",
+          false
+        ],
+        [
+          "what",
+          "queryable",
+          false
+        ],
+        [
+          "whatAble",
+          "queryable",
+          false
+        ],
+        [
+          "whose",
+          "object",
+          false
+        ],
+        [
+          "xfx",
+          "queryable",
+          false
+        ]
+      ],
+      "metadata": {
+        "opChoices": [
+          {
+            "op": [
+              "property",
+              0
+            ],
+            "ops": [
+              [
+                "property",
+                0
+              ],
+              [
+                "propertyOf",
+                0
+              ],
+              [
+                "the",
+                0
+              ]
+            ],
+            "counter": 1
+          },
+          {
+            "op": [
+              "the",
+              0
+            ],
+            "ops": [
+              [
+                "propertyOf",
+                0
+              ],
+              [
+                "the",
+                0
+              ]
+            ],
+            "counter": 2
+          },
+          {
+            "op": [
+              "propertyOf",
+              0
+            ],
+            "ops": [
+              [
+                "propertyOf",
+                0
+              ]
+            ],
+            "counter": 3
+          },
+          {
+            "op": [
+              "propertyOf",
+              1
+            ],
+            "ops": [
+              [
+                "propertyOf",
+                1
+              ]
+            ],
+            "counter": 4
+          }
+        ]
+      },
+      "trace": "undefined",
+      "contexts": [
+        {
+          "value": "property",
+          "number": "one",
+          "text": "the property of object",
+          "marker": "property",
+          "word": "property",
+          "range": {
+            "start": 0,
+            "end": 21
+          },
+          "dead": true,
+          "types": [
+            "property"
+          ],
+          "focusableForPhrase": true,
+          "pullFromContext": true,
+          "concept": true,
+          "wantsValue": true,
+          "determiner": "the",
+          "modifiers": [
+            "determiner"
+          ],
+          "propertyOf": true,
+          "object": {
+            "marker": "object",
+            "value": "object",
+            "default": true,
+            "text": "object",
+            "dead": true,
+            "word": "object",
+            "range": {
+              "start": 16,
+              "end": 21
+            },
+            "types": [
+              "object"
+            ],
+            "level": 0
+          },
+          "objects": [
+            {
+              "value": "property",
+              "number": "one",
+              "text": "the property",
+              "marker": "property",
+              "word": "property",
+              "range": {
+                "start": 0,
+                "end": 11
+              },
+              "dead": true,
+              "types": [
+                "property"
+              ],
+              "focusableForPhrase": true,
+              "pullFromContext": true,
+              "concept": true,
+              "wantsValue": true,
+              "determiner": "the",
+              "modifiers": [
+                "determiner"
+              ],
+              "level": 0
+            },
+            {
+              "marker": "object",
+              "value": "object",
+              "default": true,
+              "text": "object",
+              "dead": true,
+              "word": "object",
+              "range": {
+                "start": 16,
+                "end": 21
+              },
+              "types": [
+                "object"
+              ],
+              "level": 0
+            }
+          ],
+          "level": 0,
+          "context_index": 1,
+          "topLevel": true,
+          "context_id": 2
+        }
+      ],
+      "generated": [
+        ""
+      ],
+      "paraphrases": [
+        "the property"
+      ],
+      "paraphrasesParenthesized": [],
+      "generatedParenthesized": [],
+      "responses": [
+        ""
+      ],
+      "associations": [
+        [
+          [
+            "object",
+            0
+          ],
+          [
+            "property",
+            0
+          ],
+          [
+            "propertyOf",
+            0
+          ]
+        ],
+        [
+          [
+            "object",
+            0
+          ],
+          [
+            "property",
+            0
+          ],
+          [
+            "propertyOf",
+            0
+          ],
+          [
+            "the",
+            0
+          ]
+        ],
+        [
+          [
+            "property",
+            0
+          ],
+          [
+            "propertyOf",
+            1
+          ]
+        ]
+      ],
+      "summaries": [
+        {
+          "summaries": [
+            {
+              "operators": [
+                {
+                  "marker": [
+                    "the",
+                    0
+                  ],
+                  "range": {
+                    "start": 0,
+                    "end": 2
+                  }
+                },
+                {
+                  "marker": [
+                    "property",
+                    0
+                  ],
+                  "range": {
+                    "start": 4,
+                    "end": 11
+                  }
+                },
+                {
+                  "marker": [
+                    "propertyOf",
+                    0
+                  ],
+                  "range": {
+                    "start": 13,
+                    "end": 14
+                  }
+                },
+                {
+                  "marker": [
+                    "object",
+                    0
+                  ],
+                  "range": {
+                    "start": 16,
+                    "end": 21
+                  }
+                }
+              ],
+              "counter": 1
+            },
+            {
+              "operators": [
+                {
+                  "marker": [
+                    "the",
+                    0
+                  ],
+                  "range": {
+                    "start": 0,
+                    "end": 2
+                  }
+                },
+                {
+                  "marker": [
+                    "property",
+                    0
+                  ],
+                  "range": {
+                    "start": 4,
+                    "end": 11
+                  }
+                },
+                {
+                  "marker": [
+                    "propertyOf",
+                    0
+                  ],
+                  "range": {
+                    "start": 13,
+                    "end": 14
+                  }
+                },
+                {
+                  "marker": [
+                    "object",
+                    0
+                  ],
+                  "range": {
+                    "start": 16,
+                    "end": 21
+                  }
+                }
+              ],
+              "counter": 2
+            },
+            {
+              "operators": [
+                {
+                  "marker": [
+                    "property",
+                    0
+                  ],
+                  "range": {
+                    "start": 0,
+                    "end": 11
+                  }
+                },
+                {
+                  "marker": [
+                    "propertyOf",
+                    0
+                  ],
+                  "range": {
+                    "start": 13,
+                    "end": 14
+                  }
+                },
+                {
+                  "marker": [
+                    "object",
+                    0
+                  ],
+                  "range": {
+                    "start": 16,
+                    "end": 21
+                  }
+                }
+              ],
+              "counter": 3
+            },
+            {
+              "operators": [
+                {
+                  "marker": [
+                    "property",
+                    0
+                  ],
+                  "range": {
+                    "start": 0,
+                    "end": 11
+                  }
+                },
+                {
+                  "marker": [
+                    "propertyOf",
+                    1
+                  ],
+                  "range": {
+                    "start": 13,
+                    "end": 21
+                  }
+                }
+              ],
+              "counter": 4
+            },
+            {
+              "operators": [
+                {
+                  "marker": [
+                    "property",
+                    0
+                  ],
+                  "range": {
+                    "start": 0,
+                    "end": 21
+                  }
+                }
+              ],
+              "counter": 5
+            }
+          ],
+          "length": 1
+        }
+      ],
+      "learned_contextual_priorities": [],
+      "rtf_associations": [],
+      "query": "the property of object",
+      "skipSemantics": true,
+      "key": {
+        "query": "the property of object"
+      }
+    },
+    {
+      "hierarchy": [
+        [
+          "a",
+          "article",
+          false
+        ],
+        [
+          "adjective",
+          "adjective",
+          false
+        ],
+        [
+          "article",
+          "article",
+          false
+        ],
+        [
+          "between",
+          "preposition",
+          false
+        ],
+        [
+          "canBeDoQuestion",
+          "canBeDoQuestion",
+          false
+        ],
+        [
+          "canBeQuestion",
+          "canBeQuestion",
+          false
+        ],
+        [
+          "concept",
+          "queryable",
+          false
+        ],
+        [
+          "concept",
+          "theAble",
+          false
+        ],
+        [
+          "deletable",
+          "deletable",
+          false
+        ],
+        [
+          "delete",
+          "verb",
+          false
+        ],
+        [
+          "distributable",
+          "queryable",
+          false
+        ],
+        [
+          "doubleQuote",
+          "queryable",
+          false
+        ],
+        [
+          "each",
+          "article",
+          false
+        ],
+        [
+          "every",
+          "article",
+          false
+        ],
+        [
+          "hasPropertyValue",
+          "verb",
+          false
+        ],
+        [
+          "have",
+          "canBeDoQuestion",
+          false
+        ],
+        [
+          "have",
+          "canBeQuestion",
+          false
+        ],
+        [
+          "hierarchyAble",
+          "queryable",
+          false
+        ],
+        [
+          "ifAble",
+          "ifAble",
+          false
+        ],
+        [
+          "is",
+          "canBeQuestion",
+          false
+        ],
+        [
+          "is",
+          "verb",
+          false
+        ],
+        [
+          "isEdee",
+          "isEdee",
+          false
+        ],
+        [
+          "isEder",
+          "isEder",
+          false
+        ],
+        [
+          "isQuery",
+          "verb",
+          false
+        ],
+        [
+          "it",
+          "pronoun",
+          false
+        ],
+        [
+          "it",
+          "queryable",
+          false
+        ],
+        [
+          "it",
+          "thisitthat",
+          false
+        ],
+        [
+          "it",
+          "toAble",
+          false
+        ],
+        [
+          "listable",
+          "theAble",
+          false
+        ],
+        [
+          "memorable",
+          "deletable",
+          false
+        ],
+        [
+          "memorable",
+          "theAble",
+          false
+        ],
+        [
+          "modifies",
+          "verb",
+          false
+        ],
+        [
+          "negatable",
+          "queryable",
+          false
+        ],
+        [
+          "noun",
+          "theAble",
+          false
+        ],
+        [
+          "noun",
+          "thisAble",
+          false
+        ],
+        [
+          "object",
+          "listable",
+          false
+        ],
+        [
+          "object",
+          "queryable",
+          false
+        ],
+        [
+          "object",
+          "theAble",
+          false
+        ],
+        [
+          "orAble",
+          "ifAble",
+          false
+        ],
+        [
+          "preposition",
+          "preposition",
+          false
+        ],
+        [
+          "pronoun",
+          "pronoun",
+          false
+        ],
+        [
+          "property",
+          "concept",
+          false
+        ],
+        [
+          "property",
+          "isEdee",
+          false
+        ],
+        [
+          "property",
+          "isEder",
+          false
+        ],
+        [
+          "property",
+          "queryable",
+          false
+        ],
+        [
+          "property",
+          "theAble",
+          false
+        ],
+        [
+          "property",
+          "thisAble",
+          false
+        ],
+        [
+          "propertyOf",
+          "preposition",
+          false
+        ],
+        [
+          "punctuation",
+          "punctuation",
+          false
+        ],
+        [
+          "queryable",
+          "listable",
+          false
+        ],
+        [
+          "questionMark",
+          "punctuation",
+          false
+        ],
+        [
+          "readonly",
+          "queryable",
+          false
+        ],
+        [
+          "reason",
+          "queryable",
+          false
+        ],
+        [
+          "reason",
+          "theAble",
+          false
+        ],
+        [
+          "recall",
+          "verb",
+          false
+        ],
+        [
+          "remember",
+          "verb",
+          false
+        ],
+        [
+          "stm_before",
+          "adjective",
+          false
+        ],
+        [
+          "stm_current",
+          "adjective",
+          false
+        ],
+        [
+          "stm_previous",
+          "adjective",
+          false
+        ],
+        [
+          "that",
+          "thisitthat",
+          false
+        ],
+        [
+          "the",
+          "article",
+          false
+        ],
+        [
+          "theAble",
+          "queryable",
+          false
+        ],
+        [
+          "this",
+          "pronoun",
+          false
+        ],
+        [
+          "this",
+          "queryable",
+          false
+        ],
+        [
+          "this",
+          "thisitthat",
+          false
+        ],
+        [
+          "thisAble",
+          "thisAble",
+          false
+        ],
+        [
+          "thisitthat",
+          "queryable",
+          false
+        ],
+        [
+          "to",
+          "preposition",
+          false
+        ],
+        [
+          "toAble",
+          "toAble",
+          false
+        ],
+        [
+          "unknown",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "verb",
+          "verb",
+          false
+        ],
+        [
+          "what",
+          "object",
+          false
+        ],
+        [
+          "what",
+          "queryable",
+          false
+        ],
+        [
+          "whatAble",
+          "queryable",
+          false
+        ],
+        [
+          "whose",
+          "object",
+          false
+        ],
+        [
+          "xfx",
+          "queryable",
+          false
+        ]
+      ],
+      "metadata": {
+        "opChoices": [
+          {
+            "op": [
+              "unknown",
+              0
+            ],
+            "ops": [
+              [
+                "is",
+                0
+              ],
+              [
+                "property",
+                0
+              ],
+              [
+                "the",
+                0
+              ],
+              [
+                "unknown",
+                0
+              ]
+            ],
+            "counter": 1
+          },
+          {
+            "op": [
+              "property",
+              0
+            ],
+            "ops": [
+              [
+                "is",
+                0
+              ],
+              [
+                "property",
+                0
+              ],
+              [
+                "the",
+                0
+              ]
+            ],
+            "counter": 2
+          },
+          {
+            "op": [
+              "the",
+              0
+            ],
+            "ops": [
+              [
+                "is",
+                0
+              ],
+              [
+                "the",
+                0
+              ]
+            ],
+            "counter": 3
+          },
+          {
+            "op": [
+              "is",
+              0
+            ],
+            "ops": [
+              [
+                "is",
+                0
+              ]
+            ],
+            "counter": 4
+          },
+          {
+            "op": [
+              "is",
+              1
+            ],
+            "ops": [
+              [
+                "is",
+                1
+              ]
+            ],
+            "counter": 5
+          }
+        ]
+      },
+      "trace": "undefined",
+      "contexts": [
+        {
+          "number": "one",
+          "text": "the property is value",
+          "marker": "is",
+          "word": "is",
+          "range": {
+            "start": 0,
+            "end": 20
+          },
+          "one": {
+            "number": "one",
+            "value": "property",
+            "text": "the property",
+            "marker": "property",
+            "word": "property",
+            "range": {
+              "start": 0,
+              "end": 11
+            },
+            "dead": true,
+            "types": [
+              "property"
+            ],
+            "focusableForPhrase": true,
+            "pullFromContext": true,
+            "concept": true,
+            "wantsValue": true,
+            "determiner": "the",
+            "modifiers": [
+              "determiner"
+            ],
+            "level": 0
+          },
+          "two": {
+            "value": "value",
+            "unknown": true,
+            "text": "value",
+            "marker": "unknown",
+            "word": "value",
+            "range": {
+              "start": 16,
+              "end": 20
+            },
+            "dead": true,
+            "types": [
+              "unknown"
+            ],
+            "level": 0
+          },
+          "dead": true,
+          "level": 2,
+          "context_index": 1,
+          "topLevel": true,
+          "context_id": 2
+        }
+      ],
+      "generated": [
+        ""
+      ],
+      "paraphrases": [
+        "the property is value"
+      ],
+      "paraphrasesParenthesized": [],
+      "generatedParenthesized": [],
+      "responses": [
+        ""
+      ],
+      "associations": [
+        [
+          [
+            "is",
+            0
+          ],
+          [
+            "property",
+            0
+          ],
+          [
+            "the",
+            0
+          ],
+          [
+            "unknown",
+            0
+          ]
+        ],
+        [
+          [
+            "is",
+            0
+          ],
+          [
+            "property",
+            0
+          ],
+          [
+            "unknown",
+            0
+          ]
+        ]
+      ],
+      "summaries": [
+        {
+          "summaries": [
+            {
+              "operators": [
+                {
+                  "marker": [
+                    "the",
+                    0
+                  ],
+                  "range": {
+                    "start": 0,
+                    "end": 2
+                  }
+                },
+                {
+                  "marker": [
+                    "property",
+                    0
+                  ],
+                  "range": {
+                    "start": 4,
+                    "end": 11
+                  }
+                },
+                {
+                  "marker": [
+                    "is",
+                    0
+                  ],
+                  "range": {
+                    "start": 13,
+                    "end": 14
+                  }
+                },
+                {
+                  "marker": [
+                    "unknown",
+                    0
+                  ],
+                  "range": {
+                    "start": 16,
+                    "end": 20
+                  }
+                }
+              ],
+              "counter": 1
+            },
+            {
+              "operators": [
+                {
+                  "marker": [
+                    "the",
+                    0
+                  ],
+                  "range": {
+                    "start": 0,
+                    "end": 2
+                  }
+                },
+                {
+                  "marker": [
+                    "property",
+                    0
+                  ],
+                  "range": {
+                    "start": 4,
+                    "end": 11
+                  }
+                },
+                {
+                  "marker": [
+                    "is",
+                    0
+                  ],
+                  "range": {
+                    "start": 13,
+                    "end": 14
+                  }
+                },
+                {
+                  "marker": [
+                    "unknown",
+                    0
+                  ],
+                  "range": {
+                    "start": 16,
+                    "end": 20
+                  }
+                }
+              ],
+              "counter": 2
+            },
+            {
+              "operators": [
+                {
+                  "marker": [
+                    "the",
+                    0
+                  ],
+                  "range": {
+                    "start": 0,
+                    "end": 2
+                  }
+                },
+                {
+                  "marker": [
+                    "property",
+                    0
+                  ],
+                  "range": {
+                    "start": 4,
+                    "end": 11
+                  }
+                },
+                {
+                  "marker": [
+                    "is",
+                    0
+                  ],
+                  "range": {
+                    "start": 13,
+                    "end": 14
+                  }
+                },
+                {
+                  "marker": [
+                    "unknown",
+                    0
+                  ],
+                  "range": {
+                    "start": 16,
+                    "end": 20
+                  }
+                }
+              ],
+              "counter": 3
+            },
+            {
+              "operators": [
+                {
+                  "marker": [
+                    "property",
+                    0
+                  ],
+                  "range": {
+                    "start": 0,
+                    "end": 11
+                  }
+                },
+                {
+                  "marker": [
+                    "is",
+                    0
+                  ],
+                  "range": {
+                    "start": 13,
+                    "end": 14
+                  }
+                },
+                {
+                  "marker": [
+                    "unknown",
+                    0
+                  ],
+                  "range": {
+                    "start": 16,
+                    "end": 20
+                  }
+                }
+              ],
+              "counter": 4
+            },
+            {
+              "operators": [
+                {
+                  "marker": [
+                    "is",
+                    1
+                  ],
+                  "range": {
+                    "start": 0,
+                    "end": 20
+                  }
+                }
+              ],
+              "counter": 5
+            },
+            {
+              "operators": [
+                {
+                  "marker": [
+                    "is",
+                    2
+                  ],
+                  "range": {
+                    "start": 0,
+                    "end": 20
+                  }
+                }
+              ],
+              "counter": 6
+            }
+          ],
+          "length": 1
+        }
+      ],
+      "learned_contextual_priorities": [],
+      "rtf_associations": [],
+      "query": "the property is value",
+      "skipSemantics": true,
+      "key": {
+        "query": "the property is value"
+      }
     }
   ],
   "semantics": [],
@@ -5469,6 +7057,38 @@
         0
       ],
       [
+        "the",
+        0
+      ],
+      [
+        "unknown",
+        0
+      ]
+    ],
+    [
+      [
+        "is",
+        0
+      ],
+      [
+        "property",
+        0
+      ],
+      [
+        "unknown",
+        0
+      ]
+    ],
+    [
+      [
+        "is",
+        0
+      ],
+      [
+        "property",
+        0
+      ],
+      [
         "unknown",
         0
       ]
@@ -5517,6 +7137,48 @@
       [
         "unknown",
         0
+      ]
+    ],
+    [
+      [
+        "object",
+        0
+      ],
+      [
+        "property",
+        0
+      ],
+      [
+        "propertyOf",
+        0
+      ]
+    ],
+    [
+      [
+        "object",
+        0
+      ],
+      [
+        "property",
+        0
+      ],
+      [
+        "propertyOf",
+        0
+      ],
+      [
+        "the",
+        0
+      ]
+    ],
+    [
+      [
+        "property",
+        0
+      ],
+      [
+        "propertyOf",
+        1
       ]
     ],
     [
@@ -6656,6 +8318,381 @@
             }
           ],
           "counter": 8
+        }
+      ],
+      "length": 1
+    },
+    {
+      "summaries": [
+        {
+          "operators": [
+            {
+              "marker": [
+                "the",
+                0
+              ],
+              "range": {
+                "start": 0,
+                "end": 2
+              }
+            },
+            {
+              "marker": [
+                "property",
+                0
+              ],
+              "range": {
+                "start": 4,
+                "end": 11
+              }
+            },
+            {
+              "marker": [
+                "propertyOf",
+                0
+              ],
+              "range": {
+                "start": 13,
+                "end": 14
+              }
+            },
+            {
+              "marker": [
+                "object",
+                0
+              ],
+              "range": {
+                "start": 16,
+                "end": 21
+              }
+            }
+          ],
+          "counter": 1
+        },
+        {
+          "operators": [
+            {
+              "marker": [
+                "the",
+                0
+              ],
+              "range": {
+                "start": 0,
+                "end": 2
+              }
+            },
+            {
+              "marker": [
+                "property",
+                0
+              ],
+              "range": {
+                "start": 4,
+                "end": 11
+              }
+            },
+            {
+              "marker": [
+                "propertyOf",
+                0
+              ],
+              "range": {
+                "start": 13,
+                "end": 14
+              }
+            },
+            {
+              "marker": [
+                "object",
+                0
+              ],
+              "range": {
+                "start": 16,
+                "end": 21
+              }
+            }
+          ],
+          "counter": 2
+        },
+        {
+          "operators": [
+            {
+              "marker": [
+                "property",
+                0
+              ],
+              "range": {
+                "start": 0,
+                "end": 11
+              }
+            },
+            {
+              "marker": [
+                "propertyOf",
+                0
+              ],
+              "range": {
+                "start": 13,
+                "end": 14
+              }
+            },
+            {
+              "marker": [
+                "object",
+                0
+              ],
+              "range": {
+                "start": 16,
+                "end": 21
+              }
+            }
+          ],
+          "counter": 3
+        },
+        {
+          "operators": [
+            {
+              "marker": [
+                "property",
+                0
+              ],
+              "range": {
+                "start": 0,
+                "end": 11
+              }
+            },
+            {
+              "marker": [
+                "propertyOf",
+                1
+              ],
+              "range": {
+                "start": 13,
+                "end": 21
+              }
+            }
+          ],
+          "counter": 4
+        },
+        {
+          "operators": [
+            {
+              "marker": [
+                "property",
+                0
+              ],
+              "range": {
+                "start": 0,
+                "end": 21
+              }
+            }
+          ],
+          "counter": 5
+        }
+      ],
+      "length": 1
+    },
+    {
+      "summaries": [
+        {
+          "operators": [
+            {
+              "marker": [
+                "the",
+                0
+              ],
+              "range": {
+                "start": 0,
+                "end": 2
+              }
+            },
+            {
+              "marker": [
+                "property",
+                0
+              ],
+              "range": {
+                "start": 4,
+                "end": 11
+              }
+            },
+            {
+              "marker": [
+                "is",
+                0
+              ],
+              "range": {
+                "start": 13,
+                "end": 14
+              }
+            },
+            {
+              "marker": [
+                "unknown",
+                0
+              ],
+              "range": {
+                "start": 16,
+                "end": 20
+              }
+            }
+          ],
+          "counter": 1
+        },
+        {
+          "operators": [
+            {
+              "marker": [
+                "the",
+                0
+              ],
+              "range": {
+                "start": 0,
+                "end": 2
+              }
+            },
+            {
+              "marker": [
+                "property",
+                0
+              ],
+              "range": {
+                "start": 4,
+                "end": 11
+              }
+            },
+            {
+              "marker": [
+                "is",
+                0
+              ],
+              "range": {
+                "start": 13,
+                "end": 14
+              }
+            },
+            {
+              "marker": [
+                "unknown",
+                0
+              ],
+              "range": {
+                "start": 16,
+                "end": 20
+              }
+            }
+          ],
+          "counter": 2
+        },
+        {
+          "operators": [
+            {
+              "marker": [
+                "the",
+                0
+              ],
+              "range": {
+                "start": 0,
+                "end": 2
+              }
+            },
+            {
+              "marker": [
+                "property",
+                0
+              ],
+              "range": {
+                "start": 4,
+                "end": 11
+              }
+            },
+            {
+              "marker": [
+                "is",
+                0
+              ],
+              "range": {
+                "start": 13,
+                "end": 14
+              }
+            },
+            {
+              "marker": [
+                "unknown",
+                0
+              ],
+              "range": {
+                "start": 16,
+                "end": 20
+              }
+            }
+          ],
+          "counter": 3
+        },
+        {
+          "operators": [
+            {
+              "marker": [
+                "property",
+                0
+              ],
+              "range": {
+                "start": 0,
+                "end": 11
+              }
+            },
+            {
+              "marker": [
+                "is",
+                0
+              ],
+              "range": {
+                "start": 13,
+                "end": 14
+              }
+            },
+            {
+              "marker": [
+                "unknown",
+                0
+              ],
+              "range": {
+                "start": 16,
+                "end": 20
+              }
+            }
+          ],
+          "counter": 4
+        },
+        {
+          "operators": [
+            {
+              "marker": [
+                "is",
+                1
+              ],
+              "range": {
+                "start": 0,
+                "end": 20
+              }
+            }
+          ],
+          "counter": 5
+        },
+        {
+          "operators": [
+            {
+              "marker": [
+                "is",
+                2
+              ],
+              "range": {
+                "start": 0,
+                "end": 20
+              }
+            }
+          ],
+          "counter": 6
         }
       ],
       "length": 1

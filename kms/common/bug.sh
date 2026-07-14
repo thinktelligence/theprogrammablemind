@@ -1053,3 +1053,7 @@ node combined -q "joe is 24 years old and 5 feet tall\nwhat is joe's height and 
 0 - joe is 24 years old and 5 feet tall\nwhat is joe's height\nwhat is joe's age
 1 - joe is 24 years old and 5 feet tall\nwhat is joe's height and age
 what is the drone's speed and direction
+ 2020  node length -q 'the building is 10 feet high and 20 feet wide\nhow wide is the building' -g -d
+ 2021  node length -q 'the building is 10 feet high and 20 feet wide\nhow wide and high is the building' -g -d
+ 2022  node length -q 'the building is 10 feet high and 20 feet wide\nhow wide is the building' -g -d
+ 2023  node length -q 'the building is 10 feet high and 20 feet wide\nwhat is the width and height of the building -g -d
