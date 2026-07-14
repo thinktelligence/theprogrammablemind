@@ -637,7 +637,6 @@ const config = {
         } catch (e) {
           log(`Error processing set property of an object: ${e}`)
           const config = km('properties')
-          const fragment = await fragments("the property1 of object1 is value1")
           const value = await api.getProperty(objectId, propertyId)
           if (value.value == context.same.value) {
             context.evalue = [
@@ -646,30 +645,16 @@ const config = {
             context.isResponse = true
             context.sameWasProcessed = true
           } else {
-            const mappings = [
-              {
-                where: where(),
-                match: ({context}) => context.value == 'property1',
-                apply: ({context}) => Object.assign(context, { word: propertyContext.word, value: propertyContext.value, paraphrase: true }),
-              },
-              {
-                where: where(),
-                match: ({context}) => context.value == 'object1',
-                apply: ({context}) => {
-                  Object.assign(context, { word: objectContext.word, value: objectContext.value, paraphrase: true })
-                },
-              },
-              {
-                where: where(),
-                match: ({context}) => context.value == 'value1',
-                apply: ({context}) => Object.assign(context, value),
-              },
-            ]
+            const mappings = {
+              property1: { word: propertyContext.word, value: propertyContext.value, paraphrase: true },
+              object1: { word: objectContext.word, value: objectContext.value, paraphrase: true },
+              value1: value,
+            }
             // run the query 'the property of object' then copy that here and template it
             context.evalue = [
               { marker: 'yesno', value: false, paraphrase: true },
             ]
-            context.evalue = context.evalue.concat(await fragment.instantiate(mappings))
+            context.evalue = context.evalue.concat(await fragments("the property1 of object1 is value1", mappings))
             context.evalue.forEach( (r) => r.paraphrase = true )
             context.isResponse = true
             context.sameWasProcessed = true
