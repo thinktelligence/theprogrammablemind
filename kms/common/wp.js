@@ -323,7 +323,7 @@ template = {
           bridge: `{ 
             ...next(before[0]), 
             context: append(before[0].context, [after[0]]), 
-            interpolate: [{ context: operator }, { context: after[0] }], 
+            interpolate: [{ context: before[0] }, { context: operator }, { context: after[0] }], 
             modifiers: [] 
           }`,
           semantic: (args) => {
@@ -337,7 +337,6 @@ template = {
                 element.context = element.context.concat(context.context)
               }
             }
-            console.log(JSON.stringify(Object.keys(args)))
           },
         },
         { 

@@ -764,7 +764,7 @@
       "bridges": [
         {
           "id": "change_wp",
-          "bridge": "{ ...next(operator), from: after[0][0], interpolate: [{ context: operator }, { property: 'from' }, { context: after[1] }] }"
+          "bridge": "{ \n            ...next(operator), \n            from: after[0][0], \n            interpolate: [{ context: operator }, { property: 'from' }, { context: after[1] }] \n          }"
         },
         {
           "id": "paragraphComparisonVerb_wp",
@@ -800,7 +800,7 @@
             "-1": "{ ...operator, invisible: true }"
           },
           "bridge": "{ \n            ...next(before[0]), \n            context: append(before[0].context, [after[0]]), \n            interpolate: [{ context: before[0] }, { context: operator }, { context: after[0] }], \n            modifiers: [] \n          }",
-          "semantic": "(args) => {\n            const { context, contexts } = args\n            for (let i = context.context_index + 1; i < contexts.length; ++i) {\n              if (contexts[i].marker == 'applyStyle_wp') {\n                const element = contexts[i].element\n                if (!element.context) {\n                  element.context = []\n                }\n                element.context = element.context.concat(context.context)\n              }\n            }\n            console.log(JSON.stringify(Object.keys(args)))\n          }"
+          "semantic": "(args) => {\n            const { context, contexts } = args\n            for (let i = context.context_index + 1; i < contexts.length; ++i) {\n              if (contexts[i].marker == 'applyStyle_wp') {\n                const element = contexts[i].element\n                if (!element.context) {\n                  element.context = []\n                }\n                element.context = element.context.concat(context.context)\n              }\n            }\n          }"
         },
         {
           "id": "applyStyle_wp",
@@ -62416,7 +62416,7 @@
       "bridges": [
         {
           "id": "change_wp",
-          "bridge": "{ ...next(operator), from: after[0][0], interpolate: [{ context: operator }, { property: 'from' }, { context: after[1] }] }"
+          "bridge": "{ \n            ...next(operator), \n            from: after[0][0], \n            interpolate: [{ context: operator }, { property: 'from' }, { context: after[1] }] \n          }"
         },
         {
           "id": "paragraphComparisonVerb_wp",
@@ -62569,10 +62569,10 @@
       ],
       "semantics": [
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/wp.js:448"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/wp.js:451"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/wp.js:457"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/wp.js:460"
         }
       ],
       "priorities": [

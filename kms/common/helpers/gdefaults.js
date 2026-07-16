@@ -23,6 +23,9 @@ function interpolate(args) {
       for (const element of interpolate) {
         // { "word": { "marker": "canPassive" } ie { word: <selectionCriteria> }
         const handleElement = async (context, element) => {
+          if (element.context?.invisible) {
+            return
+          }
           if (element.word) {
             const word = args.getWordFromDictionary(element.word) || element.word
             if (word) {
