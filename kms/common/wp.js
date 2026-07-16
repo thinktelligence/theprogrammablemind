@@ -290,7 +290,11 @@ template = {
       bridges: [
         {
           id: 'change_wp',
-          bridge: "{ ...next(operator), from: after[0][0], interpolate: [{ context: operator }, { property: 'from' }, { context: after[1] }] }",
+          bridge: `{ 
+            ...next(operator), 
+            from: after[0][0], 
+            interpolate: [{ context: operator }, { property: 'from' }, { context: after[1] }] 
+          }`,
         },
         { 
           id: 'paragraphComparisonVerb_wp',
@@ -319,7 +323,7 @@ template = {
           bridge: `{ 
             ...next(before[0]), 
             context: append(before[0].context, [after[0]]), 
-            interpolate: [{ context: before[0] }, { context: operator }, { context: after[0] }], 
+            interpolate: [{ context: operator }, { context: after[0] }], 
             modifiers: [] 
           }`,
           semantic: (args) => {
