@@ -290,7 +290,7 @@ template = {
       bridges: [
         {
           id: 'change_wp',
-          bridge: "{ ...next(operator), from: after[0][0], generate: [operator, 'from', after[1]] }",
+          bridge: "{ ...next(operator), from: after[0][0], interpolate: [{ context: operator }, { property: 'from' }, { context: after[1] }] }",
         },
         { 
           id: 'paragraphComparisonVerb_wp',
@@ -301,7 +301,14 @@ template = {
             { word: 'include', comparison: 'include' }, 
             { word: 'includes', comparison: 'include' },
           ],
-          bridge: "{ ...next(operator), element: before[0], subject: before[0], words: after[0], verb: operator, generate: ['element', 'verb', 'words'] }",
+          bridge: `{ 
+            ...next(operator), 
+            element: before[0], 
+            subject: before[0], 
+            words: after[0], 
+            verb: operator, 
+            interpolate: [{ property: 'element' }, { property: 'verb' }, { property: 'words' }] 
+          }`,
         },
         { 
           id: 'statefulElementInContext_wp',
@@ -309,7 +316,12 @@ template = {
           optional: {
             '-1': "{ ...operator, invisible: true }",
           },
-          bridge: "{ ...next(before[0]), context: append(before[0].context, [after[0]]), generate: [before[0], operator, after[0]], modifiers: [] }",
+          bridge: `{ 
+            ...next(before[0]), 
+            context: append(before[0].context, [after[0]]), 
+            interpolate: [{ context: before[0] }, { context: operator }, { context: after[0] }], 
+            modifiers: [] 
+          }`,
           semantic: (args) => {
             const { context, contexts } = args
             for (let i = context.context_index + 1; i < contexts.length; ++i) {
@@ -328,7 +340,13 @@ template = {
           id: 'applyStyle_wp',
           parents: ['verb'],
           convolution: true,
-          bridge: "{ ...next(operator), element: after[0], state: before[0], operator: operator, generate: ['state', 'element'] }",
+          bridge: `{ 
+            ...next(operator), 
+            element: after[0], 
+            state: before[0], 
+            operator: operator, 
+            interpolate: [{ property: 'state' }, { property: 'element' }] 
+          }`,
           localHierarchy: [
             ['thisitthat', 'statefulElement_wp'],
             ['everything', 'statefulElement_wp'],
@@ -342,7 +360,13 @@ template = {
           // parents: ['verb'],
           parents: ['adjective'],
           convolution: true,
-          bridge: "{ ...after[0], style: before[0], target: after[0], generate: ['style', 'target'], conditions: append(after[0].conditions, [before[0]]) }",
+          bridge: `{ 
+            ...after[0], 
+            style: before[0], 
+            target: after[0], 
+            interpolate: [{ property: 'style' }, { property: 'target' }], 
+            conditions: append(after[0].conditions, [before[0]]) 
+          }`,
         },
         { 
           id: 'wordComparisonWithVerb_wp',
@@ -353,7 +377,14 @@ template = {
             { word: 'end', comparison: 'suffix' },
             { word: 'ends', comparison: 'suffix' },
           ],
-          bridge: "{ ...next(operator), element: before[0], subject: before[0], letters: after[0], verb: operator, generate: ['element', 'verb', 'letters'] }",
+          bridge: `{ 
+            ...next(operator), 
+            element: before[0], 
+            subject: before[0], 
+            letters: after[0], 
+            verb: operator, 
+            interpolate: [{ property: 'element' }, { property: 'verb' }, { property: 'letters' }] 
+          }`,
         },
         { 
           id: 'wordComparison_wp',
@@ -367,7 +398,14 @@ template = {
           optional: {
             1: "{ marker: 'a' }",
           },
-          bridge: "{ ...next(operator), element: before[0], subject: before[0], letters: after[1], verb: operator, generate: ['element', 'verb', 'letters'] }",
+          bridge: `{ 
+            ...next(operator), 
+            element: before[0], 
+            subject: before[0], 
+            letters: after[1], 
+            verb: operator, 
+            interpolate: [{ property: 'element' }, { property: 'verb' }, { property: 'letters' }] 
+          }`,
         },
         { 
           id: 'comparisonWith_wp',
@@ -375,12 +413,23 @@ template = {
           optional: {
             1: "{ marker: 'a' }",
           },
-          bridge: "{ ...next(operator), operator: operator, letters: after[1], generate: ['operator', 'letters'] }",
+          bridge: `{ 
+            ...next(operator), 
+            operator: operator, 
+            letters: after[1], 
+            interpolate: [{ property: 'operator' }, { property: 'letters' }] 
+          }`,
         },
         { 
           id: 'changeState_wp',
           parents: ['verb'],
-          bridge: "{ ...next(operator), element: after[0], state: after[1], operator: operator, generate: ['operator', 'element', 'state'] }",
+          bridge: `{ 
+            ...next(operator), 
+            element: after[0], 
+            state: after[1], 
+            operator: operator, 
+            interpolate: [{ property: 'operator' }, { property: 'element' }, { property: 'state' }] 
+          }`,
           localHierarchy: [
             ['thisitthat', 'statefulElement_wp'],
             ['everything', 'statefulElement_wp'],

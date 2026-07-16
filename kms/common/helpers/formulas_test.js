@@ -102,42 +102,42 @@ describe('helpers', () => {
   }
 
   describe('unify', () => {
-    it('NEOS23 x1 = y1 => x1 = y1', async () => {
+    it('x1 = y1 => x1 = y1', async () => {
       const { equals, add, subtract, multiply, divide} = constructors
       const actual = await unify(rules(constructors)[0], await equals('x1', 'y1'))
       const expected = await equals('x1', 'y1')
       expect(actual).toStrictEqual(expected)
     })
 
-    it('NEOS23 x1 = y1 => y1 = x1', async () => {
+    it('x1 = y1 => y1 = x1', async () => {
       const { equals, add, subtract, multiply, divide} = constructors
       const actual = await unify(rules(constructors)[1], await equals('x1', 'y1'))
       const expected = await equals('y1', 'x1')
       expect(actual).toStrictEqual(expected)
     })
 
-    it('NEOS23 x1 = y1 + 1 => y1 = x1 - 1', async () => {
+    it('x1 = y1 + 1 => y1 = x1 - 1', async () => {
       const { equals, add, subtract, multiply, divide} = constructors
       const actual = await unify(rules(constructors)[2], await equals('x1', await add('y1', '1')))
       const expected = await equals('y1', await subtract('x1', '1'))
       expect(actual).toStrictEqual(expected)
     })
 
-    it('NEOS23 x1 = y1 - z1 => y1 = x1 + z1', async () => {
+    it('x1 = y1 - z1 => y1 = x1 + z1', async () => {
       const { equals, add, subtract, multiply, divide} = constructors
       const actual = await unify(rules(constructors)[3], await equals('x1', await subtract('y1', 'z1')))
       const expected = await equals('y1', await add('x1', 'z1'))
       expect(actual).toStrictEqual(expected)
     })
 
-    it('NEOS23 x1 = y1 * z1 => y1 = x1 / z1', async () => {
+    it('x1 = y1 * z1 => y1 = x1 / z1', async () => {
       const { equals, add, subtract, multiply, divide} = constructors
       const actual = await unify(rules(constructors)[4], await equals('x1', await multiply('y1', 'z1')))
       const expected = await equals('y1', await divide('x1', 'z1'))
       expect(actual).toStrictEqual(expected)
     })
 
-    it('NEOS23 x1 = y1 / z1 => y1 = x1 * z1', async () => {
+    it('x1 = y1 / z1 => y1 = x1 * z1', async () => {
       const { equals, add, subtract, multiply, divide} = constructors
       const actual = await unify(rules(constructors)[5], await equals('x1', await divide('y1', 'z1')))
       const expected = await equals('y1', await multiply('x1', 'z1'))
@@ -145,7 +145,7 @@ describe('helpers', () => {
     })
 
     /*
-    it('NEOS23 x1 = y1*z1 + 1 => y1 = (x1 - 1)/z1', async () => {
+    it('x1 = y1*z1 + 1 => y1 = (x1 - 1)/z1', async () => {
       const { equals, add, subtract, multiply, divide} = constructors
       const actual = await unify(rules(constructors)[2], await equals('x1', await add('y1', '1')))
       const expected = await equals('y1', await subtract('x1', '1'))
@@ -181,7 +181,7 @@ describe('helpers', () => {
   })
 
   describe('solveFor', () => {
-    it('NEOS23 no solution', async () => {
+    it('no solution', async () => {
       expect(await solveFor(constructors, {}, x)).toStrictEqual(undefined)
     })
 
