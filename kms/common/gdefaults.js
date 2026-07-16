@@ -35,7 +35,8 @@ const config = {
       where: where(),
       // match: ({context}) => context.paraphrase && context.interpolate,
       match: ({context}) => context.interpolate,
-      apply: async ({interpolate, context}) => {
+      apply: async ({interpolate, debug, context}) => {
+        debug.breakAt('properties#call4')
         return interpolate(context.interpolate, context)
       }
     },
@@ -307,6 +308,7 @@ function initializer({config}) {
         },
         verbatim, 
         say: verbatim,
+        // function interpolate
         interpolate: async (interpolate, context) => {
           async function evaluator(key) {
             if (Array.isArray(context[key])) {
@@ -329,7 +331,7 @@ function initializer({config}) {
             for (const element of interpolate) {
               // { "word": { "marker": "canPassive" } ie { word: <selectionCriteria> }
               if (element.word) {
-                const word = args.getWordFromDictionary(element.word)
+                const word = args.getWordFromDictionary(element.word) || element.word
                 if (word) {
                   strings.push(separator)
                   strings.push(await args.gp(word))

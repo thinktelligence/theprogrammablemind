@@ -291,7 +291,7 @@
               "unknown"
             ]
           ],
-          "bridge": "{ ...next(operator), object: after[0], objects: after }"
+          "bridge": "{ \n        ...next(operator), \n        ofWord: operator,\n        object: after[0], \n        objects: after \n      }"
         },
         {
           "id": "propertyOf",
@@ -310,7 +310,7 @@
               "unknown"
             ]
           ],
-          "bridge": "{ ...before[0], propertyOf: true, object: operator.object, objects: append(default(before[0].objects, before), operator.objects) }"
+          "bridge": "{ \n        ...before[0], \n        propertyOf: true, \n        interpolate: [ { property: 'property' }, { word: 'of' }, { property: 'object' } ],\n        property: before[0],\n        object: operator.object, \n        objects: append(default(before[0].objects, before), operator.objects) \n      }"
         },
         {
           "id": "whose",
@@ -882,7 +882,7 @@
         },
         {
           "match": "({context, hierarchy, uuid}) => hierarchy.isA(context.marker, 'property') && context.same && context.objects && !context[`disable${uuid}`]",
-          "apply": "async (args) => {\n        const {context, fragments, objects, km, api, log, s, uuid} = args\n        const objectContext = context.object;\n        const propertyContext = context;\n        const objectId = context.object.value\n\n        await api.makeObject({ ...args, context: objectContext })\n        await api.makeObject({ ...args, context: propertyContext })\n        // const propertyId = context.value\n        /*\n        const propertyId = context.marker\n        if (context.marker != context.value) {\n        }\n        */\n        // const propertyId = context.marker\n        /*\n        // greg HERE\n        */\n        propertyContext[`disable${uuid}`] = true\n        const propertyId = (await km(\"dialogues\").api.evaluateToConcept(propertyContext, context, log, s)).evalue;\n        try{\n          // greg\n          // api.makeObject({config, context: objectContext, doPluralize: false})\n          // api.addWord(propertyContext)\n          // api.addWord(objectContext)\n          // propertyContext.objects = null;\n          api.setProperty(pluralize.singular(objectId), pluralize.singular(propertyId), context.same, true)\n          context.sameWasProcessed = true\n        } catch (e) {\n          log(`Error processing set property of an object: ${e}`)\n          const config = km('properties')\n          const value = await api.getProperty(objectId, propertyId)\n          if (value.value == context.same.value) {\n            context.evalue = [\n              { marker: 'yesno', value: true, paraphrase: true },\n            ]\n            context.isResponse = true\n            context.sameWasProcessed = true\n          } else {\n            debugger\n            const mappings = {\n              property1: { word: propertyContext.word, value: propertyContext.value, paraphrase: true },\n              object1: { word: objectContext.word, value: objectContext.value, paraphrase: true },\n              value1: value,\n            }\n            // run the query 'the property of object' then copy that here and template it\n            context.evalue = [\n              { marker: 'yesno', value: false, paraphrase: true },\n            ]\n            context.evalue = context.evalue.concat(await fragments(\"the property1 of object1 is value1\", mappings))\n            context.evalue.forEach( (r) => r.paraphrase = true )\n            context.isResponse = true\n            context.sameWasProcessed = true\n          }\n        }\n      }"
+          "apply": "async (args) => {\n        const {context, fragments, objects, km, api, log, s, uuid} = args\n        const objectContext = context.object;\n        const propertyContext = context;\n        const objectId = context.object.value\n\n        await api.makeObject({ ...args, context: objectContext })\n        await api.makeObject({ ...args, context: propertyContext })\n        // const propertyId = context.value\n        /*\n        const propertyId = context.marker\n        if (context.marker != context.value) {\n        }\n        */\n        // const propertyId = context.marker\n        /*\n        // greg HERE\n        */\n        propertyContext[`disable${uuid}`] = true\n        const propertyId = (await km(\"dialogues\").api.evaluateToConcept(propertyContext, context, log, s)).evalue;\n        try{\n          // greg\n          // api.makeObject({config, context: objectContext, doPluralize: false})\n          // api.addWord(propertyContext)\n          // api.addWord(objectContext)\n          // propertyContext.objects = null;\n          api.setProperty(pluralize.singular(objectId), pluralize.singular(propertyId), context.same, true)\n          context.sameWasProcessed = true\n        } catch (e) {\n          log(`Error processing set property of an object: ${e}`)\n          const config = km('properties')\n          const value = await api.getProperty(objectId, propertyId)\n          if (value.value == context.same.value) {\n            context.evalue = [\n              { marker: 'yesno', value: true, paraphrase: true },\n            ]\n            context.isResponse = true\n            context.sameWasProcessed = true\n          } else {\n            const mappings = {\n              property1: { word: propertyContext.word, value: propertyContext.value, paraphrase: true },\n              object1: { word: objectContext.word, value: objectContext.value, paraphrase: true },\n              value1: value,\n            }\n            // run the query 'the property of object' then copy that here and template it\n            context.evalue = [\n              { marker: 'yesno', value: false, paraphrase: true },\n            ]\n            context.evalue = context.evalue.concat(await fragments(\"the property1 of object1 is value1\", mappings))\n            context.evalue.forEach( (r) => r.paraphrase = true )\n            context.isResponse = true\n            context.sameWasProcessed = true\n          }\n        }\n      }"
         },
         {
           "match": "({context, hierarchy}) => \n                      (hierarchy.isA(context.marker, 'property') || (hierarchy.isA(context.marker, 'list') && context.possession)) && \n                      context.evaluate && \n                      context.objects &&\n                      !context.evaluate.toConcept",
@@ -2462,7 +2462,7 @@
               "unknown"
             ]
           ],
-          "bridge": "{ ...next(operator), object: after[0], objects: after }"
+          "bridge": "{ \n        ...next(operator), \n        ofWord: operator,\n        object: after[0], \n        objects: after \n      }"
         },
         {
           "id": "propertyOf",
@@ -2481,7 +2481,7 @@
               "unknown"
             ]
           ],
-          "bridge": "{ ...before[0], propertyOf: true, object: operator.object, objects: append(default(before[0].objects, before), operator.objects) }"
+          "bridge": "{ \n        ...before[0], \n        propertyOf: true, \n        interpolate: [ { property: 'property' }, { word: 'of' }, { property: 'object' } ],\n        property: before[0],\n        object: operator.object, \n        objects: append(default(before[0].objects, before), operator.objects) \n      }"
         },
         {
           "id": "whose",
@@ -2975,83 +2975,83 @@
       "generators": [
         {
           "notes": "expression with constraints",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:300"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:312"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:322"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:334"
         },
         {
           "notes": "add possession ending",
           "priority": -1,
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:329"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:341"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:343"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:355"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:348"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:360"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:353"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:365"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:358"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:370"
         },
         {
           "notes": "negative do questions",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:364"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:376"
         },
         {
           "notes": "do questions",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:373"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:385"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:387"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:399"
         },
         {
           "notes": "the property of object",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:395"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:407"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:419"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:431"
         },
         {
           "notes": "object's property",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:428"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:440"
         }
       ],
       "semantics": [
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:459"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:471"
         },
         {
           "notes": "wants is xfx between wanter and wantee",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:470",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:482",
           "priority": -1
         },
         {
           "notes": "marking something as readonly",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:484"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:496"
         },
         {
           "notes": "crew members. evaluate a concepts to get instances",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:508"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:520"
         },
         {
           "notes": "greg has eyes",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:536"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:548"
         },
         {
           "notes": "greg has eyes?",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:549"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:561"
         },
         {
           "notes": "set the property of an object",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:575"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:587"
         },
         {
           "notes": "get/evaluate a property",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:637"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:648"
         }
       ]
     }
@@ -3643,11 +3643,107 @@
             "pullFromContext": true,
             "concept": true,
             "wantsValue": true,
-            "determiner": "the",
-            "modifiers": [
+            "checks": [
               "determiner"
             ],
+            "determiner": {
+              "modifiers": [],
+              "text": "the",
+              "marker": "the",
+              "word": "the",
+              "range": {
+                "start": 0,
+                "end": 2
+              },
+              "level": 0
+            },
+            "theable": {
+              "value": "property1",
+              "unknown": true,
+              "text": "property1",
+              "marker": "unknown",
+              "word": "property1",
+              "range": {
+                "start": 4,
+                "end": 12
+              },
+              "dead": true,
+              "types": [
+                "unknown"
+              ],
+              "level": 0
+            },
+            "interpolate": [
+              {
+                "property": "property"
+              },
+              {
+                "word": "of"
+              },
+              {
+                "property": "object"
+              }
+            ],
             "propertyOf": true,
+            "property": {
+              "value": "property1",
+              "unknown": true,
+              "text": "the property1",
+              "marker": "property",
+              "word": "property1",
+              "range": {
+                "start": 0,
+                "end": 12
+              },
+              "dead": true,
+              "types": [
+                "property",
+                "unknown"
+              ],
+              "focusableForPhrase": true,
+              "pullFromContext": true,
+              "concept": true,
+              "wantsValue": true,
+              "checks": [
+                "determiner"
+              ],
+              "determiner": {
+                "modifiers": [],
+                "text": "the",
+                "marker": "the",
+                "word": "the",
+                "range": {
+                  "start": 0,
+                  "end": 2
+                },
+                "level": 0
+              },
+              "theable": {
+                "value": "property1",
+                "unknown": true,
+                "text": "property1",
+                "marker": "unknown",
+                "word": "property1",
+                "range": {
+                  "start": 4,
+                  "end": 12
+                },
+                "dead": true,
+                "types": [
+                  "unknown"
+                ],
+                "level": 0
+              },
+              "interpolate": [
+                {
+                  "property": "determiner"
+                },
+                {
+                  "property": "theable"
+                }
+              ],
+              "level": 0
+            },
             "object": {
               "value": "object1",
               "unknown": true,
@@ -3684,9 +3780,43 @@
                 "pullFromContext": true,
                 "concept": true,
                 "wantsValue": true,
-                "determiner": "the",
-                "modifiers": [
+                "checks": [
                   "determiner"
+                ],
+                "determiner": {
+                  "modifiers": [],
+                  "text": "the",
+                  "marker": "the",
+                  "word": "the",
+                  "range": {
+                    "start": 0,
+                    "end": 2
+                  },
+                  "level": 0
+                },
+                "theable": {
+                  "value": "property1",
+                  "unknown": true,
+                  "text": "property1",
+                  "marker": "unknown",
+                  "word": "property1",
+                  "range": {
+                    "start": 4,
+                    "end": 12
+                  },
+                  "dead": true,
+                  "types": [
+                    "unknown"
+                  ],
+                  "level": 0
+                },
+                "interpolate": [
+                  {
+                    "property": "determiner"
+                  },
+                  {
+                    "property": "theable"
+                  }
                 ],
                 "level": 0
               },
@@ -3736,7 +3866,7 @@
         ""
       ],
       "paraphrases": [
-        "the property1 is value1"
+        "the property1 of object1 is value1"
       ],
       "paraphrasesParenthesized": [],
       "generatedParenthesized": [],
@@ -4792,11 +4922,106 @@
             "pullFromContext": true,
             "concept": true,
             "wantsValue": true,
-            "determiner": "the",
-            "modifiers": [
+            "checks": [
               "determiner"
             ],
+            "determiner": {
+              "modifiers": [],
+              "text": "the",
+              "marker": "the",
+              "word": "the",
+              "range": {
+                "start": 0,
+                "end": 2
+              },
+              "level": 0
+            },
+            "theable": {
+              "value": "property",
+              "number": "one",
+              "text": "property",
+              "marker": "property",
+              "word": "property",
+              "range": {
+                "start": 4,
+                "end": 11
+              },
+              "dead": true,
+              "types": [
+                "property"
+              ],
+              "level": 0
+            },
+            "interpolate": [
+              {
+                "property": "property"
+              },
+              {
+                "word": "of"
+              },
+              {
+                "property": "object"
+              }
+            ],
             "propertyOf": true,
+            "property": {
+              "value": "property",
+              "number": "one",
+              "text": "the property",
+              "marker": "property",
+              "word": "property",
+              "range": {
+                "start": 0,
+                "end": 11
+              },
+              "dead": true,
+              "types": [
+                "property"
+              ],
+              "focusableForPhrase": true,
+              "pullFromContext": true,
+              "concept": true,
+              "wantsValue": true,
+              "checks": [
+                "determiner"
+              ],
+              "determiner": {
+                "modifiers": [],
+                "text": "the",
+                "marker": "the",
+                "word": "the",
+                "range": {
+                  "start": 0,
+                  "end": 2
+                },
+                "level": 0
+              },
+              "theable": {
+                "value": "property",
+                "number": "one",
+                "text": "property",
+                "marker": "property",
+                "word": "property",
+                "range": {
+                  "start": 4,
+                  "end": 11
+                },
+                "dead": true,
+                "types": [
+                  "property"
+                ],
+                "level": 0
+              },
+              "interpolate": [
+                {
+                  "property": "determiner"
+                },
+                {
+                  "property": "theable"
+                }
+              ],
+              "level": 0
+            },
             "object": {
               "marker": "object",
               "value": "object",
@@ -4832,9 +5057,43 @@
                 "pullFromContext": true,
                 "concept": true,
                 "wantsValue": true,
-                "determiner": "the",
-                "modifiers": [
+                "checks": [
                   "determiner"
+                ],
+                "determiner": {
+                  "modifiers": [],
+                  "text": "the",
+                  "marker": "the",
+                  "word": "the",
+                  "range": {
+                    "start": 0,
+                    "end": 2
+                  },
+                  "level": 0
+                },
+                "theable": {
+                  "value": "property",
+                  "number": "one",
+                  "text": "property",
+                  "marker": "property",
+                  "word": "property",
+                  "range": {
+                    "start": 4,
+                    "end": 11
+                  },
+                  "dead": true,
+                  "types": [
+                    "property"
+                  ],
+                  "level": 0
+                },
+                "interpolate": [
+                  {
+                    "property": "determiner"
+                  },
+                  {
+                    "property": "theable"
+                  }
                 ],
                 "level": 0
               },
@@ -4884,7 +5143,7 @@
         ""
       ],
       "paraphrases": [
-        "the property is value"
+        "the property of object is value"
       ],
       "paraphrasesParenthesized": [],
       "generatedParenthesized": [],

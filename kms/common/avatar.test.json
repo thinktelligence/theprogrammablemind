@@ -398,11 +398,13 @@
         "avatar": "avatar1",
         "concept": "concept2",
         "conjunction": "conjunction2",
+        "control": "control2",
         "dialogues": "dialogues2",
         "emotions": "emotions2",
         "evaluate": "evaluate2",
         "gdefaults": "gdefaults2",
         "hierarchy": "hierarchy2",
+        "logging": "logging2",
         "meta": "meta2",
         "negation": "negation2",
         "pos": "pos2",
@@ -434,6 +436,9 @@
         "conjunction2": {
           "km": "conjunction2"
         },
+        "control2": {
+          "km": "control2"
+        },
         "dialogues2": {
           "idSuffix": "",
           "km": "dialogues2",
@@ -453,6 +458,11 @@
         },
         "hierarchy2": {
           "km": "hierarchy2"
+        },
+        "logging2": {
+          "km": "logging2",
+          "messages": [
+          ]
         },
         "meta2": {
           "km": "meta2"
@@ -476,30 +486,19 @@
               "each",
               "every"
             ],
-            "canBeDoQuestion": [
-              "have"
-            ],
             "canBeQuestion": [
-              "have",
               "is"
             ],
-            "hierarchyAble": [
-              "unknown"
+            "deletable": [
+              "memorable"
             ],
             "ifAble": [
               "orAble"
             ],
             "listable": [
-              "object",
               "queryable"
             ],
-            "object": [
-              "what",
-              "whose"
-            ],
             "preposition": [
-              "between",
-              "propertyOf",
               "to"
             ],
             "pronoun": [
@@ -510,11 +509,6 @@
               "questionMark"
             ],
             "queryable": [
-              "xfx",
-              "hierarchyAble",
-              "readonly",
-              "property",
-              "object",
               "concept",
               "doubleQuote",
               "theAble",
@@ -528,8 +522,6 @@
               "thisitthat"
             ],
             "theAble": [
-              "property",
-              "object",
               "concept",
               "listable",
               "reason",
@@ -551,29 +543,16 @@
               "modifies",
               "is",
               "isQuery",
+              "delete",
+              "recall",
               "remember"
             ]
           },
           "concepts": [
             "properties",
-            "unknown",
-            "hierarchyAble",
-            "what",
-            "object",
-            "xfx",
-            "queryable",
-            "between",
-            "preposition",
-            "readonly",
-            "have",
-            "canBeDoQuestion",
-            "canBeQuestion",
-            "property",
-            "theAble",
-            "listable",
-            "propertyOf",
-            "whose",
             "concept",
+            "theAble",
+            "queryable",
             "modifies",
             "verb",
             "doubleQuote",
@@ -585,16 +564,23 @@
             "a",
             "article",
             "the",
+            "what",
             "whatAble",
             "negatable",
             "is",
+            "canBeQuestion",
             "toAble",
+            "listable",
             "to",
+            "preposition",
             "isQuery",
             "reason",
             "orAble",
             "ifAble",
+            "delete",
             "memorable",
+            "deletable",
+            "recall",
             "remember",
             "stm_previous",
             "adjective",
@@ -614,12 +600,12 @@
             "a": [
               "article"
             ],
-            "between": [
-              "preposition"
-            ],
             "concept": [
               "theAble",
               "queryable"
+            ],
+            "delete": [
+              "verb"
             ],
             "distributable": [
               "queryable"
@@ -632,13 +618,6 @@
             ],
             "every": [
               "article"
-            ],
-            "have": [
-              "canBeDoQuestion",
-              "canBeQuestion"
-            ],
-            "hierarchyAble": [
-              "queryable"
             ],
             "is": [
               "canBeQuestion",
@@ -657,7 +636,8 @@
               "theAble"
             ],
             "memorable": [
-              "theAble"
+              "theAble",
+              "deletable"
             ],
             "modifies": [
               "verb"
@@ -669,20 +649,8 @@
               "theAble",
               "thisAble"
             ],
-            "object": [
-              "queryable",
-              "theAble",
-              "listable"
-            ],
             "orAble": [
               "ifAble"
-            ],
-            "property": [
-              "queryable",
-              "theAble"
-            ],
-            "propertyOf": [
-              "preposition"
             ],
             "queryable": [
               "listable"
@@ -690,12 +658,12 @@
             "questionMark": [
               "punctuation"
             ],
-            "readonly": [
-              "queryable"
-            ],
             "reason": [
               "theAble",
               "queryable"
+            ],
+            "recall": [
+              "verb"
             ],
             "remember": [
               "verb"
@@ -729,20 +697,10 @@
             "to": [
               "preposition"
             ],
-            "unknown": [
-              "hierarchyAble"
-            ],
             "what": [
-              "object",
               "queryable"
             ],
             "whatAble": [
-              "queryable"
-            ],
-            "whose": [
-              "object"
-            ],
-            "xfx": [
               "queryable"
             ]
           },
@@ -758,13 +716,13 @@
               },
               "article": {
               },
-              "between": {
-              },
-              "canBeDoQuestion": {
-              },
               "canBeQuestion": {
               },
               "concept": {
+              },
+              "deletable": {
+              },
+              "delete": {
               },
               "distributable": {
               },
@@ -779,10 +737,6 @@
                   "has": true,
                   "value": null
                 }
-              },
-              "have": {
-              },
-              "hierarchyAble": {
               },
               "ifAble": {
               },
@@ -802,17 +756,11 @@
               },
               "noun": {
               },
-              "object": {
-              },
               "orAble": {
               },
               "preposition": {
               },
               "pronoun": {
-              },
-              "property": {
-              },
-              "propertyOf": {
               },
               "punctuation": {
               },
@@ -820,9 +768,9 @@
               },
               "questionMark": {
               },
-              "readonly": {
-              },
               "reason": {
+              },
+              "recall": {
               },
               "remember": {
               },
@@ -848,17 +796,11 @@
               },
               "toAble": {
               },
-              "unknown": {
-              },
               "verb": {
               },
               "what": {
               },
               "whatAble": {
-              },
-              "whose": {
-              },
-              "xfx": {
               }
             }
           },
@@ -1150,15 +1092,37 @@
               "marker": "is",
               "number": "one",
               "one": {
-                "concept": true,
-                "dead": true,
-                "determiner": "the",
-                "focusableForPhrase": true,
-                "level": 0,
-                "marker": "property",
-                "modifiers": [
+                "checks": [
                   "determiner"
                 ],
+                "concept": true,
+                "dead": true,
+                "determiner": {
+                  "level": 0,
+                  "marker": "the",
+                  "modifiers": [
+                  ],
+                  "range": {
+                    "end": 38,
+                    "start": 36
+                  },
+                  "text": "the",
+                  "word": "the"
+                },
+                "focusableForPhrase": true,
+                "interpolate": [
+                  {
+                    "property": "property"
+                  },
+                  {
+                    "word": "of"
+                  },
+                  {
+                    "property": "object"
+                  }
+                ],
+                "level": 0,
+                "marker": "property",
                 "number": "one",
                 "object": {
                   "dead": true,
@@ -1179,21 +1143,56 @@
                 },
                 "objects": [
                   {
-                    "concept": true,
-                    "dead": true,
-                    "determiner": "the",
-                    "focusableForPhrase": true,
-                    "level": 0,
-                    "marker": "property",
-                    "modifiers": [
+                    "checks": [
                       "determiner"
                     ],
+                    "concept": true,
+                    "dead": true,
+                    "determiner": {
+                      "level": 0,
+                      "marker": "the",
+                      "modifiers": [
+                      ],
+                      "range": {
+                        "end": 38,
+                        "start": 36
+                      },
+                      "text": "the",
+                      "word": "the"
+                    },
+                    "focusableForPhrase": true,
+                    "interpolate": [
+                      {
+                        "property": "determiner"
+                      },
+                      {
+                        "property": "theable"
+                      }
+                    ],
+                    "level": 0,
+                    "marker": "property",
                     "pullFromContext": true,
                     "range": {
                       "end": 46,
                       "start": 36
                     },
                     "text": "the emotion",
+                    "theable": {
+                      "dead": true,
+                      "level": 0,
+                      "marker": "unknown",
+                      "range": {
+                        "end": 46,
+                        "start": 40
+                      },
+                      "text": "emotion",
+                      "types": [
+                        "unknown"
+                      ],
+                      "unknown": true,
+                      "value": "emotion",
+                      "word": "emotion"
+                    },
                     "types": [
                       "property",
                       "unknown"
@@ -1221,6 +1220,66 @@
                     "word": "sentientbeing1"
                   }
                 ],
+                "property": {
+                  "checks": [
+                    "determiner"
+                  ],
+                  "concept": true,
+                  "dead": true,
+                  "determiner": {
+                    "level": 0,
+                    "marker": "the",
+                    "modifiers": [
+                    ],
+                    "range": {
+                      "end": 38,
+                      "start": 36
+                    },
+                    "text": "the",
+                    "word": "the"
+                  },
+                  "focusableForPhrase": true,
+                  "interpolate": [
+                    {
+                      "property": "determiner"
+                    },
+                    {
+                      "property": "theable"
+                    }
+                  ],
+                  "level": 0,
+                  "marker": "property",
+                  "pullFromContext": true,
+                  "range": {
+                    "end": 46,
+                    "start": 36
+                  },
+                  "text": "the emotion",
+                  "theable": {
+                    "dead": true,
+                    "level": 0,
+                    "marker": "unknown",
+                    "range": {
+                      "end": 46,
+                      "start": 40
+                    },
+                    "text": "emotion",
+                    "types": [
+                      "unknown"
+                    ],
+                    "unknown": true,
+                    "value": "emotion",
+                    "word": "emotion"
+                  },
+                  "types": [
+                    "property",
+                    "unknown"
+                  ],
+                  "unknown": true,
+                  "value": "emotion",
+                  "wantsValue": true,
+                  "word": "emotion"
+                },
                 "propertyOf": true,
                 "pullFromContext": true,
                 "range": {
@@ -1228,6 +1287,22 @@
                   "start": 36
                 },
                 "text": "the emotion of sentientbeing1",
+                "theable": {
+                  "dead": true,
+                  "level": 0,
+                  "marker": "unknown",
+                  "range": {
+                    "end": 46,
+                    "start": 40
+                  },
+                  "text": "emotion",
+                  "types": [
+                    "unknown"
+                  ],
+                  "unknown": true,
+                  "value": "emotion",
+                  "word": "emotion"
+                },
                 "types": [
                   "property",
                   "unknown"
@@ -1268,6 +1343,90 @@
             ],
             "value": "means",
             "word": "means"
+          },
+          "generatedParenthesized": [
+          ],
+          "paraphrases": [
+          ],
+          "paraphrasesParenthesized": [
+          ],
+          "responses": [
+          ]
+        },
+        {
+          "context": {
+            "context_id": null,
+            "context_index": 1,
+            "dead": true,
+            "level": 2,
+            "marker": "is",
+            "number": "one",
+            "one": {
+              "dead": true,
+              "level": 0,
+              "marker": "unknown",
+              "number": "one",
+              "range": {
+                "end": 7,
+                "start": 0
+              },
+              "text": "property",
+              "types": [
+                "queryable",
+                "unknown"
+              ],
+              "unknown": true,
+              "value": "property",
+              "word": "property"
+            },
+            "range": {
+              "end": 20,
+              "start": 0
+            },
+            "text": "property is a concept",
+            "topLevel": true,
+            "touchedBy": [
+              "properties#call2",
+              "instance0#properties#call2",
+              "instance0#hierarchy#call2",
+              "instance0#emotions#call2",
+              "instance0#avatar#call2"
+            ],
+            "two": {
+              "concept": true,
+              "dead": true,
+              "default": true,
+              "determiner": {
+                "default": true,
+                "level": 0,
+                "marker": "a",
+                "range": {
+                  "end": 12,
+                  "start": 12
+                },
+                "text": "a",
+                "word": "a"
+              },
+              "level": 0,
+              "marker": "concept",
+              "modifiers": [
+                "determiner"
+              ],
+              "number": "one",
+              "pullFromContext": false,
+              "range": {
+                "end": 20,
+                "start": 12
+              },
+              "text": "a concept",
+              "types": [
+                "concept"
+              ],
+              "value": "concept",
+              "wantsValue": true,
+              "word": "concept"
+            },
+            "word": "is"
           },
           "generatedParenthesized": [
           ],
@@ -1889,6 +2048,20 @@
         [
           "unknown",
           0
+        ]
+      ],
+      [
+        [
+          "is",
+          0
+        ],
+        [
+          "objectPrefix",
+          0
+        ],
+        [
+          "unknown",
+          0
         ],
         [
           "what",
@@ -1932,6 +2105,7 @@
         "number": "one",
         "one": {
           "dead": true,
+          "isProperty": true,
           "level": 0,
           "marker": "property",
           "number": "one",
@@ -2032,6 +2206,7 @@
           "marker": "is",
           "one": {
             "dead": true,
+            "isProperty": true,
             "level": 0,
             "marker": "property",
             "object": {
@@ -2116,6 +2291,7 @@
             "instance": true,
             "isModule": true,
             "isProcess": true,
+            "isProperty": true,
             "level": 0,
             "marker": "property",
             "objects": [
@@ -2206,6 +2382,7 @@
         ],
         "two": {
           "dead": true,
+          "isProperty": true,
           "level": 0,
           "marker": "property",
           "object": {
@@ -2530,11 +2707,13 @@
         "avatar": "avatar1",
         "concept": "concept2",
         "conjunction": "conjunction2",
+        "control": "control2",
         "dialogues": "dialogues2",
         "emotions": "emotions2",
         "evaluate": "evaluate2",
         "gdefaults": "gdefaults2",
         "hierarchy": "hierarchy2",
+        "logging": "logging2",
         "meta": "meta2",
         "negation": "negation2",
         "pos": "pos2",
@@ -2566,6 +2745,9 @@
         "conjunction2": {
           "km": "conjunction2"
         },
+        "control2": {
+          "km": "control2"
+        },
         "dialogues2": {
           "idSuffix": "",
           "km": "dialogues2",
@@ -2585,6 +2767,11 @@
         },
         "hierarchy2": {
           "km": "hierarchy2"
+        },
+        "logging2": {
+          "km": "logging2",
+          "messages": [
+          ]
         },
         "meta2": {
           "km": "meta2"
@@ -2608,33 +2795,22 @@
               "each",
               "every"
             ],
-            "canBeDoQuestion": [
-              "have"
-            ],
             "canBeQuestion": [
-              "have",
               "is"
             ],
-            "hierarchyAble": [
-              "unknown"
+            "deletable": [
+              "memorable"
             ],
             "ifAble": [
               "orAble"
             ],
             "listable": [
-              "object",
               "queryable"
             ],
             "name": [
               "greg"
             ],
-            "object": [
-              "what",
-              "whose"
-            ],
             "preposition": [
-              "between",
-              "propertyOf",
               "to"
             ],
             "pronoun": [
@@ -2645,11 +2821,6 @@
               "questionMark"
             ],
             "queryable": [
-              "xfx",
-              "hierarchyAble",
-              "readonly",
-              "property",
-              "object",
               "concept",
               "doubleQuote",
               "theAble",
@@ -2663,8 +2834,6 @@
               "thisitthat"
             ],
             "theAble": [
-              "property",
-              "object",
               "concept",
               "listable",
               "reason",
@@ -2686,29 +2855,16 @@
               "modifies",
               "is",
               "isQuery",
+              "delete",
+              "recall",
               "remember"
             ]
           },
           "concepts": [
             "properties",
-            "unknown",
-            "hierarchyAble",
-            "what",
-            "object",
-            "xfx",
-            "queryable",
-            "between",
-            "preposition",
-            "readonly",
-            "have",
-            "canBeDoQuestion",
-            "canBeQuestion",
-            "property",
-            "theAble",
-            "listable",
-            "propertyOf",
-            "whose",
             "concept",
+            "theAble",
+            "queryable",
             "modifies",
             "verb",
             "doubleQuote",
@@ -2720,16 +2876,23 @@
             "a",
             "article",
             "the",
+            "what",
             "whatAble",
             "negatable",
             "is",
+            "canBeQuestion",
             "toAble",
+            "listable",
             "to",
+            "preposition",
             "isQuery",
             "reason",
             "orAble",
             "ifAble",
+            "delete",
             "memorable",
+            "deletable",
+            "recall",
             "remember",
             "stm_previous",
             "adjective",
@@ -2751,12 +2914,12 @@
             "a": [
               "article"
             ],
-            "between": [
-              "preposition"
-            ],
             "concept": [
               "theAble",
               "queryable"
+            ],
+            "delete": [
+              "verb"
             ],
             "distributable": [
               "queryable"
@@ -2772,13 +2935,6 @@
             ],
             "greg": [
               "name"
-            ],
-            "have": [
-              "canBeDoQuestion",
-              "canBeQuestion"
-            ],
-            "hierarchyAble": [
-              "queryable"
             ],
             "is": [
               "canBeQuestion",
@@ -2797,7 +2953,8 @@
               "theAble"
             ],
             "memorable": [
-              "theAble"
+              "theAble",
+              "deletable"
             ],
             "modifies": [
               "verb"
@@ -2809,20 +2966,8 @@
               "theAble",
               "thisAble"
             ],
-            "object": [
-              "queryable",
-              "theAble",
-              "listable"
-            ],
             "orAble": [
               "ifAble"
-            ],
-            "property": [
-              "queryable",
-              "theAble"
-            ],
-            "propertyOf": [
-              "preposition"
             ],
             "queryable": [
               "listable"
@@ -2830,12 +2975,12 @@
             "questionMark": [
               "punctuation"
             ],
-            "readonly": [
-              "queryable"
-            ],
             "reason": [
               "theAble",
               "queryable"
+            ],
+            "recall": [
+              "verb"
             ],
             "remember": [
               "verb"
@@ -2869,20 +3014,10 @@
             "to": [
               "preposition"
             ],
-            "unknown": [
-              "hierarchyAble"
-            ],
             "what": [
-              "object",
               "queryable"
             ],
             "whatAble": [
-              "queryable"
-            ],
-            "whose": [
-              "object"
-            ],
-            "xfx": [
               "queryable"
             ]
           },
@@ -2898,13 +3033,13 @@
               },
               "article": {
               },
-              "between": {
-              },
-              "canBeDoQuestion": {
-              },
               "canBeQuestion": {
               },
               "concept": {
+              },
+              "deletable": {
+              },
+              "delete": {
               },
               "distributable": {
               },
@@ -2915,10 +3050,6 @@
               "every": {
               },
               "greg": {
-              },
-              "have": {
-              },
-              "hierarchyAble": {
               },
               "ifAble": {
               },
@@ -2939,8 +3070,6 @@
               "negatable": {
               },
               "noun": {
-              },
-              "object": {
               },
               "orAble": {
               },
@@ -2970,19 +3099,15 @@
               },
               "pronoun": {
               },
-              "property": {
-              },
-              "propertyOf": {
-              },
               "punctuation": {
               },
               "queryable": {
               },
               "questionMark": {
               },
-              "readonly": {
-              },
               "reason": {
+              },
+              "recall": {
               },
               "remember": {
               },
@@ -3008,17 +3133,11 @@
               },
               "toAble": {
               },
-              "unknown": {
-              },
               "verb": {
               },
               "what": {
               },
               "whatAble": {
-              },
-              "whose": {
-              },
-              "xfx": {
               }
             }
           },
@@ -3088,6 +3207,7 @@
               "marker": "is",
               "one": {
                 "dead": true,
+                "isProperty": true,
                 "level": 0,
                 "marker": "property",
                 "object": {
@@ -3172,6 +3292,7 @@
                 "instance": true,
                 "isModule": true,
                 "isProcess": true,
+                "isProperty": true,
                 "level": 0,
                 "marker": "property",
                 "objects": [
@@ -3262,6 +3383,7 @@
             ],
             "two": {
               "dead": true,
+              "isProperty": true,
               "level": 0,
               "marker": "property",
               "object": {
@@ -3343,6 +3465,7 @@
             "number": "one",
             "one": {
               "dead": true,
+              "isProperty": true,
               "level": 0,
               "marker": "property",
               "number": "one",
@@ -3548,15 +3671,37 @@
               "marker": "is",
               "number": "one",
               "one": {
-                "concept": true,
-                "dead": true,
-                "determiner": "the",
-                "focusableForPhrase": true,
-                "level": 0,
-                "marker": "property",
-                "modifiers": [
+                "checks": [
                   "determiner"
                 ],
+                "concept": true,
+                "dead": true,
+                "determiner": {
+                  "level": 0,
+                  "marker": "the",
+                  "modifiers": [
+                  ],
+                  "range": {
+                    "end": 38,
+                    "start": 36
+                  },
+                  "text": "the",
+                  "word": "the"
+                },
+                "focusableForPhrase": true,
+                "interpolate": [
+                  {
+                    "property": "property"
+                  },
+                  {
+                    "word": "of"
+                  },
+                  {
+                    "property": "object"
+                  }
+                ],
+                "level": 0,
+                "marker": "property",
                 "number": "one",
                 "object": {
                   "dead": true,
@@ -3577,21 +3722,56 @@
                 },
                 "objects": [
                   {
-                    "concept": true,
-                    "dead": true,
-                    "determiner": "the",
-                    "focusableForPhrase": true,
-                    "level": 0,
-                    "marker": "property",
-                    "modifiers": [
+                    "checks": [
                       "determiner"
                     ],
+                    "concept": true,
+                    "dead": true,
+                    "determiner": {
+                      "level": 0,
+                      "marker": "the",
+                      "modifiers": [
+                      ],
+                      "range": {
+                        "end": 38,
+                        "start": 36
+                      },
+                      "text": "the",
+                      "word": "the"
+                    },
+                    "focusableForPhrase": true,
+                    "interpolate": [
+                      {
+                        "property": "determiner"
+                      },
+                      {
+                        "property": "theable"
+                      }
+                    ],
+                    "level": 0,
+                    "marker": "property",
                     "pullFromContext": true,
                     "range": {
                       "end": 46,
                       "start": 36
                     },
                     "text": "the emotion",
+                    "theable": {
+                      "dead": true,
+                      "level": 0,
+                      "marker": "unknown",
+                      "range": {
+                        "end": 46,
+                        "start": 40
+                      },
+                      "text": "emotion",
+                      "types": [
+                        "unknown"
+                      ],
+                      "unknown": true,
+                      "value": "emotion",
+                      "word": "emotion"
+                    },
                     "types": [
                       "property",
                       "unknown"
@@ -3619,6 +3799,66 @@
                     "word": "sentientbeing1"
                   }
                 ],
+                "property": {
+                  "checks": [
+                    "determiner"
+                  ],
+                  "concept": true,
+                  "dead": true,
+                  "determiner": {
+                    "level": 0,
+                    "marker": "the",
+                    "modifiers": [
+                    ],
+                    "range": {
+                      "end": 38,
+                      "start": 36
+                    },
+                    "text": "the",
+                    "word": "the"
+                  },
+                  "focusableForPhrase": true,
+                  "interpolate": [
+                    {
+                      "property": "determiner"
+                    },
+                    {
+                      "property": "theable"
+                    }
+                  ],
+                  "level": 0,
+                  "marker": "property",
+                  "pullFromContext": true,
+                  "range": {
+                    "end": 46,
+                    "start": 36
+                  },
+                  "text": "the emotion",
+                  "theable": {
+                    "dead": true,
+                    "level": 0,
+                    "marker": "unknown",
+                    "range": {
+                      "end": 46,
+                      "start": 40
+                    },
+                    "text": "emotion",
+                    "types": [
+                      "unknown"
+                    ],
+                    "unknown": true,
+                    "value": "emotion",
+                    "word": "emotion"
+                  },
+                  "types": [
+                    "property",
+                    "unknown"
+                  ],
+                  "unknown": true,
+                  "value": "emotion",
+                  "wantsValue": true,
+                  "word": "emotion"
+                },
                 "propertyOf": true,
                 "pullFromContext": true,
                 "range": {
@@ -3626,6 +3866,22 @@
                   "start": 36
                 },
                 "text": "the emotion of sentientbeing1",
+                "theable": {
+                  "dead": true,
+                  "level": 0,
+                  "marker": "unknown",
+                  "range": {
+                    "end": 46,
+                    "start": 40
+                  },
+                  "text": "emotion",
+                  "types": [
+                    "unknown"
+                  ],
+                  "unknown": true,
+                  "value": "emotion",
+                  "word": "emotion"
+                },
                 "types": [
                   "property",
                   "unknown"
@@ -3666,6 +3922,90 @@
             ],
             "value": "means",
             "word": "means"
+          },
+          "generatedParenthesized": [
+          ],
+          "paraphrases": [
+          ],
+          "paraphrasesParenthesized": [
+          ],
+          "responses": [
+          ]
+        },
+        {
+          "context": {
+            "context_id": null,
+            "context_index": 1,
+            "dead": true,
+            "level": 2,
+            "marker": "is",
+            "number": "one",
+            "one": {
+              "dead": true,
+              "level": 0,
+              "marker": "unknown",
+              "number": "one",
+              "range": {
+                "end": 7,
+                "start": 0
+              },
+              "text": "property",
+              "types": [
+                "queryable",
+                "unknown"
+              ],
+              "unknown": true,
+              "value": "property",
+              "word": "property"
+            },
+            "range": {
+              "end": 20,
+              "start": 0
+            },
+            "text": "property is a concept",
+            "topLevel": true,
+            "touchedBy": [
+              "properties#call2",
+              "instance0#properties#call2",
+              "instance0#hierarchy#call2",
+              "instance0#emotions#call2",
+              "instance0#avatar#call2"
+            ],
+            "two": {
+              "concept": true,
+              "dead": true,
+              "default": true,
+              "determiner": {
+                "default": true,
+                "level": 0,
+                "marker": "a",
+                "range": {
+                  "end": 12,
+                  "start": 12
+                },
+                "text": "a",
+                "word": "a"
+              },
+              "level": 0,
+              "marker": "concept",
+              "modifiers": [
+                "determiner"
+              ],
+              "number": "one",
+              "pullFromContext": false,
+              "range": {
+                "end": 20,
+                "start": 12
+              },
+              "text": "a concept",
+              "types": [
+                "concept"
+              ],
+              "value": "concept",
+              "wantsValue": true,
+              "word": "concept"
+            },
+            "word": "is"
           },
           "generatedParenthesized": [
           ],
@@ -4533,15 +4873,37 @@
           "avatar#call2"
         ],
         "two": {
-          "concept": true,
-          "dead": true,
-          "determiner": "the",
-          "focusableForPhrase": true,
-          "level": 0,
-          "marker": "property",
-          "modifiers": [
+          "checks": [
             "determiner"
           ],
+          "concept": true,
+          "dead": true,
+          "determiner": {
+            "level": 0,
+            "marker": "the",
+            "modifiers": [
+            ],
+            "range": {
+              "end": 10,
+              "start": 8
+            },
+            "text": "the",
+            "word": "the"
+          },
+          "focusableForPhrase": true,
+          "interpolate": [
+            {
+              "property": "property"
+            },
+            {
+              "word": "of"
+            },
+            {
+              "property": "object"
+            }
+          ],
+          "level": 0,
+          "marker": "property",
           "object": {
             "dead": true,
             "level": 0,
@@ -4560,21 +4922,56 @@
           },
           "objects": [
             {
-              "concept": true,
-              "dead": true,
-              "determiner": "the",
-              "focusableForPhrase": true,
-              "level": 0,
-              "marker": "property",
-              "modifiers": [
+              "checks": [
                 "determiner"
               ],
+              "concept": true,
+              "dead": true,
+              "determiner": {
+                "level": 0,
+                "marker": "the",
+                "modifiers": [
+                ],
+                "range": {
+                  "end": 10,
+                  "start": 8
+                },
+                "text": "the",
+                "word": "the"
+              },
+              "focusableForPhrase": true,
+              "interpolate": [
+                {
+                  "property": "determiner"
+                },
+                {
+                  "property": "theable"
+                }
+              ],
+              "level": 0,
+              "marker": "property",
               "pullFromContext": true,
               "range": {
                 "end": 15,
                 "start": 8
               },
               "text": "the rank",
+              "theable": {
+                "dead": true,
+                "level": 0,
+                "marker": "unknown",
+                "range": {
+                  "end": 15,
+                  "start": 12
+                },
+                "text": "rank",
+                "types": [
+                  "unknown"
+                ],
+                "unknown": true,
+                "value": "rank",
+                "word": "rank"
+              },
               "types": [
                 "property",
                 "unknown"
@@ -4601,6 +4998,66 @@
               "word": "mccoy"
             }
           ],
+          "property": {
+            "checks": [
+              "determiner"
+            ],
+            "concept": true,
+            "dead": true,
+            "determiner": {
+              "level": 0,
+              "marker": "the",
+              "modifiers": [
+              ],
+              "range": {
+                "end": 10,
+                "start": 8
+              },
+              "text": "the",
+              "word": "the"
+            },
+            "focusableForPhrase": true,
+            "interpolate": [
+              {
+                "property": "determiner"
+              },
+              {
+                "property": "theable"
+              }
+            ],
+            "level": 0,
+            "marker": "property",
+            "pullFromContext": true,
+            "range": {
+              "end": 15,
+              "start": 8
+            },
+            "text": "the rank",
+            "theable": {
+              "dead": true,
+              "level": 0,
+              "marker": "unknown",
+              "range": {
+                "end": 15,
+                "start": 12
+              },
+              "text": "rank",
+              "types": [
+                "unknown"
+              ],
+              "unknown": true,
+              "value": "rank",
+              "word": "rank"
+            },
+            "types": [
+              "property",
+              "unknown"
+            ],
+            "unknown": true,
+            "value": "rank",
+            "wantsValue": true,
+            "word": "rank"
+          },
           "propertyOf": true,
           "pullFromContext": true,
           "range": {
@@ -4608,6 +5065,22 @@
             "start": 8
           },
           "text": "the rank of mccoy",
+          "theable": {
+            "dead": true,
+            "level": 0,
+            "marker": "unknown",
+            "range": {
+              "end": 15,
+              "start": 12
+            },
+            "text": "rank",
+            "types": [
+              "unknown"
+            ],
+            "unknown": true,
+            "value": "rank",
+            "word": "rank"
+          },
           "types": [
             "property",
             "unknown"
@@ -4804,11 +5277,13 @@
         "avatar": "avatar1",
         "concept": "concept2",
         "conjunction": "conjunction2",
+        "control": "control2",
         "dialogues": "dialogues2",
         "emotions": "emotions2",
         "evaluate": "evaluate2",
         "gdefaults": "gdefaults2",
         "hierarchy": "hierarchy2",
+        "logging": "logging2",
         "meta": "meta2",
         "negation": "negation2",
         "pos": "pos2",
@@ -4840,6 +5315,9 @@
         "conjunction2": {
           "km": "conjunction2"
         },
+        "control2": {
+          "km": "control2"
+        },
         "dialogues2": {
           "idSuffix": "",
           "km": "dialogues2",
@@ -4859,6 +5337,11 @@
         },
         "hierarchy2": {
           "km": "hierarchy2"
+        },
+        "logging2": {
+          "km": "logging2",
+          "messages": [
+          ]
         },
         "meta2": {
           "km": "meta2"
@@ -4882,30 +5365,19 @@
               "each",
               "every"
             ],
-            "canBeDoQuestion": [
-              "have"
-            ],
             "canBeQuestion": [
-              "have",
               "is"
             ],
-            "hierarchyAble": [
-              "unknown"
+            "deletable": [
+              "memorable"
             ],
             "ifAble": [
               "orAble"
             ],
             "listable": [
-              "object",
               "queryable"
             ],
-            "object": [
-              "what",
-              "whose"
-            ],
             "preposition": [
-              "between",
-              "propertyOf",
               "to"
             ],
             "pronoun": [
@@ -4916,11 +5388,6 @@
               "questionMark"
             ],
             "queryable": [
-              "xfx",
-              "hierarchyAble",
-              "readonly",
-              "property",
-              "object",
               "concept",
               "doubleQuote",
               "theAble",
@@ -4934,8 +5401,6 @@
               "thisitthat"
             ],
             "theAble": [
-              "property",
-              "object",
               "concept",
               "listable",
               "reason",
@@ -4957,29 +5422,16 @@
               "modifies",
               "is",
               "isQuery",
+              "delete",
+              "recall",
               "remember"
             ]
           },
           "concepts": [
             "properties",
-            "unknown",
-            "hierarchyAble",
-            "what",
-            "object",
-            "xfx",
-            "queryable",
-            "between",
-            "preposition",
-            "readonly",
-            "have",
-            "canBeDoQuestion",
-            "canBeQuestion",
-            "property",
-            "theAble",
-            "listable",
-            "propertyOf",
-            "whose",
             "concept",
+            "theAble",
+            "queryable",
             "modifies",
             "verb",
             "doubleQuote",
@@ -4991,16 +5443,23 @@
             "a",
             "article",
             "the",
+            "what",
             "whatAble",
             "negatable",
             "is",
+            "canBeQuestion",
             "toAble",
+            "listable",
             "to",
+            "preposition",
             "isQuery",
             "reason",
             "orAble",
             "ifAble",
+            "delete",
             "memorable",
+            "deletable",
+            "recall",
             "remember",
             "stm_previous",
             "adjective",
@@ -5019,12 +5478,12 @@
             "a": [
               "article"
             ],
-            "between": [
-              "preposition"
-            ],
             "concept": [
               "theAble",
               "queryable"
+            ],
+            "delete": [
+              "verb"
             ],
             "distributable": [
               "queryable"
@@ -5037,13 +5496,6 @@
             ],
             "every": [
               "article"
-            ],
-            "have": [
-              "canBeDoQuestion",
-              "canBeQuestion"
-            ],
-            "hierarchyAble": [
-              "queryable"
             ],
             "is": [
               "canBeQuestion",
@@ -5062,7 +5514,8 @@
               "theAble"
             ],
             "memorable": [
-              "theAble"
+              "theAble",
+              "deletable"
             ],
             "modifies": [
               "verb"
@@ -5074,20 +5527,8 @@
               "theAble",
               "thisAble"
             ],
-            "object": [
-              "queryable",
-              "theAble",
-              "listable"
-            ],
             "orAble": [
               "ifAble"
-            ],
-            "property": [
-              "queryable",
-              "theAble"
-            ],
-            "propertyOf": [
-              "preposition"
             ],
             "queryable": [
               "listable"
@@ -5095,12 +5536,12 @@
             "questionMark": [
               "punctuation"
             ],
-            "readonly": [
-              "queryable"
-            ],
             "reason": [
               "theAble",
               "queryable"
+            ],
+            "recall": [
+              "verb"
             ],
             "remember": [
               "verb"
@@ -5134,20 +5575,10 @@
             "to": [
               "preposition"
             ],
-            "unknown": [
-              "hierarchyAble"
-            ],
             "what": [
-              "object",
               "queryable"
             ],
             "whatAble": [
-              "queryable"
-            ],
-            "whose": [
-              "object"
-            ],
-            "xfx": [
               "queryable"
             ]
           },
@@ -5163,13 +5594,13 @@
               },
               "article": {
               },
-              "between": {
-              },
-              "canBeDoQuestion": {
-              },
               "canBeQuestion": {
               },
               "concept": {
+              },
+              "deletable": {
+              },
+              "delete": {
               },
               "distributable": {
               },
@@ -5178,10 +5609,6 @@
               "each": {
               },
               "every": {
-              },
-              "have": {
-              },
-              "hierarchyAble": {
               },
               "ifAble": {
               },
@@ -5201,17 +5628,11 @@
               },
               "noun": {
               },
-              "object": {
-              },
               "orAble": {
               },
               "preposition": {
               },
               "pronoun": {
-              },
-              "property": {
-              },
-              "propertyOf": {
               },
               "punctuation": {
               },
@@ -5219,9 +5640,9 @@
               },
               "questionMark": {
               },
-              "readonly": {
-              },
               "reason": {
+              },
+              "recall": {
               },
               "remember": {
               },
@@ -5247,17 +5668,11 @@
               },
               "toAble": {
               },
-              "unknown": {
-              },
               "verb": {
               },
               "what": {
               },
               "whatAble": {
-              },
-              "whose": {
-              },
-              "xfx": {
               }
             }
           },
@@ -5340,15 +5755,37 @@
               "avatar#call2"
             ],
             "two": {
-              "concept": true,
-              "dead": true,
-              "determiner": "the",
-              "focusableForPhrase": true,
-              "level": 0,
-              "marker": "property",
-              "modifiers": [
+              "checks": [
                 "determiner"
               ],
+              "concept": true,
+              "dead": true,
+              "determiner": {
+                "level": 0,
+                "marker": "the",
+                "modifiers": [
+                ],
+                "range": {
+                  "end": 10,
+                  "start": 8
+                },
+                "text": "the",
+                "word": "the"
+              },
+              "focusableForPhrase": true,
+              "interpolate": [
+                {
+                  "property": "property"
+                },
+                {
+                  "word": "of"
+                },
+                {
+                  "property": "object"
+                }
+              ],
+              "level": 0,
+              "marker": "property",
               "object": {
                 "dead": true,
                 "level": 0,
@@ -5367,21 +5804,56 @@
               },
               "objects": [
                 {
-                  "concept": true,
-                  "dead": true,
-                  "determiner": "the",
-                  "focusableForPhrase": true,
-                  "level": 0,
-                  "marker": "property",
-                  "modifiers": [
+                  "checks": [
                     "determiner"
                   ],
+                  "concept": true,
+                  "dead": true,
+                  "determiner": {
+                    "level": 0,
+                    "marker": "the",
+                    "modifiers": [
+                    ],
+                    "range": {
+                      "end": 10,
+                      "start": 8
+                    },
+                    "text": "the",
+                    "word": "the"
+                  },
+                  "focusableForPhrase": true,
+                  "interpolate": [
+                    {
+                      "property": "determiner"
+                    },
+                    {
+                      "property": "theable"
+                    }
+                  ],
+                  "level": 0,
+                  "marker": "property",
                   "pullFromContext": true,
                   "range": {
                     "end": 15,
                     "start": 8
                   },
                   "text": "the rank",
+                  "theable": {
+                    "dead": true,
+                    "level": 0,
+                    "marker": "unknown",
+                    "range": {
+                      "end": 15,
+                      "start": 12
+                    },
+                    "text": "rank",
+                    "types": [
+                      "unknown"
+                    ],
+                    "unknown": true,
+                    "value": "rank",
+                    "word": "rank"
+                  },
                   "types": [
                     "property",
                     "unknown"
@@ -5408,6 +5880,66 @@
                   "word": "mccoy"
                 }
               ],
+              "property": {
+                "checks": [
+                  "determiner"
+                ],
+                "concept": true,
+                "dead": true,
+                "determiner": {
+                  "level": 0,
+                  "marker": "the",
+                  "modifiers": [
+                  ],
+                  "range": {
+                    "end": 10,
+                    "start": 8
+                  },
+                  "text": "the",
+                  "word": "the"
+                },
+                "focusableForPhrase": true,
+                "interpolate": [
+                  {
+                    "property": "determiner"
+                  },
+                  {
+                    "property": "theable"
+                  }
+                ],
+                "level": 0,
+                "marker": "property",
+                "pullFromContext": true,
+                "range": {
+                  "end": 15,
+                  "start": 8
+                },
+                "text": "the rank",
+                "theable": {
+                  "dead": true,
+                  "level": 0,
+                  "marker": "unknown",
+                  "range": {
+                    "end": 15,
+                    "start": 12
+                  },
+                  "text": "rank",
+                  "types": [
+                    "unknown"
+                  ],
+                  "unknown": true,
+                  "value": "rank",
+                  "word": "rank"
+                },
+                "types": [
+                  "property",
+                  "unknown"
+                ],
+                "unknown": true,
+                "value": "rank",
+                "wantsValue": true,
+                "word": "rank"
+              },
               "propertyOf": true,
               "pullFromContext": true,
               "range": {
@@ -5415,6 +5947,22 @@
                 "start": 8
               },
               "text": "the rank of mccoy",
+              "theable": {
+                "dead": true,
+                "level": 0,
+                "marker": "unknown",
+                "range": {
+                  "end": 15,
+                  "start": 12
+                },
+                "text": "rank",
+                "types": [
+                  "unknown"
+                ],
+                "unknown": true,
+                "value": "rank",
+                "word": "rank"
+              },
               "types": [
                 "property",
                 "unknown"
@@ -5543,15 +6091,37 @@
               "marker": "is",
               "number": "one",
               "one": {
-                "concept": true,
-                "dead": true,
-                "determiner": "the",
-                "focusableForPhrase": true,
-                "level": 0,
-                "marker": "property",
-                "modifiers": [
+                "checks": [
                   "determiner"
                 ],
+                "concept": true,
+                "dead": true,
+                "determiner": {
+                  "level": 0,
+                  "marker": "the",
+                  "modifiers": [
+                  ],
+                  "range": {
+                    "end": 38,
+                    "start": 36
+                  },
+                  "text": "the",
+                  "word": "the"
+                },
+                "focusableForPhrase": true,
+                "interpolate": [
+                  {
+                    "property": "property"
+                  },
+                  {
+                    "word": "of"
+                  },
+                  {
+                    "property": "object"
+                  }
+                ],
+                "level": 0,
+                "marker": "property",
                 "number": "one",
                 "object": {
                   "dead": true,
@@ -5572,21 +6142,56 @@
                 },
                 "objects": [
                   {
-                    "concept": true,
-                    "dead": true,
-                    "determiner": "the",
-                    "focusableForPhrase": true,
-                    "level": 0,
-                    "marker": "property",
-                    "modifiers": [
+                    "checks": [
                       "determiner"
                     ],
+                    "concept": true,
+                    "dead": true,
+                    "determiner": {
+                      "level": 0,
+                      "marker": "the",
+                      "modifiers": [
+                      ],
+                      "range": {
+                        "end": 38,
+                        "start": 36
+                      },
+                      "text": "the",
+                      "word": "the"
+                    },
+                    "focusableForPhrase": true,
+                    "interpolate": [
+                      {
+                        "property": "determiner"
+                      },
+                      {
+                        "property": "theable"
+                      }
+                    ],
+                    "level": 0,
+                    "marker": "property",
                     "pullFromContext": true,
                     "range": {
                       "end": 46,
                       "start": 36
                     },
                     "text": "the emotion",
+                    "theable": {
+                      "dead": true,
+                      "level": 0,
+                      "marker": "unknown",
+                      "range": {
+                        "end": 46,
+                        "start": 40
+                      },
+                      "text": "emotion",
+                      "types": [
+                        "unknown"
+                      ],
+                      "unknown": true,
+                      "value": "emotion",
+                      "word": "emotion"
+                    },
                     "types": [
                       "property",
                       "unknown"
@@ -5614,6 +6219,66 @@
                     "word": "sentientbeing1"
                   }
                 ],
+                "property": {
+                  "checks": [
+                    "determiner"
+                  ],
+                  "concept": true,
+                  "dead": true,
+                  "determiner": {
+                    "level": 0,
+                    "marker": "the",
+                    "modifiers": [
+                    ],
+                    "range": {
+                      "end": 38,
+                      "start": 36
+                    },
+                    "text": "the",
+                    "word": "the"
+                  },
+                  "focusableForPhrase": true,
+                  "interpolate": [
+                    {
+                      "property": "determiner"
+                    },
+                    {
+                      "property": "theable"
+                    }
+                  ],
+                  "level": 0,
+                  "marker": "property",
+                  "pullFromContext": true,
+                  "range": {
+                    "end": 46,
+                    "start": 36
+                  },
+                  "text": "the emotion",
+                  "theable": {
+                    "dead": true,
+                    "level": 0,
+                    "marker": "unknown",
+                    "range": {
+                      "end": 46,
+                      "start": 40
+                    },
+                    "text": "emotion",
+                    "types": [
+                      "unknown"
+                    ],
+                    "unknown": true,
+                    "value": "emotion",
+                    "word": "emotion"
+                  },
+                  "types": [
+                    "property",
+                    "unknown"
+                  ],
+                  "unknown": true,
+                  "value": "emotion",
+                  "wantsValue": true,
+                  "word": "emotion"
+                },
                 "propertyOf": true,
                 "pullFromContext": true,
                 "range": {
@@ -5621,6 +6286,22 @@
                   "start": 36
                 },
                 "text": "the emotion of sentientbeing1",
+                "theable": {
+                  "dead": true,
+                  "level": 0,
+                  "marker": "unknown",
+                  "range": {
+                    "end": 46,
+                    "start": 40
+                  },
+                  "text": "emotion",
+                  "types": [
+                    "unknown"
+                  ],
+                  "unknown": true,
+                  "value": "emotion",
+                  "word": "emotion"
+                },
                 "types": [
                   "property",
                   "unknown"
@@ -5670,6 +6351,90 @@
           ],
           "responses": [
           ]
+        },
+        {
+          "context": {
+            "context_id": null,
+            "context_index": 1,
+            "dead": true,
+            "level": 2,
+            "marker": "is",
+            "number": "one",
+            "one": {
+              "dead": true,
+              "level": 0,
+              "marker": "unknown",
+              "number": "one",
+              "range": {
+                "end": 7,
+                "start": 0
+              },
+              "text": "property",
+              "types": [
+                "queryable",
+                "unknown"
+              ],
+              "unknown": true,
+              "value": "property",
+              "word": "property"
+            },
+            "range": {
+              "end": 20,
+              "start": 0
+            },
+            "text": "property is a concept",
+            "topLevel": true,
+            "touchedBy": [
+              "properties#call2",
+              "instance0#properties#call2",
+              "instance0#hierarchy#call2",
+              "instance0#emotions#call2",
+              "instance0#avatar#call2"
+            ],
+            "two": {
+              "concept": true,
+              "dead": true,
+              "default": true,
+              "determiner": {
+                "default": true,
+                "level": 0,
+                "marker": "a",
+                "range": {
+                  "end": 12,
+                  "start": 12
+                },
+                "text": "a",
+                "word": "a"
+              },
+              "level": 0,
+              "marker": "concept",
+              "modifiers": [
+                "determiner"
+              ],
+              "number": "one",
+              "pullFromContext": false,
+              "range": {
+                "end": 20,
+                "start": 12
+              },
+              "text": "a concept",
+              "types": [
+                "concept"
+              ],
+              "value": "concept",
+              "wantsValue": true,
+              "word": "concept"
+            },
+            "word": "is"
+          },
+          "generatedParenthesized": [
+          ],
+          "paraphrases": [
+          ],
+          "paraphrasesParenthesized": [
+          ],
+          "responses": [
+          ]
         }
       ]
     },
@@ -5677,7 +6442,7 @@
       "what is the rank of mccoy?"
     ],
     "paraphrasesParenthesized": [
-      "(((what) is ((the (rank)) of (mccoy)))?)"
+      "(((what) is ((((the)) (rank)) of (mccoy)))?)"
     ],
     "query": "what is the rank of mccoy",
     "responses": [
@@ -6254,11 +7019,13 @@
         "avatar": "avatar1",
         "concept": "concept2",
         "conjunction": "conjunction2",
+        "control": "control2",
         "dialogues": "dialogues2",
         "emotions": "emotions2",
         "evaluate": "evaluate2",
         "gdefaults": "gdefaults2",
         "hierarchy": "hierarchy2",
+        "logging": "logging2",
         "meta": "meta2",
         "negation": "negation2",
         "pos": "pos2",
@@ -6290,6 +7057,9 @@
         "conjunction2": {
           "km": "conjunction2"
         },
+        "control2": {
+          "km": "control2"
+        },
         "dialogues2": {
           "idSuffix": "",
           "km": "dialogues2",
@@ -6309,6 +7079,11 @@
         },
         "hierarchy2": {
           "km": "hierarchy2"
+        },
+        "logging2": {
+          "km": "logging2",
+          "messages": [
+          ]
         },
         "meta2": {
           "km": "meta2"
@@ -6332,30 +7107,19 @@
               "each",
               "every"
             ],
-            "canBeDoQuestion": [
-              "have"
-            ],
             "canBeQuestion": [
-              "have",
               "is"
             ],
-            "hierarchyAble": [
-              "unknown"
+            "deletable": [
+              "memorable"
             ],
             "ifAble": [
               "orAble"
             ],
             "listable": [
-              "object",
               "queryable"
             ],
-            "object": [
-              "what",
-              "whose"
-            ],
             "preposition": [
-              "between",
-              "propertyOf",
               "to"
             ],
             "pronoun": [
@@ -6366,11 +7130,6 @@
               "questionMark"
             ],
             "queryable": [
-              "xfx",
-              "hierarchyAble",
-              "readonly",
-              "property",
-              "object",
               "concept",
               "doubleQuote",
               "theAble",
@@ -6384,8 +7143,6 @@
               "thisitthat"
             ],
             "theAble": [
-              "property",
-              "object",
               "concept",
               "listable",
               "reason",
@@ -6407,29 +7164,16 @@
               "modifies",
               "is",
               "isQuery",
+              "delete",
+              "recall",
               "remember"
             ]
           },
           "concepts": [
             "properties",
-            "unknown",
-            "hierarchyAble",
-            "what",
-            "object",
-            "xfx",
-            "queryable",
-            "between",
-            "preposition",
-            "readonly",
-            "have",
-            "canBeDoQuestion",
-            "canBeQuestion",
-            "property",
-            "theAble",
-            "listable",
-            "propertyOf",
-            "whose",
             "concept",
+            "theAble",
+            "queryable",
             "modifies",
             "verb",
             "doubleQuote",
@@ -6441,16 +7185,23 @@
             "a",
             "article",
             "the",
+            "what",
             "whatAble",
             "negatable",
             "is",
+            "canBeQuestion",
             "toAble",
+            "listable",
             "to",
+            "preposition",
             "isQuery",
             "reason",
             "orAble",
             "ifAble",
+            "delete",
             "memorable",
+            "deletable",
+            "recall",
             "remember",
             "stm_previous",
             "adjective",
@@ -6469,12 +7220,12 @@
             "a": [
               "article"
             ],
-            "between": [
-              "preposition"
-            ],
             "concept": [
               "theAble",
               "queryable"
+            ],
+            "delete": [
+              "verb"
             ],
             "distributable": [
               "queryable"
@@ -6487,13 +7238,6 @@
             ],
             "every": [
               "article"
-            ],
-            "have": [
-              "canBeDoQuestion",
-              "canBeQuestion"
-            ],
-            "hierarchyAble": [
-              "queryable"
             ],
             "is": [
               "canBeQuestion",
@@ -6512,7 +7256,8 @@
               "theAble"
             ],
             "memorable": [
-              "theAble"
+              "theAble",
+              "deletable"
             ],
             "modifies": [
               "verb"
@@ -6524,20 +7269,8 @@
               "theAble",
               "thisAble"
             ],
-            "object": [
-              "queryable",
-              "theAble",
-              "listable"
-            ],
             "orAble": [
               "ifAble"
-            ],
-            "property": [
-              "queryable",
-              "theAble"
-            ],
-            "propertyOf": [
-              "preposition"
             ],
             "queryable": [
               "listable"
@@ -6545,12 +7278,12 @@
             "questionMark": [
               "punctuation"
             ],
-            "readonly": [
-              "queryable"
-            ],
             "reason": [
               "theAble",
               "queryable"
+            ],
+            "recall": [
+              "verb"
             ],
             "remember": [
               "verb"
@@ -6584,20 +7317,10 @@
             "to": [
               "preposition"
             ],
-            "unknown": [
-              "hierarchyAble"
-            ],
             "what": [
-              "object",
               "queryable"
             ],
             "whatAble": [
-              "queryable"
-            ],
-            "whose": [
-              "object"
-            ],
-            "xfx": [
               "queryable"
             ]
           },
@@ -6613,13 +7336,13 @@
               },
               "article": {
               },
-              "between": {
-              },
-              "canBeDoQuestion": {
-              },
               "canBeQuestion": {
               },
               "concept": {
+              },
+              "deletable": {
+              },
+              "delete": {
               },
               "distributable": {
               },
@@ -6628,10 +7351,6 @@
               "each": {
               },
               "every": {
-              },
-              "have": {
-              },
-              "hierarchyAble": {
               },
               "ifAble": {
               },
@@ -6651,17 +7370,11 @@
               },
               "noun": {
               },
-              "object": {
-              },
               "orAble": {
               },
               "preposition": {
               },
               "pronoun": {
-              },
-              "property": {
-              },
-              "propertyOf": {
               },
               "punctuation": {
               },
@@ -6669,9 +7382,9 @@
               },
               "questionMark": {
               },
-              "readonly": {
-              },
               "reason": {
+              },
+              "recall": {
               },
               "remember": {
               },
@@ -6697,17 +7410,11 @@
               },
               "toAble": {
               },
-              "unknown": {
-              },
               "verb": {
               },
               "what": {
               },
               "whatAble": {
-              },
-              "whose": {
-              },
-              "xfx": {
               }
             }
           },
@@ -6731,6 +7438,7 @@
           "km": "stm2",
           "mentioned": [
             {
+              "evaluate": false,
               "fromSTM": true,
               "isVariable": true,
               "marker": "self",
@@ -6932,15 +7640,37 @@
               "marker": "is",
               "number": "one",
               "one": {
-                "concept": true,
-                "dead": true,
-                "determiner": "the",
-                "focusableForPhrase": true,
-                "level": 0,
-                "marker": "property",
-                "modifiers": [
+                "checks": [
                   "determiner"
                 ],
+                "concept": true,
+                "dead": true,
+                "determiner": {
+                  "level": 0,
+                  "marker": "the",
+                  "modifiers": [
+                  ],
+                  "range": {
+                    "end": 38,
+                    "start": 36
+                  },
+                  "text": "the",
+                  "word": "the"
+                },
+                "focusableForPhrase": true,
+                "interpolate": [
+                  {
+                    "property": "property"
+                  },
+                  {
+                    "word": "of"
+                  },
+                  {
+                    "property": "object"
+                  }
+                ],
+                "level": 0,
+                "marker": "property",
                 "number": "one",
                 "object": {
                   "dead": true,
@@ -6961,21 +7691,56 @@
                 },
                 "objects": [
                   {
-                    "concept": true,
-                    "dead": true,
-                    "determiner": "the",
-                    "focusableForPhrase": true,
-                    "level": 0,
-                    "marker": "property",
-                    "modifiers": [
+                    "checks": [
                       "determiner"
                     ],
+                    "concept": true,
+                    "dead": true,
+                    "determiner": {
+                      "level": 0,
+                      "marker": "the",
+                      "modifiers": [
+                      ],
+                      "range": {
+                        "end": 38,
+                        "start": 36
+                      },
+                      "text": "the",
+                      "word": "the"
+                    },
+                    "focusableForPhrase": true,
+                    "interpolate": [
+                      {
+                        "property": "determiner"
+                      },
+                      {
+                        "property": "theable"
+                      }
+                    ],
+                    "level": 0,
+                    "marker": "property",
                     "pullFromContext": true,
                     "range": {
                       "end": 46,
                       "start": 36
                     },
                     "text": "the emotion",
+                    "theable": {
+                      "dead": true,
+                      "level": 0,
+                      "marker": "unknown",
+                      "range": {
+                        "end": 46,
+                        "start": 40
+                      },
+                      "text": "emotion",
+                      "types": [
+                        "unknown"
+                      ],
+                      "unknown": true,
+                      "value": "emotion",
+                      "word": "emotion"
+                    },
                     "types": [
                       "property",
                       "unknown"
@@ -7003,6 +7768,66 @@
                     "word": "sentientbeing1"
                   }
                 ],
+                "property": {
+                  "checks": [
+                    "determiner"
+                  ],
+                  "concept": true,
+                  "dead": true,
+                  "determiner": {
+                    "level": 0,
+                    "marker": "the",
+                    "modifiers": [
+                    ],
+                    "range": {
+                      "end": 38,
+                      "start": 36
+                    },
+                    "text": "the",
+                    "word": "the"
+                  },
+                  "focusableForPhrase": true,
+                  "interpolate": [
+                    {
+                      "property": "determiner"
+                    },
+                    {
+                      "property": "theable"
+                    }
+                  ],
+                  "level": 0,
+                  "marker": "property",
+                  "pullFromContext": true,
+                  "range": {
+                    "end": 46,
+                    "start": 36
+                  },
+                  "text": "the emotion",
+                  "theable": {
+                    "dead": true,
+                    "level": 0,
+                    "marker": "unknown",
+                    "range": {
+                      "end": 46,
+                      "start": 40
+                    },
+                    "text": "emotion",
+                    "types": [
+                      "unknown"
+                    ],
+                    "unknown": true,
+                    "value": "emotion",
+                    "word": "emotion"
+                  },
+                  "types": [
+                    "property",
+                    "unknown"
+                  ],
+                  "unknown": true,
+                  "value": "emotion",
+                  "wantsValue": true,
+                  "word": "emotion"
+                },
                 "propertyOf": true,
                 "pullFromContext": true,
                 "range": {
@@ -7010,6 +7835,22 @@
                   "start": 36
                 },
                 "text": "the emotion of sentientbeing1",
+                "theable": {
+                  "dead": true,
+                  "level": 0,
+                  "marker": "unknown",
+                  "range": {
+                    "end": 46,
+                    "start": 40
+                  },
+                  "text": "emotion",
+                  "types": [
+                    "unknown"
+                  ],
+                  "unknown": true,
+                  "value": "emotion",
+                  "word": "emotion"
+                },
                 "types": [
                   "property",
                   "unknown"
@@ -7050,6 +7891,90 @@
             ],
             "value": "means",
             "word": "means"
+          },
+          "generatedParenthesized": [
+          ],
+          "paraphrases": [
+          ],
+          "paraphrasesParenthesized": [
+          ],
+          "responses": [
+          ]
+        },
+        {
+          "context": {
+            "context_id": null,
+            "context_index": 1,
+            "dead": true,
+            "level": 2,
+            "marker": "is",
+            "number": "one",
+            "one": {
+              "dead": true,
+              "level": 0,
+              "marker": "unknown",
+              "number": "one",
+              "range": {
+                "end": 7,
+                "start": 0
+              },
+              "text": "property",
+              "types": [
+                "queryable",
+                "unknown"
+              ],
+              "unknown": true,
+              "value": "property",
+              "word": "property"
+            },
+            "range": {
+              "end": 20,
+              "start": 0
+            },
+            "text": "property is a concept",
+            "topLevel": true,
+            "touchedBy": [
+              "properties#call2",
+              "instance0#properties#call2",
+              "instance0#hierarchy#call2",
+              "instance0#emotions#call2",
+              "instance0#avatar#call2"
+            ],
+            "two": {
+              "concept": true,
+              "dead": true,
+              "default": true,
+              "determiner": {
+                "default": true,
+                "level": 0,
+                "marker": "a",
+                "range": {
+                  "end": 12,
+                  "start": 12
+                },
+                "text": "a",
+                "word": "a"
+              },
+              "level": 0,
+              "marker": "concept",
+              "modifiers": [
+                "determiner"
+              ],
+              "number": "one",
+              "pullFromContext": false,
+              "range": {
+                "end": 20,
+                "start": 12
+              },
+              "text": "a concept",
+              "types": [
+                "concept"
+              ],
+              "value": "concept",
+              "wantsValue": true,
+              "word": "concept"
+            },
+            "word": "is"
           },
           "generatedParenthesized": [
           ],
@@ -7318,11 +8243,13 @@
         "avatar": "avatar1",
         "concept": "concept2",
         "conjunction": "conjunction2",
+        "control": "control2",
         "dialogues": "dialogues2",
         "emotions": "emotions2",
         "evaluate": "evaluate2",
         "gdefaults": "gdefaults2",
         "hierarchy": "hierarchy2",
+        "logging": "logging2",
         "meta": "meta2",
         "negation": "negation2",
         "pos": "pos2",
@@ -7354,6 +8281,9 @@
         "conjunction2": {
           "km": "conjunction2"
         },
+        "control2": {
+          "km": "control2"
+        },
         "dialogues2": {
           "idSuffix": "",
           "km": "dialogues2",
@@ -7373,6 +8303,11 @@
         },
         "hierarchy2": {
           "km": "hierarchy2"
+        },
+        "logging2": {
+          "km": "logging2",
+          "messages": [
+          ]
         },
         "meta2": {
           "km": "meta2"
@@ -7396,30 +8331,19 @@
               "each",
               "every"
             ],
-            "canBeDoQuestion": [
-              "have"
-            ],
             "canBeQuestion": [
-              "have",
               "is"
             ],
-            "hierarchyAble": [
-              "unknown"
+            "deletable": [
+              "memorable"
             ],
             "ifAble": [
               "orAble"
             ],
             "listable": [
-              "object",
               "queryable"
             ],
-            "object": [
-              "what",
-              "whose"
-            ],
             "preposition": [
-              "between",
-              "propertyOf",
               "to"
             ],
             "pronoun": [
@@ -7430,11 +8354,6 @@
               "questionMark"
             ],
             "queryable": [
-              "xfx",
-              "hierarchyAble",
-              "readonly",
-              "property",
-              "object",
               "concept",
               "doubleQuote",
               "theAble",
@@ -7448,8 +8367,6 @@
               "thisitthat"
             ],
             "theAble": [
-              "property",
-              "object",
               "concept",
               "listable",
               "reason",
@@ -7471,29 +8388,16 @@
               "modifies",
               "is",
               "isQuery",
+              "delete",
+              "recall",
               "remember"
             ]
           },
           "concepts": [
             "properties",
-            "unknown",
-            "hierarchyAble",
-            "what",
-            "object",
-            "xfx",
-            "queryable",
-            "between",
-            "preposition",
-            "readonly",
-            "have",
-            "canBeDoQuestion",
-            "canBeQuestion",
-            "property",
-            "theAble",
-            "listable",
-            "propertyOf",
-            "whose",
             "concept",
+            "theAble",
+            "queryable",
             "modifies",
             "verb",
             "doubleQuote",
@@ -7505,16 +8409,23 @@
             "a",
             "article",
             "the",
+            "what",
             "whatAble",
             "negatable",
             "is",
+            "canBeQuestion",
             "toAble",
+            "listable",
             "to",
+            "preposition",
             "isQuery",
             "reason",
             "orAble",
             "ifAble",
+            "delete",
             "memorable",
+            "deletable",
+            "recall",
             "remember",
             "stm_previous",
             "adjective",
@@ -7533,12 +8444,12 @@
             "a": [
               "article"
             ],
-            "between": [
-              "preposition"
-            ],
             "concept": [
               "theAble",
               "queryable"
+            ],
+            "delete": [
+              "verb"
             ],
             "distributable": [
               "queryable"
@@ -7551,13 +8462,6 @@
             ],
             "every": [
               "article"
-            ],
-            "have": [
-              "canBeDoQuestion",
-              "canBeQuestion"
-            ],
-            "hierarchyAble": [
-              "queryable"
             ],
             "is": [
               "canBeQuestion",
@@ -7576,7 +8480,8 @@
               "theAble"
             ],
             "memorable": [
-              "theAble"
+              "theAble",
+              "deletable"
             ],
             "modifies": [
               "verb"
@@ -7588,20 +8493,8 @@
               "theAble",
               "thisAble"
             ],
-            "object": [
-              "queryable",
-              "theAble",
-              "listable"
-            ],
             "orAble": [
               "ifAble"
-            ],
-            "property": [
-              "queryable",
-              "theAble"
-            ],
-            "propertyOf": [
-              "preposition"
             ],
             "queryable": [
               "listable"
@@ -7609,12 +8502,12 @@
             "questionMark": [
               "punctuation"
             ],
-            "readonly": [
-              "queryable"
-            ],
             "reason": [
               "theAble",
               "queryable"
+            ],
+            "recall": [
+              "verb"
             ],
             "remember": [
               "verb"
@@ -7648,20 +8541,10 @@
             "to": [
               "preposition"
             ],
-            "unknown": [
-              "hierarchyAble"
-            ],
             "what": [
-              "object",
               "queryable"
             ],
             "whatAble": [
-              "queryable"
-            ],
-            "whose": [
-              "object"
-            ],
-            "xfx": [
               "queryable"
             ]
           },
@@ -7677,13 +8560,13 @@
               },
               "article": {
               },
-              "between": {
-              },
-              "canBeDoQuestion": {
-              },
               "canBeQuestion": {
               },
               "concept": {
+              },
+              "deletable": {
+              },
+              "delete": {
               },
               "distributable": {
               },
@@ -7692,10 +8575,6 @@
               "each": {
               },
               "every": {
-              },
-              "have": {
-              },
-              "hierarchyAble": {
               },
               "ifAble": {
               },
@@ -7715,17 +8594,11 @@
               },
               "noun": {
               },
-              "object": {
-              },
               "orAble": {
               },
               "preposition": {
               },
               "pronoun": {
-              },
-              "property": {
-              },
-              "propertyOf": {
               },
               "punctuation": {
               },
@@ -7733,9 +8606,9 @@
               },
               "questionMark": {
               },
-              "readonly": {
-              },
               "reason": {
+              },
+              "recall": {
               },
               "remember": {
               },
@@ -7761,17 +8634,11 @@
               },
               "toAble": {
               },
-              "unknown": {
-              },
               "verb": {
               },
               "what": {
               },
               "whatAble": {
-              },
-              "whose": {
-              },
-              "xfx": {
               }
             }
           },
@@ -7795,6 +8662,7 @@
           "km": "stm2",
           "mentioned": [
             {
+              "evaluate": false,
               "fromSTM": true,
               "isVariable": true,
               "marker": "self",
@@ -7996,15 +8864,37 @@
               "marker": "is",
               "number": "one",
               "one": {
-                "concept": true,
-                "dead": true,
-                "determiner": "the",
-                "focusableForPhrase": true,
-                "level": 0,
-                "marker": "property",
-                "modifiers": [
+                "checks": [
                   "determiner"
                 ],
+                "concept": true,
+                "dead": true,
+                "determiner": {
+                  "level": 0,
+                  "marker": "the",
+                  "modifiers": [
+                  ],
+                  "range": {
+                    "end": 38,
+                    "start": 36
+                  },
+                  "text": "the",
+                  "word": "the"
+                },
+                "focusableForPhrase": true,
+                "interpolate": [
+                  {
+                    "property": "property"
+                  },
+                  {
+                    "word": "of"
+                  },
+                  {
+                    "property": "object"
+                  }
+                ],
+                "level": 0,
+                "marker": "property",
                 "number": "one",
                 "object": {
                   "dead": true,
@@ -8025,21 +8915,56 @@
                 },
                 "objects": [
                   {
-                    "concept": true,
-                    "dead": true,
-                    "determiner": "the",
-                    "focusableForPhrase": true,
-                    "level": 0,
-                    "marker": "property",
-                    "modifiers": [
+                    "checks": [
                       "determiner"
                     ],
+                    "concept": true,
+                    "dead": true,
+                    "determiner": {
+                      "level": 0,
+                      "marker": "the",
+                      "modifiers": [
+                      ],
+                      "range": {
+                        "end": 38,
+                        "start": 36
+                      },
+                      "text": "the",
+                      "word": "the"
+                    },
+                    "focusableForPhrase": true,
+                    "interpolate": [
+                      {
+                        "property": "determiner"
+                      },
+                      {
+                        "property": "theable"
+                      }
+                    ],
+                    "level": 0,
+                    "marker": "property",
                     "pullFromContext": true,
                     "range": {
                       "end": 46,
                       "start": 36
                     },
                     "text": "the emotion",
+                    "theable": {
+                      "dead": true,
+                      "level": 0,
+                      "marker": "unknown",
+                      "range": {
+                        "end": 46,
+                        "start": 40
+                      },
+                      "text": "emotion",
+                      "types": [
+                        "unknown"
+                      ],
+                      "unknown": true,
+                      "value": "emotion",
+                      "word": "emotion"
+                    },
                     "types": [
                       "property",
                       "unknown"
@@ -8067,6 +8992,66 @@
                     "word": "sentientbeing1"
                   }
                 ],
+                "property": {
+                  "checks": [
+                    "determiner"
+                  ],
+                  "concept": true,
+                  "dead": true,
+                  "determiner": {
+                    "level": 0,
+                    "marker": "the",
+                    "modifiers": [
+                    ],
+                    "range": {
+                      "end": 38,
+                      "start": 36
+                    },
+                    "text": "the",
+                    "word": "the"
+                  },
+                  "focusableForPhrase": true,
+                  "interpolate": [
+                    {
+                      "property": "determiner"
+                    },
+                    {
+                      "property": "theable"
+                    }
+                  ],
+                  "level": 0,
+                  "marker": "property",
+                  "pullFromContext": true,
+                  "range": {
+                    "end": 46,
+                    "start": 36
+                  },
+                  "text": "the emotion",
+                  "theable": {
+                    "dead": true,
+                    "level": 0,
+                    "marker": "unknown",
+                    "range": {
+                      "end": 46,
+                      "start": 40
+                    },
+                    "text": "emotion",
+                    "types": [
+                      "unknown"
+                    ],
+                    "unknown": true,
+                    "value": "emotion",
+                    "word": "emotion"
+                  },
+                  "types": [
+                    "property",
+                    "unknown"
+                  ],
+                  "unknown": true,
+                  "value": "emotion",
+                  "wantsValue": true,
+                  "word": "emotion"
+                },
                 "propertyOf": true,
                 "pullFromContext": true,
                 "range": {
@@ -8074,6 +9059,22 @@
                   "start": 36
                 },
                 "text": "the emotion of sentientbeing1",
+                "theable": {
+                  "dead": true,
+                  "level": 0,
+                  "marker": "unknown",
+                  "range": {
+                    "end": 46,
+                    "start": 40
+                  },
+                  "text": "emotion",
+                  "types": [
+                    "unknown"
+                  ],
+                  "unknown": true,
+                  "value": "emotion",
+                  "word": "emotion"
+                },
                 "types": [
                   "property",
                   "unknown"
@@ -8114,6 +9115,90 @@
             ],
             "value": "means",
             "word": "means"
+          },
+          "generatedParenthesized": [
+          ],
+          "paraphrases": [
+          ],
+          "paraphrasesParenthesized": [
+          ],
+          "responses": [
+          ]
+        },
+        {
+          "context": {
+            "context_id": null,
+            "context_index": 1,
+            "dead": true,
+            "level": 2,
+            "marker": "is",
+            "number": "one",
+            "one": {
+              "dead": true,
+              "level": 0,
+              "marker": "unknown",
+              "number": "one",
+              "range": {
+                "end": 7,
+                "start": 0
+              },
+              "text": "property",
+              "types": [
+                "queryable",
+                "unknown"
+              ],
+              "unknown": true,
+              "value": "property",
+              "word": "property"
+            },
+            "range": {
+              "end": 20,
+              "start": 0
+            },
+            "text": "property is a concept",
+            "topLevel": true,
+            "touchedBy": [
+              "properties#call2",
+              "instance0#properties#call2",
+              "instance0#hierarchy#call2",
+              "instance0#emotions#call2",
+              "instance0#avatar#call2"
+            ],
+            "two": {
+              "concept": true,
+              "dead": true,
+              "default": true,
+              "determiner": {
+                "default": true,
+                "level": 0,
+                "marker": "a",
+                "range": {
+                  "end": 12,
+                  "start": 12
+                },
+                "text": "a",
+                "word": "a"
+              },
+              "level": 0,
+              "marker": "concept",
+              "modifiers": [
+                "determiner"
+              ],
+              "number": "one",
+              "pullFromContext": false,
+              "range": {
+                "end": 20,
+                "start": 12
+              },
+              "text": "a concept",
+              "types": [
+                "concept"
+              ],
+              "value": "concept",
+              "wantsValue": true,
+              "word": "concept"
+            },
+            "word": "is"
           },
           "generatedParenthesized": [
           ],
@@ -8272,6 +9357,20 @@
         [
           "unknown",
           0
+        ]
+      ],
+      [
+        [
+          "is",
+          0
+        ],
+        [
+          "objectPrefix",
+          0
+        ],
+        [
+          "unknown",
+          0
         ],
         [
           "what",
@@ -8315,6 +9414,7 @@
         "number": "one",
         "one": {
           "dead": true,
+          "isProperty": true,
           "level": 0,
           "marker": "property",
           "number": "one",
@@ -8415,6 +9515,7 @@
           "marker": "is",
           "one": {
             "dead": true,
+            "isProperty": true,
             "level": 0,
             "marker": "property",
             "object": {
@@ -8499,6 +9600,7 @@
             "instance": true,
             "isModule": true,
             "isProcess": true,
+            "isProperty": true,
             "level": 0,
             "marker": "property",
             "objects": [
@@ -8589,6 +9691,7 @@
         ],
         "two": {
           "dead": true,
+          "isProperty": true,
           "level": 0,
           "marker": "property",
           "object": {
@@ -8913,11 +10016,13 @@
         "avatar": "avatar1",
         "concept": "concept2",
         "conjunction": "conjunction2",
+        "control": "control2",
         "dialogues": "dialogues2",
         "emotions": "emotions2",
         "evaluate": "evaluate2",
         "gdefaults": "gdefaults2",
         "hierarchy": "hierarchy2",
+        "logging": "logging2",
         "meta": "meta2",
         "negation": "negation2",
         "pos": "pos2",
@@ -8949,6 +10054,9 @@
         "conjunction2": {
           "km": "conjunction2"
         },
+        "control2": {
+          "km": "control2"
+        },
         "dialogues2": {
           "idSuffix": "",
           "km": "dialogues2",
@@ -8968,6 +10076,11 @@
         },
         "hierarchy2": {
           "km": "hierarchy2"
+        },
+        "logging2": {
+          "km": "logging2",
+          "messages": [
+          ]
         },
         "meta2": {
           "km": "meta2"
@@ -8991,33 +10104,22 @@
               "each",
               "every"
             ],
-            "canBeDoQuestion": [
-              "have"
-            ],
             "canBeQuestion": [
-              "have",
               "is"
             ],
-            "hierarchyAble": [
-              "unknown"
+            "deletable": [
+              "memorable"
             ],
             "ifAble": [
               "orAble"
             ],
             "listable": [
-              "object",
               "queryable"
             ],
             "name": [
               "greg"
             ],
-            "object": [
-              "what",
-              "whose"
-            ],
             "preposition": [
-              "between",
-              "propertyOf",
               "to"
             ],
             "pronoun": [
@@ -9028,11 +10130,6 @@
               "questionMark"
             ],
             "queryable": [
-              "xfx",
-              "hierarchyAble",
-              "readonly",
-              "property",
-              "object",
               "concept",
               "doubleQuote",
               "theAble",
@@ -9046,8 +10143,6 @@
               "thisitthat"
             ],
             "theAble": [
-              "property",
-              "object",
               "concept",
               "listable",
               "reason",
@@ -9069,29 +10164,16 @@
               "modifies",
               "is",
               "isQuery",
+              "delete",
+              "recall",
               "remember"
             ]
           },
           "concepts": [
             "properties",
-            "unknown",
-            "hierarchyAble",
-            "what",
-            "object",
-            "xfx",
-            "queryable",
-            "between",
-            "preposition",
-            "readonly",
-            "have",
-            "canBeDoQuestion",
-            "canBeQuestion",
-            "property",
-            "theAble",
-            "listable",
-            "propertyOf",
-            "whose",
             "concept",
+            "theAble",
+            "queryable",
             "modifies",
             "verb",
             "doubleQuote",
@@ -9103,16 +10185,23 @@
             "a",
             "article",
             "the",
+            "what",
             "whatAble",
             "negatable",
             "is",
+            "canBeQuestion",
             "toAble",
+            "listable",
             "to",
+            "preposition",
             "isQuery",
             "reason",
             "orAble",
             "ifAble",
+            "delete",
             "memorable",
+            "deletable",
+            "recall",
             "remember",
             "stm_previous",
             "adjective",
@@ -9134,12 +10223,12 @@
             "a": [
               "article"
             ],
-            "between": [
-              "preposition"
-            ],
             "concept": [
               "theAble",
               "queryable"
+            ],
+            "delete": [
+              "verb"
             ],
             "distributable": [
               "queryable"
@@ -9155,13 +10244,6 @@
             ],
             "greg": [
               "name"
-            ],
-            "have": [
-              "canBeDoQuestion",
-              "canBeQuestion"
-            ],
-            "hierarchyAble": [
-              "queryable"
             ],
             "is": [
               "canBeQuestion",
@@ -9180,7 +10262,8 @@
               "theAble"
             ],
             "memorable": [
-              "theAble"
+              "theAble",
+              "deletable"
             ],
             "modifies": [
               "verb"
@@ -9192,20 +10275,8 @@
               "theAble",
               "thisAble"
             ],
-            "object": [
-              "queryable",
-              "theAble",
-              "listable"
-            ],
             "orAble": [
               "ifAble"
-            ],
-            "property": [
-              "queryable",
-              "theAble"
-            ],
-            "propertyOf": [
-              "preposition"
             ],
             "queryable": [
               "listable"
@@ -9213,12 +10284,12 @@
             "questionMark": [
               "punctuation"
             ],
-            "readonly": [
-              "queryable"
-            ],
             "reason": [
               "theAble",
               "queryable"
+            ],
+            "recall": [
+              "verb"
             ],
             "remember": [
               "verb"
@@ -9252,20 +10323,10 @@
             "to": [
               "preposition"
             ],
-            "unknown": [
-              "hierarchyAble"
-            ],
             "what": [
-              "object",
               "queryable"
             ],
             "whatAble": [
-              "queryable"
-            ],
-            "whose": [
-              "object"
-            ],
-            "xfx": [
               "queryable"
             ]
           },
@@ -9281,13 +10342,13 @@
               },
               "article": {
               },
-              "between": {
-              },
-              "canBeDoQuestion": {
-              },
               "canBeQuestion": {
               },
               "concept": {
+              },
+              "deletable": {
+              },
+              "delete": {
               },
               "distributable": {
               },
@@ -9298,10 +10359,6 @@
               "every": {
               },
               "greg": {
-              },
-              "have": {
-              },
-              "hierarchyAble": {
               },
               "ifAble": {
               },
@@ -9323,17 +10380,11 @@
               },
               "noun": {
               },
-              "object": {
-              },
               "orAble": {
               },
               "preposition": {
               },
               "pronoun": {
-              },
-              "property": {
-              },
-              "propertyOf": {
               },
               "punctuation": {
               },
@@ -9341,9 +10392,9 @@
               },
               "questionMark": {
               },
-              "readonly": {
-              },
               "reason": {
+              },
+              "recall": {
               },
               "remember": {
               },
@@ -9391,17 +10442,11 @@
               },
               "toAble": {
               },
-              "unknown": {
-              },
               "verb": {
               },
               "what": {
               },
               "whatAble": {
-              },
-              "whose": {
-              },
-              "xfx": {
               }
             }
           },
@@ -9471,6 +10516,7 @@
               "marker": "is",
               "one": {
                 "dead": true,
+                "isProperty": true,
                 "level": 0,
                 "marker": "property",
                 "object": {
@@ -9555,6 +10601,7 @@
                 "instance": true,
                 "isModule": true,
                 "isProcess": true,
+                "isProperty": true,
                 "level": 0,
                 "marker": "property",
                 "objects": [
@@ -9645,6 +10692,7 @@
             ],
             "two": {
               "dead": true,
+              "isProperty": true,
               "level": 0,
               "marker": "property",
               "object": {
@@ -9726,6 +10774,7 @@
             "number": "one",
             "one": {
               "dead": true,
+              "isProperty": true,
               "level": 0,
               "marker": "property",
               "number": "one",
@@ -9931,15 +10980,37 @@
               "marker": "is",
               "number": "one",
               "one": {
-                "concept": true,
-                "dead": true,
-                "determiner": "the",
-                "focusableForPhrase": true,
-                "level": 0,
-                "marker": "property",
-                "modifiers": [
+                "checks": [
                   "determiner"
                 ],
+                "concept": true,
+                "dead": true,
+                "determiner": {
+                  "level": 0,
+                  "marker": "the",
+                  "modifiers": [
+                  ],
+                  "range": {
+                    "end": 38,
+                    "start": 36
+                  },
+                  "text": "the",
+                  "word": "the"
+                },
+                "focusableForPhrase": true,
+                "interpolate": [
+                  {
+                    "property": "property"
+                  },
+                  {
+                    "word": "of"
+                  },
+                  {
+                    "property": "object"
+                  }
+                ],
+                "level": 0,
+                "marker": "property",
                 "number": "one",
                 "object": {
                   "dead": true,
@@ -9960,21 +11031,56 @@
                 },
                 "objects": [
                   {
-                    "concept": true,
-                    "dead": true,
-                    "determiner": "the",
-                    "focusableForPhrase": true,
-                    "level": 0,
-                    "marker": "property",
-                    "modifiers": [
+                    "checks": [
                       "determiner"
                     ],
+                    "concept": true,
+                    "dead": true,
+                    "determiner": {
+                      "level": 0,
+                      "marker": "the",
+                      "modifiers": [
+                      ],
+                      "range": {
+                        "end": 38,
+                        "start": 36
+                      },
+                      "text": "the",
+                      "word": "the"
+                    },
+                    "focusableForPhrase": true,
+                    "interpolate": [
+                      {
+                        "property": "determiner"
+                      },
+                      {
+                        "property": "theable"
+                      }
+                    ],
+                    "level": 0,
+                    "marker": "property",
                     "pullFromContext": true,
                     "range": {
                       "end": 46,
                       "start": 36
                     },
                     "text": "the emotion",
+                    "theable": {
+                      "dead": true,
+                      "level": 0,
+                      "marker": "unknown",
+                      "range": {
+                        "end": 46,
+                        "start": 40
+                      },
+                      "text": "emotion",
+                      "types": [
+                        "unknown"
+                      ],
+                      "unknown": true,
+                      "value": "emotion",
+                      "word": "emotion"
+                    },
                     "types": [
                       "property",
                       "unknown"
@@ -10002,6 +11108,66 @@
                     "word": "sentientbeing1"
                   }
                 ],
+                "property": {
+                  "checks": [
+                    "determiner"
+                  ],
+                  "concept": true,
+                  "dead": true,
+                  "determiner": {
+                    "level": 0,
+                    "marker": "the",
+                    "modifiers": [
+                    ],
+                    "range": {
+                      "end": 38,
+                      "start": 36
+                    },
+                    "text": "the",
+                    "word": "the"
+                  },
+                  "focusableForPhrase": true,
+                  "interpolate": [
+                    {
+                      "property": "determiner"
+                    },
+                    {
+                      "property": "theable"
+                    }
+                  ],
+                  "level": 0,
+                  "marker": "property",
+                  "pullFromContext": true,
+                  "range": {
+                    "end": 46,
+                    "start": 36
+                  },
+                  "text": "the emotion",
+                  "theable": {
+                    "dead": true,
+                    "level": 0,
+                    "marker": "unknown",
+                    "range": {
+                      "end": 46,
+                      "start": 40
+                    },
+                    "text": "emotion",
+                    "types": [
+                      "unknown"
+                    ],
+                    "unknown": true,
+                    "value": "emotion",
+                    "word": "emotion"
+                  },
+                  "types": [
+                    "property",
+                    "unknown"
+                  ],
+                  "unknown": true,
+                  "value": "emotion",
+                  "wantsValue": true,
+                  "word": "emotion"
+                },
                 "propertyOf": true,
                 "pullFromContext": true,
                 "range": {
@@ -10009,6 +11175,22 @@
                   "start": 36
                 },
                 "text": "the emotion of sentientbeing1",
+                "theable": {
+                  "dead": true,
+                  "level": 0,
+                  "marker": "unknown",
+                  "range": {
+                    "end": 46,
+                    "start": 40
+                  },
+                  "text": "emotion",
+                  "types": [
+                    "unknown"
+                  ],
+                  "unknown": true,
+                  "value": "emotion",
+                  "word": "emotion"
+                },
                 "types": [
                   "property",
                   "unknown"
@@ -10049,6 +11231,90 @@
             ],
             "value": "means",
             "word": "means"
+          },
+          "generatedParenthesized": [
+          ],
+          "paraphrases": [
+          ],
+          "paraphrasesParenthesized": [
+          ],
+          "responses": [
+          ]
+        },
+        {
+          "context": {
+            "context_id": null,
+            "context_index": 1,
+            "dead": true,
+            "level": 2,
+            "marker": "is",
+            "number": "one",
+            "one": {
+              "dead": true,
+              "level": 0,
+              "marker": "unknown",
+              "number": "one",
+              "range": {
+                "end": 7,
+                "start": 0
+              },
+              "text": "property",
+              "types": [
+                "queryable",
+                "unknown"
+              ],
+              "unknown": true,
+              "value": "property",
+              "word": "property"
+            },
+            "range": {
+              "end": 20,
+              "start": 0
+            },
+            "text": "property is a concept",
+            "topLevel": true,
+            "touchedBy": [
+              "properties#call2",
+              "instance0#properties#call2",
+              "instance0#hierarchy#call2",
+              "instance0#emotions#call2",
+              "instance0#avatar#call2"
+            ],
+            "two": {
+              "concept": true,
+              "dead": true,
+              "default": true,
+              "determiner": {
+                "default": true,
+                "level": 0,
+                "marker": "a",
+                "range": {
+                  "end": 12,
+                  "start": 12
+                },
+                "text": "a",
+                "word": "a"
+              },
+              "level": 0,
+              "marker": "concept",
+              "modifiers": [
+                "determiner"
+              ],
+              "number": "one",
+              "pullFromContext": false,
+              "range": {
+                "end": 20,
+                "start": 12
+              },
+              "text": "a concept",
+              "types": [
+                "concept"
+              ],
+              "value": "concept",
+              "wantsValue": true,
+              "word": "concept"
+            },
+            "word": "is"
           },
           "generatedParenthesized": [
           ],

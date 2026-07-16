@@ -1,7 +1,7 @@
 const { knowledgeModule, where, stableId, debug } = require('./runtime').theprogrammablemind
 const gdefaults = require('./gdefaults.js')
 const pos = require('./pos.js')
-const { defaultContextCheck } = require('./helpers')
+const { defaultContextCheckProperties, defaultContextCheck } = require('./helpers')
 const tests = require('./articles.test.json')
 
 const config = {
@@ -46,9 +46,20 @@ const config = {
     { 
       id: 'the', 
       isA: ['article'], 
+      check: defaultContextCheckProperties(),
       localHierarchy: [['unknown', 'theAble']],
       level: 0, 
-      bridge: '{ ...after[0], focusableForPhrase: true, pullFromContext: true, concept: true, wantsValue: true, determiner: "the", modifiers: append(["determiner"], after[0].modifiers)}' 
+      bridge: `{ 
+                  ...after[0], 
+                  focusableForPhrase: true, 
+                  pullFromContext: true, 
+                  concept: true, 
+                  wantsValue: true, 
+                  checks: append(after[0].checks, ['determiner']),
+                  determiner: operator, 
+                  theable: after[0],
+                  interpolate: [ { property: 'determiner' }, { property: 'theable' } ]
+               }` 
     },
     { 
       id: "a", 
