@@ -145,6 +145,7 @@ const template = {
       floaters: ['instance'],
       priorities: [
        // { "context": [['counting', 0], ['strawberry_smoothie', 0], ], "choose": [0] },
+       { "context": [['counting', 0], ['strawberry_smoothie', 0], ], "choose": [1] },
        { "context": [['cheese_potato', 0], ['broccoli_list_cheddar_potato', 0]], "choose": [1] },
        { "context": [['chicken_go_wrap', 0], ['chicken_sandwich', 0], ], "choose": [0] },
        { "context": [['strawberry_banana', 0], ['smoothie', 0], ], "choose": [0] },
@@ -441,6 +442,12 @@ const template = {
           { context: [['combo', 0], ['integer', 1]], choose: 0 },
         ],
       },
+    },
+    {
+      priorities: [
+        { context: [['list', 0], ['integer', 0], ['strawberry', 0], ['smoothie', 0]], choose: [2, 3], ordered: true },
+        { context: [['list', 0], ['integer', 1], ['strawberry', 1], ['smoothie', 0]], choose: [2, 3], ordered: true },
+      ],
     },
   ],
 }
