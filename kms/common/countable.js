@@ -29,7 +29,7 @@ const config = {
       before: ['verb', 'article'],
       bridge: `{ 
         ...after, 
-        countable: after,
+        countable: after[0],
         interpolate: [{ property: 'quantity', isQuantifier: true }, { property: 'countable', isQuantified: true }],
         modifiers: append(['quantity'], after[0].modifiers), 
         quantity: before[0], 

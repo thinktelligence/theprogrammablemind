@@ -40449,16 +40449,98 @@
           "start": 0
         },
         "showable": {
+          "checks": [
+            "determiner"
+          ],
           "concept": true,
+          "countable": {
+            "checks": [
+              "determiner"
+            ],
+            "concept": true,
+            "dead": true,
+            "determiner": {
+              "level": 0,
+              "marker": "the",
+              "modifiers": [
+              ],
+              "range": {
+                "end": 11,
+                "start": 9
+              },
+              "text": "the",
+              "word": "the"
+            },
+            "focusableForPhrase": true,
+            "interpolate": [
+              {
+                "property": "determiner"
+              },
+              {
+                "property": "theable"
+              }
+            ],
+            "level": 0,
+            "marker": "weapon",
+            "number": "many",
+            "pullFromContext": true,
+            "range": {
+              "end": 19,
+              "start": 9
+            },
+            "text": "the weapons",
+            "theable": {
+              "dead": true,
+              "level": 0,
+              "marker": "weapon",
+              "number": "many",
+              "range": {
+                "end": 19,
+                "start": 13
+              },
+              "text": "weapons",
+              "types": [
+                "weapon"
+              ],
+              "value": "weapon",
+              "word": "weapons"
+            },
+            "types": [
+              "weapon"
+            ],
+            "value": "weapon",
+            "wantsValue": true,
+            "word": "weapons"
+          },
           "dead": true,
-          "determiner": "the",
+          "determiner": {
+            "level": 0,
+            "marker": "the",
+            "modifiers": [
+            ],
+            "range": {
+              "end": 11,
+              "start": 9
+            },
+            "text": "the",
+            "word": "the"
+          },
           "focusableForPhrase": true,
           "instance": true,
+          "interpolate": [
+            {
+              "isQuantifier": true,
+              "property": "quantity"
+            },
+            {
+              "isQuantified": true,
+              "property": "countable"
+            }
+          ],
           "level": 0,
           "marker": "weapon",
           "modifiers": [
-            "quantity",
-            "determiner"
+            "quantity"
           ],
           "number": "many",
           "pullFromContext": true,
@@ -40485,6 +40567,22 @@
             "start": 5
           },
           "text": "all the weapons",
+          "theable": {
+            "dead": true,
+            "level": 0,
+            "marker": "weapon",
+            "number": "many",
+            "range": {
+              "end": 19,
+              "start": 13
+            },
+            "text": "weapons",
+            "types": [
+              "weapon"
+            ],
+            "value": "weapon",
+            "word": "weapons"
+          },
           "types": [
             "weapon"
           ],
@@ -40500,6 +40598,7 @@
         "word": "show"
       }
     ],
+    "developerTest": false,
     "generatedParenthesized": [
       ""
     ],
@@ -40609,12 +40708,14 @@
         "comparable": "comparable2",
         "concept": "concept2",
         "conjunction": "conjunction2",
+        "control": "control2",
         "countable": "countable2",
         "dialogues": "dialogues2",
         "evaluate": "evaluate2",
         "gdefaults": "gdefaults2",
         "help": "help2",
         "hierarchy": "hierarchy2",
+        "logging": "logging2",
         "math": "math2",
         "meta": "meta2",
         "negation": "negation2",
@@ -40648,6 +40749,9 @@
         "conjunction2": {
           "km": "conjunction2"
         },
+        "control2": {
+          "km": "control2"
+        },
         "countable2": {
           "km": "countable2"
         },
@@ -40670,6 +40774,11 @@
         },
         "hierarchy2": {
           "km": "hierarchy2"
+        },
+        "logging2": {
+          "km": "logging2",
+          "messages": [
+          ]
         },
         "math2": {
           "km": "math2"
@@ -40703,11 +40812,7 @@
               "each",
               "every"
             ],
-            "canBeDoQuestion": [
-              "have"
-            ],
             "canBeQuestion": [
-              "have",
               "is"
             ],
             "clothe": [
@@ -40721,6 +40826,9 @@
             ],
             "condition": [
               "superlative"
+            ],
+            "deletable": [
+              "memorable"
             ],
             "drink": [
               "cola",
@@ -40749,9 +40857,6 @@
               "vegetable",
               "fruit"
             ],
-            "hierarchyAble": [
-              "unknown"
-            ],
             "ifAble": [
               "orAble"
             ],
@@ -40767,16 +40872,9 @@
               "accuracy"
             ],
             "listable": [
-              "object",
               "queryable"
             ],
-            "object": [
-              "what",
-              "whose"
-            ],
             "preposition": [
-              "between",
-              "propertyOf",
               "to"
             ],
             "pronoun": [
@@ -40787,11 +40885,6 @@
               "questionMark"
             ],
             "queryable": [
-              "xfx",
-              "hierarchyAble",
-              "readonly",
-              "property",
-              "object",
               "concept",
               "doubleQuote",
               "theAble",
@@ -40819,12 +40912,13 @@
               "stimpak"
             ],
             "theAble": [
-              "property",
-              "object",
               "concept",
               "listable",
               "reason",
               "memorable",
+              "noun"
+            ],
+            "thisAble": [
               "noun"
             ],
             "thisitthat": [
@@ -40839,6 +40933,8 @@
               "modifies",
               "is",
               "isQuery",
+              "delete",
+              "recall",
               "remember"
             ],
             "weapon": [
@@ -40856,24 +40952,9 @@
           },
           "concepts": [
             "properties",
-            "unknown",
-            "hierarchyAble",
-            "what",
-            "object",
-            "xfx",
-            "queryable",
-            "between",
-            "preposition",
-            "readonly",
-            "have",
-            "canBeDoQuestion",
-            "canBeQuestion",
-            "property",
-            "theAble",
-            "listable",
-            "propertyOf",
-            "whose",
             "concept",
+            "theAble",
+            "queryable",
             "modifies",
             "verb",
             "doubleQuote",
@@ -40885,16 +40966,23 @@
             "a",
             "article",
             "the",
+            "what",
             "whatAble",
             "negatable",
             "is",
+            "canBeQuestion",
             "toAble",
+            "listable",
             "to",
+            "preposition",
             "isQuery",
             "reason",
             "orAble",
             "ifAble",
+            "delete",
             "memorable",
+            "deletable",
+            "recall",
             "remember",
             "stm_previous",
             "adjective",
@@ -40906,6 +40994,7 @@
             "noun",
             "thisitthat",
             "that",
+            "thisAble",
             "ascending",
             "sort_ordering",
             "descending",
@@ -40969,9 +41058,6 @@
             "ascending": [
               "sort_ordering"
             ],
-            "between": [
-              "preposition"
-            ],
             "charisma": [
               "item_property"
             ],
@@ -40990,6 +41076,9 @@
             ],
             "damage": [
               "item_property"
+            ],
+            "delete": [
+              "verb"
             ],
             "descending": [
               "sort_ordering"
@@ -41031,13 +41120,6 @@
             "hat": [
               "clothe"
             ],
-            "have": [
-              "canBeDoQuestion",
-              "canBeQuestion"
-            ],
-            "hierarchyAble": [
-              "queryable"
-            ],
             "highest": [
               "superlative"
             ],
@@ -41076,7 +41158,8 @@
               "takeable"
             ],
             "memorable": [
-              "theAble"
+              "theAble",
+              "deletable"
             ],
             "mine": [
               "weapon",
@@ -41092,12 +41175,8 @@
               "queryable"
             ],
             "noun": [
-              "theAble"
-            ],
-            "object": [
-              "queryable",
               "theAble",
-              "listable"
+              "thisAble"
             ],
             "orAble": [
               "ifAble"
@@ -41108,13 +41187,6 @@
             ],
             "pop": [
               "drink"
-            ],
-            "property": [
-              "queryable",
-              "theAble"
-            ],
-            "propertyOf": [
-              "preposition"
             ],
             "queryable": [
               "listable"
@@ -41128,12 +41200,12 @@
             "range": [
               "item_property"
             ],
-            "readonly": [
-              "queryable"
-            ],
             "reason": [
               "theAble",
               "queryable"
+            ],
+            "recall": [
+              "verb"
             ],
             "remember": [
               "verb"
@@ -41184,9 +41256,6 @@
             "to": [
               "preposition"
             ],
-            "unknown": [
-              "hierarchyAble"
-            ],
             "value": [
               "item_property"
             ],
@@ -41197,16 +41266,9 @@
               "equipable"
             ],
             "what": [
-              "object",
               "queryable"
             ],
             "whatAble": [
-              "queryable"
-            ],
-            "whose": [
-              "object"
-            ],
-            "xfx": [
               "queryable"
             ]
           },
@@ -41230,10 +41292,6 @@
               },
               "ascending": {
               },
-              "between": {
-              },
-              "canBeDoQuestion": {
-              },
               "canBeQuestion": {
               },
               "charisma": {
@@ -41247,6 +41305,10 @@
               "condition": {
               },
               "damage": {
+              },
+              "deletable": {
+              },
+              "delete": {
               },
               "descending": {
               },
@@ -41277,10 +41339,6 @@
               "grenade": {
               },
               "hat": {
-              },
-              "have": {
-              },
-              "hierarchyAble": {
               },
               "highest": {
               },
@@ -41320,8 +41378,6 @@
               },
               "noun": {
               },
-              "object": {
-              },
               "orAble": {
               },
               "pistol": {
@@ -41331,10 +41387,6 @@
               "preposition": {
               },
               "pronoun": {
-              },
-              "property": {
-              },
-              "propertyOf": {
               },
               "punctuation": {
               },
@@ -41346,9 +41398,9 @@
               },
               "range": {
               },
-              "readonly": {
-              },
               "reason": {
+              },
+              "recall": {
               },
               "remember": {
               },
@@ -41380,13 +41432,13 @@
               },
               "this": {
               },
+              "thisAble": {
+              },
               "thisitthat": {
               },
               "to": {
               },
               "toAble": {
-              },
-              "unknown": {
               },
               "value": {
               },
@@ -41401,10 +41453,6 @@
               "what": {
               },
               "whatAble": {
-              },
-              "whose": {
-              },
-              "xfx": {
               }
             }
           },
@@ -41451,16 +41499,98 @@
               "start": 0
             },
             "showable": {
+              "checks": [
+                "determiner"
+              ],
               "concept": true,
+              "countable": {
+                "checks": [
+                  "determiner"
+                ],
+                "concept": true,
+                "dead": true,
+                "determiner": {
+                  "level": 0,
+                  "marker": "the",
+                  "modifiers": [
+                  ],
+                  "range": {
+                    "end": 11,
+                    "start": 9
+                  },
+                  "text": "the",
+                  "word": "the"
+                },
+                "focusableForPhrase": true,
+                "interpolate": [
+                  {
+                    "property": "determiner"
+                  },
+                  {
+                    "property": "theable"
+                  }
+                ],
+                "level": 0,
+                "marker": "weapon",
+                "number": "many",
+                "pullFromContext": true,
+                "range": {
+                  "end": 19,
+                  "start": 9
+                },
+                "text": "the weapons",
+                "theable": {
+                  "dead": true,
+                  "level": 0,
+                  "marker": "weapon",
+                  "number": "many",
+                  "range": {
+                    "end": 19,
+                    "start": 13
+                  },
+                  "text": "weapons",
+                  "types": [
+                    "weapon"
+                  ],
+                  "value": "weapon",
+                  "word": "weapons"
+                },
+                "types": [
+                  "weapon"
+                ],
+                "value": "weapon",
+                "wantsValue": true,
+                "word": "weapons"
+              },
               "dead": true,
-              "determiner": "the",
+              "determiner": {
+                "level": 0,
+                "marker": "the",
+                "modifiers": [
+                ],
+                "range": {
+                  "end": 11,
+                  "start": 9
+                },
+                "text": "the",
+                "word": "the"
+              },
               "focusableForPhrase": true,
               "instance": true,
+              "interpolate": [
+                {
+                  "isQuantifier": true,
+                  "property": "quantity"
+                },
+                {
+                  "isQuantified": true,
+                  "property": "countable"
+                }
+              ],
               "level": 0,
               "marker": "weapon",
               "modifiers": [
-                "quantity",
-                "determiner"
+                "quantity"
               ],
               "number": "many",
               "pullFromContext": true,
@@ -41487,6 +41617,22 @@
                 "start": 5
               },
               "text": "all the weapons",
+              "theable": {
+                "dead": true,
+                "level": 0,
+                "marker": "weapon",
+                "number": "many",
+                "range": {
+                  "end": 19,
+                  "start": 13
+                },
+                "text": "weapons",
+                "types": [
+                  "weapon"
+                ],
+                "value": "weapon",
+                "word": "weapons"
+              },
               "types": [
                 "weapon"
               ],
@@ -41691,7 +41837,7 @@
             "topLevel": true,
             "touchedBy": [
               "pipboy#call2",
-              "instance16#pipboy#call2"
+              "instance17#pipboy#call2"
             ],
             "two": {
               "atomic": true,
@@ -41717,11 +41863,13 @@
               "modifiers": [
                 "modifier_item"
               ],
+              "number": "many",
               "range": {
                 "end": 75,
                 "start": 61
               },
               "text": "item properties",
+              "typeIsSingular": true,
               "types": [
                 "item_property",
                 "property"
@@ -41744,9 +41892,9 @@
           "context": {
             "concept": {
               "dead": true,
-              "default": true,
               "level": 0,
               "marker": "property",
+              "number": "one",
               "range": {
                 "end": 21,
                 "start": 14
@@ -42098,7 +42246,7 @@
       "show all the weapons"
     ],
     "paraphrasesParenthesized": [
-      "(show ((all) the (weapons)))"
+      "(show ((all) (((the)) (weapons))))"
     ],
     "query": "show all the weapons",
     "responses": [

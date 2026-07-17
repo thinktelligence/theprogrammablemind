@@ -3734,11 +3734,78 @@
     },
     "contexts": [
       {
+        "context_id": 2,
         "context_index": 1,
+        "countable": {
+          "dead": true,
+          "default": true,
+          "instance": true,
+          "level": 0,
+          "marker": "hasCountOfPieces",
+          "modifiers": [
+            "pieces"
+          ],
+          "number": "many",
+          "pieces": {
+            "count": {
+              "dead": true,
+              "instance": true,
+              "level": 1,
+              "marker": "integer",
+              "range": {
+                "end": 3,
+                "start": 3
+              },
+              "text": "2",
+              "types": [
+                "integer"
+              ],
+              "value": 2,
+              "word": "2"
+            },
+            "dead": true,
+            "instance": true,
+            "level": 1,
+            "marker": "countOfPieces",
+            "modifiers": [
+              "count"
+            ],
+            "range": {
+              "end": 9,
+              "start": 3
+            },
+            "text": "2 piece",
+            "types": [
+              "countOfPieces"
+            ],
+            "word": "piece"
+          },
+          "range": {
+            "end": 26,
+            "start": 3
+          },
+          "raw_text": "hasCountOfPieces",
+          "text": "2 piece hascountofpieces",
+          "types": [
+            "hasCountOfPieces"
+          ],
+          "value": "hasCountOfPieces",
+          "word": "hascountofpieces"
+        },
         "dead": true,
         "default": true,
         "instance": true,
-        "level": 1,
+        "interpolate": [
+          {
+            "isQuantifier": true,
+            "property": "quantity"
+          },
+          {
+            "isQuantified": true,
+            "property": "countable"
+          }
+        ],
+        "level": 0,
         "marker": "hasCountOfPieces",
         "modifiers": [
           "quantity",
@@ -3809,6 +3876,7 @@
         "word": "hascountofpieces"
       }
     ],
+    "developerTest": false,
     "generatedParenthesized": [
       ""
     ],
@@ -3826,19 +3894,11 @@
               0
             ],
             [
-              "hasCountOfPieces",
-              0
-            ],
-            [
               "integer",
               0
             ],
             [
               "integer",
-              0
-            ],
-            [
-              "piece",
               0
             ]
           ]
@@ -3855,42 +3915,13 @@
               0
             ],
             [
-              "hasCountOfPieces",
-              0
-            ],
-            [
               "integer",
-              0
-            ],
-            [
-              "piece",
               0
             ]
           ]
         },
         {
           "counter": 3,
-          "op": [
-            "piece",
-            0
-          ],
-          "ops": [
-            [
-              "countOfPieces",
-              0
-            ],
-            [
-              "hasCountOfPieces",
-              0
-            ],
-            [
-              "piece",
-              0
-            ]
-          ]
-        },
-        {
-          "counter": 4,
           "op": [
             "countOfPieces",
             0
@@ -3899,32 +3930,11 @@
             [
               "countOfPieces",
               0
-            ],
-            [
-              "hasCountOfPieces",
-              0
             ]
           ]
         },
         {
-          "counter": 5,
-          "op": [
-            "hasCountOfPieces",
-            0
-          ],
-          "ops": [
-            [
-              "countingPieces",
-              0
-            ],
-            [
-              "hasCountOfPieces",
-              0
-            ]
-          ]
-        },
-        {
-          "counter": 6,
+          "counter": 4,
           "op": [
             "countingPieces",
             0
@@ -3937,7 +3947,7 @@
           ]
         },
         {
-          "counter": 7,
+          "counter": 5,
           "op": [
             "counting",
             0
@@ -3952,16 +3962,20 @@
       ]
     },
     "objects": {
+      "associations": [
+      ],
       "nameToUUID": {
         "articles": "articles2",
         "asking": "asking2",
         "concept": "concept2",
         "conjunction": "conjunction2",
+        "control": "control2",
         "countable": "countable1",
         "dialogues": "dialogues2",
         "evaluate": "evaluate2",
         "gdefaults": "gdefaults2",
         "hierarchy": "hierarchy2",
+        "logging": "logging2",
         "meta": "meta2",
         "negation": "negation2",
         "numbers": "numbers2",
@@ -3970,47 +3984,71 @@
         "punctuation": "punctuation2",
         "sdefaults": "sdefaults2",
         "stm": "stm2",
-        "tokenize": "tokenize2"
+        "tokenize": "tokenize2",
+        "words": "words2"
       },
       "namespaced": {
         "articles2": {
+          "km": "articles2"
         },
         "asking2": {
+          "km": "asking2"
         },
         "concept2": {
           "defaultTypesForHierarchy": {
           },
+          "km": "concept2",
           "valueToWords": [
           ]
         },
         "conjunction2": {
+          "km": "conjunction2"
+        },
+        "control2": {
+          "km": "control2"
         },
         "countable1": {
+          "km": "countable1"
         },
         "dialogues2": {
           "idSuffix": "",
+          "km": "dialogues2",
           "mentioned": [
           ],
           "variables": {
           }
         },
         "evaluate2": {
+          "km": "evaluate2"
         },
         "gdefaults2": {
+          "km": "gdefaults2"
         },
         "hierarchy2": {
+          "km": "hierarchy2"
+        },
+        "logging2": {
+          "km": "logging2",
+          "messages": [
+          ]
         },
         "meta2": {
+          "km": "meta2"
         },
         "negation2": {
+          "km": "negation2"
         },
         "numbers2": {
+          "km": "numbers2"
         },
         "pos2": {
+          "km": "pos2"
         },
         "properties2": {
           "children": {
             "adjective": [
+              "stm_previous",
+              "stm_current",
               "stm_before"
             ],
             "article": [
@@ -4019,26 +4057,19 @@
               "each",
               "every"
             ],
-            "canBeDoQuestion": [
-              "have"
-            ],
             "canBeQuestion": [
-              "have",
               "is"
             ],
-            "hierarchyAble": [
-              "unknown"
+            "deletable": [
+              "memorable"
             ],
             "ifAble": [
               "orAble"
             ],
-            "object": [
-              "what",
-              "whose"
+            "listable": [
+              "queryable"
             ],
             "preposition": [
-              "between",
-              "propertyOf",
               "to"
             ],
             "pronoun": [
@@ -4049,15 +4080,9 @@
               "questionMark"
             ],
             "queryable": [
-              "xfx",
-              "hierarchyAble",
-              "readonly",
-              "property",
-              "object",
               "concept",
               "doubleQuote",
               "theAble",
-              "unknown",
               "it",
               "what",
               "whatAble",
@@ -4068,12 +4093,13 @@
               "thisitthat"
             ],
             "theAble": [
-              "property",
-              "object",
               "concept",
-              "unknown",
+              "listable",
               "reason",
               "memorable",
+              "noun"
+            ],
+            "thisAble": [
               "noun"
             ],
             "thisitthat": [
@@ -4087,29 +4113,17 @@
             "verb": [
               "modifies",
               "is",
-              "remember",
-              "evaluate"
+              "isQuery",
+              "delete",
+              "recall",
+              "remember"
             ]
           },
           "concepts": [
             "properties",
-            "unknown",
-            "hierarchyAble",
-            "what",
-            "object",
-            "xfx",
-            "queryable",
-            "between",
-            "preposition",
-            "readonly",
-            "have",
-            "canBeDoQuestion",
-            "canBeQuestion",
-            "property",
-            "theAble",
-            "propertyOf",
-            "whose",
             "concept",
+            "theAble",
+            "queryable",
             "modifies",
             "verb",
             "doubleQuote",
@@ -4121,36 +4135,47 @@
             "a",
             "article",
             "the",
+            "what",
             "whatAble",
             "negatable",
             "is",
+            "canBeQuestion",
             "toAble",
+            "listable",
             "to",
+            "preposition",
+            "isQuery",
             "reason",
-            "memorable",
-            "remember",
-            "stm_before",
-            "adjective",
             "orAble",
             "ifAble",
-            "evaluate",
+            "delete",
+            "memorable",
+            "deletable",
+            "recall",
+            "remember",
+            "stm_previous",
+            "adjective",
+            "stm_current",
+            "stm_before",
             "each",
             "every",
             "distributable",
             "noun",
             "thisitthat",
-            "that"
+            "that",
+            "thisAble"
           ],
+          "km": "properties2",
           "parents": {
             "a": [
               "article"
             ],
-            "between": [
-              "preposition"
-            ],
             "concept": [
               "theAble",
               "queryable"
+            ],
+            "delete": [
+              "verb"
             ],
             "distributable": [
               "queryable"
@@ -4161,21 +4186,14 @@
             "each": [
               "article"
             ],
-            "evaluate": [
-              "verb"
-            ],
             "every": [
               "article"
             ],
-            "have": [
-              "canBeDoQuestion",
-              "canBeQuestion"
-            ],
-            "hierarchyAble": [
-              "queryable"
-            ],
             "is": [
               "canBeQuestion",
+              "verb"
+            ],
+            "isQuery": [
               "verb"
             ],
             "it": [
@@ -4184,8 +4202,12 @@
               "toAble",
               "thisitthat"
             ],
-            "memorable": [
+            "listable": [
               "theAble"
+            ],
+            "memorable": [
+              "theAble",
+              "deletable"
             ],
             "modifies": [
               "verb"
@@ -4194,36 +4216,35 @@
               "queryable"
             ],
             "noun": [
-              "theAble"
-            ],
-            "object": [
-              "queryable",
-              "theAble"
+              "theAble",
+              "thisAble"
             ],
             "orAble": [
               "ifAble"
             ],
-            "property": [
-              "queryable",
-              "theAble"
-            ],
-            "propertyOf": [
-              "preposition"
+            "queryable": [
+              "listable"
             ],
             "questionMark": [
               "punctuation"
-            ],
-            "readonly": [
-              "queryable"
             ],
             "reason": [
               "theAble",
               "queryable"
             ],
+            "recall": [
+              "verb"
+            ],
             "remember": [
               "verb"
             ],
             "stm_before": [
+              "adjective"
+            ],
+            "stm_current": [
+              "adjective"
+            ],
+            "stm_previous": [
               "adjective"
             ],
             "that": [
@@ -4246,22 +4267,10 @@
             "to": [
               "preposition"
             ],
-            "unknown": [
-              "hierarchyAble",
-              "theAble",
-              "queryable"
-            ],
             "what": [
-              "object",
               "queryable"
             ],
             "whatAble": [
-              "queryable"
-            ],
-            "whose": [
-              "object"
-            ],
-            "xfx": [
               "queryable"
             ]
           },
@@ -4277,13 +4286,13 @@
               },
               "article": {
               },
-              "between": {
-              },
-              "canBeDoQuestion": {
-              },
               "canBeQuestion": {
               },
               "concept": {
+              },
+              "deletable": {
+              },
+              "delete": {
               },
               "distributable": {
               },
@@ -4291,19 +4300,17 @@
               },
               "each": {
               },
-              "evaluate": {
-              },
               "every": {
-              },
-              "have": {
-              },
-              "hierarchyAble": {
               },
               "ifAble": {
               },
               "is": {
               },
+              "isQuery": {
+              },
               "it": {
+              },
+              "listable": {
               },
               "memorable": {
               },
@@ -4313,17 +4320,11 @@
               },
               "noun": {
               },
-              "object": {
-              },
               "orAble": {
               },
               "preposition": {
               },
               "pronoun": {
-              },
-              "property": {
-              },
-              "propertyOf": {
               },
               "punctuation": {
               },
@@ -4331,13 +4332,17 @@
               },
               "questionMark": {
               },
-              "readonly": {
-              },
               "reason": {
+              },
+              "recall": {
               },
               "remember": {
               },
               "stm_before": {
+              },
+              "stm_current": {
+              },
+              "stm_previous": {
               },
               "that": {
               },
@@ -4347,23 +4352,19 @@
               },
               "this": {
               },
+              "thisAble": {
+              },
               "thisitthat": {
               },
               "to": {
               },
               "toAble": {
               },
-              "unknown": {
-              },
               "verb": {
               },
               "what": {
               },
               "whatAble": {
-              },
-              "whose": {
-              },
-              "xfx": {
               }
             }
           },
@@ -4375,26 +4376,102 @@
           }
         },
         "punctuation2": {
+          "km": "punctuation2"
         },
         "sdefaults2": {
+          "km": "sdefaults2"
         },
         "stm2": {
+          "km": "stm2",
           "mentioned": [
           ],
           "variables": {
           }
         },
         "tokenize2": {
+          "km": "tokenize2"
+        },
+        "words2": {
+          "km": "words2",
+          "words": [
+          ]
         }
       },
       "processed": [
         {
           "context": {
+            "context_id": 2,
             "context_index": 1,
+            "countable": {
+              "dead": true,
+              "default": true,
+              "instance": true,
+              "level": 0,
+              "marker": "hasCountOfPieces",
+              "modifiers": [
+                "pieces"
+              ],
+              "number": "many",
+              "pieces": {
+                "count": {
+                  "dead": true,
+                  "instance": true,
+                  "level": 1,
+                  "marker": "integer",
+                  "range": {
+                    "end": 3,
+                    "start": 3
+                  },
+                  "text": "2",
+                  "types": [
+                    "integer"
+                  ],
+                  "value": 2,
+                  "word": "2"
+                },
+                "dead": true,
+                "instance": true,
+                "level": 1,
+                "marker": "countOfPieces",
+                "modifiers": [
+                  "count"
+                ],
+                "range": {
+                  "end": 9,
+                  "start": 3
+                },
+                "text": "2 piece",
+                "types": [
+                  "countOfPieces"
+                ],
+                "word": "piece"
+              },
+              "range": {
+                "end": 26,
+                "start": 3
+              },
+              "raw_text": "hasCountOfPieces",
+              "text": "2 piece hascountofpieces",
+              "types": [
+                "hasCountOfPieces"
+              ],
+              "value": "hasCountOfPieces",
+              "word": "hascountofpieces"
+            },
             "dead": true,
             "default": true,
             "instance": true,
-            "level": 1,
+            "interpolate": [
+              {
+                "isQuantifier": true,
+                "property": "quantity"
+              },
+              {
+                "isQuantified": true,
+                "property": "countable"
+              }
+            ],
+            "level": 0,
             "marker": "hasCountOfPieces",
             "modifiers": [
               "quantity",
@@ -4464,11 +4541,97 @@
             "value": "hasCountOfPieces",
             "word": "hascountofpieces"
           },
-          "generatedParenthesized": "",
-          "paraphrases": "10 2 piece hascountofpieces",
-          "paraphrasesParenthesized": "((10) ((2) (piece)) (hascountofpieces))",
+          "generatedParenthesized": [
+          ],
+          "paraphrases": [
+          ],
+          "paraphrasesParenthesized": [
+          ],
           "responses": [
             ""
+          ]
+        },
+        {
+          "context": {
+            "context_id": null,
+            "context_index": 1,
+            "dead": true,
+            "level": 2,
+            "marker": "is",
+            "number": "one",
+            "one": {
+              "dead": true,
+              "level": 0,
+              "marker": "unknown",
+              "number": "one",
+              "range": {
+                "end": 7,
+                "start": 0
+              },
+              "text": "property",
+              "types": [
+                "queryable",
+                "unknown"
+              ],
+              "unknown": true,
+              "value": "property",
+              "word": "property"
+            },
+            "range": {
+              "end": 20,
+              "start": 0
+            },
+            "text": "property is a concept",
+            "topLevel": true,
+            "touchedBy": [
+              "properties#call2",
+              "instance0#properties#call2",
+              "instance0#hierarchy#call2",
+              "instance0#countable#call2"
+            ],
+            "two": {
+              "concept": true,
+              "dead": true,
+              "default": true,
+              "determiner": {
+                "default": true,
+                "level": 0,
+                "marker": "a",
+                "range": {
+                  "end": 12,
+                  "start": 12
+                },
+                "text": "a",
+                "word": "a"
+              },
+              "level": 0,
+              "marker": "concept",
+              "modifiers": [
+                "determiner"
+              ],
+              "number": "one",
+              "pullFromContext": false,
+              "range": {
+                "end": 20,
+                "start": 12
+              },
+              "text": "a concept",
+              "types": [
+                "concept"
+              ],
+              "value": "concept",
+              "wantsValue": true,
+              "word": "concept"
+            },
+            "word": "is"
+          },
+          "generatedParenthesized": [
+          ],
+          "paraphrases": [
+          ],
+          "paraphrasesParenthesized": [
+          ],
+          "responses": [
           ]
         }
       ]
@@ -4477,7 +4640,7 @@
       "10 2 piece hascountofpieces"
     ],
     "paraphrasesParenthesized": [
-      "((10) ((2) (piece)) (hascountofpieces))"
+      "((10) (((2) (piece)) (hascountofpieces)))"
     ],
     "query": "10 2 piece hasCountOfPieces",
     "responses": [
@@ -4637,22 +4800,12 @@
               },
               {
                 "marker": [
-                  "integer",
-                  1
-                ],
-                "range": {
-                  "end": 3,
-                  "start": 3
-                }
-              },
-              {
-                "marker": [
-                  "piece",
+                  "countOfPieces",
                   1
                 ],
                 "range": {
                   "end": 9,
-                  "start": 5
+                  "start": 3
                 }
               },
               {
@@ -4682,22 +4835,12 @@
               },
               {
                 "marker": [
-                  "countOfPieces",
-                  1
-                ],
-                "range": {
-                  "end": 9,
-                  "start": 3
-                }
-              },
-              {
-                "marker": [
                   "hasCountOfPieces",
                   0
                 ],
                 "range": {
                   "end": 26,
-                  "start": 11
+                  "start": 3
                 }
               }
             ]
@@ -4707,68 +4850,8 @@
             "operators": [
               {
                 "marker": [
-                  "integer",
-                  1
-                ],
-                "range": {
-                  "end": 1,
-                  "start": 0
-                }
-              },
-              {
-                "marker": [
-                  "countOfPieces",
-                  1
-                ],
-                "range": {
-                  "end": 9,
-                  "start": 3
-                }
-              },
-              {
-                "marker": [
                   "hasCountOfPieces",
-                  1
-                ],
-                "range": {
-                  "end": 26,
-                  "start": 11
-                }
-              }
-            ]
-          },
-          {
-            "counter": 7,
-            "operators": [
-              {
-                "marker": [
-                  "integer",
-                  1
-                ],
-                "range": {
-                  "end": 1,
-                  "start": 0
-                }
-              },
-              {
-                "marker": [
-                  "hasCountOfPieces",
-                  1
-                ],
-                "range": {
-                  "end": 26,
-                  "start": 3
-                }
-              }
-            ]
-          },
-          {
-            "counter": 8,
-            "operators": [
-              {
-                "marker": [
-                  "hasCountOfPieces",
-                  1
+                  0
                 ],
                 "range": {
                   "end": 26,
