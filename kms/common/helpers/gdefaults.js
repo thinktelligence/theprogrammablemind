@@ -20,6 +20,7 @@ function interpolate(args) {
       const strings = []
       let separator = ''
       const byPosition = []
+      let number;
       for (const element of interpolate) {
         // { "word": { "marker": "canPassive" } ie { word: <selectionCriteria> }
         const handleElement = async (context, element) => {
@@ -70,12 +71,21 @@ function interpolate(args) {
               }
               async function handleProperty(value) {
                 strings.push(separator)
+                if (element.isQuantified && number) {
+                  debugger
+                  debugger
+                  value.number = number
+                }
                 if (Array.isArray(value)) {
                   strings.push(await args.gsp(value))
                 } else {
                   strings.push(await args.gp(value))
                 }
                 separator = ' '
+              }
+              if (element.isQuantifier) {
+                number = helpers.isMany({ quantity: value }) ? "many": "one"
+                debugger
               }
               if (element.byPosition) {
                 const element = { start: value.range.start, insert: ((value) => () => handleProperty(value))(value) }
@@ -102,7 +112,7 @@ function interpolate(args) {
               }
             }
             if (value?.form !== 'infinitive' && element.number) {
-              value.number = isMany(context[element.number]) ? "many": "one"
+              value.number = helpers.isMany(context[element.number]) ? "many": "one"
             }
             if (value) {
               strings.push(separator)

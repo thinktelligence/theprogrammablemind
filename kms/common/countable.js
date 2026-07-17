@@ -27,7 +27,15 @@ const config = {
       id: "counting", 
       convolution: true, 
       before: ['verb', 'article'],
-      bridge: "{ ...after, modifiers: append(['quantity'], after[0].modifiers), quantity: before[0], number: default(before[0].number, before[0].value), instance: true }" 
+      bridge: `{ 
+        ...after, 
+        countable: after,
+        interpolate: [{ property: 'quantity', isQuantifier: true }, { property: 'countable', isQuantified: true }],
+        modifiers: append(['quantity'], after[0].modifiers), 
+        quantity: before[0], 
+        number: default(before[0].number, before[0].value), 
+        instance: true 
+      }` 
     },
     { 
       id: "countOfPieces", 
