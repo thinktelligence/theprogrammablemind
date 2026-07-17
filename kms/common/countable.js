@@ -40,12 +40,26 @@ const config = {
     { 
       id: "countOfPieces", 
       convolution: true,
-      bridge: "{ ...next(operator), modifiers: append(['count'], after[0].modifiers), count: before[0], word: after.word, instance: true }" 
+      bridge: `{ 
+        ...next(operator), 
+        countOfPiecesOperator: after[0],
+        interpolate: [{ property: 'count' }, { property: 'countOfPiecesOperator' }],
+        modifiers: append(['count'], after[0].modifiers), 
+        count: before[0], 
+        word: after.word, 
+        instance: true }`
     },
     { 
       id: "countingPieces", 
       convolution: true,
-      bridge: "{ ...after, modifiers: append(['pieces'], after[0].modifiers), pieces: before[0], instance: true }" 
+      bridge: `{ 
+        ...after[0], 
+        countingPiecesOperator: after[0],
+        interpolate: [ { property: 'pieces' }, { property: 'countingPiecesOperator' }],
+        modifiers: append(['pieces'], after[0].modifiers), 
+        pieces: before[0], 
+        instance: true 
+      }` 
     },
     { 
       id: "hasCountOfPieces", 
@@ -56,11 +70,23 @@ const config = {
     },
     { 
       id: "more", 
-      bridge: "{ ...next(after[0]), more: operator, modifiers: append(['more'], after[0].modifiers) }",
+      bridge: `{ 
+        ...next(after[0]), 
+        more: operator, 
+        moreOperator: after[0],
+        interpolate: [ { property: 'more' }, { property: 'moreOperator' }],
+        modifiers: append(['more'], after[0].modifiers) 
+      }`,
     },
     { 
       id: "less", 
-      bridge: "{ ...next(after[0]), less: operator, modifiers: append(['less'], after[0].modifiers) }",
+      bridge: `{ 
+        ...next(after[0]), 
+        less: operator, 
+        lessOperator: after[0], 
+        interpolate: [{ property: 'less' }, { property: 'lessOperator' }],
+        modifiers: append(['less'], after[0].modifiers) 
+      }`,
     },
     { 
       id: "quantifier", 

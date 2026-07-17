@@ -32,12 +32,32 @@ const config = {
     { 
       id: 'each', 
       isA: ['article'], 
-      bridge: '{ ...after[0], focusableForPhrase: true, pullFromContext: true, concept: true, wantsValue: true, distributer: operator, modifiers: append(["distributer"], after[0].modifiers)}' 
+      bridge: `{ 
+        ...after[0], 
+        focusableForPhrase: true, 
+        pullFromContext: true, 
+        concept: true, 
+        wantsValue: true, 
+        distributer: operator, 
+        eachArgument: after[0],
+        interpolate: [ { property: 'distributer' }, { property: 'eachArgument' } ],
+        modifiers: append(["distributer"], after[0].modifiers)
+      }` 
     },
     { 
       id: 'every', 
       isA: ['article'], 
-      bridge: '{ ...after[0], focusableForPhrase: true, pullFromContext: true, concept: true, wantsValue: true, distributer: operator, modifiers: append(["distributer"], after[0].modifiers)}' 
+      bridge: `{ 
+        ...after[0], 
+        focusableForPhrase: true, 
+        pullFromContext: true, 
+        concept: true, 
+        wantsValue: true, 
+        distributer: operator, 
+        everyArgument: after[0],
+        interpolate: [ { property: "distributer" }, { property: 'everyArgument' } ],
+        modifiers: append(["distributer"], after[0].modifiers)
+      }` 
     },
     { 
       id: 'distributable', 
@@ -58,7 +78,7 @@ const config = {
                   checks: append(after[0].checks, ['determiner']),
                   determiner: operator, 
                   theable: after[0],
-                  interpolate: [ { property: 'determiner' }, { property: 'theable' } ]
+                  interpolate: [{ property: 'determiner' }, { property: 'theable' }]
                }` 
     },
     { 

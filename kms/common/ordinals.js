@@ -29,7 +29,13 @@ const config = {
       isA: ['adjective'],
       convolution: true,
       // bridge: "{ ...after[0], ordinal: before[0], modifiers: append(['ordinal'], after[0].modifiers), interpolate: append(['ordinal'], or(after[0].interpolate, after)) }" 
-      bridge: "{ ...after[0], ordinal: before[0], modifiers: append(['ordinal'], after[0].modifiers) }" 
+      bridge: `{ 
+        ...after[0], 
+        ordinal: before[0], 
+        ordinalObject: after[0],
+        interpolate: [{ property: 'ordinal' }, { property: 'ordinalObject' }],
+        modifiers: append(['ordinal'], after[0].modifiers) 
+      }` 
     },
   ],
   semantics: [
