@@ -886,7 +886,7 @@
         },
         {
           "match": "({context, hierarchy}) => \n                      (hierarchy.isA(context.marker, 'property') || (hierarchy.isA(context.marker, 'list') && context.possession)) && \n                      context.evaluate && \n                      context.objects &&\n                      !context.evaluate.toConcept",
-          "apply": "async ({callId, flatten, asList, context, api, kms, objects, g, s, log, recall}) => {\n        async function toValue(objectContext) {\n          if (!objectContext.value) {\n            return objectContext;\n          }\n          let objectValue = kms.stm.api.getVariable(objectContext);\n          if (!objectValue) {\n            objectValue = objectContext.value\n          }\n          if (!await api.knownObject(objectValue)) {\n            objectContext.verbatim = `There is no object named \"${await g({...objectContext, paraphrase: true})}\"`\n            return\n          }\n          return objectValue\n        }\n\n        async function processOne(toDo) {\n          let currentContext = toDo.pop()\n          let currentValue = await toValue(currentContext)\n          while (toDo.length > 0) {\n            const nextContext = toDo.pop()\n            const nextValue = await toValue(nextContext)\n            if (!nextValue) {\n              // TODO maybe this I aware so it can say \"I don't know about blah...\" and below\n              // if (currentContext.unknown || !currentContext.value) {\n              if (!api.conceptExists(currentContext.value)) {\n                // api.conceptExists(currentContext)\n                const objectPhrase = await g({...currentContext, paraphrase: true})\n                context.verbatim = `What \"${objectPhrase}\" means is unknown`\n                return\n              }\n\n              const propertyPhrase = await g({...nextContext, paraphrase: true})\n              const objectPhrase = await g({...currentContext, paraphrase: true})\n              context.verbatim = `There is no interpretation for \"${propertyPhrase} of ${objectPhrase}\"`\n              return\n            }\n\n            let fromMentions\n            if (!await api.knownProperty(currentContext, nextContext)) {\n              fromMentions = await recall({ context: nextContext, all: nextContext.number == 'many', frameOfReference: currentContext })\n              if (!fromMentions) {\n                context.verbatim = `There is no property ${await g({...nextContext, paraphrase: true})} of ${await g({...currentContext, paraphrase: true})}`\n                return\n              }\n            }\n            if (fromMentions) {\n              currentContext = fromMentions\n              currentValue = fromMentions // TODO not sure what is right here so just do something and fix when actually needed SOP\n            } else {\n              currentContext = await api.getProperty(currentValue, nextValue, g)\n              currentValue = currentContext.value\n            }\n          }\n          return currentContext\n        }\n\n        debug.breakAt('combined#call27')\n        // const toDo = [ ...context.objects ]\n        const [toDos, _] = flatten(['list'], context.objects)\n        const results = []\n        for (const toDo of toDos) {\n          const one = await processOne(toDo)\n          results.push(one)\n        }\n\n        if (results.length > 0) {\n          context.focusable = ['object[0]']\n          // context.evalue = currentContext\n          context.evalue = asList(results, true)\n          context.object = undefined;\n        }\n      }"
+          "apply": "async ({callId, flatten, asList, context, api, kms, objects, g, s, log, recall}) => {\n        async function toValue(objectContext) {\n          if (!objectContext.value) {\n            return objectContext;\n          }\n          let objectValue = kms.stm.api.getVariable(objectContext);\n          if (!objectValue) {\n            objectValue = objectContext.value\n          }\n          if (!await api.knownObject(objectValue)) {\n            objectContext.verbatim = `There is no object named \"${await g({...objectContext, paraphrase: true})}\"`\n            return\n          }\n          return objectValue\n        }\n\n        async function processOne(toDo) {\n          let currentContext = toDo.pop()\n          let currentValue = await toValue(currentContext)\n          while (toDo.length > 0) {\n            const nextContext = toDo.pop()\n            const nextValue = await toValue(nextContext)\n            if (!nextValue) {\n              // TODO maybe this I aware so it can say \"I don't know about blah...\" and below\n              // if (currentContext.unknown || !currentContext.value) {\n              if (!api.conceptExists(currentContext.value)) {\n                // api.conceptExists(currentContext)\n                const objectPhrase = await g({...currentContext, paraphrase: true})\n                context.verbatim = `What \"${objectPhrase}\" means is unknown`\n                return\n              }\n\n              const propertyPhrase = await g({...nextContext, paraphrase: true})\n              const objectPhrase = await g({...currentContext, paraphrase: true})\n              context.verbatim = `There is no interpretation for \"${propertyPhrase} of ${objectPhrase}\"`\n              return\n            }\n\n            let fromMentions\n            if (!await api.knownProperty(currentContext, nextContext)) {\n              fromMentions = await recall({ context: nextContext, all: nextContext.number == 'many', frameOfReference: currentContext })\n              if (!fromMentions) {\n                context.verbatim = `There is no property ${await g({...nextContext, paraphrase: true})} of ${await g({...currentContext, paraphrase: true})}`\n                return\n              }\n            }\n            if (fromMentions) {\n              currentContext = fromMentions\n              currentValue = fromMentions // TODO not sure what is right here so just do something and fix when actually needed SOP\n            } else {\n              currentContext = await api.getProperty(currentValue, nextValue, g)\n              currentValue = currentContext.value\n            }\n          }\n          return currentContext\n        }\n\n        // const toDo = [ ...context.objects ]\n        debug.breakAt('drone#call90')\n        const [toDos, _] = flatten(['list'], context.objects)\n        const results = []\n        for (const toDo of toDos) {\n          const one = await processOne(toDo)\n          results.push(one)\n        }\n\n        if (results.length > 0) {\n          context.focusable = ['object[0]']\n          // context.evalue = currentContext\n          context.evalue = asList(results, true)\n          context.object = undefined;\n        }\n      }"
         }
       ]
     }
@@ -3673,6 +3673,9 @@
               ],
               "level": 0
             },
+            "flatten_ignore": [
+              "theable"
+            ],
             "interpolate": [
               {
                 "property": "property"
@@ -3734,6 +3737,9 @@
                 ],
                 "level": 0
               },
+              "flatten_ignore": [
+                "theable"
+              ],
               "interpolate": [
                 {
                   "property": "determiner"
@@ -3810,6 +3816,9 @@
                   ],
                   "level": 0
                 },
+                "flatten_ignore": [
+                  "theable"
+                ],
                 "interpolate": [
                   {
                     "property": "determiner"
@@ -4952,6 +4961,9 @@
               ],
               "level": 0
             },
+            "flatten_ignore": [
+              "theable"
+            ],
             "interpolate": [
               {
                 "property": "property"
@@ -5012,6 +5024,9 @@
                 ],
                 "level": 0
               },
+              "flatten_ignore": [
+                "theable"
+              ],
               "interpolate": [
                 {
                   "property": "determiner"
@@ -5087,6 +5102,9 @@
                   ],
                   "level": 0
                 },
+                "flatten_ignore": [
+                  "theable"
+                ],
                 "interpolate": [
                   {
                     "property": "determiner"

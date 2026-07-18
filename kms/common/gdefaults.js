@@ -36,9 +36,9 @@ const config = {
       where: where(),
       // match: ({context}) => context.paraphrase && context.interpolate,
       match: ({context}) => context.interpolate,
-      apply: async ({interpolate, debug, context}) => {
-        debug.breakAt('properties#call4')
-        return interpolate(context.interpolate, context)
+      apply: async (args) => {
+        const {debug, context} = args
+        return interpolate(args)(context.interpolate, context)
       }
     },
     {
@@ -114,13 +114,16 @@ const config = {
           if (index == context.postModifiers.length - 1) {
             const fn = Array.isArray(context[modifier]) ? gs: g;
             if (Array.isArray(context[modifier])) {
-              text.push(await gs(context[modifier].map((c) => { return {...c , number} })))
+              debug.breakAt('fastfood#call7')
+              text.push(await gs(context[modifier].map((c) => { return {...c , number} }), { isModifier: true }))
             } else {
-              text.push(await g({...context[modifier], number}))
+              debug.breakAt('fastfood#call7')
+              text.push(await g({...context[modifier], number}, { isModifier: true }))
             }
           } else {
             const fn = Array.isArray(context[modifier]) ? gs: g;
-            text.push(await fn(context[modifier]))
+            debug.breakAt('fastfood#call7')
+            text.push(await fn({ ...context[modifier], isModifier: true }))
           }
         }
         return text.join(' ')
@@ -216,7 +219,7 @@ const config = {
 
     {
       where: where(),
-      match: ({context}) => context.paraphrase && context.word && (context.number == 'many' || context.number > 1),
+      match: ({context}) => context.paraphrase && context.word && (context.number == 'many' || context.number > 1) && !context.isModifier,
       apply: ({context}) => {
         // TODO make the sentence that the plural celcius is celcius work
         if (["fahrenheit", "celcius"].includes(context.word)) {

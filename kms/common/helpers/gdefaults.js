@@ -24,7 +24,7 @@ function interpolate(args) {
       for (const [elementIndex, element] of interpolate.entries()) {
         const isLastElement = elementIndex == interpolate.length - 1
         // { "word": { "marker": "canPassive" } ie { word: <selectionCriteria> }
-        const handleElement = async (context, element) => {
+        async function handleElement(context, element) {
           if (element.context?.invisible) {
             return
           }
@@ -73,7 +73,6 @@ function interpolate(args) {
               async function handleProperty(value) {
                 strings.push(separator)
                 if (element.isQuantified && number && isLastElement) {
-                  debugger
                   value.number = number
                 }
                 if (Array.isArray(value)) {

@@ -710,8 +710,8 @@ const config = {
           return currentContext
         }
 
-        debug.breakAt('combined#call27')
         // const toDo = [ ...context.objects ]
+        debug.breakAt('drone#call90')
         const [toDos, _] = flatten(['list'], context.objects)
         const results = []
         for (const toDo of toDos) {

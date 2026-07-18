@@ -258,7 +258,6 @@ const config = {
         const twoConcepts = asList(context.same);
         for (const oneConcept of oneConcepts.value) {
           for (const twoConcept of twoConcepts.value) {
-            // debug.counter('greg23', { breakAt: 39 })
             oneConceptId = await api.makeObject({...args, context: oneConcept})
             twoConceptId = await api.makeObject({...args, context: twoConcept})
             api.rememberIsA(oneConceptId, twoConceptId)

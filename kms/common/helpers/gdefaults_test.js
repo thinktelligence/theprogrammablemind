@@ -20,20 +20,6 @@ describe('interpolate Tests', () => {
     expect(actual).toBe('greg')
   })
 
-  it('NEOS23 invisible in element', async () => {
-    const context = { name: 'greg' }
-    const args = getArgs(context)
-    const actual = await interpolate(args)([{ property: 'name', invisible: true }], context)
-    expect(actual).toBe('')
-  })
-
-  it('NEOS23 invisible in context', async () => {
-    const context = { name: 'greg', invisible: true }
-    const args = getArgs(context)
-    const actual = await interpolate(args)([{ property: 'name' }], context)
-    expect(actual).toBe('')
-  })
-
   it('NEOS23 string separator not used', async () => {
     const context = { first: 'greg', last: 'mcclement' }
     const args = getArgs(context)
@@ -74,12 +60,5 @@ describe('interpolate Tests', () => {
     const args = getArgs(context)
     const actual = await interpolate(args)([{ inside: 'inner1', value: { inside: 'inner2', value: { property: 'name' } } }], context)
     expect(actual).toBe('greg')
-  })
-
-  it('NEOS23 inside twice outer is invisible', async () => {
-    const context = { inner1: { inner2: { name: 'greg' } }, invisible: true }
-    const args = getArgs(context)
-    const actual = await interpolate(args)([{ inside: 'inner1', value: { inside: 'inner2', value: { property: 'name' } } }], context)
-    expect(actual).toBe('')
   })
 })

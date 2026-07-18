@@ -40,6 +40,7 @@ const config = {
         wantsValue: true, 
         distributer: operator, 
         eachArgument: after[0],
+        flatten_ignore: ['eachArgument'],
         interpolate: [ { property: 'distributer' }, { property: 'eachArgument' } ],
         modifiers: append(["distributer"], after[0].modifiers)
       }` 
@@ -55,6 +56,7 @@ const config = {
         wantsValue: true, 
         distributer: operator, 
         everyArgument: after[0],
+        flatten_ignore: ['everyArgument'],
         interpolate: [ { property: "distributer" }, { property: 'everyArgument' } ],
         modifiers: append(["distributer"], after[0].modifiers)
       }` 
@@ -78,6 +80,7 @@ const config = {
                   checks: append(after[0].checks, ['determiner']),
                   determiner: operator, 
                   theable: after[0],
+                  flatten_ignore: ['theable'],
                   interpolate: [{ property: 'determiner' }, { property: 'theable' }]
                }` 
     },

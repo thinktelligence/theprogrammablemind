@@ -1,5 +1,17 @@
 const package_json = require('../package.json')
 const { exec } = require('child_process');
+const util = require('util');
+const execAsync = util.promisify(exec);
+
+async function hasDebugCommands(cmd) {
+  try {
+    const { stdout } = await execAsync("git grep debug.counter | grep -v test.js:")
+    console.log(await stdout)
+    return true
+  } catch (error) {
+    return false
+  }
+}
 
 console.time('tests time')
 
@@ -79,5 +91,10 @@ async function loop(tests, failed) {
 }
 
 (async () => {
-  await loop(retrains.concat(tests), [])
+  const error = await hasDebugCommands()
+  if (error) {
+    console.log("There are debug.counter commands in the code")
+  } else {
+    await loop(retrains.concat(tests), [])
+  }
 })()
