@@ -1,7 +1,7 @@
 const { knowledgeModule, where, stableId, debug } = require('./runtime').theprogrammablemind
 const gdefaults = require('./gdefaults.js')
 const pos = require('./pos.js')
-const { defaultContextCheck } = require('./helpers')
+const { defaultContextCheckProperties, defaultContextCheck } = require('./helpers')
 const tests = require('./articles.test.json')
 
 const config = {
@@ -32,12 +32,34 @@ const config = {
     { 
       id: 'each', 
       isA: ['article'], 
-      bridge: '{ ...after[0], focusableForPhrase: true, pullFromContext: true, concept: true, wantsValue: true, distributer: operator, modifiers: append(["distributer"], after[0].modifiers)}' 
+      bridge: `{ 
+        ...after[0], 
+        focusableForPhrase: true, 
+        pullFromContext: true, 
+        concept: true, 
+        wantsValue: true, 
+        distributer: operator, 
+        eachArgument: after[0],
+        flatten_ignore: ['eachArgument'],
+        interpolate: [ { property: 'distributer' }, { property: 'eachArgument' } ],
+        modifiers: append(["distributer"], after[0].modifiers)
+      }` 
     },
     { 
       id: 'every', 
       isA: ['article'], 
-      bridge: '{ ...after[0], focusableForPhrase: true, pullFromContext: true, concept: true, wantsValue: true, distributer: operator, modifiers: append(["distributer"], after[0].modifiers)}' 
+      bridge: `{ 
+        ...after[0], 
+        focusableForPhrase: true, 
+        pullFromContext: true, 
+        concept: true, 
+        wantsValue: true, 
+        distributer: operator, 
+        everyArgument: after[0],
+        flatten_ignore: ['everyArgument'],
+        interpolate: [ { property: "distributer" }, { property: 'everyArgument' } ],
+        modifiers: append(["distributer"], after[0].modifiers)
+      }` 
     },
     { 
       id: 'distributable', 
@@ -46,9 +68,21 @@ const config = {
     { 
       id: 'the', 
       isA: ['article'], 
+      check: defaultContextCheckProperties(),
       localHierarchy: [['unknown', 'theAble']],
       level: 0, 
-      bridge: '{ ...after[0], focusableForPhrase: true, pullFromContext: true, concept: true, wantsValue: true, determiner: "the", modifiers: append(["determiner"], after[0].modifiers)}' 
+      bridge: `{ 
+                  ...after[0], 
+                  focusableForPhrase: true, 
+                  pullFromContext: true, 
+                  concept: true, 
+                  wantsValue: true, 
+                  checks: append(after[0].checks, ['determiner']),
+                  determiner: operator, 
+                  theable: after[0],
+                  flatten_ignore: ['theable'],
+                  interpolate: [{ property: 'determiner' }, { property: 'theable' }]
+               }` 
     },
     { 
       id: "a", 

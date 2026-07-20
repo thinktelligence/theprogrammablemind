@@ -93,7 +93,7 @@ const config = {
         ...after[0], 
         verb: after[0], 
         that: operator, 
-        generate: ['that', 'verb'], 
+        interpolate: [ { property: 'that' }, { property: 'verb' }], 
         localPriorities: { actLike: ["subordinatedVerb", 0] }, 
         bridge_override: { 
           operator: after[0].marker, 
@@ -101,7 +101,7 @@ const config = {
             ...bridge.subject, 
             postModifiers: ["conditions"], 
             modifiers: [], 
-            generate: concatm("thatClause.", bridge.generate), 
+            interpolate: map(bridge.interpolate, { inside: "thatClause", value: element }), 
             thatClause: bridge, 
             conditions: append(bridge.subject.conditions, [bridge]) 
           }' 
@@ -211,7 +211,7 @@ const config = {
     { 
       id: "isQuery",
       localHierarchy: [['unknown', 'queryable']],  
-      bridge: "{ ...operator, marker: operator('is', 1), one: after[0], two: after[1], query: true, generate: [operator, 'one', 'two'] }" ,
+      bridge: "{ ...operator, marker: operator('is', 1), one: after[0], two: after[1], query: true, interpolate: [ { context: operator }, { property: 'one' }, { property: 'two' }] }" ,
       isA: ['verb'],
     },
 
@@ -646,7 +646,6 @@ const config = {
         }
 
         // if not isA add to stm
-        // debug.counter('greg57', { breakAt: 1 })
         if (!onePrime.sameWasProcessed && !twoPrime.sameWasProcessed) {
           for (const child of propertyToArray(one)) {
             await api.makeObject({ context: child, config, types: context.two.types || [] })

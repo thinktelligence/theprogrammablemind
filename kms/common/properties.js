@@ -245,13 +245,25 @@ const config = {
       level: 0, 
       isA: ['preposition'],
       localHierarchy: [['property', 'queryable'], ['property', 'theAble'], ['property', 'unknown'], ['object', 'unknown']],
-      bridge: "{ ...next(operator), object: after[0], objects: after }" 
+      bridge: `{ 
+        ...next(operator), 
+        ofWord: operator,
+        object: after[0], 
+        objects: after 
+      }` 
     },
     { 
       id: "propertyOf", 
       level: 1, 
       localHierarchy: [['property', 'queryable'], ['property', 'theAble'], ['property', 'unknown']],
-      bridge: "{ ...before[0], propertyOf: true, object: operator.object, objects: append(default(before[0].objects, before), operator.objects) }" 
+      bridge: `{ 
+        ...before[0], 
+        propertyOf: true, 
+        interpolate: [ { property: 'property' }, { word: 'of' }, { property: 'object' } ],
+        property: before[0],
+        object: operator.object, 
+        objects: append(default(before[0].objects, before), operator.objects) 
+      }` 
     },
     { 
       id: "whose", 
@@ -737,8 +749,8 @@ const config = {
           return currentContext
         }
 
-        debug.breakAt('combined#call27')
         // const toDo = [ ...context.objects ]
+        debug.breakAt('drone#call90')
         const [toDos, _] = flatten(['list'], context.objects)
         const results = []
         for (const toDo of toDos) {

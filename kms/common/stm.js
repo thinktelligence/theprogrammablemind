@@ -348,7 +348,6 @@ const config = {
       // match: ({context}) => context.marker == 'it' && context.pullFromContext, // && context.value,
       match: ({context, callId}) => context.pullFromContext && !context.same, // && context.value,
       apply: async ({callId, s, debug, recall, toList, context, kms, e, log, retry}) => {
-        // debug.counter('greg23', { breakAt: 1 })
         context.value = (await recall({ context }))
         if (context.marker == 'list' || Array.isArray(context.value)) {
           context.value = toList(context.value)

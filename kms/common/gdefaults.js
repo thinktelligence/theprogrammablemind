@@ -1,4 +1,5 @@
 const pluralize = require('pluralize')
+const { interpolate } = require('./helpers/gdefaults')
 const { defaultContextCheck, getValue, isMany } = require('./helpers')
 const { debug, knowledgeModule, where, flatten } = require('./runtime').theprogrammablemind
 const tokenize = require('./tokenize.js')
@@ -35,8 +36,9 @@ const config = {
       where: where(),
       // match: ({context}) => context.paraphrase && context.interpolate,
       match: ({context}) => context.interpolate,
-      apply: async ({interpolate, context}) => {
-        return interpolate(context.interpolate, context)
+      apply: async (args) => {
+        const {debug, context} = args
+        return interpolate(args)(context.interpolate, context)
       }
     },
     {
@@ -112,13 +114,16 @@ const config = {
           if (index == context.postModifiers.length - 1) {
             const fn = Array.isArray(context[modifier]) ? gs: g;
             if (Array.isArray(context[modifier])) {
-              text.push(await gs(context[modifier].map((c) => { return {...c , number} })))
+              debug.breakAt('fastfood#call7')
+              text.push(await gs(context[modifier].map((c) => { return {...c , number} }), { isModifier: true }))
             } else {
-              text.push(await g({...context[modifier], number}))
+              debug.breakAt('fastfood#call7')
+              text.push(await g({...context[modifier], number}, { isModifier: true }))
             }
           } else {
             const fn = Array.isArray(context[modifier]) ? gs: g;
-            text.push(await fn(context[modifier]))
+            debug.breakAt('fastfood#call7')
+            text.push(await fn({ ...context[modifier], isModifier: true }))
           }
         }
         return text.join(' ')
@@ -214,7 +219,7 @@ const config = {
 
     {
       where: where(),
-      match: ({context}) => context.paraphrase && context.word && (context.number == 'many' || context.number > 1),
+      match: ({context}) => context.paraphrase && context.word && (context.number == 'many' || context.number > 1) && !context.isModifier,
       apply: ({context}) => {
         // TODO make the sentence that the plural celcius is celcius work
         if (["fahrenheit", "celcius"].includes(context.word)) {
@@ -307,121 +312,7 @@ function initializer({config}) {
         },
         verbatim, 
         say: verbatim,
-        interpolate: async (interpolate, context) => {
-          async function evaluator(key) {
-            if (Array.isArray(context[key])) {
-              return args.gsp(context[key])
-            } else {
-              return args.gp(context[key])
-            }
-          }
-          function getValue(keyOrValue) {
-            if (typeof keyOrValue == 'string' && context[keyOrValue]) {
-              return context[keyOrValue]
-            }
-            return keyOrValue // it's a value
-          }
-
-          if (Array.isArray(interpolate)) {
-            const strings = []
-            let separator = ''
-            const byPosition = []
-            for (const element of interpolate) {
-              // { "word": { "marker": "canPassive" } ie { word: <selectionCriteria> }
-              if (element.word) {
-                const word = args.getWordFromDictionary(element.word)
-                if (word) {
-                  strings.push(separator)
-                  strings.push(await args.gp(word))
-                  separator = ' '
-                }
-              } else if (typeof element == 'string') {
-                separator = element
-              } else if (element.separator && element.values) {
-                let ctr = 0
-                const values = getValue(element.values)
-                const vstrings = []
-                for (const value of values) {
-                  if (ctr == values.length-1) {
-                    vstrings.push(getValue(element.separator))
-                  }
-                  ctr += 1
-                  vstrings.push(getValue(value))
-                }
-                strings.push(await args.gsp(vstrings))
-              } else if (element.semantic) {
-                const wordContext = {}
-                for (const term of element.semantic) {
-                  if (term.property) {
-                    Object.assign(wordContext, context[term.property])
-                  } else if (term.overrides) {
-                    Object.assign(wordContext, term.overrides)
-                  }
-                }
-                const value = await args.gp(wordContext) //, { options: { debug: { apply: true } } })
-                if (value) {
-                  strings.push(separator)
-                  strings.push(await args.gp(value))
-                  separator = ' '
-                }
-              } else if (element.property) {
-                value = context[element.property]
-                if (value) {
-                  if (element.context) {
-                    value = { ...value, ...element.context }
-                  }
-                  async function handleProperty(value) {
-                    strings.push(separator)
-                    if (Array.isArray(value)) {
-                      strings.push(await args.gsp(value))
-                    } else {
-                      strings.push(await args.gp(value))
-                    }
-                    separator = ' '
-                  }
-                  if (element.byPosition) {
-                    const element = { start: value.range.start, insert: ((value) => () => handleProperty(value))(value) }
-                    if (byPosition.length == 0) {
-                      byPosition.push(element)
-                    } else {
-                      const index = byPosition.findIndex((element) => element.start < value.range.start)
-                      if (index == -1) {
-                        byPosition.unshift(element)
-                      } else {
-                        byPosition.splice(index+1, 0, element)
-                      }
-                    }
-                  } else {
-                    await handleProperty(value)
-                  }
-                }
-              } else if (element.context) {
-                let value = element.context
-                if (element.property) {
-                  value = context[element.property]
-                  if (element.context) {
-                    Object.assign(value, element.context)
-                  }
-                }
-                // if (!value?.number && element.number) {
-                if (value?.form !== 'infinitive' && element.number) {
-                  value.number = isMany(context[element.number]) ? "many": "one"
-                }
-                if (value) {
-                  strings.push(separator)
-                  strings.push(await args.gp(value))
-                  separator = ' '
-                }
-              }
-            }
-            for (const { insert } of byPosition) {
-              await insert()
-            }
-            return strings.join('')
-          } else {
-            return await helpers.processTemplateString(interpolate, evaluator)
-          }
-        }
+        interpolate: interpolate(args),
       }
     })
   }

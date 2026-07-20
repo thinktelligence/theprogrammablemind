@@ -764,7 +764,7 @@
       "bridges": [
         {
           "id": "change_wp",
-          "bridge": "{ ...next(operator), from: after[0][0], generate: [operator, 'from', after[1]] }"
+          "bridge": "{ \n            ...next(operator), \n            from: after[0][0], \n            interpolate: [{ context: operator }, { property: 'from' }, { context: after[1] }] \n          }"
         },
         {
           "id": "paragraphComparisonVerb_wp",
@@ -789,7 +789,7 @@
               "comparison": "include"
             }
           ],
-          "bridge": "{ ...next(operator), element: before[0], subject: before[0], words: after[0], verb: operator, generate: ['element', 'verb', 'words'] }"
+          "bridge": "{ \n            ...next(operator), \n            element: before[0], \n            subject: before[0], \n            words: after[0], \n            verb: operator, \n            interpolate: [{ property: 'element' }, { property: 'verb' }, { property: 'words' }] \n          }"
         },
         {
           "id": "statefulElementInContext_wp",
@@ -799,8 +799,8 @@
           "optional": {
             "-1": "{ ...operator, invisible: true }"
           },
-          "bridge": "{ ...next(before[0]), context: append(before[0].context, [after[0]]), generate: [before[0], operator, after[0]], modifiers: [] }",
-          "semantic": "(args) => {\n            const { context, contexts } = args\n            for (let i = context.context_index + 1; i < contexts.length; ++i) {\n              if (contexts[i].marker == 'applyStyle_wp') {\n                const element = contexts[i].element\n                if (!element.context) {\n                  element.context = []\n                }\n                element.context = element.context.concat(context.context)\n              }\n            }\n            console.log(JSON.stringify(Object.keys(args)))\n          }"
+          "bridge": "{ \n            ...next(before[0]), \n            context: append(before[0].context, [after[0]]), \n            interpolate: [{ context: before[0] }, { context: operator }, { context: after[0] }], \n            modifiers: [] \n          }",
+          "semantic": "(args) => {\n            const { context, contexts } = args\n            for (let i = context.context_index + 1; i < contexts.length; ++i) {\n              if (contexts[i].marker == 'applyStyle_wp') {\n                const element = contexts[i].element\n                if (!element.context) {\n                  element.context = []\n                }\n                element.context = element.context.concat(context.context)\n              }\n            }\n          }"
         },
         {
           "id": "applyStyle_wp",
@@ -808,7 +808,7 @@
             "verb"
           ],
           "convolution": true,
-          "bridge": "{ ...next(operator), element: after[0], state: before[0], operator: operator, generate: ['state', 'element'] }",
+          "bridge": "{ \n            ...next(operator), \n            element: after[0], \n            state: before[0], \n            operator: operator, \n            interpolate: [{ property: 'state' }, { property: 'element' }] \n          }",
           "localHierarchy": [
             [
               "thisitthat",
@@ -827,7 +827,7 @@
             "adjective"
           ],
           "convolution": true,
-          "bridge": "{ ...after[0], style: before[0], target: after[0], generate: ['style', 'target'], conditions: append(after[0].conditions, [before[0]]) }"
+          "bridge": "{ \n            ...after[0], \n            style: before[0], \n            target: after[0], \n            interpolate: [{ property: 'style' }, { property: 'target' }], \n            conditions: append(after[0].conditions, [before[0]]) \n          }"
         },
         {
           "id": "wordComparisonWithVerb_wp",
@@ -852,7 +852,7 @@
               "comparison": "suffix"
             }
           ],
-          "bridge": "{ ...next(operator), element: before[0], subject: before[0], letters: after[0], verb: operator, generate: ['element', 'verb', 'letters'] }"
+          "bridge": "{ \n            ...next(operator), \n            element: before[0], \n            subject: before[0], \n            letters: after[0], \n            verb: operator, \n            interpolate: [{ property: 'element' }, { property: 'verb' }, { property: 'letters' }] \n          }"
         },
         {
           "id": "wordComparison_wp",
@@ -880,7 +880,7 @@
           "optional": {
             "1": "{ marker: 'a' }"
           },
-          "bridge": "{ ...next(operator), element: before[0], subject: before[0], letters: after[1], verb: operator, generate: ['element', 'verb', 'letters'] }"
+          "bridge": "{ \n            ...next(operator), \n            element: before[0], \n            subject: before[0], \n            letters: after[1], \n            verb: operator, \n            interpolate: [{ property: 'element' }, { property: 'verb' }, { property: 'letters' }] \n          }"
         },
         {
           "id": "comparisonWith_wp",
@@ -890,14 +890,14 @@
           "optional": {
             "1": "{ marker: 'a' }"
           },
-          "bridge": "{ ...next(operator), operator: operator, letters: after[1], generate: ['operator', 'letters'] }"
+          "bridge": "{ \n            ...next(operator), \n            operator: operator, \n            letters: after[1], \n            interpolate: [{ property: 'operator' }, { property: 'letters' }] \n          }"
         },
         {
           "id": "changeState_wp",
           "parents": [
             "verb"
           ],
-          "bridge": "{ ...next(operator), element: after[0], state: after[1], operator: operator, generate: ['operator', 'element', 'state'] }",
+          "bridge": "{ \n            ...next(operator), \n            element: after[0], \n            state: after[1], \n            operator: operator, \n            interpolate: [{ property: 'operator' }, { property: 'element' }, { property: 'state' }] \n          }",
           "localHierarchy": [
             [
               "thisitthat",
@@ -28844,20 +28844,6 @@
             "unknown",
             0
           ]
-        ],
-        [
-          [
-            "is",
-            0
-          ],
-          [
-            "list",
-            1
-          ],
-          [
-            "unknown",
-            0
-          ]
         ]
       ],
       "summaries": [
@@ -55893,20 +55879,6 @@
             "unknown",
             0
           ]
-        ],
-        [
-          [
-            "is",
-            0
-          ],
-          [
-            "list",
-            1
-          ],
-          [
-            "unknown",
-            0
-          ]
         ]
       ],
       "summaries": [
@@ -62474,7 +62446,7 @@
       "bridges": [
         {
           "id": "change_wp",
-          "bridge": "{ ...next(operator), from: after[0][0], generate: [operator, 'from', after[1]] }"
+          "bridge": "{ \n            ...next(operator), \n            from: after[0][0], \n            interpolate: [{ context: operator }, { property: 'from' }, { context: after[1] }] \n          }"
         },
         {
           "id": "paragraphComparisonVerb_wp",
@@ -62499,7 +62471,7 @@
               "comparison": "include"
             }
           ],
-          "bridge": "{ ...next(operator), element: before[0], subject: before[0], words: after[0], verb: operator, generate: ['element', 'verb', 'words'] }"
+          "bridge": "{ \n            ...next(operator), \n            element: before[0], \n            subject: before[0], \n            words: after[0], \n            verb: operator, \n            interpolate: [{ property: 'element' }, { property: 'verb' }, { property: 'words' }] \n          }"
         },
         {
           "id": "statefulElementInContext_wp",
@@ -62509,7 +62481,7 @@
           "optional": {
             "-1": "{ ...operator, invisible: true }"
           },
-          "bridge": "{ ...next(before[0]), context: append(before[0].context, [after[0]]), generate: [before[0], operator, after[0]], modifiers: [] }"
+          "bridge": "{ \n            ...next(before[0]), \n            context: append(before[0].context, [after[0]]), \n            interpolate: [{ context: before[0] }, { context: operator }, { context: after[0] }], \n            modifiers: [] \n          }"
         },
         {
           "id": "applyStyle_wp",
@@ -62517,7 +62489,7 @@
             "verb"
           ],
           "convolution": true,
-          "bridge": "{ ...next(operator), element: after[0], state: before[0], operator: operator, generate: ['state', 'element'] }",
+          "bridge": "{ \n            ...next(operator), \n            element: after[0], \n            state: before[0], \n            operator: operator, \n            interpolate: [{ property: 'state' }, { property: 'element' }] \n          }",
           "localHierarchy": [
             [
               "thisitthat",
@@ -62535,7 +62507,7 @@
             "adjective"
           ],
           "convolution": true,
-          "bridge": "{ ...after[0], style: before[0], target: after[0], generate: ['style', 'target'], conditions: append(after[0].conditions, [before[0]]) }"
+          "bridge": "{ \n            ...after[0], \n            style: before[0], \n            target: after[0], \n            interpolate: [{ property: 'style' }, { property: 'target' }], \n            conditions: append(after[0].conditions, [before[0]]) \n          }"
         },
         {
           "id": "wordComparisonWithVerb_wp",
@@ -62560,7 +62532,7 @@
               "comparison": "suffix"
             }
           ],
-          "bridge": "{ ...next(operator), element: before[0], subject: before[0], letters: after[0], verb: operator, generate: ['element', 'verb', 'letters'] }"
+          "bridge": "{ \n            ...next(operator), \n            element: before[0], \n            subject: before[0], \n            letters: after[0], \n            verb: operator, \n            interpolate: [{ property: 'element' }, { property: 'verb' }, { property: 'letters' }] \n          }"
         },
         {
           "id": "wordComparison_wp",
@@ -62588,7 +62560,7 @@
           "optional": {
             "1": "{ marker: 'a' }"
           },
-          "bridge": "{ ...next(operator), element: before[0], subject: before[0], letters: after[1], verb: operator, generate: ['element', 'verb', 'letters'] }"
+          "bridge": "{ \n            ...next(operator), \n            element: before[0], \n            subject: before[0], \n            letters: after[1], \n            verb: operator, \n            interpolate: [{ property: 'element' }, { property: 'verb' }, { property: 'letters' }] \n          }"
         },
         {
           "id": "comparisonWith_wp",
@@ -62598,14 +62570,14 @@
           "optional": {
             "1": "{ marker: 'a' }"
           },
-          "bridge": "{ ...next(operator), operator: operator, letters: after[1], generate: ['operator', 'letters'] }"
+          "bridge": "{ \n            ...next(operator), \n            operator: operator, \n            letters: after[1], \n            interpolate: [{ property: 'operator' }, { property: 'letters' }] \n          }"
         },
         {
           "id": "changeState_wp",
           "parents": [
             "verb"
           ],
-          "bridge": "{ ...next(operator), element: after[0], state: after[1], operator: operator, generate: ['operator', 'element', 'state'] }",
+          "bridge": "{ \n            ...next(operator), \n            element: after[0], \n            state: after[1], \n            operator: operator, \n            interpolate: [{ property: 'operator' }, { property: 'element' }, { property: 'state' }] \n          }",
           "localHierarchy": [
             [
               "thisitthat",
@@ -62627,10 +62599,10 @@
       ],
       "semantics": [
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/wp.js:399"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/wp.js:451"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/wp.js:408"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/wp.js:460"
         }
       ],
       "priorities": [
@@ -63350,34 +63322,6 @@
         "countable",
         0
       ],
-      [
-        "is",
-        0
-      ],
-      [
-        "list",
-        1
-      ],
-      [
-        "unknown",
-        0
-      ]
-    ],
-    [
-      [
-        "is",
-        0
-      ],
-      [
-        "list",
-        1
-      ],
-      [
-        "unknown",
-        0
-      ]
-    ],
-    [
       [
         "is",
         0

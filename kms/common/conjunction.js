@@ -64,7 +64,7 @@ const config = {
     {
       where: where(),
       notes: 'handle lists',
-      match: ({context, hierarchy}) => context.marker == 'list' && context.value,
+      match: ({context, hierarchy}) => context.marker == 'list' && context.value && (!context.interpolate || context.isResponse),
       apply: async ({context, gs}) => {
         if (context.newLinesOnly) {
           return await gs(toFinalValue(context), '\n')
@@ -76,7 +76,7 @@ const config = {
 
     {
       where: where(),
-      match: ({context, callId}) => context.listable && context.value,
+      match: ({context, callId}) => context.listable && context.value && (!context.interpolate || context.isResponse),
       apply: ({context, gs}) => {
         return gs(context.value, ' ', ' ' + context.word + ' ')
       },

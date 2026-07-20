@@ -296,7 +296,7 @@
               "unknown"
             ]
           ],
-          "bridge": "{ ...next(operator), object: after[0], objects: after }"
+          "bridge": "{ \n        ...next(operator), \n        ofWord: operator,\n        object: after[0], \n        objects: after \n      }"
         },
         {
           "id": "propertyOf",
@@ -315,7 +315,7 @@
               "unknown"
             ]
           ],
-          "bridge": "{ ...before[0], propertyOf: true, object: operator.object, objects: append(default(before[0].objects, before), operator.objects) }"
+          "bridge": "{ \n        ...before[0], \n        propertyOf: true, \n        interpolate: [ { property: 'property' }, { word: 'of' }, { property: 'object' } ],\n        property: before[0],\n        object: operator.object, \n        objects: append(default(before[0].objects, before), operator.objects) \n      }"
         },
         {
           "id": "whose",
@@ -895,7 +895,7 @@
         },
         {
           "match": "({context, hierarchy, toArray}) => {\n                      // (hierarchy.isA(context.marker, 'property') || (hierarchy.isA(context.marker, 'list') && context.possession)) && \n        return (toArray(context).every((value) => hierarchy.isA(value.marker, 'property')) || (hierarchy.isA(context.marker, 'list') && context.possession)) && context.evaluate && context.objects && !context.evaluate.toConcept\n      }",
-          "apply": "async ({callId, flatten, asList, context, api, kms, objects, g, s, log, recall}) => {\n        async function toValue(objectContext) {\n          if (!objectContext.value) {\n            return objectContext;\n          }\n          let objectValue = kms.stm.api.getVariable(objectContext);\n          if (!objectValue) {\n            objectValue = objectContext.value\n          }\n          if (!await api.knownObject(objectValue)) {\n            objectContext.verbatim = `There is no object named \"${await g({...objectContext, paraphrase: true})}\"`\n            return\n          }\n          return objectValue\n        }\n\n        async function processOne(toDo) {\n          let currentContext = toDo.pop()\n          let currentValue = await toValue(currentContext)\n          while (toDo.length > 0) {\n            const nextContext = toDo.pop()\n            const nextValue = await toValue(nextContext)\n            if (!nextValue) {\n              // TODO maybe this I aware so it can say \"I don't know about blah...\" and below\n              // if (currentContext.unknown || !currentContext.value) {\n              if (!api.conceptExists(currentContext.value)) {\n                // api.conceptExists(currentContext)\n                const objectPhrase = await g({...currentContext, paraphrase: true})\n                context.verbatim = `What \"${objectPhrase}\" means is unknown`\n                return\n              }\n\n              const propertyPhrase = await g({...nextContext, paraphrase: true})\n              const objectPhrase = await g({...currentContext, paraphrase: true})\n              context.verbatim = `There is no interpretation for \"${propertyPhrase} of ${objectPhrase}\"`\n              return\n            }\n\n            let fromMentions\n            if (!await api.knownProperty(currentContext, nextContext)) {\n              fromMentions = await recall({ context: nextContext, all: nextContext.number == 'many', frameOfReference: currentContext })\n              if (!fromMentions) {\n                context.verbatim = `There is no property ${await g({...nextContext, paraphrase: true})} of ${await g({...currentContext, paraphrase: true})}`\n                return\n              }\n            }\n            if (fromMentions) {\n              currentContext = fromMentions\n              currentValue = fromMentions // TODO not sure what is right here so just do something and fix when actually needed SOP\n            } else {\n              currentContext = await api.getProperty(currentValue, nextValue, g)\n              currentValue = currentContext.value\n            }\n          }\n          return currentContext\n        }\n\n        debug.breakAt('combined#call27')\n        // const toDo = [ ...context.objects ]\n        const [toDos, _] = flatten(['list'], context.objects)\n        const results = []\n        for (const toDo of toDos) {\n          const one = await processOne(toDo)\n          results.push(one)\n        }\n\n        if (results.length > 0) {\n          context.focusable = ['object[0]']\n          // context.evalue = currentContext\n          context.evalue = asList(results, true)\n          context.object = undefined;\n        }\n      }"
+          "apply": "async ({callId, flatten, asList, context, api, kms, objects, g, s, log, recall}) => {\n        async function toValue(objectContext) {\n          if (!objectContext.value) {\n            return objectContext;\n          }\n          let objectValue = kms.stm.api.getVariable(objectContext);\n          if (!objectValue) {\n            objectValue = objectContext.value\n          }\n          if (!await api.knownObject(objectValue)) {\n            objectContext.verbatim = `There is no object named \"${await g({...objectContext, paraphrase: true})}\"`\n            return\n          }\n          return objectValue\n        }\n\n        async function processOne(toDo) {\n          let currentContext = toDo.pop()\n          let currentValue = await toValue(currentContext)\n          while (toDo.length > 0) {\n            const nextContext = toDo.pop()\n            const nextValue = await toValue(nextContext)\n            if (!nextValue) {\n              // TODO maybe this I aware so it can say \"I don't know about blah...\" and below\n              // if (currentContext.unknown || !currentContext.value) {\n              if (!api.conceptExists(currentContext.value)) {\n                // api.conceptExists(currentContext)\n                const objectPhrase = await g({...currentContext, paraphrase: true})\n                context.verbatim = `What \"${objectPhrase}\" means is unknown`\n                return\n              }\n\n              const propertyPhrase = await g({...nextContext, paraphrase: true})\n              const objectPhrase = await g({...currentContext, paraphrase: true})\n              context.verbatim = `There is no interpretation for \"${propertyPhrase} of ${objectPhrase}\"`\n              return\n            }\n\n            let fromMentions\n            if (!await api.knownProperty(currentContext, nextContext)) {\n              fromMentions = await recall({ context: nextContext, all: nextContext.number == 'many', frameOfReference: currentContext })\n              if (!fromMentions) {\n                context.verbatim = `There is no property ${await g({...nextContext, paraphrase: true})} of ${await g({...currentContext, paraphrase: true})}`\n                return\n              }\n            }\n            if (fromMentions) {\n              currentContext = fromMentions\n              currentValue = fromMentions // TODO not sure what is right here so just do something and fix when actually needed SOP\n            } else {\n              currentContext = await api.getProperty(currentValue, nextValue, g)\n              currentValue = currentContext.value\n            }\n          }\n          return currentContext\n        }\n\n        // const toDo = [ ...context.objects ]\n        debug.breakAt('drone#call90')\n        const [toDos, _] = flatten(['list'], context.objects)\n        const results = []\n        for (const toDo of toDos) {\n          const one = await processOne(toDo)\n          results.push(one)\n        }\n\n        if (results.length > 0) {\n          context.focusable = ['object[0]']\n          // context.evalue = currentContext\n          context.evalue = asList(results, true)\n          context.object = undefined;\n        }\n      }"
         }
       ]
     }
@@ -2476,7 +2476,7 @@
               "unknown"
             ]
           ],
-          "bridge": "{ ...next(operator), object: after[0], objects: after }"
+          "bridge": "{ \n        ...next(operator), \n        ofWord: operator,\n        object: after[0], \n        objects: after \n      }"
         },
         {
           "id": "propertyOf",
@@ -2495,7 +2495,7 @@
               "unknown"
             ]
           ],
-          "bridge": "{ ...before[0], propertyOf: true, object: operator.object, objects: append(default(before[0].objects, before), operator.objects) }"
+          "bridge": "{ \n        ...before[0], \n        propertyOf: true, \n        interpolate: [ { property: 'property' }, { word: 'of' }, { property: 'object' } ],\n        property: before[0],\n        object: operator.object, \n        objects: append(default(before[0].objects, before), operator.objects) \n      }"
         },
         {
           "id": "whose",
@@ -2989,88 +2989,88 @@
       "generators": [
         {
           "notes": "expression with constraints",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:312"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:324"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:334"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:346"
         },
         {
           "notes": "add possession ending",
           "priority": -1,
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:341"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:353"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:355"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:367"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:360"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:372"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:365"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:377"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:370"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:382"
         },
         {
           "notes": "negative do questions",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:376"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:388"
         },
         {
           "notes": "do questions",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:385"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:397"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:399"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:411"
         },
         {
           "notes": "the property of object",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:407"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:419"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:431"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:443"
         },
         {
           "notes": "object's property",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:440"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:452"
         }
       ],
       "semantics": [
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:471",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:483",
           "notes": "how deep is the pool",
           "priority": -1
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:499"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:511"
         },
         {
           "notes": "wants is xfx between wanter and wantee",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:510",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:522",
           "priority": -1
         },
         {
           "notes": "marking something as readonly",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:524"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:536"
         },
         {
           "notes": "crew members. evaluate a concepts to get instances",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:548"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:560"
         },
         {
           "notes": "greg has eyes",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:576"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:588"
         },
         {
           "notes": "greg has eyes?",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:589"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:601"
         },
         {
           "notes": "set the property of an object",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:615"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:627"
         },
         {
           "notes": "get/evaluate a property",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:676"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:688"
         }
       ]
     }
@@ -3662,11 +3662,113 @@
             "pullFromContext": true,
             "concept": true,
             "wantsValue": true,
-            "determiner": "the",
-            "modifiers": [
+            "checks": [
               "determiner"
             ],
+            "determiner": {
+              "modifiers": [],
+              "text": "the",
+              "marker": "the",
+              "word": "the",
+              "range": {
+                "start": 0,
+                "end": 2
+              },
+              "level": 0
+            },
+            "theable": {
+              "value": "property1",
+              "unknown": true,
+              "text": "property1",
+              "marker": "unknown",
+              "word": "property1",
+              "range": {
+                "start": 4,
+                "end": 12
+              },
+              "dead": true,
+              "types": [
+                "unknown"
+              ],
+              "level": 0
+            },
+            "flatten_ignore": [
+              "theable"
+            ],
+            "interpolate": [
+              {
+                "property": "property"
+              },
+              {
+                "word": "of"
+              },
+              {
+                "property": "object"
+              }
+            ],
             "propertyOf": true,
+            "property": {
+              "value": "property1",
+              "unknown": true,
+              "text": "the property1",
+              "marker": "property",
+              "word": "property1",
+              "range": {
+                "start": 0,
+                "end": 12
+              },
+              "dead": true,
+              "types": [
+                "property",
+                "unknown"
+              ],
+              "focusableForPhrase": true,
+              "pullFromContext": true,
+              "concept": true,
+              "wantsValue": true,
+              "checks": [
+                "determiner"
+              ],
+              "determiner": {
+                "modifiers": [],
+                "text": "the",
+                "marker": "the",
+                "word": "the",
+                "range": {
+                  "start": 0,
+                  "end": 2
+                },
+                "level": 0
+              },
+              "theable": {
+                "value": "property1",
+                "unknown": true,
+                "text": "property1",
+                "marker": "unknown",
+                "word": "property1",
+                "range": {
+                  "start": 4,
+                  "end": 12
+                },
+                "dead": true,
+                "types": [
+                  "unknown"
+                ],
+                "level": 0
+              },
+              "flatten_ignore": [
+                "theable"
+              ],
+              "interpolate": [
+                {
+                  "property": "determiner"
+                },
+                {
+                  "property": "theable"
+                }
+              ],
+              "level": 0
+            },
             "object": {
               "value": "object1",
               "unknown": true,
@@ -3703,9 +3805,46 @@
                 "pullFromContext": true,
                 "concept": true,
                 "wantsValue": true,
-                "determiner": "the",
-                "modifiers": [
+                "checks": [
                   "determiner"
+                ],
+                "determiner": {
+                  "modifiers": [],
+                  "text": "the",
+                  "marker": "the",
+                  "word": "the",
+                  "range": {
+                    "start": 0,
+                    "end": 2
+                  },
+                  "level": 0
+                },
+                "theable": {
+                  "value": "property1",
+                  "unknown": true,
+                  "text": "property1",
+                  "marker": "unknown",
+                  "word": "property1",
+                  "range": {
+                    "start": 4,
+                    "end": 12
+                  },
+                  "dead": true,
+                  "types": [
+                    "unknown"
+                  ],
+                  "level": 0
+                },
+                "flatten_ignore": [
+                  "theable"
+                ],
+                "interpolate": [
+                  {
+                    "property": "determiner"
+                  },
+                  {
+                    "property": "theable"
+                  }
                 ],
                 "level": 0
               },
@@ -3755,7 +3894,7 @@
         ""
       ],
       "paraphrases": [
-        "the property1 is value1"
+        "the property1 of object1 is value1"
       ],
       "paraphrasesParenthesized": [],
       "generatedParenthesized": [],
@@ -4811,11 +4950,112 @@
             "pullFromContext": true,
             "concept": true,
             "wantsValue": true,
-            "determiner": "the",
-            "modifiers": [
+            "checks": [
               "determiner"
             ],
+            "determiner": {
+              "modifiers": [],
+              "text": "the",
+              "marker": "the",
+              "word": "the",
+              "range": {
+                "start": 0,
+                "end": 2
+              },
+              "level": 0
+            },
+            "theable": {
+              "value": "property",
+              "number": "one",
+              "text": "property",
+              "marker": "property",
+              "word": "property",
+              "range": {
+                "start": 4,
+                "end": 11
+              },
+              "dead": true,
+              "types": [
+                "property"
+              ],
+              "level": 0
+            },
+            "flatten_ignore": [
+              "theable"
+            ],
+            "interpolate": [
+              {
+                "property": "property"
+              },
+              {
+                "word": "of"
+              },
+              {
+                "property": "object"
+              }
+            ],
             "propertyOf": true,
+            "property": {
+              "value": "property",
+              "number": "one",
+              "text": "the property",
+              "marker": "property",
+              "word": "property",
+              "range": {
+                "start": 0,
+                "end": 11
+              },
+              "dead": true,
+              "types": [
+                "property"
+              ],
+              "focusableForPhrase": true,
+              "pullFromContext": true,
+              "concept": true,
+              "wantsValue": true,
+              "checks": [
+                "determiner"
+              ],
+              "determiner": {
+                "modifiers": [],
+                "text": "the",
+                "marker": "the",
+                "word": "the",
+                "range": {
+                  "start": 0,
+                  "end": 2
+                },
+                "level": 0
+              },
+              "theable": {
+                "value": "property",
+                "number": "one",
+                "text": "property",
+                "marker": "property",
+                "word": "property",
+                "range": {
+                  "start": 4,
+                  "end": 11
+                },
+                "dead": true,
+                "types": [
+                  "property"
+                ],
+                "level": 0
+              },
+              "flatten_ignore": [
+                "theable"
+              ],
+              "interpolate": [
+                {
+                  "property": "determiner"
+                },
+                {
+                  "property": "theable"
+                }
+              ],
+              "level": 0
+            },
             "object": {
               "marker": "object",
               "value": "object",
@@ -4851,9 +5091,46 @@
                 "pullFromContext": true,
                 "concept": true,
                 "wantsValue": true,
-                "determiner": "the",
-                "modifiers": [
+                "checks": [
                   "determiner"
+                ],
+                "determiner": {
+                  "modifiers": [],
+                  "text": "the",
+                  "marker": "the",
+                  "word": "the",
+                  "range": {
+                    "start": 0,
+                    "end": 2
+                  },
+                  "level": 0
+                },
+                "theable": {
+                  "value": "property",
+                  "number": "one",
+                  "text": "property",
+                  "marker": "property",
+                  "word": "property",
+                  "range": {
+                    "start": 4,
+                    "end": 11
+                  },
+                  "dead": true,
+                  "types": [
+                    "property"
+                  ],
+                  "level": 0
+                },
+                "flatten_ignore": [
+                  "theable"
+                ],
+                "interpolate": [
+                  {
+                    "property": "determiner"
+                  },
+                  {
+                    "property": "theable"
+                  }
                 ],
                 "level": 0
               },
@@ -4903,7 +5180,7 @@
         ""
       ],
       "paraphrases": [
-        "the property is value"
+        "the property of object is value"
       ],
       "paraphrasesParenthesized": [],
       "generatedParenthesized": [],
@@ -5834,11 +6111,112 @@
           "pullFromContext": true,
           "concept": true,
           "wantsValue": true,
-          "determiner": "the",
-          "modifiers": [
+          "checks": [
             "determiner"
           ],
+          "determiner": {
+            "modifiers": [],
+            "text": "the",
+            "marker": "the",
+            "word": "the",
+            "range": {
+              "start": 0,
+              "end": 2
+            },
+            "level": 0
+          },
+          "theable": {
+            "value": "property",
+            "number": "one",
+            "text": "property",
+            "marker": "property",
+            "word": "property",
+            "range": {
+              "start": 4,
+              "end": 11
+            },
+            "dead": true,
+            "types": [
+              "property"
+            ],
+            "level": 0
+          },
+          "flatten_ignore": [
+            "theable"
+          ],
+          "interpolate": [
+            {
+              "property": "property"
+            },
+            {
+              "word": "of"
+            },
+            {
+              "property": "object"
+            }
+          ],
           "propertyOf": true,
+          "property": {
+            "value": "property",
+            "number": "one",
+            "text": "the property",
+            "marker": "property",
+            "word": "property",
+            "range": {
+              "start": 0,
+              "end": 11
+            },
+            "dead": true,
+            "types": [
+              "property"
+            ],
+            "focusableForPhrase": true,
+            "pullFromContext": true,
+            "concept": true,
+            "wantsValue": true,
+            "checks": [
+              "determiner"
+            ],
+            "determiner": {
+              "modifiers": [],
+              "text": "the",
+              "marker": "the",
+              "word": "the",
+              "range": {
+                "start": 0,
+                "end": 2
+              },
+              "level": 0
+            },
+            "theable": {
+              "value": "property",
+              "number": "one",
+              "text": "property",
+              "marker": "property",
+              "word": "property",
+              "range": {
+                "start": 4,
+                "end": 11
+              },
+              "dead": true,
+              "types": [
+                "property"
+              ],
+              "level": 0
+            },
+            "flatten_ignore": [
+              "theable"
+            ],
+            "interpolate": [
+              {
+                "property": "determiner"
+              },
+              {
+                "property": "theable"
+              }
+            ],
+            "level": 0
+          },
           "object": {
             "marker": "object",
             "value": "object",
@@ -5874,9 +6252,46 @@
               "pullFromContext": true,
               "concept": true,
               "wantsValue": true,
-              "determiner": "the",
-              "modifiers": [
+              "checks": [
                 "determiner"
+              ],
+              "determiner": {
+                "modifiers": [],
+                "text": "the",
+                "marker": "the",
+                "word": "the",
+                "range": {
+                  "start": 0,
+                  "end": 2
+                },
+                "level": 0
+              },
+              "theable": {
+                "value": "property",
+                "number": "one",
+                "text": "property",
+                "marker": "property",
+                "word": "property",
+                "range": {
+                  "start": 4,
+                  "end": 11
+                },
+                "dead": true,
+                "types": [
+                  "property"
+                ],
+                "level": 0
+              },
+              "flatten_ignore": [
+                "theable"
+              ],
+              "interpolate": [
+                {
+                  "property": "determiner"
+                },
+                {
+                  "property": "theable"
+                }
               ],
               "level": 0
             },
@@ -5907,7 +6322,7 @@
         ""
       ],
       "paraphrases": [
-        "the property"
+        "the property of object"
       ],
       "paraphrasesParenthesized": [],
       "generatedParenthesized": [],
@@ -6643,9 +7058,46 @@
             "pullFromContext": true,
             "concept": true,
             "wantsValue": true,
-            "determiner": "the",
-            "modifiers": [
+            "checks": [
               "determiner"
+            ],
+            "determiner": {
+              "modifiers": [],
+              "text": "the",
+              "marker": "the",
+              "word": "the",
+              "range": {
+                "start": 0,
+                "end": 2
+              },
+              "level": 0
+            },
+            "theable": {
+              "value": "property",
+              "number": "one",
+              "text": "property",
+              "marker": "property",
+              "word": "property",
+              "range": {
+                "start": 4,
+                "end": 11
+              },
+              "dead": true,
+              "types": [
+                "property"
+              ],
+              "level": 0
+            },
+            "flatten_ignore": [
+              "theable"
+            ],
+            "interpolate": [
+              {
+                "property": "determiner"
+              },
+              {
+                "property": "theable"
+              }
             ],
             "level": 0
           },

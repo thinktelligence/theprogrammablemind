@@ -88,6 +88,24 @@
           "unknown",
           0
         ]
+      ],
+      [
+        [
+          "propertyOf",
+          0
+        ],
+        [
+          "the",
+          0
+        ],
+        [
+          "unknown",
+          0
+        ],
+        [
+          "what",
+          0
+        ]
       ]
     ],
     "config": {
@@ -99,12 +117,7 @@
         "dead": true,
         "do": {
           "left": "sentientBeing",
-          "range": {
-            "end": 15,
-            "start": 0
-          },
-          "right": "emotion",
-          "text": "greg feels angry"
+          "right": "emotion"
         },
         "emotion": {
           "concept": true,
@@ -133,25 +146,32 @@
             "property": "sentientBeing"
           },
           {
-            "evaluateWord": true,
-            "isVerb": true,
-            "marker": "feel",
-            "number": "one",
-            "range": {
-              "end": 9,
-              "start": 5
-            },
-            "text": "feels",
-            "value": "feel",
-            "word": "feels"
+            "number": "sentientBeing",
+            "property": "operator"
           },
           {
             "property": "emotion"
           }
         ],
+        "isVerb": true,
         "level": 2,
         "marker": "feel",
         "number": "one",
+        "operator": {
+          "evaluateWord": true,
+          "imperative": false,
+          "isVerb": true,
+          "level": 0,
+          "marker": "feel",
+          "number": "one",
+          "range": {
+            "end": 9,
+            "start": 5
+          },
+          "text": "feels",
+          "value": "feel",
+          "word": "feels"
+        },
         "range": {
           "end": 15,
           "start": 0
@@ -197,15 +217,37 @@
           ],
           "marker": "is",
           "one": {
-            "concept": true,
-            "dead": true,
-            "determiner": "the",
-            "focusableForPhrase": true,
-            "level": 0,
-            "marker": "property",
-            "modifiers": [
+            "checks": [
               "determiner"
             ],
+            "concept": true,
+            "dead": true,
+            "determiner": {
+              "level": 0,
+              "marker": "the",
+              "modifiers": [
+              ],
+              "range": {
+                "end": 27,
+                "start": 25
+              },
+              "text": "the",
+              "word": "the"
+            },
+            "focusableForPhrase": true,
+            "interpolate": [
+              {
+                "property": "property"
+              },
+              {
+                "word": "of"
+              },
+              {
+                "property": "object"
+              }
+            ],
+            "level": 0,
+            "marker": "property",
             "object": {
               "dead": true,
               "level": 0,
@@ -224,21 +266,56 @@
             },
             "objects": [
               {
-                "concept": true,
-                "dead": true,
-                "determiner": "the",
-                "focusableForPhrase": true,
-                "level": 0,
-                "marker": "property",
-                "modifiers": [
+                "checks": [
                   "determiner"
                 ],
+                "concept": true,
+                "dead": true,
+                "determiner": {
+                  "level": 0,
+                  "marker": "the",
+                  "modifiers": [
+                  ],
+                  "range": {
+                    "end": 27,
+                    "start": 25
+                  },
+                  "text": "the",
+                  "word": "the"
+                },
+                "focusableForPhrase": true,
+                "interpolate": [
+                  {
+                    "property": "determiner"
+                  },
+                  {
+                    "property": "theable"
+                  }
+                ],
+                "level": 0,
+                "marker": "property",
                 "pullFromContext": true,
                 "range": {
                   "end": 35,
                   "start": 25
                 },
                 "text": "the emotion",
+                "theable": {
+                  "dead": true,
+                  "level": 0,
+                  "marker": "unknown",
+                  "range": {
+                    "end": 35,
+                    "start": 29
+                  },
+                  "text": "emotion",
+                  "types": [
+                    "unknown"
+                  ],
+                  "unknown": true,
+                  "value": "emotion",
+                  "word": "emotion"
+                },
                 "types": [
                   "property",
                   "unknown"
@@ -265,12 +342,89 @@
                 "word": "greg"
               }
             ],
+            "property": {
+              "checks": [
+                "determiner"
+              ],
+              "concept": true,
+              "dead": true,
+              "determiner": {
+                "level": 0,
+                "marker": "the",
+                "modifiers": [
+                ],
+                "range": {
+                  "end": 27,
+                  "start": 25
+                },
+                "text": "the",
+                "word": "the"
+              },
+              "focusableForPhrase": true,
+              "interpolate": [
+                {
+                  "property": "determiner"
+                },
+                {
+                  "property": "theable"
+                }
+              ],
+              "level": 0,
+              "marker": "property",
+              "pullFromContext": true,
+              "range": {
+                "end": 35,
+                "start": 25
+              },
+              "text": "the emotion",
+              "theable": {
+                "dead": true,
+                "level": 0,
+                "marker": "unknown",
+                "range": {
+                  "end": 35,
+                  "start": 29
+                },
+                "text": "emotion",
+                "types": [
+                  "unknown"
+                ],
+                "unknown": true,
+                "value": "emotion",
+                "word": "emotion"
+              },
+              "types": [
+                "property",
+                "unknown"
+              ],
+              "unknown": true,
+              "value": "emotion",
+              "wantsValue": true,
+              "word": "emotion"
+            },
+            "propertyOf": true,
             "pullFromContext": true,
             "range": {
               "end": 43,
               "start": 25
             },
             "text": "the emotion of greg",
+            "theable": {
+              "dead": true,
+              "level": 0,
+              "marker": "unknown",
+              "range": {
+                "end": 35,
+                "start": 29
+              },
+              "text": "emotion",
+              "types": [
+                "unknown"
+              ],
+              "unknown": true,
+              "value": "emotion",
+              "word": "emotion"
+            },
             "types": [
               "property",
               "unknown"
@@ -281,9 +435,23 @@
             "word": "emotion"
           },
           "two": {
+            "checks": [
+              "determiner"
+            ],
             "concept": true,
             "dead": true,
-            "determiner": "the",
+            "determiner": {
+              "level": 0,
+              "marker": "the",
+              "modifiers": [
+              ],
+              "range": {
+                "end": 27,
+                "start": 25
+              },
+              "text": "the",
+              "word": "the"
+            },
             "evalue": {
               "concept": true,
               "dead": true,
@@ -308,30 +476,73 @@
             ],
             "focusableForPhrase": true,
             "instance": true,
+            "interpolate": [
+              {
+                "property": "property"
+              },
+              {
+                "word": "of"
+              },
+              {
+                "property": "object"
+              }
+            ],
             "isModule": true,
             "isProcess": true,
             "level": 0,
             "marker": "property",
-            "modifiers": [
-              "determiner"
-            ],
             "objects": [
               {
-                "concept": true,
-                "dead": true,
-                "determiner": "the",
-                "focusableForPhrase": true,
-                "level": 0,
-                "marker": "property",
-                "modifiers": [
+                "checks": [
                   "determiner"
                 ],
+                "concept": true,
+                "dead": true,
+                "determiner": {
+                  "level": 0,
+                  "marker": "the",
+                  "modifiers": [
+                  ],
+                  "range": {
+                    "end": 27,
+                    "start": 25
+                  },
+                  "text": "the",
+                  "word": "the"
+                },
+                "focusableForPhrase": true,
+                "interpolate": [
+                  {
+                    "property": "determiner"
+                  },
+                  {
+                    "property": "theable"
+                  }
+                ],
+                "level": 0,
+                "marker": "property",
                 "pullFromContext": true,
                 "range": {
                   "end": 35,
                   "start": 25
                 },
                 "text": "the emotion",
+                "theable": {
+                  "dead": true,
+                  "level": 0,
+                  "marker": "unknown",
+                  "range": {
+                    "end": 35,
+                    "start": 29
+                  },
+                  "text": "emotion",
+                  "types": [
+                    "unknown"
+                  ],
+                  "unknown": true,
+                  "value": "emotion",
+                  "word": "emotion"
+                },
                 "types": [
                   "property",
                   "unknown"
@@ -358,12 +569,89 @@
                 "word": "greg"
               }
             ],
+            "property": {
+              "checks": [
+                "determiner"
+              ],
+              "concept": true,
+              "dead": true,
+              "determiner": {
+                "level": 0,
+                "marker": "the",
+                "modifiers": [
+                ],
+                "range": {
+                  "end": 27,
+                  "start": 25
+                },
+                "text": "the",
+                "word": "the"
+              },
+              "focusableForPhrase": true,
+              "interpolate": [
+                {
+                  "property": "determiner"
+                },
+                {
+                  "property": "theable"
+                }
+              ],
+              "level": 0,
+              "marker": "property",
+              "pullFromContext": true,
+              "range": {
+                "end": 35,
+                "start": 25
+              },
+              "text": "the emotion",
+              "theable": {
+                "dead": true,
+                "level": 0,
+                "marker": "unknown",
+                "range": {
+                  "end": 35,
+                  "start": 29
+                },
+                "text": "emotion",
+                "types": [
+                  "unknown"
+                ],
+                "unknown": true,
+                "value": "emotion",
+                "word": "emotion"
+              },
+              "types": [
+                "property",
+                "unknown"
+              ],
+              "unknown": true,
+              "value": "emotion",
+              "wantsValue": true,
+              "word": "emotion"
+            },
+            "propertyOf": true,
             "pullFromContext": true,
             "range": {
               "end": 43,
               "start": 25
             },
             "text": "the emotion of greg",
+            "theable": {
+              "dead": true,
+              "level": 0,
+              "marker": "unknown",
+              "range": {
+                "end": 35,
+                "start": 29
+              },
+              "text": "emotion",
+              "types": [
+                "unknown"
+              ],
+              "unknown": true,
+              "value": "emotion",
+              "word": "emotion"
+            },
             "touchedBy": [
               "emotions#call17",
               "emotions#call16"
@@ -394,7 +682,7 @@
             "what"
           ],
           "range": {
-            "end": 43,
+            "end": 20,
             "start": 17
           },
           "text": "what",
@@ -417,15 +705,37 @@
           "emotions#call16"
         ],
         "two": {
-          "concept": true,
-          "dead": true,
-          "determiner": "the",
-          "focusableForPhrase": true,
-          "level": 0,
-          "marker": "property",
-          "modifiers": [
+          "checks": [
             "determiner"
           ],
+          "concept": true,
+          "dead": true,
+          "determiner": {
+            "level": 0,
+            "marker": "the",
+            "modifiers": [
+            ],
+            "range": {
+              "end": 27,
+              "start": 25
+            },
+            "text": "the",
+            "word": "the"
+          },
+          "focusableForPhrase": true,
+          "interpolate": [
+            {
+              "property": "property"
+            },
+            {
+              "word": "of"
+            },
+            {
+              "property": "object"
+            }
+          ],
+          "level": 0,
+          "marker": "property",
           "object": {
             "dead": true,
             "level": 0,
@@ -444,21 +754,56 @@
           },
           "objects": [
             {
-              "concept": true,
-              "dead": true,
-              "determiner": "the",
-              "focusableForPhrase": true,
-              "level": 0,
-              "marker": "property",
-              "modifiers": [
+              "checks": [
                 "determiner"
               ],
+              "concept": true,
+              "dead": true,
+              "determiner": {
+                "level": 0,
+                "marker": "the",
+                "modifiers": [
+                ],
+                "range": {
+                  "end": 27,
+                  "start": 25
+                },
+                "text": "the",
+                "word": "the"
+              },
+              "focusableForPhrase": true,
+              "interpolate": [
+                {
+                  "property": "determiner"
+                },
+                {
+                  "property": "theable"
+                }
+              ],
+              "level": 0,
+              "marker": "property",
               "pullFromContext": true,
               "range": {
                 "end": 35,
                 "start": 25
               },
               "text": "the emotion",
+              "theable": {
+                "dead": true,
+                "level": 0,
+                "marker": "unknown",
+                "range": {
+                  "end": 35,
+                  "start": 29
+                },
+                "text": "emotion",
+                "types": [
+                  "unknown"
+                ],
+                "unknown": true,
+                "value": "emotion",
+                "word": "emotion"
+              },
               "types": [
                 "property",
                 "unknown"
@@ -485,12 +830,89 @@
               "word": "greg"
             }
           ],
+          "property": {
+            "checks": [
+              "determiner"
+            ],
+            "concept": true,
+            "dead": true,
+            "determiner": {
+              "level": 0,
+              "marker": "the",
+              "modifiers": [
+              ],
+              "range": {
+                "end": 27,
+                "start": 25
+              },
+              "text": "the",
+              "word": "the"
+            },
+            "focusableForPhrase": true,
+            "interpolate": [
+              {
+                "property": "determiner"
+              },
+              {
+                "property": "theable"
+              }
+            ],
+            "level": 0,
+            "marker": "property",
+            "pullFromContext": true,
+            "range": {
+              "end": 35,
+              "start": 25
+            },
+            "text": "the emotion",
+            "theable": {
+              "dead": true,
+              "level": 0,
+              "marker": "unknown",
+              "range": {
+                "end": 35,
+                "start": 29
+              },
+              "text": "emotion",
+              "types": [
+                "unknown"
+              ],
+              "unknown": true,
+              "value": "emotion",
+              "word": "emotion"
+            },
+            "types": [
+              "property",
+              "unknown"
+            ],
+            "unknown": true,
+            "value": "emotion",
+            "wantsValue": true,
+            "word": "emotion"
+          },
+          "propertyOf": true,
           "pullFromContext": true,
           "range": {
             "end": 43,
             "start": 25
           },
           "text": "the emotion of greg",
+          "theable": {
+            "dead": true,
+            "level": 0,
+            "marker": "unknown",
+            "range": {
+              "end": 35,
+              "start": 29
+            },
+            "text": "emotion",
+            "types": [
+              "unknown"
+            ],
+            "unknown": true,
+            "value": "emotion",
+            "word": "emotion"
+          },
           "types": [
             "property",
             "unknown"
@@ -505,7 +927,7 @@
     ],
     "generatedParenthesized": [
       "",
-      "((((the (emotion)) of (greg)) is ((angry))))"
+      "((((((the)) (emotion)) of (greg)) is ((angry))))"
     ],
     "metadata": {
       "opChoices": [
@@ -521,7 +943,7 @@
               0
             ],
             [
-              "is",
+              "hasPropertyValue",
               0
             ],
             [
@@ -566,7 +988,7 @@
               0
             ],
             [
-              "is",
+              "hasPropertyValue",
               0
             ],
             [
@@ -831,11 +1253,13 @@
         "asking": "asking2",
         "concept": "concept2",
         "conjunction": "conjunction2",
+        "control": "control2",
         "dialogues": "dialogues2",
         "emotions": "emotions1",
         "evaluate": "evaluate2",
         "gdefaults": "gdefaults2",
         "hierarchy": "hierarchy2",
+        "logging": "logging2",
         "meta": "meta2",
         "negation": "negation2",
         "pos": "pos2",
@@ -843,7 +1267,8 @@
         "punctuation": "punctuation2",
         "sdefaults": "sdefaults2",
         "stm": "stm2",
-        "tokenize": "tokenize2"
+        "tokenize": "tokenize2",
+        "words": "words2"
       },
       "namespaced": {
         "articles2": {
@@ -861,6 +1286,9 @@
         },
         "conjunction2": {
           "km": "conjunction2"
+        },
+        "control2": {
+          "km": "control2"
         },
         "dialogues2": {
           "idSuffix": "",
@@ -882,6 +1310,11 @@
         "hierarchy2": {
           "km": "hierarchy2"
         },
+        "logging2": {
+          "km": "logging2",
+          "messages": [
+          ]
+        },
         "meta2": {
           "km": "meta2"
         },
@@ -894,6 +1327,8 @@
         "properties2": {
           "children": {
             "adjective": [
+              "stm_previous",
+              "stm_current",
               "stm_before"
             ],
             "article": [
@@ -902,33 +1337,22 @@
               "each",
               "every"
             ],
-            "canBeDoQuestion": [
-              "have"
-            ],
             "canBeQuestion": [
-              "have",
               "is"
+            ],
+            "deletable": [
+              "memorable"
             ],
             "emotion": [
               "angry"
-            ],
-            "hierarchyAble": [
-              "unknown"
             ],
             "ifAble": [
               "orAble"
             ],
             "listable": [
-              "object",
               "queryable"
             ],
-            "object": [
-              "what",
-              "whose"
-            ],
             "preposition": [
-              "between",
-              "propertyOf",
               "to"
             ],
             "pronoun": [
@@ -939,11 +1363,6 @@
               "questionMark"
             ],
             "queryable": [
-              "xfx",
-              "hierarchyAble",
-              "readonly",
-              "property",
-              "object",
               "concept",
               "doubleQuote",
               "theAble",
@@ -957,12 +1376,13 @@
               "thisitthat"
             ],
             "theAble": [
-              "property",
-              "object",
               "concept",
               "listable",
               "reason",
               "memorable",
+              "noun"
+            ],
+            "thisAble": [
               "noun"
             ],
             "thisitthat": [
@@ -977,29 +1397,16 @@
               "modifies",
               "is",
               "isQuery",
+              "delete",
+              "recall",
               "remember"
             ]
           },
           "concepts": [
             "properties",
-            "unknown",
-            "hierarchyAble",
-            "what",
-            "object",
-            "xfx",
-            "queryable",
-            "between",
-            "preposition",
-            "readonly",
-            "have",
-            "canBeDoQuestion",
-            "canBeQuestion",
-            "property",
-            "theAble",
-            "listable",
-            "propertyOf",
-            "whose",
             "concept",
+            "theAble",
+            "queryable",
             "modifies",
             "verb",
             "doubleQuote",
@@ -1011,25 +1418,35 @@
             "a",
             "article",
             "the",
+            "what",
             "whatAble",
             "negatable",
             "is",
+            "canBeQuestion",
             "toAble",
+            "listable",
             "to",
+            "preposition",
             "isQuery",
             "reason",
-            "memorable",
-            "remember",
-            "stm_before",
-            "adjective",
             "orAble",
             "ifAble",
+            "delete",
+            "memorable",
+            "deletable",
+            "recall",
+            "remember",
+            "stm_previous",
+            "adjective",
+            "stm_current",
+            "stm_before",
             "each",
             "every",
             "distributable",
             "noun",
             "thisitthat",
             "that",
+            "thisAble",
             "angry",
             "emotion",
             "greg"
@@ -1042,12 +1459,12 @@
             "angry": [
               "emotion"
             ],
-            "between": [
-              "preposition"
-            ],
             "concept": [
               "theAble",
               "queryable"
+            ],
+            "delete": [
+              "verb"
             ],
             "distributable": [
               "queryable"
@@ -1060,13 +1477,6 @@
             ],
             "every": [
               "article"
-            ],
-            "have": [
-              "canBeDoQuestion",
-              "canBeQuestion"
-            ],
-            "hierarchyAble": [
-              "queryable"
             ],
             "is": [
               "canBeQuestion",
@@ -1085,7 +1495,8 @@
               "theAble"
             ],
             "memorable": [
-              "theAble"
+              "theAble",
+              "deletable"
             ],
             "modifies": [
               "verb"
@@ -1094,22 +1505,11 @@
               "queryable"
             ],
             "noun": [
-              "theAble"
-            ],
-            "object": [
-              "queryable",
               "theAble",
-              "listable"
+              "thisAble"
             ],
             "orAble": [
               "ifAble"
-            ],
-            "property": [
-              "queryable",
-              "theAble"
-            ],
-            "propertyOf": [
-              "preposition"
             ],
             "queryable": [
               "listable"
@@ -1117,17 +1517,23 @@
             "questionMark": [
               "punctuation"
             ],
-            "readonly": [
-              "queryable"
-            ],
             "reason": [
               "theAble",
               "queryable"
+            ],
+            "recall": [
+              "verb"
             ],
             "remember": [
               "verb"
             ],
             "stm_before": [
+              "adjective"
+            ],
+            "stm_current": [
+              "adjective"
+            ],
+            "stm_previous": [
               "adjective"
             ],
             "that": [
@@ -1150,20 +1556,10 @@
             "to": [
               "preposition"
             ],
-            "unknown": [
-              "hierarchyAble"
-            ],
             "what": [
-              "object",
               "queryable"
             ],
             "whatAble": [
-              "queryable"
-            ],
-            "whose": [
-              "object"
-            ],
-            "xfx": [
               "queryable"
             ]
           },
@@ -1181,13 +1577,13 @@
               },
               "article": {
               },
-              "between": {
-              },
-              "canBeDoQuestion": {
-              },
               "canBeQuestion": {
               },
               "concept": {
+              },
+              "deletable": {
+              },
+              "delete": {
               },
               "distributable": {
               },
@@ -1222,10 +1618,6 @@
                   }
                 }
               },
-              "have": {
-              },
-              "hierarchyAble": {
-              },
               "ifAble": {
               },
               "is": {
@@ -1244,17 +1636,11 @@
               },
               "noun": {
               },
-              "object": {
-              },
               "orAble": {
               },
               "preposition": {
               },
               "pronoun": {
-              },
-              "property": {
-              },
-              "propertyOf": {
               },
               "punctuation": {
               },
@@ -1262,13 +1648,17 @@
               },
               "questionMark": {
               },
-              "readonly": {
-              },
               "reason": {
+              },
+              "recall": {
               },
               "remember": {
               },
               "stm_before": {
+              },
+              "stm_current": {
+              },
+              "stm_previous": {
               },
               "that": {
               },
@@ -1278,23 +1668,19 @@
               },
               "this": {
               },
+              "thisAble": {
+              },
               "thisitthat": {
               },
               "to": {
               },
               "toAble": {
               },
-              "unknown": {
-              },
               "verb": {
               },
               "what": {
               },
               "whatAble": {
-              },
-              "whose": {
-              },
-              "xfx": {
               }
             }
           },
@@ -1340,6 +1726,11 @@
         },
         "tokenize2": {
           "km": "tokenize2"
+        },
+        "words2": {
+          "km": "words2",
+          "words": [
+          ]
         }
       },
       "processed": [
@@ -1356,15 +1747,37 @@
               ],
               "marker": "is",
               "one": {
-                "concept": true,
-                "dead": true,
-                "determiner": "the",
-                "focusableForPhrase": true,
-                "level": 0,
-                "marker": "property",
-                "modifiers": [
+                "checks": [
                   "determiner"
                 ],
+                "concept": true,
+                "dead": true,
+                "determiner": {
+                  "level": 0,
+                  "marker": "the",
+                  "modifiers": [
+                  ],
+                  "range": {
+                    "end": 27,
+                    "start": 25
+                  },
+                  "text": "the",
+                  "word": "the"
+                },
+                "focusableForPhrase": true,
+                "interpolate": [
+                  {
+                    "property": "property"
+                  },
+                  {
+                    "word": "of"
+                  },
+                  {
+                    "property": "object"
+                  }
+                ],
+                "level": 0,
+                "marker": "property",
                 "object": {
                   "dead": true,
                   "level": 0,
@@ -1383,21 +1796,56 @@
                 },
                 "objects": [
                   {
-                    "concept": true,
-                    "dead": true,
-                    "determiner": "the",
-                    "focusableForPhrase": true,
-                    "level": 0,
-                    "marker": "property",
-                    "modifiers": [
+                    "checks": [
                       "determiner"
                     ],
+                    "concept": true,
+                    "dead": true,
+                    "determiner": {
+                      "level": 0,
+                      "marker": "the",
+                      "modifiers": [
+                      ],
+                      "range": {
+                        "end": 27,
+                        "start": 25
+                      },
+                      "text": "the",
+                      "word": "the"
+                    },
+                    "focusableForPhrase": true,
+                    "interpolate": [
+                      {
+                        "property": "determiner"
+                      },
+                      {
+                        "property": "theable"
+                      }
+                    ],
+                    "level": 0,
+                    "marker": "property",
                     "pullFromContext": true,
                     "range": {
                       "end": 35,
                       "start": 25
                     },
                     "text": "the emotion",
+                    "theable": {
+                      "dead": true,
+                      "level": 0,
+                      "marker": "unknown",
+                      "range": {
+                        "end": 35,
+                        "start": 29
+                      },
+                      "text": "emotion",
+                      "types": [
+                        "unknown"
+                      ],
+                      "unknown": true,
+                      "value": "emotion",
+                      "word": "emotion"
+                    },
                     "types": [
                       "property",
                       "unknown"
@@ -1424,12 +1872,89 @@
                     "word": "greg"
                   }
                 ],
+                "property": {
+                  "checks": [
+                    "determiner"
+                  ],
+                  "concept": true,
+                  "dead": true,
+                  "determiner": {
+                    "level": 0,
+                    "marker": "the",
+                    "modifiers": [
+                    ],
+                    "range": {
+                      "end": 27,
+                      "start": 25
+                    },
+                    "text": "the",
+                    "word": "the"
+                  },
+                  "focusableForPhrase": true,
+                  "interpolate": [
+                    {
+                      "property": "determiner"
+                    },
+                    {
+                      "property": "theable"
+                    }
+                  ],
+                  "level": 0,
+                  "marker": "property",
+                  "pullFromContext": true,
+                  "range": {
+                    "end": 35,
+                    "start": 25
+                  },
+                  "text": "the emotion",
+                  "theable": {
+                    "dead": true,
+                    "level": 0,
+                    "marker": "unknown",
+                    "range": {
+                      "end": 35,
+                      "start": 29
+                    },
+                    "text": "emotion",
+                    "types": [
+                      "unknown"
+                    ],
+                    "unknown": true,
+                    "value": "emotion",
+                    "word": "emotion"
+                  },
+                  "types": [
+                    "property",
+                    "unknown"
+                  ],
+                  "unknown": true,
+                  "value": "emotion",
+                  "wantsValue": true,
+                  "word": "emotion"
+                },
+                "propertyOf": true,
                 "pullFromContext": true,
                 "range": {
                   "end": 43,
                   "start": 25
                 },
                 "text": "the emotion of greg",
+                "theable": {
+                  "dead": true,
+                  "level": 0,
+                  "marker": "unknown",
+                  "range": {
+                    "end": 35,
+                    "start": 29
+                  },
+                  "text": "emotion",
+                  "types": [
+                    "unknown"
+                  ],
+                  "unknown": true,
+                  "value": "emotion",
+                  "word": "emotion"
+                },
                 "types": [
                   "property",
                   "unknown"
@@ -1440,9 +1965,23 @@
                 "word": "emotion"
               },
               "two": {
+                "checks": [
+                  "determiner"
+                ],
                 "concept": true,
                 "dead": true,
-                "determiner": "the",
+                "determiner": {
+                  "level": 0,
+                  "marker": "the",
+                  "modifiers": [
+                  ],
+                  "range": {
+                    "end": 27,
+                    "start": 25
+                  },
+                  "text": "the",
+                  "word": "the"
+                },
                 "evalue": {
                   "concept": true,
                   "dead": true,
@@ -1467,30 +2006,73 @@
                 ],
                 "focusableForPhrase": true,
                 "instance": true,
+                "interpolate": [
+                  {
+                    "property": "property"
+                  },
+                  {
+                    "word": "of"
+                  },
+                  {
+                    "property": "object"
+                  }
+                ],
                 "isModule": true,
                 "isProcess": true,
                 "level": 0,
                 "marker": "property",
-                "modifiers": [
-                  "determiner"
-                ],
                 "objects": [
                   {
-                    "concept": true,
-                    "dead": true,
-                    "determiner": "the",
-                    "focusableForPhrase": true,
-                    "level": 0,
-                    "marker": "property",
-                    "modifiers": [
+                    "checks": [
                       "determiner"
                     ],
+                    "concept": true,
+                    "dead": true,
+                    "determiner": {
+                      "level": 0,
+                      "marker": "the",
+                      "modifiers": [
+                      ],
+                      "range": {
+                        "end": 27,
+                        "start": 25
+                      },
+                      "text": "the",
+                      "word": "the"
+                    },
+                    "focusableForPhrase": true,
+                    "interpolate": [
+                      {
+                        "property": "determiner"
+                      },
+                      {
+                        "property": "theable"
+                      }
+                    ],
+                    "level": 0,
+                    "marker": "property",
                     "pullFromContext": true,
                     "range": {
                       "end": 35,
                       "start": 25
                     },
                     "text": "the emotion",
+                    "theable": {
+                      "dead": true,
+                      "level": 0,
+                      "marker": "unknown",
+                      "range": {
+                        "end": 35,
+                        "start": 29
+                      },
+                      "text": "emotion",
+                      "types": [
+                        "unknown"
+                      ],
+                      "unknown": true,
+                      "value": "emotion",
+                      "word": "emotion"
+                    },
                     "types": [
                       "property",
                       "unknown"
@@ -1517,12 +2099,89 @@
                     "word": "greg"
                   }
                 ],
+                "property": {
+                  "checks": [
+                    "determiner"
+                  ],
+                  "concept": true,
+                  "dead": true,
+                  "determiner": {
+                    "level": 0,
+                    "marker": "the",
+                    "modifiers": [
+                    ],
+                    "range": {
+                      "end": 27,
+                      "start": 25
+                    },
+                    "text": "the",
+                    "word": "the"
+                  },
+                  "focusableForPhrase": true,
+                  "interpolate": [
+                    {
+                      "property": "determiner"
+                    },
+                    {
+                      "property": "theable"
+                    }
+                  ],
+                  "level": 0,
+                  "marker": "property",
+                  "pullFromContext": true,
+                  "range": {
+                    "end": 35,
+                    "start": 25
+                  },
+                  "text": "the emotion",
+                  "theable": {
+                    "dead": true,
+                    "level": 0,
+                    "marker": "unknown",
+                    "range": {
+                      "end": 35,
+                      "start": 29
+                    },
+                    "text": "emotion",
+                    "types": [
+                      "unknown"
+                    ],
+                    "unknown": true,
+                    "value": "emotion",
+                    "word": "emotion"
+                  },
+                  "types": [
+                    "property",
+                    "unknown"
+                  ],
+                  "unknown": true,
+                  "value": "emotion",
+                  "wantsValue": true,
+                  "word": "emotion"
+                },
+                "propertyOf": true,
                 "pullFromContext": true,
                 "range": {
                   "end": 43,
                   "start": 25
                 },
                 "text": "the emotion of greg",
+                "theable": {
+                  "dead": true,
+                  "level": 0,
+                  "marker": "unknown",
+                  "range": {
+                    "end": 35,
+                    "start": 29
+                  },
+                  "text": "emotion",
+                  "types": [
+                    "unknown"
+                  ],
+                  "unknown": true,
+                  "value": "emotion",
+                  "word": "emotion"
+                },
                 "touchedBy": [
                   "emotions#call17",
                   "emotions#call16"
@@ -1553,7 +2212,7 @@
                 "what"
               ],
               "range": {
-                "end": 43,
+                "end": 20,
                 "start": 17
               },
               "text": "what",
@@ -1576,15 +2235,37 @@
               "emotions#call16"
             ],
             "two": {
-              "concept": true,
-              "dead": true,
-              "determiner": "the",
-              "focusableForPhrase": true,
-              "level": 0,
-              "marker": "property",
-              "modifiers": [
+              "checks": [
                 "determiner"
               ],
+              "concept": true,
+              "dead": true,
+              "determiner": {
+                "level": 0,
+                "marker": "the",
+                "modifiers": [
+                ],
+                "range": {
+                  "end": 27,
+                  "start": 25
+                },
+                "text": "the",
+                "word": "the"
+              },
+              "focusableForPhrase": true,
+              "interpolate": [
+                {
+                  "property": "property"
+                },
+                {
+                  "word": "of"
+                },
+                {
+                  "property": "object"
+                }
+              ],
+              "level": 0,
+              "marker": "property",
               "object": {
                 "dead": true,
                 "level": 0,
@@ -1603,21 +2284,56 @@
               },
               "objects": [
                 {
-                  "concept": true,
-                  "dead": true,
-                  "determiner": "the",
-                  "focusableForPhrase": true,
-                  "level": 0,
-                  "marker": "property",
-                  "modifiers": [
+                  "checks": [
                     "determiner"
                   ],
+                  "concept": true,
+                  "dead": true,
+                  "determiner": {
+                    "level": 0,
+                    "marker": "the",
+                    "modifiers": [
+                    ],
+                    "range": {
+                      "end": 27,
+                      "start": 25
+                    },
+                    "text": "the",
+                    "word": "the"
+                  },
+                  "focusableForPhrase": true,
+                  "interpolate": [
+                    {
+                      "property": "determiner"
+                    },
+                    {
+                      "property": "theable"
+                    }
+                  ],
+                  "level": 0,
+                  "marker": "property",
                   "pullFromContext": true,
                   "range": {
                     "end": 35,
                     "start": 25
                   },
                   "text": "the emotion",
+                  "theable": {
+                    "dead": true,
+                    "level": 0,
+                    "marker": "unknown",
+                    "range": {
+                      "end": 35,
+                      "start": 29
+                    },
+                    "text": "emotion",
+                    "types": [
+                      "unknown"
+                    ],
+                    "unknown": true,
+                    "value": "emotion",
+                    "word": "emotion"
+                  },
                   "types": [
                     "property",
                     "unknown"
@@ -1644,12 +2360,89 @@
                   "word": "greg"
                 }
               ],
+              "property": {
+                "checks": [
+                  "determiner"
+                ],
+                "concept": true,
+                "dead": true,
+                "determiner": {
+                  "level": 0,
+                  "marker": "the",
+                  "modifiers": [
+                  ],
+                  "range": {
+                    "end": 27,
+                    "start": 25
+                  },
+                  "text": "the",
+                  "word": "the"
+                },
+                "focusableForPhrase": true,
+                "interpolate": [
+                  {
+                    "property": "determiner"
+                  },
+                  {
+                    "property": "theable"
+                  }
+                ],
+                "level": 0,
+                "marker": "property",
+                "pullFromContext": true,
+                "range": {
+                  "end": 35,
+                  "start": 25
+                },
+                "text": "the emotion",
+                "theable": {
+                  "dead": true,
+                  "level": 0,
+                  "marker": "unknown",
+                  "range": {
+                    "end": 35,
+                    "start": 29
+                  },
+                  "text": "emotion",
+                  "types": [
+                    "unknown"
+                  ],
+                  "unknown": true,
+                  "value": "emotion",
+                  "word": "emotion"
+                },
+                "types": [
+                  "property",
+                  "unknown"
+                ],
+                "unknown": true,
+                "value": "emotion",
+                "wantsValue": true,
+                "word": "emotion"
+              },
+              "propertyOf": true,
               "pullFromContext": true,
               "range": {
                 "end": 43,
                 "start": 25
               },
               "text": "the emotion of greg",
+              "theable": {
+                "dead": true,
+                "level": 0,
+                "marker": "unknown",
+                "range": {
+                  "end": 35,
+                  "start": 29
+                },
+                "text": "emotion",
+                "types": [
+                  "unknown"
+                ],
+                "unknown": true,
+                "value": "emotion",
+                "word": "emotion"
+              },
               "types": [
                 "property",
                 "unknown"
@@ -1679,12 +2472,7 @@
             "dead": true,
             "do": {
               "left": "sentientBeing",
-              "range": {
-                "end": 15,
-                "start": 0
-              },
-              "right": "emotion",
-              "text": "greg feels angry"
+              "right": "emotion"
             },
             "emotion": {
               "concept": true,
@@ -1713,25 +2501,32 @@
                 "property": "sentientBeing"
               },
               {
-                "evaluateWord": true,
-                "isVerb": true,
-                "marker": "feel",
-                "number": "one",
-                "range": {
-                  "end": 9,
-                  "start": 5
-                },
-                "text": "feels",
-                "value": "feel",
-                "word": "feels"
+                "number": "sentientBeing",
+                "property": "operator"
               },
               {
                 "property": "emotion"
               }
             ],
+            "isVerb": true,
             "level": 2,
             "marker": "feel",
             "number": "one",
+            "operator": {
+              "evaluateWord": true,
+              "imperative": false,
+              "isVerb": true,
+              "level": 0,
+              "marker": "feel",
+              "number": "one",
+              "range": {
+                "end": 9,
+                "start": 5
+              },
+              "text": "feels",
+              "value": "feel",
+              "word": "feels"
+            },
             "range": {
               "end": 15,
               "start": 0
@@ -1778,7 +2573,7 @@
         },
         {
           "context": {
-            "context_id": 2,
+            "context_id": null,
             "context_index": 1,
             "dead": true,
             "default": true,
@@ -1786,12 +2581,7 @@
               "dead": true,
               "do": {
                 "left": "sentientBeing",
-                "range": {
-                  "end": 28,
-                  "start": 0
-                },
-                "right": "emotion",
-                "text": "sentientbeing1 feels emotion1"
+                "right": "emotion"
               },
               "emotion": {
                 "dead": true,
@@ -1819,25 +2609,32 @@
                   "property": "sentientBeing"
                 },
                 {
-                  "evaluateWord": true,
-                  "isVerb": true,
-                  "marker": "feel",
-                  "number": "one",
-                  "range": {
-                    "end": 19,
-                    "start": 15
-                  },
-                  "text": "feels",
-                  "value": "feel",
-                  "word": "feels"
+                  "number": "sentientBeing",
+                  "property": "operator"
                 },
                 {
                   "property": "emotion"
                 }
               ],
+              "isVerb": true,
               "level": 2,
               "marker": "feel",
               "number": "one",
+              "operator": {
+                "evaluateWord": true,
+                "imperative": false,
+                "isVerb": true,
+                "level": 0,
+                "marker": "feel",
+                "number": "one",
+                "range": {
+                  "end": 19,
+                  "start": 15
+                },
+                "text": "feels",
+                "value": "feel",
+                "word": "feels"
+              },
               "range": {
                 "end": 28,
                 "start": 0
@@ -1881,15 +2678,37 @@
               "marker": "is",
               "number": "one",
               "one": {
-                "concept": true,
-                "dead": true,
-                "determiner": "the",
-                "focusableForPhrase": true,
-                "level": 0,
-                "marker": "property",
-                "modifiers": [
+                "checks": [
                   "determiner"
                 ],
+                "concept": true,
+                "dead": true,
+                "determiner": {
+                  "level": 0,
+                  "marker": "the",
+                  "modifiers": [
+                  ],
+                  "range": {
+                    "end": 38,
+                    "start": 36
+                  },
+                  "text": "the",
+                  "word": "the"
+                },
+                "focusableForPhrase": true,
+                "interpolate": [
+                  {
+                    "property": "property"
+                  },
+                  {
+                    "word": "of"
+                  },
+                  {
+                    "property": "object"
+                  }
+                ],
+                "level": 0,
+                "marker": "property",
                 "number": "one",
                 "object": {
                   "dead": true,
@@ -1910,21 +2729,56 @@
                 },
                 "objects": [
                   {
-                    "concept": true,
-                    "dead": true,
-                    "determiner": "the",
-                    "focusableForPhrase": true,
-                    "level": 0,
-                    "marker": "property",
-                    "modifiers": [
+                    "checks": [
                       "determiner"
                     ],
+                    "concept": true,
+                    "dead": true,
+                    "determiner": {
+                      "level": 0,
+                      "marker": "the",
+                      "modifiers": [
+                      ],
+                      "range": {
+                        "end": 38,
+                        "start": 36
+                      },
+                      "text": "the",
+                      "word": "the"
+                    },
+                    "focusableForPhrase": true,
+                    "interpolate": [
+                      {
+                        "property": "determiner"
+                      },
+                      {
+                        "property": "theable"
+                      }
+                    ],
+                    "level": 0,
+                    "marker": "property",
                     "pullFromContext": true,
                     "range": {
                       "end": 46,
                       "start": 36
                     },
                     "text": "the emotion",
+                    "theable": {
+                      "dead": true,
+                      "level": 0,
+                      "marker": "unknown",
+                      "range": {
+                        "end": 46,
+                        "start": 40
+                      },
+                      "text": "emotion",
+                      "types": [
+                        "unknown"
+                      ],
+                      "unknown": true,
+                      "value": "emotion",
+                      "word": "emotion"
+                    },
                     "types": [
                       "property",
                       "unknown"
@@ -1952,12 +2806,89 @@
                     "word": "sentientbeing1"
                   }
                 ],
+                "property": {
+                  "checks": [
+                    "determiner"
+                  ],
+                  "concept": true,
+                  "dead": true,
+                  "determiner": {
+                    "level": 0,
+                    "marker": "the",
+                    "modifiers": [
+                    ],
+                    "range": {
+                      "end": 38,
+                      "start": 36
+                    },
+                    "text": "the",
+                    "word": "the"
+                  },
+                  "focusableForPhrase": true,
+                  "interpolate": [
+                    {
+                      "property": "determiner"
+                    },
+                    {
+                      "property": "theable"
+                    }
+                  ],
+                  "level": 0,
+                  "marker": "property",
+                  "pullFromContext": true,
+                  "range": {
+                    "end": 46,
+                    "start": 36
+                  },
+                  "text": "the emotion",
+                  "theable": {
+                    "dead": true,
+                    "level": 0,
+                    "marker": "unknown",
+                    "range": {
+                      "end": 46,
+                      "start": 40
+                    },
+                    "text": "emotion",
+                    "types": [
+                      "unknown"
+                    ],
+                    "unknown": true,
+                    "value": "emotion",
+                    "word": "emotion"
+                  },
+                  "types": [
+                    "property",
+                    "unknown"
+                  ],
+                  "unknown": true,
+                  "value": "emotion",
+                  "wantsValue": true,
+                  "word": "emotion"
+                },
+                "propertyOf": true,
                 "pullFromContext": true,
                 "range": {
-                  "end": 76,
+                  "end": 64,
                   "start": 36
                 },
                 "text": "the emotion of sentientbeing1",
+                "theable": {
+                  "dead": true,
+                  "level": 0,
+                  "marker": "unknown",
+                  "range": {
+                    "end": 46,
+                    "start": 40
+                  },
+                  "text": "emotion",
+                  "types": [
+                    "unknown"
+                  ],
+                  "unknown": true,
+                  "value": "emotion",
+                  "word": "emotion"
+                },
                 "types": [
                   "property",
                   "unknown"
@@ -2006,6 +2937,89 @@
           ],
           "responses": [
           ]
+        },
+        {
+          "context": {
+            "context_id": null,
+            "context_index": 1,
+            "dead": true,
+            "level": 2,
+            "marker": "is",
+            "number": "one",
+            "one": {
+              "dead": true,
+              "level": 0,
+              "marker": "unknown",
+              "number": "one",
+              "range": {
+                "end": 7,
+                "start": 0
+              },
+              "text": "property",
+              "types": [
+                "queryable",
+                "unknown"
+              ],
+              "unknown": true,
+              "value": "property",
+              "word": "property"
+            },
+            "range": {
+              "end": 20,
+              "start": 0
+            },
+            "text": "property is a concept",
+            "topLevel": true,
+            "touchedBy": [
+              "properties#call2",
+              "instance0#properties#call2",
+              "instance0#hierarchy#call2",
+              "instance0#emotions#call2"
+            ],
+            "two": {
+              "concept": true,
+              "dead": true,
+              "default": true,
+              "determiner": {
+                "default": true,
+                "level": 0,
+                "marker": "a",
+                "range": {
+                  "end": 12,
+                  "start": 12
+                },
+                "text": "a",
+                "word": "a"
+              },
+              "level": 0,
+              "marker": "concept",
+              "modifiers": [
+                "determiner"
+              ],
+              "number": "one",
+              "pullFromContext": false,
+              "range": {
+                "end": 20,
+                "start": 12
+              },
+              "text": "a concept",
+              "types": [
+                "concept"
+              ],
+              "value": "concept",
+              "wantsValue": true,
+              "word": "concept"
+            },
+            "word": "is"
+          },
+          "generatedParenthesized": [
+          ],
+          "paraphrases": [
+          ],
+          "paraphrasesParenthesized": [
+          ],
+          "responses": [
+          ]
         }
       ]
     },
@@ -2015,7 +3029,7 @@
     ],
     "paraphrasesParenthesized": [
       "((greg) (feels) (angry))",
-      "(((what) is ((the (emotion)) of (greg)))?)"
+      "(((what) is ((((the)) (emotion)) of (greg)))?)"
     ],
     "query": "greg feels angry what is the emotion of greg",
     "responses": [
@@ -2071,7 +3085,7 @@
               },
               {
                 "marker": [
-                  "is",
+                  "hasPropertyValue",
                   0
                 ],
                 "range": {
@@ -2166,7 +3180,7 @@
               },
               {
                 "marker": [
-                  "is",
+                  "hasPropertyValue",
                   0
                 ],
                 "range": {
