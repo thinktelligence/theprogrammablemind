@@ -863,7 +863,7 @@
       "semantics": [
         {
           "match": "({context}) => context.marker == 'is' && (context.one.how || context.two.how)",
-          "apply": "async ({ resolveResponse, g, context, toArray, toList, fragments, kms, e, toEValue }) => {\n        let propertyMarkerContext = context.one\n        let object = context.two\n        if (context.two.how) {\n          propertyMakerContext = context.two\n          object = context.one\n        }\n        const pmcs = toArray(propertyMarkerContext)\n        const properties = []\n        for (const pmc of pmcs) {\n          const property = pmc.markedProperty\n          properties.push({ marker: property, value: property, word: property })\n        }\n        debugger\n        const propertyOfObject = await fragments(\"the property of object\", { property: toList(properties, true), object })\n        const value = toEValue(await e(propertyOfObject))\n        value.focusableForPhrase = true\n        propertyOfObject.focusableForPhrase = false\n        const response = await fragments(\"the property is value\", { property: propertyOfObject, value })\n        response.isResponse = true\n        resolveResponse(context, response) \n      }"
+          "apply": "async ({ resolveResponse, g, context, toArray, toList, fragments, kms, e, toEValue }) => {\n        const propertyMarkerContext = context.one\n        let object = context.two\n        if (context.two.how) {\n          propertyMakerContext = context.two\n          object = context.one\n        }\n        const pmcs = toArray(propertyMarkerContext)\n        const properties = []\n        for (const pmc of pmcs) {\n          const property = pmc.markedProperty\n          properties.push({ marker: property, value: property, word: property })\n        }\n        const propertyOfObject = await fragments(\"the property of object\", { property: toList(properties, true), object })\n        const value = toEValue(await e(propertyOfObject))\n        value.focusableForPhrase = true\n        propertyOfObject.focusableForPhrase = false\n        const response = await fragments(\"the property is value\", { property: propertyOfObject, value })\n        response.isResponse = true\n        resolveResponse(context, response) \n      }"
         },
         {
           "match": "({context}) => context.marker == 'concept' && context.same",
@@ -3041,36 +3041,36 @@
           "priority": -1
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:511"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:510"
         },
         {
           "notes": "wants is xfx between wanter and wantee",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:522",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:521",
           "priority": -1
         },
         {
           "notes": "marking something as readonly",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:536"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:535"
         },
         {
           "notes": "crew members. evaluate a concepts to get instances",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:560"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:559"
         },
         {
           "notes": "greg has eyes",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:588"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:587"
         },
         {
           "notes": "greg has eyes?",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:601"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:600"
         },
         {
           "notes": "set the property of an object",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:627"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:626"
         },
         {
           "notes": "get/evaluate a property",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:688"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:687"
         }
       ]
     }

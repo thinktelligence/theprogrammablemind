@@ -446,6 +446,7 @@ const template = {
     {
       priorities: [
         { context: [['list', 0], ['integer', 0], ['strawberry', 0], ['smoothie', 0]], choose: [2, 3], ordered: true },
+        { context: [['list', 0], ['integer', 0], ['strawberry', 1], ['smoothie', 0]], choose: [2, 3], ordered: true },
         { context: [['list', 0], ['integer', 1], ['strawberry', 1], ['smoothie', 0]], choose: [2, 3], ordered: true },
       ],
     },
