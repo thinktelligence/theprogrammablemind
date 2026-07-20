@@ -485,7 +485,7 @@ const config = {
       priority: -1,
       match: ({context}) => context.marker == 'is' && (context.one.how || context.two.how),
       apply: async ({ resolveResponse, g, context, toArray, toList, fragments, kms, e, toEValue }) => {
-        let propertyMarkerContext = context.one
+        const propertyMarkerContext = context.one
         let object = context.two
         if (context.two.how) {
           propertyMakerContext = context.two
@@ -497,7 +497,6 @@ const config = {
           const property = pmc.markedProperty
           properties.push({ marker: property, value: property, word: property })
         }
-        debugger
         const propertyOfObject = await fragments("the property of object", { property: toList(properties, true), object })
         const value = toEValue(await e(propertyOfObject))
         value.focusableForPhrase = true
