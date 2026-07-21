@@ -1,2 +1,839 @@
 {
+  "configs": [
+    {
+      "name": "concept",
+      "operators": [
+        "((punctuation != true)* [modifies|] (_any))",
+        "([concept])",
+        "([literally] (modifies/0))"
+      ],
+      "bridges": [
+        {
+          "id": "modifies",
+          "isA": [
+            "verb"
+          ],
+          "words": [
+            {
+              "word": "modifies",
+              "number": "one",
+              "flatten": false
+            },
+            {
+              "word": "modify",
+              "number": "many",
+              "flatten": true
+            }
+          ],
+          "bridge": "{ ...next(operator), conceptModifiers: before[0], concept: after[0] }",
+          "semantic": "[object Object]",
+          "check": [
+            "marker",
+            "text",
+            "verbatim",
+            "value",
+            "evalue",
+            "isResponse",
+            {
+              "properties": "modifiers"
+            },
+            {
+              "properties": "postModifiers"
+            },
+            "concept",
+            "conceptModifiers"
+          ]
+        },
+        {
+          "id": "literally",
+          "bridge": "{ ...after[0], flatten: false, literally: true }"
+        },
+        {
+          "id": "concept"
+        }
+      ],
+      "priorities": [
+        {
+          "context": [
+            [
+              "literally",
+              0
+            ],
+            [
+              "modifies",
+              0
+            ]
+          ],
+          "choose": [
+            0
+          ]
+        }
+      ],
+      "hierarchy": [
+        [
+          "concept",
+          "theAble"
+        ],
+        [
+          "concept",
+          "queryable"
+        ]
+      ],
+      "generators": [
+        {
+          "match": "({context, debug, callId}) => {\n        debug.breakAt('concept#call3')\n        if (!context.paraphrase) {\n          return\n        }\n        if (context.marker !== 'list') {\n          return\n        }\n        if ((context.value || []).length < 2) {\n          return\n        }\n        if (!context?.value[0]?.word) {\n          return\n        }\n        const word = context.value[0].word\n\n        for (const value of context.value) {\n          if (!(value.modifiers && value.modifiers.length == 1 && value.word == word)) {\n            return\n          }\n        }\n        return true\n      }",
+          "apply": "async ({g, context}) => {\n        const modifiers = context.value.map( (p) => p[p.modifiers[0]] )\n        context.word = context.value[0].word\n        context.value = null\n        context.modifiers = ['modifier']\n        context.modifier = {\n          marker: 'list',\n          listable: true,\n          paraphrase: true,\n          value: modifiers\n        }\n        context.paraphrase = true\n        return await g(context)\n      }"
+        },
+        {
+          "match": "({context, debug}) => debug.breakAt('concept#call3') && context.marker == 'modifies' && context.paraphrase",
+          "apply": "async ({context, gp, gw}) => {\n        const modifiers = []\n        for (modifier of context.conceptModifiers) {\n          modifiers.push(await gp(modifier))\n        }\n        if (context.literally) {\n          return `${modifiers.join(\" \")} literally ${await gw(context, { number: context.conceptModifiers[context.conceptModifiers.length - 1] })} ${await gp(context.concept)}`\n        } else {\n          return `${modifiers.join(\" \")} ${await gw(context, { number: context.conceptModifiers[context.conceptModifiers.length - 1] })} ${await gp(context.concept)}`\n        }\n      }"
+        }
+      ]
+    },
+    "open modifies compound"
+  ],
+  "resultss": [
+    {
+      "extraConfig": true,
+      "name": "concept",
+      "operators": [
+        "((punctuation != true)* [modifies|] (_any))",
+        "([concept])",
+        "([literally] (modifies/0))"
+      ],
+      "bridges": [
+        {
+          "id": "modifies",
+          "isA": [
+            "verb"
+          ],
+          "words": [
+            {
+              "word": "modifies",
+              "number": "one",
+              "flatten": false
+            },
+            {
+              "word": "modify",
+              "number": "many",
+              "flatten": true
+            }
+          ],
+          "bridge": "{ ...next(operator), conceptModifiers: before[0], concept: after[0] }",
+          "semantic": {
+            "notes": "define a modifier",
+            "where": "/home/dev/code/theprogrammablemind/kms/common/concept.js:33"
+          },
+          "check": [
+            "marker",
+            "text",
+            "verbatim",
+            "value",
+            "evalue",
+            "isResponse",
+            {
+              "properties": "modifiers"
+            },
+            {
+              "properties": "postModifiers"
+            },
+            "concept",
+            "conceptModifiers"
+          ]
+        },
+        {
+          "id": "literally",
+          "bridge": "{ ...after[0], flatten: false, literally: true }"
+        },
+        {
+          "id": "concept"
+        }
+      ],
+      "priorities": [
+        {
+          "context": [
+            [
+              "literally",
+              0
+            ],
+            [
+              "modifies",
+              0
+            ]
+          ],
+          "choose": [
+            0
+          ]
+        }
+      ],
+      "hierarchy": [
+        [
+          "concept",
+          "theAble"
+        ],
+        [
+          "concept",
+          "queryable"
+        ]
+      ],
+      "generators": [
+        {
+          "notes": "\"fire type, water type and earth type\" to \"fire water and earth type\"",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/concept.js:83"
+        },
+        {
+          "where": "/home/dev/code/theprogrammablemind/kms/common/concept.js:123"
+        }
+      ]
+    },
+    {
+      "hierarchy": [
+        [
+          "a",
+          "article",
+          false
+        ],
+        [
+          "adjective",
+          "adjective",
+          false
+        ],
+        [
+          "article",
+          "article",
+          false
+        ],
+        [
+          "canBeQuestion",
+          "canBeQuestion",
+          false
+        ],
+        [
+          "concept",
+          "queryable",
+          false
+        ],
+        [
+          "concept",
+          "theAble",
+          false
+        ],
+        [
+          "deletable",
+          "deletable",
+          false
+        ],
+        [
+          "delete",
+          "verb",
+          false
+        ],
+        [
+          "distributable",
+          "queryable",
+          false
+        ],
+        [
+          "doubleQuote",
+          "queryable",
+          false
+        ],
+        [
+          "each",
+          "article",
+          false
+        ],
+        [
+          "every",
+          "article",
+          false
+        ],
+        [
+          "ifAble",
+          "ifAble",
+          false
+        ],
+        [
+          "is",
+          "canBeQuestion",
+          false
+        ],
+        [
+          "is",
+          "verb",
+          false
+        ],
+        [
+          "isQuery",
+          "verb",
+          false
+        ],
+        [
+          "it",
+          "pronoun",
+          false
+        ],
+        [
+          "it",
+          "queryable",
+          false
+        ],
+        [
+          "it",
+          "thisitthat",
+          false
+        ],
+        [
+          "it",
+          "toAble",
+          false
+        ],
+        [
+          "listable",
+          "theAble",
+          false
+        ],
+        [
+          "memorable",
+          "deletable",
+          false
+        ],
+        [
+          "memorable",
+          "theAble",
+          false
+        ],
+        [
+          "modifies",
+          "verb",
+          false
+        ],
+        [
+          "negatable",
+          "queryable",
+          false
+        ],
+        [
+          "noun",
+          "theAble",
+          false
+        ],
+        [
+          "noun",
+          "thisAble",
+          false
+        ],
+        [
+          "orAble",
+          "ifAble",
+          false
+        ],
+        [
+          "preposition",
+          "preposition",
+          false
+        ],
+        [
+          "pronoun",
+          "pronoun",
+          false
+        ],
+        [
+          "punctuation",
+          "punctuation",
+          false
+        ],
+        [
+          "queryable",
+          "listable",
+          false
+        ],
+        [
+          "questionMark",
+          "punctuation",
+          false
+        ],
+        [
+          "reason",
+          "queryable",
+          false
+        ],
+        [
+          "reason",
+          "theAble",
+          false
+        ],
+        [
+          "recall",
+          "verb",
+          false
+        ],
+        [
+          "remember",
+          "verb",
+          false
+        ],
+        [
+          "stm_before",
+          "adjective",
+          false
+        ],
+        [
+          "stm_current",
+          "adjective",
+          false
+        ],
+        [
+          "stm_previous",
+          "adjective",
+          false
+        ],
+        [
+          "that",
+          "thisitthat",
+          false
+        ],
+        [
+          "the",
+          "article",
+          false
+        ],
+        [
+          "theAble",
+          "queryable",
+          false
+        ],
+        [
+          "this",
+          "pronoun",
+          false
+        ],
+        [
+          "this",
+          "queryable",
+          false
+        ],
+        [
+          "this",
+          "thisitthat",
+          false
+        ],
+        [
+          "thisAble",
+          "thisAble",
+          false
+        ],
+        [
+          "thisitthat",
+          "queryable",
+          false
+        ],
+        [
+          "to",
+          "preposition",
+          false
+        ],
+        [
+          "toAble",
+          "toAble",
+          false
+        ],
+        [
+          "verb",
+          "verb",
+          false
+        ],
+        [
+          "what",
+          "queryable",
+          false
+        ],
+        [
+          "whatAble",
+          "queryable",
+          false
+        ]
+      ],
+      "metadata": {
+        "opChoices": [
+          {
+            "op": [
+              "unknown",
+              0
+            ],
+            "ops": [
+              [
+                "modifies",
+                0
+              ],
+              [
+                "unknown",
+                0
+              ],
+              [
+                "unknown",
+                0
+              ]
+            ],
+            "counter": 1
+          },
+          {
+            "op": [
+              "unknown",
+              0
+            ],
+            "ops": [
+              [
+                "modifies",
+                0
+              ],
+              [
+                "unknown",
+                0
+              ]
+            ],
+            "counter": 2
+          },
+          {
+            "op": [
+              "modifies",
+              0
+            ],
+            "ops": [
+              [
+                "modifies",
+                0
+              ]
+            ],
+            "counter": 3
+          }
+        ]
+      },
+      "trace": "undefined",
+      "contexts": [
+        {
+          "word": "modifies",
+          "number": "one",
+          "flatten": false,
+          "text": "open modifies compound",
+          "marker": "modifies",
+          "range": {
+            "start": 0,
+            "end": 21
+          },
+          "dead": true,
+          "conceptModifiers": [
+            {
+              "value": "open",
+              "unknown": true,
+              "text": "open",
+              "marker": "unknown",
+              "word": "open",
+              "range": {
+                "start": 0,
+                "end": 3
+              },
+              "dead": true,
+              "level": 0
+            }
+          ],
+          "concept": {
+            "value": "compound",
+            "unknown": true,
+            "text": "compound",
+            "marker": "unknown",
+            "word": "compound",
+            "range": {
+              "start": 14,
+              "end": 21
+            },
+            "dead": true,
+            "level": 0
+          },
+          "level": 1,
+          "context_index": 1,
+          "topLevel": true,
+          "context_id": 2,
+          "touchedBy": [
+            "concept#call2"
+          ]
+        }
+      ],
+      "generated": [
+        ""
+      ],
+      "paraphrases": [
+        "modify"
+      ],
+      "paraphrasesParenthesized": [],
+      "generatedParenthesized": [],
+      "responses": [
+        ""
+      ],
+      "associations": [],
+      "summaries": [
+        {
+          "summaries": [
+            {
+              "operators": [
+                {
+                  "marker": [
+                    "unknown",
+                    0
+                  ],
+                  "range": {
+                    "start": 0,
+                    "end": 3
+                  }
+                },
+                {
+                  "marker": [
+                    "modifies",
+                    0
+                  ],
+                  "range": {
+                    "start": 5,
+                    "end": 12
+                  }
+                },
+                {
+                  "marker": [
+                    "unknown",
+                    0
+                  ],
+                  "range": {
+                    "start": 14,
+                    "end": 21
+                  }
+                }
+              ],
+              "counter": 1
+            },
+            {
+              "operators": [
+                {
+                  "marker": [
+                    "unknown",
+                    0
+                  ],
+                  "range": {
+                    "start": 0,
+                    "end": 3
+                  }
+                },
+                {
+                  "marker": [
+                    "modifies",
+                    0
+                  ],
+                  "range": {
+                    "start": 5,
+                    "end": 12
+                  }
+                },
+                {
+                  "marker": [
+                    "unknown",
+                    0
+                  ],
+                  "range": {
+                    "start": 14,
+                    "end": 21
+                  }
+                }
+              ],
+              "counter": 2
+            },
+            {
+              "operators": [
+                {
+                  "marker": [
+                    "unknown",
+                    0
+                  ],
+                  "range": {
+                    "start": 0,
+                    "end": 3
+                  }
+                },
+                {
+                  "marker": [
+                    "modifies",
+                    0
+                  ],
+                  "range": {
+                    "start": 5,
+                    "end": 12
+                  }
+                },
+                {
+                  "marker": [
+                    "unknown",
+                    0
+                  ],
+                  "range": {
+                    "start": 14,
+                    "end": 21
+                  }
+                }
+              ],
+              "counter": 3
+            },
+            {
+              "operators": [
+                {
+                  "marker": [
+                    "modifies",
+                    1
+                  ],
+                  "range": {
+                    "start": 0,
+                    "end": 21
+                  }
+                }
+              ],
+              "counter": 4
+            }
+          ],
+          "length": 1
+        }
+      ],
+      "learned_contextual_priorities": [],
+      "query": "open modifies compound",
+      "key": {
+        "query": "open modifies compound"
+      }
+    }
+  ],
+  "fragments": [],
+  "semantics": [],
+  "associations": [],
+  "summaries": [
+    {
+      "summaries": [
+        {
+          "operators": [
+            {
+              "marker": [
+                "unknown",
+                0
+              ],
+              "range": {
+                "start": 0,
+                "end": 3
+              }
+            },
+            {
+              "marker": [
+                "modifies",
+                0
+              ],
+              "range": {
+                "start": 5,
+                "end": 12
+              }
+            },
+            {
+              "marker": [
+                "unknown",
+                0
+              ],
+              "range": {
+                "start": 14,
+                "end": 21
+              }
+            }
+          ],
+          "counter": 1
+        },
+        {
+          "operators": [
+            {
+              "marker": [
+                "unknown",
+                0
+              ],
+              "range": {
+                "start": 0,
+                "end": 3
+              }
+            },
+            {
+              "marker": [
+                "modifies",
+                0
+              ],
+              "range": {
+                "start": 5,
+                "end": 12
+              }
+            },
+            {
+              "marker": [
+                "unknown",
+                0
+              ],
+              "range": {
+                "start": 14,
+                "end": 21
+              }
+            }
+          ],
+          "counter": 2
+        },
+        {
+          "operators": [
+            {
+              "marker": [
+                "unknown",
+                0
+              ],
+              "range": {
+                "start": 0,
+                "end": 3
+              }
+            },
+            {
+              "marker": [
+                "modifies",
+                0
+              ],
+              "range": {
+                "start": 5,
+                "end": 12
+              }
+            },
+            {
+              "marker": [
+                "unknown",
+                0
+              ],
+              "range": {
+                "start": 14,
+                "end": 21
+              }
+            }
+          ],
+          "counter": 3
+        },
+        {
+          "operators": [
+            {
+              "marker": [
+                "modifies",
+                1
+              ],
+              "range": {
+                "start": 0,
+                "end": 21
+              }
+            }
+          ],
+          "counter": 4
+        }
+      ],
+      "length": 1
+    }
+  ],
+  "learned_contextual_priorities": []
 }

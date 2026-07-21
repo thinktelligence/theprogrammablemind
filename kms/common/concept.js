@@ -2,9 +2,9 @@ const { knowledgeModule, flatten, where, Digraph } = require('./runtime').thepro
 const { defaultContextCheck, defaultContextCheckProperties } = require('./helpers')
 const { API }= require('./helpers/concept')
 const dialogues = require('./dialogues.js')
-const concept_tests = require('./concept.test.json')
-const concept_instance = require('./concept.instance.json')
-// const { chooseNumber } = require('../helpers.js')
+const tests = require('./concept.test.json')
+const instance = require('./concept.instance.json')
+const { words } = require('./helpers.js')
 
 /*
   pokemon modifies type fire water and ice modifie pokemon type type means pokemon type
@@ -14,7 +14,7 @@ const concept_instance = require('./concept.instance.json')
   plain and regular fries mean the same thing
 */
 
-config = {
+const config = {
   name: 'concept',
   operators: [
     "((punctuation != true)* [modifies|] (_any))",
@@ -81,7 +81,8 @@ config = {
         },
       */
       where: where(),
-      match: ({context, callId}) => {
+      match: ({context, debug, callId}) => {
+        debug.breakAt('concept#call3')
         if (!context.paraphrase) {
           return
         }
@@ -120,7 +121,7 @@ config = {
     },
     {
       where: where(),
-      match: ({context}) => context.marker == 'modifies' && context.paraphrase,
+      match: ({context, debug}) => debug.breakAt('concept#call3') && context.marker == 'modifies' && context.paraphrase, 
       apply: async ({context, gp, gw}) => {
         const modifiers = []
         for (modifier of context.conceptModifiers) {
@@ -132,21 +133,51 @@ config = {
           return `${modifiers.join(" ")} ${await gw(context, { number: context.conceptModifiers[context.conceptModifiers.length - 1] })} ${await gp(context.concept)}`
         }
       }
-      // const chosen = chooseNumber(context, word.singular, word.plural)
     },
   ],
 }
 
+const template = {
+  configs: [
+    config,
+    "open modifies compound",
+    /*
+    {
+      operators: [
+        "((!@== isOpenCompound)* [isOpenCompound|is] ([openCompound|]))",
+      ],
+      bridges: [
+        {
+          id: 'isOpenCompound',
+          bridge: `{
+            ...operator,
+            phrase: before,
+            openCompound: openCompound
+          }`,
+        },
+        {
+          id: 'openCompound',
+          words: words('open compound'),
+        },
+      ]
+    },
+    */
+  ]
+}
+
 knowledgeModule({ 
-  config,
+  config: { name: 'concept' },
   includes: [dialogues],
   api: () => new API(),
+
+  template,
+  instance,
 
   module,
   description: 'The idea of a concept whatever that might end up being',
   test: {
     name: './concept.test.json',
-    contents: concept_tests,
+    contents: tests,
     checks: {
       context: [defaultContextCheck()],
     }
