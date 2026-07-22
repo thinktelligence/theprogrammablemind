@@ -234,7 +234,6 @@ const config = {
       // match: ({context}) => context.paraphrase && context.word && context.number == 'one',
       match: ({context}) => context.word !== null && context.number == 'one',
       apply: ({context}) => {
-        debugger
         return pluralize.singular(context.word)
       }
     },

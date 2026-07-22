@@ -1058,3 +1058,4 @@ what is the drone's speed and direction
  2022  node length -q 'the building is 10 feet high and 20 feet wide\nhow wide is the building' -g -d
  2023  node length -q 'the building is 10 feet high and 20 feet wide\nwhat is the width and height of the building -g -d
  ode length -q 'the building is 10 feet high and 20 feet wide\nwhat is the height and width of the building' -g -d
+ node angle -q 'what is 3.14 radians in degrees' -g -d

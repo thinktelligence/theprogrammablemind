@@ -81,16 +81,48 @@
       ],
       "generators": [
         {
-          "match": "({context, debug, callId}) => {\n        debug.breakAt('concept#call3')\n        if (!context.paraphrase) {\n          return\n        }\n        if (context.marker !== 'list') {\n          return\n        }\n        if ((context.value || []).length < 2) {\n          return\n        }\n        if (!context?.value[0]?.word) {\n          return\n        }\n        const word = context.value[0].word\n\n        for (const value of context.value) {\n          if (!(value.modifiers && value.modifiers.length == 1 && value.word == word)) {\n            return\n          }\n        }\n        return true\n      }",
+          "match": "({context, debug, callId}) => {\n        if (!context.paraphrase) {\n          return\n        }\n        if (context.marker !== 'list') {\n          return\n        }\n        if ((context.value || []).length < 2) {\n          return\n        }\n        if (!context?.value[0]?.word) {\n          return\n        }\n        const word = context.value[0].word\n\n        for (const value of context.value) {\n          if (!(value.modifiers && value.modifiers.length == 1 && value.word == word)) {\n            return\n          }\n        }\n        return true\n      }",
           "apply": "async ({g, context}) => {\n        const modifiers = context.value.map( (p) => p[p.modifiers[0]] )\n        context.word = context.value[0].word\n        context.value = null\n        context.modifiers = ['modifier']\n        context.modifier = {\n          marker: 'list',\n          listable: true,\n          paraphrase: true,\n          value: modifiers\n        }\n        context.paraphrase = true\n        return await g(context)\n      }"
         },
         {
-          "match": "({context, debug}) => debug.breakAt('concept#call3') && context.marker == 'modifies' && context.paraphrase",
+          "match": "({context, debug}) => context.marker == 'modifies'",
           "apply": "async ({context, gp, gw}) => {\n        const modifiers = []\n        for (modifier of context.conceptModifiers) {\n          modifiers.push(await gp(modifier))\n        }\n        if (context.literally) {\n          return `${modifiers.join(\" \")} literally ${await gw(context, { number: context.conceptModifiers[context.conceptModifiers.length - 1] })} ${await gp(context.concept)}`\n        } else {\n          return `${modifiers.join(\" \")} ${await gw(context, { number: context.conceptModifiers[context.conceptModifiers.length - 1] })} ${await gp(context.concept)}`\n        }\n      }"
         }
       ]
     },
-    "open modifies compound"
+    "open modifies compound",
+    {
+      "operators": [
+        "((!@== isOpenCompound)* [isOpenCompound|is] (@== open_compound))"
+      ],
+      "bridges": [
+        {
+          "id": "isOpenCompound",
+          "isA": [
+            "verb"
+          ],
+          "bridge": "{\n            ...operator,\n            phrase: before[0],\n            verb: operator,\n            openCompound: after[0],\n            interpolate: [ { property: 'phrase' }, { property: 'verb' }, { property: 'openCompound' } ]\n          }",
+          "semantic": "[object Object]",
+          "enhanced_associations": true,
+          "check": [
+            "marker",
+            "text",
+            "verbatim",
+            "value",
+            "evalue",
+            "isResponse",
+            {
+              "properties": "modifiers"
+            },
+            {
+              "properties": "postModifiers"
+            },
+            "phrase",
+            "openCompound"
+          ]
+        }
+      ]
+    }
   ],
   "resultss": [
     {
@@ -182,7 +214,7 @@
           "where": "/home/dev/code/theprogrammablemind/kms/common/concept.js:83"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/concept.js:123"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/concept.js:122"
         }
       ]
     },
@@ -563,7 +595,7 @@
         ""
       ],
       "paraphrases": [
-        "modify"
+        "open modifies compound"
       ],
       "paraphrasesParenthesized": [],
       "generatedParenthesized": [],
@@ -703,6 +735,41 @@
       "key": {
         "query": "open modifies compound"
       }
+    },
+    {
+      "extraConfig": true,
+      "operators": [
+        "((!@== isOpenCompound)* [isOpenCompound|is] (@== open_compound))"
+      ],
+      "bridges": [
+        {
+          "id": "isOpenCompound",
+          "isA": [
+            "verb"
+          ],
+          "bridge": "{\n            ...operator,\n            phrase: before[0],\n            verb: operator,\n            openCompound: after[0],\n            interpolate: [ { property: 'phrase' }, { property: 'verb' }, { property: 'openCompound' } ]\n          }",
+          "semantic": {
+            "where": "/home/dev/code/theprogrammablemind/kms/common/concept.js:160"
+          },
+          "enhanced_associations": true,
+          "check": [
+            "marker",
+            "text",
+            "verbatim",
+            "value",
+            "evalue",
+            "isResponse",
+            {
+              "properties": "modifiers"
+            },
+            {
+              "properties": "postModifiers"
+            },
+            "phrase",
+            "openCompound"
+          ]
+        }
+      ]
     }
   ],
   "fragments": [],

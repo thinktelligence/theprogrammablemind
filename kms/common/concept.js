@@ -82,7 +82,6 @@ const config = {
       */
       where: where(),
       match: ({context, debug, callId}) => {
-        debug.breakAt('concept#call3')
         if (!context.paraphrase) {
           return
         }
@@ -121,7 +120,8 @@ const config = {
     },
     {
       where: where(),
-      match: ({context, debug}) => debug.breakAt('concept#call3') && context.marker == 'modifies' && context.paraphrase, 
+        // return context.marker == 'modifies' && context.paraphrase
+      match: ({context, debug}) => context.marker == 'modifies',
       apply: async ({context, gp, gw}) => {
         const modifiers = []
         for (modifier of context.conceptModifiers) {
@@ -141,27 +141,47 @@ const template = {
   configs: [
     config,
     "open modifies compound",
-    /*
     {
       operators: [
-        "((!@== isOpenCompound)* [isOpenCompound|is] ([openCompound|]))",
+        "((!@== isOpenCompound)* [isOpenCompound|is] (@== open_compound))",
       ],
       bridges: [
         {
           id: 'isOpenCompound',
+          isA: ['verb'],
           bridge: `{
             ...operator,
-            phrase: before,
-            openCompound: openCompound
+            phrase: before[0],
+            verb: operator,
+            openCompound: after[0],
+            interpolate: [ { property: 'phrase' }, { property: 'verb' }, { property: 'openCompound' } ]
           }`,
-        },
-        {
-          id: 'openCompound',
-          words: words('open compound'),
+          semantic: {
+            where: where(),
+            apply: ({config, debug, query, km, context}) => {
+              let phrase = context.phrase
+              if (context.phrase[0].marker == 'doubleQuote') {
+                const words = context.phrase[0].text.replace(/"/g, '').trim().split(/\s+/)
+                phrase = words.map((word) => {
+                  return {
+                    marker: 'unknown',
+                    unknown: true,
+                    word,
+                    text: word,
+                    value: word,
+                  }
+                })
+              }
+              const modifiers = phrase.slice(0, phrase.length-1)
+              const concept = phrase[phrase.length-1] 
+              km('concept').api.kindOfConcept({ config, modifiers, object: concept })
+            }
+          },
+          enhanced_associations: true,
+          check: defaultContextCheckProperties(['phrase', 'openCompound']),
         },
       ]
     },
-    */
   ]
 }
 

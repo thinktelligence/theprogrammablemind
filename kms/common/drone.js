@@ -920,7 +920,7 @@ const template = {
         "([patrol] (path))",
         "([lift|lift,raise] (@<= arm || @<= claw))",
         "([lower] (@<= arm || @<=claw))",
-        "([open] (claw))",
+        "([openDrone|open] (claw))",
         "([close] (claw))",
         "([startPath|start] (path))",
         "([pathComponent])",
@@ -1125,7 +1125,7 @@ const template = {
           }
         },
         {
-          id: 'open',
+          id: 'openDrone',
           isA: ['verb'],
           bridge: `{
             ...next(operator), operator: operator, object: after[0], interpolate: [{ property: 'operator'}, { property: 'object' }]
