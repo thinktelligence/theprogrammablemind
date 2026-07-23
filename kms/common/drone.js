@@ -778,30 +778,6 @@ class API {
 
 const howToCalibrate = "Put an object in front of the drone. When you are ready say calibrate."
 
-function askForProperty({
-  ask,
-  propertyPath,
-  contextPath=[],
-  query,
-  matchr,
-  oneShot=false, 
-}) {
-  ask({
-    where: where(),
-    oneShot,
-
-    matchq: ({ api, context, objects }) => !getValue(propertyPath, objects) && context.marker == 'controlEnd',
-    applyq: async ({ say, objects }) => {
-      return query
-    },
-
-    matchr,
-    applyr: async ({objects, context}) => {
-      setValue(propertyPath, objects, getValue(contextPath, context))
-    },
-  })
-}
-
 // expectProperty
 /*
 function expectDirection(args) {

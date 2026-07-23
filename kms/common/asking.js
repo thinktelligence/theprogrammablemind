@@ -8,6 +8,14 @@ const { defaultObjectCheck, defaultContextCheck, indent, focus, requiredArgument
 const pluralize = require('pluralize')
 
 // TODO implement what / what did you say ...
+
+// create a motivation to get the choice. call it motivation1. choices are kinds of fruit. do motivation1
+// create a motivation to get the choice. call it motivation1. choices are kinds of case1 case2 or case3. do motivation1
+// create a motivation to get the age and height. call it motivation1. do motivation1 for greg and jane
+// create an action to get the age and height of greg. call that action get person info
+// create an action called "getter 5" to get the age and height of greg. do getter 5
+// create an action called "getter 5" to get the age and height. do getter 5 for greg
+
 const config = {
   name: 'asking',
   operators: [
