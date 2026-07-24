@@ -1,21 +1,59 @@
 const { knowledgeModule, where } = require('./runtime').theprogrammablemind
-const { defaultContextCheck } = require('./helpers')
+const { defaultContextCheck, getValue, setValue, memoizeAsync } = require('./helpers')
 const tests = require('./askfor.test.json')
 const instance = require('./askfor.instance.json')
-const base = require('./length')
+const length = require('./length')
+const dates = require('./dates')
 
-// if you know the name and address of a person do such and such
+// TODO if you know the name and address of a person do such and such
+// TODO stop asking that
+
+function askForProperty({
+  ask,
+  query,
+  getValue,
+  setValue,
+  matchr,
+  oneShot=false,
+}) {
+  ask({
+    where: where(),
+    oneShot,
+
+    matchq: async ({ api, context, objects }) => await !getValue() && context.marker == 'controlEnd',
+    applyq: async ({ say, objects }) => {
+      return query()
+    },
+
+    matchr,
+    applyr: async ({objects, context}) => {
+      debugger
+      setValue(context)
+    },
+  })
+}
 
 const template = {
   configs: [
     "setidsuffix _askfor",
+    { query: 'what is the concept?', isFragment: true },
     {
       operators: [
-        "([askfor|] (<for> (@<= concept)))",
+        "([askfor_askfor|] ([for_askfor|] (@<= concept)))",
       ],
       bridges: [
         {
-          id: 'askfor',
+          id: 'for_askfor',
+          isA: ['preposition'],
+          words: ['for'],
+          bridge: `{
+            ...operator,
+            interpolate: [ { self: true }, { property: 'argument' } ],
+            argument: after[0]
+          }`,
+        },
+        {
+          id: 'askfor_askfor',
           isA: ['verb'],
           words: ['ask'],
           bridge: `{
@@ -23,6 +61,29 @@ const template = {
             properties: after[0],
             interpolate: [{ self: true }, { property: 'properties' }]
           }`,
+          semantic: async ({e, context, ask, fragments, toEValue}) => {
+            debugger
+            const query = memoizeAsync(async () => await fragments("what is the concept?", { concept: context.properties.argument }))
+            const matchr = ({context, isA}) => !context.evaluate && isA(context, 'date_dates')
+            const propertyPath = []
+            const contextPath = []
+            const getValue = async () => {
+              debugger
+              try {
+                const value = toEValue(await e(context.properties.argument))
+                debugger
+                return value
+              } catch( e ) {
+                debugger
+              }
+            }
+            askForProperty({
+              ask,
+              getValue,
+              query,
+              matchr,
+            })
+          }
         }
       ],
     },
@@ -32,7 +93,7 @@ const template = {
 
 knowledgeModule( { 
   config: { name: 'askfor' },
-  includes: [base],
+  includes: [length, dates],
 
   module,
   description: 'asking the system to interact with a user and find out information',

@@ -1,6 +1,40 @@
 const pluralize = require('pluralize')
 const { flatten } = require('./runtime').theprogrammablemind
 
+/**
+ * Memoize an async function.
+ * @param {Function} fn - The expensive async function
+ * @param {Object} [options]
+ * @param {Function} [options.keyFn] - How to turn arguments into a cache key
+ * @param {boolean} [options.cacheErrors=false] - Whether to cache rejected promises
+ */
+function memoizeAsync(fn, options = {}) {
+  const {
+    keyFn = (...args) => JSON.stringify(args),
+    cacheErrors = false,
+  } = options;
+
+  const cache = new Map();
+
+  return async function (...args) {
+    const key = keyFn(...args);
+
+    if (cache.has(key)) {
+      return cache.get(key);
+    }
+
+    const promise = fn.apply(this, args).catch((err) => {
+      if (!cacheErrors) {
+        cache.delete(key); // allow retry on failure
+      }
+      throw err;
+    });
+
+    cache.set(key, promise);
+    return promise;
+  };
+}
+
 function unshiftL(list, element, max) {
   if (list.length >= max) {
     list.pop()
@@ -420,4 +454,5 @@ module.exports = {
   isA,
   removeProp,
   concats,
+  memoizeAsync,
 }

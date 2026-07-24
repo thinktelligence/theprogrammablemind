@@ -1061,3 +1061,4 @@ what is the drone's speed and direction
  node angle -q 'what is 3.14 radians in degrees' -g -d
 greg mcclement is 23 years old
 find out name, age, and height
+node  askfor -q 'ask for the birth date' -g -d

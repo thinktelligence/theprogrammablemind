@@ -56,6 +56,8 @@ const template = {
     "use ce and bce",
     "use bc and ad",
     */
+    "birth date is an open compound",
+    "birth date is a date",
     {
       operators: [
         "([dayNumber_dates|])",
