@@ -20,16 +20,13 @@ function askForProperty({
     where: where(),
     oneShot,
 
-    matchq: async ({ api, context, objects }) => await !getValue() && context.marker == 'controlEnd',
+    matchq: async ({ api, context, objects }) => !await getValue() && context.marker == 'controlEnd',
     applyq: async ({ say, objects }) => {
-      return query()
+      return await query()
     },
 
     matchr,
-    applyr: async ({objects, context}) => {
-      debugger
-      setValue(context)
-    },
+    applyr: setValue,
   })
 }
 
@@ -61,25 +58,27 @@ const template = {
             properties: after[0],
             interpolate: [{ self: true }, { property: 'properties' }]
           }`,
-          semantic: async ({e, context, ask, fragments, toEValue}) => {
-            debugger
-            const query = memoizeAsync(async () => await fragments("what is the concept?", { concept: context.properties.argument }))
-            const matchr = ({context, isA}) => !context.evaluate && isA(context, 'date_dates')
-            const propertyPath = []
-            const contextPath = []
+          semantic: async ({e, s, gp, context, ask, fragments, toEValue}) => {
+            const query = memoizeAsync(async () => await(gp(await fragments("what is the concept?", { concept: context.properties.argument }))))
+            const matchr = ({context, isA}) => !context.same && !context.evaluate && isA(context, 'date_dates')
+            const property = context.properties.argument
             const getValue = async () => {
-              debugger
-              try {
-                const value = toEValue(await e(context.properties.argument))
-                debugger
-                return value
-              } catch( e ) {
-                debugger
+              const value = toEValue(await e(property))
+              if (value.marker == 'answerNotKnown') {
+                return
               }
+              return value
+            }
+            const setValue = async ({ context }) => {
+              debugger
+              const is = { marker: 'is', one: property, two: context, greg101: true }
+              await s(is)
+              debugger
             }
             askForProperty({
               ask,
               getValue,
+              setValue,
               query,
               matchr,
             })

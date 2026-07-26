@@ -631,7 +631,6 @@ const config = {
         const objectContext = context.object;
         const propertyContext = context;
         const objectId = context.object.value
-
         await api.makeObject({ ...args, context: objectContext })
         await api.makeObject({ ...args, context: propertyContext })
         // const propertyId = context.value

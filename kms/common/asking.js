@@ -189,7 +189,7 @@ function getAsk(config) {
               // args.context.motivationKeep = true
               const query = await applyq({ ...args, wasAsked: getWasAsked() })
               if (typeof query != 'string') {
-                throw new Error(`ask expects the value return from applyq to be a string. ${ask.where}`)
+                throw new Error(`ask expects the value return from applyq to be a string. ${ask.where}. Instead got ${JSON.stringify(query, null, 2)}.`)
               }
               args.verbatim(query)
               setWasAsked(true)
