@@ -23,6 +23,7 @@ const config = {
       where: where(),
       id: 'evaluate',
       after: ['verb'],
+      enhanced_associations: false,
       bridge: "{ ...next(operator), postModifiers: ['value'], value: after[0] }",
       semantic: async ({context, e, resolveResponse}) => {
         resolveResponse(context, (await e(context.value)).evalue)

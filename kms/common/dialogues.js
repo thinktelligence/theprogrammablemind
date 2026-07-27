@@ -121,6 +121,7 @@ const config = {
     {
       id: 'makeObject',
       bridge: "{ ...next(operator), object: after[0] }",
+      enhanced_associations: false,
       generatorp: async ({context, gp}) => `${context.word} ${await gp(context.object)}`,
       semantic: async ({config, context, api}) => {
 			  await api.makeObject({ context: context.object, config, types: [] })
@@ -128,6 +129,7 @@ const config = {
     },
     {
       id: 'setIdSuffix',
+      enhanced_associations: false,
       bridge: "{ ...next(operator), suffix: after[0] }",
       generatorp: async ({context, gp}) => `${context.word} ${await gp(context.suffix)}`,
       semantic: ({context, api}) => {
