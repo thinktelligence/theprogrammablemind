@@ -72,6 +72,10 @@ const template = {
         "([onDate_dates|on] ([onDateValue_dates|]))",
         "([afterDate_dates|after] ([afterDateValue_dates|]))",
       ],
+      priorities: [
+        { context: [['month_dates', 0], ['dayNumber_dates', 0], ['yearNumber_dates', 0]], ordered: true, choose: [0,1,2] },
+        { context: [['is', 0], ['month_dates', 0], ['dayNumber_dates', 0], ['yearNumber_dates', 0]], ordered: true, choose: [1,2,3] },
+      ],
       associations: {
         positive: [
           { context: [['every', 0], ['monday_dates', 0]], choose: 1 },

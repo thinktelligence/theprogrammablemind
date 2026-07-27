@@ -1059,3 +1059,7 @@ what is the drone's speed and direction
  2023  node length -q 'the building is 10 feet high and 20 feet wide\nwhat is the width and height of the building -g -d
  ode length -q 'the building is 10 feet high and 20 feet wide\nwhat is the height and width of the building' -g -d
  node angle -q 'what is 3.14 radians in degrees' -g -d
+ node date -q 'x is jan 1 2020' -g -d
+ node date -q 'x is jan 1 2020\nwhat is x' -g -d
+ node date -q 'the birth date is jan 1 2020\nwhat is the birth date' -g -d
+
