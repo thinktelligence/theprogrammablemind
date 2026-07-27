@@ -89,7 +89,12 @@ const config = {
     // {id: "orList", level: 1, selector: {/*match: "same",*/ left: [{ marker: 'orAble' }], passthrough: true}, bridge: "{ ...operator, value: append(before, operator.value) }"},
 
 
-    { id: "means", level: 0, bridge: "{ ...next(operator), from: before[0], to: after[0] }" },
+    { 
+      id: "means", 
+      level: 0, 
+      enhanced_associations: false,
+      bridge: "{ ...next(operator), from: before[0], to: after[0] }",
+    },
     { id: "if", level: 0, bridge: "{ ...next(operator), antecedant: after[0], consequence: after[1].consequence }" },
     { id: "then", level: 0, bridge: "{ ...next(operator), consequence: after[0] }" },
     { id: "ifAble" },

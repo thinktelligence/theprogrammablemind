@@ -115,8 +115,6 @@ const config = {
     { pattern: "([propertyRelation|])" }, // , scope: 'development' },
     "(([property]) <([propertyOf|of] ([object]))>)",
     "(<whose> ([property]))",
-    // "((modifier) [modifies] (concept))", 
-    // "([concept])",
     "(<howPropertyMarker|how> ([propertyMarker]))",
     "([readonly])", 
     "(<objectPrefix|> ([property]))",
@@ -178,6 +176,7 @@ const config = {
     { 
       id: 'between', 
       isA: ['preposition'],
+      enhanced_associations: false,
       bridge: "{ ...next(operator), arguments: after[0] }" 
     },
     { id: 'between', level: 1, bridge: "{ ...before[0], arguments: operator.arguments }" },
