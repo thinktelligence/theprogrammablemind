@@ -4,6 +4,14 @@
       "apply": "({isProcess, isTesting, testModuleName, apis, config, addHierarchy}) => {\n      if (isProcess || isTesting) {\n        const api = apis('properties')\n        api.createActionPrefix({\n          before: [{tag: 'maker', id: 'maker'}],\n          operator: 'make',\n          after: [{tag: 'makeable', id: 'makeable'}],\n          relation: true,\n          flatten: true,\n          can: true,\n          create: [\n            {\n              id: 'make',\n              infinitive: 'make',\n            },\n            'makeable', \n            'maker'\n          ],\n          localHierarchy: [\n            ['unknown', 'maker'],\n            ['unknown', 'makeable'],\n          ],\n          config,\n        })\n      }\n      const api = apis('properties')\n      api.createActionPrefix({\n        before: [{tag: 'canSubject', id: 'canSubject'}],\n        operator: 'canVerb',\n        after: [{tag: 'canObject', id: 'canObject'}],\n        relation: true,\n        flatten: true,\n        can: true,\n        create: [\n          {\n            id: 'canVerb',\n          },\n          'canObject', \n          'canSubject'\n        ],\n        localHierarchy: [\n          ['unknown', 'canObject'],\n          ['unknown', 'canSubject'],\n        ],\n        config,\n      })\n    }"
     },
     {
+      "query": "canobject can be canverb by cansubject",
+      "isFragment": true
+    },
+    {
+      "query": "cansubject can canverb canobject",
+      "isFragment": true
+    },
+    {
       "apply": "async ({fragments, addWordToDictionary}) => {\n      const fragment = await fragments(\"canobject can be canverb by cansubject\")\n      // only run after rebuild template\n      if (fragment) {\n        const context = fragment.contexts()[0]\n        addWordToDictionary(context.be)\n        addWordToDictionary(context.by)\n        addWordToDictionary(context.can)\n      }\n    }"
     }
   ],
@@ -11,11 +19,6 @@
     {
       "apply": "({isProcess, isTesting, testModuleName, apis, config, addHierarchy}) => {\n      if (isProcess || isTesting) {\n        const api = apis('properties')\n        api.createActionPrefix({\n          before: [{tag: 'maker', id: 'maker'}],\n          operator: 'make',\n          after: [{tag: 'makeable', id: 'makeable'}],\n          relation: true,\n          flatten: true,\n          can: true,\n          create: [\n            {\n              id: 'make',\n              infinitive: 'make',\n            },\n            'makeable', \n            'maker'\n          ],\n          localHierarchy: [\n            ['unknown', 'maker'],\n            ['unknown', 'makeable'],\n          ],\n          config,\n        })\n      }\n      const api = apis('properties')\n      api.createActionPrefix({\n        before: [{tag: 'canSubject', id: 'canSubject'}],\n        operator: 'canVerb',\n        after: [{tag: 'canObject', id: 'canObject'}],\n        relation: true,\n        flatten: true,\n        can: true,\n        create: [\n          {\n            id: 'canVerb',\n          },\n          'canObject', \n          'canSubject'\n        ],\n        localHierarchy: [\n          ['unknown', 'canObject'],\n          ['unknown', 'canSubject'],\n        ],\n        config,\n      })\n    }"
     },
-    {
-      "apply": "async ({fragments, addWordToDictionary}) => {\n      const fragment = await fragments(\"canobject can be canverb by cansubject\")\n      // only run after rebuild template\n      if (fragment) {\n        const context = fragment.contexts()[0]\n        addWordToDictionary(context.be)\n        addWordToDictionary(context.by)\n        addWordToDictionary(context.can)\n      }\n    }"
-    }
-  ],
-  "fragments": [
     {
       "hierarchy": [
         [
@@ -736,7 +739,15 @@
           "level": 1,
           "context_index": 1,
           "topLevel": true,
-          "context_id": 2
+          "context_id": 2,
+          "control": {
+            "seen": [],
+            "nextId": 2
+          },
+          "control_id": 1,
+          "touchedBy": [
+            "can#call2"
+          ]
         }
       ],
       "generated": [
@@ -970,7 +981,7 @@
       ],
       "learned_contextual_priorities": [],
       "query": "canobject can be canverb by cansubject",
-      "skipSemantics": true,
+      "isFragment": true,
       "key": {
         "query": "canobject can be canverb by cansubject"
       }
@@ -1669,7 +1680,15 @@
           "level": 1,
           "context_index": 1,
           "topLevel": true,
-          "context_id": 2
+          "context_id": 2,
+          "control": {
+            "seen": [],
+            "nextId": 2
+          },
+          "control_id": 1,
+          "touchedBy": [
+            "can#call2"
+          ]
         }
       ],
       "generated": [
@@ -1878,12 +1897,16 @@
       ],
       "learned_contextual_priorities": [],
       "query": "cansubject can canverb canobject",
-      "skipSemantics": true,
+      "isFragment": true,
       "key": {
         "query": "cansubject can canverb canobject"
       }
+    },
+    {
+      "apply": "async ({fragments, addWordToDictionary}) => {\n      const fragment = await fragments(\"canobject can be canverb by cansubject\")\n      // only run after rebuild template\n      if (fragment) {\n        const context = fragment.contexts()[0]\n        addWordToDictionary(context.be)\n        addWordToDictionary(context.by)\n        addWordToDictionary(context.can)\n      }\n    }"
     }
   ],
+  "fragments": [],
   "semantics": [],
   "associations": [],
   "summaries": [

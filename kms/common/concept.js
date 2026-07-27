@@ -156,10 +156,12 @@ const template = {
             openCompound: after[0],
             interpolate: [ { property: 'phrase' }, { property: 'verb' }, { property: 'openCompound' } ]
           }`,
+          preferOver: ['is'],
           semantic: {
             where: where(),
             apply: ({config, debug, query, km, context}) => {
               let phrase = context.phrase
+              debugger
               if (context.phrase[0].marker == 'doubleQuote') {
                 const words = context.phrase[0].text.replace(/"/g, '').trim().split(/\s+/)
                 phrase = words.map((word) => {
