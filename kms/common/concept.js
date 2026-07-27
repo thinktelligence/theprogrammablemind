@@ -161,7 +161,6 @@ const template = {
             where: where(),
             apply: ({config, debug, query, km, context}) => {
               let phrase = context.phrase
-              debugger
               if (context.phrase[0].marker == 'doubleQuote') {
                 const words = context.phrase[0].text.replace(/"/g, '').trim().split(/\s+/)
                 phrase = words.map((word) => {
