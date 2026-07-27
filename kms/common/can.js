@@ -166,8 +166,6 @@ const config = {
 
 const template = {
   fragments: [
-    "canobject can be canverb by cansubject",
-    "cansubject can canverb canobject",
   ],
 
   configs: [
@@ -218,6 +216,8 @@ const template = {
         config,
       })
     },
+    { query: "canobject can be canverb by cansubject", isFragment: true },
+    { query: "cansubject can canverb canobject", isFragment: true },
     async ({fragments, addWordToDictionary}) => {
       const fragment = await fragments("canobject can be canverb by cansubject")
       // only run after rebuild template
