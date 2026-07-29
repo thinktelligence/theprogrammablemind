@@ -9,7 +9,7 @@ const sizeable_tests = require('./sizeable.test.json')
 const config = {
   name: 'sizeable',
   operators: [
-    "(([size|]) [sizing] ([sizeable]))",
+    "(([size|]) <sizing|> ([sizeable]))",
   ],
   bridges: [
     { 
@@ -38,6 +38,12 @@ const config = {
       bridge: "{ ...next(operator) }" 
     },
   ],
+
+  associations: {
+    positive: [
+      { context: [["article", 0], ["size", 0], ["sizeable", 0]], ordered: true, choose: 2 },
+    ]
+  },
 
   priorities: [
     { context: [['article', 0], ['sizing', 0]], choose: [1] },

@@ -372,6 +372,7 @@ const template = {
         ['meal', 'toAble'],
         ['drink', 'toAble'],
         ['smoothie_modifier', 'sizeable'],
+        ['smoothie', 'sizeable'],
       ],
       bridges: [
         { 
