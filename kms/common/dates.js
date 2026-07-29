@@ -119,7 +119,7 @@ const template = {
         { 
           id: 'date_dates', 
           words: ['date', 'distributable'],
-          isA: ['onDateValue_dates', 'afterDateValue_dates'],
+          isA: ['queryable', 'onDateValue_dates', 'afterDateValue_dates'],
           bridge: "{ ...next(operator) }" 
         },
         { 
@@ -127,6 +127,7 @@ const template = {
           isA: ['date_dates'],
           convolution: true,
           bridge: "{ ...next(after[0]), era: after[1], interpolate: concat(after[0].interpolate, ' ${era}') }",
+          generatorr: ({context, gp}) => gp(context),
           check: defaultContextCheckProperties(['era']),
         },
         { 
@@ -141,6 +142,7 @@ const template = {
           separators: "||||",
           convolution: true,
           bridge: "{ ...next(operator), day: after[2], month: after[0], year: after[4], interpolate: '${month}/${day}/${year}' }",
+          generatorr: ({context, gp}) => gp(context),
           check: defaultContextCheckProperties(['day', 'month', 'year']),
         },
         { 
@@ -166,6 +168,7 @@ const template = {
           before: ['preposition'],
           isA: ['date_dates'],
           bridge: "{ ...next(operator), month: after[0], day: after[1], interpolate: '${month} ${day}' }",
+          generatorr: ({context, gp}) => gp(context),
           check: defaultContextCheckProperties(['day', 'month']),
         },
         { 
@@ -174,6 +177,7 @@ const template = {
           before: ['preposition'],
           isA: ['date_dates'],
           bridge: "{ ...next(operator), month: after[0], year: after[1], interpolate: '${month} ${year}' }",
+          generatorr: ({context, gp}) => gp(context),
           check: defaultContextCheckProperties(['month', 'year']),
         },
         { 
@@ -191,6 +195,7 @@ const template = {
             ['ordinal', 'dayNumber_dates'],
           ],
           bridge: "{ ...next(operator), month: after[0], day: after[1], year: after[2], interpolate: '${month} ${day} ${year}' }",
+          generatorr: ({context, gp}) => gp(context),
           check: defaultContextCheckProperties(['month', 'day', 'year']),
         },
       ],
