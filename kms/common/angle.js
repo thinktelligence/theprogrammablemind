@@ -18,7 +18,7 @@ knowledgeModule({
   includes: [dimension],
 
   module,
-  description: 'Angle measurements',
+  description: 'angle measurements',
   test: {
     name: './angle.test.json',
     contents: angle_tests,

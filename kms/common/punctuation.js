@@ -43,6 +43,7 @@ const config = {
     },
     { 
       id: "endOfSentence", words: ['.'],  
+      enhanced_associations: false,
       bridge: "{ ...before, postModifiers: append(before.postModifiers, ['endOfSentence']), endOfSentence: operator }",
     },
     {
