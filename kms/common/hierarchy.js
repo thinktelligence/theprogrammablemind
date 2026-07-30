@@ -205,7 +205,8 @@ const config = {
     {
       notes: 'humans are mammels',
       where: where(),
-      match: ({context, listable, hierarchy, isA, callId}) => {
+      match: ({debug, context, listable, hierarchy, isA, callId}) => {
+        // debug.b2reakAt('dates#call4')
         if (!context.same) {
           return
         }
@@ -220,19 +221,10 @@ const config = {
           context.same.concept = true;
         //} else if (!context.same.determiner && pluralize.isSingular(context.same.word) && !context.same.instance) {
         //  context.same.concept = true;
-        } else if (isA(context.same.marker, 'hierarchyAble') && context.same.word && pluralize.isSingular(context.same.word) && !context.same.instance) {
+        // } else if (false && isA(context.same.marker, 'hierarchyAble') && context.same.word && pluralize.isSingular(context.same.word) && !context.same.instance) {
+        } else if (context.same.marker !== 'unknown' && isA(context.same.marker, 'hierarchyAble') && !context.same.pullFromContext && context.same.word && pluralize.isSingular(context.same.word) && !context.same.instance) {
           context.same.concept = true;
         } else {
-          /*
-          if (isA(context.same.marker, 'hierarchyAble') && context.same.word && pluralize.isSingular(context.same.word) && !context.same.instance) {
-            console.log("the one", JSON.stringify(context.same, null, 2))
-          }
-          */
-          /*
-          if (!context.same.determiner && pluralize.isSingular(context.same.word) && !context.same.instance) {
-            console.log("the one", JSON.stringify(context.same, null, 2))
-          }
-          */
           return
         }
 

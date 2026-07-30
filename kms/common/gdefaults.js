@@ -114,15 +114,12 @@ const config = {
           if (index == context.postModifiers.length - 1) {
             const fn = Array.isArray(context[modifier]) ? gs: g;
             if (Array.isArray(context[modifier])) {
-              debug.breakAt('fastfood#call7')
               text.push(await gs(context[modifier].map((c) => { return {...c , number} }), { isModifier: true }))
             } else {
-              debug.breakAt('fastfood#call7')
               text.push(await g({...context[modifier], number}, { isModifier: true }))
             }
           } else {
             const fn = Array.isArray(context[modifier]) ? gs: g;
-            debug.breakAt('fastfood#call7')
             text.push(await fn({ ...context[modifier], isModifier: true }))
           }
         }

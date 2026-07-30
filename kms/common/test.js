@@ -3,14 +3,22 @@ const { exec } = require('child_process');
 const util = require('util');
 const execAsync = util.promisify(exec);
 
-async function hasDebugCommands(cmd) {
+async function hasDebugCommand(cmd) {
+  let hasError = false
   try {
-    const { stdout } = await execAsync("git grep debug.counter | grep -v test.js:")
+    const { stdout } = await execAsync(`git grep "${cmd}" | grep -v test.js: | grep -v .json`)
     console.log(await stdout)
-    return true
+    hasError = true
   } catch (error) {
-    return false
   }
+  if (hasError) {
+    throw new Error(`There are "${cmd}" commands in the files`)
+  }
+}
+
+async function hasDebugCommands(cmd) {
+  await hasDebugCommand('debug.counter')
+  await hasDebugCommand('debug.breakAt')
 }
 
 console.time('tests time')
@@ -91,10 +99,9 @@ async function loop(tests, failed) {
 }
 
 (async () => {
-  const error = await hasDebugCommands()
-  if (error) {
-    console.log("There are debug.counter commands in the code")
-  } else {
-    await loop(retrains.concat(tests), [])
-  }
+  await hasDebugCommands().then(() => {
+    return loop(retrains.concat(tests), [])
+  }).catch((e) => {
+    console.log(e.toString())
+  })
 })()

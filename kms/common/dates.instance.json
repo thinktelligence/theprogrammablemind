@@ -10,6 +10,8 @@
     },
     "monday, tuesday, wednesday, thursday, friday, saturday and sunday are days",
     "ac, bc, bce and ad are eras",
+    "birth date is an open compound",
+    "birth date is a date",
     {
       "operators": [
         "([dayNumber_dates|])",
@@ -221,7 +223,7 @@
           ],
           "separators": "||||",
           "convolution": true,
-          "bridge": "{ ...next(operator), day: after[2], month: after[0], year: after[4], interpolate: '${month}/${day}/${year}' }",
+          "bridge": "{ ...next(operator), day: after[2], instance: true, month: after[0], year: after[4], interpolate: '${month}/${day}/${year}' }",
           "generatorr": "({context, gp}) => gp(context)",
           "check": [
             "marker",
@@ -246,21 +248,21 @@
           "isA": [
             "integer"
           ],
-          "bridge": "{ ...next(operator) }"
+          "bridge": "{ ...next(operator), instance: true }"
         },
         {
           "id": "monthNumber_dates",
           "isA": [
             "integer"
           ],
-          "bridge": "{ ...next(operator) }"
+          "bridge": "{ ...next(operator), instance: true }"
         },
         {
           "id": "yearNumber_dates",
           "isA": [
             "integer"
           ],
-          "bridge": "{ ...next(operator) }"
+          "bridge": "{ ...next(operator), instance: true }"
         },
         {
           "id": "monthDay_dates",
@@ -277,7 +279,7 @@
           "isA": [
             "date_dates"
           ],
-          "bridge": "{ ...next(operator), month: after[0], day: after[1], interpolate: '${month} ${day}' }",
+          "bridge": "{ ...next(operator), instance: true, month: after[0], day: after[1], interpolate: '${month} ${day}' }",
           "generatorr": "({context, gp}) => gp(context)",
           "check": [
             "marker",
@@ -305,7 +307,7 @@
           "isA": [
             "date_dates"
           ],
-          "bridge": "{ ...next(operator), month: after[0], year: after[1], interpolate: '${month} ${year}' }",
+          "bridge": "{ ...next(operator), instance: true, month: after[0], year: after[1], interpolate: '${month} ${year}' }",
           "generatorr": "({context, gp}) => gp(context)",
           "check": [
             "marker",
@@ -341,7 +343,7 @@
               "dayNumber_dates"
             ]
           ],
-          "bridge": "{ ...next(operator), month: after[0], day: after[1], year: after[2], interpolate: '${month} ${day} ${year}' }",
+          "bridge": "{ ...next(operator), instance: true, month: after[0], day: after[1], year: after[2], interpolate: '${month} ${day} ${year}' }",
           "generatorr": "({context, gp}) => gp(context)",
           "check": [
             "marker",
@@ -13880,6 +13882,1048 @@
       }
     },
     {
+      "metadata": {
+        "opChoices": [
+          {
+            "op": [
+              "unknown",
+              0
+            ],
+            "ops": [
+              [
+                "a",
+                0
+              ],
+              [
+                "compound",
+                0
+              ],
+              [
+                "is",
+                0
+              ],
+              [
+                "open",
+                0
+              ],
+              [
+                "open_compound",
+                0
+              ],
+              [
+                "unknown",
+                0
+              ],
+              [
+                "unknown",
+                0
+              ]
+            ],
+            "counter": 1
+          },
+          {
+            "op": [
+              "unknown",
+              0
+            ],
+            "ops": [
+              [
+                "a",
+                0
+              ],
+              [
+                "compound",
+                0
+              ],
+              [
+                "is",
+                0
+              ],
+              [
+                "open",
+                0
+              ],
+              [
+                "open_compound",
+                0
+              ],
+              [
+                "unknown",
+                0
+              ]
+            ],
+            "counter": 2
+          },
+          {
+            "op": [
+              "open_compound",
+              0
+            ],
+            "ops": [
+              [
+                "a",
+                0
+              ],
+              [
+                "compound",
+                0
+              ],
+              [
+                "is",
+                0
+              ],
+              [
+                "open",
+                0
+              ],
+              [
+                "open_compound",
+                0
+              ]
+            ],
+            "counter": 3
+          },
+          {
+            "op": [
+              "a",
+              0
+            ],
+            "ops": [
+              [
+                "a",
+                0
+              ],
+              [
+                "is",
+                0
+              ]
+            ],
+            "counter": 4
+          },
+          {
+            "op": [
+              "isOpenCompound",
+              0
+            ],
+            "ops": [
+              [
+                "isOpenCompound",
+                0
+              ]
+            ],
+            "counter": 5
+          },
+          {
+            "op": [
+              "isOpenCompound",
+              0
+            ],
+            "ops": [
+              [
+                "isOpenCompound",
+                0
+              ]
+            ],
+            "counter": 6
+          }
+        ]
+      },
+      "trace": "undefined",
+      "contexts": [
+        {
+          "marker": "isOpenCompound",
+          "default": true,
+          "word": "is",
+          "text": "birth date is an open compound",
+          "range": {
+            "start": 0,
+            "end": 29
+          },
+          "phrase": [
+            {
+              "value": "birth",
+              "unknown": true,
+              "text": "birth",
+              "marker": "unknown",
+              "word": "birth",
+              "range": {
+                "start": 0,
+                "end": 4
+              },
+              "dead": true,
+              "level": 0
+            },
+            {
+              "value": "date",
+              "unknown": true,
+              "text": "date",
+              "marker": "unknown",
+              "word": "date",
+              "range": {
+                "start": 6,
+                "end": 9
+              },
+              "dead": true,
+              "level": 0
+            }
+          ],
+          "verb": {
+            "marker": "isOpenCompound",
+            "default": true,
+            "word": "is",
+            "text": "is",
+            "range": {
+              "start": 11,
+              "end": 12
+            },
+            "level": 0
+          },
+          "openCompound": {
+            "value": "open_compound",
+            "number": "one",
+            "text": "an open compound",
+            "marker": "open_compound",
+            "word": "compound",
+            "range": {
+              "start": 14,
+              "end": 29
+            },
+            "types": [
+              "compound",
+              "open_compound"
+            ],
+            "modifier_open": {
+              "value": "open",
+              "number": "one",
+              "text": "open",
+              "marker": "open",
+              "word": "open",
+              "range": {
+                "start": 17,
+                "end": 20
+              },
+              "types": [
+                "open"
+              ],
+              "level": 0
+            },
+            "atomic": true,
+            "dead": true,
+            "modifiers": [
+              "determiner",
+              "modifier_open"
+            ],
+            "pullFromContext": false,
+            "concept": true,
+            "wantsValue": true,
+            "determiner": {
+              "marker": "a",
+              "default": true,
+              "word": "an",
+              "text": "an",
+              "range": {
+                "start": 14,
+                "end": 15
+              },
+              "level": 0
+            },
+            "level": 0
+          },
+          "interpolate": [
+            {
+              "property": "phrase"
+            },
+            {
+              "property": "verb"
+            },
+            {
+              "property": "openCompound"
+            }
+          ],
+          "dead": true,
+          "level": 0,
+          "context_index": 1,
+          "topLevel": true,
+          "context_id": 2,
+          "touchedBy": [
+            "dates#call2"
+          ]
+        }
+      ],
+      "generated": [
+        ""
+      ],
+      "paraphrases": [
+        "birth date is an open compound"
+      ],
+      "paraphrasesParenthesized": [],
+      "generatedParenthesized": [],
+      "responses": [
+        ""
+      ],
+      "associations": [],
+      "summaries": [
+        {
+          "summaries": [
+            {
+              "operators": [
+                {
+                  "marker": [
+                    "unknown",
+                    0
+                  ],
+                  "range": {
+                    "start": 0,
+                    "end": 4
+                  }
+                },
+                {
+                  "marker": [
+                    "unknown",
+                    0
+                  ],
+                  "range": {
+                    "start": 6,
+                    "end": 9
+                  }
+                },
+                {
+                  "marker": [
+                    "is",
+                    0
+                  ],
+                  "range": {
+                    "start": 11,
+                    "end": 12
+                  }
+                },
+                {
+                  "marker": [
+                    "a",
+                    0
+                  ],
+                  "range": {
+                    "start": 14,
+                    "end": 15
+                  }
+                },
+                {
+                  "marker": [
+                    "open",
+                    0
+                  ],
+                  "range": {
+                    "start": 17,
+                    "end": 20
+                  }
+                },
+                {
+                  "marker": [
+                    "compound",
+                    0
+                  ],
+                  "range": {
+                    "start": 22,
+                    "end": 29
+                  }
+                }
+              ],
+              "counter": 1
+            },
+            {
+              "operators": [
+                {
+                  "marker": [
+                    "unknown",
+                    0
+                  ],
+                  "range": {
+                    "start": 0,
+                    "end": 4
+                  }
+                },
+                {
+                  "marker": [
+                    "unknown",
+                    0
+                  ],
+                  "range": {
+                    "start": 6,
+                    "end": 9
+                  }
+                },
+                {
+                  "marker": [
+                    "is",
+                    0
+                  ],
+                  "range": {
+                    "start": 11,
+                    "end": 12
+                  }
+                },
+                {
+                  "marker": [
+                    "a",
+                    0
+                  ],
+                  "range": {
+                    "start": 14,
+                    "end": 15
+                  }
+                },
+                {
+                  "marker": [
+                    "open",
+                    0
+                  ],
+                  "range": {
+                    "start": 17,
+                    "end": 20
+                  }
+                },
+                {
+                  "marker": [
+                    "compound",
+                    0
+                  ],
+                  "range": {
+                    "start": 22,
+                    "end": 29
+                  }
+                }
+              ],
+              "counter": 2
+            },
+            {
+              "operators": [
+                {
+                  "marker": [
+                    "unknown",
+                    0
+                  ],
+                  "range": {
+                    "start": 0,
+                    "end": 4
+                  }
+                },
+                {
+                  "marker": [
+                    "unknown",
+                    0
+                  ],
+                  "range": {
+                    "start": 6,
+                    "end": 9
+                  }
+                },
+                {
+                  "marker": [
+                    "is",
+                    0
+                  ],
+                  "range": {
+                    "start": 11,
+                    "end": 12
+                  }
+                },
+                {
+                  "marker": [
+                    "a",
+                    0
+                  ],
+                  "range": {
+                    "start": 14,
+                    "end": 15
+                  }
+                },
+                {
+                  "marker": [
+                    "open",
+                    0
+                  ],
+                  "range": {
+                    "start": 17,
+                    "end": 20
+                  }
+                },
+                {
+                  "marker": [
+                    "compound",
+                    0
+                  ],
+                  "range": {
+                    "start": 22,
+                    "end": 29
+                  }
+                }
+              ],
+              "counter": 3
+            },
+            {
+              "operators": [
+                {
+                  "marker": [
+                    "unknown",
+                    0
+                  ],
+                  "range": {
+                    "start": 0,
+                    "end": 4
+                  }
+                },
+                {
+                  "marker": [
+                    "unknown",
+                    0
+                  ],
+                  "range": {
+                    "start": 6,
+                    "end": 9
+                  }
+                },
+                {
+                  "marker": [
+                    "is",
+                    0
+                  ],
+                  "range": {
+                    "start": 11,
+                    "end": 12
+                  }
+                },
+                {
+                  "marker": [
+                    "a",
+                    0
+                  ],
+                  "range": {
+                    "start": 14,
+                    "end": 15
+                  }
+                },
+                {
+                  "marker": [
+                    "open_compound",
+                    0
+                  ],
+                  "range": {
+                    "start": 17,
+                    "end": 29
+                  }
+                }
+              ],
+              "counter": 4
+            },
+            {
+              "operators": [
+                {
+                  "marker": [
+                    "unknown",
+                    0
+                  ],
+                  "range": {
+                    "start": 0,
+                    "end": 4
+                  }
+                },
+                {
+                  "marker": [
+                    "unknown",
+                    0
+                  ],
+                  "range": {
+                    "start": 6,
+                    "end": 9
+                  }
+                },
+                {
+                  "marker": [
+                    "isOpenCompound",
+                    0
+                  ],
+                  "range": {
+                    "start": 11,
+                    "end": 12
+                  }
+                },
+                {
+                  "marker": [
+                    "open_compound",
+                    0
+                  ],
+                  "range": {
+                    "start": 14,
+                    "end": 29
+                  }
+                }
+              ],
+              "counter": 5
+            },
+            {
+              "operators": [
+                {
+                  "marker": [
+                    "isOpenCompound",
+                    0
+                  ],
+                  "range": {
+                    "start": 0,
+                    "end": 29
+                  }
+                }
+              ],
+              "counter": 6
+            },
+            {
+              "operators": [
+                {
+                  "marker": [
+                    "isOpenCompound",
+                    0
+                  ],
+                  "range": {
+                    "start": 0,
+                    "end": 29
+                  }
+                }
+              ],
+              "counter": 7
+            }
+          ],
+          "length": 1
+        }
+      ],
+      "learned_contextual_priorities": [],
+      "query": "birth date is an open compound",
+      "key": {
+        "query": "birth date is an open compound"
+      }
+    },
+    {
+      "metadata": {
+        "opChoices": [
+          {
+            "op": [
+              "birth_dates_date_dates",
+              0
+            ],
+            "ops": [
+              [
+                "a",
+                0
+              ],
+              [
+                "birth_dates",
+                0
+              ],
+              [
+                "birth_dates_date_dates",
+                0
+              ],
+              [
+                "date_dates",
+                0
+              ],
+              [
+                "is",
+                0
+              ]
+            ],
+            "counter": 1
+          },
+          {
+            "op": [
+              "date_dates",
+              0
+            ],
+            "ops": [
+              [
+                "a",
+                0
+              ],
+              [
+                "date_dates",
+                0
+              ],
+              [
+                "is",
+                0
+              ]
+            ],
+            "counter": 2
+          },
+          {
+            "op": [
+              "a",
+              0
+            ],
+            "ops": [
+              [
+                "a",
+                0
+              ],
+              [
+                "is",
+                0
+              ]
+            ],
+            "counter": 3
+          },
+          {
+            "op": [
+              "is",
+              0
+            ],
+            "ops": [
+              [
+                "is",
+                0
+              ]
+            ],
+            "counter": 4
+          },
+          {
+            "op": [
+              "is",
+              1
+            ],
+            "ops": [
+              [
+                "is",
+                1
+              ]
+            ],
+            "counter": 5
+          }
+        ]
+      },
+      "trace": "undefined",
+      "contexts": [
+        {
+          "number": "one",
+          "text": "birth date is a date",
+          "marker": "is",
+          "word": "is",
+          "range": {
+            "start": 0,
+            "end": 19
+          },
+          "one": {
+            "number": "one",
+            "value": "birth_dates_date_dates",
+            "text": "birth date",
+            "marker": "birth_dates_date_dates",
+            "word": "date",
+            "range": {
+              "start": 0,
+              "end": 9
+            },
+            "types": [
+              "birth_dates_date_dates",
+              "date_dates"
+            ],
+            "modifier_birth_dates": {
+              "value": "birth_dates",
+              "number": "one",
+              "text": "birth",
+              "marker": "birth_dates",
+              "word": "birth",
+              "range": {
+                "start": 0,
+                "end": 4
+              },
+              "types": [
+                "birth_dates"
+              ],
+              "level": 0
+            },
+            "atomic": true,
+            "dead": true,
+            "modifiers": [
+              "modifier_birth_dates"
+            ],
+            "level": 0
+          },
+          "two": {
+            "value": "date_dates",
+            "number": "one",
+            "text": "a date",
+            "marker": "date_dates",
+            "word": "date",
+            "range": {
+              "start": 14,
+              "end": 19
+            },
+            "dead": true,
+            "types": [
+              "date_dates"
+            ],
+            "pullFromContext": false,
+            "concept": true,
+            "wantsValue": true,
+            "determiner": {
+              "marker": "a",
+              "default": true,
+              "word": "a",
+              "text": "a",
+              "range": {
+                "start": 14,
+                "end": 14
+              },
+              "level": 0
+            },
+            "modifiers": [
+              "determiner"
+            ],
+            "level": 1
+          },
+          "dead": true,
+          "level": 2,
+          "context_index": 1,
+          "topLevel": true,
+          "context_id": 2,
+          "touchedBy": [
+            "dates#call2"
+          ]
+        }
+      ],
+      "generated": [
+        ""
+      ],
+      "paraphrases": [
+        "birth date is a date"
+      ],
+      "paraphrasesParenthesized": [],
+      "generatedParenthesized": [],
+      "responses": [
+        ""
+      ],
+      "associations": [],
+      "summaries": [
+        {
+          "summaries": [
+            {
+              "operators": [
+                {
+                  "marker": [
+                    "birth_dates",
+                    0
+                  ],
+                  "range": {
+                    "start": 0,
+                    "end": 4
+                  }
+                },
+                {
+                  "marker": [
+                    "date_dates",
+                    0
+                  ],
+                  "range": {
+                    "start": 6,
+                    "end": 9
+                  }
+                },
+                {
+                  "marker": [
+                    "is",
+                    0
+                  ],
+                  "range": {
+                    "start": 11,
+                    "end": 12
+                  }
+                },
+                {
+                  "marker": [
+                    "a",
+                    0
+                  ],
+                  "range": {
+                    "start": 14,
+                    "end": 14
+                  }
+                },
+                {
+                  "marker": [
+                    "date_dates",
+                    0
+                  ],
+                  "range": {
+                    "start": 16,
+                    "end": 19
+                  }
+                }
+              ],
+              "counter": 1
+            },
+            {
+              "operators": [
+                {
+                  "marker": [
+                    "birth_dates_date_dates",
+                    0
+                  ],
+                  "range": {
+                    "start": 0,
+                    "end": 9
+                  }
+                },
+                {
+                  "marker": [
+                    "is",
+                    0
+                  ],
+                  "range": {
+                    "start": 11,
+                    "end": 12
+                  }
+                },
+                {
+                  "marker": [
+                    "a",
+                    0
+                  ],
+                  "range": {
+                    "start": 14,
+                    "end": 14
+                  }
+                },
+                {
+                  "marker": [
+                    "date_dates",
+                    0
+                  ],
+                  "range": {
+                    "start": 16,
+                    "end": 19
+                  }
+                }
+              ],
+              "counter": 2
+            },
+            {
+              "operators": [
+                {
+                  "marker": [
+                    "birth_dates_date_dates",
+                    0
+                  ],
+                  "range": {
+                    "start": 0,
+                    "end": 9
+                  }
+                },
+                {
+                  "marker": [
+                    "is",
+                    0
+                  ],
+                  "range": {
+                    "start": 11,
+                    "end": 12
+                  }
+                },
+                {
+                  "marker": [
+                    "a",
+                    0
+                  ],
+                  "range": {
+                    "start": 14,
+                    "end": 14
+                  }
+                },
+                {
+                  "marker": [
+                    "date_dates",
+                    1
+                  ],
+                  "range": {
+                    "start": 16,
+                    "end": 19
+                  }
+                }
+              ],
+              "counter": 3
+            },
+            {
+              "operators": [
+                {
+                  "marker": [
+                    "birth_dates_date_dates",
+                    0
+                  ],
+                  "range": {
+                    "start": 0,
+                    "end": 9
+                  }
+                },
+                {
+                  "marker": [
+                    "is",
+                    0
+                  ],
+                  "range": {
+                    "start": 11,
+                    "end": 12
+                  }
+                },
+                {
+                  "marker": [
+                    "date_dates",
+                    1
+                  ],
+                  "range": {
+                    "start": 14,
+                    "end": 19
+                  }
+                }
+              ],
+              "counter": 4
+            },
+            {
+              "operators": [
+                {
+                  "marker": [
+                    "is",
+                    1
+                  ],
+                  "range": {
+                    "start": 0,
+                    "end": 19
+                  }
+                }
+              ],
+              "counter": 5
+            },
+            {
+              "operators": [
+                {
+                  "marker": [
+                    "is",
+                    2
+                  ],
+                  "range": {
+                    "start": 0,
+                    "end": 19
+                  }
+                }
+              ],
+              "counter": 6
+            }
+          ],
+          "length": 1
+        }
+      ],
+      "learned_contextual_priorities": [],
+      "query": "birth date is a date",
+      "key": {
+        "query": "birth date is a date"
+      }
+    },
+    {
       "extraConfig": true,
       "operators": [
         "([dayNumber_dates|])",
@@ -14090,7 +15134,7 @@
           ],
           "separators": "||||",
           "convolution": true,
-          "bridge": "{ ...next(operator), day: after[2], month: after[0], year: after[4], interpolate: '${month}/${day}/${year}' }",
+          "bridge": "{ ...next(operator), day: after[2], instance: true, month: after[0], year: after[4], interpolate: '${month}/${day}/${year}' }",
           "check": [
             "marker",
             "text",
@@ -14114,21 +15158,21 @@
           "isA": [
             "integer"
           ],
-          "bridge": "{ ...next(operator) }"
+          "bridge": "{ ...next(operator), instance: true }"
         },
         {
           "id": "monthNumber_dates",
           "isA": [
             "integer"
           ],
-          "bridge": "{ ...next(operator) }"
+          "bridge": "{ ...next(operator), instance: true }"
         },
         {
           "id": "yearNumber_dates",
           "isA": [
             "integer"
           ],
-          "bridge": "{ ...next(operator) }"
+          "bridge": "{ ...next(operator), instance: true }"
         },
         {
           "id": "monthDay_dates",
@@ -14145,7 +15189,7 @@
           "isA": [
             "date_dates"
           ],
-          "bridge": "{ ...next(operator), month: after[0], day: after[1], interpolate: '${month} ${day}' }",
+          "bridge": "{ ...next(operator), instance: true, month: after[0], day: after[1], interpolate: '${month} ${day}' }",
           "check": [
             "marker",
             "text",
@@ -14172,7 +15216,7 @@
           "isA": [
             "date_dates"
           ],
-          "bridge": "{ ...next(operator), month: after[0], year: after[1], interpolate: '${month} ${year}' }",
+          "bridge": "{ ...next(operator), instance: true, month: after[0], year: after[1], interpolate: '${month} ${year}' }",
           "check": [
             "marker",
             "text",
@@ -14206,7 +15250,7 @@
               "dayNumber_dates"
             ]
           ],
-          "bridge": "{ ...next(operator), month: after[0], day: after[1], year: after[2], interpolate: '${month} ${day} ${year}' }",
+          "bridge": "{ ...next(operator), instance: true, month: after[0], day: after[1], year: after[2], interpolate: '${month} ${day} ${year}' }",
           "check": [
             "marker",
             "text",
@@ -24111,6 +25155,551 @@
             }
           ],
           "counter": 13
+        }
+      ],
+      "length": 1
+    },
+    {
+      "summaries": [
+        {
+          "operators": [
+            {
+              "marker": [
+                "unknown",
+                0
+              ],
+              "range": {
+                "start": 0,
+                "end": 4
+              }
+            },
+            {
+              "marker": [
+                "unknown",
+                0
+              ],
+              "range": {
+                "start": 6,
+                "end": 9
+              }
+            },
+            {
+              "marker": [
+                "is",
+                0
+              ],
+              "range": {
+                "start": 11,
+                "end": 12
+              }
+            },
+            {
+              "marker": [
+                "a",
+                0
+              ],
+              "range": {
+                "start": 14,
+                "end": 15
+              }
+            },
+            {
+              "marker": [
+                "open",
+                0
+              ],
+              "range": {
+                "start": 17,
+                "end": 20
+              }
+            },
+            {
+              "marker": [
+                "compound",
+                0
+              ],
+              "range": {
+                "start": 22,
+                "end": 29
+              }
+            }
+          ],
+          "counter": 1
+        },
+        {
+          "operators": [
+            {
+              "marker": [
+                "unknown",
+                0
+              ],
+              "range": {
+                "start": 0,
+                "end": 4
+              }
+            },
+            {
+              "marker": [
+                "unknown",
+                0
+              ],
+              "range": {
+                "start": 6,
+                "end": 9
+              }
+            },
+            {
+              "marker": [
+                "is",
+                0
+              ],
+              "range": {
+                "start": 11,
+                "end": 12
+              }
+            },
+            {
+              "marker": [
+                "a",
+                0
+              ],
+              "range": {
+                "start": 14,
+                "end": 15
+              }
+            },
+            {
+              "marker": [
+                "open",
+                0
+              ],
+              "range": {
+                "start": 17,
+                "end": 20
+              }
+            },
+            {
+              "marker": [
+                "compound",
+                0
+              ],
+              "range": {
+                "start": 22,
+                "end": 29
+              }
+            }
+          ],
+          "counter": 2
+        },
+        {
+          "operators": [
+            {
+              "marker": [
+                "unknown",
+                0
+              ],
+              "range": {
+                "start": 0,
+                "end": 4
+              }
+            },
+            {
+              "marker": [
+                "unknown",
+                0
+              ],
+              "range": {
+                "start": 6,
+                "end": 9
+              }
+            },
+            {
+              "marker": [
+                "is",
+                0
+              ],
+              "range": {
+                "start": 11,
+                "end": 12
+              }
+            },
+            {
+              "marker": [
+                "a",
+                0
+              ],
+              "range": {
+                "start": 14,
+                "end": 15
+              }
+            },
+            {
+              "marker": [
+                "open",
+                0
+              ],
+              "range": {
+                "start": 17,
+                "end": 20
+              }
+            },
+            {
+              "marker": [
+                "compound",
+                0
+              ],
+              "range": {
+                "start": 22,
+                "end": 29
+              }
+            }
+          ],
+          "counter": 3
+        },
+        {
+          "operators": [
+            {
+              "marker": [
+                "unknown",
+                0
+              ],
+              "range": {
+                "start": 0,
+                "end": 4
+              }
+            },
+            {
+              "marker": [
+                "unknown",
+                0
+              ],
+              "range": {
+                "start": 6,
+                "end": 9
+              }
+            },
+            {
+              "marker": [
+                "is",
+                0
+              ],
+              "range": {
+                "start": 11,
+                "end": 12
+              }
+            },
+            {
+              "marker": [
+                "a",
+                0
+              ],
+              "range": {
+                "start": 14,
+                "end": 15
+              }
+            },
+            {
+              "marker": [
+                "open_compound",
+                0
+              ],
+              "range": {
+                "start": 17,
+                "end": 29
+              }
+            }
+          ],
+          "counter": 4
+        },
+        {
+          "operators": [
+            {
+              "marker": [
+                "unknown",
+                0
+              ],
+              "range": {
+                "start": 0,
+                "end": 4
+              }
+            },
+            {
+              "marker": [
+                "unknown",
+                0
+              ],
+              "range": {
+                "start": 6,
+                "end": 9
+              }
+            },
+            {
+              "marker": [
+                "isOpenCompound",
+                0
+              ],
+              "range": {
+                "start": 11,
+                "end": 12
+              }
+            },
+            {
+              "marker": [
+                "open_compound",
+                0
+              ],
+              "range": {
+                "start": 14,
+                "end": 29
+              }
+            }
+          ],
+          "counter": 5
+        },
+        {
+          "operators": [
+            {
+              "marker": [
+                "isOpenCompound",
+                0
+              ],
+              "range": {
+                "start": 0,
+                "end": 29
+              }
+            }
+          ],
+          "counter": 6
+        },
+        {
+          "operators": [
+            {
+              "marker": [
+                "isOpenCompound",
+                0
+              ],
+              "range": {
+                "start": 0,
+                "end": 29
+              }
+            }
+          ],
+          "counter": 7
+        }
+      ],
+      "length": 1
+    },
+    {
+      "summaries": [
+        {
+          "operators": [
+            {
+              "marker": [
+                "birth_dates",
+                0
+              ],
+              "range": {
+                "start": 0,
+                "end": 4
+              }
+            },
+            {
+              "marker": [
+                "date_dates",
+                0
+              ],
+              "range": {
+                "start": 6,
+                "end": 9
+              }
+            },
+            {
+              "marker": [
+                "is",
+                0
+              ],
+              "range": {
+                "start": 11,
+                "end": 12
+              }
+            },
+            {
+              "marker": [
+                "a",
+                0
+              ],
+              "range": {
+                "start": 14,
+                "end": 14
+              }
+            },
+            {
+              "marker": [
+                "date_dates",
+                0
+              ],
+              "range": {
+                "start": 16,
+                "end": 19
+              }
+            }
+          ],
+          "counter": 1
+        },
+        {
+          "operators": [
+            {
+              "marker": [
+                "birth_dates_date_dates",
+                0
+              ],
+              "range": {
+                "start": 0,
+                "end": 9
+              }
+            },
+            {
+              "marker": [
+                "is",
+                0
+              ],
+              "range": {
+                "start": 11,
+                "end": 12
+              }
+            },
+            {
+              "marker": [
+                "a",
+                0
+              ],
+              "range": {
+                "start": 14,
+                "end": 14
+              }
+            },
+            {
+              "marker": [
+                "date_dates",
+                0
+              ],
+              "range": {
+                "start": 16,
+                "end": 19
+              }
+            }
+          ],
+          "counter": 2
+        },
+        {
+          "operators": [
+            {
+              "marker": [
+                "birth_dates_date_dates",
+                0
+              ],
+              "range": {
+                "start": 0,
+                "end": 9
+              }
+            },
+            {
+              "marker": [
+                "is",
+                0
+              ],
+              "range": {
+                "start": 11,
+                "end": 12
+              }
+            },
+            {
+              "marker": [
+                "a",
+                0
+              ],
+              "range": {
+                "start": 14,
+                "end": 14
+              }
+            },
+            {
+              "marker": [
+                "date_dates",
+                1
+              ],
+              "range": {
+                "start": 16,
+                "end": 19
+              }
+            }
+          ],
+          "counter": 3
+        },
+        {
+          "operators": [
+            {
+              "marker": [
+                "birth_dates_date_dates",
+                0
+              ],
+              "range": {
+                "start": 0,
+                "end": 9
+              }
+            },
+            {
+              "marker": [
+                "is",
+                0
+              ],
+              "range": {
+                "start": 11,
+                "end": 12
+              }
+            },
+            {
+              "marker": [
+                "date_dates",
+                1
+              ],
+              "range": {
+                "start": 14,
+                "end": 19
+              }
+            }
+          ],
+          "counter": 4
+        },
+        {
+          "operators": [
+            {
+              "marker": [
+                "is",
+                1
+              ],
+              "range": {
+                "start": 0,
+                "end": 19
+              }
+            }
+          ],
+          "counter": 5
+        },
+        {
+          "operators": [
+            {
+              "marker": [
+                "is",
+                2
+              ],
+              "range": {
+                "start": 0,
+                "end": 19
+              }
+            }
+          ],
+          "counter": 6
         }
       ],
       "length": 1
