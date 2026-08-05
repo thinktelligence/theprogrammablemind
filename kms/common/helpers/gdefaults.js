@@ -35,6 +35,10 @@ function interpolate(args) {
               strings.push(await args.gp(word))
               separator = ' '
             }
+          } else if (element.self) {
+            strings.push(separator)
+            strings.push(await args.gp({...context, interpolate: undefined}))
+            separator = ' '
           } else if (typeof element == 'string') {
             separator = element
           } else if (element.separator && element.values) {
