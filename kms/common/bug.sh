@@ -1059,7 +1059,16 @@ what is the drone's speed and direction
  2023  node length -q 'the building is 10 feet high and 20 feet wide\nwhat is the width and height of the building -g -d
  ode length -q 'the building is 10 feet high and 20 feet wide\nwhat is the height and width of the building' -g -d
  node angle -q 'what is 3.14 radians in degrees' -g -d
- node dates -q 'x is jan 1 2020' -g -d
- node dates -q 'x is jan 1 2020\nwhat is x' -g -d
- node dates -q 'the birth date is jan 1 2020\nwhat is the birth date' -g -d
-
+node dates -q 'x is jan 1 2020' -g -d
+node dates -q 'x is jan 1 2020\nwhat is x' -g -d
+node dates -q 'the birth date is jan 1 2020\nwhat is the birth date' -g -d
+greg mcclement is 23 years old
+find out name, age, and height
+node  askfor -q 'ask for the birth date' -g -d
+node  askfor -q 'ask for the birth date\njan 10 2020\nwhat is the birth date' -g -d
+confirm the information
+show the information
+what is the information/data
+ask for the birth date of greg and tara
+asking for multiple property 
+node  askfor -q 'ask for the birth date\njan 14 1965\nwhat is the information' -g -d

@@ -258,6 +258,12 @@ const config = {
 
     {
       where: where(),
+      match: ({context}) => context.marker == 'labelledValue',
+      apply: async ({context, g, gr}) => `${await g(context.label)} is ${await g(context.value)}`
+    },
+
+    {
+      where: where(),
       match: ({context}) => context.value != null,
       apply: async ({context, g, gr}) => g(context.value),
     },
@@ -300,7 +306,13 @@ function initializer({config}) {
         args.insert({ marker: 'verbatim', verbatim: text, isResponse: true })
       }
       return {
-        flatten,
+        flatten: (markers, context) => {
+          if (!context) {
+            context = markers
+            markers = ['list']
+          }
+          return flatten(markers, context)
+        },
         number: (context) => isMany(context) ? "many" : "one",
         // number/gender/person etc
         gw: (context, { number: numberContext }) => {

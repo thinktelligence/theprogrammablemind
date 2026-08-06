@@ -1,5 +1,5 @@
 const { knowledgeModule, where } = require('./runtime').theprogrammablemind
-const { defaultContextCheck, getValue, setValue, memoizeAsync } = require('./helpers')
+const { defaultContextCheck, getValue, setValue, memoizeAsync, words } = require('./helpers')
 const tests = require('./askfor.test.json')
 const instance = require('./askfor.instance.json')
 const length = require('./length')
@@ -30,15 +30,36 @@ function askForProperty({
   })
 }
 
+// for greg find out the birthdate and gender
+
 const template = {
   configs: [
     "setidsuffix _askfor",
     { query: 'what is the concept?', isFragment: true },
+    ({objects}) => {
+      objects.askFor = []
+    },
     {
       operators: [
         "([askfor_askfor|] ([for_askfor|] (@<= concept)))",
+        "([information])",
       ],
       bridges: [
+        {
+          id: 'information',
+          isA: ['noun'],
+          evaluator: async ({context, e, callId, toList, flatten, toEValue, resolveEvaluate, objects}) => {
+            const properties = objects.askFor
+            const [fproperties, _]  = flatten(properties)
+            const values = []
+            for (const property of fproperties) {
+              const value = await e(property[0])
+              values.push({ marker: 'labelledValue', label:property[0], value })
+            }
+            debugger
+            resolveEvaluate(context, toList(values))
+          },
+        },
         {
           id: 'for_askfor',
           isA: ['preposition'],
@@ -58,7 +79,7 @@ const template = {
             properties: after[0],
             interpolate: [{ self: true }, { property: 'properties' }]
           }`,
-          semantic: async ({e, s, gp, context, ask, fragments, toEValue}) => {
+          semantic: async ({e, s, gp, objects, context, ask, fragments, toEValue}) => {
             const query = memoizeAsync(async () => await(gp(await fragments("what is the concept?", { concept: context.properties.argument }))))
             const matchr = ({context, isA}) => !context.same && !context.evaluate && isA(context, 'date_dates')
             const property = context.properties.argument
@@ -69,11 +90,10 @@ const template = {
               }
               return value
             }
+            objects.askFor.push(property)
             const setValue = async ({ context }) => {
-              debugger
-              const is = { marker: 'is', one: property, two: context, greg101: true }
+              const is = { marker: 'is', one: property, two: context }
               await s(is)
-              debugger
             }
             askForProperty({
               ask,
@@ -101,6 +121,7 @@ knowledgeModule( {
     contents: tests,
     checks: {
       context: [defaultContextCheck()],
+      objects: ['askFor'],
     }
   },
   instance,

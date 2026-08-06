@@ -339,7 +339,10 @@ const config = {
       where: where(),
       match: ({context}) => context.marker == 'mentions' && context.evaluate,
       apply: ({context, kms, toList, resolveEvaluate}) => {
-        resolveEvaluate(context, kms.stm.api.recall(context.args))
+        const value = kms.stm.api.recall(context.args)
+        if (value) {
+          resolveEvaluate(context, value)
+        }
       }
     },
     { 

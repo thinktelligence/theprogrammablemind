@@ -447,7 +447,7 @@ const config = {
       where: where(),
       notes: 'x is y',
       match: ({context, hierarchy}) => hierarchy.isA(context.marker, 'is') && !context.evalue,
-      apply: async ({context, g, gp, gr, callId}) => {
+      apply: async ({context, g, gp, debug, gr, callId}) => {
         if ((context.two.evalue || {}).marker == 'answerNotKnown') {
           return await g(context.two.evalue)
         }

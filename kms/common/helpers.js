@@ -116,8 +116,13 @@ function isMany(context) {
   if (number == 'one') {
     return false
   }
-  if (context.word && pluralize.isPlural(context.word)) {
-    return true
+  if (context.word) {
+    if (pluralize.isPlural(context.word) && pluralize.isSingular(context.word)) {
+      return
+    } 
+    if (pluralize.isPlural(context.word)) {
+      return true
+    }
   }
   return false
 }
