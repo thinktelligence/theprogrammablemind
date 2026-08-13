@@ -75,6 +75,14 @@ const template = {
     "spicy, homestyle, asiago ranch chicken club, ultimate chicken grill and premium cod are sandwiches",
     "meals are food",
     "a combo is a meal",
+    ({config}) => {
+      config.updateBridge('combo', ({ bridge }) => {
+        if (!bridge.initial) {
+          bridge.initial = {}
+        }
+        bridge.initial['notConjunctableWith'] = ['integer']
+      })
+    },
     "chili is a meal",
     "a shake is a drink",
     "vanilla modifies shake",
@@ -216,6 +224,7 @@ const template = {
           id: 'comboNumber',
           convolution: true,
           before: ['combo', 'preposition'],
+          // after: ['comma'],
           bridge: "{ ...next(before[0]), postModifiers: append(before[0].postModifiers, ['comboNumber']), comboNumber: after[0], instance: true, flatten: true }",
         },
         { 
@@ -449,6 +458,11 @@ const template = {
         { context: [['list', 0], ['integer', 0], ['strawberry', 0], ['smoothie', 0]], choose: [2, 3], ordered: true },
         { context: [['list', 0], ['integer', 0], ['strawberry', 1], ['smoothie', 0]], choose: [2, 3], ordered: true },
         { context: [['list', 0], ['integer', 1], ['strawberry', 1], ['smoothie', 0]], choose: [2, 3], ordered: true },
+        { context: [['integer', 0], ['combo', 0], ['integer', 1]], choose: [1, 2], ordered: true },
+        { context: [['integer', 0], ['combo', 0], ['comboNumber', 0], ['integer', 1]], choose: [1, 2, 3], ordered: true },
+        // { context: [['combo', 0], ['integer', 1], ['comma', 0]], choose: [1, 2], ordered: true },
+        { context: [['combo', 0], ['comboNumber', 0], ['integer', 1], ['comma', 0]], choose: [2, 3], ordered: true },
+        // { context: [['comboNumber', 0], ['comma', 0]], choose: [1], ordered: false },
       ],
     },
   ],

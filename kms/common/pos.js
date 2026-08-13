@@ -14,7 +14,6 @@ const config = {
     "([verb])",
     "([subordinatedVerb])",
     "([ingVerb])",
-    "([punctuation])",
     "([noun])",
   ],
   bridges: [
@@ -48,9 +47,6 @@ const config = {
     {
       id: "ingVerb",
       before: ['punctuation', 'verb'],
-    },
-    {
-      id: "punctuation",
     },
     {
       id: "noun",

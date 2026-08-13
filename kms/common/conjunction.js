@@ -34,7 +34,7 @@ const config = {
       enhanced_associations: false,
       selector: {
           match: "same", 
-          left: [ { pattern: '($type && context.instance == variables.instance && context.dead == variables.dead)' } ], 
+          left: [ { pattern: '($type && context.instance == variables.instance && context.dead == variables.dead && contexts[0] !@<= contexts[-1].notConjunctableWith)' } ], 
           passthrough: true
      }, 
       bridge: "{ ...operator, value: append(before, operator.value) }"

@@ -9,13 +9,18 @@ const config = {
     "([leftParenthesis|] (phrase) ([rightParenthesis|]))",
     "((before) [comma|])", // comma applies if before is dead
     "([colon|])",
+    "([punctuation|])",
     "((sentence) <endOfSentence|>)",
     "([doubleQuote|] (!doubleQuote/*)* (doubleQuote/*))",
   ],
   bridges: [
     {
+      id: 'punctuation',
+    },
+    {
       id: "comma",
       level: 0,
+      isA: ['punctuation'],
       skipable: true,
       enhanced_associations: false,
       bridge: "{ ...before[0], decorators.after: operator, no_convolutions: true }",      // css :after decoration

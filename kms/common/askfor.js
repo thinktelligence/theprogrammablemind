@@ -70,10 +70,10 @@ const template = {
               return value
             }
             const setValue = async ({ context }) => {
-              debugger
+            //  debugger
               const is = { marker: 'is', one: property, two: context, greg101: true }
               await s(is)
-              debugger
+              //debugger
             }
             askForProperty({
               ask,
