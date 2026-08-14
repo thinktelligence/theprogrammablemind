@@ -144,7 +144,7 @@ const template = {
     "open modifies compound",
     {
       operators: [
-        "((!@== isOpenCompound)* [isOpenCompound|is] (@== open_compound))",
+        "((!@== isOpenCompound && !@<= punctuation)* [isOpenCompound|is] (@== open_compound))",
       ],
       bridges: [
         {
