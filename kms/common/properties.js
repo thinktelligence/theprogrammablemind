@@ -1,6 +1,7 @@
 const { knowledgeModule, where, debug } = require('./runtime').theprogrammablemind
 const { defaultContextCheckProperties, defaultContextCheck, words } = require('./helpers')
 const dialogues = require('./dialogues')
+const hierarchy = require('./hierarchy')
 const meta = require('./meta')
 const concept = require('./concept')
 const instance = require('./properties.instance.json')

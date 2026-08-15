@@ -18,6 +18,7 @@ const template = {
       "given modifies name",
       "given name means first name",
       "ownee is owned by owner means owner owns ownee",
+      "male and female are genders",
     ],
 }
 const config = {

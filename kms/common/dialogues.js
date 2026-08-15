@@ -617,84 +617,41 @@ const config = {
       notes: 'x is y. handles x is a kind of y or x = y in the stm',
       match: ({context}) => context.marker == 'is' && !context.query && context.one && context.two,
       apply: async ({context, s, debug, log, api, kms, config}) => {
-        // const oneZero = { ...context.one }
-        // const twoZero = { ...context.two }
-        if (true) {
-          const one = context.one;
-          const two = context.two;
-          one.same = two;
-          const onePrime = await s(one)
-          if (!onePrime.sameWasProcessed) {
-            warningSameNotEvaluated(log, one)
-          } else {
-            if (onePrime.evalue) {
-              context.evalue = onePrime.evalue
-              context.isResponse = true
-            }
-          }
-          one.same = undefined
-          let twoPrime;
-          if (!onePrime.sameWasProcessed) {
-            two.same = one
-            twoPrime = await s(two)
-            if (!twoPrime.sameWasProcessed) {
-              warningSameNotEvaluated(log, two)
-            } else {
-              if (twoPrime.evalue) {
-                context.evalue = twoPrime.evalue
-              }
-            }
-            two.same = undefined
-          }
-
-          // if not isA add to stm
-          if (!onePrime.sameWasProcessed && !twoPrime.sameWasProcessed) {
-            for (const child of propertyToArray(one)) {
-              await api.makeObject({ context: child, config, types: context.two.types || [] })
-              if (two.determiner?.marker !== 'a') {
-                kms.stm.api.setVariable(child.value, two)
-                kms.stm.api.remember({ context: child, value: two })
-              }
-            }
-          }
+        const one = context.one;
+        const two = context.two;
+        one.same = two;
+        const onePrime = await s(one)
+        debug.counter('wtf23', { breakAt: 1 })
+        if (!onePrime.sameWasProcessed) {
+          warningSameNotEvaluated(log, one)
         } else {
-          const one = context.one;
-          const two = context.two;
-          one.same = two;
-          const onePrime = await s(one)
-          if (!onePrime.sameWasProcessed) {
-            warningSameNotEvaluated(log, one)
+          if (onePrime.evalue) {
+            context.evalue = onePrime.evalue
+            context.isResponse = true
+          }
+        }
+        one.same = undefined
+        let twoPrime;
+        if (!onePrime.sameWasProcessed) {
+          two.same = one
+          twoPrime = await s(two)
+          if (!twoPrime.sameWasProcessed) {
+            warningSameNotEvaluated(log, two)
           } else {
-            if (onePrime.evalue) {
-              context.evalue = onePrime.evalue
-              context.isResponse = true
+            if (twoPrime.evalue) {
+              context.evalue = twoPrime.evalue
             }
           }
-          one.same = undefined
-          let twoPrime;
-          if (false) {
-            if (!onePrime.sameWasProcessed) {
-              two.same = one
-              twoPrime = await s(two)
-              if (!twoPrime.sameWasProcessed) {
-                warningSameNotEvaluated(log, two)
-              } else {
-                if (twoPrime.evalue) {
-                  context.evalue = twoPrime.evalue
-                }
-              }
-              two.same = undefined
-            }
-          }
+          two.same = undefined
+        }
 
-          // if not isA add to stm
-          if (!onePrime.sameWasProcessed && !twoPrime.sameWasProcessed) {
-            for (const child of propertyToArray(one)) {
-              await api.makeObject({ context: child, config, types: context.two.types || [] })
-              if (two.determiner?.marker !== 'a') {
-                kms.stm.api.setVariable(child.value, two)
-                kms.stm.api.remember({ context: child, value: two })
-              }
+        // if not isA add to stm
+        if (!onePrime.sameWasProcessed && !twoPrime.sameWasProcessed) {
+          for (const child of propertyToArray(one)) {
+            await api.makeObject({ context: child, config, types: context.two.types || [] })
+            if (two.determiner?.marker !== 'a') {
+              kms.stm.api.setVariable(child.value, two)
+              kms.stm.api.remember({ context: child, value: two })
             }
           }
         }
