@@ -4,6 +4,7 @@ const tests = require('./askfor.test.json')
 const instance = require('./askfor.instance.json')
 const length = require('./length')
 const dates = require('./dates')
+const people = require('./people')
 
 // TODO if you know the name and address of a person do such and such
 // TODO stop asking that
@@ -81,7 +82,8 @@ const template = {
           }`,
           semantic: async ({e, s, gp, objects, context, ask, fragments, toEValue}) => {
             const query = memoizeAsync(async () => await(gp(await fragments("what is the concept?", { concept: context.properties.argument }))))
-            const matchr = ({context, isA}) => !context.same && !context.evaluate && isA(context, 'date_dates')
+            const compatible_types = context.properties.argument.compatible_types || [context.properties.argument.marker]
+            const matchr = ({context, isA}) => !context.same && !context.evaluate && isA(context, compatible_types)
             const property = context.properties.argument
             const getValue = async () => {
               const value = toEValue(await e(property))
@@ -91,8 +93,10 @@ const template = {
               return value
             }
             objects.askFor.push(property)
-            const setValue = async ({ context }) => {
-              const is = { marker: 'is', one: property, two: context }
+            const setValue = async ({ context, namespaced }) => {
+              debugger
+              const is = { marker: 'is', one: property, two: context, greg101: true }
+              namespaced.set('dialogs', is, 'allowHierarchy', false)
               await s(is)
             }
             askForProperty({
@@ -112,7 +116,7 @@ const template = {
 
 knowledgeModule( { 
   config: { name: 'askfor' },
-  includes: [length, dates],
+  includes: [length, dates, people],
 
   module,
   description: 'asking the system to interact with a user and find out information',

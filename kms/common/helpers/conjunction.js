@@ -60,42 +60,55 @@ function listable(hierarchy) {
 
 function isA(hierarchy) {
   return (child, parent, { strict=false } = {}) => {
-    if (!child || !parent) {
-      return false
-    }
+    const oneToOne = (child, parent) => {
+      if (!child || !parent) {
+        return false
+      }
 
-    if (strict) {
-      if (child.marker) {
-        child = child.marker
-      }
-      if (parent.marker) {
-        parent = parent.marker
-      }
-      return hierarchy.isA(child, parent)
-    } else {
-      const children = propertyToArray(child)
-      for (const child of children) {
-        let okay = false
-        if (hierarchy.isA(child.marker || child, parent.marker || parent)) {
-          okay = true
-        } else {
-          for (const childT of child.types || [child]) {
-            if (okay) {
-              break
-            }
-            for (const parentT of parent.types || [parent]) {
-              if (hierarchy.isA(childT, parentT)) {
-                okay = true
+      if (strict) {
+        if (child.marker) {
+          child = child.marker
+        }
+        if (parent.marker) {
+          parent = parent.marker
+        }
+        return hierarchy.isA(child, parent)
+      } else {
+        const children = propertyToArray(child)
+        for (const child of children) {
+          let okay = false
+          if (hierarchy.isA(child.marker || child, parent.marker || parent)) {
+            okay = true
+          } else {
+            for (const childT of child.types || [child]) {
+              if (okay) {
                 break
+              }
+              for (const parentT of parent.types || [parent]) {
+                if (hierarchy.isA(childT, parentT)) {
+                  okay = true
+                  break
+                }
               }
             }
           }
+          if (!okay) {
+            return false
+          }
         }
-        if (!okay) {
-          return false
+        return true
+      }
+    }
+    if (Array.isArray(parent)) {
+      const parents = parent
+      for (const parent of parents) {
+        if (oneToOne(child, parent)) {
+          return true
         }
       }
-      return true
+      return false
+    } else {
+      return oneToOne(child, parent)
     }
   }
 }

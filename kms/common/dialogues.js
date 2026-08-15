@@ -616,39 +616,51 @@ const config = {
       where: where(),
       notes: 'x is y. handles x is a kind of y or x = y in the stm',
       match: ({context}) => context.marker == 'is' && !context.query && context.one && context.two,
-      apply: async ({context, s, debug, log, api, kms, config}) => {
+      apply: async ({context, s, debug, log, api, kms, namespaced, config}) => {
         // const oneZero = { ...context.one }
         // const twoZero = { ...context.two }
         if (true) {
+          let wasProcessed = false
           const one = context.one;
           const two = context.two;
-          one.same = two;
-          const onePrime = await s(one)
-          if (!onePrime.sameWasProcessed) {
-            warningSameNotEvaluated(log, one)
-          } else {
-            if (onePrime.evalue) {
-              context.evalue = onePrime.evalue
-              context.isResponse = true
+          if (namespaced.get('dialogs', context, 'allowHierarchy', true)) {
+            debug.counter('newway')
+            if (debug.get('newway') == 92) {
+              debugger
             }
-          }
-          one.same = undefined
-          let twoPrime;
-          if (!onePrime.sameWasProcessed) {
-            two.same = one
-            twoPrime = await s(two)
-            if (!twoPrime.sameWasProcessed) {
-              warningSameNotEvaluated(log, two)
+            if (one.pullFromContext && debug.get('newway') == 99992) {
+              debugger
             } else {
-              if (twoPrime.evalue) {
-                context.evalue = twoPrime.evalue
+              one.same = two;
+              const onePrime = await s(one)
+              if (!onePrime.sameWasProcessed) {
+                warningSameNotEvaluated(log, one)
+              } else {
+                if (onePrime.evalue) {
+                  context.evalue = onePrime.evalue
+                  context.isResponse = true
+                }
               }
+              one.same = undefined
+              let twoPrime;
+              if (!onePrime.sameWasProcessed) {
+                two.same = one
+                twoPrime = await s(two)
+                if (!twoPrime.sameWasProcessed) {
+                  warningSameNotEvaluated(log, two)
+                } else {
+                  if (twoPrime.evalue) {
+                    context.evalue = twoPrime.evalue
+                  }
+                }
+                two.same = undefined
+              }
+              wasProcessed = onePrime.sameWasProcessed || twoPrime.sameWasProcessed
             }
-            two.same = undefined
           }
 
           // if not isA add to stm
-          if (!onePrime.sameWasProcessed && !twoPrime.sameWasProcessed) {
+          if (!wasProcessed) {
             for (const child of propertyToArray(one)) {
               await api.makeObject({ context: child, config, types: context.two.types || [] })
               if (two.determiner?.marker !== 'a') {

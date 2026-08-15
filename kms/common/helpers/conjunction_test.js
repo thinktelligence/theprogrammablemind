@@ -34,6 +34,21 @@ describe('conjucntion helpers Tests', () => {
         const isAI = isA(hierarchy)
         expect(isAI('a', { marker: 'b'})).toBe(true)
       })
+      it('child+parent has link, parent is context', () => {
+        hierarchy = new DigraphInternal([['a', 'b']])
+        const isAI = isA(hierarchy)
+        expect(isAI('a', { marker: 'b'})).toBe(true)
+      })
+      it('child+parents success', () => {
+        hierarchy = new DigraphInternal([['a', 'b']])
+        const isAI = isA(hierarchy)
+        expect(isAI('a', [{ marker: 'notb' }, { marker: 'b'}])).toBe(true)
+      })
+      it('child+parents fail', () => {
+        hierarchy = new DigraphInternal([['a', 'b']])
+        const isAI = isA(hierarchy)
+        expect(isAI('a', [{ marker: 'notb' }, { marker: 'stillNotb'}])).toBe(false)
+      })
       it('child+parent has link, child is list', () => {
         const child = {
           isList: true,

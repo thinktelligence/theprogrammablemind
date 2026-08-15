@@ -1072,3 +1072,4 @@ what is the information/data
 ask for the birth date of greg and tara
 asking for multiple property 
 node  askfor -q 'ask for the birth date\njan 14 1965\nwhat is the information' -g -d
+node people -q 'the gender is male\nwhat is the gender' -g -d
