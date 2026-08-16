@@ -25,15 +25,6 @@ function warningIsANotImplemented(log, context) {
   log(indent(message, 4))
 }
 
-function warningSameNotEvaluated(log, one) {
-  const description = 'WARNING from Dialogues KM: For the "X is Y" type phrase implement a same handler.'
-  const match = `({context}) => context.marker == '${one.marker}' && context.same && <other conditions as you like>`
-  const apply = '({context}) => <do stuff... context.same is the other value>; context.sameWasProcessed = true'
-  const input = indent(JSON.stringify(one, null, 2), 2)
-  const message = `${description}\nThe semantic would be\n  match: ${match}\n  apply: ${apply}\nThe input context would be:\n${input}\n`
-  log(indent(message, 4))
-}
-
 function listorama(type) {
   return [
       { context: [[type, 0], ['list', 0], [type, 0]], choose: 0 },
@@ -617,6 +608,15 @@ const config = {
       notes: 'x is y. handles x is a kind of y or x = y in the stm',
       match: ({context}) => context.marker == 'is' && !context.query && context.one && context.two,
       apply: async ({_continue, context, s, debug, log, api, kms, config}) => {
+        function warningSameNotEvaluated(log, one) {
+          const description = 'WARNING from Dialogues KM: For the "X is Y" type phrase implement a same handler.'
+          const match = `({context}) => context.marker == '${one.marker}' && context.same && <other conditions as you like>`
+          const apply = '({context}) => <do stuff... context.same is the other value>; context.sameWasProcessed = true'
+          const input = indent(JSON.stringify(one, null, 2), 2)
+          const message = `${description}\nThe semantic would be\n  match: ${match}\n  apply: ${apply}\nThe input context would be:\n${input}\n`
+          log(indent(message, 4))
+        }
+
         const one = context.one;
         const two = context.two;
         one.same = two;
