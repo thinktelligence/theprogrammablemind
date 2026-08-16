@@ -616,7 +616,7 @@ const config = {
       where: where(),
       notes: 'x is y. handles x is a kind of y or x = y in the stm',
       match: ({context}) => context.marker == 'is' && !context.query && context.one && context.two,
-      apply: async ({context, s, debug, log, api, kms, config}) => {
+      apply: async ({_continue, context, s, debug, log, api, kms, config}) => {
         const one = context.one;
         const two = context.two;
         one.same = two;
@@ -630,14 +630,22 @@ const config = {
           }
         }
         one.same = undefined
-        // if not isA add to stm
         if (!onePrime.sameWasProcessed) {
-          for (const child of propertyToArray(one)) {
-            await api.makeObject({ context: child, config, types: two.types || [] })
-            if (two.determiner?.marker !== 'a') {
-              kms.stm.api.setVariable(child.value, two)
-              kms.stm.api.remember({ context: child, value: two })
-            }
+          _continue()
+        }
+      }
+    },
+    { 
+      where: where(),
+      match: ({context}) => context.marker == 'is' && !context.query && context.one && context.two,
+      apply: async ({context, s, debug, log, api, kms, config}) => {
+        const one = context.one;
+        const two = context.two;
+        for (const child of propertyToArray(one)) {
+          await api.makeObject({ context: child, config, types: two.types || [] })
+          if (two.determiner?.marker !== 'a') {
+            kms.stm.api.setVariable(child.value, two)
+            kms.stm.api.remember({ context: child, value: two })
           }
         }
       }
