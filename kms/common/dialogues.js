@@ -25,15 +25,6 @@ function warningIsANotImplemented(log, context) {
   log(indent(message, 4))
 }
 
-function warningSameNotEvaluated(log, one) {
-  const description = 'WARNING from Dialogues KM: For the "X is Y" type phrase implement a same handler.'
-  const match = `({context}) => context.marker == '${one.marker}' && context.same && <other conditions as you like>`
-  const apply = '({context}) => <do stuff... context.same is the other value>; context.sameWasProcessed = true'
-  const input = indent(JSON.stringify(one, null, 2), 2)
-  const message = `${description}\nThe semantic would be\n  match: ${match}\n  apply: ${apply}\nThe input context would be:\n${input}\n`
-  log(indent(message, 4))
-}
-
 function listorama(type) {
   return [
       { context: [[type, 0], ['list', 0], [type, 0]], choose: 0 },
@@ -616,98 +607,45 @@ const config = {
       where: where(),
       notes: 'x is y. handles x is a kind of y or x = y in the stm',
       match: ({context}) => context.marker == 'is' && !context.query && context.one && context.two,
-      apply: async ({context, s, debug, log, api, kms, namespaced, config}) => {
-        // const oneZero = { ...context.one }
-        // const twoZero = { ...context.two }
-        if (true) {
-          let wasProcessed = false
-          const one = context.one;
-          const two = context.two;
-          if (namespaced.get('dialogs', context, 'allowHierarchy', true)) {
-            debug.counter('newway')
-            if (debug.get('newway') == 92) {
-              debugger
-            }
-            if (one.pullFromContext && debug.get('newway') == 99992) {
-              debugger
-            } else {
-              one.same = two;
-              const onePrime = await s(one)
-              if (!onePrime.sameWasProcessed) {
-                warningSameNotEvaluated(log, one)
-              } else {
-                if (onePrime.evalue) {
-                  context.evalue = onePrime.evalue
-                  context.isResponse = true
-                }
-              }
-              one.same = undefined
-              let twoPrime;
-              if (!onePrime.sameWasProcessed) {
-                two.same = one
-                twoPrime = await s(two)
-                if (!twoPrime.sameWasProcessed) {
-                  warningSameNotEvaluated(log, two)
-                } else {
-                  if (twoPrime.evalue) {
-                    context.evalue = twoPrime.evalue
-                  }
-                }
-                two.same = undefined
-              }
-              wasProcessed = onePrime.sameWasProcessed || twoPrime.sameWasProcessed
-            }
-          }
+      apply: async ({_continue, context, s, debug, log, api, kms, config}) => {
+        function warningSameNotEvaluated(log, one) {
+          const description = 'WARNING from Dialogues KM: For the "X is Y" type phrase implement a same handler.'
+          const match = `({context}) => context.marker == '${one.marker}' && context.same && <other conditions as you like>`
+          const apply = '({context}) => <do stuff... context.same is the other value>; context.sameWasProcessed = true'
+          const input = indent(JSON.stringify(one, null, 2), 2)
+          const message = `${description}\nThe semantic would be\n  match: ${match}\n  apply: ${apply}\nThe input context would be:\n${input}\n`
+          log(indent(message, 4))
+        }
 
-          // if not isA add to stm
-          if (!wasProcessed) {
-            for (const child of propertyToArray(one)) {
-              await api.makeObject({ context: child, config, types: context.two.types || [] })
-              if (two.determiner?.marker !== 'a') {
-                kms.stm.api.setVariable(child.value, two)
-                kms.stm.api.remember({ context: child, value: two })
-              }
-            }
-          }
+        const one = context.one;
+        const two = context.two;
+        one.same = two;
+        const onePrime = await s(one)
+        if (!onePrime.sameWasProcessed) {
+          warningSameNotEvaluated(log, one)
         } else {
-          const one = context.one;
-          const two = context.two;
-          one.same = two;
-          const onePrime = await s(one)
-          if (!onePrime.sameWasProcessed) {
-            warningSameNotEvaluated(log, one)
-          } else {
-            if (onePrime.evalue) {
-              context.evalue = onePrime.evalue
-              context.isResponse = true
-            }
+          if (onePrime.evalue) {
+            context.evalue = onePrime.evalue
+            context.isResponse = true
           }
-          one.same = undefined
-          let twoPrime;
-          if (false) {
-            if (!onePrime.sameWasProcessed) {
-              two.same = one
-              twoPrime = await s(two)
-              if (!twoPrime.sameWasProcessed) {
-                warningSameNotEvaluated(log, two)
-              } else {
-                if (twoPrime.evalue) {
-                  context.evalue = twoPrime.evalue
-                }
-              }
-              two.same = undefined
-            }
-          }
-
-          // if not isA add to stm
-          if (!onePrime.sameWasProcessed && !twoPrime.sameWasProcessed) {
-            for (const child of propertyToArray(one)) {
-              await api.makeObject({ context: child, config, types: context.two.types || [] })
-              if (two.determiner?.marker !== 'a') {
-                kms.stm.api.setVariable(child.value, two)
-                kms.stm.api.remember({ context: child, value: two })
-              }
-            }
+        }
+        one.same = undefined
+        if (!onePrime.sameWasProcessed) {
+          _continue()
+        }
+      }
+    },
+    { 
+      where: where(),
+      match: ({context}) => context.marker == 'is' && !context.query && context.one && context.two,
+      apply: async ({context, s, debug, log, api, kms, config}) => {
+        const one = context.one;
+        const two = context.two;
+        for (const child of propertyToArray(one)) {
+          await api.makeObject({ context: child, config, types: two.types || [] })
+          if (two.determiner?.marker !== 'a') {
+            kms.stm.api.setVariable(child.value, two)
+            kms.stm.api.remember({ context: child, value: two })
           }
         }
       }
