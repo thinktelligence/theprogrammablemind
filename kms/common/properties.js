@@ -734,7 +734,7 @@ const config = {
         }
 
         // const toDo = [ ...context.objects ]
-        const [toDos, _] = flatten(['list'], context.objects)
+        const toDos = flatten(['list'], context.objects)
         const results = []
         for (const toDo of toDos) {
           const one = await processOne(toDo)
