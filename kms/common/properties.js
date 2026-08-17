@@ -533,9 +533,9 @@ const config = {
     {
       notes: 'marking something as readonly',
       where: where(),
-      match: ({context}) => context.marker == 'readonly' && context.same,
+      match: ({context}) => context.same && context.same.marker == 'readonly',
       apply: ({context, km, objects}) => {
-        km('properties').api.setReadOnly([context.same.value]) 
+        km('properties').api.setReadOnly([context.value]) 
         context.sameWasProcessed = true
       }
     },
@@ -634,24 +634,9 @@ const config = {
 
         await api.makeObject({ ...args, context: objectContext })
         await api.makeObject({ ...args, context: propertyContext })
-        // const propertyId = context.value
-        /*
-        const propertyId = context.marker
-        if (context.marker != context.value) {
-        }
-        */
-        // const propertyId = context.marker
-        /*
-        // greg HERE
-        */
         propertyContext[`disable${uuid}`] = true
         const propertyId = (await km("dialogues").api.evaluateToConcept(propertyContext, context, log, s)).evalue;
         try{
-          // greg
-          // api.makeObject({config, context: objectContext, doPluralize: false})
-          // api.addWord(propertyContext)
-          // api.addWord(objectContext)
-          // propertyContext.objects = null;
           api.setProperty(pluralize.singular(objectId), pluralize.singular(propertyId), context.same, true)
           context.sameWasProcessed = true
         } catch (e) {
