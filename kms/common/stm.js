@@ -345,6 +345,15 @@ const config = {
         }
       }
     },
+    /*
+    { 
+      where: where(),
+      notes: 'set as a variable',
+      match: ({context, callId}) => false && context.same,
+      apply: async ({stack, callId, s, debug, recall, toList, context, kms, e, log, retry}) => {
+      },
+    },
+    */
     { 
       where: where(),
       notes: 'pull from context',

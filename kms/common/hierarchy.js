@@ -211,6 +211,10 @@ const config = {
           return
         }
 
+        // let the "the metric system is a measurement system" threw but block 'the gender is male'
+        if (context.theable && !context.same.determiner && !context.same.pullFromContext) {
+          return
+        }
         if (context.same.determiner && context.same.determiner.marker == 'a') {
           context.same.concept = true;
         } else if (context.same.evaluate) {
