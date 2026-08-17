@@ -1,4 +1,4 @@
-const { flatten, knowledgeModule, where, debug } = require('./runtime').theprogrammablemind
+const { knowledgeModule, where, debug } = require('./runtime').theprogrammablemind
 const { defaultContextCheck, concats, toEValue, toFinalValue } = require('./helpers')
 const control = require('./control')
 const sdefaults_tests = require('./sdefaults.test.json')
@@ -28,8 +28,8 @@ const config = {
       // match: (args) => okay(args, ({context}) => (context.flatten || context.listable && context.value.some((value) => value.flatten))),
       match: (args) => args.callOnce(args, ({context}) => (context.flatten || context.listable && context.value.some((value) => value.flatten))),
       // match: ({context}) => context.flatten || context.listable || (Array.isArray(context.value) && context.value.some((value) => value.flatten)),
-      apply: async ({config, km, context, s, _continue}) => {
-        const [flats, wf] = flatten(['list'], context)
+      apply: async ({config, km, context, s, _continue, flatten}) => {
+        const flats = flatten(['list'], context)
         const evalues = []
         for (const flat of flats) {
           if (!flat.control) {
@@ -51,10 +51,9 @@ const config = {
       notes: 'flatten relation',
       where: where(),
       priority: -1,
-      // match: ({context}) => context.flatten && context.relation,
       match: (args) => args.callOnce(args, ({context}) => (context.flatten && context.relation)),
-      apply: async ({config, km, context, s}) => {
-        const [flats, wf] = flatten(['list'], context)
+      apply: async ({flatten, config, km, context, s}) => {
+        const flats = flatten(['list'], context)
         for (const flat of flats) {
           if (!flat.control) {
             flat.control = context.control

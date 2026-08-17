@@ -306,12 +306,17 @@ function initializer({config}) {
         args.insert({ marker: 'verbatim', verbatim: text, isResponse: true })
       }
       return {
-        flatten: (markers, context) => {
+        flatten: (markers, context, { returnIfChanged } = {}) => {
           if (!context) {
             context = markers
             markers = ['list']
           }
-          return flatten(markers, context)
+          const result = flatten(markers, context)
+          if (returnIfChanged) {
+            return result
+          } else {
+            return result[0]
+          }
         },
         number: (context) => isMany(context) ? "many" : "one",
         // number/gender/person etc

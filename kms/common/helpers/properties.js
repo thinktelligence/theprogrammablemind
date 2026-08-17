@@ -510,7 +510,7 @@ class API {
               if (test(value)) {
                 return true
               }
-              const values = flatten(['list'], value)[0]
+              const values = flatten(['list'], value)
               for (const value of values) {
                 if (test(value)) {
                   return true
