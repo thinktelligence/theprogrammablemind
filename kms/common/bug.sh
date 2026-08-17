@@ -1073,3 +1073,9 @@ ask for the birth date of greg and tara
 asking for multiple property 
 node  askfor -q 'ask for the birth date\njan 14 1965\nwhat is the information' -g -d
 node people -q 'the gender is male\nwhat is the gender' -g -d
+node  askfor -q 'ask for the gender\nmale\nwhat is the information' -g -d
+
+ 2058  node  askfor -q 'ask for the gender and birth date\nmale\nwhat is the information' -g -d
+ 2059  node  askfor -q 'ask for the gender and birth date\nmale\njan 1 1977\nwhat is the information' -g -d
+ 2060  node  askfor -q 'ask for the gender and birth date\njan 1 1977\nmale\nwhat is the information' -g -d
+ node  askfor -q 'ask for the gender and birth date\nwhat is the information' -g -d

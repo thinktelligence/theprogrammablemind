@@ -80,32 +80,40 @@ const template = {
             properties: after[0],
             interpolate: [{ self: true }, { property: 'properties' }]
           }`,
-          semantic: async ({e, s, gp, objects, context, ask, fragments, toEValue}) => {
+          semantic: async ({e, s, gp, objects, flatten, context, ask, fragments, toEValue}) => {
             const query = memoizeAsync(async () => await(gp(await fragments("what is the concept?", { concept: context.properties.argument }))))
             const compatible_types = context.properties.argument.compatible_types || [context.properties.argument.marker]
             const matchr = ({context, isA}) => !context.same && !context.evaluate && isA(context, compatible_types)
-            const property = context.properties.argument
-            const getValue = async () => {
+            const argument = context.properties.argument
+
+            const getValue = (property) => async () => {
+              debugger
               const value = toEValue(await e(property))
               if (value.marker == 'answerNotKnown') {
                 return
               }
               return value
             }
-            objects.askFor.push(property)
+
             const setValue = async ({ context, namespaced }) => {
               debugger
               const is = { marker: 'is', one: property, two: context, greg101: true }
               namespaced.set('dialogs', is, 'allowHierarchy', false)
               await s(is)
             }
-            askForProperty({
-              ask,
-              getValue,
-              setValue,
-              query,
-              matchr,
-            })
+            debugger
+            const properties = flatten(argument)
+            for (const property of properties[0]) {
+              objects.askFor.push(property);
+              debugger
+              askForProperty({
+                ask,
+                getValue: getValue(property),
+                setValue,
+                query,
+                matchr,
+              })
+            }
           }
         }
       ],
