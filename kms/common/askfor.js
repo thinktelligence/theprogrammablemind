@@ -1,5 +1,6 @@
 const { knowledgeModule, where } = require('./runtime').theprogrammablemind
 const { defaultContextCheck, getValue, setValue, memoizeAsync, words } = require('./helpers')
+const { flattenInPlace } = require('./helpers/flatten_in_place')
 const tests = require('./askfor.test.json')
 const instance = require('./askfor.instance.json')
 const length = require('./length')
@@ -51,13 +52,12 @@ const template = {
           isA: ['noun'],
           evaluator: async ({context, e, callId, toList, flatten, toEValue, resolveEvaluate, objects}) => {
             const properties = objects.askFor
-            const [fproperties, _]  = flatten(properties)
             const values = []
-            for (const property of fproperties) {
-              const value = await e(property[0])
-              values.push({ marker: 'labelledValue', label:property[0], value })
+            for (const property of properties) {
+              const value = await e(property)
+              debugger
+              values.push({ marker: 'labelledValue', label:property, value })
             }
-            debugger
             resolveEvaluate(context, toList(values))
           },
         },
@@ -81,13 +81,9 @@ const template = {
             interpolate: [{ self: true }, { property: 'properties' }]
           }`,
           semantic: async ({e, s, gp, objects, flatten, context, ask, fragments, toEValue}) => {
-            const query = memoizeAsync(async () => await(gp(await fragments("what is the concept?", { concept: context.properties.argument }))))
-            const compatible_types = context.properties.argument.compatible_types || [context.properties.argument.marker]
-            const matchr = ({context, isA}) => !context.same && !context.evaluate && isA(context, compatible_types)
             const argument = context.properties.argument
 
             const getValue = (property) => async () => {
-              debugger
               const value = toEValue(await e(property))
               if (value.marker == 'answerNotKnown') {
                 return
@@ -95,21 +91,22 @@ const template = {
               return value
             }
 
-            const setValue = async ({ context, namespaced }) => {
-              debugger
-              const is = { marker: 'is', one: property, two: context, greg101: true }
+            const setValue = (property) => async ({ context, namespaced }) => {
+              const is = { marker: 'is', one: property, two: context }
               namespaced.set('dialogs', is, 'allowHierarchy', false)
               await s(is)
             }
-            debugger
-            const properties = flatten(argument)
-            for (const property of properties[0]) {
+
+            const properties = flattenInPlace(argument)
+            for (const property of properties.reverse()) {
+              const query = memoizeAsync(async () => await(gp(await fragments("what is the concept?", { concept: property }))))
+              const compatible_types = property.compatible_types || [property.marker]
+              const matchr = ({context, isA}) => !context.same && !context.evaluate && isA(context, compatible_types)
               objects.askFor.push(property);
-              debugger
               askForProperty({
                 ask,
                 getValue: getValue(property),
-                setValue,
+                setValue: setValue(property),
                 query,
                 matchr,
               })
