@@ -301,6 +301,12 @@ const config = {
     {
       where: where(),
       notes: "unknown answer default response",
+      match: ({context, namespaced}) => context.marker == 'answerNotKnown' && context.brief,
+      apply: ({context}) => `not known`,
+    },
+    {
+      where: where(),
+      notes: "unknown answer default response",
       match: ({context}) => context.marker == 'answerNotKnown',
       apply: ({context}) => `that is not known`,
     },

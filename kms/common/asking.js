@@ -68,8 +68,11 @@ const config = {
           }
         }
 
-        function isChoice({context, choices, state}) {
+        function isChoice({context, namespaced, choices, state}) {
           state.lastChoice = context
+          if (context.marker == 'list') {
+            namespaced.set('conjunction', context, 'atomic', true)
+          }
           for (const choice of choices) {
             if (choice.value == context.value) {
               return true

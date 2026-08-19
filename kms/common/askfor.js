@@ -55,7 +55,6 @@ const template = {
             const values = []
             for (const property of properties) {
               const value = await e(property)
-              debugger
               values.push({ marker: 'labelledValue', label:property, value })
             }
             resolveEvaluate(context, toList(values))
@@ -63,8 +62,9 @@ const template = {
         },
         {
           id: 'for_askfor',
-          isA: ['preposition'],
+          // isA: ['preposition'],
           words: ['for'],
+          after: [['propertyOf', 1]],
           bridge: `{
             ...operator,
             interpolate: [ { self: true }, { property: 'argument' } ],
@@ -84,6 +84,7 @@ const template = {
             const argument = context.properties.argument
 
             const getValue = (property) => async () => {
+              debugger
               const value = toEValue(await e(property))
               if (value.marker == 'answerNotKnown') {
                 return
@@ -98,6 +99,7 @@ const template = {
             }
 
             const properties = flattenInPlace(argument)
+            debugger
             for (const property of properties.reverse()) {
               const query = memoizeAsync(async () => await(gp(await fragments("what is the concept?", { concept: property }))))
               const compatible_types = property.compatible_types || [property.marker]

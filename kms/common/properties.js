@@ -676,7 +676,7 @@ const config = {
       },
                       // greghere
       // match: ({context, hierarchy}) => hierarchy.isA(context.marker, 'property') && context.evaluate,
-      apply: async ({callId, flatten, asList, context, api, kms, objects, g, s, log, recall}) => {
+      apply: async ({debug, flatten, asList, context, api, kms, objects, g, s, log, recall}) => {
         async function toValue(objectContext) {
           if (!objectContext.value) {
             return objectContext;
@@ -738,13 +738,18 @@ const config = {
         const results = []
         for (const toDo of toDos) {
           const one = await processOne(toDo)
-          results.push(one)
+          if (one) {
+            results.push(one)
+          }
         }
 
         if (results.length > 0) {
           context.focusable = ['object[0]']
           // context.evalue = currentContext
           context.evalue = asList(results, true)
+          context.object = undefined;
+        } else {
+          context.evalue = { marker: 'answerNotKnown' }
           context.object = undefined;
         }
       }
