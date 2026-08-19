@@ -53,8 +53,10 @@ const template = {
           evaluator: async ({context, e, callId, toList, flatten, toEValue, resolveEvaluate, objects}) => {
             const properties = objects.askFor
             const values = []
+            debugger
             for (const property of properties) {
-              const value = await e(property)
+              const value = toEValue(await e(property))
+              debugger
               values.push({ marker: 'labelledValue', label:property, value })
             }
             resolveEvaluate(context, toList(values))
@@ -84,8 +86,8 @@ const template = {
             const argument = context.properties.argument
 
             const getValue = (property) => async () => {
-              debugger
               const value = toEValue(await e(property))
+              debugger
               if (value.marker == 'answerNotKnown') {
                 return
               }
@@ -100,6 +102,7 @@ const template = {
 
             const properties = flattenInPlace(argument)
             debugger
+            require('fs').writeFileSync('/tmp/full.json', JSON.stringify(argument, null, 2))
             for (const property of properties.reverse()) {
               const query = memoizeAsync(async () => await(gp(await fragments("what is the concept?", { concept: property }))))
               const compatible_types = property.compatible_types || [property.marker]

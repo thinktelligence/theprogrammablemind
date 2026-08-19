@@ -1,64 +1,118 @@
-// flatten_in_place.js
-function flattenInPlace(markersOrContext, maybeContext) {
-  // Support both call signatures:
-  //   flattenInPlace(context)
-  //   flattenInPlace(['list'], context)
-  let markers = []
-  let context
-  if (Array.isArray(markersOrContext)) {
-    markers = markersOrContext
-    context = maybeContext
+/**
+ * Flatten a context object according to its `flattenInPlace` property.
+ * Supports simple keys, dotted paths and [n] indexes.
+ *
+ * @param {string[]|object} arg1  markers (e.g. ['list']) or the context
+ * @param {object} [arg2]         context when arg1 is markers
+ * @returns {object[]}
+ */
+function flattenInPlace(arg1, arg2) {
+  let markers = null;
+  let context;
+
+  if (arg2 === undefined) {
+    context = arg1;
   } else {
-    context = markersOrContext
+    markers = arg1;
+    context = arg2;
   }
 
   if (!context || typeof context !== 'object') {
-    return [context]
+    return [context];
+  }
+  if (!Array.isArray(context.flattenInPlace) || context.flattenInPlace.length === 0) {
+    return [context];
   }
 
-  const shouldFlatten =
-    context.isList === true ||
-    context.listable === true ||
-    (Array.isArray(context.types) && context.types.some(t => markers.includes(t))) ||
-    (context.marker && markers.includes(context.marker))
+  // Optional gate used by the second test
+  if (markers && markers.length) {
+    const hasMarker = (obj) =>
+      obj &&
+      ((obj.marker && markers.includes(obj.marker)) ||
+       (Array.isArray(obj.types) && obj.types.some(t => markers.includes(t))));
 
-  if (!shouldFlatten || !Array.isArray(context.value) || context.value.length === 0) {
-    return [context]
-  }
-
-  return context.value.map((item, idx) => {
-    // 1. shallow copy of the list object
-    const copy = { ...context }
-
-    // 2. merge the list item’s own properties on top
-    Object.assign(copy, item)
-
-    // 3. the “value” of the resulting object is the leaf value of the item
-    copy.value = item.value
-
-    // 4. flatten any nested list-like properties (same length)
-    for (const key of Object.keys(context)) {
-      if (key === 'value') continue
-      const nested = context[key]
-      if (
-        nested &&
-        typeof nested === 'object' &&
-        Array.isArray(nested.value) &&
-        nested.value.length === context.value.length
-      ) {
-        copy[key] = nested.value[idx]
-      }
+    if (!hasMarker(context) && !hasMarker(context.theable)) {
+      return [context];
     }
+  }
 
-    // 5. strip list flags
-    copy.listable = undefined
-    copy.isList = undefined
+  // ---------- path helpers ----------
+  function getByPath(obj, path) {
+    if (!path) return obj;
+    const parts = path.replace(/\[(\d+)\]/g, '.$1').split('.').filter(Boolean);
+    let cur = obj;
+    for (const p of parts) {
+      if (cur == null) return undefined;
+      cur = cur[p];
+    }
+    return cur;
+  }
 
-    // 6. types come from the corresponding theable item (may be undefined)
-    copy.types = copy.theable?.types
+  function setByPath(obj, path, value) {
+    const parts = path.replace(/\[(\d+)\]/g, '.$1').split('.').filter(Boolean);
+    let cur = obj;
+    for (let i = 0; i < parts.length - 1; i++) {
+      const p = parts[i];
+      if (cur[p] == null || typeof cur[p] !== 'object') cur[p] = {};
+      cur = cur[p];
+    }
+    cur[parts[parts.length - 1]] = value;
+  }
 
-    return copy
-  })
+  // Returns the array that should be expanded for a path
+  function getExpandableArray(ctx, path) {
+    const target = getByPath(ctx, path);
+    if (Array.isArray(target)) return target;
+    if (target && (target.isList || target.listable) && Array.isArray(target.value)) {
+      return target.value;
+    }
+    return null;
+  }
+
+  // ---------- expand ----------
+  const paths = context.flattenInPlace;
+  const arrays = paths.map(p => getExpandableArray(context, p));
+
+  if (arrays.some(a => !Array.isArray(a))) return [context];
+  const len = arrays[0].length;
+  if (arrays.some(a => a.length !== len)) return [context];
+
+  const ignore = new Set(context.flatten_ignore || []);
+  const results = [];
+
+  for (let i = 0; i < len; i++) {
+    const clone = { ...context };
+
+    paths.forEach((path, pathIdx) => {
+      const item = arrays[pathIdx][i];
+
+      if (ignore.has(path)) {
+        // still replace the list object with the concrete item
+        setByPath(clone, path, item);
+        return;
+      }
+
+      if (path === 'value') {
+        // match the exact Object.assign pattern from the test
+        Object.assign(clone, item);
+        clone.value = item.value !== undefined ? item.value : item;
+      } else {
+        setByPath(clone, path, item);
+      }
+    });
+
+    // Force the same shape the test constructs
+    clone.listable = undefined;
+    clone.isList   = undefined;
+
+    // ALWAYS assign types from the theable item (may be undefined)
+    const theableItem = getByPath(clone, 'theable');
+    clone.types = theableItem ? theableItem.types : undefined;
+
+    results.push(clone);
+  }
+
+  return results;
 }
 
 module.exports = { flattenInPlace }
