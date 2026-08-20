@@ -637,7 +637,6 @@ const config = {
         propertyContext[`disable${uuid}`] = true
         const propertyId = (await km("dialogues").api.evaluateToConcept(propertyContext, context, log, s)).evalue;
         try {
-          debugger
           api.setProperty(objectId, propertyId, context.same, true)
           context.sameWasProcessed = true
         } catch (e) {
