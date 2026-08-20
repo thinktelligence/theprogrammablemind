@@ -631,14 +631,14 @@ const config = {
         const {context, fragments, objects, km, api, log, s, uuid} = args
         const objectContext = context.object;
         const propertyContext = context;
-        const objectId = context.object.value
+        const objectId = context.object.unknown ? pluralize.singular(context.object.value) : context.object.value
 
         await api.makeObject({ ...args, context: objectContext })
         await api.makeObject({ ...args, context: propertyContext })
         propertyContext[`disable${uuid}`] = true
         const propertyId = (await km("dialogues").api.evaluateToConcept(propertyContext, context, log, s)).evalue;
-        try{
-          api.setProperty(pluralize.singular(objectId), pluralize.singular(propertyId), context.same, true)
+        try {
+          api.setProperty(objectId, propertyId, context.same, true)
           context.sameWasProcessed = true
         } catch (e) {
           log(`Error processing set property of an object: ${e}`)
