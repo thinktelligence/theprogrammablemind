@@ -87,6 +87,7 @@ const template = {
             const argument = context.properties.argument
 
             const getValue = (property) => async () => {
+              debugger
               const value = toEValue(await e(property))
               if (value.marker == 'answerNotKnown') {
                 return
@@ -95,6 +96,7 @@ const template = {
             }
 
             const setValue = (property) => async ({ context, namespaced }) => {
+              debugger
               const is = { marker: 'is', one: property, two: context }
               namespaced.set('dialogs', is, 'allowHierarchy', false)
               await s(is)
@@ -106,7 +108,6 @@ const template = {
               const compatible_types = property.compatible_types || [property.marker]
               const matchr = ({context, isA}) => !context.same && !context.evaluate && isA(context, compatible_types)
               objects.askFor.push(property);
-              debugger
               askForProperty({
                 ask,
                 getValue: getValue(property),

@@ -260,6 +260,7 @@ const config = {
         ...before[0], 
         propertyOf: true, 
         interpolate: [ { property: 'property' }, { word: 'of' }, { property: 'object' } ],
+        flattenInPlace: append(before[0].flattenInPlace, ['property', 'objects[0]']),
         property: before[0],
         object: operator.object, 
         objects: append(default(before[0].objects, before), operator.objects) 
