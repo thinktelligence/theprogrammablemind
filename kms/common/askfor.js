@@ -55,7 +55,8 @@ const template = {
             const values = []
             debugger
             for (const property of properties) {
-              const value = toEValue(await e(property))
+              // const value = toEValue(await e(property))
+              const value = (await e(property)).evalue
               debugger
               values.push({ marker: 'labelledValue', label:property, value })
             }
@@ -87,7 +88,6 @@ const template = {
 
             const getValue = (property) => async () => {
               const value = toEValue(await e(property))
-              debugger
               if (value.marker == 'answerNotKnown') {
                 return
               }
@@ -101,13 +101,12 @@ const template = {
             }
 
             const properties = flattenInPlace(argument)
-            debugger
-            require('fs').writeFileSync('/tmp/full.json', JSON.stringify(argument, null, 2))
             for (const property of properties.reverse()) {
               const query = memoizeAsync(async () => await(gp(await fragments("what is the concept?", { concept: property }))))
               const compatible_types = property.compatible_types || [property.marker]
               const matchr = ({context, isA}) => !context.same && !context.evaluate && isA(context, compatible_types)
               objects.askFor.push(property);
+              debugger
               askForProperty({
                 ask,
                 getValue: getValue(property),

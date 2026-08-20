@@ -1,6 +1,6 @@
 /**
- * Flatten a context object according to its `flattenInPlace` property.
- * Supports simple keys, dotted paths and [n] indexes.
+ * Flatten a context according to its `flattenInPlace` paths.
+ * Supports plain keys, dotted paths and [n] indexes.
  *
  * @param {string[]|object} arg1  markers (e.g. ['list']) or the context
  * @param {object} [arg2]         context when arg1 is markers
@@ -24,7 +24,7 @@ function flattenInPlace(arg1, arg2) {
     return [context];
   }
 
-  // Optional gate used by the second test
+  // Optional marker / type gate
   if (markers && markers.length) {
     const hasMarker = (obj) =>
       obj &&
@@ -48,18 +48,31 @@ function flattenInPlace(arg1, arg2) {
     return cur;
   }
 
+  /**
+   * Non-mutating set: copies every array / object that appears on the path
+   * so that the original context is never mutated.
+   */
   function setByPath(obj, path, value) {
     const parts = path.replace(/\[(\d+)\]/g, '.$1').split('.').filter(Boolean);
     let cur = obj;
+
     for (let i = 0; i < parts.length - 1; i++) {
       const p = parts[i];
-      if (cur[p] == null || typeof cur[p] !== 'object') cur[p] = {};
+      const next = cur[p];
+
+      if (Array.isArray(next)) {
+        cur[p] = [...next];               // shallow-copy array
+      } else if (next && typeof next === 'object') {
+        cur[p] = { ...next };             // shallow-copy object
+      } else {
+        cur[p] = {};
+      }
       cur = cur[p];
     }
     cur[parts[parts.length - 1]] = value;
   }
 
-  // Returns the array that should be expanded for a path
+  // Returns the array that should be expanded for a given path
   function getExpandableArray(ctx, path) {
     const target = getByPath(ctx, path);
     if (Array.isArray(target)) return target;
@@ -93,7 +106,7 @@ function flattenInPlace(arg1, arg2) {
       }
 
       if (path === 'value') {
-        // match the exact Object.assign pattern from the test
+        // exact pattern used by the test helpers
         Object.assign(clone, item);
         clone.value = item.value !== undefined ? item.value : item;
       } else {
@@ -101,11 +114,11 @@ function flattenInPlace(arg1, arg2) {
       }
     });
 
-    // Force the same shape the test constructs
+    // Force the exact shape the tests construct
     clone.listable = undefined;
     clone.isList   = undefined;
 
-    // ALWAYS assign types from the theable item (may be undefined)
+    // ALWAYS take types from the corresponding theable item (may be undefined)
     const theableItem = getByPath(clone, 'theable');
     clone.types = theableItem ? theableItem.types : undefined;
 
@@ -114,5 +127,4 @@ function flattenInPlace(arg1, arg2) {
 
   return results;
 }
-
 module.exports = { flattenInPlace }

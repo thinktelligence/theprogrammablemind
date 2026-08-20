@@ -21,6 +21,7 @@ const the_gender_and_birth_date_of_bob = {
     "value",
     "theable",
     "property",
+    "objects[0]",
   ],
   "value": [
     {
@@ -766,22 +767,24 @@ describe('flattenInPlace', () => {
 
   it('NEO23 the_gender_and_birth_date of bob', () => {
     const context = the_gender_and_birth_date_of_bob
-    const gender = {...context}
-    gender.value = context.value[0]
-    Object.assign(gender, context.value[0])
-    gender.value = context.value[0].value
-    gender.theable = context.theable.value[0]
-    gender.listable = undefined
-    gender.isList = undefined
-    gender.types = context.theable.value[0].types
-    const birth_date = {...context}
-    Object.assign(birth_date, context.value[1])
-    birth_date.value = context.value[1].value
-    birth_date.theable = context.theable.value[1]
-    birth_date.listable = undefined
-    birth_date.isList = undefined
-    debugger
-    birth_date.types = context.theable.value[1].types
+    const setup = (index) => {
+      const expected = {...context}
+      expected.value = context.value[index]
+      Object.assign(expected, context.value[index])
+      expected.value = context.value[index].value
+      expected.theable = context.theable.value[index]
+      expected.property = context.property.value[index]
+      expected.objects = [ ...context.objects ]
+      expected.objects[0] = context.objects[0].value[index]
+      expected.listable = undefined
+      expected.isList = undefined
+      expected.types = context.theable.value[index].types
+      return expected
+    }
+
+    const gender = setup(0)
+    const birth_date = setup(1)
+
     const actual = flattenInPlace(['list'], context)
     console.log(JSON.stringify(actual, null, 2))
     expect(actual).toStrictEqual([gender, birth_date])
