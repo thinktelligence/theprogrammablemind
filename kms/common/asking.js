@@ -154,7 +154,7 @@ function getAsk(config) {
             oneShot,
             where: semantic.where || ask.where || where(2),
             source: 'response',
-            match: (args) => semantic.match(args),
+            match: (args) => args.context.topLevel && semantic.match(args),
             apply: async (args) => {
               setWasApplied(true)
               await semantic.apply(args)
