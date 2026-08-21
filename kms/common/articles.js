@@ -80,7 +80,7 @@ const config = {
                   checks: append(after[0].checks, ['determiner']),
                   determiner: operator, 
                   theable: after[0],
-                  flattenInPlace: ['value', 'theable'],
+                  flattenInPlace: [['value', 'theable']],
                   flatten_ignore: ['theable'],
                   interpolate: [{ property: 'determiner' }, { property: 'theable' }]
                }` 

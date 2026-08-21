@@ -1366,11 +1366,124 @@ const the_gender_and_birth_date = {
   "level": 1
 }
 
+const the_birth_date = {
+  "value": "birth_dates_date_dates",
+  "text": "the birth date",
+  "marker": "birth_dates_date_dates",
+  "word": "date",
+  "range": {
+    "start": 8,
+    "end": 21
+  },
+  "types": [
+    "birth_dates_date_dates",
+    "date_dates"
+  ],
+  "modifier_birth_dates": {
+    "value": "birth_dates",
+    "number": "one",
+    "text": "birth",
+    "marker": "birth_dates",
+    "word": "birth",
+    "range": {
+      "start": 12,
+      "end": 16
+    },
+    "types": [
+      "birth_dates"
+    ],
+    "level": 0
+  },
+  "atomic": true,
+  "dead": true,
+  "compatible_types": [
+    "date_dates"
+  ],
+  "modifiers": [
+    "modifier_birth_dates"
+  ],
+  "focusableForPhrase": true,
+  "pullFromContext": true,
+  "concept": true,
+  "wantsValue": true,
+  "checks": [
+    "determiner"
+  ],
+  "determiner": {
+    "modifiers": [],
+    "text": "the",
+    "marker": "the",
+    "word": "the",
+    "range": {
+      "start": 8,
+      "end": 10
+    },
+    "level": 0
+  },
+  "theable": {
+    "value": "birth_dates_date_dates",
+    "text": "birth date",
+    "marker": "birth_dates_date_dates",
+    "word": "date",
+    "range": {
+      "start": 12,
+      "end": 21
+    },
+    "types": [
+      "birth_dates_date_dates",
+      "date_dates"
+    ],
+    "modifier_birth_dates": {
+      "value": "birth_dates",
+      "number": "one",
+      "text": "birth",
+      "marker": "birth_dates",
+      "word": "birth",
+      "range": {
+        "start": 12,
+        "end": 16
+      },
+      "types": [
+        "birth_dates"
+      ],
+      "level": 0
+    },
+    "atomic": true,
+    "dead": true,
+    "compatible_types": [
+      "date_dates"
+    ],
+    "modifiers": [
+      "modifier_birth_dates"
+    ],
+    "level": 0
+  },
+  "flattenInPlace": [[ "value", "theable" ]],
+  "flatten_ignore": [
+    "theable"
+  ],
+  "interpolate": [
+    {
+      "property": "determiner"
+    },
+    {
+      "property": "theable"
+    }
+  ],
+  "level": 0
+}
+
 describe('flattenInPlace', () => {
   it('NEOS23 noop', () => {
     const context = {}
     const actual = flattenInPlace(context)
     expect(actual).toStrictEqual([context])
+  })
+
+  it('NEO23 the birth date', () => {
+    const context = the_birth_date
+    const actual = flattenInPlace(context)
+    expect(actual).toStrictEqual([the_birth_date])
   })
 
   it('NEOS23 the_gender_and_birth_date', () => {
@@ -1421,7 +1534,7 @@ describe('flattenInPlace', () => {
     expect(actual).toStrictEqual([gender, birth_date])
   })
 
-  it('NEO23 the_gender_and_birth_date of bob', () => {
+  it('NEOS23 the_gender_and_birth_date of bob', () => {
     const context = the_gender_and_birth_date_of_bob_and_alice
 
     const setup = (index) => {

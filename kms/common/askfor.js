@@ -16,13 +16,15 @@ function askForProperty({
   getValue,
   setValue,
   matchr,
+  tag,
   oneShot=false,
 }) {
   ask({
     where: where(),
     oneShot,
+    tag,
 
-    matchq: async ({ api, context, objects }) => !await getValue() && context.marker == 'controlEnd',
+    matchq: async (args) => !await getValue(args) && args.context.marker == 'controlEnd',
     applyq: async ({ say, objects }) => {
       return await query()
     },
@@ -85,8 +87,12 @@ const template = {
           }`,
           semantic: async ({e, s, gp, objects, flatten, context, ask, fragments, toEValue}) => {
             const argument = context.properties.argument
-
-            const getValue = (property) => async () => {
+            const getValue = (property) => async (args) => {
+              if (!args) {
+                debugger // bug
+              }
+              console.log(JSON.stringify(property, null, 2))
+              debugger
               const value = toEValue(await e(property))
               if (value.marker == 'answerNotKnown') {
                 return
@@ -94,9 +100,9 @@ const template = {
               return value
             }
 
-            const setValue = (property) => async ({ context, namespaced }) => {
+            const setValue = (property) => async ({ context, namespaced, tag }) => {
               console.log(JSON.stringify(property, null, 2))
-              debugger
+              debugger  // set value
               const is = { marker: 'is', one: property, two: context }
               namespaced.set('dialogs', is, 'allowHierarchy', false)
               await s(is)
@@ -118,21 +124,23 @@ const template = {
 
             console.log("dude", JSON.stringify(argument, null, 2))
             const properties = flattenInPlace(argument)
+            counter = 0
             for (const property of properties.reverse()) {
+              counter += 1
               console.log(JSON.stringify(property, null, 2))
-              debugger
               const query = memoizeAsync(async () => await(gp(await fragments("what is the concept?", { concept: property }))))
               const compatible_types = property.compatible_types || [property.marker]
               const matchr = ({context, isA}) => {
                 console.log(JSON.stringify(context, null, 2))
-                debugger
+                // debugger // matchr
                 return !context.same && !context.evaluate && isA(context, compatible_types)
               }
               objects.askFor.push(property);
               askForProperty({
                 ask,
+                tag: `ask#${counter}`,
                 getValue: getValue(property),
-                setValue: () => setValue(property),
+                setValue: setValue(property),
                 query,
                 matchr,
               })

@@ -135,7 +135,6 @@ function flattenInPlace(arg1, arg2) {
   while (todo.length > 0) {
     const { i, context } = todo.pop()
     if (i < context.flattenInPlace?.length) {
-      debugger
       const flats = flattenInPlaceInternal(i, markers, context)
       for (const flat of flats) {
         todo.push({ i: i + 1, context: flat })
