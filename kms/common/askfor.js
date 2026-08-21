@@ -87,7 +87,6 @@ const template = {
             const argument = context.properties.argument
 
             const getValue = (property) => async () => {
-              debugger
               const value = toEValue(await e(property))
               if (value.marker == 'answerNotKnown') {
                 return
@@ -96,14 +95,32 @@ const template = {
             }
 
             const setValue = (property) => async ({ context, namespaced }) => {
+              console.log(JSON.stringify(property, null, 2))
               debugger
               const is = { marker: 'is', one: property, two: context }
               namespaced.set('dialogs', is, 'allowHierarchy', false)
               await s(is)
             }
 
+            // argument.flattenInPlace = [ "value", "theable", "property", "objects[0]", "objects[1]" ],
+            if (false) {
+              argument.flattenInPlace = [ "value", "theable", "property", "objects[0]" ]
+              const p1 = flattenInPlace(argument)
+              const p2 = p1.map((p) => {
+                p.flattenInPlace = [ "object", "objects[1]" ]
+                return flattenInPlace(p)
+              })
+              console.log("dude", JSON.stringify(p2, null, 2))
+              debugger
+              debugger
+            }
+            // "flattenInPlace": [ "value", "theable", "property", "objects[0]", "objects[1]" ],
+
+            console.log("dude", JSON.stringify(argument, null, 2))
             const properties = flattenInPlace(argument)
             for (const property of properties.reverse()) {
+              console.log(JSON.stringify(property, null, 2))
+              debugger
               const query = memoizeAsync(async () => await(gp(await fragments("what is the concept?", { concept: property }))))
               const compatible_types = property.compatible_types || [property.marker]
               const matchr = ({context, isA}) => !context.same && !context.evaluate && isA(context, compatible_types)
@@ -111,7 +128,7 @@ const template = {
               askForProperty({
                 ask,
                 getValue: getValue(property),
-                setValue: setValue(property),
+                setValue: () => setValue(property),
                 query,
                 matchr,
               })

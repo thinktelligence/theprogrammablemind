@@ -6,17 +6,8 @@
  * @param {object} [arg2]         context when arg1 is markers
  * @returns {object[]}
  */
-function flattenInPlace(arg1, arg2) {
-  let markers = null;
-  let context;
 
-  if (arg2 === undefined) {
-    context = arg1;
-  } else {
-    markers = arg1;
-    context = arg2;
-  }
-
+function flattenInPlaceInternal(index, markers, context) {
   if (!context || typeof context !== 'object') {
     return [context];
   }
@@ -83,7 +74,7 @@ function flattenInPlace(arg1, arg2) {
   }
 
   // ---------- expand ----------
-  const paths = context.flattenInPlace;
+  const paths = context.flattenInPlace[index];
   const arrays = paths.map(p => getExpandableArray(context, p));
 
   if (arrays.some(a => !Array.isArray(a))) return [context];
@@ -127,4 +118,33 @@ function flattenInPlace(arg1, arg2) {
 
   return results;
 }
+
+function flattenInPlace(arg1, arg2) {
+  let markers = null;
+  let context;
+
+  if (arg2 === undefined) {
+    context = arg1;
+  } else {
+    markers = arg1;
+    context = arg2;
+  }
+
+  const done = []
+  let todo = [{ i: 0, context }]
+  while (todo.length > 0) {
+    const { i, context } = todo.pop()
+    if (i < context.flattenInPlace?.length) {
+      debugger
+      const flats = flattenInPlaceInternal(i, markers, context)
+      for (const flat of flats) {
+        todo.push({ i: i + 1, context: flat })
+      }
+    } else {
+      done.unshift(context)
+    }
+  }
+  return done
+}
+
 module.exports = { flattenInPlace }
