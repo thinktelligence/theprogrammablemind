@@ -35,7 +35,6 @@ const config = {
           if (!flat.control) {
             flat.control = context.control
           }
-          flat.topLevel = context.topLevel
           const result = await s(flat)
           if (result.evalue) {
             evalues.push(result.evalue)
