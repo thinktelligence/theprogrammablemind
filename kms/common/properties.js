@@ -238,8 +238,6 @@ const config = {
       level: 1, 
       localHierarchy: [['property', 'queryable'], ['property', 'theAble'], ['property', 'unknown'], ['object', 'unknown']],
       inverted: true, 
-      // greg87
-      // bridge: "{ ...after[0], object: operator.object, possession: true, objects: append(default(after[0].objects, after), operator.objects), marker: after.marker, types: append(after[0].types, ['property']) }" 
       bridge: "{ ...after[0], possession: true, objects: append(default(after[0].objects, after), operator.objects), marker: after.marker, types: append(after[0].types, ['property']) }" 
     },
     { 
@@ -247,15 +245,6 @@ const config = {
       level: 0, 
       isA: ['preposition'],
       localHierarchy: [['property', 'queryable'], ['property', 'theAble'], ['property', 'unknown'], ['object', 'unknown']],
-      // greg87
-      /*
-      bridge: `{ 
-        ...next(operator), 
-        ofWord: operator,
-        object: after[0], 
-        objects: after 
-      }` 
-      */
       bridge: `{ 
         ...next(operator), 
         ofWord: operator,
@@ -266,7 +255,6 @@ const config = {
       id: "propertyOf", 
       level: 1, 
       localHierarchy: [['property', 'queryable'], ['property', 'theAble'], ['property', 'unknown']],
-      // greg87
       bridge: `{ 
         ...before[0], 
         propertyOf: true, 
@@ -284,8 +272,6 @@ const config = {
       id: "objectPrefix", 
       level: 0, 
       localHierarchy: [['property', 'queryable'], ['property', 'theAble'], ['property', 'unknown']],
-      // greg87
-      // bridge: '{ ...after[0], object: operator, isProperty: true, objects: [after[0], operator] }' 
       bridge: '{ ...after[0], isProperty: true, objects: [after[0], operator] }' 
     },
   ],
@@ -641,9 +627,6 @@ const config = {
       apply: async (args) => {
         const {context, fragments, objects, km, api, log, s, uuid} = args
         const objectContext = context.objects[context.objects.length-1];
-        debugger
-        // greg87
-        // const objectContext = context.object;
         const propertyContext = context;
         const objectId = objectContext.unknown ? pluralize.singular(objectContext.value) : objectContext.value
 
@@ -690,7 +673,6 @@ const config = {
         return (toArray(context).every((value) => hierarchy.isA(value.marker, 'property')) || (hierarchy.isA(context.marker, 'list') && context.possession)) && context.evaluate && context.objects && !context.evaluate.toConcept
       },
       apply: async ({callId, flatten, asList, context, api, kms, objects, g, s, log, recall}) => {
-        debugger
         async function toValue(objectContext) {
           if (!objectContext.value) {
             return objectContext;
