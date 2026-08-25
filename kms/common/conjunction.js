@@ -32,7 +32,15 @@ const config = {
           left: [ { pattern: '($type && context.instance == variables.instance && context.dead == variables.dead && contexts[0] !@<= contexts[-1].notConjunctableWith)' } ], 
           passthrough: true
      }, 
-      bridge: "{ ...operator, value: append(before, operator.value) }"
+      bridge: "{ ...operator, value: append(before, operator.value) }",
+      semantic: {
+        match: ({context, namespaced}) => !namespaced.get('conjunction', context, 'atomic'),
+        apply: async ({context, flatten, s}) => {
+          for (const value of flatten(context)) {
+            await s(value)
+          }
+        }
+      }
     },
   ],
   semantics: [
