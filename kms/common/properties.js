@@ -227,9 +227,11 @@ const config = {
       level: 0, 
       localHierarchy: [['property', 'queryable'], ['property', 'theAble'], ['property', 'unknown'], ['object', 'unknown']],
       inverted: true, 
-      // greg87
-      // bridge: "{ ...next(operator), possession: true, object: before[0], objects: before }" 
-      bridge: "{ ...next(operator), possession: true, objects: before }" 
+      bridge: `{ 
+        ...next(operator), 
+        possession: true, 
+        objects: before 
+      }` 
     },
     { 
       id: "possession", 
@@ -265,21 +267,10 @@ const config = {
       level: 1, 
       localHierarchy: [['property', 'queryable'], ['property', 'theAble'], ['property', 'unknown']],
       // greg87
-      /*
-      bridge: `{ 
-        ...before[0], 
-        propertyOf: true, 
-        interpolate: [ { property: 'property' }, { word: 'of' }, { property: 'object' } ],
-        property: before[0],
-        object: operator.object, 
-        objects: append(default(before[0].objects, before), operator.objects) 
-      }` 
-      */
       bridge: `{ 
         ...before[0], 
         propertyOf: true, 
         interpolate: [ { values: 'objects', separator: 'of', each: true } ],
-        property: before[0],
         objects: append(default(before[0].objects, before), operator.objects) 
       }` 
     },
