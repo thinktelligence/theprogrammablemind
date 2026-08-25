@@ -90,6 +90,9 @@ class API {
     }
     // const concept = pluralize.singular(value)
     let concept = this.toScopedId(context)
+    if (typeof concept !== 'string') {
+      debugger
+    }
     const extraTypes = []
     if (concept == 'unit' && context.objects) {
       concept = context.objects.map((c) => this.toScopedId(c)).join("_")

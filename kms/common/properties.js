@@ -260,7 +260,8 @@ const config = {
         ...before[0], 
         propertyOf: true, 
         interpolate: [ { property: 'property' }, { word: 'of' }, { property: 'object' } ],
-        flattenInPlace: [['value', 'theable', 'objects[0]'], ['object', 'objects[1]']],
+        flattenInPlace: [['value', 'theable', 'property', 'objects[0]'], ['object', 'objects[1]']],
+        flattenInPlace23: [['value', 'theable', 'objects[0]'], ['object', 'objects[1]']],
         property: before[0],
         object: operator.object, 
         objects: append(default(before[0].objects, before), operator.objects) 
@@ -631,6 +632,7 @@ const config = {
         const {context, fragments, objects, km, api, log, s, uuid} = args
         const objectContext = context.object;
         const propertyContext = context;
+        debug.counter("greg55", { breakAt: 1 })
         const objectId = context.object.unknown ? pluralize.singular(context.object.value) : context.object.value
 
         await api.makeObject({ ...args, context: objectContext })
@@ -644,7 +646,7 @@ const config = {
           log(`Error processing set property of an object: ${e}`)
           const config = km('properties')
           const value = await api.getProperty(objectId, propertyId)
-          if (value.value == context.same.value) {
+          if (value?.value == context.same?.value) {
             context.evalue = [
               { marker: 'yesno', value: true, paraphrase: true },
             ]

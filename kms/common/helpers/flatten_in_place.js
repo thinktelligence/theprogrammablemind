@@ -1,149 +1,104 @@
-/**
- * Flatten a context according to its `flattenInPlace` paths.
- * Supports plain keys, dotted paths and [n] indexes.
- *
- * @param {string[]|object} arg1  markers (e.g. ['list']) or the context
- * @param {object} [arg2]         context when arg1 is markers
- * @returns {object[]}
- */
+const { debug } = require('../runtime').theprogrammablemind
 
-function flattenInPlaceInternal(index, markers, context) {
-  if (!context || typeof context !== 'object') {
-    return [context];
-  }
-  if (!Array.isArray(context.flattenInPlace) || context.flattenInPlace.length === 0) {
-    return [context];
+const _ = require('lodash')
+
+function flattenInPlace(context) {
+  // Base case: nothing to flatten
+  if (!context || !Array.isArray(context.flattenInPlace)) {
+    return [_.cloneDeep(context)]
   }
 
-  // Optional marker / type gate
-  if (markers && markers.length) {
-    const hasMarker = (obj) =>
-      obj &&
-      ((obj.marker && markers.includes(obj.marker)) ||
-       (Array.isArray(obj.types) && obj.types.some(t => markers.includes(t))));
-
-    if (!hasMarker(context) && !hasMarker(context.theable)) {
-      return [context];
-    }
-  }
-
-  // ---------- path helpers ----------
-  function getByPath(obj, path) {
-    if (!path) return obj;
-    const parts = path.replace(/\[(\d+)\]/g, '.$1').split('.').filter(Boolean);
-    let cur = obj;
-    for (const p of parts) {
-      if (cur == null) return undefined;
-      cur = cur[p];
-    }
-    return cur;
-  }
-
-  /**
-   * Non-mutating set: copies every array / object that appears on the path
-   * so that the original context is never mutated.
-   */
-  function setByPath(obj, path, value) {
-    const parts = path.replace(/\[(\d+)\]/g, '.$1').split('.').filter(Boolean);
-    let cur = obj;
-
-    for (let i = 0; i < parts.length - 1; i++) {
-      const p = parts[i];
-      const next = cur[p];
-
-      if (Array.isArray(next)) {
-        cur[p] = [...next];               // shallow-copy array
-      } else if (next && typeof next === 'object') {
-        cur[p] = { ...next };             // shallow-copy object
-      } else {
-        cur[p] = {};
+  function expand(node) {
+    if (!node || !Array.isArray(node.flattenInPlace)) {
+      const copy = _.cloneDeep(node)
+      if (copy && typeof copy === 'object') {
+        ;(copy.flattenInPlaceRemove || []).forEach(k => delete copy[k])
+        delete copy.flattenInPlace
+        delete copy.flattenInPlaceRemove
+        delete copy.isList
       }
-      cur = cur[p];
+      return [copy]
     }
-    cur[parts[parts.length - 1]] = value;
-  }
 
-  // Returns the array that should be expanded for a given path
-  function getExpandableArray(ctx, path) {
-    const target = getByPath(ctx, path);
-    if (Array.isArray(target)) return target;
-    if (target && (target.isList || target.listable) && Array.isArray(target.value)) {
-      return target.value;
+    const groups = node.flattenInPlace
+    const remove = node.flattenInPlaceRemove || []
+
+    // Recursively expand every path mentioned in the groups
+    const expanded = {}
+    const allPaths = _.uniq(_.flatten(groups))
+    for (const p of allPaths) {
+      expanded[p] = expand(_.get(node, p))
     }
-    return null;
-  }
 
-  // ---------- expand ----------
-  const paths = context.flattenInPlace[index];
-  const arrays = paths.map(p => getExpandableArray(context, p));
+    // Convention used by the tests: the first path of the first group
+    // (almost always "value") supplies the properties that become top-level.
+    const basePath = groups[0][0]
+    const baseKey = basePath.split('.').pop()
+    const baseItems = expanded[basePath]
 
-  if (arrays.some(a => !Array.isArray(a))) return [context];
-  const len = arrays[0].length;
-  if (arrays.some(a => a.length !== len)) return [context];
+    // Build rows for the first group (zip by index)
+    const firstGroup = groups[0]
+    const firstRows = baseItems.map((_, idx) => {
+      const row = {}
+      for (const p of firstGroup) {
+        const items = expanded[p]
+        const item = items[Math.min(idx, items.length - 1)]
+        const key = p.split('.').pop()
+        row[key] = item
+      }
+      return row
+    })
 
-  const ignore = new Set(context.flatten_ignore || []);
-  const results = [];
+    // Build rows for every subsequent independent group
+    const otherRows = groups.slice(1).map(group => {
+      const len = Math.max(...group.map(p => expanded[p].length), 1)
+      const rows = []
+      for (let i = 0; i < len; i++) {
+        const row = {}
+        for (const p of group) {
+          const items = expanded[p]
+          const item = items[Math.min(i, items.length - 1)]
+          const key = p.split('.').pop()
+          row[key] = item
+        }
+        rows.push(row)
+      }
+      return rows
+    })
 
-  for (let i = 0; i < len; i++) {
-    const clone = { ...context };
+    // Cartesian product of firstRows × all other groups
+    let combos = firstRows
+    for (const groupRows of otherRows) {
+      const next = []
+      for (const a of combos) {
+        for (const b of groupRows) {
+          next.push(Object.assign({}, a, b))
+        }
+      }
+      combos = next
+    }
 
-    paths.forEach((path, pathIdx) => {
-      const item = arrays[pathIdx][i];
+    // Final objects: start from the base item, then attach the rest
+    return combos.map(combo => {
+      const result = Object.assign({}, combo[baseKey])
 
-      if (ignore.has(path)) {
-        // still replace the list object with the concrete item
-        setByPath(clone, path, item);
-        return;
+      for (const [k, v] of Object.entries(combo)) {
+        if (k !== baseKey) {
+          result[k] = v
+        }
       }
 
-      if (path === 'value') {
-        // exact pattern used by the test helpers
-        Object.assign(clone, item);
-        clone.value = item.value !== undefined ? item.value : item;
-      } else {
-        setByPath(clone, path, item);
-      }
-    });
+      // Strip metadata
+      remove.forEach(k => delete result[k])
+      delete result.flattenInPlace
+      delete result.flattenInPlaceRemove
+      delete result.isList
 
-    // Force the exact shape the tests construct
-    clone.listable = undefined;
-    clone.isList   = undefined;
-
-    // ALWAYS take types from the corresponding theable item (may be undefined)
-    const theableItem = getByPath(clone, 'theable');
-    clone.types = theableItem ? theableItem.types : undefined;
-
-    results.push(clone);
+      return result
+    })
   }
 
-  return results;
-}
-
-function flattenInPlace(arg1, arg2) {
-  let markers = null;
-  let context;
-
-  if (arg2 === undefined) {
-    context = arg1;
-  } else {
-    markers = arg1;
-    context = arg2;
-  }
-
-  const done = []
-  let todo = [{ i: 0, context }]
-  while (todo.length > 0) {
-    const { i, context } = todo.pop()
-    if (i < context.flattenInPlace?.length) {
-      const flats = flattenInPlaceInternal(i, markers, context)
-      for (const flat of flats) {
-        todo.push({ i: i + 1, context: flat })
-      }
-    } else {
-      done.unshift(context)
-    }
-  }
-  return done
+  return expand(context)
 }
 
 module.exports = { flattenInPlace }

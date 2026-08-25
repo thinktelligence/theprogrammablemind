@@ -60,7 +60,7 @@ const template = {
               // const value = toEValue(await e(property))
               const value = (await e(property)).evalue
               debugger
-              values.push({ marker: 'labelledValue', label:property, value })
+              values.push({ marker: 'labelledValue', label: property, value })
             }
             resolveEvaluate(context, toList(values))
           },
@@ -122,12 +122,16 @@ const template = {
             }
             // "flattenInPlace": [ "value", "theable", "property", "objects[0]", "objects[1]" ],
 
-            console.log("dude", JSON.stringify(argument, null, 2))
+            // console.log("before23", JSON.stringify(argument, null, 2))
             const properties = flattenInPlace(argument)
+            debugger
+            // console.log("after23", JSON.stringify(properties, null, 2))
+            debugger
             counter = 0
             for (const property of properties.reverse()) {
               counter += 1
               console.log(JSON.stringify(property, null, 2))
+              debugger
               const query = memoizeAsync(async () => await(gp(await fragments("what is the concept?", { concept: property }))))
               const compatible_types = property.compatible_types || [property.marker]
               const matchr = ({context, isA}) => {

@@ -15,18 +15,13 @@ const config = {
       id: "list", 
       level: 0, 
       enhanced_associations: false,
-      /*
-      localHierarchy: [
-        ['unknown', 'listable'],
-      ],
-      */
       selector: {
           match: "same", 
           left: [ { pattern: '($type && context.instance == variables.instance && context.dead == variables.dead && !@<=$contexts[1].notConjunctableWith)' } ], 
           right: [ { pattern: '($type && context.instance == variables.instance && context.dead == variables.dead && !@<=$contexts[-1].notConjunctableWith)' } ], 
           passthrough: true
       }, 
-      bridge: "{ ...next(operator), listable: true, isList: true, value: append(before, after) }"
+      bridge: "{ ...next(operator), flattenInPlaceRemove: ['listable', 'isList', 'value'], listable: true, isList: true, value: append(before, after) }"
     },
     {
       id: "list", 

@@ -259,7 +259,7 @@ const config = {
     {
       where: where(),
       match: ({context, namespaced}) => context.marker == 'labelledValue',
-      apply: async ({context, g, debug, callId}) => `${await g(context.label)} is ${await g(context.value, { assumed: { brief: true } })}`
+      apply: async ({context, g, debug, callId, gp}) => `${await gp(context.label)} is ${await g(context.value, { assumed: { brief: true } })}`
     },
 
     {
