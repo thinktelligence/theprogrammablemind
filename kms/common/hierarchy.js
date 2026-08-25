@@ -108,7 +108,7 @@ const config = {
       // types of job           what are the types of animals -> next one
       notes: 'type of pikachu',  // the types of type is the next one
       where: where(),
-      match: ({context}) => context.marker == 'type' && context.evaluate && context.object && context.objects[context.objects.length-1].number == 'one' && pluralize.isSingular(context.objects[0].word),
+      match: ({context}) => context.marker == 'type' && context.evaluate && context.objects[context.objects.length-1].number == 'one' && pluralize.isSingular(context.objects[0].word),
       apply: async ({context, hierarchy, objects, e, gs, km, log}) => {
         const concept = context.objects[0];
         const value = context.objects[1];
@@ -269,25 +269,19 @@ const config = {
       // types of job
       notes: 'types of type', // what are the types of animals
       where: where(),
-      match: ({context}) => context.marker == 'type' && context.evaluate && context.object,
+      match: ({context}) => context.marker == 'type' && context.evaluate && context.objects,
       apply: ({context, objects, km, isA}) => {
         const api = km('properties').api
         const conceptApi = km('concept').api
-        const type = pluralize.singular(context.object.value);
+        const object = context.objects[context.objects.length-1]
+        const type = pluralize.singular(object.value);
         const children = api.children(type)
         // const values = children.map( (t) => conceptApi.getWordForValue(t, { number: isA(type, 'concept') ? 'one' : 'many'}))
 
         let number = context.number || (isA(type, 'concept') ? 'one' : 'many')
-        if (context.object.typeIsSingular) {
+        if (object.typeIsSingular) {
           number = 'one'
         }
-        /*
-        if (isA(context, 'type')) {
-          number = 'many'
-        } else if (isA(context.object, 'property')) {
-          number = 'one'
-        }
-        */
         const values = children.map( (t) => conceptApi.getWordForValue(t, { number, }))
         context.evalue = {
           marker: 'list',

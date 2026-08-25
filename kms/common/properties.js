@@ -228,25 +228,35 @@ const config = {
       localHierarchy: [['property', 'queryable'], ['property', 'theAble'], ['property', 'unknown'], ['object', 'unknown']],
       inverted: true, 
       // greg87
-      bridge: "{ ...next(operator), possession: true, object: before[0], objects: before }" 
-      // bridge: "{ ...next(operator), possession: true, objects: before }" 
+      // bridge: "{ ...next(operator), possession: true, object: before[0], objects: before }" 
+      bridge: "{ ...next(operator), possession: true, objects: before }" 
     },
     { 
       id: "possession", 
       level: 1, 
       localHierarchy: [['property', 'queryable'], ['property', 'theAble'], ['property', 'unknown'], ['object', 'unknown']],
       inverted: true, 
-      bridge: "{ ...after[0], object: operator.object, possession: true, objects: append(default(after[0].objects, after), operator.objects), marker: after.marker, types: append(after[0].types, ['property']) }" 
+      // greg87
+      // bridge: "{ ...after[0], object: operator.object, possession: true, objects: append(default(after[0].objects, after), operator.objects), marker: after.marker, types: append(after[0].types, ['property']) }" 
+      bridge: "{ ...after[0], possession: true, objects: append(default(after[0].objects, after), operator.objects), marker: after.marker, types: append(after[0].types, ['property']) }" 
     },
     { 
       id: "propertyOf", 
       level: 0, 
       isA: ['preposition'],
       localHierarchy: [['property', 'queryable'], ['property', 'theAble'], ['property', 'unknown'], ['object', 'unknown']],
+      // greg87
+      /*
       bridge: `{ 
         ...next(operator), 
         ofWord: operator,
         object: after[0], 
+        objects: after 
+      }` 
+      */
+      bridge: `{ 
+        ...next(operator), 
+        ofWord: operator,
         objects: after 
       }` 
     },
@@ -254,12 +264,22 @@ const config = {
       id: "propertyOf", 
       level: 1, 
       localHierarchy: [['property', 'queryable'], ['property', 'theAble'], ['property', 'unknown']],
+      // greg87
+      /*
       bridge: `{ 
         ...before[0], 
         propertyOf: true, 
         interpolate: [ { property: 'property' }, { word: 'of' }, { property: 'object' } ],
         property: before[0],
         object: operator.object, 
+        objects: append(default(before[0].objects, before), operator.objects) 
+      }` 
+      */
+      bridge: `{ 
+        ...before[0], 
+        propertyOf: true, 
+        interpolate: [ { values: 'objects', separator: 'of', each: true } ],
+        property: before[0],
         objects: append(default(before[0].objects, before), operator.objects) 
       }` 
     },
@@ -273,7 +293,9 @@ const config = {
       id: "objectPrefix", 
       level: 0, 
       localHierarchy: [['property', 'queryable'], ['property', 'theAble'], ['property', 'unknown']],
-      bridge: '{ ...after[0], object: operator, isProperty: true, objects: [after[0], operator] }' 
+      // greg87
+      // bridge: '{ ...after[0], object: operator, isProperty: true, objects: [after[0], operator] }' 
+      bridge: '{ ...after[0], isProperty: true, objects: [after[0], operator] }' 
     },
   ],
   words: {
@@ -626,9 +648,10 @@ const config = {
       match: ({context, hierarchy, uuid}) => hierarchy.isA(context.marker, 'property') && context.same && context.objects && !context[`disable${uuid}`],
       apply: async (args) => {
         const {context, fragments, objects, km, api, log, s, uuid} = args
-        // const objectContext = context.objects[context.objects.length-1];
+        const objectContext = context.objects[context.objects.length-1];
         debugger
-        const objectContext = context.object;
+        // greg87
+        // const objectContext = context.object;
         const propertyContext = context;
         const objectId = objectContext.unknown ? pluralize.singular(objectContext.value) : objectContext.value
 
@@ -675,6 +698,7 @@ const config = {
         return (toArray(context).every((value) => hierarchy.isA(value.marker, 'property')) || (hierarchy.isA(context.marker, 'list') && context.possession)) && context.evaluate && context.objects && !context.evaluate.toConcept
       },
       apply: async ({callId, flatten, asList, context, api, kms, objects, g, s, log, recall}) => {
+        debugger
         async function toValue(objectContext) {
           if (!objectContext.value) {
             return objectContext;

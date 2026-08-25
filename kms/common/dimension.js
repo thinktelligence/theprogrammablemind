@@ -290,7 +290,7 @@ const template = {
             if (!bridge.initial) {
               bridge.initial = {}
             }
-            bridge.initial['dimension'] = parent.object.value
+            bridge.initial['dimension'] = parent.objects[1].value
           })
         }
       })

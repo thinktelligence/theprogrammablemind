@@ -247,7 +247,7 @@
             ]
           ],
           "inverted": true,
-          "bridge": "{ ...next(operator), possession: true, object: before[0], objects: before }"
+          "bridge": "{ ...next(operator), possession: true, objects: before }"
         },
         {
           "id": "possession",
@@ -271,7 +271,7 @@
             ]
           ],
           "inverted": true,
-          "bridge": "{ ...after[0], object: operator.object, possession: true, objects: append(default(after[0].objects, after), operator.objects), marker: after.marker, types: append(after[0].types, ['property']) }"
+          "bridge": "{ ...after[0], possession: true, objects: append(default(after[0].objects, after), operator.objects), marker: after.marker, types: append(after[0].types, ['property']) }"
         },
         {
           "id": "propertyOf",
@@ -297,7 +297,7 @@
               "unknown"
             ]
           ],
-          "bridge": "{ \n        ...next(operator), \n        ofWord: operator,\n        object: after[0], \n        objects: after \n      }"
+          "bridge": "{ \n        ...next(operator), \n        ofWord: operator,\n        objects: after \n      }"
         },
         {
           "id": "propertyOf",
@@ -316,7 +316,7 @@
               "unknown"
             ]
           ],
-          "bridge": "{ \n        ...before[0], \n        propertyOf: true, \n        interpolate: [ { property: 'property' }, { word: 'of' }, { property: 'object' } ],\n        property: before[0],\n        object: operator.object, \n        objects: append(default(before[0].objects, before), operator.objects) \n      }"
+          "bridge": "{ \n        ...before[0], \n        propertyOf: true, \n        interpolate: [ { values: 'objects', separator: 'of', each: true } ],\n        property: before[0],\n        objects: append(default(before[0].objects, before), operator.objects) \n      }"
         },
         {
           "id": "whose",
@@ -343,7 +343,7 @@
               "unknown"
             ]
           ],
-          "bridge": "{ ...after[0], object: operator, isProperty: true, objects: [after[0], operator] }"
+          "bridge": "{ ...after[0], isProperty: true, objects: [after[0], operator] }"
         }
       ],
       "words": {
@@ -892,7 +892,7 @@
         },
         {
           "match": "({context, hierarchy, uuid}) => hierarchy.isA(context.marker, 'property') && context.same && context.objects && !context[`disable${uuid}`]",
-          "apply": "async (args) => {\n        const {context, fragments, objects, km, api, log, s, uuid} = args\n        const objectContext = context.objects[context.objects.length-1];\n        const propertyContext = context;\n        const objectId = objectContext.unknown ? pluralize.singular(objectContext.value) : objectContext.value\n\n        await api.makeObject({ ...args, context: objectContext })\n        await api.makeObject({ ...args, context: propertyContext })\n        propertyContext[`disable${uuid}`] = true\n        const propertyId = (await km(\"dialogues\").api.evaluateToConcept(propertyContext, context, log, s)).evalue;\n        try {\n          api.setProperty(objectId, propertyId, context.same, true)\n          context.sameWasProcessed = true\n        } catch (e) {\n          log(`Error processing set property of an object: ${e}`)\n          const config = km('properties')\n          const value = await api.getProperty(objectId, propertyId)\n          if (value.value == context.same.value) {\n            context.evalue = [\n              { marker: 'yesno', value: true, paraphrase: true },\n            ]\n            context.isResponse = true\n            context.sameWasProcessed = true\n          } else {\n            const mappings = {\n              property1: { word: propertyContext.word, value: propertyContext.value, paraphrase: true },\n              object1: { word: objectContext.word, value: objectContext.value, paraphrase: true },\n              value1: value,\n            }\n            // run the query 'the property of object' then copy that here and template it\n            context.evalue = [\n              { marker: 'yesno', value: false, paraphrase: true },\n            ]\n            context.evalue = context.evalue.concat(await fragments(\"the property1 of object1 is value1\", mappings))\n            context.evalue.forEach( (r) => r.paraphrase = true )\n            context.isResponse = true\n            context.sameWasProcessed = true\n          }\n        }\n      }"
+          "apply": "async (args) => {\n        const {context, fragments, objects, km, api, log, s, uuid} = args\n        const objectContext = context.objects[context.objects.length-1];\n        debugger\n        // greg87\n        // const objectContext = context.object;\n        const propertyContext = context;\n        const objectId = objectContext.unknown ? pluralize.singular(objectContext.value) : objectContext.value\n\n        await api.makeObject({ ...args, context: objectContext })\n        await api.makeObject({ ...args, context: propertyContext })\n        propertyContext[`disable${uuid}`] = true\n        const propertyId = (await km(\"dialogues\").api.evaluateToConcept(propertyContext, context, log, s)).evalue;\n        try {\n          api.setProperty(objectId, propertyId, context.same, true)\n          context.sameWasProcessed = true\n        } catch (e) {\n          log(`Error processing set property of an object: ${e}`)\n          const config = km('properties')\n          const value = await api.getProperty(objectId, propertyId)\n          if (value.value == context.same.value) {\n            context.evalue = [\n              { marker: 'yesno', value: true, paraphrase: true },\n            ]\n            context.isResponse = true\n            context.sameWasProcessed = true\n          } else {\n            const mappings = {\n              property1: { word: propertyContext.word, value: propertyContext.value, paraphrase: true },\n              object1: { word: objectContext.word, value: objectContext.value, paraphrase: true },\n              value1: value,\n            }\n            // run the query 'the property of object' then copy that here and template it\n            context.evalue = [\n              { marker: 'yesno', value: false, paraphrase: true },\n            ]\n            context.evalue = context.evalue.concat(await fragments(\"the property1 of object1 is value1\", mappings))\n            context.evalue.forEach( (r) => r.paraphrase = true )\n            context.isResponse = true\n            context.sameWasProcessed = true\n          }\n        }\n      }"
         },
         {
           "match": "({context, hierarchy, toArray}) => {\n                      // (hierarchy.isA(context.marker, 'property') || (hierarchy.isA(context.marker, 'list') && context.possession)) && \n        return (toArray(context).every((value) => hierarchy.isA(value.marker, 'property')) || (hierarchy.isA(context.marker, 'list') && context.possession)) && context.evaluate && context.objects && !context.evaluate.toConcept\n      }",
@@ -1786,7 +1786,7 @@
             ]
           ],
           "inverted": true,
-          "bridge": "{ ...next(operator), possession: true, object: before[0], objects: before }"
+          "bridge": "{ ...next(operator), possession: true, objects: before }"
         },
         {
           "id": "possession",
@@ -1810,7 +1810,7 @@
             ]
           ],
           "inverted": true,
-          "bridge": "{ ...after[0], object: operator.object, possession: true, objects: append(default(after[0].objects, after), operator.objects), marker: after.marker, types: append(after[0].types, ['property']) }"
+          "bridge": "{ ...after[0], possession: true, objects: append(default(after[0].objects, after), operator.objects), marker: after.marker, types: append(after[0].types, ['property']) }"
         },
         {
           "id": "propertyOf",
@@ -1836,7 +1836,7 @@
               "unknown"
             ]
           ],
-          "bridge": "{ \n        ...next(operator), \n        ofWord: operator,\n        object: after[0], \n        objects: after \n      }"
+          "bridge": "{ \n        ...next(operator), \n        ofWord: operator,\n        objects: after \n      }"
         },
         {
           "id": "propertyOf",
@@ -1855,7 +1855,7 @@
               "unknown"
             ]
           ],
-          "bridge": "{ \n        ...before[0], \n        propertyOf: true, \n        interpolate: [ { property: 'property' }, { word: 'of' }, { property: 'object' } ],\n        property: before[0],\n        object: operator.object, \n        objects: append(default(before[0].objects, before), operator.objects) \n      }"
+          "bridge": "{ \n        ...before[0], \n        propertyOf: true, \n        interpolate: [ { values: 'objects', separator: 'of', each: true } ],\n        property: before[0],\n        objects: append(default(before[0].objects, before), operator.objects) \n      }"
         },
         {
           "id": "whose",
@@ -1882,7 +1882,7 @@
               "unknown"
             ]
           ],
-          "bridge": "{ ...after[0], object: operator, isProperty: true, objects: [after[0], operator] }"
+          "bridge": "{ ...after[0], isProperty: true, objects: [after[0], operator] }"
         }
       ],
       "words": {
@@ -2349,88 +2349,88 @@
       "generators": [
         {
           "notes": "expression with constraints",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:322"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:344"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:344"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:366"
         },
         {
           "notes": "add possession ending",
           "priority": -1,
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:351"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:373"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:365"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:387"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:370"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:392"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:375"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:397"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:380"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:402"
         },
         {
           "notes": "negative do questions",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:386"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:408"
         },
         {
           "notes": "do questions",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:395"
-        },
-        {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:409"
-        },
-        {
-          "notes": "the property of object",
           "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:417"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:441"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:431"
+        },
+        {
+          "notes": "the property of object",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:439"
+        },
+        {
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:463"
         },
         {
           "notes": "object's property",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:450"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:472"
         }
       ],
       "semantics": [
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:481",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:503",
           "notes": "how deep is the pool",
           "priority": -1
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:508"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:530"
         },
         {
           "notes": "wants is xfx between wanter and wantee",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:519",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:541",
           "priority": -1
         },
         {
           "notes": "marking something as readonly",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:533"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:555"
         },
         {
           "notes": "crew members. evaluate a concepts to get instances",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:557"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:579"
         },
         {
           "notes": "greg has eyes",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:585"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:607"
         },
         {
           "notes": "greg has eyes?",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:598"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:620"
         },
         {
           "notes": "set the property of an object",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:624"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:646"
         },
         {
           "notes": "get/evaluate a property",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:670"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:695"
         }
       ]
     }
@@ -2675,13 +2675,9 @@
             ],
             "interpolate": [
               {
-                "property": "property"
-              },
-              {
-                "word": "of"
-              },
-              {
-                "property": "object"
+                "values": "objects",
+                "separator": "of",
+                "each": true
               }
             ],
             "propertyOf": true,
@@ -2744,22 +2740,6 @@
                 {
                   "property": "theable"
                 }
-              ],
-              "level": 0
-            },
-            "object": {
-              "value": "object1",
-              "unknown": true,
-              "text": "object1",
-              "marker": "object",
-              "word": "object1",
-              "range": {
-                "start": 17,
-                "end": 23
-              },
-              "dead": true,
-              "types": [
-                "object"
               ],
               "level": 0
             },
@@ -3523,13 +3503,9 @@
             ],
             "interpolate": [
               {
-                "property": "property"
-              },
-              {
-                "word": "of"
-              },
-              {
-                "property": "object"
+                "values": "objects",
+                "separator": "of",
+                "each": true
               }
             ],
             "propertyOf": true,
@@ -3591,22 +3567,6 @@
                 {
                   "property": "theable"
                 }
-              ],
-              "level": 0
-            },
-            "object": {
-              "marker": "object",
-              "value": "object",
-              "default": true,
-              "text": "object",
-              "dead": true,
-              "word": "object",
-              "range": {
-                "start": 16,
-                "end": 21
-              },
-              "types": [
-                "object"
               ],
               "level": 0
             },
@@ -4224,13 +4184,9 @@
           ],
           "interpolate": [
             {
-              "property": "property"
-            },
-            {
-              "word": "of"
-            },
-            {
-              "property": "object"
+              "values": "objects",
+              "separator": "of",
+              "each": true
             }
           ],
           "propertyOf": true,
@@ -4292,22 +4248,6 @@
               {
                 "property": "theable"
               }
-            ],
-            "level": 0
-          },
-          "object": {
-            "marker": "object",
-            "value": "object",
-            "default": true,
-            "text": "object",
-            "dead": true,
-            "word": "object",
-            "range": {
-              "start": 16,
-              "end": 21
-            },
-            "types": [
-              "object"
             ],
             "level": 0
           },
