@@ -15,11 +15,6 @@ const config = {
       id: "list", 
       level: 0, 
       enhanced_associations: false,
-      /*
-      localHierarchy: [
-        ['unknown', 'listable'],
-      ],
-      */
       selector: {
           match: "same", 
           left: [ { pattern: '($type && context.instance == variables.instance && context.dead == variables.dead && !@<=$contexts[1].notConjunctableWith)' } ], 

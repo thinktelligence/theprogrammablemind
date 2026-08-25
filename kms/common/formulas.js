@@ -83,6 +83,7 @@ const config = {
     {
       where: where(),
       id: 'formulaForVariable', 
+      enhanced_associations: false,
       isA: ['preposition', 'queryable'],
       convolution: true,
       bridge: "{ number: before[0].number, ...next(operator), what: before[0], equality: after[0], variable: after[1] }",
@@ -99,6 +100,7 @@ const config = {
     {
       where: where(),
       id: 'solve', 
+      enhanced_associations: false,
       bridge: "{ ...next(operator), equality: after[0], variable: after[2] }",
       generatorp: async ({context, gp}) => `${context.word} ${await gp(context.equality)} for ${await gp(context.variable)}`,
       semantic: async ({api, context, fragments}) => {

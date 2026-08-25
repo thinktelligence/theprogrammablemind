@@ -96,6 +96,7 @@ const config = {
     },
     { 
       id: "mathematical_operator", 
+      enhanced_associations: false,
       before: ['verb'],
       after: ['adjective'],
     },

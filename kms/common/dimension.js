@@ -192,6 +192,7 @@ const config = {
     {
       id: 'forQuantity',
       isA: ['preposition'],
+      enhanced_associations: false,
       bridge: "{ ...operator, quantity: after[0], operator: operator, interpolate: [ { property: 'operator' }, { property: 'quantity' } ] }",
       check: defaultContextCheckProperties(['quantity']),
     },
