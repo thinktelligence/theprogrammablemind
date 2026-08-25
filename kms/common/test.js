@@ -84,8 +84,8 @@ async function loop(tests, failed) {
   }
   const test = tests.shift()
   console.log("Doing", test)
-  exec(test,
-    (error, stdout, stderr) => {
+  await exec(test,
+    async (error, stdout, stderr) => {
       console.log(stdout);
       console.log(stderr);
       if (error !== null) {
@@ -94,13 +94,22 @@ async function loop(tests, failed) {
       } else if (stdout.includes('ERROR')) {
           failed.push(test)
       }
-      loop(tests, failed)
+      await loop(tests, failed)
     });
 }
 
+/*
 (async () => {
   await hasDebugCommands().then(() => {
     return loop(retrains.concat(tests), [])
+  }).catch((e) => {
+    console.log(e.toString())
+  })
+})()
+*/
+(async () => {
+  return loop(retrains.concat(tests), []).then(async () => {
+    return await hasDebugCommands()
   }).catch((e) => {
     console.log(e.toString())
   })
