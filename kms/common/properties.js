@@ -580,7 +580,8 @@ const config = {
       match: ({context, hierarchy, api, isA}) => 
                           // (hierarchy.isA(context.marker, 'concept') && !hierarchy.isA(context.marker, 'property')) &&
                           // concept unless its a property then use the property handler unless its a dimension "unit of dimension" acts like hierarchy
-                          hierarchy.isA(context.marker, 'concept') && ((!context.propertyOf && !context.isProperty) || isA(context.object, 'dimension')) &&
+                          // hierarchy.isA(context.marker, 'concept') && ((!context.propertyOf && !context.isProperty) || isA(context.object, 'dimension')) &&
+                          hierarchy.isA(context.marker, 'concept') && ((!context.propertyOf && !context.isProperty) || isA(context.objects[context.objects.length-1], 'dimension')) &&
                           (!context.pullFromContext || context.number == 'many') &&
                           context.evaluate &&
                           !(context.types || []).includes('property') &&
