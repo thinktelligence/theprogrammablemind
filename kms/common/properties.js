@@ -227,9 +227,10 @@ const config = {
       level: 0, 
       localHierarchy: [['property', 'queryable'], ['property', 'theAble'], ['property', 'unknown'], ['object', 'unknown']],
       inverted: true, 
+      // greg87
       bridge: "{ ...next(operator), possession: true, object: before[0], objects: before }" 
+      // bridge: "{ ...next(operator), possession: true, objects: before }" 
     },
-    // greg44 { id: "possession", level: 1, inverted: true, bridge: "{ ...after[0], object: operator.object, possession: true, objects: append(default(after[0].objects, after), operator.objects), marker: operator('property', 0) }" },
     { 
       id: "possession", 
       level: 1, 
@@ -237,9 +238,6 @@ const config = {
       inverted: true, 
       bridge: "{ ...after[0], object: operator.object, possession: true, objects: append(default(after[0].objects, after), operator.objects), marker: after.marker, types: append(after[0].types, ['property']) }" 
     },
-    // TODO make object be after[0] that makes more sense
-    // { id: "possession", level: 1, inverted: true, bridge: "{ ...after[0], object: after[0], objects: append(default(after[0].objects, after), operator.objects), marker: operator('property', 0) }" },
-
     { 
       id: "propertyOf", 
       level: 0, 
@@ -451,7 +449,7 @@ const config = {
       notes: "object's property",
       where: where(),
       // match: ({context}) => context.paraphrase && !context.modifiers && context.object, 
-      match: ({context}) => !context.modifiers && context.object && !context.interpolate, 
+      match: ({context}) => !context.modifiers && (context.object || context.objects) && !context.interpolate, 
       apply: async ({context, g, gs}) => {
         if (context.evalue) {
           return await g(context.evalue)
@@ -628,9 +626,11 @@ const config = {
       match: ({context, hierarchy, uuid}) => hierarchy.isA(context.marker, 'property') && context.same && context.objects && !context[`disable${uuid}`],
       apply: async (args) => {
         const {context, fragments, objects, km, api, log, s, uuid} = args
+        // const objectContext = context.objects[context.objects.length-1];
+        debugger
         const objectContext = context.object;
         const propertyContext = context;
-        const objectId = context.object.unknown ? pluralize.singular(context.object.value) : context.object.value
+        const objectId = objectContext.unknown ? pluralize.singular(objectContext.value) : objectContext.value
 
         await api.makeObject({ ...args, context: objectContext })
         await api.makeObject({ ...args, context: propertyContext })
@@ -674,8 +674,6 @@ const config = {
                       // (hierarchy.isA(context.marker, 'property') || (hierarchy.isA(context.marker, 'list') && context.possession)) && 
         return (toArray(context).every((value) => hierarchy.isA(value.marker, 'property')) || (hierarchy.isA(context.marker, 'list') && context.possession)) && context.evaluate && context.objects && !context.evaluate.toConcept
       },
-                      // greghere
-      // match: ({context, hierarchy}) => hierarchy.isA(context.marker, 'property') && context.evaluate,
       apply: async ({callId, flatten, asList, context, api, kms, objects, g, s, log, recall}) => {
         async function toValue(objectContext) {
           if (!objectContext.value) {
@@ -787,8 +785,8 @@ knowledgeModule( {
     contents: properties_tests,
     checks: {
       context: [
-        defaultContextCheck({ marker: 'property', exported: true, extra: ['object', 'objects'] }),
-        defaultContextCheck({ marker: 'possession', exported: true, extra: ['object', 'objects'] }),
+        defaultContextCheck({ marker: 'property', exported: true, extra: ['objects'] }),
+        defaultContextCheck({ marker: 'possession', exported: true, extra: ['objects'] }),
         defaultContextCheck({ marker: 'propertyOf', exported: true, extra: ['object', 'objects'] }),
         defaultContextCheck({ marker: 'objectPrefix', exported: true, extra: ['object', 'objects'] }),
         defaultContextCheck()
