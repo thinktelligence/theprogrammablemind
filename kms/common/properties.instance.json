@@ -247,7 +247,7 @@
             ]
           ],
           "inverted": true,
-          "bridge": "{ ...next(operator), possession: true, object: before[0], objects: before }"
+          "bridge": "{ \n        ...next(operator), \n        possession: true, \n        objects: before \n      }"
         },
         {
           "id": "possession",
@@ -271,7 +271,7 @@
             ]
           ],
           "inverted": true,
-          "bridge": "{ ...after[0], object: operator.object, possession: true, objects: append(default(after[0].objects, after), operator.objects), marker: after.marker, types: append(after[0].types, ['property']) }"
+          "bridge": "{ ...after[0], possession: true, objects: append(default(after[0].objects, after), operator.objects), marker: after.marker, types: append(after[0].types, ['property']) }"
         },
         {
           "id": "propertyOf",
@@ -297,7 +297,7 @@
               "unknown"
             ]
           ],
-          "bridge": "{ \n        ...next(operator), \n        ofWord: operator,\n        object: after[0], \n        objects: after \n      }"
+          "bridge": "{ \n        ...next(operator), \n        ofWord: operator,\n        objects: after \n      }"
         },
         {
           "id": "propertyOf",
@@ -316,7 +316,7 @@
               "unknown"
             ]
           ],
-          "bridge": "{ \n        ...before[0], \n        propertyOf: true, \n        interpolate: [ { property: 'property' }, { word: 'of' }, { property: 'object' } ],\n        property: before[0],\n        object: operator.object, \n        objects: append(default(before[0].objects, before), operator.objects) \n      }"
+          "bridge": "{ \n        ...before[0], \n        propertyOf: true, \n        interpolate: [ { values: 'objects', separator: 'of', each: true } ],\n        flattenInPlace: [['value', 'theable', 'property', 'objects[0]'], ['object', 'objects[1]']],\n        flattenInPlace23: [['value', 'theable', 'objects[0]'], ['object', 'objects[1]']],\n        property: before[0],\n        object: operator.object, \n        objects: append(default(before[0].objects, before), operator.objects) \n      }"
         },
         {
           "id": "whose",
@@ -343,7 +343,7 @@
               "unknown"
             ]
           ],
-          "bridge": "{ ...after[0], object: operator, isProperty: true, objects: [after[0], operator] }"
+          "bridge": "{ ...after[0], isProperty: true, objects: [after[0], operator] }"
         }
       ],
       "words": {
@@ -857,7 +857,7 @@
           "apply": "async ({context, g}) => {\n        const property = Object.assign({}, context, { object: undefined })\n        return `${await g(property)} of ${await g({ ...context.object, paraphrase: true })}`\n      }"
         },
         {
-          "match": "({context}) => !context.modifiers && context.object && !context.interpolate",
+          "match": "({context}) => !context.modifiers && (context.object || context.objects) && !context.interpolate",
           "apply": "async ({context, g, gs}) => {\n        if (context.evalue) {\n          return await g(context.evalue)\n        } else if (context.objects) {\n          const objects = [ ...context.objects ]\n          objects.reverse()\n          let phrase = ''\n          let separator = ''\n          for (let i = 0; i < objects.length-1; ++i) {\n            phrase = phrase + separator + await g({...objects[i], paraphrase: context.paraphrase, possessive: true})\n            separator = ' '\n          }\n          phrase = phrase + separator + await g({...objects[objects.length-1], paraphrase: context.paraphrase})\n          return phrase\n        } else {\n          const base = { ...context }\n          base.object = undefined; // TODO make paraphrase be a default when paraphrasing?\n          if (context.object.marker == 'objectPrefix') {\n            return `${await g(context.object)} ${await g(base)}`\n          } else {\n            return `${await g({...context.object, paraphrase: context.paraphrase})}'s ${await g(base)}`\n          }\n        }  \n      }"
         }
       ],
@@ -879,7 +879,7 @@
           "apply": "({context, km, objects}) => {\n        km('properties').api.setReadOnly([context.value]) \n        context.sameWasProcessed = true\n      }"
         },
         {
-          "match": "({context, hierarchy, api, isA}) => \n                          // (hierarchy.isA(context.marker, 'concept') && !hierarchy.isA(context.marker, 'property')) &&\n                          // concept unless its a property then use the property handler unless its a dimension \"unit of dimension\" acts like hierarchy\n                          hierarchy.isA(context.marker, 'concept') && ((!context.propertyOf && !context.isProperty) || isA(context.object, 'dimension')) &&\n                          (!context.pullFromContext || context.number == 'many') &&\n                          context.evaluate &&\n                          !(context.types || []).includes('property') &&\n                          // !context.value &&  // greghere\n                          !context.ordinal &&\n                          (!context.objects || context.objects.length !== 2 || !context.objects[1].instance) &&\n                          (api.objects && api.objects.children && api.objects.children[context.marker]) &&\n                          !context.evaluate.toConcept",
+          "match": "({context, hierarchy, api, isA}) => \n                          // (hierarchy.isA(context.marker, 'concept') && !hierarchy.isA(context.marker, 'property')) &&\n                          // concept unless its a property then use the property handler unless its a dimension \"unit of dimension\" acts like hierarchy\n                          // hierarchy.isA(context.marker, 'concept') && ((!context.propertyOf && !context.isProperty) || isA(context.object, 'dimension')) &&\n                          hierarchy.isA(context.marker, 'concept') && ((!context.propertyOf && !context.isProperty) || isA(context.objects[context.objects.length-1], 'dimension')) &&\n                          (!context.pullFromContext || context.number == 'many') &&\n                          context.evaluate &&\n                          !(context.types || []).includes('property') &&\n                          // !context.value &&  // greghere\n                          !context.ordinal &&\n                          (!context.objects || context.objects.length !== 2 || !context.objects[1].instance) &&\n                          (api.objects && api.objects.children && api.objects.children[context.marker]) &&\n                          !context.evaluate.toConcept",
           "apply": "({context, hierarchy, objects, api, km}) => {\n        const values = api.objects.children[context.marker]\n        const phrases = values.map( (value) => km('concept').api.getWordForValue(value) )\n        // context.focusableForPhrase = true\n        context.hierarchy = true\n        context.evalue = { \n          marker: 'list', \n          listable: true,\n          // value: api.objects.children[context.marker]\n          value: phrases,\n        }\n      }"
         },
         {
@@ -892,7 +892,7 @@
         },
         {
           "match": "({context, hierarchy, uuid}) => hierarchy.isA(context.marker, 'property') && context.same && context.objects && !context[`disable${uuid}`]",
-          "apply": "async (args) => {\n        const {context, fragments, objects, km, api, log, s, uuid} = args\n        const objectContext = context.object;\n        const propertyContext = context;\n        const objectId = context.object.unknown ? pluralize.singular(context.object.value) : context.object.value\n\n        await api.makeObject({ ...args, context: objectContext })\n        await api.makeObject({ ...args, context: propertyContext })\n        propertyContext[`disable${uuid}`] = true\n        const propertyId = (await km(\"dialogues\").api.evaluateToConcept(propertyContext, context, log, s)).evalue;\n        try {\n          api.setProperty(objectId, propertyId, context.same, true)\n          context.sameWasProcessed = true\n        } catch (e) {\n          log(`Error processing set property of an object: ${e}`)\n          const config = km('properties')\n          const value = await api.getProperty(objectId, propertyId)\n          if (value.value == context.same.value) {\n            context.evalue = [\n              { marker: 'yesno', value: true, paraphrase: true },\n            ]\n            context.isResponse = true\n            context.sameWasProcessed = true\n          } else {\n            const mappings = {\n              property1: { word: propertyContext.word, value: propertyContext.value, paraphrase: true },\n              object1: { word: objectContext.word, value: objectContext.value, paraphrase: true },\n              value1: value,\n            }\n            // run the query 'the property of object' then copy that here and template it\n            context.evalue = [\n              { marker: 'yesno', value: false, paraphrase: true },\n            ]\n            context.evalue = context.evalue.concat(await fragments(\"the property1 of object1 is value1\", mappings))\n            context.evalue.forEach( (r) => r.paraphrase = true )\n            context.isResponse = true\n            context.sameWasProcessed = true\n          }\n        }\n      }"
+          "apply": "async (args) => {\n        const {context, fragments, objects, km, api, log, s, uuid} = args\n        const objectContext = context.objects[context.objects.length-1];\n        const propertyContext = context;\n        debug.counter(\"greg55\", { breakAt: 1 })\n        const objectId = objectContext.unknown ? pluralize.singular(objectContext.value) : objectContext.value\n\n        await api.makeObject({ ...args, context: objectContext })\n        await api.makeObject({ ...args, context: propertyContext })\n        propertyContext[`disable${uuid}`] = true\n        const propertyId = (await km(\"dialogues\").api.evaluateToConcept(propertyContext, context, log, s)).evalue;\n        try {\n          api.setProperty(objectId, propertyId, context.same, true)\n          context.sameWasProcessed = true\n        } catch (e) {\n          log(`Error processing set property of an object: ${e}`)\n          const config = km('properties')\n          const value = await api.getProperty(objectId, propertyId)\n          if (value?.value == context.same?.value) {\n            context.evalue = [\n              { marker: 'yesno', value: true, paraphrase: true },\n            ]\n            context.isResponse = true\n            context.sameWasProcessed = true\n          } else {\n            const mappings = {\n              property1: { word: propertyContext.word, value: propertyContext.value, paraphrase: true },\n              object1: { word: objectContext.word, value: objectContext.value, paraphrase: true },\n              value1: value,\n            }\n            // run the query 'the property of object' then copy that here and template it\n            context.evalue = [\n              { marker: 'yesno', value: false, paraphrase: true },\n            ]\n            context.evalue = context.evalue.concat(await fragments(\"the property1 of object1 is value1\", mappings))\n            context.evalue.forEach( (r) => r.paraphrase = true )\n            context.isResponse = true\n            context.sameWasProcessed = true\n          }\n        }\n      }"
         },
         {
           "match": "({context, hierarchy, toArray}) => {\n                      // (hierarchy.isA(context.marker, 'property') || (hierarchy.isA(context.marker, 'list') && context.possession)) && \n        return (toArray(context).every((value) => hierarchy.isA(value.marker, 'property')) || (hierarchy.isA(context.marker, 'list') && context.possession)) && context.evaluate && context.objects && !context.evaluate.toConcept\n      }",
@@ -1786,7 +1786,7 @@
             ]
           ],
           "inverted": true,
-          "bridge": "{ ...next(operator), possession: true, object: before[0], objects: before }"
+          "bridge": "{ \n        ...next(operator), \n        possession: true, \n        objects: before \n      }"
         },
         {
           "id": "possession",
@@ -1810,7 +1810,7 @@
             ]
           ],
           "inverted": true,
-          "bridge": "{ ...after[0], object: operator.object, possession: true, objects: append(default(after[0].objects, after), operator.objects), marker: after.marker, types: append(after[0].types, ['property']) }"
+          "bridge": "{ ...after[0], possession: true, objects: append(default(after[0].objects, after), operator.objects), marker: after.marker, types: append(after[0].types, ['property']) }"
         },
         {
           "id": "propertyOf",
@@ -1836,7 +1836,7 @@
               "unknown"
             ]
           ],
-          "bridge": "{ \n        ...next(operator), \n        ofWord: operator,\n        object: after[0], \n        objects: after \n      }"
+          "bridge": "{ \n        ...next(operator), \n        ofWord: operator,\n        objects: after \n      }"
         },
         {
           "id": "propertyOf",
@@ -1855,7 +1855,7 @@
               "unknown"
             ]
           ],
-          "bridge": "{ \n        ...before[0], \n        propertyOf: true, \n        interpolate: [ { property: 'property' }, { word: 'of' }, { property: 'object' } ],\n        property: before[0],\n        object: operator.object, \n        objects: append(default(before[0].objects, before), operator.objects) \n      }"
+          "bridge": "{ \n        ...before[0], \n        propertyOf: true, \n        interpolate: [ { values: 'objects', separator: 'of', each: true } ],\n        flattenInPlace: [['value', 'theable', 'property', 'objects[0]'], ['object', 'objects[1]']],\n        flattenInPlace23: [['value', 'theable', 'objects[0]'], ['object', 'objects[1]']],\n        property: before[0],\n        object: operator.object, \n        objects: append(default(before[0].objects, before), operator.objects) \n      }"
         },
         {
           "id": "whose",
@@ -1882,7 +1882,7 @@
               "unknown"
             ]
           ],
-          "bridge": "{ ...after[0], object: operator, isProperty: true, objects: [after[0], operator] }"
+          "bridge": "{ ...after[0], isProperty: true, objects: [after[0], operator] }"
         }
       ],
       "words": {
@@ -2349,88 +2349,88 @@
       "generators": [
         {
           "notes": "expression with constraints",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:324"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:325"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:346"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:347"
         },
         {
           "notes": "add possession ending",
           "priority": -1,
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:353"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:354"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:367"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:368"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:372"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:373"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:377"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:378"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:382"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:383"
         },
         {
           "notes": "negative do questions",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:388"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:389"
         },
         {
           "notes": "do questions",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:397"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:398"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:411"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:412"
         },
         {
           "notes": "the property of object",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:419"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:420"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:443"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:444"
         },
         {
           "notes": "object's property",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:452"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:453"
         }
       ],
       "semantics": [
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:483",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:484",
           "notes": "how deep is the pool",
           "priority": -1
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:510"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:511"
         },
         {
           "notes": "wants is xfx between wanter and wantee",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:521",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:522",
           "priority": -1
         },
         {
           "notes": "marking something as readonly",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:535"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:536"
         },
         {
           "notes": "crew members. evaluate a concepts to get instances",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:559"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:560"
         },
         {
           "notes": "greg has eyes",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:587"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:589"
         },
         {
           "notes": "greg has eyes?",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:600"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:602"
         },
         {
           "notes": "set the property of an object",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:626"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:628"
         },
         {
           "notes": "get/evaluate a property",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:672"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:675"
         }
       ]
     }
@@ -2671,24 +2671,39 @@
               "level": 0
             },
             "flattenInPlace": [
-              "value",
-              "theable"
+              [
+                "value",
+                "theable",
+                "property",
+                "objects[0]"
+              ],
+              [
+                "object",
+                "objects[1]"
+              ]
             ],
             "flatten_ignore": [
               "theable"
             ],
             "interpolate": [
               {
-                "property": "property"
-              },
-              {
-                "word": "of"
-              },
-              {
-                "property": "object"
+                "values": "objects",
+                "separator": "of",
+                "each": true
               }
             ],
             "propertyOf": true,
+            "flattenInPlace23": [
+              [
+                "value",
+                "theable",
+                "objects[0]"
+              ],
+              [
+                "object",
+                "objects[1]"
+              ]
+            ],
             "property": {
               "value": "property1",
               "unknown": true,
@@ -2739,8 +2754,10 @@
                 "level": 0
               },
               "flattenInPlace": [
-                "value",
-                "theable"
+                [
+                  "value",
+                  "theable"
+                ]
               ],
               "flatten_ignore": [
                 "theable"
@@ -2755,22 +2772,7 @@
               ],
               "level": 0
             },
-            "object": {
-              "value": "object1",
-              "unknown": true,
-              "text": "object1",
-              "marker": "object",
-              "word": "object1",
-              "range": {
-                "start": 17,
-                "end": 23
-              },
-              "dead": true,
-              "types": [
-                "object"
-              ],
-              "level": 0
-            },
+            "object": null,
             "objects": [
               {
                 "value": "property1",
@@ -2822,8 +2824,10 @@
                   "level": 0
                 },
                 "flattenInPlace": [
-                  "value",
-                  "theable"
+                  [
+                    "value",
+                    "theable"
+                  ]
                 ],
                 "flatten_ignore": [
                   "theable"
@@ -3531,24 +3535,39 @@
               "level": 0
             },
             "flattenInPlace": [
-              "value",
-              "theable"
+              [
+                "value",
+                "theable",
+                "property",
+                "objects[0]"
+              ],
+              [
+                "object",
+                "objects[1]"
+              ]
             ],
             "flatten_ignore": [
               "theable"
             ],
             "interpolate": [
               {
-                "property": "property"
-              },
-              {
-                "word": "of"
-              },
-              {
-                "property": "object"
+                "values": "objects",
+                "separator": "of",
+                "each": true
               }
             ],
             "propertyOf": true,
+            "flattenInPlace23": [
+              [
+                "value",
+                "theable",
+                "objects[0]"
+              ],
+              [
+                "object",
+                "objects[1]"
+              ]
+            ],
             "property": {
               "value": "property",
               "number": "one",
@@ -3598,8 +3617,10 @@
                 "level": 0
               },
               "flattenInPlace": [
-                "value",
-                "theable"
+                [
+                  "value",
+                  "theable"
+                ]
               ],
               "flatten_ignore": [
                 "theable"
@@ -3614,22 +3635,7 @@
               ],
               "level": 0
             },
-            "object": {
-              "marker": "object",
-              "value": "object",
-              "default": true,
-              "text": "object",
-              "dead": true,
-              "word": "object",
-              "range": {
-                "start": 16,
-                "end": 21
-              },
-              "types": [
-                "object"
-              ],
-              "level": 0
-            },
+            "object": null,
             "objects": [
               {
                 "value": "property",
@@ -3680,8 +3686,10 @@
                   "level": 0
                 },
                 "flattenInPlace": [
-                  "value",
-                  "theable"
+                  [
+                    "value",
+                    "theable"
+                  ]
                 ],
                 "flatten_ignore": [
                   "theable"
@@ -4244,24 +4252,39 @@
             "level": 0
           },
           "flattenInPlace": [
-            "value",
-            "theable"
+            [
+              "value",
+              "theable",
+              "property",
+              "objects[0]"
+            ],
+            [
+              "object",
+              "objects[1]"
+            ]
           ],
           "flatten_ignore": [
             "theable"
           ],
           "interpolate": [
             {
-              "property": "property"
-            },
-            {
-              "word": "of"
-            },
-            {
-              "property": "object"
+              "values": "objects",
+              "separator": "of",
+              "each": true
             }
           ],
           "propertyOf": true,
+          "flattenInPlace23": [
+            [
+              "value",
+              "theable",
+              "objects[0]"
+            ],
+            [
+              "object",
+              "objects[1]"
+            ]
+          ],
           "property": {
             "value": "property",
             "number": "one",
@@ -4311,8 +4334,10 @@
               "level": 0
             },
             "flattenInPlace": [
-              "value",
-              "theable"
+              [
+                "value",
+                "theable"
+              ]
             ],
             "flatten_ignore": [
               "theable"
@@ -4327,22 +4352,7 @@
             ],
             "level": 0
           },
-          "object": {
-            "marker": "object",
-            "value": "object",
-            "default": true,
-            "text": "object",
-            "dead": true,
-            "word": "object",
-            "range": {
-              "start": 16,
-              "end": 21
-            },
-            "types": [
-              "object"
-            ],
-            "level": 0
-          },
+          "object": null,
           "objects": [
             {
               "value": "property",
@@ -4393,8 +4403,10 @@
                 "level": 0
               },
               "flattenInPlace": [
-                "value",
-                "theable"
+                [
+                  "value",
+                  "theable"
+                ]
               ],
               "flatten_ignore": [
                 "theable"
@@ -4777,8 +4789,10 @@
               "level": 0
             },
             "flattenInPlace": [
-              "value",
-              "theable"
+              [
+                "value",
+                "theable"
+              ]
             ],
             "flatten_ignore": [
               "theable"

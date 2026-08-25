@@ -43,10 +43,11 @@ function interpolate(args) {
             separator = element
           } else if (element.separator && element.values) {
             let ctr = 0
+            const each = element.each
             const values = getValue(element.values)
             const vstrings = []
             for (const value of values) {
-              if (ctr == values.length-1) {
+              if (ctr == values.length-1 || (element.each && ctr > 0)) {
                 vstrings.push(getValue(element.separator))
               }
               ctr += 1

@@ -92,14 +92,14 @@ describe('helpersMeta', () => {
   })
 
   describe('mappings', () => {
-    it('empty mapping', () => {
+    it('NEOS23 empty mapping', () => {
       const from = {}
       const to = {}
       const actual = translationMapping(from, to)
       expect(actual).toStrictEqual([])
     })
 
-    it('from top level to top level', () => {
+    it('NEOS23 from top level to top level', () => {
       const from = { weapon: { marker: 'weapon', value: 'phaser' } }
       const to = { object: { marker: 'weapon', value: 'phaser' } }
       const actual = translationMapping(from, to)
@@ -107,11 +107,26 @@ describe('helpersMeta', () => {
       expect(actual).toStrictEqual(expected)
     })
 
-    it('from top level to next one level', () => {
+    it('NEOS23 from top level to next one level', () => {
       const from = { weapon: { marker: 'weapon', value: 'phaser' } }
       const to = { one: { object: { marker: 'weapon', value: 'phaser' } } }
       const actual = translationMapping(from, to)
       const expected = [{ from: ['weapon'], to: ['one', 'object'] }]
+      expect(actual).toStrictEqual(expected)
+    })
+
+    it('NEOS23 from top level to array element', () => {
+      const from = { weapon: { marker: 'weapon', value: 'phaser' } }
+      const to = { 
+        one: { 
+          marker: 'list', 
+          values: [
+            { marker: 'weapon', value: 'phaser' },
+          ],
+        } 
+      }
+      const actual = translationMapping(from, to)
+      const expected = [{ from: ['weapon'], to: ['one', 'values', "0"] }]
       expect(actual).toStrictEqual(expected)
     })
   })
