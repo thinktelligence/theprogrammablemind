@@ -41,6 +41,10 @@ function initializer({objects, config, isModule}) {
       }
     },
     resolveEvaluate: (context, value) => {
+      if (value == undefined) {
+        debugger
+        throw new Error("The arguments are context and the value. The value may not be undefined.")
+      }
       context.evalue = value
     },
   }))
