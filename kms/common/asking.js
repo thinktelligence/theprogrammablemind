@@ -141,6 +141,7 @@ function getAsk(config) {
         if (semanticsr.length == 0) {
           semanticsr.push({ match: ask.matchr, apply: ask.applyr })
         }
+        
         for (const semantic of semanticsr) {
           const id_r = stableId('semantic')
           id_rs.push(id_r)
@@ -152,7 +153,7 @@ function getAsk(config) {
             tied_ids: [id_q],
             // tied_ids: s_ids,
             onDelete: ask.onDelete,
-            oneShot: true,
+            oneShot: ask.oneShot ?? true,
             where: semantic.where || ask.where || where(2),
             source: 'response',
             match: (args) => !args.context.isResponse && !args.context.evaluate && !args.context.isControl && semantic.match(args),
