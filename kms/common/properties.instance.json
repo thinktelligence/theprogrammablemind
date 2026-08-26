@@ -892,11 +892,11 @@
         },
         {
           "match": "({context, hierarchy, uuid}) => hierarchy.isA(context.marker, 'property') && context.same && context.objects && !context[`disable${uuid}`]",
-          "apply": "async (args) => {\n        const {context, fragments, objects, km, api, log, s, uuid} = args\n        const objectContext = context.objects[context.objects.length-1];\n        debugger\n        // greg87\n        // const objectContext = context.object;\n        const propertyContext = context;\n        const objectId = objectContext.unknown ? pluralize.singular(objectContext.value) : objectContext.value\n\n        await api.makeObject({ ...args, context: objectContext })\n        await api.makeObject({ ...args, context: propertyContext })\n        propertyContext[`disable${uuid}`] = true\n        const propertyId = (await km(\"dialogues\").api.evaluateToConcept(propertyContext, context, log, s)).evalue;\n        try {\n          api.setProperty(objectId, propertyId, context.same, true)\n          context.sameWasProcessed = true\n        } catch (e) {\n          log(`Error processing set property of an object: ${e}`)\n          const config = km('properties')\n          const value = await api.getProperty(objectId, propertyId)\n          if (value.value == context.same.value) {\n            context.evalue = [\n              { marker: 'yesno', value: true, paraphrase: true },\n            ]\n            context.isResponse = true\n            context.sameWasProcessed = true\n          } else {\n            const mappings = {\n              property1: { word: propertyContext.word, value: propertyContext.value, paraphrase: true },\n              object1: { word: objectContext.word, value: objectContext.value, paraphrase: true },\n              value1: value,\n            }\n            // run the query 'the property of object' then copy that here and template it\n            context.evalue = [\n              { marker: 'yesno', value: false, paraphrase: true },\n            ]\n            context.evalue = context.evalue.concat(await fragments(\"the property1 of object1 is value1\", mappings))\n            context.evalue.forEach( (r) => r.paraphrase = true )\n            context.isResponse = true\n            context.sameWasProcessed = true\n          }\n        }\n      }"
+          "apply": "async (args) => {\n        const {context, fragments, objects, km, api, log, s, uuid} = args\n        const objectContext = context.objects[context.objects.length-1];\n        const propertyContext = context;\n        const objectId = objectContext.unknown ? pluralize.singular(objectContext.value) : objectContext.value\n\n        await api.makeObject({ ...args, context: objectContext })\n        await api.makeObject({ ...args, context: propertyContext })\n        propertyContext[`disable${uuid}`] = true\n        const propertyId = (await km(\"dialogues\").api.evaluateToConcept(propertyContext, context, log, s)).evalue;\n        try {\n          api.setProperty(objectId, propertyId, context.same, true)\n          context.sameWasProcessed = true\n        } catch (e) {\n          log(`Error processing set property of an object: ${e}`)\n          const config = km('properties')\n          const value = await api.getProperty(objectId, propertyId)\n          if (value?.value == context.same?.value) {\n            context.evalue = [\n              { marker: 'yesno', value: true, paraphrase: true },\n            ]\n            context.isResponse = true\n            context.sameWasProcessed = true\n          } else {\n            const mappings = {\n              property1: { word: propertyContext.word, value: propertyContext.value, paraphrase: true },\n              object1: { word: objectContext.word, value: objectContext.value, paraphrase: true },\n              value1: value,\n            }\n            // run the query 'the property of object' then copy that here and template it\n            context.evalue = [\n              { marker: 'yesno', value: false, paraphrase: true },\n            ]\n            context.evalue = context.evalue.concat(await fragments(\"the property1 of object1 is value1\", mappings))\n            context.evalue.forEach( (r) => r.paraphrase = true )\n            context.isResponse = true\n            context.sameWasProcessed = true\n          }\n        }\n      }"
         },
         {
           "match": "({context, hierarchy, toArray}) => {\n                      // (hierarchy.isA(context.marker, 'property') || (hierarchy.isA(context.marker, 'list') && context.possession)) && \n        return (toArray(context).every((value) => hierarchy.isA(value.marker, 'property')) || (hierarchy.isA(context.marker, 'list') && context.possession)) && context.evaluate && context.objects && !context.evaluate.toConcept\n      }",
-          "apply": "async ({callId, flatten, asList, context, api, kms, objects, g, s, log, recall}) => {\n        debugger\n        async function toValue(objectContext) {\n          if (!objectContext.value) {\n            return objectContext;\n          }\n          let objectValue = kms.stm.api.getVariable(objectContext);\n          if (!objectValue) {\n            objectValue = objectContext.value\n          }\n          if (!await api.knownObject(objectValue)) {\n            objectContext.verbatim = `There is no object named \"${await g({...objectContext, paraphrase: true})}\"`\n            return\n          }\n          return objectValue\n        }\n\n        async function processOne(toDo) {\n          let currentContext = toDo.pop()\n          let currentValue = await toValue(currentContext)\n          while (toDo.length > 0) {\n            const nextContext = toDo.pop()\n            const nextValue = await toValue(nextContext)\n            if (!nextValue) {\n              // TODO maybe this I aware so it can say \"I don't know about blah...\" and below\n              // if (currentContext.unknown || !currentContext.value) {\n              if (!api.conceptExists(currentContext.value)) {\n                // api.conceptExists(currentContext)\n                const objectPhrase = await g({...currentContext, paraphrase: true})\n                context.verbatim = `What \"${objectPhrase}\" means is unknown`\n                return\n              }\n\n              const propertyPhrase = await g({...nextContext, paraphrase: true})\n              const objectPhrase = await g({...currentContext, paraphrase: true})\n              context.verbatim = `There is no interpretation for \"${propertyPhrase} of ${objectPhrase}\"`\n              return\n            }\n\n            let fromMentions\n            if (!await api.knownProperty(currentContext, nextContext)) {\n              fromMentions = await recall({ context: nextContext, all: nextContext.number == 'many', frameOfReference: currentContext })\n              if (!fromMentions) {\n                context.verbatim = `There is no property ${await g({...nextContext, paraphrase: true})} of ${await g({...currentContext, paraphrase: true})}`\n                return\n              }\n            }\n            if (fromMentions) {\n              currentContext = fromMentions\n              currentValue = fromMentions // TODO not sure what is right here so just do something and fix when actually needed SOP\n            } else {\n              currentContext = await api.getProperty(currentValue, nextValue, g)\n              currentValue = currentContext.value\n            }\n          }\n          return currentContext\n        }\n\n        // const toDo = [ ...context.objects ]\n        const toDos = flatten(['list'], context.objects)\n        const results = []\n        for (const toDo of toDos) {\n          const one = await processOne(toDo)\n          results.push(one)\n        }\n\n        if (results.length > 0) {\n          context.focusable = ['object[0]']\n          // context.evalue = currentContext\n          context.evalue = asList(results, true)\n          context.object = undefined;\n        }\n      }"
+          "apply": "async ({debug, flatten, asList, context, api, kms, objects, g, s, log, recall}) => {\n        async function toValue(objectContext) {\n          if (!objectContext.value) {\n            return objectContext;\n          }\n          let objectValue = kms.stm.api.getVariable(objectContext);\n          if (!objectValue) {\n            objectValue = objectContext.value\n          }\n          if (!await api.knownObject(objectValue)) {\n            objectContext.verbatim = `There is no object named \"${await g({...objectContext, paraphrase: true})}\"`\n            return\n          }\n          return objectValue\n        }\n\n        async function processOne(toDo) {\n          let currentContext = toDo.pop()\n          let currentValue = await toValue(currentContext)\n          while (toDo.length > 0) {\n            const nextContext = toDo.pop()\n            const nextValue = await toValue(nextContext)\n            if (!nextValue) {\n              // TODO maybe this I aware so it can say \"I don't know about blah...\" and below\n              // if (currentContext.unknown || !currentContext.value) {\n              if (!api.conceptExists(currentContext.value)) {\n                // api.conceptExists(currentContext)\n                const objectPhrase = await g({...currentContext, paraphrase: true})\n                context.verbatim = `What \"${objectPhrase}\" means is unknown`\n                return\n              }\n\n              const propertyPhrase = await g({...nextContext, paraphrase: true})\n              const objectPhrase = await g({...currentContext, paraphrase: true})\n              context.verbatim = `There is no interpretation for \"${propertyPhrase} of ${objectPhrase}\"`\n              return\n            }\n\n            let fromMentions\n            if (!await api.knownProperty(currentContext, nextContext)) {\n              fromMentions = await recall({ context: nextContext, all: nextContext.number == 'many', frameOfReference: currentContext })\n              if (!fromMentions) {\n                context.verbatim = `There is no property ${await g({...nextContext, paraphrase: true})} of ${await g({...currentContext, paraphrase: true})}`\n                return\n              }\n            }\n            if (fromMentions) {\n              currentContext = fromMentions\n              currentValue = fromMentions // TODO not sure what is right here so just do something and fix when actually needed SOP\n            } else {\n              currentContext = await api.getProperty(currentValue, nextValue, g)\n              currentValue = currentContext.value\n            }\n          }\n          return currentContext\n        }\n\n        // const toDo = [ ...context.objects ]\n        const toDos = flatten(['list'], context.objects)\n        const results = []\n        for (const toDo of toDos) {\n          const one = await processOne(toDo)\n          if (one) {\n            results.push(one)\n          }\n        }\n\n        if (results.length > 0) {\n          context.focusable = ['object[0]']\n          // context.evalue = currentContext\n          context.evalue = asList(results, true)\n          context.object = undefined;\n        } else {\n          context.evalue = { marker: 'answerNotKnown' }\n          context.object = undefined;\n        }\n      }"
         }
       ]
     }
@@ -2349,88 +2349,88 @@
       "generators": [
         {
           "notes": "expression with constraints",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:335"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:321"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:357"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:343"
         },
         {
           "notes": "add possession ending",
           "priority": -1,
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:350"
+        },
+        {
           "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:364"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:378"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:369"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:383"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:374"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:388"
-        },
-        {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:393"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:379"
         },
         {
           "notes": "negative do questions",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:399"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:385"
         },
         {
           "notes": "do questions",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:394"
+        },
+        {
           "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:408"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:422"
-        },
-        {
           "notes": "the property of object",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:430"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:416"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:454"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:440"
         },
         {
           "notes": "object's property",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:463"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:449"
         }
       ],
       "semantics": [
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:494",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:480",
           "notes": "how deep is the pool",
           "priority": -1
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:521"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:507"
         },
         {
           "notes": "wants is xfx between wanter and wantee",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:532",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:518",
           "priority": -1
         },
         {
           "notes": "marking something as readonly",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:546"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:532"
         },
         {
           "notes": "crew members. evaluate a concepts to get instances",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:570"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:556"
         },
         {
           "notes": "greg has eyes",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:599"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:585"
         },
         {
           "notes": "greg has eyes?",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:612"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:598"
         },
         {
           "notes": "set the property of an object",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:638"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:624"
         },
         {
           "notes": "get/evaluate a property",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:687"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:670"
         }
       ]
     }
