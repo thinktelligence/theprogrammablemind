@@ -141,23 +141,25 @@ function getAsk(config) {
         if (semanticsr.length == 0) {
           semanticsr.push({ match: ask.matchr, apply: ask.applyr })
         }
+        
         for (const semantic of semanticsr) {
           const id_r = stableId('semantic')
           id_rs.push(id_r)
           s_ids.push(id_r)
           config.addSemantic({
             uuid,
+            notes: 'getting the answer to the question',
             id: id_r,
             tied_ids: [id_q],
             // tied_ids: s_ids,
             onDelete: ask.onDelete,
-            oneShot,
+            oneShot: ask.oneShot ?? true,
             where: semantic.where || ask.where || where(2),
             source: 'response',
             match: (args) => !args.context.isResponse && !args.context.evaluate && !args.context.isControl && semantic.match(args),
             apply: async (args) => {
               setWasApplied(true)
-              await semantic.apply(args)
+              await semantic.apply({ ...args, tag: ask.tag })
             },
           })
         }
@@ -165,6 +167,7 @@ function getAsk(config) {
         config.addSemantic({
           uuid,
           oneShot,
+          notes: 'asking the question',
           id: id_q,
           tied_ids: id_rs,
           // tied_ids: s_ids,
@@ -184,7 +187,7 @@ function getAsk(config) {
               matchq = () => !wasAsked,
               applyq = (args) => {
                 wasAsked = true
-                return ask.applyq(args)
+                return ask.applyq({ ...args, tag: ask.tag })
               }
             }
             if (await matchq(args)) {
