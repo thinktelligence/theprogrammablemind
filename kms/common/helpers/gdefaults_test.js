@@ -41,7 +41,7 @@ describe('interpolate Tests', () => {
     expect(actual).toBe('ab-c')
   })
 
-  it('NEO23 separator+each+value', async () => {
+  it('separator+each+value', async () => {
     const context = { values23: ['a', 'b', 'c'] }
     const args = getArgs(context)
     const actual = await interpolate(args)([{ separator: '-', values: 'values23', each: true  }], context)

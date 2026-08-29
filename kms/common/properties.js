@@ -259,10 +259,8 @@ const config = {
         ...before[0], 
         propertyOf: true, 
         interpolate: [ { values: 'objects', separator: 'of', each: true } ],
-        flattenInPlace: [['value', 'theable', 'property', 'objects[0]'], ['object', 'objects[1]']],
+        flattenInPlace: [['value', 'theable', 'objects[0]'], ['object', 'objects[1]']],
         flattenInPlace23: [['value', 'theable', 'objects[0]'], ['object', 'objects[1]']],
-        property: before[0],
-        object: operator.object, 
         objects: append(default(before[0].objects, before), operator.objects) 
       }` 
     },
@@ -632,7 +630,6 @@ const config = {
         const {context, fragments, objects, km, api, log, s, uuid} = args
         const objectContext = context.objects[context.objects.length-1];
         const propertyContext = context;
-        debug.counter("greg55", { breakAt: 1 })
         const objectId = objectContext.unknown ? pluralize.singular(objectContext.value) : objectContext.value
 
         await api.makeObject({ ...args, context: objectContext })

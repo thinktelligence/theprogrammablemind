@@ -69,10 +69,12 @@ for (let file of package_json.files) {
 
 // tests = [tests[0]]
 
-async function loop(tests, failed) {
+async function loop(tests, atEnd, failed) {
   if (tests.length == []) {
     if (failed.length > 0) {
       console.log("FAILED Tests", JSON.stringify(failed, null, 2))
+    } else {
+      await atEnd()
     }
     console.timeEnd('tests time')
     // for (let i = 0; i < 7; ++i) {
@@ -94,23 +96,12 @@ async function loop(tests, failed) {
       } else if (stdout.includes('ERROR')) {
           failed.push(test)
       }
-      await loop(tests, failed)
+      await loop(tests, atEnd, failed)
     });
 }
 
-/*
 (async () => {
-  await hasDebugCommands().then(() => {
-    return loop(retrains.concat(tests), [])
-  }).catch((e) => {
-    console.log(e.toString())
-  })
-})()
-*/
-(async () => {
-  return loop(retrains.concat(tests), []).then(async () => {
-    return await hasDebugCommands()
-  }).catch((e) => {
+  await loop(retrains.concat(tests), () => hasDebugCommands(), []).catch((e) => {
     console.log(e.toString())
   })
 })()

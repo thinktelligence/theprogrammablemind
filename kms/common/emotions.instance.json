@@ -529,107 +529,38 @@
                 "level": 0
               },
               "flattenInPlace": [
-                "value",
-                "theable"
+                [
+                  "value",
+                  "theable",
+                  "objects[0]"
+                ],
+                [
+                  "object",
+                  "objects[1]"
+                ]
               ],
               "flatten_ignore": [
                 "theable"
               ],
               "interpolate": [
                 {
-                  "property": "property"
-                },
-                {
-                  "word": "of"
-                },
-                {
-                  "property": "object"
+                  "values": "objects",
+                  "separator": "of",
+                  "each": true
                 }
               ],
               "propertyOf": true,
-              "property": {
-                "value": "emotion",
-                "unknown": true,
-                "text": "the emotion",
-                "marker": "property",
-                "word": "emotion",
-                "range": {
-                  "start": 36,
-                  "end": 46
-                },
-                "dead": true,
-                "types": [
-                  "property",
-                  "unknown"
-                ],
-                "focusableForPhrase": true,
-                "pullFromContext": true,
-                "concept": true,
-                "wantsValue": true,
-                "checks": [
-                  "determiner"
-                ],
-                "determiner": {
-                  "modifiers": [],
-                  "text": "the",
-                  "marker": "the",
-                  "word": "the",
-                  "range": {
-                    "start": 36,
-                    "end": 38
-                  },
-                  "level": 0
-                },
-                "theable": {
-                  "value": "emotion",
-                  "unknown": true,
-                  "text": "emotion",
-                  "marker": "unknown",
-                  "word": "emotion",
-                  "range": {
-                    "start": 40,
-                    "end": 46
-                  },
-                  "dead": true,
-                  "types": [
-                    "unknown"
-                  ],
-                  "level": 0
-                },
-                "flattenInPlace": [
+              "flattenInPlace23": [
+                [
                   "value",
-                  "theable"
+                  "theable",
+                  "objects[0]"
                 ],
-                "flatten_ignore": [
-                  "theable"
-                ],
-                "interpolate": [
-                  {
-                    "property": "determiner"
-                  },
-                  {
-                    "property": "theable"
-                  }
-                ],
-                "level": 0
-              },
-              "object": {
-                "value": "sentientbeing1",
-                "unknown": true,
-                "text": "sentientbeing1",
-                "marker": "object",
-                "word": "sentientbeing1",
-                "raw_text": "sentientBeing1",
-                "range": {
-                  "start": 51,
-                  "end": 64
-                },
-                "dead": true,
-                "types": [
-                  "object"
-                ],
-                "level": 0
-              },
+                [
+                  "object",
+                  "objects[1]"
+                ]
+              ],
               "objects": [
                 {
                   "value": "emotion",
@@ -681,8 +612,10 @@
                     "level": 0
                   },
                   "flattenInPlace": [
-                    "value",
-                    "theable"
+                    [
+                      "value",
+                      "theable"
+                    ]
                   ],
                   "flatten_ignore": [
                     "theable"
@@ -739,7 +672,7 @@
           "context_index": 1,
           "topLevel": true,
           "context_id": 2,
-          "metaInfo": "The mapping from from the expression being defined \"sentientbeing1 feels emotion1\" to the definition phrase \"the emotion of sentientbeing1 is emotion1\" is [{\"from\":[\"sentientBeing\"],\"to\":[\"one\",\"object\"]},{\"from\":[\"emotion\"],\"to\":[\"two\"]},{\"from\":[\"number\"],\"to\":[\"number\"]}]",
+          "metaInfo": "The mapping from from the expression being defined \"sentientbeing1 feels emotion1\" to the definition phrase \"the emotion of sentientbeing1 is emotion1\" is [{\"from\":[\"sentientBeing\"],\"to\":[\"one\",\"objects\",\"1\"]},{\"from\":[\"emotion\"],\"to\":[\"two\"]},{\"from\":[\"number\"],\"to\":[\"number\"]}]",
           "touchedBy": [
             "emotions#call2"
           ]

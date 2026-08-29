@@ -7,6 +7,8 @@ const length = require('./length')
 const dates = require('./dates')
 const people = require('./people')
 
+const DEBUGG = false
+
 // TODO if you know the name and address of a person do such and such
 // TODO stop asking that
 
@@ -55,11 +57,15 @@ const template = {
           evaluator: async ({context, e, callId, toList, flatten, toEValue, resolveEvaluate, objects}) => {
             const properties = objects.askFor
             const values = []
-            debugger
+            if (DEBUGG) {
+              debugger
+            }
             for (const property of properties) {
               // const value = toEValue(await e(property))
               const value = (await e(property)).evalue
-              debugger
+              if (DEBUGG) {
+                debugger
+              }
               values.push({ marker: 'labelledValue', label: property, value })
             }
             resolveEvaluate(context, toList(values))
@@ -92,7 +98,9 @@ const template = {
                 debugger // bug
               }
               console.log(JSON.stringify(property, null, 2))
-              debugger
+              if (DEBUGG) {
+                debugger
+              }
               const value = toEValue(await e(property))
               if (value.marker == 'answerNotKnown') {
                 return
@@ -102,7 +110,9 @@ const template = {
 
             const setValue = (property) => async ({ context, namespaced, tag }) => {
               console.log(JSON.stringify(property, null, 2))
-              debugger  // set value
+              if (DEBUGG) {
+                debugger  // set value
+              }
               const is = { marker: 'is', one: property, two: context }
               namespaced.set('dialogs', is, 'allowHierarchy', false)
               await s(is)
@@ -123,15 +133,17 @@ const template = {
             // "flattenInPlace": [ "value", "theable", "property", "objects[0]", "objects[1]" ],
 
             // console.log("before23", JSON.stringify(argument, null, 2))
-            const properties = flattenInPlace(argument)
             debugger
-            // console.log("after23", JSON.stringify(properties, null, 2))
+            const properties = flattenInPlace(argument)
+            console.log("after23", JSON.stringify(properties, null, 2))
             debugger
             counter = 0
             for (const property of properties.reverse()) {
               counter += 1
               console.log(JSON.stringify(property, null, 2))
-              debugger
+              if (DEBUGG) {
+                debugger
+              }
               const query = memoizeAsync(async () => await(gp(await fragments("what is the concept?", { concept: property }))))
               const compatible_types = property.compatible_types || [property.marker]
               const matchr = ({context, isA}) => {
