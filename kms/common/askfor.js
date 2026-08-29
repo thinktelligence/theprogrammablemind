@@ -26,8 +26,14 @@ function askForProperty({
     oneShot,
     tag,
 
+    onDelete: async () => {
+      console.log(await query())
+      debugger
+      debugger
+    },
     matchq: async (args) => !await getValue(args) && args.context.marker == 'controlEnd',
     applyq: async ({ say, objects }) => {
+      debugger
       return await query()
     },
 
