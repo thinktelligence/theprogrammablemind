@@ -6,7 +6,7 @@ function getPaths(context) {
   const todo = [{context, path: []}]
   const paths = (context.flattenInPlace || []).map((_) => [])
   while (todo.length > 0) {
-    let { context, groupIndex, path } = todo.pop()
+    const { context, groupIndex, path } = todo.pop()
     if (context?.flattenInPlace) {
       for (const [currentGroupIndex, props] of context.flattenInPlace.entries()) {
         nextGroupIndex = groupIndex ?? currentGroupIndex

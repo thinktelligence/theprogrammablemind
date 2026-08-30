@@ -19,21 +19,15 @@ function askForProperty({
   setValue,
   matchr,
   tag,
-  oneShot=false,
+  oneShot=true,
 }) {
   ask({
     where: where(),
     oneShot,
     tag,
 
-    onDelete: async () => {
-      console.log(await query())
-      debugger
-      debugger
-    },
     matchq: async (args) => !await getValue(args) && args.context.marker == 'controlEnd',
     applyq: async ({ say, objects }) => {
-      debugger
       return await query()
     },
 
@@ -63,15 +57,9 @@ const template = {
           evaluator: async ({context, e, callId, toList, flatten, toEValue, resolveEvaluate, objects}) => {
             const properties = objects.askFor
             const values = []
-            if (DEBUGG) {
-              debugger
-            }
             for (const property of properties) {
               // const value = toEValue(await e(property))
               const value = (await e(property)).evalue
-              if (DEBUGG) {
-                debugger
-              }
               values.push({ marker: 'labelledValue', label: property, value })
             }
             resolveEvaluate(context, toList(values))
@@ -100,13 +88,6 @@ const template = {
           semantic: async ({e, s, gp, objects, flatten, context, ask, fragments, toEValue}) => {
             const argument = context.properties.argument
             const getValue = (property) => async (args) => {
-              if (!args) {
-                debugger // bug
-              }
-              console.log(JSON.stringify(property, null, 2))
-              if (DEBUGG) {
-                debugger
-              }
               const value = toEValue(await e(property))
               if (value.marker == 'answerNotKnown') {
                 return
@@ -115,10 +96,6 @@ const template = {
             }
 
             const setValue = (property) => async ({ context, namespaced, tag }) => {
-              console.log(JSON.stringify(property, null, 2))
-              if (DEBUGG) {
-                debugger  // set value
-              }
               const is = { marker: 'is', one: property, two: context }
               namespaced.set('dialogs', is, 'allowHierarchy', false)
               await s(is)
@@ -132,29 +109,14 @@ const template = {
                 p.flattenInPlace = [ "object", "objects[1]" ]
                 return flattenInPlace(p)
               })
-              console.log("dude", JSON.stringify(p2, null, 2))
-              debugger
-              debugger
             }
-            // "flattenInPlace": [ "value", "theable", "property", "objects[0]", "objects[1]" ],
-
-            // console.log("before23", JSON.stringify(argument, null, 2))
-            debugger
             const properties = flattenInPlace(argument)
-            console.log("after23", JSON.stringify(properties, null, 2))
-            debugger
             counter = 0
             for (const property of properties.reverse()) {
               counter += 1
-              console.log(JSON.stringify(property, null, 2))
-              if (DEBUGG) {
-                debugger
-              }
               const query = memoizeAsync(async () => await(gp(await fragments("what is the concept?", { concept: property }))))
               const compatible_types = property.compatible_types || [property.marker]
               const matchr = ({context, isA}) => {
-                console.log(JSON.stringify(context, null, 2))
-                // debugger // matchr
                 return !context.same && !context.evaluate && isA(context, compatible_types)
               }
               objects.askFor.push(property);

@@ -66,12 +66,20 @@ const not_list = {
 const not_list_expected = [
   {
     "marker": "gender",
+    "flattenInPlaceRemove": [],
+    "flattenInPlace": [
+      [ "object" ]
+    ],
     "object": {
       "marker": "bob",
     },
   },
   {
     "marker": "gender",
+    "flattenInPlaceRemove": [],
+    "flattenInPlace": [
+      [ "object" ]
+    ],
     "object": {
       "marker": "alice",
     }
@@ -883,6 +891,7 @@ describe('flattenInPlace', () => {
   it('NEO23 not_list', () => {
     const context = not_list
     const actual = flattenInPlace(context)
+    console.log(JSON.stringify(actual, null, 2))
     expect(actual).toStrictEqual(not_list_expected)
   })
 
