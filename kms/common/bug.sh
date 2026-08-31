@@ -1085,3 +1085,4 @@ node  askfor -q 'ask for the gender and birth date of bob and alice\njan 1 1977\
 node  askfor -q 'ask for the gender and birth date of bob\njan 1 1977\nmale\nwhat is the information on bob' -g -d
 node  askfor -q 'joe and alice are clients\nask for the gender and birth date of each client\njan 1 1977\nmale\nwhat is the information on bob' -g -d
 node askfor -q 'ask for the gender of bob and alice\nmale and female\nwhat is the information' -g -d
+node askfor -q "ask for the gender and birth date of bob and alice\nmale\nmar 31 1945\nwhat is the information" -g -d

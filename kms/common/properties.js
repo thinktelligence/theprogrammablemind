@@ -259,8 +259,7 @@ const config = {
         ...before[0], 
         propertyOf: true, 
         interpolate: [ { values: 'objects', separator: 'of', each: true } ],
-        flattenInPlace: [['value', 'theable', 'objects[0]'], ['object', 'objects[1]']],
-        flattenInPlace23: [['value', 'theable', 'objects[0]'], ['object', 'objects[1]']],
+        flattenInPlace: [['object', 'objects[1]'], ['value', 'theable', 'objects[0]'] ],
         objects: append(default(before[0].objects, before), operator.objects) 
       }` 
     },

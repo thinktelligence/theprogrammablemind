@@ -101,15 +101,6 @@ const template = {
               await s(is)
             }
 
-            // argument.flattenInPlace = [ "value", "theable", "property", "objects[0]", "objects[1]" ],
-            if (false) {
-              argument.flattenInPlace = [ "value", "theable", "property", "objects[0]" ]
-              const p1 = flattenInPlace(argument)
-              const p2 = p1.map((p) => {
-                p.flattenInPlace = [ "object", "objects[1]" ]
-                return flattenInPlace(p)
-              })
-            }
             const properties = flattenInPlace(argument)
             counter = 0
             for (const property of properties.reverse()) {

@@ -721,6 +721,244 @@ const with_array_expected = [
   },
 ]
 
+const with_array_reverse_order = {
+  marker: "list",
+  flattenInPlaceRemove: ['isList', 'value'],
+  flattenInPlace: [['object', 'objects[1]'], ['value', 'property', 'objects[0]']],
+  isList: true,
+  value: [
+    {
+      "marker": "gender",
+      one: 23,
+    },
+    {
+      "marker": "birth_dates_date_dates",
+      one: 24,
+    }
+  ],
+  objects: [
+    {
+      marker: "list",
+      flattenInPlaceRemove: ['isList', 'value'],
+      flattenInPlace: [['value', 'theable']],
+      isList: true,
+      value: [
+        {
+          "marker": "gender",
+          two: 23,
+        },
+        {
+          "marker": "birth_dates_date_dates",
+          two: 24,
+        }
+      ],
+      theable: {
+        marker: "list",
+        flattenInPlaceRemove: ['isList', 'value'],
+        flattenInPlace: [['value']],
+        isList: true,
+        value: [
+          {
+            "marker": "gender",
+            three: 24,
+          },
+          {
+            "marker": "birth_dates_date_dates",
+            three: 28,
+          }
+        ],
+      }
+    },
+    {
+      marker: "list",
+      flattenInPlaceRemove: ['isList', 'value'],
+      flattenInPlace: [['value', 'theable']],
+      isList: true,
+      value: [
+        {
+          "marker": "bob",
+          person: 23,
+        },
+        {
+          "marker": "alice",
+          person: 24,
+        }
+      ],
+    },
+  ],
+  object: {
+    marker: "list",
+    flattenInPlaceRemove: ['isList', 'value'],
+    flattenInPlace: [['value', 'theable']],
+    isList: true,
+    value: [
+      {
+        "marker": "bob",
+        person: 23,
+      },
+      {
+        "marker": "alice",
+        person: 24,
+      }
+    ],
+  },
+  property: {
+    marker: "list",
+    flattenInPlaceRemove: ['isList', 'value'],
+    flattenInPlace: [['value', 'theable']],
+    isList: true,
+    value: [
+      {
+        "marker": "gender",
+        two: 23,
+      },
+      {
+        "marker": "birth_dates_date_dates",
+        two: 24,
+      }
+    ],
+    theable: {
+      marker: "list",
+      flattenInPlaceRemove: ['isList', 'value'],
+      flattenInPlace: [['value']],
+      isList: true,
+      value: [
+        {
+          "marker": "gender",
+          three: 24,
+        },
+        {
+          "marker": "birth_dates_date_dates",
+          three: 28,
+        }
+      ],
+    }
+  }
+}
+
+const with_array_reverse_order_expected = [
+  {
+    marker: "gender",
+    one: 23,
+    objects: [
+      {
+        marker: "gender",
+        two: 23,
+        theable: {
+          marker: "gender",
+          three: 24,
+        }
+      },
+      {
+        marker: 'bob',
+        person: 23,
+      },
+    ],
+    object: {
+      marker: 'bob',
+      person: 23,
+    },
+    property: {
+      marker: "gender",
+      two: 23,
+      theable: {
+        marker: "gender",
+        three: 24,
+      }
+    }
+  },
+  {
+    marker: "birth_dates_date_dates",
+    one: 24,
+    objects: [
+      {
+        marker: "birth_dates_date_dates",
+        two: 24,
+        theable: {
+          marker: "birth_dates_date_dates",
+          three: 28,
+        }
+      },
+      {
+        marker: 'bob',
+        person: 23,
+      },
+    ],
+    object: {
+      marker: 'bob',
+      person: 23,
+    },
+    property: {
+      marker: "birth_dates_date_dates",
+      two: 24,
+      theable: {
+        marker: "birth_dates_date_dates",
+        three: 28,
+      }
+    }
+  },
+  {
+    marker: "gender",
+    one: 23,
+    objects: [
+      {
+        marker: "gender",
+        two: 23,
+        theable: {
+          marker: "gender",
+          three: 24,
+        }
+      },
+      {
+        marker: 'alice',
+        person: 24,
+      },
+    ],
+    object: {
+      marker: 'alice',
+      person: 24,
+    },
+    property: {
+      marker: "gender",
+      two: 23,
+      theable: {
+        marker: "gender",
+        three: 24,
+      }
+    }
+  },
+  {
+    marker: "birth_dates_date_dates",
+    one: 24,
+    objects: [
+      {
+        marker: "birth_dates_date_dates",
+        two: 24,
+        theable: {
+          marker: "birth_dates_date_dates",
+          three: 28,
+        }
+      },
+      {
+        marker: 'alice',
+        person: 24,
+      },
+    ],
+    object: {
+      marker: 'alice',
+      person: 24,
+    },
+    property: {
+      marker: "birth_dates_date_dates",
+      two: 24,
+      theable: {
+        marker: "birth_dates_date_dates",
+        three: 28,
+      }
+    }
+  },
+]
+
 const with_array_first_is_not_list = {
   marker: "gender",
   flattenInPlaceRemove: ['isList', 'value'],
@@ -781,6 +1019,68 @@ const with_array_first_is_not_list_expected = [
     ],
   },
 ]
+
+const with_array_first_is_not_list_reverse_order = {
+  marker: "gender",
+  flattenInPlaceRemove: ['isList', 'value'],
+  flattenInPlace: [['objects[1]'], ['value', 'property', 'objects[0]']],
+  two: 23,
+  value: "gender",
+  objects: [
+    {
+      marker: "gender",
+      two: 23,
+    },
+    {
+      marker: "list",
+      flattenInPlaceRemove: ['isList', 'value'],
+      flattenInPlace: [['value']],
+      isList: true,
+      value: [
+        {
+          "marker": "bob",
+          person: 23,
+        },
+        {
+          "marker": "alice",
+          person: 24,
+        }
+      ],
+    },
+  ],
+}
+
+const with_array_first_is_not_list_reverse_order_expected = [
+  {
+    marker: "gender",
+    two: 23,
+    objects: [
+      {
+        marker: "gender",
+        two: 23,
+      },
+      {
+        marker: 'bob',
+        person: 23,
+      },
+    ],
+  },
+  {
+    marker: "gender",
+    two: 23,
+    objects: [
+      {
+        marker: "gender",
+        two: 23,
+      },
+      {
+        marker: 'alice',
+        person: 24,
+      },
+    ],
+  },
+]
+
 
 describe('flattenInPlace', () => {
   it('NEOS23 none', () => {
@@ -859,6 +1159,19 @@ describe('flattenInPlace', () => {
     expect(actual).toStrictEqual(expected)
   })
 
+  it('NEOS23 with_array_first_is_not_list_reverse_order', () => {
+    const context = with_array_first_is_not_list_reverse_order
+    const actual = getPaths(context)
+    console.log(JSON.stringify(actual, null, 2))
+    console.dir(actual)
+    expected = [
+      [ [ 'objects[1]', 'value' ], ],
+      [ [ 'value' ] ],
+    ]
+
+    expect(actual).toStrictEqual(expected)
+  })
+
   it('NEOS23 has_value_but_is_not_a_list', () => {
     const context = has_value_but_is_not_a_list
     const actual = getPaths(context)
@@ -888,7 +1201,7 @@ describe('flattenInPlace', () => {
     expect(actual).toStrictEqual(one_list_expected)
   })
 
-  it('NEO23 not_list', () => {
+  it('NEOS23 not_list', () => {
     const context = not_list
     const actual = flattenInPlace(context)
     console.log(JSON.stringify(actual, null, 2))
@@ -937,14 +1250,21 @@ describe('flattenInPlace', () => {
     expect(actual).toStrictEqual(with_array_expected )
   })
 
-  it('NEOS23 with_array_first_is_not_list', () => {
-    const context = with_array_first_is_not_list
+  it('NEOS23 with_array_reverse_order', () => {
+    const context = with_array_reverse_order
     const actual = flattenInPlace(context)
     console.log(JSON.stringify(actual, null, 2))
-    expect(actual).toStrictEqual(with_array_first_is_not_list_expected)
+    expect(actual).toStrictEqual(with_array_reverse_order_expected )
   })
 
-  it('NEOx23 not_list', () => {
+  it('NEO23 with_array_first_is_not_list_reverse_order', () => {
+    const context = with_array_first_is_not_list_reverse_order
+    const actual = flattenInPlace(context)
+    console.log(JSON.stringify(actual, null, 2))
+    expect(actual).toStrictEqual(with_array_first_is_not_list_reverse_order_expected)
+  })
+
+  it('NEOS23 not_list', () => {
     const context = not_list
     const actual = flattenInPlace(context)
     console.log(JSON.stringify(actual, null, 2))

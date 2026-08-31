@@ -41,8 +41,9 @@ function flattenInPlace(context) {
   for (const pathGroup of paths) {
     const src = getByPath(context, pathGroup[0].slice(0, -1))
     if (!src.isList) {
-      remove(context)
-      currents = [context]
+      // remove(context)
+      // currents = [context]
+      currents.map((c) => remove(c))
       continue
     }
     const n = getByPath(context, pathGroup[0]).length
