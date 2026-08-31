@@ -18,6 +18,7 @@ const template = {
       "given modifies name",
       "given name means first name",
       "ownee is owned by owner means owner owns ownee",
+      "gender is a property type",
       "male and female are genders",
     ],
 }

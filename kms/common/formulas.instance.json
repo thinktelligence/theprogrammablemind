@@ -30,12 +30,12 @@
       "semantics": [
         {
           "match": "({context, api}) => context.evaluate && api.get(context)",
-          "apply": "async ({context, api, e}) => {\n        const { formula } = api.get(context)\n        // console.log('greg24 -----------', JSON.stringify(formula, null, 2))\n        context.evalue = await e(formula) \n      }"
+          "apply": "async ({context, api, e}) => {\n        const { formula } = api.get(context)\n        context.evalue = await e(formula) \n      }"
         }
       ],
       "bridges": [
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/formulas.js:84",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/formulas.js:83",
           "id": "formulaForVariable",
           "enhanced_associations": false,
           "isA": [
@@ -48,7 +48,7 @@
           "evaluator": "({context, api, objects, verbatim}) => {\n        const formulas = api.gets(context.variable).map((f) => { return { ...f.equality, paraphrase: true } })\n        if (formulas.length > 0) {\n          context.evalue = { marker: 'list', value: formulas }\n        } else {\n          context.evalue = { marker: 'answerNotKnown' }\n        }\n      }"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/formulas.js:101",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/formulas.js:100",
           "id": "solve",
           "enhanced_associations": false,
           "bridge": "{ ...next(operator), equality: after[0], variable: after[2] }",
@@ -75,7 +75,7 @@
           ]
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/formulas.js:132",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/formulas.js:131",
           "id": "calculate",
           "isA": [
             "verb"
@@ -91,7 +91,7 @@
           "semantic": "async ({context, e}) => {\n        context.evalue = await e(context.expression)\n        context.isResponse = true\n      }"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/formulas.js:144",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/formulas.js:143",
           "id": "equals",
           "bridge": "{ ...next(operator), left: before[0], right: after[0] }",
           "words": [
@@ -430,7 +430,7 @@
       ],
       "bridges": [
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/formulas.js:84",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/formulas.js:83",
           "id": "formulaForVariable",
           "enhanced_associations": false,
           "isA": [
@@ -441,7 +441,7 @@
           "bridge": "{ number: before[0].number, ...next(operator), what: before[0], equality: after[0], variable: after[1] }"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/formulas.js:101",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/formulas.js:100",
           "id": "solve",
           "enhanced_associations": false,
           "bridge": "{ ...next(operator), equality: after[0], variable: after[2] }"
@@ -466,7 +466,7 @@
           ]
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/formulas.js:132",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/formulas.js:131",
           "id": "calculate",
           "isA": [
             "verb"
@@ -480,7 +480,7 @@
           ]
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/formulas.js:144",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/formulas.js:143",
           "id": "equals",
           "bridge": "{ ...next(operator), left: before[0], right: after[0] }",
           "words": [

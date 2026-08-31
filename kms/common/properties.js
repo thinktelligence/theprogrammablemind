@@ -670,11 +670,10 @@ const config = {
       notes: 'get/evaluate a property',
       where: where(),
       match: ({context, hierarchy, toArray}) => {
-                      // (hierarchy.isA(context.marker, 'property') || (hierarchy.isA(context.marker, 'list') && context.possession)) && 
         return (toArray(context).every((value) => hierarchy.isA(value.marker, 'property')) || (hierarchy.isA(context.marker, 'list') && context.possession)) && context.evaluate && context.objects && !context.evaluate.toConcept
       },
       // match: ({context, hierarchy}) => hierarchy.isA(context.marker, 'property') && context.evaluate,
-      apply: async ({debug, flatten, asList, context, api, kms, objects, g, s, log, recall}) => {
+      apply: async ({debug, isA, hierarchy, getWordFromDictionary, flatten, asList, context, api, kms, objects, g, s, log, recall}) => {
         async function toValue(objectContext) {
           if (!objectContext.value) {
             return objectContext;
@@ -695,6 +694,7 @@ const config = {
           let currentValue = await toValue(currentContext)
           while (toDo.length > 0) {
             const nextContext = toDo.pop()
+            debugger
             const nextValue = await toValue(nextContext)
             if (!nextValue) {
               // TODO maybe this I aware so it can say "I don't know about blah..." and below
@@ -714,7 +714,17 @@ const config = {
 
             let fromMentions
             if (!await api.knownProperty(currentContext, nextContext)) {
-              fromMentions = await recall({ context: nextContext, all: nextContext.number == 'many', frameOfReference: currentContext })
+              if (false && hierarchy.isA(nextValue, 'property_type')) {
+                const types = hierarchy.froms(nextValue)
+                for (const type of types) {
+                  if (isA(currentContext, type)) {
+                    fromMentions = getWordFromDictionary({ value: type })
+                  }
+                }
+              }
+              if (!fromMentions) {
+                fromMentions = await recall({ context: nextContext, all: nextContext.number == 'many', frameOfReference: currentContext })
+              }
               if (!fromMentions) {
                 context.verbatim = `There is no property ${await g({...nextContext, paraphrase: true})} of ${await g({...currentContext, paraphrase: true})}`
                 return
@@ -772,7 +782,8 @@ const template = {
   configs: [
     "property is a concept",
     { query: "concept is a property", isFragment: true },
-    config
+    config,
+    "property type is an compound noun",
   ],
 }
 

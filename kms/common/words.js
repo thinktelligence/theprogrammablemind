@@ -21,7 +21,9 @@ function initializer({objects, config, isModule}) {
       }
     },
     addWordToDictionary: (context) => {
-      objects.words.push(context)
+      if (true || context.word) {
+        objects.words.push(context)
+      }
     }
   }))
 }

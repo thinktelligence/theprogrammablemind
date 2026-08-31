@@ -74,7 +74,6 @@ const config = {
       match: ({context, api}) => context.evaluate && api.get(context),
       apply: async ({context, api, e}) => {
         const { formula } = api.get(context)
-        // console.log('greg24 -----------', JSON.stringify(formula, null, 2))
         context.evalue = await e(formula) 
       }    
     },
