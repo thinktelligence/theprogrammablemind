@@ -142,9 +142,10 @@ const template = {
   configs: [
     config,
     "open modifies compound",
+    "compound modifies noun",
     {
       operators: [
-        "((!@== isOpenCompound && !@<= punctuation)* [isOpenCompound|is] (@== open_compound))",
+        "((!@== isOpenCompound && !@<= punctuation)* [isOpenCompound|is] (@== open_compound || @== compound_noun))",
       ],
       bridges: [
         {

@@ -92,9 +92,10 @@
       ]
     },
     "open modifies compound",
+    "compound modifies noun",
     {
       "operators": [
-        "((!@== isOpenCompound && !@<= punctuation)* [isOpenCompound|is] (@== open_compound))"
+        "((!@== isOpenCompound && !@<= punctuation)* [isOpenCompound|is] (@== open_compound || @== compound_noun))"
       ],
       "bridges": [
         {
@@ -475,9 +476,204 @@
       }
     },
     {
+      "metadata": {
+        "opChoices": [
+          {
+            "op": [
+              "compound",
+              0
+            ],
+            "ops": [
+              [
+                "compound",
+                0
+              ],
+              [
+                "modifies",
+                0
+              ]
+            ],
+            "counter": 1
+          },
+          {
+            "op": [
+              "modifies",
+              0
+            ],
+            "ops": [
+              [
+                "modifies",
+                0
+              ]
+            ],
+            "counter": 2
+          }
+        ]
+      },
+      "trace": "undefined",
+      "contexts": [
+        {
+          "word": "modifies",
+          "number": "one",
+          "flatten": false,
+          "text": "compound modifies noun",
+          "marker": "modifies",
+          "range": {
+            "start": 0,
+            "end": 21
+          },
+          "dead": true,
+          "conceptModifiers": [
+            {
+              "value": "compound",
+              "number": "one",
+              "text": "compound",
+              "marker": "compound",
+              "word": "compound",
+              "range": {
+                "start": 0,
+                "end": 7
+              },
+              "dead": true,
+              "level": 1
+            }
+          ],
+          "concept": {
+            "marker": "noun",
+            "value": "noun",
+            "default": true,
+            "text": "noun",
+            "dead": true,
+            "word": "noun",
+            "range": {
+              "start": 18,
+              "end": 21
+            },
+            "level": 0
+          },
+          "level": 1,
+          "context_index": 1,
+          "topLevel": true,
+          "context_id": 2,
+          "touchedBy": [
+            "concept#call2"
+          ]
+        }
+      ],
+      "generated": [
+        ""
+      ],
+      "paraphrases": [
+        "compound modifies noun"
+      ],
+      "paraphrasesParenthesized": [],
+      "generatedParenthesized": [],
+      "responses": [
+        ""
+      ],
+      "associations": [],
+      "summaries": [
+        {
+          "summaries": [
+            {
+              "operators": [
+                {
+                  "marker": [
+                    "compound",
+                    0
+                  ],
+                  "range": {
+                    "start": 0,
+                    "end": 7
+                  }
+                },
+                {
+                  "marker": [
+                    "modifies",
+                    0
+                  ],
+                  "range": {
+                    "start": 9,
+                    "end": 16
+                  }
+                },
+                {
+                  "marker": [
+                    "noun",
+                    0
+                  ],
+                  "range": {
+                    "start": 18,
+                    "end": 21
+                  }
+                }
+              ],
+              "counter": 1
+            },
+            {
+              "operators": [
+                {
+                  "marker": [
+                    "compound",
+                    1
+                  ],
+                  "range": {
+                    "start": 0,
+                    "end": 7
+                  }
+                },
+                {
+                  "marker": [
+                    "modifies",
+                    0
+                  ],
+                  "range": {
+                    "start": 9,
+                    "end": 16
+                  }
+                },
+                {
+                  "marker": [
+                    "noun",
+                    0
+                  ],
+                  "range": {
+                    "start": 18,
+                    "end": 21
+                  }
+                }
+              ],
+              "counter": 2
+            },
+            {
+              "operators": [
+                {
+                  "marker": [
+                    "modifies",
+                    1
+                  ],
+                  "range": {
+                    "start": 0,
+                    "end": 21
+                  }
+                }
+              ],
+              "counter": 3
+            }
+          ],
+          "length": 1
+        }
+      ],
+      "learned_contextual_priorities": [],
+      "query": "compound modifies noun",
+      "key": {
+        "query": "compound modifies noun"
+      }
+    },
+    {
       "extraConfig": true,
       "operators": [
-        "((!@== isOpenCompound && !@<= punctuation)* [isOpenCompound|is] (@== open_compound))"
+        "((!@== isOpenCompound && !@<= punctuation)* [isOpenCompound|is] (@== open_compound || @== compound_noun))"
       ],
       "bridges": [
         {
@@ -490,7 +686,7 @@
             "is"
           ],
           "semantic": {
-            "where": "/home/dev/code/theprogrammablemind/kms/common/concept.js:162"
+            "where": "/home/dev/code/theprogrammablemind/kms/common/concept.js:163"
           },
           "enhanced_associations": true,
           "check": [
@@ -638,6 +834,96 @@
             }
           ],
           "counter": 4
+        }
+      ],
+      "length": 1
+    },
+    {
+      "summaries": [
+        {
+          "operators": [
+            {
+              "marker": [
+                "compound",
+                0
+              ],
+              "range": {
+                "start": 0,
+                "end": 7
+              }
+            },
+            {
+              "marker": [
+                "modifies",
+                0
+              ],
+              "range": {
+                "start": 9,
+                "end": 16
+              }
+            },
+            {
+              "marker": [
+                "noun",
+                0
+              ],
+              "range": {
+                "start": 18,
+                "end": 21
+              }
+            }
+          ],
+          "counter": 1
+        },
+        {
+          "operators": [
+            {
+              "marker": [
+                "compound",
+                1
+              ],
+              "range": {
+                "start": 0,
+                "end": 7
+              }
+            },
+            {
+              "marker": [
+                "modifies",
+                0
+              ],
+              "range": {
+                "start": 9,
+                "end": 16
+              }
+            },
+            {
+              "marker": [
+                "noun",
+                0
+              ],
+              "range": {
+                "start": 18,
+                "end": 21
+              }
+            }
+          ],
+          "counter": 2
+        },
+        {
+          "operators": [
+            {
+              "marker": [
+                "modifies",
+                1
+              ],
+              "range": {
+                "start": 0,
+                "end": 21
+              }
+            }
+          ],
+          "counter": 3
         }
       ],
       "length": 1
