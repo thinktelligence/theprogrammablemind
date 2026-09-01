@@ -248,12 +248,14 @@ const config = {
         return listable(context, 'hierarchyAble') && context.same && context.same.concept && !context.query
       },
       apply: async (args) => {
-        const {callId, config, objects, km, context, asList, listable} = args
+        const {callId, addWordToDictionary, config, objects, km, context, asList, listable} = args
         const api = km('properties').api
         const oneConcepts = asList(context);
         const twoConcepts = asList(context.same);
         for (const oneConcept of oneConcepts.value) {
           for (const twoConcept of twoConcepts.value) {
+            addWordToDictionary({ ...oneConcept, same: undefined })
+            addWordToDictionary({ ...twoConcept, same: undefined })
             oneConceptId = await api.makeObject({...args, context: oneConcept})
             twoConceptId = await api.makeObject({...args, context: twoConcept})
             api.rememberIsA(oneConceptId, twoConceptId)
