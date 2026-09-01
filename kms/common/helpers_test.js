@@ -296,7 +296,7 @@ describe('removeProp (mutation-only)', () => {
       return k == 'range';
     });
 
-    console.log(JSON.stringify(obj, null, 2))
+    // console.log(JSON.stringify(obj, null, 2))
   });
 });
 

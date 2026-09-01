@@ -1116,22 +1116,22 @@ describe('flattenInPlace', () => {
   it('NEOS23 two_flattens', () => {
     const context = two_flattens
     const actual = getPaths(context)
-    console.dir(actual)
+    // console.dir(actual)
     expect(actual).toStrictEqual([[['value'], ['property', 'value'], ['property', 'theable', 'value']], [['object', 'value']]])
   })
 
   it('NEOS23 with_one_array', () => {
     const context = with_one_array
     const actual = getPaths(context)
-    console.log(JSON.stringify(actual, null, 2))
+    // console.log(JSON.stringify(actual, null, 2))
     expect(actual).toStrictEqual([[['value'], ['objects[0]', 'value']]])
   })
 
   it('NEOS23 with_array', () => {
     const context = with_array
     const actual = getPaths(context)
-    console.log(JSON.stringify(actual, null, 2))
-    console.dir(actual)
+    // console.log(JSON.stringify(actual, null, 2))
+    // console.dir(actual)
     expected = [
       [
         [ 'value' ],
@@ -1149,8 +1149,8 @@ describe('flattenInPlace', () => {
   it('NEOS23 with_array_first_is_not_list', () => {
     const context = with_array_first_is_not_list
     const actual = getPaths(context)
-    console.log(JSON.stringify(actual, null, 2))
-    console.dir(actual)
+    // console.log(JSON.stringify(actual, null, 2))
+    // console.dir(actual)
     expected = [
       [ [ 'value' ] ],
       [ [ 'objects[1]', 'value' ], ],
@@ -1162,8 +1162,8 @@ describe('flattenInPlace', () => {
   it('NEOS23 with_array_first_is_not_list_reverse_order', () => {
     const context = with_array_first_is_not_list_reverse_order
     const actual = getPaths(context)
-    console.log(JSON.stringify(actual, null, 2))
-    console.dir(actual)
+    // console.log(JSON.stringify(actual, null, 2))
+    // console.dir(actual)
     expected = [
       [ [ 'objects[1]', 'value' ], ],
       [ [ 'value' ] ],
@@ -1175,8 +1175,8 @@ describe('flattenInPlace', () => {
   it('NEOS23 has_value_but_is_not_a_list', () => {
     const context = has_value_but_is_not_a_list
     const actual = getPaths(context)
-    console.log(JSON.stringify(actual, null, 2))
-    console.dir(actual)
+    // console.log(JSON.stringify(actual, null, 2))
+    // console.dir(actual)
     expected = [[['value']]]
     expect(actual).toStrictEqual(expected)
   })
@@ -1204,70 +1204,70 @@ describe('flattenInPlace', () => {
   it('NEOS23 not_list', () => {
     const context = not_list
     const actual = flattenInPlace(context)
-    console.log(JSON.stringify(actual, null, 2))
+    // console.log(JSON.stringify(actual, null, 2))
     expect(actual).toStrictEqual(not_list_expected)
   })
 
   it('NEOS23 one list with prop', () => {
     const context = one_list_with_other_prop
     const actual = flattenInPlace(context)
-    console.log(JSON.stringify(actual, null, 2))
+    // console.log(JSON.stringify(actual, null, 2))
     expect(actual).toStrictEqual(one_list_with_other_prop_expected)
   })
 
   it('NEOS23 one list with prop as arrayone_list_with_other_prop_as_array', () => {
     const context = one_list_with_other_prop_as_array
     const actual = flattenInPlace(context)
-    console.log(JSON.stringify(actual, null, 2))
+    // console.log(JSON.stringify(actual, null, 2))
     expect(actual).toStrictEqual(one_list_with_other_prop_as_array_expected)
   })
 
   it('NEOS23 one list with prop containing list', () => {
     const context = one_list_with_other_prop_containing_list
     const actual = flattenInPlace(context)
-    console.log(JSON.stringify(actual, null, 2))
+    // console.log(JSON.stringify(actual, null, 2))
     expect(actual).toStrictEqual(one_list_with_other_prop_containing_list_expected)
   })
 
   it('NEOS23 two flattens', () => {
     const context = two_flattens
     const actual = flattenInPlace(context)
-    console.log(JSON.stringify(actual, null, 2))
+    // console.log(JSON.stringify(actual, null, 2))
     expect(actual).toStrictEqual(two_flattens_expected )
   })
 
   it('NEOS23 with one array', () => {
     const context = with_one_array
     const actual = flattenInPlace(context)
-    console.log(JSON.stringify(actual, null, 2))
+    // console.log(JSON.stringify(actual, null, 2))
     expect(actual).toStrictEqual(with_one_array_expected )
   })
 
   it('NEOS23 with array', () => {
     const context = with_array
     const actual = flattenInPlace(context)
-    console.log(JSON.stringify(actual, null, 2))
+    // console.log(JSON.stringify(actual, null, 2))
     expect(actual).toStrictEqual(with_array_expected )
   })
 
   it('NEOS23 with_array_reverse_order', () => {
     const context = with_array_reverse_order
     const actual = flattenInPlace(context)
-    console.log(JSON.stringify(actual, null, 2))
+    // console.log(JSON.stringify(actual, null, 2))
     expect(actual).toStrictEqual(with_array_reverse_order_expected )
   })
 
   it('NEO23 with_array_first_is_not_list_reverse_order', () => {
     const context = with_array_first_is_not_list_reverse_order
     const actual = flattenInPlace(context)
-    console.log(JSON.stringify(actual, null, 2))
+    // console.log(JSON.stringify(actual, null, 2))
     expect(actual).toStrictEqual(with_array_first_is_not_list_reverse_order_expected)
   })
 
   it('NEOS23 not_list', () => {
     const context = not_list
     const actual = flattenInPlace(context)
-    console.log(JSON.stringify(actual, null, 2))
+    // console.log(JSON.stringify(actual, null, 2))
     expect(actual).toStrictEqual(not_list_expected)
   })
 })

@@ -15,6 +15,7 @@ describe('words km', () => {
         id: 'be',
         value: 'be',
         text: 'be',
+        word: 'be',
         tense: 'infinitive',
       }
       addWordToDictionary(word)
@@ -29,6 +30,7 @@ describe('words km', () => {
         id: 'be',
         value: 'be',
         text: 'be',
+        word: 'be',
         tense: 'infinitive',
       }
       addWordToDictionary(word)
@@ -37,12 +39,13 @@ describe('words km', () => {
     })
   })
 
-  test('finds first', async () => {
+  test('NEO23 finds first', async () => {
     await km.run(({addWordToDictionary, getWordFromDictionary, config}) => {
       const word = {
         id: 'be',
         value: 'be',
         text: 'be',
+        word: 'be',
         tense: 'infinitive',
       }
       addWordToDictionary(word)
