@@ -13,7 +13,7 @@ describe('numbers km', () => {
     await km.run(async ({fragments, gp}) => {
       const fragment = await fragments("10.2345")
       const context = fragment.contexts()[0]
-      console.log(JSON.stringify(context, null, 2))
+      // console.log(JSON.stringify(context, null, 2))
       const actual = await gp(context)
       const expected = '10.2345'
       expect(actual).toBe(expected)
@@ -24,7 +24,7 @@ describe('numbers km', () => {
     await km.run(async ({fragments, gp}) => {
       const fragment = await fragments("10.2345")
       const context = fragment.contexts()[0]
-      console.log(JSON.stringify(context, null, 2))
+      // console.log(JSON.stringify(context, null, 2))
       context.roundTo = 0
       const actual = await gp(context)
       const expected = '10'
@@ -36,7 +36,7 @@ describe('numbers km', () => {
     await km.run(async ({fragments, gp}) => {
       const fragment = await fragments("10.2345")
       const context = fragment.contexts()[0]
-      console.log(JSON.stringify(context, null, 2))
+      // console.log(JSON.stringify(context, null, 2))
       context.roundTo = 2
       const actual = await gp(context)
       const expected = '10.23'

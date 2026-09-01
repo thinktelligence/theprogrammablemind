@@ -293,11 +293,10 @@ describe('removeProp (mutation-only)', () => {
     }
 
     helpers.removeProp(obj, (v, k, p) => {
-      console.log(`greg55: ${v}, ${k}, ${p}`)
       return k == 'range';
     });
 
-    console.log(JSON.stringify(obj, null, 2))
+    // console.log(JSON.stringify(obj, null, 2))
   });
 });
 

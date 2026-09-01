@@ -77,7 +77,6 @@ function query(missing, reminder_id) {
     },
     applyr: async ({ context, api, gp, gsp }) => {
       if (context.marker == 'remindResponseOnly') {
-        console.log(JSON.stringify(context, null, 2))
         let text;
         if (context.reminder) {
           text = await gsp(context.reminder.slice(0));

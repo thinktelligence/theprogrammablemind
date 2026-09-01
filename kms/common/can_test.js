@@ -13,11 +13,11 @@ describe('can km', () => {
     await km.run(async ({fragments, s, gp, addWordToDictionary, getWordFromDictionary, config}) => {
       const fragment = await fragments("cansubject can canverb canobject")
       const context = fragment.contexts()[0]
-      console.log(JSON.stringify(context, null, 2))
+      // console.log(JSON.stringify(context, null, 2))
       const contextPrime = await s({ ...context, toVoice: 'passive', flatten: false })
       const text = await gp(contextPrime)
-      console.log(JSON.stringify(contextPrime.interpolate, null, 2))
-      console.log(text)
+      // console.log(JSON.stringify(contextPrime.interpolate, null, 2))
+      // console.log(text)
       const expected = 'canobject can be canverbed by cansubject'
       expect(text).toBe(expected)
     })
@@ -28,10 +28,10 @@ describe('can km', () => {
       const fragment = await fragments("canobject can be canverb by cansubject")
       const context = fragment.contexts()[0]
       const contextPrime = await s({ ...context, toVoice: 'active', flatten: false }) // , { debug: { apply: true } })
-      console.log(JSON.stringify(contextPrime, null, 2))
+      // console.log(JSON.stringify(contextPrime, null, 2))
       const text = await gp(contextPrime)
-      console.log(JSON.stringify(contextPrime.interpolate, null, 2))
-      console.log(text)
+      // console.log(JSON.stringify(contextPrime.interpolate, null, 2))
+      // console.log(text)
       const expected = "cansubject can canverb canobject"
       expect(text).toBe(expected)
     })
@@ -46,10 +46,10 @@ describe('can km', () => {
       
       const context = helpers.concats([contextPassive, contextActive])
       const contextPrime = await s({ ...context, toVoice: 'passive', flatten: false }) // , { debug: { apply: true } })
-      console.log(JSON.stringify(contextPrime, null, 2))
+      // console.log(JSON.stringify(contextPrime, null, 2))
       const text = await gp(contextPrime)
-      console.log(JSON.stringify(contextPrime.interpolate, null, 2))
-      console.log(text)
+      // console.log(JSON.stringify(contextPrime.interpolate, null, 2))
+      // console.log(text)
       const expected = "canobject can be canverbs by cansubject and canobject can be canverbed by cansubject"
       expect(text).toBe(expected)
     })
@@ -64,10 +64,10 @@ describe('can km', () => {
       
       const context = helpers.concats([contextPassive, contextActive])
       const contextPrime = await s({ ...context, toVoice: 'active', flatten: false }) // , { debug: { apply: true } })
-      console.log(JSON.stringify(contextPrime, null, 2))
+      // console.log(JSON.stringify(contextPrime, null, 2))
       const text = await gp(contextPrime)
-      console.log(JSON.stringify(contextPrime.interpolate, null, 2))
-      console.log(text)
+      // console.log(JSON.stringify(contextPrime.interpolate, null, 2))
+      // console.log(text)
       const expected = "cansubject can canverb canobject and cansubject can canverb canobject"
       expect(text).toBe(expected)
     })
