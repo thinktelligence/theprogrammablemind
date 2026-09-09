@@ -694,7 +694,6 @@ const config = {
           let currentValue = await toValue(currentContext)
           while (toDo.length > 0) {
             const nextContext = toDo.pop()
-            debugger
             const nextValue = await toValue(nextContext)
             if (!nextValue) {
               // TODO maybe this I aware so it can say "I don't know about blah..." and below
@@ -714,7 +713,7 @@ const config = {
 
             let fromMentions
             if (!await api.knownProperty(currentContext, nextContext)) {
-              if (false && hierarchy.isA(nextValue, 'property_type')) {
+              if (hierarchy.isA(nextValue, 'property_type')) {
                 const types = hierarchy.froms(nextValue)
                 for (const type of types) {
                   if (isA(currentContext, type)) {
@@ -783,7 +782,19 @@ const template = {
     "property is a concept",
     { query: "concept is a property", isFragment: true },
     config,
-    "property type is an compound noun",
+    // "property type is an compound noun",
+    {
+      operators: [
+        "([property_type|])",
+      ],
+      bridges: [
+        {
+          id: 'property_type',
+          isA: ['theAble'],
+          words: words('property type')
+        },
+      ],
+    },
   ],
 }
 
