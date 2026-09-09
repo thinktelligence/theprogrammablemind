@@ -1088,3 +1088,6 @@ node askfor -q 'ask for the gender of bob and alice\nmale and female\nwhat is th
 node askfor -q "ask for the gender and birth date of bob and alice\nmale\nmar 31 1945\nwhat is the information" -g -d
 alices is female in the middle
 node askfor -q "ask for the gender and birth date of bob and alice\nmale\nalice is female\nmar 31 1945\nwhat is the information" -g -d
+
+# brief interluse then back to askfor
+node wp -q "bold the second letter of the third word" -g -d

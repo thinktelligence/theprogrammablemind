@@ -243,6 +243,7 @@ template = {
       ],
       associations: {
         positive: [
+          { context: [["style_wp", 0], ["the", 0], ["letter_wp", 0], ["statefulElementInContext_wp", 0], ["the", 0], ["ordinal", 1], ["word_wp", 0]], choose: { index: 0, increment: true } },
           { context: [["style_wp", 0], ["the", 0], ["letter_wp", 0], ["statefulElementInContext_wp", 0], ["the", 0], ["ordinal", 1], ["paragraph_wp", 0]], choose: { index: 0, increment: true } },
 
           { context: [["style_wp", 0], ["the", 0], ["ordinal", 0], ["word_wp", 0], ["statefulElementInContext_wp", 0], ["the", 0], ["ordinal", 0], ["list", 0], ["ordinal", 0], ["paragraph_wp", 0]], choose: { index: 0, increment: true } },
@@ -502,7 +503,7 @@ knowledgeModule({
     checks: {
       context: [defaultContextCheck({ extra: ['distributer', 'subject', 'element', 'letters', 'target', 'conditions' ] })], 
       objects: [
-        'changeState', 
+        { property: 'changeState', all: true },
         { km: 'ui' },
       ],
     },
