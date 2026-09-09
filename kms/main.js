@@ -3,6 +3,7 @@ const actions = require('./common/actions')
 const angle = require('./common/angle')
 const animals = require('./common/animals')
 const articles = require('./common/articles')
+const askfor = require('./common/askfor')
 const asking = require('./common/asking')
 const avatar = require('./common/avatar')
 const can = require('./common/can')
@@ -82,6 +83,7 @@ module.exports = {
   angle,
   animals,
   articles,
+  askfor,
   asking,
   avatar,
   can,
