@@ -3,6 +3,7 @@ const { interpolate } = require('./helpers/gdefaults')
 const { defaultContextCheck, getValue, isMany } = require('./helpers')
 const { debug, knowledgeModule, where, flatten } = require('./runtime').theprogrammablemind
 const tokenize = require('./tokenize.js')
+const debugKM = require('./debug.js')
 const words = require('./words.js')
 const gdefaults_tests = require('./gdefaults.test.json')
 const englishHelpers = require('./english_helpers.js')
@@ -333,7 +334,7 @@ function initializer({config}) {
 
 knowledgeModule({ 
   config,
-  includes: [tokenize, words],
+  includes: [tokenize, words, debugKM],
   initializer,
 
   module,

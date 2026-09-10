@@ -59,6 +59,16 @@ function listable(hierarchy) {
 }
 
 function isA(hierarchy) {
+  const getId = (context) => {
+    if (typeof context === 'string') {
+      return context
+    }
+    if (context.marker === 'unknown') {
+      return context.value
+    }
+    return context.marker
+  }
+
   return (child, parent, { strict=false } = {}) => {
     const oneToOne = (child, parent) => {
       if (!child || !parent) {
@@ -77,7 +87,7 @@ function isA(hierarchy) {
         const children = propertyToArray(child)
         for (const child of children) {
           let okay = false
-          if (hierarchy.isA(child.marker || child, parent.marker || parent)) {
+          if (hierarchy.isA(getId(child), getId(parent))) {
             okay = true
           } else {
             for (const childT of child.types || [child]) {

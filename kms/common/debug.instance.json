@@ -1,0 +1,35 @@
+{
+  "configs": [
+    {
+      "operators": [
+        "([setdebugbreak])"
+      ],
+      "bridges": [
+        {
+          "id": "setdebugbreak",
+          "bridge": "{\n            ...next(operator),\n            tag: after[0]\n          }",
+          "semantic": "({context, debug}) => {\n            debugger\n            debug.hit(context.tag.word)\n          }"
+        }
+      ]
+    }
+  ],
+  "resultss": [
+    {
+      "extraConfig": true,
+      "operators": [
+        "([setdebugbreak])"
+      ],
+      "bridges": [
+        {
+          "id": "setdebugbreak",
+          "bridge": "{\n            ...next(operator),\n            tag: after[0]\n          }"
+        }
+      ]
+    }
+  ],
+  "fragments": [],
+  "semantics": [],
+  "associations": [],
+  "summaries": [],
+  "learned_contextual_priorities": []
+}
