@@ -11,9 +11,24 @@
     {
       "operators": [
         "([askfor_askfor|] ([for_askfor|] (@<= concept)))",
-        "([information])"
+        "([information])",
+        "(([known]) [knownAbout|about] (*))"
       ],
       "bridges": [
+        {
+          "id": "knownAbout",
+          "isA": [
+            "preposition"
+          ],
+          "bridge": "{\n            ...before[0],\n            subjects: append(after[0].subjects, after),\n            known: before[0],\n            about: operator,\n            interpolate: '${known} ${about} ${subjects}'\n          }"
+        },
+        {
+          "id": "known",
+          "isA": [
+            "queryable"
+          ],
+          "evaluator": "async ({context, e, callId, toList, flatten, toEValue, resolveEvaluate, objects}) => {\n            debugger\n          }"
+        },
         {
           "id": "information",
           "isA": [
@@ -851,9 +866,23 @@
       "extraConfig": true,
       "operators": [
         "([askfor_askfor|] ([for_askfor|] (@<= concept)))",
-        "([information])"
+        "([information])",
+        "(([known]) [knownAbout|about] (*))"
       ],
       "bridges": [
+        {
+          "id": "knownAbout",
+          "isA": [
+            "preposition"
+          ],
+          "bridge": "{\n            ...before[0],\n            subjects: append(after[0].subjects, after),\n            known: before[0],\n            about: operator,\n            interpolate: '${known} ${about} ${subjects}'\n          }"
+        },
+        {
+          "id": "known",
+          "isA": [
+            "queryable"
+          ]
+        },
         {
           "id": "information",
           "isA": [

@@ -673,7 +673,7 @@ const config = {
         return (toArray(context).every((value) => hierarchy.isA(value.marker, 'property')) || (hierarchy.isA(context.marker, 'list') && context.possession)) && context.evaluate && context.objects && !context.evaluate.toConcept
       },
       // match: ({context, hierarchy}) => hierarchy.isA(context.marker, 'property') && context.evaluate,
-      apply: async ({debug, isA, hierarchy, getWordFromDictionary, flatten, asList, context, api, kms, objects, g, s, log, recall}) => {
+      apply: async ({debug, isA, hierarchy, getWordFromDictionary, flatten, asList, context, api, kms, objects, g, gp, s, log, recall}) => {
         async function toValue(objectContext) {
           if (!objectContext.value) {
             return objectContext;
@@ -725,7 +725,11 @@ const config = {
                 fromMentions = await recall({ context: nextContext, all: nextContext.number == 'many', frameOfReference: currentContext })
               }
               if (!fromMentions) {
-                context.verbatim = `There is no property ${await g({...nextContext, paraphrase: true})} of ${await g({...currentContext, paraphrase: true})}`
+                if (!currentValue && currentContext.unknown) {
+                  context.verbatim = `What "${await gp(currentContext)}" means is unknown`
+                } else {
+                  context.verbatim = `There is no property ${await g({...nextContext, paraphrase: true})} of ${await g({...currentContext, paraphrase: true})}`
+                }
                 return
               }
             }
@@ -745,6 +749,7 @@ const config = {
         const results = []
         for (const toDo of toDos) {
           const one = await processOne(toDo)
+          debugger
           if (one) {
             results.push(one)
           }

@@ -77,16 +77,13 @@ const config = {
 
     {
       where: where(),
-      // match: ({context}) => context.evalue && !context.paraphrase,
       match: ({context, callId}) => context.evalue && !context.paraphrase,
-      // match: ({context}) => context.evalue && context.isResponse,
       apply: async ({context, g}) => await g(context.evalue)
     },
 
     {
       where: where(),
       //({context}) => context.paraphrase && context.modifiers,
-      // match: ({context}) => context.paraphrase && (context.modifiers || context.postModifiers),
       match: ({context}) => (context.modifiers || context.postModifiers),
       apply: async ({context, g, gs, callId}) => {
         const text = []
@@ -158,7 +155,6 @@ const config = {
     {
       where: where(),
       priority: -1,
-      // match: ({context}) => context.evaluateWord && context.isVerb && context.paraphrase && context.word && context.number == 'one' && !context.imperative && !context.interpolate,
       match: ({context}) => context.evaluateWord && context.isVerb && context.paraphrase && context.word && !context.imperative && !context.interpolate,
       apply: ({context}) => {
         const infinitive = englishHelpers.getInfinitive(context.word)
@@ -176,18 +172,6 @@ const config = {
       },
     },
 
-/*
-    {
-      where: where(),
-      priority: -1,
-      match: ({context}) => context.evaluateWord && context.isVerb && context.paraphrase && context.word && context.number == 'many' && !context.imperative && !context.interpolate,
-      apply: ({context}) => {
-        const infinitive = englishHelpers.getInfinitive(context.word)
-        const cases = englishHelpers.conjugateVerb(infinitive)
-        return pluralize.singular(context.word)
-      },
-    },
-*/
     {
       where: where(),
       priority: -1,
@@ -229,7 +213,6 @@ const config = {
 
     {
       where: where(),
-      // match: ({context}) => context.paraphrase && context.word && context.number == 'one',
       match: ({context}) => context.word !== null && context.number == 'one',
       apply: ({context}) => {
         return pluralize.singular(context.word)
@@ -238,9 +221,6 @@ const config = {
 
     {
       where: where(),
-      // match: ({context}) => context.paraphrase && context.word,
-      // match: ({context}) => context.word && !context.value,
-      //match: ({context}) => context.word && typeof context.value == 'string',
       match: ({context}) => (context.paraphrase || typeof context.value == 'string') && context.word,
       apply: ({context}) => `${context.word}` 
     },
@@ -255,6 +235,12 @@ const config = {
       where: where(),
       match: ({context}) => context.value != null && Array.isArray(context.value),
       apply: async ({context, gs}) => await gs(context.value)
+    },
+
+    {
+      where: where(),
+      match: ({context, namespaced}) => context.marker == 'labelledValue' && context.useColon,
+      apply: async ({context, g, debug, callId, gp}) => `${await gp(context.label)}: ${await g(context.value, { assumed: { brief: true } })}`
     },
 
     {

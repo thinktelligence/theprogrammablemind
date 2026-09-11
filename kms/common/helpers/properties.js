@@ -814,7 +814,9 @@ class API {
       const values = []
       for (const key of Object.keys(objectProps)) {
         if (objectProps[key].has) {
-          values.push(`${await g(key)}: ${await g({ ...objectProps[key].value, paraphrase: true })}`)
+          debugger
+          values.push({ marker: 'labelledValue', label: key, value: objectProps[key].value, useColon: true })
+          // values.push(`${await g(key)}: ${await g({ ...objectProps[key].value, paraphrase: true })}`)
         }
       }
       return { marker: 'list', listable: true, value: values }

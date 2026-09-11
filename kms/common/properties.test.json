@@ -49853,155 +49853,31 @@
   },
   {
     "associations": [
-      [
-        [
-          "is",
-          0
-        ],
-        [
-          "property",
-          0
-        ]
-      ],
-      [
-        [
-          "is",
-          0
-        ],
-        [
-          "property",
-          0
-        ],
-        [
-          "propertyOf",
-          0
-        ],
-        [
-          "the",
-          0
-        ],
-        [
-          "unknown",
-          0
-        ]
-      ],
-      [
-        [
-          "is",
-          0
-        ],
-        [
-          "property",
-          0
-        ],
-        [
-          "propertyOf",
-          0
-        ],
-        [
-          "the",
-          0
-        ],
-        [
-          "unknown",
-          0
-        ],
-        [
-          "what",
-          0
-        ]
-      ],
-      [
-        [
-          "is",
-          0
-        ],
-        [
-          "property",
-          0
-        ],
-        [
-          "propertyOf",
-          0
-        ],
-        [
-          "unknown",
-          0
-        ]
-      ],
-      [
-        [
-          "is",
-          0
-        ],
-        [
-          "property",
-          0
-        ],
-        [
-          "propertyOf",
-          1
-        ]
-      ],
-      [
-        [
-          "is",
-          0
-        ],
-        [
-          "property",
-          0
-        ],
-        [
-          "unknown",
-          0
-        ]
-      ],
-      [
-        [
-          "is",
-          0
-        ],
-        [
-          "propertyOf",
-          0
-        ],
-        [
-          "the",
-          0
-        ],
-        [
-          "unknown",
-          0
-        ]
-      ],
-      [
-        [
-          "is",
-          0
-        ],
-        [
-          "propertyOf",
-          0
-        ],
-        [
-          "unknown",
-          0
-        ]
-      ],
-      [
-        [
-          "propertyOf",
-          1
-        ],
-        [
-          "unknown",
-          0
-        ]
-      ]
     ],
     "config": {
       "bridges": [
+        {
+          "id": "property_type",
+          "isA": [
+            "theAble"
+          ],
+          "level": 0,
+          "words": [
+            {
+              "number": "one",
+              "word": "property type"
+            },
+            {
+              "number": "many",
+              "word": "property types"
+            }
+          ]
+        },
+        {
+          "bridge": "{ ...after[0], query: ['what'], how: operator, operator: after[0], interpolate: [ { property: 'how' }, { property: 'operator' } ] }",
+          "id": "howPropertyMarker",
+          "level": 0
+        },
         {
           "bridge": "{ ...operator, object: before[0], flatten: true, operator: operator, propertyValue: after[0], interpolate: [{ property: 'object' }, { property: 'operator' }, { property: 'propertyValue' }] }",
           "enhanced_associations": true,
@@ -50041,6 +49917,7 @@
         },
         {
           "bridge": "{ ...next(operator), arguments: after[0] }",
+          "enhanced_associations": false,
           "id": "between",
           "isA": [
             "preposition"
@@ -50127,7 +50004,7 @@
           "level": 0
         },
         {
-          "bridge": "{ ...next(operator), possession: true, object: before[0], objects: before }",
+          "bridge": "{ \n        ...next(operator), \n        possession: true, \n        objects: before \n      }",
           "id": "possession",
           "inverted": true,
           "level": 0,
@@ -50151,7 +50028,7 @@
           ]
         },
         {
-          "bridge": "{ ...after[0], object: operator.object, possession: true, objects: append(default(after[0].objects, after), operator.objects), marker: after.marker, types: append(after[0].types, ['property']) }",
+          "bridge": "{ ...after[0], possession: true, objects: append(default(after[0].objects, after), operator.objects), marker: after.marker, types: append(after[0].types, ['property']) }",
           "id": "possession",
           "inverted": true,
           "level": 1,
@@ -50175,7 +50052,7 @@
           ]
         },
         {
-          "bridge": "{ \n        ...next(operator), \n        ofWord: operator,\n        object: after[0], \n        objects: after \n      }",
+          "bridge": "{ \n        ...next(operator), \n        ofWord: operator,\n        objects: after \n      }",
           "id": "propertyOf",
           "isA": [
             "preposition"
@@ -50201,7 +50078,7 @@
           ]
         },
         {
-          "bridge": "{ \n        ...before[0], \n        propertyOf: true, \n        interpolate: [ { property: 'property' }, { word: 'of' }, { property: 'object' } ],\n        property: before[0],\n        object: operator.object, \n        objects: append(default(before[0].objects, before), operator.objects) \n      }",
+          "bridge": "{ \n        ...before[0], \n        propertyOf: true, \n        interpolate: [ { values: 'objects', separator: 'of', each: true } ],\n        flattenInPlace: [['object', 'objects[1]'], ['value', 'theable', 'objects[0]'] ],\n        objects: append(default(before[0].objects, before), operator.objects) \n      }",
           "id": "propertyOf",
           "level": 1,
           "localHierarchy": [
@@ -50228,7 +50105,7 @@
           "level": 0
         },
         {
-          "bridge": "{ ...after[0], object: operator, isProperty: true, objects: [after[0], operator] }",
+          "bridge": "{ ...after[0], isProperty: true, objects: [after[0], operator] }",
           "id": "objectPrefix",
           "level": 0,
           "localHierarchy": [
@@ -50245,6 +50122,37 @@
               "unknown"
             ]
           ]
+        },
+        {
+          "bridge": "{\n            ...operator,\n            phrase: before[0],\n            verb: operator,\n            openCompound: after[0],\n            interpolate: [ { property: 'phrase' }, { property: 'verb' }, { property: 'openCompound' } ]\n          }",
+          "check": [
+            "marker",
+            "text",
+            "verbatim",
+            "value",
+            "evalue",
+            "isResponse",
+            {
+              "properties": "modifiers"
+            },
+            {
+              "properties": "postModifiers"
+            },
+            "phrase",
+            "openCompound"
+          ],
+          "enhanced_associations": true,
+          "id": "isOpenCompound",
+          "isA": [
+            "verb"
+          ],
+          "level": 0,
+          "preferOver": [
+            "is"
+          ],
+          "semantic": {
+            "where": "/home/dev/code/theprogrammablemind/kms/common/concept.js:163"
+          }
         },
         {
           "bridge": "{ ...next(operator), conceptModifiers: before[0], concept: after[0] }",
@@ -50264,6 +50172,7 @@
             "concept",
             "conceptModifiers"
           ],
+          "enhanced_associations": false,
           "id": "modifies",
           "isA": [
             "verb"
@@ -50271,7 +50180,7 @@
           "level": 0,
           "semantic": {
             "notes": "define a modifier",
-            "where": "/home/dev/code/theprogrammablemind/kms/common/concept.js:33"
+            "where": "/home/dev/code/theprogrammablemind/kms/common/concept.js:34"
           },
           "words": [
             {
@@ -50299,7 +50208,7 @@
           "before": [
             "verb"
           ],
-          "bridge": "\n      { \n        ...after[0], \n        verb: after[0], \n        that: operator, \n        generate: ['that', 'verb'], \n        localPriorities: { actLike: [\"subordinatedVerb\", 0] }, \n        bridge_override: { \n          operator: after[0].marker, \n          bridge: '{ \n            ...bridge.subject, \n            postModifiers: [\"conditions\"], \n            modifiers: [], \n            generate: concatm(\"thatClause.\", bridge.generate), \n            thatClause: bridge, \n            conditions: append(bridge.subject.conditions, [bridge]) \n          }' \n        } \n      }",
+          "bridge": "\n      { \n        ...after[0], \n        verb: after[0], \n        that: operator, \n        interpolate: [ { property: 'that' }, { property: 'verb' }], \n        localPriorities: { actLike: [\"subordinatedVerb\", 0] }, \n        bridge_override: { \n          operator: after[0].marker, \n          bridge: '{ \n            ...bridge.subject, \n            postModifiers: [\"conditions\"], \n            modifiers: [], \n            interpolate: map(bridge.interpolate, { inside: \"thatClause\", value: element }), \n            thatClause: bridge, \n            conditions: append(bridge.subject.conditions, [bridge]) \n          }' \n        } \n      }",
           "id": "thatVerb",
           "level": 0
         },
@@ -50319,11 +50228,13 @@
         },
         {
           "bridge": "{ ...next(operator), object: after[0] }",
+          "enhanced_associations": false,
           "id": "makeObject",
           "level": 0
         },
         {
           "bridge": "{ ...next(operator), suffix: after[0] }",
+          "enhanced_associations": false,
           "id": "setIdSuffix",
           "level": 0
         },
@@ -50366,7 +50277,7 @@
             "preposition"
           ],
           "level": 0,
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:161"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:154"
         },
         {
           "id": "toAble",
@@ -50459,7 +50370,7 @@
           ]
         },
         {
-          "bridge": "{ ...operator, marker: operator('is', 1), one: after[0], two: after[1], query: true, generate: [operator, 'one', 'two'] }",
+          "bridge": "{ ...operator, marker: operator('is', 1), one: after[0], two: after[1], query: true, interpolate: [ { context: operator }, { property: 'one' }, { property: 'two' }] }",
           "id": "isQuery",
           "isA": [
             "verb"
@@ -50581,6 +50492,7 @@
         },
         {
           "bridge": "{ ...next(operator), from: before[0], to: after[0] }",
+          "enhanced_associations": false,
           "id": "means",
           "level": 0
         },
@@ -50603,7 +50515,8 @@
           "level": 0
         },
         {
-          "bridge": "{ ...next(operator), listable: true, isList: true, value: append(before, after) }",
+          "bridge": "{ ...next(operator), flattenInPlaceRemove: ['types', 'listable', 'isList', 'value'], flattenInPlace: [['value']], listable: true, isList: true, value: append(before, after) }",
+          "enhanced_associations": false,
           "id": "list",
           "level": 0,
           "selector": {
@@ -50623,16 +50536,19 @@
         },
         {
           "bridge": "{ ...operator, value: append(before, operator.value) }",
+          "enhanced_associations": false,
           "id": "list",
           "level": 1,
           "selector": {
             "left": [
               {
-                "pattern": "($type && context.instance == variables.instance && context.dead == variables.dead)"
+                "pattern": "($type && context.instance == variables.instance && context.dead == variables.dead && contexts[0] !@<= contexts[-1].notConjunctableWith)"
               }
             ],
             "match": "same",
             "passthrough": true
+          },
+          "semantic": {
           }
         },
         {
@@ -50724,6 +50640,7 @@
             "verb"
           ],
           "bridge": "{ ...next(operator), postModifiers: ['value'], value: after[0] }",
+          "enhanced_associations": false,
           "id": "evaluate",
           "level": 0,
           "where": "/home/dev/code/theprogrammablemind/kms/common/evaluate.js:23"
@@ -50733,7 +50650,7 @@
           "level": 0
         },
         {
-          "bridge": "{ ...after[0], focusableForPhrase: true, pullFromContext: true, concept: true, wantsValue: true, distributer: operator, modifiers: append([\"distributer\"], after[0].modifiers)}",
+          "bridge": "{ \n        ...after[0], \n        focusableForPhrase: true, \n        pullFromContext: true, \n        concept: true, \n        wantsValue: true, \n        distributer: operator, \n        eachArgument: after[0],\n        flatten_ignore: ['eachArgument'],\n        interpolate: [ { property: 'distributer' }, { property: 'eachArgument' } ],\n        modifiers: append([\"distributer\"], after[0].modifiers)\n      }",
           "id": "each",
           "isA": [
             "article"
@@ -50741,7 +50658,7 @@
           "level": 0
         },
         {
-          "bridge": "{ ...after[0], focusableForPhrase: true, pullFromContext: true, concept: true, wantsValue: true, distributer: operator, modifiers: append([\"distributer\"], after[0].modifiers)}",
+          "bridge": "{ \n        ...after[0], \n        focusableForPhrase: true, \n        pullFromContext: true, \n        concept: true, \n        wantsValue: true, \n        distributer: operator, \n        everyArgument: after[0],\n        flatten_ignore: ['everyArgument'],\n        interpolate: [ { property: \"distributer\" }, { property: 'everyArgument' } ],\n        modifiers: append([\"distributer\"], after[0].modifiers)\n      }",
           "id": "every",
           "isA": [
             "article"
@@ -50756,7 +50673,7 @@
           "level": 0
         },
         {
-          "bridge": "{ \n                  ...after[0], \n                  focusableForPhrase: true, \n                  pullFromContext: true, \n                  concept: true, \n                  wantsValue: true, \n                  checks: append(after[0].checks, ['determiner']),\n                  determiner: operator, \n                  theable: after[0],\n                  interpolate: [ { property: 'determiner' }, { property: 'theable' } ]\n               }",
+          "bridge": "{ \n                  ...after[0], \n                  focusableForPhrase: true, \n                  pullFromContext: true, \n                  concept: true, \n                  wantsValue: true, \n                  checks: append(after[0].checks, ['determiner']),\n                  determiner: operator, \n                  theable: after[0],\n                  flattenInPlace: [['value', 'theable']],\n                  flatten_ignore: ['theable'],\n                  interpolate: [{ property: 'determiner' }, { property: 'theable' }]\n               }",
           "check": [
             "marker",
             "text",
@@ -50784,7 +50701,7 @@
           ]
         },
         {
-          "bridge": "{ ...after[0], pullFromContext: false, concept: true, number: 'one', wantsValue: true, determiner: operator, modifiers: append(['determiner'], after[0].modifiers) }",
+          "bridge": "{ \n        ...after[0], \n        pullFromContext: false, \n        concept: true, \n        number: 'one', \n        wantsValue: true, \n        determiner: operator, \n        modifiers: append(['determiner'], \n        after[0].modifiers) }\n      ",
           "id": "a",
           "isA": [
             "article"
@@ -50918,10 +50835,6 @@
           "level": 0
         },
         {
-          "id": "punctuation",
-          "level": 0
-        },
-        {
           "before": [
             "ingVerb",
             "subordinatedVerb"
@@ -50930,8 +50843,16 @@
           "level": 0
         },
         {
+          "id": "punctuation",
+          "level": 0
+        },
+        {
           "bridge": "{ ...before[0], decorators.after: operator, no_convolutions: true }",
+          "enhanced_associations": false,
           "id": "comma",
+          "isA": [
+            "punctuation"
+          ],
           "level": 0,
           "skipable": true,
           "words": [
@@ -50944,6 +50865,7 @@
         },
         {
           "bridge": "{ ...after[0], parenthesis: '(' }",
+          "enhanced_associations": false,
           "id": "leftParenthesis",
           "level": 0,
           "skipable": true,
@@ -50957,6 +50879,7 @@
         },
         {
           "bridge": "{ ...next(operator) }",
+          "enhanced_associations": false,
           "id": "rightParenthesis",
           "level": 0,
           "skipable": true,
@@ -50977,6 +50900,7 @@
         },
         {
           "bridge": "{ ...before, postModifiers: append(before.postModifiers, ['endOfSentence']), endOfSentence: operator }",
+          "enhanced_associations": false,
           "id": "endOfSentence",
           "level": 0,
           "words": [
@@ -50985,6 +50909,7 @@
         },
         {
           "bridge": "{ ...next(operator), quote: 'double' }",
+          "enhanced_associations": false,
           "id": "doubleQuote",
           "level": 0,
           "words": [
@@ -50995,6 +50920,11 @@
           ]
         },
         {
+          "bridge": "{\n            ...next(operator),\n            tag: after[0]\n          }",
+          "id": "setdebugbreak",
+          "level": 0
+        },
+        {
           "bridge": "{ ...operator, unknown: true, dead: true }",
           "id": "unknown",
           "level": 0
@@ -51002,6 +50932,72 @@
         {
           "id": "listable",
           "level": 0
+        },
+        {
+          "allowDups": true,
+          "bridge": "{ ...next(operator) }",
+          "id": "compound_modifier",
+          "level": 0
+        },
+        {
+          "allowDups": true,
+          "bridge": "{ ...next(operator), value: or(operator.value, 'open') }",
+          "id": "open",
+          "level": 0
+        },
+        {
+          "allowDups": true,
+          "bridge": "{ ...next(operator), value: 'compound' }",
+          "id": "compound",
+          "level": 0
+        },
+        {
+          "allowDups": true,
+          "associator_return_type": [
+            "open_compound",
+            0
+          ],
+          "before": [
+            "verb"
+          ],
+          "bridge": "{ \n        ...after[0], \n        'modifier_open': before[0], \n        atomic: true, \n        dead: true, \n        compatible_types: ['compound'],\n        marker: operator('open_compound'), \n        value: 'open_compound', \n        modifiers: append(['modifier_open'], after[0].modifiers)\n      }",
+          "convolution": true,
+          "id": "open_compound",
+          "isA": [
+            {
+              "instance": true,
+              "parent": "adjective"
+            }
+          ],
+          "level": 0,
+          "useForArgumentInference": false
+        },
+        {
+          "allowDups": true,
+          "bridge": "{ ...next(operator) }",
+          "id": "noun_modifier",
+          "level": 0
+        },
+        {
+          "allowDups": true,
+          "associator_return_type": [
+            "compound_noun",
+            0
+          ],
+          "before": [
+            "verb"
+          ],
+          "bridge": "{ \n        ...after[0], \n        'modifier_compound': before[0], \n        atomic: true, \n        dead: true, \n        compatible_types: ['noun'],\n        marker: operator('compound_noun'), \n        value: 'compound_noun', \n        modifiers: append(['modifier_compound'], after[0].modifiers)\n      }",
+          "convolution": true,
+          "id": "compound_noun",
+          "isA": [
+            {
+              "instance": true,
+              "parent": "adjective"
+            }
+          ],
+          "level": 0,
+          "useForArgumentInference": false
         },
         {
           "allowDups": true,
@@ -51045,6 +51041,9 @@
           "pattern": "([\"greg\"|])"
         },
         {
+          "pattern": "([property_type|])"
+        },
+        {
           "pattern": "([propertyMarker|])"
         },
         {
@@ -51058,6 +51057,9 @@
         },
         {
           "pattern": "(<whose> ([property]))"
+        },
+        {
+          "pattern": "(<howPropertyMarker|how> ([propertyMarker]))"
         },
         {
           "pattern": "([readonly])"
@@ -51083,6 +51085,33 @@
         {
           "allowDups": true,
           "pattern": "([\"property\"|])"
+        },
+        {
+          "pattern": "((!@== isOpenCompound && !@<= punctuation)* [isOpenCompound|is] (@== open_compound || @== compound_noun))"
+        },
+        {
+          "allowDups": true,
+          "pattern": "([noun_modifier|])"
+        },
+        {
+          "allowDups": true,
+          "pattern": "((@==compound) [compound_noun] (@==noun))"
+        },
+        {
+          "allowDups": true,
+          "pattern": "([compound|])"
+        },
+        {
+          "allowDups": true,
+          "pattern": "([open|])"
+        },
+        {
+          "allowDups": true,
+          "pattern": "([compound_modifier|])"
+        },
+        {
+          "allowDups": true,
+          "pattern": "((@==open) [open_compound] (@==compound))"
         },
         {
           "pattern": "((punctuation != true)* [modifies|] (_any))"
@@ -51259,9 +51288,6 @@
           "pattern": "([ingVerb])"
         },
         {
-          "pattern": "([punctuation])"
-        },
-        {
           "pattern": "([noun])"
         },
         {
@@ -51274,10 +51300,16 @@
           "pattern": "([colon|])"
         },
         {
+          "pattern": "([punctuation|])"
+        },
+        {
           "pattern": "((sentence) <endOfSentence|>)"
         },
         {
           "pattern": "([doubleQuote|] (!doubleQuote/*)* (doubleQuote/*))"
+        },
+        {
+          "pattern": "([setdebugbreak] (*))"
         },
         {
           "pattern": "([unknown])"
@@ -51768,6 +51800,18 @@
               "initial": "{ value: 'brief' }"
             }
           ],
+          "compound": [
+            {
+              "id": "compound",
+              "initial": "{ value: 'compound', number: 'one' }"
+            }
+          ],
+          "compounds": [
+            {
+              "id": "compound",
+              "initial": "{ value: 'compound', number: 'many' }"
+            }
+          ],
           "do": [
             {
               "id": "does",
@@ -51882,6 +51926,12 @@
               "initial": "{ value: false }"
             }
           ],
+          "open": [
+            {
+              "id": "open",
+              "initial": "{ value: 'open', number: 'one' }"
+            }
+          ],
           "profession": [
             {
               "id": "profession",
@@ -51904,6 +51954,20 @@
             {
               "id": "property",
               "initial": "{\"value\":\"property\",\"number\":\"one\"}"
+            }
+          ],
+          "property type": [
+            {
+              "id": "property_type",
+              "initial": "{\"word\":\"property type\",\"number\":\"one\"}",
+              "word": "property type"
+            }
+          ],
+          "property types": [
+            {
+              "id": "property_type",
+              "initial": "{\"word\":\"property types\",\"number\":\"many\"}",
+              "word": "property types"
             }
           ],
           "propertyRelation": [
@@ -52025,37 +52089,31 @@
             "text": "the",
             "word": "the"
           },
+          "flattenInPlace": [
+            [
+              "object",
+              "objects[1]"
+            ],
+            [
+              "value",
+              "theable",
+              "objects[0]"
+            ]
+          ],
+          "flatten_ignore": [
+            "theable"
+          ],
           "focusableForPhrase": true,
           "interpolate": [
             {
-              "property": "property"
-            },
-            {
-              "word": "of"
-            },
-            {
-              "property": "object"
+              "each": true,
+              "separator": "of",
+              "values": "objects"
             }
           ],
           "level": 0,
           "marker": "property",
           "number": "one",
-          "object": {
-            "dead": true,
-            "level": 0,
-            "marker": "object",
-            "range": {
-              "end": 14,
-              "start": 11
-            },
-            "text": "greg",
-            "types": [
-              "object"
-            ],
-            "unknown": true,
-            "value": "greg",
-            "word": "greg"
-          },
           "objects": [
             {
               "checks": [
@@ -52075,6 +52133,15 @@
                 "text": "the",
                 "word": "the"
               },
+              "flattenInPlace": [
+                [
+                  "value",
+                  "theable"
+                ]
+              ],
+              "flatten_ignore": [
+                "theable"
+              ],
               "focusableForPhrase": true,
               "interpolate": [
                 {
@@ -52134,66 +52201,6 @@
               "word": "greg"
             }
           ],
-          "property": {
-            "checks": [
-              "determiner"
-            ],
-            "concept": true,
-            "dead": true,
-            "determiner": {
-              "level": 0,
-              "marker": "the",
-              "modifiers": [
-              ],
-              "range": {
-                "end": 2,
-                "start": 0
-              },
-              "text": "the",
-              "word": "the"
-            },
-            "focusableForPhrase": true,
-            "interpolate": [
-              {
-                "property": "determiner"
-              },
-              {
-                "property": "theable"
-              }
-            ],
-            "level": 0,
-            "marker": "property",
-            "pullFromContext": true,
-            "range": {
-              "end": 6,
-              "start": 0
-            },
-            "text": "the age",
-            "theable": {
-              "dead": true,
-              "level": 0,
-              "marker": "unknown",
-              "range": {
-                "end": 6,
-                "start": 4
-              },
-              "text": "age",
-              "types": [
-                "unknown"
-              ],
-              "unknown": true,
-              "value": "age",
-              "word": "age"
-            },
-            "types": [
-              "property",
-              "unknown"
-            ],
-            "unknown": true,
-            "value": "age",
-            "wantsValue": true,
-            "word": "age"
-          },
           "propertyOf": true,
           "pullFromContext": true,
           "range": {
@@ -52278,37 +52285,31 @@
             "text": "the",
             "word": "the"
           },
+          "flattenInPlace": [
+            [
+              "object",
+              "objects[1]"
+            ],
+            [
+              "value",
+              "theable",
+              "objects[0]"
+            ]
+          ],
+          "flatten_ignore": [
+            "theable"
+          ],
           "focusableForPhrase": true,
           "interpolate": [
             {
-              "property": "property"
-            },
-            {
-              "word": "of"
-            },
-            {
-              "property": "object"
+              "each": true,
+              "separator": "of",
+              "values": "objects"
             }
           ],
           "level": 0,
           "marker": "property",
           "number": "one",
-          "object": {
-            "dead": true,
-            "level": 0,
-            "marker": "object",
-            "range": {
-              "end": 43,
-              "start": 40
-            },
-            "text": "greg",
-            "types": [
-              "object"
-            ],
-            "unknown": true,
-            "value": "greg",
-            "word": "greg"
-          },
           "objects": [
             {
               "checks": [
@@ -52328,6 +52329,15 @@
                 "text": "the",
                 "word": "the"
               },
+              "flattenInPlace": [
+                [
+                  "value",
+                  "theable"
+                ]
+              ],
+              "flatten_ignore": [
+                "theable"
+              ],
               "focusableForPhrase": true,
               "interpolate": [
                 {
@@ -52387,66 +52397,6 @@
               "word": "greg"
             }
           ],
-          "property": {
-            "checks": [
-              "determiner"
-            ],
-            "concept": true,
-            "dead": true,
-            "determiner": {
-              "level": 0,
-              "marker": "the",
-              "modifiers": [
-              ],
-              "range": {
-                "end": 24,
-                "start": 22
-              },
-              "text": "the",
-              "word": "the"
-            },
-            "focusableForPhrase": true,
-            "interpolate": [
-              {
-                "property": "determiner"
-              },
-              {
-                "property": "theable"
-              }
-            ],
-            "level": 0,
-            "marker": "property",
-            "pullFromContext": true,
-            "range": {
-              "end": 35,
-              "start": 22
-            },
-            "text": "the profession",
-            "theable": {
-              "dead": true,
-              "level": 0,
-              "marker": "unknown",
-              "range": {
-                "end": 35,
-                "start": 26
-              },
-              "text": "profession",
-              "types": [
-                "unknown"
-              ],
-              "unknown": true,
-              "value": "profession",
-              "word": "profession"
-            },
-            "types": [
-              "property",
-              "unknown"
-            ],
-            "unknown": true,
-            "value": "profession",
-            "wantsValue": true,
-            "word": "profession"
-          },
           "propertyOf": true,
           "pullFromContext": true,
           "range": {
@@ -52536,37 +52486,31 @@
               "text": "the",
               "word": "the"
             },
+            "flattenInPlace": [
+              [
+                "object",
+                "objects[1]"
+              ],
+              [
+                "value",
+                "theable",
+                "objects[0]"
+              ]
+            ],
+            "flatten_ignore": [
+              "theable"
+            ],
             "focusableForPhrase": true,
             "interpolate": [
               {
-                "property": "property"
-              },
-              {
-                "word": "of"
-              },
-              {
-                "property": "object"
+                "each": true,
+                "separator": "of",
+                "values": "objects"
               }
             ],
             "level": 0,
             "marker": "property",
             "number": "many",
-            "object": {
-              "dead": true,
-              "level": 0,
-              "marker": "object",
-              "range": {
-                "end": 89,
-                "start": 86
-              },
-              "text": "greg",
-              "types": [
-                "object"
-              ],
-              "unknown": true,
-              "value": "greg",
-              "word": "greg"
-            },
             "objects": [
               {
                 "checks": [
@@ -52586,6 +52530,15 @@
                   "text": "the",
                   "word": "the"
                 },
+                "flattenInPlace": [
+                  [
+                    "value",
+                    "theable"
+                  ]
+                ],
+                "flatten_ignore": [
+                  "theable"
+                ],
                 "focusableForPhrase": true,
                 "interpolate": [
                   {
@@ -52644,65 +52597,6 @@
                 "word": "greg"
               }
             ],
-            "property": {
-              "checks": [
-                "determiner"
-              ],
-              "concept": true,
-              "dead": true,
-              "determiner": {
-                "level": 0,
-                "marker": "the",
-                "modifiers": [
-                ],
-                "range": {
-                  "end": 70,
-                  "start": 68
-                },
-                "text": "the",
-                "word": "the"
-              },
-              "focusableForPhrase": true,
-              "interpolate": [
-                {
-                  "property": "determiner"
-                },
-                {
-                  "property": "theable"
-                }
-              ],
-              "level": 0,
-              "marker": "property",
-              "number": "many",
-              "pullFromContext": true,
-              "range": {
-                "end": 81,
-                "start": 68
-              },
-              "text": "the properties",
-              "theable": {
-                "dead": true,
-                "level": 0,
-                "marker": "property",
-                "number": "many",
-                "range": {
-                  "end": 81,
-                  "start": 72
-                },
-                "text": "properties",
-                "types": [
-                  "property"
-                ],
-                "value": "property",
-                "word": "properties"
-              },
-              "types": [
-                "property"
-              ],
-              "value": "property",
-              "wantsValue": true,
-              "word": "properties"
-            },
             "propertyOf": true,
             "pullFromContext": true,
             "range": {
@@ -52755,10 +52649,64 @@
               "listable": true,
               "marker": "list",
               "value": [
-                "age: 23",
-                "profession: programmer"
+                {
+                  "label": "age",
+                  "marker": "labelledValue",
+                  "useColon": true,
+                  "value": {
+                    "dead": true,
+                    "level": 0,
+                    "marker": "unknown",
+                    "range": {
+                      "end": 20,
+                      "start": 19
+                    },
+                    "text": "23",
+                    "types": [
+                      "unknown"
+                    ],
+                    "unknown": true,
+                    "value": "23",
+                    "word": "23"
+                  }
+                },
+                {
+                  "label": "profession",
+                  "marker": "labelledValue",
+                  "useColon": true,
+                  "value": {
+                    "dead": true,
+                    "level": 0,
+                    "marker": "unknown",
+                    "range": {
+                      "end": 57,
+                      "start": 48
+                    },
+                    "text": "programmer",
+                    "types": [
+                      "unknown"
+                    ],
+                    "unknown": true,
+                    "value": "programmer",
+                    "word": "programmer"
+                  }
+                }
               ]
             },
+            "flattenInPlace": [
+              [
+                "object",
+                "objects[1]"
+              ],
+              [
+                "value",
+                "theable",
+                "objects[0]"
+              ]
+            ],
+            "flatten_ignore": [
+              "theable"
+            ],
             "focus": true,
             "focusable": [
               "object[0]"
@@ -52767,16 +52715,12 @@
             "instance": true,
             "interpolate": [
               {
-                "property": "property"
-              },
-              {
-                "word": "of"
-              },
-              {
-                "property": "object"
+                "each": true,
+                "separator": "of",
+                "values": "objects"
               }
             ],
-            "isModule": true,
+            "isModule": false,
             "isProcess": true,
             "level": 0,
             "marker": "property",
@@ -52800,6 +52744,15 @@
                   "text": "the",
                   "word": "the"
                 },
+                "flattenInPlace": [
+                  [
+                    "value",
+                    "theable"
+                  ]
+                ],
+                "flatten_ignore": [
+                  "theable"
+                ],
                 "focusableForPhrase": true,
                 "interpolate": [
                   {
@@ -52858,65 +52811,6 @@
                 "word": "greg"
               }
             ],
-            "property": {
-              "checks": [
-                "determiner"
-              ],
-              "concept": true,
-              "dead": true,
-              "determiner": {
-                "level": 0,
-                "marker": "the",
-                "modifiers": [
-                ],
-                "range": {
-                  "end": 70,
-                  "start": 68
-                },
-                "text": "the",
-                "word": "the"
-              },
-              "focusableForPhrase": true,
-              "interpolate": [
-                {
-                  "property": "determiner"
-                },
-                {
-                  "property": "theable"
-                }
-              ],
-              "level": 0,
-              "marker": "property",
-              "number": "many",
-              "pullFromContext": true,
-              "range": {
-                "end": 81,
-                "start": 68
-              },
-              "text": "the properties",
-              "theable": {
-                "dead": true,
-                "level": 0,
-                "marker": "property",
-                "number": "many",
-                "range": {
-                  "end": 81,
-                  "start": 72
-                },
-                "text": "properties",
-                "types": [
-                  "property"
-                ],
-                "value": "property",
-                "word": "properties"
-              },
-              "types": [
-                "property"
-              ],
-              "value": "property",
-              "wantsValue": true,
-              "word": "properties"
-            },
             "propertyOf": true,
             "pullFromContext": true,
             "range": {
@@ -53008,37 +52902,31 @@
             "text": "the",
             "word": "the"
           },
+          "flattenInPlace": [
+            [
+              "object",
+              "objects[1]"
+            ],
+            [
+              "value",
+              "theable",
+              "objects[0]"
+            ]
+          ],
+          "flatten_ignore": [
+            "theable"
+          ],
           "focusableForPhrase": true,
           "interpolate": [
             {
-              "property": "property"
-            },
-            {
-              "word": "of"
-            },
-            {
-              "property": "object"
+              "each": true,
+              "separator": "of",
+              "values": "objects"
             }
           ],
           "level": 0,
           "marker": "property",
           "number": "many",
-          "object": {
-            "dead": true,
-            "level": 0,
-            "marker": "object",
-            "range": {
-              "end": 89,
-              "start": 86
-            },
-            "text": "greg",
-            "types": [
-              "object"
-            ],
-            "unknown": true,
-            "value": "greg",
-            "word": "greg"
-          },
           "objects": [
             {
               "checks": [
@@ -53058,6 +52946,15 @@
                 "text": "the",
                 "word": "the"
               },
+              "flattenInPlace": [
+                [
+                  "value",
+                  "theable"
+                ]
+              ],
+              "flatten_ignore": [
+                "theable"
+              ],
               "focusableForPhrase": true,
               "interpolate": [
                 {
@@ -53116,65 +53013,6 @@
               "word": "greg"
             }
           ],
-          "property": {
-            "checks": [
-              "determiner"
-            ],
-            "concept": true,
-            "dead": true,
-            "determiner": {
-              "level": 0,
-              "marker": "the",
-              "modifiers": [
-              ],
-              "range": {
-                "end": 70,
-                "start": 68
-              },
-              "text": "the",
-              "word": "the"
-            },
-            "focusableForPhrase": true,
-            "interpolate": [
-              {
-                "property": "determiner"
-              },
-              {
-                "property": "theable"
-              }
-            ],
-            "level": 0,
-            "marker": "property",
-            "number": "many",
-            "pullFromContext": true,
-            "range": {
-              "end": 81,
-              "start": 68
-            },
-            "text": "the properties",
-            "theable": {
-              "dead": true,
-              "level": 0,
-              "marker": "property",
-              "number": "many",
-              "range": {
-                "end": 81,
-                "start": 72
-              },
-              "text": "properties",
-              "types": [
-                "property"
-              ],
-              "value": "property",
-              "word": "properties"
-            },
-            "types": [
-              "property"
-            ],
-            "value": "property",
-            "wantsValue": true,
-            "word": "properties"
-          },
           "propertyOf": true,
           "pullFromContext": true,
           "range": {
@@ -53208,10 +53046,11 @@
         "word": "are"
       }
     ],
+    "developerTest": false,
     "generatedParenthesized": [
       "",
       "",
-      "((((((the)) (properties)) of (greg)) are ((age: 23 and profession: programmer))))"
+      "((((((the)) (properties)) of (greg)) are (((age: (23)) and (profession: (programmer))))))"
     ],
     "metadata": {
       "opChoices": [
@@ -54222,6 +54061,7 @@
         "concept": "concept2",
         "conjunction": "conjunction2",
         "control": "control2",
+        "debug": "debug2",
         "dialogues": "dialogues2",
         "evaluate": "evaluate2",
         "gdefaults": "gdefaults2",
@@ -54256,6 +54096,9 @@
         "control2": {
           "km": "control2"
         },
+        "debug2": {
+          "km": "debug2"
+        },
         "dialogues2": {
           "idSuffix": "",
           "km": "dialogues2",
@@ -54289,7 +54132,11 @@
             "adjective": [
               "stm_previous",
               "stm_current",
-              "stm_before"
+              "stm_before",
+              "compound_modifier",
+              "open_compound",
+              "noun_modifier",
+              "compound_noun"
             ],
             "age": [
               "23"
@@ -54303,6 +54150,18 @@
             "canBeQuestion": [
               "is"
             ],
+            "compound": [
+              "open_compound"
+            ],
+            "compound_modifier": [
+              "open"
+            ],
+            "concept": [
+              "compound",
+              "open_compound",
+              "noun",
+              "compound_noun"
+            ],
             "deletable": [
               "memorable"
             ],
@@ -54311,6 +54170,12 @@
             ],
             "listable": [
               "queryable"
+            ],
+            "noun": [
+              "compound_noun"
+            ],
+            "noun_modifier": [
+              "compound"
             ],
             "preposition": [
               "to"
@@ -54323,10 +54188,10 @@
               "this"
             ],
             "punctuation": [
-              "questionMark"
+              "questionMark",
+              "comma"
             ],
             "queryable": [
-              "concept",
               "doubleQuote",
               "theAble",
               "it",
@@ -54336,14 +54201,15 @@
               "this",
               "reason",
               "distributable",
-              "thisitthat"
+              "thisitthat",
+              "concept"
             ],
             "theAble": [
-              "concept",
               "listable",
               "reason",
               "memorable",
-              "noun"
+              "noun",
+              "concept"
             ],
             "thisAble": [
               "noun"
@@ -54357,22 +54223,19 @@
               "it"
             ],
             "verb": [
-              "modifies",
               "is",
               "isQuery",
               "delete",
               "recall",
-              "remember"
+              "remember",
+              "modifies",
+              "isOpenCompound"
             ]
           },
           "concepts": [
             "properties",
-            "concept",
-            "theAble",
-            "queryable",
-            "modifies",
-            "verb",
             "doubleQuote",
+            "queryable",
             "it",
             "pronoun",
             "this",
@@ -54381,6 +54244,7 @@
             "a",
             "article",
             "the",
+            "theAble",
             "what",
             "whatAble",
             "negatable",
@@ -54390,6 +54254,7 @@
             "listable",
             "to",
             "preposition",
+            "verb",
             "isQuery",
             "reason",
             "orAble",
@@ -54410,6 +54275,16 @@
             "thisitthat",
             "that",
             "thisAble",
+            "comma",
+            "modifies",
+            "concept",
+            "open",
+            "compound_modifier",
+            "open_compound",
+            "compound",
+            "noun_modifier",
+            "compound_noun",
+            "isOpenCompound",
             "23",
             "age",
             "greg",
@@ -54423,6 +54298,21 @@
             ],
             "a": [
               "article"
+            ],
+            "comma": [
+              "punctuation"
+            ],
+            "compound": [
+              "concept",
+              "noun_modifier"
+            ],
+            "compound_modifier": [
+              "adjective"
+            ],
+            "compound_noun": [
+              "adjective",
+              "concept",
+              "noun"
             ],
             "concept": [
               "theAble",
@@ -54445,6 +54335,9 @@
             ],
             "is": [
               "canBeQuestion",
+              "verb"
+            ],
+            "isOpenCompound": [
               "verb"
             ],
             "isQuery": [
@@ -54471,7 +54364,19 @@
             ],
             "noun": [
               "theAble",
-              "thisAble"
+              "thisAble",
+              "concept"
+            ],
+            "noun_modifier": [
+              "adjective"
+            ],
+            "open": [
+              "compound_modifier"
+            ],
+            "open_compound": [
+              "adjective",
+              "concept",
+              "compound"
             ],
             "orAble": [
               "ifAble"
@@ -54549,6 +54454,14 @@
               },
               "canBeQuestion": {
               },
+              "comma": {
+              },
+              "compound": {
+              },
+              "compound_modifier": {
+              },
+              "compound_noun": {
+              },
               "concept": {
               },
               "deletable": {
@@ -54607,6 +54520,8 @@
               },
               "is": {
               },
+              "isOpenCompound": {
+              },
               "isQuery": {
               },
               "it": {
@@ -54620,6 +54535,12 @@
               "negatable": {
               },
               "noun": {
+              },
+              "noun_modifier": {
+              },
+              "open": {
+              },
+              "open_compound": {
               },
               "orAble": {
               },
@@ -54770,37 +54691,31 @@
                   "text": "the",
                   "word": "the"
                 },
+                "flattenInPlace": [
+                  [
+                    "object",
+                    "objects[1]"
+                  ],
+                  [
+                    "value",
+                    "theable",
+                    "objects[0]"
+                  ]
+                ],
+                "flatten_ignore": [
+                  "theable"
+                ],
                 "focusableForPhrase": true,
                 "interpolate": [
                   {
-                    "property": "property"
-                  },
-                  {
-                    "word": "of"
-                  },
-                  {
-                    "property": "object"
+                    "each": true,
+                    "separator": "of",
+                    "values": "objects"
                   }
                 ],
                 "level": 0,
                 "marker": "property",
                 "number": "many",
-                "object": {
-                  "dead": true,
-                  "level": 0,
-                  "marker": "object",
-                  "range": {
-                    "end": 89,
-                    "start": 86
-                  },
-                  "text": "greg",
-                  "types": [
-                    "object"
-                  ],
-                  "unknown": true,
-                  "value": "greg",
-                  "word": "greg"
-                },
                 "objects": [
                   {
                     "checks": [
@@ -54820,6 +54735,15 @@
                       "text": "the",
                       "word": "the"
                     },
+                    "flattenInPlace": [
+                      [
+                        "value",
+                        "theable"
+                      ]
+                    ],
+                    "flatten_ignore": [
+                      "theable"
+                    ],
                     "focusableForPhrase": true,
                     "interpolate": [
                       {
@@ -54878,65 +54802,6 @@
                     "word": "greg"
                   }
                 ],
-                "property": {
-                  "checks": [
-                    "determiner"
-                  ],
-                  "concept": true,
-                  "dead": true,
-                  "determiner": {
-                    "level": 0,
-                    "marker": "the",
-                    "modifiers": [
-                    ],
-                    "range": {
-                      "end": 70,
-                      "start": 68
-                    },
-                    "text": "the",
-                    "word": "the"
-                  },
-                  "focusableForPhrase": true,
-                  "interpolate": [
-                    {
-                      "property": "determiner"
-                    },
-                    {
-                      "property": "theable"
-                    }
-                  ],
-                  "level": 0,
-                  "marker": "property",
-                  "number": "many",
-                  "pullFromContext": true,
-                  "range": {
-                    "end": 81,
-                    "start": 68
-                  },
-                  "text": "the properties",
-                  "theable": {
-                    "dead": true,
-                    "level": 0,
-                    "marker": "property",
-                    "number": "many",
-                    "range": {
-                      "end": 81,
-                      "start": 72
-                    },
-                    "text": "properties",
-                    "types": [
-                      "property"
-                    ],
-                    "value": "property",
-                    "word": "properties"
-                  },
-                  "types": [
-                    "property"
-                  ],
-                  "value": "property",
-                  "wantsValue": true,
-                  "word": "properties"
-                },
                 "propertyOf": true,
                 "pullFromContext": true,
                 "range": {
@@ -54989,10 +54854,64 @@
                   "listable": true,
                   "marker": "list",
                   "value": [
-                    "age: 23",
-                    "profession: programmer"
+                    {
+                      "label": "age",
+                      "marker": "labelledValue",
+                      "useColon": true,
+                      "value": {
+                        "dead": true,
+                        "level": 0,
+                        "marker": "unknown",
+                        "range": {
+                          "end": 20,
+                          "start": 19
+                        },
+                        "text": "23",
+                        "types": [
+                          "unknown"
+                        ],
+                        "unknown": true,
+                        "value": "23",
+                        "word": "23"
+                      }
+                    },
+                    {
+                      "label": "profession",
+                      "marker": "labelledValue",
+                      "useColon": true,
+                      "value": {
+                        "dead": true,
+                        "level": 0,
+                        "marker": "unknown",
+                        "range": {
+                          "end": 57,
+                          "start": 48
+                        },
+                        "text": "programmer",
+                        "types": [
+                          "unknown"
+                        ],
+                        "unknown": true,
+                        "value": "programmer",
+                        "word": "programmer"
+                      }
+                    }
                   ]
                 },
+                "flattenInPlace": [
+                  [
+                    "object",
+                    "objects[1]"
+                  ],
+                  [
+                    "value",
+                    "theable",
+                    "objects[0]"
+                  ]
+                ],
+                "flatten_ignore": [
+                  "theable"
+                ],
                 "focus": true,
                 "focusable": [
                   "object[0]"
@@ -55001,16 +54920,12 @@
                 "instance": true,
                 "interpolate": [
                   {
-                    "property": "property"
-                  },
-                  {
-                    "word": "of"
-                  },
-                  {
-                    "property": "object"
+                    "each": true,
+                    "separator": "of",
+                    "values": "objects"
                   }
                 ],
-                "isModule": true,
+                "isModule": false,
                 "isProcess": true,
                 "level": 0,
                 "marker": "property",
@@ -55034,6 +54949,15 @@
                       "text": "the",
                       "word": "the"
                     },
+                    "flattenInPlace": [
+                      [
+                        "value",
+                        "theable"
+                      ]
+                    ],
+                    "flatten_ignore": [
+                      "theable"
+                    ],
                     "focusableForPhrase": true,
                     "interpolate": [
                       {
@@ -55092,65 +55016,6 @@
                     "word": "greg"
                   }
                 ],
-                "property": {
-                  "checks": [
-                    "determiner"
-                  ],
-                  "concept": true,
-                  "dead": true,
-                  "determiner": {
-                    "level": 0,
-                    "marker": "the",
-                    "modifiers": [
-                    ],
-                    "range": {
-                      "end": 70,
-                      "start": 68
-                    },
-                    "text": "the",
-                    "word": "the"
-                  },
-                  "focusableForPhrase": true,
-                  "interpolate": [
-                    {
-                      "property": "determiner"
-                    },
-                    {
-                      "property": "theable"
-                    }
-                  ],
-                  "level": 0,
-                  "marker": "property",
-                  "number": "many",
-                  "pullFromContext": true,
-                  "range": {
-                    "end": 81,
-                    "start": 68
-                  },
-                  "text": "the properties",
-                  "theable": {
-                    "dead": true,
-                    "level": 0,
-                    "marker": "property",
-                    "number": "many",
-                    "range": {
-                      "end": 81,
-                      "start": 72
-                    },
-                    "text": "properties",
-                    "types": [
-                      "property"
-                    ],
-                    "value": "property",
-                    "word": "properties"
-                  },
-                  "types": [
-                    "property"
-                  ],
-                  "value": "property",
-                  "wantsValue": true,
-                  "word": "properties"
-                },
                 "propertyOf": true,
                 "pullFromContext": true,
                 "range": {
@@ -55242,37 +55107,31 @@
                 "text": "the",
                 "word": "the"
               },
+              "flattenInPlace": [
+                [
+                  "object",
+                  "objects[1]"
+                ],
+                [
+                  "value",
+                  "theable",
+                  "objects[0]"
+                ]
+              ],
+              "flatten_ignore": [
+                "theable"
+              ],
               "focusableForPhrase": true,
               "interpolate": [
                 {
-                  "property": "property"
-                },
-                {
-                  "word": "of"
-                },
-                {
-                  "property": "object"
+                  "each": true,
+                  "separator": "of",
+                  "values": "objects"
                 }
               ],
               "level": 0,
               "marker": "property",
               "number": "many",
-              "object": {
-                "dead": true,
-                "level": 0,
-                "marker": "object",
-                "range": {
-                  "end": 89,
-                  "start": 86
-                },
-                "text": "greg",
-                "types": [
-                  "object"
-                ],
-                "unknown": true,
-                "value": "greg",
-                "word": "greg"
-              },
               "objects": [
                 {
                   "checks": [
@@ -55292,6 +55151,15 @@
                     "text": "the",
                     "word": "the"
                   },
+                  "flattenInPlace": [
+                    [
+                      "value",
+                      "theable"
+                    ]
+                  ],
+                  "flatten_ignore": [
+                    "theable"
+                  ],
                   "focusableForPhrase": true,
                   "interpolate": [
                     {
@@ -55350,65 +55218,6 @@
                   "word": "greg"
                 }
               ],
-              "property": {
-                "checks": [
-                  "determiner"
-                ],
-                "concept": true,
-                "dead": true,
-                "determiner": {
-                  "level": 0,
-                  "marker": "the",
-                  "modifiers": [
-                  ],
-                  "range": {
-                    "end": 70,
-                    "start": 68
-                  },
-                  "text": "the",
-                  "word": "the"
-                },
-                "focusableForPhrase": true,
-                "interpolate": [
-                  {
-                    "property": "determiner"
-                  },
-                  {
-                    "property": "theable"
-                  }
-                ],
-                "level": 0,
-                "marker": "property",
-                "number": "many",
-                "pullFromContext": true,
-                "range": {
-                  "end": 81,
-                  "start": 68
-                },
-                "text": "the properties",
-                "theable": {
-                  "dead": true,
-                  "level": 0,
-                  "marker": "property",
-                  "number": "many",
-                  "range": {
-                    "end": 81,
-                    "start": 72
-                  },
-                  "text": "properties",
-                  "types": [
-                    "property"
-                  ],
-                  "value": "property",
-                  "word": "properties"
-                },
-                "types": [
-                  "property"
-                ],
-                "value": "property",
-                "wantsValue": true,
-                "word": "properties"
-              },
               "propertyOf": true,
               "pullFromContext": true,
               "range": {
@@ -55479,37 +55288,31 @@
                 "text": "the",
                 "word": "the"
               },
+              "flattenInPlace": [
+                [
+                  "object",
+                  "objects[1]"
+                ],
+                [
+                  "value",
+                  "theable",
+                  "objects[0]"
+                ]
+              ],
+              "flatten_ignore": [
+                "theable"
+              ],
               "focusableForPhrase": true,
               "interpolate": [
                 {
-                  "property": "property"
-                },
-                {
-                  "word": "of"
-                },
-                {
-                  "property": "object"
+                  "each": true,
+                  "separator": "of",
+                  "values": "objects"
                 }
               ],
               "level": 0,
               "marker": "property",
               "number": "one",
-              "object": {
-                "dead": true,
-                "level": 0,
-                "marker": "object",
-                "range": {
-                  "end": 43,
-                  "start": 40
-                },
-                "text": "greg",
-                "types": [
-                  "object"
-                ],
-                "unknown": true,
-                "value": "greg",
-                "word": "greg"
-              },
               "objects": [
                 {
                   "checks": [
@@ -55529,6 +55332,15 @@
                     "text": "the",
                     "word": "the"
                   },
+                  "flattenInPlace": [
+                    [
+                      "value",
+                      "theable"
+                    ]
+                  ],
+                  "flatten_ignore": [
+                    "theable"
+                  ],
                   "focusableForPhrase": true,
                   "interpolate": [
                     {
@@ -55588,66 +55400,6 @@
                   "word": "greg"
                 }
               ],
-              "property": {
-                "checks": [
-                  "determiner"
-                ],
-                "concept": true,
-                "dead": true,
-                "determiner": {
-                  "level": 0,
-                  "marker": "the",
-                  "modifiers": [
-                  ],
-                  "range": {
-                    "end": 24,
-                    "start": 22
-                  },
-                  "text": "the",
-                  "word": "the"
-                },
-                "focusableForPhrase": true,
-                "interpolate": [
-                  {
-                    "property": "determiner"
-                  },
-                  {
-                    "property": "theable"
-                  }
-                ],
-                "level": 0,
-                "marker": "property",
-                "pullFromContext": true,
-                "range": {
-                  "end": 35,
-                  "start": 22
-                },
-                "text": "the profession",
-                "theable": {
-                  "dead": true,
-                  "level": 0,
-                  "marker": "unknown",
-                  "range": {
-                    "end": 35,
-                    "start": 26
-                  },
-                  "text": "profession",
-                  "types": [
-                    "unknown"
-                  ],
-                  "unknown": true,
-                  "value": "profession",
-                  "word": "profession"
-                },
-                "types": [
-                  "property",
-                  "unknown"
-                ],
-                "unknown": true,
-                "value": "profession",
-                "wantsValue": true,
-                "word": "profession"
-              },
               "propertyOf": true,
               "pullFromContext": true,
               "range": {
@@ -55745,37 +55497,31 @@
                 "text": "the",
                 "word": "the"
               },
+              "flattenInPlace": [
+                [
+                  "object",
+                  "objects[1]"
+                ],
+                [
+                  "value",
+                  "theable",
+                  "objects[0]"
+                ]
+              ],
+              "flatten_ignore": [
+                "theable"
+              ],
               "focusableForPhrase": true,
               "interpolate": [
                 {
-                  "property": "property"
-                },
-                {
-                  "word": "of"
-                },
-                {
-                  "property": "object"
+                  "each": true,
+                  "separator": "of",
+                  "values": "objects"
                 }
               ],
               "level": 0,
               "marker": "property",
               "number": "one",
-              "object": {
-                "dead": true,
-                "level": 0,
-                "marker": "object",
-                "range": {
-                  "end": 14,
-                  "start": 11
-                },
-                "text": "greg",
-                "types": [
-                  "object"
-                ],
-                "unknown": true,
-                "value": "greg",
-                "word": "greg"
-              },
               "objects": [
                 {
                   "checks": [
@@ -55795,6 +55541,15 @@
                     "text": "the",
                     "word": "the"
                   },
+                  "flattenInPlace": [
+                    [
+                      "value",
+                      "theable"
+                    ]
+                  ],
+                  "flatten_ignore": [
+                    "theable"
+                  ],
                   "focusableForPhrase": true,
                   "interpolate": [
                     {
@@ -55854,66 +55609,6 @@
                   "word": "greg"
                 }
               ],
-              "property": {
-                "checks": [
-                  "determiner"
-                ],
-                "concept": true,
-                "dead": true,
-                "determiner": {
-                  "level": 0,
-                  "marker": "the",
-                  "modifiers": [
-                  ],
-                  "range": {
-                    "end": 2,
-                    "start": 0
-                  },
-                  "text": "the",
-                  "word": "the"
-                },
-                "focusableForPhrase": true,
-                "interpolate": [
-                  {
-                    "property": "determiner"
-                  },
-                  {
-                    "property": "theable"
-                  }
-                ],
-                "level": 0,
-                "marker": "property",
-                "pullFromContext": true,
-                "range": {
-                  "end": 6,
-                  "start": 0
-                },
-                "text": "the age",
-                "theable": {
-                  "dead": true,
-                  "level": 0,
-                  "marker": "unknown",
-                  "range": {
-                    "end": 6,
-                    "start": 4
-                  },
-                  "text": "age",
-                  "types": [
-                    "unknown"
-                  ],
-                  "unknown": true,
-                  "value": "age",
-                  "word": "age"
-                },
-                "types": [
-                  "property",
-                  "unknown"
-                ],
-                "unknown": true,
-                "value": "age",
-                "wantsValue": true,
-                "word": "age"
-              },
               "propertyOf": true,
               "pullFromContext": true,
               "range": {
@@ -56056,6 +55751,124 @@
               "word": "concept"
             },
             "word": "is"
+          },
+          "generatedParenthesized": [
+          ],
+          "paraphrases": [
+          ],
+          "paraphrasesParenthesized": [
+          ],
+          "responses": [
+          ]
+        },
+        {
+          "context": {
+            "concept": {
+              "dead": true,
+              "default": true,
+              "level": 0,
+              "marker": "noun",
+              "range": {
+                "end": 21,
+                "start": 18
+              },
+              "text": "noun",
+              "value": "noun",
+              "word": "noun"
+            },
+            "conceptModifiers": [
+              {
+                "dead": true,
+                "level": 1,
+                "marker": "compound",
+                "number": "one",
+                "range": {
+                  "end": 7,
+                  "start": 0
+                },
+                "text": "compound",
+                "value": "compound",
+                "word": "compound"
+              }
+            ],
+            "context_id": null,
+            "context_index": 1,
+            "dead": true,
+            "flatten": false,
+            "level": 1,
+            "marker": "modifies",
+            "number": "one",
+            "range": {
+              "end": 21,
+              "start": 0
+            },
+            "text": "compound modifies noun",
+            "topLevel": true,
+            "touchedBy": [
+              "concept#call2",
+              "instance2#concept#call2",
+              "instance2#properties#call2"
+            ],
+            "word": "modifies"
+          },
+          "generatedParenthesized": [
+          ],
+          "paraphrases": [
+          ],
+          "paraphrasesParenthesized": [
+          ],
+          "responses": [
+          ]
+        },
+        {
+          "context": {
+            "concept": {
+              "dead": true,
+              "level": 0,
+              "marker": "unknown",
+              "range": {
+                "end": 21,
+                "start": 14
+              },
+              "text": "compound",
+              "unknown": true,
+              "value": "compound",
+              "word": "compound"
+            },
+            "conceptModifiers": [
+              {
+                "dead": true,
+                "level": 0,
+                "marker": "unknown",
+                "range": {
+                  "end": 3,
+                  "start": 0
+                },
+                "text": "open",
+                "unknown": true,
+                "value": "open",
+                "word": "open"
+              }
+            ],
+            "context_id": null,
+            "context_index": 1,
+            "dead": true,
+            "flatten": false,
+            "level": 1,
+            "marker": "modifies",
+            "number": "one",
+            "range": {
+              "end": 21,
+              "start": 0
+            },
+            "text": "open modifies compound",
+            "topLevel": true,
+            "touchedBy": [
+              "concept#call2",
+              "instance1#concept#call2",
+              "instance1#properties#call2"
+            ],
+            "word": "modifies"
           },
           "generatedParenthesized": [
           ],

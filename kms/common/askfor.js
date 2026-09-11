@@ -4,6 +4,7 @@ const { flattenInPlace } = require('./helpers/flatten_in_place')
 const tests = require('./askfor.test.json')
 const instance = require('./askfor.instance.json')
 const length = require('./length')
+const time = require('./time')
 const dates = require('./dates')
 const people = require('./people')
 
@@ -49,8 +50,27 @@ const template = {
       operators: [
         "([askfor_askfor|] ([for_askfor|] (@<= concept)))",
         "([information])",
+        "(([known]) [knownAbout|about] (*))",
       ],
       bridges: [
+        {
+          id: 'knownAbout',
+          isA: ['preposition'],
+          bridge: `{
+            ...before[0],
+            subjects: append(after[0].subjects, after),
+            known: before[0],
+            about: operator,
+            interpolate: '\${known} \${about} \${subjects}'
+          }`,
+        },
+        {
+          id: 'known',
+          isA: ['queryable'],
+          evaluator: async ({context, e, callId, toList, flatten, toEValue, resolveEvaluate, objects}) => {
+            debugger
+          },
+        },
         {
           id: 'information',
           isA: ['noun'],
@@ -130,7 +150,7 @@ const template = {
 
 knowledgeModule( { 
   config: { name: 'askfor' },
-  includes: [length, dates, people],
+  includes: [time, length, dates, people],
 
   module,
   description: 'asking the system to interact with a user and find out information',

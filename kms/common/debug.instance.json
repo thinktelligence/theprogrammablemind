@@ -2,13 +2,13 @@
   "configs": [
     {
       "operators": [
-        "([setdebugbreak])"
+        "([setdebugbreak] (*))"
       ],
       "bridges": [
         {
           "id": "setdebugbreak",
           "bridge": "{\n            ...next(operator),\n            tag: after[0]\n          }",
-          "semantic": "({context, debug}) => {\n            debugger\n            debug.hit(context.tag.word)\n          }"
+          "semantic": "({context, debug}) => {\n            debug.hit(context.tag.word)\n          }"
         }
       ]
     }
@@ -17,7 +17,7 @@
     {
       "extraConfig": true,
       "operators": [
-        "([setdebugbreak])"
+        "([setdebugbreak] (*))"
       ],
       "bridges": [
         {
