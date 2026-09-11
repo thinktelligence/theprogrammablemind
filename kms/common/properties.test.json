@@ -114186,5 +114186,3900 @@
         ]
       }
     ]
+  },
+  {
+    "associations": [
+    ],
+    "config": {
+      "bridges": [
+        {
+          "id": "property_type",
+          "isA": [
+            "theAble"
+          ],
+          "level": 0,
+          "words": [
+            {
+              "number": "one",
+              "word": "property type"
+            },
+            {
+              "number": "many",
+              "word": "property types"
+            }
+          ]
+        },
+        {
+          "bridge": "{ ...after[0], query: ['what'], how: operator, operator: after[0], interpolate: [ { property: 'how' }, { property: 'operator' } ] }",
+          "id": "howPropertyMarker",
+          "level": 0
+        },
+        {
+          "bridge": "{ ...operator, object: before[0], flatten: true, operator: operator, propertyValue: after[0], interpolate: [{ property: 'object' }, { property: 'operator' }, { property: 'propertyValue' }] }",
+          "enhanced_associations": true,
+          "id": "hasPropertyValue",
+          "isA": [
+            "verb"
+          ],
+          "level": 0,
+          "preferOver": [
+            "is"
+          ]
+        },
+        {
+          "id": "propertyRelation",
+          "level": 0,
+          "words": [
+            {
+              "number": "one",
+              "word": "propertyRelation"
+            },
+            {
+              "number": "many",
+              "word": "propertyRelations"
+            }
+          ]
+        },
+        {
+          "id": "propertyMarker",
+          "level": 0
+        },
+        {
+          "id": "xfx",
+          "isA": [
+            "queryable"
+          ],
+          "level": 0
+        },
+        {
+          "bridge": "{ ...next(operator), arguments: after[0] }",
+          "enhanced_associations": false,
+          "id": "between",
+          "isA": [
+            "preposition"
+          ],
+          "level": 0
+        },
+        {
+          "bridge": "{ ...before[0], arguments: operator.arguments }",
+          "id": "between",
+          "level": 1
+        },
+        {
+          "id": "hierarchyAble",
+          "isA": [
+            "queryable"
+          ],
+          "level": 0
+        },
+        {
+          "id": "readonly",
+          "isA": [
+            "queryable"
+          ],
+          "level": 0
+        },
+        {
+          "bridge": "{ ...context, number: operator.number, object.number: operator.number, negation: true }*",
+          "id": "doesnt",
+          "level": 0
+        },
+        {
+          "bridge": "{ ...next(operator), object: { number: operator.number, ...before }, property: after[0], do: { left: 'object', right: 'property' } }",
+          "id": "have",
+          "isA": [
+            "canBeDoQuestion",
+            "canBeQuestion"
+          ],
+          "level": 0,
+          "localHierarchy": [
+            [
+              "property",
+              "queryable"
+            ],
+            [
+              "property",
+              "theAble"
+            ],
+            [
+              "property",
+              "unknown"
+            ],
+            [
+              "object",
+              "unknown"
+            ]
+          ]
+        },
+        {
+          "bridge": "{ ...next(operator) }",
+          "id": "have",
+          "level": 1,
+          "localHierarchy": [
+            [
+              "property",
+              "queryable"
+            ],
+            [
+              "property",
+              "theAble"
+            ],
+            [
+              "property",
+              "unknown"
+            ]
+          ]
+        },
+        {
+          "id": "object",
+          "isA": [
+            "queryable",
+            "theAble",
+            "listable"
+          ],
+          "level": 0
+        },
+        {
+          "bridge": "{ \n        ...next(operator), \n        possession: true, \n        objects: before \n      }",
+          "id": "possession",
+          "inverted": true,
+          "level": 0,
+          "localHierarchy": [
+            [
+              "property",
+              "queryable"
+            ],
+            [
+              "property",
+              "theAble"
+            ],
+            [
+              "property",
+              "unknown"
+            ],
+            [
+              "object",
+              "unknown"
+            ]
+          ]
+        },
+        {
+          "bridge": "{ ...after[0], possession: true, objects: append(default(after[0].objects, after), operator.objects), marker: after.marker, types: append(after[0].types, ['property']) }",
+          "id": "possession",
+          "inverted": true,
+          "level": 1,
+          "localHierarchy": [
+            [
+              "property",
+              "queryable"
+            ],
+            [
+              "property",
+              "theAble"
+            ],
+            [
+              "property",
+              "unknown"
+            ],
+            [
+              "object",
+              "unknown"
+            ]
+          ]
+        },
+        {
+          "bridge": "{ \n        ...next(operator), \n        ofWord: operator,\n        objects: after \n      }",
+          "id": "propertyOf",
+          "isA": [
+            "preposition"
+          ],
+          "level": 0,
+          "localHierarchy": [
+            [
+              "property",
+              "queryable"
+            ],
+            [
+              "property",
+              "theAble"
+            ],
+            [
+              "property",
+              "unknown"
+            ],
+            [
+              "object",
+              "unknown"
+            ]
+          ]
+        },
+        {
+          "bridge": "{ \n        ...before[0], \n        propertyOf: true, \n        interpolate: [ { values: 'objects', separator: 'of', each: true } ],\n        flattenInPlace: [['object', 'objects[1]'], ['value', 'theable', 'objects[0]'] ],\n        objects: append(default(before[0].objects, before), operator.objects) \n      }",
+          "id": "propertyOf",
+          "level": 1,
+          "localHierarchy": [
+            [
+              "property",
+              "queryable"
+            ],
+            [
+              "property",
+              "theAble"
+            ],
+            [
+              "property",
+              "unknown"
+            ]
+          ]
+        },
+        {
+          "bridge": "{ ...after[0], query: true, whose: \"whose\", modifiers: append([\"whose\"], after[0].modifiers)}",
+          "id": "whose",
+          "isA": [
+            "object"
+          ],
+          "level": 0
+        },
+        {
+          "bridge": "{ ...after[0], isProperty: true, objects: [after[0], operator] }",
+          "id": "objectPrefix",
+          "level": 0,
+          "localHierarchy": [
+            [
+              "property",
+              "queryable"
+            ],
+            [
+              "property",
+              "theAble"
+            ],
+            [
+              "property",
+              "unknown"
+            ]
+          ]
+        },
+        {
+          "bridge": "{\n            ...operator,\n            phrase: before[0],\n            verb: operator,\n            openCompound: after[0],\n            interpolate: [ { property: 'phrase' }, { property: 'verb' }, { property: 'openCompound' } ]\n          }",
+          "check": [
+            "marker",
+            "text",
+            "verbatim",
+            "value",
+            "evalue",
+            "isResponse",
+            {
+              "properties": "modifiers"
+            },
+            {
+              "properties": "postModifiers"
+            },
+            "phrase",
+            "openCompound"
+          ],
+          "enhanced_associations": true,
+          "id": "isOpenCompound",
+          "isA": [
+            "verb"
+          ],
+          "level": 0,
+          "preferOver": [
+            "is"
+          ],
+          "semantic": {
+            "where": "/home/dev/code/theprogrammablemind/kms/common/concept.js:163"
+          }
+        },
+        {
+          "bridge": "{ ...next(operator), conceptModifiers: before[0], concept: after[0] }",
+          "check": [
+            "marker",
+            "text",
+            "verbatim",
+            "value",
+            "evalue",
+            "isResponse",
+            {
+              "properties": "modifiers"
+            },
+            {
+              "properties": "postModifiers"
+            },
+            "concept",
+            "conceptModifiers"
+          ],
+          "enhanced_associations": false,
+          "id": "modifies",
+          "isA": [
+            "verb"
+          ],
+          "level": 0,
+          "semantic": {
+            "notes": "define a modifier",
+            "where": "/home/dev/code/theprogrammablemind/kms/common/concept.js:34"
+          },
+          "words": [
+            {
+              "flatten": false,
+              "number": "one",
+              "word": "modifies"
+            },
+            {
+              "flatten": true,
+              "number": "many",
+              "word": "modify"
+            }
+          ]
+        },
+        {
+          "bridge": "{ ...after[0], flatten: false, literally: true }",
+          "id": "literally",
+          "level": 0
+        },
+        {
+          "id": "concept",
+          "level": 0
+        },
+        {
+          "before": [
+            "verb"
+          ],
+          "bridge": "\n      { \n        ...after[0], \n        verb: after[0], \n        that: operator, \n        interpolate: [ { property: 'that' }, { property: 'verb' }], \n        localPriorities: { actLike: [\"subordinatedVerb\", 0] }, \n        bridge_override: { \n          operator: after[0].marker, \n          bridge: '{ \n            ...bridge.subject, \n            postModifiers: [\"conditions\"], \n            modifiers: [], \n            interpolate: map(bridge.interpolate, { inside: \"thatClause\", value: element }), \n            thatClause: bridge, \n            conditions: append(bridge.subject.conditions, [bridge]) \n          }' \n        } \n      }",
+          "id": "thatVerb",
+          "level": 0
+        },
+        {
+          "children": [
+            "negatable"
+          ],
+          "id": "queryable",
+          "level": 0
+        },
+        {
+          "id": "queryable",
+          "isA": [
+            "listable"
+          ],
+          "level": 1
+        },
+        {
+          "bridge": "{ ...next(operator), object: after[0] }",
+          "enhanced_associations": false,
+          "id": "makeObject",
+          "level": 0
+        },
+        {
+          "bridge": "{ ...next(operator), suffix: after[0] }",
+          "enhanced_associations": false,
+          "id": "setIdSuffix",
+          "level": 0
+        },
+        {
+          "id": "resetIdSuffix",
+          "level": 0
+        },
+        {
+          "bridge": "{ ...next(operator), object: after[0] }",
+          "id": "by",
+          "level": 0,
+          "localHierarchy": [
+            [
+              "unknown",
+              "isEder"
+            ]
+          ],
+          "optional": {
+            "1": "{ marker: 'unknown', implicit: true, concept: true }"
+          }
+        },
+        {
+          "id": "debug23",
+          "level": 0
+        },
+        {
+          "bridge": "{ ...after, query: ['what'], modifiers: ['what'], what: operator }",
+          "id": "what",
+          "level": 0,
+          "optional": "{ ...next(operator), query: ['what'], determined: true }"
+        },
+        {
+          "id": "whatAble",
+          "level": 0
+        },
+        {
+          "bridge": "{ ...next(operator), toObject: after[0] }",
+          "id": "to",
+          "isA": [
+            "preposition"
+          ],
+          "level": 0,
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:154"
+        },
+        {
+          "id": "toAble",
+          "level": 0
+        },
+        {
+          "bridge": "{ \n        ...next(operator), \n        form: 'infinitive',\n        type: after[0] \n      }",
+          "id": "be",
+          "level": 0
+        },
+        {
+          "id": "briefOrWordy",
+          "level": 0
+        },
+        {
+          "id": "yesno",
+          "level": 0
+        },
+        {
+          "bridge": "{ ...next(operator) }",
+          "id": "canBeQuestion",
+          "level": 0
+        },
+        {
+          "bridge": "{ ...next(operator) }",
+          "id": "canBeQuestion",
+          "level": 1
+        },
+        {
+          "bridge": "{ ...before[0], query: [before.marker] }",
+          "id": "questionMark",
+          "level": 0
+        },
+        {
+          "bridge": "{ number: operator.number, ...context, [context.subject].number: operator.number }",
+          "id": "isEd",
+          "level": 0,
+          "localHierarchy": [
+            [
+              "unknown",
+              "isEder"
+            ],
+            [
+              "unknown",
+              "isEdee"
+            ]
+          ]
+        },
+        {
+          "bridge": "{ ...next(operator) }",
+          "id": "isEdAble",
+          "level": 0
+        },
+        {
+          "bridge": "{ ...next(operator) }",
+          "id": "isEdAble",
+          "level": 1
+        },
+        {
+          "id": "isEdee",
+          "level": 0
+        },
+        {
+          "id": "isEder",
+          "level": 0
+        },
+        {
+          "bridge": "{ ...next(operator), one: { number: operator.number, ...before[0] }, two: after[0] }",
+          "id": "is",
+          "isA": [
+            "verb"
+          ],
+          "level": 0,
+          "localHierarchy": [
+            [
+              "unknown",
+              "queryable"
+            ]
+          ]
+        },
+        {
+          "bridge": "{ ...next(operator) }",
+          "id": "is",
+          "level": 1,
+          "localHierarchy": [
+            [
+              "unknown",
+              "queryable"
+            ]
+          ]
+        },
+        {
+          "bridge": "{ ...operator, marker: operator('is', 1), one: after[0], two: after[1], query: true, interpolate: [ { context: operator }, { property: 'one' }, { property: 'two' }] }",
+          "id": "isQuery",
+          "isA": [
+            "verb"
+          ],
+          "level": 0,
+          "localHierarchy": [
+            [
+              "unknown",
+              "queryable"
+            ]
+          ]
+        },
+        {
+          "bridge": "{ ...next(operator) }",
+          "id": "canBeDoQuestion",
+          "level": 0
+        },
+        {
+          "bridge": "{ ...next(operator) }",
+          "id": "canBeDoQuestion",
+          "level": 1
+        },
+        {
+          "bridge": "{ ...next(operator) }",
+          "id": "canBeDoQuestion",
+          "level": 2
+        },
+        {
+          "bridge": "{ ...next(operator) }",
+          "id": "doesAble",
+          "level": 0
+        },
+        {
+          "bridge": "{ ...next(operator), before: before[0] }",
+          "id": "doesAble",
+          "level": 1
+        },
+        {
+          "bridge": "{ query: true, what: operator.marker, ...context, number: operator.number, object.number: operator.number }*",
+          "id": "does",
+          "level": 0
+        },
+        {
+          "bridge": "{ ...next(operator), pullFromContext: true, types: ['reason'], isResponse: true }",
+          "id": "why",
+          "level": 0
+        },
+        {
+          "id": "reason",
+          "isA": [
+            "theAble",
+            "queryable"
+          ],
+          "level": 0
+        },
+        {
+          "bridge": "{ ...next(operator), complete: true }",
+          "id": "nevermind",
+          "level": 0
+        },
+        {
+          "before": [
+            "verb"
+          ],
+          "bridge": "{ ...after[0], negated: operator, modifiers: append([\"negated\"], after[0].modifiers) }",
+          "id": "not",
+          "level": 0,
+          "localHierarchy": [
+            [
+              "unknown",
+              "negatable"
+            ]
+          ]
+        },
+        {
+          "id": "negatable",
+          "level": 0,
+          "words": [
+            {
+              "number": "one",
+              "word": "negatable"
+            },
+            {
+              "number": "many",
+              "word": "negatables"
+            }
+          ]
+        },
+        {
+          "bridge": "{ ...next(operator), value: append(before, after) }",
+          "id": "orList",
+          "level": 0,
+          "selector": {
+            "left": [
+              {
+                "marker": "orAble"
+              }
+            ],
+            "passthrough": true,
+            "right": [
+              {
+                "marker": "orAble"
+              }
+            ]
+          }
+        },
+        {
+          "bridge": "{ ...operator, value: append(before, operator.value) }",
+          "id": "orList",
+          "level": 1,
+          "selector": {
+            "left": [
+              {
+                "marker": "orAble"
+              }
+            ],
+            "passthrough": true
+          }
+        },
+        {
+          "bridge": "{ ...next(operator), from: before[0], to: after[0] }",
+          "enhanced_associations": false,
+          "id": "means",
+          "level": 0
+        },
+        {
+          "bridge": "{ ...next(operator), antecedant: after[0], consequence: after[1].consequence }",
+          "id": "if",
+          "level": 0
+        },
+        {
+          "bridge": "{ ...next(operator), consequence: after[0] }",
+          "id": "then",
+          "level": 0
+        },
+        {
+          "id": "ifAble",
+          "level": 0
+        },
+        {
+          "id": "orAble",
+          "level": 0
+        },
+        {
+          "bridge": "{ ...next(operator), flattenInPlaceRemove: ['types', 'listable', 'isList', 'value'], flattenInPlace: [['value']], listable: true, isList: true, value: append(before, after) }",
+          "enhanced_associations": false,
+          "id": "list",
+          "level": 0,
+          "selector": {
+            "left": [
+              {
+                "pattern": "($type && context.instance == variables.instance && context.dead == variables.dead && !@<=$contexts[1].notConjunctableWith)"
+              }
+            ],
+            "match": "same",
+            "passthrough": true,
+            "right": [
+              {
+                "pattern": "($type && context.instance == variables.instance && context.dead == variables.dead && !@<=$contexts[-1].notConjunctableWith)"
+              }
+            ]
+          }
+        },
+        {
+          "bridge": "{ ...operator, value: append(before, operator.value) }",
+          "enhanced_associations": false,
+          "id": "list",
+          "level": 1,
+          "selector": {
+            "left": [
+              {
+                "pattern": "($type && context.instance == variables.instance && context.dead == variables.dead && contexts[0] !@<= contexts[-1].notConjunctableWith)"
+              }
+            ],
+            "match": "same",
+            "passthrough": true
+          },
+          "semantic": {
+          }
+        },
+        {
+          "id": "deletable",
+          "level": 0
+        },
+        {
+          "bridge": "{ ...next(operator), deletable: after[0], operator: operator, interpolate: [{ property: 'operator' }, { property: 'deletable' }] }",
+          "id": "delete",
+          "isA": [
+            "verb"
+          ],
+          "level": 0
+        },
+        {
+          "check": [
+            "marker",
+            "text",
+            "verbatim",
+            "value",
+            "evalue",
+            "isResponse",
+            {
+              "properties": "modifiers"
+            },
+            {
+              "properties": "postModifiers"
+            }
+          ],
+          "id": "memorable",
+          "isA": [
+            "theAble",
+            "deletable"
+          ],
+          "level": 0,
+          "words": [
+            {
+              "number": "one",
+              "word": "memorable"
+            },
+            {
+              "number": "many",
+              "word": "memorables"
+            }
+          ]
+        },
+        {
+          "bridge": "{ ...next(operator), postModifiers: ['recallee'], recallee: after[0] }",
+          "id": "recall",
+          "isA": [
+            "verb"
+          ],
+          "level": 0
+        },
+        {
+          "bridge": "{ ...next(operator), postModifiers: ['rememberee'], rememberee: after[0] }",
+          "id": "remember",
+          "isA": [
+            "verb"
+          ],
+          "level": 0
+        },
+        {
+          "bridge": "{ ...after[0], modifiers: [\"stm_previous\"], stm_previous: operator, pullFromContext: true }",
+          "id": "stm_previous",
+          "isA": [
+            "adjective"
+          ],
+          "level": 0
+        },
+        {
+          "bridge": "{ ...after[0], modifiers: [\"stm_current\"], stm_current: operator, pullFromContext: true }",
+          "id": "stm_current",
+          "isA": [
+            "adjective"
+          ],
+          "level": 0
+        },
+        {
+          "bridge": "{ ...before[0], postModifiers: [\"stm_previous\"], stm_previous: operator, pullFromContext: true }",
+          "id": "stm_before",
+          "isA": [
+            "adjective"
+          ],
+          "level": 0
+        },
+        {
+          "after": [
+            "verb"
+          ],
+          "bridge": "{ ...next(operator), postModifiers: ['value'], value: after[0] }",
+          "enhanced_associations": false,
+          "id": "evaluate",
+          "level": 0,
+          "where": "/home/dev/code/theprogrammablemind/kms/common/evaluate.js:23"
+        },
+        {
+          "id": "everything",
+          "level": 0
+        },
+        {
+          "bridge": "{ \n        ...after[0], \n        focusableForPhrase: true, \n        pullFromContext: true, \n        concept: true, \n        wantsValue: true, \n        distributer: operator, \n        eachArgument: after[0],\n        flatten_ignore: ['eachArgument'],\n        interpolate: [ { property: 'distributer' }, { property: 'eachArgument' } ],\n        modifiers: append([\"distributer\"], after[0].modifiers)\n      }",
+          "id": "each",
+          "isA": [
+            "article"
+          ],
+          "level": 0
+        },
+        {
+          "bridge": "{ \n        ...after[0], \n        focusableForPhrase: true, \n        pullFromContext: true, \n        concept: true, \n        wantsValue: true, \n        distributer: operator, \n        everyArgument: after[0],\n        flatten_ignore: ['everyArgument'],\n        interpolate: [ { property: \"distributer\" }, { property: 'everyArgument' } ],\n        modifiers: append([\"distributer\"], after[0].modifiers)\n      }",
+          "id": "every",
+          "isA": [
+            "article"
+          ],
+          "level": 0
+        },
+        {
+          "id": "distributable",
+          "isA": [
+            "queryable"
+          ],
+          "level": 0
+        },
+        {
+          "bridge": "{ \n                  ...after[0], \n                  focusableForPhrase: true, \n                  pullFromContext: true, \n                  concept: true, \n                  wantsValue: true, \n                  checks: append(after[0].checks, ['determiner']),\n                  determiner: operator, \n                  theable: after[0],\n                  flattenInPlace: [['value', 'theable']],\n                  flatten_ignore: ['theable'],\n                  interpolate: [{ property: 'determiner' }, { property: 'theable' }]\n               }",
+          "check": [
+            "marker",
+            "text",
+            "verbatim",
+            "value",
+            "evalue",
+            "isResponse",
+            {
+              "properties": "modifiers"
+            },
+            {
+              "properties": "postModifiers"
+            }
+          ],
+          "id": "the",
+          "isA": [
+            "article"
+          ],
+          "level": 0,
+          "localHierarchy": [
+            [
+              "unknown",
+              "theAble"
+            ]
+          ]
+        },
+        {
+          "bridge": "{ \n        ...after[0], \n        pullFromContext: false, \n        concept: true, \n        number: 'one', \n        wantsValue: true, \n        determiner: operator, \n        modifiers: append(['determiner'], \n        after[0].modifiers) }\n      ",
+          "id": "a",
+          "isA": [
+            "article"
+          ],
+          "level": 0,
+          "localHierarchy": [
+            [
+              "unknown",
+              "theAble"
+            ]
+          ]
+        },
+        {
+          "id": "queryable",
+          "level": 0
+        },
+        {
+          "children": [
+            "noun"
+          ],
+          "id": "theAble",
+          "level": 0
+        },
+        {
+          "before": [
+            "verb"
+          ],
+          "id": "thisitthat",
+          "isA": [
+            "queryable"
+          ],
+          "level": 0
+        },
+        {
+          "bridge": "{ ...next(operator), pullFromContext: true, unknown: true, determined: true }",
+          "id": "it",
+          "isA": [
+            "thisitthat"
+          ],
+          "level": 0
+        },
+        {
+          "bridge": "{ interpolate: [{property: 'this'}, {property: 'object'}], ...next(after[0]), unknown: true, this: operator, object: after[0], pullFromContext: true }",
+          "id": "this",
+          "isA": [
+            "thisitthat"
+          ],
+          "level": 0,
+          "optional": {
+            "1": "{ ...operator, interpolate: [{property: 'this'}] }"
+          }
+        },
+        {
+          "bridge": "{ interpolate: [{property: 'that'}, {property: 'object'}], ...next(after[0]), unknown: true, that: operator, object: after[0], pullFromContext: true }",
+          "id": "that",
+          "isA": [
+            "thisitthat"
+          ],
+          "level": 0,
+          "optional": {
+            "1": "{ ...operator, interpolate: [{property: 'that'}] }"
+          }
+        },
+        {
+          "children": [
+            "noun"
+          ],
+          "id": "thisAble",
+          "level": 0
+        },
+        {
+          "before": [
+            "ingVerb",
+            "subordinatedVerb",
+            "article",
+            "preposition"
+          ],
+          "id": "adjective",
+          "level": 0
+        },
+        {
+          "before": [
+            "ingVerb",
+            "subordinatedVerb"
+          ],
+          "id": "adverb",
+          "level": 0
+        },
+        {
+          "before": [
+            "ingVerb",
+            "subordinatedVerb",
+            "preposition"
+          ],
+          "id": "article",
+          "level": 0
+        },
+        {
+          "before": [
+            "ingVerb",
+            "subordinatedVerb"
+          ],
+          "id": "preposition",
+          "level": 0
+        },
+        {
+          "id": "pronoun",
+          "level": 0
+        },
+        {
+          "before": [
+            "endOfSentence"
+          ],
+          "id": "verb",
+          "level": 0
+        },
+        {
+          "before": [
+            "punctuation",
+            "verb"
+          ],
+          "id": "subordinatedVerb",
+          "level": 0
+        },
+        {
+          "before": [
+            "punctuation",
+            "verb"
+          ],
+          "id": "ingVerb",
+          "level": 0
+        },
+        {
+          "before": [
+            "ingVerb",
+            "subordinatedVerb"
+          ],
+          "id": "noun",
+          "level": 0
+        },
+        {
+          "id": "punctuation",
+          "level": 0
+        },
+        {
+          "bridge": "{ ...before[0], decorators.after: operator, no_convolutions: true }",
+          "enhanced_associations": false,
+          "id": "comma",
+          "isA": [
+            "punctuation"
+          ],
+          "level": 0,
+          "skipable": true,
+          "words": [
+            {
+              "depth": "+",
+              "value": ",",
+              "word": ","
+            }
+          ]
+        },
+        {
+          "bridge": "{ ...after[0], parenthesis: '(' }",
+          "enhanced_associations": false,
+          "id": "leftParenthesis",
+          "level": 0,
+          "skipable": true,
+          "words": [
+            {
+              "depth": "+",
+              "value": "(",
+              "word": "("
+            }
+          ]
+        },
+        {
+          "bridge": "{ ...next(operator) }",
+          "enhanced_associations": false,
+          "id": "rightParenthesis",
+          "level": 0,
+          "skipable": true,
+          "words": [
+            {
+              "depth": "-",
+              "value": ")",
+              "word": ")"
+            }
+          ]
+        },
+        {
+          "id": "colon",
+          "level": 0,
+          "words": [
+            ":"
+          ]
+        },
+        {
+          "bridge": "{ ...before, postModifiers: append(before.postModifiers, ['endOfSentence']), endOfSentence: operator }",
+          "enhanced_associations": false,
+          "id": "endOfSentence",
+          "level": 0,
+          "words": [
+            "."
+          ]
+        },
+        {
+          "bridge": "{ ...next(operator), quote: 'double' }",
+          "enhanced_associations": false,
+          "id": "doubleQuote",
+          "level": 0,
+          "words": [
+            {
+              "depth": "+",
+              "word": "\""
+            }
+          ]
+        },
+        {
+          "bridge": "{\n            ...next(operator),\n            tag: after[0]\n          }",
+          "id": "setdebugbreak",
+          "level": 0
+        },
+        {
+          "bridge": "{ ...operator, unknown: true, dead: true }",
+          "id": "unknown",
+          "level": 0
+        },
+        {
+          "id": "listable",
+          "level": 0
+        },
+        {
+          "allowDups": true,
+          "bridge": "{ ...next(operator) }",
+          "id": "compound_modifier",
+          "level": 0
+        },
+        {
+          "allowDups": true,
+          "bridge": "{ ...next(operator), value: or(operator.value, 'open') }",
+          "id": "open",
+          "level": 0
+        },
+        {
+          "allowDups": true,
+          "bridge": "{ ...next(operator), value: 'compound' }",
+          "id": "compound",
+          "level": 0
+        },
+        {
+          "allowDups": true,
+          "associator_return_type": [
+            "open_compound",
+            0
+          ],
+          "before": [
+            "verb"
+          ],
+          "bridge": "{ \n        ...after[0], \n        'modifier_open': before[0], \n        atomic: true, \n        dead: true, \n        compatible_types: ['compound'],\n        marker: operator('open_compound'), \n        value: 'open_compound', \n        modifiers: append(['modifier_open'], after[0].modifiers)\n      }",
+          "convolution": true,
+          "id": "open_compound",
+          "isA": [
+            {
+              "instance": true,
+              "parent": "adjective"
+            }
+          ],
+          "level": 0,
+          "useForArgumentInference": false
+        },
+        {
+          "allowDups": true,
+          "bridge": "{ ...next(operator) }",
+          "id": "noun_modifier",
+          "level": 0
+        },
+        {
+          "allowDups": true,
+          "associator_return_type": [
+            "compound_noun",
+            0
+          ],
+          "before": [
+            "verb"
+          ],
+          "bridge": "{ \n        ...after[0], \n        'modifier_compound': before[0], \n        atomic: true, \n        dead: true, \n        compatible_types: ['noun'],\n        marker: operator('compound_noun'), \n        value: 'compound_noun', \n        modifiers: append(['modifier_compound'], after[0].modifiers)\n      }",
+          "convolution": true,
+          "id": "compound_noun",
+          "isA": [
+            {
+              "instance": true,
+              "parent": "adjective"
+            }
+          ],
+          "level": 0,
+          "useForArgumentInference": false
+        },
+        {
+          "allowDups": true,
+          "bridge": "{ ...operator, dead: true, value: or(operator.value, 'property') }",
+          "id": "property",
+          "level": 0
+        }
+      ],
+      "operators": [
+        {
+          "pattern": "([property_type|])"
+        },
+        {
+          "pattern": "([propertyMarker|])"
+        },
+        {
+          "pattern": "([hierarchyAble|])"
+        },
+        {
+          "pattern": "([propertyRelation|])"
+        },
+        {
+          "pattern": "(([property]) <([propertyOf|of] ([object]))>)"
+        },
+        {
+          "pattern": "(<whose> ([property]))"
+        },
+        {
+          "pattern": "(<howPropertyMarker|how> ([propertyMarker]))"
+        },
+        {
+          "pattern": "([readonly])"
+        },
+        {
+          "pattern": "(<objectPrefix|> ([property]))"
+        },
+        {
+          "pattern": "(<(([object]) [possession|])> ([property|]))"
+        },
+        {
+          "pattern": "(([object|]) [have|] ([property|]))"
+        },
+        {
+          "pattern": "(<doesnt|> ([have/0]))"
+        },
+        {
+          "pattern": "(([xfx]) <([between] (words))>)"
+        },
+        {
+          "pattern": "((@<= object || @<=unknown) [hasPropertyValue|is] (context.isPropertyValue == true))"
+        },
+        {
+          "allowDups": true,
+          "pattern": "([\"property\"|])"
+        },
+        {
+          "pattern": "((!@== isOpenCompound && !@<= punctuation)* [isOpenCompound|is] (@== open_compound || @== compound_noun))"
+        },
+        {
+          "allowDups": true,
+          "pattern": "([noun_modifier|])"
+        },
+        {
+          "allowDups": true,
+          "pattern": "((@==compound) [compound_noun] (@==noun))"
+        },
+        {
+          "allowDups": true,
+          "pattern": "([compound|])"
+        },
+        {
+          "allowDups": true,
+          "pattern": "([open|])"
+        },
+        {
+          "allowDups": true,
+          "pattern": "([compound_modifier|])"
+        },
+        {
+          "allowDups": true,
+          "pattern": "((@==open) [open_compound] (@==compound))"
+        },
+        {
+          "pattern": "((punctuation != true)* [modifies|] (_any))"
+        },
+        {
+          "pattern": "([concept])"
+        },
+        {
+          "pattern": "([literally] (modifies/0))"
+        },
+        {
+          "pattern": "(<thatVerb|that> (verb/0))"
+        },
+        {
+          "pattern": "([makeObject] (word))"
+        },
+        {
+          "pattern": "([setIdSuffix] (word))"
+        },
+        {
+          "pattern": "([resetIdSuffix])"
+        },
+        {
+          "pattern": "(([queryable]) [is|] ([queryable|]))"
+        },
+        {
+          "pattern": "([isQuery|] ([queryable]) ([queryable]))"
+        },
+        {
+          "pattern": "(([queryable]) [(<isEd|> ([isEdAble|]))])"
+        },
+        {
+          "pattern": "(([isEdee])^ <isEdAble|> ([by] ([isEder])?))"
+        },
+        {
+          "pattern": "([isEdee|])"
+        },
+        {
+          "pattern": "([isEder|])"
+        },
+        {
+          "pattern": "([why])"
+        },
+        {
+          "pattern": "([reason])"
+        },
+        {
+          "pattern": "(<what> ([whatAble|]))"
+        },
+        {
+          "pattern": "([what:optional])"
+        },
+        {
+          "pattern": "([be] ([briefOrWordy|]))"
+        },
+        {
+          "pattern": "([([canBeQuestion])])"
+        },
+        {
+          "pattern": "(([canBeQuestion/1,2]) <questionMark|>)"
+        },
+        {
+          "pattern": "(([what]) [(<does|> ([doesAble|]))])"
+        },
+        {
+          "pattern": "([canBeDoQuestion])"
+        },
+        {
+          "pattern": "(<does|> ([canBeDoQuestion/0,1]))"
+        },
+        {
+          "pattern": "([yesno|])"
+        },
+        {
+          "pattern": "([debug23])"
+        },
+        {
+          "pattern": "([to] ([toAble|]))"
+        },
+        {
+          "pattern": "([nevermind])"
+        },
+        {
+          "pattern": "([negatable])"
+        },
+        {
+          "pattern": "([not] (negatable/*))"
+        },
+        {
+          "pattern": "((phrase) [means] (phrase))"
+        },
+        {
+          "pattern": "([if] ([ifAble]) ([then] ([ifAble])))"
+        },
+        {
+          "pattern": "(([orAble|]) [orList|or] ([orAble|]))"
+        },
+        {
+          "pattern": "(x [list|and] y)"
+        },
+        {
+          "pattern": "(<stm_current|current> ([memorable]))"
+        },
+        {
+          "pattern": "(<stm_previous|previous> ([memorable]))"
+        },
+        {
+          "pattern": "(([memorable]) <stm_before|before>)"
+        },
+        {
+          "pattern": "([remember] (memorable/*))"
+        },
+        {
+          "pattern": "([recall] (memorable/*))"
+        },
+        {
+          "pattern": "([delete|delete,forget] ([deletable]))"
+        },
+        {
+          "pattern": "([evaluate] (value))"
+        },
+        {
+          "pattern": "([thisitthat|])"
+        },
+        {
+          "pattern": "([it])"
+        },
+        {
+          "pattern": "([everything])"
+        },
+        {
+          "pattern": "([queryable])"
+        },
+        {
+          "pattern": "(<each> ([distributable]))"
+        },
+        {
+          "pattern": "(<every> ([distributable]))"
+        },
+        {
+          "pattern": "(<the|> ([theAble]))"
+        },
+        {
+          "pattern": "(<a|a,an> ([theAble|]))"
+        },
+        {
+          "pattern": "(<this> ([thisAble])?)"
+        },
+        {
+          "pattern": "(<that> ([thisAble])?)"
+        },
+        {
+          "pattern": "([adjective])"
+        },
+        {
+          "pattern": "([adverb])"
+        },
+        {
+          "pattern": "([article])"
+        },
+        {
+          "pattern": "([preposition])"
+        },
+        {
+          "pattern": "([pronoun])"
+        },
+        {
+          "pattern": "([verb])"
+        },
+        {
+          "pattern": "([subordinatedVerb])"
+        },
+        {
+          "pattern": "([ingVerb])"
+        },
+        {
+          "pattern": "([noun])"
+        },
+        {
+          "pattern": "([leftParenthesis|] (phrase) ([rightParenthesis|]))"
+        },
+        {
+          "pattern": "((before) [comma|])"
+        },
+        {
+          "pattern": "([colon|])"
+        },
+        {
+          "pattern": "([punctuation|])"
+        },
+        {
+          "pattern": "((sentence) <endOfSentence|>)"
+        },
+        {
+          "pattern": "([doubleQuote|] (!doubleQuote/*)* (doubleQuote/*))"
+        },
+        {
+          "pattern": "([setdebugbreak] (*))"
+        },
+        {
+          "pattern": "([unknown])"
+        },
+        {
+          "pattern": "([listable])"
+        }
+      ],
+      "words": {
+        "hierarchy": [
+          {
+            "child": " ",
+            "parent": "space"
+          },
+          {
+            "child": "0",
+            "parent": "digit"
+          },
+          {
+            "child": "1",
+            "parent": "digit"
+          },
+          {
+            "child": "2",
+            "parent": "digit"
+          },
+          {
+            "child": "3",
+            "parent": "digit"
+          },
+          {
+            "child": "4",
+            "parent": "digit"
+          },
+          {
+            "child": "5",
+            "parent": "digit"
+          },
+          {
+            "child": "6",
+            "parent": "digit"
+          },
+          {
+            "child": "7",
+            "parent": "digit"
+          },
+          {
+            "child": "8",
+            "parent": "digit"
+          },
+          {
+            "child": "9",
+            "parent": "digit"
+          },
+          {
+            "child": "lower",
+            "parent": "letter"
+          },
+          {
+            "child": "upper",
+            "parent": "letter"
+          },
+          {
+            "child": "a",
+            "parent": "lower"
+          },
+          {
+            "child": "b",
+            "parent": "lower"
+          },
+          {
+            "child": "c",
+            "parent": "lower"
+          },
+          {
+            "child": "d",
+            "parent": "lower"
+          },
+          {
+            "child": "e",
+            "parent": "lower"
+          },
+          {
+            "child": "f",
+            "parent": "lower"
+          },
+          {
+            "child": "g",
+            "parent": "lower"
+          },
+          {
+            "child": "h",
+            "parent": "lower"
+          },
+          {
+            "child": "i",
+            "parent": "lower"
+          },
+          {
+            "child": "j",
+            "parent": "lower"
+          },
+          {
+            "child": "k",
+            "parent": "lower"
+          },
+          {
+            "child": "l",
+            "parent": "lower"
+          },
+          {
+            "child": "m",
+            "parent": "lower"
+          },
+          {
+            "child": "n",
+            "parent": "lower"
+          },
+          {
+            "child": "o",
+            "parent": "lower"
+          },
+          {
+            "child": "p",
+            "parent": "lower"
+          },
+          {
+            "child": "q",
+            "parent": "lower"
+          },
+          {
+            "child": "r",
+            "parent": "lower"
+          },
+          {
+            "child": "s",
+            "parent": "lower"
+          },
+          {
+            "child": "t",
+            "parent": "lower"
+          },
+          {
+            "child": "u",
+            "parent": "lower"
+          },
+          {
+            "child": "v",
+            "parent": "lower"
+          },
+          {
+            "child": "w",
+            "parent": "lower"
+          },
+          {
+            "child": "x",
+            "parent": "lower"
+          },
+          {
+            "child": "y",
+            "parent": "lower"
+          },
+          {
+            "child": "z",
+            "parent": "lower"
+          },
+          {
+            "child": "A",
+            "parent": "upper"
+          },
+          {
+            "child": "B",
+            "parent": "upper"
+          },
+          {
+            "child": "C",
+            "parent": "upper"
+          },
+          {
+            "child": "D",
+            "parent": "upper"
+          },
+          {
+            "child": "E",
+            "parent": "upper"
+          },
+          {
+            "child": "F",
+            "parent": "upper"
+          },
+          {
+            "child": "G",
+            "parent": "upper"
+          },
+          {
+            "child": "H",
+            "parent": "upper"
+          },
+          {
+            "child": "I",
+            "parent": "upper"
+          },
+          {
+            "child": "J",
+            "parent": "upper"
+          },
+          {
+            "child": "K",
+            "parent": "upper"
+          },
+          {
+            "child": "L",
+            "parent": "upper"
+          },
+          {
+            "child": "M",
+            "parent": "upper"
+          },
+          {
+            "child": "N",
+            "parent": "upper"
+          },
+          {
+            "child": "O",
+            "parent": "upper"
+          },
+          {
+            "child": "P",
+            "parent": "upper"
+          },
+          {
+            "child": "Q",
+            "parent": "upper"
+          },
+          {
+            "child": "R",
+            "parent": "upper"
+          },
+          {
+            "child": "S",
+            "parent": "upper"
+          },
+          {
+            "child": "T",
+            "parent": "upper"
+          },
+          {
+            "child": "U",
+            "parent": "upper"
+          },
+          {
+            "child": "V",
+            "parent": "upper"
+          },
+          {
+            "child": "W",
+            "parent": "upper"
+          },
+          {
+            "child": "X",
+            "parent": "upper"
+          },
+          {
+            "child": "Y",
+            "parent": "upper"
+          },
+          {
+            "child": "Z",
+            "parent": "upper"
+          },
+          {
+            "child": "letter",
+            "parent": "alphanumeric"
+          },
+          {
+            "child": "digit",
+            "parent": "alphanumeric"
+          },
+          {
+            "child": "_",
+            "parent": "alphanumeric"
+          },
+          {
+            "child": "~",
+            "parent": "punctuation"
+          },
+          {
+            "child": "!",
+            "parent": "punctuation"
+          },
+          {
+            "child": "@",
+            "parent": "punctuation"
+          },
+          {
+            "child": "#",
+            "parent": "punctuation"
+          },
+          {
+            "child": "$",
+            "parent": "punctuation"
+          },
+          {
+            "child": "%",
+            "parent": "punctuation"
+          },
+          {
+            "child": "^",
+            "parent": "punctuation"
+          },
+          {
+            "child": "&",
+            "parent": "punctuation"
+          },
+          {
+            "child": "*",
+            "parent": "punctuation"
+          },
+          {
+            "child": "(",
+            "parent": "punctuation"
+          },
+          {
+            "child": ")",
+            "parent": "punctuation"
+          },
+          {
+            "child": "+",
+            "parent": "punctuation"
+          },
+          {
+            "child": "-",
+            "parent": "punctuation"
+          },
+          {
+            "child": "=",
+            "parent": "punctuation"
+          },
+          {
+            "child": "[",
+            "parent": "punctuation"
+          },
+          {
+            "child": "]",
+            "parent": "punctuation"
+          },
+          {
+            "child": "{",
+            "parent": "punctuation"
+          },
+          {
+            "child": "}",
+            "parent": "punctuation"
+          },
+          {
+            "child": "\\",
+            "parent": "punctuation"
+          },
+          {
+            "child": "|",
+            "parent": "punctuation"
+          },
+          {
+            "child": ";",
+            "parent": "punctuation"
+          },
+          {
+            "child": ":",
+            "parent": "punctuation"
+          },
+          {
+            "child": ",",
+            "parent": "punctuation"
+          },
+          {
+            "child": "<",
+            "parent": "punctuation"
+          },
+          {
+            "child": ">",
+            "parent": "punctuation"
+          },
+          {
+            "child": "/",
+            "parent": "punctuation"
+          },
+          {
+            "child": "?",
+            "parent": "punctuation"
+          },
+          {
+            "child": "'",
+            "parent": "punctuation"
+          },
+          {
+            "child": "\"",
+            "parent": "punctuation"
+          }
+        ],
+        "literals": {
+          "\"": [
+            {
+              "id": "doubleQuote",
+              "initial": "{\"word\":\"\\\"\",\"depth\":\"+\"}",
+              "word": "\""
+            }
+          ],
+          "'s": [
+            {
+              "id": "possession",
+              "initial": "{ value: 'possession' }"
+            }
+          ],
+          "(": [
+            {
+              "id": "leftParenthesis",
+              "initial": "{\"word\":\"(\",\"value\":\"(\",\"depth\":\"+\"}",
+              "word": "("
+            }
+          ],
+          ")": [
+            {
+              "id": "rightParenthesis",
+              "initial": "{\"word\":\")\",\"value\":\")\",\"depth\":\"-\"}",
+              "word": ")"
+            }
+          ],
+          ",": [
+            {
+              "id": "comma",
+              "initial": "{\"word\":\",\",\"value\":\",\",\"depth\":\"+\"}",
+              "word": ","
+            }
+          ],
+          ".": [
+            {
+              "id": "endOfSentence",
+              "initial": "{ value: \"endOfSentence\"}"
+            }
+          ],
+          ":": [
+            {
+              "id": "colon",
+              "initial": "{ value: \"colon\"}"
+            }
+          ],
+          "<<possession>>": [
+            {
+              "id": "possession",
+              "initial": "{ value: 'possession' }"
+            }
+          ],
+          "?": [
+            {
+              "id": "questionMark",
+              "initial": "{}"
+            }
+          ],
+          "are": [
+            {
+              "id": "is",
+              "initial": "{ number: 'many' }"
+            },
+            {
+              "id": "isQuery",
+              "initial": "{ number: 'many' }"
+            },
+            {
+              "id": "isEd",
+              "initial": "{ number: 'many' }"
+            }
+          ],
+          "brief": [
+            {
+              "id": "briefOrWordy",
+              "initial": "{ value: 'brief' }"
+            }
+          ],
+          "compound": [
+            {
+              "id": "compound",
+              "initial": "{ value: 'compound', number: 'one' }"
+            }
+          ],
+          "compounds": [
+            {
+              "id": "compound",
+              "initial": "{ value: 'compound', number: 'many' }"
+            }
+          ],
+          "do": [
+            {
+              "id": "does",
+              "initial": "{ number: 'many' }"
+            }
+          ],
+          "does": [
+            {
+              "id": "does",
+              "initial": "{ number: 'one' }"
+            }
+          ],
+          "doesnt": [
+            {
+              "id": "doesnt",
+              "initial": "{ number: 'one' }"
+            }
+          ],
+          "dont": [
+            {
+              "id": "doesnt",
+              "initial": "{ number: 'many' }"
+            }
+          ],
+          "has": [
+            {
+              "id": "have",
+              "initial": "{ doesable: true, number: 'one' }"
+            }
+          ],
+          "have": [
+            {
+              "id": "have",
+              "initial": "{ doesable: true, number: 'many' }"
+            }
+          ],
+          "is": [
+            {
+              "id": "be",
+              "initial": "{ form: 'infinitive' }"
+            },
+            {
+              "id": "is",
+              "initial": "{ number: 'one' }"
+            },
+            {
+              "id": "isQuery",
+              "initial": "{ number: 'one' }"
+            },
+            {
+              "id": "isEd",
+              "initial": "{ number: 'one' }"
+            }
+          ],
+          "memorable": [
+            {
+              "id": "memorable",
+              "initial": "{\"word\":\"memorable\",\"number\":\"one\"}",
+              "word": "memorable"
+            }
+          ],
+          "memorables": [
+            {
+              "id": "memorable",
+              "initial": "{\"word\":\"memorables\",\"number\":\"many\"}",
+              "word": "memorables"
+            }
+          ],
+          "modifies": [
+            {
+              "id": "modifies",
+              "initial": "{\"word\":\"modifies\",\"number\":\"one\",\"flatten\":false}",
+              "word": "modifies"
+            }
+          ],
+          "modify": [
+            {
+              "id": "modifies",
+              "initial": "{\"word\":\"modify\",\"number\":\"many\",\"flatten\":true}",
+              "word": "modify"
+            }
+          ],
+          "negatable": [
+            {
+              "id": "negatable",
+              "initial": "{\"word\":\"negatable\",\"number\":\"one\"}",
+              "word": "negatable"
+            }
+          ],
+          "negatables": [
+            {
+              "id": "negatable",
+              "initial": "{\"word\":\"negatables\",\"number\":\"many\"}",
+              "word": "negatables"
+            }
+          ],
+          "no": [
+            {
+              "id": "yesno",
+              "initial": "{ value: false }"
+            }
+          ],
+          "open": [
+            {
+              "id": "open",
+              "initial": "{ value: 'open', number: 'one' }"
+            }
+          ],
+          "properties": [
+            {
+              "id": "property",
+              "initial": "{\"value\":\"property\",\"number\":\"many\"}"
+            }
+          ],
+          "property": [
+            {
+              "id": "property",
+              "initial": "{\"value\":\"property\",\"number\":\"one\"}"
+            }
+          ],
+          "property type": [
+            {
+              "id": "property_type",
+              "initial": "{\"word\":\"property type\",\"number\":\"one\"}",
+              "word": "property type"
+            }
+          ],
+          "property types": [
+            {
+              "id": "property_type",
+              "initial": "{\"word\":\"property types\",\"number\":\"many\"}",
+              "word": "property types"
+            }
+          ],
+          "propertyRelation": [
+            {
+              "id": "propertyRelation",
+              "initial": "{\"word\":\"propertyRelation\",\"number\":\"one\"}",
+              "word": "propertyRelation"
+            }
+          ],
+          "propertyRelations": [
+            {
+              "id": "propertyRelation",
+              "initial": "{\"word\":\"propertyRelations\",\"number\":\"many\"}",
+              "word": "propertyRelations"
+            }
+          ],
+          "the": [
+            {
+              "id": "the",
+              "initial": "{ modifiers: [] }"
+            }
+          ],
+          "who": [
+            {
+              "id": "what",
+              "initial": "{ modifiers: [], query: true }"
+            }
+          ],
+          "wordy": [
+            {
+              "id": "briefOrWordy",
+              "initial": "{ value: 'wordy' }"
+            }
+          ],
+          "yes": [
+            {
+              "id": "yesno",
+              "initial": "{ value: true }"
+            }
+          ]
+        },
+        "patterns": [
+          {
+            "defs": [
+              {
+                "id": "possession",
+                "initial": "{ value: 'possession' }",
+                "uuid": "properties1"
+              }
+            ],
+            "pattern": [
+              "'s"
+            ]
+          },
+          {
+            "defs": [
+              {
+                "remove": true,
+                "uuid": "tokenize2"
+              }
+            ],
+            "pattern": [
+              {
+                "type": "space"
+              },
+              {
+                "is_space": true,
+                "repeat": true
+              }
+            ]
+          },
+          {
+            "allow_partial_matches": false,
+            "check_spelling": true,
+            "defs": [
+              {
+                "id": "unknown",
+                "initial": "{ value: text, unknown: true }",
+                "uuid": "tokenize2"
+              }
+            ],
+            "is_unknown": true,
+            "pattern": [
+              {
+                "type": "alphanumeric"
+              },
+              {
+                "repeat": true
+              }
+            ],
+            "scale": 0.8
+          }
+        ]
+      }
+    },
+    "contexts": [
+      {
+        "context_id": 2,
+        "context_index": 1,
+        "dead": true,
+        "evalue": {
+          "verbatim": "What \"bob\" means is unknown"
+        },
+        "isResponse": true,
+        "level": 2,
+        "marker": "is",
+        "number": "many",
+        "one": {
+          "dead": true,
+          "default": true,
+          "determined": true,
+          "level": 1,
+          "marker": "what",
+          "number": "many",
+          "query": [
+            "what"
+          ],
+          "range": {
+            "end": 3,
+            "start": 0
+          },
+          "text": "what",
+          "types": [
+            "what"
+          ],
+          "value": "what",
+          "word": "what"
+        },
+        "query": [
+          "what"
+        ],
+        "range": {
+          "end": 29,
+          "start": 0
+        },
+        "text": "what are the properties of bob",
+        "topLevel": true,
+        "touchedBy": [
+          "properties#call2"
+        ],
+        "two": {
+          "checks": [
+            "determiner"
+          ],
+          "concept": true,
+          "dead": true,
+          "determiner": {
+            "level": 0,
+            "marker": "the",
+            "modifiers": [
+            ],
+            "range": {
+              "end": 11,
+              "start": 9
+            },
+            "text": "the",
+            "word": "the"
+          },
+          "flattenInPlace": [
+            [
+              "object",
+              "objects[1]"
+            ],
+            [
+              "value",
+              "theable",
+              "objects[0]"
+            ]
+          ],
+          "flatten_ignore": [
+            "theable"
+          ],
+          "focusableForPhrase": true,
+          "interpolate": [
+            {
+              "each": true,
+              "separator": "of",
+              "values": "objects"
+            }
+          ],
+          "level": 0,
+          "marker": "property",
+          "number": "many",
+          "objects": [
+            {
+              "checks": [
+                "determiner"
+              ],
+              "concept": true,
+              "dead": true,
+              "determiner": {
+                "level": 0,
+                "marker": "the",
+                "modifiers": [
+                ],
+                "range": {
+                  "end": 11,
+                  "start": 9
+                },
+                "text": "the",
+                "word": "the"
+              },
+              "flattenInPlace": [
+                [
+                  "value",
+                  "theable"
+                ]
+              ],
+              "flatten_ignore": [
+                "theable"
+              ],
+              "focusableForPhrase": true,
+              "interpolate": [
+                {
+                  "property": "determiner"
+                },
+                {
+                  "property": "theable"
+                }
+              ],
+              "level": 0,
+              "marker": "property",
+              "number": "many",
+              "pullFromContext": true,
+              "range": {
+                "end": 22,
+                "start": 9
+              },
+              "text": "the properties",
+              "theable": {
+                "dead": true,
+                "level": 0,
+                "marker": "property",
+                "number": "many",
+                "range": {
+                  "end": 22,
+                  "start": 13
+                },
+                "text": "properties",
+                "types": [
+                  "property"
+                ],
+                "value": "property",
+                "word": "properties"
+              },
+              "types": [
+                "property"
+              ],
+              "value": "property",
+              "wantsValue": true,
+              "word": "properties"
+            },
+            {
+              "dead": true,
+              "level": 0,
+              "marker": "object",
+              "range": {
+                "end": 29,
+                "start": 27
+              },
+              "text": "bob",
+              "types": [
+                "object"
+              ],
+              "unknown": true,
+              "value": "bob",
+              "word": "bob"
+            }
+          ],
+          "propertyOf": true,
+          "pullFromContext": true,
+          "range": {
+            "end": 29,
+            "start": 9
+          },
+          "text": "the properties of bob",
+          "theable": {
+            "dead": true,
+            "level": 0,
+            "marker": "property",
+            "number": "many",
+            "range": {
+              "end": 22,
+              "start": 13
+            },
+            "text": "properties",
+            "types": [
+              "property"
+            ],
+            "value": "property",
+            "word": "properties"
+          },
+          "types": [
+            "property"
+          ],
+          "value": "property",
+          "wantsValue": true,
+          "word": "properties"
+        },
+        "word": "are"
+      }
+    ],
+    "developerTest": false,
+    "generatedParenthesized": [
+      "(What \"bob\" means is unknown)"
+    ],
+    "metadata": {
+      "opChoices": [
+        {
+          "counter": 1,
+          "op": [
+            "unknown",
+            0
+          ],
+          "ops": [
+            [
+              "is",
+              0
+            ],
+            [
+              "property",
+              0
+            ],
+            [
+              "propertyOf",
+              0
+            ],
+            [
+              "the",
+              0
+            ],
+            [
+              "unknown",
+              0
+            ],
+            [
+              "what",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 2,
+          "op": [
+            "property",
+            0
+          ],
+          "ops": [
+            [
+              "is",
+              0
+            ],
+            [
+              "property",
+              0
+            ],
+            [
+              "propertyOf",
+              0
+            ],
+            [
+              "the",
+              0
+            ],
+            [
+              "what",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 3,
+          "op": [
+            "what",
+            0
+          ],
+          "ops": [
+            [
+              "is",
+              0
+            ],
+            [
+              "propertyOf",
+              0
+            ],
+            [
+              "the",
+              0
+            ],
+            [
+              "what",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 4,
+          "op": [
+            "the",
+            0
+          ],
+          "ops": [
+            [
+              "is",
+              0
+            ],
+            [
+              "propertyOf",
+              0
+            ],
+            [
+              "the",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 5,
+          "op": [
+            "propertyOf",
+            0
+          ],
+          "ops": [
+            [
+              "is",
+              0
+            ],
+            [
+              "propertyOf",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 6,
+          "op": [
+            "propertyOf",
+            1
+          ],
+          "ops": [
+            [
+              "is",
+              0
+            ],
+            [
+              "propertyOf",
+              1
+            ]
+          ]
+        },
+        {
+          "counter": 7,
+          "op": [
+            "is",
+            0
+          ],
+          "ops": [
+            [
+              "is",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 8,
+          "op": [
+            "is",
+            1
+          ],
+          "ops": [
+            [
+              "is",
+              1
+            ]
+          ]
+        }
+      ]
+    },
+    "objects": {
+      "associations": [
+      ],
+      "nameToUUID": {
+        "articles": "articles2",
+        "asking": "asking2",
+        "concept": "concept2",
+        "conjunction": "conjunction2",
+        "control": "control2",
+        "debug": "debug2",
+        "dialogues": "dialogues2",
+        "evaluate": "evaluate2",
+        "gdefaults": "gdefaults2",
+        "logging": "logging2",
+        "meta": "meta2",
+        "negation": "negation2",
+        "pos": "pos2",
+        "properties": "properties1",
+        "punctuation": "punctuation2",
+        "sdefaults": "sdefaults2",
+        "stm": "stm2",
+        "tokenize": "tokenize2",
+        "words": "words2"
+      },
+      "namespaced": {
+        "articles2": {
+          "km": "articles2"
+        },
+        "asking2": {
+          "km": "asking2"
+        },
+        "concept2": {
+          "defaultTypesForHierarchy": {
+          },
+          "km": "concept2",
+          "valueToWords": [
+          ]
+        },
+        "conjunction2": {
+          "km": "conjunction2"
+        },
+        "control2": {
+          "km": "control2"
+        },
+        "debug2": {
+          "km": "debug2"
+        },
+        "dialogues2": {
+          "idSuffix": "",
+          "km": "dialogues2",
+          "mentioned": [
+          ],
+          "variables": {
+          }
+        },
+        "evaluate2": {
+          "km": "evaluate2"
+        },
+        "gdefaults2": {
+          "km": "gdefaults2"
+        },
+        "logging2": {
+          "km": "logging2",
+          "messages": [
+          ]
+        },
+        "meta2": {
+          "km": "meta2"
+        },
+        "negation2": {
+          "km": "negation2"
+        },
+        "pos2": {
+          "km": "pos2"
+        },
+        "properties1": {
+          "children": {
+            "adjective": [
+              "stm_previous",
+              "stm_current",
+              "stm_before",
+              "compound_modifier",
+              "open_compound",
+              "noun_modifier",
+              "compound_noun"
+            ],
+            "article": [
+              "a",
+              "the",
+              "each",
+              "every"
+            ],
+            "canBeQuestion": [
+              "is"
+            ],
+            "compound": [
+              "open_compound"
+            ],
+            "compound_modifier": [
+              "open"
+            ],
+            "concept": [
+              "compound",
+              "open_compound",
+              "noun",
+              "compound_noun"
+            ],
+            "deletable": [
+              "memorable"
+            ],
+            "ifAble": [
+              "orAble"
+            ],
+            "listable": [
+              "queryable"
+            ],
+            "noun": [
+              "compound_noun"
+            ],
+            "noun_modifier": [
+              "compound"
+            ],
+            "preposition": [
+              "to"
+            ],
+            "pronoun": [
+              "it",
+              "this"
+            ],
+            "punctuation": [
+              "questionMark",
+              "comma"
+            ],
+            "queryable": [
+              "doubleQuote",
+              "theAble",
+              "it",
+              "what",
+              "whatAble",
+              "negatable",
+              "this",
+              "reason",
+              "distributable",
+              "thisitthat",
+              "concept"
+            ],
+            "theAble": [
+              "listable",
+              "reason",
+              "memorable",
+              "noun",
+              "concept"
+            ],
+            "thisAble": [
+              "noun"
+            ],
+            "thisitthat": [
+              "it",
+              "this",
+              "that"
+            ],
+            "toAble": [
+              "it"
+            ],
+            "verb": [
+              "is",
+              "isQuery",
+              "delete",
+              "recall",
+              "remember",
+              "modifies",
+              "isOpenCompound"
+            ]
+          },
+          "concepts": [
+            "properties",
+            "doubleQuote",
+            "queryable",
+            "it",
+            "pronoun",
+            "this",
+            "questionMark",
+            "punctuation",
+            "a",
+            "article",
+            "the",
+            "theAble",
+            "what",
+            "whatAble",
+            "negatable",
+            "is",
+            "canBeQuestion",
+            "toAble",
+            "listable",
+            "to",
+            "preposition",
+            "verb",
+            "isQuery",
+            "reason",
+            "orAble",
+            "ifAble",
+            "delete",
+            "memorable",
+            "deletable",
+            "recall",
+            "remember",
+            "stm_previous",
+            "adjective",
+            "stm_current",
+            "stm_before",
+            "each",
+            "every",
+            "distributable",
+            "noun",
+            "thisitthat",
+            "that",
+            "thisAble",
+            "comma",
+            "modifies",
+            "concept",
+            "open",
+            "compound_modifier",
+            "open_compound",
+            "compound",
+            "noun_modifier",
+            "compound_noun",
+            "isOpenCompound"
+          ],
+          "km": "properties1",
+          "parents": {
+            "a": [
+              "article"
+            ],
+            "comma": [
+              "punctuation"
+            ],
+            "compound": [
+              "concept",
+              "noun_modifier"
+            ],
+            "compound_modifier": [
+              "adjective"
+            ],
+            "compound_noun": [
+              "adjective",
+              "concept",
+              "noun"
+            ],
+            "concept": [
+              "theAble",
+              "queryable"
+            ],
+            "delete": [
+              "verb"
+            ],
+            "distributable": [
+              "queryable"
+            ],
+            "doubleQuote": [
+              "queryable"
+            ],
+            "each": [
+              "article"
+            ],
+            "every": [
+              "article"
+            ],
+            "is": [
+              "canBeQuestion",
+              "verb"
+            ],
+            "isOpenCompound": [
+              "verb"
+            ],
+            "isQuery": [
+              "verb"
+            ],
+            "it": [
+              "pronoun",
+              "queryable",
+              "toAble",
+              "thisitthat"
+            ],
+            "listable": [
+              "theAble"
+            ],
+            "memorable": [
+              "theAble",
+              "deletable"
+            ],
+            "modifies": [
+              "verb"
+            ],
+            "negatable": [
+              "queryable"
+            ],
+            "noun": [
+              "theAble",
+              "thisAble",
+              "concept"
+            ],
+            "noun_modifier": [
+              "adjective"
+            ],
+            "open": [
+              "compound_modifier"
+            ],
+            "open_compound": [
+              "adjective",
+              "concept",
+              "compound"
+            ],
+            "orAble": [
+              "ifAble"
+            ],
+            "queryable": [
+              "listable"
+            ],
+            "questionMark": [
+              "punctuation"
+            ],
+            "reason": [
+              "theAble",
+              "queryable"
+            ],
+            "recall": [
+              "verb"
+            ],
+            "remember": [
+              "verb"
+            ],
+            "stm_before": [
+              "adjective"
+            ],
+            "stm_current": [
+              "adjective"
+            ],
+            "stm_previous": [
+              "adjective"
+            ],
+            "that": [
+              "thisitthat"
+            ],
+            "the": [
+              "article"
+            ],
+            "theAble": [
+              "queryable"
+            ],
+            "this": [
+              "pronoun",
+              "queryable",
+              "thisitthat"
+            ],
+            "thisitthat": [
+              "queryable"
+            ],
+            "to": [
+              "preposition"
+            ],
+            "what": [
+              "queryable"
+            ],
+            "whatAble": [
+              "queryable"
+            ]
+          },
+          "properties": {
+            "handlers": {
+            },
+            "initHandlers": [
+            ],
+            "root": {
+              "a": {
+              },
+              "adjective": {
+              },
+              "article": {
+              },
+              "bob": {
+              },
+              "canBeQuestion": {
+              },
+              "comma": {
+              },
+              "compound": {
+              },
+              "compound_modifier": {
+              },
+              "compound_noun": {
+              },
+              "concept": {
+              },
+              "deletable": {
+              },
+              "delete": {
+              },
+              "distributable": {
+              },
+              "doubleQuote": {
+              },
+              "each": {
+              },
+              "every": {
+              },
+              "ifAble": {
+              },
+              "is": {
+              },
+              "isOpenCompound": {
+              },
+              "isQuery": {
+              },
+              "it": {
+              },
+              "listable": {
+              },
+              "memorable": {
+              },
+              "modifies": {
+              },
+              "negatable": {
+              },
+              "noun": {
+              },
+              "noun_modifier": {
+              },
+              "open": {
+              },
+              "open_compound": {
+              },
+              "orAble": {
+              },
+              "preposition": {
+              },
+              "pronoun": {
+              },
+              "punctuation": {
+              },
+              "queryable": {
+              },
+              "questionMark": {
+              },
+              "reason": {
+              },
+              "recall": {
+              },
+              "remember": {
+              },
+              "stm_before": {
+              },
+              "stm_current": {
+              },
+              "stm_previous": {
+              },
+              "that": {
+              },
+              "the": {
+              },
+              "theAble": {
+              },
+              "this": {
+              },
+              "thisAble": {
+              },
+              "thisitthat": {
+              },
+              "to": {
+              },
+              "toAble": {
+              },
+              "verb": {
+              },
+              "what": {
+              },
+              "whatAble": {
+              }
+            }
+          },
+          "property": {
+          },
+          "relations": [
+          ],
+          "valueToWords": {
+          }
+        },
+        "punctuation2": {
+          "km": "punctuation2"
+        },
+        "sdefaults2": {
+          "km": "sdefaults2"
+        },
+        "stm2": {
+          "km": "stm2",
+          "mentioned": [
+          ],
+          "variables": {
+          }
+        },
+        "tokenize2": {
+          "km": "tokenize2"
+        },
+        "words2": {
+          "km": "words2",
+          "words": [
+          ]
+        }
+      },
+      "processed": [
+        {
+          "context": {
+            "context_id": 2,
+            "context_index": 1,
+            "dead": true,
+            "evalue": {
+              "verbatim": "What \"bob\" means is unknown"
+            },
+            "isResponse": true,
+            "level": 2,
+            "marker": "is",
+            "number": "many",
+            "one": {
+              "dead": true,
+              "default": true,
+              "determined": true,
+              "level": 1,
+              "marker": "what",
+              "number": "many",
+              "query": [
+                "what"
+              ],
+              "range": {
+                "end": 3,
+                "start": 0
+              },
+              "text": "what",
+              "types": [
+                "what"
+              ],
+              "value": "what",
+              "word": "what"
+            },
+            "query": [
+              "what"
+            ],
+            "range": {
+              "end": 29,
+              "start": 0
+            },
+            "text": "what are the properties of bob",
+            "topLevel": true,
+            "touchedBy": [
+              "properties#call2"
+            ],
+            "two": {
+              "checks": [
+                "determiner"
+              ],
+              "concept": true,
+              "dead": true,
+              "determiner": {
+                "level": 0,
+                "marker": "the",
+                "modifiers": [
+                ],
+                "range": {
+                  "end": 11,
+                  "start": 9
+                },
+                "text": "the",
+                "word": "the"
+              },
+              "flattenInPlace": [
+                [
+                  "object",
+                  "objects[1]"
+                ],
+                [
+                  "value",
+                  "theable",
+                  "objects[0]"
+                ]
+              ],
+              "flatten_ignore": [
+                "theable"
+              ],
+              "focusableForPhrase": true,
+              "interpolate": [
+                {
+                  "each": true,
+                  "separator": "of",
+                  "values": "objects"
+                }
+              ],
+              "level": 0,
+              "marker": "property",
+              "number": "many",
+              "objects": [
+                {
+                  "checks": [
+                    "determiner"
+                  ],
+                  "concept": true,
+                  "dead": true,
+                  "determiner": {
+                    "level": 0,
+                    "marker": "the",
+                    "modifiers": [
+                    ],
+                    "range": {
+                      "end": 11,
+                      "start": 9
+                    },
+                    "text": "the",
+                    "word": "the"
+                  },
+                  "flattenInPlace": [
+                    [
+                      "value",
+                      "theable"
+                    ]
+                  ],
+                  "flatten_ignore": [
+                    "theable"
+                  ],
+                  "focusableForPhrase": true,
+                  "interpolate": [
+                    {
+                      "property": "determiner"
+                    },
+                    {
+                      "property": "theable"
+                    }
+                  ],
+                  "level": 0,
+                  "marker": "property",
+                  "number": "many",
+                  "pullFromContext": true,
+                  "range": {
+                    "end": 22,
+                    "start": 9
+                  },
+                  "text": "the properties",
+                  "theable": {
+                    "dead": true,
+                    "level": 0,
+                    "marker": "property",
+                    "number": "many",
+                    "range": {
+                      "end": 22,
+                      "start": 13
+                    },
+                    "text": "properties",
+                    "types": [
+                      "property"
+                    ],
+                    "value": "property",
+                    "word": "properties"
+                  },
+                  "types": [
+                    "property"
+                  ],
+                  "value": "property",
+                  "wantsValue": true,
+                  "word": "properties"
+                },
+                {
+                  "dead": true,
+                  "level": 0,
+                  "marker": "object",
+                  "range": {
+                    "end": 29,
+                    "start": 27
+                  },
+                  "text": "bob",
+                  "types": [
+                    "object"
+                  ],
+                  "unknown": true,
+                  "value": "bob",
+                  "word": "bob"
+                }
+              ],
+              "propertyOf": true,
+              "pullFromContext": true,
+              "range": {
+                "end": 29,
+                "start": 9
+              },
+              "text": "the properties of bob",
+              "theable": {
+                "dead": true,
+                "level": 0,
+                "marker": "property",
+                "number": "many",
+                "range": {
+                  "end": 22,
+                  "start": 13
+                },
+                "text": "properties",
+                "types": [
+                  "property"
+                ],
+                "value": "property",
+                "word": "properties"
+              },
+              "types": [
+                "property"
+              ],
+              "value": "property",
+              "wantsValue": true,
+              "word": "properties"
+            },
+            "word": "are"
+          },
+          "generatedParenthesized": [
+          ],
+          "paraphrases": [
+          ],
+          "paraphrasesParenthesized": [
+          ],
+          "responses": [
+            "What \"bob\" means is unknown"
+          ]
+        },
+        {
+          "context": {
+            "context_id": null,
+            "context_index": 1,
+            "dead": true,
+            "level": 2,
+            "marker": "is",
+            "number": "one",
+            "one": {
+              "dead": true,
+              "level": 0,
+              "marker": "unknown",
+              "number": "one",
+              "range": {
+                "end": 7,
+                "start": 0
+              },
+              "text": "property",
+              "types": [
+                "queryable",
+                "unknown"
+              ],
+              "unknown": true,
+              "value": "property",
+              "word": "property"
+            },
+            "range": {
+              "end": 20,
+              "start": 0
+            },
+            "text": "property is a concept",
+            "topLevel": true,
+            "touchedBy": [
+              "properties#call2",
+              "instance0#properties#call2"
+            ],
+            "two": {
+              "concept": true,
+              "dead": true,
+              "default": true,
+              "determiner": {
+                "default": true,
+                "level": 0,
+                "marker": "a",
+                "range": {
+                  "end": 12,
+                  "start": 12
+                },
+                "text": "a",
+                "word": "a"
+              },
+              "level": 0,
+              "marker": "concept",
+              "modifiers": [
+                "determiner"
+              ],
+              "number": "one",
+              "pullFromContext": false,
+              "range": {
+                "end": 20,
+                "start": 12
+              },
+              "text": "a concept",
+              "types": [
+                "concept"
+              ],
+              "value": "concept",
+              "wantsValue": true,
+              "word": "concept"
+            },
+            "word": "is"
+          },
+          "generatedParenthesized": [
+          ],
+          "paraphrases": [
+          ],
+          "paraphrasesParenthesized": [
+          ],
+          "responses": [
+          ]
+        },
+        {
+          "context": {
+            "concept": {
+              "dead": true,
+              "default": true,
+              "level": 0,
+              "marker": "noun",
+              "range": {
+                "end": 21,
+                "start": 18
+              },
+              "text": "noun",
+              "value": "noun",
+              "word": "noun"
+            },
+            "conceptModifiers": [
+              {
+                "dead": true,
+                "level": 1,
+                "marker": "compound",
+                "number": "one",
+                "range": {
+                  "end": 7,
+                  "start": 0
+                },
+                "text": "compound",
+                "value": "compound",
+                "word": "compound"
+              }
+            ],
+            "context_id": null,
+            "context_index": 1,
+            "dead": true,
+            "flatten": false,
+            "level": 1,
+            "marker": "modifies",
+            "number": "one",
+            "range": {
+              "end": 21,
+              "start": 0
+            },
+            "text": "compound modifies noun",
+            "topLevel": true,
+            "touchedBy": [
+              "concept#call2",
+              "instance2#concept#call2",
+              "instance2#properties#call2"
+            ],
+            "word": "modifies"
+          },
+          "generatedParenthesized": [
+          ],
+          "paraphrases": [
+          ],
+          "paraphrasesParenthesized": [
+          ],
+          "responses": [
+          ]
+        },
+        {
+          "context": {
+            "concept": {
+              "dead": true,
+              "level": 0,
+              "marker": "unknown",
+              "range": {
+                "end": 21,
+                "start": 14
+              },
+              "text": "compound",
+              "unknown": true,
+              "value": "compound",
+              "word": "compound"
+            },
+            "conceptModifiers": [
+              {
+                "dead": true,
+                "level": 0,
+                "marker": "unknown",
+                "range": {
+                  "end": 3,
+                  "start": 0
+                },
+                "text": "open",
+                "unknown": true,
+                "value": "open",
+                "word": "open"
+              }
+            ],
+            "context_id": null,
+            "context_index": 1,
+            "dead": true,
+            "flatten": false,
+            "level": 1,
+            "marker": "modifies",
+            "number": "one",
+            "range": {
+              "end": 21,
+              "start": 0
+            },
+            "text": "open modifies compound",
+            "topLevel": true,
+            "touchedBy": [
+              "concept#call2",
+              "instance1#concept#call2",
+              "instance1#properties#call2"
+            ],
+            "word": "modifies"
+          },
+          "generatedParenthesized": [
+          ],
+          "paraphrases": [
+          ],
+          "paraphrasesParenthesized": [
+          ],
+          "responses": [
+          ]
+        }
+      ]
+    },
+    "paraphrases": [
+      "what are the properties of bob?"
+    ],
+    "paraphrasesParenthesized": [
+      "(((what) are ((((the)) (properties)) of (bob)))?)"
+    ],
+    "query": "what are the properties of bob",
+    "responses": [
+      "What \"bob\" means is unknown"
+    ],
+    "summaries": [
+      {
+        "length": 1,
+        "summaries": [
+          {
+            "counter": 1,
+            "operators": [
+              {
+                "marker": [
+                  "what",
+                  0
+                ],
+                "range": {
+                  "end": 3,
+                  "start": 0
+                }
+              },
+              {
+                "marker": [
+                  "is",
+                  0
+                ],
+                "range": {
+                  "end": 7,
+                  "start": 5
+                }
+              },
+              {
+                "marker": [
+                  "the",
+                  0
+                ],
+                "range": {
+                  "end": 11,
+                  "start": 9
+                }
+              },
+              {
+                "marker": [
+                  "property",
+                  0
+                ],
+                "range": {
+                  "end": 22,
+                  "start": 13
+                }
+              },
+              {
+                "marker": [
+                  "propertyOf",
+                  0
+                ],
+                "range": {
+                  "end": 25,
+                  "start": 24
+                }
+              },
+              {
+                "marker": [
+                  "unknown",
+                  0
+                ],
+                "range": {
+                  "end": 29,
+                  "start": 27
+                }
+              }
+            ]
+          },
+          {
+            "counter": 2,
+            "operators": [
+              {
+                "marker": [
+                  "what",
+                  0
+                ],
+                "range": {
+                  "end": 3,
+                  "start": 0
+                }
+              },
+              {
+                "marker": [
+                  "is",
+                  0
+                ],
+                "range": {
+                  "end": 7,
+                  "start": 5
+                }
+              },
+              {
+                "marker": [
+                  "the",
+                  0
+                ],
+                "range": {
+                  "end": 11,
+                  "start": 9
+                }
+              },
+              {
+                "marker": [
+                  "property",
+                  0
+                ],
+                "range": {
+                  "end": 22,
+                  "start": 13
+                }
+              },
+              {
+                "marker": [
+                  "propertyOf",
+                  0
+                ],
+                "range": {
+                  "end": 25,
+                  "start": 24
+                }
+              },
+              {
+                "marker": [
+                  "unknown",
+                  0
+                ],
+                "range": {
+                  "end": 29,
+                  "start": 27
+                }
+              }
+            ]
+          },
+          {
+            "counter": 3,
+            "operators": [
+              {
+                "marker": [
+                  "what",
+                  0
+                ],
+                "range": {
+                  "end": 3,
+                  "start": 0
+                }
+              },
+              {
+                "marker": [
+                  "is",
+                  0
+                ],
+                "range": {
+                  "end": 7,
+                  "start": 5
+                }
+              },
+              {
+                "marker": [
+                  "the",
+                  0
+                ],
+                "range": {
+                  "end": 11,
+                  "start": 9
+                }
+              },
+              {
+                "marker": [
+                  "property",
+                  0
+                ],
+                "range": {
+                  "end": 22,
+                  "start": 13
+                }
+              },
+              {
+                "marker": [
+                  "propertyOf",
+                  0
+                ],
+                "range": {
+                  "end": 25,
+                  "start": 24
+                }
+              },
+              {
+                "marker": [
+                  "unknown",
+                  0
+                ],
+                "range": {
+                  "end": 29,
+                  "start": 27
+                }
+              }
+            ]
+          },
+          {
+            "counter": 4,
+            "operators": [
+              {
+                "marker": [
+                  "what",
+                  1
+                ],
+                "range": {
+                  "end": 3,
+                  "start": 0
+                }
+              },
+              {
+                "marker": [
+                  "is",
+                  0
+                ],
+                "range": {
+                  "end": 7,
+                  "start": 5
+                }
+              },
+              {
+                "marker": [
+                  "the",
+                  0
+                ],
+                "range": {
+                  "end": 11,
+                  "start": 9
+                }
+              },
+              {
+                "marker": [
+                  "property",
+                  0
+                ],
+                "range": {
+                  "end": 22,
+                  "start": 13
+                }
+              },
+              {
+                "marker": [
+                  "propertyOf",
+                  0
+                ],
+                "range": {
+                  "end": 25,
+                  "start": 24
+                }
+              },
+              {
+                "marker": [
+                  "unknown",
+                  0
+                ],
+                "range": {
+                  "end": 29,
+                  "start": 27
+                }
+              }
+            ]
+          },
+          {
+            "counter": 5,
+            "operators": [
+              {
+                "marker": [
+                  "what",
+                  1
+                ],
+                "range": {
+                  "end": 3,
+                  "start": 0
+                }
+              },
+              {
+                "marker": [
+                  "is",
+                  0
+                ],
+                "range": {
+                  "end": 7,
+                  "start": 5
+                }
+              },
+              {
+                "marker": [
+                  "property",
+                  0
+                ],
+                "range": {
+                  "end": 22,
+                  "start": 9
+                }
+              },
+              {
+                "marker": [
+                  "propertyOf",
+                  0
+                ],
+                "range": {
+                  "end": 25,
+                  "start": 24
+                }
+              },
+              {
+                "marker": [
+                  "unknown",
+                  0
+                ],
+                "range": {
+                  "end": 29,
+                  "start": 27
+                }
+              }
+            ]
+          },
+          {
+            "counter": 6,
+            "operators": [
+              {
+                "marker": [
+                  "what",
+                  1
+                ],
+                "range": {
+                  "end": 3,
+                  "start": 0
+                }
+              },
+              {
+                "marker": [
+                  "is",
+                  0
+                ],
+                "range": {
+                  "end": 7,
+                  "start": 5
+                }
+              },
+              {
+                "marker": [
+                  "property",
+                  0
+                ],
+                "range": {
+                  "end": 22,
+                  "start": 9
+                }
+              },
+              {
+                "marker": [
+                  "propertyOf",
+                  1
+                ],
+                "range": {
+                  "end": 29,
+                  "start": 24
+                }
+              }
+            ]
+          },
+          {
+            "counter": 7,
+            "operators": [
+              {
+                "marker": [
+                  "what",
+                  1
+                ],
+                "range": {
+                  "end": 3,
+                  "start": 0
+                }
+              },
+              {
+                "marker": [
+                  "is",
+                  0
+                ],
+                "range": {
+                  "end": 7,
+                  "start": 5
+                }
+              },
+              {
+                "marker": [
+                  "property",
+                  0
+                ],
+                "range": {
+                  "end": 29,
+                  "start": 9
+                }
+              }
+            ]
+          },
+          {
+            "counter": 8,
+            "operators": [
+              {
+                "marker": [
+                  "is",
+                  1
+                ],
+                "range": {
+                  "end": 29,
+                  "start": 0
+                }
+              }
+            ]
+          },
+          {
+            "counter": 9,
+            "operators": [
+              {
+                "marker": [
+                  "is",
+                  2
+                ],
+                "range": {
+                  "end": 29,
+                  "start": 0
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
   }
 ]

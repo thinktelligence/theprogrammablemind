@@ -478,6 +478,39 @@ const config = {
   ],
   semantics: [
     {
+      notes: 'semantic for setting value with constraint',
+      //match: ({context, isA}) => isA(context.marker, after[0].tag) && context.evaluate && context.constraints,
+      match: ({context, isA}) => context.evaluate && context.constraints,
+      apply: async ({km, context, e, log, isA}) => {
+        const constraint = context.constraints[0];
+        const value = constraint.constraint;
+        let property = constraint.property;
+        const properties = constraint.properties;
+        for (const p of properties) {
+          if (value[p].concept) {
+            property = p
+            constraint.property = p; // set what is used
+          }
+        }
+        // value.marker = 'owns'
+        // value.greg = true
+        // value.ownee.query = true
+        value.query = true
+        const instance = await e(value)
+        if (instance.verbatim) {
+          context.evalue = { verbatim: instance.verbatim }
+          return
+        }
+        if (instance.evalue.marker == 'answerNotKnown') {
+          context.evalue = instance.evalue
+          return
+        }
+        const selected = instance.evalue.value.map( (r) => r[property] )
+        context.constraints = undefined;
+        context.evalue = { marker: 'list', listable: true, value: selected }
+      },
+    },
+    {
       where: where(),
       notes: "how deep is the pool",
       priority: -1,
@@ -737,7 +770,7 @@ const config = {
               currentContext = fromMentions
               currentValue = fromMentions // TODO not sure what is right here so just do something and fix when actually needed SOP
             } else {
-              currentContext = await api.getProperty(currentValue, nextValue, g)
+              currentContext = await api.getProperty(currentValue, nextValue)
               currentValue = currentContext.value
             }
           }

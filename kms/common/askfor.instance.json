@@ -14,6 +14,12 @@
         "([information])",
         "(([known]) [knownAbout|about] (*))"
       ],
+      "generators": [
+        {
+          "match": "({context}) => context.marker == 'is' && context.one.marker == 'known'",
+          "apply": "async ({context, g}) => {\n            return await g(context.two)\n          }"
+        }
+      ],
       "bridges": [
         {
           "id": "knownAbout",
@@ -27,7 +33,7 @@
           "isA": [
             "queryable"
           ],
-          "evaluator": "async ({context, e, callId, toList, flatten, toEValue, resolveEvaluate, objects}) => {\n            debugger\n          }"
+          "evaluator": "async ({kms, context, e, callId, toList, flatten, toEValue, resolveEvaluate, objects}) => {\n            debugger\n            const known = await kms.properties.api.getProperty(context.subjects[0], 'property')\n            resolveEvaluate(context, known)\n          }"
         },
         {
           "id": "information",
@@ -868,6 +874,9 @@
         "([askfor_askfor|] ([for_askfor|] (@<= concept)))",
         "([information])",
         "(([known]) [knownAbout|about] (*))"
+      ],
+      "generators": [
+        {}
       ],
       "bridges": [
         {

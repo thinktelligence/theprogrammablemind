@@ -52,6 +52,14 @@ const template = {
         "([information])",
         "(([known]) [knownAbout|about] (*))",
       ],
+      generators: [
+        {
+          match: ({context}) => context.marker == 'is' && context.one.marker == 'known',
+          apply: async ({context, g}) => {
+            return await g(context.two)
+          }
+        },
+      ],
       bridges: [
         {
           id: 'knownAbout',
@@ -67,8 +75,10 @@ const template = {
         {
           id: 'known',
           isA: ['queryable'],
-          evaluator: async ({context, e, callId, toList, flatten, toEValue, resolveEvaluate, objects}) => {
+          evaluator: async ({kms, context, e, callId, toList, flatten, toEValue, resolveEvaluate, objects}) => {
             debugger
+            const known = await kms.properties.api.getProperty(context.subjects[0], 'property')
+            resolveEvaluate(context, known)
           },
         },
         {

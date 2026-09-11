@@ -140,39 +140,6 @@ class API {
     config.addHierarchy(before[0].id, 'isEder')
     config.addHierarchy(after[0].id, 'isEdee')
     config.addHierarchy('isEdee', 'queryable')
-    config.addSemantic({
-      notes: 'semantic for setting value with constraint',
-      match: ({context, isA}) => isA(context.marker, after[0].tag) && context.evaluate && context.constraints,
-      // match: ({context, isA}) => context.marker == after[0].tag && context.evaluate,
-      apply: async ({km, context, e, log, isA}) => {
-        const constraint = context.constraints[0];
-        const value = constraint.constraint;
-        let property = constraint.property;
-        const properties = constraint.properties;
-        for (const p of properties) {
-          if (value[p].concept) {
-            property = p
-            constraint.property = p; // set what is used
-          }
-        }
-        // value.marker = 'owns'
-        // value.greg = true
-        // value.ownee.query = true
-        value.query = true
-        const instance = await e(value)
-        if (instance.verbatim) {
-          context.evalue = { verbatim: instance.verbatim }
-          return
-        }
-        if (instance.evalue.marker == 'answerNotKnown') {
-          context.evalue = instance.evalue
-          return
-        }
-        const selected = instance.evalue.value.map( (r) => r[property] )
-        context.constraints = undefined;
-        context.evalue = { marker: 'list', listable: true, value: selected }
-      },
-    })
     config.addGenerator({
       notes: 'generator for constraint',
       match: ({context}) => context.marker == edAble.operator && context.paraphrase && context.constrained,
@@ -778,12 +745,6 @@ class API {
     this.propertiesFH.setHandler(path, handler)
   }
 
-  /*
-  async getObject(object) {
-    return this.propertiesFH.getValue([object])
-  }
-  */
-
   getHandler(object, property) {
     return this.propertiesFH.getHandler([object, property])
   }
@@ -798,25 +759,23 @@ class API {
     return this._km("stm").api.getVariable(context) || context.value;
   }
 
-  async getProperty(object, property, g) {
+  async getProperty(object, property) {
     object = this.toValue(object)
     property = this.toValue(property)
     const handler = this.propertiesFH.getHandler([object, property])
     if (handler) {
       return await handler.getValue([object, property])
     }
-    return await this.getPropertyDirectly(object, property, g)
+    return await this.getPropertyDirectly(object, property)
   }
 
-  async getPropertyDirectly(object, property, g) {
+  async getPropertyDirectly(object, property) {
     if (property == 'property') {
       const objectProps = await this.propertiesFH.getValue([object])
       const values = []
       for (const key of Object.keys(objectProps)) {
         if (objectProps[key].has) {
-          debugger
           values.push({ marker: 'labelledValue', label: key, value: objectProps[key].value, useColon: true })
-          // values.push(`${await g(key)}: ${await g({ ...objectProps[key].value, paraphrase: true })}`)
         }
       }
       return { marker: 'list', listable: true, value: values }
