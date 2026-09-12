@@ -34,7 +34,7 @@ describe('interpolate Tests', () => {
     expect(actual).toBe('gregseparator23mcclement')
   })
 
-  it('NEO23 string separator used is empty string', async () => {
+  it('NEOS23 string separator used is empty string', async () => {
     const context = { first: 'greg', last: 'mcclement' }
     const args = getArgs(context)
     const actual = await interpolate(args)([{ property: 'first' }, { separator: '' }, { property: 'last' }], context)
@@ -74,6 +74,24 @@ describe('interpolate Tests', () => {
     const args = getArgs(context)
     const actual = await interpolate(args)(['owned'], context)
     expect(actual).toBe('owned')
+  })
+
+  it('NEO23 bug2', async () => {
+    const context = { 
+      constraints: [
+        {
+          constraint: {
+            ownee: 'ownee23',
+            owner: 'owner23',
+          }
+        }
+      ]
+    }
+    const i = [ { "property": "constraints[0].constraint.ownee" }, "owned", "by", { "property": "constraints[0].constraint.owner" } ]
+
+    const args = getArgs(context)
+    const actual = await interpolate(args)(i, context)
+    expect(actual).toBe('ownee23 owned by owner23')
   })
 
   it('NEOS23 inside once', async () => {

@@ -43,6 +43,9 @@ function interpolate(args) {
           } else if (element.separator !== undefined && !element.values) {
             separator = element.separator
           } else if (typeof element == 'string') {
+            if (separator) {
+              strings.push(separator)
+            }
             strings.push(element)
           } else if (element.separator && element.values) {
             let ctr = 0
