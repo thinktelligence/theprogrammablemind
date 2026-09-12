@@ -76,7 +76,7 @@ describe('interpolate Tests', () => {
     expect(actual).toBe('owned')
   })
 
-  it('NEO23 bug2', async () => {
+  it('NEOS23 bug2', async () => {
     const context = { 
       constraints: [
         {
@@ -92,6 +92,30 @@ describe('interpolate Tests', () => {
     const args = getArgs(context)
     const actual = await interpolate(args)(i, context)
     expect(actual).toBe('ownee23 owned by owner23')
+  })
+
+  it('NEO23 bug3', async () => {
+    const context = { 
+      constraints: [
+        {
+          constraint: {
+            ownee: 'ownee23',
+            owner: 'owner23',
+          }
+        }
+      ]
+    }
+    const i = [ { "property": "constraints[0].constraint.ownee" }, "owned", "by", { "property": "constraints[0].constraint.owner" } ]
+
+    const args = getArgs(context)
+    args.gp = (context) => {
+      if (context == 'owner23') {
+        return ""
+      }
+      return context
+    }
+    const actual = await interpolate(args)(i, context)
+    expect(actual).toBe('ownee23 owned by')
   })
 
   it('NEOS23 inside once', async () => {

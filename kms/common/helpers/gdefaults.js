@@ -82,14 +82,18 @@ function interpolate(args) {
                 value = { ...value, ...element.context }
               }
               async function handleProperty(value) {
-                strings.push(separator)
                 if (element.isQuantified && number && isLastElement) {
                   value.number = number
                 }
+                let str = ''
                 if (Array.isArray(value)) {
-                  strings.push(await args.gsp(value))
+                  str = await args.gsp(value)
                 } else {
-                  strings.push(await args.gp(value))
+                  str = await args.gp(value)
+                }
+                if (str) {
+                  strings.push(separator)
+                  strings.push(str)
                 }
                 separator = ' '
               }
