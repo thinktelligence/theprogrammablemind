@@ -30,9 +30,14 @@ async function sleep(ms) {
 }
 
 let FAST = false
+let FAST_2 = false
 
 const args = process.argv.slice(2);
 if (args.includes("--fast")) {
+  FAST = true
+}
+if (args.includes("--fast2")) {
+  FAST_2 = true
   FAST = true
 }
 
@@ -58,7 +63,9 @@ for (let file of package_json.files) {
   if (file.includes("_helper")) {
     continue
   }
-
+  if (FAST_2 && (file.includes("drone") || file.includes('fastfood'))) {
+    continue
+  }
   retrains.push(`node ${file} -rtf -g`)
   tests.push(`node ${file} -tva -g`)
   if (!FAST) {

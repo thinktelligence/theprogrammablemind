@@ -1,3 +1,4 @@
+const { getByPath, setByPath, } = require('../runtime').theprogrammablemind
 const helpers = require('../helpers')
 
 function interpolate(args) {
@@ -39,8 +40,10 @@ function interpolate(args) {
             strings.push(separator)
             strings.push(await args.gp({...context, interpolate: undefined}))
             separator = ' '
+          } else if (element.separator !== undefined && !element.values) {
+            separator = element.separator
           } else if (typeof element == 'string') {
-            separator = element
+            strings.push(element)
           } else if (element.separator && element.values) {
             let ctr = 0
             const each = element.each
@@ -70,7 +73,7 @@ function interpolate(args) {
               separator = ' '
             }
           } else if (element.property) {
-            value = context[element.property]
+            value = getByPath(context, element.property)
             if (value) {
               if (element.context) {
                 value = { ...value, ...element.context }

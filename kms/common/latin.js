@@ -105,14 +105,14 @@ const config = {
 
     { 
       id: "queryMarker",
-      bridge: "{ ...before[0], verb: before[0], interpolate: [{ context: before[0] }, '', { context: operator }], question: true }",
+      bridge: "{ ...before[0], verb: before[0], interpolate: [{ context: before[0] }, { separator: '' }, { context: operator }], question: true }",
       separators: '|',
       before: ['hierarchy'],
     },
     { 
       id: "listMarker",
       localHierarchy: [['unknown', 'listable']],
-      bridge: "{ ...before[0], verb: before[0], interpolate: [{ context: before[0] }, '', { context: operator }], isList: true }",
+      bridge: "{ ...before[0], verb: before[0], interpolate: [{ context: before[0] }, { separator: '' }, { context: operator }], isList: true }",
       separators: '|',
     },
     { id: "hierarchiable" },
