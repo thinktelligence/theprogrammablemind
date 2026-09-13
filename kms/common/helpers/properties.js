@@ -117,6 +117,7 @@ class API {
              id: edAble.operator,
              level: 0,
              localHierarchy,
+             isEd: true,
              bridge: `{ 
                ...before, 
                marker: operator('${after[0].tag}'),
@@ -142,8 +143,9 @@ class API {
     config.addHierarchy('isEdee', 'queryable')
     config.addGenerator({
       notes: 'generator for constraint',
-      match: ({context}) => context.marker == edAble.operator && context.paraphrase && context.constrained,
+      match: ({context}) => context.paraphrase && context.constrained,
       apply: async ({context, g}) => {
+        debugger
         if (context[before[0].tag].marker == 'by') {
           // the cat wendy owned
           return `${await g({...context[after[0].tag], paraphrase: true})} ${edAble.word} ${await g({...context[before[0].tag], paraphrase: true})}`
@@ -155,14 +157,12 @@ class API {
     })
     config.addGenerator({
       match: ({context}) => {
-        if (context.marker == operator && context.paraphrase) {
-          if (context['do']) {
-            const left = context['do'].left
-            if (context[left]) {
-              // who owns X should not be 'does who own x' but instead 'who owns x'
-              if (context[left].query) {
-                return true;
-              }
+        if (context.do && context.paraphrase) {
+          const left = context['do'].left
+          if (context[left]) {
+            // who owns X should not be 'does who own x' but instead 'who owns x'
+            if (context[left].query) {
+              return true;
             }
           }
         }
@@ -175,7 +175,7 @@ class API {
       }
     })
     config.addGenerator({
-      match: ({context}) => context.marker == edAble.operator && context.isEd,
+      match: ({context}) => context.isEd,
       apply: async ({context, g}) => {
         const chosen = chooseNumber(context[after[0].tag], 'is', 'are')
         if (context[before[0].tag].evalue && context[before[0].tag].evalue.marker == 'answerNotKnown') {
@@ -210,9 +210,14 @@ class API {
 
       const generator = {
         notes: `generator for who/what is X owned by`,
-        // match: ({context, hierarchy}) => hierarchy.isA(context.marker, 'is') && context.one && context.one.marker == 'ownee' && context.one.constraints && context.one.constraints[0] && context.one.constraints[0].constraint.marker == 'owned' && context.one.constraints[0].constraint.owner.implicit,
-        match: ({context, hierarchy}) => hierarchy.isA(context.marker, 'is') && context.one && context.one.marker == after[0].tag && context.one.constraints && context.one.constraints[0] && context.one.constraints[0].constraint.marker == edAble.operator && context.one.constraints[0].constraint[before[0].tag].implicit,
+        match: ({context, hierarchy}) => 
+          hierarchy.isA(context.marker, 'is') && 
+          context.one && 
+          context.one.marker == after[0].tag && 
+          context.one.constraints && context.one.constraints[0] && 
+          context.one.constraints[0].constraint[before[0].tag].implicit,
         apply: async ({context, fragments, g, gs, callId}) => {
+          debugger
           const isToFromM = [{"from":["one"],"to":["two"]},{"from":["two"],"to":["one"]}]
           const fromF = (await fragments(whoIsWhatVerbedBy)).contexts()[0]
           const toF = await fragments(thisIsVerbedByThat)
