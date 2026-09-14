@@ -318,6 +318,53 @@ const config = {
   ],
   generators: [
     {
+      match: ({context}) => {
+        if (context.do && context.paraphrase) {
+          const left = context['do'].left
+          if (context[left]) {
+            // who owns X should not be 'does who own x' but instead 'who owns x'
+            if (context[left].query) {
+              return true;
+            }
+          }
+        }
+
+        return false;
+      },
+
+      apply: async ({context, g, gw}) => {
+        const chosen = await(gw({ number: context.number, word: context.word, isVerb: true}))
+        return `${await g(context[context.do.left])} ${chosen} ${await g(context[context.do.right])}`
+      }
+    },
+
+    {
+      match: ({context}) => context.isEd,
+      apply: async ({context, g}) => {
+        const chosen = chooseNumber(context[context.afterTag], 'is', 'are')
+        if (context[context.beforeTag].evalue && context[context.beforeTag].evalue.marker == 'answerNotKnown') {
+          return await g(context[context.beforeTag])
+        }
+        return `${await g(context[context.afterTag])} ${chosen} ${context.word} by ${await g(context[context.beforeTag])}`
+      }
+    },
+
+    {
+      notes: 'generator for constraint',
+      match: ({context}) => context.paraphrase && context.constrained,
+      apply: async ({callId, context, g}) => {
+        if (context[context.beforeTag].marker == 'by') {
+          // the cat wendy owned
+          return `${await g({...context[context.afterTag], paraphrase: true})} ${context.word} ${await g({...context[context.beforeTag], paraphrase: true})}`
+        } else {
+          // the cat owned by wendy
+          return `${await g({...context[context.afterTag], paraphrase: true})} ${context.word} ${['by', await g({...context[context.beforeTag], paraphrase: true})].filter((t) => t).join(' ')}`
+        }
+      },
+    },
+
+
+    {
       notes: 'expression with constraints',
       where: where(),
       match: ({context}) => context.constraints && context.paraphrase,
@@ -333,11 +380,7 @@ const config = {
         const paraphrase = Object.assign({}, constraint.paraphrase)
         paraphrase.paraphrase = true;
         paraphrase[constraint.property] = property
-        if (false && context.isResponse) {
-          return await g({...constraint.paraphrase, paraphrase: true})
-        } else {
-          return await g(constrained)
-        }
+        return await g(constrained)
       },
     },
     {
@@ -496,6 +539,7 @@ const config = {
         // value.greg = true
         // value.ownee.query = true
         value.query = true
+        value.greg99 = 23
         const instance = await e(value)
         if (instance.verbatim) {
           context.evalue = { verbatim: instance.verbatim }

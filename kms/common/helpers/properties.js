@@ -121,6 +121,7 @@ class API {
              bridge: `{ 
                ...before, 
                marker: operator('${after[0].tag}'),
+               isEdProperties: ['${after[0].tag}', '${before[0].tag}'], 
                constraints: [ 
                     { 
                        property: '${after[0].tag}', 
@@ -130,61 +131,28 @@ class API {
                           { 
                             ...next(operator), 
                             constrained: true, 
+                            beforeTag: "${before[0].tag}",
+                            afterTag: "${after[0].tag}",
                             ${before[0].tag}: default(after[0].object, after[0]), 
                             ${after[0].tag}: { ...before[0] }
                           } 
                     }
                ] }`,
-             deferred: `{ ...next(operator), 'isEd': true, subject: 'ownee', '${after[0].tag}': { operator: operator, number: operator.number, ...before[0] }, ${before[0].tag}: after[0].object }` })
+             deferred: `{ 
+               ...next(operator), 
+               isEd: true, 
+               subject: 'ownee', 
+               beforeTag: "${before[0].tag}",
+               afterTag: "${after[0].tag}",
+               '${after[0].tag}': { operator: operator, number: operator.number, ...before[0] }, 
+               ${before[0].tag}: after[0].object 
+             }` 
+    })
     // TODO have a prepositions category and underPrep category
     config.addHierarchy(edAble.operator, 'isEdAble')
     config.addHierarchy(before[0].id, 'isEder')
     config.addHierarchy(after[0].id, 'isEdee')
     config.addHierarchy('isEdee', 'queryable')
-    config.addGenerator({
-      notes: 'generator for constraint',
-      match: ({context}) => context.paraphrase && context.constrained,
-      apply: async ({context, g}) => {
-        debugger
-        if (context[before[0].tag].marker == 'by') {
-          // the cat wendy owned
-          return `${await g({...context[after[0].tag], paraphrase: true})} ${edAble.word} ${await g({...context[before[0].tag], paraphrase: true})}`
-        } else {
-          // the cat owned by wendy
-          return `${await g({...context[after[0].tag], paraphrase: true})} ${edAble.word} ${['by', await g({...context[before[0].tag], paraphrase: true})].filter((t) => t).join(' ')}`
-        }
-      },
-    })
-    config.addGenerator({
-      match: ({context}) => {
-        if (context.do && context.paraphrase) {
-          const left = context['do'].left
-          if (context[left]) {
-            // who owns X should not be 'does who own x' but instead 'who owns x'
-            if (context[left].query) {
-              return true;
-            }
-          }
-        }
-
-        return false;
-      },
-      apply: async ({context, g}) => {
-        const chosen = chooseNumber(context, word.singular, word.plural)
-        return `${await g(context[before[0].tag])} ${chosen} ${await g(context[after[0].tag])}`
-      }
-    })
-    config.addGenerator({
-      match: ({context}) => context.isEd,
-      apply: async ({context, g}) => {
-        const chosen = chooseNumber(context[after[0].tag], 'is', 'are')
-        if (context[before[0].tag].evalue && context[before[0].tag].evalue.marker == 'answerNotKnown') {
-          return await g(context[before[0].tag])
-        }
-        return `${await g(context[after[0].tag])} ${chosen} ${edAble.word} by ${await g(context[before[0].tag])}`
-      }
-    })
-
     {
       const whoIsWhatVerbedBy = `${before[0].tag}var is ${after[0].tag}var ${edAble.word} by`
       const thisIsVerbedByThat = `${after[0].tag}var is ${edAble.word} by ${before[0].tag}var`
@@ -193,29 +161,16 @@ class API {
       // config.addFragments([whoIsWhatVerbedBy])
       config.addFragments([
           whoIsWhatVerbedBy, 
-          {
-            /*
-            hierarchy: [
-              ['owneevar', 'ownee']
-            ],
-            */
-            query: thisIsVerbedByThat
-          },
+          thisIsVerbedByThat,
       ])
       
-      // config.addHierarchy({ child: 'owneeVar', parent: 'isEdee', maybe: true})
-      // config.addHierarchy({ child: 'ownerVar', parent: 'isEder', maybe: true})
-      // config.addFragments([`${before[0].tag}Var is ${after[0].tag}Var ${edAble.word} by`, `${after[0].tag}Var is ${edAble.word} by ${before[0].tag}Var`])
-      // config.addFragments(["ownerVar is owneeVar owned by", "owneeVar is owned by ownerVar"])
-
       const generator = {
         notes: `generator for who/what is X owned by`,
         match: ({context, hierarchy}) => 
-          hierarchy.isA(context.marker, 'is') && 
-          context.one && 
-          context.one.marker == after[0].tag && 
-          context.one.constraints && context.one.constraints[0] && 
-          context.one.constraints[0].constraint[before[0].tag].implicit,
+            hierarchy.isA(context.marker, 'is') && 
+            context.one?.isEdProperties &&
+            context.one?.constraints[0].constraint.beforeTag && 
+            context.one?.constraints[0].constraint[context.one.constraints[0].constraint.beforeTag].implicit,
         apply: async ({context, fragments, g, gs, callId}) => {
           debugger
           const isToFromM = [{"from":["one"],"to":["two"]},{"from":["two"],"to":["one"]}]
@@ -231,7 +186,6 @@ class API {
               '[{"from":["two"],"to":["owner"]},{"from":["one"],"to":["ownee"]},{"from":["number"],"to":["number"]}]'
           */
           const tmPrime = compose(isToFromM, tm)
-          // const from = context.one.constraints[0].constraint
           const from = context
           const im = translationMappingToInstantiatorMappings(tmPrime, from, to)
           const translation = await toF.instantiate(im)

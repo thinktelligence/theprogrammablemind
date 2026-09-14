@@ -307,7 +307,7 @@ function initializer({config}) {
         },
         number: (context) => isMany(context) ? "many" : "one",
         // number/gender/person etc
-        gw: (context, { number: numberContext }) => {
+        gw: (context, { number: numberContext } = {}) => {
           const number = numberContext ? args.number(numberContext) : context.number;
           return args.gp( { ...context, evaluateWord: true, number } )
         },

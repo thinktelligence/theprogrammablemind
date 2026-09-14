@@ -809,8 +809,20 @@
       ],
       "generators": [
         {
+          "match": "({context}) => {\n        if (context.do && context.paraphrase) {\n          const left = context['do'].left\n          if (context[left]) {\n            // who owns X should not be 'does who own x' but instead 'who owns x'\n            if (context[left].query) {\n              return true;\n            }\n          }\n        }\n\n        return false;\n      }",
+          "apply": "async ({context, g, gw}) => {\n        const chosen = await(gw({ number: context.number, word: context.word, isVerb: true}))\n        return `${await g(context[context.do.left])} ${chosen} ${await g(context[context.do.right])}`\n      }"
+        },
+        {
+          "match": "({context}) => context.isEd",
+          "apply": "async ({context, g}) => {\n        const chosen = chooseNumber(context[context.afterTag], 'is', 'are')\n        if (context[context.beforeTag].evalue && context[context.beforeTag].evalue.marker == 'answerNotKnown') {\n          return await g(context[context.beforeTag])\n        }\n        return `${await g(context[context.afterTag])} ${chosen} ${context.word} by ${await g(context[context.beforeTag])}`\n      }"
+        },
+        {
+          "match": "({context}) => context.paraphrase && context.constrained",
+          "apply": "async ({callId, context, g}) => {\n        if (context[context.beforeTag].marker == 'by') {\n          // the cat wendy owned\n          return `${await g({...context[context.afterTag], paraphrase: true})} ${context.word} ${await g({...context[context.beforeTag], paraphrase: true})}`\n        } else {\n          // the cat owned by wendy\n          return `${await g({...context[context.afterTag], paraphrase: true})} ${context.word} ${['by', await g({...context[context.beforeTag], paraphrase: true})].filter((t) => t).join(' ')}`\n        }\n      }"
+        },
+        {
           "match": "({context}) => context.constraints && context.paraphrase",
-          "apply": "async ({context, g}) => {\n        // TODO assume one constaints deal with more in the future\n        const constraint = context.constraints[0]\n        const constrained = Object.assign({}, constraint.constraint)\n        const property = Object.assign({}, context)\n        delete property.constraints\n\n        constrained[constraint.property] = property\n        constrained.paraphrase = true\n        const paraphrase = Object.assign({}, constraint.paraphrase)\n        paraphrase.paraphrase = true;\n        paraphrase[constraint.property] = property\n        if (false && context.isResponse) {\n          return await g({...constraint.paraphrase, paraphrase: true})\n        } else {\n          return await g(constrained)\n        }\n      }"
+          "apply": "async ({context, g}) => {\n        // TODO assume one constaints deal with more in the future\n        const constraint = context.constraints[0]\n        const constrained = Object.assign({}, constraint.constraint)\n        const property = Object.assign({}, context)\n        delete property.constraints\n\n        constrained[constraint.property] = property\n        constrained.paraphrase = true\n        const paraphrase = Object.assign({}, constraint.paraphrase)\n        paraphrase.paraphrase = true;\n        paraphrase[constraint.property] = property\n        return await g(constrained)\n      }"
         },
         {
           "match": "({context}) => context.marker == 'xfx'",
@@ -1015,7 +1027,7 @@
             "value": "property",
             "unknown": true,
             "text": "property",
-            "context_id": 272,
+            "context_id": 198,
             "marker": "unknown",
             "word": "property",
             "range": {
@@ -1034,7 +1046,7 @@
             "value": "concept",
             "default": true,
             "text": "a concept",
-            "context_id": 269,
+            "context_id": 195,
             "dead": true,
             "word": "concept",
             "range": {
@@ -1051,7 +1063,7 @@
             "determiner": {
               "marker": "a",
               "default": true,
-              "context_id": 259,
+              "context_id": 186,
               "word": "a",
               "text": "a",
               "range": {
@@ -1341,7 +1353,7 @@
             "value": "concept",
             "default": true,
             "text": "concept",
-            "context_id": 279,
+            "context_id": 205,
             "dead": true,
             "word": "concept",
             "range": {
@@ -1357,7 +1369,7 @@
             "value": "property",
             "number": "one",
             "text": "a property",
-            "context_id": 276,
+            "context_id": 202,
             "marker": "property",
             "word": "property",
             "range": {
@@ -1374,7 +1386,7 @@
             "determiner": {
               "marker": "a",
               "default": true,
-              "context_id": 266,
+              "context_id": 193,
               "word": "a",
               "text": "a",
               "range": {
@@ -2380,51 +2392,56 @@
         }
       ],
       "generators": [
+        {},
+        {},
         {
-          "notes": "expression with constraints",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:322"
+          "notes": "generator for constraint"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:344"
+          "notes": "expression with constraints",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:369"
+        },
+        {
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:387"
         },
         {
           "notes": "add possession ending",
           "priority": -1,
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:351"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:394"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:365"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:408"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:370"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:413"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:375"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:418"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:380"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:423"
         },
         {
           "notes": "negative do questions",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:386"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:429"
         },
         {
           "notes": "do questions",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:395"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:438"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:409"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:452"
         },
         {
           "notes": "the property of object",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:417"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:460"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:441"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:484"
         },
         {
           "notes": "object's property",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:450"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:493"
         }
       ],
       "semantics": [
@@ -2432,41 +2449,41 @@
           "notes": "semantic for setting value with constraint"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:514",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:557",
           "notes": "how deep is the pool",
           "priority": -1
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:541"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:584"
         },
         {
           "notes": "wants is xfx between wanter and wantee",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:552",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:595",
           "priority": -1
         },
         {
           "notes": "marking something as readonly",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:566"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:609"
         },
         {
           "notes": "crew members. evaluate a concepts to get instances",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:590"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:633"
         },
         {
           "notes": "greg has eyes",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:619"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:662"
         },
         {
           "notes": "greg has eyes?",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:632"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:675"
         },
         {
           "notes": "set the property of an object",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:658"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:701"
         },
         {
           "notes": "get/evaluate a property",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:704"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:747"
         }
       ]
     },
@@ -2686,7 +2703,7 @@
             "value": "property1",
             "unknown": true,
             "text": "the property1 of object1",
-            "context_id": 366,
+            "context_id": 279,
             "marker": "property",
             "word": "property1",
             "range": {
@@ -2708,7 +2725,7 @@
             "determiner": {
               "modifiers": [],
               "text": "the",
-              "context_id": 321,
+              "context_id": 235,
               "marker": "the",
               "word": "the",
               "range": {
@@ -2721,7 +2738,7 @@
               "value": "property1",
               "unknown": true,
               "text": "property1",
-              "context_id": 346,
+              "context_id": 259,
               "marker": "unknown",
               "word": "property1",
               "range": {
@@ -2761,7 +2778,7 @@
                 "value": "property1",
                 "unknown": true,
                 "text": "the property1",
-                "context_id": 362,
+                "context_id": 275,
                 "marker": "property",
                 "word": "property1",
                 "range": {
@@ -2783,7 +2800,7 @@
                 "determiner": {
                   "modifiers": [],
                   "text": "the",
-                  "context_id": 321,
+                  "context_id": 235,
                   "marker": "the",
                   "word": "the",
                   "range": {
@@ -2796,7 +2813,7 @@
                   "value": "property1",
                   "unknown": true,
                   "text": "property1",
-                  "context_id": 346,
+                  "context_id": 259,
                   "marker": "unknown",
                   "word": "property1",
                   "range": {
@@ -2832,7 +2849,7 @@
                 "value": "object1",
                 "unknown": true,
                 "text": "object1",
-                "context_id": 358,
+                "context_id": 271,
                 "marker": "object",
                 "word": "object1",
                 "range": {
@@ -2852,7 +2869,7 @@
             "value": "value1",
             "unknown": true,
             "text": "value1",
-            "context_id": 352,
+            "context_id": 265,
             "marker": "unknown",
             "word": "value1",
             "range": {
@@ -3499,7 +3516,7 @@
             "determiner": {
               "modifiers": [],
               "text": "the",
-              "context_id": 231,
+              "context_id": 232,
               "marker": "the",
               "word": "the",
               "range": {
@@ -3573,7 +3590,7 @@
                 "determiner": {
                   "modifiers": [],
                   "text": "the",
-                  "context_id": 231,
+                  "context_id": 232,
                   "marker": "the",
                   "word": "the",
                   "range": {
@@ -3623,7 +3640,7 @@
                 "value": "object",
                 "default": true,
                 "text": "object",
-                "context_id": 240,
+                "context_id": 241,
                 "dead": true,
                 "word": "object",
                 "range": {
@@ -4143,7 +4160,7 @@
           "determiner": {
             "modifiers": [],
             "text": "the",
-            "context_id": 222,
+            "context_id": 223,
             "marker": "the",
             "word": "the",
             "range": {
@@ -4217,7 +4234,7 @@
               "determiner": {
                 "modifiers": [],
                 "text": "the",
-                "context_id": 222,
+                "context_id": 223,
                 "marker": "the",
                 "word": "the",
                 "range": {
@@ -4267,7 +4284,7 @@
               "value": "object",
               "default": true,
               "text": "object",
-              "context_id": 231,
+              "context_id": 232,
               "dead": true,
               "word": "object",
               "range": {
@@ -4607,7 +4624,7 @@
             "determiner": {
               "modifiers": [],
               "text": "the",
-              "context_id": 221,
+              "context_id": 222,
               "marker": "the",
               "word": "the",
               "range": {
