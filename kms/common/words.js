@@ -11,6 +11,9 @@ function initializer({objects, config, isModule}) {
       for (const word of objects.words) {
         let matches = true
         for (const key in partial) {
+          if (key == 'context_id') {
+            continue
+          }
           if (partial[key] !== word[key]) {
             matches = false
           }

@@ -54,4 +54,20 @@ describe('words km', () => {
       expect(match).toBe(word)
     })
   })
+
+  test('NEO23 ignore context_id', async () => {
+    await km.run(({addWordToDictionary, getWordFromDictionary, config}) => {
+      const word = {
+        id: 'be',
+        value: 'be',
+        text: 'be',
+        word: 'be',
+        tense: 'infinitive',
+      }
+      addWordToDictionary(word)
+      addWordToDictionary({ ...word, value: 'otherOne' })
+      const match = getWordFromDictionary({ id: 'be', context_id: 23 })
+      expect(match).toBe(word)
+    })
+  })
 });
