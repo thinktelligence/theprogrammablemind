@@ -122,6 +122,11 @@ class API {
                ...before, 
                marker: operator('${after[0].tag}'),
                isEdProperties: ['${after[0].tag}', '${before[0].tag}'], 
+               relationBacked: ${relation ? true : false},
+               orderingBacked: ${ordering ? true : false},
+               orderingName: "${ordering?.name}",
+               orderingArgs: ${JSON.stringify(ordering)},
+               relationArgs: ${JSON.stringify([...before, ...after])},
                constraints: [ 
                     { 
                        property: '${after[0].tag}', 
@@ -172,7 +177,6 @@ class API {
             context.one?.constraints[0].constraint.beforeTag && 
             context.one?.constraints[0].constraint[context.one.constraints[0].constraint.beforeTag].implicit,
         apply: async ({context, fragments, g, gs, callId}) => {
-          debugger
           const isToFromM = [{"from":["one"],"to":["two"]},{"from":["two"],"to":["one"]}]
           const fromF = (await fragments(whoIsWhatVerbedBy)).contexts()[0]
           const toF = await fragments(thisIsVerbedByThat)
@@ -217,7 +221,7 @@ class API {
       config, 
       localHierarchy=[], 
       relation, 
-      ordering, 
+      ordering={}, 
       doAble, 
       flatten,
       can,
@@ -269,23 +273,12 @@ class API {
       config.addOperator({ pattern: `(${beforeOperators} [${operator}|] ${afterOperators})`, allowDups: true })
     }
 
-    if (false) {
-      for (const argument of before.concat(after)) {
-        if (create.includes(argument.id)) {
-          // config.addHierarchy('unknown', argument.id)
-          // config.addHierarchy('what', argument.id)
-          config.addHierarchy(argument.id, 'unknown')
-          config.addHierarchy(argument.id, 'what')
-        }
-      } 
-    } else {
-      for (const argument of before.concat(after)) {
-        if (create.includes(argument.id)) {
-          // config.addHierarchy(argument.id, 'unknown')
-          // config.addHierarchy(argument.id, 'what')
-          localHierarchy.push([argument.id, 'unknown'])
-          localHierarchy.push([argument.id, 'what'])
-        }
+    for (const argument of before.concat(after)) {
+      if (create.includes(argument.id)) {
+        // config.addHierarchy(argument.id, 'unknown')
+        // config.addHierarchy(argument.id, 'what')
+        localHierarchy.push([argument.id, 'unknown'])
+        localHierarchy.push([argument.id, 'what'])
       }
     }
 
@@ -330,7 +323,22 @@ class API {
           id: operator, 
           level: 0, 
           localHierarchy: [...localHierarchy, ['object', 'unknown']],
-          bridge: `{ ... next(operator) ${flattenProperty} ${doParams} ${beforeArgs} ${afterArgs}, operator: { ...operator, evaluateWord: true, imperative: ${imperative}, isVerb: true, number: 'one' }, unflatten: ${JSON.stringify(unflattenArgs)}, focusable: ${JSON.stringify(focusable)}, interpolate: ${interpolate} }`, 
+          bridge: `{ 
+            ...next(operator) 
+            ${flattenProperty} 
+            ${doParams} 
+            ${beforeArgs} 
+            ${afterArgs}, 
+            relationBacked: ${relation ? true : false},
+            orderingBacked: ${ordering ? true : false},
+            orderingName: "${ordering?.name}",
+            orderingArgs: ${JSON.stringify(ordering)},
+            relationArgs: ${JSON.stringify([...before, ...after])},
+            operator: { ...operator, evaluateWord: true, imperative: ${imperative}, isVerb: true, number: 'one' }, 
+            unflatten: ${JSON.stringify(unflattenArgs)}, 
+            focusable: ${JSON.stringify(focusable)}, 
+            interpolate: ${interpolate} 
+          }`, 
           allowDups: true 
         })
         if (words.length > 0) {
@@ -388,199 +396,10 @@ class API {
       config.addAssociation({ context: [[afterIds[0], 1], ['canPassive', 0], ['beCanPassive', 0], [operator, 0], ['byCanPassive', 0], [beforeIds[0], 0]], choose: 1 })
     }
 
-    if (false) {
-      config.addGenerator({
-        notes: 'ordering generator for paraphrase',
-        match: ({context}) => context.marker == operator && context.paraphrase && !context.query,
-        apply: async ({context, gp, g}) => {
-          const beforeGenerator = []
-          for (const arg of before) {
-            beforeGenerator.push(await g(context[arg.tag]))
-          }
-          const afterGenerator = []
-          for (const arg of after) {
-            afterGenerator.push(await gp(context[arg.tag]))
-          }
-          const word = context.word
-          const sub = []
-          if (context.subphrase) {
-            sub.push(['that'])
-          }
-          return beforeGenerator.concat(sub).concat([word]).concat(afterGenerator).join(' ')
-        }
-      })
-    }
-
-    if (true) {
-      config.addGenerator({
-        notes: 'ordering generator for response',
-        match: ({context}) => context.marker == operator && context.evalue && context.isResponse,
-        apply: async ({context, s, g, km, flatten}) => {
-          const brief = km("dialogues").api.getBrief()
-
-          let { evalue } = context 
-          let yesno = ''
-          let hasVariables = false
-          if (context.focusable) {
-            for (const f of context.focusable) {
-              if (context[f].query) {
-                hasVariables = true
-                break
-              }
-            }
-          }
-          
-          // if (!context.do?.query || evalue.truthValueOnly || context.truthValueOnly || brief) {
-          if (evalue.truthValueOnly || context.truthValueOnly || context.wantsTruthValue || !hasVariables) {
-            function any(value, test) {
-              if (test(value)) {
-                return true
-              }
-              const values = flatten(['list'], value)
-              for (const value of values) {
-                if (test(value)) {
-                  return true
-                }
-              }
-            }
-            if (any(evalue, (value) => value.truthValue)) {
-              yesno = 'yes'
-            } else if (evalue.truthValue === false || context.truthValueOnly) {
-              yesno = 'no'
-            }
-          }
-          if (evalue.truthValueOnly) {
-            return `${yesno}`
-          } else {
-            if (context.voice) {
-              evalue = await s({ ...evalue, toVoice: context.voice, flatten: false})
-            }
-
-            const details = await g(Object.assign({}, evalue, { paraphrase: true }))
-            if (yesno) {
-              return `${yesno} ${details}`
-            }
-            else {
-              return details
-            }
-          }
-        }
-      })
-    }
- 
-    if (ordering) {
-      config.addSemantic({
-        notes: 'ordering setter',
-        // TODO use hierarchy for operator
-        match: ({context}) => context.marker == operator,
-        apply: ({context, km}) => {
-          //const api = km('ordering').api
-          // api.setCategory(ordering.name, context[ordering.object].value, context[ordering.category].value, context)
-          const propertiesAPI = km('properties').api
-          context.ordering = ordering.name
-          const fcontexts = flattens(['list'], [context])
-          for (const fcontext of fcontexts) {
-            fcontext.paraphrase = true
-            fcontext[ordering.object].paraphrase = true
-            fcontext[ordering.category].paraphrase = true
-          }
-          propertiesAPI.relation_add(fcontexts) 
-        }
-      })
-      config.addSemantic({
-        notes: 'ordering query',
-        match: ({context}) => context.marker == operator && context.query,
-        apply: ({context, km}) => {
-          const api = km('ordering').api
-          const propertiesAPI = km('properties').api
-          context.ordering = ordering.name
-          const matches = propertiesAPI.relation_get(context, ['ordering', ordering.object, ordering.category])
-          if (matches.length > 0 || (typeof context.query == 'boolean' && context.query)) {
-            // does greg like bananas
-            if (matches.length == 0) {
-              const response = _.clone(context)
-              response.isResponse = true
-              response.query = undefined
-              context.evalue = { marker: 'list', listable: true, value: [response] }
-            } else {
-              context.evalue = { marker: 'list', listable: true, value: unflatten(matches) }
-              context.evalue.isResponse = true
-            }
-            context.evalue.truthValue = matches.length > 0
-            context.evalue.truth = { marker: 'yesno', value: matches.length > 0, isResponse: true, focus: true }
-            context.evalue.focusable = ['truth']
-            if (!context.evalue.truthValue) {
-              context.evalue.truthValueOnly = true
-            }
-
-            // ADD this line back and remove it to check
-            // context.response = { marker: 'list', listable: true, value: [response], isResponse: true }
-            // Object.assign(context, { marker: 'list', listable: true, value: responses, focusable: ['value'], paraphrase: true, truthValue: matches.length > 0 })
-          } else {
-            // see if anything is preferred greg
-            // what does greg like
-            const matches = propertiesAPI.relation_get(context, ['ordering', ordering.object])
-            if (matches.length == 0) {
-              // Object.assign(context, { marker: 'idontknow', query: _.clone(context) })
-              context.evalue = { marker: 'idontknow', query: _.clone(context), isResponse: true }
-            } else {
-              context.evalue = { marker: 'list', listable: true, value: matches, isResponse: true }
-            }
-            context.isResponse = true
-            context.evalue.truthValue = matches.length > 0 && matches[0].marker == ordering.marker
-          }
-        }
-      })
-    }
-
     if (ordering || relation || doAble) {
       config.addHierarchy(operator, 'canBeQuestion')
       config.addHierarchy(operator, 'ifAble')
       config.addHierarchy(operator, 'orAble')
-    }
-
-    if (relation) {
-      config.addSemantic({
-        notes: `setter for ${operator}`,
-        match: ({context}) => context.marker == operator && !context.toVoice,
-        apply: ({context, km, hierarchy, config}) => {
-          const api = km('properties').api
-          // add types for arguments
-          for (const argument of context.focusable || []) {
-            const value = api.toValue(context[argument])
-            if (value) {
-              const minimas = hierarchy.minima(context[argument].types)
-              for (const type of minimas) {
-                if (config.exists(value)) {
-                  config.addHierarchy(value, type);
-                }
-              }
-            }
-          }
-          api.relation_add(context)
-        }
-      })
-      config.addSemantic({
-        notes: `getter for ${operator}`,
-        match: ({context}) => context.marker == operator && context.query,
-        apply: ({context, km, callId}) => {
-          const api = km('properties').api
-          context.evalue = {
-            marker: 'list',
-            listable: true,
-            value: unflatten(api.relation_get(context, before.concat(after).map( (arg) => arg.tag ) ))
-          }
-          context.evalue.isResponse = true
-          context.isResponse = true
-          if (context.evalue.value.length == 0) {
-            context.evalue.marker = 'answerNotKnown';
-            context.evalue.listable = true
-            context.evalue.value = [];
-          } else {
-            // context.evalue.truthValue = true
-          }
-        }
-      })
     }
 
     if (semanticApply) {

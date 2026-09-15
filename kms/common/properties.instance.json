@@ -809,6 +809,10 @@
       ],
       "generators": [
         {
+          "match": "({context}) => (context.orderingArgs && Object.keys(context.orderingArgs).length !== 0) && context.evalue && context.isResponse",
+          "apply": "async ({context, s, g, km, flatten}) => {\n        const brief = km(\"dialogues\").api.getBrief()\n\n        let { evalue } = context\n        let yesno = ''\n        let hasVariables = false\n        if (context.focusable) {\n          for (const f of context.focusable) {\n            if (context[f].query) {\n              hasVariables = true\n              break\n            }\n          }\n        }\n\n        if (evalue.truthValueOnly || context.truthValueOnly || context.wantsTruthValue || !hasVariables) {\n          function any(value, test) {\n            if (test(value)) {\n              return true\n            }\n            const values = flatten(['list'], value)\n            for (const value of values) {\n              if (test(value)) {\n                return true\n              }\n            }\n          }\n          if (any(evalue, (value) => value.truthValue)) {\n            yesno = 'yes'\n          } else if (evalue.truthValue === false || context.truthValueOnly) {\n            yesno = 'no'\n          }\n        }\n        if (evalue.truthValueOnly) {\n          return `${yesno}`\n        } else {\n          if (context.voice) {\n            evalue = await s({ ...evalue, toVoice: context.voice, flatten: false})\n          }\n\n          const details = await g(Object.assign({}, evalue, { paraphrase: true }))\n          if (yesno) {\n            return `${yesno} ${details}`\n          }\n          else {\n            return details\n          }\n        }\n      }"
+        },
+        {
           "match": "({context}) => {\n        if (context.do && context.paraphrase) {\n          const left = context['do'].left\n          if (context[left]) {\n            // who owns X should not be 'does who own x' but instead 'who owns x'\n            if (context[left].query) {\n              return true;\n            }\n          }\n        }\n\n        return false;\n      }",
           "apply": "async ({context, g, gw}) => {\n        const chosen = await(gw({ number: context.number, word: context.word, isVerb: true}))\n        return `${await g(context[context.do.left])} ${chosen} ${await g(context[context.do.right])}`\n      }"
         },
@@ -875,8 +879,24 @@
       ],
       "semantics": [
         {
+          "match": "({context}) => context.relationBacked && context.query",
+          "apply": "({context, km, callId}) => {\n        const api = km('properties').api\n        context.evalue = {\n          marker: 'list',\n          listable: true,\n          // value: unflatten(api.relation_get(context, before.concat(after).map( (arg) => arg.tag ) ))\n          value: unflatten(api.relation_get(context, context.relationArgs.map( (arg) => arg.tag ) ))\n        }\n        context.evalue.isResponse = true\n        context.isResponse = true\n        if (context.evalue.value.length == 0) {\n          context.evalue.marker = 'answerNotKnown';\n          context.evalue.listable = true\n          context.evalue.value = [];\n        } else {\n          // context.evalue.truthValue = true\n        }\n      }"
+        },
+        {
+          "match": "({context}) => context.relationBacked && !context.toVoice && !context.evaluate",
+          "apply": "({context, km, hierarchy, config, stack}) => {\n        const api = km('properties').api\n        // add types for arguments\n        for (const argument of context.focusable || []) {\n          const value = api.toValue(context[argument])\n          if (value) {\n            const minimas = hierarchy.minima(context[argument].types)\n            for (const type of minimas) {\n              if (config.exists(value)) {\n                config.addHierarchy(value, type);\n              }\n            }\n          }\n        }\n        api.relation_add(context)\n      }"
+        },
+        {
+          "match": "({context}) => context.query && (context.orderingArgs && Object.keys(context.orderingArgs).length !== 0)",
+          "apply": "({context, km}) => {\n        const api = km('ordering').api\n        const propertiesAPI = km('properties').api\n        context.ordering = context.orderingArgs.name\n        const matches = propertiesAPI.relation_get(context, ['ordering', context.orderingArgs.object, context.orderingArgs.category])\n        if (matches.length > 0 || (typeof context.query == 'boolean' && context.query)) {\n          // does greg like bananas\n          if (matches.length == 0) {\n            const response = _.clone(context)\n            response.isResponse = true\n            response.query = undefined\n            context.evalue = { marker: 'list', listable: true, value: [response] }\n          } else {\n            context.evalue = { marker: 'list', listable: true, value: unflatten(matches) }\n            context.evalue.isResponse = true\n          }\n          context.evalue.truthValue = matches.length > 0\n          context.evalue.truth = { marker: 'yesno', value: matches.length > 0, isResponse: true, focus: true }\n          context.evalue.focusable = ['truth']\n          if (!context.evalue.truthValue) {\n            context.evalue.truthValueOnly = true\n          }\n\n          // ADD this line back and remove it to check\n          // context.response = { marker: 'list', listable: true, value: [response], isResponse: true }\n          // Object.assign(context, { marker: 'list', listable: true, value: responses, focusable: ['value'], paraphrase: true, truthValue: matches.length > 0 })\n        } else {\n          // see if anything is preferred greg\n          // what does greg like\n          const matches = propertiesAPI.relation_get(context, ['ordering', context.orderingArgs.object])\n          if (matches.length == 0) {\n            // Object.assign(context, { marker: 'idontknow', query: _.clone(context) })\n            context.evalue = { marker: 'idontknow', query: _.clone(context), isResponse: true }\n          } else {\n            context.evalue = { marker: 'list', listable: true, value: matches, isResponse: true }\n          }\n          context.isResponse = true\n          context.evalue.truthValue = matches.length > 0 && matches[0].marker == context.orderingArgs.marker\n        }\n      }"
+        },
+        {
+          "match": "({context}) => (context.orderingArgs && Object.keys(context.orderingArgs).length !== 0)",
+          "apply": "({context, km, stack}) => {\n          /*\n          if (context.orderingArgs && Object.keys(context.orderingArgs).length !== 0) {\n          } else {\n            debugger\n          }\n          */\n          debugger\n          const propertiesAPI = km('properties').api\n          context.ordering = context.orderingArgs.name\n          const fcontexts = flattens(['list'], [context])\n          for (const fcontext of fcontexts) {\n            fcontext.paraphrase = true\n            fcontext[context.orderingArgs.object].paraphrase = true\n            fcontext[context.orderingArgs.category].paraphrase = true\n          }\n          propertiesAPI.relation_add(fcontexts)\n        }"
+        },
+        {
           "match": "({context, isA}) => context.evaluate && context.constraints",
-          "apply": "async ({km, context, e, log, isA}) => {\n        const constraint = context.constraints[0];\n        const value = constraint.constraint;\n        let property = constraint.property;\n        const properties = constraint.properties;\n        for (const p of properties) {\n          if (value[p].concept) {\n            property = p\n            constraint.property = p; // set what is used\n          }\n        }\n        // value.marker = 'owns'\n        // value.greg = true\n        // value.ownee.query = true\n        value.query = true\n        const instance = await e(value)\n        if (instance.verbatim) {\n          context.evalue = { verbatim: instance.verbatim }\n          return\n        }\n        if (instance.evalue.marker == 'answerNotKnown') {\n          context.evalue = instance.evalue\n          return\n        }\n        const selected = instance.evalue.value.map( (r) => r[property] )\n        context.constraints = undefined;\n        context.evalue = { marker: 'list', listable: true, value: selected }\n      }"
+          "apply": "async ({km, context, e, log, isA}) => {\n        const constraint = context.constraints[0];\n        const value = constraint.constraint;\n        let property = constraint.property;\n        const properties = constraint.properties;\n        for (const p of properties) {\n          if (value[p].concept) {\n            property = p\n            constraint.property = p; // set what is used\n          }\n        }\n        // value.marker = 'owns'\n        // value.greg = true\n        // value.ownee.query = true\n        value.query = true\n        value.greg99 = 23\n        const instance = await e(value)\n        if (instance.verbatim) {\n          context.evalue = { verbatim: instance.verbatim }\n          return\n        }\n        if (instance.evalue.marker == 'answerNotKnown') {\n          context.evalue = instance.evalue\n          return\n        }\n        const selected = instance.evalue.value.map( (r) => r[property] )\n        context.constraints = undefined;\n        context.evalue = { marker: 'list', listable: true, value: selected }\n      }"
         },
         {
           "match": "({context}) => context.marker == 'is' && (context.one.how || context.two.how)",
@@ -2392,6 +2412,9 @@
         }
       ],
       "generators": [
+        {
+          "notes": "ordering generator for response"
+        },
         {},
         {},
         {
@@ -2399,91 +2422,103 @@
         },
         {
           "notes": "expression with constraints",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:369"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:424"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:387"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:442"
         },
         {
           "notes": "add possession ending",
           "priority": -1,
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:394"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:449"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:408"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:463"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:413"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:468"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:418"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:473"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:423"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:478"
         },
         {
           "notes": "negative do questions",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:429"
-        },
-        {
-          "notes": "do questions",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:438"
-        },
-        {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:452"
-        },
-        {
-          "notes": "the property of object",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:460"
-        },
-        {
           "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:484"
         },
         {
-          "notes": "object's property",
+          "notes": "do questions",
           "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:493"
+        },
+        {
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:507"
+        },
+        {
+          "notes": "the property of object",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:515"
+        },
+        {
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:539"
+        },
+        {
+          "notes": "object's property",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:548"
         }
       ],
       "semantics": [
         {
+          "notes": "getter for relation based verbs"
+        },
+        {
+          "notes": "setter for relation based verbs"
+        },
+        {
+          "notes": "ordering query"
+        },
+        {
+          "notes": "ordering setter"
+        },
+        {
           "notes": "semantic for setting value with constraint"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:557",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:725",
           "notes": "how deep is the pool",
           "priority": -1
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:584"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:752"
         },
         {
           "notes": "wants is xfx between wanter and wantee",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:595",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:763",
           "priority": -1
         },
         {
           "notes": "marking something as readonly",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:609"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:777"
         },
         {
           "notes": "crew members. evaluate a concepts to get instances",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:633"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:801"
         },
         {
           "notes": "greg has eyes",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:662"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:830"
         },
         {
           "notes": "greg has eyes?",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:675"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:843"
         },
         {
           "notes": "set the property of an object",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:701"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:869"
         },
         {
           "notes": "get/evaluate a property",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:747"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:915"
         }
       ]
     },
@@ -3640,7 +3675,7 @@
                 "value": "object",
                 "default": true,
                 "text": "object",
-                "context_id": 241,
+                "context_id": 240,
                 "dead": true,
                 "word": "object",
                 "range": {
@@ -4284,7 +4319,7 @@
               "value": "object",
               "default": true,
               "text": "object",
-              "context_id": 232,
+              "context_id": 231,
               "dead": true,
               "word": "object",
               "range": {

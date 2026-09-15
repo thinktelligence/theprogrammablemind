@@ -1,5 +1,6 @@
-const { knowledgeModule, where, debug } = require('./runtime').theprogrammablemind
+const { knowledgeModule, where, debug, unflatten, flattens } = require('./runtime').theprogrammablemind
 const { defaultContextCheckProperties, defaultContextCheck, words } = require('./helpers')
+const _ = require('lodash')
 const dialogues = require('./dialogues')
 const hierarchy = require('./hierarchy')
 const meta = require('./meta')
@@ -318,6 +319,60 @@ const config = {
   ],
   generators: [
     {
+      notes: 'ordering generator for response',
+      match: ({context}) => (context.orderingArgs && Object.keys(context.orderingArgs).length !== 0) && context.evalue && context.isResponse,
+      apply: async ({context, s, g, km, flatten}) => {
+        const brief = km("dialogues").api.getBrief()
+
+        let { evalue } = context
+        let yesno = ''
+        let hasVariables = false
+        if (context.focusable) {
+          for (const f of context.focusable) {
+            if (context[f].query) {
+              hasVariables = true
+              break
+            }
+          }
+        }
+
+        if (evalue.truthValueOnly || context.truthValueOnly || context.wantsTruthValue || !hasVariables) {
+          function any(value, test) {
+            if (test(value)) {
+              return true
+            }
+            const values = flatten(['list'], value)
+            for (const value of values) {
+              if (test(value)) {
+                return true
+              }
+            }
+          }
+          if (any(evalue, (value) => value.truthValue)) {
+            yesno = 'yes'
+          } else if (evalue.truthValue === false || context.truthValueOnly) {
+            yesno = 'no'
+          }
+        }
+        if (evalue.truthValueOnly) {
+          return `${yesno}`
+        } else {
+          if (context.voice) {
+            evalue = await s({ ...evalue, toVoice: context.voice, flatten: false})
+          }
+
+          const details = await g(Object.assign({}, evalue, { paraphrase: true }))
+          if (yesno) {
+            return `${yesno} ${details}`
+          }
+          else {
+            return details
+          }
+        }
+      }
+    },
+
+    {
       match: ({context}) => {
         if (context.do && context.paraphrase) {
           const left = context['do'].left
@@ -520,6 +575,111 @@ const config = {
     },
   ],
   semantics: [
+    {
+      notes: 'getter for relation based verbs',
+      match: ({context}) => context.relationBacked && context.query,
+      apply: ({context, km, callId}) => {
+        const api = km('properties').api
+        context.evalue = {
+          marker: 'list',
+          listable: true,
+          // value: unflatten(api.relation_get(context, before.concat(after).map( (arg) => arg.tag ) ))
+          value: unflatten(api.relation_get(context, context.relationArgs.map( (arg) => arg.tag ) ))
+        }
+        context.evalue.isResponse = true
+        context.isResponse = true
+        if (context.evalue.value.length == 0) {
+          context.evalue.marker = 'answerNotKnown';
+          context.evalue.listable = true
+          context.evalue.value = [];
+        } else {
+          // context.evalue.truthValue = true
+        }
+      }
+    },
+
+    {
+      notes: `setter for relation based verbs`,
+      match: ({context}) => context.relationBacked && !context.toVoice && !context.evaluate,
+      apply: ({context, km, hierarchy, config, stack}) => {
+        const api = km('properties').api
+        // add types for arguments
+        for (const argument of context.focusable || []) {
+          const value = api.toValue(context[argument])
+          if (value) {
+            const minimas = hierarchy.minima(context[argument].types)
+            for (const type of minimas) {
+              if (config.exists(value)) {
+                config.addHierarchy(value, type);
+              }
+            }
+          }
+        }
+        api.relation_add(context)
+      }
+    },
+    {
+      notes: 'ordering query',
+      match: ({context}) => context.query && (context.orderingArgs && Object.keys(context.orderingArgs).length !== 0),
+      apply: ({context, km}) => {
+        const api = km('ordering').api
+        const propertiesAPI = km('properties').api
+        context.ordering = context.orderingArgs.name
+        const matches = propertiesAPI.relation_get(context, ['ordering', context.orderingArgs.object, context.orderingArgs.category])
+        if (matches.length > 0 || (typeof context.query == 'boolean' && context.query)) {
+          // does greg like bananas
+          if (matches.length == 0) {
+            const response = _.clone(context)
+            response.isResponse = true
+            response.query = undefined
+            context.evalue = { marker: 'list', listable: true, value: [response] }
+          } else {
+            context.evalue = { marker: 'list', listable: true, value: unflatten(matches) }
+            context.evalue.isResponse = true
+          }
+          context.evalue.truthValue = matches.length > 0
+          context.evalue.truth = { marker: 'yesno', value: matches.length > 0, isResponse: true, focus: true }
+          context.evalue.focusable = ['truth']
+          if (!context.evalue.truthValue) {
+            context.evalue.truthValueOnly = true
+          }
+
+          // ADD this line back and remove it to check
+          // context.response = { marker: 'list', listable: true, value: [response], isResponse: true }
+          // Object.assign(context, { marker: 'list', listable: true, value: responses, focusable: ['value'], paraphrase: true, truthValue: matches.length > 0 })
+        } else {
+          // see if anything is preferred greg
+          // what does greg like
+          const matches = propertiesAPI.relation_get(context, ['ordering', context.orderingArgs.object])
+          if (matches.length == 0) {
+            // Object.assign(context, { marker: 'idontknow', query: _.clone(context) })
+            context.evalue = { marker: 'idontknow', query: _.clone(context), isResponse: true }
+          } else {
+            context.evalue = { marker: 'list', listable: true, value: matches, isResponse: true }
+          }
+          context.isResponse = true
+          context.evalue.truthValue = matches.length > 0 && matches[0].marker == context.orderingArgs.marker
+        }
+      }
+    },
+
+    {
+          notes: 'ordering setter',
+        // TODO use hierarchy for operator
+        // match: ({context}) => context.marker == operator,
+        match: ({context}) => (context.orderingArgs && Object.keys(context.orderingArgs).length !== 0),
+        apply: ({context, km, stack}) => {
+          const propertiesAPI = km('properties').api
+          context.ordering = context.orderingArgs.name
+          const fcontexts = flattens(['list'], [context])
+          for (const fcontext of fcontexts) {
+            fcontext.paraphrase = true
+            fcontext[context.orderingArgs.object].paraphrase = true
+            fcontext[context.orderingArgs.category].paraphrase = true
+          }
+          propertiesAPI.relation_add(fcontexts)
+        }
+    },
     {
       notes: 'semantic for setting value with constraint',
       //match: ({context, isA}) => isA(context.marker, after[0].tag) && context.evaluate && context.constraints,
@@ -826,7 +986,6 @@ const config = {
         const results = []
         for (const toDo of toDos) {
           const one = await processOne(toDo)
-          debugger
           if (one) {
             results.push(one)
           }
