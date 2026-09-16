@@ -123,8 +123,6 @@ class API {
                marker: operator('${after[0].tag}'),
                isEdProperties: ['${after[0].tag}', '${before[0].tag}'], 
                relationBacked: ${relation ? true : false},
-               orderingBacked: ${ordering ? true : false},
-               orderingName: "${ordering?.name}",
                orderingArgs: ${JSON.stringify(ordering)},
                relationArgs: ${JSON.stringify([...before, ...after])},
                constraints: [ 
@@ -330,8 +328,6 @@ class API {
             ${beforeArgs} 
             ${afterArgs}, 
             relationBacked: ${relation ? true : false},
-            orderingBacked: ${ordering ? true : false},
-            orderingName: "${ordering?.name}",
             orderingArgs: ${JSON.stringify(ordering)},
             relationArgs: ${JSON.stringify([...before, ...after])},
             operator: { ...operator, evaluateWord: true, imperative: ${imperative}, isVerb: true, number: 'one' }, 
