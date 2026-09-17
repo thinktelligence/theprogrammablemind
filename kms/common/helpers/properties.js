@@ -416,7 +416,7 @@ class API {
   }
 
   relation_add (relations) {
-    removeProp(relations, (val, prop, obj) => prop === 'range')
+    // removeProp(relations, (val, prop, obj) => prop === 'range')
 
     if (!Array.isArray(relations)) {
       relations = [relations]
