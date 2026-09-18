@@ -51,7 +51,8 @@ const config = {
       notes: 'flatten relation',
       where: where(),
       priority: -1,
-      match: (args) => args.callOnce(args, 'sdefaults.2', ({context}) => (context.flatten && context.relation)),
+      // sdefault.1 tag is the same as above on purpose
+      match: (args) => args.callOnce(args, 'sdefaults.1', ({context}) => (context.flatten && context.relation)),
       apply: async ({flatten, config, km, context, s}) => {
         const flats = flatten(['list'], context)
         for (const flat of flats) {

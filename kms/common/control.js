@@ -13,13 +13,11 @@ function initializer({config}) {
           }
         }
         if (context.control.seen[tag]) {
-          debugger
           return false
         }
         context.control.seen[tag] = true
 
         args._finally( () => {
-          debug.counter("callOnce._finally")
           delete context.control.seen[tag]
         })
 
