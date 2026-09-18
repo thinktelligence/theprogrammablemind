@@ -12,8 +12,8 @@ function initializer({config}) {
             seen: {},
           }
         }
-        debugger
         if (context.control.seen[tag]) {
+          debugger
           return false
         }
         context.control.seen[tag] = true
