@@ -1,34 +1,28 @@
-const { knowledgeModule, where } = require('./runtime').theprogrammablemind
+const { knowledgeModule, where, debug } = require('./runtime').theprogrammablemind
 const tests = require('./control.test.json')
 
 function initializer({config}) {
   config.addArgs((args) => ({
-    callOnce: (args, condition) => {
+    callOnce: (args, tag, condition) => {
       if (condition(args)) {
         const { context } = args
 
         if (!context.control) {
           context.control = {
-            seen: [],
-            nextId: 2,
+            seen: {},
           }
-          context.control_id = 1
         }
-
-        if (!context.control_id) {
-          context.control_id = context.control.nextId
-          context.control.nextId += 1
-        }
-
-        if (context.control.seen.includes(context.control_id)) {
+        debugger
+        if (context.control.seen[tag]) {
           return false
         }
+        context.control.seen[tag] = true
 
-        context.control.seen.push(context.control_id)
         args._finally( () => {
-          const index = context.control.seen.find((value) => context.control_id)
-          context.control.seen.splice(index, 1)
+          debug.counter("callOnce._finally")
+          delete context.control.seen[tag]
         })
+
         return true
       }
       return false

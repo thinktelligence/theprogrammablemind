@@ -207,7 +207,7 @@ const template = {
         {
           where: where(),
           priority: -1,
-          match: (args) => args.callOnce(args, ({context}) => context.repeats) && args.context.repeats?.repeats,
+          match: (args) => args.callOnce(args, 'time.1', ({context}) => context.repeats) && args.context.repeats?.repeats,
           apply: async ({context, e, s, handlerStack}) => {
             const v = (await e(context.repeats.repeats)).evalue
             for (let i = 0; i < v; ++i) {
