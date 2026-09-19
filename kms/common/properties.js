@@ -137,16 +137,18 @@ const config = {
   ],
   bridges: [
     {
+      where: where(),
       id: 'howPropertyMarker',
       bridge: "{ ...after[0], query: ['what'], how: operator, operator: after[0], interpolate: [ { property: 'how' }, { property: 'operator' } ] }",
     },
     {
+      where: where(),
       id: 'hasPropertyValue',
       isA: ['verb'],
       preferOver: ['is'],
       enhanced_associations: true,
       bridge: "{ ...operator, object: before[0], flatten: true, operator: operator, propertyValue: after[0], interpolate: [{ property: 'object' }, { property: 'operator' }, { property: 'propertyValue' }] }",
-      semantic: async ({context, e, fragments}) => {
+      semantic: async ({context, s, fragments}) => {
         const propertyType = {
           marker: context.propertyValue.propertyType,
           level: 0,
@@ -154,11 +156,12 @@ const config = {
         }
 
         const instance = await fragments("the property of object is value", { property: propertyType, object: context.object, value: context.propertyValue })
-        await e(instance)
+        await s(instance)
       }
     },
 
     { 
+      where: where(),
       id: 'propertyRelation', 
       // scope: 'development',
       words: words('propertyRelation'),
@@ -169,19 +172,24 @@ const config = {
       }
     },
     { 
+      where: where(),
       id: 'propertyMarker', 
     },
     { 
+      where: where(),
       id: 'xfx', 
       isA: ['queryable'],
     },
     { 
+      where: where(),
       id: 'between', 
       isA: ['preposition'],
       enhanced_associations: false,
       bridge: "{ ...next(operator), arguments: after[0] }" 
     },
-    { id: 'between', level: 1, bridge: "{ ...before[0], arguments: operator.arguments }" },
+    { 
+      where: where(),
+      id: 'between', level: 1, bridge: "{ ...before[0], arguments: operator.arguments }" },
 
     { 
       id: 'hierarchyAble', 
