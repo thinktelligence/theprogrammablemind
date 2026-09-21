@@ -903,7 +903,7 @@
         },
         {
           "match": "({context, isA}) => context.evaluate && context.constraints",
-          "apply": "async ({km, context, e, log, isA}) => {\n        const constraint = context.constraints[0];\n        const value = constraint.constraint;\n        let property = constraint.property;\n        const properties = constraint.properties;\n        for (const p of properties) {\n          if (value[p].concept) {\n            property = p\n            constraint.property = p; // set what is used\n          }\n        }\n        // value.marker = 'owns'\n        // value.greg = true\n        // value.ownee.query = true\n        value.query = true\n        value.greg99 = 23\n        const instance = await e(value)\n        if (instance.verbatim) {\n          context.evalue = { verbatim: instance.verbatim }\n          return\n        }\n        if (instance.evalue.marker == 'answerNotKnown') {\n          context.evalue = instance.evalue\n          return\n        }\n        const selected = instance.evalue.value.map( (r) => r[property] )\n        context.constraints = undefined;\n        context.evalue = { marker: 'list', listable: true, value: selected }\n      }"
+          "apply": "async ({km, context, e, log, isA}) => {\n        const constraint = context.constraints[0];\n        const value = constraint.constraint;\n        let property = constraint.property;\n        const properties = constraint.properties;\n        for (const p of properties) {\n          if (value[p].concept) {\n            property = p\n            // constraint.property = p; // set what is used\n            constraint.property = {...constraint.property, ...p}; // set what is used\n\n          }\n        }\n        // value.marker = 'owns'\n        // value.greg = true\n        // value.ownee.query = true\n        value.query = true\n        value.greg99 = 23\n        const instance = await e(value)\n        if (instance.verbatim) {\n          context.evalue = { verbatim: instance.verbatim }\n          return\n        }\n        if (instance.evalue.marker == 'answerNotKnown') {\n          context.evalue = instance.evalue\n          return\n        }\n        const selected = instance.evalue.value.map( (r) => r[property] )\n        context.constraints = undefined;\n        context.evalue = { marker: 'list', listable: true, value: selected }\n      }"
         },
         {
           "match": "({context}) => context.marker == 'is' && (context.one.how || context.two.how)",
@@ -1042,7 +1042,6 @@
         {
           "number": "one",
           "text": "property is a concept",
-          "context_id": 2,
           "marker": "is",
           "word": "is",
           "range": {
@@ -1054,7 +1053,6 @@
             "value": "property",
             "unknown": true,
             "text": "property",
-            "context_id": 272,
             "marker": "unknown",
             "word": "property",
             "range": {
@@ -1073,7 +1071,6 @@
             "value": "concept",
             "default": true,
             "text": "a concept",
-            "context_id": 269,
             "dead": true,
             "word": "concept",
             "range": {
@@ -1090,7 +1087,6 @@
             "determiner": {
               "marker": "a",
               "default": true,
-              "context_id": 259,
               "word": "a",
               "text": "a",
               "range": {
@@ -1370,7 +1366,6 @@
         {
           "number": "one",
           "text": "concept is a property",
-          "context_id": 2,
           "marker": "is",
           "word": "is",
           "range": {
@@ -1383,7 +1378,6 @@
             "value": "concept",
             "default": true,
             "text": "concept",
-            "context_id": 279,
             "dead": true,
             "word": "concept",
             "range": {
@@ -1399,7 +1393,6 @@
             "value": "property",
             "number": "one",
             "text": "a property",
-            "context_id": 276,
             "marker": "property",
             "word": "property",
             "range": {
@@ -1416,7 +1409,6 @@
             "determiner": {
               "marker": "a",
               "default": true,
-              "context_id": 266,
               "word": "a",
               "text": "a",
               "range": {
@@ -2504,41 +2496,41 @@
           "notes": "semantic for setting value with constraint"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:726",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:728",
           "notes": "how deep is the pool",
           "priority": -1
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:753"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:755"
         },
         {
           "notes": "wants is xfx between wanter and wantee",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:764",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:766",
           "priority": -1
         },
         {
           "notes": "marking something as readonly",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:778"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:780"
         },
         {
           "notes": "crew members. evaluate a concepts to get instances",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:802"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:804"
         },
         {
           "notes": "greg has eyes",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:831"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:833"
         },
         {
           "notes": "greg has eyes?",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:844"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:846"
         },
         {
           "notes": "set the property of an object",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:870"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:872"
         },
         {
           "notes": "get/evaluate a property",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:916"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:918"
         }
       ]
     },
@@ -2746,7 +2738,6 @@
         {
           "number": "one",
           "text": "the property1 of object1 is value1",
-          "context_id": 2,
           "marker": "is",
           "word": "is",
           "range": {
@@ -2758,7 +2749,6 @@
             "value": "property1",
             "unknown": true,
             "text": "the property1 of object1",
-            "context_id": 279,
             "marker": "property",
             "word": "property1",
             "range": {
@@ -2780,7 +2770,6 @@
             "determiner": {
               "modifiers": [],
               "text": "the",
-              "context_id": 234,
               "marker": "the",
               "word": "the",
               "range": {
@@ -2793,7 +2782,6 @@
               "value": "property1",
               "unknown": true,
               "text": "property1",
-              "context_id": 259,
               "marker": "unknown",
               "word": "property1",
               "range": {
@@ -2833,7 +2821,6 @@
                 "value": "property1",
                 "unknown": true,
                 "text": "the property1",
-                "context_id": 275,
                 "marker": "property",
                 "word": "property1",
                 "range": {
@@ -2855,7 +2842,6 @@
                 "determiner": {
                   "modifiers": [],
                   "text": "the",
-                  "context_id": 234,
                   "marker": "the",
                   "word": "the",
                   "range": {
@@ -2868,7 +2854,6 @@
                   "value": "property1",
                   "unknown": true,
                   "text": "property1",
-                  "context_id": 259,
                   "marker": "unknown",
                   "word": "property1",
                   "range": {
@@ -2904,7 +2889,6 @@
                 "value": "object1",
                 "unknown": true,
                 "text": "object1",
-                "context_id": 271,
                 "marker": "object",
                 "word": "object1",
                 "range": {
@@ -2924,7 +2908,6 @@
             "value": "value1",
             "unknown": true,
             "text": "value1",
-            "context_id": 265,
             "marker": "unknown",
             "word": "value1",
             "range": {
@@ -3542,7 +3525,6 @@
         {
           "number": "one",
           "text": "the property of object is value",
-          "context_id": 2,
           "marker": "is",
           "word": "is",
           "range": {
@@ -3553,7 +3535,6 @@
             "number": "one",
             "value": "property",
             "text": "the property of object",
-            "context_id": 269,
             "marker": "property",
             "word": "property",
             "range": {
@@ -3574,7 +3555,6 @@
             "determiner": {
               "modifiers": [],
               "text": "the",
-              "context_id": 231,
               "marker": "the",
               "word": "the",
               "range": {
@@ -3587,7 +3567,6 @@
               "value": "property",
               "number": "one",
               "text": "property",
-              "context_id": 257,
               "marker": "property",
               "word": "property",
               "range": {
@@ -3627,7 +3606,6 @@
                 "value": "property",
                 "number": "one",
                 "text": "the property",
-                "context_id": 260,
                 "marker": "property",
                 "word": "property",
                 "range": {
@@ -3648,7 +3626,6 @@
                 "determiner": {
                   "modifiers": [],
                   "text": "the",
-                  "context_id": 231,
                   "marker": "the",
                   "word": "the",
                   "range": {
@@ -3661,7 +3638,6 @@
                   "value": "property",
                   "number": "one",
                   "text": "property",
-                  "context_id": 257,
                   "marker": "property",
                   "word": "property",
                   "range": {
@@ -3698,7 +3674,6 @@
                 "value": "object",
                 "default": true,
                 "text": "object",
-                "context_id": 240,
                 "dead": true,
                 "word": "object",
                 "range": {
@@ -3717,7 +3692,6 @@
             "value": "value",
             "unknown": true,
             "text": "value",
-            "context_id": 254,
             "marker": "unknown",
             "word": "value",
             "range": {
@@ -4200,7 +4174,6 @@
           "value": "property",
           "number": "one",
           "text": "the property of object",
-          "context_id": 2,
           "marker": "property",
           "word": "property",
           "range": {
@@ -4221,7 +4194,6 @@
           "determiner": {
             "modifiers": [],
             "text": "the",
-            "context_id": 222,
             "marker": "the",
             "word": "the",
             "range": {
@@ -4234,7 +4206,6 @@
             "value": "property",
             "number": "one",
             "text": "property",
-            "context_id": 235,
             "marker": "property",
             "word": "property",
             "range": {
@@ -4274,7 +4245,6 @@
               "value": "property",
               "number": "one",
               "text": "the property",
-              "context_id": 238,
               "marker": "property",
               "word": "property",
               "range": {
@@ -4295,7 +4265,6 @@
               "determiner": {
                 "modifiers": [],
                 "text": "the",
-                "context_id": 222,
                 "marker": "the",
                 "word": "the",
                 "range": {
@@ -4308,7 +4277,6 @@
                 "value": "property",
                 "number": "one",
                 "text": "property",
-                "context_id": 235,
                 "marker": "property",
                 "word": "property",
                 "range": {
@@ -4345,7 +4313,6 @@
               "value": "object",
               "default": true,
               "text": "object",
-              "context_id": 231,
               "dead": true,
               "word": "object",
               "range": {
@@ -4656,7 +4623,6 @@
         {
           "number": "one",
           "text": "the property is value",
-          "context_id": 2,
           "marker": "is",
           "word": "is",
           "range": {
@@ -4667,7 +4633,6 @@
             "number": "one",
             "value": "property",
             "text": "the property",
-            "context_id": 247,
             "marker": "property",
             "word": "property",
             "range": {
@@ -4688,7 +4653,6 @@
             "determiner": {
               "modifiers": [],
               "text": "the",
-              "context_id": 221,
               "marker": "the",
               "word": "the",
               "range": {
@@ -4701,7 +4665,6 @@
               "value": "property",
               "number": "one",
               "text": "property",
-              "context_id": 241,
               "marker": "property",
               "word": "property",
               "range": {
@@ -4737,7 +4700,6 @@
             "value": "value",
             "unknown": true,
             "text": "value",
-            "context_id": 238,
             "marker": "unknown",
             "word": "value",
             "range": {

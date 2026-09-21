@@ -3,7 +3,7 @@ const { conjugateVerb } = require('../english_helpers')
 const { unflatten, flattens, Digraph } = require('../runtime').theprogrammablemind
 const _ = require('lodash')
 const deepEqual = require('deep-equal')
-const { chooseNumber, removeProp } = require('../helpers.js')
+const { chooseNumber } = require('../helpers.js')
 const { Frankenhash } = require('./frankenhash.js')
 const { compose, translationMapping, translationMappingToInstantiatorMappings } = require('./meta.js')
 
@@ -416,8 +416,6 @@ class API {
   }
 
   relation_add (relations) {
-    // removeProp(relations, (val, prop, obj) => prop === 'range')
-
     if (!Array.isArray(relations)) {
       relations = [relations]
     }

@@ -700,7 +700,9 @@ const config = {
         for (const p of properties) {
           if (value[p].concept) {
             property = p
-            constraint.property = p; // set what is used
+            // constraint.property = p; // set what is used
+            constraint.property = {...constraint.property, ...p}; // set what is used
+
           }
         }
         // value.marker = 'owns'

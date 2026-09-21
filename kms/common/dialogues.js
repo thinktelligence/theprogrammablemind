@@ -546,29 +546,19 @@ const config = {
           concept = two;
           value = one;
         }
-        // km('dialogues').api.remember(concept)
-        // TODO wtf is the next line?
-        value = JSON.parse(JSON.stringify(value))
+
         const instance = await e(value)
-        if (false && instance.evalue) {
-          km('stm').api.remember({ context: value })
-        }
         if (instance.verbatim) {
           context.evalue = { verbatim: instance.verbatim }
           context.isResponse = true
           return
         }
-        // instance.focusable = ['one', 'two']
-        // concept = JSON.parse(JSON.stringify(value)) 
         concept = _.cloneDeep(value) 
         concept.isQuery = undefined
-        // greg101
-        // instance.focusableForPhrase = true
         instance.focus = true
         if (concept.hierarchy) {
           concept.focusableForPhrase = true
         }
-        // concept.focus = true
 
         const many = isMany(concept) || isMany(instance)
         const evalue = {
