@@ -2,13 +2,18 @@
   "configs": [
     {
       "operators": [
-        "([setdebugbreak] (*))"
+        "([setdebugbreak] (*))",
+        "([debugger] (*))"
       ],
       "bridges": [
         {
           "id": "setdebugbreak",
           "bridge": "{\n            ...next(operator),\n            tag: after[0]\n          }",
           "semantic": "({context, debug}) => {\n            debug.hit(context.tag.word)\n          }"
+        },
+        {
+          "id": "debugger",
+          "semantic": "(args) => {\n            debugger // eslint-disable-line no-debugger\n            debugger // eslint-disable-line no-debugger\n          }"
         }
       ]
     }
@@ -17,12 +22,16 @@
     {
       "extraConfig": true,
       "operators": [
-        "([setdebugbreak] (*))"
+        "([setdebugbreak] (*))",
+        "([debugger] (*))"
       ],
       "bridges": [
         {
           "id": "setdebugbreak",
           "bridge": "{\n            ...next(operator),\n            tag: after[0]\n          }"
+        },
+        {
+          "id": "debugger"
         }
       ]
     }
