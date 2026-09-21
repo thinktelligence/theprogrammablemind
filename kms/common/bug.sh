@@ -1094,8 +1094,8 @@ node askfor -q 'joe and alice are clients\nask for the gender and birth date of 
 alices is female in the middle
 node askfor -q "ask for the gender and birth date of bob and alice\nmale\nalice is female\nmar 31 1945\nwhat is the information" -g -d
 
-node askfor -q "bob is 23 years old\nwhat is known about bob" -g -d
-node askfor -q 'bob is 23 years old\nwho is 23 years old' -g -d
-node askfor -q 'bob is 23 years old\nwhose age is 23 years old' -g -d
-node askfor -q 'bob is 23 years old\nthe age of who is 23 years old' -g -d
+node time -q "bob is 23 years old\nwhat is known about bob" -g -d
+node time -q 'bob is 23 years old\nwho is 23 years old' -g -d
+node time -q 'bob is 23 years old\nwhose age is 23 years old' -g -d
+node time -q 'bob is 23 years old\nthe age of who is 23 years old' -g -d
 

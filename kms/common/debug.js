@@ -8,6 +8,7 @@ const template = {
     {
       operators: [
         "([setdebugbreak] (*))",
+        "([debugger] (*))",
       ],
       bridges: [
         { 
@@ -19,6 +20,13 @@ const template = {
           semantic: ({context, debug}) => {
             debug.hit(context.tag.word)
           }
+        },
+        {
+          id: 'debugger',
+          semantic: (args) => {
+            debugger // eslint-disable-line no-debugger
+            debugger // eslint-disable-line no-debugger
+          },
         },
       ],
     },

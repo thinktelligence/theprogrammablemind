@@ -71,7 +71,6 @@ const config = {
     //"arm them, what, the phasers"
     //greg is a first name
     "([yesno|])",
-    { pattern: "([debug23])" },
 
     "([to] ([toAble|]))",
   ],
@@ -141,7 +140,6 @@ const config = {
       optional: { 1: "{ marker: 'unknown', implicit: true, concept: true }", }, 
     },
 
-    { id: "debug23" },
     { 
       id: "what", 
       optional: "{ ...next(operator), query: ['what'], determined: true }", 
@@ -497,15 +495,6 @@ const config = {
   ],
 
   semantics: [
-    {
-      where: where(),
-      todo: 'debug23',
-      match: ({context}) => context.marker == 'debug23',
-      apply: ({context, hierarchy}) => {
-        debugger // eslint-disable-line no-debugger
-        debugger // eslint-disable-line no-debugger
-      },
-    },
     { 
       where: where(),
       todo: 'be brief or wordy',
