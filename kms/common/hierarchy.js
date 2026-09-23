@@ -66,7 +66,13 @@ const config = {
     {
       notes: 'what type is pikachu',
       where: where(),
-      match: ({context, hierarchy}) => hierarchy.isA(context.marker, 'is') && context.query && !['what'].includes(context.one.marker) && !['what'].includes(context.two.marker) && (context.one.query || context.two.query),
+      match: ({context, hierarchy}) => 
+          hierarchy.isA(context.marker, 'is') && 
+          context.query && 
+          !context.one.pullFromContext &&
+          !['what'].includes(context.one.marker) && 
+          !['what'].includes(context.two.marker) && 
+          (context.one.query || context.two.query),
       apply: async ({context, hierarchy, km, log, e}) => {
         const one = context.one;
         const two = context.two;

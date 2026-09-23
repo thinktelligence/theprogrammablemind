@@ -281,6 +281,12 @@ const config = {
 
     {
       where: where(),
+      match: ({context}) => context.text,
+      apply: ({context}) => context.text,
+    },
+
+    {
+      where: where(),
       match: () => true,
       apply: ({context}) => JSON.stringify(context)
     }

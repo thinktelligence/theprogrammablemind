@@ -803,9 +803,6 @@ const config = {
       notes: 'crew members. evaluate a concepts to get instances',
       where: where(),
       match: ({context, hierarchy, api, isA}) => 
-                          // (hierarchy.isA(context.marker, 'concept') && !hierarchy.isA(context.marker, 'property')) &&
-                          // concept unless its a property then use the property handler unless its a dimension "unit of dimension" acts like hierarchy
-                          // hierarchy.isA(context.marker, 'concept') && ((!context.propertyOf && !context.isProperty) || isA(context.object, 'dimension')) &&
                           hierarchy.isA(context.marker, 'concept') && ((!context.propertyOf && !context.isProperty) || isA(context.objects[context.objects.length-1], 'dimension')) &&
                           (!context.pullFromContext || context.number == 'many') &&
                           context.evaluate &&
@@ -870,7 +867,6 @@ const config = {
     {
       notes: 'set the property of an object',
       where: where(),
-      // match: ({context}) => context.marker == 'property' && context.same && context.object,
       match: ({context, hierarchy, uuid}) => hierarchy.isA(context.marker, 'property') && context.same && context.objects && !context[`disable${uuid}`],
       apply: async (args) => {
         const {context, fragments, objects, km, api, log, s, uuid} = args
