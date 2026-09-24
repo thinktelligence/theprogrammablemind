@@ -213,7 +213,7 @@ const config = {
 
     {
       where: where(),
-      match: ({context}) => context.word !== null && context.number == 'one',
+      match: ({context}) => !!context.word && context.number == 'one',
       apply: ({context}) => {
         return pluralize.singular(context.word)
       }

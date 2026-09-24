@@ -420,8 +420,9 @@ const config = {
     { 
       where: where(),
       notes: 'is with a response defined',
-      match: ({context, hierarchy}) => hierarchy.isA(context.marker, 'is') && context.evalue,
-      apply: async ({context, g, gs}) => {
+      // TODO change concept to be isConcept for the boolean case to avoid this confusion
+      match: ({context, hierarchy}) => hierarchy.isA(context.marker, 'is') && context.evalue && typeof context.evalue.concept !== 'boolean',
+      apply: async ({context, debug, g, gs}) => {
         const response = context.evalue;
         const concept = response.concept;
         if (concept) {
@@ -495,6 +496,20 @@ const config = {
   ],
 
   semantics: [
+    {
+      where: where(),
+      match: ({context}) => {
+        if (context.evaluate && context.marker == 'unify') {
+          debugger
+        }
+        return context.evaluate && context.marker == 'unify' && context.terms.some((term) => term.marker == 'what')
+      },
+      apply: async ({context, resolveEvaluate, toEValue}) => {
+        const value = context.terms.find((term) => term.marker !== 'what')
+        debugger
+        await resolveEvaluate(context, value)
+      }
+    },
     { 
       where: where(),
       todo: 'be brief or wordy',
@@ -523,8 +538,35 @@ const config = {
         object is a type (is greg a human) // handled by queryBridge
       */
 
+      /*
+        what is the age of bob
+        the age of who is 30 years old
+
+        both are the sameA
+
+
+        what == the age
+        the age == 30 years old
+
+
+        resolve "the age of bob" + "30 years old"
+
+        what == "the age of bob" -> then resolve "the age of bob"
+        the age of who is 30 years old -> 30 years (age) of who
+
+
+
+        a b
+        one side is query so resolve the other one
+        a = "what" | "the age of who"
+        b = "the age of bob" | 30 years old
+        replace the main
+        "the age of bob" | 30 years old is who
+        resolve
+        30 years old | bob
+      */
       match: ({context, hierarchy}) => hierarchy.isA(context.marker, 'is') && context.query,
-      apply: async ({context, s, log, km, objects, e}) => {
+      apply: async ({context, s, log, km, objects, e, toEValue}) => {
         const one = context.one;
         const two = context.two;
         let concept, value;
@@ -542,6 +584,13 @@ const config = {
           context.isResponse = true
           return
         }
+
+        if (toEValue(instance)?.marker == 'answerNotKnown') {
+          context.evalue = instance
+          context.isResponse = true
+          return
+        }
+
         concept = _.cloneDeep(value) 
         concept.isQuery = undefined
         instance.focus = true
@@ -551,13 +600,17 @@ const config = {
 
         const many = isMany(concept) || isMany(instance)
         const evalue = {
-          "default": true,
-          "marker": "is",
-          "one": concept,
-          "two": instance,
-          "focusable": ['two', 'one'],
-          "word": many ? "are" : "is",
-          "number": many ? "many" : undefined,
+          default: true,
+          marker: "is",
+          one: concept,
+          two: instance,
+          focusable: ['two', 'one'],
+          word: many ? "are" : "is",
+          number: many ? "many" : undefined,
+        }
+        if (false) {
+          evalue.one = instance
+          evalue.two = concept
         }
         context.evalue = evalue
         context.isResponse = true
