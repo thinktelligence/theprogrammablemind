@@ -457,6 +457,7 @@ class API {
     }
 
     for (const arg of args) {
+      debugger
       if (!matches(template[arg], value[arg])) {
         return null
       }
@@ -464,7 +465,7 @@ class API {
     return value
   }
 
-  relation_unified (context, args) {
+  relation_unify (context, args) {
     const andTheAnswerIs = []
     for (const relation of this._objects.relations) {
       if (this.relation_match(args, context, relation)) {

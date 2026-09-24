@@ -589,16 +589,25 @@ const config = {
         context.evaluate && 
         context.marker == 'unify' && 
         context.terms.some((term) => {
-          return term.objects && isA(term.objects[0], 'property') && term.objects[0].query
+          return term.objects && isA(term.objects[0], 'property') && term.query
         }),
       apply: (args) => {
         const {context, km, callId, api} = args
-        debugger
+        let value, property, object
+        if (context.terms[0].query) {
+          property = context.terms[0].objects[0]
+          object = context.terms[0].objects[1]
+          value = context.terms[1]
+        } else {
+          property = context.terms[1].objects[0]
+          object = context.terms[1].objects[1]
+          value = context.terms[0]
+        }
         const pattern = {
           marker: 'property',
-          object: context.query.objects[1],
-          property: context.query.objects[0],
-          value: context.value,
+          object,
+          property,
+          value,
         }
         const relations = api.relation_get(pattern, ['object', 'property', 'value'])
         debugger
