@@ -584,6 +584,27 @@ const config = {
   ],
   semantics: [
     {
+      notes: 'unify for properties',
+      match: ({context, isA}) => 
+        context.evaluate && 
+        context.marker == 'unify' && 
+        context.terms.some((term) => {
+          return term.objects && isA(term.objects[0], 'property') && term.objects[0].query
+        }),
+      apply: (args) => {
+        const {context, km, callId, api} = args
+        debugger
+        const pattern = {
+          marker: 'property',
+          object: context.query.objects[1],
+          property: context.query.objects[0],
+          value: context.value,
+        }
+        const relations = api.relation_get(pattern, ['object', 'property', 'value'])
+        debugger
+      }
+    },
+    {
       notes: 'getter for relation based verbs',
       match: ({context}) => context.relationBacked && context.query,
       apply: ({context, km, callId}) => {

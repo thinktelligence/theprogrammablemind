@@ -215,6 +215,17 @@ const config = {
     },
     {
       where: where(),
+      match: ({context}) => context.marker == 'unify' && context.evaluate && context.terms[0].whose,
+      apply: ({context, objects}) => {
+        if (Number.isInteger(objects.nextPlayer)) {
+          context.evalue = `${objects.players[objects.nextPlayer]}'s turn` 
+        } else {
+          context.evalue = "no one's turn"
+        }
+      }
+    },
+    {
+      where: where(),
       match: ({context}) => context.marker == 'next' && context.evaluate,
       apply: ({context, objects}) => {
         if (Number.isInteger(objects.nextPlayer)) {

@@ -569,16 +569,16 @@ const config = {
       apply: async ({context, s, log, km, objects, e, toEValue}) => {
         const one = context.one;
         const two = context.two;
-        let concept, value;
+        let query, value;
         if (one.query) {
-          concept = one;
+          query = one;
           value = two;
         } else {
-          concept = two;
+          query = two;
           value = one;
         }
 
-        const instance = await e(value)
+        let instance = await e(value)
         if (instance.verbatim) {
           context.evalue = { verbatim: instance.verbatim }
           context.isResponse = true
@@ -591,7 +591,19 @@ const config = {
           return
         }
 
-        concept = _.cloneDeep(value) 
+        if (false) {
+          if (query.query || value.query) {
+            const unification = await e({
+              marker: 'unify',
+              terms: [query, instance],
+            })
+            instance = unification.evalue
+            debugger
+            debugger
+          }
+        }
+
+        let concept = _.cloneDeep(value) 
         concept.isQuery = undefined
         instance.focus = true
         if (concept.hierarchy) {

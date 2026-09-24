@@ -464,6 +464,21 @@ class API {
     return value
   }
 
+  relation_unified (context, args) {
+    const andTheAnswerIs = []
+    for (const relation of this._objects.relations) {
+      if (this.relation_match(args, context, relation)) {
+        const queriedArgs = args.filter( (arg) => context[arg].query )
+        if (queriedArgs.length == 1) {
+          relation[queriedArgs[0]] = { ...relation[queriedArgs[0]], focus: true }
+        }
+
+        andTheAnswerIs.push(Object.assign({}, relation, { paraphrase: true }))
+      }
+    }
+    return andTheAnswerIs
+  }
+
   relation_get (context, args) {
     const andTheAnswerIs = []
     for (const relation of this._objects.relations) {
@@ -582,6 +597,7 @@ class API {
     if (!this._objects.concepts.includes(object)) {
       this._objects.concepts.push(pluralize.singular(object))
     }
+    this.relation_add({ marker: 'property', object, property, value })
   }
 
   async knownObject(object) {

@@ -886,6 +886,10 @@
       ],
       "semantics": [
         {
+          "match": "({context, isA}) => \n        context.evaluate && \n        context.marker == 'unify' && \n        context.terms.some((term) => {\n          return term.objects && isA(term.objects[0], 'property') && term.objects[0].query\n        })",
+          "apply": "(args) => {\n        const {context, km, callId, api} = args\n        debugger\n        const pattern = {\n          marker: 'property',\n          object: context.query.objects[1],\n          property: context.query.objects[0],\n          value: context.value,\n        }\n        const relations = api.relation_get(pattern, ['object', 'property', 'value'])\n        debugger\n      }"
+        },
+        {
           "match": "({context}) => context.relationBacked && context.query",
           "apply": "({context, km, callId}) => {\n        const api = km('properties').api\n        context.evalue = {\n          marker: 'list',\n          listable: true,\n          // value: unflatten(api.relation_get(context, before.concat(after).map( (arg) => arg.tag ) ))\n          value: unflatten(api.relation_get(context, context.relationArgs.map( (arg) => arg.tag ) ))\n        }\n        context.evalue.isResponse = true\n        context.isResponse = true\n        if (context.evalue.value.length == 0) {\n          context.evalue.marker = 'answerNotKnown';\n          context.evalue.listable = true\n          context.evalue.value = [];\n        } else {\n          // context.evalue.truthValue = true\n        }\n      }"
         },
@@ -2481,6 +2485,9 @@
       ],
       "semantics": [
         {
+          "notes": "unify for properties"
+        },
+        {
           "notes": "getter for relation based verbs"
         },
         {
@@ -2496,41 +2503,41 @@
           "notes": "semantic for setting value with constraint"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:728",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:749",
           "notes": "how deep is the pool",
           "priority": -1
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:755"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:776"
         },
         {
           "notes": "wants is xfx between wanter and wantee",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:766",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:787",
           "priority": -1
         },
         {
           "notes": "marking something as readonly",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:780"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:801"
         },
         {
           "notes": "crew members. evaluate a concepts to get instances",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:804"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:825"
         },
         {
           "notes": "greg has eyes",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:830"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:851"
         },
         {
           "notes": "greg has eyes?",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:843"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:864"
         },
         {
           "notes": "set the property of an object",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:869"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:890"
         },
         {
           "notes": "get/evaluate a property",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:914"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:935"
         }
       ]
     },
