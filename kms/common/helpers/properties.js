@@ -486,7 +486,7 @@ class API {
     }
   }
   */
-
+  /*
   setShared(path, handler) {
     if (!handler) {
       handler = new Object({
@@ -502,6 +502,7 @@ class API {
     this.propertiesFH.setInitHandler( { path, handler } )
     return handler
   }
+  */
 
   setReadOnly(path) {
     const handler = new Object({
@@ -561,27 +562,31 @@ class API {
   }
 
   setProperty(object, property, value, has, skipHandler) {
+    const objectId = object.value
+    const propertyId = property.value
     if (!skipHandler) {
-      const handler = this.propertiesFH.getHandler([object, property])
+      const handler = this.propertiesFH.getHandler([objectId, propertyId])
       if (handler) {
-        return handler.setValue([object, property], value, has)
+        return handler.setValue([objectId, propertyId], value, has)
       }
     }
-    this.propertiesFH.setValue([object, property], value, has)
+    this.propertiesFH.setValue([objectId, propertyId], value, has)
     if (has && value) {
-      let values = this._objects.property[property] || []
+      let values = this._objects.property[propertyId] || []
       if (!values.includes(value)) {
         values = values.concat(value)
       }
-      this._objects.property[property] = values
-      // this._objects.property[property] = (this.objects.property[property] || []).concat(value)
+      this._objects.property[propertyId] = values
+      // this._objects.property[propertyId] = (this.objects.property[propertyId] || []).concat(value)
       // "mccoy's rank is doctor",
       // infer doctor is a type of rank
-      this.rememberIsA(value.value, property);
+      this.rememberIsA(value.value, propertyId);
     }
-    if (!this._objects.concepts.includes(object)) {
-      this._objects.concepts.push(pluralize.singular(object))
+    if (!this._objects.concepts.includes(objectId)) {
+      this._objects.concepts.push(pluralize.singular(objectId))
     }
+    debugger
+    this.relation_add({ marker: 'property', objectId, propertyId, value })
   }
 
   async knownObject(object) {

@@ -830,10 +830,16 @@ const config = {
       where: where(),
       match: ({context}) => context.marker == 'have' && !context.query,
       apply: ({context, objects, api}) => {
+        if (context.object.unknown) {
+          context.object.value = pluralize.singular(context.object.value)
+        }
+        if (context.property.unknown) {
+          context.property.value = pluralize.singular(context.property.value)
+        }
         if (context.negation) {
-          api.setProperty(pluralize.singular(context.object.value), pluralize.singular(context.property.value), null, false)
+          api.setProperty(context.object, context.property, null, false)
         } else {
-          api.setProperty(pluralize.singular(context.object.value), pluralize.singular(context.property.value), null, true)
+          api.setProperty(context.object, context.property, null, true)
         }
         context.sameWasProcessed = true
       }
@@ -867,19 +873,23 @@ const config = {
     {
       notes: 'set the property of an object',
       where: where(),
+      // TODO change disable${uuid} to callOnce
       match: ({context, hierarchy, uuid}) => hierarchy.isA(context.marker, 'property') && context.same && context.objects && !context[`disable${uuid}`],
       apply: async (args) => {
         const {context, fragments, objects, km, api, log, s, uuid} = args
         const objectContext = context.objects[context.objects.length-1];
         const propertyContext = context;
-        const objectId = objectContext.unknown ? pluralize.singular(objectContext.value) : objectContext.value
+        if (objectContext.unknown) {
+          objectContext.value = pluralize.singular(objectContext.value)
+        }
+        const objectId = objectContext.value
 
         await api.makeObject({ ...args, context: objectContext })
         await api.makeObject({ ...args, context: propertyContext })
         propertyContext[`disable${uuid}`] = true
         const propertyId = (await km("dialogues").api.evaluateToConcept(propertyContext, context, log, s)).evalue;
         try {
-          api.setProperty(objectId, propertyId, context.same, true)
+          api.setProperty(objectContext, propertyContext, context.same, true)
           context.sameWasProcessed = true
         } catch (e) {
           log(`Error processing set property of an object: ${e}`)

@@ -927,7 +927,7 @@
         },
         {
           "match": "({context}) => context.marker == 'have' && !context.query",
-          "apply": "({context, objects, api}) => {\n        if (context.negation) {\n          api.setProperty(pluralize.singular(context.object.value), pluralize.singular(context.property.value), null, false)\n        } else {\n          api.setProperty(pluralize.singular(context.object.value), pluralize.singular(context.property.value), null, true)\n        }\n        context.sameWasProcessed = true\n      }"
+          "apply": "({context, objects, api}) => {\n        if (context.object.unknown) {\n          context.object.value = pluralize.singular(context.object.value)\n        }\n        if (context.property.unknown) {\n          context.property.value = pluralize.singular(context.property.value)\n        }\n        if (context.negation) {\n          api.setProperty(context.object, context.property, null, false)\n        } else {\n          api.setProperty(context.object, context.property, null, true)\n        }\n        context.sameWasProcessed = true\n      }"
         },
         {
           "match": "({context, hierarchy}) => hierarchy.isA(context.marker, 'have') && context.query",
@@ -935,7 +935,7 @@
         },
         {
           "match": "({context, hierarchy, uuid}) => hierarchy.isA(context.marker, 'property') && context.same && context.objects && !context[`disable${uuid}`]",
-          "apply": "async (args) => {\n        const {context, fragments, objects, km, api, log, s, uuid} = args\n        const objectContext = context.objects[context.objects.length-1];\n        const propertyContext = context;\n        const objectId = objectContext.unknown ? pluralize.singular(objectContext.value) : objectContext.value\n\n        await api.makeObject({ ...args, context: objectContext })\n        await api.makeObject({ ...args, context: propertyContext })\n        propertyContext[`disable${uuid}`] = true\n        const propertyId = (await km(\"dialogues\").api.evaluateToConcept(propertyContext, context, log, s)).evalue;\n        try {\n          api.setProperty(objectId, propertyId, context.same, true)\n          context.sameWasProcessed = true\n        } catch (e) {\n          log(`Error processing set property of an object: ${e}`)\n          const config = km('properties')\n          const value = await api.getProperty(objectId, propertyId)\n          if (value?.value == context.same?.value) {\n            context.evalue = [\n              { marker: 'yesno', value: true, paraphrase: true },\n            ]\n            context.isResponse = true\n            context.sameWasProcessed = true\n          } else {\n            const mappings = {\n              property1: { word: propertyContext.word, value: propertyContext.value, paraphrase: true },\n              object1: { word: objectContext.word, value: objectContext.value, paraphrase: true },\n              value1: value,\n            }\n            // run the query 'the property of object' then copy that here and template it\n            context.evalue = [\n              { marker: 'yesno', value: false, paraphrase: true },\n            ]\n            context.evalue = context.evalue.concat(await fragments(\"the property1 of object1 is value1\", mappings))\n            context.evalue.forEach( (r) => r.paraphrase = true )\n            context.isResponse = true\n            context.sameWasProcessed = true\n          }\n        }\n      }"
+          "apply": "async (args) => {\n        const {context, fragments, objects, km, api, log, s, uuid} = args\n        const objectContext = context.objects[context.objects.length-1];\n        const propertyContext = context;\n        if (objectContext.unknown) {\n          objectContext.value = pluralize.singular(objectContext.value)\n        }\n        const objectId = objectContext.value\n\n        await api.makeObject({ ...args, context: objectContext })\n        await api.makeObject({ ...args, context: propertyContext })\n        propertyContext[`disable${uuid}`] = true\n        debugger\n        const propertyId = (await km(\"dialogues\").api.evaluateToConcept(propertyContext, context, log, s)).evalue;\n        try {\n          api.setProperty(objectContext, propertyContext, context.same, true)\n          context.sameWasProcessed = true\n        } catch (e) {\n          log(`Error processing set property of an object: ${e}`)\n          const config = km('properties')\n          const value = await api.getProperty(objectId, propertyId)\n          if (value?.value == context.same?.value) {\n            context.evalue = [\n              { marker: 'yesno', value: true, paraphrase: true },\n            ]\n            context.isResponse = true\n            context.sameWasProcessed = true\n          } else {\n            const mappings = {\n              property1: { word: propertyContext.word, value: propertyContext.value, paraphrase: true },\n              object1: { word: objectContext.word, value: objectContext.value, paraphrase: true },\n              value1: value,\n            }\n            // run the query 'the property of object' then copy that here and template it\n            context.evalue = [\n              { marker: 'yesno', value: false, paraphrase: true },\n            ]\n            context.evalue = context.evalue.concat(await fragments(\"the property1 of object1 is value1\", mappings))\n            context.evalue.forEach( (r) => r.paraphrase = true )\n            context.isResponse = true\n            context.sameWasProcessed = true\n          }\n        }\n      }"
         },
         {
           "match": "({context, hierarchy, toArray}) => {\n        return (toArray(context).every((value) => hierarchy.isA(value.marker, 'property')) || (hierarchy.isA(context.marker, 'list') && context.possession)) && context.evaluate && context.objects && !context.evaluate.toConcept\n      }",
@@ -2522,15 +2522,15 @@
         },
         {
           "notes": "greg has eyes?",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:843"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:849"
         },
         {
           "notes": "set the property of an object",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:869"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:875"
         },
         {
           "notes": "get/evaluate a property",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:914"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:925"
         }
       ]
     },
