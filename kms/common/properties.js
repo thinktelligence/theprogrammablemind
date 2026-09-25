@@ -591,7 +591,7 @@ const config = {
         context.terms.some((term) => {
           return term.objects && isA(term.objects[0], 'property') && term.query
         }),
-      apply: (args) => {
+      apply: async (args) => {
         const {context, km, callId, api} = args
         let value, property, object
         if (context.terms[0].query) {
@@ -609,7 +609,7 @@ const config = {
           property,
           value,
         }
-        const relations = api.relation_get(pattern, ['object', 'property', 'value'])
+        const relations = await api.relation_unify(pattern, ['object', 'property', 'value'])
         debugger
       }
     },

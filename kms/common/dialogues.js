@@ -142,8 +142,8 @@ const config = {
 
     { 
       id: "what", 
-      optional: "{ ...next(operator), query: ['what'], determined: true }", 
-      bridge: "{ ...after, query: ['what'], modifiers: ['what'], what: operator }" 
+      optional: "{ ...next(operator), query: ['what'], determined: true, isVariable: true }", 
+      bridge: "{ ...after, query: ['what'], modifiers: ['what'], what: operator, isVariable: true }" 
     },
     { id: "whatAble" },
 
@@ -225,6 +225,7 @@ const config = {
   words: {
     "literals": {
       "?": [{"id": "questionMark", "initial": "{}" }],
+      // TODO make who its own concept
       "who": [{"id": "what", "initial": "{ modifiers: [], query: true }" }],
       "yes": [{"id": "yesno", "initial": "{ value: true }" }],
       "no": [{"id": "yesno", "initial": "{ value: false }" }],
@@ -499,14 +500,10 @@ const config = {
     {
       where: where(),
       match: ({context}) => {
-        if (context.evaluate && context.marker == 'unify') {
-          debugger
-        }
         return context.evaluate && context.marker == 'unify' && context.terms.some((term) => term.marker == 'what')
       },
       apply: async ({context, resolveEvaluate, toEValue}) => {
         const value = context.terms.find((term) => term.marker !== 'what')
-        debugger
         await resolveEvaluate(context, value)
       }
     },
@@ -594,7 +591,6 @@ const config = {
         if (true) {
           if (query.query || value.query) {
             debug.counter("greg23") 
-            debugger
             const unification = await e({
               marker: 'unify',
               terms: [query, instance],
@@ -726,7 +722,7 @@ function initializer({objects, config, isModule}) {
     e: (context) => config.api.getEvaluator(args.s, args.log, context),
   }))
   */
-  config.addArgs(({config, api, isA}) => ({ 
+  config.addArgs(({config, api, isA, e}) => ({ 
     toScopedId: (context) => {
       return api('dialogues').toScopedId(context)
     },
@@ -736,6 +732,13 @@ function initializer({objects, config, isModule}) {
       }
     },
     values: propertyToArray,
+    unify: async (term1, term2) => {
+      const unification = await e({
+        marker: 'unify',
+        terms: [term1, term2],
+      })
+      return unification?.evalue
+    }
   }))
   objects.mentioned = []
   objects.variables = {

@@ -457,7 +457,6 @@ class API {
     }
 
     for (const arg of args) {
-      debugger
       if (!matches(template[arg], value[arg])) {
         return null
       }
@@ -465,10 +464,59 @@ class API {
     return value
   }
 
-  relation_unify (context, args) {
+  async relation_unify_helper (args, template, value) {
+    const matches = (t, v) => {
+      if (typeof t == 'string' || typeof v == 'string') {
+        return t == v
+      }
+
+      if (!t || !v) {
+        return null
+      }
+
+      if (t.query) {
+        return true
+      }
+
+      if (t.concept) {
+        // const api = args.km('properties').api
+        if (v.unknown && !t.value) {
+          return true;
+        }
+        return this.isA(v.value, t.value)
+      }
+
+      /* wtf
+      if (!t.value && !v.value) {
+        return this.isA(v.value, t.value);
+      }
+      */
+
+      return t.value && v.value && t.value == v.value
+    }
+
+    for (const arg of args) {
+      try{
+        debugger
+        const u = await this.args.unify(template[arg], value[arg])
+        if (u) {
+          continue
+        }
+        if (!matches(template[arg], value[arg])) {
+          return null
+        }
+      } catch(e) {
+        debugger
+        console.log(e)
+      }
+    }
+    return value
+  }
+
+  async relation_unify (context, args) {
     const andTheAnswerIs = []
     for (const relation of this._objects.relations) {
-      if (this.relation_match(args, context, relation)) {
+      if (await this.relation_unify_helper(args, context, relation)) {
         const queriedArgs = args.filter( (arg) => context[arg].query )
         if (queriedArgs.length == 1) {
           relation[queriedArgs[0]] = { ...relation[queriedArgs[0]], focus: true }

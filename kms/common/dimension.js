@@ -322,6 +322,19 @@ const template = {
         },
       ],
     },
+    {
+      semantics: [
+        {
+          match: ({context, isA}) => context.evaluate && 
+              context.marker == 'unify' && 
+              context.terms.some((term) => isA(term, 'quantity')) &&
+              context.terms.every((term) => term.instance),
+          apply: async ({context}) => {
+            debugger
+          }
+        },
+      ],
+    },
   ],
 }
 
