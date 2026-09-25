@@ -874,7 +874,7 @@ const config = {
       notes: 'set the property of an object',
       where: where(),
       // TODO change disable${uuid} to callOnce
-      match: ({context, hierarchy, uuid}) => hierarchy.isA(context.marker, 'property') && context.same && context.objects && !context[`disable${uuid}`],
+      match: (args) => args.callOnce(args, 'properties.1', ({context, hierarchy, uuid}) => hierarchy.isA(context.marker, 'property') && context.same && context.objects),
       apply: async (args) => {
         const {context, fragments, objects, km, api, log, s, uuid} = args
         const objectContext = context.objects[context.objects.length-1];
@@ -886,7 +886,6 @@ const config = {
 
         await api.makeObject({ ...args, context: objectContext })
         await api.makeObject({ ...args, context: propertyContext })
-        propertyContext[`disable${uuid}`] = true
         const propertyId = (await km("dialogues").api.evaluateToConcept(propertyContext, context, log, s)).evalue;
         try {
           api.setProperty(objectContext, propertyContext, context.same, true)
