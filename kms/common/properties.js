@@ -950,6 +950,7 @@ const config = {
         async function processOne(toDo) {
           let currentContext = toDo.pop()
           let currentValue = await toValue(currentContext)
+          debug.breakAt('kirk#call3')
           while (toDo.length > 0) {
             const nextContext = toDo.pop()
             const nextValue = await toValue(nextContext)
