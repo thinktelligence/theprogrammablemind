@@ -933,6 +933,7 @@ const config = {
       // match: ({context, hierarchy}) => hierarchy.isA(context.marker, 'property') && context.evaluate,
       apply: async ({debug, isA, hierarchy, getWordFromDictionary, flatten, asList, context, api, kms, objects, g, gp, s, log, recall}) => {
         async function toValue(objectContext) {
+          debug.breakAt('kirk#call3')
           if (!objectContext.value) {
             return objectContext;
           }
@@ -947,7 +948,6 @@ const config = {
           return objectValue
         }
 
-        debug.breakAt('kirk#call3')
         async function processOne(toDo) {
           let currentContext = toDo.pop()
           let currentValue = await toValue(currentContext)
