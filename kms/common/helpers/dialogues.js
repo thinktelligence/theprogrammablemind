@@ -56,17 +56,6 @@ class API {
     return this._objects.brief
   }
 
-  async evaluateToConcept(value, context, log, s) {
-    value.evaluate = { toConcept: true }
-    const concept = await s(value)
-    if (!concept.evalue && !concept.verbatim) {
-      this.warningNotEvaluated(log, value);
-      concept.evalue = concept.value
-    }
-    delete concept.evaluate
-    return concept
-  }
-
   setupObjectHierarchy(config, id, { types } = {}) {
     for (let type of types) {
       if (typeof type !== 'string') {

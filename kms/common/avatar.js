@@ -50,9 +50,9 @@ const config = {
     {
       notes: 'you are x',
       where: where(),
-      match: ({context, listable}) => context.marker == 'self',
+      match: ({context, listable}) => context.marker == 'same' && context.one.marker == 'self',
       apply: ({context, km}) => {
-        km("stm").api.setVariable('self', context.same.value)
+        km("stm").api.setVariable('self', context.two.value)
         context.sameWasProcessed = true
       }
     },
