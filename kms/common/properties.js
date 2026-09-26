@@ -892,6 +892,7 @@ const config = {
         await api.makeObject({ ...args, context: objectContext })
         await api.makeObject({ ...args, context: propertyContext })
         debugger
+        debug.counter('eccall')
         const propertyId = (await km("dialogues").api.evaluateToConcept(propertyContext, context.one, log, s)).evalue;
         try {
           api.setProperty(objectContext, propertyContext, context.two, true)
