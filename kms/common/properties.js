@@ -886,7 +886,7 @@ const config = {
 
         await api.makeObject({ ...args, context: objectContext })
         await api.makeObject({ ...args, context: propertyContext })
-        const propertyId = (await km("dialogues").api.evaluateToConcept(propertyContext, context, log, s)).evalue;
+        const propertyId = propertyContext.value
         try {
           api.setProperty(objectContext, propertyContext, context.same, true)
           context.sameWasProcessed = true
