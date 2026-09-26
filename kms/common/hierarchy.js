@@ -174,16 +174,27 @@ const config = {
     {
       notes: 'c is a y',
       where: where(),
-      match: ({context, listable}) => listable(context.marker, 'hierarchyAble') && !context.pullFromContext && !context.wantsValue && context.same && !context.same.pullFromContext && context.same.wantsValue,
+      match: ({context, listable}) => {
+        if (context.marker !== 'same') {
+          return
+        }
+        const { one, two } = context
+        return listable(one.marker, 'hierarchyAble') && 
+          !one.pullFromContext && 
+          !one.wantsValue && 
+          !two.pullFromContext && 
+          two.wantsValue
+      },
       apply: async ({context, km, objects, asList, baseConfig : config}) => {
         const api = km('properties').api
         // mark c as an instance?
-        const oneConcepts = asList(context);
-        const twoConcepts = asList(context.same);
+        const { one, two } = context
+        const oneConcepts = asList(one);
+        const twoConcepts = asList(two);
         for (let oneConcept of oneConcepts.value) {
           for (let twoConcept of twoConcepts.value) {
-            oneConcept = await api.makeObject({config, context})
-            twoConcept = await api.makeObject({config, context: context.same})
+            oneConcept = await api.makeObject({config, context: one})
+            twoConcept = await api.makeObject({config, context: two})
             api.rememberIsA(oneConcept, twoConcept)
           }
         }
@@ -193,15 +204,22 @@ const config = {
     {
       notes: 'an x is a y',
       where: where(),
-      match: ({context, listable}) => listable(context.marker, 'hierarchyAble') && !context.pullFromContext && context.wantsValue && context.same,
+      match: ({context, listable}) => {
+        if (context.marker !== 'same') {
+          return
+        }
+        const { one, two } = context
+        return listable(one.marker, 'hierarchyAble') && !one.pullFromContext && one.wantsValue
+      },
       apply: async ({context, km, objects, baseConfig : config, asList}) => {
         const api = km('properties').api
-        const oneConcepts = asList(context);
-        const twoConcepts = asList(context.same);
+        const { one, two } = context
+        const oneConcepts = asList(one);
+        const twoConcepts = asList(two);
         for (let oneConcept of oneConcepts.value) {
           for (let twoConcept of twoConcepts.value) {
-            oneConcept = await api.makeObject({config, context})
-            twoConcept = await api.makeObject({config, context: context.same})
+            oneConcept = await api.makeObject({config, context: one})
+            twoConcept = await api.makeObject({config, context: two})
             api.rememberIsA(oneConcept, twoConcept) 
             context.sameWasProcessed = true
           }
@@ -213,51 +231,53 @@ const config = {
       where: where(),
       match: ({debug, context, listable, hierarchy, isA, callId}) => {
         // debug.b2reakAt('dates#call4')
-        if (!context.same) {
+        if (context.marker !== 'same') {
           return
         }
+        const { one, two } = context
 
         // let the "the metric system is a measurement system" threw but block 'the gender is male'
-        if (context.theable && !context.same.determiner && !context.same.pullFromContext) {
+        if (one.theable && !two.determiner && !two.pullFromContext) {
           return
         }
-        if (context.same.determiner && context.same.determiner.marker == 'a') {
-          context.same.concept = true;
-        } else if (context.same.evaluate) {
+        if (two.determiner && two.determiner.marker == 'a') {
+          two.concept = true;
+        } else if (two.evaluate) {
           return // some kind of instance
-        } else if (context.same.word && pluralize.isPlural(context.same.word)) {
-          context.same.concept = true;
-        } else if (context.number == 'many') {
-          context.same.concept = true;
-        //} else if (!context.same.determiner && pluralize.isSingular(context.same.word) && !context.same.instance) {
-        //  context.same.concept = true;
-        // } else if (false && isA(context.same.marker, 'hierarchyAble') && context.same.word && pluralize.isSingular(context.same.word) && !context.same.instance) {
-        } else if (context.same.marker !== 'unknown' && isA(context.same.marker, 'hierarchyAble') && !context.same.pullFromContext && context.same.word && pluralize.isSingular(context.same.word) && !context.same.instance) {
-          context.same.concept = true;
+        } else if (two.word && pluralize.isPlural(two.word)) {
+          two.concept = true;
+        } else if (one.number == 'many') {
+          two.concept = true;
+        //} else if (!two.determiner && pluralize.isSingular(two.word) && !two.instance) {
+        //  two.concept = true;
+        // } else if (false && isA(two.marker, 'hierarchyAble') && two.word && pluralize.isSingular(two.word) && !two.instance) {
+        } else if (two.marker !== 'unknown' && isA(two.marker, 'hierarchyAble') && !two.pullFromContext && two.word && pluralize.isSingular(two.word) && !two.instance) {
+          two.concept = true;
         } else {
           return
         }
 
-        if ((hierarchy.isA(context.marker, 'property') && context.same && context.objects)|| ((context.same||{}).marker === 'readonly')) {
+        if ((hierarchy.isA(one.marker, 'property') && two && one.objects)|| ((two||{}).marker === 'readonly')) {
           return;
         }
 
-        if (context.same && context.same.word && pluralize.isPlural(context.same.word)) {
-          context.same.concept = true;
+        if (two && two.word && pluralize.isPlural(two.word)) {
+          two.concept = true;
         }
        
         // getting 20 and allowing it to be a class name  like "priority is a 20"
-        if (false && context.same && context.same.word && pluralize.isSingular(context.same.word)) {
-          context.same.concept = true;
+        if (false && two && two.word && pluralize.isSingular(two.word)) {
+          two.concept = true;
         }
        
-        return listable(context, 'hierarchyAble') && context.same && context.same.concept && !context.query
+        return listable(one, 'hierarchyAble') && two && two.concept && !one.query
       },
       apply: async (args) => {
         const {callId, addWordToDictionary, config, objects, km, context, asList, listable} = args
+        const { one, two } = context
         const api = km('properties').api
-        const oneConcepts = asList(context);
-        const twoConcepts = asList(context.same);
+        const oneConcepts = asList(one);
+        const twoConcepts = asList(two);
         for (const oneConcept of oneConcepts.value) {
           for (const twoConcept of twoConcepts.value) {
             addWordToDictionary({ ...oneConcept, same: undefined })

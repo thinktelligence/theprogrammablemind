@@ -145,9 +145,9 @@ const config = {
   semantics: [
     {
       where: where(),
-      match: ({context}) => context.marker == 'player' && context.same,
+      match: ({context}) => context.marker == 'same' && context.one.marker == 'player',
       apply: ({context, objects, config, km}) => {
-        const players = context.same.value.map( (props) => props.value )
+        const players = context.two.value.map( (props) => props.value )
         setPlayers(objects, config, players)
         for (const player of objects.players) {
           objects.scores[player] = 0
@@ -239,10 +239,9 @@ const config = {
       // same
     {
       where: where(),
-      match: ({context}) => context.marker == 'score' && context.same && context.winning,
+      match: ({context}) => context.marker == 'same' && context.one.marker == 'score' && context.one.winning,
       apply: ({context, objects}) => {
-        // objects.winningScore = context.same.amount.value
-        objects.winningScore = context.same.value
+        objects.winningScore = context.two.value
       }
     },
     {

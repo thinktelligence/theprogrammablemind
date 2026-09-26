@@ -604,8 +604,7 @@ const config = {
 
         const one = context.one;
         const two = context.two;
-        one.same = two;
-        const onePrime = await s(one)
+        const onePrime = await s({ marker: 'same', one: one, two: two })
         if (!onePrime.sameWasProcessed) {
           warningSameNotEvaluated(log, one)
         } else {
@@ -614,7 +613,6 @@ const config = {
             context.isResponse = true
           }
         }
-        one.same = undefined
         if (!onePrime.sameWasProcessed) {
           _continue()
         }

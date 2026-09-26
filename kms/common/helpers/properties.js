@@ -585,7 +585,6 @@ class API {
     if (!this._objects.concepts.includes(objectId)) {
       this._objects.concepts.push(pluralize.singular(objectId))
     }
-    debugger
     this.relation_add({ marker: 'property', objectId, propertyId, value })
   }
 

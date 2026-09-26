@@ -753,10 +753,10 @@ const config = {
     },
     {
       where: where(),
-      match: ({context}) => context.marker == 'concept' && context.same,
+      match: ({context}) => context.marker == 'same' && context.one.marker == 'concept',
       apply: async (args) => {
         const {context} = args
-        await args.makeObject({ ...args, context: context.same })
+        await args.makeObject({ ...args, context: context.two})
         context.sameWasProcessed = true
       }
     },
@@ -764,13 +764,14 @@ const config = {
       // TODO maybe use the dialogue management to get params
       notes: 'wants is xfx between wanter and wantee',
       where: where(),
-      match: ({context}) => context.same && context.same.marker == 'xfx',
+      match: ({context}) => context.marker == 'same' && context.two.marker == 'xfx',
       // debug: 'call3',
       apply: ({context, km, config}) => {
         const papi = km('properties').api
-        const singular = pluralize.singular(context.word)
-        const plural = pluralize.plural(context.word)
-        const args = context.same.arguments.value;
+        const { one, two } = context
+        const singular = pluralize.singular(one.word)
+        const plural = pluralize.plural(one.word)
+        const args = two.arguments.value;
         papi.createBinaryRelation(config, singular, [singular, plural], args[0].word, args[1].word)
       },
       priority: -1,
@@ -778,9 +779,9 @@ const config = {
     {
       notes: 'marking something as readonly',
       where: where(),
-      match: ({context}) => context.same && context.same.marker == 'readonly',
+      match: ({context}) => context.marker == 'same' && context.two.marker == 'readonly',
       apply: ({context, km, objects}) => {
-        km('properties').api.setReadOnly([context.value]) 
+        km('properties').api.setReadOnly([context.one.value]) 
         context.sameWasProcessed = true
       }
     },
@@ -841,6 +842,7 @@ const config = {
         } else {
           api.setProperty(context.object, context.property, null, true)
         }
+        // TODO delete this?
         context.sameWasProcessed = true
       }
     },
@@ -874,11 +876,14 @@ const config = {
       notes: 'set the property of an object',
       where: where(),
       // TODO change disable${uuid} to callOnce
-      match: (args) => args.callOnce(args, 'properties.1', ({context, hierarchy, uuid}) => hierarchy.isA(context.marker, 'property') && context.same && context.objects),
+      match: (args) => args.callOnce(args, 'properties.1', ({context, hierarchy, uuid}) => 
+        context.marker == 'same' && 
+        hierarchy.isA(context.one.marker, 'property') && 
+        context.one.objects),
       apply: async (args) => {
         const {context, fragments, objects, km, api, log, s, uuid} = args
-        const objectContext = context.objects[context.objects.length-1];
-        const propertyContext = context;
+        const objectContext = context.one.objects[context.one.objects.length-1];
+        const propertyContext = context.one;
         if (objectContext.unknown) {
           objectContext.value = pluralize.singular(objectContext.value)
         }
@@ -886,15 +891,17 @@ const config = {
 
         await api.makeObject({ ...args, context: objectContext })
         await api.makeObject({ ...args, context: propertyContext })
-        const propertyId = (await km("dialogues").api.evaluateToConcept(propertyContext, context, log, s)).evalue;
+        debugger
+        const propertyId = (await km("dialogues").api.evaluateToConcept(propertyContext, context.one, log, s)).evalue;
         try {
-          api.setProperty(objectContext, propertyContext, context.same, true)
+          api.setProperty(objectContext, propertyContext, context.two, true)
           context.sameWasProcessed = true
         } catch (e) {
           log(`Error processing set property of an object: ${e}`)
+          debugger
           const config = km('properties')
           const value = await api.getProperty(objectId, propertyId)
-          if (value?.value == context.same?.value) {
+          if (value?.value == context.two?.value) {
             context.evalue = [
               { marker: 'yesno', value: true, paraphrase: true },
             ]
