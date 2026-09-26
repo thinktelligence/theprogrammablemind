@@ -221,7 +221,7 @@
     {
       "semantics": [
         {
-          "match": "({context, isA}) => context.evaluate && context.marker == 'unify' && context.terms.some((term) => isA(term, 'quantity'))",
+          "match": "({context, isA}) => context.evaluate && \n              context.marker == 'unify' && \n              context.terms.some((term) => isA(term, 'quantity')) &&\n              context.terms.every((term) => term.instance)",
           "apply": "async ({context}) => {\n            debugger\n          }"
         }
       ]
