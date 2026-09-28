@@ -253,7 +253,14 @@ const config = {
       before: ['preposition', 'propertyMarker'],
       after: ['mathematical_operator'],
       // bridge: "{ marker: next(operator('quantity')), dead: true, unit: after[0], value: before[0].value, amount: before[0] }" 
-      bridge: "{ marker: next(operator('quantity')), dead: true, unit: after[0], amount: before[0], interpolate: [ { property: 'amount' }, { property: 'unit' } ] }" 
+      bridge: `{ 
+        marker: next(operator('quantity')), 
+        dead: true, 
+        instance: true,
+        unit: after[0], 
+        amount: before[0], 
+        interpolate: [ { property: 'amount' }, { property: 'unit' } ] 
+      }` 
     },
     { 
       where: where(),
@@ -325,11 +332,28 @@ const template = {
     {
       semantics: [
         {
-          match: ({context, isA}) => context.evaluate && 
+          match: ({context, isA, debug}) => {
+            return context.evaluate && 
               context.marker == 'unify' && 
-              context.terms.some((term) => isA(term, 'quantity')) &&
-              context.terms.every((term) => term.instance),
-          apply: async ({context}) => {
+              context.terms.every((term) => isA(term, 'quantity')) &&
+              context.terms.every((term) => term.instance)
+          },
+          apply: async ({context, e, unify, toEValue}) => {
+            const t1 = context.terms[0]
+            const t2 = context.terms[1]
+            if (t1.propertyType !== t2.propertyType) {
+              return
+            }
+            if (t1[t1.propertyType].marker !== t2[t2.propertyType].marker) {
+              return
+            }
+            const convert = await e({ marker: 'convertToUnits', from: t2, to: t1.unit })
+            debugger
+            const t2InT1Units = await toEValue(await toEValue(convert))
+            debug.counter('greg29')
+            if (!await unify(t1.amount, await t2InT1Units.amount)) {
+              debugger
+            }
             debugger
           }
         },

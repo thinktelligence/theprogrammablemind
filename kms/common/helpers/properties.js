@@ -497,7 +497,6 @@ class API {
 
     for (const arg of args) {
       try{
-        debugger
         const u = await this.args.unify(template[arg], value[arg])
         if (u) {
           continue

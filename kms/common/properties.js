@@ -588,7 +588,7 @@ const config = {
       match: ({context, isA}) => 
         context.evaluate && 
         context.marker == 'unify' && 
-        context.terms.some((term) => {
+        context.terms?.some((term) => {
           return term.objects && isA(term.objects[0], 'property') && term.query
         }),
       apply: async (args) => {
