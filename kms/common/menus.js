@@ -77,7 +77,7 @@ class MenusAPI {
       id: `${languageId}`, 
       associations: [languageId, 'menus'],
       isA: ['menu_menus'],
-      words: [{ word: name, value: id, instance: true }],
+      words: [{ word: name, value: id, isInstance: true }],
     })
     this._objects.menuDefs.push({
       key: name,
@@ -96,7 +96,7 @@ class MenusAPI {
       id: `${languageId}`, 
       associations: [menuId.languageId, 'menus'],
       isA: ['menu_menus_item_menus'],
-      words: [{ word: name, value: id, path: [menuId.id, id], instance: true }],
+      words: [{ word: name, value: id, path: [menuId.id, id], isInstance: true }],
     })
     const menu = this._objects.menuDefs.find((md) => md.key == menuId.id)
     menu.children.push({
@@ -139,7 +139,7 @@ const template = {
           isA: ['verb'],
           bridge: "{ ...next(operator), show: after[0], generate: ['this', 'show'] }",
           semantic: ({context, api}) => {
-            if (context.show.instance) {
+            if (context.show.isInstance) {
               api.show(context.show.value)
             }
           }

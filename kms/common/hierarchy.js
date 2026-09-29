@@ -248,10 +248,10 @@ const config = {
           two.concept = true;
         } else if (one.number == 'many') {
           two.concept = true;
-        //} else if (!two.determiner && pluralize.isSingular(two.word) && !two.instance) {
+        //} else if (!two.determiner && pluralize.isSingular(two.word) && !two.isInstance) {
         //  two.concept = true;
-        // } else if (false && isA(two.marker, 'hierarchyAble') && two.word && pluralize.isSingular(two.word) && !two.instance) {
-        } else if (two.marker !== 'unknown' && isA(two.marker, 'hierarchyAble') && !two.pullFromContext && two.word && pluralize.isSingular(two.word) && !two.instance) {
+        // } else if (false && isA(two.marker, 'hierarchyAble') && two.word && pluralize.isSingular(two.word) && !two.isInstance) {
+        } else if (two.marker !== 'unknown' && isA(two.marker, 'hierarchyAble') && !two.pullFromContext && two.word && pluralize.isSingular(two.word) && !two.isInstance) {
           two.concept = true;
         } else {
           return

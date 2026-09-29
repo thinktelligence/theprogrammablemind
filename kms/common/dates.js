@@ -143,7 +143,7 @@ const template = {
           before: ['preposition'],
           separators: "||||",
           convolution: true,
-          bridge: "{ ...next(operator), day: after[2], instance: true, month: after[0], year: after[4], interpolate: '${month}/${day}/${year}' }",
+          bridge: "{ ...next(operator), day: after[2], isInstance: true, month: after[0], year: after[4], interpolate: '${month}/${day}/${year}' }",
           generatorr: ({context, gp}) => gp(context),
           check: defaultContextCheckProperties(['day', 'month', 'year']),
         },
@@ -151,17 +151,17 @@ const template = {
           id: 'dayNumber_dates', 
           isA: ['integer'],
           //associations: ['dates'],
-          bridge: "{ ...next(operator), instance: true }" 
+          bridge: "{ ...next(operator), isInstance: true }" 
         },
         { 
           id: 'monthNumber_dates', 
           isA: ['integer'],
-          bridge: "{ ...next(operator), instance: true }" 
+          bridge: "{ ...next(operator), isInstance: true }" 
         },
         { 
           id: 'yearNumber_dates', 
           isA: ['integer'],
-          bridge: "{ ...next(operator), instance: true }" 
+          bridge: "{ ...next(operator), isInstance: true }" 
         },
         { 
           id: 'monthDay_dates', 
@@ -169,7 +169,7 @@ const template = {
           localHierarchy: [['ordinal', 'dayNumber_dates']],
           before: ['preposition'],
           isA: ['date_dates'],
-          bridge: "{ ...next(operator), instance: true, month: after[0], day: after[1], interpolate: '${month} ${day}' }",
+          bridge: "{ ...next(operator), isInstance: true, month: after[0], day: after[1], interpolate: '${month} ${day}' }",
           generatorr: ({context, gp}) => gp(context),
           check: defaultContextCheckProperties(['day', 'month']),
         },
@@ -178,7 +178,7 @@ const template = {
           convolution: true,
           before: ['preposition'],
           isA: ['date_dates'],
-          bridge: "{ ...next(operator), instance: true, month: after[0], year: after[1], interpolate: '${month} ${year}' }",
+          bridge: "{ ...next(operator), isInstance: true, month: after[0], year: after[1], interpolate: '${month} ${year}' }",
           generatorr: ({context, gp}) => gp(context),
           check: defaultContextCheckProperties(['month', 'year']),
         },
@@ -196,7 +196,7 @@ const template = {
           localHierarchy: [
             ['ordinal', 'dayNumber_dates'],
           ],
-          bridge: "{ ...next(operator), instance: true, month: after[0], day: after[1], year: after[2], interpolate: '${month} ${day} ${year}' }",
+          bridge: "{ ...next(operator), isInstance: true, month: after[0], day: after[1], year: after[2], interpolate: '${month} ${day} ${year}' }",
           generatorr: ({context, gp}) => gp(context),
           check: defaultContextCheckProperties(['month', 'day', 'year']),
         },
@@ -206,17 +206,17 @@ const template = {
           {
             pattern: [{ type: 'digit' }, { repeat: true }],
             allow_partial_matches: false,
-            defs: [{id: "dayNumber_dates", uuid: '1', initial: "{ value: int(text), instance: true }" }]
+            defs: [{id: "dayNumber_dates", uuid: '1', initial: "{ value: int(text), isInstance: true }" }]
           },
           {
             pattern: [{ type: 'digit' }, { repeat: true }],
             allow_partial_matches: false,
-            defs: [{id: "monthNumber_dates", uuid: '1', initial: "{ value: int(text), instance: true }" }]
+            defs: [{id: "monthNumber_dates", uuid: '1', initial: "{ value: int(text), isInstance: true }" }]
           },
           {
             pattern: [{ type: 'digit' }, { repeat: true }],
             allow_partial_matches: false,
-            defs: [{id: "yearNumber_dates", uuid: '1', initial: "{ value: int(text), instance: true }" }]
+            defs: [{id: "yearNumber_dates", uuid: '1', initial: "{ value: int(text), isInstance: true }" }]
           },
         ],
       }

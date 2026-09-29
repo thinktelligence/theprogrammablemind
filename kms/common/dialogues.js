@@ -147,7 +147,7 @@ const config = {
     },
     { id: "whatAble" },
 
-    // context.instance == variables.instance (unification)
+    // context.isInstance == variables.isInstance (unification)
     {   
         where: where(),
         id: "to", 
@@ -427,8 +427,8 @@ const config = {
         if (concept) {
           concept.paraphrase = true
           concept.isSelf = true
-          const instance = await g(response.instance)
-          return `${await g(concept)} ${context.word} ${instance}` 
+          const isInstance = await g(response.isInstance)
+          return `${await g(concept)} ${context.word} ${isInstance}` 
         } else {
           if (Array.isArray(response)) {
             return `${await gs(response)}` 

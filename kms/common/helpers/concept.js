@@ -105,7 +105,7 @@ class API {
       id: modifiersObjectId, 
       level: 0, 
       convolution: true,
-      isA: [{ parent: 'adjective', instance: true }],
+      isA: [{ parent: 'adjective', isInstance: true }],
       associator_return_type: [modifiersObjectId, 0],
       useForArgumentInference: false,
       // isA: ['adjective'],

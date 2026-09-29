@@ -826,12 +826,12 @@
           "apply": "async ({context, fragments, e, s, toEValue, toFinalValue, namespaced, objects}) => {\n            const updated = { ...context, marker: 'patrol', path: context.action }\n            namespaced.set('actions', updated, 'logged', true)\n            await s(updated)\n            // await s({ ...context, marker: 'patrol', path: context.action })\n          }"
         },
         {
-          "match": "({context, contextHierarchy}) => {\n            if (!context.pullFromContext || !context.evaluate || contextHierarchy.under(['doAction', 'evaluate', 'patrol']) || context.instance) {\n              return false\n            }\n            \n            if (context.marker == 'path' || context.marker == 'this' || context.marker == 'that') {\n              return true\n            }\n          }",
-          "apply": "async ({context, frameOfReference, toArray, fragments, objects, remember, recall, resolveEvaluate, _continue, contextHierarchy}) => {\n            const pathComponents = toArray(await recall({ \n                                      context: { marker: 'pathComponent' }, \n                                      all: true,\n                                      stopCondition: (context) => context.marker == 'startPath',\n                                   }))\n            const path = (await fragments('path')).contexts()[0]\n            delete path.value\n            path.instance = true\n            path.points = pathComponents.reverse()\n            frameOfReference(path, { mentioned: 'points', reversed: true })\n            await remember(path)\n\n            _continue() // let the call pick the object out from the stm\n          }"
+          "match": "({context, contextHierarchy}) => {\n            if (!context.pullFromContext || !context.evaluate || contextHierarchy.under(['doAction', 'evaluate', 'patrol']) || context.isInstance) {\n              return false\n            }\n            \n            if (context.marker == 'path' || context.marker == 'this' || context.marker == 'that') {\n              return true\n            }\n          }",
+          "apply": "async ({context, frameOfReference, toArray, fragments, objects, remember, recall, resolveEvaluate, _continue, contextHierarchy}) => {\n            const pathComponents = toArray(await recall({ \n                                      context: { marker: 'pathComponent' }, \n                                      all: true,\n                                      stopCondition: (context) => context.marker == 'startPath',\n                                   }))\n            const path = (await fragments('path')).contexts()[0]\n            delete path.value\n            path.isInstance = true\n            path.points = pathComponents.reverse()\n            frameOfReference(path, { mentioned: 'points', reversed: true })\n            await remember(path)\n\n            _continue() // let the call pick the object out from the stm\n          }"
         },
         {
           "match": "({context, contextHierarchy}) => {\n            if (!context.pullFromContext || !context.evaluate || !contextHierarchy.under('call') || context.notUnderCall) {\n              return false\n            }\n            \n            if (context.marker == 'point' || context.marker == 'ordinal') {\n              return true\n            }\n          }",
-          "apply": "async ({frameOfReference, context, e, fragments, stm, toEValue, toArray, objects, remember, recall, resolveEvaluate, _continue, contextHierarchy}) => {\n            const evaluated = await e({...context, notUnderCall: true})\n            const pointsContext = toEValue(evaluated)\n            const pathComponents = toArray(pointsContext)\n\n            const path = (await fragments('path')).contexts()[0]\n            delete path.value\n            path.instance = true\n            path.points = [...pathComponents]\n            frameOfReference(path, { mentioned: 'points', reversed: true })\n            await remember(path)\n            resolveEvaluate(context, path)\n          }"
+          "apply": "async ({frameOfReference, context, e, fragments, stm, toEValue, toArray, objects, remember, recall, resolveEvaluate, _continue, contextHierarchy}) => {\n            const evaluated = await e({...context, notUnderCall: true})\n            const pointsContext = toEValue(evaluated)\n            const pathComponents = toArray(pointsContext)\n\n            const path = (await fragments('path')).contexts()[0]\n            delete path.value\n            path.isInstance = true\n            path.points = [...pathComponents]\n            frameOfReference(path, { mentioned: 'points', reversed: true })\n            await remember(path)\n            resolveEvaluate(context, path)\n          }"
         },
         {
           "match": "({context}) => context.evaluate && ['start', 'end'].includes(context.marker) && context.objects && context.objects[1].marker == 'path'",
@@ -11612,7 +11612,7 @@
         "opChoices": [
           {
             "op": [
-              "meter",
+              "number",
               0
             ],
             "ops": [
@@ -11641,7 +11641,7 @@
           },
           {
             "op": [
-              "unitPerUnit",
+              "meter",
               0
             ],
             "ops": [
@@ -11650,7 +11650,7 @@
                 0
               ],
               [
-                "number",
+                "meter",
                 0
               ],
               [
@@ -11675,7 +11675,7 @@
                 0
               ],
               [
-                "number",
+                "second",
                 0
               ],
               [
@@ -11687,7 +11687,7 @@
           },
           {
             "op": [
-              "amountOfCoordinate",
+              "unitPerUnit",
               0
             ],
             "ops": [
@@ -11696,11 +11696,24 @@
                 0
               ],
               [
-                "number",
+                "unitPerUnit",
                 0
               ]
             ],
             "counter": 4
+          },
+          {
+            "op": [
+              "amountOfCoordinate",
+              0
+            ],
+            "ops": [
+              [
+                "amountOfCoordinate",
+                0
+              ]
+            ],
+            "counter": 5
           }
         ]
       },
@@ -11776,6 +11789,7 @@
             "level": 0
           },
           "amount": {
+            "isInstance": false,
             "marker": "number",
             "value": "number",
             "default": true,
@@ -11785,10 +11799,11 @@
               "start": 0,
               "end": 5
             },
+            "dead": true,
             "types": [
               "number"
             ],
-            "level": 0
+            "level": 1
           },
           "interpolate": [
             {
@@ -11873,7 +11888,7 @@
                 {
                   "marker": [
                     "number",
-                    0
+                    1
                   ],
                   "range": {
                     "start": 0,
@@ -11918,7 +11933,7 @@
                 {
                   "marker": [
                     "number",
-                    0
+                    1
                   ],
                   "range": {
                     "start": 0,
@@ -11927,11 +11942,31 @@
                 },
                 {
                   "marker": [
-                    "unitPerUnit",
+                    "meter",
                     0
                   ],
                   "range": {
                     "start": 7,
+                    "end": 12
+                  }
+                },
+                {
+                  "marker": [
+                    "unitPerUnit",
+                    0
+                  ],
+                  "range": {
+                    "start": 14,
+                    "end": 16
+                  }
+                },
+                {
+                  "marker": [
+                    "second",
+                    0
+                  ],
+                  "range": {
+                    "start": 18,
                     "end": 23
                   }
                 }
@@ -11943,7 +11978,7 @@
                 {
                   "marker": [
                     "number",
-                    0
+                    1
                   ],
                   "range": {
                     "start": 0,
@@ -11967,6 +12002,31 @@
               "operators": [
                 {
                   "marker": [
+                    "number",
+                    1
+                  ],
+                  "range": {
+                    "start": 0,
+                    "end": 5
+                  }
+                },
+                {
+                  "marker": [
+                    "unitPerUnit",
+                    0
+                  ],
+                  "range": {
+                    "start": 7,
+                    "end": 23
+                  }
+                }
+              ],
+              "counter": 5
+            },
+            {
+              "operators": [
+                {
+                  "marker": [
                     "quantity",
                     1
                   ],
@@ -11976,7 +12036,7 @@
                   }
                 }
               ],
-              "counter": 5
+              "counter": 6
             }
           ],
           "length": 1
@@ -12195,7 +12255,7 @@
         "opChoices": [
           {
             "op": [
-              "radian",
+              "number",
               0
             ],
             "ops": [
@@ -12216,7 +12276,7 @@
           },
           {
             "op": [
-              "amountOfCoordinate",
+              "radian",
               0
             ],
             "ops": [
@@ -12225,11 +12285,24 @@
                 0
               ],
               [
-                "number",
+                "radian",
                 0
               ]
             ],
             "counter": 2
+          },
+          {
+            "op": [
+              "amountOfCoordinate",
+              0
+            ],
+            "ops": [
+              [
+                "amountOfCoordinate",
+                0
+              ]
+            ],
+            "counter": 3
           }
         ]
       },
@@ -12256,6 +12329,7 @@
             "level": 0
           },
           "amount": {
+            "isInstance": false,
             "marker": "number",
             "value": "number",
             "default": true,
@@ -12265,10 +12339,11 @@
               "start": 0,
               "end": 5
             },
+            "dead": true,
             "types": [
               "number"
             ],
-            "level": 0
+            "level": 1
           },
           "interpolate": [
             {
@@ -12333,7 +12408,7 @@
                 {
                   "marker": [
                     "number",
-                    0
+                    1
                   ],
                   "range": {
                     "start": 0,
@@ -12357,6 +12432,31 @@
               "operators": [
                 {
                   "marker": [
+                    "number",
+                    1
+                  ],
+                  "range": {
+                    "start": 0,
+                    "end": 5
+                  }
+                },
+                {
+                  "marker": [
+                    "radian",
+                    0
+                  ],
+                  "range": {
+                    "start": 7,
+                    "end": 13
+                  }
+                }
+              ],
+              "counter": 3
+            },
+            {
+              "operators": [
+                {
+                  "marker": [
                     "quantity",
                     1
                   ],
@@ -12366,7 +12466,7 @@
                   }
                 }
               ],
-              "counter": 3
+              "counter": 4
             }
           ],
           "length": 1
@@ -12387,7 +12487,7 @@
         "opChoices": [
           {
             "op": [
-              "degree",
+              "integer",
               0
             ],
             "ops": [
@@ -12416,6 +12516,31 @@
           },
           {
             "op": [
+              "degree",
+              0
+            ],
+            "ops": [
+              [
+                "amountOfCoordinate",
+                0
+              ],
+              [
+                "degree",
+                0
+              ],
+              [
+                "delayTime",
+                0
+              ],
+              [
+                "radian",
+                0
+              ]
+            ],
+            "counter": 2
+          },
+          {
+            "op": [
               "amountOfCoordinate",
               0
             ],
@@ -12429,15 +12554,11 @@
                 0
               ],
               [
-                "integer",
-                0
-              ],
-              [
                 "radian",
                 0
               ]
             ],
-            "counter": 2
+            "counter": 3
           },
           {
             "op": [
@@ -12454,7 +12575,7 @@
                 0
               ]
             ],
-            "counter": 3
+            "counter": 4
           },
           {
             "op": [
@@ -12467,7 +12588,7 @@
                 0
               ]
             ],
-            "counter": 4
+            "counter": 5
           }
         ]
       },
@@ -12504,8 +12625,8 @@
               "level": 0
             },
             "amount": {
+              "isInstance": true,
               "value": 40,
-              "instance": true,
               "text": "40",
               "marker": "integer",
               "word": "40",
@@ -12513,10 +12634,11 @@
                 "start": 0,
                 "end": 1
               },
+              "dead": true,
               "types": [
                 "integer"
               ],
-              "level": 0
+              "level": 1
             },
             "interpolate": [
               {
@@ -12623,7 +12745,7 @@
                 {
                   "marker": [
                     "integer",
-                    0
+                    1
                   ],
                   "range": {
                     "start": 0,
@@ -12667,17 +12789,27 @@
               "operators": [
                 {
                   "marker": [
-                    "quantity",
+                    "integer",
                     1
                   ],
                   "range": {
                     "start": 0,
+                    "end": 1
+                  }
+                },
+                {
+                  "marker": [
+                    "degree",
+                    0
+                  ],
+                  "range": {
+                    "start": 3,
                     "end": 9
                   }
                 },
                 {
                   "marker": [
-                    "convertToUnits",
+                    "delayTime",
                     0
                   ],
                   "range": {
@@ -12737,6 +12869,41 @@
               "operators": [
                 {
                   "marker": [
+                    "quantity",
+                    1
+                  ],
+                  "range": {
+                    "start": 0,
+                    "end": 9
+                  }
+                },
+                {
+                  "marker": [
+                    "convertToUnits",
+                    0
+                  ],
+                  "range": {
+                    "start": 11,
+                    "end": 12
+                  }
+                },
+                {
+                  "marker": [
+                    "radian",
+                    0
+                  ],
+                  "range": {
+                    "start": 14,
+                    "end": 20
+                  }
+                }
+              ],
+              "counter": 5
+            },
+            {
+              "operators": [
+                {
+                  "marker": [
                     "convertToUnits",
                     1
                   ],
@@ -12746,7 +12913,7 @@
                   }
                 }
               ],
-              "counter": 5
+              "counter": 6
             }
           ],
           "length": 1
@@ -18868,7 +19035,7 @@
             {
               "marker": [
                 "number",
-                0
+                1
               ],
               "range": {
                 "start": 0,
@@ -18913,7 +19080,7 @@
             {
               "marker": [
                 "number",
-                0
+                1
               ],
               "range": {
                 "start": 0,
@@ -18922,11 +19089,31 @@
             },
             {
               "marker": [
-                "unitPerUnit",
+                "meter",
                 0
               ],
               "range": {
                 "start": 7,
+                "end": 12
+              }
+            },
+            {
+              "marker": [
+                "unitPerUnit",
+                0
+              ],
+              "range": {
+                "start": 14,
+                "end": 16
+              }
+            },
+            {
+              "marker": [
+                "second",
+                0
+              ],
+              "range": {
+                "start": 18,
                 "end": 23
               }
             }
@@ -18938,7 +19125,7 @@
             {
               "marker": [
                 "number",
-                0
+                1
               ],
               "range": {
                 "start": 0,
@@ -18962,6 +19149,31 @@
           "operators": [
             {
               "marker": [
+                "number",
+                1
+              ],
+              "range": {
+                "start": 0,
+                "end": 5
+              }
+            },
+            {
+              "marker": [
+                "unitPerUnit",
+                0
+              ],
+              "range": {
+                "start": 7,
+                "end": 23
+              }
+            }
+          ],
+          "counter": 5
+        },
+        {
+          "operators": [
+            {
+              "marker": [
                 "quantity",
                 1
               ],
@@ -18971,7 +19183,7 @@
               }
             }
           ],
-          "counter": 5
+          "counter": 6
         }
       ],
       "length": 1
@@ -19098,7 +19310,7 @@
             {
               "marker": [
                 "number",
-                0
+                1
               ],
               "range": {
                 "start": 0,
@@ -19122,6 +19334,31 @@
           "operators": [
             {
               "marker": [
+                "number",
+                1
+              ],
+              "range": {
+                "start": 0,
+                "end": 5
+              }
+            },
+            {
+              "marker": [
+                "radian",
+                0
+              ],
+              "range": {
+                "start": 7,
+                "end": 13
+              }
+            }
+          ],
+          "counter": 3
+        },
+        {
+          "operators": [
+            {
+              "marker": [
                 "quantity",
                 1
               ],
@@ -19131,7 +19368,7 @@
               }
             }
           ],
-          "counter": 3
+          "counter": 4
         }
       ],
       "length": 1
@@ -19188,7 +19425,7 @@
             {
               "marker": [
                 "integer",
-                0
+                1
               ],
               "range": {
                 "start": 0,
@@ -19232,17 +19469,27 @@
           "operators": [
             {
               "marker": [
-                "quantity",
+                "integer",
                 1
               ],
               "range": {
                 "start": 0,
+                "end": 1
+              }
+            },
+            {
+              "marker": [
+                "degree",
+                0
+              ],
+              "range": {
+                "start": 3,
                 "end": 9
               }
             },
             {
               "marker": [
-                "convertToUnits",
+                "delayTime",
                 0
               ],
               "range": {
@@ -19302,6 +19549,41 @@
           "operators": [
             {
               "marker": [
+                "quantity",
+                1
+              ],
+              "range": {
+                "start": 0,
+                "end": 9
+              }
+            },
+            {
+              "marker": [
+                "convertToUnits",
+                0
+              ],
+              "range": {
+                "start": 11,
+                "end": 12
+              }
+            },
+            {
+              "marker": [
+                "radian",
+                0
+              ],
+              "range": {
+                "start": 14,
+                "end": 20
+              }
+            }
+          ],
+          "counter": 5
+        },
+        {
+          "operators": [
+            {
+              "marker": [
                 "convertToUnits",
                 1
               ],
@@ -19311,7 +19593,7 @@
               }
             }
           ],
-          "counter": 5
+          "counter": 6
         }
       ],
       "length": 1

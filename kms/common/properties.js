@@ -96,7 +96,14 @@ function addPropertyMarker(args) {
       enhanced_associations: true,
       initial: { markedProperty: property },
       check: defaultContextCheckProperties(['markedProperty']),
-      bridge: `{ ...before[0], checks: append(before.checks, ['repeats']), propertyType: '${property}', : true, isPropertyValue: true, ${property}: operator, interpolate: append(before[0].interpolate, [{ property: '${property}' }]) }`,
+      bridge: `{ 
+        ...before[0], 
+        checks: append(before.checks, ['repeats']), 
+        propertyType: '${property}',
+        isPropertyValue: true, 
+        ${property}: operator, 
+        interpolate: append(before[0].interpolate, [{ property: '${property}' }]) 
+      }`,
     })
   }
 }
@@ -810,7 +817,7 @@ const config = {
                           !(context.types || []).includes('property') &&
                           // !context.value &&  // greghere
                           !context.ordinal &&
-                          (!context.objects || context.objects.length !== 2 || !context.objects[1].instance) &&
+                          (!context.objects || context.objects.length !== 2 || !context.objects[1].isInstance) &&
                           (api.objects && api.objects.children && api.objects.children[context.marker]) &&
                           !context.evaluate.toConcept,
       apply: ({context, hierarchy, objects, api, km}) => {

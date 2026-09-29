@@ -19,7 +19,7 @@ class API {
     context.namespaced.nameable ??= {}
     context.namespaced.nameable.names ??= []
     context.namespaced.nameable.names.push(name)
-    this.args.config.addWord(name, { id: context.marker, initial: `{ value: "${name}", pullFromContext: true, nameable_named: true, instance: ${context.instance ? 'true' : 'false'} }` })
+    this.args.config.addWord(name, { id: context.marker, initial: `{ value: "${name}", pullFromContext: true, nameable_named: true, isInstance: ${context.isInstance ? 'true' : 'false'} }` })
   }
 
   // used by mongo km

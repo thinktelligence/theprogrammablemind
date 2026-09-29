@@ -223,7 +223,7 @@
           ],
           "separators": "||||",
           "convolution": true,
-          "bridge": "{ ...next(operator), day: after[2], instance: true, month: after[0], year: after[4], interpolate: '${month}/${day}/${year}' }",
+          "bridge": "{ ...next(operator), day: after[2], isInstance: true, month: after[0], year: after[4], interpolate: '${month}/${day}/${year}' }",
           "generatorr": "({context, gp}) => gp(context)",
           "check": [
             "marker",
@@ -248,21 +248,21 @@
           "isA": [
             "integer"
           ],
-          "bridge": "{ ...next(operator), instance: true }"
+          "bridge": "{ ...next(operator), isInstance: true }"
         },
         {
           "id": "monthNumber_dates",
           "isA": [
             "integer"
           ],
-          "bridge": "{ ...next(operator), instance: true }"
+          "bridge": "{ ...next(operator), isInstance: true }"
         },
         {
           "id": "yearNumber_dates",
           "isA": [
             "integer"
           ],
-          "bridge": "{ ...next(operator), instance: true }"
+          "bridge": "{ ...next(operator), isInstance: true }"
         },
         {
           "id": "monthDay_dates",
@@ -279,7 +279,7 @@
           "isA": [
             "date_dates"
           ],
-          "bridge": "{ ...next(operator), instance: true, month: after[0], day: after[1], interpolate: '${month} ${day}' }",
+          "bridge": "{ ...next(operator), isInstance: true, month: after[0], day: after[1], interpolate: '${month} ${day}' }",
           "generatorr": "({context, gp}) => gp(context)",
           "check": [
             "marker",
@@ -307,7 +307,7 @@
           "isA": [
             "date_dates"
           ],
-          "bridge": "{ ...next(operator), instance: true, month: after[0], year: after[1], interpolate: '${month} ${year}' }",
+          "bridge": "{ ...next(operator), isInstance: true, month: after[0], year: after[1], interpolate: '${month} ${year}' }",
           "generatorr": "({context, gp}) => gp(context)",
           "check": [
             "marker",
@@ -343,7 +343,7 @@
               "dayNumber_dates"
             ]
           ],
-          "bridge": "{ ...next(operator), instance: true, month: after[0], day: after[1], year: after[2], interpolate: '${month} ${day} ${year}' }",
+          "bridge": "{ ...next(operator), isInstance: true, month: after[0], day: after[1], year: after[2], interpolate: '${month} ${day} ${year}' }",
           "generatorr": "({context, gp}) => gp(context)",
           "check": [
             "marker",
@@ -380,7 +380,7 @@
               {
                 "id": "dayNumber_dates",
                 "uuid": "1",
-                "initial": "{ value: int(text), instance: true }"
+                "initial": "{ value: int(text), isInstance: true }"
               }
             ]
           },
@@ -398,7 +398,7 @@
               {
                 "id": "monthNumber_dates",
                 "uuid": "1",
-                "initial": "{ value: int(text), instance: true }"
+                "initial": "{ value: int(text), isInstance: true }"
               }
             ]
           },
@@ -416,7 +416,7 @@
               {
                 "id": "yearNumber_dates",
                 "uuid": "1",
-                "initial": "{ value: int(text), instance: true }"
+                "initial": "{ value: int(text), isInstance: true }"
               }
             ]
           }
@@ -15185,7 +15185,7 @@
           ],
           "separators": "||||",
           "convolution": true,
-          "bridge": "{ ...next(operator), day: after[2], instance: true, month: after[0], year: after[4], interpolate: '${month}/${day}/${year}' }",
+          "bridge": "{ ...next(operator), day: after[2], isInstance: true, month: after[0], year: after[4], interpolate: '${month}/${day}/${year}' }",
           "check": [
             "marker",
             "text",
@@ -15209,21 +15209,21 @@
           "isA": [
             "integer"
           ],
-          "bridge": "{ ...next(operator), instance: true }"
+          "bridge": "{ ...next(operator), isInstance: true }"
         },
         {
           "id": "monthNumber_dates",
           "isA": [
             "integer"
           ],
-          "bridge": "{ ...next(operator), instance: true }"
+          "bridge": "{ ...next(operator), isInstance: true }"
         },
         {
           "id": "yearNumber_dates",
           "isA": [
             "integer"
           ],
-          "bridge": "{ ...next(operator), instance: true }"
+          "bridge": "{ ...next(operator), isInstance: true }"
         },
         {
           "id": "monthDay_dates",
@@ -15240,7 +15240,7 @@
           "isA": [
             "date_dates"
           ],
-          "bridge": "{ ...next(operator), instance: true, month: after[0], day: after[1], interpolate: '${month} ${day}' }",
+          "bridge": "{ ...next(operator), isInstance: true, month: after[0], day: after[1], interpolate: '${month} ${day}' }",
           "check": [
             "marker",
             "text",
@@ -15267,7 +15267,7 @@
           "isA": [
             "date_dates"
           ],
-          "bridge": "{ ...next(operator), instance: true, month: after[0], year: after[1], interpolate: '${month} ${year}' }",
+          "bridge": "{ ...next(operator), isInstance: true, month: after[0], year: after[1], interpolate: '${month} ${year}' }",
           "check": [
             "marker",
             "text",
@@ -15301,7 +15301,7 @@
               "dayNumber_dates"
             ]
           ],
-          "bridge": "{ ...next(operator), instance: true, month: after[0], day: after[1], year: after[2], interpolate: '${month} ${day} ${year}' }",
+          "bridge": "{ ...next(operator), isInstance: true, month: after[0], day: after[1], year: after[2], interpolate: '${month} ${day} ${year}' }",
           "check": [
             "marker",
             "text",
@@ -15337,7 +15337,7 @@
               {
                 "id": "dayNumber_dates",
                 "uuid": "1",
-                "initial": "{ value: int(text), instance: true }"
+                "initial": "{ value: int(text), isInstance: true }"
               }
             ]
           },
@@ -15355,7 +15355,7 @@
               {
                 "id": "monthNumber_dates",
                 "uuid": "1",
-                "initial": "{ value: int(text), instance: true }"
+                "initial": "{ value: int(text), isInstance: true }"
               }
             ]
           },
@@ -15373,7 +15373,7 @@
               {
                 "id": "yearNumber_dates",
                 "uuid": "1",
-                "initial": "{ value: int(text), instance: true }"
+                "initial": "{ value: int(text), isInstance: true }"
               }
             ]
           }
