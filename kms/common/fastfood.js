@@ -147,10 +147,10 @@ const template = {
         "((meal/* && context.comboNumber == undefined) [comboMeal] (combo/*))",
         "((combo/*) [comboNumber] (number/* || numberNumberCombo/*))",
         "((numberNumberCombo/1) [numberNumberCombo_combo|] (combo/0))",
-        "((number/0,1 && context.instance == false) [numberNumberCombo] (number/0,1 && instance == true))",
+        "((number/0,1 && context.isInstance == false) [numberNumberCombo] (number/0,1 && isInstance == true))",
         "((combo/*) [([withModification|with] ([modification]))])",
       ],
-      floaters: ['instance'],
+      floaters: ['isInstance'],
       priorities: [
        // { "context": [['counting', 0], ['strawberry_smoothie', 0], ], "choose": [0] },
        { "context": [['counting', 0], ['strawberry_smoothie', 0], ], "choose": [1] },
@@ -225,7 +225,7 @@ const template = {
           convolution: true,
           before: ['combo', 'preposition'],
           // after: ['comma'],
-          bridge: "{ ...next(before[0]), postModifiers: append(before[0].postModifiers, ['comboNumber']), comboNumber: after[0], instance: true, flatten: true }",
+          bridge: "{ ...next(before[0]), postModifiers: append(before[0].postModifiers, ['comboNumber']), comboNumber: after[0], isInstance: true, flatten: true }",
         },
         { 
           id: 'numberNumberCombo',

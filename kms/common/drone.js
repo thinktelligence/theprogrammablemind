@@ -1337,7 +1337,7 @@ const template = {
         {
           where: where(),
           match: ({context, contextHierarchy}) => {
-            if (!context.pullFromContext || !context.evaluate || contextHierarchy.under(['doAction', 'evaluate', 'patrol']) || context.instance) {
+            if (!context.pullFromContext || !context.evaluate || contextHierarchy.under(['doAction', 'evaluate', 'patrol']) || context.isInstance) {
               return false
             }
             
@@ -1353,7 +1353,7 @@ const template = {
                                    }))
             const path = (await fragments('path')).contexts()[0]
             delete path.value
-            path.instance = true
+            path.isInstance = true
             path.points = pathComponents.reverse()
             frameOfReference(path, { mentioned: 'points', reversed: true })
             await remember(path)
@@ -1379,7 +1379,7 @@ const template = {
 
             const path = (await fragments('path')).contexts()[0]
             delete path.value
-            path.instance = true
+            path.isInstance = true
             path.points = [...pathComponents]
             frameOfReference(path, { mentioned: 'points', reversed: true })
             await remember(path)
@@ -1537,7 +1537,7 @@ knowledgeModule( {
         defaultContextCheck({ marker: 'path', exported: true, 
           extra: [
             'points', 
-            'instance',
+            'isInstance',
             { 
               property: 'namespaced', 
               check: [

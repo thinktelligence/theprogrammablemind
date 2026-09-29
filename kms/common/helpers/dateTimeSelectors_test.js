@@ -97,7 +97,7 @@ describe("instantiate", () => {
         },
         "dead": true,
         "time": {
-          "instance": true,
+          "isInstance": true,
           "value": 10,
           "text": `10 ${ampm}`,
           "marker": "time",
@@ -123,7 +123,7 @@ describe("instantiate", () => {
             "level": 0
           },
           "time": {
-            "instance": true,
+            "isInstance": true,
             "value": 10,
             "text": "10",
             "marker": "integer",
@@ -218,7 +218,7 @@ describe("instantiate", () => {
         },
         "dead": true,
         "time": {
-          "instance": true,
+          "isInstance": true,
           "value": 10,
           "text": `10 ${ampm}`,
           "marker": "time",
@@ -244,7 +244,7 @@ describe("instantiate", () => {
             "level": 0
           },
           "time": {
-            "instance": true,
+            "isInstance": true,
             "value": 10,
             "text": "10",
             "marker": "integer",

@@ -648,7 +648,7 @@ class API {
     if (!this._objects.concepts.includes(objectId)) {
       this._objects.concepts.push(pluralize.singular(objectId))
     }
-    this.relation_add({ marker: 'property', object, property, value })
+    this.relation_add({ marker: 'propertyRelation', object, property, value })
   }
 
   async knownObject(object) {

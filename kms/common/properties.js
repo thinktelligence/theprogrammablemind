@@ -95,8 +95,17 @@ function addPropertyMarker(args) {
       isA: ['adjective', 'propertyMarker', 'queryable'],
       enhanced_associations: true,
       initial: { markedProperty: property },
-      check: defaultContextCheckProperties(['markedProperty']),
-      bridge: `{ ...before[0], checks: append(before.checks, ['repeats']), propertyType: '${property}', : true, isPropertyValue: true, ${property}: operator, interpolate: append(before[0].interpolate, [{ property: '${property}' }]) }`,
+      check: defaultContextCheckProperties(['markedProperty', 'quantity']),
+      bridge: `{ 
+        ...next(operator),
+        quantity: before[0],
+        notConjunctableWith: ['quantity'],
+        checks: append(before.checks, ['repeats']), 
+        propertyType: '${property}', 
+        isPropertyValue: true, 
+        ${property}: operator, 
+        interpolate: append(map(before[0].interpolate, { inside: 'quantity', value: element }), [{ property: '${property}' }]) 
+      }`,
     })
   }
 }
@@ -218,14 +227,6 @@ const config = {
       localHierarchy: [['property', 'queryable'], ['property', 'theAble'], ['property', 'unknown']],
       bridge: "{ ...next(operator) }" 
     },
-    /*
-    { 
-      id: "property", 
-      words: ['properties'],
-      isA: ['queryable', 'theAble'],
-      level: 0, 
-    },
-    */
     { 
       id: "object", 
       isA: ['queryable', 'theAble', 'listable'],
@@ -326,6 +327,13 @@ const config = {
     { "context": [['what', 0], ['is', 0], ['objectPrefix', 0], ], "choose": [0] }, 
   ],
   generators: [
+    {
+      match: ({context}) => context.marker == 'propertyRelation',
+      apply: ({context}) => {
+        debugger
+        debugger
+      }
+    },
     {
       notes: 'ordering generator for response',
       match: ({context}) => (context.orderingArgs && Object.keys(context.orderingArgs).length !== 0) && context.evalue && context.isResponse,
@@ -592,7 +600,7 @@ const config = {
           return term.objects && isA(term.objects[0], 'property') && term.query
         }),
       apply: async (args) => {
-        const {context, km, callId, api} = args
+        const {context, km, callId, api, resolveEvaluate} = args
         let value, property, object
         if (context.terms[0].query) {
           property = context.terms[0].objects[0]
@@ -604,13 +612,14 @@ const config = {
           value = context.terms[0]
         }
         const pattern = {
-          marker: 'property',
+          marker: 'propertyRelation',
           object,
           property,
           value,
         }
         const relations = await api.relation_unify(pattern, ['object', 'property', 'value'])
         debugger
+        resolveEvaluate(context, relations)
       }
     },
     {
@@ -840,7 +849,7 @@ const config = {
                           !(context.types || []).includes('property') &&
                           // !context.value &&  // greghere
                           !context.ordinal &&
-                          (!context.objects || context.objects.length !== 2 || !context.objects[1].instance) &&
+                          (!context.objects || context.objects.length !== 2 || !context.objects[1].isInstance) &&
                           (api.objects && api.objects.children && api.objects.children[context.marker]) &&
                           !context.evaluate.toConcept,
       apply: ({context, hierarchy, objects, api, km}) => {

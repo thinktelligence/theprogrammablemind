@@ -86,8 +86,8 @@ const config = {
       level: 0,
       selector: {
           match: "same",
-          left: [ { pattern: '($type && context.instance == variables.instance)' } ],
-          right: [ { pattern: '($type && context.instance == variables.instance)' } ],
+          left: [ { pattern: '($type && context.isInstance == variables.isInstance)' } ],
+          right: [ { pattern: '($type && context.isInstance == variables.isInstance)' } ],
           passthrough: true
       },
       bridge: "{ ...next(operator), listable: true, isList: true, value: append(before, after), operator: operator, interpolate: [ { separator: 'operator', values: 'value' } ] }"
@@ -97,7 +97,7 @@ const config = {
       level: 1,
       selector: {
           match: "same",
-          left: [ { pattern: '($type && context.instance == variables.instance)' } ],
+          left: [ { pattern: '($type && context.isInstance == variables.isInstance)' } ],
           passthrough: true
       },
       bridge: "{ ...operator, value: append(before, operator.value) }"

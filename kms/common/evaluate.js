@@ -33,7 +33,7 @@ const config = {
 };
 
 function initializer({objects, config, isModule}) {
-  config.addArgs(({config, api, isA}) => ({
+  config.addArgs(({config, api, toList, isA}) => ({
     resolveResponse: (context, value) => {
       context.response = value || { marker: 'answerNotKnown' }
       if (context.response) {
@@ -43,6 +43,9 @@ function initializer({objects, config, isModule}) {
     resolveEvaluate: (context, value) => {
       if (value == undefined) {
         throw new Error("The arguments are context and the value. The value may not be undefined.")
+      }
+      if (Array.isArray(value)) {
+        value = toList(value)
       }
       context.evalue = value
     },

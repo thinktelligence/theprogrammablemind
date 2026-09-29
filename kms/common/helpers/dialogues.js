@@ -42,7 +42,7 @@ class API {
   //   1. Use hierarchy to make them an instance of queryable. For example add hierarchy entry [<myClassId>, 'queryable']
   //   2. For semantics, if evaluate == true then set the 'value' property of the operator to the value.
   //   3. Generators will get contexts with 'response: true' set. Used for converting 'your' to 'my' to phrases like 'your car' or 'the car'.
-  //   4. Generators will get contexts with 'instance: true' and value set. For converting values like a date to a string.
+  //   4. Generators will get contexts with 'isInstance: true' and value set. For converting values like a date to a string.
   //
 
   // used with context sensitive words like 'it', 'that' etc. for example if you have a sentence "create a tank"

@@ -34,7 +34,7 @@ const config = {
         modifiers: append(['quantity'], after[0].modifiers), 
         quantity: before[0], 
         number: default(before[0].number, before[0].value), 
-        instance: true 
+        isInstance: true 
       }` 
     },
     { 
@@ -47,7 +47,7 @@ const config = {
         modifiers: append(['count'], after[0].modifiers), 
         count: before[0], 
         word: after.word, 
-        instance: true }`
+        isInstance: true }`
     },
     { 
       id: "countingPieces", 
@@ -58,7 +58,7 @@ const config = {
         interpolate: [ { property: 'pieces' }, { property: 'countingPiecesOperator' }],
         modifiers: append(['pieces'], after[0].modifiers), 
         pieces: before[0], 
-        instance: true 
+        isInstance: true 
       }` 
     },
     { 

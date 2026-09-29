@@ -151,10 +151,10 @@
           "after": [
             "mathematical_operator"
           ],
-          "bridge": "{ marker: next(operator('quantity')), dead: true, unit: after[0], amount: before[0], interpolate: [ { property: 'amount' }, { property: 'unit' } ] }"
+          "bridge": "{ \n        marker: next(operator('quantity')), \n        dead: true, \n        instance: true,\n        unit: after[0], \n        amount: before[0], \n        interpolate: [ { property: 'amount' }, { property: 'unit' } ] \n      }"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:259",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:266",
           "id": "convertToUnits",
           "bridge": "{ ...next(operator), from: before[0], to: after[0] }",
           "isA": [
@@ -184,6 +184,9 @@
           "id": "unit",
           "isA": [
             "mathematicalExpression"
+          ],
+          "before": [
+            "mathematical_operator"
           ]
         }
       ]
@@ -221,8 +224,8 @@
     {
       "semantics": [
         {
-          "match": "({context, isA}) => context.evaluate && \n              context.marker == 'unify' && \n              context.terms.some((term) => isA(term, 'quantity')) &&\n              context.terms.every((term) => term.instance)",
-          "apply": "async ({context}) => {\n            debugger\n          }"
+          "match": "({context, isA, debug}) => {\n            return context.evaluate && \n              context.marker == 'unify' && \n              context.terms.every((term) => isA(term, 'quantity')) &&\n              context.terms.every((term) => term.instance)\n          }",
+          "apply": "async ({context, e, unify, toEValue}) => {\n            const t1 = context.terms[0]\n            const t2 = context.terms[1]\n            if (t1.propertyType !== t2.propertyType) {\n              return\n            }\n            if (t1[t1.propertyType].marker !== t2[t2.propertyType].marker) {\n              return\n            }\n            const convert = await e({ marker: 'convertToUnits', from: t2, to: t1.unit })\n            debugger\n            const t2InT1Units = await toEValue(await toEValue(convert))\n            debug.counter('greg29')\n            if (!await unify(t1.amount, await t2InT1Units.amount)) {\n              debugger\n            }\n            debugger\n          }"
         }
       ]
     }
@@ -5282,10 +5285,10 @@
           "after": [
             "mathematical_operator"
           ],
-          "bridge": "{ marker: next(operator('quantity')), dead: true, unit: after[0], amount: before[0], interpolate: [ { property: 'amount' }, { property: 'unit' } ] }"
+          "bridge": "{ \n        marker: next(operator('quantity')), \n        dead: true, \n        instance: true,\n        unit: after[0], \n        amount: before[0], \n        interpolate: [ { property: 'amount' }, { property: 'unit' } ] \n      }"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:259",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:266",
           "id": "convertToUnits",
           "bridge": "{ ...next(operator), from: before[0], to: after[0] }",
           "isA": [
@@ -5313,6 +5316,9 @@
           "id": "unit",
           "isA": [
             "mathematicalExpression"
+          ],
+          "before": [
+            "mathematical_operator"
           ]
         }
       ]

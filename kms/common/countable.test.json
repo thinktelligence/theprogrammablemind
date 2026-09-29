@@ -1,34 +1,54 @@
 [
   {
     "associations": [
-      [
-        [
-          "countable",
-          0
-        ],
-        [
-          "integer",
-          0
-        ]
-      ]
     ],
     "config": {
     },
     "contexts": [
       {
+        "context_id": 2,
         "context_index": 1,
+        "countable": {
+          "context_id": 293,
+          "dead": true,
+          "default": true,
+          "level": 0,
+          "marker": "countable",
+          "number": "many",
+          "range": {
+            "end": 10,
+            "start": 2
+          },
+          "text": "countable",
+          "types": [
+            "countable"
+          ],
+          "value": "countable",
+          "word": "countable"
+        },
         "dead": true,
         "default": true,
-        "instance": true,
-        "level": 1,
+        "interpolate": [
+          {
+            "isQuantifier": true,
+            "property": "quantity"
+          },
+          {
+            "isQuantified": true,
+            "property": "countable"
+          }
+        ],
+        "isInstance": true,
+        "level": 0,
         "marker": "countable",
         "modifiers": [
           "quantity"
         ],
         "number": 2,
         "quantity": {
+          "context_id": 300,
           "dead": true,
-          "instance": true,
+          "isInstance": true,
           "level": 1,
           "marker": "integer",
           "range": {
@@ -68,10 +88,6 @@
           ],
           "ops": [
             [
-              "countable",
-              0
-            ],
-            [
               "counting",
               0
             ],
@@ -83,23 +99,6 @@
         },
         {
           "counter": 2,
-          "op": [
-            "countable",
-            0
-          ],
-          "ops": [
-            [
-              "countable",
-              0
-            ],
-            [
-              "counting",
-              0
-            ]
-          ]
-        },
-        {
-          "counter": 3,
           "op": [
             "counting",
             0
@@ -114,16 +113,21 @@
       ]
     },
     "objects": {
+      "associations": [
+      ],
       "nameToUUID": {
         "articles": "articles2",
         "asking": "asking2",
         "concept": "concept2",
         "conjunction": "conjunction2",
+        "control": "control2",
         "countable": "countable1",
+        "debug": "debug2",
         "dialogues": "dialogues2",
         "evaluate": "evaluate2",
         "gdefaults": "gdefaults2",
         "hierarchy": "hierarchy2",
+        "logging": "logging2",
         "meta": "meta2",
         "negation": "negation2",
         "numbers": "numbers2",
@@ -132,48 +136,79 @@
         "punctuation": "punctuation2",
         "sdefaults": "sdefaults2",
         "stm": "stm2",
-        "tokenize": "tokenize2"
+        "tokenize": "tokenize2",
+        "words": "words2"
       },
       "namespaced": {
         "articles2": {
+          "km": "articles2"
         },
         "asking2": {
+          "km": "asking2"
         },
         "concept2": {
           "defaultTypesForHierarchy": {
           },
+          "km": "concept2",
           "valueToWords": [
           ]
         },
         "conjunction2": {
+          "km": "conjunction2"
+        },
+        "control2": {
+          "km": "control2"
         },
         "countable1": {
+          "km": "countable1"
+        },
+        "debug2": {
+          "km": "debug2"
         },
         "dialogues2": {
           "idSuffix": "",
+          "km": "dialogues2",
           "mentioned": [
           ],
           "variables": {
           }
         },
         "evaluate2": {
+          "km": "evaluate2"
         },
         "gdefaults2": {
+          "km": "gdefaults2"
         },
         "hierarchy2": {
+          "km": "hierarchy2"
+        },
+        "logging2": {
+          "km": "logging2",
+          "messages": [
+          ]
         },
         "meta2": {
+          "km": "meta2"
         },
         "negation2": {
+          "km": "negation2"
         },
         "numbers2": {
+          "km": "numbers2"
         },
         "pos2": {
+          "km": "pos2"
         },
         "properties2": {
           "children": {
             "adjective": [
-              "stm_before"
+              "stm_previous",
+              "stm_current",
+              "stm_before",
+              "compound_modifier",
+              "open_compound",
+              "noun_modifier",
+              "compound_noun"
             ],
             "article": [
               "a",
@@ -181,26 +216,37 @@
               "each",
               "every"
             ],
-            "canBeDoQuestion": [
-              "have"
-            ],
             "canBeQuestion": [
-              "have",
               "is"
             ],
-            "hierarchyAble": [
-              "unknown"
+            "compound": [
+              "open_compound"
+            ],
+            "compound_modifier": [
+              "open"
+            ],
+            "concept": [
+              "compound",
+              "open_compound",
+              "noun",
+              "compound_noun"
+            ],
+            "deletable": [
+              "memorable"
             ],
             "ifAble": [
               "orAble"
             ],
-            "object": [
-              "what",
-              "whose"
+            "listable": [
+              "queryable"
+            ],
+            "noun": [
+              "compound_noun"
+            ],
+            "noun_modifier": [
+              "compound"
             ],
             "preposition": [
-              "between",
-              "propertyOf",
               "to"
             ],
             "pronoun": [
@@ -208,18 +254,12 @@
               "this"
             ],
             "punctuation": [
-              "questionMark"
+              "questionMark",
+              "comma"
             ],
             "queryable": [
-              "xfx",
-              "hierarchyAble",
-              "readonly",
-              "property",
-              "object",
-              "concept",
               "doubleQuote",
               "theAble",
-              "unknown",
               "it",
               "what",
               "whatAble",
@@ -227,15 +267,17 @@
               "this",
               "reason",
               "distributable",
-              "thisitthat"
+              "thisitthat",
+              "concept"
             ],
             "theAble": [
-              "property",
-              "object",
-              "concept",
-              "unknown",
+              "listable",
               "reason",
               "memorable",
+              "noun",
+              "concept"
+            ],
+            "thisAble": [
               "noun"
             ],
             "thisitthat": [
@@ -247,34 +289,19 @@
               "it"
             ],
             "verb": [
-              "modifies",
               "is",
+              "isQuery",
+              "delete",
+              "recall",
               "remember",
-              "evaluate"
+              "modifies",
+              "isOpenCompound"
             ]
           },
           "concepts": [
             "properties",
-            "unknown",
-            "hierarchyAble",
-            "what",
-            "object",
-            "xfx",
-            "queryable",
-            "between",
-            "preposition",
-            "readonly",
-            "have",
-            "canBeDoQuestion",
-            "canBeQuestion",
-            "property",
-            "theAble",
-            "propertyOf",
-            "whose",
-            "concept",
-            "modifies",
-            "verb",
             "doubleQuote",
+            "queryable",
             "it",
             "pronoun",
             "this",
@@ -283,36 +310,74 @@
             "a",
             "article",
             "the",
+            "theAble",
+            "what",
             "whatAble",
             "negatable",
             "is",
+            "canBeQuestion",
             "toAble",
+            "listable",
             "to",
+            "preposition",
+            "verb",
+            "isQuery",
             "reason",
-            "memorable",
-            "remember",
-            "stm_before",
-            "adjective",
             "orAble",
             "ifAble",
-            "evaluate",
+            "delete",
+            "memorable",
+            "deletable",
+            "recall",
+            "remember",
+            "stm_previous",
+            "adjective",
+            "stm_current",
+            "stm_before",
             "each",
             "every",
             "distributable",
             "noun",
             "thisitthat",
-            "that"
+            "that",
+            "thisAble",
+            "comma",
+            "modifies",
+            "concept",
+            "open",
+            "compound_modifier",
+            "open_compound",
+            "compound",
+            "noun_modifier",
+            "compound_noun",
+            "isOpenCompound"
           ],
+          "km": "properties2",
           "parents": {
             "a": [
               "article"
             ],
-            "between": [
-              "preposition"
+            "comma": [
+              "punctuation"
+            ],
+            "compound": [
+              "concept",
+              "noun_modifier"
+            ],
+            "compound_modifier": [
+              "adjective"
+            ],
+            "compound_noun": [
+              "adjective",
+              "concept",
+              "noun"
             ],
             "concept": [
               "theAble",
               "queryable"
+            ],
+            "delete": [
+              "verb"
             ],
             "distributable": [
               "queryable"
@@ -323,21 +388,17 @@
             "each": [
               "article"
             ],
-            "evaluate": [
-              "verb"
-            ],
             "every": [
               "article"
             ],
-            "have": [
-              "canBeDoQuestion",
-              "canBeQuestion"
-            ],
-            "hierarchyAble": [
-              "queryable"
-            ],
             "is": [
               "canBeQuestion",
+              "verb"
+            ],
+            "isOpenCompound": [
+              "verb"
+            ],
+            "isQuery": [
               "verb"
             ],
             "it": [
@@ -346,8 +407,12 @@
               "toAble",
               "thisitthat"
             ],
-            "memorable": [
+            "listable": [
               "theAble"
+            ],
+            "memorable": [
+              "theAble",
+              "deletable"
             ],
             "modifies": [
               "verb"
@@ -356,36 +421,47 @@
               "queryable"
             ],
             "noun": [
-              "theAble"
+              "theAble",
+              "thisAble",
+              "concept"
             ],
-            "object": [
-              "queryable",
-              "theAble"
+            "noun_modifier": [
+              "adjective"
+            ],
+            "open": [
+              "compound_modifier"
+            ],
+            "open_compound": [
+              "adjective",
+              "concept",
+              "compound"
             ],
             "orAble": [
               "ifAble"
             ],
-            "property": [
-              "queryable",
-              "theAble"
-            ],
-            "propertyOf": [
-              "preposition"
+            "queryable": [
+              "listable"
             ],
             "questionMark": [
               "punctuation"
-            ],
-            "readonly": [
-              "queryable"
             ],
             "reason": [
               "theAble",
               "queryable"
             ],
+            "recall": [
+              "verb"
+            ],
             "remember": [
               "verb"
             ],
             "stm_before": [
+              "adjective"
+            ],
+            "stm_current": [
+              "adjective"
+            ],
+            "stm_previous": [
               "adjective"
             ],
             "that": [
@@ -408,22 +484,10 @@
             "to": [
               "preposition"
             ],
-            "unknown": [
-              "hierarchyAble",
-              "theAble",
-              "queryable"
-            ],
             "what": [
-              "object",
               "queryable"
             ],
             "whatAble": [
-              "queryable"
-            ],
-            "whose": [
-              "object"
-            ],
-            "xfx": [
               "queryable"
             ]
           },
@@ -439,13 +503,21 @@
               },
               "article": {
               },
-              "between": {
-              },
-              "canBeDoQuestion": {
-              },
               "canBeQuestion": {
               },
+              "comma": {
+              },
+              "compound": {
+              },
+              "compound_modifier": {
+              },
+              "compound_noun": {
+              },
               "concept": {
+              },
+              "deletable": {
+              },
+              "delete": {
               },
               "distributable": {
               },
@@ -453,19 +525,19 @@
               },
               "each": {
               },
-              "evaluate": {
-              },
               "every": {
-              },
-              "have": {
-              },
-              "hierarchyAble": {
               },
               "ifAble": {
               },
               "is": {
               },
+              "isOpenCompound": {
+              },
+              "isQuery": {
+              },
               "it": {
+              },
+              "listable": {
               },
               "memorable": {
               },
@@ -475,7 +547,11 @@
               },
               "noun": {
               },
-              "object": {
+              "noun_modifier": {
+              },
+              "open": {
+              },
+              "open_compound": {
               },
               "orAble": {
               },
@@ -483,23 +559,23 @@
               },
               "pronoun": {
               },
-              "property": {
-              },
-              "propertyOf": {
-              },
               "punctuation": {
               },
               "queryable": {
               },
               "questionMark": {
               },
-              "readonly": {
-              },
               "reason": {
+              },
+              "recall": {
               },
               "remember": {
               },
               "stm_before": {
+              },
+              "stm_current": {
+              },
+              "stm_previous": {
               },
               "that": {
               },
@@ -509,23 +585,19 @@
               },
               "this": {
               },
+              "thisAble": {
+              },
               "thisitthat": {
               },
               "to": {
               },
               "toAble": {
               },
-              "unknown": {
-              },
               "verb": {
               },
               "what": {
               },
               "whatAble": {
-              },
-              "whose": {
-              },
-              "xfx": {
               }
             }
           },
@@ -537,34 +609,73 @@
           }
         },
         "punctuation2": {
+          "km": "punctuation2"
         },
         "sdefaults2": {
+          "km": "sdefaults2"
         },
         "stm2": {
+          "km": "stm2",
           "mentioned": [
           ],
           "variables": {
           }
         },
         "tokenize2": {
+          "km": "tokenize2"
+        },
+        "words2": {
+          "km": "words2",
+          "words": [
+          ]
         }
       },
       "processed": [
         {
           "context": {
+            "context_id": 2,
             "context_index": 1,
+            "countable": {
+              "context_id": 293,
+              "dead": true,
+              "default": true,
+              "level": 0,
+              "marker": "countable",
+              "number": "many",
+              "range": {
+                "end": 10,
+                "start": 2
+              },
+              "text": "countable",
+              "types": [
+                "countable"
+              ],
+              "value": "countable",
+              "word": "countable"
+            },
             "dead": true,
             "default": true,
-            "instance": true,
-            "level": 1,
+            "interpolate": [
+              {
+                "isQuantifier": true,
+                "property": "quantity"
+              },
+              {
+                "isQuantified": true,
+                "property": "countable"
+              }
+            ],
+            "isInstance": true,
+            "level": 0,
             "marker": "countable",
             "modifiers": [
               "quantity"
             ],
             "number": 2,
             "quantity": {
+              "context_id": 300,
               "dead": true,
-              "instance": true,
+              "isInstance": true,
               "level": 1,
               "marker": "integer",
               "range": {
@@ -590,11 +701,219 @@
             "value": "countable",
             "word": "countable"
           },
-          "generatedParenthesized": "",
-          "paraphrases": "2 countables",
-          "paraphrasesParenthesized": "((2) (countables))",
+          "generatedParenthesized": [
+          ],
+          "paraphrases": [
+          ],
+          "paraphrasesParenthesized": [
+          ],
           "responses": [
             ""
+          ]
+        },
+        {
+          "context": {
+            "context_id": null,
+            "context_index": 1,
+            "dead": true,
+            "level": 2,
+            "marker": "is",
+            "number": "one",
+            "one": {
+              "dead": true,
+              "level": 0,
+              "marker": "unknown",
+              "number": "one",
+              "range": {
+                "end": 7,
+                "start": 0
+              },
+              "text": "property",
+              "types": [
+                "queryable",
+                "unknown"
+              ],
+              "unknown": true,
+              "value": "property",
+              "word": "property"
+            },
+            "range": {
+              "end": 20,
+              "start": 0
+            },
+            "text": "property is a concept",
+            "topLevel": true,
+            "touchedBy": [
+              "properties#call2",
+              "instance0#properties#call2",
+              "instance0#hierarchy#call2",
+              "instance0#countable#call2"
+            ],
+            "two": {
+              "concept": true,
+              "dead": true,
+              "default": true,
+              "determiner": {
+                "default": true,
+                "level": 0,
+                "marker": "a",
+                "range": {
+                  "end": 12,
+                  "start": 12
+                },
+                "text": "a",
+                "word": "a"
+              },
+              "level": 0,
+              "marker": "concept",
+              "modifiers": [
+                "determiner"
+              ],
+              "number": "one",
+              "pullFromContext": false,
+              "range": {
+                "end": 20,
+                "start": 12
+              },
+              "text": "a concept",
+              "types": [
+                "concept"
+              ],
+              "value": "concept",
+              "wantsValue": true,
+              "word": "concept"
+            },
+            "word": "is"
+          },
+          "generatedParenthesized": [
+          ],
+          "paraphrases": [
+          ],
+          "paraphrasesParenthesized": [
+          ],
+          "responses": [
+          ]
+        },
+        {
+          "context": {
+            "concept": {
+              "dead": true,
+              "default": true,
+              "level": 0,
+              "marker": "noun",
+              "range": {
+                "end": 21,
+                "start": 18
+              },
+              "text": "noun",
+              "value": "noun",
+              "word": "noun"
+            },
+            "conceptModifiers": [
+              {
+                "dead": true,
+                "level": 1,
+                "marker": "compound",
+                "number": "one",
+                "range": {
+                  "end": 7,
+                  "start": 0
+                },
+                "text": "compound",
+                "value": "compound",
+                "word": "compound"
+              }
+            ],
+            "context_id": null,
+            "context_index": 1,
+            "dead": true,
+            "flatten": false,
+            "level": 1,
+            "marker": "modifies",
+            "number": "one",
+            "range": {
+              "end": 21,
+              "start": 0
+            },
+            "text": "compound modifies noun",
+            "topLevel": true,
+            "touchedBy": [
+              "concept#call2",
+              "instance2#concept#call2",
+              "instance2#properties#call2",
+              "instance2#hierarchy#call2",
+              "instance2#countable#call2"
+            ],
+            "word": "modifies"
+          },
+          "generatedParenthesized": [
+          ],
+          "paraphrases": [
+          ],
+          "paraphrasesParenthesized": [
+          ],
+          "responses": [
+          ]
+        },
+        {
+          "context": {
+            "concept": {
+              "dead": true,
+              "level": 0,
+              "marker": "unknown",
+              "range": {
+                "end": 21,
+                "start": 14
+              },
+              "text": "compound",
+              "unknown": true,
+              "value": "compound",
+              "word": "compound"
+            },
+            "conceptModifiers": [
+              {
+                "dead": true,
+                "level": 0,
+                "marker": "unknown",
+                "range": {
+                  "end": 3,
+                  "start": 0
+                },
+                "text": "open",
+                "unknown": true,
+                "value": "open",
+                "word": "open"
+              }
+            ],
+            "context_id": null,
+            "context_index": 1,
+            "dead": true,
+            "flatten": false,
+            "level": 1,
+            "marker": "modifies",
+            "number": "one",
+            "range": {
+              "end": 21,
+              "start": 0
+            },
+            "text": "open modifies compound",
+            "topLevel": true,
+            "touchedBy": [
+              "concept#call2",
+              "instance1#concept#call2",
+              "instance1#properties#call2",
+              "instance1#hierarchy#call2",
+              "instance1#countable#call2"
+            ],
+            "word": "modifies"
+          },
+          "generatedParenthesized": [
+          ],
+          "paraphrases": [
+          ],
+          "paraphrasesParenthesized": [
+          ],
+          "responses": [
           ]
         }
       ]
@@ -668,33 +987,8 @@
             "operators": [
               {
                 "marker": [
-                  "integer",
-                  1
-                ],
-                "range": {
-                  "end": 0,
-                  "start": 0
-                }
-              },
-              {
-                "marker": [
                   "countable",
-                  1
-                ],
-                "range": {
-                  "end": 10,
-                  "start": 2
-                }
-              }
-            ]
-          },
-          {
-            "counter": 4,
-            "operators": [
-              {
-                "marker": [
-                  "countable",
-                  1
+                  0
                 ],
                 "range": {
                   "end": 10,
@@ -709,32 +1003,52 @@
   },
   {
     "associations": [
-      [
-        [
-          "all",
-          0
-        ],
-        [
-          "countable",
-          0
-        ]
-      ]
     ],
     "config": {
     },
     "contexts": [
       {
+        "context_id": 2,
         "context_index": 1,
+        "countable": {
+          "context_id": 296,
+          "dead": true,
+          "default": true,
+          "level": 0,
+          "marker": "countable",
+          "number": "many",
+          "range": {
+            "end": 12,
+            "start": 4
+          },
+          "text": "countable",
+          "types": [
+            "countable"
+          ],
+          "value": "countable",
+          "word": "countable"
+        },
         "dead": true,
         "default": true,
-        "instance": true,
-        "level": 1,
+        "interpolate": [
+          {
+            "isQuantifier": true,
+            "property": "quantity"
+          },
+          {
+            "isQuantified": true,
+            "property": "countable"
+          }
+        ],
+        "isInstance": true,
+        "level": 0,
         "marker": "countable",
         "modifiers": [
           "quantity"
         ],
         "number": "many",
         "quantity": {
+          "context_id": 304,
           "dead": true,
           "default": true,
           "level": 1,
@@ -782,10 +1096,6 @@
               0
             ],
             [
-              "countable",
-              0
-            ],
-            [
               "counting",
               0
             ]
@@ -793,23 +1103,6 @@
         },
         {
           "counter": 2,
-          "op": [
-            "countable",
-            0
-          ],
-          "ops": [
-            [
-              "countable",
-              0
-            ],
-            [
-              "counting",
-              0
-            ]
-          ]
-        },
-        {
-          "counter": 3,
           "op": [
             "counting",
             0
@@ -824,16 +1117,21 @@
       ]
     },
     "objects": {
+      "associations": [
+      ],
       "nameToUUID": {
         "articles": "articles2",
         "asking": "asking2",
         "concept": "concept2",
         "conjunction": "conjunction2",
+        "control": "control2",
         "countable": "countable1",
+        "debug": "debug2",
         "dialogues": "dialogues2",
         "evaluate": "evaluate2",
         "gdefaults": "gdefaults2",
         "hierarchy": "hierarchy2",
+        "logging": "logging2",
         "meta": "meta2",
         "negation": "negation2",
         "numbers": "numbers2",
@@ -842,48 +1140,79 @@
         "punctuation": "punctuation2",
         "sdefaults": "sdefaults2",
         "stm": "stm2",
-        "tokenize": "tokenize2"
+        "tokenize": "tokenize2",
+        "words": "words2"
       },
       "namespaced": {
         "articles2": {
+          "km": "articles2"
         },
         "asking2": {
+          "km": "asking2"
         },
         "concept2": {
           "defaultTypesForHierarchy": {
           },
+          "km": "concept2",
           "valueToWords": [
           ]
         },
         "conjunction2": {
+          "km": "conjunction2"
+        },
+        "control2": {
+          "km": "control2"
         },
         "countable1": {
+          "km": "countable1"
+        },
+        "debug2": {
+          "km": "debug2"
         },
         "dialogues2": {
           "idSuffix": "",
+          "km": "dialogues2",
           "mentioned": [
           ],
           "variables": {
           }
         },
         "evaluate2": {
+          "km": "evaluate2"
         },
         "gdefaults2": {
+          "km": "gdefaults2"
         },
         "hierarchy2": {
+          "km": "hierarchy2"
+        },
+        "logging2": {
+          "km": "logging2",
+          "messages": [
+          ]
         },
         "meta2": {
+          "km": "meta2"
         },
         "negation2": {
+          "km": "negation2"
         },
         "numbers2": {
+          "km": "numbers2"
         },
         "pos2": {
+          "km": "pos2"
         },
         "properties2": {
           "children": {
             "adjective": [
-              "stm_before"
+              "stm_previous",
+              "stm_current",
+              "stm_before",
+              "compound_modifier",
+              "open_compound",
+              "noun_modifier",
+              "compound_noun"
             ],
             "article": [
               "a",
@@ -891,26 +1220,37 @@
               "each",
               "every"
             ],
-            "canBeDoQuestion": [
-              "have"
-            ],
             "canBeQuestion": [
-              "have",
               "is"
             ],
-            "hierarchyAble": [
-              "unknown"
+            "compound": [
+              "open_compound"
+            ],
+            "compound_modifier": [
+              "open"
+            ],
+            "concept": [
+              "compound",
+              "open_compound",
+              "noun",
+              "compound_noun"
+            ],
+            "deletable": [
+              "memorable"
             ],
             "ifAble": [
               "orAble"
             ],
-            "object": [
-              "what",
-              "whose"
+            "listable": [
+              "queryable"
+            ],
+            "noun": [
+              "compound_noun"
+            ],
+            "noun_modifier": [
+              "compound"
             ],
             "preposition": [
-              "between",
-              "propertyOf",
               "to"
             ],
             "pronoun": [
@@ -918,18 +1258,12 @@
               "this"
             ],
             "punctuation": [
-              "questionMark"
+              "questionMark",
+              "comma"
             ],
             "queryable": [
-              "xfx",
-              "hierarchyAble",
-              "readonly",
-              "property",
-              "object",
-              "concept",
               "doubleQuote",
               "theAble",
-              "unknown",
               "it",
               "what",
               "whatAble",
@@ -937,15 +1271,17 @@
               "this",
               "reason",
               "distributable",
-              "thisitthat"
+              "thisitthat",
+              "concept"
             ],
             "theAble": [
-              "property",
-              "object",
-              "concept",
-              "unknown",
+              "listable",
               "reason",
               "memorable",
+              "noun",
+              "concept"
+            ],
+            "thisAble": [
               "noun"
             ],
             "thisitthat": [
@@ -957,34 +1293,19 @@
               "it"
             ],
             "verb": [
-              "modifies",
               "is",
+              "isQuery",
+              "delete",
+              "recall",
               "remember",
-              "evaluate"
+              "modifies",
+              "isOpenCompound"
             ]
           },
           "concepts": [
             "properties",
-            "unknown",
-            "hierarchyAble",
-            "what",
-            "object",
-            "xfx",
-            "queryable",
-            "between",
-            "preposition",
-            "readonly",
-            "have",
-            "canBeDoQuestion",
-            "canBeQuestion",
-            "property",
-            "theAble",
-            "propertyOf",
-            "whose",
-            "concept",
-            "modifies",
-            "verb",
             "doubleQuote",
+            "queryable",
             "it",
             "pronoun",
             "this",
@@ -993,36 +1314,74 @@
             "a",
             "article",
             "the",
+            "theAble",
+            "what",
             "whatAble",
             "negatable",
             "is",
+            "canBeQuestion",
             "toAble",
+            "listable",
             "to",
+            "preposition",
+            "verb",
+            "isQuery",
             "reason",
-            "memorable",
-            "remember",
-            "stm_before",
-            "adjective",
             "orAble",
             "ifAble",
-            "evaluate",
+            "delete",
+            "memorable",
+            "deletable",
+            "recall",
+            "remember",
+            "stm_previous",
+            "adjective",
+            "stm_current",
+            "stm_before",
             "each",
             "every",
             "distributable",
             "noun",
             "thisitthat",
-            "that"
+            "that",
+            "thisAble",
+            "comma",
+            "modifies",
+            "concept",
+            "open",
+            "compound_modifier",
+            "open_compound",
+            "compound",
+            "noun_modifier",
+            "compound_noun",
+            "isOpenCompound"
           ],
+          "km": "properties2",
           "parents": {
             "a": [
               "article"
             ],
-            "between": [
-              "preposition"
+            "comma": [
+              "punctuation"
+            ],
+            "compound": [
+              "concept",
+              "noun_modifier"
+            ],
+            "compound_modifier": [
+              "adjective"
+            ],
+            "compound_noun": [
+              "adjective",
+              "concept",
+              "noun"
             ],
             "concept": [
               "theAble",
               "queryable"
+            ],
+            "delete": [
+              "verb"
             ],
             "distributable": [
               "queryable"
@@ -1033,21 +1392,17 @@
             "each": [
               "article"
             ],
-            "evaluate": [
-              "verb"
-            ],
             "every": [
               "article"
             ],
-            "have": [
-              "canBeDoQuestion",
-              "canBeQuestion"
-            ],
-            "hierarchyAble": [
-              "queryable"
-            ],
             "is": [
               "canBeQuestion",
+              "verb"
+            ],
+            "isOpenCompound": [
+              "verb"
+            ],
+            "isQuery": [
               "verb"
             ],
             "it": [
@@ -1056,8 +1411,12 @@
               "toAble",
               "thisitthat"
             ],
-            "memorable": [
+            "listable": [
               "theAble"
+            ],
+            "memorable": [
+              "theAble",
+              "deletable"
             ],
             "modifies": [
               "verb"
@@ -1066,36 +1425,47 @@
               "queryable"
             ],
             "noun": [
-              "theAble"
+              "theAble",
+              "thisAble",
+              "concept"
             ],
-            "object": [
-              "queryable",
-              "theAble"
+            "noun_modifier": [
+              "adjective"
+            ],
+            "open": [
+              "compound_modifier"
+            ],
+            "open_compound": [
+              "adjective",
+              "concept",
+              "compound"
             ],
             "orAble": [
               "ifAble"
             ],
-            "property": [
-              "queryable",
-              "theAble"
-            ],
-            "propertyOf": [
-              "preposition"
+            "queryable": [
+              "listable"
             ],
             "questionMark": [
               "punctuation"
-            ],
-            "readonly": [
-              "queryable"
             ],
             "reason": [
               "theAble",
               "queryable"
             ],
+            "recall": [
+              "verb"
+            ],
             "remember": [
               "verb"
             ],
             "stm_before": [
+              "adjective"
+            ],
+            "stm_current": [
+              "adjective"
+            ],
+            "stm_previous": [
               "adjective"
             ],
             "that": [
@@ -1118,22 +1488,10 @@
             "to": [
               "preposition"
             ],
-            "unknown": [
-              "hierarchyAble",
-              "theAble",
-              "queryable"
-            ],
             "what": [
-              "object",
               "queryable"
             ],
             "whatAble": [
-              "queryable"
-            ],
-            "whose": [
-              "object"
-            ],
-            "xfx": [
               "queryable"
             ]
           },
@@ -1149,13 +1507,21 @@
               },
               "article": {
               },
-              "between": {
-              },
-              "canBeDoQuestion": {
-              },
               "canBeQuestion": {
               },
+              "comma": {
+              },
+              "compound": {
+              },
+              "compound_modifier": {
+              },
+              "compound_noun": {
+              },
               "concept": {
+              },
+              "deletable": {
+              },
+              "delete": {
               },
               "distributable": {
               },
@@ -1163,19 +1529,19 @@
               },
               "each": {
               },
-              "evaluate": {
-              },
               "every": {
-              },
-              "have": {
-              },
-              "hierarchyAble": {
               },
               "ifAble": {
               },
               "is": {
               },
+              "isOpenCompound": {
+              },
+              "isQuery": {
+              },
               "it": {
+              },
+              "listable": {
               },
               "memorable": {
               },
@@ -1185,7 +1551,11 @@
               },
               "noun": {
               },
-              "object": {
+              "noun_modifier": {
+              },
+              "open": {
+              },
+              "open_compound": {
               },
               "orAble": {
               },
@@ -1193,23 +1563,23 @@
               },
               "pronoun": {
               },
-              "property": {
-              },
-              "propertyOf": {
-              },
               "punctuation": {
               },
               "queryable": {
               },
               "questionMark": {
               },
-              "readonly": {
-              },
               "reason": {
+              },
+              "recall": {
               },
               "remember": {
               },
               "stm_before": {
+              },
+              "stm_current": {
+              },
+              "stm_previous": {
               },
               "that": {
               },
@@ -1219,23 +1589,19 @@
               },
               "this": {
               },
+              "thisAble": {
+              },
               "thisitthat": {
               },
               "to": {
               },
               "toAble": {
               },
-              "unknown": {
-              },
               "verb": {
               },
               "what": {
               },
               "whatAble": {
-              },
-              "whose": {
-              },
-              "xfx": {
               }
             }
           },
@@ -1247,32 +1613,71 @@
           }
         },
         "punctuation2": {
+          "km": "punctuation2"
         },
         "sdefaults2": {
+          "km": "sdefaults2"
         },
         "stm2": {
+          "km": "stm2",
           "mentioned": [
           ],
           "variables": {
           }
         },
         "tokenize2": {
+          "km": "tokenize2"
+        },
+        "words2": {
+          "km": "words2",
+          "words": [
+          ]
         }
       },
       "processed": [
         {
           "context": {
+            "context_id": 2,
             "context_index": 1,
+            "countable": {
+              "context_id": 296,
+              "dead": true,
+              "default": true,
+              "level": 0,
+              "marker": "countable",
+              "number": "many",
+              "range": {
+                "end": 12,
+                "start": 4
+              },
+              "text": "countable",
+              "types": [
+                "countable"
+              ],
+              "value": "countable",
+              "word": "countable"
+            },
             "dead": true,
             "default": true,
-            "instance": true,
-            "level": 1,
+            "interpolate": [
+              {
+                "isQuantifier": true,
+                "property": "quantity"
+              },
+              {
+                "isQuantified": true,
+                "property": "countable"
+              }
+            ],
+            "isInstance": true,
+            "level": 0,
             "marker": "countable",
             "modifiers": [
               "quantity"
             ],
             "number": "many",
             "quantity": {
+              "context_id": 304,
               "dead": true,
               "default": true,
               "level": 1,
@@ -1302,11 +1707,219 @@
             "value": "countable",
             "word": "countable"
           },
-          "generatedParenthesized": "",
-          "paraphrases": "all countables",
-          "paraphrasesParenthesized": "((all) (countables))",
+          "generatedParenthesized": [
+          ],
+          "paraphrases": [
+          ],
+          "paraphrasesParenthesized": [
+          ],
           "responses": [
             ""
+          ]
+        },
+        {
+          "context": {
+            "context_id": null,
+            "context_index": 1,
+            "dead": true,
+            "level": 2,
+            "marker": "is",
+            "number": "one",
+            "one": {
+              "dead": true,
+              "level": 0,
+              "marker": "unknown",
+              "number": "one",
+              "range": {
+                "end": 7,
+                "start": 0
+              },
+              "text": "property",
+              "types": [
+                "queryable",
+                "unknown"
+              ],
+              "unknown": true,
+              "value": "property",
+              "word": "property"
+            },
+            "range": {
+              "end": 20,
+              "start": 0
+            },
+            "text": "property is a concept",
+            "topLevel": true,
+            "touchedBy": [
+              "properties#call2",
+              "instance0#properties#call2",
+              "instance0#hierarchy#call2",
+              "instance0#countable#call2"
+            ],
+            "two": {
+              "concept": true,
+              "dead": true,
+              "default": true,
+              "determiner": {
+                "default": true,
+                "level": 0,
+                "marker": "a",
+                "range": {
+                  "end": 12,
+                  "start": 12
+                },
+                "text": "a",
+                "word": "a"
+              },
+              "level": 0,
+              "marker": "concept",
+              "modifiers": [
+                "determiner"
+              ],
+              "number": "one",
+              "pullFromContext": false,
+              "range": {
+                "end": 20,
+                "start": 12
+              },
+              "text": "a concept",
+              "types": [
+                "concept"
+              ],
+              "value": "concept",
+              "wantsValue": true,
+              "word": "concept"
+            },
+            "word": "is"
+          },
+          "generatedParenthesized": [
+          ],
+          "paraphrases": [
+          ],
+          "paraphrasesParenthesized": [
+          ],
+          "responses": [
+          ]
+        },
+        {
+          "context": {
+            "concept": {
+              "dead": true,
+              "default": true,
+              "level": 0,
+              "marker": "noun",
+              "range": {
+                "end": 21,
+                "start": 18
+              },
+              "text": "noun",
+              "value": "noun",
+              "word": "noun"
+            },
+            "conceptModifiers": [
+              {
+                "dead": true,
+                "level": 1,
+                "marker": "compound",
+                "number": "one",
+                "range": {
+                  "end": 7,
+                  "start": 0
+                },
+                "text": "compound",
+                "value": "compound",
+                "word": "compound"
+              }
+            ],
+            "context_id": null,
+            "context_index": 1,
+            "dead": true,
+            "flatten": false,
+            "level": 1,
+            "marker": "modifies",
+            "number": "one",
+            "range": {
+              "end": 21,
+              "start": 0
+            },
+            "text": "compound modifies noun",
+            "topLevel": true,
+            "touchedBy": [
+              "concept#call2",
+              "instance2#concept#call2",
+              "instance2#properties#call2",
+              "instance2#hierarchy#call2",
+              "instance2#countable#call2"
+            ],
+            "word": "modifies"
+          },
+          "generatedParenthesized": [
+          ],
+          "paraphrases": [
+          ],
+          "paraphrasesParenthesized": [
+          ],
+          "responses": [
+          ]
+        },
+        {
+          "context": {
+            "concept": {
+              "dead": true,
+              "level": 0,
+              "marker": "unknown",
+              "range": {
+                "end": 21,
+                "start": 14
+              },
+              "text": "compound",
+              "unknown": true,
+              "value": "compound",
+              "word": "compound"
+            },
+            "conceptModifiers": [
+              {
+                "dead": true,
+                "level": 0,
+                "marker": "unknown",
+                "range": {
+                  "end": 3,
+                  "start": 0
+                },
+                "text": "open",
+                "unknown": true,
+                "value": "open",
+                "word": "open"
+              }
+            ],
+            "context_id": null,
+            "context_index": 1,
+            "dead": true,
+            "flatten": false,
+            "level": 1,
+            "marker": "modifies",
+            "number": "one",
+            "range": {
+              "end": 21,
+              "start": 0
+            },
+            "text": "open modifies compound",
+            "topLevel": true,
+            "touchedBy": [
+              "concept#call2",
+              "instance1#concept#call2",
+              "instance1#properties#call2",
+              "instance1#hierarchy#call2",
+              "instance1#countable#call2"
+            ],
+            "word": "modifies"
+          },
+          "generatedParenthesized": [
+          ],
+          "paraphrases": [
+          ],
+          "paraphrasesParenthesized": [
+          ],
+          "responses": [
           ]
         }
       ]
@@ -1380,33 +1993,8 @@
             "operators": [
               {
                 "marker": [
-                  "all",
-                  1
-                ],
-                "range": {
-                  "end": 2,
-                  "start": 0
-                }
-              },
-              {
-                "marker": [
                   "countable",
-                  1
-                ],
-                "range": {
-                  "end": 12,
-                  "start": 4
-                }
-              }
-            ]
-          },
-          {
-            "counter": 4,
-            "operators": [
-              {
-                "marker": [
-                  "countable",
-                  1
+                  0
                 ],
                 "range": {
                   "end": 12,
@@ -1421,34 +2009,54 @@
   },
   {
     "associations": [
-      [
-        [
-          "countable",
-          0
-        ],
-        [
-          "integer",
-          0
-        ]
-      ]
     ],
     "config": {
     },
     "contexts": [
       {
+        "context_id": 2,
         "context_index": 1,
+        "countable": {
+          "context_id": 293,
+          "dead": true,
+          "default": true,
+          "level": 0,
+          "marker": "countable",
+          "number": "one",
+          "range": {
+            "end": 10,
+            "start": 2
+          },
+          "text": "countable",
+          "types": [
+            "countable"
+          ],
+          "value": "countable",
+          "word": "countable"
+        },
         "dead": true,
         "default": true,
-        "instance": true,
-        "level": 1,
+        "interpolate": [
+          {
+            "isQuantifier": true,
+            "property": "quantity"
+          },
+          {
+            "isQuantified": true,
+            "property": "countable"
+          }
+        ],
+        "isInstance": true,
+        "level": 0,
         "marker": "countable",
         "modifiers": [
           "quantity"
         ],
         "number": 1,
         "quantity": {
+          "context_id": 300,
           "dead": true,
-          "instance": true,
+          "isInstance": true,
           "level": 1,
           "marker": "integer",
           "range": {
@@ -1488,10 +2096,6 @@
           ],
           "ops": [
             [
-              "countable",
-              0
-            ],
-            [
               "counting",
               0
             ],
@@ -1503,23 +2107,6 @@
         },
         {
           "counter": 2,
-          "op": [
-            "countable",
-            0
-          ],
-          "ops": [
-            [
-              "countable",
-              0
-            ],
-            [
-              "counting",
-              0
-            ]
-          ]
-        },
-        {
-          "counter": 3,
           "op": [
             "counting",
             0
@@ -1534,16 +2121,21 @@
       ]
     },
     "objects": {
+      "associations": [
+      ],
       "nameToUUID": {
         "articles": "articles2",
         "asking": "asking2",
         "concept": "concept2",
         "conjunction": "conjunction2",
+        "control": "control2",
         "countable": "countable1",
+        "debug": "debug2",
         "dialogues": "dialogues2",
         "evaluate": "evaluate2",
         "gdefaults": "gdefaults2",
         "hierarchy": "hierarchy2",
+        "logging": "logging2",
         "meta": "meta2",
         "negation": "negation2",
         "numbers": "numbers2",
@@ -1552,48 +2144,79 @@
         "punctuation": "punctuation2",
         "sdefaults": "sdefaults2",
         "stm": "stm2",
-        "tokenize": "tokenize2"
+        "tokenize": "tokenize2",
+        "words": "words2"
       },
       "namespaced": {
         "articles2": {
+          "km": "articles2"
         },
         "asking2": {
+          "km": "asking2"
         },
         "concept2": {
           "defaultTypesForHierarchy": {
           },
+          "km": "concept2",
           "valueToWords": [
           ]
         },
         "conjunction2": {
+          "km": "conjunction2"
+        },
+        "control2": {
+          "km": "control2"
         },
         "countable1": {
+          "km": "countable1"
+        },
+        "debug2": {
+          "km": "debug2"
         },
         "dialogues2": {
           "idSuffix": "",
+          "km": "dialogues2",
           "mentioned": [
           ],
           "variables": {
           }
         },
         "evaluate2": {
+          "km": "evaluate2"
         },
         "gdefaults2": {
+          "km": "gdefaults2"
         },
         "hierarchy2": {
+          "km": "hierarchy2"
+        },
+        "logging2": {
+          "km": "logging2",
+          "messages": [
+          ]
         },
         "meta2": {
+          "km": "meta2"
         },
         "negation2": {
+          "km": "negation2"
         },
         "numbers2": {
+          "km": "numbers2"
         },
         "pos2": {
+          "km": "pos2"
         },
         "properties2": {
           "children": {
             "adjective": [
-              "stm_before"
+              "stm_previous",
+              "stm_current",
+              "stm_before",
+              "compound_modifier",
+              "open_compound",
+              "noun_modifier",
+              "compound_noun"
             ],
             "article": [
               "a",
@@ -1601,26 +2224,37 @@
               "each",
               "every"
             ],
-            "canBeDoQuestion": [
-              "have"
-            ],
             "canBeQuestion": [
-              "have",
               "is"
             ],
-            "hierarchyAble": [
-              "unknown"
+            "compound": [
+              "open_compound"
+            ],
+            "compound_modifier": [
+              "open"
+            ],
+            "concept": [
+              "compound",
+              "open_compound",
+              "noun",
+              "compound_noun"
+            ],
+            "deletable": [
+              "memorable"
             ],
             "ifAble": [
               "orAble"
             ],
-            "object": [
-              "what",
-              "whose"
+            "listable": [
+              "queryable"
+            ],
+            "noun": [
+              "compound_noun"
+            ],
+            "noun_modifier": [
+              "compound"
             ],
             "preposition": [
-              "between",
-              "propertyOf",
               "to"
             ],
             "pronoun": [
@@ -1628,18 +2262,12 @@
               "this"
             ],
             "punctuation": [
-              "questionMark"
+              "questionMark",
+              "comma"
             ],
             "queryable": [
-              "xfx",
-              "hierarchyAble",
-              "readonly",
-              "property",
-              "object",
-              "concept",
               "doubleQuote",
               "theAble",
-              "unknown",
               "it",
               "what",
               "whatAble",
@@ -1647,15 +2275,17 @@
               "this",
               "reason",
               "distributable",
-              "thisitthat"
+              "thisitthat",
+              "concept"
             ],
             "theAble": [
-              "property",
-              "object",
-              "concept",
-              "unknown",
+              "listable",
               "reason",
               "memorable",
+              "noun",
+              "concept"
+            ],
+            "thisAble": [
               "noun"
             ],
             "thisitthat": [
@@ -1667,34 +2297,19 @@
               "it"
             ],
             "verb": [
-              "modifies",
               "is",
+              "isQuery",
+              "delete",
+              "recall",
               "remember",
-              "evaluate"
+              "modifies",
+              "isOpenCompound"
             ]
           },
           "concepts": [
             "properties",
-            "unknown",
-            "hierarchyAble",
-            "what",
-            "object",
-            "xfx",
-            "queryable",
-            "between",
-            "preposition",
-            "readonly",
-            "have",
-            "canBeDoQuestion",
-            "canBeQuestion",
-            "property",
-            "theAble",
-            "propertyOf",
-            "whose",
-            "concept",
-            "modifies",
-            "verb",
             "doubleQuote",
+            "queryable",
             "it",
             "pronoun",
             "this",
@@ -1703,36 +2318,74 @@
             "a",
             "article",
             "the",
+            "theAble",
+            "what",
             "whatAble",
             "negatable",
             "is",
+            "canBeQuestion",
             "toAble",
+            "listable",
             "to",
+            "preposition",
+            "verb",
+            "isQuery",
             "reason",
-            "memorable",
-            "remember",
-            "stm_before",
-            "adjective",
             "orAble",
             "ifAble",
-            "evaluate",
+            "delete",
+            "memorable",
+            "deletable",
+            "recall",
+            "remember",
+            "stm_previous",
+            "adjective",
+            "stm_current",
+            "stm_before",
             "each",
             "every",
             "distributable",
             "noun",
             "thisitthat",
-            "that"
+            "that",
+            "thisAble",
+            "comma",
+            "modifies",
+            "concept",
+            "open",
+            "compound_modifier",
+            "open_compound",
+            "compound",
+            "noun_modifier",
+            "compound_noun",
+            "isOpenCompound"
           ],
+          "km": "properties2",
           "parents": {
             "a": [
               "article"
             ],
-            "between": [
-              "preposition"
+            "comma": [
+              "punctuation"
+            ],
+            "compound": [
+              "concept",
+              "noun_modifier"
+            ],
+            "compound_modifier": [
+              "adjective"
+            ],
+            "compound_noun": [
+              "adjective",
+              "concept",
+              "noun"
             ],
             "concept": [
               "theAble",
               "queryable"
+            ],
+            "delete": [
+              "verb"
             ],
             "distributable": [
               "queryable"
@@ -1743,21 +2396,17 @@
             "each": [
               "article"
             ],
-            "evaluate": [
-              "verb"
-            ],
             "every": [
               "article"
             ],
-            "have": [
-              "canBeDoQuestion",
-              "canBeQuestion"
-            ],
-            "hierarchyAble": [
-              "queryable"
-            ],
             "is": [
               "canBeQuestion",
+              "verb"
+            ],
+            "isOpenCompound": [
+              "verb"
+            ],
+            "isQuery": [
               "verb"
             ],
             "it": [
@@ -1766,8 +2415,12 @@
               "toAble",
               "thisitthat"
             ],
-            "memorable": [
+            "listable": [
               "theAble"
+            ],
+            "memorable": [
+              "theAble",
+              "deletable"
             ],
             "modifies": [
               "verb"
@@ -1776,36 +2429,47 @@
               "queryable"
             ],
             "noun": [
-              "theAble"
+              "theAble",
+              "thisAble",
+              "concept"
             ],
-            "object": [
-              "queryable",
-              "theAble"
+            "noun_modifier": [
+              "adjective"
+            ],
+            "open": [
+              "compound_modifier"
+            ],
+            "open_compound": [
+              "adjective",
+              "concept",
+              "compound"
             ],
             "orAble": [
               "ifAble"
             ],
-            "property": [
-              "queryable",
-              "theAble"
-            ],
-            "propertyOf": [
-              "preposition"
+            "queryable": [
+              "listable"
             ],
             "questionMark": [
               "punctuation"
-            ],
-            "readonly": [
-              "queryable"
             ],
             "reason": [
               "theAble",
               "queryable"
             ],
+            "recall": [
+              "verb"
+            ],
             "remember": [
               "verb"
             ],
             "stm_before": [
+              "adjective"
+            ],
+            "stm_current": [
+              "adjective"
+            ],
+            "stm_previous": [
               "adjective"
             ],
             "that": [
@@ -1828,22 +2492,10 @@
             "to": [
               "preposition"
             ],
-            "unknown": [
-              "hierarchyAble",
-              "theAble",
-              "queryable"
-            ],
             "what": [
-              "object",
               "queryable"
             ],
             "whatAble": [
-              "queryable"
-            ],
-            "whose": [
-              "object"
-            ],
-            "xfx": [
               "queryable"
             ]
           },
@@ -1859,13 +2511,21 @@
               },
               "article": {
               },
-              "between": {
-              },
-              "canBeDoQuestion": {
-              },
               "canBeQuestion": {
               },
+              "comma": {
+              },
+              "compound": {
+              },
+              "compound_modifier": {
+              },
+              "compound_noun": {
+              },
               "concept": {
+              },
+              "deletable": {
+              },
+              "delete": {
               },
               "distributable": {
               },
@@ -1873,19 +2533,19 @@
               },
               "each": {
               },
-              "evaluate": {
-              },
               "every": {
-              },
-              "have": {
-              },
-              "hierarchyAble": {
               },
               "ifAble": {
               },
               "is": {
               },
+              "isOpenCompound": {
+              },
+              "isQuery": {
+              },
               "it": {
+              },
+              "listable": {
               },
               "memorable": {
               },
@@ -1895,7 +2555,11 @@
               },
               "noun": {
               },
-              "object": {
+              "noun_modifier": {
+              },
+              "open": {
+              },
+              "open_compound": {
               },
               "orAble": {
               },
@@ -1903,23 +2567,23 @@
               },
               "pronoun": {
               },
-              "property": {
-              },
-              "propertyOf": {
-              },
               "punctuation": {
               },
               "queryable": {
               },
               "questionMark": {
               },
-              "readonly": {
-              },
               "reason": {
+              },
+              "recall": {
               },
               "remember": {
               },
               "stm_before": {
+              },
+              "stm_current": {
+              },
+              "stm_previous": {
               },
               "that": {
               },
@@ -1929,23 +2593,19 @@
               },
               "this": {
               },
+              "thisAble": {
+              },
               "thisitthat": {
               },
               "to": {
               },
               "toAble": {
               },
-              "unknown": {
-              },
               "verb": {
               },
               "what": {
               },
               "whatAble": {
-              },
-              "whose": {
-              },
-              "xfx": {
               }
             }
           },
@@ -1957,34 +2617,73 @@
           }
         },
         "punctuation2": {
+          "km": "punctuation2"
         },
         "sdefaults2": {
+          "km": "sdefaults2"
         },
         "stm2": {
+          "km": "stm2",
           "mentioned": [
           ],
           "variables": {
           }
         },
         "tokenize2": {
+          "km": "tokenize2"
+        },
+        "words2": {
+          "km": "words2",
+          "words": [
+          ]
         }
       },
       "processed": [
         {
           "context": {
+            "context_id": 2,
             "context_index": 1,
+            "countable": {
+              "context_id": 293,
+              "dead": true,
+              "default": true,
+              "level": 0,
+              "marker": "countable",
+              "number": "one",
+              "range": {
+                "end": 10,
+                "start": 2
+              },
+              "text": "countable",
+              "types": [
+                "countable"
+              ],
+              "value": "countable",
+              "word": "countable"
+            },
             "dead": true,
             "default": true,
-            "instance": true,
-            "level": 1,
+            "interpolate": [
+              {
+                "isQuantifier": true,
+                "property": "quantity"
+              },
+              {
+                "isQuantified": true,
+                "property": "countable"
+              }
+            ],
+            "isInstance": true,
+            "level": 0,
             "marker": "countable",
             "modifiers": [
               "quantity"
             ],
             "number": 1,
             "quantity": {
+              "context_id": 300,
               "dead": true,
-              "instance": true,
+              "isInstance": true,
               "level": 1,
               "marker": "integer",
               "range": {
@@ -2010,11 +2709,219 @@
             "value": "countable",
             "word": "countable"
           },
-          "generatedParenthesized": "",
-          "paraphrases": "1 countable",
-          "paraphrasesParenthesized": "((1) (countable))",
+          "generatedParenthesized": [
+          ],
+          "paraphrases": [
+          ],
+          "paraphrasesParenthesized": [
+          ],
           "responses": [
             ""
+          ]
+        },
+        {
+          "context": {
+            "context_id": null,
+            "context_index": 1,
+            "dead": true,
+            "level": 2,
+            "marker": "is",
+            "number": "one",
+            "one": {
+              "dead": true,
+              "level": 0,
+              "marker": "unknown",
+              "number": "one",
+              "range": {
+                "end": 7,
+                "start": 0
+              },
+              "text": "property",
+              "types": [
+                "queryable",
+                "unknown"
+              ],
+              "unknown": true,
+              "value": "property",
+              "word": "property"
+            },
+            "range": {
+              "end": 20,
+              "start": 0
+            },
+            "text": "property is a concept",
+            "topLevel": true,
+            "touchedBy": [
+              "properties#call2",
+              "instance0#properties#call2",
+              "instance0#hierarchy#call2",
+              "instance0#countable#call2"
+            ],
+            "two": {
+              "concept": true,
+              "dead": true,
+              "default": true,
+              "determiner": {
+                "default": true,
+                "level": 0,
+                "marker": "a",
+                "range": {
+                  "end": 12,
+                  "start": 12
+                },
+                "text": "a",
+                "word": "a"
+              },
+              "level": 0,
+              "marker": "concept",
+              "modifiers": [
+                "determiner"
+              ],
+              "number": "one",
+              "pullFromContext": false,
+              "range": {
+                "end": 20,
+                "start": 12
+              },
+              "text": "a concept",
+              "types": [
+                "concept"
+              ],
+              "value": "concept",
+              "wantsValue": true,
+              "word": "concept"
+            },
+            "word": "is"
+          },
+          "generatedParenthesized": [
+          ],
+          "paraphrases": [
+          ],
+          "paraphrasesParenthesized": [
+          ],
+          "responses": [
+          ]
+        },
+        {
+          "context": {
+            "concept": {
+              "dead": true,
+              "default": true,
+              "level": 0,
+              "marker": "noun",
+              "range": {
+                "end": 21,
+                "start": 18
+              },
+              "text": "noun",
+              "value": "noun",
+              "word": "noun"
+            },
+            "conceptModifiers": [
+              {
+                "dead": true,
+                "level": 1,
+                "marker": "compound",
+                "number": "one",
+                "range": {
+                  "end": 7,
+                  "start": 0
+                },
+                "text": "compound",
+                "value": "compound",
+                "word": "compound"
+              }
+            ],
+            "context_id": null,
+            "context_index": 1,
+            "dead": true,
+            "flatten": false,
+            "level": 1,
+            "marker": "modifies",
+            "number": "one",
+            "range": {
+              "end": 21,
+              "start": 0
+            },
+            "text": "compound modifies noun",
+            "topLevel": true,
+            "touchedBy": [
+              "concept#call2",
+              "instance2#concept#call2",
+              "instance2#properties#call2",
+              "instance2#hierarchy#call2",
+              "instance2#countable#call2"
+            ],
+            "word": "modifies"
+          },
+          "generatedParenthesized": [
+          ],
+          "paraphrases": [
+          ],
+          "paraphrasesParenthesized": [
+          ],
+          "responses": [
+          ]
+        },
+        {
+          "context": {
+            "concept": {
+              "dead": true,
+              "level": 0,
+              "marker": "unknown",
+              "range": {
+                "end": 21,
+                "start": 14
+              },
+              "text": "compound",
+              "unknown": true,
+              "value": "compound",
+              "word": "compound"
+            },
+            "conceptModifiers": [
+              {
+                "dead": true,
+                "level": 0,
+                "marker": "unknown",
+                "range": {
+                  "end": 3,
+                  "start": 0
+                },
+                "text": "open",
+                "unknown": true,
+                "value": "open",
+                "word": "open"
+              }
+            ],
+            "context_id": null,
+            "context_index": 1,
+            "dead": true,
+            "flatten": false,
+            "level": 1,
+            "marker": "modifies",
+            "number": "one",
+            "range": {
+              "end": 21,
+              "start": 0
+            },
+            "text": "open modifies compound",
+            "topLevel": true,
+            "touchedBy": [
+              "concept#call2",
+              "instance1#concept#call2",
+              "instance1#properties#call2",
+              "instance1#hierarchy#call2",
+              "instance1#countable#call2"
+            ],
+            "word": "modifies"
+          },
+          "generatedParenthesized": [
+          ],
+          "paraphrases": [
+          ],
+          "paraphrasesParenthesized": [
+          ],
+          "responses": [
           ]
         }
       ]
@@ -2088,33 +2995,8 @@
             "operators": [
               {
                 "marker": [
-                  "integer",
-                  1
-                ],
-                "range": {
-                  "end": 0,
-                  "start": 0
-                }
-              },
-              {
-                "marker": [
                   "countable",
-                  1
-                ],
-                "range": {
-                  "end": 10,
-                  "start": 2
-                }
-              }
-            ]
-          },
-          {
-            "counter": 4,
-            "operators": [
-              {
-                "marker": [
-                  "countable",
-                  1
+                  0
                 ],
                 "range": {
                   "end": 10,
@@ -2129,25 +3011,17 @@
   },
   {
     "associations": [
-      [
-        [
-          "integer",
-          0
-        ],
-        [
-          "piece",
-          0
-        ]
-      ]
     ],
     "config": {
     },
     "contexts": [
       {
+        "context_id": 2,
         "context_index": 1,
         "count": {
+          "context_id": 298,
           "dead": true,
-          "instance": true,
+          "isInstance": true,
           "level": 1,
           "marker": "integer",
           "range": {
@@ -2161,8 +3035,33 @@
           "value": 10,
           "word": "10"
         },
+        "countOfPiecesOperator": {
+          "context_id": 291,
+          "dead": true,
+          "default": true,
+          "level": 0,
+          "marker": "piece",
+          "range": {
+            "end": 7,
+            "start": 3
+          },
+          "text": "piece",
+          "types": [
+            "piece"
+          ],
+          "value": "piece",
+          "word": "piece"
+        },
         "dead": true,
-        "instance": true,
+        "interpolate": [
+          {
+            "property": "count"
+          },
+          {
+            "property": "countOfPiecesOperator"
+          }
+        ],
+        "isInstance": true,
         "level": 1,
         "marker": "countOfPieces",
         "modifiers": [
@@ -2196,32 +3095,11 @@
             [
               "integer",
               0
-            ],
-            [
-              "piece",
-              0
             ]
           ]
         },
         {
           "counter": 2,
-          "op": [
-            "piece",
-            0
-          ],
-          "ops": [
-            [
-              "countOfPieces",
-              0
-            ],
-            [
-              "piece",
-              0
-            ]
-          ]
-        },
-        {
-          "counter": 3,
           "op": [
             "countOfPieces",
             0
@@ -2236,16 +3114,21 @@
       ]
     },
     "objects": {
+      "associations": [
+      ],
       "nameToUUID": {
         "articles": "articles2",
         "asking": "asking2",
         "concept": "concept2",
         "conjunction": "conjunction2",
+        "control": "control2",
         "countable": "countable1",
+        "debug": "debug2",
         "dialogues": "dialogues2",
         "evaluate": "evaluate2",
         "gdefaults": "gdefaults2",
         "hierarchy": "hierarchy2",
+        "logging": "logging2",
         "meta": "meta2",
         "negation": "negation2",
         "numbers": "numbers2",
@@ -2254,48 +3137,79 @@
         "punctuation": "punctuation2",
         "sdefaults": "sdefaults2",
         "stm": "stm2",
-        "tokenize": "tokenize2"
+        "tokenize": "tokenize2",
+        "words": "words2"
       },
       "namespaced": {
         "articles2": {
+          "km": "articles2"
         },
         "asking2": {
+          "km": "asking2"
         },
         "concept2": {
           "defaultTypesForHierarchy": {
           },
+          "km": "concept2",
           "valueToWords": [
           ]
         },
         "conjunction2": {
+          "km": "conjunction2"
+        },
+        "control2": {
+          "km": "control2"
         },
         "countable1": {
+          "km": "countable1"
+        },
+        "debug2": {
+          "km": "debug2"
         },
         "dialogues2": {
           "idSuffix": "",
+          "km": "dialogues2",
           "mentioned": [
           ],
           "variables": {
           }
         },
         "evaluate2": {
+          "km": "evaluate2"
         },
         "gdefaults2": {
+          "km": "gdefaults2"
         },
         "hierarchy2": {
+          "km": "hierarchy2"
+        },
+        "logging2": {
+          "km": "logging2",
+          "messages": [
+          ]
         },
         "meta2": {
+          "km": "meta2"
         },
         "negation2": {
+          "km": "negation2"
         },
         "numbers2": {
+          "km": "numbers2"
         },
         "pos2": {
+          "km": "pos2"
         },
         "properties2": {
           "children": {
             "adjective": [
-              "stm_before"
+              "stm_previous",
+              "stm_current",
+              "stm_before",
+              "compound_modifier",
+              "open_compound",
+              "noun_modifier",
+              "compound_noun"
             ],
             "article": [
               "a",
@@ -2303,26 +3217,37 @@
               "each",
               "every"
             ],
-            "canBeDoQuestion": [
-              "have"
-            ],
             "canBeQuestion": [
-              "have",
               "is"
             ],
-            "hierarchyAble": [
-              "unknown"
+            "compound": [
+              "open_compound"
+            ],
+            "compound_modifier": [
+              "open"
+            ],
+            "concept": [
+              "compound",
+              "open_compound",
+              "noun",
+              "compound_noun"
+            ],
+            "deletable": [
+              "memorable"
             ],
             "ifAble": [
               "orAble"
             ],
-            "object": [
-              "what",
-              "whose"
+            "listable": [
+              "queryable"
+            ],
+            "noun": [
+              "compound_noun"
+            ],
+            "noun_modifier": [
+              "compound"
             ],
             "preposition": [
-              "between",
-              "propertyOf",
               "to"
             ],
             "pronoun": [
@@ -2330,18 +3255,12 @@
               "this"
             ],
             "punctuation": [
-              "questionMark"
+              "questionMark",
+              "comma"
             ],
             "queryable": [
-              "xfx",
-              "hierarchyAble",
-              "readonly",
-              "property",
-              "object",
-              "concept",
               "doubleQuote",
               "theAble",
-              "unknown",
               "it",
               "what",
               "whatAble",
@@ -2349,15 +3268,17 @@
               "this",
               "reason",
               "distributable",
-              "thisitthat"
+              "thisitthat",
+              "concept"
             ],
             "theAble": [
-              "property",
-              "object",
-              "concept",
-              "unknown",
+              "listable",
               "reason",
               "memorable",
+              "noun",
+              "concept"
+            ],
+            "thisAble": [
               "noun"
             ],
             "thisitthat": [
@@ -2369,34 +3290,19 @@
               "it"
             ],
             "verb": [
-              "modifies",
               "is",
+              "isQuery",
+              "delete",
+              "recall",
               "remember",
-              "evaluate"
+              "modifies",
+              "isOpenCompound"
             ]
           },
           "concepts": [
             "properties",
-            "unknown",
-            "hierarchyAble",
-            "what",
-            "object",
-            "xfx",
-            "queryable",
-            "between",
-            "preposition",
-            "readonly",
-            "have",
-            "canBeDoQuestion",
-            "canBeQuestion",
-            "property",
-            "theAble",
-            "propertyOf",
-            "whose",
-            "concept",
-            "modifies",
-            "verb",
             "doubleQuote",
+            "queryable",
             "it",
             "pronoun",
             "this",
@@ -2405,36 +3311,74 @@
             "a",
             "article",
             "the",
+            "theAble",
+            "what",
             "whatAble",
             "negatable",
             "is",
+            "canBeQuestion",
             "toAble",
+            "listable",
             "to",
+            "preposition",
+            "verb",
+            "isQuery",
             "reason",
-            "memorable",
-            "remember",
-            "stm_before",
-            "adjective",
             "orAble",
             "ifAble",
-            "evaluate",
+            "delete",
+            "memorable",
+            "deletable",
+            "recall",
+            "remember",
+            "stm_previous",
+            "adjective",
+            "stm_current",
+            "stm_before",
             "each",
             "every",
             "distributable",
             "noun",
             "thisitthat",
-            "that"
+            "that",
+            "thisAble",
+            "comma",
+            "modifies",
+            "concept",
+            "open",
+            "compound_modifier",
+            "open_compound",
+            "compound",
+            "noun_modifier",
+            "compound_noun",
+            "isOpenCompound"
           ],
+          "km": "properties2",
           "parents": {
             "a": [
               "article"
             ],
-            "between": [
-              "preposition"
+            "comma": [
+              "punctuation"
+            ],
+            "compound": [
+              "concept",
+              "noun_modifier"
+            ],
+            "compound_modifier": [
+              "adjective"
+            ],
+            "compound_noun": [
+              "adjective",
+              "concept",
+              "noun"
             ],
             "concept": [
               "theAble",
               "queryable"
+            ],
+            "delete": [
+              "verb"
             ],
             "distributable": [
               "queryable"
@@ -2445,21 +3389,17 @@
             "each": [
               "article"
             ],
-            "evaluate": [
-              "verb"
-            ],
             "every": [
               "article"
             ],
-            "have": [
-              "canBeDoQuestion",
-              "canBeQuestion"
-            ],
-            "hierarchyAble": [
-              "queryable"
-            ],
             "is": [
               "canBeQuestion",
+              "verb"
+            ],
+            "isOpenCompound": [
+              "verb"
+            ],
+            "isQuery": [
               "verb"
             ],
             "it": [
@@ -2468,8 +3408,12 @@
               "toAble",
               "thisitthat"
             ],
-            "memorable": [
+            "listable": [
               "theAble"
+            ],
+            "memorable": [
+              "theAble",
+              "deletable"
             ],
             "modifies": [
               "verb"
@@ -2478,36 +3422,47 @@
               "queryable"
             ],
             "noun": [
-              "theAble"
+              "theAble",
+              "thisAble",
+              "concept"
             ],
-            "object": [
-              "queryable",
-              "theAble"
+            "noun_modifier": [
+              "adjective"
+            ],
+            "open": [
+              "compound_modifier"
+            ],
+            "open_compound": [
+              "adjective",
+              "concept",
+              "compound"
             ],
             "orAble": [
               "ifAble"
             ],
-            "property": [
-              "queryable",
-              "theAble"
-            ],
-            "propertyOf": [
-              "preposition"
+            "queryable": [
+              "listable"
             ],
             "questionMark": [
               "punctuation"
-            ],
-            "readonly": [
-              "queryable"
             ],
             "reason": [
               "theAble",
               "queryable"
             ],
+            "recall": [
+              "verb"
+            ],
             "remember": [
               "verb"
             ],
             "stm_before": [
+              "adjective"
+            ],
+            "stm_current": [
+              "adjective"
+            ],
+            "stm_previous": [
               "adjective"
             ],
             "that": [
@@ -2530,22 +3485,10 @@
             "to": [
               "preposition"
             ],
-            "unknown": [
-              "hierarchyAble",
-              "theAble",
-              "queryable"
-            ],
             "what": [
-              "object",
               "queryable"
             ],
             "whatAble": [
-              "queryable"
-            ],
-            "whose": [
-              "object"
-            ],
-            "xfx": [
               "queryable"
             ]
           },
@@ -2561,13 +3504,21 @@
               },
               "article": {
               },
-              "between": {
-              },
-              "canBeDoQuestion": {
-              },
               "canBeQuestion": {
               },
+              "comma": {
+              },
+              "compound": {
+              },
+              "compound_modifier": {
+              },
+              "compound_noun": {
+              },
               "concept": {
+              },
+              "deletable": {
+              },
+              "delete": {
               },
               "distributable": {
               },
@@ -2575,19 +3526,19 @@
               },
               "each": {
               },
-              "evaluate": {
-              },
               "every": {
-              },
-              "have": {
-              },
-              "hierarchyAble": {
               },
               "ifAble": {
               },
               "is": {
               },
+              "isOpenCompound": {
+              },
+              "isQuery": {
+              },
               "it": {
+              },
+              "listable": {
               },
               "memorable": {
               },
@@ -2597,7 +3548,11 @@
               },
               "noun": {
               },
-              "object": {
+              "noun_modifier": {
+              },
+              "open": {
+              },
+              "open_compound": {
               },
               "orAble": {
               },
@@ -2605,23 +3560,23 @@
               },
               "pronoun": {
               },
-              "property": {
-              },
-              "propertyOf": {
-              },
               "punctuation": {
               },
               "queryable": {
               },
               "questionMark": {
               },
-              "readonly": {
-              },
               "reason": {
+              },
+              "recall": {
               },
               "remember": {
               },
               "stm_before": {
+              },
+              "stm_current": {
+              },
+              "stm_previous": {
               },
               "that": {
               },
@@ -2631,23 +3586,19 @@
               },
               "this": {
               },
+              "thisAble": {
+              },
               "thisitthat": {
               },
               "to": {
               },
               "toAble": {
               },
-              "unknown": {
-              },
               "verb": {
               },
               "what": {
               },
               "whatAble": {
-              },
-              "whose": {
-              },
-              "xfx": {
               }
             }
           },
@@ -2659,25 +3610,36 @@
           }
         },
         "punctuation2": {
+          "km": "punctuation2"
         },
         "sdefaults2": {
+          "km": "sdefaults2"
         },
         "stm2": {
+          "km": "stm2",
           "mentioned": [
           ],
           "variables": {
           }
         },
         "tokenize2": {
+          "km": "tokenize2"
+        },
+        "words2": {
+          "km": "words2",
+          "words": [
+          ]
         }
       },
       "processed": [
         {
           "context": {
+            "context_id": 2,
             "context_index": 1,
             "count": {
+              "context_id": 298,
               "dead": true,
-              "instance": true,
+              "isInstance": true,
               "level": 1,
               "marker": "integer",
               "range": {
@@ -2691,8 +3653,33 @@
               "value": 10,
               "word": "10"
             },
+            "countOfPiecesOperator": {
+              "context_id": 291,
+              "dead": true,
+              "default": true,
+              "level": 0,
+              "marker": "piece",
+              "range": {
+                "end": 7,
+                "start": 3
+              },
+              "text": "piece",
+              "types": [
+                "piece"
+              ],
+              "value": "piece",
+              "word": "piece"
+            },
             "dead": true,
-            "instance": true,
+            "interpolate": [
+              {
+                "property": "count"
+              },
+              {
+                "property": "countOfPiecesOperator"
+              }
+            ],
+            "isInstance": true,
             "level": 1,
             "marker": "countOfPieces",
             "modifiers": [
@@ -2706,11 +3693,219 @@
             "topLevel": true,
             "word": "piece"
           },
-          "generatedParenthesized": "",
-          "paraphrases": "10 piece",
-          "paraphrasesParenthesized": "((10) (piece))",
+          "generatedParenthesized": [
+          ],
+          "paraphrases": [
+          ],
+          "paraphrasesParenthesized": [
+          ],
           "responses": [
             ""
+          ]
+        },
+        {
+          "context": {
+            "context_id": null,
+            "context_index": 1,
+            "dead": true,
+            "level": 2,
+            "marker": "is",
+            "number": "one",
+            "one": {
+              "dead": true,
+              "level": 0,
+              "marker": "unknown",
+              "number": "one",
+              "range": {
+                "end": 7,
+                "start": 0
+              },
+              "text": "property",
+              "types": [
+                "queryable",
+                "unknown"
+              ],
+              "unknown": true,
+              "value": "property",
+              "word": "property"
+            },
+            "range": {
+              "end": 20,
+              "start": 0
+            },
+            "text": "property is a concept",
+            "topLevel": true,
+            "touchedBy": [
+              "properties#call2",
+              "instance0#properties#call2",
+              "instance0#hierarchy#call2",
+              "instance0#countable#call2"
+            ],
+            "two": {
+              "concept": true,
+              "dead": true,
+              "default": true,
+              "determiner": {
+                "default": true,
+                "level": 0,
+                "marker": "a",
+                "range": {
+                  "end": 12,
+                  "start": 12
+                },
+                "text": "a",
+                "word": "a"
+              },
+              "level": 0,
+              "marker": "concept",
+              "modifiers": [
+                "determiner"
+              ],
+              "number": "one",
+              "pullFromContext": false,
+              "range": {
+                "end": 20,
+                "start": 12
+              },
+              "text": "a concept",
+              "types": [
+                "concept"
+              ],
+              "value": "concept",
+              "wantsValue": true,
+              "word": "concept"
+            },
+            "word": "is"
+          },
+          "generatedParenthesized": [
+          ],
+          "paraphrases": [
+          ],
+          "paraphrasesParenthesized": [
+          ],
+          "responses": [
+          ]
+        },
+        {
+          "context": {
+            "concept": {
+              "dead": true,
+              "default": true,
+              "level": 0,
+              "marker": "noun",
+              "range": {
+                "end": 21,
+                "start": 18
+              },
+              "text": "noun",
+              "value": "noun",
+              "word": "noun"
+            },
+            "conceptModifiers": [
+              {
+                "dead": true,
+                "level": 1,
+                "marker": "compound",
+                "number": "one",
+                "range": {
+                  "end": 7,
+                  "start": 0
+                },
+                "text": "compound",
+                "value": "compound",
+                "word": "compound"
+              }
+            ],
+            "context_id": null,
+            "context_index": 1,
+            "dead": true,
+            "flatten": false,
+            "level": 1,
+            "marker": "modifies",
+            "number": "one",
+            "range": {
+              "end": 21,
+              "start": 0
+            },
+            "text": "compound modifies noun",
+            "topLevel": true,
+            "touchedBy": [
+              "concept#call2",
+              "instance2#concept#call2",
+              "instance2#properties#call2",
+              "instance2#hierarchy#call2",
+              "instance2#countable#call2"
+            ],
+            "word": "modifies"
+          },
+          "generatedParenthesized": [
+          ],
+          "paraphrases": [
+          ],
+          "paraphrasesParenthesized": [
+          ],
+          "responses": [
+          ]
+        },
+        {
+          "context": {
+            "concept": {
+              "dead": true,
+              "level": 0,
+              "marker": "unknown",
+              "range": {
+                "end": 21,
+                "start": 14
+              },
+              "text": "compound",
+              "unknown": true,
+              "value": "compound",
+              "word": "compound"
+            },
+            "conceptModifiers": [
+              {
+                "dead": true,
+                "level": 0,
+                "marker": "unknown",
+                "range": {
+                  "end": 3,
+                  "start": 0
+                },
+                "text": "open",
+                "unknown": true,
+                "value": "open",
+                "word": "open"
+              }
+            ],
+            "context_id": null,
+            "context_index": 1,
+            "dead": true,
+            "flatten": false,
+            "level": 1,
+            "marker": "modifies",
+            "number": "one",
+            "range": {
+              "end": 21,
+              "start": 0
+            },
+            "text": "open modifies compound",
+            "topLevel": true,
+            "touchedBy": [
+              "concept#call2",
+              "instance1#concept#call2",
+              "instance1#properties#call2",
+              "instance1#hierarchy#call2",
+              "instance1#countable#call2"
+            ],
+            "word": "modifies"
+          },
+          "generatedParenthesized": [
+          ],
+          "paraphrases": [
+          ],
+          "paraphrasesParenthesized": [
+          ],
+          "responses": [
           ]
         }
       ]
@@ -2784,31 +3979,6 @@
             "operators": [
               {
                 "marker": [
-                  "integer",
-                  1
-                ],
-                "range": {
-                  "end": 1,
-                  "start": 0
-                }
-              },
-              {
-                "marker": [
-                  "piece",
-                  1
-                ],
-                "range": {
-                  "end": 7,
-                  "start": 3
-                }
-              }
-            ]
-          },
-          {
-            "counter": 4,
-            "operators": [
-              {
-                "marker": [
                   "countOfPieces",
                   1
                 ],
@@ -2825,48 +3995,53 @@
   },
   {
     "associations": [
-      [
-        [
-          "hasCountOfPieces",
-          0
-        ],
-        [
-          "integer",
-          0
-        ],
-        [
-          "piece",
-          0
-        ]
-      ],
-      [
-        [
-          "hasCountOfPieces",
-          0
-        ],
-        [
-          "piece",
-          0
-        ]
-      ]
     ],
     "config": {
     },
     "contexts": [
       {
+        "context_id": 2,
         "context_index": 1,
+        "countingPiecesOperator": {
+          "context_id": 311,
+          "dead": true,
+          "default": true,
+          "level": 0,
+          "marker": "hasCountOfPieces",
+          "range": {
+            "end": 23,
+            "start": 8
+          },
+          "raw_text": "hasCountOfPieces",
+          "text": "hascountofpieces",
+          "types": [
+            "hasCountOfPieces"
+          ],
+          "value": "hasCountOfPieces",
+          "word": "hascountofpieces"
+        },
         "dead": true,
         "default": true,
-        "instance": true,
-        "level": 1,
+        "interpolate": [
+          {
+            "property": "pieces"
+          },
+          {
+            "property": "countingPiecesOperator"
+          }
+        ],
+        "isInstance": true,
+        "level": 0,
         "marker": "hasCountOfPieces",
         "modifiers": [
           "pieces"
         ],
         "pieces": {
+          "context_id": 329,
           "count": {
+            "context_id": 319,
             "dead": true,
-            "instance": true,
+            "isInstance": true,
             "level": 1,
             "marker": "integer",
             "range": {
@@ -2880,8 +4055,33 @@
             "value": 2,
             "word": "2"
           },
+          "countOfPiecesOperator": {
+            "context_id": 307,
+            "dead": true,
+            "default": true,
+            "level": 0,
+            "marker": "piece",
+            "range": {
+              "end": 6,
+              "start": 2
+            },
+            "text": "piece",
+            "types": [
+              "piece"
+            ],
+            "value": "piece",
+            "word": "piece"
+          },
           "dead": true,
-          "instance": true,
+          "interpolate": [
+            {
+              "property": "count"
+            },
+            {
+              "property": "countOfPiecesOperator"
+            }
+          ],
+          "isInstance": true,
           "level": 1,
           "marker": "countOfPieces",
           "modifiers": [
@@ -2928,42 +4128,13 @@
               0
             ],
             [
-              "hasCountOfPieces",
-              0
-            ],
-            [
               "integer",
-              0
-            ],
-            [
-              "piece",
               0
             ]
           ]
         },
         {
           "counter": 2,
-          "op": [
-            "piece",
-            0
-          ],
-          "ops": [
-            [
-              "countOfPieces",
-              0
-            ],
-            [
-              "hasCountOfPieces",
-              0
-            ],
-            [
-              "piece",
-              0
-            ]
-          ]
-        },
-        {
-          "counter": 3,
           "op": [
             "countOfPieces",
             0
@@ -2972,32 +4143,11 @@
             [
               "countOfPieces",
               0
-            ],
-            [
-              "hasCountOfPieces",
-              0
             ]
           ]
         },
         {
-          "counter": 4,
-          "op": [
-            "hasCountOfPieces",
-            0
-          ],
-          "ops": [
-            [
-              "countingPieces",
-              0
-            ],
-            [
-              "hasCountOfPieces",
-              0
-            ]
-          ]
-        },
-        {
-          "counter": 5,
+          "counter": 3,
           "op": [
             "countingPieces",
             0
@@ -3012,16 +4162,21 @@
       ]
     },
     "objects": {
+      "associations": [
+      ],
       "nameToUUID": {
         "articles": "articles2",
         "asking": "asking2",
         "concept": "concept2",
         "conjunction": "conjunction2",
+        "control": "control2",
         "countable": "countable1",
+        "debug": "debug2",
         "dialogues": "dialogues2",
         "evaluate": "evaluate2",
         "gdefaults": "gdefaults2",
         "hierarchy": "hierarchy2",
+        "logging": "logging2",
         "meta": "meta2",
         "negation": "negation2",
         "numbers": "numbers2",
@@ -3030,48 +4185,79 @@
         "punctuation": "punctuation2",
         "sdefaults": "sdefaults2",
         "stm": "stm2",
-        "tokenize": "tokenize2"
+        "tokenize": "tokenize2",
+        "words": "words2"
       },
       "namespaced": {
         "articles2": {
+          "km": "articles2"
         },
         "asking2": {
+          "km": "asking2"
         },
         "concept2": {
           "defaultTypesForHierarchy": {
           },
+          "km": "concept2",
           "valueToWords": [
           ]
         },
         "conjunction2": {
+          "km": "conjunction2"
+        },
+        "control2": {
+          "km": "control2"
         },
         "countable1": {
+          "km": "countable1"
+        },
+        "debug2": {
+          "km": "debug2"
         },
         "dialogues2": {
           "idSuffix": "",
+          "km": "dialogues2",
           "mentioned": [
           ],
           "variables": {
           }
         },
         "evaluate2": {
+          "km": "evaluate2"
         },
         "gdefaults2": {
+          "km": "gdefaults2"
         },
         "hierarchy2": {
+          "km": "hierarchy2"
+        },
+        "logging2": {
+          "km": "logging2",
+          "messages": [
+          ]
         },
         "meta2": {
+          "km": "meta2"
         },
         "negation2": {
+          "km": "negation2"
         },
         "numbers2": {
+          "km": "numbers2"
         },
         "pos2": {
+          "km": "pos2"
         },
         "properties2": {
           "children": {
             "adjective": [
-              "stm_before"
+              "stm_previous",
+              "stm_current",
+              "stm_before",
+              "compound_modifier",
+              "open_compound",
+              "noun_modifier",
+              "compound_noun"
             ],
             "article": [
               "a",
@@ -3079,26 +4265,37 @@
               "each",
               "every"
             ],
-            "canBeDoQuestion": [
-              "have"
-            ],
             "canBeQuestion": [
-              "have",
               "is"
             ],
-            "hierarchyAble": [
-              "unknown"
+            "compound": [
+              "open_compound"
+            ],
+            "compound_modifier": [
+              "open"
+            ],
+            "concept": [
+              "compound",
+              "open_compound",
+              "noun",
+              "compound_noun"
+            ],
+            "deletable": [
+              "memorable"
             ],
             "ifAble": [
               "orAble"
             ],
-            "object": [
-              "what",
-              "whose"
+            "listable": [
+              "queryable"
+            ],
+            "noun": [
+              "compound_noun"
+            ],
+            "noun_modifier": [
+              "compound"
             ],
             "preposition": [
-              "between",
-              "propertyOf",
               "to"
             ],
             "pronoun": [
@@ -3106,18 +4303,12 @@
               "this"
             ],
             "punctuation": [
-              "questionMark"
+              "questionMark",
+              "comma"
             ],
             "queryable": [
-              "xfx",
-              "hierarchyAble",
-              "readonly",
-              "property",
-              "object",
-              "concept",
               "doubleQuote",
               "theAble",
-              "unknown",
               "it",
               "what",
               "whatAble",
@@ -3125,15 +4316,17 @@
               "this",
               "reason",
               "distributable",
-              "thisitthat"
+              "thisitthat",
+              "concept"
             ],
             "theAble": [
-              "property",
-              "object",
-              "concept",
-              "unknown",
+              "listable",
               "reason",
               "memorable",
+              "noun",
+              "concept"
+            ],
+            "thisAble": [
               "noun"
             ],
             "thisitthat": [
@@ -3145,34 +4338,19 @@
               "it"
             ],
             "verb": [
-              "modifies",
               "is",
+              "isQuery",
+              "delete",
+              "recall",
               "remember",
-              "evaluate"
+              "modifies",
+              "isOpenCompound"
             ]
           },
           "concepts": [
             "properties",
-            "unknown",
-            "hierarchyAble",
-            "what",
-            "object",
-            "xfx",
-            "queryable",
-            "between",
-            "preposition",
-            "readonly",
-            "have",
-            "canBeDoQuestion",
-            "canBeQuestion",
-            "property",
-            "theAble",
-            "propertyOf",
-            "whose",
-            "concept",
-            "modifies",
-            "verb",
             "doubleQuote",
+            "queryable",
             "it",
             "pronoun",
             "this",
@@ -3181,36 +4359,74 @@
             "a",
             "article",
             "the",
+            "theAble",
+            "what",
             "whatAble",
             "negatable",
             "is",
+            "canBeQuestion",
             "toAble",
+            "listable",
             "to",
+            "preposition",
+            "verb",
+            "isQuery",
             "reason",
-            "memorable",
-            "remember",
-            "stm_before",
-            "adjective",
             "orAble",
             "ifAble",
-            "evaluate",
+            "delete",
+            "memorable",
+            "deletable",
+            "recall",
+            "remember",
+            "stm_previous",
+            "adjective",
+            "stm_current",
+            "stm_before",
             "each",
             "every",
             "distributable",
             "noun",
             "thisitthat",
-            "that"
+            "that",
+            "thisAble",
+            "comma",
+            "modifies",
+            "concept",
+            "open",
+            "compound_modifier",
+            "open_compound",
+            "compound",
+            "noun_modifier",
+            "compound_noun",
+            "isOpenCompound"
           ],
+          "km": "properties2",
           "parents": {
             "a": [
               "article"
             ],
-            "between": [
-              "preposition"
+            "comma": [
+              "punctuation"
+            ],
+            "compound": [
+              "concept",
+              "noun_modifier"
+            ],
+            "compound_modifier": [
+              "adjective"
+            ],
+            "compound_noun": [
+              "adjective",
+              "concept",
+              "noun"
             ],
             "concept": [
               "theAble",
               "queryable"
+            ],
+            "delete": [
+              "verb"
             ],
             "distributable": [
               "queryable"
@@ -3221,21 +4437,17 @@
             "each": [
               "article"
             ],
-            "evaluate": [
-              "verb"
-            ],
             "every": [
               "article"
             ],
-            "have": [
-              "canBeDoQuestion",
-              "canBeQuestion"
-            ],
-            "hierarchyAble": [
-              "queryable"
-            ],
             "is": [
               "canBeQuestion",
+              "verb"
+            ],
+            "isOpenCompound": [
+              "verb"
+            ],
+            "isQuery": [
               "verb"
             ],
             "it": [
@@ -3244,8 +4456,12 @@
               "toAble",
               "thisitthat"
             ],
-            "memorable": [
+            "listable": [
               "theAble"
+            ],
+            "memorable": [
+              "theAble",
+              "deletable"
             ],
             "modifies": [
               "verb"
@@ -3254,36 +4470,47 @@
               "queryable"
             ],
             "noun": [
-              "theAble"
+              "theAble",
+              "thisAble",
+              "concept"
             ],
-            "object": [
-              "queryable",
-              "theAble"
+            "noun_modifier": [
+              "adjective"
+            ],
+            "open": [
+              "compound_modifier"
+            ],
+            "open_compound": [
+              "adjective",
+              "concept",
+              "compound"
             ],
             "orAble": [
               "ifAble"
             ],
-            "property": [
-              "queryable",
-              "theAble"
-            ],
-            "propertyOf": [
-              "preposition"
+            "queryable": [
+              "listable"
             ],
             "questionMark": [
               "punctuation"
-            ],
-            "readonly": [
-              "queryable"
             ],
             "reason": [
               "theAble",
               "queryable"
             ],
+            "recall": [
+              "verb"
+            ],
             "remember": [
               "verb"
             ],
             "stm_before": [
+              "adjective"
+            ],
+            "stm_current": [
+              "adjective"
+            ],
+            "stm_previous": [
               "adjective"
             ],
             "that": [
@@ -3306,22 +4533,10 @@
             "to": [
               "preposition"
             ],
-            "unknown": [
-              "hierarchyAble",
-              "theAble",
-              "queryable"
-            ],
             "what": [
-              "object",
               "queryable"
             ],
             "whatAble": [
-              "queryable"
-            ],
-            "whose": [
-              "object"
-            ],
-            "xfx": [
               "queryable"
             ]
           },
@@ -3337,13 +4552,21 @@
               },
               "article": {
               },
-              "between": {
-              },
-              "canBeDoQuestion": {
-              },
               "canBeQuestion": {
               },
+              "comma": {
+              },
+              "compound": {
+              },
+              "compound_modifier": {
+              },
+              "compound_noun": {
+              },
               "concept": {
+              },
+              "deletable": {
+              },
+              "delete": {
               },
               "distributable": {
               },
@@ -3351,19 +4574,19 @@
               },
               "each": {
               },
-              "evaluate": {
-              },
               "every": {
-              },
-              "have": {
-              },
-              "hierarchyAble": {
               },
               "ifAble": {
               },
               "is": {
               },
+              "isOpenCompound": {
+              },
+              "isQuery": {
+              },
               "it": {
+              },
+              "listable": {
               },
               "memorable": {
               },
@@ -3373,7 +4596,11 @@
               },
               "noun": {
               },
-              "object": {
+              "noun_modifier": {
+              },
+              "open": {
+              },
+              "open_compound": {
               },
               "orAble": {
               },
@@ -3381,23 +4608,23 @@
               },
               "pronoun": {
               },
-              "property": {
-              },
-              "propertyOf": {
-              },
               "punctuation": {
               },
               "queryable": {
               },
               "questionMark": {
               },
-              "readonly": {
-              },
               "reason": {
+              },
+              "recall": {
               },
               "remember": {
               },
               "stm_before": {
+              },
+              "stm_current": {
+              },
+              "stm_previous": {
               },
               "that": {
               },
@@ -3407,23 +4634,19 @@
               },
               "this": {
               },
+              "thisAble": {
+              },
               "thisitthat": {
               },
               "to": {
               },
               "toAble": {
               },
-              "unknown": {
-              },
               "verb": {
               },
               "what": {
               },
               "whatAble": {
-              },
-              "whose": {
-              },
-              "xfx": {
               }
             }
           },
@@ -3435,34 +4658,72 @@
           }
         },
         "punctuation2": {
+          "km": "punctuation2"
         },
         "sdefaults2": {
+          "km": "sdefaults2"
         },
         "stm2": {
+          "km": "stm2",
           "mentioned": [
           ],
           "variables": {
           }
         },
         "tokenize2": {
+          "km": "tokenize2"
+        },
+        "words2": {
+          "km": "words2",
+          "words": [
+          ]
         }
       },
       "processed": [
         {
           "context": {
+            "context_id": 2,
             "context_index": 1,
+            "countingPiecesOperator": {
+              "context_id": 311,
+              "dead": true,
+              "default": true,
+              "level": 0,
+              "marker": "hasCountOfPieces",
+              "range": {
+                "end": 23,
+                "start": 8
+              },
+              "raw_text": "hasCountOfPieces",
+              "text": "hascountofpieces",
+              "types": [
+                "hasCountOfPieces"
+              ],
+              "value": "hasCountOfPieces",
+              "word": "hascountofpieces"
+            },
             "dead": true,
             "default": true,
-            "instance": true,
-            "level": 1,
+            "interpolate": [
+              {
+                "property": "pieces"
+              },
+              {
+                "property": "countingPiecesOperator"
+              }
+            ],
+            "isInstance": true,
+            "level": 0,
             "marker": "hasCountOfPieces",
             "modifiers": [
               "pieces"
             ],
             "pieces": {
+              "context_id": 329,
               "count": {
+                "context_id": 319,
                 "dead": true,
-                "instance": true,
+                "isInstance": true,
                 "level": 1,
                 "marker": "integer",
                 "range": {
@@ -3476,8 +4737,33 @@
                 "value": 2,
                 "word": "2"
               },
+              "countOfPiecesOperator": {
+                "context_id": 307,
+                "dead": true,
+                "default": true,
+                "level": 0,
+                "marker": "piece",
+                "range": {
+                  "end": 6,
+                  "start": 2
+                },
+                "text": "piece",
+                "types": [
+                  "piece"
+                ],
+                "value": "piece",
+                "word": "piece"
+              },
               "dead": true,
-              "instance": true,
+              "interpolate": [
+                {
+                  "property": "count"
+                },
+                {
+                  "property": "countOfPiecesOperator"
+                }
+              ],
+              "isInstance": true,
               "level": 1,
               "marker": "countOfPieces",
               "modifiers": [
@@ -3506,11 +4792,219 @@
             "value": "hasCountOfPieces",
             "word": "hascountofpieces"
           },
-          "generatedParenthesized": "",
-          "paraphrases": "2 piece hascountofpieces",
-          "paraphrasesParenthesized": "(((2) (piece)) (hascountofpieces))",
+          "generatedParenthesized": [
+          ],
+          "paraphrases": [
+          ],
+          "paraphrasesParenthesized": [
+          ],
           "responses": [
             ""
+          ]
+        },
+        {
+          "context": {
+            "context_id": null,
+            "context_index": 1,
+            "dead": true,
+            "level": 2,
+            "marker": "is",
+            "number": "one",
+            "one": {
+              "dead": true,
+              "level": 0,
+              "marker": "unknown",
+              "number": "one",
+              "range": {
+                "end": 7,
+                "start": 0
+              },
+              "text": "property",
+              "types": [
+                "queryable",
+                "unknown"
+              ],
+              "unknown": true,
+              "value": "property",
+              "word": "property"
+            },
+            "range": {
+              "end": 20,
+              "start": 0
+            },
+            "text": "property is a concept",
+            "topLevel": true,
+            "touchedBy": [
+              "properties#call2",
+              "instance0#properties#call2",
+              "instance0#hierarchy#call2",
+              "instance0#countable#call2"
+            ],
+            "two": {
+              "concept": true,
+              "dead": true,
+              "default": true,
+              "determiner": {
+                "default": true,
+                "level": 0,
+                "marker": "a",
+                "range": {
+                  "end": 12,
+                  "start": 12
+                },
+                "text": "a",
+                "word": "a"
+              },
+              "level": 0,
+              "marker": "concept",
+              "modifiers": [
+                "determiner"
+              ],
+              "number": "one",
+              "pullFromContext": false,
+              "range": {
+                "end": 20,
+                "start": 12
+              },
+              "text": "a concept",
+              "types": [
+                "concept"
+              ],
+              "value": "concept",
+              "wantsValue": true,
+              "word": "concept"
+            },
+            "word": "is"
+          },
+          "generatedParenthesized": [
+          ],
+          "paraphrases": [
+          ],
+          "paraphrasesParenthesized": [
+          ],
+          "responses": [
+          ]
+        },
+        {
+          "context": {
+            "concept": {
+              "dead": true,
+              "default": true,
+              "level": 0,
+              "marker": "noun",
+              "range": {
+                "end": 21,
+                "start": 18
+              },
+              "text": "noun",
+              "value": "noun",
+              "word": "noun"
+            },
+            "conceptModifiers": [
+              {
+                "dead": true,
+                "level": 1,
+                "marker": "compound",
+                "number": "one",
+                "range": {
+                  "end": 7,
+                  "start": 0
+                },
+                "text": "compound",
+                "value": "compound",
+                "word": "compound"
+              }
+            ],
+            "context_id": null,
+            "context_index": 1,
+            "dead": true,
+            "flatten": false,
+            "level": 1,
+            "marker": "modifies",
+            "number": "one",
+            "range": {
+              "end": 21,
+              "start": 0
+            },
+            "text": "compound modifies noun",
+            "topLevel": true,
+            "touchedBy": [
+              "concept#call2",
+              "instance2#concept#call2",
+              "instance2#properties#call2",
+              "instance2#hierarchy#call2",
+              "instance2#countable#call2"
+            ],
+            "word": "modifies"
+          },
+          "generatedParenthesized": [
+          ],
+          "paraphrases": [
+          ],
+          "paraphrasesParenthesized": [
+          ],
+          "responses": [
+          ]
+        },
+        {
+          "context": {
+            "concept": {
+              "dead": true,
+              "level": 0,
+              "marker": "unknown",
+              "range": {
+                "end": 21,
+                "start": 14
+              },
+              "text": "compound",
+              "unknown": true,
+              "value": "compound",
+              "word": "compound"
+            },
+            "conceptModifiers": [
+              {
+                "dead": true,
+                "level": 0,
+                "marker": "unknown",
+                "range": {
+                  "end": 3,
+                  "start": 0
+                },
+                "text": "open",
+                "unknown": true,
+                "value": "open",
+                "word": "open"
+              }
+            ],
+            "context_id": null,
+            "context_index": 1,
+            "dead": true,
+            "flatten": false,
+            "level": 1,
+            "marker": "modifies",
+            "number": "one",
+            "range": {
+              "end": 21,
+              "start": 0
+            },
+            "text": "open modifies compound",
+            "topLevel": true,
+            "touchedBy": [
+              "concept#call2",
+              "instance1#concept#call2",
+              "instance1#properties#call2",
+              "instance1#hierarchy#call2",
+              "instance1#countable#call2"
+            ],
+            "word": "modifies"
+          },
+          "generatedParenthesized": [
+          ],
+          "paraphrases": [
+          ],
+          "paraphrasesParenthesized": [
+          ],
+          "responses": [
           ]
         }
       ]
@@ -3604,22 +5098,12 @@
             "operators": [
               {
                 "marker": [
-                  "integer",
-                  1
-                ],
-                "range": {
-                  "end": 0,
-                  "start": 0
-                }
-              },
-              {
-                "marker": [
-                  "piece",
+                  "countOfPieces",
                   1
                 ],
                 "range": {
                   "end": 6,
-                  "start": 2
+                  "start": 0
                 }
               },
               {
@@ -3639,58 +5123,8 @@
             "operators": [
               {
                 "marker": [
-                  "countOfPieces",
-                  1
-                ],
-                "range": {
-                  "end": 6,
-                  "start": 0
-                }
-              },
-              {
-                "marker": [
                   "hasCountOfPieces",
                   0
-                ],
-                "range": {
-                  "end": 23,
-                  "start": 8
-                }
-              }
-            ]
-          },
-          {
-            "counter": 5,
-            "operators": [
-              {
-                "marker": [
-                  "countOfPieces",
-                  1
-                ],
-                "range": {
-                  "end": 6,
-                  "start": 0
-                }
-              },
-              {
-                "marker": [
-                  "hasCountOfPieces",
-                  1
-                ],
-                "range": {
-                  "end": 23,
-                  "start": 8
-                }
-              }
-            ]
-          },
-          {
-            "counter": 6,
-            "operators": [
-              {
-                "marker": [
-                  "hasCountOfPieces",
-                  1
                 ],
                 "range": {
                   "end": 23,
@@ -3705,30 +5139,6 @@
   },
   {
     "associations": [
-      [
-        [
-          "hasCountOfPieces",
-          0
-        ],
-        [
-          "integer",
-          0
-        ],
-        [
-          "piece",
-          0
-        ]
-      ],
-      [
-        [
-          "hasCountOfPieces",
-          0
-        ],
-        [
-          "piece",
-          0
-        ]
-      ]
     ],
     "config": {
     },
@@ -3737,9 +5147,36 @@
         "context_id": 2,
         "context_index": 1,
         "countable": {
+          "context_id": 352,
+          "countingPiecesOperator": {
+            "context_id": 317,
+            "dead": true,
+            "default": true,
+            "level": 0,
+            "marker": "hasCountOfPieces",
+            "range": {
+              "end": 26,
+              "start": 11
+            },
+            "raw_text": "hasCountOfPieces",
+            "text": "hascountofpieces",
+            "types": [
+              "hasCountOfPieces"
+            ],
+            "value": "hasCountOfPieces",
+            "word": "hascountofpieces"
+          },
           "dead": true,
           "default": true,
-          "instance": true,
+          "interpolate": [
+            {
+              "property": "pieces"
+            },
+            {
+              "property": "countingPiecesOperator"
+            }
+          ],
+          "isInstance": true,
           "level": 0,
           "marker": "hasCountOfPieces",
           "modifiers": [
@@ -3747,9 +5184,11 @@
           ],
           "number": "many",
           "pieces": {
+            "context_id": 342,
             "count": {
+              "context_id": 331,
               "dead": true,
-              "instance": true,
+              "isInstance": true,
               "level": 1,
               "marker": "integer",
               "range": {
@@ -3763,8 +5202,33 @@
               "value": 2,
               "word": "2"
             },
+            "countOfPiecesOperator": {
+              "context_id": 313,
+              "dead": true,
+              "default": true,
+              "level": 0,
+              "marker": "piece",
+              "range": {
+                "end": 9,
+                "start": 5
+              },
+              "text": "piece",
+              "types": [
+                "piece"
+              ],
+              "value": "piece",
+              "word": "piece"
+            },
             "dead": true,
-            "instance": true,
+            "interpolate": [
+              {
+                "property": "count"
+              },
+              {
+                "property": "countOfPiecesOperator"
+              }
+            ],
+            "isInstance": true,
             "level": 1,
             "marker": "countOfPieces",
             "modifiers": [
@@ -3792,9 +5256,26 @@
           "value": "hasCountOfPieces",
           "word": "hascountofpieces"
         },
+        "countingPiecesOperator": {
+          "context_id": 317,
+          "dead": true,
+          "default": true,
+          "level": 0,
+          "marker": "hasCountOfPieces",
+          "range": {
+            "end": 26,
+            "start": 11
+          },
+          "raw_text": "hasCountOfPieces",
+          "text": "hascountofpieces",
+          "types": [
+            "hasCountOfPieces"
+          ],
+          "value": "hasCountOfPieces",
+          "word": "hascountofpieces"
+        },
         "dead": true,
         "default": true,
-        "instance": true,
         "interpolate": [
           {
             "isQuantifier": true,
@@ -3805,6 +5286,7 @@
             "property": "countable"
           }
         ],
+        "isInstance": true,
         "level": 0,
         "marker": "hasCountOfPieces",
         "modifiers": [
@@ -3813,9 +5295,11 @@
         ],
         "number": 10,
         "pieces": {
+          "context_id": 342,
           "count": {
+            "context_id": 331,
             "dead": true,
-            "instance": true,
+            "isInstance": true,
             "level": 1,
             "marker": "integer",
             "range": {
@@ -3829,8 +5313,33 @@
             "value": 2,
             "word": "2"
           },
+          "countOfPiecesOperator": {
+            "context_id": 313,
+            "dead": true,
+            "default": true,
+            "level": 0,
+            "marker": "piece",
+            "range": {
+              "end": 9,
+              "start": 5
+            },
+            "text": "piece",
+            "types": [
+              "piece"
+            ],
+            "value": "piece",
+            "word": "piece"
+          },
           "dead": true,
-          "instance": true,
+          "interpolate": [
+            {
+              "property": "count"
+            },
+            {
+              "property": "countOfPiecesOperator"
+            }
+          ],
+          "isInstance": true,
           "level": 1,
           "marker": "countOfPieces",
           "modifiers": [
@@ -3847,8 +5356,9 @@
           "word": "piece"
         },
         "quantity": {
+          "context_id": 325,
           "dead": true,
-          "instance": true,
+          "isInstance": true,
           "level": 1,
           "marker": "integer",
           "range": {
@@ -3876,7 +5386,6 @@
         "word": "hascountofpieces"
       }
     ],
-    "developerTest": false,
     "generatedParenthesized": [
       ""
     ],
@@ -3971,6 +5480,7 @@
         "conjunction": "conjunction2",
         "control": "control2",
         "countable": "countable1",
+        "debug": "debug2",
         "dialogues": "dialogues2",
         "evaluate": "evaluate2",
         "gdefaults": "gdefaults2",
@@ -4009,6 +5519,9 @@
         },
         "countable1": {
           "km": "countable1"
+        },
+        "debug2": {
+          "km": "debug2"
         },
         "dialogues2": {
           "idSuffix": "",
@@ -4049,7 +5562,11 @@
             "adjective": [
               "stm_previous",
               "stm_current",
-              "stm_before"
+              "stm_before",
+              "compound_modifier",
+              "open_compound",
+              "noun_modifier",
+              "compound_noun"
             ],
             "article": [
               "a",
@@ -4060,6 +5577,18 @@
             "canBeQuestion": [
               "is"
             ],
+            "compound": [
+              "open_compound"
+            ],
+            "compound_modifier": [
+              "open"
+            ],
+            "concept": [
+              "compound",
+              "open_compound",
+              "noun",
+              "compound_noun"
+            ],
             "deletable": [
               "memorable"
             ],
@@ -4069,6 +5598,12 @@
             "listable": [
               "queryable"
             ],
+            "noun": [
+              "compound_noun"
+            ],
+            "noun_modifier": [
+              "compound"
+            ],
             "preposition": [
               "to"
             ],
@@ -4077,10 +5612,10 @@
               "this"
             ],
             "punctuation": [
-              "questionMark"
+              "questionMark",
+              "comma"
             ],
             "queryable": [
-              "concept",
               "doubleQuote",
               "theAble",
               "it",
@@ -4090,14 +5625,15 @@
               "this",
               "reason",
               "distributable",
-              "thisitthat"
+              "thisitthat",
+              "concept"
             ],
             "theAble": [
-              "concept",
               "listable",
               "reason",
               "memorable",
-              "noun"
+              "noun",
+              "concept"
             ],
             "thisAble": [
               "noun"
@@ -4111,22 +5647,19 @@
               "it"
             ],
             "verb": [
-              "modifies",
               "is",
               "isQuery",
               "delete",
               "recall",
-              "remember"
+              "remember",
+              "modifies",
+              "isOpenCompound"
             ]
           },
           "concepts": [
             "properties",
-            "concept",
-            "theAble",
-            "queryable",
-            "modifies",
-            "verb",
             "doubleQuote",
+            "queryable",
             "it",
             "pronoun",
             "this",
@@ -4135,6 +5668,7 @@
             "a",
             "article",
             "the",
+            "theAble",
             "what",
             "whatAble",
             "negatable",
@@ -4144,6 +5678,7 @@
             "listable",
             "to",
             "preposition",
+            "verb",
             "isQuery",
             "reason",
             "orAble",
@@ -4163,12 +5698,37 @@
             "noun",
             "thisitthat",
             "that",
-            "thisAble"
+            "thisAble",
+            "comma",
+            "modifies",
+            "concept",
+            "open",
+            "compound_modifier",
+            "open_compound",
+            "compound",
+            "noun_modifier",
+            "compound_noun",
+            "isOpenCompound"
           ],
           "km": "properties2",
           "parents": {
             "a": [
               "article"
+            ],
+            "comma": [
+              "punctuation"
+            ],
+            "compound": [
+              "concept",
+              "noun_modifier"
+            ],
+            "compound_modifier": [
+              "adjective"
+            ],
+            "compound_noun": [
+              "adjective",
+              "concept",
+              "noun"
             ],
             "concept": [
               "theAble",
@@ -4191,6 +5751,9 @@
             ],
             "is": [
               "canBeQuestion",
+              "verb"
+            ],
+            "isOpenCompound": [
               "verb"
             ],
             "isQuery": [
@@ -4217,7 +5780,19 @@
             ],
             "noun": [
               "theAble",
-              "thisAble"
+              "thisAble",
+              "concept"
+            ],
+            "noun_modifier": [
+              "adjective"
+            ],
+            "open": [
+              "compound_modifier"
+            ],
+            "open_compound": [
+              "adjective",
+              "concept",
+              "compound"
             ],
             "orAble": [
               "ifAble"
@@ -4288,6 +5863,14 @@
               },
               "canBeQuestion": {
               },
+              "comma": {
+              },
+              "compound": {
+              },
+              "compound_modifier": {
+              },
+              "compound_noun": {
+              },
               "concept": {
               },
               "deletable": {
@@ -4306,6 +5889,8 @@
               },
               "is": {
               },
+              "isOpenCompound": {
+              },
               "isQuery": {
               },
               "it": {
@@ -4319,6 +5904,12 @@
               "negatable": {
               },
               "noun": {
+              },
+              "noun_modifier": {
+              },
+              "open": {
+              },
+              "open_compound": {
               },
               "orAble": {
               },
@@ -4403,9 +5994,36 @@
             "context_id": 2,
             "context_index": 1,
             "countable": {
+              "context_id": 352,
+              "countingPiecesOperator": {
+                "context_id": 317,
+                "dead": true,
+                "default": true,
+                "level": 0,
+                "marker": "hasCountOfPieces",
+                "range": {
+                  "end": 26,
+                  "start": 11
+                },
+                "raw_text": "hasCountOfPieces",
+                "text": "hascountofpieces",
+                "types": [
+                  "hasCountOfPieces"
+                ],
+                "value": "hasCountOfPieces",
+                "word": "hascountofpieces"
+              },
               "dead": true,
               "default": true,
-              "instance": true,
+              "interpolate": [
+                {
+                  "property": "pieces"
+                },
+                {
+                  "property": "countingPiecesOperator"
+                }
+              ],
+              "isInstance": true,
               "level": 0,
               "marker": "hasCountOfPieces",
               "modifiers": [
@@ -4413,9 +6031,11 @@
               ],
               "number": "many",
               "pieces": {
+                "context_id": 342,
                 "count": {
+                  "context_id": 331,
                   "dead": true,
-                  "instance": true,
+                  "isInstance": true,
                   "level": 1,
                   "marker": "integer",
                   "range": {
@@ -4429,8 +6049,33 @@
                   "value": 2,
                   "word": "2"
                 },
+                "countOfPiecesOperator": {
+                  "context_id": 313,
+                  "dead": true,
+                  "default": true,
+                  "level": 0,
+                  "marker": "piece",
+                  "range": {
+                    "end": 9,
+                    "start": 5
+                  },
+                  "text": "piece",
+                  "types": [
+                    "piece"
+                  ],
+                  "value": "piece",
+                  "word": "piece"
+                },
                 "dead": true,
-                "instance": true,
+                "interpolate": [
+                  {
+                    "property": "count"
+                  },
+                  {
+                    "property": "countOfPiecesOperator"
+                  }
+                ],
+                "isInstance": true,
                 "level": 1,
                 "marker": "countOfPieces",
                 "modifiers": [
@@ -4458,9 +6103,26 @@
               "value": "hasCountOfPieces",
               "word": "hascountofpieces"
             },
+            "countingPiecesOperator": {
+              "context_id": 317,
+              "dead": true,
+              "default": true,
+              "level": 0,
+              "marker": "hasCountOfPieces",
+              "range": {
+                "end": 26,
+                "start": 11
+              },
+              "raw_text": "hasCountOfPieces",
+              "text": "hascountofpieces",
+              "types": [
+                "hasCountOfPieces"
+              ],
+              "value": "hasCountOfPieces",
+              "word": "hascountofpieces"
+            },
             "dead": true,
             "default": true,
-            "instance": true,
             "interpolate": [
               {
                 "isQuantifier": true,
@@ -4471,6 +6133,7 @@
                 "property": "countable"
               }
             ],
+            "isInstance": true,
             "level": 0,
             "marker": "hasCountOfPieces",
             "modifiers": [
@@ -4479,9 +6142,11 @@
             ],
             "number": 10,
             "pieces": {
+              "context_id": 342,
               "count": {
+                "context_id": 331,
                 "dead": true,
-                "instance": true,
+                "isInstance": true,
                 "level": 1,
                 "marker": "integer",
                 "range": {
@@ -4495,8 +6160,33 @@
                 "value": 2,
                 "word": "2"
               },
+              "countOfPiecesOperator": {
+                "context_id": 313,
+                "dead": true,
+                "default": true,
+                "level": 0,
+                "marker": "piece",
+                "range": {
+                  "end": 9,
+                  "start": 5
+                },
+                "text": "piece",
+                "types": [
+                  "piece"
+                ],
+                "value": "piece",
+                "word": "piece"
+              },
               "dead": true,
-              "instance": true,
+              "interpolate": [
+                {
+                  "property": "count"
+                },
+                {
+                  "property": "countOfPiecesOperator"
+                }
+              ],
+              "isInstance": true,
               "level": 1,
               "marker": "countOfPieces",
               "modifiers": [
@@ -4513,8 +6203,9 @@
               "word": "piece"
             },
             "quantity": {
+              "context_id": 325,
               "dead": true,
-              "instance": true,
+              "isInstance": true,
               "level": 1,
               "marker": "integer",
               "range": {
@@ -4624,6 +6315,128 @@
               "word": "concept"
             },
             "word": "is"
+          },
+          "generatedParenthesized": [
+          ],
+          "paraphrases": [
+          ],
+          "paraphrasesParenthesized": [
+          ],
+          "responses": [
+          ]
+        },
+        {
+          "context": {
+            "concept": {
+              "dead": true,
+              "default": true,
+              "level": 0,
+              "marker": "noun",
+              "range": {
+                "end": 21,
+                "start": 18
+              },
+              "text": "noun",
+              "value": "noun",
+              "word": "noun"
+            },
+            "conceptModifiers": [
+              {
+                "dead": true,
+                "level": 1,
+                "marker": "compound",
+                "number": "one",
+                "range": {
+                  "end": 7,
+                  "start": 0
+                },
+                "text": "compound",
+                "value": "compound",
+                "word": "compound"
+              }
+            ],
+            "context_id": null,
+            "context_index": 1,
+            "dead": true,
+            "flatten": false,
+            "level": 1,
+            "marker": "modifies",
+            "number": "one",
+            "range": {
+              "end": 21,
+              "start": 0
+            },
+            "text": "compound modifies noun",
+            "topLevel": true,
+            "touchedBy": [
+              "concept#call2",
+              "instance2#concept#call2",
+              "instance2#properties#call2",
+              "instance2#hierarchy#call2",
+              "instance2#countable#call2"
+            ],
+            "word": "modifies"
+          },
+          "generatedParenthesized": [
+          ],
+          "paraphrases": [
+          ],
+          "paraphrasesParenthesized": [
+          ],
+          "responses": [
+          ]
+        },
+        {
+          "context": {
+            "concept": {
+              "dead": true,
+              "level": 0,
+              "marker": "unknown",
+              "range": {
+                "end": 21,
+                "start": 14
+              },
+              "text": "compound",
+              "unknown": true,
+              "value": "compound",
+              "word": "compound"
+            },
+            "conceptModifiers": [
+              {
+                "dead": true,
+                "level": 0,
+                "marker": "unknown",
+                "range": {
+                  "end": 3,
+                  "start": 0
+                },
+                "text": "open",
+                "unknown": true,
+                "value": "open",
+                "word": "open"
+              }
+            ],
+            "context_id": null,
+            "context_index": 1,
+            "dead": true,
+            "flatten": false,
+            "level": 1,
+            "marker": "modifies",
+            "number": "one",
+            "range": {
+              "end": 21,
+              "start": 0
+            },
+            "text": "open modifies compound",
+            "topLevel": true,
+            "touchedBy": [
+              "concept#call2",
+              "instance1#concept#call2",
+              "instance1#properties#call2",
+              "instance1#hierarchy#call2",
+              "instance1#countable#call2"
+            ],
+            "word": "modifies"
           },
           "generatedParenthesized": [
           ],
@@ -4866,30 +6679,30 @@
   },
   {
     "associations": [
-      [
-        [
-          "countable",
-          0
-        ],
-        [
-          "more",
-          0
-        ]
-      ]
     ],
     "config": {
     },
     "contexts": [
       {
+        "context_id": 2,
         "context_index": 1,
         "dead": true,
         "default": true,
+        "interpolate": [
+          {
+            "property": "more"
+          },
+          {
+            "property": "moreOperator"
+          }
+        ],
         "level": 1,
         "marker": "countable",
         "modifiers": [
           "more"
         ],
         "more": {
+          "context_id": 293,
           "default": true,
           "level": 0,
           "marker": "more",
@@ -4900,6 +6713,23 @@
           "text": "more",
           "value": "more",
           "word": "more"
+        },
+        "moreOperator": {
+          "context_id": 296,
+          "dead": true,
+          "default": true,
+          "level": 0,
+          "marker": "countable",
+          "range": {
+            "end": 13,
+            "start": 5
+          },
+          "text": "countable",
+          "types": [
+            "countable"
+          ],
+          "value": "countable",
+          "word": "countable"
         },
         "range": {
           "end": 13,
@@ -4927,10 +6757,6 @@
           ],
           "ops": [
             [
-              "countable",
-              0
-            ],
-            [
               "more",
               0
             ]
@@ -4939,16 +6765,21 @@
       ]
     },
     "objects": {
+      "associations": [
+      ],
       "nameToUUID": {
         "articles": "articles2",
         "asking": "asking2",
         "concept": "concept2",
         "conjunction": "conjunction2",
+        "control": "control2",
         "countable": "countable1",
+        "debug": "debug2",
         "dialogues": "dialogues2",
         "evaluate": "evaluate2",
         "gdefaults": "gdefaults2",
         "hierarchy": "hierarchy2",
+        "logging": "logging2",
         "meta": "meta2",
         "negation": "negation2",
         "numbers": "numbers2",
@@ -4957,48 +6788,79 @@
         "punctuation": "punctuation2",
         "sdefaults": "sdefaults2",
         "stm": "stm2",
-        "tokenize": "tokenize2"
+        "tokenize": "tokenize2",
+        "words": "words2"
       },
       "namespaced": {
         "articles2": {
+          "km": "articles2"
         },
         "asking2": {
+          "km": "asking2"
         },
         "concept2": {
           "defaultTypesForHierarchy": {
           },
+          "km": "concept2",
           "valueToWords": [
           ]
         },
         "conjunction2": {
+          "km": "conjunction2"
+        },
+        "control2": {
+          "km": "control2"
         },
         "countable1": {
+          "km": "countable1"
+        },
+        "debug2": {
+          "km": "debug2"
         },
         "dialogues2": {
           "idSuffix": "",
+          "km": "dialogues2",
           "mentioned": [
           ],
           "variables": {
           }
         },
         "evaluate2": {
+          "km": "evaluate2"
         },
         "gdefaults2": {
+          "km": "gdefaults2"
         },
         "hierarchy2": {
+          "km": "hierarchy2"
+        },
+        "logging2": {
+          "km": "logging2",
+          "messages": [
+          ]
         },
         "meta2": {
+          "km": "meta2"
         },
         "negation2": {
+          "km": "negation2"
         },
         "numbers2": {
+          "km": "numbers2"
         },
         "pos2": {
+          "km": "pos2"
         },
         "properties2": {
           "children": {
             "adjective": [
-              "stm_before"
+              "stm_previous",
+              "stm_current",
+              "stm_before",
+              "compound_modifier",
+              "open_compound",
+              "noun_modifier",
+              "compound_noun"
             ],
             "article": [
               "a",
@@ -5006,26 +6868,37 @@
               "each",
               "every"
             ],
-            "canBeDoQuestion": [
-              "have"
-            ],
             "canBeQuestion": [
-              "have",
               "is"
             ],
-            "hierarchyAble": [
-              "unknown"
+            "compound": [
+              "open_compound"
+            ],
+            "compound_modifier": [
+              "open"
+            ],
+            "concept": [
+              "compound",
+              "open_compound",
+              "noun",
+              "compound_noun"
+            ],
+            "deletable": [
+              "memorable"
             ],
             "ifAble": [
               "orAble"
             ],
-            "object": [
-              "what",
-              "whose"
+            "listable": [
+              "queryable"
+            ],
+            "noun": [
+              "compound_noun"
+            ],
+            "noun_modifier": [
+              "compound"
             ],
             "preposition": [
-              "between",
-              "propertyOf",
               "to"
             ],
             "pronoun": [
@@ -5033,18 +6906,12 @@
               "this"
             ],
             "punctuation": [
-              "questionMark"
+              "questionMark",
+              "comma"
             ],
             "queryable": [
-              "xfx",
-              "hierarchyAble",
-              "readonly",
-              "property",
-              "object",
-              "concept",
               "doubleQuote",
               "theAble",
-              "unknown",
               "it",
               "what",
               "whatAble",
@@ -5052,15 +6919,17 @@
               "this",
               "reason",
               "distributable",
-              "thisitthat"
+              "thisitthat",
+              "concept"
             ],
             "theAble": [
-              "property",
-              "object",
-              "concept",
-              "unknown",
+              "listable",
               "reason",
               "memorable",
+              "noun",
+              "concept"
+            ],
+            "thisAble": [
               "noun"
             ],
             "thisitthat": [
@@ -5072,34 +6941,19 @@
               "it"
             ],
             "verb": [
-              "modifies",
               "is",
+              "isQuery",
+              "delete",
+              "recall",
               "remember",
-              "evaluate"
+              "modifies",
+              "isOpenCompound"
             ]
           },
           "concepts": [
             "properties",
-            "unknown",
-            "hierarchyAble",
-            "what",
-            "object",
-            "xfx",
-            "queryable",
-            "between",
-            "preposition",
-            "readonly",
-            "have",
-            "canBeDoQuestion",
-            "canBeQuestion",
-            "property",
-            "theAble",
-            "propertyOf",
-            "whose",
-            "concept",
-            "modifies",
-            "verb",
             "doubleQuote",
+            "queryable",
             "it",
             "pronoun",
             "this",
@@ -5108,36 +6962,74 @@
             "a",
             "article",
             "the",
+            "theAble",
+            "what",
             "whatAble",
             "negatable",
             "is",
+            "canBeQuestion",
             "toAble",
+            "listable",
             "to",
+            "preposition",
+            "verb",
+            "isQuery",
             "reason",
-            "memorable",
-            "remember",
-            "stm_before",
-            "adjective",
             "orAble",
             "ifAble",
-            "evaluate",
+            "delete",
+            "memorable",
+            "deletable",
+            "recall",
+            "remember",
+            "stm_previous",
+            "adjective",
+            "stm_current",
+            "stm_before",
             "each",
             "every",
             "distributable",
             "noun",
             "thisitthat",
-            "that"
+            "that",
+            "thisAble",
+            "comma",
+            "modifies",
+            "concept",
+            "open",
+            "compound_modifier",
+            "open_compound",
+            "compound",
+            "noun_modifier",
+            "compound_noun",
+            "isOpenCompound"
           ],
+          "km": "properties2",
           "parents": {
             "a": [
               "article"
             ],
-            "between": [
-              "preposition"
+            "comma": [
+              "punctuation"
+            ],
+            "compound": [
+              "concept",
+              "noun_modifier"
+            ],
+            "compound_modifier": [
+              "adjective"
+            ],
+            "compound_noun": [
+              "adjective",
+              "concept",
+              "noun"
             ],
             "concept": [
               "theAble",
               "queryable"
+            ],
+            "delete": [
+              "verb"
             ],
             "distributable": [
               "queryable"
@@ -5148,21 +7040,17 @@
             "each": [
               "article"
             ],
-            "evaluate": [
-              "verb"
-            ],
             "every": [
               "article"
             ],
-            "have": [
-              "canBeDoQuestion",
-              "canBeQuestion"
-            ],
-            "hierarchyAble": [
-              "queryable"
-            ],
             "is": [
               "canBeQuestion",
+              "verb"
+            ],
+            "isOpenCompound": [
+              "verb"
+            ],
+            "isQuery": [
               "verb"
             ],
             "it": [
@@ -5171,8 +7059,12 @@
               "toAble",
               "thisitthat"
             ],
-            "memorable": [
+            "listable": [
               "theAble"
+            ],
+            "memorable": [
+              "theAble",
+              "deletable"
             ],
             "modifies": [
               "verb"
@@ -5181,36 +7073,47 @@
               "queryable"
             ],
             "noun": [
-              "theAble"
+              "theAble",
+              "thisAble",
+              "concept"
             ],
-            "object": [
-              "queryable",
-              "theAble"
+            "noun_modifier": [
+              "adjective"
+            ],
+            "open": [
+              "compound_modifier"
+            ],
+            "open_compound": [
+              "adjective",
+              "concept",
+              "compound"
             ],
             "orAble": [
               "ifAble"
             ],
-            "property": [
-              "queryable",
-              "theAble"
-            ],
-            "propertyOf": [
-              "preposition"
+            "queryable": [
+              "listable"
             ],
             "questionMark": [
               "punctuation"
-            ],
-            "readonly": [
-              "queryable"
             ],
             "reason": [
               "theAble",
               "queryable"
             ],
+            "recall": [
+              "verb"
+            ],
             "remember": [
               "verb"
             ],
             "stm_before": [
+              "adjective"
+            ],
+            "stm_current": [
+              "adjective"
+            ],
+            "stm_previous": [
               "adjective"
             ],
             "that": [
@@ -5233,22 +7136,10 @@
             "to": [
               "preposition"
             ],
-            "unknown": [
-              "hierarchyAble",
-              "theAble",
-              "queryable"
-            ],
             "what": [
-              "object",
               "queryable"
             ],
             "whatAble": [
-              "queryable"
-            ],
-            "whose": [
-              "object"
-            ],
-            "xfx": [
               "queryable"
             ]
           },
@@ -5264,13 +7155,21 @@
               },
               "article": {
               },
-              "between": {
-              },
-              "canBeDoQuestion": {
-              },
               "canBeQuestion": {
               },
+              "comma": {
+              },
+              "compound": {
+              },
+              "compound_modifier": {
+              },
+              "compound_noun": {
+              },
               "concept": {
+              },
+              "deletable": {
+              },
+              "delete": {
               },
               "distributable": {
               },
@@ -5278,19 +7177,19 @@
               },
               "each": {
               },
-              "evaluate": {
-              },
               "every": {
-              },
-              "have": {
-              },
-              "hierarchyAble": {
               },
               "ifAble": {
               },
               "is": {
               },
+              "isOpenCompound": {
+              },
+              "isQuery": {
+              },
               "it": {
+              },
+              "listable": {
               },
               "memorable": {
               },
@@ -5300,7 +7199,11 @@
               },
               "noun": {
               },
-              "object": {
+              "noun_modifier": {
+              },
+              "open": {
+              },
+              "open_compound": {
               },
               "orAble": {
               },
@@ -5308,23 +7211,23 @@
               },
               "pronoun": {
               },
-              "property": {
-              },
-              "propertyOf": {
-              },
               "punctuation": {
               },
               "queryable": {
               },
               "questionMark": {
               },
-              "readonly": {
-              },
               "reason": {
+              },
+              "recall": {
               },
               "remember": {
               },
               "stm_before": {
+              },
+              "stm_current": {
+              },
+              "stm_previous": {
               },
               "that": {
               },
@@ -5334,23 +7237,19 @@
               },
               "this": {
               },
+              "thisAble": {
+              },
               "thisitthat": {
               },
               "to": {
               },
               "toAble": {
               },
-              "unknown": {
-              },
               "verb": {
               },
               "what": {
               },
               "whatAble": {
-              },
-              "whose": {
-              },
-              "xfx": {
               }
             }
           },
@@ -5362,30 +7261,49 @@
           }
         },
         "punctuation2": {
+          "km": "punctuation2"
         },
         "sdefaults2": {
+          "km": "sdefaults2"
         },
         "stm2": {
+          "km": "stm2",
           "mentioned": [
           ],
           "variables": {
           }
         },
         "tokenize2": {
+          "km": "tokenize2"
+        },
+        "words2": {
+          "km": "words2",
+          "words": [
+          ]
         }
       },
       "processed": [
         {
           "context": {
+            "context_id": 2,
             "context_index": 1,
             "dead": true,
             "default": true,
+            "interpolate": [
+              {
+                "property": "more"
+              },
+              {
+                "property": "moreOperator"
+              }
+            ],
             "level": 1,
             "marker": "countable",
             "modifiers": [
               "more"
             ],
             "more": {
+              "context_id": 293,
               "default": true,
               "level": 0,
               "marker": "more",
@@ -5396,6 +7314,23 @@
               "text": "more",
               "value": "more",
               "word": "more"
+            },
+            "moreOperator": {
+              "context_id": 296,
+              "dead": true,
+              "default": true,
+              "level": 0,
+              "marker": "countable",
+              "range": {
+                "end": 13,
+                "start": 5
+              },
+              "text": "countable",
+              "types": [
+                "countable"
+              ],
+              "value": "countable",
+              "word": "countable"
             },
             "range": {
               "end": 13,
@@ -5409,11 +7344,219 @@
             "value": "countable",
             "word": "countable"
           },
-          "generatedParenthesized": "",
-          "paraphrases": "more countable",
-          "paraphrasesParenthesized": "((more) (countable))",
+          "generatedParenthesized": [
+          ],
+          "paraphrases": [
+          ],
+          "paraphrasesParenthesized": [
+          ],
           "responses": [
             ""
+          ]
+        },
+        {
+          "context": {
+            "context_id": null,
+            "context_index": 1,
+            "dead": true,
+            "level": 2,
+            "marker": "is",
+            "number": "one",
+            "one": {
+              "dead": true,
+              "level": 0,
+              "marker": "unknown",
+              "number": "one",
+              "range": {
+                "end": 7,
+                "start": 0
+              },
+              "text": "property",
+              "types": [
+                "queryable",
+                "unknown"
+              ],
+              "unknown": true,
+              "value": "property",
+              "word": "property"
+            },
+            "range": {
+              "end": 20,
+              "start": 0
+            },
+            "text": "property is a concept",
+            "topLevel": true,
+            "touchedBy": [
+              "properties#call2",
+              "instance0#properties#call2",
+              "instance0#hierarchy#call2",
+              "instance0#countable#call2"
+            ],
+            "two": {
+              "concept": true,
+              "dead": true,
+              "default": true,
+              "determiner": {
+                "default": true,
+                "level": 0,
+                "marker": "a",
+                "range": {
+                  "end": 12,
+                  "start": 12
+                },
+                "text": "a",
+                "word": "a"
+              },
+              "level": 0,
+              "marker": "concept",
+              "modifiers": [
+                "determiner"
+              ],
+              "number": "one",
+              "pullFromContext": false,
+              "range": {
+                "end": 20,
+                "start": 12
+              },
+              "text": "a concept",
+              "types": [
+                "concept"
+              ],
+              "value": "concept",
+              "wantsValue": true,
+              "word": "concept"
+            },
+            "word": "is"
+          },
+          "generatedParenthesized": [
+          ],
+          "paraphrases": [
+          ],
+          "paraphrasesParenthesized": [
+          ],
+          "responses": [
+          ]
+        },
+        {
+          "context": {
+            "concept": {
+              "dead": true,
+              "default": true,
+              "level": 0,
+              "marker": "noun",
+              "range": {
+                "end": 21,
+                "start": 18
+              },
+              "text": "noun",
+              "value": "noun",
+              "word": "noun"
+            },
+            "conceptModifiers": [
+              {
+                "dead": true,
+                "level": 1,
+                "marker": "compound",
+                "number": "one",
+                "range": {
+                  "end": 7,
+                  "start": 0
+                },
+                "text": "compound",
+                "value": "compound",
+                "word": "compound"
+              }
+            ],
+            "context_id": null,
+            "context_index": 1,
+            "dead": true,
+            "flatten": false,
+            "level": 1,
+            "marker": "modifies",
+            "number": "one",
+            "range": {
+              "end": 21,
+              "start": 0
+            },
+            "text": "compound modifies noun",
+            "topLevel": true,
+            "touchedBy": [
+              "concept#call2",
+              "instance2#concept#call2",
+              "instance2#properties#call2",
+              "instance2#hierarchy#call2",
+              "instance2#countable#call2"
+            ],
+            "word": "modifies"
+          },
+          "generatedParenthesized": [
+          ],
+          "paraphrases": [
+          ],
+          "paraphrasesParenthesized": [
+          ],
+          "responses": [
+          ]
+        },
+        {
+          "context": {
+            "concept": {
+              "dead": true,
+              "level": 0,
+              "marker": "unknown",
+              "range": {
+                "end": 21,
+                "start": 14
+              },
+              "text": "compound",
+              "unknown": true,
+              "value": "compound",
+              "word": "compound"
+            },
+            "conceptModifiers": [
+              {
+                "dead": true,
+                "level": 0,
+                "marker": "unknown",
+                "range": {
+                  "end": 3,
+                  "start": 0
+                },
+                "text": "open",
+                "unknown": true,
+                "value": "open",
+                "word": "open"
+              }
+            ],
+            "context_id": null,
+            "context_index": 1,
+            "dead": true,
+            "flatten": false,
+            "level": 1,
+            "marker": "modifies",
+            "number": "one",
+            "range": {
+              "end": 21,
+              "start": 0
+            },
+            "text": "open modifies compound",
+            "topLevel": true,
+            "touchedBy": [
+              "concept#call2",
+              "instance1#concept#call2",
+              "instance1#properties#call2",
+              "instance1#hierarchy#call2",
+              "instance1#countable#call2"
+            ],
+            "word": "modifies"
+          },
+          "generatedParenthesized": [
+          ],
+          "paraphrases": [
+          ],
+          "paraphrasesParenthesized": [
+          ],
+          "responses": [
           ]
         }
       ]
@@ -5478,25 +7621,25 @@
   },
   {
     "associations": [
-      [
-        [
-          "countable",
-          0
-        ],
-        [
-          "less",
-          0
-        ]
-      ]
     ],
     "config": {
     },
     "contexts": [
       {
+        "context_id": 2,
         "context_index": 1,
         "dead": true,
         "default": true,
+        "interpolate": [
+          {
+            "property": "less"
+          },
+          {
+            "property": "lessOperator"
+          }
+        ],
         "less": {
+          "context_id": 293,
           "default": true,
           "level": 0,
           "marker": "less",
@@ -5507,6 +7650,23 @@
           "text": "less",
           "value": "less",
           "word": "less"
+        },
+        "lessOperator": {
+          "context_id": 296,
+          "dead": true,
+          "default": true,
+          "level": 0,
+          "marker": "countable",
+          "range": {
+            "end": 13,
+            "start": 5
+          },
+          "text": "countable",
+          "types": [
+            "countable"
+          ],
+          "value": "countable",
+          "word": "countable"
         },
         "level": 1,
         "marker": "countable",
@@ -5539,10 +7699,6 @@
           ],
           "ops": [
             [
-              "countable",
-              0
-            ],
-            [
               "less",
               0
             ]
@@ -5551,16 +7707,21 @@
       ]
     },
     "objects": {
+      "associations": [
+      ],
       "nameToUUID": {
         "articles": "articles2",
         "asking": "asking2",
         "concept": "concept2",
         "conjunction": "conjunction2",
+        "control": "control2",
         "countable": "countable1",
+        "debug": "debug2",
         "dialogues": "dialogues2",
         "evaluate": "evaluate2",
         "gdefaults": "gdefaults2",
         "hierarchy": "hierarchy2",
+        "logging": "logging2",
         "meta": "meta2",
         "negation": "negation2",
         "numbers": "numbers2",
@@ -5569,48 +7730,79 @@
         "punctuation": "punctuation2",
         "sdefaults": "sdefaults2",
         "stm": "stm2",
-        "tokenize": "tokenize2"
+        "tokenize": "tokenize2",
+        "words": "words2"
       },
       "namespaced": {
         "articles2": {
+          "km": "articles2"
         },
         "asking2": {
+          "km": "asking2"
         },
         "concept2": {
           "defaultTypesForHierarchy": {
           },
+          "km": "concept2",
           "valueToWords": [
           ]
         },
         "conjunction2": {
+          "km": "conjunction2"
+        },
+        "control2": {
+          "km": "control2"
         },
         "countable1": {
+          "km": "countable1"
+        },
+        "debug2": {
+          "km": "debug2"
         },
         "dialogues2": {
           "idSuffix": "",
+          "km": "dialogues2",
           "mentioned": [
           ],
           "variables": {
           }
         },
         "evaluate2": {
+          "km": "evaluate2"
         },
         "gdefaults2": {
+          "km": "gdefaults2"
         },
         "hierarchy2": {
+          "km": "hierarchy2"
+        },
+        "logging2": {
+          "km": "logging2",
+          "messages": [
+          ]
         },
         "meta2": {
+          "km": "meta2"
         },
         "negation2": {
+          "km": "negation2"
         },
         "numbers2": {
+          "km": "numbers2"
         },
         "pos2": {
+          "km": "pos2"
         },
         "properties2": {
           "children": {
             "adjective": [
-              "stm_before"
+              "stm_previous",
+              "stm_current",
+              "stm_before",
+              "compound_modifier",
+              "open_compound",
+              "noun_modifier",
+              "compound_noun"
             ],
             "article": [
               "a",
@@ -5618,26 +7810,37 @@
               "each",
               "every"
             ],
-            "canBeDoQuestion": [
-              "have"
-            ],
             "canBeQuestion": [
-              "have",
               "is"
             ],
-            "hierarchyAble": [
-              "unknown"
+            "compound": [
+              "open_compound"
+            ],
+            "compound_modifier": [
+              "open"
+            ],
+            "concept": [
+              "compound",
+              "open_compound",
+              "noun",
+              "compound_noun"
+            ],
+            "deletable": [
+              "memorable"
             ],
             "ifAble": [
               "orAble"
             ],
-            "object": [
-              "what",
-              "whose"
+            "listable": [
+              "queryable"
+            ],
+            "noun": [
+              "compound_noun"
+            ],
+            "noun_modifier": [
+              "compound"
             ],
             "preposition": [
-              "between",
-              "propertyOf",
               "to"
             ],
             "pronoun": [
@@ -5645,18 +7848,12 @@
               "this"
             ],
             "punctuation": [
-              "questionMark"
+              "questionMark",
+              "comma"
             ],
             "queryable": [
-              "xfx",
-              "hierarchyAble",
-              "readonly",
-              "property",
-              "object",
-              "concept",
               "doubleQuote",
               "theAble",
-              "unknown",
               "it",
               "what",
               "whatAble",
@@ -5664,15 +7861,17 @@
               "this",
               "reason",
               "distributable",
-              "thisitthat"
+              "thisitthat",
+              "concept"
             ],
             "theAble": [
-              "property",
-              "object",
-              "concept",
-              "unknown",
+              "listable",
               "reason",
               "memorable",
+              "noun",
+              "concept"
+            ],
+            "thisAble": [
               "noun"
             ],
             "thisitthat": [
@@ -5684,34 +7883,19 @@
               "it"
             ],
             "verb": [
-              "modifies",
               "is",
+              "isQuery",
+              "delete",
+              "recall",
               "remember",
-              "evaluate"
+              "modifies",
+              "isOpenCompound"
             ]
           },
           "concepts": [
             "properties",
-            "unknown",
-            "hierarchyAble",
-            "what",
-            "object",
-            "xfx",
-            "queryable",
-            "between",
-            "preposition",
-            "readonly",
-            "have",
-            "canBeDoQuestion",
-            "canBeQuestion",
-            "property",
-            "theAble",
-            "propertyOf",
-            "whose",
-            "concept",
-            "modifies",
-            "verb",
             "doubleQuote",
+            "queryable",
             "it",
             "pronoun",
             "this",
@@ -5720,36 +7904,74 @@
             "a",
             "article",
             "the",
+            "theAble",
+            "what",
             "whatAble",
             "negatable",
             "is",
+            "canBeQuestion",
             "toAble",
+            "listable",
             "to",
+            "preposition",
+            "verb",
+            "isQuery",
             "reason",
-            "memorable",
-            "remember",
-            "stm_before",
-            "adjective",
             "orAble",
             "ifAble",
-            "evaluate",
+            "delete",
+            "memorable",
+            "deletable",
+            "recall",
+            "remember",
+            "stm_previous",
+            "adjective",
+            "stm_current",
+            "stm_before",
             "each",
             "every",
             "distributable",
             "noun",
             "thisitthat",
-            "that"
+            "that",
+            "thisAble",
+            "comma",
+            "modifies",
+            "concept",
+            "open",
+            "compound_modifier",
+            "open_compound",
+            "compound",
+            "noun_modifier",
+            "compound_noun",
+            "isOpenCompound"
           ],
+          "km": "properties2",
           "parents": {
             "a": [
               "article"
             ],
-            "between": [
-              "preposition"
+            "comma": [
+              "punctuation"
+            ],
+            "compound": [
+              "concept",
+              "noun_modifier"
+            ],
+            "compound_modifier": [
+              "adjective"
+            ],
+            "compound_noun": [
+              "adjective",
+              "concept",
+              "noun"
             ],
             "concept": [
               "theAble",
               "queryable"
+            ],
+            "delete": [
+              "verb"
             ],
             "distributable": [
               "queryable"
@@ -5760,21 +7982,17 @@
             "each": [
               "article"
             ],
-            "evaluate": [
-              "verb"
-            ],
             "every": [
               "article"
             ],
-            "have": [
-              "canBeDoQuestion",
-              "canBeQuestion"
-            ],
-            "hierarchyAble": [
-              "queryable"
-            ],
             "is": [
               "canBeQuestion",
+              "verb"
+            ],
+            "isOpenCompound": [
+              "verb"
+            ],
+            "isQuery": [
               "verb"
             ],
             "it": [
@@ -5783,8 +8001,12 @@
               "toAble",
               "thisitthat"
             ],
-            "memorable": [
+            "listable": [
               "theAble"
+            ],
+            "memorable": [
+              "theAble",
+              "deletable"
             ],
             "modifies": [
               "verb"
@@ -5793,36 +8015,47 @@
               "queryable"
             ],
             "noun": [
-              "theAble"
+              "theAble",
+              "thisAble",
+              "concept"
             ],
-            "object": [
-              "queryable",
-              "theAble"
+            "noun_modifier": [
+              "adjective"
+            ],
+            "open": [
+              "compound_modifier"
+            ],
+            "open_compound": [
+              "adjective",
+              "concept",
+              "compound"
             ],
             "orAble": [
               "ifAble"
             ],
-            "property": [
-              "queryable",
-              "theAble"
-            ],
-            "propertyOf": [
-              "preposition"
+            "queryable": [
+              "listable"
             ],
             "questionMark": [
               "punctuation"
-            ],
-            "readonly": [
-              "queryable"
             ],
             "reason": [
               "theAble",
               "queryable"
             ],
+            "recall": [
+              "verb"
+            ],
             "remember": [
               "verb"
             ],
             "stm_before": [
+              "adjective"
+            ],
+            "stm_current": [
+              "adjective"
+            ],
+            "stm_previous": [
               "adjective"
             ],
             "that": [
@@ -5845,22 +8078,10 @@
             "to": [
               "preposition"
             ],
-            "unknown": [
-              "hierarchyAble",
-              "theAble",
-              "queryable"
-            ],
             "what": [
-              "object",
               "queryable"
             ],
             "whatAble": [
-              "queryable"
-            ],
-            "whose": [
-              "object"
-            ],
-            "xfx": [
               "queryable"
             ]
           },
@@ -5876,13 +8097,21 @@
               },
               "article": {
               },
-              "between": {
-              },
-              "canBeDoQuestion": {
-              },
               "canBeQuestion": {
               },
+              "comma": {
+              },
+              "compound": {
+              },
+              "compound_modifier": {
+              },
+              "compound_noun": {
+              },
               "concept": {
+              },
+              "deletable": {
+              },
+              "delete": {
               },
               "distributable": {
               },
@@ -5890,19 +8119,19 @@
               },
               "each": {
               },
-              "evaluate": {
-              },
               "every": {
-              },
-              "have": {
-              },
-              "hierarchyAble": {
               },
               "ifAble": {
               },
               "is": {
               },
+              "isOpenCompound": {
+              },
+              "isQuery": {
+              },
               "it": {
+              },
+              "listable": {
               },
               "memorable": {
               },
@@ -5912,7 +8141,11 @@
               },
               "noun": {
               },
-              "object": {
+              "noun_modifier": {
+              },
+              "open": {
+              },
+              "open_compound": {
               },
               "orAble": {
               },
@@ -5920,23 +8153,23 @@
               },
               "pronoun": {
               },
-              "property": {
-              },
-              "propertyOf": {
-              },
               "punctuation": {
               },
               "queryable": {
               },
               "questionMark": {
               },
-              "readonly": {
-              },
               "reason": {
+              },
+              "recall": {
               },
               "remember": {
               },
               "stm_before": {
+              },
+              "stm_current": {
+              },
+              "stm_previous": {
               },
               "that": {
               },
@@ -5946,23 +8179,19 @@
               },
               "this": {
               },
+              "thisAble": {
+              },
               "thisitthat": {
               },
               "to": {
               },
               "toAble": {
               },
-              "unknown": {
-              },
               "verb": {
               },
               "what": {
               },
               "whatAble": {
-              },
-              "whose": {
-              },
-              "xfx": {
               }
             }
           },
@@ -5974,25 +8203,44 @@
           }
         },
         "punctuation2": {
+          "km": "punctuation2"
         },
         "sdefaults2": {
+          "km": "sdefaults2"
         },
         "stm2": {
+          "km": "stm2",
           "mentioned": [
           ],
           "variables": {
           }
         },
         "tokenize2": {
+          "km": "tokenize2"
+        },
+        "words2": {
+          "km": "words2",
+          "words": [
+          ]
         }
       },
       "processed": [
         {
           "context": {
+            "context_id": 2,
             "context_index": 1,
             "dead": true,
             "default": true,
+            "interpolate": [
+              {
+                "property": "less"
+              },
+              {
+                "property": "lessOperator"
+              }
+            ],
             "less": {
+              "context_id": 293,
               "default": true,
               "level": 0,
               "marker": "less",
@@ -6003,6 +8251,23 @@
               "text": "less",
               "value": "less",
               "word": "less"
+            },
+            "lessOperator": {
+              "context_id": 296,
+              "dead": true,
+              "default": true,
+              "level": 0,
+              "marker": "countable",
+              "range": {
+                "end": 13,
+                "start": 5
+              },
+              "text": "countable",
+              "types": [
+                "countable"
+              ],
+              "value": "countable",
+              "word": "countable"
             },
             "level": 1,
             "marker": "countable",
@@ -6021,11 +8286,219 @@
             "value": "countable",
             "word": "countable"
           },
-          "generatedParenthesized": "",
-          "paraphrases": "less countable",
-          "paraphrasesParenthesized": "((less) (countable))",
+          "generatedParenthesized": [
+          ],
+          "paraphrases": [
+          ],
+          "paraphrasesParenthesized": [
+          ],
           "responses": [
             ""
+          ]
+        },
+        {
+          "context": {
+            "context_id": null,
+            "context_index": 1,
+            "dead": true,
+            "level": 2,
+            "marker": "is",
+            "number": "one",
+            "one": {
+              "dead": true,
+              "level": 0,
+              "marker": "unknown",
+              "number": "one",
+              "range": {
+                "end": 7,
+                "start": 0
+              },
+              "text": "property",
+              "types": [
+                "queryable",
+                "unknown"
+              ],
+              "unknown": true,
+              "value": "property",
+              "word": "property"
+            },
+            "range": {
+              "end": 20,
+              "start": 0
+            },
+            "text": "property is a concept",
+            "topLevel": true,
+            "touchedBy": [
+              "properties#call2",
+              "instance0#properties#call2",
+              "instance0#hierarchy#call2",
+              "instance0#countable#call2"
+            ],
+            "two": {
+              "concept": true,
+              "dead": true,
+              "default": true,
+              "determiner": {
+                "default": true,
+                "level": 0,
+                "marker": "a",
+                "range": {
+                  "end": 12,
+                  "start": 12
+                },
+                "text": "a",
+                "word": "a"
+              },
+              "level": 0,
+              "marker": "concept",
+              "modifiers": [
+                "determiner"
+              ],
+              "number": "one",
+              "pullFromContext": false,
+              "range": {
+                "end": 20,
+                "start": 12
+              },
+              "text": "a concept",
+              "types": [
+                "concept"
+              ],
+              "value": "concept",
+              "wantsValue": true,
+              "word": "concept"
+            },
+            "word": "is"
+          },
+          "generatedParenthesized": [
+          ],
+          "paraphrases": [
+          ],
+          "paraphrasesParenthesized": [
+          ],
+          "responses": [
+          ]
+        },
+        {
+          "context": {
+            "concept": {
+              "dead": true,
+              "default": true,
+              "level": 0,
+              "marker": "noun",
+              "range": {
+                "end": 21,
+                "start": 18
+              },
+              "text": "noun",
+              "value": "noun",
+              "word": "noun"
+            },
+            "conceptModifiers": [
+              {
+                "dead": true,
+                "level": 1,
+                "marker": "compound",
+                "number": "one",
+                "range": {
+                  "end": 7,
+                  "start": 0
+                },
+                "text": "compound",
+                "value": "compound",
+                "word": "compound"
+              }
+            ],
+            "context_id": null,
+            "context_index": 1,
+            "dead": true,
+            "flatten": false,
+            "level": 1,
+            "marker": "modifies",
+            "number": "one",
+            "range": {
+              "end": 21,
+              "start": 0
+            },
+            "text": "compound modifies noun",
+            "topLevel": true,
+            "touchedBy": [
+              "concept#call2",
+              "instance2#concept#call2",
+              "instance2#properties#call2",
+              "instance2#hierarchy#call2",
+              "instance2#countable#call2"
+            ],
+            "word": "modifies"
+          },
+          "generatedParenthesized": [
+          ],
+          "paraphrases": [
+          ],
+          "paraphrasesParenthesized": [
+          ],
+          "responses": [
+          ]
+        },
+        {
+          "context": {
+            "concept": {
+              "dead": true,
+              "level": 0,
+              "marker": "unknown",
+              "range": {
+                "end": 21,
+                "start": 14
+              },
+              "text": "compound",
+              "unknown": true,
+              "value": "compound",
+              "word": "compound"
+            },
+            "conceptModifiers": [
+              {
+                "dead": true,
+                "level": 0,
+                "marker": "unknown",
+                "range": {
+                  "end": 3,
+                  "start": 0
+                },
+                "text": "open",
+                "unknown": true,
+                "value": "open",
+                "word": "open"
+              }
+            ],
+            "context_id": null,
+            "context_index": 1,
+            "dead": true,
+            "flatten": false,
+            "level": 1,
+            "marker": "modifies",
+            "number": "one",
+            "range": {
+              "end": 21,
+              "start": 0
+            },
+            "text": "open modifies compound",
+            "topLevel": true,
+            "touchedBy": [
+              "concept#call2",
+              "instance1#concept#call2",
+              "instance1#properties#call2",
+              "instance1#hierarchy#call2",
+              "instance1#countable#call2"
+            ],
+            "word": "modifies"
+          },
+          "generatedParenthesized": [
+          ],
+          "paraphrases": [
+          ],
+          "paraphrasesParenthesized": [
+          ],
+          "responses": [
           ]
         }
       ]

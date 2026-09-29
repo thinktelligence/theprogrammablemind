@@ -18,10 +18,14 @@ const instance = require('./weight.instance.json')
 const template = {
   configs: [
     "troy modifies ounces",
+    {
+      priorities: [
+        { context: [["troy_ounce",0],["mathematical_operator",0]], generalize: true, choose: [0] },
+      ],
+    },
     "weight is a dimension",
     // "kilograms grams pounds ounces and tons are units of weight",
     "kilograms grams pounds (troy ounces) ounces and tons are units of weight",
-    // { stop: true },
     "ounces = 1.097 * troy ounces",
     "troy ounces = ounces / 1.097",
     "kilograms = pounds * 0.453592",

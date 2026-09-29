@@ -147,7 +147,7 @@ const config = {
     },
     { id: "whatAble" },
 
-    // context.instance == variables.instance (unification)
+    // context.isInstance == variables.isInstance (unification)
     {   
         where: where(),
         id: "to", 
@@ -429,8 +429,8 @@ const config = {
         if (concept) {
           concept.paraphrase = true
           concept.isSelf = true
-          const instance = await g(response.instance)
-          return `${await g(concept)} ${context.word} ${instance}` 
+          const isInstance = await g(response.isInstance)
+          return `${await g(concept)} ${context.word} ${isInstance}` 
         } else {
           if (Array.isArray(response)) {
             return `${await gs(response)}` 
@@ -487,7 +487,7 @@ const config = {
         } else {
           // TODO fix this using the assumed and that whole mess. change isResponse to useValue
           if (context.isResponse) {
-            return `${await gp(context.one, { assumed: { responding: true } })} ${isMany(context.one) || isMany(context.two) || isMany(context) ? "are" : "is"} ${await g(context.two)}`
+            return `${await gp(context.one, { assumed: { responding: true } })} ${isMany(context.one) ? "are" : "is"} ${await g(context.two)}`
           } else {
             return `${await gp(context.one)} ${isMany(context.one) || isMany(context.two) || isMany(context) ? "are" : "is"} ${await gr(context.two)}`
           }

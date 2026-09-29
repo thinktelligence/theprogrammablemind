@@ -280,6 +280,7 @@ const config = {
     { 
       id: "unit", 
       isA: ['mathematicalExpression'],
+      before: ['mathematical_operator'],
     },
   ],
 };
