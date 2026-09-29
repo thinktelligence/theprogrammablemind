@@ -42,7 +42,6 @@ class API {
   }
 
   remember(args) {
-    debugger
     let concept, value, frameOfReference
     if (!args.context) {
       concept = args

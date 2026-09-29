@@ -49,14 +49,7 @@ class API {
     // TODO call evaluator to pick up overrides
     const objectSingular = pluralize.singular(objectWord)
     const objectPlural = pluralize.plural(objectWord)
-    // config.addOperator({ pattern: `(${modifierIds.map((modifierId) => `(${modifierId}/*)`).join(' ')} [${modifiersObjectId}] (${objectId}/0))`, allowDups: true })
-    if (false) {
-      config.addOperator({ pattern: `(${modifierIds.map((modifierId) => `(${modifierId}/*)`).join(' ')} [${modifiersObjectId}] (${objectId}/*))`, allowDups: true })
-    } else {
-      config.addOperator({ pattern: `(${modifierIds.map((modifierId) => `(@==${modifierId})`).join(' ')} [${modifiersObjectId}] (@==${objectId}))`, allowDups: true })
-    }
-    // config.addOperator({ pattern: `(<${modifierId}|> ([${objectId}|]))`, allowDups: true })
-    // config.addOperator({ pattern: `([${modifierObjectId}|])`, allowDups: true })
+    config.addOperator({ pattern: `(${modifierIds.map((modifierId) => `(@==${modifierId})`).join(' ')} [${modifiersObjectId}] (@==${objectId}))`, allowDups: true })
 
     const objectModifierConcept = `${objectId}_modifier`
     if (!config.exists(objectModifierConcept)) {

@@ -99,6 +99,7 @@ function addPropertyMarker(args) {
       bridge: `{ 
         ...next(operator),
         quantity: before[0],
+        notConjunctableWith: ['quantity'],
         checks: append(before.checks, ['repeats']), 
         propertyType: '${property}', 
         isPropertyValue: true, 
