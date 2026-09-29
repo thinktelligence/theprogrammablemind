@@ -95,8 +95,16 @@ function addPropertyMarker(args) {
       isA: ['adjective', 'propertyMarker', 'queryable'],
       enhanced_associations: true,
       initial: { markedProperty: property },
-      check: defaultContextCheckProperties(['markedProperty']),
-      bridge: `{ ...before[0], checks: append(before.checks, ['repeats']), propertyType: '${property}', : true, isPropertyValue: true, ${property}: operator, interpolate: append(before[0].interpolate, [{ property: '${property}' }]) }`,
+      check: defaultContextCheckProperties(['markedProperty', 'quantity']),
+      bridge: `{ 
+        ...next(operator),
+        quantity: before[0],
+        checks: append(before.checks, ['repeats']), 
+        propertyType: '${property}', 
+        isPropertyValue: true, 
+        ${property}: operator, 
+        interpolate: append(map(before[0].interpolate, { inside: 'quantity', value: element }), [{ property: '${property}' }]) 
+      }`,
     })
   }
 }
