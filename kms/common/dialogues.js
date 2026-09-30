@@ -596,8 +596,6 @@ const config = {
               terms: [query, instance],
             })
             instance = unification.evalue
-            debugger
-            debugger
           }
         }
 

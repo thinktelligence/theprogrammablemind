@@ -816,6 +816,10 @@
       ],
       "generators": [
         {
+          "match": "({context}) => context.marker == 'propertyRelation'",
+          "apply": "({context}) => {\n        debugger\n        debugger\n      }"
+        },
+        {
           "match": "({context}) => (context.orderingArgs && Object.keys(context.orderingArgs).length !== 0) && context.evalue && context.isResponse",
           "apply": "async ({context, s, g, km, flatten}) => {\n        const brief = km(\"dialogues\").api.getBrief()\n\n        let { evalue } = context\n        let yesno = ''\n        let hasVariables = false\n        if (context.focusable) {\n          for (const f of context.focusable) {\n            if (context[f].query) {\n              hasVariables = true\n              break\n            }\n          }\n        }\n\n        if (evalue.truthValueOnly || context.truthValueOnly || context.wantsTruthValue || !hasVariables) {\n          function any(value, test) {\n            if (test(value)) {\n              return true\n            }\n            const values = flatten(['list'], value)\n            for (const value of values) {\n              if (test(value)) {\n                return true\n              }\n            }\n          }\n          if (any(evalue, (value) => value.truthValue)) {\n            yesno = 'yes'\n          } else if (evalue.truthValue === false || context.truthValueOnly) {\n            yesno = 'no'\n          }\n        }\n        if (evalue.truthValueOnly) {\n          return `${yesno}`\n        } else {\n          if (context.voice) {\n            evalue = await s({ ...evalue, toVoice: context.voice, flatten: false})\n          }\n\n          const details = await g(Object.assign({}, evalue, { paraphrase: true }))\n          if (yesno) {\n            return `${yesno} ${details}`\n          }\n          else {\n            return details\n          }\n        }\n      }"
         },
@@ -887,7 +891,7 @@
       "semantics": [
         {
           "match": "({context, isA}) => \n        context.evaluate && \n        context.marker == 'unify' && \n        context.terms?.some((term) => {\n          return term.objects && isA(term.objects[0], 'property') && term.query\n        })",
-          "apply": "async (args) => {\n        const {context, km, callId, api} = args\n        let value, property, object\n        if (context.terms[0].query) {\n          property = context.terms[0].objects[0]\n          object = context.terms[0].objects[1]\n          value = context.terms[1]\n        } else {\n          property = context.terms[1].objects[0]\n          object = context.terms[1].objects[1]\n          value = context.terms[0]\n        }\n        const pattern = {\n          marker: 'property',\n          object,\n          property,\n          value,\n        }\n        const relations = await api.relation_unify(pattern, ['object', 'property', 'value'])\n        debugger\n      }"
+          "apply": "async (args) => {\n        const {context, km, callId, api, resolveEvaluate} = args\n        let value, property, object\n        if (context.terms[0].query) {\n          property = context.terms[0].objects[0]\n          object = context.terms[0].objects[1]\n          value = context.terms[1]\n        } else {\n          property = context.terms[1].objects[0]\n          object = context.terms[1].objects[1]\n          value = context.terms[0]\n        }\n        const pattern = {\n          marker: 'propertyRelation',\n          object,\n          property,\n          value,\n        }\n        const relations = await api.relation_unify(pattern, ['object', 'property', 'value'])\n        debugger\n        resolveEvaluate(context, relations)\n      }"
         },
         {
           "match": "({context}) => context.relationBacked && context.query",
@@ -2428,6 +2432,7 @@
         }
       ],
       "generators": [
+        {},
         {
           "notes": "ordering generator for response"
         },
@@ -2438,49 +2443,49 @@
         },
         {
           "notes": "expression with constraints",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:441"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:440"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:459"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:458"
         },
         {
           "notes": "add possession ending",
           "priority": -1,
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:466"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:465"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:480"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:479"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:485"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:484"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:490"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:489"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:495"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:494"
         },
         {
           "notes": "negative do questions",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:501"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:500"
         },
         {
           "notes": "do questions",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:510"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:509"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:524"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:523"
         },
         {
           "notes": "the property of object",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:532"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:531"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:556"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:555"
         },
         {
           "notes": "object's property",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:565"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:564"
         }
       ],
       "semantics": [

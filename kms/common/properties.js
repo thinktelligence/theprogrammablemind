@@ -157,12 +157,14 @@ const config = {
       preferOver: ['is'],
       enhanced_associations: true,
       bridge: "{ ...operator, object: before[0], flatten: true, operator: operator, propertyValue: after[0], interpolate: [{ property: 'object' }, { property: 'operator' }, { property: 'propertyValue' }] }",
-      semantic: async ({context, s, fragments}) => {
+      semantic: async ({context, s, fragments, getWordFromDictionary}) => {
         const propertyType = {
           marker: context.propertyValue.propertyType,
           level: 0,
           value: context.propertyValue.propertyType,
         }
+        debugger
+        const word = getWordFromDictionary({ value: 'age' })
 
         const instance = await fragments("the property of object is value", { property: propertyType, object: context.object, value: context.propertyValue })
         await s(instance)
@@ -328,10 +330,15 @@ const config = {
   ],
   generators: [
     {
+      // match: ({context}) => context.marker == 'propertyRelation' && !context.paraphrase,
       match: ({context}) => context.marker == 'propertyRelation',
-      apply: ({context}) => {
+      apply: async ({context, gp, fragments}) => {
         debugger
-        debugger
+        const instance = await fragments("the property of object", {
+          property: context.property,
+          object: context.object
+        })
+        return await gp(instance)
       }
     },
     {
@@ -593,6 +600,7 @@ const config = {
   semantics: [
     {
       notes: 'unify for properties',
+      where: where(),
       match: ({context, isA}) => 
         context.evaluate && 
         context.marker == 'unify' && 
@@ -618,7 +626,7 @@ const config = {
           value,
         }
         const relations = await api.relation_unify(pattern, ['object', 'property', 'value'])
-        debugger
+        // debugger
         resolveEvaluate(context, relations)
       }
     },
@@ -936,7 +944,6 @@ const config = {
           context.sameWasProcessed = true
         } catch (e) {
           log(`Error processing set property of an object: ${e}`)
-          debugger
           const config = km('properties')
           const value = await api.getProperty(objectId, propertyId)
           if (value?.value == context.two?.value) {

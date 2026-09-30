@@ -627,6 +627,7 @@ class API {
   setProperty(object, property, value, has, skipHandler) {
     const objectId = object.value
     const propertyId = property.value
+    debugger
     if (!skipHandler) {
       const handler = this.propertiesFH.getHandler([objectId, propertyId])
       if (handler) {
