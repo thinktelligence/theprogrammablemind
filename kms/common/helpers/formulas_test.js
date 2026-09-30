@@ -189,7 +189,7 @@ describe('helpers', () => {
       expect(await solveFor(constructors, x_equals_y, x_equals_y.left)).toStrictEqual(x_equals_y)
     })
 
-    xit('NEO23 x = y solve for y', async () => {
+    xit('x = y solve for y', async () => {
       expect(await solveFor(constructors, x_equals_y, x_equals_y.right)).toStrictEqual({ ...x_equals_y, left: x_equals_y.right, right: x_equals_y.left })
     })
   })

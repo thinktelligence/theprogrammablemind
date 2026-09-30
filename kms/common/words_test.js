@@ -35,7 +35,7 @@ describe('words km', () => {
       }
       addWordToDictionary(word)
       const match = getWordFromDictionary({ id: 'be' })
-      expect(match).toBe(word)
+      expect(match).toStrictEqual(word)
     })
   })
 
@@ -51,11 +51,11 @@ describe('words km', () => {
       addWordToDictionary(word)
       addWordToDictionary({ ...word, value: 'otherOne' })
       const match = getWordFromDictionary({ id: 'be' })
-      expect(match).toBe(word)
+      expect(match).toStrictEqual(word)
     })
   })
 
-  test('NEO23 ignore context_id', async () => {
+  test('ignore context_id', async () => {
     await km.run(({addWordToDictionary, getWordFromDictionary, config}) => {
       const word = {
         id: 'be',
@@ -67,7 +67,7 @@ describe('words km', () => {
       addWordToDictionary(word)
       addWordToDictionary({ ...word, value: 'otherOne' })
       const match = getWordFromDictionary({ id: 'be', context_id: 23 })
-      expect(match).toBe(word)
+      expect(match).toStrictEqual(word)
     })
   })
 });

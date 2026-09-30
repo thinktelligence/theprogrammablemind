@@ -25,7 +25,10 @@ function initializer({objects, config, isModule}) {
     },
     addWordToDictionary: (context) => {
       if (context.word) {
-        return objects.words.push(context)
+        const word = { ...context }
+        delete word.range
+        objects.words = objects.words.filter((c) => JSON.stringify(c) !== JSON.stringify(word))
+        objects.words.push(word)
       }
     }
   }))
