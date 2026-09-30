@@ -161,11 +161,9 @@ const config = {
         const propertyType = {
           marker: context.propertyValue.propertyType,
           level: 0,
+          word: context.propertyValue.propertyType,
           value: context.propertyValue.propertyType,
         }
-        debugger
-        const word = getWordFromDictionary({ value: 'age' })
-
         const instance = await fragments("the property of object is value", { property: propertyType, object: context.object, value: context.propertyValue })
         await s(instance)
       }
@@ -331,13 +329,14 @@ const config = {
   generators: [
     {
       // match: ({context}) => context.marker == 'propertyRelation' && !context.paraphrase,
+      where: where(),
       match: ({context}) => context.marker == 'propertyRelation',
       apply: async ({context, gp, fragments}) => {
-        debugger
         const instance = await fragments("the property of object", {
-          property: context.property,
+          property: { ...context.property, interpolate: undefined },
           object: context.object
         })
+        debugger // here
         return await gp(instance)
       }
     },
@@ -626,7 +625,7 @@ const config = {
           value,
         }
         const relations = await api.relation_unify(pattern, ['object', 'property', 'value'])
-        // debugger
+        debugger
         resolveEvaluate(context, relations)
       }
     },
@@ -930,7 +929,9 @@ const config = {
       apply: async (args) => {
         const {context, fragments, objects, km, api, log, s, uuid} = args
         const objectContext = context.one.objects[context.one.objects.length-1];
-        const propertyContext = context.one;
+        const propertyContext = context.one.objects[0];
+        debugger
+        // const propertyContext = context.one;
         if (objectContext.unknown) {
           objectContext.value = pluralize.singular(objectContext.value)
         }

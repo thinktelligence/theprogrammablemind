@@ -590,7 +590,6 @@ const config = {
 
         if (true) {
           if (query.query || value.query) {
-            debug.counter("greg23") 
             const unification = await e({
               marker: 'unify',
               terms: [query, instance],
