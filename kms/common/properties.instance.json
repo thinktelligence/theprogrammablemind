@@ -117,7 +117,7 @@
           ],
           "enhanced_associations": true,
           "bridge": "{ ...operator, object: before[0], flatten: true, operator: operator, propertyValue: after[0], interpolate: [{ property: 'object' }, { property: 'operator' }, { property: 'propertyValue' }] }",
-          "semantic": "async ({context, s, fragments}) => {\n        const propertyType = {\n          marker: context.propertyValue.propertyType,\n          level: 0,\n          value: context.propertyValue.propertyType,\n        }\n\n        const instance = await fragments(\"the property of object is value\", { property: propertyType, object: context.object, value: context.propertyValue })\n        await s(instance)\n      }"
+          "semantic": "async ({context, s, fragments, getWordFromDictionary}) => {\n        const propertyType = {\n          marker: context.propertyValue.propertyType,\n          level: 0,\n          word: context.propertyValue.propertyType,\n          value: context.propertyValue.propertyType,\n        }\n        const instance = await fragments(\"the property of object is value\", { property: propertyType, object: context.object, value: context.propertyValue })\n        await s(instance)\n      }"
         },
         {
           "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:173",
@@ -816,8 +816,8 @@
       ],
       "generators": [
         {
-          "match": "({context}) => context.marker == 'propertyRelation'",
-          "apply": "({context}) => {\n        debugger\n        debugger\n      }"
+          "match": "({context}) => context.marker == 'propertyRelation' && context.isResponse",
+          "apply": "async ({context, gp, fragments}) => {\n        const instance = await fragments(\"the property of object\", {\n          property: { ...context.property, interpolate: undefined },\n          object: context.object\n        })\n        return await gp(instance)\n      }"
         },
         {
           "match": "({context}) => (context.orderingArgs && Object.keys(context.orderingArgs).length !== 0) && context.evalue && context.isResponse",
@@ -943,7 +943,7 @@
         },
         {
           "match": "(args) => args.callOnce(args, 'properties.1', ({context, hierarchy, uuid}) => \n        context.marker == 'same' && \n        hierarchy.isA(context.one.marker, 'property') && \n        context.one.objects)",
-          "apply": "async (args) => {\n        const {context, fragments, objects, km, api, log, s, uuid} = args\n        const objectContext = context.one.objects[context.one.objects.length-1];\n        const propertyContext = context.one;\n        if (objectContext.unknown) {\n          objectContext.value = pluralize.singular(objectContext.value)\n        }\n        const objectId = objectContext.value\n\n        await api.makeObject({ ...args, context: objectContext })\n        await api.makeObject({ ...args, context: propertyContext })\n        const propertyId = propertyContext.value\n        try {\n          api.setProperty(objectContext, propertyContext, context.two, true)\n          context.sameWasProcessed = true\n        } catch (e) {\n          log(`Error processing set property of an object: ${e}`)\n          debugger\n          const config = km('properties')\n          const value = await api.getProperty(objectId, propertyId)\n          if (value?.value == context.two?.value) {\n            context.evalue = [\n              { marker: 'yesno', value: true, paraphrase: true },\n            ]\n            context.isResponse = true\n            context.sameWasProcessed = true\n          } else {\n            const mappings = {\n              property1: { word: propertyContext.word, value: propertyContext.value, paraphrase: true },\n              object1: { word: objectContext.word, value: objectContext.value, paraphrase: true },\n              value1: value,\n            }\n            // run the query 'the property of object' then copy that here and template it\n            context.evalue = [\n              { marker: 'yesno', value: false, paraphrase: true },\n            ]\n            context.evalue = context.evalue.concat(await fragments(\"the property1 of object1 is value1\", mappings))\n            context.evalue.forEach( (r) => r.paraphrase = true )\n            context.isResponse = true\n            context.sameWasProcessed = true\n          }\n        }\n      }"
+          "apply": "async (args) => {\n        const {context, fragments, objects, km, api, log, s, uuid} = args\n        const objectContext = context.one.objects[context.one.objects.length-1];\n        const propertyContext = context.one.objects[0];\n        // const propertyContext = context.one;\n        if (objectContext.unknown) {\n          objectContext.value = pluralize.singular(objectContext.value)\n        }\n        const objectId = objectContext.value\n\n        await api.makeObject({ ...args, context: objectContext })\n        await api.makeObject({ ...args, context: propertyContext })\n        const propertyId = propertyContext.value\n        try {\n          api.setProperty(objectContext, propertyContext, context.two, true)\n          context.sameWasProcessed = true\n        } catch (e) {\n          log(`Error processing set property of an object: ${e}`)\n          const config = km('properties')\n          const value = await api.getProperty(objectId, propertyId)\n          if (value?.value == context.two?.value) {\n            context.evalue = [\n              { marker: 'yesno', value: true, paraphrase: true },\n            ]\n            context.isResponse = true\n            context.sameWasProcessed = true\n          } else {\n            const mappings = {\n              property1: { word: propertyContext.word, value: propertyContext.value, paraphrase: true },\n              object1: { word: objectContext.word, value: objectContext.value, paraphrase: true },\n              value1: value,\n            }\n            // run the query 'the property of object' then copy that here and template it\n            context.evalue = [\n              { marker: 'yesno', value: false, paraphrase: true },\n            ]\n            context.evalue = context.evalue.concat(await fragments(\"the property1 of object1 is value1\", mappings))\n            context.evalue.forEach( (r) => r.paraphrase = true )\n            context.isResponse = true\n            context.sameWasProcessed = true\n          }\n        }\n      }"
         },
         {
           "match": "({context, hierarchy, toArray}) => {\n        return (toArray(context).every((value) => hierarchy.isA(value.marker, 'property')) || (hierarchy.isA(context.marker, 'list') && context.possession)) && context.evaluate && context.objects && !context.evaluate.toConcept\n      }",
@@ -2432,7 +2432,9 @@
         }
       ],
       "generators": [
-        {},
+        {
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:331"
+        },
         {
           "notes": "ordering generator for response"
         },
@@ -2443,21 +2445,15 @@
         },
         {
           "notes": "expression with constraints",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:440"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:450"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:458"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:468"
         },
         {
           "notes": "add possession ending",
           "priority": -1,
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:465"
-        },
-        {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:479"
-        },
-        {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:484"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:475"
         },
         {
           "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:489"
@@ -2466,31 +2462,38 @@
           "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:494"
         },
         {
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:499"
+        },
+        {
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:504"
+        },
+        {
           "notes": "negative do questions",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:500"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:510"
         },
         {
           "notes": "do questions",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:509"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:519"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:523"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:533"
         },
         {
           "notes": "the property of object",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:531"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:541"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:555"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:565"
         },
         {
           "notes": "object's property",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:564"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:574"
         }
       ],
       "semantics": [
         {
-          "notes": "unify for properties"
+          "notes": "unify for properties",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:606"
         },
         {
           "notes": "getter for relation based verbs"
@@ -2508,41 +2511,41 @@
           "notes": "semantic for setting value with constraint"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:767",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:778",
           "notes": "how deep is the pool",
           "priority": -1
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:794"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:805"
         },
         {
           "notes": "wants is xfx between wanter and wantee",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:805",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:816",
           "priority": -1
         },
         {
           "notes": "marking something as readonly",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:820"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:831"
         },
         {
           "notes": "crew members. evaluate a concepts to get instances",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:844"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:855"
         },
         {
           "notes": "greg has eyes",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:870"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:881"
         },
         {
           "notes": "greg has eyes?",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:890"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:901"
         },
         {
           "notes": "set the property of an object",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:916"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:927"
         },
         {
           "notes": "get/evaluate a property",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:968"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:979"
         }
       ]
     },

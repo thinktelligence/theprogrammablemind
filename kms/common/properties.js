@@ -328,15 +328,19 @@ const config = {
   ],
   generators: [
     {
-      // match: ({context}) => context.marker == 'propertyRelation' && !context.paraphrase,
       where: where(),
+      // match: ({context}) => context.marker == 'propertyRelation' && !context.paraphrase,
+        // paraphrase: evaluate propertyrelation
+        // response: 23 years old of bob is 23 years old
       match: ({context}) => context.marker == 'propertyRelation',
+        // paraphrase: evaluate object's property
+        // response: bob's age is 23 years old
+      match: ({context}) => context.marker == 'propertyRelation' && context.isResponse,
       apply: async ({context, gp, fragments}) => {
         const instance = await fragments("the property of object", {
           property: { ...context.property, interpolate: undefined },
           object: context.object
         })
-        debugger // here
         return await gp(instance)
       }
     },
@@ -930,7 +934,6 @@ const config = {
         const {context, fragments, objects, km, api, log, s, uuid} = args
         const objectContext = context.one.objects[context.one.objects.length-1];
         const propertyContext = context.one.objects[0];
-        debugger
         // const propertyContext = context.one;
         if (objectContext.unknown) {
           objectContext.value = pluralize.singular(objectContext.value)

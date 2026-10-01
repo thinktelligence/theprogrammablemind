@@ -505,7 +505,6 @@ class API {
           return null
         }
       } catch(e) {
-        debugger
         console.log(e)
       }
     }
@@ -627,7 +626,7 @@ class API {
   setProperty(object, property, value, has, skipHandler) {
     const objectId = object.value
     const propertyId = property.value
-    debugger
+
     if (!skipHandler) {
       const handler = this.propertiesFH.getHandler([objectId, propertyId])
       if (handler) {
@@ -635,6 +634,7 @@ class API {
       }
     }
     this.propertiesFH.setValue([objectId, propertyId], value, has)
+
     if (has && value) {
       let values = this._objects.property[propertyId] || []
       if (!values.includes(value)) {
@@ -646,9 +646,11 @@ class API {
       // infer doctor is a type of rank
       this.rememberIsA(value.value, propertyId);
     }
+
     if (!this._objects.concepts.includes(objectId)) {
       this._objects.concepts.push(pluralize.singular(objectId))
     }
+
     this.relation_add({ marker: 'propertyRelation', object, property, value })
   }
 

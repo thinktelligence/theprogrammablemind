@@ -444,7 +444,7 @@ const config = {
       where: where(),
       notes: 'x is y',
       match: ({context, hierarchy}) => hierarchy.isA(context.marker, 'is') && !context.evalue,
-      apply: async ({context, g, gp, debug, gr, callId}) => {
+      apply: async ({isA, context, g, gp, debug, gr, callId}) => {
         if ((context.two.evalue || {}).marker == 'answerNotKnown') {
           return await g(context.two.evalue)
         }
@@ -476,6 +476,14 @@ const config = {
           focus = 'two'
         } else {
           focus = 'one'
+        }
+        const other = focus == 'one' ? 'two' : 'one' 
+        if (!isMany(context[focus]) && isMany(context[other])) {
+          focus = other
+        }
+        // idiom: dont say the name is it. say it is the name
+        if (focus == 'one' && isA(context[focus], 'thisitthat')) {
+          focus = other
         }
         // greg101
         if (focus == 'one') {
