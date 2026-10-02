@@ -76,7 +76,6 @@ const template = {
           id: 'known',
           isA: ['queryable'],
           evaluator: async ({kms, context, e, callId, toList, flatten, toEValue, resolveEvaluate, objects}) => {
-            debugger
             const known = await kms.properties.api.getProperty(context.subjects[0], 'property')
             resolveEvaluate(context, known)
           },

@@ -349,13 +349,12 @@ const template = {
               return
             }
             const convert = await e({ marker: 'convertToUnits', from: t2, to: t1.unit })
-            debugger
             const t2InT1Units = await toEValue(await toEValue(convert))
             debug.counter('greg29')
             if (!await unify(t1.amount, await t2InT1Units.amount)) {
-              debugger
+              // debugger
             }
-            debugger
+            // debugger
           }
         },
       ],

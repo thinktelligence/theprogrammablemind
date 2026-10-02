@@ -20,7 +20,14 @@ const config = {
           right: [ { pattern: '($type && context.isInstance == variables.isInstance && context.dead == variables.dead && !@<=$contexts[-1].notConjunctableWith)' } ], 
           passthrough: true
       }, 
-      bridge: "{ ...next(operator), flattenInPlaceRemove: ['types', 'listable', 'isList', 'value'], flattenInPlace: [['value']], listable: true, isList: true, value: append(before, after) }"
+      bridge: `{ 
+        ...next(operator), 
+        flattenInPlaceRemove: ['types', 'listable', 'isList', 'value'], 
+        flattenInPlace: [['value']], 
+        listable: true, 
+        isList: true, 
+        value: append(before, after) 
+      }`
     },
     {
       id: "list", 

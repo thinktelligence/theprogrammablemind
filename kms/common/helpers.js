@@ -1,5 +1,6 @@
 const pluralize = require('pluralize')
-const { flatten } = require('./runtime').theprogrammablemind
+const { flatten, debug } = require('./runtime').theprogrammablemind
+// const { asList } = require('./helpers/conjunction.js')
 
 /**
  * Memoize an async function.
@@ -159,10 +160,29 @@ function zip(...arrays) {
 
 function focus(context) {
   function helper(context) {
-    if (!context || !context.focusable) {
+    let focusable = context?.focusable
+    if (!focusable && context.marker == 'list') {
+      focusable = ['value']
+    }
+    if (!focusable) {
       return null
     }
-    for (const property of context.focusable) {
+    for (const property of focusable) {
+      if (Array.isArray(context[property])) {
+        const array = context[property]
+        const focussed = []
+        for (const value of array) {
+          const focus = helper(value)
+          if (focus) {
+            focussed.push(focus)
+          }
+        }
+        if (focussed) {
+          return focussed
+        }
+        continue
+      }
+
       let focus = helper(context[property])
       if (!focus) {
         const flat = flatten(['list'], context[property])[0]

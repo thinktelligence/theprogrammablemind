@@ -88,16 +88,10 @@ const config = {
     {
       where: where(),
       match: ({context}) => {
-        if (debug.get('greg29') == 1) {
-          debugger
-        }
         const retval = context.marker == 'unify' && 
           context.terms && 
           context.terms.every((term) => term.isInstance) &&
           context.terms[0].value == context.terms[1].value
-        if (retval) {
-          debugger
-        }
         return retval
       },
       apply: ({context, resolveEvaluate}) => resolveEvaluate(context, context.terms[0]),

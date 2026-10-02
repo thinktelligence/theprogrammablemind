@@ -88,7 +88,7 @@
         "(([object|]) [have|] ([property|]))",
         "(<doesnt|> ([have/0]))",
         "(([xfx]) <([between] (words))>)",
-        "((@<= object || @<=unknown) [hasPropertyValue|is] (context.isPropertyValue == true))"
+        "((@<= object || @<=unknown) [hasPropertyValue|is,are] (context.isPropertyValue == true))"
       ],
       "hierarchy": [
         [
@@ -117,10 +117,10 @@
           ],
           "enhanced_associations": true,
           "bridge": "{ ...operator, object: before[0], flatten: true, operator: operator, propertyValue: after[0], interpolate: [{ property: 'object' }, { property: 'operator' }, { property: 'propertyValue' }] }",
-          "semantic": "async ({context, s, fragments, getWordFromDictionary}) => {\n        const propertyType = {\n          marker: context.propertyValue.propertyType,\n          level: 0,\n          word: context.propertyValue.propertyType,\n          value: context.propertyValue.propertyType,\n        }\n        const instance = await fragments(\"the property of object is value\", { property: propertyType, object: context.object, value: context.propertyValue })\n        await s(instance)\n      }"
+          "semantic": "async ({context, s, toArray, fragments, getWordFromDictionary}) => {\n        const propertyType = {\n          marker: context.propertyValue.propertyType,\n          level: 0,\n          word: context.propertyValue.propertyType,\n          value: context.propertyValue.propertyType,\n        }\n        for (const object of toArray(context.object)) {\n          const instance = await fragments(\"the property of object is value\", { property: propertyType, object, value: context.propertyValue })\n          await s(instance)\n        }\n      }"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:173",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:175",
           "id": "propertyRelation",
           "words": [
             {
@@ -135,18 +135,18 @@
           "evaluator": "({context, api, objects, toList}) => {\n        context.evalue = toList(objects.relations)\n        context.evalue.isResponse = true\n        context.evalue.paraphrase = false\n      }"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:184",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:186",
           "id": "propertyMarker"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:188",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:190",
           "id": "xfx",
           "isA": [
             "queryable"
           ]
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:193",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:195",
           "id": "between",
           "isA": [
             "preposition"
@@ -155,7 +155,7 @@
           "bridge": "{ ...next(operator), arguments: after[0] }"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:200",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:202",
           "id": "between",
           "level": 1,
           "bridge": "{ ...before[0], arguments: operator.arguments }"
@@ -891,7 +891,7 @@
       "semantics": [
         {
           "match": "({context, isA}) => \n        context.evaluate && \n        context.marker == 'unify' && \n        context.terms?.some((term) => {\n          return term.objects && isA(term.objects[0], 'property') && term.query\n        })",
-          "apply": "async (args) => {\n        const {context, km, callId, api, resolveEvaluate} = args\n        let value, property, object\n        if (context.terms[0].query) {\n          property = context.terms[0].objects[0]\n          object = context.terms[0].objects[1]\n          value = context.terms[1]\n        } else {\n          property = context.terms[1].objects[0]\n          object = context.terms[1].objects[1]\n          value = context.terms[0]\n        }\n        const pattern = {\n          marker: 'propertyRelation',\n          object,\n          property,\n          value,\n        }\n        const relations = await api.relation_unify(pattern, ['object', 'property', 'value'])\n        debugger\n        resolveEvaluate(context, relations)\n      }"
+          "apply": "async (args) => {\n        const {context, km, callId, api, resolveEvaluate} = args\n        let value, property, object\n        if (context.terms[0].query) {\n          property = context.terms[0].objects[0]\n          object = context.terms[0].objects[1]\n          value = context.terms[1]\n        } else {\n          property = context.terms[1].objects[0]\n          object = context.terms[1].objects[1]\n          value = context.terms[0]\n        }\n        const pattern = {\n          marker: 'propertyRelation',\n          object,\n          property,\n          value,\n        }\n        const relations = await api.relation_unify(pattern, ['object', 'property', 'value'])\n        resolveEvaluate(context, relations)\n      }"
         },
         {
           "match": "({context}) => context.relationBacked && context.query",
@@ -1707,7 +1707,7 @@
         "(([object|]) [have|] ([property|]))",
         "(<doesnt|> ([have/0]))",
         "(([xfx]) <([between] (words))>)",
-        "((@<= object || @<=unknown) [hasPropertyValue|is] (context.isPropertyValue == true))"
+        "((@<= object || @<=unknown) [hasPropertyValue|is,are] (context.isPropertyValue == true))"
       ],
       "hierarchy": [
         [
@@ -1738,7 +1738,7 @@
           "bridge": "{ ...operator, object: before[0], flatten: true, operator: operator, propertyValue: after[0], interpolate: [{ property: 'object' }, { property: 'operator' }, { property: 'propertyValue' }] }"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:173",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:175",
           "id": "propertyRelation",
           "words": [
             {
@@ -1752,18 +1752,18 @@
           ]
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:184",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:186",
           "id": "propertyMarker"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:188",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:190",
           "id": "xfx",
           "isA": [
             "queryable"
           ]
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:193",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:195",
           "id": "between",
           "isA": [
             "preposition"
@@ -1772,7 +1772,7 @@
           "bridge": "{ ...next(operator), arguments: after[0] }"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:200",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:202",
           "id": "between",
           "level": 1,
           "bridge": "{ ...before[0], arguments: operator.arguments }"
@@ -2433,7 +2433,7 @@
       ],
       "generators": [
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:331"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:333"
         },
         {
           "notes": "ordering generator for response"
@@ -2445,55 +2445,55 @@
         },
         {
           "notes": "expression with constraints",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:450"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:452"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:468"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:470"
         },
         {
           "notes": "add possession ending",
           "priority": -1,
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:475"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:477"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:489"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:491"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:494"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:496"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:499"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:501"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:504"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:506"
         },
         {
           "notes": "negative do questions",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:510"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:512"
         },
         {
           "notes": "do questions",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:519"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:521"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:533"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:535"
         },
         {
           "notes": "the property of object",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:541"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:543"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:565"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:567"
         },
         {
           "notes": "object's property",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:574"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:576"
         }
       ],
       "semantics": [
         {
           "notes": "unify for properties",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:606"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:608"
         },
         {
           "notes": "getter for relation based verbs"
@@ -2511,41 +2511,41 @@
           "notes": "semantic for setting value with constraint"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:778",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:779",
           "notes": "how deep is the pool",
           "priority": -1
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:805"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:806"
         },
         {
           "notes": "wants is xfx between wanter and wantee",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:816",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:817",
           "priority": -1
         },
         {
           "notes": "marking something as readonly",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:831"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:832"
         },
         {
           "notes": "crew members. evaluate a concepts to get instances",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:855"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:856"
         },
         {
           "notes": "greg has eyes",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:881"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:882"
         },
         {
           "notes": "greg has eyes?",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:901"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:902"
         },
         {
           "notes": "set the property of an object",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:927"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:928"
         },
         {
           "notes": "get/evaluate a property",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:979"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:980"
         }
       ]
     },

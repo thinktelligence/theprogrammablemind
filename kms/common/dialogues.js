@@ -10,10 +10,10 @@ const negation = require('./negation.js')
 const punctuation = require('./punctuation.js')
 const stm = require('./stm.js')
 const _ = require('lodash')
-const { API } = require('./helpers/dialogues')
+const { API, focus } = require('./helpers/dialogues')
 const { isMany, propertyToArray, words } = require('./helpers')
 const dialogues_tests = require('./dialogues.test.json')
-const { defaultObjectCheck, defaultContextCheck, indent, focus } = require('./helpers')
+const { defaultObjectCheck, defaultContextCheck, indent } = require('./helpers')
 const pluralize = require('pluralize')
 
 function warningIsANotImplemented(log, context) {
@@ -281,12 +281,13 @@ const config = {
     {
       where: where(),
       notes: "handle making responses brief",
+      // TODO make this use callOnce
       match: ({context, objects, callId}) => (context.topLevel || context.isResponse) && objects.brief && !context.briefWasRun,
-      apply: async ({context, g}) => {
-        const focussed = focus(context)
-        context.briefWasRun = true
+      apply: async ({context, g, toEValue}) => {
+        const focussed = focus(toEValue(context))
+        focussed.briefWasRun = true
         const result = await g(focussed)
-        context.briefWasRun = false
+        focussed.briefWasRun = false
         return result
       },
       priority: -2,
@@ -606,7 +607,7 @@ const config = {
           }
         }
 
-        let concept = _.cloneDeep(value) 
+        const concept = _.cloneDeep(value) 
         concept.isQuery = undefined
         instance.focus = true
         if (concept.hierarchy) {

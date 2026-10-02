@@ -137,7 +137,7 @@ const config = {
     // the plural of cat is cats what is the plural of cat?
     // does greg have ears (yes) greg does not have ears does greg have ears (no)
     // TODO fix @=unknown does not work?!??
-    "((@<= object || @<=unknown) [hasPropertyValue|is] (context.isPropertyValue == true))",
+    "((@<= object || @<=unknown) [hasPropertyValue|is,are] (context.isPropertyValue == true))",
   ],
   // TODO remove these and use localHierarchy if needed
   hierarchy: [
@@ -157,15 +157,17 @@ const config = {
       preferOver: ['is'],
       enhanced_associations: true,
       bridge: "{ ...operator, object: before[0], flatten: true, operator: operator, propertyValue: after[0], interpolate: [{ property: 'object' }, { property: 'operator' }, { property: 'propertyValue' }] }",
-      semantic: async ({context, s, fragments, getWordFromDictionary}) => {
+      semantic: async ({context, s, toArray, fragments, getWordFromDictionary}) => {
         const propertyType = {
           marker: context.propertyValue.propertyType,
           level: 0,
           word: context.propertyValue.propertyType,
           value: context.propertyValue.propertyType,
         }
-        const instance = await fragments("the property of object is value", { property: propertyType, object: context.object, value: context.propertyValue })
-        await s(instance)
+        for (const object of toArray(context.object)) {
+          const instance = await fragments("the property of object is value", { property: propertyType, object, value: context.propertyValue })
+          await s(instance)
+        }
       }
     },
 
@@ -629,7 +631,6 @@ const config = {
           value,
         }
         const relations = await api.relation_unify(pattern, ['object', 'property', 'value'])
-        debugger
         resolveEvaluate(context, relations)
       }
     },

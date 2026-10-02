@@ -1,5 +1,6 @@
+const { flatten, debug } = require('../runtime').theprogrammablemind
 const pluralize = require('pluralize')
-const { indent, focus } = require('../helpers')
+const { asList } = require('./conjunction.js')
 
 class API {
   initialize({ objects }) {
@@ -140,6 +141,49 @@ class API {
   }
 }
 
+function focus(context) {
+  function helper(context) {
+    let focusable = context?.focusable
+    if (!focusable && context.marker == 'list') {
+      focusable = ['value']
+    }
+    if (!focusable) {
+      return null
+    }
+    for (const property of focusable) {
+      if (Array.isArray(context[property])) {
+        const array = context[property]
+        const focussed = []
+        for (const value of array) {
+          const focus = helper(value)
+          if (focus) {
+            focussed.push(focus)
+          }
+        }
+        if (focussed.length > 0) {
+          return asList(focussed)
+        }
+        continue
+      }
+
+      let focus = helper(context[property])
+      if (!focus) {
+        const flat = flatten(['list'], context[property])[0]
+        for (const element of flat) {
+          if (element.focus) {
+            focus = context[property]
+            break
+          }
+        }
+      }
+      return focus
+    }
+    return null
+  }
+  return helper(context) || context
+}
+
 module.exports = {
-  API
+  API,
+  focus,
 }

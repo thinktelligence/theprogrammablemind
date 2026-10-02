@@ -33,7 +33,7 @@
           "isA": [
             "queryable"
           ],
-          "evaluator": "async ({kms, context, e, callId, toList, flatten, toEValue, resolveEvaluate, objects}) => {\n            debugger\n            const known = await kms.properties.api.getProperty(context.subjects[0], 'property')\n            resolveEvaluate(context, known)\n          }"
+          "evaluator": "async ({kms, context, e, callId, toList, flatten, toEValue, resolveEvaluate, objects}) => {\n            const known = await kms.properties.api.getProperty(context.subjects[0], 'property')\n            resolveEvaluate(context, known)\n          }"
         },
         {
           "id": "information",
