@@ -282,7 +282,7 @@ const config = {
       where: where(),
       notes: "handle making responses brief",
       // TODO make this use callOnce
-      match: ({context, objects, callId}) => (context.topLevel || context.isResponse) && objects.brief && !context.briefWasRun,
+      match: ({context, objects, callId}) => (context.topLevel || context.isResponse) && objects.brief && !context.briefWasRun && !context.paraphrase,
       apply: async ({context, g, toEValue}) => {
         const focussed = focus(toEValue(context))
         focussed.briefWasRun = true

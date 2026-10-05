@@ -46,7 +46,10 @@ if (args.includes("--fast3")) {
 }
 
 const tests = []
+tests.push('cd /home/dev/code/entodicton/mongo/server; node mongo -tva -g')
 const retrains = []
+retrains.push('cd /home/dev/code/entodicton/mongo/server; node mongo -rtf -g')
+
 tests.push(`npm run test`)
 tests.push(`npm run lint`)
 for (let file of package_json.files) {
