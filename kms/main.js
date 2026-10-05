@@ -19,6 +19,7 @@ const crew = require('./common/crew')
 const currency = require('./common/currency')
 const dateTimeSelectors = require('./common/dateTimeSelectors')
 const dates = require('./common/dates')
+const debug = require('./common/debug')
 const dialogues = require('./common/dialogues')
 const dimension = require('./common/dimension')
 const drone = require('./common/drone')
@@ -99,6 +100,7 @@ module.exports = {
   currency,
   dateTimeSelectors,
   dates,
+  debug,
   dialogues,
   dimension,
   drone,
