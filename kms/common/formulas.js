@@ -92,7 +92,7 @@ const config = {
         if (formulas.length > 0) {
           context.evalue = { marker: 'list', value: formulas }
         } else {
-          context.evalue = { marker: 'answerNotKnown' }
+          context.evalue = { marker: 'undefined' }
         }
       }
     },

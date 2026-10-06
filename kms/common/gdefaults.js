@@ -269,7 +269,7 @@ const config = {
 
     {
       where: where(),
-      match: ({context}) => context.marker == 'answerNotKnown',
+      match: ({context}) => context.marker === 'undefined',
       apply: ({context}) => 'That is not known',
     },
 

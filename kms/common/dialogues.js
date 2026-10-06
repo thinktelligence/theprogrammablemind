@@ -301,13 +301,13 @@ const config = {
     {
       where: where(),
       notes: "unknown answer default response",
-      match: ({context, namespaced}) => context.marker == 'answerNotKnown' && context.brief,
+      match: ({context, namespaced}) => context.marker === 'undefined' && context.brief,
       apply: ({context}) => `not known`,
     },
     {
       where: where(),
       notes: "unknown answer default response",
-      match: ({context}) => context.marker == 'answerNotKnown',
+      match: ({context}) => context.marker === 'undefined',
       apply: ({context}) => `that is not known`,
     },
     {
@@ -446,7 +446,7 @@ const config = {
       notes: 'x is y',
       match: ({context, hierarchy}) => hierarchy.isA(context.marker, 'is') && !context.evalue,
       apply: async ({isA, context, g, gp, debug, gr, callId}) => {
-        if ((context.two.evalue || {}).marker == 'answerNotKnown') {
+        if ((context.two.evalue || {}).marker === 'undefined') {
           return await g(context.two.evalue)
         }
 
@@ -591,7 +591,7 @@ const config = {
           return
         }
 
-        if (toEValue(instance)?.marker == 'answerNotKnown') {
+        if (toEValue(instance)?.marker === 'undefined') {
           context.evalue = instance
           context.isResponse = true
           return

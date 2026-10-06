@@ -118,7 +118,7 @@ const template = {
             const argument = context.properties.argument
             const getValue = (property) => async (args) => {
               const value = toEValue(await e(property))
-              if (value.marker == 'answerNotKnown') {
+              if (value.marker === 'undefined') {
                 return
               }
               return value

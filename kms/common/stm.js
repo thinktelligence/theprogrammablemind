@@ -366,7 +366,7 @@ const config = {
         }
 
         if (!context.value) {
-          context.evalue = { marker: 'answerNotKnown' }
+          context.evalue = { marker: 'undefined' }
           return
         }
       

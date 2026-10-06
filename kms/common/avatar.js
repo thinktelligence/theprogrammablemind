@@ -27,7 +27,7 @@ const config = {
     {
        where: where(),
        notes: "unknown answer default response for avatar",
-       match: ({context}) => context.marker == 'answerNotKnown',
+       match: ({context}) => context.marker === 'undefined',
        apply: ({context}) => `I don't know`,
     },
     {

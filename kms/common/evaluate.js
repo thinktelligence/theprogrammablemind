@@ -38,7 +38,7 @@ function initializer({objects, config, isModule}) {
       if (Array.isArray(value)) {
         value = toList(value)
       }
-      context.evalue = value || { marker: 'answerNotKnown' }
+      context.evalue = value || { marker: 'undefined' }
       if (context.evalue) {
         context.isResponse = true
       }

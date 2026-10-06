@@ -425,7 +425,7 @@ const config = {
       match: ({context}) => context.isEd,
       apply: async ({context, g}) => {
         const chosen = chooseNumber(context[context.afterTag], 'is', 'are')
-        if (context[context.beforeTag].evalue && context[context.beforeTag].evalue.marker == 'answerNotKnown') {
+        if (context[context.beforeTag].evalue && context[context.beforeTag].evalue.marker === 'undefined') {
           return await g(context[context.beforeTag])
         }
         return `${await g(context[context.afterTag])} ${chosen} ${context.word} by ${await g(context[context.beforeTag])}`
@@ -648,7 +648,7 @@ const config = {
         context.evalue.isResponse = true
         context.isResponse = true
         if (context.evalue.value.length == 0) {
-          context.evalue.marker = 'answerNotKnown';
+          context.evalue.marker = 'undefined';
           context.evalue.listable = true
           context.evalue.value = [];
         } else {
@@ -766,7 +766,7 @@ const config = {
           context.evalue = { verbatim: instance.verbatim }
           return
         }
-        if (instance.evalue.marker == 'answerNotKnown') {
+        if (instance.evalue.marker === 'undefined') {
           context.evalue = instance.evalue
           return
         }
@@ -1069,7 +1069,7 @@ const config = {
           context.evalue = asList(results, true)
           context.object = undefined;
         } else {
-          context.evalue = { marker: 'answerNotKnown' }
+          context.evalue = { marker: 'undefined' }
           context.object = undefined;
         }
       }

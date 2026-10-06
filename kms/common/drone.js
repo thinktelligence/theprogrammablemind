@@ -992,7 +992,7 @@ const template = {
             for (const context_path of paths) {
               const evaluated = await(e(context_path))
               const path = toEValue(evaluated)
-              if (path.marker == 'answerNotKnown') {
+              if (path.marker === 'undefined') {
                 verbatim(`${await g(context_path)} is not a known path`)
                 continue
               }
