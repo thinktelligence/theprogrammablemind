@@ -93,7 +93,7 @@
             "verb"
           ],
           "bridge": "{ ...next(operator), quantity: after[0], operator: operator, interpolate: [{ property: 'operator' }, { property: 'quantity' }] }",
-          "semantic": "async ({context, e, api, toArray, resolveResponse}) => {\n        const preferredUnits = await api.getPreferredUnits(context.quantity)\n        if (!preferredUnits) {\n          return\n        }\n        const from = context.quantity;\n        const value = await e({ marker: 'convertToUnits', from, to: preferredUnits })\n        resolveResponse(context, value.evalue)\n      }"
+          "semantic": "async ({context, e, api, toArray, resolveEvaluate}) => {\n        const preferredUnits = await api.getPreferredUnits(context.quantity)\n        if (!preferredUnits) {\n          return\n        }\n        const from = context.quantity;\n        const value = await e({ marker: 'convertToUnits', from, to: preferredUnits })\n        resolveEvaluate(context, value.evalue)\n      }"
         },
         {
           "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:215",
@@ -225,7 +225,7 @@
       "semantics": [
         {
           "match": "({context, isA, debug}) => {\n            return context.evaluate && \n              context.marker == 'unify' && \n              context.terms.every((term) => isA(term, 'quantity')) &&\n              context.terms.every((term) => term.instance)\n          }",
-          "apply": "async ({context, e, unify, toEValue}) => {\n            const t1 = context.terms[0]\n            const t2 = context.terms[1]\n            if (t1.propertyType !== t2.propertyType) {\n              return\n            }\n            if (t1[t1.propertyType].marker !== t2[t2.propertyType].marker) {\n              return\n            }\n            const convert = await e({ marker: 'convertToUnits', from: t2, to: t1.unit })\n            const t2InT1Units = await toEValue(await toEValue(convert))\n            // debug.counter('greg29')\n            if (!await unify(t1.amount, await t2InT1Units.amount)) {\n              // debugger\n            }\n            // debugger\n          }"
+          "apply": "async ({context, e, unify, toEValue}) => {\n            const t1 = context.terms[0]\n            const t2 = context.terms[1]\n            if (t1.propertyType !== t2.propertyType) {\n              return\n            }\n            if (t1[t1.propertyType].marker !== t2[t2.propertyType].marker) {\n              return\n            }\n            const convert = await e({ marker: 'convertToUnits', from: t2, to: t1.unit })\n            const t2InT1Units = await toEValue(await toEValue(convert))\n            // debug.coxunter('greg29')\n            if (!await unify(t1.amount, await t2InT1Units.amount)) {\n              // debugger\n            }\n            // debugger\n          }"
         }
       ]
     }

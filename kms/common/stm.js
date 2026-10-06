@@ -288,9 +288,9 @@ const config = {
       id: 'recall', 
       bridge: "{ ...next(operator), postModifiers: ['recallee'], recallee: after[0] }",
       isA: ['verb'],
-      semantic: async ({context, recall, resolveResponse, e}) => {
+      semantic: async ({context, recall, resolveEvaluate, e}) => {
         const object = await recall({ context: context.recallee })
-        resolveResponse(context, object)
+        resolveEvaluate(context, object)
       },
     },
     { 

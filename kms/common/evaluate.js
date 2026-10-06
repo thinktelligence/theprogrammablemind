@@ -25,8 +25,8 @@ const config = {
       after: ['verb'],
       enhanced_associations: false,
       bridge: "{ ...next(operator), postModifiers: ['value'], value: after[0] }",
-      semantic: async ({context, e, resolveResponse}) => {
-        resolveResponse(context, (await e(context.value)).evalue)
+      semantic: async ({context, e, resolveEvaluate}) => {
+        resolveEvaluate(context, (await e(context.value)).evalue)
       }
     }
   ],
@@ -34,20 +34,14 @@ const config = {
 
 function initializer({objects, config, isModule}) {
   config.addArgs(({config, api, toList, isA}) => ({
-    resolveResponse: (context, value) => {
+    resolveEvaluate: (context, value) => {
+      if (Array.isArray(value)) {
+        value = toList(value)
+      }
       context.evalue = value || { marker: 'answerNotKnown' }
       if (context.evalue) {
         context.isResponse = true
       }
-    },
-    resolveEvaluate: (context, value) => {
-      if (value == undefined) {
-        throw new Error("The arguments are context and the value. The value may not be undefined.")
-      }
-      if (Array.isArray(value)) {
-        value = toList(value)
-      }
-      context.evalue = value
     },
   }))
 }

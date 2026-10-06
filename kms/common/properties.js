@@ -780,7 +780,7 @@ const config = {
       notes: "how deep is the pool",
       priority: -1,
       match: ({context}) => context.marker == 'is' && (context.one.how || context.two.how),
-      apply: async ({ resolveResponse, g, context, toArray, toList, fragments, kms, e, toEValue }) => {
+      apply: async ({ resolveEvaluate, g, context, toArray, toList, fragments, kms, e, toEValue }) => {
         const propertyMarkerContext = context.one
         let object = context.two
         if (context.two.how) {
@@ -799,7 +799,7 @@ const config = {
         propertyOfObject.focusableForPhrase = false
         const response = await fragments("the property is value", { property: propertyOfObject, value })
         response.isResponse = true
-        resolveResponse(context, response) 
+        resolveEvaluate(context, response) 
       }
     },
     {
@@ -984,7 +984,6 @@ const config = {
       // match: ({context, hierarchy}) => hierarchy.isA(context.marker, 'property') && context.evaluate,
       apply: async ({debug, isA, hierarchy, getWordFromDictionary, flatten, asList, context, api, kms, objects, g, gp, s, log, recall}) => {
         async function toValue(objectContext) {
-          debug.breakAt('kirk#call3')
           if (!objectContext.value) {
             return objectContext;
           }
