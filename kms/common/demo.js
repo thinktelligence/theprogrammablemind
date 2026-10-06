@@ -17,6 +17,6 @@ const scorekeeper = require('./scorekeeper');
   for (const input of inputs) {
     const result = await scorekeeper.process(input)
     console.log('query', input);
-    console.log('    ', result.responses)
+    console.log('    ', result.evalue)
   }
 })();

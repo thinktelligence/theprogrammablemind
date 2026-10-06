@@ -92,7 +92,7 @@ const config = {
       isA: ['verb'],
       bridge: "{ ...next(operator), type: after[0] }",
       semantic: async ({context, api}) => {
-        context.response = api.getNamesByType(context.type.value).join(" ")
+        context.evalue = api.getNamesByType(context.type.value).join(" ")
         context.isResponse = true
       }
     },

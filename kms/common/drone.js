@@ -1465,7 +1465,7 @@ const template = {
             }
             const speed = await fragments("number meters per second", { number: { marker: 'integer', value, word: undefined} })
             const preferred = await s({ marker: 'preferredUnits', quantity: speed }) 
-            resolveEvaluate(return_context, preferred.response || speed)
+            resolveEvaluate(return_context, preferred.evalue || speed)
           }
         },
         {
@@ -1491,7 +1491,7 @@ const template = {
               }
             ])
             const preferred = await s({ marker: 'preferredUnits', quantity: direction }) 
-            resolveEvaluate(context, preferred.response || direction)
+            resolveEvaluate(context, preferred.evalue || direction)
           }
         },
         {

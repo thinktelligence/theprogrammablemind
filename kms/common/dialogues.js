@@ -454,8 +454,8 @@ const config = {
           return `${await gp(context.one)} ${isMany(context.one) || isMany(context.two) || isMany(context) ? "are" : "is"} ${await g(context.two)}`
         }
 
-        if (context.response) {
-          context = context.response
+        if (context.evalue) {
+          context = context.evalue
         }
 
         function hasFocus(property) {

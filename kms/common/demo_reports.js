@@ -25,7 +25,7 @@ reports.rebuild({ isModule: false });
     try{
       const result = await reports.process(input);
       console.log("query", input)
-      for (const line of result.responses) {
+      for (const line of result.evalue) {
         console.log(line)
       }
     } catch( e ){

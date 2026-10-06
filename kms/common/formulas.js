@@ -104,12 +104,12 @@ const config = {
       generatorp: async ({context, gp}) => `${context.word} ${await gp(context.equality)} for ${await gp(context.variable)}`,
       semantic: async ({api, context, fragments}) => {
         try {
-          context.response = await api.solveFor(context.equality, context.variable)
+          context.evalue = await api.solveFor(context.equality, context.variable)
           context.isResponse = true
           context.value = null
         } catch( e ) {
         }
-        if (!context.response) {
+        if (!context.evalue) {
           // TODO some KM for talking to the user wrt brief+avatar
           context.verbatim = `Solving failed`
         }

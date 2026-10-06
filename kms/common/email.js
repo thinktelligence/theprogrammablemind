@@ -24,7 +24,7 @@ const config = {
     // sentences with concept blah
   ],
   bridges: [
-    { "id": "help", "level": 0, "bridge": "{ ...next(operator), response: true }" },
+    { "id": "help", "level": 0, "bridge": "{ ...next(operator), evalue: true }" },
   ],
   debug: false,
   version: '3',

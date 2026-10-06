@@ -35,8 +35,8 @@ const config = {
 function initializer({objects, config, isModule}) {
   config.addArgs(({config, api, toList, isA}) => ({
     resolveResponse: (context, value) => {
-      context.response = value || { marker: 'answerNotKnown' }
-      if (context.response) {
+      context.evalue = value || { marker: 'answerNotKnown' }
+      if (context.evalue) {
         context.isResponse = true
       }
     },

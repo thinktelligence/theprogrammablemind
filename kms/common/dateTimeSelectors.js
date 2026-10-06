@@ -156,7 +156,7 @@ knowledgeModule( {
     checks: {
       context: [
         // defaultContextCheck({ extra: ['date', 'time', 'response', 'after', 'day', 'month', 'year', 'evalue'] }),
-        defaultContextCheck({ extra: ['date', 'time', 'response', 'after', 'evalue'] }),
+        defaultContextCheck({ extra: ['date', 'time', 'after', 'evalue'] }),
       ],
     }
   },

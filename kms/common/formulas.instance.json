@@ -53,7 +53,7 @@
           "enhanced_associations": false,
           "bridge": "{ ...next(operator), equality: after[0], variable: after[2] }",
           "generatorp": "async ({context, gp}) => `${context.word} ${await gp(context.equality)} for ${await gp(context.variable)}`",
-          "semantic": "async ({api, context, fragments}) => {\n        try {\n          context.response = await api.solveFor(context.equality, context.variable)\n          context.isResponse = true\n          context.value = null\n        } catch( e ) {\n        }\n        if (!context.response) {\n          // TODO some KM for talking to the user wrt brief+avatar\n          context.verbatim = `Solving failed`\n        }\n      }"
+          "semantic": "async ({api, context, fragments}) => {\n        try {\n          context.evalue = await api.solveFor(context.equality, context.variable)\n          context.isResponse = true\n          context.value = null\n        } catch( e ) {\n        }\n        if (!context.evalue) {\n          // TODO some KM for talking to the user wrt brief+avatar\n          context.verbatim = `Solving failed`\n        }\n      }"
         },
         {
           "id": "forVariable",
