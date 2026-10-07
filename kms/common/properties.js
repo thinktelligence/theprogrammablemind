@@ -576,7 +576,7 @@ const config = {
       // match: ({context}) => context.paraphrase && !context.modifiers && context.object, 
       match: ({context}) => !context.modifiers && (context.object || context.objects) && !context.interpolate, 
       apply: async ({context, g, gs}) => {
-        if (context.evalue) {
+        if (context.evalue && !context.paraphrase) {
           return await g(context.evalue)
         } else if (context.objects) {
           const objects = [ ...context.objects ]
@@ -976,7 +976,7 @@ const config = {
       notes: 'get/evaluate a property',
       where: where(),
       match: ({context, hierarchy, toArray}) => {
-        return (toArray(context).every((value) => hierarchy.isA(value.marker, 'property')) || (hierarchy.isA(context.marker, 'list') && context.possession)) && context.evaluate && context.objects
+        return (toArray(context).every((value) => hierarchy.isA(value.marker, 'property')) || (hierarchy.isA(context.marker, 'list') && context.possession)) && context.objects
       },
       // match: ({context, hierarchy}) => hierarchy.isA(context.marker, 'property') && context.evaluate,
       apply: async ({debug, isA, hierarchy, getWordFromDictionary, flatten, asList, context, api, kms, objects, g, gp, s, log, recall}) => {
