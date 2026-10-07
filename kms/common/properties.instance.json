@@ -910,7 +910,7 @@
           "apply": "({context, km, stack}) => {\n          const propertiesAPI = km('properties').api\n          context.ordering = context.orderingArgs.name\n          const fcontexts = flattens(['list'], [context])\n          for (const fcontext of fcontexts) {\n            fcontext.paraphrase = true\n            fcontext[context.orderingArgs.object].paraphrase = true\n            fcontext[context.orderingArgs.category].paraphrase = true\n          }\n          propertiesAPI.relation_add(fcontexts)\n        }"
         },
         {
-          "match": "({context, isA}) => context.evaluate && context.constraints",
+          "match": "({context, isA}) => context.constraints",
           "apply": "async ({km, context, e, log, isA}) => {\n        const constraint = context.constraints[0];\n        const value = constraint.constraint;\n        let property = constraint.property;\n        const properties = constraint.properties;\n        for (const p of properties) {\n          if (value[p].concept) {\n            property = p\n            // constraint.property = p; // set what is used\n            constraint.property = {...constraint.property, ...p}; // set what is used\n\n          }\n        }\n        // value.marker = 'owns'\n        // value.greg = true\n        // value.ownee.query = true\n        value.query = true\n        value.greg99 = 23\n        const instance = await e(value)\n        if (instance.verbatim) {\n          context.evalue = { verbatim: instance.verbatim }\n          return\n        }\n        if (instance.evalue.marker === 'undefined') {\n          context.evalue = instance.evalue\n          return\n        }\n        const selected = instance.evalue.value.map( (r) => r[property] )\n        context.constraints = undefined;\n        context.evalue = { marker: 'list', listable: true, value: selected }\n      }"
         },
         {
@@ -2511,41 +2511,41 @@
           "notes": "semantic for setting value with constraint"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:778",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:777",
           "notes": "how deep is the pool",
           "priority": -1
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:805"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:804"
         },
         {
           "notes": "wants is xfx between wanter and wantee",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:816",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:815",
           "priority": -1
         },
         {
           "notes": "marking something as readonly",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:831"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:830"
         },
         {
           "notes": "crew members. evaluate a concepts to get instances",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:855"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:854"
         },
         {
           "notes": "greg has eyes",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:880"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:879"
         },
         {
           "notes": "greg has eyes?",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:900"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:899"
         },
         {
           "notes": "set the property of an object",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:926"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:925"
         },
         {
           "notes": "get/evaluate a property",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:978"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:977"
         }
       ]
     },

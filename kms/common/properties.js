@@ -657,7 +657,6 @@ const config = {
 
     {
       notes: `setter for relation based verbs`,
-      // node can -qn 0 -g -d -tva -v works with !context.evaluate
       match: ({context}) => context.relationBacked && !context.toVoice && context.isVerb,
       apply: ({context, km, hierarchy, config, stack}) => {
         const api = km('properties').api
@@ -741,7 +740,7 @@ const config = {
     {
       notes: 'semantic for setting value with constraint',
       //match: ({context, isA}) => isA(context.marker, after[0].tag) && context.constraints,
-      match: ({context, isA}) => context.evaluate && context.constraints,
+      match: ({context, isA}) => context.constraints,
       apply: async ({km, context, e, log, isA}) => {
         const constraint = context.constraints[0];
         const value = constraint.constraint;
