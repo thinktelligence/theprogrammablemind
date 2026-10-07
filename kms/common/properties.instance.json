@@ -880,7 +880,7 @@
           "apply": "async ({context, g, gs}) => {\n               const base = { ...context }\n               base.object = undefined;\n               if (context.object.marker == 'objectPrefix') {\n                 return `${await g(context.object)} ${await g(base)}`\n               } else {\n                 if (context.objects) {\n                   const gObjects = []\n                   for (const object of context.objects) {\n                     gObjects.push(await g({...object, paraphrase: true}))\n                   }\n                   return await gs(gObjects, ' of ')\n                 } else {\n                   // TODO make paraphrase be a default when paraphrasing?\n                   return `${await g(base)} of ${await g({...context.object, paraphrase: true})}`\n                 }\n               }\n             }"
         },
         {
-          "match": "({context, hierarchy}) => hierarchy.isA(context.marker, 'property') && context.object && !context.possession && !context.evaluate && !context.object.marker == 'objectPrefix'",
+          "match": "({context, hierarchy}) => hierarchy.isA(context.marker, 'property') && context.object && !context.possession && context.paraphrase && !context.object.marker == 'objectPrefix'",
           "apply": "async ({context, g}) => {\n        const property = Object.assign({}, context, { object: undefined })\n        return `${await g(property)} of ${await g({ ...context.object, paraphrase: true })}`\n      }"
         },
         {
@@ -2483,17 +2483,17 @@
           "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:543"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:567"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:566"
         },
         {
           "notes": "object's property",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:576"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:575"
         }
       ],
       "semantics": [
         {
           "notes": "unify for properties",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:608"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:607"
         },
         {
           "notes": "getter for relation based verbs"
@@ -2511,41 +2511,41 @@
           "notes": "semantic for setting value with constraint"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:779",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:778",
           "notes": "how deep is the pool",
           "priority": -1
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:806"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:805"
         },
         {
           "notes": "wants is xfx between wanter and wantee",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:817",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:816",
           "priority": -1
         },
         {
           "notes": "marking something as readonly",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:832"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:831"
         },
         {
           "notes": "crew members. evaluate a concepts to get instances",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:856"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:855"
         },
         {
           "notes": "greg has eyes",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:881"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:880"
         },
         {
           "notes": "greg has eyes?",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:901"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:900"
         },
         {
           "notes": "set the property of an object",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:927"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:926"
         },
         {
           "notes": "get/evaluate a property",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:979"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:978"
         }
       ]
     },

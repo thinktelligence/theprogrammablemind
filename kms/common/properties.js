@@ -563,9 +563,8 @@ const config = {
              },
     },
     {
-      // ({context, hierarchy}) => hierarchy.isA(context.marker, 'property') && context.object && !context.value && !context.evaluate,
       where: where(),
-      match: ({context, hierarchy}) => hierarchy.isA(context.marker, 'property') && context.object && !context.possession && !context.evaluate && !context.object.marker == 'objectPrefix',
+      match: ({context, hierarchy}) => hierarchy.isA(context.marker, 'property') && context.object && !context.possession && context.paraphrase && !context.object.marker == 'objectPrefix',
       apply: async ({context, g}) => {
         const property = Object.assign({}, context, { object: undefined })
         return `${await g(property)} of ${await g({ ...context.object, paraphrase: true })}`
