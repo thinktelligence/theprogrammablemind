@@ -931,7 +931,7 @@
         },
         {
           "match": "({context, hierarchy, api, isA}) => \n                          hierarchy.isA(context.marker, 'concept') && ((!context.propertyOf && !context.isProperty) || isA(context.objects[context.objects.length-1], 'dimension')) &&\n                          (!context.pullFromContext || context.number == 'many') &&\n                          (context.pullFromContext || isA(context, 'type') || context.metaDefinition) &&\n                          !(context.types || []).includes('property') &&\n                          // !context.value &&  // greghere\n                          !context.ordinal &&\n                          (!context.objects || context.objects.length !== 2 || !context.objects[1].isInstance) &&\n                          (api.objects && api.objects.children && api.objects.children[context.marker])",
-          "apply": "({context, stack, isA, contextHierarchy, hierarchy, objects, api, km}) => {\n        if (!(context.pullFromContext || isA(context, 'type'))) {\n          debugger\n        }\n        const values = api.objects.children[context.marker]\n        const phrases = values.map( (value) => km('concept').api.getWordForValue(value) )\n        // context.focusableForPhrase = true\n        context.hierarchy = true\n        context.evalue = { \n          marker: 'list', \n          listable: true,\n          // value: api.objects.children[context.marker]\n          value: phrases,\n        }\n      }"
+          "apply": "({context, stack, isA, contextHierarchy, hierarchy, objects, api, km}) => {\n        const values = api.objects.children[context.marker]\n        const phrases = values.map( (value) => km('concept').api.getWordForValue(value) )\n        // context.focusableForPhrase = true\n        context.hierarchy = true\n        context.evalue = { \n          marker: 'list', \n          listable: true,\n          // value: api.objects.children[context.marker]\n          value: phrases,\n        }\n      }"
         },
         {
           "match": "({context}) => context.marker == 'have' && !context.query",
@@ -2533,19 +2533,19 @@
         },
         {
           "notes": "greg has eyes",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:882"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:879"
         },
         {
           "notes": "greg has eyes?",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:902"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:899"
         },
         {
           "notes": "set the property of an object",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:928"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:925"
         },
         {
           "notes": "get/evaluate a property",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:980"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:977"
         }
       ]
     },

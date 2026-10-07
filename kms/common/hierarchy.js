@@ -114,7 +114,7 @@ const config = {
       // types of job           what are the types of animals -> next one
       notes: 'type of pikachu',  // the types of type is the next one
       where: where(),
-      match: ({context}) => context.marker == 'type' && context.evaluate && context.objects[context.objects.length-1].number == 'one' && pluralize.isSingular(context.objects[0].word),
+      match: ({context}) => context.marker == 'type' && context.objects[context.objects.length-1].number == 'one' && pluralize.isSingular(context.objects[0].word),
       apply: async ({context, hierarchy, objects, e, gs, km, log}) => {
         const concept = context.objects[0];
         const value = context.objects[1];
@@ -297,7 +297,7 @@ const config = {
       // types of job
       notes: 'types of type', // what are the types of animals
       where: where(),
-      match: ({context}) => context.marker == 'type' && context.evaluate && context.objects,
+      match: ({context}) => context.marker == 'type' && context.objects,
       apply: ({context, objects, km, isA}) => {
         const api = km('properties').api
         const conceptApi = km('concept').api
