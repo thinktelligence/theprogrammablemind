@@ -606,7 +606,6 @@ const config = {
       notes: 'unify for properties',
       where: where(),
       match: ({context, isA}) => 
-        // context.evaluate && 
         context.marker == 'unify' && 
         context.terms?.some((term) => {
           return term.objects && isA(term.objects[0], 'property') && term.query
@@ -741,7 +740,7 @@ const config = {
     },
     {
       notes: 'semantic for setting value with constraint',
-      //match: ({context, isA}) => isA(context.marker, after[0].tag) && context.evaluate && context.constraints,
+      //match: ({context, isA}) => isA(context.marker, after[0].tag) && context.constraints,
       match: ({context, isA}) => context.evaluate && context.constraints,
       apply: async ({km, context, e, log, isA}) => {
         const constraint = context.constraints[0];
