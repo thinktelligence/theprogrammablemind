@@ -58,7 +58,7 @@ V2
 //        [
 //          ({objects, context, args, hierarchy}) => 
 //                hierarchy.isA(context.marker, 'property') && 
-//                args({ types: ['myObjectType'], properties: ['object'] }) && context.evaluate, 
+//                args({ types: ['myObjectType'], properties: ['object'] }),
 //          ({objects, context}) => {
 //          context.value = "value" // set the value here somehow
 //          }
@@ -856,12 +856,14 @@ const config = {
                           hierarchy.isA(context.marker, 'concept') && ((!context.propertyOf && !context.isProperty) || isA(context.objects[context.objects.length-1], 'dimension')) &&
                           (!context.pullFromContext || context.number == 'many') &&
                           context.evaluate &&
+                          // (context.pullFromContext || isA(context, 'type')) &&
+                          api.objects.children[context.marker] &&
                           !(context.types || []).includes('property') &&
                           // !context.value &&  // greghere
                           !context.ordinal &&
                           (!context.objects || context.objects.length !== 2 || !context.objects[1].isInstance) &&
                           (api.objects && api.objects.children && api.objects.children[context.marker]),
-      apply: ({context, hierarchy, objects, api, km}) => {
+      apply: ({context, isA, hierarchy, objects, api, km}) => {
         const values = api.objects.children[context.marker]
         const phrases = values.map( (value) => km('concept').api.getWordForValue(value) )
         // context.focusableForPhrase = true
@@ -978,7 +980,6 @@ const config = {
       match: ({context, hierarchy, toArray}) => {
         return (toArray(context).every((value) => hierarchy.isA(value.marker, 'property')) || (hierarchy.isA(context.marker, 'list') && context.possession)) && context.objects
       },
-      // match: ({context, hierarchy}) => hierarchy.isA(context.marker, 'property') && context.evaluate,
       apply: async ({debug, isA, hierarchy, getWordFromDictionary, flatten, asList, context, api, kms, objects, g, gp, s, log, recall}) => {
         async function toValue(objectContext) {
           if (!objectContext.value) {
