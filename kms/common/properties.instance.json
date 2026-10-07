@@ -890,7 +890,7 @@
       ],
       "semantics": [
         {
-          "match": "({context, isA}) => \n        context.evaluate && \n        context.marker == 'unify' && \n        context.terms?.some((term) => {\n          return term.objects && isA(term.objects[0], 'property') && term.query\n        })",
+          "match": "({context, isA}) => \n        // context.evaluate && \n        context.marker == 'unify' && \n        context.terms?.some((term) => {\n          return term.objects && isA(term.objects[0], 'property') && term.query\n        })",
           "apply": "async (args) => {\n        const {context, km, callId, api, resolveEvaluate} = args\n        let value, property, object\n        if (context.terms[0].query) {\n          property = context.terms[0].objects[0]\n          object = context.terms[0].objects[1]\n          value = context.terms[1]\n        } else {\n          property = context.terms[1].objects[0]\n          object = context.terms[1].objects[1]\n          value = context.terms[0]\n        }\n        const pattern = {\n          marker: 'propertyRelation',\n          object,\n          property,\n          value,\n        }\n        const relations = await api.relation_unify(pattern, ['object', 'property', 'value'])\n        resolveEvaluate(context, relations)\n      }"
         },
         {

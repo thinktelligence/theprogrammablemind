@@ -606,7 +606,7 @@ const config = {
       notes: 'unify for properties',
       where: where(),
       match: ({context, isA}) => 
-        context.evaluate && 
+        // context.evaluate && 
         context.marker == 'unify' && 
         context.terms?.some((term) => {
           return term.objects && isA(term.objects[0], 'property') && term.query
