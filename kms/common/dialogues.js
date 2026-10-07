@@ -575,6 +575,7 @@ const config = {
       apply: async ({context, s, log, km, objects, e, toEValue}) => {
         const one = context.one;
         const two = context.two;
+
         let query, value;
         if (one.query) {
           query = one;

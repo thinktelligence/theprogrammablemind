@@ -1,4 +1,4 @@
-const { knowledgeModule, ensureTestFile, where, unflatten, flattens } = require('./runtime').theprogrammablemind
+const { knowledgeModule, ensureTestFile, where, unflatten, flattens, debug } = require('./runtime').theprogrammablemind
 const { defaultContextCheck } = require('./helpers')
 const _ = require('lodash')
 const gdefaults = require('./gdefaults.js')
@@ -367,6 +367,7 @@ const config = {
                 TO.query = context.query
               } else {
                 TO.evaluate = context.evaluate
+                TO.metaDefinition = true
               }
               TO[`disable${uuid}`] = true
               toPrime = await s(TO)
