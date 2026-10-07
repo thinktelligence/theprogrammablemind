@@ -862,8 +862,7 @@ const config = {
                           // !context.value &&  // greghere
                           !context.ordinal &&
                           (!context.objects || context.objects.length !== 2 || !context.objects[1].isInstance) &&
-                          (api.objects && api.objects.children && api.objects.children[context.marker]) &&
-                          !context.evaluate.toConcept,
+                          (api.objects && api.objects.children && api.objects.children[context.marker]),
       apply: ({context, hierarchy, objects, api, km}) => {
         const values = api.objects.children[context.marker]
         const phrases = values.map( (value) => km('concept').api.getWordForValue(value) )
@@ -979,7 +978,7 @@ const config = {
       notes: 'get/evaluate a property',
       where: where(),
       match: ({context, hierarchy, toArray}) => {
-        return (toArray(context).every((value) => hierarchy.isA(value.marker, 'property')) || (hierarchy.isA(context.marker, 'list') && context.possession)) && context.evaluate && context.objects && !context.evaluate.toConcept
+        return (toArray(context).every((value) => hierarchy.isA(value.marker, 'property')) || (hierarchy.isA(context.marker, 'list') && context.possession)) && context.evaluate && context.objects
       },
       // match: ({context, hierarchy}) => hierarchy.isA(context.marker, 'property') && context.evaluate,
       apply: async ({debug, isA, hierarchy, getWordFromDictionary, flatten, asList, context, api, kms, objects, g, gp, s, log, recall}) => {
