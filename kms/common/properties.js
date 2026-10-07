@@ -658,7 +658,8 @@ const config = {
 
     {
       notes: `setter for relation based verbs`,
-      match: ({context}) => context.relationBacked && !context.toVoice && !context.evaluate,
+      // node can -qn 0 -g -d -tva -v works with !context.evaluate
+      match: ({context}) => context.relationBacked && !context.toVoice && context.isVerb,
       apply: ({context, km, hierarchy, config, stack}) => {
         const api = km('properties').api
         // add types for arguments

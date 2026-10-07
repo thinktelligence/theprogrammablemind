@@ -898,7 +898,7 @@
           "apply": "({context, km, callId}) => {\n        const api = km('properties').api\n        context.evalue = {\n          marker: 'list',\n          listable: true,\n          // value: unflatten(api.relation_get(context, before.concat(after).map( (arg) => arg.tag ) ))\n          value: unflatten(api.relation_get(context, context.relationArgs.map( (arg) => arg.tag ) ))\n        }\n        context.evalue.isResponse = true\n        context.isResponse = true\n        if (context.evalue.value.length == 0) {\n          context.evalue.marker = 'undefined';\n          context.evalue.listable = true\n          context.evalue.value = [];\n        } else {\n          // context.evalue.truthValue = true\n        }\n      }"
         },
         {
-          "match": "({context}) => context.relationBacked && !context.toVoice && !context.evaluate",
+          "match": "({context}) => context.relationBacked && !context.toVoice && context.isVerb",
           "apply": "({context, km, hierarchy, config, stack}) => {\n        const api = km('properties').api\n        // add types for arguments\n        for (const argument of context.focusable || []) {\n          const value = api.toValue(context[argument])\n          if (value) {\n            const minimas = hierarchy.minima(context[argument].types)\n            for (const type of minimas) {\n              if (config.exists(value)) {\n                config.addHierarchy(value, type);\n              }\n            }\n          }\n        }\n        api.relation_add(context)\n      }"
         },
         {
@@ -2511,41 +2511,41 @@
           "notes": "semantic for setting value with constraint"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:778",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:779",
           "notes": "how deep is the pool",
           "priority": -1
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:805"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:806"
         },
         {
           "notes": "wants is xfx between wanter and wantee",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:816",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:817",
           "priority": -1
         },
         {
           "notes": "marking something as readonly",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:831"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:832"
         },
         {
           "notes": "crew members. evaluate a concepts to get instances",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:855"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:856"
         },
         {
           "notes": "greg has eyes",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:880"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:881"
         },
         {
           "notes": "greg has eyes?",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:900"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:901"
         },
         {
           "notes": "set the property of an object",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:926"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:927"
         },
         {
           "notes": "get/evaluate a property",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:978"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:979"
         }
       ]
     },
