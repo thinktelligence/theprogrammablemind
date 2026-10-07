@@ -67,11 +67,11 @@
       ],
       "semantics": [
         {
-          "match": "({context, isA}) => context.evaluate && onOrIs('dayAfterDate', context)",
+          "match": "({context, isA}) => onOrIs('dayAfterDate', context)",
           "apply": "async ({context, isProcess, isTest, kms, isA, e}) => {\n            try {\n              const now = kms.time.api.now()\n              const date = afterOrIs('dayAfterDate', context)\n              const afterISO = (await e(date.after)).evalue\n              const day_ordinal = date.day.day_ordinal\n              const ordinal = date.day.ordinal.value\n              context.evalue = dateTimeSelectors_helpers.getNthWeekdayAfterDate(afterISO, day_ordinal, ordinal)\n            } catch ( e ) {\n              context.evalue = `Implement instatiate for this type of date, ${context.marker}. See the dateTimeSelectors KM ${where()}. ${e}`\n            }\n          }"
         },
         {
-          "match": "({context, isA}) => context.evaluate && onOrIs('dayOfMonth', context)",
+          "match": "({context, isA}) => onOrIs('dayOfMonth', context)",
           "apply": "({context, isProcess, isTest, kms, isA}) => {\n            try {\n              const now = kms.time.api.now()\n              const date = onOrIs('dayOfMonth', context)\n              context.evalue = dateTimeSelectors_helpers.getNthDayOfMonth(removeDatesSuffix(date.day.value), date.day.ordinal.value || 1, removeDatesSuffix(date.month.value), now)\n            } catch ( e ) {\n              context.evalue = `Implement instatiate for this type of date, ${context.marker}. See the dateTimeSelectors KM ${where()}. ${e}`\n            }\n          }"
         },
         {

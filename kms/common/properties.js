@@ -862,9 +862,6 @@ const config = {
                           (!context.objects || context.objects.length !== 2 || !context.objects[1].isInstance) &&
                           (api.objects && api.objects.children && api.objects.children[context.marker]),
       apply: ({context, stack, isA, contextHierarchy, hierarchy, objects, api, km}) => {
-        if (!(context.pullFromContext || isA(context, 'type'))) {
-          debugger
-        }
         const values = api.objects.children[context.marker]
         const phrases = values.map( (value) => km('concept').api.getWordForValue(value) )
         // context.focusableForPhrase = true

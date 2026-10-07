@@ -94,7 +94,7 @@ const template = {
       ],
       semantics: [
         {
-          match: ({context, isA}) => context.evaluate && onOrIs('dayAfterDate', context),
+          match: ({context, isA}) => onOrIs('dayAfterDate', context),
           apply: async ({context, isProcess, isTest, kms, isA, e}) => {
             try {
               const now = kms.time.api.now()
@@ -109,7 +109,7 @@ const template = {
           },
         },
         {
-          match: ({context, isA}) => context.evaluate && onOrIs('dayOfMonth', context),
+          match: ({context, isA}) => onOrIs('dayOfMonth', context),
           apply: ({context, isProcess, isTest, kms, isA}) => {
             try {
               const now = kms.time.api.now()
