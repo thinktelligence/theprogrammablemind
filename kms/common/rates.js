@@ -36,7 +36,7 @@ const template = {
       semantics: [
         {
           where: where(),
-          match: ({context}) => context.marker == 'convertToUnits' && context.evaluate && (context.from?.unit?.marker == 'unitPerUnit' || context.to.marker == 'unitPerUnit'),
+          match: ({context}) => context.marker == 'convertToUnits' && (context.from?.unit?.marker == 'unitPerUnit' || context.to.marker == 'unitPerUnit'),
           apply: async ({remember, context, kms, e, callId, resolveEvaluate, toEValue, error}) => {
 
             async function convert(fromUnits, fromAmount, toUnits) {
