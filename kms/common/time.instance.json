@@ -185,7 +185,7 @@
       },
       "generators": [
         {
-          "match": "({context}) => context.marker == 'timePoint' && context.evalue && context.format == 12",
+          "match": "({context}) => context.marker == 'timePoint' && context.evalue && context.format == 12 && !context.paraphrase",
           "apply": "({context}) => {\n            let hh = context.evalue.getHours();\n            let ampm = 'am'\n            if (hh > 12) {\n              hh -= 12;\n              ampm = 'pm'\n            }\n            let ss = context.evalue.getMinutes()\n            ss = pad(ss, 2)\n            return `${hh}:${ss} ${ampm}` \n          }"
         },
         {
@@ -203,7 +203,7 @@
           "apply": "async ({context, e, s, handlerStack}) => {\n            const v = (await e(context.repeats.repeats)).evalue\n            for (let i = 0; i < v; ++i) {\n              if (context.action) {\n                await s(context.action)\n              } else {\n                const repeats = context.repeats\n                context.repeats = undefined\n                await s(context)\n                context.repeats = repeats\n              }\n            }\n          }"
         },
         {
-          "match": "({objects, context, api}) => context.marker == 'timePoint' && context.evaluate",
+          "match": "({objects, context, api}) => context.marker == 'timePoint' && !context.isInstance",
           "apply": "({objects, context, api}) => {\n            context.evalue = api.newDate()\n            context.format = objects.format\n          }"
         },
         {

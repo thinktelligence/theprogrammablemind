@@ -170,7 +170,7 @@ const template = {
       generators: [
         { 
           where: where(),
-          match: ({context}) => context.marker == 'timePoint' && context.evalue && context.format == 12, 
+          match: ({context}) => context.marker == 'timePoint' && context.evalue && context.format == 12 && !context.paraphrase, 
           apply: ({context}) => {
             let hh = context.evalue.getHours();
             let ampm = 'am'
@@ -225,7 +225,7 @@ const template = {
         {
           notes: 'evaluate time',
           where: where(),
-          match: ({objects, context, api}) => context.marker == 'timePoint' && context.evaluate, 
+          match: ({objects, context, api}) => context.marker == 'timePoint' && !context.isInstance,
           apply: ({objects, context, api}) => {
             context.evalue = api.newDate()
             context.format = objects.format
