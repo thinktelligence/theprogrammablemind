@@ -324,7 +324,7 @@ const config = {
   semantics: [
     {
       where: where(),
-      match: ({context}) => context.marker == 'mentions' && context.evaluate && context.args?.context?.distributer,
+      match: ({context}) => context.marker == 'mentions' && context.args?.context?.distributer,
       apply: async ({callId, _continue, toList, context, kms, e, log, toArray, retry}) => {
         context.args.filter ??= (r) => r
         context.args.all = true
@@ -337,7 +337,7 @@ const config = {
     },
     {
       where: where(),
-      match: ({context}) => context.marker == 'mentions' && context.evaluate,
+      match: ({context}) => context.marker == 'mentions',
       apply: ({context, kms, toList, resolveEvaluate}) => {
         const value = kms.stm.api.recall(context.args)
         if (value) {
@@ -375,9 +375,7 @@ const config = {
           if (instance.evalue && !instance.edefault) {
             context.value = instance.evalue
           }
-          if (context.evaluate) {
-            context.evalue = context.value
-          }
+          context.evalue = context.value
         } else {
           await s(context.value)
         }
