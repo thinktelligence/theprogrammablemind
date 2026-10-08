@@ -956,11 +956,11 @@
       ],
       "semantics": [
         {
-          "match": "({context, isA}) => isA(context, 'style_wp') && !context.same && !context.isResponse && !context.evaluate",
+          "match": "({context, isA}) => isA(context, 'style_wp') && !context.same && !context.isResponse",
           "apply": "({context, api, isA, toArray}) => {\n            const update = { scope: 'selection' }\n            setUpdate(isA, update, toArray(context))\n            api.changeState(update)\n          }"
         },
         {
-          "match": "({context, isA}) => isA(context, 'statefulElement_wp') && !context.same && !context.isResponse && !context.evaluate",
+          "match": "({context, isA}) => isA(context, 'statefulElement_wp') && !context.same && !context.isResponse",
           "apply": "({context, api, isA, toArray}) => {\n            const unit = root(context.marker)\n            let scope\n            if (context.quantity) {\n              scope = context.quantity.quantity\n            }\n            // TODO set default scope for \"every word bold underlined etc\"\n          }"
         }
       ],

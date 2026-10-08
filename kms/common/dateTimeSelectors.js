@@ -122,9 +122,6 @@ const template = {
         },
         {
           match: ({context, isA}) => {
-            if (!context.evaluate) {
-              return false
-            }
             if (isA(context.marker, 'onDateValue_dates')) {
               return true
             }
