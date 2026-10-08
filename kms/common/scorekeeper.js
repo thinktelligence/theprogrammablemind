@@ -204,7 +204,7 @@ const config = {
     },
     {
       where: where(),
-      match: ({context}) => context.marker == 'turn' && context.evaluate && context.whose,
+      match: ({context}) => context.marker == 'turn' && context.whose,
       apply: ({context, objects}) => {
         if (Number.isInteger(objects.nextPlayer)) {
           context.evalue = `${objects.players[objects.nextPlayer]}'s turn`
@@ -215,7 +215,7 @@ const config = {
     },
     {
       where: where(),
-      match: ({context}) => context.marker == 'unify' && context.evaluate && context.terms[0].whose,
+      match: ({context}) => context.marker == 'unify' && context.terms[0].whose,
       apply: ({context, objects}) => {
         if (Number.isInteger(objects.nextPlayer)) {
           context.evalue = `${objects.players[objects.nextPlayer]}'s turn` 
@@ -226,7 +226,7 @@ const config = {
     },
     {
       where: where(),
-      match: ({context}) => context.marker == 'next' && context.evaluate,
+      match: ({context}) => context.marker == 'next',
       apply: ({context, objects}) => {
         if (Number.isInteger(objects.nextPlayer)) {
           context.evalue = objects.players[objects.nextPlayer]
@@ -237,7 +237,7 @@ const config = {
     },
     {
       where: where(),
-      match: ({context}) => context.marker == 'player' && context.evaluate && context.pullFromContext,
+      match: ({context}) => context.marker == 'player' && context.pullFromContext,
       apply: async ({context, objects, gs}) => {
         const players = objects.players
         if (players.length == 0) {
@@ -257,7 +257,7 @@ const config = {
     },
     {
       where: where(),
-      match: ({context}) => context.marker == 'score' && context.evaluate && context.winning,
+      match: ({context}) => context.marker == 'score' && context.winning,
       apply: ({context, objects}) => {
         //context.value = { marker: 'point', value: objects.winningScore }
         // i got the value by running -q '20 points'
@@ -280,7 +280,7 @@ const config = {
     },
     {
       where: where(),
-      match: ({context}) => context.marker == 'score' && context.evaluate,
+      match: ({context}) => context.marker == 'score',
       apply: ({context, objects}) => {
         const players = Object.keys(objects.scores);
         let allScoresAreZero = true
