@@ -41,7 +41,7 @@ const config = {
   semantics: [
     {
       where: where(),
-      match: ({context}) => context.marker == 'mentions' && context.evaluate && context.args?.context?.ordinal,
+      match: ({context}) => context.marker == 'mentions' && context.args?.context?.ordinal,
       apply: async ({callId, _continue, toList, context, kms, e, log, toArray, retry}) => {
         // const ordinals = toArray(context.args?.context?.ordinal)
         const lastNotFirst = context.args?.context?.ordinal.value < 0
