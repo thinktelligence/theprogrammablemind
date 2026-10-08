@@ -137,7 +137,7 @@ const template = {
               const query = memoizeAsync(async () => await(gp(await fragments("what is the concept?", { concept: property }))))
               const compatible_types = property.compatible_types || [property.marker]
               const matchr = ({context, isA}) => {
-                return !context.same && !context.evaluate && isA(context, compatible_types)
+                return !context.same && isA(context, compatible_types)
               }
               objects.askFor.push(property);
               askForProperty({

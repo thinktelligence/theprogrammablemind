@@ -826,27 +826,27 @@
           "apply": "async ({context, fragments, e, s, toEValue, toFinalValue, namespaced, objects}) => {\n            const updated = { ...context, marker: 'patrol', path: context.action }\n            namespaced.set('actions', updated, 'logged', true)\n            await s(updated)\n            // await s({ ...context, marker: 'patrol', path: context.action })\n          }"
         },
         {
-          "match": "({context, contextHierarchy}) => {\n            if (!context.pullFromContext || !context.evaluate || contextHierarchy.under(['doAction', 'evaluate', 'patrol']) || context.isInstance) {\n              return false\n            }\n            \n            if (context.marker == 'path' || context.marker == 'this' || context.marker == 'that') {\n              return true\n            }\n          }",
+          "match": "({context, contextHierarchy}) => {\n            if (!context.pullFromContext || contextHierarchy.under(['doAction', 'evaluate', 'patrol']) || context.isInstance) {\n              return false\n            }\n            \n            if (context.marker == 'path' || context.marker == 'this' || context.marker == 'that') {\n              return true\n            }\n          }",
           "apply": "async ({context, frameOfReference, toArray, fragments, objects, remember, recall, resolveEvaluate, _continue, contextHierarchy}) => {\n            const pathComponents = toArray(await recall({ \n                                      context: { marker: 'pathComponent' }, \n                                      all: true,\n                                      stopCondition: (context) => context.marker == 'startPath',\n                                   }))\n            const path = (await fragments('path')).contexts()[0]\n            delete path.value\n            path.isInstance = true\n            path.points = pathComponents.reverse()\n            frameOfReference(path, { mentioned: 'points', reversed: true })\n            await remember(path)\n\n            _continue() // let the call pick the object out from the stm\n          }"
         },
         {
-          "match": "({context, contextHierarchy}) => {\n            if (!context.pullFromContext || !context.evaluate || !contextHierarchy.under('call') || context.notUnderCall) {\n              return false\n            }\n            \n            if (context.marker == 'point' || context.marker == 'ordinal') {\n              return true\n            }\n          }",
+          "match": "({context, contextHierarchy}) => {\n            if (!context.pullFromContext || !contextHierarchy.under('call') || context.notUnderCall) {\n              return false\n            }\n            \n            if (context.marker == 'point' || context.marker == 'ordinal') {\n              return true\n            }\n          }",
           "apply": "async ({frameOfReference, context, e, fragments, stm, toEValue, toArray, objects, remember, recall, resolveEvaluate, _continue, contextHierarchy}) => {\n            const evaluated = await e({...context, notUnderCall: true})\n            const pointsContext = toEValue(evaluated)\n            const pathComponents = toArray(pointsContext)\n\n            const path = (await fragments('path')).contexts()[0]\n            delete path.value\n            path.isInstance = true\n            path.points = [...pathComponents]\n            frameOfReference(path, { mentioned: 'points', reversed: true })\n            await remember(path)\n            resolveEvaluate(context, path)\n          }"
         },
         {
-          "match": "({context}) => context.evaluate && ['start', 'end'].includes(context.marker) && context.objects && context.objects[1].marker == 'path'",
+          "match": "({context}) => ['start', 'end'].includes(context.marker) && context.objects && context.objects[1].marker == 'path'",
           "apply": "async ({gp, s, context, objects, fragments, resolveEvaluate, api, recall}) => {\n            const path = await recall({ context: context.objects[1] })\n            if (!path?.points) {\n              return\n            }\n            if (context.marker == 'start') {\n              resolveEvaluate(context, path?.points[0])\n            } else if (context.marker == 'end') {\n              resolveEvaluate(context, path?.points[path?.points.length-1])\n            }\n          }"
         },
         {
-          "match": "({context, contextHierarchy}) => \n              context.evaluate && \n              ['start', 'end', 'point'].includes(context.marker) && \n              !context.propertyOf && \n              contextHierarchy.under('go') &&\n              !contextHierarchy.under('call')",
+          "match": "({context, contextHierarchy}) => \n              ['start', 'end', 'point'].includes(context.marker) && \n              !context.propertyOf && \n              contextHierarchy.under('go') &&\n              !contextHierarchy.under('call')",
           "apply": "async ({gp, s, toArray, context, objects, fragments, resolveEvaluate, api, recall}) => {\n            const path = await recall({ context: { marker: 'path' } })\n            if (!path?.points) {\n              return\n            }\n            \n            if (context.marker == 'start') {\n              resolveEvaluate(context, path?.points[0])\n            } else if (context.marker == 'end') {\n              resolveEvaluate(context, path?.points[path?.points.length-1])\n            } else {\n              const points = await recall({ context, frameOfReference: path })\n              resolveEvaluate(context, toArray(points)[0])\n            }\n          }"
         },
         {
-          "match": "({context}) => {\n            // from stm lookup\n            if (context.marker == 'mentions' && context.evaluate && context.args.context.marker == 'speed') {\n              return true\n            }\n            // from property directly\n            if (context.marker == 'speed' && context.evaluate) {\n              return true\n            }\n          }",
+          "match": "({context}) => {\n            // from stm lookup\n            if (context.marker == 'mentions' && context.args.context.marker == 'speed') {\n              return true\n            }\n            // from property directly\n            if (context.marker == 'speed') {\n              return true\n            }\n          }",
           "apply": "async ({gp, s, context, objects, fragments, resolveEvaluate, api}) => {\n            let return_context = context\n            if (context.marker == 'speed') {\n              // okay\n            } else {\n              // stm lookup\n              return_context = context\n              context = context.args.context\n            }\n            let value = objects.current.speed\n            if (context.condition) {\n              if (['highest', 'maximum'].includes(context.condition.marker)) {\n                value = api.maximumSpeedDrone()\n              } else if (['lowest', 'minimum'].includes(context.condition.marker)) {\n                value = api.minimumSpeedDrone()\n              }\n            }\n            const speed = await fragments(\"number meters per second\", { number: { marker: 'integer', value, word: undefined} })\n            const preferred = await s({ marker: 'preferredUnits', quantity: speed }) \n            resolveEvaluate(return_context, preferred.evalue || speed)\n          }"
         },
         {
-          "match": "({context}) => {\n            if (context.marker == 'mentions' && context.evaluate && ['direction', 'drone_direction'].includes(context.args.context.marker)) {\n              return true\n            }\n            if (['direction', 'drone_direction'].includes(context.marker) && context.evaluate) {\n              return true\n            }\n          }",
+          "match": "({context}) => {\n            if (context.marker == 'mentions' && ['direction', 'drone_direction'].includes(context.args.context.marker)) {\n              return true\n            }\n            if (['direction', 'drone_direction'].includes(context.marker)) {\n              return true\n            }\n          }",
           "apply": "async ({gp, s, context, objects, fragments, resolveEvaluate, api}) => {\n            const value = objects.current.angleInRadians\n            const fi = await fragments(\"number radians\")\n            const direction = await fi.instantiate([\n              { \n                match: ({path, pathEquals}) => pathEquals(path, ['0', 'amount']),\n                apply: ({context}) => {\n                  Object.assign(context, { marker: 'number', value: value, word: undefined })\n                }\n              }\n            ])\n            const preferred = await s({ marker: 'preferredUnits', quantity: direction }) \n            resolveEvaluate(context, preferred.evalue || direction)\n          }"
         },
         {
@@ -10782,16 +10782,16 @@
         },
         {},
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/drone.js:1438"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/drone.js:1437"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/drone.js:1472"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/drone.js:1471"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/drone.js:1498"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/drone.js:1497"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/drone.js:1505"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/drone.js:1504"
         }
       ]
     }
