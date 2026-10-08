@@ -64,7 +64,7 @@ function query(missing, reminder_id) {
     },
 
     matchr: async ({ isA, api, context }) => {
-      if (context.evaluate || context.isControl || context.isResponse) {
+      if (context.isControl || context.isResponse) {
         return false
       }
       const gotADate = ((isA(context.marker, 'onDateValue_dates') || isA(context.marker, 'dateTimeSelector')) && api.missing(missing, reminder_id))
