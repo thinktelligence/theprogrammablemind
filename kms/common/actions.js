@@ -147,7 +147,9 @@ const config = {
     {
       where: where(),
       priority: -1,
-      match: ({context, isA, stack, namespaced}) => !context.pullFromContext && !context.evaluate && (isA(context.marker, 'action') || isA(context.marker, 'doAction')) && !namespaced.get('actions', context, 'logged'),
+      match: ({context, isA, contextHierarchy, stack, namespaced}) => {
+        return !context.pullFromContext && !contextHierarchy.under('call') && (isA(context.marker, 'action') || isA(context.marker, 'doAction')) && !namespaced.get('actions', context, 'logged')
+      },
       apply: async ({context, _continue, testLog, g, remember}) => {
         remember(context)
         await testLog(() => g(context))

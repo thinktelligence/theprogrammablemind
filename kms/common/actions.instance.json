@@ -166,7 +166,7 @@
       },
       "semantics": [
         {
-          "match": "({context, isA, stack, namespaced}) => !context.pullFromContext && !context.evaluate && (isA(context.marker, 'action') || isA(context.marker, 'doAction')) && !namespaced.get('actions', context, 'logged')",
+          "match": "({context, isA, contextHierarchy, stack, namespaced}) => {\n        if (false) {\n          if (!context.pullFromContext && (isA(context.marker, 'action') || isA(context.marker, 'doAction')) && !namespaced.get('actions', context, 'logged')) {\n            if (context.evaluate) {\n              debugger\n              throw new Error(\"this is the error\")\n            }\n          }\n        }\n        // return !context.pullFromContext && !context.evaluate && (isA(context.marker, 'action') || isA(context.marker, 'doAction')) && !namespaced.get('actions', context, 'logged')\n        return !context.pullFromContext && !contextHierarchy.under('call') && (isA(context.marker, 'action') || isA(context.marker, 'doAction')) && !namespaced.get('actions', context, 'logged')\n      }",
           "apply": "async ({context, _continue, testLog, g, remember}) => {\n        remember(context)\n        await testLog(() => g(context))\n        _continue()\n      }"
         }
       ]
