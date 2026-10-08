@@ -334,8 +334,7 @@ const template = {
       semantics: [
         {
           match: ({context, isA, debug}) => {
-            return context.evaluate && 
-              context.marker == 'unify' && 
+            return context.marker == 'unify' && 
               context.terms.every((term) => isA(term, 'quantity')) &&
               context.terms.every((term) => term.instance)
           },
