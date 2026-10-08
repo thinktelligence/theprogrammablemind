@@ -228,7 +228,7 @@ https://www.amazon.ca/Freenove-Raspberry-Tracking-Avoidance-Ultrasonic/dp/B0BNDQ
 
 function expectDirection(args) {
   args.config.addSemantic({
-    match: ({context, isA}) => isA(context.marker, 'direction') && !context.evaluate,
+    match: ({context, isA}) => isA(context.marker, 'direction'),
     apply: ({objects, context}) => {
       objects.runCommand = true
       objects.current.direction = context.marker
@@ -1337,7 +1337,7 @@ const template = {
         {
           where: where(),
           match: ({context, contextHierarchy}) => {
-            if (!context.pullFromContext || !context.evaluate || contextHierarchy.under(['doAction', 'evaluate', 'patrol']) || context.isInstance) {
+            if (!context.pullFromContext || contextHierarchy.under(['doAction', 'evaluate', 'patrol']) || context.isInstance) {
               return false
             }
             
@@ -1364,7 +1364,7 @@ const template = {
         {
           where: where(),
           match: ({context, contextHierarchy}) => {
-            if (!context.pullFromContext || !context.evaluate || !contextHierarchy.under('call') || context.notUnderCall) {
+            if (!context.pullFromContext || !contextHierarchy.under('call') || context.notUnderCall) {
               return false
             }
             
@@ -1398,7 +1398,7 @@ const template = {
         */
         {
           where: where(),
-          match: ({context}) => context.evaluate && ['start', 'end'].includes(context.marker) && context.objects && context.objects[1].marker == 'path',
+          match: ({context}) => ['start', 'end'].includes(context.marker) && context.objects && context.objects[1].marker == 'path',
           apply: async ({gp, s, context, objects, fragments, resolveEvaluate, api, recall}) => {
             const path = await recall({ context: context.objects[1] })
             if (!path?.points) {
@@ -1413,7 +1413,6 @@ const template = {
         },
         {
           match: ({context, contextHierarchy}) => 
-              context.evaluate && 
               ['start', 'end', 'point'].includes(context.marker) && 
               !context.propertyOf && 
               contextHierarchy.under('go') &&
@@ -1438,11 +1437,11 @@ const template = {
           where: where(),
           match: ({context}) => {
             // from stm lookup
-            if (context.marker == 'mentions' && context.evaluate && context.args.context.marker == 'speed') {
+            if (context.marker == 'mentions' && context.args.context.marker == 'speed') {
               return true
             }
             // from property directly
-            if (context.marker == 'speed' && context.evaluate) {
+            if (context.marker == 'speed') {
               return true
             }
           },
@@ -1472,10 +1471,10 @@ const template = {
           where: where(),
           // recallOverride(context(), frameOfReference())
           match: ({context}) => {
-            if (context.marker == 'mentions' && context.evaluate && ['direction', 'drone_direction'].includes(context.args.context.marker)) {
+            if (context.marker == 'mentions' && ['direction', 'drone_direction'].includes(context.args.context.marker)) {
               return true
             }
-            if (['direction', 'drone_direction'].includes(context.marker) && context.evaluate) {
+            if (['direction', 'drone_direction'].includes(context.marker)) {
               return true
             }
           },
