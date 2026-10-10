@@ -3,6 +3,10 @@ const { exec } = require('child_process');
 const util = require('util');
 const execAsync = util.promisify(exec);
 
+// how to run against test server
+//
+//   node yesno -tva --server http://thinktelligence.com:81/entodicton/
+
 async function hasDebugCommand(cmd) {
   let hasError = false
   try {
@@ -121,6 +125,7 @@ async function loop(tests, atEnd, failed) {
 }
 
 (async () => {
+  await exec('cp -r /home/dev/code/theprogrammablemind/kms/common /home/dev/code/entodicton/mongo/server/node_modules/tpmkms')
   await loop(retrains.concat(tests), () => hasDebugCommands(), []).catch((e) => {
     console.log(e.toString())
   })
