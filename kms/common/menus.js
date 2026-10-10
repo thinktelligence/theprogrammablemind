@@ -127,6 +127,7 @@ const template = {
       bridges: [
         {
           id: 'close_menus',
+          where: where(),
           isA: ['verb'],
           associations: ['menus'],
           bridge: "{ ...next(operator), closee: after[0], generate: ['this', 'closee'] }",
@@ -136,6 +137,8 @@ const template = {
         },
         {
           id: 'show_menus',
+          where: where(),
+          where: where(),
           isA: ['verb'],
           bridge: "{ ...next(operator), show: after[0], generate: ['this', 'show'] }",
           semantic: ({context, api}) => {

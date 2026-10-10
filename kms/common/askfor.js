@@ -74,6 +74,7 @@ const template = {
         },
         {
           id: 'known',
+          where: where(),
           isA: ['queryable'],
           evaluator: async ({kms, context, e, callId, toList, flatten, toEValue, resolveEvaluate, objects}) => {
             const known = await kms.properties.api.getProperty(context.subjects[0], 'property')
@@ -82,6 +83,7 @@ const template = {
         },
         {
           id: 'information',
+          where: where(),
           isA: ['noun'],
           evaluator: async ({context, e, callId, toList, flatten, toEValue, resolveEvaluate, objects}) => {
             const properties = objects.askFor
@@ -107,6 +109,7 @@ const template = {
         },
         {
           id: 'askfor_askfor',
+          where: where(),
           isA: ['verb'],
           words: ['ask'],
           bridge: `{

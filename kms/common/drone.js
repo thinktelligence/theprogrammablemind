@@ -939,6 +939,7 @@ const template = {
         },
         { 
           id: 'startPath',
+          where: where(),
           isA: ['verb'],
           bridge: "{ ...next(operator), path: after[0], operator: operator, interpolate: [{ property: 'operator' }, { property: 'path' }] }",
           check: defaultContextCheckProperties(['path']),
@@ -979,6 +980,7 @@ const template = {
         },
         {
           id: 'patrol',
+          where: where(),
           isA: ['verb', 'repeatable', 'action'],
           bridge: `{
             ...next(operator), 
@@ -1064,6 +1066,7 @@ const template = {
         /*
         {
           id: 'do',
+          where: where(),
           isA: ['verb'],
           bridge: `{
             ...next(operator), operator: operator, path: after[0], interpolate: [{ property: 'operator'}, { property: 'path' }]
@@ -1080,6 +1083,7 @@ const template = {
         */
         {
           id: 'lift',
+          where: where(),
           isA: ['verb'],
           bridge: `{
             ...next(operator), operator: operator, object: after[0], interpolate: [{ property: 'operator'}, { property: 'object' }]
@@ -1091,6 +1095,7 @@ const template = {
         },
         {
           id: 'lower',
+          where: where(),
           isA: ['verb'],
           bridge: `{
             ...next(operator), operator: operator, object: after[0], interpolate: [{ property: 'operator'}, { property: 'object' }]
@@ -1102,6 +1107,7 @@ const template = {
         },
         {
           id: 'openDrone',
+          where: where(),
           isA: ['verb'],
           bridge: `{
             ...next(operator), operator: operator, object: after[0], interpolate: [{ property: 'operator'}, { property: 'object' }]
@@ -1113,6 +1119,7 @@ const template = {
         },
         {
           id: 'close',
+          where: where(),
           isA: ['verb'],
           bridge: `{
             ...next(operator), operator: operator, object: after[0], interpolate: [{ property: 'operator'}, { property: 'object' }]
@@ -1124,6 +1131,7 @@ const template = {
         },
         {
           id: 'back',
+          where: where(),
           isA: ['noun'],
           semantic: async ({objects, api, e, context, say}) => {
             await api.back()
@@ -1135,6 +1143,7 @@ const template = {
         },
         { 
           id: "toPoint",
+          where: where(),
           isA: ['preposition'],
           after: [['propertyOf', 1]],
           bridge: "{ ...next(operator), operator: operator, point: after[0], interpolate: [{ property: 'operator' }, { property: 'point' }] }",
@@ -1147,6 +1156,7 @@ const template = {
         },
         { 
           id: "go",
+          where: where(),
           level: 0,
           // convolution: true,
           isA: ['verb', 'repeatable', 'doAction'],
@@ -1200,6 +1210,7 @@ const template = {
         },
         {
           id: 'turn',
+          where: where(),
           isA: ['verb', 'action', 'repeatable'],
           before: ['thenAction'],
           words: ['turn'],
@@ -1258,6 +1269,7 @@ const template = {
         },
         {
           id: 'pause',
+          where: where(),
           isA: ['verb'],
           words: [
             ...conjugateVerb('pause'),
@@ -1302,6 +1314,7 @@ const template = {
         },
         {
           id: 'stop',
+          where: where(),
           isA: ['verb'],
           optional: {
             1: "{ marker: 'drone' }",

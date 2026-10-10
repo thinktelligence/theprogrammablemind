@@ -317,6 +317,7 @@ template = {
         },
         { 
           id: 'statefulElementInContext_wp',
+          where: where(),
           parents: ['preposition'],
           optional: {
             '-1': "{ ...operator, invisible: true }",
@@ -342,6 +343,7 @@ template = {
         },
         { 
           id: 'applyStyle_wp',
+          where: where(),
           parents: ['verb'],
           convolution: true,
           bridge: `{ 
@@ -426,6 +428,7 @@ template = {
         },
         { 
           id: 'changeState_wp',
+          where: where(),
           parents: ['verb'],
           bridge: `{ 
             ...next(operator), 

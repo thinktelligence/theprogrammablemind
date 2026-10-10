@@ -39,6 +39,7 @@ const config = {
           passthrough: true
      }, 
       bridge: "{ ...operator, value: append(before, operator.value) }",
+      where: where(),
       semantic: {
         match: ({context, namespaced}) => !namespaced.get('conjunction', context, 'atomic'),
         apply: async ({context, flatten, s}) => {

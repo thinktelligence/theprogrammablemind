@@ -26,6 +26,7 @@ const config = {
   bridges: [
     {
       id: "nevermind",
+      where: where(),
       bridge: "{ ...next(operator), complete: true }",
       semantic: (args) => {
         const {config, context} = args
@@ -51,6 +52,7 @@ const config = {
 
     {
       id: "whichOnesTestSetup",
+      where: where(),
       scope: "testing",
       generatorp: async ({context, gs}) => `${context.marker} ${await gs(context.choices)}`,
       bridge: "{ ...next(operator), choices: after[0] }",
@@ -91,6 +93,7 @@ const config = {
 
     {
       id: "nevermindTestSetup",
+      where: where(),
       scope: "testing",
       bridge: "{ ...next(operator), type: after[0], postModifiers: ['type'] }",
       semantic: ({ask, context}) => {

@@ -12,6 +12,7 @@ const config = {
   bridges: [
     { 
       id: "percent", 
+      where: where(),
       words: ['percent', '%'],
       separators: '?',
       bridge: "{ ...next(operator), modifiers: ['scale'], scale: before[0] }",
@@ -19,6 +20,7 @@ const config = {
     },
     { 
       id: "percentageOf", 
+      where: where(),
       words: ['percent', '%'],
       bridge: "{ ...next(operator), percentage: before[0], isResponse: true, semanticIsEvaluate: true, value: after[0] }",
       evaluator: async ({context, e}) => {

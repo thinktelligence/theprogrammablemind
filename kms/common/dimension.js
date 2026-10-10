@@ -79,6 +79,7 @@ class API {
     config.addOperator(`([${dimension}])`)
     config.addBridge({ 
       id: dimension,
+      where: where(),
       isA: ['dimension'],
       generatorp: async ({context, g}) => context.amount ? `${await g(context.amount)} ${await g(context.unit)}` : context.word,
     })
@@ -321,6 +322,7 @@ const template = {
       bridges: [
         {
           id: 'useMeasurementSystem',
+          where: where(),
           isA: ['verb'],
           bridge: "{ ...next(operator), system: after[0], interpolate: [ { context: operator }, { property: 'system' } ] }",
           semantic: ({context, api}) => {

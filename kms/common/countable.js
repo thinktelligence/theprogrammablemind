@@ -98,6 +98,7 @@ const config = {
     },
     { 
       id: "all", 
+      where: where(),
       generatorp: ({context}) => 'all',
       bridge: "{ ...next(operator), number: 'many', quantity: 'all' }" 
     },

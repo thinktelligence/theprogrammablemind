@@ -266,6 +266,7 @@ const config = {
     },
     { 
       id: 'delete', 
+      where: where(),
       isA: ['verb'],
       bridge: "{ ...next(operator), deletable: after[0], operator: operator, interpolate: [{ property: 'operator' }, { property: 'deletable' }] }",
       semantic: async ({context, recall}) => {
@@ -286,6 +287,7 @@ const config = {
     },
     { 
       id: 'recall', 
+      where: where(),
       bridge: "{ ...next(operator), postModifiers: ['recallee'], recallee: after[0] }",
       isA: ['verb'],
       semantic: async ({context, recall, resolveEvaluate, e}) => {
@@ -295,6 +297,7 @@ const config = {
     },
     { 
       id: 'remember', 
+      where: where(),
       bridge: "{ ...next(operator), postModifiers: ['rememberee'], rememberee: after[0] }",
       isA: ['verb'],
       semantic: async ({context, api, e}) => {

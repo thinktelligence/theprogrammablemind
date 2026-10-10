@@ -264,6 +264,7 @@ const template = {
         },
         {
           id: 'add',
+          where: where(),
           isA: ['verb'],
           bridge: "{ ...next(operator), complete: true, arg: after[0], operator: operator, interpolate: '${operator} ${arg}' }",
           semantic: ({api, context}) => {
@@ -272,6 +273,7 @@ const template = {
         },
         {
           id: 'remove',
+          where: where(),
           words: ['delete', 'remove'],
           isA: ['verb'],
           bridge: "{ ...next(operator), complete: true, arg: after[0], operator: operator, interpolate: '${operator} ${arg}' }",
@@ -281,6 +283,7 @@ const template = {
         },
         {
           id: 'addRemindable',
+          where: where(),
           isA: ['verb'],
           scope: "testing",
           bridge: "{ ...next(operator), complete: true, flatten: true, arg: after[0], operator: operator, interpolate: '${operator} ${arg}' }",
@@ -295,6 +298,7 @@ const template = {
         },
         {
           id: 'remindResponseOnly',
+          where: where(),
           isA: ['verb'],
           convolution: true,
           disabled: true,
@@ -311,6 +315,7 @@ const template = {
         },
         {
           id: 'remindResponse',
+          where: where(),
           before: ['remindResponseOnly'],
           isA: ['verb'],
           convolution: true,
@@ -331,6 +336,7 @@ const template = {
         },
         {
           id: 'remind',
+          where: where(),
           isA: ['verb'],
           localHierarchy: [['self', 'remindable']],
           bridge: "{ ...next(operator), complete: true, operator: operator, who: after[0], reminder: after[1], interpolate: '${operator} ${who} ${reminder}' }",
@@ -371,6 +377,7 @@ const template = {
         },
         {
           id: 'show',
+          where: where(),
           isA: ['verb'],
           bridge: "{ ...next(operator), operator: operator, complete: true, reminders: after[0], interpolate: '${operator} ${reminders}' }",
           semantic: ({context, api, verbatim}) => {
@@ -379,6 +386,7 @@ const template = {
         },
         {
           id: 'delete_reminders',
+          where: where(),
           isA: ['verb'],
           bridge: "{ ...next(operator), operator: operator, complete: true, reminders: after[0], interpolate: '${operator} ${reminders}' }",
           semantic: ({context, api, verbatim}) => {

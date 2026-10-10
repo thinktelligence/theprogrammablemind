@@ -477,6 +477,7 @@ const template = {
       bridges: [
         { 
           id: "toPoint",
+          where: where(),
           isA: ['preposition'],
           bridge: "{ ...next(operator), operator: operator, point: after[0], interpolate: [{ property: 'operator' }, { property: 'point' }] }",
           semantic: async ({objects, api, e, context}) => {
@@ -490,6 +491,7 @@ const template = {
         { id: "go" },
         {
           id: 'turn',
+          where: where(),
           isA: ['verb'],
           bridge: "{ ...next(operator), direction: after[0], interpolate: [{ context: operator }, { property: 'direction' }] }",
           semantic: ({context, objects, api}) => {
@@ -500,6 +502,7 @@ const template = {
         },
         {
           id: 'calibrate',
+          where: where(),
           isA: ['verb'],
           bridge: "{ ...next(operator), interpolate: [{ context: operator }] }",
           semantic: ({context, objects, api, remember}) => {
@@ -514,6 +517,7 @@ const template = {
         },
         {
           id: 'pause',
+          where: where(),
           isA: ['verb'],
           bridge: "{ ...operator, time: after[0], interpolate: [{ context: operator }, { property: 'time' }] }",
           semantic: async ({context}) => {
@@ -524,6 +528,7 @@ const template = {
         },
         {
           id: 'stop',
+          where: where(),
           isA: ['verb'],
           optional: {
             1: "{ marker: 'drone' }",

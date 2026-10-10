@@ -110,6 +110,7 @@ const config = {
     },
     {
       id: 'makeObject',
+      where: where(),
       bridge: "{ ...next(operator), object: after[0] }",
       enhanced_associations: false,
       generatorp: async ({context, gp}) => `${context.word} ${await gp(context.object)}`,
@@ -119,6 +120,7 @@ const config = {
     },
     {
       id: 'setIdSuffix',
+      where: where(),
       enhanced_associations: false,
       bridge: "{ ...next(operator), suffix: after[0] }",
       generatorp: async ({context, gp}) => `${context.word} ${await gp(context.suffix)}`,
@@ -128,6 +130,7 @@ const config = {
     },
     {
       id: 'resetIdSuffix',
+      where: where(),
       semantic: ({context, api}) => {
         api.setIdSuffix('')
       }

@@ -13,6 +13,7 @@ const template = {
       bridges: [
         { 
           id: 'setdebugbreak',
+          where: where(),
           bridge: `{
             ...next(operator),
             tag: after[0]
@@ -23,6 +24,7 @@ const template = {
         },
         {
           id: 'debugger',
+          where: where(),
           semantic: (args) => {
             debugger // eslint-disable-line no-debugger
             debugger // eslint-disable-line no-debugger

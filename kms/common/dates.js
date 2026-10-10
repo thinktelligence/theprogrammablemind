@@ -126,6 +126,7 @@ const template = {
         },
         { 
           id: 'dateEra_dates', 
+          where: where(),
           isA: ['date_dates'],
           convolution: true,
           bridge: "{ ...next(after[0]), era: after[1], interpolate: concat(after[0].interpolate, ' ${era}') }",
@@ -139,6 +140,7 @@ const template = {
         },
         { 
           id: 'monthDayYearWithSlashes_dates', 
+          where: where(),
           isA: ['date_dates'],
           before: ['preposition'],
           separators: "||||",
@@ -165,6 +167,7 @@ const template = {
         },
         { 
           id: 'monthDay_dates', 
+          where: where(),
           convolution: true,
           localHierarchy: [['ordinal', 'dayNumber_dates']],
           before: ['preposition'],
@@ -175,6 +178,7 @@ const template = {
         },
         { 
           id: 'monthYear_dates', 
+          where: where(),
           convolution: true,
           before: ['preposition'],
           isA: ['date_dates'],
@@ -184,6 +188,7 @@ const template = {
         },
         { 
           id: 'monthDayYear_dates', 
+          where: where(),
           convolution: true,
           before: ['preposition', 'monthDay_dates'],
           isA: ['date_dates'],

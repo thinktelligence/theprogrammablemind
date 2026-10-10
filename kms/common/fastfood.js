@@ -196,6 +196,7 @@ const template = {
         { id: 'modification' },
         { 
           id: 'withModification',
+          where: where(),
           level: 0,
           before: ['preposition'],
           generatorp: async ({context, gp}) => `with ${await gp(context.modifications)}`,
@@ -386,6 +387,7 @@ const template = {
       bridges: [
         { 
           id: "change",
+          where: where(),
           isA: ['verb'],
           localHierarchy: [ ['thisitthat', 'meal'], ['thisitthat', 'drink'] ],
           generatorp: async ({context, gp}) => `change ${await gp(context.from)} to ${await gp(context.to)}`,
@@ -426,6 +428,7 @@ const template = {
       bridges: [
         {
           id: 'remove',
+          where: where(),
           isA: ['verb'],
           bridge: "{ ...next(operator), remove: after[0], postModifiers: ['remove'] }",
           semantic: ({context, api}) => {
@@ -439,6 +442,7 @@ const template = {
         },
         {
           id: 'reset',
+          where: where(),
           isA: ['verb'],
           bridge: "{ ...next(operator) }",
           semantic: ({context, api}) => {
@@ -967,6 +971,7 @@ const config = {
   bridges: [
     { 
       id: 'orderNoun',
+      where: where(),
       parents: ['noun', 'queryable'],
       evaluator: ({context, api}) => {
         context.evalue = { marker: 'list', value: api.objects.items }
@@ -975,6 +980,7 @@ const config = {
     },
     { 
       id: 'showOrder',
+      where: where(),
       parents: ['verb'],
       bridge: "{ ...next(operator), order: after[0] }",
       generatorp: async ({context, g}) => `show ${await g(context.order)}`,

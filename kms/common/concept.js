@@ -25,6 +25,7 @@ const config = {
     {
       id: "modifies",
       enhanced_associations: false,
+      where: where(),
       isA: ['verb'],
       words: [{ word: 'modifies', number: 'one', flatten: false }, { word: 'modify', number: 'many', flatten: true }],
       // bridge: "{ ...next(operator), modifiers: before, concept: after[0], flatten: true }"
@@ -150,6 +151,7 @@ const template = {
       bridges: [
         {
           id: 'isOpenCompound',
+          where: where(),
           isA: ['verb'],
           bridge: `{
             ...operator,

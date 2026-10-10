@@ -8,11 +8,13 @@
       "bridges": [
         {
           "id": "setdebugbreak",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/debug.js:16",
           "bridge": "{\n            ...next(operator),\n            tag: after[0]\n          }",
           "semantic": "({context, debug}) => {\n            debug.hit(context.tag.word)\n          }"
         },
         {
           "id": "debugger",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/debug.js:27",
           "semantic": "(args) => {\n            debugger // eslint-disable-line no-debugger\n            debugger // eslint-disable-line no-debugger\n          }"
         }
       ]
@@ -28,10 +30,12 @@
       "bridges": [
         {
           "id": "setdebugbreak",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/debug.js:16",
           "bridge": "{\n            ...next(operator),\n            tag: after[0]\n          }"
         },
         {
-          "id": "debugger"
+          "id": "debugger",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/debug.js:27"
         }
       ]
     }

@@ -53,6 +53,7 @@ const config = {
     },
     {
       id: "doubleQuote",
+      where: where(),
       level: 0,
       bridge: "{ ...next(operator), quote: 'double' }",
       enhanced_associations: false,

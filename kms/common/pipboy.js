@@ -163,8 +163,8 @@ const config = {
        bridge: "{ ...next(after[0]), condition: before[0], modifiers: ['condition'] }",
     },
     { 
-       where: where(),
        id: "on", 
+       where: where(),
        isA: ['preposition'],
        level: 0, 
        bridge: "{ ...before, marker: operator('putOn', 0), dead: false }",
@@ -174,8 +174,8 @@ const config = {
        }
     },
     { 
-       where: where(),
        id: "change", 
+       where: where(),
        isA: ['verb'],
        level: 0, 
        bridge: "{ ...next(operator), item: after[0] }",
@@ -186,8 +186,8 @@ const config = {
        }
     },
     { 
-       where: where(),
        id: "disarm", 
+       where: where(),
        isA: ['verb'],
        generatorp: ({context}) => `disarm`,
        semantic: ({api, context}) => {
@@ -195,8 +195,8 @@ const config = {
        }
     },
     { 
-       where: where(),
        id: "strip", 
+       where: where(),
        isA: ['verb'],
        generatorp: ({context}) => `strip`,
        semantic: ({api, context}) => {
@@ -204,8 +204,8 @@ const config = {
        }
     },
     { 
-       where: where(),
        id: "call", 
+       where: where(),
        isA: ['verb'],
        level: 0, 
        bridge: "{ ...next(operator), item: after[0], name: after[1] }",
@@ -215,8 +215,8 @@ const config = {
        }
     },
     { 
-       where: where(),
        id: "putOn", 
+       where: where(),
        isA: ['verb'],
        level: 0, 
        bridge: "{ ...next(operator), item: after[0] }",
@@ -230,8 +230,8 @@ const config = {
        }
     },
     { 
-       where: where(),
        id: "wear", 
+       where: where(),
        isA: ['verb'],
        words: ['where'], // the speech recognizer hears 'where' not 'wear'
        localHierarchy: [ ['unknown', 'wearable'] ],
@@ -247,8 +247,8 @@ const config = {
        }
     },
     { 
-       where: where(),
        id: "equip", 
+       where: where(),
        isA: ['verb'],
        words: ['use'],
        level: 0, 
@@ -265,8 +265,8 @@ const config = {
        }
     },
     { 
-       where: where(),
        id: "toDrink", 
+       where: where(),
        isA: ['verb'],
        level: 0, 
        bridge: "{ ...next(operator), item: after[0] }",
@@ -277,8 +277,8 @@ const config = {
        }
     },
     { 
-       where: where(),
        id: "eat", 
+       where: where(),
        localHierarchy: [ ['unknown', 'edible'] ],
        isA: ['verb'],
        level: 0, 
@@ -289,8 +289,8 @@ const config = {
        }
     },
     { 
-       where: where(),
        id: "take", 
+       where: where(),
        isA: ['verb'],
        level: 0, 
        bridge: "{ ...next(operator), item: after[0] }",
@@ -341,6 +341,7 @@ const config = {
     */
     { 
        id: "apply", 
+       where: where(),
        isA: ['verb'],
        level: 0, 
        bridge: "{ ...next(operator), item: after[0] }",
@@ -353,6 +354,7 @@ const config = {
     },
     { 
        id: "go", 
+       where: where(),
        isA: ['verb'],
        level: 0, 
        bridge: "{ ...next(operator), showable: after[0].showable }",
@@ -363,6 +365,7 @@ const config = {
     },
     {
        id: "to2", 
+       where: where(),
        isA: ['preposition'],
        level: 0, 
        bridge: "{ ...next(operator), showable: after[0] }",
@@ -370,6 +373,7 @@ const config = {
     },
     { 
        id: "showWeapons", 
+       where: where(),
        isA: ['verb'],
        level: 0, 
        bridge: "{ ...next(operator), showable: after[0] }",
@@ -384,6 +388,7 @@ const config = {
     },
     { 
        id: "show", 
+       where: where(),
        isA: ['verb'],
        level: 0, 
        bridge: "{ ...next(operator), showable: after[0] }",
@@ -410,6 +415,7 @@ const config = {
     /*
     { 
        id: "testsetup1", 
+       where: where(),
        scope: "testing",
        level: 0, 
        bridge: "{ ...next(operator), type: after[0] }" ,
@@ -426,6 +432,7 @@ const config = {
     */
     { 
        id: "content", 
+       where: where(),
        isA: ['showable'],
        words: [
                 ['stat', 'stat'], 

@@ -88,6 +88,7 @@ const config = {
     },
     {
       id: 'getNamesByType',
+      where: where(),
       scope: "testing",
       isA: ['verb'],
       bridge: "{ ...next(operator), type: after[0] }",
@@ -113,6 +114,7 @@ const config = {
     },
     {
       id: 'call',
+      where: where(),
       isA: ['verb'],
       words: englishHelpers.conjugateVerb('call'),
       bridge: `{ 
