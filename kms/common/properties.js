@@ -923,8 +923,7 @@ const config = {
     {
       notes: 'set the property of an object',
       where: where(),
-      // TODO change disable${uuid} to callOnce
-      match: (args) => args.callOnce(args, 'properties.1', ({context, hierarchy, uuid}) => 
+      match: async (args) => await args.callOnce(args, 'properties.1', ({context, hierarchy, uuid}) => 
         context.marker == 'same' && 
         hierarchy.isA(context.one.marker, 'property') && 
         context.one.objects),

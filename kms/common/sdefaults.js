@@ -26,7 +26,7 @@ const config = {
       priority: -1,
       // match: ({context}) => context.flatten || context.listable && context.value[0].flatten,
       // match: (args) => okay(args, ({context}) => (context.flatten || context.listable && context.value.some((value) => value.flatten))),
-      match: (args) => args.callOnce(args, 'sdefaults.1', ({context}) => (context.flatten || context.listable && context.value.some((value) => value.flatten))),
+      match: async (args) => await args.callOnce(args, 'sdefaults.1', ({context}) => (context.flatten || context.listable && context.value.some((value) => value.flatten))),
       // match: ({context}) => context.flatten || context.listable || (Array.isArray(context.value) && context.value.some((value) => value.flatten)),
       apply: async ({config, km, context, s, _continue, flatten}) => {
         const flats = flatten(['list'], context)
@@ -53,7 +53,7 @@ const config = {
       where: where(),
       priority: -1,
       // sdefault.1 tag is the same as above on purpose
-      match: (args) => args.callOnce(args, 'sdefaults.1', ({context}) => (context.flatten && context.relation)),
+      match: async (args) => await args.callOnce(args, 'sdefaults.1', ({context}) => (context.flatten && context.relation)),
       apply: async ({flatten, config, km, context, s}) => {
         const flats = flatten(['list'], context)
         for (const flat of flats) {

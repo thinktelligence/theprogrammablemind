@@ -80,7 +80,6 @@ function query(missing, reminder_id) {
         await api.update({ id: item.id, text })
       } else {
         const item = api.missing(missing, reminder_id)
-        debug.counter("e66", { breakAt: 1 })
         await api.update({ id: item.id, dateTimeSelector: context, dateTimeSelectorText: await gp(context) })
       }
     }
@@ -139,7 +138,6 @@ class API {
     if (reminder.dateTimeSelector) {
       reminder.dateTimeSelector.defaultTime = this._objects.defaultTime
     }
-    debug.counter('e44', { breakAt: 3 })
     const value = await this.args.e(reminder.dateTimeSelector)
     reminder.nextISODate = value?.evalue
   }
