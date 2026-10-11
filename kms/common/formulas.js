@@ -71,7 +71,7 @@ const config = {
   semantics: [
     {
       where: where(),
-      match: ({context, api}) => context.evaluate && api.get(context),
+      match: ({context, api, stack}) => !context.topLevel && api.get(context),
       apply: async ({context, api, e}) => {
         const { formula } = api.get(context)
         context.evalue = await e(formula) 
