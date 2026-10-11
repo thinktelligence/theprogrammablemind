@@ -1,4 +1,4 @@
-const { knowledgeModule, where } = require('./runtime').theprogrammablemind
+const { knowledgeModule, where, debug } = require('./runtime').theprogrammablemind
 const { defaultContextCheck } = require('./helpers')
 const reminders_tests = require('./reminders.test.json')
 const instance = require('./reminders.instance.json')
@@ -49,11 +49,6 @@ function query(missing, reminder_id) {
         enable(['remindResponseOnly', 0])
       }
 
-      /*
-      if (item.missingDate && item.missingReminder) {
-        enable(['remindResponse', 0])
-      }
-      */
       if (item.missingDate && missing == 'missingDate') {
         return `When should I remind ${who} to ${item.text}`
       }
@@ -85,6 +80,7 @@ function query(missing, reminder_id) {
         await api.update({ id: item.id, text })
       } else {
         const item = api.missing(missing, reminder_id)
+        debug.counter("e66", { breakAt: 1 })
         await api.update({ id: item.id, dateTimeSelector: context, dateTimeSelectorText: await gp(context) })
       }
     }
@@ -143,6 +139,7 @@ class API {
     if (reminder.dateTimeSelector) {
       reminder.dateTimeSelector.defaultTime = this._objects.defaultTime
     }
+    debug.counter('e44', { breakAt: 3 })
     const value = await this.args.e(reminder.dateTimeSelector)
     reminder.nextISODate = value?.evalue
   }

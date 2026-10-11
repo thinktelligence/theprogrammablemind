@@ -159,7 +159,19 @@ function getAsk(config) {
             oneShot: ask.oneShot ?? true,
             where: semantic.where || ask.where || where(2),
             source: 'response',
-            match: (args) => !args.context.isResponse && !args.context.evaluate && !args.context.isControl && semantic.match(args),
+            match: async (args) => await args.callOnce(args, 'asking.1', async (args) => {
+              // const oldTest = !args.context.isResponse && !args.context.evaluate && args.context.topLevel && !args.context.isControl && await semantic.match(args)
+              /*
+              const oldTest = !args.context.isResponse && !args.context.evaluate &&                          !args.context.isControl && await semantic.match(args)
+              const newTest = !args.context.isResponse &&                           args.context.topLevel && !args.context.isControl && await semantic.match(args)
+              if (!!oldTest !== !!newTest) {
+                debugger
+              }
+              */
+              // return !args.context.isResponse && !args.context.evaluate && args.context.topLevel && !args.context.isControl && await semantic.match(args)
+              return !args.context.isResponse &&                           args.context.topLevel && !args.context.isControl && await semantic.match(args)
+            }),
+            // match: (args) => !args.context.isResponse && !args.context.isControl && args.context.topLevel && semantic.match(args),
             apply: async (args) => {
               setWasApplied(true)
               await semantic.apply({ ...args, tag: ask.tag })
@@ -190,13 +202,13 @@ function getAsk(config) {
               matchq = () => !wasAsked,
               applyq = (args) => {
                 wasAsked = true
-                return ask.applyq({ ...args, tag: ask.tag })
+                return args.stack.wrap(() => ask.applyq({ ...args, tag: ask.tag }), where())
               }
             }
-            if (await matchq(args)) {
+            if (await args.stack.wrap(() => matchq(args), where())) {
               setWasApplied(false)
               // args.context.motivationKeep = true
-              const query = await applyq({ ...args, wasAsked: getWasAsked() })
+              const query = await args.stack.wrap(() => applyq({ ...args, wasAsked: getWasAsked() }), where())
               if (typeof query != 'string') {
                 throw new Error(`ask expects the value return from applyq to be a string. ${ask.where}. Instead got ${JSON.stringify(query, null, 2)}.`)
               }

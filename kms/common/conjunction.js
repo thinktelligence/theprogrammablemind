@@ -44,6 +44,7 @@ const config = {
         match: ({context, namespaced}) => !namespaced.get('conjunction', context, 'atomic'),
         apply: async ({context, flatten, s}) => {
           for (const value of flatten(context)) {
+            value.topLevel = context.topLevel;
             await s(value)
           }
         }
