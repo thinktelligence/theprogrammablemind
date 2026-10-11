@@ -3,8 +3,8 @@ const tests = require('./control.test.json')
 
 function initializer({config}) {
   config.addArgs((args) => ({
-    callOnce: (args, tag, condition) => {
-      if (condition(args)) {
+    callOnce: async (args, tag, condition) => {
+      if (await condition(args)) {
         const { context } = args
 
         if (!context.control) {
