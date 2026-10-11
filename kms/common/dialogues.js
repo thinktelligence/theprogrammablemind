@@ -709,8 +709,7 @@ const config = {
     {
       where: where(),
       notes: 'get variable from stm',
-      match: ({context, kms}) => context.evaluate && kms.stm.api.getVariable(context),
-      // match: ({context, kms}) => context.evaluate,
+      match: ({context, kms}) => kms.stm.api.getVariable(context),
       priority: -1,
       apply: async ({context, kms, e}) => {
         const api = kms.stm.api

@@ -453,7 +453,8 @@ template = {
       semantics: [
         {
           where: where(),
-          match: ({context, isA}) => isA(context, 'style_wp') && !context.same && !context.isResponse,
+          priority: -1,
+          match: ({context, isA, debug}) => isA(context, 'style_wp') && !context.same && !context.isResponse,
           apply: ({context, api, isA, toArray}) => {
             const update = { scope: 'selection' }
             setUpdate(isA, update, toArray(context))

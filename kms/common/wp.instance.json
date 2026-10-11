@@ -959,7 +959,7 @@
       ],
       "semantics": [
         {
-          "match": "({context, isA}) => isA(context, 'style_wp') && !context.same && !context.isResponse",
+          "match": "({context, isA, debug}) => isA(context, 'style_wp') && !context.same && !context.isResponse",
           "apply": "({context, api, isA, toArray}) => {\n            const update = { scope: 'selection' }\n            setUpdate(isA, update, toArray(context))\n            api.changeState(update)\n          }"
         },
         {
@@ -11956,10 +11956,11 @@
       ],
       "semantics": [
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/wp.js:455"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/wp.js:455",
+          "priority": -1
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/wp.js:464"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/wp.js:465"
         }
       ],
       "priorities": [
