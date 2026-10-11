@@ -160,18 +160,8 @@ function getAsk(config) {
             where: semantic.where || ask.where || where(2),
             source: 'response',
             match: async (args) => await args.callOnce(args, 'asking.1', async (args) => {
-              // const oldTest = !args.context.isResponse && !args.context.evaluate && args.context.topLevel && !args.context.isControl && await semantic.match(args)
-              /*
-              const oldTest = !args.context.isResponse && !args.context.evaluate &&                          !args.context.isControl && await semantic.match(args)
-              const newTest = !args.context.isResponse &&                           args.context.topLevel && !args.context.isControl && await semantic.match(args)
-              if (!!oldTest !== !!newTest) {
-                debugger
-              }
-              */
-              // return !args.context.isResponse && !args.context.evaluate && args.context.topLevel && !args.context.isControl && await semantic.match(args)
               return !args.context.isResponse &&                           args.context.topLevel && !args.context.isControl && await semantic.match(args)
             }),
-            // match: (args) => !args.context.isResponse && !args.context.isControl && args.context.topLevel && semantic.match(args),
             apply: async (args) => {
               setWasApplied(true)
               await semantic.apply({ ...args, tag: ask.tag })
