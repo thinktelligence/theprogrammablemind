@@ -512,7 +512,7 @@ const config = {
     {
       where: where(),
       match: ({context}) => {
-        return context.evaluate && context.marker == 'unify' && context.terms.some((term) => term.marker == 'what')
+        return context.marker == 'unify' && context.terms.some((term) => term.marker == 'what')
       },
       apply: async ({context, resolveEvaluate, toEValue}) => {
         const value = context.terms.find((term) => term.marker !== 'what')

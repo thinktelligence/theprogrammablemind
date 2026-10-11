@@ -29,13 +29,13 @@
       ],
       "semantics": [
         {
-          "match": "({context, api, stack}) => {\n        const oldWay = context.evaluate && api.get(context)\n        const newWay = !context.topLevel && api.get(context)\n        if (oldWay !== newWay) {\n          debugger\n        }\n        return newWay\n        return context.evaluate && api.get(context)\n      }",
+          "match": "({context, api, stack}) => !context.topLevel && api.get(context)",
           "apply": "async ({context, api, e}) => {\n        const { formula } = api.get(context)\n        context.evalue = await e(formula) \n      }"
         }
       ],
       "bridges": [
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/formulas.js:92",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/formulas.js:83",
           "id": "formulaForVariable",
           "enhanced_associations": false,
           "isA": [
@@ -48,7 +48,7 @@
           "evaluator": "({context, api, objects, verbatim}) => {\n        const formulas = api.gets(context.variable).map((f) => { return { ...f.equality, paraphrase: true } })\n        if (formulas.length > 0) {\n          context.evalue = { marker: 'list', value: formulas }\n        } else {\n          context.evalue = { marker: 'undefined' }\n        }\n      }"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/formulas.js:109",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/formulas.js:100",
           "id": "solve",
           "enhanced_associations": false,
           "bridge": "{ ...next(operator), equality: after[0], variable: after[2] }",
@@ -75,7 +75,7 @@
           ]
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/formulas.js:140",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/formulas.js:131",
           "id": "calculate",
           "isA": [
             "verb"
@@ -91,7 +91,7 @@
           "semantic": "async ({context, e}) => {\n        context.evalue = await e(context.expression)\n        context.isResponse = true\n      }"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/formulas.js:152",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/formulas.js:143",
           "id": "equals",
           "bridge": "{ ...next(operator), left: before[0], right: after[0] }",
           "words": [
@@ -432,7 +432,7 @@
       ],
       "bridges": [
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/formulas.js:92",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/formulas.js:83",
           "id": "formulaForVariable",
           "enhanced_associations": false,
           "isA": [
@@ -443,7 +443,7 @@
           "bridge": "{ number: before[0].number, ...next(operator), what: before[0], equality: after[0], variable: after[1] }"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/formulas.js:109",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/formulas.js:100",
           "id": "solve",
           "enhanced_associations": false,
           "bridge": "{ ...next(operator), equality: after[0], variable: after[2] }"
@@ -468,7 +468,7 @@
           ]
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/formulas.js:140",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/formulas.js:131",
           "id": "calculate",
           "isA": [
             "verb"
@@ -482,7 +482,7 @@
           ]
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/formulas.js:152",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/formulas.js:143",
           "id": "equals",
           "bridge": "{ ...next(operator), left: before[0], right: after[0] }",
           "words": [

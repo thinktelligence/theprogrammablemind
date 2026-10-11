@@ -28,15 +28,6 @@ class API {
     }
   }
 
-  warningNotEvaluated(log, value) {
-    const description = 'WARNING from Dialogues KM: For semantics, implement an evaluations handler, set "value" property of the operator to the value.'
-    const match = `({context}) => context.marker == '${value.marker}' && context.evaluate && <other conditions as you like>`
-    const apply = `({context}) => <do stuff...>; context.value = <value>`
-    const input = indent(JSON.stringify(value, null, 2), 2)
-    const message = `${description}\nThe semantic would be\n  match: ${match}\n  apply: ${apply}\nThe input context would be:\n${input}\n`
-    log(indent(message, 4))
-  }
-
   //
   // duck typing: for operators you want to use here
   //
