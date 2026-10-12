@@ -55,7 +55,7 @@ const config = {
     {
       where: where(),
       notes: 'evaluate elements of the list individually',
-      match: ({context, callId}) => context.marker == 'list' && context.evaluate,
+      match: ({context, callId}) => context.marker == 'list' && !context.topLevel,
       apply: async ({context, toArray, toList, e, resolveEvaluate}) => {
         const list = []
         for (const element of toArray(context)) {
