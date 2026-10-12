@@ -350,7 +350,7 @@ const config = {
         // setup the read semantic
         {
           function matchByMarker(defContext) {
-            return ({context, uuid}) => context.marker == defContext.from.marker && (context.query || context.evaluate) && !context[`disable${uuid}`]
+            return ({context, uuid}) => context.marker == defContext.from.marker && !context[`disable${uuid}`]
           }
           function matchByValue(defContext) {
             return ({context, uuid, stack}) => context.value == defContext.from.value && !context[`disable${uuid}`]
