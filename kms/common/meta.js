@@ -353,7 +353,7 @@ const config = {
             return ({context, uuid}) => context.marker == defContext.from.marker && (context.query || context.evaluate) && !context[`disable${uuid}`]
           }
           function matchByValue(defContext) {
-            return ({context, uuid}) => context.value == defContext.from.value && (context.query || context.evaluate) && !context[`disable${uuid}`]
+            return ({context, uuid, stack}) => context.value == defContext.from.value && !context[`disable${uuid}`]
           }
           function apply(mappings, TO) {
             return async ({uuid, context, s, g, config}) => {
@@ -366,7 +366,6 @@ const config = {
               if (context.query) {
                 TO.query = context.query
               } else {
-                // TO.evaluate = context.evaluate
                 TO.metaDefinition = true
               }
               TO[`disable${uuid}`] = true
