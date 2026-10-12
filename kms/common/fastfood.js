@@ -889,7 +889,7 @@ class State {
                 },
                 {
                   where: where(),
-                  match: ({context, isA}) => isA(context.marker, 'number') && !context.evaluate,
+                  match: ({context, isA}) => isA(context.marker, 'number'),
                   apply: async ({context, e}) => {
                     food.comboNumber = { value: (await e(context)).value }
                     this.add(Object.assign(food, context))
@@ -959,7 +959,7 @@ const config = {
     },
     {
       where: where(),
-      match: ({context, isAListable}) => isAListable(context, 'edible') && context.marker !== 'edible' && !context.same && !context.isResponse && !context.evaluate,
+      match: ({context, contextHierarchy, isAListable, stack}) => isAListable(context, 'edible') && context.marker !== 'edible' && !context.same && !context.isResponse && !contextHierarchy.under('change'),
       apply: ({context, km, api, instance}) => {
         for (const element of propertyToArray(context)) {
           km('fastfood').api.state.add(element)
