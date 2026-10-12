@@ -373,15 +373,11 @@ const config = {
           return
         }
       
-        if (true || context.evaluate) { 
-          const instance = await e(context.value)
-          if (instance.evalue && !instance.edefault) {
-            context.value = instance.evalue
-          }
-          context.evalue = context.value
-        } else {
-          await s(context.value)
+        const instance = await e(context.value)
+        if (instance.evalue && !instance.edefault) {
+          context.value = instance.evalue
         }
+        context.evalue = context.value
       },
     },
   ],
