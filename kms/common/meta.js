@@ -366,7 +366,7 @@ const config = {
               if (context.query) {
                 TO.query = context.query
               } else {
-                TO.evaluate = context.evaluate
+                // TO.evaluate = context.evaluate
                 TO.metaDefinition = true
               }
               TO[`disable${uuid}`] = true
