@@ -30404,7 +30404,7 @@
           "context_id": 508,
           "dead": true,
           "determiner": {
-            "context_id": 471,
+            "context_id": 470,
             "default": true,
             "level": 0,
             "marker": "a",
@@ -30545,7 +30545,7 @@
           "number": "many",
           "objects": [
             {
-              "context_id": 1053,
+              "context_id": 1052,
               "dead": true,
               "level": 0,
               "marker": "unit",
@@ -30594,101 +30594,164 @@
         "word": "are"
       },
       {
-        "context_id": 8,
-        "context_index": 1,
-        "dead": true,
-        "default": true,
-        "from": {
-          "amount": {
-            "context_id": 1785,
+        "context": {
+          "context_id": 8,
+          "context_index": 1,
+          "dead": true,
+          "default": true,
+          "from": {
+            "amount": {
+              "context_id": 1785,
+              "dead": true,
+              "isInstance": true,
+              "level": 1,
+              "marker": "integer",
+              "range": {
+                "end": 1,
+                "start": 0
+              },
+              "text": "10",
+              "types": [
+                "integer"
+              ],
+              "value": 10,
+              "word": "10"
+            },
+            "context_id": 1824,
             "dead": true,
-            "isInstance": true,
+            "instance": true,
+            "interpolate": [
+              {
+                "property": "amount"
+              },
+              {
+                "property": "unit"
+              }
+            ],
             "level": 1,
-            "marker": "integer",
+            "marker": "quantity",
             "range": {
-              "end": 1,
+              "end": 8,
               "start": 0
             },
-            "text": "10",
+            "text": "10 inches",
             "types": [
-              "integer"
+              "quantity"
             ],
-            "value": 10,
-            "word": "10"
-          },
-          "context_id": 1824,
-          "dead": true,
-          "instance": true,
-          "interpolate": [
-            {
-              "property": "amount"
-            },
-            {
-              "property": "unit"
+            "unit": {
+              "context_id": 1802,
+              "dead": true,
+              "dimension": "length",
+              "level": 0,
+              "marker": "inch",
+              "number": "many",
+              "range": {
+                "end": 8,
+                "start": 3
+              },
+              "text": "inches",
+              "types": [
+                "inch"
+              ],
+              "value": "inch",
+              "word": "inches"
             }
-          ],
+          },
           "level": 1,
-          "marker": "quantity",
+          "marker": "convertToUnits",
           "range": {
-            "end": 8,
+            "end": 18,
             "start": 0
           },
-          "text": "10 inches",
-          "types": [
-            "quantity"
-          ],
-          "unit": {
-            "context_id": 1802,
+          "text": "10 inches in meters",
+          "to": {
+            "context_id": 1841,
             "dead": true,
             "dimension": "length",
             "level": 0,
-            "marker": "inch",
+            "marker": "meter",
             "number": "many",
             "range": {
-              "end": 8,
-              "start": 3
+              "end": 18,
+              "start": 13
             },
-            "text": "inches",
+            "text": "meters",
             "types": [
-              "inch"
+              "meter"
             ],
-            "value": "inch",
-            "word": "inches"
-          }
-        },
-        "level": 1,
-        "marker": "convertToUnits",
-        "range": {
-          "end": 18,
-          "start": 0
-        },
-        "text": "10 inches in meters",
-        "to": {
-          "context_id": 1841,
-          "dead": true,
-          "dimension": "length",
-          "level": 0,
-          "marker": "meter",
-          "number": "many",
-          "range": {
-            "end": 18,
-            "start": 13
+            "value": "meter",
+            "word": "meters"
           },
-          "text": "meters",
-          "types": [
-            "meter"
-          ],
-          "value": "meter",
-          "word": "meters"
+          "topLevel": true,
+          "word": "in"
         },
-        "topLevel": true,
-        "word": "in"
+        "error": [
+          "ERROR while applying (dimension/#2) KM 'dimension' ordinal: 2 where: \"/home/dev/code/theprogrammablemind/kms/common/dimension.js:267\"\n to\n {\n  \"marker\": \"convertToUnits\",\n  \"default\": true,\n  \"context_id\": 8,\n  \"word\": \"in\",\n  \"text\": \"10 inches in meters\",\n  \"range\": {\n    \"start\": 0,\n    \"end\": 18\n  },\n  \"dead\": true,\n  \"from\": {\n    \"marker\": \"quantity\",\n    \"dead\": true,\n    \"instance\": true,\n    \"unit\": {\n      \"value\": \"inch\",\n      \"number\": \"many\",\n      \"text\": \"inches\",\n      \"context_id\": 1802,\n      \"dimension\": \"length\",\n      \"marker\": \"inch\",\n      \"word\": \"inches\",\n      \"range\": {\n        \"start\": 3,\n        \"end\": 8\n      },\n      \"dead\": true,\n      \"types\": [\n        \"inch\"\n      ],\n      \"level\": 0\n    },\n    \"amount\": {\n      \"isInstance\": true,\n      \"value\": 10,\n      \"text\": \"10\",\n      \"context_id\": 1785,\n      \"marker\": \"integer\",\n      \"word\": \"10\",\n      \"range\": {\n        \"start\": 0,\n        \"end\": 1\n      },\n      \"dead\": true,\n      \"types\": [\n        \"integer\"\n      ],\n      \"level\": 1\n    },\n    \"interpolate\": [\n      {\n        \"property\": \"amount\"\n      },\n      {\n        \"property\": \"unit\"\n      }\n    ],\n    \"text\": \"10 inches\",\n    \"context_id\": 1824,\n    \"range\": {\n      \"start\": 0,\n      \"end\": 8\n    },\n    \"types\": [\n      \"quantity\"\n    ],\n    \"level\": 1\n  },\n  \"to\": {\n    \"value\": \"meter\",\n    \"number\": \"many\",\n    \"text\": \"meters\",\n    \"context_id\": 1841,\n    \"dimension\": \"length\",\n    \"marker\": \"meter\",\n    \"word\": \"meters\",\n    \"range\": {\n      \"start\": 13,\n      \"end\": 18\n    },\n    \"dead\": true,\n    \"types\": [\n      \"meter\"\n    ],\n    \"level\": 0\n  },\n  \"level\": 1,\n  \"context_index\": 1,\n  \"topLevel\": true\n}.\nError applying semantics '/home/dev/code/theprogrammablemind/kms/common/dimension.js:267'. Error is Error: {\"marker\":\"reason\",\"focusableForPhrase\":true,\"evalue\":{\"marker\":\"noconversion\",\"from\":{\"value\":\"inch\",\"number\":\"many\",\"text\":\"inches\",\"context_id\":1802,\"dimension\":\"length\",\"marker\":\"inch\",\"word\":\"inches\",\"range\":{\"start\":3,\"end\":8},\"dead\":true,\"types\":[\"inch\"],\"level\":0},\"to\":{\"value\":\"meter\",\"number\":\"many\",\"text\":\"meters\",\"context_id\":1841,\"dimension\":\"length\",\"marker\":\"meter\",\"word\":\"meters\",\"range\":{\"start\":13,\"end\":18},\"dead\":true,\"types\":[\"meter\"],\"level\":0}},\"pullFromContext\":false,\"fromSTM\":true,\"namespaced\":{\"stm\":{\"id\":1}}} stack is Error: {\"marker\":\"reason\",\"focusableForPhrase\":true,\"evalue\":{\"marker\":\"noconversion\",\"from\":{\"value\":\"inch\",\"number\":\"many\",\"text\":\"inches\",\"context_id\":1802,\"dimension\":\"length\",\"marker\":\"inch\",\"word\":\"inches\",\"range\":{\"start\":3,\"end\":8},\"dead\":true,\"types\":[\"inch\"],\"level\":0},\"to\":{\"value\":\"meter\",\"number\":\"many\",\"text\":\"meters\",\"context_id\":1841,\"dimension\":\"length\",\"marker\":\"meter\",\"word\":\"meters\",\"range\":{\"start\":13,\"end\":18},\"dead\":true,\"types\":[\"meter\"],\"level\":0}},\"pullFromContext\":false,\"fromSTM\":true,\"namespaced\":{\"stm\":{\"id\":1}}}\n    at args.error (/home/dev/code/theprogrammablemind/kms/node_modules/theprogrammablemind/src/configHelpers.js:242:11)\n    at convert (/home/dev/code/theprogrammablemind/kms/common/dimension.js:113:11)\n    at API.convertToUnits (/home/dev/code/theprogrammablemind/kms/common/dimension.js:123:35)\n    at evaluator2 (/home/dev/code/theprogrammablemind/kms/common/dimension.js:278:44)\n    at Semantic.apply [as _apply] (/home/dev/code/theprogrammablemind/kms/node_modules/theprogrammablemind/src/config.js:500:32)\n    at /home/dev/code/theprogrammablemind/kms/node_modules/theprogrammablemind/src/semantics.js:113:20\n    at Object.hitScoped (/home/dev/code/theprogrammablemind/kms/node_modules/theprogrammablemind/src/debug.js:33:26)\n    at Semantic.apply (/home/dev/code/theprogrammablemind/kms/node_modules/theprogrammablemind/src/semantics.js:103:24)\n    at Semantics.applyToContextHelper (/home/dev/code/theprogrammablemind/kms/node_modules/theprogrammablemind/src/semantics.js:246:41)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5). Semantic is Semantic((args) => bridge.id === args.context.marker && match(args), async ({context, api, toArray, callId, resolveEvaluate}) => {\n        debugger\n        const from = context.from;\n        const tos = toArray(context.to);\n        resolveEvaluate(context, await api.convertToUnits(context, from, tos))\n      })\nsee the evaluator2 property. The error has a retryCall property that will recall the function that failed.'"
+        ],
+        "evalue": "That is not known because there is no conversion between inches and meters",
+        "isResponse": true,
+        "marker": "error",
+        "reason": {
+          "evalue": {
+            "from": {
+              "context_id": 1802,
+              "dead": true,
+              "dimension": "length",
+              "level": 0,
+              "marker": "inch",
+              "number": "many",
+              "range": {
+                "end": 8,
+                "start": 3
+              },
+              "text": "inches",
+              "types": [
+                "inch"
+              ],
+              "value": "inch",
+              "word": "inches"
+            },
+            "marker": "noconversion",
+            "to": {
+              "context_id": 1841,
+              "dead": true,
+              "dimension": "length",
+              "level": 0,
+              "marker": "meter",
+              "number": "many",
+              "range": {
+                "end": 18,
+                "start": 13
+              },
+              "text": "meters",
+              "types": [
+                "meter"
+              ],
+              "value": "meter",
+              "word": "meters"
+            }
+          },
+          "focusableForPhrase": true,
+          "fromSTM": true,
+          "marker": "reason",
+          "namespaced": {
+            "stm": {
+              "id": 1
+            }
+          },
+          "pullFromContext": false
+        },
+        "text": "[object Object]",
+        "touchedBy": [
+          "dimension#call39"
+        ]
       }
     ],
+    "developerTest": false,
     "generatedParenthesized": [
       "",
       "",
-      ""
+      "(That is not known because there is no conversion between inches and meters)"
     ],
     "metadata": {
       "opChoices": [
@@ -31714,6 +31777,56 @@
         "stm2": {
           "km": "stm2",
           "mentioned": [
+            {
+              "evalue": {
+                "from": {
+                  "context_id": 1802,
+                  "dead": true,
+                  "dimension": "length",
+                  "level": 0,
+                  "marker": "inch",
+                  "number": "many",
+                  "range": {
+                    "end": 8,
+                    "start": 3
+                  },
+                  "text": "inches",
+                  "types": [
+                    "inch"
+                  ],
+                  "value": "inch",
+                  "word": "inches"
+                },
+                "marker": "noconversion",
+                "to": {
+                  "context_id": 1841,
+                  "dead": true,
+                  "dimension": "length",
+                  "level": 0,
+                  "marker": "meter",
+                  "number": "many",
+                  "range": {
+                    "end": 18,
+                    "start": 13
+                  },
+                  "text": "meters",
+                  "types": [
+                    "meter"
+                  ],
+                  "value": "meter",
+                  "word": "meters"
+                }
+              },
+              "focusableForPhrase": true,
+              "fromSTM": true,
+              "marker": "reason",
+              "namespaced": {
+                "stm": {
+                  "id": 1
+                }
+              },
+              "pullFromContext": false
+            }
           ],
           "variables": {
           }
@@ -31857,7 +31970,6 @@
             },
             {
               "dead": true,
-              "evaluate": false,
               "level": 0,
               "marker": "unknown",
               "number": "many",
@@ -31886,7 +31998,6 @@
             },
             {
               "dead": true,
-              "evaluate": false,
               "level": 0,
               "marker": "unknown",
               "number": "many",
@@ -31928,7 +32039,6 @@
                   "word": ","
                 }
               },
-              "evaluate": false,
               "level": 0,
               "marker": "unknown",
               "no_convolutions": true,
@@ -31956,7 +32066,6 @@
                   "word": ","
                 }
               },
-              "evaluate": false,
               "level": 0,
               "marker": "unknown",
               "no_convolutions": true,
@@ -31970,7 +32079,6 @@
             },
             {
               "dead": true,
-              "evaluate": false,
               "level": 0,
               "marker": "unknown",
               "text": "maximum",
@@ -31983,7 +32091,6 @@
             },
             {
               "dead": true,
-              "evaluate": false,
               "level": 0,
               "marker": "unknown",
               "text": "minimum",
@@ -32587,7 +32694,7 @@
               "context_id": 508,
               "dead": true,
               "determiner": {
-                "context_id": 471,
+                "context_id": 470,
                 "default": true,
                 "level": 0,
                 "marker": "a",
@@ -32666,7 +32773,7 @@
               "number": "many",
               "objects": [
                 {
-                  "context_id": 1053,
+                  "context_id": 1052,
                   "dead": true,
                   "level": 0,
                   "marker": "unit",
@@ -32714,95 +32821,157 @@
       "processed": [
         {
           "context": {
-            "context_id": 8,
-            "context_index": 1,
-            "dead": true,
-            "default": true,
-            "from": {
-              "amount": {
-                "context_id": 1785,
+            "context": {
+              "context_id": 8,
+              "context_index": 1,
+              "dead": true,
+              "default": true,
+              "from": {
+                "amount": {
+                  "context_id": 1785,
+                  "dead": true,
+                  "isInstance": true,
+                  "level": 1,
+                  "marker": "integer",
+                  "range": {
+                    "end": 1,
+                    "start": 0
+                  },
+                  "text": "10",
+                  "types": [
+                    "integer"
+                  ],
+                  "value": 10,
+                  "word": "10"
+                },
+                "context_id": 1824,
                 "dead": true,
-                "isInstance": true,
+                "instance": true,
+                "interpolate": [
+                  {
+                    "property": "amount"
+                  },
+                  {
+                    "property": "unit"
+                  }
+                ],
                 "level": 1,
-                "marker": "integer",
+                "marker": "quantity",
                 "range": {
-                  "end": 1,
+                  "end": 8,
                   "start": 0
                 },
-                "text": "10",
+                "text": "10 inches",
                 "types": [
-                  "integer"
+                  "quantity"
                 ],
-                "value": 10,
-                "word": "10"
-              },
-              "context_id": 1824,
-              "dead": true,
-              "instance": true,
-              "interpolate": [
-                {
-                  "property": "amount"
-                },
-                {
-                  "property": "unit"
+                "unit": {
+                  "context_id": 1802,
+                  "dead": true,
+                  "dimension": "length",
+                  "level": 0,
+                  "marker": "inch",
+                  "number": "many",
+                  "range": {
+                    "end": 8,
+                    "start": 3
+                  },
+                  "text": "inches",
+                  "types": [
+                    "inch"
+                  ],
+                  "value": "inch",
+                  "word": "inches"
                 }
-              ],
+              },
               "level": 1,
-              "marker": "quantity",
+              "marker": "convertToUnits",
               "range": {
-                "end": 8,
+                "end": 18,
                 "start": 0
               },
-              "text": "10 inches",
-              "types": [
-                "quantity"
-              ],
-              "unit": {
-                "context_id": 1802,
+              "text": "10 inches in meters",
+              "to": {
+                "context_id": 1841,
                 "dead": true,
                 "dimension": "length",
                 "level": 0,
-                "marker": "inch",
+                "marker": "meter",
                 "number": "many",
                 "range": {
-                  "end": 8,
-                  "start": 3
+                  "end": 18,
+                  "start": 13
                 },
-                "text": "inches",
+                "text": "meters",
                 "types": [
-                  "inch"
+                  "meter"
                 ],
-                "value": "inch",
-                "word": "inches"
-              }
-            },
-            "level": 1,
-            "marker": "convertToUnits",
-            "range": {
-              "end": 18,
-              "start": 0
-            },
-            "text": "10 inches in meters",
-            "to": {
-              "context_id": 1841,
-              "dead": true,
-              "dimension": "length",
-              "level": 0,
-              "marker": "meter",
-              "number": "many",
-              "range": {
-                "end": 18,
-                "start": 13
+                "value": "meter",
+                "word": "meters"
               },
-              "text": "meters",
-              "types": [
-                "meter"
-              ],
-              "value": "meter",
-              "word": "meters"
+              "topLevel": true,
+              "word": "in"
             },
-            "topLevel": true,
-            "word": "in"
+            "error": [
+              "ERROR while applying (dimension/#2) KM 'dimension' ordinal: 2 where: \"/home/dev/code/theprogrammablemind/kms/common/dimension.js:267\"\n to\n {\n  \"marker\": \"convertToUnits\",\n  \"default\": true,\n  \"context_id\": 8,\n  \"word\": \"in\",\n  \"text\": \"10 inches in meters\",\n  \"range\": {\n    \"start\": 0,\n    \"end\": 18\n  },\n  \"dead\": true,\n  \"from\": {\n    \"marker\": \"quantity\",\n    \"dead\": true,\n    \"instance\": true,\n    \"unit\": {\n      \"value\": \"inch\",\n      \"number\": \"many\",\n      \"text\": \"inches\",\n      \"context_id\": 1802,\n      \"dimension\": \"length\",\n      \"marker\": \"inch\",\n      \"word\": \"inches\",\n      \"range\": {\n        \"start\": 3,\n        \"end\": 8\n      },\n      \"dead\": true,\n      \"types\": [\n        \"inch\"\n      ],\n      \"level\": 0\n    },\n    \"amount\": {\n      \"isInstance\": true,\n      \"value\": 10,\n      \"text\": \"10\",\n      \"context_id\": 1785,\n      \"marker\": \"integer\",\n      \"word\": \"10\",\n      \"range\": {\n        \"start\": 0,\n        \"end\": 1\n      },\n      \"dead\": true,\n      \"types\": [\n        \"integer\"\n      ],\n      \"level\": 1\n    },\n    \"interpolate\": [\n      {\n        \"property\": \"amount\"\n      },\n      {\n        \"property\": \"unit\"\n      }\n    ],\n    \"text\": \"10 inches\",\n    \"context_id\": 1824,\n    \"range\": {\n      \"start\": 0,\n      \"end\": 8\n    },\n    \"types\": [\n      \"quantity\"\n    ],\n    \"level\": 1\n  },\n  \"to\": {\n    \"value\": \"meter\",\n    \"number\": \"many\",\n    \"text\": \"meters\",\n    \"context_id\": 1841,\n    \"dimension\": \"length\",\n    \"marker\": \"meter\",\n    \"word\": \"meters\",\n    \"range\": {\n      \"start\": 13,\n      \"end\": 18\n    },\n    \"dead\": true,\n    \"types\": [\n      \"meter\"\n    ],\n    \"level\": 0\n  },\n  \"level\": 1,\n  \"context_index\": 1,\n  \"topLevel\": true\n}.\nError applying semantics '/home/dev/code/theprogrammablemind/kms/common/dimension.js:267'. Error is Error: {\"marker\":\"reason\",\"focusableForPhrase\":true,\"evalue\":{\"marker\":\"noconversion\",\"from\":{\"value\":\"inch\",\"number\":\"many\",\"text\":\"inches\",\"context_id\":1802,\"dimension\":\"length\",\"marker\":\"inch\",\"word\":\"inches\",\"range\":{\"start\":3,\"end\":8},\"dead\":true,\"types\":[\"inch\"],\"level\":0},\"to\":{\"value\":\"meter\",\"number\":\"many\",\"text\":\"meters\",\"context_id\":1841,\"dimension\":\"length\",\"marker\":\"meter\",\"word\":\"meters\",\"range\":{\"start\":13,\"end\":18},\"dead\":true,\"types\":[\"meter\"],\"level\":0}},\"pullFromContext\":false,\"fromSTM\":true,\"namespaced\":{\"stm\":{\"id\":1}}} stack is Error: {\"marker\":\"reason\",\"focusableForPhrase\":true,\"evalue\":{\"marker\":\"noconversion\",\"from\":{\"value\":\"inch\",\"number\":\"many\",\"text\":\"inches\",\"context_id\":1802,\"dimension\":\"length\",\"marker\":\"inch\",\"word\":\"inches\",\"range\":{\"start\":3,\"end\":8},\"dead\":true,\"types\":[\"inch\"],\"level\":0},\"to\":{\"value\":\"meter\",\"number\":\"many\",\"text\":\"meters\",\"context_id\":1841,\"dimension\":\"length\",\"marker\":\"meter\",\"word\":\"meters\",\"range\":{\"start\":13,\"end\":18},\"dead\":true,\"types\":[\"meter\"],\"level\":0}},\"pullFromContext\":false,\"fromSTM\":true,\"namespaced\":{\"stm\":{\"id\":1}}}\n    at args.error (/home/dev/code/theprogrammablemind/kms/node_modules/theprogrammablemind/src/configHelpers.js:242:11)\n    at convert (/home/dev/code/theprogrammablemind/kms/common/dimension.js:113:11)\n    at API.convertToUnits (/home/dev/code/theprogrammablemind/kms/common/dimension.js:123:35)\n    at evaluator2 (/home/dev/code/theprogrammablemind/kms/common/dimension.js:278:44)\n    at Semantic.apply [as _apply] (/home/dev/code/theprogrammablemind/kms/node_modules/theprogrammablemind/src/config.js:500:32)\n    at /home/dev/code/theprogrammablemind/kms/node_modules/theprogrammablemind/src/semantics.js:113:20\n    at Object.hitScoped (/home/dev/code/theprogrammablemind/kms/node_modules/theprogrammablemind/src/debug.js:33:26)\n    at Semantic.apply (/home/dev/code/theprogrammablemind/kms/node_modules/theprogrammablemind/src/semantics.js:103:24)\n    at Semantics.applyToContextHelper (/home/dev/code/theprogrammablemind/kms/node_modules/theprogrammablemind/src/semantics.js:246:41)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5). Semantic is Semantic((args) => bridge.id === args.context.marker && match(args), async ({context, api, toArray, callId, resolveEvaluate}) => {\n        debugger\n        const from = context.from;\n        const tos = toArray(context.to);\n        resolveEvaluate(context, await api.convertToUnits(context, from, tos))\n      })\nsee the evaluator2 property. The error has a retryCall property that will recall the function that failed.'"
+            ],
+            "evalue": "That is not known because there is no conversion between inches and meters",
+            "isResponse": true,
+            "marker": "error",
+            "reason": {
+              "evalue": {
+                "from": {
+                  "context_id": 1802,
+                  "dead": true,
+                  "dimension": "length",
+                  "level": 0,
+                  "marker": "inch",
+                  "number": "many",
+                  "range": {
+                    "end": 8,
+                    "start": 3
+                  },
+                  "text": "inches",
+                  "types": [
+                    "inch"
+                  ],
+                  "value": "inch",
+                  "word": "inches"
+                },
+                "marker": "noconversion",
+                "to": {
+                  "context_id": 1841,
+                  "dead": true,
+                  "dimension": "length",
+                  "level": 0,
+                  "marker": "meter",
+                  "number": "many",
+                  "range": {
+                    "end": 18,
+                    "start": 13
+                  },
+                  "text": "meters",
+                  "types": [
+                    "meter"
+                  ],
+                  "value": "meter",
+                  "word": "meters"
+                }
+              },
+              "focusableForPhrase": true,
+              "fromSTM": true,
+              "marker": "reason",
+              "namespaced": {
+                "stm": {
+                  "id": 1
+                }
+              },
+              "pullFromContext": false
+            },
+            "text": "[object Object]",
+            "touchedBy": [
+              "dimension#call39"
+            ]
           },
           "generatedParenthesized": [
           ],
@@ -32811,7 +32980,7 @@
           "paraphrasesParenthesized": [
           ],
           "responses": [
-            ""
+            "That is not known because there is no conversion between inches and meters"
           ]
         },
         {
@@ -32924,7 +33093,7 @@
               "number": "many",
               "objects": [
                 {
-                  "context_id": 1053,
+                  "context_id": 1052,
                   "dead": true,
                   "level": 0,
                   "marker": "unit",
@@ -33022,7 +33191,7 @@
               "context_id": 508,
               "dead": true,
               "determiner": {
-                "context_id": 471,
+                "context_id": 470,
                 "default": true,
                 "level": 0,
                 "marker": "a",
@@ -33334,13 +33503,13 @@
     "paraphrasesParenthesized": [
       "((length) is ((a) (dimension)))",
       "(((meters) and (inches)) are ((units) of (length)))",
-      "(((10) (inches)) in (meters))"
+      "((((10) (inches)) in (meters)))"
     ],
     "query": "length is a dimension\\nmeters and inches are units of length\\n10 inches in meters",
     "responses": [
       "",
       "",
-      ""
+      "That is not known because there is no conversion between inches and meters"
     ],
     "summaries": [
       {
