@@ -1,5 +1,5 @@
 const { knowledgeModule, where, debug } = require('./runtime').theprogrammablemind
-const { defaultContextCheck, concats, toEValue, toFinalValue } = require('./helpers')
+const { isMany, defaultContextCheck, concats, toEValue, toFinalValue } = require('./helpers')
 const control = require('./control')
 const sdefaults_tests = require('./sdefaults.test.json')
 
@@ -104,6 +104,7 @@ function initializer({objects, config, isModule}) {
   config.addArgs(({e}) => ({
     toFinalValue,
     toEValue,
+    isMany,
     unify: async (term1, term2) => {
       const unification = await e({
         marker: 'unify',

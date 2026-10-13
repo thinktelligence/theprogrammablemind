@@ -230,7 +230,6 @@ const config = {
       notes: 'humans are mammels',
       where: where(),
       match: ({debug, context, listable, hierarchy, isA, callId}) => {
-        // debug.b2reakAt('dates#call4')
         if (context.marker !== 'same') {
           return
         }
@@ -242,8 +241,6 @@ const config = {
         }
         if (two.determiner && two.determiner.marker == 'a') {
           two.concept = true;
-        } else if (two.evaluate) {
-          return // some kind of instance
         } else if (two.word && pluralize.isPlural(two.word)) {
           two.concept = true;
         } else if (one.number == 'many') {

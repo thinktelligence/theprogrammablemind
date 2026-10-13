@@ -107,6 +107,16 @@ const config = {
     ...mathematicalOperator('times', ['times', '*'], (x, y) => x * y, [['plusOperator', 0], ['minusOperator', 0]]),
     ...mathematicalOperator('divideBy', ['/'], (x, y) => x / y, [['plusOperator', 0], ['minusOperator', 0]]),
   ],
+  semantics: [
+    {
+      match: ({context, isA, callId, isMany}) => {
+        return context.marker == 'same' && isA(context.two, 'mathematicalExpression') && !isMany(context.one)
+      },
+      apply: ({context}) => {
+        // dont so the other one for is
+      }
+    },
+  ],
 };
 
 const template = {
