@@ -23,7 +23,7 @@ const config = {
       where: where(),
       words: ['percent', '%'],
       bridge: "{ ...next(operator), percentage: before[0], isResponse: true, semanticIsEvaluate: true, value: after[0] }",
-      evaluator: async ({context, e}) => {
+      evaluator2: async ({context, e}) => {
         const scale = context.percentage.scale
         const number = await e(context.value)
         const percentage = number.value * scale.value / 100

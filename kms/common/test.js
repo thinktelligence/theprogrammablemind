@@ -125,6 +125,7 @@ async function loop(tests, atEnd, failed) {
 }
 
 (async () => {
+  await exec('cp -r /home/dev/code/theprogrammablemind/kms/node_modules/theprogrammablemind /home/dev/code/entodicton/mongo/server/node_modules/')
   await exec('cp -r /home/dev/code/theprogrammablemind/kms/common /home/dev/code/entodicton/mongo/server/node_modules/tpmkms')
   await loop(retrains.concat(tests), () => hasDebugCommands(), []).catch((e) => {
     console.log(e.toString())

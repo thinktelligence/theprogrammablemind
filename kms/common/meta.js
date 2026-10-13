@@ -78,7 +78,7 @@ const config = {
       id: 'synonymOfWord',
       operator: "((synonym/*) [synonymOfWord|of] (word))",
       bridge: "{ ...next(operator), word: after[0] }",
-      evaluator: ({context}) => {
+      evaluator2: ({context}) => {
       }
     },
     */

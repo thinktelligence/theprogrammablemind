@@ -47,7 +47,7 @@ function mathematicalOperator(name, words, apply, before = []) {
         bridge: "{ ...next(operator) }",
         isA: ['mathematicalExpression'],
         // generatorp: async ({gp, context}) => `${await gp(context.x)} ${context.word} ${await gp(context.y)}`,
-        evaluator: async ({e, context}) => {
+        evaluator2: async ({e, context}) => {
           const x = toValue(await e(context.x)) 
           const y = toValue(await e(context.y))
           if (!x || !y) {

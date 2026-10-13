@@ -87,7 +87,7 @@ const config = {
       convolution: true,
       bridge: "{ number: before[0].number, ...next(operator), what: before[0], equality: after[0], variable: after[1] }",
       generatorp: async ({context, g}) => `${await g(context.what)} ${await g(context.equality)} ${await g(context.variable)}`,
-      evaluator: ({context, api, objects, verbatim}) => {
+      evaluator2: ({context, api, objects, verbatim}) => {
         const formulas = api.gets(context.variable).map((f) => { return { ...f.equality, paraphrase: true } })
         if (formulas.length > 0) {
           context.evalue = { marker: 'list', value: formulas }

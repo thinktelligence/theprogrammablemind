@@ -271,7 +271,6 @@ const config = {
       localHierarchy: [['unknown', 'dimension']],
       after: [['possession', 0], ['possession', 1]],
       generatorp: async ({context, g}) => `${await g(context.from)} ${context.word} ${await g(context.to)}`,
-      // evaluator: ({context, kms, error}) => {
       evaluator: async ({context, api, toArray, resolveEvaluate}) => {
         const from = context.from;
         const tos = toArray(context.to);
