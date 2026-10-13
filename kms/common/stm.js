@@ -55,8 +55,6 @@ class API {
       return
     }
 
-    concept.evaluate = false
-
     if (!frameOfReference) {
       frameOfReference = this._objects
     }
