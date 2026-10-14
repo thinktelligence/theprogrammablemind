@@ -117,7 +117,7 @@
           ],
           "enhanced_associations": true,
           "bridge": "{ ...operator, object: before[0], flatten: true, operator: operator, propertyValue: after[0], interpolate: [{ property: 'object' }, { property: 'operator' }, { property: 'propertyValue' }] }",
-          "semantic": "async ({context, s, toArray, fragments, getWordFromDictionary}) => {\n        const propertyType = {\n          marker: context.propertyValue.propertyType,\n          level: 0,\n          word: context.propertyValue.propertyType,\n          value: context.propertyValue.propertyType,\n        }\n        for (const object of toArray(context.object)) {\n          const instance = await fragments(\"the property of object is value\", { property: propertyType, object, value: context.propertyValue })\n          await s(instance)\n        }\n      }"
+          "semantic": "async ({context, e, toArray, fragments, getWordFromDictionary}) => {\n        const propertyType = {\n          marker: context.propertyValue.propertyType,\n          level: 0,\n          word: context.propertyValue.propertyType,\n          value: context.propertyValue.propertyType,\n        }\n        for (const object of toArray(context.object)) {\n          const instance = await fragments(\"the property of object is value\", { property: propertyType, object, value: context.propertyValue })\n          await e(instance)\n        }\n      }"
         },
         {
           "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:175",

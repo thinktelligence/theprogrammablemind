@@ -157,7 +157,7 @@ const config = {
       preferOver: ['is'],
       enhanced_associations: true,
       bridge: "{ ...operator, object: before[0], flatten: true, operator: operator, propertyValue: after[0], interpolate: [{ property: 'object' }, { property: 'operator' }, { property: 'propertyValue' }] }",
-      semantic: async ({context, s, toArray, fragments, getWordFromDictionary}) => {
+      semantic: async ({context, e, toArray, fragments, getWordFromDictionary}) => {
         const propertyType = {
           marker: context.propertyValue.propertyType,
           level: 0,
@@ -166,7 +166,7 @@ const config = {
         }
         for (const object of toArray(context.object)) {
           const instance = await fragments("the property of object is value", { property: propertyType, object, value: context.propertyValue })
-          await s(instance)
+          await e(instance)
         }
       }
     },
