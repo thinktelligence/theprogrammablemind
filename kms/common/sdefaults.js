@@ -54,13 +54,13 @@ const config = {
       priority: -1,
       // sdefault.1 tag is the same as above on purpose
       match: async (args) => await args.callOnce(args, 'sdefaults.1', ({context}) => (context.flatten && context.relation)),
-      apply: async ({flatten, config, km, context, s}) => {
+      apply: async ({flatten, config, km, context, e}) => {
         const flats = flatten(['list'], context)
         for (const flat of flats) {
           if (!flat.control) {
             flat.control = context.control
           }
-          await s(flat)
+          await e(flat)
         }
       }
     },
