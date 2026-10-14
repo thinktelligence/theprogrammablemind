@@ -261,7 +261,7 @@ const template = {
         {
           // split "sprite and fanta" into separate things so the ask will pick them up
           match: ({context}) => context.marker == 'list' && context.topLevel && !context.flatten,
-          apply: async ({context, s}) => await s({...context, flatten: true}),
+          apply: async ({context, e}) => await e({...context, flatten: true}),
         },
         {
           where: where(),
@@ -951,10 +951,10 @@ const config = {
       where: where(),
       priority: -10,
       match: ({context}) => context.marker == 'compound_operator',
-      apply: async ({context, s}) => {
+      apply: async ({context, e}) => {
         context.marker = 'list'
         context.flatten = true
-        await s(context)
+        await e(context)
       }
     },
     {
