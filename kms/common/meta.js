@@ -192,10 +192,10 @@ const config = {
     {
       where: where(),
       match: ({context}) => context.marker == 'orList',
-      apply: async ({context, s}) => {
+      apply: async ({context, e}) => {
         const response = []
         for (const value of context.value) {
-          response.push(await s(value))
+          response.push(await e(value))
         }
         context.evalue = {
           marker: 'orList', 

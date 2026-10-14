@@ -62,9 +62,9 @@ const config = {
     {
       where: where(),
       match: ({context, isA}) => isA(context, 'direction'),
-      apply: async ({context, insert, s, fragments}) => {
+      apply: async ({context, insert, e, fragments}) => {
         const instantiation = await fragments("move direction", { direction:  context })
-        await s(instantiation)
+        await e(instantiation)
       }
     },
   ],

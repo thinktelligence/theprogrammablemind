@@ -117,7 +117,7 @@ const template = {
             properties: after[0],
             interpolate: [{ self: true }, { property: 'properties' }]
           }`,
-          semantic: async ({e, s, gp, objects, flatten, context, ask, fragments, toEValue}) => {
+          semantic: async ({e, gp, objects, flatten, context, ask, fragments, toEValue}) => {
             const argument = context.properties.argument
             const getValue = (property) => async (args) => {
               const value = toEValue(await e(property))
@@ -130,7 +130,7 @@ const template = {
             const setValue = (property) => async ({ context, namespaced, tag }) => {
               const is = { marker: 'is', one: property, two: context }
               namespaced.set('dialogs', is, 'allowHierarchy', false)
-              await s(is)
+              await e(is)
             }
 
             const properties = flattenInPlace(argument)
