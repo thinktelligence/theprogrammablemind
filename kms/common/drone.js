@@ -1340,11 +1340,10 @@ const template = {
         {
           where: where(),
           match: ({context}) => context.marker == 'doAction',
-          apply: async ({context, fragments, e, s, toEValue, toFinalValue, namespaced, objects}) => {
+          apply: async ({context, fragments, e, toEValue, toFinalValue, namespaced, objects}) => {
             const updated = { ...context, marker: 'patrol', path: context.action }
             namespaced.set('actions', updated, 'logged', true)
-            await s(updated)
-            // await s({ ...context, marker: 'patrol', path: context.action })
+            await e(updated)
           }
         },
         {
@@ -1458,7 +1457,7 @@ const template = {
               return true
             }
           },
-          apply: async ({gp, s, context, objects, fragments, resolveEvaluate, api}) => {
+          apply: async ({gp, e, context, objects, fragments, resolveEvaluate, api}) => {
             let return_context = context
             if (context.marker == 'speed') {
               // okay
@@ -1476,7 +1475,7 @@ const template = {
               }
             }
             const speed = await fragments("number meters per second", { number: { marker: 'integer', value, word: undefined} })
-            const preferred = await s({ marker: 'preferredUnits', quantity: speed }) 
+            const preferred = await e({ marker: 'preferredUnits', quantity: speed }) 
             resolveEvaluate(return_context, preferred.evalue || speed)
           }
         },
@@ -1491,7 +1490,7 @@ const template = {
               return true
             }
           },
-          apply: async ({gp, s, context, objects, fragments, resolveEvaluate, api}) => {
+          apply: async ({gp, e, context, objects, fragments, resolveEvaluate, api}) => {
             const value = objects.current.angleInRadians
             const fi = await fragments("number radians")
             const direction = await fi.instantiate([
@@ -1502,7 +1501,7 @@ const template = {
                 }
               }
             ])
-            const preferred = await s({ marker: 'preferredUnits', quantity: direction }) 
+            const preferred = await e({ marker: 'preferredUnits', quantity: direction }) 
             resolveEvaluate(context, preferred.evalue || direction)
           }
         },
