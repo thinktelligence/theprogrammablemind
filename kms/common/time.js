@@ -208,15 +208,15 @@ const template = {
           where: where(),
           priority: -1,
           match: async (args) => await args.callOnce(args, 'time.1', ({context}) => context.repeats) && args.context.repeats?.repeats,
-          apply: async ({context, e, s, handlerStack}) => {
+          apply: async ({context, e, handlerStack}) => {
             const v = (await e(context.repeats.repeats)).evalue
             for (let i = 0; i < v; ++i) {
               if (context.action) {
-                await s(context.action)
+                await e(context.action)
               } else {
                 const repeats = context.repeats
                 context.repeats = undefined
-                await s(context)
+                await e(context)
                 context.repeats = repeats
               }
             }
