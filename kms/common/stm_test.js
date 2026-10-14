@@ -35,12 +35,12 @@ describe('numbers km', () => {
   })
 
   test('callback on delete', async () => {
-    await km.run(async ({remember, recall, s, addCallback}) => {
+    await km.run(async ({remember, recall, e, addCallback}) => {
       await remember({ marker: 'test' })
       const obj = await recall({ context: { marker: 'test' } })
       const fn = jest.fn()
       const id = addCallback(obj, fn)
-      await s({ marker: 'delete', deletable: { marker: 'test' }})
+      await e({ marker: 'delete', deletable: { marker: 'test' }})
       expect(fn).toHaveBeenCalled()
     })
   })
