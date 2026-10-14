@@ -349,7 +349,7 @@ const config = {
     {
       notes: 'ordering generator for response',
       match: ({context}) => (context.orderingArgs && Object.keys(context.orderingArgs).length !== 0) && context.evalue && context.isResponse,
-      apply: async ({context, s, g, km, flatten}) => {
+      apply: async ({context, e, g, km, flatten}) => {
         const brief = km("dialogues").api.getBrief()
 
         let { evalue } = context
@@ -386,7 +386,7 @@ const config = {
           return `${yesno}`
         } else {
           if (context.voice) {
-            evalue = await s({ ...evalue, toVoice: context.voice, flatten: false})
+            evalue = await e({ ...evalue, toVoice: context.voice, flatten: false})
           }
 
           const details = await g(Object.assign({}, evalue, { paraphrase: true }))
