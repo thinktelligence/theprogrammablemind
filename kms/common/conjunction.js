@@ -42,10 +42,10 @@ const config = {
       where: where(),
       semantic: {
         match: ({context, namespaced}) => !namespaced.get('conjunction', context, 'atomic'),
-        apply: async ({context, flatten, s}) => {
+        apply: async ({context, flatten, e}) => {
           for (const value of flatten(context)) {
             value.topLevel = context.topLevel;
-            await s(value)
+            await e(value)
           }
         }
       }

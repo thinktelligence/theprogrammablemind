@@ -907,7 +907,7 @@
       "semantics": [
         {
           "match": "({context}) => context.marker == 'list' && context.topLevel && !context.flatten",
-          "apply": "async ({context, s}) => await s({...context, flatten: true})"
+          "apply": "async ({context, e}) => await e({...context, flatten: true})"
         },
         {
           "match": "({context, api}) => context.marker == 'controlEnd' && api.hasAskedForButNotAvailable()",
