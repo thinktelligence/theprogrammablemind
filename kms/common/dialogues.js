@@ -665,7 +665,7 @@ const config = {
       where: where(),
       notes: 'x is y. handles x is a kind of y or x = y in the stm',
       match: ({context}) => context.marker == 'is' && !context.query && context.one && context.two,
-      apply: async ({_continue, context, s, debug, log, api, kms, config}) => {
+      apply: async ({_continue, context, e, debug, log, api, kms, config}) => {
         function warningSameNotEvaluated(log, one) {
           const description = 'WARNING from Dialogues KM: For the "X is Y" type phrase implement a same handler.'
           const match = `({context}) => context.marker == '${one.marker}' && context.same && <other conditions as you like>`
@@ -677,7 +677,7 @@ const config = {
 
         const one = context.one;
         const two = context.two;
-        const onePrime = await s({ marker: 'same', one: one, two: two })
+        const onePrime = await e({ marker: 'same', one: one, two: two })
         if (!onePrime.sameWasProcessed) {
           warningSameNotEvaluated(log, one)
         } else {
