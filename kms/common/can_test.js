@@ -10,11 +10,11 @@ describe('can km', () => {
   })
 
   test('active to passive', async () => {
-    await km.run(async ({fragments, s, gp, addWordToDictionary, getWordFromDictionary, config}) => {
+    await km.run(async ({fragments, e, gp, addWordToDictionary, getWordFromDictionary, config}) => {
       const fragment = await fragments("cansubject can canverb canobject")
       const context = fragment.contexts()[0]
       // console.log(JSON.stringify(context, null, 2))
-      const contextPrime = await s({ ...context, toVoice: 'passive', flatten: false })
+      const contextPrime = await e({ ...context, toVoice: 'passive', flatten: false })
       const text = await gp(contextPrime)
       // console.log(JSON.stringify(contextPrime.interpolate, null, 2))
       // console.log(text)
@@ -24,10 +24,10 @@ describe('can km', () => {
   })
 
   test('passive to active', async () => {
-    await km.run(async ({fragments, s, gp, addWordToDictionary, getWordFromDictionary, config}) => {
+    await km.run(async ({fragments, e, gp, addWordToDictionary, getWordFromDictionary, config}) => {
       const fragment = await fragments("canobject can be canverb by cansubject")
       const context = fragment.contexts()[0]
-      const contextPrime = await s({ ...context, toVoice: 'active', flatten: false }) // , { debug: { apply: true } })
+      const contextPrime = await e({ ...context, toVoice: 'active', flatten: false }) // , { debug: { apply: true } })
       // console.log(JSON.stringify(contextPrime, null, 2))
       const text = await gp(contextPrime)
       // console.log(JSON.stringify(contextPrime.interpolate, null, 2))
@@ -38,14 +38,14 @@ describe('can km', () => {
   })
 
   test('to passive handles mixes list', async () => {
-    await km.run(async ({fragments, s, gp, addWordToDictionary, getWordFromDictionary, config}) => {
+    await km.run(async ({fragments, e, gp, addWordToDictionary, getWordFromDictionary, config}) => {
       const fragmentPassive = await fragments("canobject can be canverb by cansubject")
       const contextPassive = fragmentPassive.contexts()[0]
       const fragmentActive = await fragments("cansubject can canverb canobject")
       const contextActive = fragmentActive.contexts()[0]
       
       const context = helpers.concats([contextPassive, contextActive])
-      const contextPrime = await s({ ...context, toVoice: 'passive', flatten: false }) // , { debug: { apply: true } })
+      const contextPrime = await e({ ...context, toVoice: 'passive', flatten: false }) // , { debug: { apply: true } })
       // console.log(JSON.stringify(contextPrime, null, 2))
       const text = await gp(contextPrime)
       // console.log(JSON.stringify(contextPrime.interpolate, null, 2))
@@ -56,14 +56,14 @@ describe('can km', () => {
   })
 
   test('to active handles mixes list', async () => {
-    await km.run(async ({fragments, s, gp, addWordToDictionary, getWordFromDictionary, config}) => {
+    await km.run(async ({fragments, e, gp, addWordToDictionary, getWordFromDictionary, config}) => {
       const fragmentPassive = await fragments("canobject can be canverb by cansubject")
       const contextPassive = fragmentPassive.contexts()[0]
       const fragmentActive = await fragments("cansubject can canverb canobject")
       const contextActive = fragmentActive.contexts()[0]
       
       const context = helpers.concats([contextPassive, contextActive])
-      const contextPrime = await s({ ...context, toVoice: 'active', flatten: false }) // , { debug: { apply: true } })
+      const contextPrime = await e({ ...context, toVoice: 'active', flatten: false }) // , { debug: { apply: true } })
       // console.log(JSON.stringify(contextPrime, null, 2))
       const text = await gp(contextPrime)
       // console.log(JSON.stringify(contextPrime.interpolate, null, 2))
