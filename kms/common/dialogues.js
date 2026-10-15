@@ -724,11 +724,6 @@ const config = {
 };
 
 function initializer({objects, config, isModule}) {
-  /* TODO add this beck in. some stuff from config needs to be here
-  config.addArgs((args) => ({ 
-    e: (context) => config.api.getEvaluator(args.s, args.log, context),
-  }))
-  */
   config.addArgs(({config, api, isA, e}) => ({ 
     toScopedId: (context) => {
       return api('dialogues').toScopedId(context)

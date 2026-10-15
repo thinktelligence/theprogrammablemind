@@ -124,12 +124,12 @@ const config = {
          1: "{ marker: 'moveable', pullFromContext: true, default: true, skipDefault: true }" 
        },
        bridge: "{ ...next(operator), operator: operator, moveable: after[0], direction: after[1], generate: ['operator', 'moveable', 'direction' ] }",
-       semantic: async ({api, context, e}) => {
+       semantic: async ({api, context, toFinalValue, e}) => {
          if (context.direction?.steps?.quantity) {
            api.move(context.direction.value, context.direction.steps.quantity.value, context.direction.steps.marker)
          } else {
-           const steps = await e(context.direction.steps)
-           api.move(context.direction.value, steps?.evalue || 1)
+           const steps = toFinalValue(await e(context.direction.steps))
+           api.move(context.direction.value, steps || 1)
            // api.move(context.direction.value, context.direction.steps ? context.direction.steps.value : 1)
          }
        }

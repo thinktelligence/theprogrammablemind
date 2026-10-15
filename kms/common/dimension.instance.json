@@ -178,7 +178,7 @@
             ]
           ],
           "generatorp": "async ({context, g}) => `${await g(context.from)} ${context.word} ${await g(context.to)}`",
-          "evaluator2": "async ({context, api, toArray, callId, resolveEvaluate}) => {\n        debugger\n        const from = context.from;\n        const tos = toArray(context.to);\n        resolveEvaluate(context, await api.convertToUnits(context, from, tos))\n      }"
+          "evaluator2": "async ({context, api, toArray, callId, resolveEvaluate}) => {\n        const from = context.from;\n        const tos = toArray(context.to);\n        resolveEvaluate(context, await api.convertToUnits(context, from, tos))\n      }"
         },
         {
           "id": "unit",
@@ -198,7 +198,7 @@
       "bridges": [
         {
           "id": "useMeasurementSystem",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:325",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:324",
           "isA": [
             "verb"
           ],
@@ -5332,7 +5332,7 @@
       "bridges": [
         {
           "id": "useMeasurementSystem",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:325",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:324",
           "isA": [
             "verb"
           ],

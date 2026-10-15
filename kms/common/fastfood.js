@@ -392,9 +392,9 @@ const template = {
           localHierarchy: [ ['thisitthat', 'meal'], ['thisitthat', 'drink'] ],
           generatorp: async ({context, gp}) => `change ${await gp(context.from)} to ${await gp(context.to)}`,
           bridge: "{ ...next(operator), from: after[0], to: after[1].toObject }",
-          semantic: async ({context, api, e}) => {
+          semantic: async ({context, api, e, toFinalValue}) => {
             const state = api.state
-            const eFrom = (await e(context.from)).evalue
+            const eFrom = toFinalValue(await e(context.from))
             const from = state.getIdCombo(eFrom.fromSTM ? eFrom : context.from)
             const to = state.getIdCombo(context.to)
             for (const item of api.items()) {

@@ -15,7 +15,7 @@ function getTypes( km, digraph, concept, instance ) {
     return new Set([...set1].filter(x => set2.has(x)))
   }
   const descendants = digraph.descendants(concept.value || concept.marker)
-  const ancestors = digraph.ancestors(instance.evalue)
+  const ancestors = digraph.ancestors(instance.evalue || instance.value)
   const common = intersect(ancestors, descendants)
   const answer = Array.from(digraph.minima(common))
   const words = answer.map( (value) => conceptAPI.getWordForValue(value) )

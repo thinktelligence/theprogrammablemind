@@ -28,7 +28,7 @@ const config = {
       // match: (args) => okay(args, ({context}) => (context.flatten || context.listable && context.value.some((value) => value.flatten))),
       match: async (args) => await args.callOnce(args, 'sdefaults.1', ({context}) => (context.flatten || context.listable && context.value.some((value) => value.flatten))),
       // match: ({context}) => context.flatten || context.listable || (Array.isArray(context.value) && context.value.some((value) => value.flatten)),
-      apply: async ({config, km, context, s, _continue, flatten}) => {
+      apply: async ({config, km, context, e, _continue, flatten}) => {
         const flats = flatten(['list'], context)
         const evalues = []
         for (const flat of flats) {
@@ -36,7 +36,7 @@ const config = {
             flat.control = context.control
           }
           flat.topLevel = context.topLevel
-          const result = await s(flat)
+          const result = await e(flat)
           if (result.evalue) {
             evalues.push(result.evalue)
           }

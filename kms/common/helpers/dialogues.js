@@ -89,7 +89,7 @@ class API {
     }
 
     initial.value = source_value || concept
-    await this.args.s({ value, makeObject: true, initial })
+    await this.args.e({ value, makeObject: true, initial })
     // config.addOperator({ pattern: `(["${fixUps(concept)}"])`, allowDups: true })
     config.addOperator({ pattern: `(["${concept}"|])`, allowDups: true })
     config.addBridge({ id: concept, level: 0, bridge: `{ ...operator, dead: true, value: or(operator.value, '${source_value || concept}') }` , allowDups: true })

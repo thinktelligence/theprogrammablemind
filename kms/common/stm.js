@@ -1,5 +1,5 @@
 const { knowledgeModule, where, debug } = require('./runtime').theprogrammablemind
-const { defaultContextCheckProperties, defaultContextCheck } = require('./helpers')
+const { defaultContextCheckProperties, defaultContextCheck, toFinalValue } = require('./helpers')
 const helpers = require('./helpers')
 const helpers_conjunction = require('./helpers/conjunction')
 const articles = require('./articles')
@@ -299,7 +299,7 @@ const config = {
       bridge: "{ ...next(operator), postModifiers: ['rememberee'], rememberee: after[0] }",
       isA: ['verb'],
       semantic: async ({context, api, e}) => {
-        let value = (await e(context.rememberee)).evalue
+        let value = toFinalValue((await e(context.rememberee)))
         if (value == context.rememberee.value) {
           value = context.rememberee
         }

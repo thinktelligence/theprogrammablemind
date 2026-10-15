@@ -50,12 +50,12 @@ const config = {
           action: "(@<= 'action' || @<= 'doAction')",
         },
       },
-      semantic: async ({context, fragments, e, s, toFinalValue, kms}) => {
+      semantic: async ({context, fragments, e, toFinalValue, kms}) => {
         const instantiation = await fragments("quantity in milliseconds", { quantity: context.delayTime })
         const result = await e(instantiation)
         const milliseconds = toFinalValue(toFinalValue(result).amount)
         await kms.time.api.sleep(milliseconds)
-        await s(context.action)
+        await e(context.action)
       }
     },
     {
@@ -98,9 +98,9 @@ const config = {
       bridge: "{ ...next(operator), value: append(before, operator.value) }",
       semantic: {
         match: ({context}) => context.isList,
-        apply: async ({context, toArray, s}) => {
+        apply: async ({context, toArray, e}) => {
           for (const action of toArray(context)) {
-            await s(action)
+            await e(action)
           }
         },
       }
@@ -131,9 +131,9 @@ const config = {
       }`,
       localHierarchy: [['thisitthat', 'action']],
       where: where(),
-      semantic: async ({context, toArray, s}) => {
+      semantic: async ({context, toArray, e}) => {
         for (const action of toArray(context.action)) {
-          await s(action)
+          await e(action)
         }
       },
     },
@@ -150,9 +150,9 @@ const config = {
       match: ({context, isA, contextHierarchy, stack, namespaced}) => {
         return !context.pullFromContext && !contextHierarchy.under('call') && (isA(context.marker, 'action') || isA(context.marker, 'doAction')) && !namespaced.get('actions', context, 'logged')
       },
-      apply: async ({context, _continue, testLog, g, remember}) => {
+      apply: async ({context, _continue, testLog, gp, remember}) => {
         remember(context)
-        await testLog(() => g(context))
+        await testLog(() => gp(context))
         _continue()
       }
     },

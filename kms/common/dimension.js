@@ -272,7 +272,6 @@ const config = {
       after: [['possession', 0], ['possession', 1]],
       generatorp: async ({context, g}) => `${await g(context.from)} ${context.word} ${await g(context.to)}`,
       evaluator2: async ({context, api, toArray, callId, resolveEvaluate}) => {
-        debugger
         const from = context.from;
         const tos = toArray(context.to);
         resolveEvaluate(context, await api.convertToUnits(context, from, tos))

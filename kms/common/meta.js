@@ -219,7 +219,7 @@ const config = {
             function invertMappings(mappings) {
               return mappings.map( ({ from, to }) => { return { to: from, from: to } } )
             }
-            return async ({context, s, config}) => { 
+            return async ({context, e, config}) => { 
               DEFINITIONs = _.cloneDeep(DEFINITIONs)
               //const mappings = mappingss[0]
               let toPrimes = []
@@ -229,7 +229,7 @@ const config = {
                 }
                 // next move add debug arg to s and g
                 TO.query = true
-                toPrimes.push([await s(TO), mappings])
+                toPrimes.push([await e(TO), mappings])
               }
 
               let hasResponse = false
@@ -323,12 +323,12 @@ const config = {
             return ({context}) => context.evalue == defContext.from.value && !context.query && !context.objects
           }
           function apply(mappings, TO) {
-            return async ({context, s}) => {
+            return async ({context, e}) => {
               TO = _.cloneDeep(TO)
               for (const { from, to } of mappings) {
                 hashIndexesSet(TO, to, hashIndexesGet(context, from))
               }
-              toPrime = await s(TO)
+              toPrime = await e(TO)
               context.result = toPrime.result
             }
           }
@@ -356,7 +356,7 @@ const config = {
             return ({context, uuid, stack}) => context.value == defContext.from.value && !context[`disable${uuid}`]
           }
           function apply(mappings, TO) {
-            return async ({uuid, context, s, g, config}) => {
+            return async ({uuid, context, e, g, config}) => {
               TO = _.cloneDeep(TO)
               for (const { from, to } of mappings) {
                 hashIndexesSet(TO, to, hashIndexesGet(context, from))
@@ -369,7 +369,7 @@ const config = {
                 TO.metaDefinition = true
               }
               TO[`disable${uuid}`] = true
-              toPrime = await s(TO)
+              toPrime = await e(TO)
               if (context.query) {
                 if (toPrime.evalue) {
                   context.evalue = toPrime.evalue

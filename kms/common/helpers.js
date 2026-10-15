@@ -248,7 +248,7 @@ function toEValue(context) {
 }
 
 function toFinalValue(context) {
-  while( context.evalue || context.value ) {
+  while( context?.evalue || context?.value ) {
     if (context.evalue) {
       context = context.evalue
     } else {
