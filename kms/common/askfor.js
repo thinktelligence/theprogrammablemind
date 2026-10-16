@@ -76,7 +76,7 @@ const template = {
           id: 'known',
           where: where(),
           isA: ['queryable'],
-          evaluator2: async ({kms, context, e, callId, toList, flatten, toEValue, resolveEvaluate, objects}) => {
+          semantic: async ({kms, context, e, callId, toList, flatten, toEValue, resolveEvaluate, objects}) => {
             const known = await kms.properties.api.getProperty(context.subjects[0], 'property')
             resolveEvaluate(context, known)
           },
@@ -85,7 +85,7 @@ const template = {
           id: 'information',
           where: where(),
           isA: ['noun'],
-          evaluator2: async ({context, e, callId, toList, flatten, toEValue, resolveEvaluate, objects}) => {
+          semantic: async ({context, e, callId, toList, flatten, toEValue, resolveEvaluate, objects}) => {
             const properties = objects.askFor
             const values = []
             for (const property of properties) {

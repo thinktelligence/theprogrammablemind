@@ -34,7 +34,7 @@
           "isA": [
             "queryable"
           ],
-          "evaluator2": "async ({kms, context, e, callId, toList, flatten, toEValue, resolveEvaluate, objects}) => {\n            const known = await kms.properties.api.getProperty(context.subjects[0], 'property')\n            resolveEvaluate(context, known)\n          }"
+          "semantic": "async ({kms, context, e, callId, toList, flatten, toEValue, resolveEvaluate, objects}) => {\n            const known = await kms.properties.api.getProperty(context.subjects[0], 'property')\n            resolveEvaluate(context, known)\n          }"
         },
         {
           "id": "information",
@@ -42,7 +42,7 @@
           "isA": [
             "noun"
           ],
-          "evaluator2": "async ({context, e, callId, toList, flatten, toEValue, resolveEvaluate, objects}) => {\n            const properties = objects.askFor\n            const values = []\n            for (const property of properties) {\n              // const value = toEValue(await e(property))\n              const value = (await e(property)).evalue\n              values.push({ marker: 'labelledValue', label: property, value })\n            }\n            resolveEvaluate(context, toList(values))\n          }"
+          "semantic": "async ({context, e, callId, toList, flatten, toEValue, resolveEvaluate, objects}) => {\n            const properties = objects.askFor\n            const values = []\n            for (const property of properties) {\n              // const value = toEValue(await e(property))\n              const value = (await e(property)).evalue\n              values.push({ marker: 'labelledValue', label: property, value })\n            }\n            resolveEvaluate(context, toList(values))\n          }"
         },
         {
           "id": "for_askfor",

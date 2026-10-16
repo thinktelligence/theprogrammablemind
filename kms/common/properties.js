@@ -176,7 +176,7 @@ const config = {
       id: 'propertyRelation', 
       // scope: 'development',
       words: words('propertyRelation'),
-      evaluator2: ({context, api, objects, toList}) => {
+      semantic: ({context, api, objects, toList}) => {
         context.evalue = toList(objects.relations)
         context.evalue.isResponse = true
         context.evalue.paraphrase = false

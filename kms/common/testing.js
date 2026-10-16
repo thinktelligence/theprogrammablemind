@@ -22,7 +22,7 @@ const config = {
     { 
       where: where(),
       id: 'testingValue',
-      evaluator2: ({context}) => {
+      semantic: ({context}) => {
         context.evalue = 'evaluated testingValue'
       }
     },

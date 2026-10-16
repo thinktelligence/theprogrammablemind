@@ -973,7 +973,7 @@ const config = {
       id: 'orderNoun',
       where: where(),
       parents: ['noun', 'queryable'],
-      evaluator2: ({context, api}) => {
+      semantic: ({context, api}) => {
         context.evalue = { marker: 'list', value: api.objects.items }
         api.show()
       }

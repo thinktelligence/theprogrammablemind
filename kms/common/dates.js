@@ -192,7 +192,7 @@ const template = {
           convolution: true,
           before: ['preposition', 'monthDay_dates'],
           isA: ['date_dates'],
-          evaluator2: ({context}) => {
+          semantic: ({context}) => {
             const year = context.year.value
             const day = context.day.value
             const month_ordinal = context.month.month_ordinal
