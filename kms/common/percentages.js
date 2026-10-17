@@ -25,7 +25,7 @@ const config = {
       bridge: "{ ...next(operator), percentage: before[0], isResponse: true, semanticIsEvaluate: true, value: after[0] }",
       semantic: async ({context, e}) => {
         const scale = context.percentage.scale
-        const number = await e(context.value)
+        const number = await e(context.value, where())
         const percentage = number.value * scale.value / 100
         const result = { ...number, value: percentage, evalue: percentage, word: null, text: null }
         context.evalue = result

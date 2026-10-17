@@ -531,9 +531,10 @@ const config = {
       where: where(),
       match: ({context}) => context.marker === 'error',
       apply: async ({context, g, gp}) => {
-        context.evalue = "That is not known"
         if (context.reason) {
-          context.evalue += ` because ${await g(context.reason)}`
+          context.evalue = `${await g(context.reason)}`
+        } else {
+          context.evalue = "That is not known"
         }
         context.isResponse = true
       }
@@ -588,7 +589,7 @@ const config = {
           value = one;
         }
 
-        let instance = await e(value)
+        let instance = await e(value, where())
         if (instance.verbatim) {
           context.evalue = { verbatim: instance.verbatim }
           context.isResponse = true
@@ -606,7 +607,7 @@ const config = {
             const unification = await e({
               marker: 'unify',
               terms: [query, instance],
-            })
+            }, where())
             instance = unification.evalue
           }
         }
@@ -677,7 +678,7 @@ const config = {
 
         const one = context.one;
         const two = context.two;
-        const onePrime = await e({ marker: 'same', one: one, two: two })
+        const onePrime = await e({ marker: 'same', one: one, two: two }, where())
         if (!onePrime.sameWasProcessed) {
           warningSameNotEvaluated(log, one)
         } else {
@@ -715,7 +716,7 @@ const config = {
         const api = kms.stm.api
         context.value = api.getVariable(context)
         if (context.value && context.value.marker) {
-          context.evalue = await e(context.value)
+          context.evalue = await e(context.value, where())
         }
         context.focusableForPhrase = true
       }
@@ -738,7 +739,7 @@ function initializer({objects, config, isModule}) {
       const unification = await e({
         marker: 'unify',
         terms: [term1, term2],
-      })
+      }, where())
       return unification?.evalue
     }
   }))

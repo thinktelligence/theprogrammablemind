@@ -126,7 +126,7 @@ const config = {
       `,
       // generatorp: async ({context, g, gs}) => `call ${await g(context.nameable)} ${await gs(context.name)}`,
       semantic: async ({config, context, api, e, verbatim, g}) => {
-        const nameable = (await e(context.nameable))?.evalue
+        const nameable = (await e(context.nameable, where()))?.evalue
         if (!nameable) {
           verbatim(`${await g(context.nameable)} is not known`)
           return

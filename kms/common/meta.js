@@ -195,7 +195,7 @@ const config = {
       apply: async ({context, e}) => {
         const response = []
         for (const value of context.value) {
-          response.push(await e(value))
+          response.push(await e(value, where()))
         }
         context.evalue = {
           marker: 'orList', 
@@ -229,7 +229,7 @@ const config = {
                 }
                 // next move add debug arg to s and g
                 TO.query = true
-                toPrimes.push([await e(TO), mappings])
+                toPrimes.push([await e(TO, where()), mappings])
               }
 
               let hasResponse = false
@@ -328,7 +328,7 @@ const config = {
               for (const { from, to } of mappings) {
                 hashIndexesSet(TO, to, hashIndexesGet(context, from))
               }
-              toPrime = await e(TO)
+              toPrime = await e(TO, where())
               context.result = toPrime.result
             }
           }
@@ -369,7 +369,7 @@ const config = {
                 TO.metaDefinition = true
               }
               TO[`disable${uuid}`] = true
-              toPrime = await e(TO)
+              toPrime = await e(TO, where())
               if (context.query) {
                 if (toPrime.evalue) {
                   context.evalue = toPrime.evalue

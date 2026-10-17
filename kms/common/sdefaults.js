@@ -36,7 +36,7 @@ const config = {
             flat.control = context.control
           }
           flat.topLevel = context.topLevel
-          const result = await e(flat)
+          const result = await e(flat, where())
           if (result.evalue) {
             evalues.push(result.evalue)
           }
@@ -60,7 +60,7 @@ const config = {
           if (!flat.control) {
             flat.control = context.control
           }
-          await e(flat)
+          await e(flat, where())
         }
       }
     },
@@ -70,7 +70,7 @@ const config = {
       priority: -1,
       match: ({context}) => context.semanticIsEvaluate,
       apply: async ({context, e}) => {
-        context.evalue = await e({ ...context, semanticIsEvaluate: false })
+        context.evalue = await e({ ...context, semanticIsEvaluate: false }, where())
         context.isResponse = true
       }
     },
@@ -109,7 +109,7 @@ function initializer({objects, config, isModule}) {
       const unification = await e({
         marker: 'unify',
         terms: [term1, term2],
-      })
+      }, where())
       return unification?.evalue
     },
   }))

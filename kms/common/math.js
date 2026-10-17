@@ -48,8 +48,8 @@ function mathematicalOperator(name, words, apply, before = []) {
         isA: ['mathematicalExpression'],
         // generatorp: async ({gp, context}) => `${await gp(context.x)} ${context.word} ${await gp(context.y)}`,
         semantic: async ({e, context}) => {
-          const x = toValue(await e(context.x)) 
-          const y = toValue(await e(context.y))
+          const x = toValue(await e(context.x, where())) 
+          const y = toValue(await e(context.y, where()))
           if (!x || !y) {
             // context.evalue = { ...context, paraphrase: true, x: { ...context.x, value: x }, y: { ...context.y, value: y } }
             context.isResponse = false

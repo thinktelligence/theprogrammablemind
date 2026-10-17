@@ -261,7 +261,7 @@ async function handleDistance(args, distance) {
   }
   const instantiation = await fragments("quantity in meters", { quantity: distance })
   try {
-    const result = await e(instantiation)
+    const result = await e(instantiation, where())
     objects.runCommand = true
     objects.current.distance = result.evalue.amount.evalue.evalue
   } catch (e) {
@@ -444,7 +444,7 @@ class API {
       // const valueInUsersUnits = await fragments("quantity in meters", { quantity: minimumValueInDroneUnits, meter: unitsOfUser })
       if (unitsOfUser) {
         const valueInUsersUnits = await quantityInMeters(minimumValueInDroneUnits, unitsOfUser )
-        const evaluated = await e(valueInUsersUnits)
+        const evaluated = await e(valueInUsersUnits, where())
         say(`The drone cannot go that slow. The minimum speed is ${await gr(evaluated.evalue)}`)
       } else {
         say(`The drone cannot go that fast. The minimum speed is ${await gr(minimumValueInDroneUnits)}`)
@@ -462,7 +462,7 @@ class API {
       // const valueInUsersUnits = await fragments("quantity in meters", { quantity: maximumValueInDroneUnits, meter: unitsOfUser })
       if (unitsOfUser) {
         const valueInUsersUnits = await quantityInMeters(maximumValueInDroneUnits, unitsOfUser)
-        const evaluated = await e(valueInUsersUnits)
+        const evaluated = await e(valueInUsersUnits, where())
         say(`The drone cannot go that fast. The maximum speed is ${await gr(evaluated.evalue)}`)
       } else {
         say(`The drone cannot go that fast. The maximum speed is ${await gr(maximumValueInDroneUnits)}`)
@@ -796,7 +796,7 @@ function expectDistanceForMove(args) {
     match: ({context, isA}) => isA(context.marker, 'quantity') && !isA(context.unit.marker, 'unitPerUnit'),
     apply: async ({context, objects, fragments, e}) => {
       const instantiation = await fragments("quantity in meters", { quantity: context })
-      const result = await e(instantiation)
+      const result = await e(instantiation, where())
       objects.runCommand = true
       objects.current.distance = result.evalue.amount.evalue.evalue
     }
@@ -861,7 +861,7 @@ const template = {
         apply: async ({context, objects, api, gr, fragments, e, say}) => {
           // send a command to the drone
           const instantiation = await fragments("quantity in meters per second", { quantity: context })
-          const result = await e(instantiation)
+          const result = await e(instantiation, where())
           const desired_speed = result.evalue.amount.evalue.evalue
           objects.runCommand = true
           objects.current.speed = desired_speed
@@ -1009,7 +1009,7 @@ const template = {
                 const timeAtPoints = toArray(context.pause.timeAtPoint)
                 for (const timeAtPoint of timeAtPoints) {
                   const instantiation = await fragments("quantity in seconds", { quantity: timeAtPoint.time })
-                  const result = await e(instantiation)
+                  const result = await e(instantiation, where())
                   const seconds = toFinalValue(toFinalValue(result).amount)
 
                   const points = await recall({ context: timeAtPoint.point.point, frameOfReference: path })
@@ -1150,7 +1150,7 @@ const template = {
           check: defaultContextCheckProperties(['point']),
           semantic: async ({objects, api, e, context}) => {
             objects.runCommand = true
-            const point = await e(context.point)
+            const point = await e(context.point, where())
             objects.current.path.push(point.evalue)
           }
         },
@@ -1200,7 +1200,7 @@ const template = {
               objects.current.timeRepeats = toFinalValue(context.repeats.repeats)
             }
             if (context.to) {
-              const evaluation = await e(context.to.point)
+              const evaluation = await e(context.to.point, where())
               const point = toEValue(evaluation)
               objects.current.path.push(point)
             }
@@ -1250,7 +1250,7 @@ const template = {
             if (context.angle) {
               const instantiation = await toRadians(context.angle)
               try {
-                const result = await e(instantiation)
+                const result = await e(instantiation, where())
                 current.turnAngle = toFinalValue(result.evalue.amount)
                 objects.runCommand = true
               } catch (e) {
@@ -1293,7 +1293,7 @@ const template = {
               time = time.quantity
             }
             const instantiation = await fragments("quantity in seconds", { quantity: time})
-            const result = await e(instantiation)
+            const result = await e(instantiation, where())
             const seconds = toFinalValue(toFinalValue(result).amount)
             context.pauseSeconds = seconds
             remember(context)
@@ -1343,7 +1343,7 @@ const template = {
           apply: async ({context, fragments, e, toEValue, toFinalValue, namespaced, objects}) => {
             const updated = { ...context, marker: 'patrol', path: context.action }
             namespaced.set('actions', updated, 'logged', true)
-            await e(updated)
+            await e(updated, where())
           }
         },
         {
@@ -1385,7 +1385,7 @@ const template = {
             }
           },
           apply: async ({frameOfReference, context, e, fragments, stm, toEValue, toArray, objects, remember, recall, resolveEvaluate, _continue, contextHierarchy}) => {
-            const evaluated = await e({...context, notUnderCall: true})
+            const evaluated = await e({...context, notUnderCall: true}, where())
             const pointsContext = toEValue(evaluated)
             const pathComponents = toArray(pointsContext)
 
@@ -1475,7 +1475,7 @@ const template = {
               }
             }
             const speed = await fragments("number meters per second", { number: { marker: 'integer', value, word: undefined} })
-            const preferred = await e({ marker: 'preferredUnits', quantity: speed }) 
+            const preferred = await e({ marker: 'preferredUnits', quantity: speed }, where()) 
             resolveEvaluate(return_context, preferred.evalue || speed)
           }
         },
@@ -1501,7 +1501,7 @@ const template = {
                 }
               }
             ])
-            const preferred = await e({ marker: 'preferredUnits', quantity: direction }) 
+            const preferred = await e({ marker: 'preferredUnits', quantity: direction }, where()) 
             resolveEvaluate(context, preferred.evalue || direction)
           }
         },

@@ -35276,30 +35276,6 @@
   },
   {
     "associations": [
-      [
-        [
-          "have",
-          0
-        ],
-        [
-          "questionMark",
-          0
-        ],
-        [
-          "unknown",
-          0
-        ]
-      ],
-      [
-        [
-          "have",
-          1
-        ],
-        [
-          "questionMark",
-          0
-        ]
-      ]
     ],
     "config": {
       "words": {
@@ -35772,6 +35748,18 @@
               "initial": "{ value: 'brief' }"
             }
           ],
+          "compound": [
+            {
+              "id": "compound",
+              "initial": "{ value: 'compound', number: 'one' }"
+            }
+          ],
+          "compounds": [
+            {
+              "id": "compound",
+              "initial": "{ value: 'compound', number: 'many' }"
+            }
+          ],
           "do": [
             {
               "id": "does",
@@ -35874,6 +35862,12 @@
               "initial": "{ value: false }"
             }
           ],
+          "open": [
+            {
+              "id": "open",
+              "initial": "{ value: 'open', number: 'one' }"
+            }
+          ],
           "properties": [
             {
               "id": "property",
@@ -35884,6 +35878,20 @@
             {
               "id": "property",
               "initial": "{\"value\":\"property\",\"number\":\"one\"}"
+            }
+          ],
+          "property type": [
+            {
+              "id": "property_type",
+              "initial": "{\"word\":\"property type\",\"number\":\"one\"}",
+              "word": "property type"
+            }
+          ],
+          "property types": [
+            {
+              "id": "property_type",
+              "initial": "{\"word\":\"property types\",\"number\":\"many\"}",
+              "word": "property types"
             }
           ],
           "propertyRelation": [
@@ -35995,72 +36003,84 @@
     },
     "contexts": [
       {
-        "context_id": 2,
-        "context_index": 1,
-        "dead": true,
-        "do": {
-          "left": "object",
-          "right": "property"
-        },
-        "doesable": true,
-        "isResponse": true,
-        "level": 2,
-        "marker": "have",
-        "number": "one",
-        "object": {
+        "context": {
+          "context_id": 2,
+          "context_index": 1,
           "dead": true,
-          "level": 0,
-          "marker": "object",
+          "do": {
+            "context_id": 239,
+            "left": "object",
+            "right": "property"
+          },
+          "doesable": true,
+          "level": 2,
+          "marker": "have",
           "number": "one",
+          "object": {
+            "context_id": 238,
+            "dead": true,
+            "level": 0,
+            "marker": "object",
+            "number": "one",
+            "range": {
+              "end": 3,
+              "start": 0
+            },
+            "text": "greg",
+            "types": [
+              "object"
+            ],
+            "unknown": true,
+            "value": "greg",
+            "word": "greg"
+          },
+          "property": {
+            "context_id": 236,
+            "dead": true,
+            "level": 0,
+            "marker": "property",
+            "range": {
+              "end": 12,
+              "start": 9
+            },
+            "text": "eyes",
+            "types": [
+              "property"
+            ],
+            "unknown": true,
+            "value": "eyes",
+            "word": "eyes"
+          },
+          "query": [
+            "have"
+          ],
           "range": {
-            "end": 3,
+            "end": 13,
             "start": 0
           },
-          "text": "greg",
+          "text": "greg has eyes?",
+          "topLevel": true,
           "types": [
-            "object"
+            "have"
           ],
-          "unknown": true,
-          "value": "greg",
-          "word": "greg"
+          "word": "has"
         },
-        "property": {
-          "dead": true,
-          "level": 0,
-          "marker": "property",
-          "range": {
-            "end": 12,
-            "start": 9
-          },
-          "text": "eyes",
-          "types": [
-            "property"
-          ],
-          "unknown": true,
-          "value": "eyes",
-          "word": "eyes"
-        },
-        "query": [
-          "have"
+        "error": [
+          "/home/dev/code/theprogrammablemind/kms/common/properties.js:902"
         ],
-        "range": {
-          "end": 13,
-          "start": 0
-        },
-        "text": "greg has eyes?",
-        "topLevel": true,
+        "evalue": "there is no object named greg",
+        "isResponse": true,
+        "marker": "error",
+        "reason": "there is no object named greg",
+        "text": "Error: \"there is no object named greg\"",
         "touchedBy": [
-          "hierarchy#call2"
-        ],
-        "types": [
-          "have"
-        ],
-        "verbatim": "There is no object named greg",
-        "word": "has"
+          "hierarchy#call4"
+        ]
       }
     ],
+    "developerTest": false,
     "generatedParenthesized": [
-      "(There is no object named greg)"
+      "(there is no object named greg)"
     ],
     "metadata": {
       "opChoices": [
@@ -36168,6 +36188,7 @@
         "concept": "concept2",
         "conjunction": "conjunction2",
         "control": "control2",
+        "debug": "debug2",
         "dialogues": "dialogues2",
         "evaluate": "evaluate2",
         "gdefaults": "gdefaults2",
@@ -36202,6 +36223,9 @@
         },
         "control2": {
           "km": "control2"
+        },
+        "debug2": {
+          "km": "debug2"
         },
         "dialogues2": {
           "idSuffix": "",
@@ -36239,7 +36263,11 @@
             "adjective": [
               "stm_previous",
               "stm_current",
-              "stm_before"
+              "stm_before",
+              "compound_modifier",
+              "open_compound",
+              "noun_modifier",
+              "compound_noun"
             ],
             "article": [
               "a",
@@ -36250,6 +36278,18 @@
             "canBeQuestion": [
               "is"
             ],
+            "compound": [
+              "open_compound"
+            ],
+            "compound_modifier": [
+              "open"
+            ],
+            "concept": [
+              "compound",
+              "open_compound",
+              "noun",
+              "compound_noun"
+            ],
             "deletable": [
               "memorable"
             ],
@@ -36259,6 +36299,12 @@
             "listable": [
               "queryable"
             ],
+            "noun": [
+              "compound_noun"
+            ],
+            "noun_modifier": [
+              "compound"
+            ],
             "preposition": [
               "to"
             ],
@@ -36267,10 +36313,10 @@
               "this"
             ],
             "punctuation": [
-              "questionMark"
+              "questionMark",
+              "comma"
             ],
             "queryable": [
-              "concept",
               "doubleQuote",
               "theAble",
               "it",
@@ -36280,14 +36326,15 @@
               "this",
               "reason",
               "distributable",
-              "thisitthat"
+              "thisitthat",
+              "concept"
             ],
             "theAble": [
-              "concept",
               "listable",
               "reason",
               "memorable",
-              "noun"
+              "noun",
+              "concept"
             ],
             "thisAble": [
               "noun"
@@ -36301,22 +36348,19 @@
               "it"
             ],
             "verb": [
-              "modifies",
               "is",
               "isQuery",
               "delete",
               "recall",
-              "remember"
+              "remember",
+              "modifies",
+              "isOpenCompound"
             ]
           },
           "concepts": [
             "properties",
-            "concept",
-            "theAble",
-            "queryable",
-            "modifies",
-            "verb",
             "doubleQuote",
+            "queryable",
             "it",
             "pronoun",
             "this",
@@ -36325,6 +36369,7 @@
             "a",
             "article",
             "the",
+            "theAble",
             "what",
             "whatAble",
             "negatable",
@@ -36334,6 +36379,7 @@
             "listable",
             "to",
             "preposition",
+            "verb",
             "isQuery",
             "reason",
             "orAble",
@@ -36353,12 +36399,37 @@
             "noun",
             "thisitthat",
             "that",
-            "thisAble"
+            "thisAble",
+            "comma",
+            "modifies",
+            "concept",
+            "open",
+            "compound_modifier",
+            "open_compound",
+            "compound",
+            "noun_modifier",
+            "compound_noun",
+            "isOpenCompound"
           ],
           "km": "properties2",
           "parents": {
             "a": [
               "article"
+            ],
+            "comma": [
+              "punctuation"
+            ],
+            "compound": [
+              "concept",
+              "noun_modifier"
+            ],
+            "compound_modifier": [
+              "adjective"
+            ],
+            "compound_noun": [
+              "adjective",
+              "concept",
+              "noun"
             ],
             "concept": [
               "theAble",
@@ -36381,6 +36452,9 @@
             ],
             "is": [
               "canBeQuestion",
+              "verb"
+            ],
+            "isOpenCompound": [
               "verb"
             ],
             "isQuery": [
@@ -36407,7 +36481,19 @@
             ],
             "noun": [
               "theAble",
-              "thisAble"
+              "thisAble",
+              "concept"
+            ],
+            "noun_modifier": [
+              "adjective"
+            ],
+            "open": [
+              "compound_modifier"
+            ],
+            "open_compound": [
+              "adjective",
+              "concept",
+              "compound"
             ],
             "orAble": [
               "ifAble"
@@ -36478,6 +36564,14 @@
               },
               "canBeQuestion": {
               },
+              "comma": {
+              },
+              "compound": {
+              },
+              "compound_modifier": {
+              },
+              "compound_noun": {
+              },
               "concept": {
               },
               "deletable": {
@@ -36496,6 +36590,8 @@
               },
               "is": {
               },
+              "isOpenCompound": {
+              },
               "isQuery": {
               },
               "it": {
@@ -36509,6 +36605,12 @@
               "negatable": {
               },
               "noun": {
+              },
+              "noun_modifier": {
+              },
+              "open": {
+              },
+              "open_compound": {
               },
               "orAble": {
               },
@@ -36590,68 +36692,79 @@
       "processed": [
         {
           "context": {
-            "context_id": 2,
-            "context_index": 1,
-            "dead": true,
-            "do": {
-              "left": "object",
-              "right": "property"
-            },
-            "doesable": true,
-            "isResponse": true,
-            "level": 2,
-            "marker": "have",
-            "number": "one",
-            "object": {
+            "context": {
+              "context_id": 2,
+              "context_index": 1,
               "dead": true,
-              "level": 0,
-              "marker": "object",
+              "do": {
+                "context_id": 239,
+                "left": "object",
+                "right": "property"
+              },
+              "doesable": true,
+              "level": 2,
+              "marker": "have",
               "number": "one",
+              "object": {
+                "context_id": 238,
+                "dead": true,
+                "level": 0,
+                "marker": "object",
+                "number": "one",
+                "range": {
+                  "end": 3,
+                  "start": 0
+                },
+                "text": "greg",
+                "types": [
+                  "object"
+                ],
+                "unknown": true,
+                "value": "greg",
+                "word": "greg"
+              },
+              "property": {
+                "context_id": 236,
+                "dead": true,
+                "level": 0,
+                "marker": "property",
+                "range": {
+                  "end": 12,
+                  "start": 9
+                },
+                "text": "eyes",
+                "types": [
+                  "property"
+                ],
+                "unknown": true,
+                "value": "eyes",
+                "word": "eyes"
+              },
+              "query": [
+                "have"
+              ],
               "range": {
-                "end": 3,
+                "end": 13,
                 "start": 0
               },
-              "text": "greg",
+              "text": "greg has eyes?",
+              "topLevel": true,
               "types": [
-                "object"
+                "have"
               ],
-              "unknown": true,
-              "value": "greg",
-              "word": "greg"
+              "word": "has"
             },
-            "property": {
-              "dead": true,
-              "level": 0,
-              "marker": "property",
-              "range": {
-                "end": 12,
-                "start": 9
-              },
-              "text": "eyes",
-              "types": [
-                "property"
-              ],
-              "unknown": true,
-              "value": "eyes",
-              "word": "eyes"
-            },
-            "query": [
-              "have"
+            "error": [
+              "/home/dev/code/theprogrammablemind/kms/common/properties.js:902"
             ],
-            "range": {
-              "end": 13,
-              "start": 0
-            },
-            "text": "greg has eyes?",
-            "topLevel": true,
+            "evalue": "there is no object named greg",
+            "isResponse": true,
+            "marker": "error",
+            "reason": "there is no object named greg",
+            "text": "Error: \"there is no object named greg\"",
             "touchedBy": [
-              "hierarchy#call2"
-            ],
-            "types": [
-              "have"
-            ],
-            "verbatim": "There is no object named greg",
-            "word": "has"
+              "hierarchy#call4"
+            ]
           },
           "generatedParenthesized": [
           ],
@@ -36660,7 +36773,7 @@
           "paraphrasesParenthesized": [
           ],
           "responses": [
-            "There is no object named greg"
+            "there is no object named greg"
           ]
         },
         {
@@ -36744,6 +36857,126 @@
           ],
           "responses": [
           ]
+        },
+        {
+          "context": {
+            "concept": {
+              "dead": true,
+              "default": true,
+              "level": 0,
+              "marker": "noun",
+              "range": {
+                "end": 21,
+                "start": 18
+              },
+              "text": "noun",
+              "value": "noun",
+              "word": "noun"
+            },
+            "conceptModifiers": [
+              {
+                "dead": true,
+                "level": 1,
+                "marker": "compound",
+                "number": "one",
+                "range": {
+                  "end": 7,
+                  "start": 0
+                },
+                "text": "compound",
+                "value": "compound",
+                "word": "compound"
+              }
+            ],
+            "context_id": null,
+            "context_index": 1,
+            "dead": true,
+            "flatten": false,
+            "level": 1,
+            "marker": "modifies",
+            "number": "one",
+            "range": {
+              "end": 21,
+              "start": 0
+            },
+            "text": "compound modifies noun",
+            "topLevel": true,
+            "touchedBy": [
+              "concept#call2",
+              "instance2#concept#call2",
+              "instance2#properties#call2",
+              "instance2#hierarchy#call2"
+            ],
+            "word": "modifies"
+          },
+          "generatedParenthesized": [
+          ],
+          "paraphrases": [
+          ],
+          "paraphrasesParenthesized": [
+          ],
+          "responses": [
+          ]
+        },
+        {
+          "context": {
+            "concept": {
+              "dead": true,
+              "level": 0,
+              "marker": "unknown",
+              "range": {
+                "end": 21,
+                "start": 14
+              },
+              "text": "compound",
+              "unknown": true,
+              "value": "compound",
+              "word": "compound"
+            },
+            "conceptModifiers": [
+              {
+                "dead": true,
+                "level": 0,
+                "marker": "unknown",
+                "range": {
+                  "end": 3,
+                  "start": 0
+                },
+                "text": "open",
+                "unknown": true,
+                "value": "open",
+                "word": "open"
+              }
+            ],
+            "context_id": null,
+            "context_index": 1,
+            "dead": true,
+            "flatten": false,
+            "level": 1,
+            "marker": "modifies",
+            "number": "one",
+            "range": {
+              "end": 21,
+              "start": 0
+            },
+            "text": "open modifies compound",
+            "topLevel": true,
+            "touchedBy": [
+              "concept#call2",
+              "instance1#concept#call2",
+              "instance1#properties#call2",
+              "instance1#hierarchy#call2"
+            ],
+            "word": "modifies"
+          },
+          "generatedParenthesized": [
+          ],
+          "paraphrases": [
+          ],
+          "paraphrasesParenthesized": [
+          ],
+          "responses": [
+          ]
         }
       ]
     },
@@ -36751,11 +36984,11 @@
       "does greg have eyes?"
     ],
     "paraphrasesParenthesized": [
-      "((does (greg) have (eyes))?)"
+      "(((does (greg) have (eyes))?))"
     ],
     "query": "greg has eyes?",
     "responses": [
-      "There is no object named greg"
+      "there is no object named greg"
     ],
     "summaries": [
       {

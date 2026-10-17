@@ -272,7 +272,7 @@ const config = {
        bridge: "{ ...next(operator), item: after[0] }",
        generatorp: async ({context, g}) => `drink ${await g(context.item)}`,
        semantic: async ({api, context, e}) => {
-         const value = await e(context.item)
+         const value = await e(context.item, where())
          api.drink(value.value)
        }
     },
@@ -296,7 +296,7 @@ const config = {
        bridge: "{ ...next(operator), item: after[0] }",
        generatorp: async ({context, g}) => `take ${await g(context.item)}`,
        semantic: async ({api, context, e}) => {
-         const value = await e(context.item)
+         const value = await e(context.item, where())
          api.take(value.value)
        }
     },
@@ -348,7 +348,7 @@ const config = {
        generatorp: async ({context, g}) => `apply ${await g(context.item)}`,
        semantic: async ({api, context, e}) => {
           // { item: 'stimpak', quantity: <number>, to?: [ { part: ['arm', 'leg', 'torso', head'], side?: ['left', 'right'] } ] }
-         const quantity = context.item.quantity ? (await e(context.item.quantity)).value : 1
+         const quantity = context.item.quantity ? (await e(context.item.quantity, where())).value : 1
          api.apply({ item: 'stimpak', quantity })
        }
     },

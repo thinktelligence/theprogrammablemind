@@ -252,7 +252,7 @@
           "level": 0,
           "bridge": "{ ...next(operator), item: after[0] }",
           "generatorp": "async ({context, g}) => `drink ${await g(context.item)}`",
-          "semantic": "async ({api, context, e}) => {\n         const value = await e(context.item)\n         api.drink(value.value)\n       }"
+          "semantic": "async ({api, context, e}) => {\n         const value = await e(context.item, where())\n         api.drink(value.value)\n       }"
         },
         {
           "id": "eat",
@@ -280,7 +280,7 @@
           "level": 0,
           "bridge": "{ ...next(operator), item: after[0] }",
           "generatorp": "async ({context, g}) => `take ${await g(context.item)}`",
-          "semantic": "async ({api, context, e}) => {\n         const value = await e(context.item)\n         api.take(value.value)\n       }"
+          "semantic": "async ({api, context, e}) => {\n         const value = await e(context.item, where())\n         api.take(value.value)\n       }"
         },
         {
           "where": "/home/dev/code/theprogrammablemind/kms/common/pipboy.js:304",
@@ -331,7 +331,7 @@
           "level": 0,
           "bridge": "{ ...next(operator), item: after[0] }",
           "generatorp": "async ({context, g}) => `apply ${await g(context.item)}`",
-          "semantic": "async ({api, context, e}) => {\n          // { item: 'stimpak', quantity: <number>, to?: [ { part: ['arm', 'leg', 'torso', head'], side?: ['left', 'right'] } ] }\n         const quantity = context.item.quantity ? (await e(context.item.quantity)).value : 1\n         api.apply({ item: 'stimpak', quantity })\n       }"
+          "semantic": "async ({api, context, e}) => {\n          // { item: 'stimpak', quantity: <number>, to?: [ { part: ['arm', 'leg', 'torso', head'], side?: ['left', 'right'] } ] }\n         const quantity = context.item.quantity ? (await e(context.item.quantity, where())).value : 1\n         api.apply({ item: 'stimpak', quantity })\n       }"
         },
         {
           "id": "go",

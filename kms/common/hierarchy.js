@@ -84,7 +84,7 @@ const config = {
           concept = two;
           value = one;
         }
-        let instance = await e(value)
+        let instance = await e(value, where())
         if (instance.verbatim) {
           context.evalue = { verbatim: instance.verbatim }
           context.isResponse = true
@@ -118,7 +118,7 @@ const config = {
       apply: async ({context, hierarchy, objects, e, gs, km, log}) => {
         const concept = context.objects[0];
         const value = context.objects[1];
-        let instance = await e(value)
+        let instance = await e(value, where())
         if (instance.verbatim) {
           context.evalue = { verbatim: instance.verbatim }
           return

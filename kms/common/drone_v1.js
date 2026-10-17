@@ -375,7 +375,7 @@ function expectDistanceForCalibration(args) {
     match: ({context, isA, objects}) => isA(context.marker, 'quantity') && !isA(context.unit.marker, 'unitPerUnit') && objects.calibration.startTime,
     apply: async ({context, objects, fragments, e}) => {
       const instantiation = await fragments("quantity in meters", { quantity: context })
-      const result = await e(instantiation)
+      const result = await e(instantiation, where())
       objects.calibration.distance = result.evalue.amount.evalue.evalue
     }
   })
@@ -387,7 +387,7 @@ function expectDistanceForMove(args) {
     match: ({context, isA}) => isA(context.marker, 'quantity') && !isA(context.unit.marker, 'unitPerUnit'),
     apply: async ({context, objects, fragments, e}) => {
       const instantiation = await fragments("quantity in meters", { quantity: context })
-      const result = await e(instantiation)
+      const result = await e(instantiation, where())
       objects.runCommand = true
       objects.current.distance = result.evalue.amount.evalue.evalue
     }
@@ -438,7 +438,7 @@ const template = {
         apply: async ({context, objects, api, fragments, e}) => {
           // send a command to the drone
           const instantiation = await fragments("quantity in meters per second", { quantity: context })
-          const result = await e(instantiation)
+          const result = await e(instantiation, where())
           const desired_speed = result.evalue.amount.evalue.evalue
           const desired_power = objects.current.power * (desired_speed / objects.calibration.speed)
           objects.runCommand = true
@@ -483,7 +483,7 @@ const template = {
           semantic: async ({objects, api, e, context}) => {
             if (api.isCalibrated()) {
               objects.runCommand = true
-              const point = await e(context.point)
+              const point = await e(context.point, where())
               objects.current.destination = point.evalue
             }
           }

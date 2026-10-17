@@ -261,7 +261,7 @@ const template = {
         {
           // split "sprite and fanta" into separate things so the ask will pick them up
           match: ({context}) => context.marker == 'list' && context.topLevel && !context.flatten,
-          apply: async ({context, e}) => await e({...context, flatten: true}),
+          apply: async ({context, e}) => await e({...context, flatten: true}, where()),
         },
         {
           where: where(),
@@ -394,7 +394,7 @@ const template = {
           bridge: "{ ...next(operator), from: after[0], to: after[1].toObject }",
           semantic: async ({context, api, e, toFinalValue}) => {
             const state = api.state
-            const eFrom = toFinalValue(await e(context.from))
+            const eFrom = toFinalValue(await e(context.from, where()))
             const from = state.getIdCombo(eFrom.fromSTM ? eFrom : context.from)
             const to = state.getIdCombo(context.to)
             for (const item of api.items()) {
@@ -891,7 +891,7 @@ class State {
                   where: where(),
                   match: ({context, isA}) => isA(context.marker, 'number'),
                   apply: async ({context, e}) => {
-                    food.comboNumber = { value: (await e(context)).value }
+                    food.comboNumber = { value: (await e(context, where())).value }
                     this.add(Object.assign(food, context))
                   }
                 },
@@ -954,7 +954,7 @@ const config = {
       apply: async ({context, e}) => {
         context.marker = 'list'
         context.flatten = true
-        await e(context)
+        await e(context, where())
       }
     },
     {

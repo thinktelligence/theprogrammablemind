@@ -117,10 +117,10 @@
           ],
           "enhanced_associations": true,
           "bridge": "{ ...operator, object: before[0], flatten: true, operator: operator, propertyValue: after[0], interpolate: [{ property: 'object' }, { property: 'operator' }, { property: 'propertyValue' }] }",
-          "semantic": "async ({context, e, toArray, fragments, getWordFromDictionary}) => {\n        const propertyType = {\n          marker: context.propertyValue.propertyType,\n          level: 0,\n          word: context.propertyValue.propertyType,\n          value: context.propertyValue.propertyType,\n        }\n        for (const object of toArray(context.object)) {\n          const instance = await fragments(\"the property of object is value\", { property: propertyType, object, value: context.propertyValue })\n          await e(instance)\n        }\n      }"
+          "semantic": "async ({context, e, debug, toArray, fragments, getWordFromDictionary}) => {\n        const propertyType = {\n          marker: context.propertyValue.propertyType,\n          level: 0,\n          word: context.propertyValue.propertyType,\n          value: context.propertyValue.propertyType,\n        }\n        for (const object of toArray(context.object)) {\n          const instance = await fragments(\"the property of object is value\", { property: propertyType, object, value: context.propertyValue })\n          instance.query = context.query\n          await e(instance, where())\n        }\n      }"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:175",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:176",
           "id": "propertyRelation",
           "words": [
             {
@@ -135,18 +135,18 @@
           "semantic": "({context, api, objects, toList}) => {\n        context.evalue = toList(objects.relations)\n        context.evalue.isResponse = true\n        context.evalue.paraphrase = false\n      }"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:186",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:187",
           "id": "propertyMarker"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:190",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:191",
           "id": "xfx",
           "isA": [
             "queryable"
           ]
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:195",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:196",
           "id": "between",
           "isA": [
             "preposition"
@@ -155,7 +155,7 @@
           "bridge": "{ ...next(operator), arguments: after[0] }"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:202",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:203",
           "id": "between",
           "level": 1,
           "bridge": "{ ...before[0], arguments: operator.arguments }"
@@ -821,7 +821,7 @@
         },
         {
           "match": "({context}) => (context.orderingArgs && Object.keys(context.orderingArgs).length !== 0) && context.evalue && context.isResponse",
-          "apply": "async ({context, e, g, km, flatten}) => {\n        const brief = km(\"dialogues\").api.getBrief()\n\n        let { evalue } = context\n        let yesno = ''\n        let hasVariables = false\n        if (context.focusable) {\n          for (const f of context.focusable) {\n            if (context[f].query) {\n              hasVariables = true\n              break\n            }\n          }\n        }\n\n        if (evalue.truthValueOnly || context.truthValueOnly || context.wantsTruthValue || !hasVariables) {\n          function any(value, test) {\n            if (test(value)) {\n              return true\n            }\n            const values = flatten(['list'], value)\n            for (const value of values) {\n              if (test(value)) {\n                return true\n              }\n            }\n          }\n          if (any(evalue, (value) => value.truthValue)) {\n            yesno = 'yes'\n          } else if (evalue.truthValue === false || context.truthValueOnly) {\n            yesno = 'no'\n          }\n        }\n        if (evalue.truthValueOnly) {\n          return `${yesno}`\n        } else {\n          if (context.voice) {\n            evalue = await e({ ...evalue, toVoice: context.voice, flatten: false})\n          }\n\n          const details = await g(Object.assign({}, evalue, { paraphrase: true }))\n          if (yesno) {\n            return `${yesno} ${details}`\n          }\n          else {\n            return details\n          }\n        }\n      }"
+          "apply": "async ({context, e, g, km, flatten}) => {\n        const brief = km(\"dialogues\").api.getBrief()\n\n        let { evalue } = context\n        let yesno = ''\n        let hasVariables = false\n        if (context.focusable) {\n          for (const f of context.focusable) {\n            if (context[f].query) {\n              hasVariables = true\n              break\n            }\n          }\n        }\n\n        if (evalue.truthValueOnly || context.truthValueOnly || context.wantsTruthValue || !hasVariables) {\n          function any(value, test) {\n            if (test(value)) {\n              return true\n            }\n            const values = flatten(['list'], value)\n            for (const value of values) {\n              if (test(value)) {\n                return true\n              }\n            }\n          }\n          if (any(evalue, (value) => value.truthValue)) {\n            yesno = 'yes'\n          } else if (evalue.truthValue === false || context.truthValueOnly) {\n            yesno = 'no'\n          }\n        }\n        if (evalue.truthValueOnly) {\n          return `${yesno}`\n        } else {\n          if (context.voice) {\n            evalue = await e({ ...evalue, toVoice: context.voice, flatten: false}, where())\n          }\n\n          const details = await g(Object.assign({}, evalue, { paraphrase: true }))\n          if (yesno) {\n            return `${yesno} ${details}`\n          }\n          else {\n            return details\n          }\n        }\n      }"
         },
         {
           "match": "({context}) => {\n        if (context.do && context.paraphrase) {\n          const left = context['do'].left\n          if (context[left]) {\n            // who owns X should not be 'does who own x' but instead 'who owns x'\n            if (context[left].query) {\n              return true;\n            }\n          }\n        }\n\n        return false;\n      }",
@@ -899,7 +899,7 @@
         },
         {
           "match": "({context}) => context.relationBacked && !context.toVoice && context.isVerb",
-          "apply": "({context, km, hierarchy, config, stack}) => {\n        const api = km('properties').api\n        // add types for arguments\n        for (const argument of context.focusable || []) {\n          const value = api.toValue(context[argument])\n          if (value) {\n            const minimas = hierarchy.minima(context[argument].types)\n            for (const type of minimas) {\n              if (config.exists(value)) {\n                config.addHierarchy(value, type);\n              }\n            }\n          }\n        }\n        api.relation_add(context)\n      }"
+          "apply": "({context, km, hierarchy, config}) => {\n        const api = km('properties').api\n        // add types for arguments\n        for (const argument of context.focusable || []) {\n          const value = api.toValue(context[argument])\n          if (value) {\n            const minimas = hierarchy.minima(context[argument].types)\n            for (const type of minimas) {\n              if (config.exists(value)) {\n                config.addHierarchy(value, type);\n              }\n            }\n          }\n        }\n        api.relation_add(context)\n      }"
         },
         {
           "match": "({context}) => context.query && (context.orderingArgs && Object.keys(context.orderingArgs).length !== 0)",
@@ -907,15 +907,15 @@
         },
         {
           "match": "({context}) => (context.orderingArgs && Object.keys(context.orderingArgs).length !== 0)",
-          "apply": "({context, km, stack}) => {\n          const propertiesAPI = km('properties').api\n          context.ordering = context.orderingArgs.name\n          const fcontexts = flattens(['list'], [context])\n          for (const fcontext of fcontexts) {\n            fcontext.paraphrase = true\n            fcontext[context.orderingArgs.object].paraphrase = true\n            fcontext[context.orderingArgs.category].paraphrase = true\n          }\n          propertiesAPI.relation_add(fcontexts)\n        }"
+          "apply": "({context, km}) => {\n          const propertiesAPI = km('properties').api\n          context.ordering = context.orderingArgs.name\n          const fcontexts = flattens(['list'], [context])\n          for (const fcontext of fcontexts) {\n            fcontext.paraphrase = true\n            fcontext[context.orderingArgs.object].paraphrase = true\n            fcontext[context.orderingArgs.category].paraphrase = true\n          }\n          propertiesAPI.relation_add(fcontexts)\n        }"
         },
         {
           "match": "({context, isA}) => context.constraints",
-          "apply": "async ({km, context, e, log, isA}) => {\n        const constraint = context.constraints[0];\n        const value = constraint.constraint;\n        let property = constraint.property;\n        const properties = constraint.properties;\n        for (const p of properties) {\n          if (value[p].concept) {\n            property = p\n            // constraint.property = p; // set what is used\n            constraint.property = {...constraint.property, ...p}; // set what is used\n\n          }\n        }\n        // value.marker = 'owns'\n        // value.greg = true\n        // value.ownee.query = true\n        value.query = true\n        value.greg99 = 23\n        const instance = await e(value)\n        if (instance.verbatim) {\n          context.evalue = { verbatim: instance.verbatim }\n          return\n        }\n        if (instance.evalue.marker === 'undefined') {\n          context.evalue = instance.evalue\n          return\n        }\n        const selected = instance.evalue.value.map( (r) => r[property] )\n        context.constraints = undefined;\n        context.evalue = { marker: 'list', listable: true, value: selected }\n      }"
+          "apply": "async ({km, context, e, log, isA}) => {\n        const constraint = context.constraints[0];\n        const value = constraint.constraint;\n        let property = constraint.property;\n        const properties = constraint.properties;\n        for (const p of properties) {\n          if (value[p].concept) {\n            property = p\n            // constraint.property = p; // set what is used\n            constraint.property = {...constraint.property, ...p}; // set what is used\n\n          }\n        }\n        // value.marker = 'owns'\n        // value.greg = true\n        // value.ownee.query = true\n        value.query = true\n        value.greg99 = 23\n        const instance = await e(value, where())\n        if (instance.verbatim) {\n          context.evalue = { verbatim: instance.verbatim }\n          return\n        }\n        if (instance.evalue.marker === 'undefined') {\n          context.evalue = instance.evalue\n          return\n        }\n        const selected = instance.evalue.value.map( (r) => r[property] )\n        context.constraints = undefined;\n        context.evalue = { marker: 'list', listable: true, value: selected }\n      }"
         },
         {
           "match": "({context}) => context.marker == 'is' && (context.one.how || context.two.how)",
-          "apply": "async ({ resolveEvaluate, g, context, toArray, toList, fragments, kms, e, toEValue }) => {\n        const propertyMarkerContext = context.one\n        let object = context.two\n        if (context.two.how) {\n          propertyMakerContext = context.two\n          object = context.one\n        }\n        const pmcs = toArray(propertyMarkerContext)\n        const properties = []\n        for (const pmc of pmcs) {\n          const property = pmc.markedProperty\n          properties.push({ marker: property, value: property, word: property })\n        }\n        const propertyOfObject = await fragments(\"the property of object\", { property: toList(properties, true), object })\n        const value = toEValue(await e(propertyOfObject))\n        value.focusableForPhrase = true\n        propertyOfObject.focusableForPhrase = false\n        const response = await fragments(\"the property is value\", { property: propertyOfObject, value })\n        response.isResponse = true\n        resolveEvaluate(context, response) \n      }"
+          "apply": "async ({ resolveEvaluate, g, context, toArray, toList, fragments, kms, e, toEValue }) => {\n        const propertyMarkerContext = context.one\n        let object = context.two\n        if (context.two.how) {\n          propertyMakerContext = context.two\n          object = context.one\n        }\n        const pmcs = toArray(propertyMarkerContext)\n        const properties = []\n        for (const pmc of pmcs) {\n          const property = pmc.markedProperty\n          properties.push({ marker: property, value: property, word: property })\n        }\n        const propertyOfObject = await fragments(\"the property of object\", { property: toList(properties, true), object })\n        const value = toEValue(await e(propertyOfObject, where()))\n        value.focusableForPhrase = true\n        propertyOfObject.focusableForPhrase = false\n        const response = await fragments(\"the property is value\", { property: propertyOfObject, value })\n        response.isResponse = true\n        resolveEvaluate(context, response) \n      }"
         },
         {
           "match": "({context}) => context.marker == 'same' && context.one.marker == 'concept'",
@@ -931,7 +931,7 @@
         },
         {
           "match": "({context, hierarchy, api, isA}) => \n                          hierarchy.isA(context.marker, 'concept') && ((!context.propertyOf && !context.isProperty) || isA(context.objects[context.objects.length-1], 'dimension')) &&\n                          (!context.pullFromContext || context.number == 'many') &&\n                          (context.pullFromContext || isA(context, 'type') || context.metaDefinition) &&\n                          !(context.types || []).includes('property') &&\n                          // !context.value &&  // greghere\n                          !context.ordinal &&\n                          (!context.objects || context.objects.length !== 2 || !context.objects[1].isInstance) &&\n                          (api.objects && api.objects.children && api.objects.children[context.marker])",
-          "apply": "({context, stack, isA, contextHierarchy, hierarchy, objects, api, km}) => {\n        const values = api.objects.children[context.marker]\n        const phrases = values.map( (value) => km('concept').api.getWordForValue(value) )\n        // context.focusableForPhrase = true\n        context.hierarchy = true\n        context.evalue = { \n          marker: 'list', \n          listable: true,\n          // value: api.objects.children[context.marker]\n          value: phrases,\n        }\n      }"
+          "apply": "({context, isA, contextHierarchy, hierarchy, objects, api, km}) => {\n        const values = api.objects.children[context.marker]\n        const phrases = values.map( (value) => km('concept').api.getWordForValue(value) )\n        // context.focusableForPhrase = true\n        context.hierarchy = true\n        context.evalue = { \n          marker: 'list', \n          listable: true,\n          // value: api.objects.children[context.marker]\n          value: phrases,\n        }\n      }"
         },
         {
           "match": "({context}) => context.marker == 'have' && !context.query",
@@ -939,7 +939,7 @@
         },
         {
           "match": "({context, hierarchy}) => hierarchy.isA(context.marker, 'have') && context.query",
-          "apply": "async ({context, g, api, objects}) => {\n        const object = pluralize.singular(context.object.value);\n        const property = pluralize.singular(context.property.value);\n        context.isResponse = true\n        if (!await api.knownObject(object)) {\n          context.verbatim = `There is no object named ${await g({...context.object, paraphrase: true})}`\n          return\n        }\n        if (!await api.hasProperty(object, property)) {\n          context.evalue = {\n            marker: 'yesno', \n            value: false,\n          }\n        } else {\n          context.evalue = {\n            marker: 'yesno', \n            value: true,\n          }\n          return\n        }\n      }"
+          "apply": "async ({error, context, g, api, objects}) => {\n        const object = pluralize.singular(context.object.value);\n        const property = pluralize.singular(context.property.value);\n        context.isResponse = true\n        if (!await api.knownObject(object)) {\n          // context.verbatim = `There is no object named ${await g({...context.object, paraphrase: true})}`\n          error(`there is no object named ${await g({...context.object, paraphrase: true})}`)\n          return\n        }\n        if (!await api.hasProperty(object, property)) {\n          context.evalue = {\n            marker: 'yesno', \n            value: false,\n          }\n        } else {\n          context.evalue = {\n            marker: 'yesno', \n            value: true,\n          }\n          return\n        }\n      }"
         },
         {
           "match": "async (args) => await args.callOnce(args, 'properties.1', ({context, hierarchy, uuid}) => \n        context.marker == 'same' && \n        hierarchy.isA(context.one.marker, 'property') && \n        context.one.objects)",
@@ -947,7 +947,7 @@
         },
         {
           "match": "({context, hierarchy, toArray}) => {\n        return (toArray(context).every((value) => hierarchy.isA(value.marker, 'property')) || (hierarchy.isA(context.marker, 'list') && context.possession)) && context.objects\n      }",
-          "apply": "async ({debug, isA, hierarchy, getWordFromDictionary, flatten, asList, context, api, kms, objects, g, gp, s, log, recall}) => {\n        async function toValue(objectContext) {\n          if (!objectContext.value) {\n            return objectContext;\n          }\n          let objectValue = kms.stm.api.getVariable(objectContext);\n          if (!objectValue) {\n            objectValue = objectContext.value\n          }\n          if (!await api.knownObject(objectValue)) {\n            objectContext.verbatim = `There is no object named \"${await g({...objectContext, paraphrase: true})}\"`\n            return\n          }\n          return objectValue\n        }\n\n        async function processOne(toDo) {\n          let currentContext = toDo.pop()\n          let currentValue = await toValue(currentContext)\n          while (toDo.length > 0) {\n            const nextContext = toDo.pop()\n            const nextValue = await toValue(nextContext)\n            if (!nextValue) {\n              // TODO maybe this I aware so it can say \"I don't know about blah...\" and below\n              // if (currentContext.unknown || !currentContext.value) {\n              if (!api.conceptExists(currentContext.value)) {\n                // api.conceptExists(currentContext)\n                const objectPhrase = await g({...currentContext, paraphrase: true})\n                context.verbatim = `What \"${objectPhrase}\" means is unknown`\n                return\n              }\n\n              const propertyPhrase = await g({...nextContext, paraphrase: true})\n              const objectPhrase = await g({...currentContext, paraphrase: true})\n              context.verbatim = `There is no interpretation for \"${propertyPhrase} of ${objectPhrase}\"`\n              return\n            }\n\n            let fromMentions\n            if (!await api.knownProperty(currentContext, nextContext)) {\n              if (hierarchy.isA(nextValue, 'property_type')) {\n                const types = hierarchy.froms(nextValue)\n                for (const type of types) {\n                  if (isA(currentContext, type)) {\n                    fromMentions = getWordFromDictionary({ value: type })\n                  }\n                }\n              }\n              if (!fromMentions) {\n                fromMentions = await recall({ context: nextContext, all: nextContext.number == 'many', frameOfReference: currentContext })\n              }\n              if (!fromMentions) {\n                if (!currentValue && currentContext.unknown) {\n                  context.verbatim = `What \"${await gp(currentContext)}\" means is unknown`\n                } else {\n                  context.verbatim = `There is no property ${await g({...nextContext, paraphrase: true})} of ${await g({...currentContext, paraphrase: true})}`\n                }\n                return\n              }\n            }\n            if (fromMentions) {\n              currentContext = fromMentions\n              currentValue = fromMentions // TODO not sure what is right here so just do something and fix when actually needed SOP\n            } else {\n              currentContext = await api.getProperty(currentValue, nextValue)\n              currentValue = currentContext.value\n            }\n          }\n          return currentContext\n        }\n\n        // const toDo = [ ...context.objects ]\n        const toDos = flatten(['list'], context.objects)\n        const results = []\n        for (const toDo of toDos) {\n          const one = await processOne(toDo)\n          if (one) {\n            results.push(one)\n          }\n        }\n\n        if (results.length > 0) {\n          context.focusable = ['object[0]']\n          // context.evalue = currentContext\n          context.evalue = asList(results, true)\n          context.object = undefined;\n        } else {\n          context.evalue = { marker: 'undefined' }\n          context.object = undefined;\n        }\n      }"
+          "apply": "async ({stack, error, debug, isA, hierarchy, getWordFromDictionary, flatten, asList, context, api, kms, objects, g, gp, s, log, recall}) => {\n        async function toValue(objectContext) {\n          if (!objectContext.value) {\n            return objectContext;\n          }\n          let objectValue = kms.stm.api.getVariable(objectContext);\n          if (!objectValue) {\n            objectValue = objectContext.value\n          }\n          if (!await api.knownObject(objectValue)) {\n            objectContext.verbatim = `There is no object named \"${await g({...objectContext, paraphrase: true})}\"`\n            return\n          }\n          return objectValue\n        }\n\n        async function processOne(toDo) {\n          let currentContext = toDo.pop()\n          let currentValue = await toValue(currentContext)\n          while (toDo.length > 0) {\n            const nextContext = toDo.pop()\n            const nextValue = await toValue(nextContext)\n            if (!nextValue) {\n              // TODO maybe this I aware so it can say \"I don't know about blah...\" and below\n              // if (currentContext.unknown || !currentContext.value) {\n              if (!api.conceptExists(currentContext.value)) {\n                // api.conceptExists(currentContext)\n                const objectPhrase = await g({...currentContext, paraphrase: true})\n                context.verbatim = `What \"${objectPhrase}\" means is unknown`\n                return\n              }\n\n              const propertyPhrase = await g({...nextContext, paraphrase: true})\n              const objectPhrase = await g({...currentContext, paraphrase: true})\n              // context.verbatim = `There is no interpretation for \"${propertyPhrase} of ${objectPhrase}\"`\n              error(`There is no interpretation for \"${propertyPhrase} of ${objectPhrase}\"`)\n\n              return\n            }\n\n            let fromMentions\n            if (!await api.knownProperty(currentContext, nextContext)) {\n              if (hierarchy.isA(nextValue, 'property_type')) {\n                const types = hierarchy.froms(nextValue)\n                for (const type of types) {\n                  if (isA(currentContext, type)) {\n                    fromMentions = getWordFromDictionary({ value: type })\n                  }\n                }\n              }\n              if (!fromMentions) {\n                fromMentions = await recall({ context: nextContext, all: nextContext.number == 'many', frameOfReference: currentContext })\n              }\n              if (!fromMentions) {\n                if (!currentValue && currentContext.unknown) {\n                  // context.verbatim = `What \"${await gp(currentContext)}\" means is unknown`\n                  context.verbatim = `What \"${await gp(currentContext)}\" means is unknown`\n                } else {\n                  // context.verbatim = `There is no property ${await g({...nextContext, paraphrase: true})} of ${await g({...currentContext, paraphrase: true})}`\n                  error(`There is no property ${await g({...nextContext, paraphrase: true})} of ${await g({...currentContext, paraphrase: true})}`)\n                }\n                return\n              }\n            }\n            if (fromMentions) {\n              currentContext = fromMentions\n              currentValue = fromMentions // TODO not sure what is right here so just do something and fix when actually needed SOP\n            } else {\n              currentContext = await api.getProperty(currentValue, nextValue)\n              currentValue = currentContext.value\n            }\n          }\n          return currentContext\n        }\n\n        // const toDo = [ ...context.objects ]\n        const toDos = flatten(['list'], context.objects)\n        const results = []\n        for (const toDo of toDos) {\n          const one = await processOne(toDo)\n          if (one) {\n            results.push(one)\n          }\n        }\n\n        if (results.length > 0) {\n          context.focusable = ['object[0]']\n          // context.evalue = currentContext\n          context.evalue = asList(results, true)\n          context.object = undefined;\n        } else {\n          context.evalue = { marker: 'undefined' }\n          context.object = undefined;\n        }\n      }"
         }
       ]
     },
@@ -1738,7 +1738,7 @@
           "bridge": "{ ...operator, object: before[0], flatten: true, operator: operator, propertyValue: after[0], interpolate: [{ property: 'object' }, { property: 'operator' }, { property: 'propertyValue' }] }"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:175",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:176",
           "id": "propertyRelation",
           "words": [
             {
@@ -1752,18 +1752,18 @@
           ]
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:186",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:187",
           "id": "propertyMarker"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:190",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:191",
           "id": "xfx",
           "isA": [
             "queryable"
           ]
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:195",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:196",
           "id": "between",
           "isA": [
             "preposition"
@@ -1772,7 +1772,7 @@
           "bridge": "{ ...next(operator), arguments: after[0] }"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:202",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:203",
           "id": "between",
           "level": 1,
           "bridge": "{ ...before[0], arguments: operator.arguments }"
@@ -2433,7 +2433,7 @@
       ],
       "generators": [
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:333"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:334"
         },
         {
           "notes": "ordering generator for response"
@@ -2445,55 +2445,55 @@
         },
         {
           "notes": "expression with constraints",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:452"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:453"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:470"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:471"
         },
         {
           "notes": "add possession ending",
           "priority": -1,
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:477"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:478"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:491"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:492"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:496"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:497"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:501"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:502"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:506"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:507"
         },
         {
           "notes": "negative do questions",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:512"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:513"
         },
         {
           "notes": "do questions",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:521"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:522"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:535"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:536"
         },
         {
           "notes": "the property of object",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:543"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:544"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:566"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:567"
         },
         {
           "notes": "object's property",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:575"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:576"
         }
       ],
       "semantics": [
         {
           "notes": "unify for properties",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:607"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:608"
         },
         {
           "notes": "getter for relation based verbs"
@@ -2511,41 +2511,41 @@
           "notes": "semantic for setting value with constraint"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:777",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:778",
           "notes": "how deep is the pool",
           "priority": -1
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:804"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:805"
         },
         {
           "notes": "wants is xfx between wanter and wantee",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:815",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:816",
           "priority": -1
         },
         {
           "notes": "marking something as readonly",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:830"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:831"
         },
         {
           "notes": "crew members. evaluate a concepts to get instances",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:854"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:855"
         },
         {
           "notes": "greg has eyes",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:879"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:880"
         },
         {
           "notes": "greg has eyes?",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:899"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:900"
         },
         {
           "notes": "set the property of an object",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:925"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:927"
         },
         {
           "notes": "get/evaluate a property",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:976"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:978"
         }
       ]
     },

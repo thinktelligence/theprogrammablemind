@@ -26,7 +26,7 @@ const config = {
       enhanced_associations: false,
       bridge: "{ ...next(operator), postModifiers: ['value'], value: after[0] }",
       semantic: async ({context, e, resolveEvaluate}) => {
-        resolveEvaluate(context, (await e(context.value)).evalue)
+        resolveEvaluate(context, (await e(context.value, where())).evalue)
       }
     }
   ],

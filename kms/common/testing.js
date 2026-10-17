@@ -14,7 +14,7 @@ const config = {
       id: 'testingEvaluate',
       generatorp: async ({context, g}) => `${context.word} ${await g(context.value)}`,
       semantic: async ({context, e}) => {
-        context.evalue = await e(context.value)
+        context.evalue = await e(context.value, where())
         context.isResponse = true
       },
       bridge: "{ ...next(operator), value: after[0] }",

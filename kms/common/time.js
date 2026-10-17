@@ -209,14 +209,14 @@ const template = {
           priority: -1,
           match: async (args) => await args.callOnce(args, 'time.1', ({context}) => context.repeats) && args.context.repeats?.repeats,
           apply: async ({context, e, handlerStack, toFinalValue}) => {
-            const v = toFinalValue((await e(context.repeats.repeats)))
+            const v = toFinalValue((await e(context.repeats.repeats, where())))
             for (let i = 0; i < v; ++i) {
               if (context.action) {
-                await e(context.action)
+                await e(context.action, where())
               } else {
                 const repeats = context.repeats
                 context.repeats = undefined
-                await e(context)
+                await e(context, where())
                 context.repeats = repeats
               }
             }

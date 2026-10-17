@@ -52,10 +52,10 @@ const config = {
       },
       semantic: async ({context, fragments, e, toFinalValue, kms}) => {
         const instantiation = await fragments("quantity in milliseconds", { quantity: context.delayTime })
-        const result = await e(instantiation)
+        const result = await e(instantiation, where())
         const milliseconds = toFinalValue(toFinalValue(result).amount)
         await kms.time.api.sleep(milliseconds)
-        await e(context.action)
+        await e(context.action, where())
       }
     },
     {
@@ -100,7 +100,7 @@ const config = {
         match: ({context}) => context.isList,
         apply: async ({context, toArray, e}) => {
           for (const action of toArray(context)) {
-            await e(action)
+            await e(action, where())
           }
         },
       }
@@ -133,7 +133,7 @@ const config = {
       where: where(),
       semantic: async ({context, toArray, e}) => {
         for (const action of toArray(context.action)) {
-          await e(action)
+          await e(action, where())
         }
       },
     },

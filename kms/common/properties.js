@@ -86,7 +86,7 @@ function addPropertyMarker(args) {
 
     const { fragments, e, config } = args
     const instance = await fragments("concept is a property", { concept: { marker: property, level: 0, value: property, word: property } })
-    await e(instance)
+    await e(instance, where())
     const propertyMarker = `${property}Marker`
     config.addOperator(`((@<= 'quantity' && context.unit.dimension == ${dimension}) [${propertyMarker}|])`)
     config.addBridge({
@@ -157,7 +157,7 @@ const config = {
       preferOver: ['is'],
       enhanced_associations: true,
       bridge: "{ ...operator, object: before[0], flatten: true, operator: operator, propertyValue: after[0], interpolate: [{ property: 'object' }, { property: 'operator' }, { property: 'propertyValue' }] }",
-      semantic: async ({context, e, toArray, fragments, getWordFromDictionary}) => {
+      semantic: async ({context, e, debug, toArray, fragments, getWordFromDictionary}) => {
         const propertyType = {
           marker: context.propertyValue.propertyType,
           level: 0,
@@ -166,7 +166,8 @@ const config = {
         }
         for (const object of toArray(context.object)) {
           const instance = await fragments("the property of object is value", { property: propertyType, object, value: context.propertyValue })
-          await e(instance)
+          instance.query = context.query
+          await e(instance, where())
         }
       }
     },
@@ -386,7 +387,7 @@ const config = {
           return `${yesno}`
         } else {
           if (context.voice) {
-            evalue = await e({ ...evalue, toVoice: context.voice, flatten: false})
+            evalue = await e({ ...evalue, toVoice: context.voice, flatten: false}, where())
           }
 
           const details = await g(Object.assign({}, evalue, { paraphrase: true }))
@@ -658,7 +659,7 @@ const config = {
     {
       notes: `setter for relation based verbs`,
       match: ({context}) => context.relationBacked && !context.toVoice && context.isVerb,
-      apply: ({context, km, hierarchy, config, stack}) => {
+      apply: ({context, km, hierarchy, config}) => {
         const api = km('properties').api
         // add types for arguments
         for (const argument of context.focusable || []) {
@@ -725,7 +726,7 @@ const config = {
         // TODO use hierarchy for operator
         // match: ({context}) => context.marker == operator,
         match: ({context}) => (context.orderingArgs && Object.keys(context.orderingArgs).length !== 0),
-        apply: ({context, km, stack}) => {
+        apply: ({context, km}) => {
           const propertiesAPI = km('properties').api
           context.ordering = context.orderingArgs.name
           const fcontexts = flattens(['list'], [context])
@@ -759,7 +760,7 @@ const config = {
         // value.ownee.query = true
         value.query = true
         value.greg99 = 23
-        const instance = await e(value)
+        const instance = await e(value, where())
         if (instance.verbatim) {
           context.evalue = { verbatim: instance.verbatim }
           return
@@ -792,7 +793,7 @@ const config = {
           properties.push({ marker: property, value: property, word: property })
         }
         const propertyOfObject = await fragments("the property of object", { property: toList(properties, true), object })
-        const value = toEValue(await e(propertyOfObject))
+        const value = toEValue(await e(propertyOfObject, where()))
         value.focusableForPhrase = true
         propertyOfObject.focusableForPhrase = false
         const response = await fragments("the property is value", { property: propertyOfObject, value })
@@ -861,7 +862,7 @@ const config = {
                           !context.ordinal &&
                           (!context.objects || context.objects.length !== 2 || !context.objects[1].isInstance) &&
                           (api.objects && api.objects.children && api.objects.children[context.marker]),
-      apply: ({context, stack, isA, contextHierarchy, hierarchy, objects, api, km}) => {
+      apply: ({context, isA, contextHierarchy, hierarchy, objects, api, km}) => {
         const values = api.objects.children[context.marker]
         const phrases = values.map( (value) => km('concept').api.getWordForValue(value) )
         // context.focusableForPhrase = true
@@ -898,12 +899,13 @@ const config = {
       notes: 'greg has eyes?',
       where: where(),
       match: ({context, hierarchy}) => hierarchy.isA(context.marker, 'have') && context.query,
-      apply: async ({context, g, api, objects}) => {
+      apply: async ({error, context, g, api, objects}) => {
         const object = pluralize.singular(context.object.value);
         const property = pluralize.singular(context.property.value);
         context.isResponse = true
         if (!await api.knownObject(object)) {
-          context.verbatim = `There is no object named ${await g({...context.object, paraphrase: true})}`
+          // context.verbatim = `There is no object named ${await g({...context.object, paraphrase: true})}`
+          error(`there is no object named ${await g({...context.object, paraphrase: true})}`)
           return
         }
         if (!await api.hasProperty(object, property)) {
@@ -977,7 +979,7 @@ const config = {
       match: ({context, hierarchy, toArray}) => {
         return (toArray(context).every((value) => hierarchy.isA(value.marker, 'property')) || (hierarchy.isA(context.marker, 'list') && context.possession)) && context.objects
       },
-      apply: async ({debug, isA, hierarchy, getWordFromDictionary, flatten, asList, context, api, kms, objects, g, gp, s, log, recall}) => {
+      apply: async ({stack, error, debug, isA, hierarchy, getWordFromDictionary, flatten, asList, context, api, kms, objects, g, gp, s, log, recall}) => {
         async function toValue(objectContext) {
           if (!objectContext.value) {
             return objectContext;
@@ -1011,7 +1013,9 @@ const config = {
 
               const propertyPhrase = await g({...nextContext, paraphrase: true})
               const objectPhrase = await g({...currentContext, paraphrase: true})
-              context.verbatim = `There is no interpretation for "${propertyPhrase} of ${objectPhrase}"`
+              // context.verbatim = `There is no interpretation for "${propertyPhrase} of ${objectPhrase}"`
+              error(`There is no interpretation for "${propertyPhrase} of ${objectPhrase}"`)
+
               return
             }
 
@@ -1030,9 +1034,11 @@ const config = {
               }
               if (!fromMentions) {
                 if (!currentValue && currentContext.unknown) {
+                  // context.verbatim = `What "${await gp(currentContext)}" means is unknown`
                   context.verbatim = `What "${await gp(currentContext)}" means is unknown`
                 } else {
-                  context.verbatim = `There is no property ${await g({...nextContext, paraphrase: true})} of ${await g({...currentContext, paraphrase: true})}`
+                  // context.verbatim = `There is no property ${await g({...nextContext, paraphrase: true})} of ${await g({...currentContext, paraphrase: true})}`
+                  error(`There is no property ${await g({...nextContext, paraphrase: true})} of ${await g({...currentContext, paraphrase: true})}`)
                 }
                 return
               }

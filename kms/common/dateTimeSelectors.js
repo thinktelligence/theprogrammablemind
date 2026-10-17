@@ -99,7 +99,7 @@ const template = {
             try {
               const now = kms.time.api.now()
               const date = afterOrIs('dayAfterDate', context)
-              const afterISO = (await e(date.after)).evalue
+              const afterISO = (await e(date.after, where())).evalue
               const day_ordinal = date.day.day_ordinal
               const ordinal = date.day.ordinal.value
               context.evalue = dateTimeSelectors_helpers.getNthWeekdayAfterDate(afterISO, day_ordinal, ordinal)

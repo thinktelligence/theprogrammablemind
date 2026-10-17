@@ -99,7 +99,7 @@ class API {
     let evalue;
     let efrom = from
     if (!from.unit) {
-      efrom = (await e(from)).evalue
+      efrom = (await e(from, where())).evalue
     }
     async function convert(to) {
       if (to.value == efrom.unit.value) {
@@ -113,7 +113,7 @@ class API {
           error(reason)
         }
         kms.stm.api.setVariable(efrom.unit.value, efrom.amount)
-        evalue = await e(formula)
+        evalue = await e(formula, where())
       }
       return evalue
     }
@@ -208,7 +208,7 @@ const config = {
           return
         }
         const from = context.quantity;
-        const value = await e({ marker: 'convertToUnits', from, to: preferredUnits })
+        const value = await e({ marker: 'convertToUnits', from, to: preferredUnits }, where())
         resolveEvaluate(context, value.evalue)
       }
     },
@@ -348,7 +348,7 @@ const template = {
             if (t1[t1.propertyType].marker !== t2[t2.propertyType].marker) {
               return
             }
-            const convert = await e({ marker: 'convertToUnits', from: t2, to: t1.unit })
+            const convert = await e({ marker: 'convertToUnits', from: t2, to: t1.unit }, where())
             const t2InT1Units = await toEValue(await toEValue(convert))
             // debug.coxunter('greg29')
             if (!await unify(t1.amount, await t2InT1Units.amount)) {

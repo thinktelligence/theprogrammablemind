@@ -1,4 +1,5 @@
 // declensions.test.js
+const { where, } = require('./runtime').theprogrammablemind
 const helpers = require('./helpers')
 const canKM = require('./can')
 
@@ -14,7 +15,7 @@ describe('can km', () => {
       const fragment = await fragments("cansubject can canverb canobject")
       const context = fragment.contexts()[0]
       // console.log(JSON.stringify(context, null, 2))
-      const contextPrime = await e({ ...context, toVoice: 'passive', flatten: false })
+      const contextPrime = await e({ ...context, toVoice: 'passive', flatten: false }, where())
       const text = await gp(contextPrime)
       // console.log(JSON.stringify(contextPrime.interpolate, null, 2))
       // console.log(text)
@@ -27,7 +28,7 @@ describe('can km', () => {
     await km.run(async ({fragments, e, gp, addWordToDictionary, getWordFromDictionary, config}) => {
       const fragment = await fragments("canobject can be canverb by cansubject")
       const context = fragment.contexts()[0]
-      const contextPrime = await e({ ...context, toVoice: 'active', flatten: false }) // , { debug: { apply: true } })
+      const contextPrime = await e({ ...context, toVoice: 'active', flatten: false }) // , { debug: { apply: true } }, where())
       // console.log(JSON.stringify(contextPrime, null, 2))
       const text = await gp(contextPrime)
       // console.log(JSON.stringify(contextPrime.interpolate, null, 2))
@@ -45,7 +46,7 @@ describe('can km', () => {
       const contextActive = fragmentActive.contexts()[0]
       
       const context = helpers.concats([contextPassive, contextActive])
-      const contextPrime = await e({ ...context, toVoice: 'passive', flatten: false }) // , { debug: { apply: true } })
+      const contextPrime = await e({ ...context, toVoice: 'passive', flatten: false }) // , { debug: { apply: true } }, where())
       // console.log(JSON.stringify(contextPrime, null, 2))
       const text = await gp(contextPrime)
       // console.log(JSON.stringify(contextPrime.interpolate, null, 2))
@@ -63,7 +64,7 @@ describe('can km', () => {
       const contextActive = fragmentActive.contexts()[0]
       
       const context = helpers.concats([contextPassive, contextActive])
-      const contextPrime = await e({ ...context, toVoice: 'active', flatten: false }) // , { debug: { apply: true } })
+      const contextPrime = await e({ ...context, toVoice: 'active', flatten: false }) // , { debug: { apply: true } }, where())
       // console.log(JSON.stringify(contextPrime, null, 2))
       const text = await gp(contextPrime)
       // console.log(JSON.stringify(contextPrime.interpolate, null, 2))

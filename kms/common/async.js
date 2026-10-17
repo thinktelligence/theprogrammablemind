@@ -31,7 +31,7 @@ const config = {
       "level": 0, 
       "bridge": "{ ...next(operator), arg: after[0] }",
       semantic: async ({context, e}) => {
-        context.valueFromE = await e(context.arg)
+        context.valueFromE = await e(context.arg, where())
       },
       generatorp: ({context}) => {
         return `${context.word} arg == ${JSON.stringify(context.valueFromE)}`

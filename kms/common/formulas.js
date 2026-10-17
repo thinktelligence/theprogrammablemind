@@ -74,7 +74,7 @@ const config = {
       match: ({context, api, stack}) => !context.topLevel && api.get(context),
       apply: async ({context, api, e}) => {
         const { formula } = api.get(context)
-        context.evalue = await e(formula) 
+        context.evalue = await e(formula, where()) 
       }    
     },
   ],
@@ -135,7 +135,7 @@ const config = {
       generatorp: async ({context, g}) => `${context.word} ${await g(context.expression)}`,
       localHierarchy: [ ['unknown', 'expression'] ],
       semantic: async ({context, e}) => {
-        context.evalue = await e(context.expression)
+        context.evalue = await e(context.expression, where())
         context.isResponse = true
       } 
     },

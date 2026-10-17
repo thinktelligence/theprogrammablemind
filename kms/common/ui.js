@@ -64,7 +64,7 @@ const config = {
       match: ({context, isA}) => isA(context, 'direction'),
       apply: async ({context, insert, e, fragments}) => {
         const instantiation = await fragments("move direction", { direction:  context })
-        await e(instantiation)
+        await e(instantiation, where())
       }
     },
   ],
@@ -128,7 +128,7 @@ const config = {
          if (context.direction?.steps?.quantity) {
            api.move(context.direction.value, context.direction.steps.quantity.value, context.direction.steps.marker)
          } else {
-           const steps = toFinalValue(await e(context.direction.steps))
+           const steps = toFinalValue(await e(context.direction.steps, where()))
            api.move(context.direction.value, steps || 1)
            // api.move(context.direction.value, context.direction.steps ? context.direction.steps.value : 1)
          }

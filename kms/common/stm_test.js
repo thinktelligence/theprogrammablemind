@@ -1,4 +1,5 @@
 // declensions.test.js
+const { where, } = require('./runtime').theprogrammablemind
 const helpers = require('./helpers')
 const KM = require('./stm')
 
@@ -40,7 +41,7 @@ describe('numbers km', () => {
       const obj = await recall({ context: { marker: 'test' } })
       const fn = jest.fn()
       const id = addCallback(obj, fn)
-      await e({ marker: 'delete', deletable: { marker: 'test' }})
+      await e({ marker: 'delete', deletable: { marker: 'test' }}, where())
       expect(fn).toHaveBeenCalled()
     })
   })

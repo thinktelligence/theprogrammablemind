@@ -89,9 +89,11 @@ const template = {
             const properties = objects.askFor
             const values = []
             for (const property of properties) {
-              // const value = toEValue(await e(property))
-              const value = (await e(property)).evalue
-              values.push({ marker: 'labelledValue', label: property, value })
+              try {
+                const value = (await e(property, where())).evalue
+                values.push({ marker: 'labelledValue', label: property, value })
+              } catch( e ) {
+              }
             }
             resolveEvaluate(context, toList(values))
           },
@@ -120,17 +122,20 @@ const template = {
           semantic: async ({e, gp, objects, flatten, context, ask, fragments, toEValue}) => {
             const argument = context.properties.argument
             const getValue = (property) => async (args) => {
-              const value = toEValue(await e(property))
-              if (value.marker === 'undefined') {
-                return
+              try {
+                const value = toEValue(await e(property, where()))
+                if (value.marker === 'undefined') {
+                  return
+                }
+                return value
+              } catch (e) {
               }
-              return value
             }
 
             const setValue = (property) => async ({ context, namespaced, tag }) => {
               const is = { marker: 'is', one: property, two: context }
               namespaced.set('dialogs', is, 'allowHierarchy', false)
-              await e(is)
+              await e(is, where())
             }
 
             const properties = flattenInPlace(argument)

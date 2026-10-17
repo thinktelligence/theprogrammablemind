@@ -55,13 +55,13 @@ const template = {
                   error(reason)
                 }
                 kms.stm.api.setVariable(fromUnits.value, fromAmount)
-                evalue = await e(formula)
+                evalue = await e(formula, where())
               }
               return evalue
             }
 
             if (!context.from.unit) {
-              resolveEvaluate(context.from, await e(context.from))
+              resolveEvaluate(context.from, await e(context.from, where()))
             }
 
 

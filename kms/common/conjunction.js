@@ -45,7 +45,7 @@ const config = {
         apply: async ({context, flatten, e}) => {
           for (const value of flatten(context)) {
             value.topLevel = context.topLevel;
-            await e(value)
+            await e(value, where())
           }
         }
       }
@@ -59,7 +59,7 @@ const config = {
       apply: async ({context, toArray, toList, e, resolveEvaluate}) => {
         const list = []
         for (const element of toArray(context)) {
-          list.push(await e(element))
+          list.push(await e(element, where()))
         }
         resolveEvaluate(context, toList(list))
       }

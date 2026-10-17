@@ -299,7 +299,7 @@ const config = {
       bridge: "{ ...next(operator), postModifiers: ['rememberee'], rememberee: after[0] }",
       isA: ['verb'],
       semantic: async ({context, api, e}) => {
-        let value = toFinalValue((await e(context.rememberee)))
+        let value = toFinalValue((await e(context.rememberee, where())))
         if (value == context.rememberee.value) {
           value = context.rememberee
         }
@@ -371,7 +371,7 @@ const config = {
           return
         }
       
-        const instance = await e(context.value)
+        const instance = await e(context.value, where())
         if (instance.evalue && !instance.edefault) {
           context.value = instance.evalue
         }
@@ -417,13 +417,13 @@ function initializer({config}) {
 
     recall: async (args) => {
       if (args.frameOfReference?.nameable_named) {
-        const result = await e(args.frameOfReference)
+        const result = await e(args.frameOfReference, where())
         if (result.evalue) {
           args.frameOfReference = result.evalue
         }
       }
 
-      const result = await e({ marker: 'mentions', args })
+      const result = await e({ marker: 'mentions', args }, where())
       // evalue will return the argument if there is no evalue. dont want that for this case
       if (!result.evalue) {
         return

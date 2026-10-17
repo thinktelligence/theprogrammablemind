@@ -30,7 +30,7 @@
       "semantics": [
         {
           "match": "({context, api, stack}) => !context.topLevel && api.get(context)",
-          "apply": "async ({context, api, e}) => {\n        const { formula } = api.get(context)\n        context.evalue = await e(formula) \n      }"
+          "apply": "async ({context, api, e}) => {\n        const { formula } = api.get(context)\n        context.evalue = await e(formula, where()) \n      }"
         }
       ],
       "bridges": [
@@ -88,7 +88,7 @@
               "expression"
             ]
           ],
-          "semantic": "async ({context, e}) => {\n        context.evalue = await e(context.expression)\n        context.isResponse = true\n      }"
+          "semantic": "async ({context, e}) => {\n        context.evalue = await e(context.expression, where())\n        context.isResponse = true\n      }"
         },
         {
           "where": "/home/dev/code/theprogrammablemind/kms/common/formulas.js:143",

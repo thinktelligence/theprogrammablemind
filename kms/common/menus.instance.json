@@ -45,7 +45,7 @@
       "semantics": [
         {
           "match": "({context, isA}) => isA(context, 'showable_menus')",
-          "apply": "async ({context, insert, e, fragments}) => {\n            const instantiation = await fragments(\"show showable\", { 'showable_menus': context })\n            await e(instantiation)\n          }"
+          "apply": "async ({context, insert, e, fragments}) => {\n            const instantiation = await fragments(\"show showable\", { 'showable_menus': context })\n            await e(instantiation, where())\n          }"
         }
       ]
     },

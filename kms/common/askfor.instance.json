@@ -42,7 +42,7 @@
           "isA": [
             "noun"
           ],
-          "semantic": "async ({context, e, callId, toList, flatten, toEValue, resolveEvaluate, objects}) => {\n            const properties = objects.askFor\n            const values = []\n            for (const property of properties) {\n              // const value = toEValue(await e(property))\n              const value = (await e(property)).evalue\n              values.push({ marker: 'labelledValue', label: property, value })\n            }\n            resolveEvaluate(context, toList(values))\n          }"
+          "semantic": "async ({context, e, callId, toList, flatten, toEValue, resolveEvaluate, objects}) => {\n            const properties = objects.askFor\n            const values = []\n            for (const property of properties) {\n              try {\n                const value = (await e(property, where())).evalue\n                values.push({ marker: 'labelledValue', label: property, value })\n              } catch( e ) {\n              }\n            }\n            resolveEvaluate(context, toList(values))\n          }"
         },
         {
           "id": "for_askfor",
@@ -59,7 +59,7 @@
         },
         {
           "id": "askfor_askfor",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/askfor.js:112",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/askfor.js:114",
           "isA": [
             "verb"
           ],
@@ -67,7 +67,7 @@
             "ask"
           ],
           "bridge": "{\n            ...next(operator),\n            properties: after[0],\n            interpolate: [{ self: true }, { property: 'properties' }]\n          }",
-          "semantic": "async ({e, gp, objects, flatten, context, ask, fragments, toEValue}) => {\n            const argument = context.properties.argument\n            const getValue = (property) => async (args) => {\n              const value = toEValue(await e(property))\n              if (value.marker === 'undefined') {\n                return\n              }\n              return value\n            }\n\n            const setValue = (property) => async ({ context, namespaced, tag }) => {\n              const is = { marker: 'is', one: property, two: context }\n              namespaced.set('dialogs', is, 'allowHierarchy', false)\n              await e(is)\n            }\n\n            const properties = flattenInPlace(argument)\n            counter = 0\n            for (const property of properties.reverse()) {\n              counter += 1\n              const query = memoizeAsync(async () => await(gp(await fragments(\"what is the concept?\", { concept: property }))))\n              const compatible_types = property.compatible_types || [property.marker]\n              const matchr = ({context, isA}) => {\n                return !context.same && isA(context, compatible_types)\n              }\n              objects.askFor.push(property);\n              askForProperty({\n                ask,\n                tag: `ask#${counter}`,\n                getValue: getValue(property),\n                setValue: setValue(property),\n                query,\n                matchr,\n              })\n            }\n          }"
+          "semantic": "async ({e, gp, objects, flatten, context, ask, fragments, toEValue}) => {\n            const argument = context.properties.argument\n            const getValue = (property) => async (args) => {\n              try {\n                const value = toEValue(await e(property, where()))\n                if (value.marker === 'undefined') {\n                  return\n                }\n                return value\n              } catch (e) {\n              }\n            }\n\n            const setValue = (property) => async ({ context, namespaced, tag }) => {\n              const is = { marker: 'is', one: property, two: context }\n              namespaced.set('dialogs', is, 'allowHierarchy', false)\n              await e(is, where())\n            }\n\n            const properties = flattenInPlace(argument)\n            counter = 0\n            for (const property of properties.reverse()) {\n              counter += 1\n              const query = memoizeAsync(async () => await(gp(await fragments(\"what is the concept?\", { concept: property }))))\n              const compatible_types = property.compatible_types || [property.marker]\n              const matchr = ({context, isA}) => {\n                return !context.same && isA(context, compatible_types)\n              }\n              objects.askFor.push(property);\n              askForProperty({\n                ask,\n                tag: `ask#${counter}`,\n                getValue: getValue(property),\n                setValue: setValue(property),\n                query,\n                matchr,\n              })\n            }\n          }"
         }
       ]
     },
@@ -920,7 +920,7 @@
         },
         {
           "id": "askfor_askfor",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/askfor.js:112",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/askfor.js:114",
           "isA": [
             "verb"
           ],

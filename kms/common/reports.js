@@ -194,7 +194,7 @@ const config = {
 
         generatorp: async ({context, gp}) => `move ${await gp(context.from)} ${await gp(context.to)}`,
         semantic: async ({context, e, objects, kms, insert}) => {
-          const report = await e(context.on)
+          const report = await e(context.on, where())
           const id = report.value.value
           const listing = objects.listings[id]
 
@@ -222,7 +222,7 @@ const config = {
         bridge: "{ ...next(operator), on: { marker: 'report', pullFromContext: true }, removee: after[0] }",
         generatorp: async ({context, gp}) => `remove ${await gp(context.removee)}`,
         semantic: async ({context, e, kms, insert, objects}) => {
-          const report = await e(context.on)
+          const report = await e(context.on, where())
           const id = report.value.value
           const listing = objects.listings[id]
           const column = context.removee.index.value
@@ -337,7 +337,7 @@ const config = {
         return `call ${await g(context.namee)} ${await gs(context.name)}`
       },
       semantic: async ({context, objects, e, config, km}) => {
-        const namee = (await e(context.namee)).evalue
+        const namee = (await e(context.namee, where())).evalue
         const id = namee.value
         const listing = objects.listings[id]
         // const name = context.name.text
@@ -410,7 +410,7 @@ const config = {
         if (context.report) {
           return `show ${await gp(context.report)}`
         } else {
-          const report = await e(context.on)
+          const report = await e(context.on, where())
           const id = report.value.value
           const listing = objects.listings[id]
           return `the properties being shown are ${await gs(listing.columns, ', ', ' and ')}`
@@ -462,8 +462,8 @@ const config = {
           kms.stm.api.setVariable('price', { marker: 'price', value: 23 })
           kms.stm.api.setVariable('quantity', { marker: 'quantity', value: 3 })
           const c1 = { marker: 'worth', value: 'worth' }
-          r1 = toEValue(await e(c1));
-          r2 = await e({ marker: 'supplier', value: 'supplier' })
+          r1 = toEValue(await e(c1, where()));
+          r2 = await e({ marker: 'supplier', value: 'supplier' }, where())
         }
         const data = []
         for (const product of products) {
@@ -472,7 +472,7 @@ const config = {
             kms.stm.api.setVariable(p, { marker: p, value: product[p] })
           }
           for (const property of columns) {
-            const value = toFinalValue(await e({ marker: property, value: property }));
+            const value = toFinalValue(await e({ marker: property, value: property }, where()));
             row.push(value)
           }
           data.push(row)
@@ -504,7 +504,7 @@ const config = {
           const responses = []
           for (let value of values) {
             if (!value.value || value.pullFromContext) {
-              value = await e(value)
+              value = await e(value, where())
             }
             let id = value.value
             if (value.evalue) {
@@ -527,7 +527,7 @@ const config = {
           }
           context.isResponse = true
         } else {
-          const report = await e(context.on)
+          const report = await e(context.on, where())
           const id = report.value.value
           const listing = objects.listings[id]
           const values = propertyToArray(context.properties)
@@ -554,7 +554,7 @@ const config = {
         //const name = '***current***'
         if (context.api) {
           // id = newReport({km, objects})
-          const report = await e({ marker: 'report', pullFromContext: true })
+          const report = await e({ marker: 'report', pullFromContext: true }, where())
           const id = report.value.value
           const listing = objects.listings[id]
           listing.api = context.api
@@ -562,7 +562,7 @@ const config = {
           context.id = id
           context.listing = apis[listing.api].getAllProducts(listing)
         } else {
-          const report = await e({ marker: 'report', pullFromContext: true })
+          const report = await e({ marker: 'report', pullFromContext: true }, where())
           const id = report.evalue.value
           const listing = objects.listings[id]
           const api = apis[listing.api]
@@ -575,7 +575,7 @@ const config = {
     {
       match: ({context}) => context.marker == 'answer', 
       apply: async ({e, context, objects, kms, insert}) => {
-        const report = await e({ marker: 'report', pullFromContext: true })
+        const report = await e({ marker: 'report', pullFromContext: true }, where())
         const id = report.value.value
         const listing = objects.listings[id]
         listing.type = context.type
