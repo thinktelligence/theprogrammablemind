@@ -290,7 +290,7 @@ const template = {
     "amount is a concept",
     "measurement modifies unit",
     "dimension and measurement unit are concepts",
-    "unit means measurement unit",
+    // "unit means measurement unit",
     ({apis}) => {
       apis('properties').addHierarchyWatcher({
         match: ({parentId, isA}) => isA(parentId, 'unit') && parentId.startsWith('unit_'),
