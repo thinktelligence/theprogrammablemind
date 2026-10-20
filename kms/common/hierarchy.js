@@ -71,8 +71,8 @@ const config = {
           context.query && 
           !context.one.pullFromContext &&
           (context.one?.marker == 'type' || context.two?.marker == 'type') &&
-          // !['what'].includes(context.one.marker) && 
-          // !['what'].includes(context.two.marker) && 
+          !['what'].includes(context.one.marker) && 
+          !['what'].includes(context.two.marker) && 
           (context.one.query || context.two.query),
       apply: async ({context, hierarchy, km, log, e}) => {
         debugger
