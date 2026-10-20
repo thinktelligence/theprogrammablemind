@@ -6,10 +6,24 @@ const instance = require('./words.instance.json')
 const tokenize = require('./tokenize')
 const englishHelpers = require('./english_helpers.js')
 
+class API {
+  initialize({ objects }) {
+    this._objects = objects
+  }
+
+  toPlural(context) {
+    return this._objects.plural[context.word] || pluralize.plural(context.word)
+  }
+}
+
 function initializer({objects, config, isModule}) {
   objects.words = []
   objects.singular = {}
-  objects.plural = {}
+  objects.plural = {
+    'who': 'who',
+    'fahrenheit': 'fahrenheit',
+    'celcius': 'celcius',
+  }
   config.addArgs((args) => ({
     getWordFromDictionary: (partial) => {
       for (const word of objects.words) {
@@ -34,7 +48,7 @@ function initializer({objects, config, isModule}) {
       const number = numberContext ? args.number(numberContext) : context.number;
       return args.gp( { ...context, evaluateWord: true, number } )
     },
-
+  
     addWordToDictionary: (context) => {
       if (context.word) {
         const word = { ...context }
@@ -133,6 +147,7 @@ knowledgeModule( {
   config,
   includes: [tokenize],
   initializer,
+  api: () => new API(),
 
   module,
   description: 'talking about words',
