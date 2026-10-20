@@ -141,66 +141,6 @@ const config = {
 
     {
       where: where(),
-      priority: -1,
-      match: ({context}) => context.marker == 'modifies' && context.evaluateWord && context.paraphrase && context.number == 'one',
-      apply: ({context}) => 'modifies'
-    },
-    {
-      where: where(),
-      priority: -1,
-      match: ({context}) => context.marker == 'modifies' && context.evaluateWord && context.paraphrase && (context.number == 'many' || context.number > 1),
-      apply: ({context}) => 'modify'
-    },
-
-    {
-      where: where(),
-      priority: -1,
-      match: ({context}) => context.evaluateWord && context.isVerb && context.paraphrase && context.word && !context.imperative && !context.interpolate,
-      apply: ({context}) => {
-        const infinitive = englishHelpers.getInfinitive(context.word)
-        if (context.form == 'infinitive') {
-          const cases = englishHelpers.conjugateVerb(infinitive)
-          const def = cases.find((def) => def.form == context.form)
-          return def.word
-        } else if (context.tense) {
-          const cases = englishHelpers.conjugateVerb(infinitive)
-          const def = cases.find((def) => def.tense == context.tense)
-          return def.word
-        } else {
-          return pluralize.plural(context.word)
-        }
-      },
-    },
-
-    {
-      where: where(),
-      priority: -1,
-      match: ({context}) => context.evaluateWord && context.paraphrase && context.word && (context.number == 'many' || context.number > 1) && !context.interpolate,
-      apply: ({context}) => pluralize.plural(context.word),
-    },
-
-    {
-      where: where(),
-      priority: -1,
-      match: ({context}) => context.evaluateWord && context.isVerb && context.paraphrase && context.word && context.number == 'one' && !context.imperative && !context.interpolate,
-      apply: ({context}) => {
-        const infinitive = englishHelpers.getInfinitive(context.word)
-        const cases = englishHelpers.conjugateVerb(infinitive)
-        return pluralize.plural(context.word)
-      },
-    },
-
-    {
-      where: where(),
-      priority: -1,
-      match: ({context}) => context.evaluateWord && context.paraphrase && context.word && context.number == 'one' && !context.interpolate,
-      apply: ({context}) => {
-        return pluralize.singular(context.word)
-      },
-    },
-
-    {
-      where: where(),
       match: ({context}) => context.paraphrase && context.word && (context.number == 'many' || context.number > 1) && !context.isModifier,
       apply: ({context}) => {
         // TODO make the sentence that the plural celcius is celcius work
@@ -312,11 +252,6 @@ function initializer({config}) {
           }
         },
         number: (context) => isMany(context) ? "many" : "one",
-        // number/gender/person etc
-        gw: (context, { number: numberContext } = {}) => {
-          const number = numberContext ? args.number(numberContext) : context.number;
-          return args.gp( { ...context, evaluateWord: true, number } )
-        },
         verbatim, 
         say: verbatim,
         interpolate: interpolate(args),

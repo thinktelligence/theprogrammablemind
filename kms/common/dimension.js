@@ -383,6 +383,7 @@ knowledgeModule({
       context: [
         defaultContextCheck({ marker: 'metric_system', exported: true }),
         defaultContextCheck({ marker: 'convertToUnits', exported: true, extra: ['from', 'to'] }),
+        defaultContextCheck({ marker: 'noconversion', exported: true, extra: ['from', 'to'] }),
         defaultContextCheck({ 
           match: ({context, isA}) => isA(context.marker, 'unit'), 
           exported: true, 
