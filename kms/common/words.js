@@ -8,6 +8,8 @@ const englishHelpers = require('./english_helpers.js')
 
 function initializer({objects, config, isModule}) {
   objects.words = []
+  objects.singular = {}
+  objects.plural = {}
   config.addArgs((args) => ({
     getWordFromDictionary: (partial) => {
       for (const word of objects.words) {
@@ -46,6 +48,14 @@ function initializer({objects, config, isModule}) {
 
 const config = { 
   name: 'words',
+  operators: [
+    "([plural])",
+    "([singular])",
+  ],
+  bridges: [
+    { id: 'plural' },
+    { id: 'singular' },
+  ],
   generators: [
     { 
       where: where(),
@@ -85,7 +95,10 @@ const config = {
       where: where(),
       priority: -1,
       match: ({context}) => context.evaluateWord && context.paraphrase && context.word && (context.number == 'many' || context.number > 1) && !context.interpolate,
-      apply: ({context}) => pluralize.plural(context.word),
+      apply: ({context, objects}) => {
+        const override = objects.plural[context.word]
+        return override || pluralize.plural(context.word)
+      },
     },
 
     {
@@ -103,8 +116,9 @@ const config = {
       where: where(),
       priority: -1,
       match: ({context}) => context.evaluateWord && context.paraphrase && context.word && context.number == 'one' && !context.interpolate,
-      apply: ({context}) => {
-        return pluralize.singular(context.word)
+      apply: ({context, objects}) => {
+        const override = objects.singular[context.word]
+        return override || pluralize.singular(context.word)
       },
     }, 
   ],
