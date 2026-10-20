@@ -57,6 +57,7 @@ const config = {
 
     "(<what> ([whatAble|]))",
     "([what:optional])",
+    "([who])",
 
     "([be] ([briefOrWordy|]))",
 
@@ -145,8 +146,14 @@ const config = {
 
     { 
       id: "what", 
+      isA: ['queryable'],
       optional: "{ ...next(operator), query: ['what'], determined: true, isVariable: true }", 
       bridge: "{ ...after, query: ['what'], modifiers: ['what'], what: operator, isVariable: true }" 
+    },
+    {
+      id: "who",
+      isA: ['queryable'],
+      initial: { query: true, isVariable: true },
     },
     { id: "whatAble" },
 
@@ -229,7 +236,7 @@ const config = {
     "literals": {
       "?": [{"id": "questionMark", "initial": "{}" }],
       // TODO make who its own concept
-      "who": [{"id": "what", "initial": "{ modifiers: [], query: true }" }],
+      // "who": [{"id": "what", "initial": "{ modifiers: [], query: true }" }],
       "yes": [{"id": "yesno", "initial": "{ value: true }" }],
       "no": [{"id": "yesno", "initial": "{ value: false }" }],
       "brief": [{"id": "briefOrWordy", "initial": "{ value: 'brief' }" }],
@@ -269,7 +276,6 @@ const config = {
     ['the', 'article'],
     ['theAble', 'queryable'],
     ['it', 'queryable'],
-    ['what', 'queryable'],
     ['whatAble', 'queryable'],
     ['negatable', 'queryable'],
     ['is', 'canBeQuestion'],
@@ -512,10 +518,10 @@ const config = {
     {
       where: where(),
       match: ({context}) => {
-        return context.marker == 'unify' && context.terms.some((term) => term.marker == 'what')
+        return context.marker == 'unify' && context.terms.some((term) => ['what', 'who'].includes(term.marker))
       },
       apply: async ({context, resolveEvaluate, toEValue}) => {
-        const value = context.terms.find((term) => term.marker !== 'what')
+        const value = context.terms.find((term) => !['what', 'who'].includes(term.marker))
         await resolveEvaluate(context, value)
       }
     },

@@ -70,10 +70,12 @@ const config = {
           hierarchy.isA(context.marker, 'is') && 
           context.query && 
           !context.one.pullFromContext &&
-          !['what'].includes(context.one.marker) && 
-          !['what'].includes(context.two.marker) && 
+          (context.one?.marker == 'type' || context.two?.marker == 'type') &&
+          // !['what'].includes(context.one.marker) && 
+          // !['what'].includes(context.two.marker) && 
           (context.one.query || context.two.query),
       apply: async ({context, hierarchy, km, log, e}) => {
+        debugger
         const one = context.one;
         const two = context.two;
         let concept, value;
@@ -234,6 +236,9 @@ const config = {
           return
         }
         const { one, two } = context
+        if (one.query || two.query) {
+          return
+        }
 
         // let the "the metric system is a measurement system" threw but block 'the gender is male'
         if (one.theable && !two.determiner && !two.pullFromContext) {
