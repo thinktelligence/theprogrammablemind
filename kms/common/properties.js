@@ -143,6 +143,7 @@ const config = {
   hierarchy: [
     ['unknown', 'hierarchyAble'],
     ['what', 'object'],
+    ['who', 'object'],
   ],
   bridges: [
     {

@@ -414,7 +414,10 @@ const config = {
     },
     { 
       where: where(),
-      match: ({context, hierarchy}) => hierarchy.isA(context.marker, 'canBeQuestion') && context.paraphrase && context.topLevel && context.query,
+      match: ({context, hierarchy, debug}) => {
+        debug.breakAt('time#call18')
+        return hierarchy.isA(context.marker, 'canBeQuestion') && context.paraphrase && context.topLevel && context.query
+      },
       apply: async ({context, gp}) => {
         return `${await gp({...context, topLevel: undefined})}?` 
       },
