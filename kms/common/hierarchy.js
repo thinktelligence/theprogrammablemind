@@ -75,7 +75,6 @@ const config = {
           !['what'].includes(context.two.marker) && 
           (context.one.query || context.two.query),
       apply: async ({context, hierarchy, km, log, e}) => {
-        debugger
         const one = context.one;
         const two = context.two;
         let concept, value;
