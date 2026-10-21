@@ -349,6 +349,7 @@ const config = {
 
         // setup the read semantic
         {
+          // TODO change this disable to callOnce
           function matchByMarker(defContext) {
             return ({context, uuid}) => context.marker == defContext.from.marker && !context[`disable${uuid}`]
           }

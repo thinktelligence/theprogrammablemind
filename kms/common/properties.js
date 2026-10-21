@@ -605,7 +605,7 @@ const config = {
   ],
   semantics: [
     {
-      notes: 'unify for properties',
+      notes: 'unify for properties -> the age of who',
       where: where(),
       match: ({context, isA}) => 
         context.marker == 'unify' && 
@@ -622,6 +622,34 @@ const config = {
         } else {
           property = context.terms[1].objects[0]
           object = context.terms[1].objects[1]
+          value = context.terms[0]
+        }
+        const pattern = {
+          marker: 'propertyRelation',
+          object,
+          property,
+          value,
+        }
+        const relations = await api.relation_unify(pattern, ['object', 'property', 'value'])
+        resolveEvaluate(context, relations)
+      }
+    },
+    {
+      notes: 'unify for properties -> whose age',
+      where: where(),
+      match: ({context, isA}) => {
+        return context.marker == 'unify' && context.terms[0].whose && context.terms[1].markedProperty == context.terms[0].value
+      },
+      apply: async (args) => {
+        const {context, km, callId, api, resolveEvaluate} = args
+        let value, property, object
+        if (context.terms[0].query) {
+          property = context.terms[0]
+          object = { marker: 'who', value: 'who' }
+          value = context.terms[1]
+        } else {
+          property = context.terms[1]
+          object = { marker: 'who', value: 'who' }
           value = context.terms[0]
         }
         const pattern = {
