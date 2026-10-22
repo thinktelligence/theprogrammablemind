@@ -496,16 +496,12 @@ class API {
     }
 
     for (const arg of args) {
-      try{
-        const u = await this.args.unify(template[arg], value[arg])
-        if (u) {
-          continue
-        }
-        if (!matches(template[arg], value[arg])) {
-          return null
-        }
-      } catch(e) {
-        console.log(e)
+      const u = await this.args.unify(template[arg], value[arg])
+      if (u) {
+        continue
+      }
+      if (!matches(template[arg], value[arg])) {
+        return null
       }
     }
     return value

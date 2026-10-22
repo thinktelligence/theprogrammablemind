@@ -415,7 +415,6 @@ const config = {
     { 
       where: where(),
       match: ({context, hierarchy, debug}) => {
-        debug.breakAt('time#call18')
         return hierarchy.isA(context.marker, 'canBeQuestion') && context.paraphrase && context.topLevel && context.query
       },
       apply: async ({context, gp}) => {
@@ -523,9 +522,10 @@ const config = {
       match: ({context}) => {
         return context.marker == 'unify' && context.terms.some((term) => ['what', 'who'].includes(term.marker))
       },
-      apply: async ({context, resolveEvaluate, toEValue}) => {
+      apply: async ({context, resolveEvaluate, e, toFinalValue}) => {
         const value = context.terms.find((term) => !['what', 'who'].includes(term.marker))
-        await resolveEvaluate(context, value)
+        instance = await e(value, where())
+        await resolveEvaluate(context, instance)
       }
     },
     { 
@@ -598,7 +598,12 @@ const config = {
           value = one;
         }
 
-        let instance = await e(value, where())
+        const unification = await e({
+          marker: 'unify',
+          terms: [query, value],
+        }, where())
+        instance = unification.evalue || { marker: 'undefined' }
+
         if (instance.verbatim) {
           context.evalue = { verbatim: instance.verbatim }
           context.isResponse = true
@@ -611,16 +616,6 @@ const config = {
           return
         }
 
-        if (true) {
-          if (query.query || value.query) {
-            const unification = await e({
-              marker: 'unify',
-              terms: [query, instance],
-            }, where())
-            instance = unification.evalue
-          }
-        }
-
         const concept = _.cloneDeep(value) 
         concept.isQuery = undefined
         instance.focus = true
@@ -628,6 +623,7 @@ const config = {
           concept.focusableForPhrase = true
         }
 
+        debugger
         const many = isMany(concept) || isMany(instance)
         const evalue = {
           default: true,
@@ -638,10 +634,7 @@ const config = {
           word: many ? "are" : "is",
           number: many ? "many" : undefined,
         }
-        if (false) {
-          evalue.one = instance
-          evalue.two = concept
-        }
+
         context.evalue = evalue
         context.isResponse = true
       }

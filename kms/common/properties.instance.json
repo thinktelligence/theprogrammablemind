@@ -88,6 +88,7 @@
         "(([object|]) [have|] ([property|]))",
         "(<doesnt|> ([have/0]))",
         "(([xfx]) <([between] (words))>)",
+        "([isPropertyValue])",
         "((@<= object || @<=unknown) [hasPropertyValue|is,are] (context.isPropertyValue == true))"
       ],
       "hierarchy": [
@@ -106,12 +107,19 @@
       ],
       "bridges": [
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:150",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:151",
           "id": "howPropertyMarker",
           "bridge": "{ ...after[0], query: ['what'], how: operator, operator: after[0], interpolate: [ { property: 'how' }, { property: 'operator' } ] }"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:155",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:156",
+          "id": "isPropertyValue",
+          "initial": {
+            "isPropertyValue": true
+          }
+        },
+        {
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:161",
           "id": "hasPropertyValue",
           "isA": [
             "verb"
@@ -121,10 +129,10 @@
           ],
           "enhanced_associations": true,
           "bridge": "{ ...operator, object: before[0], flatten: true, operator: operator, propertyValue: after[0], interpolate: [{ property: 'object' }, { property: 'operator' }, { property: 'propertyValue' }] }",
-          "semantic": "async ({context, e, debug, toArray, fragments, getWordFromDictionary}) => {\n        const propertyType = {\n          marker: context.propertyValue.propertyType,\n          level: 0,\n          word: context.propertyValue.propertyType,\n          value: context.propertyValue.propertyType,\n        }\n        for (const object of toArray(context.object)) {\n          const instance = await fragments(\"the property of object is value\", { property: propertyType, object, value: context.propertyValue })\n          instance.query = context.query\n          await e(instance, where())\n        }\n      }"
+          "semantic": "async ({context, api, callId, e, debug, toArray, fragments, resolveEvaluate, getWordFromDictionary}) => {\n        // TODO is there some way to make lookup up and setting the value into the same operation?\n        if (context.query) {\n          const propertyId = context.propertyValue.markedProperty\n          const object = context.object\n          const value = context.propertyValue\n          const pattern = {\n            marker: 'propertyRelation',\n            object,\n            property: { marker: propertyId, value: propertyId },\n            value,\n          }\n\n          const relations = await api.relation_unify(pattern, ['object', 'property', 'value'])\n          debugger\n          relations.forEach((r) => {\n            r.objectPropertyValueStyle = {\n              template: \"object is isPropertyValue\",\n              mapping: {\n                object: 'object',\n                isPropertyValue: 'value',\n              }\n            }\n          })\n\n          resolveEvaluate(context, relations)\n        } else {\n          const propertyType = {\n            marker: context.propertyValue.propertyType,\n            level: 0,\n            word: context.propertyValue.propertyType,\n            value: context.propertyValue.propertyType,\n          }\n          for (const object of toArray(context.object)) {\n            const instance = await fragments(\"the property of object is value\", { property: propertyType, object, value: context.propertyValue })\n            instance.query = context.query\n            await e(instance, where())\n          }\n        }\n      }"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:177",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:210",
           "id": "propertyRelation",
           "words": [
             {
@@ -139,18 +147,18 @@
           "semantic": "({context, api, objects, toList}) => {\n        context.evalue = toList(objects.relations)\n        context.evalue.isResponse = true\n        context.evalue.paraphrase = false\n      }"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:188",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:221",
           "id": "propertyMarker"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:192",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:225",
           "id": "xfx",
           "isA": [
             "queryable"
           ]
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:197",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:230",
           "id": "between",
           "isA": [
             "preposition"
@@ -159,7 +167,7 @@
           "bridge": "{ ...next(operator), arguments: after[0] }"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:204",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:237",
           "id": "between",
           "level": 1,
           "bridge": "{ ...before[0], arguments: operator.arguments }"
@@ -819,6 +827,10 @@
         }
       ],
       "generators": [
+        {
+          "match": "({context, hierarchy}) => context.objectPropertyValueStyle",
+          "apply": "async ({context, fragments, gp}) => {\n        const mapping = {}\n        for (const key of Object.keys(context.objectPropertyValueStyle.mapping)) {\n          mapping[key] = context[context.objectPropertyValueStyle.mapping[key]]\n        }\n        const fragment = await fragments(context.objectPropertyValueStyle.template, mapping)\n        debugger\n        return await gp(fragment)\n      }"
+        },
         {
           "match": "({context}) => context.marker == 'propertyRelation' && context.isResponse",
           "apply": "async ({context, gp, fragments}) => {\n        const instance = await fragments(\"the property of object\", {\n          property: { ...context.property, interpolate: undefined },\n          object: context.object\n        })\n        return await gp(instance)\n      }"
@@ -1715,6 +1727,7 @@
         "(([object|]) [have|] ([property|]))",
         "(<doesnt|> ([have/0]))",
         "(([xfx]) <([between] (words))>)",
+        "([isPropertyValue])",
         "((@<= object || @<=unknown) [hasPropertyValue|is,are] (context.isPropertyValue == true))"
       ],
       "hierarchy": [
@@ -1733,12 +1746,19 @@
       ],
       "bridges": [
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:150",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:151",
           "id": "howPropertyMarker",
           "bridge": "{ ...after[0], query: ['what'], how: operator, operator: after[0], interpolate: [ { property: 'how' }, { property: 'operator' } ] }"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:155",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:156",
+          "id": "isPropertyValue",
+          "initial": {
+            "isPropertyValue": true
+          }
+        },
+        {
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:161",
           "id": "hasPropertyValue",
           "isA": [
             "verb"
@@ -1750,7 +1770,7 @@
           "bridge": "{ ...operator, object: before[0], flatten: true, operator: operator, propertyValue: after[0], interpolate: [{ property: 'object' }, { property: 'operator' }, { property: 'propertyValue' }] }"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:177",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:210",
           "id": "propertyRelation",
           "words": [
             {
@@ -1764,18 +1784,18 @@
           ]
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:188",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:221",
           "id": "propertyMarker"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:192",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:225",
           "id": "xfx",
           "isA": [
             "queryable"
           ]
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:197",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:230",
           "id": "between",
           "isA": [
             "preposition"
@@ -1784,7 +1804,7 @@
           "bridge": "{ ...next(operator), arguments: after[0] }"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:204",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:237",
           "id": "between",
           "level": 1,
           "bridge": "{ ...before[0], arguments: operator.arguments }"
@@ -2445,7 +2465,10 @@
       ],
       "generators": [
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:335"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:368"
+        },
+        {
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:381"
         },
         {
           "notes": "ordering generator for response"
@@ -2457,59 +2480,59 @@
         },
         {
           "notes": "expression with constraints",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:454"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:500"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:472"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:518"
         },
         {
           "notes": "add possession ending",
           "priority": -1,
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:479"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:525"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:493"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:539"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:498"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:544"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:503"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:549"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:508"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:554"
         },
         {
           "notes": "negative do questions",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:514"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:560"
         },
         {
           "notes": "do questions",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:523"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:569"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:537"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:583"
         },
         {
           "notes": "the property of object",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:545"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:591"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:568"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:614"
         },
         {
           "notes": "object's property",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:577"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:623"
         }
       ],
       "semantics": [
         {
           "notes": "unify for properties -> the age of who",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:609"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:655"
         },
         {
           "notes": "unify for properties -> whose age",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:639"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:685"
         },
         {
           "notes": "getter for relation based verbs"
@@ -2527,41 +2550,41 @@
           "notes": "semantic for setting value with constraint"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:807",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:853",
           "notes": "how deep is the pool",
           "priority": -1
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:834"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:880"
         },
         {
           "notes": "wants is xfx between wanter and wantee",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:845",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:891",
           "priority": -1
         },
         {
           "notes": "marking something as readonly",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:860"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:906"
         },
         {
           "notes": "crew members. evaluate a concepts to get instances",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:884"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:930"
         },
         {
           "notes": "greg has eyes",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:909"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:955"
         },
         {
           "notes": "greg has eyes?",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:929"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:975"
         },
         {
           "notes": "set the property of an object",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:956"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:1002"
         },
         {
           "notes": "get/evaluate a property",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:1007"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:1053"
         }
       ]
     },
@@ -4977,6 +5000,202 @@
       "key": {
         "query": "the property is value"
       }
+    },
+    {
+      "metadata": {
+        "opChoices": [
+          {
+            "op": [
+              "hasPropertyValue",
+              0
+            ],
+            "ops": [
+              [
+                "hasPropertyValue",
+                0
+              ]
+            ],
+            "counter": 1
+          },
+          {
+            "op": [
+              "hasPropertyValue",
+              0
+            ],
+            "ops": [
+              [
+                "hasPropertyValue",
+                0
+              ]
+            ],
+            "counter": 2
+          }
+        ]
+      },
+      "trace": "undefined",
+      "contexts": [
+        {
+          "marker": "hasPropertyValue",
+          "default": true,
+          "word": "is",
+          "text": "object is ispropertyvalue",
+          "range": {
+            "start": 0,
+            "end": 24
+          },
+          "object": {
+            "marker": "object",
+            "value": "object",
+            "default": true,
+            "text": "object",
+            "dead": true,
+            "word": "object",
+            "range": {
+              "start": 0,
+              "end": 5
+            },
+            "types": [
+              "object"
+            ],
+            "level": 0
+          },
+          "flatten": true,
+          "operator": {
+            "marker": "hasPropertyValue",
+            "default": true,
+            "word": "is",
+            "text": "is",
+            "range": {
+              "start": 7,
+              "end": 8
+            },
+            "level": 0
+          },
+          "propertyValue": {
+            "marker": "isPropertyValue",
+            "value": "isPropertyValue",
+            "default": true,
+            "text": "ispropertyvalue",
+            "isPropertyValue": true,
+            "dead": true,
+            "word": "ispropertyvalue",
+            "raw_text": "isPropertyValue",
+            "range": {
+              "start": 10,
+              "end": 24
+            },
+            "level": 0
+          },
+          "interpolate": [
+            {
+              "property": "object"
+            },
+            {
+              "property": "operator"
+            },
+            {
+              "property": "propertyValue"
+            }
+          ],
+          "dead": true,
+          "level": 0,
+          "context_index": 1,
+          "topLevel": true
+        }
+      ],
+      "generated": [
+        ""
+      ],
+      "paraphrases": [
+        "object is ispropertyvalue"
+      ],
+      "paraphrasesParenthesized": [],
+      "generatedParenthesized": [],
+      "responses": [
+        ""
+      ],
+      "associations": [],
+      "summaries": [
+        {
+          "summaries": [
+            {
+              "operators": [
+                {
+                  "marker": [
+                    "object",
+                    0
+                  ],
+                  "range": {
+                    "start": 0,
+                    "end": 5
+                  }
+                },
+                {
+                  "marker": [
+                    "hasPropertyValue",
+                    0
+                  ],
+                  "range": {
+                    "start": 7,
+                    "end": 8
+                  }
+                },
+                {
+                  "marker": [
+                    "isPropertyValue",
+                    0
+                  ],
+                  "range": {
+                    "start": 10,
+                    "end": 24
+                  }
+                }
+              ],
+              "counter": 1
+            },
+            {
+              "operators": [
+                {
+                  "marker": [
+                    "hasPropertyValue",
+                    0
+                  ],
+                  "range": {
+                    "start": 0,
+                    "end": 24
+                  }
+                }
+              ],
+              "counter": 2
+            },
+            {
+              "operators": [
+                {
+                  "marker": [
+                    "hasPropertyValue",
+                    0
+                  ],
+                  "range": {
+                    "start": 0,
+                    "end": 24
+                  }
+                }
+              ],
+              "counter": 3
+            }
+          ],
+          "length": 1
+        }
+      ],
+      "learned_contextual_priorities": [],
+      "explain_associations_details": [
+        null
+      ],
+      "query": "object is isPropertyValue",
+      "skipSemantics": true,
+      "key": {
+        "query": "object is isPropertyValue"
+      }
     }
   ],
   "semantics": [],
@@ -6468,6 +6687,76 @@
             }
           ],
           "counter": 6
+        }
+      ],
+      "length": 1
+    },
+    {
+      "summaries": [
+        {
+          "operators": [
+            {
+              "marker": [
+                "object",
+                0
+              ],
+              "range": {
+                "start": 0,
+                "end": 5
+              }
+            },
+            {
+              "marker": [
+                "hasPropertyValue",
+                0
+              ],
+              "range": {
+                "start": 7,
+                "end": 8
+              }
+            },
+            {
+              "marker": [
+                "isPropertyValue",
+                0
+              ],
+              "range": {
+                "start": 10,
+                "end": 24
+              }
+            }
+          ],
+          "counter": 1
+        },
+        {
+          "operators": [
+            {
+              "marker": [
+                "hasPropertyValue",
+                0
+              ],
+              "range": {
+                "start": 0,
+                "end": 24
+              }
+            }
+          ],
+          "counter": 2
+        },
+        {
+          "operators": [
+            {
+              "marker": [
+                "hasPropertyValue",
+                0
+              ],
+              "range": {
+                "start": 0,
+                "end": 24
+              }
+            }
+          ],
+          "counter": 3
         }
       ],
       "length": 1

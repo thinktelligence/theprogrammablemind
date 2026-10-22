@@ -137,6 +137,7 @@ const config = {
     // the plural of cat is cats what is the plural of cat?
     // does greg have ears (yes) greg does not have ears does greg have ears (no)
     // TODO fix @=unknown does not work?!??
+    "([isPropertyValue])",
     "((@<= object || @<=unknown) [hasPropertyValue|is,are] (context.isPropertyValue == true))",
   ],
   // TODO remove these and use localHierarchy if needed
@@ -153,22 +154,54 @@ const config = {
     },
     {
       where: where(),
+      id: 'isPropertyValue',
+      initial: { isPropertyValue: true },
+    },
+    {
+      where: where(),
       id: 'hasPropertyValue',
       isA: ['verb'],
       preferOver: ['is'],
       enhanced_associations: true,
       bridge: "{ ...operator, object: before[0], flatten: true, operator: operator, propertyValue: after[0], interpolate: [{ property: 'object' }, { property: 'operator' }, { property: 'propertyValue' }] }",
-      semantic: async ({context, e, debug, toArray, fragments, getWordFromDictionary}) => {
-        const propertyType = {
-          marker: context.propertyValue.propertyType,
-          level: 0,
-          word: context.propertyValue.propertyType,
-          value: context.propertyValue.propertyType,
-        }
-        for (const object of toArray(context.object)) {
-          const instance = await fragments("the property of object is value", { property: propertyType, object, value: context.propertyValue })
-          instance.query = context.query
-          await e(instance, where())
+      semantic: async ({context, api, callId, e, debug, toArray, fragments, resolveEvaluate, getWordFromDictionary}) => {
+        // TODO is there some way to make lookup up and setting the value into the same operation?
+        if (context.query) {
+          const propertyId = context.propertyValue.markedProperty
+          const object = context.object
+          const value = context.propertyValue
+          const pattern = {
+            marker: 'propertyRelation',
+            object,
+            property: { marker: propertyId, value: propertyId },
+            value,
+          }
+
+          const relations = await api.relation_unify(pattern, ['object', 'property', 'value'])
+
+          relations.forEach((r) => {
+            r.objectPropertyValueStyle = {
+              template: "object is isPropertyValue",
+              mapping: {
+                object: 'object',
+                isPropertyValue: 'value',
+              }
+            }
+          })
+
+          resolveEvaluate(context, relations)
+        } else {
+          const propertyType = {
+            marker: context.propertyValue.propertyType,
+            level: 0,
+            word: context.propertyValue.propertyType,
+            value: context.propertyValue.propertyType,
+          }
+          for (const object of toArray(context.object)) {
+            const instance = await fragments("the property of object is value", { property: propertyType, object, value: context.propertyValue })
+            instance.query = context.query
+            await e(instance, where())
+          }
         }
       }
     },
@@ -331,6 +364,19 @@ const config = {
     { "context": [['what', 0], ['is', 0], ['objectPrefix', 0], ], "choose": [0] }, 
   ],
   generators: [
+    {
+      where: where(),
+      match: ({context, hierarchy}) => context.objectPropertyValueStyle,
+      apply: async ({context, fragments, gp}) => {
+        const mapping = {}
+        for (const key of Object.keys(context.objectPropertyValueStyle.mapping)) {
+          mapping[key] = context[context.objectPropertyValueStyle.mapping[key]]
+        }
+        const fragment = await fragments(context.objectPropertyValueStyle.template, mapping)
+        debugger
+        return await gp(fragment)
+      }
+    },
     {
       where: where(),
       // match: ({context}) => context.marker == 'propertyRelation' && !context.paraphrase,
@@ -1120,6 +1166,7 @@ const template = {
     "the property of object is value",
     "the property of object",
     "the property is value",
+    "object is isPropertyValue", // bob is 23 years old
   ],
   configs: [
     "property is a concept",

@@ -1104,4 +1104,5 @@ node time -q 'alice and bob are 23 years old\nthe age of who is 23 years old' -g
 node time -q "bob is 23 years old\nwhat is known about bob" -g -d
 
 node time -q 'bob is 23 years old\nwho is 23 years old' -g -d
+node time -q 'bob is 23 years old\nis bob 23 years old' -g -d
 
