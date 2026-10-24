@@ -623,7 +623,6 @@ const config = {
           concept.focusableForPhrase = true
         }
 
-        debugger
         const many = isMany(concept) || isMany(instance)
         const evalue = {
           default: true,

@@ -164,7 +164,7 @@ const config = {
       preferOver: ['is'],
       enhanced_associations: true,
       bridge: "{ ...operator, object: before[0], flatten: true, operator: operator, propertyValue: after[0], interpolate: [{ property: 'object' }, { property: 'operator' }, { property: 'propertyValue' }] }",
-      semantic: async ({context, api, callId, e, debug, toArray, fragments, resolveEvaluate, getWordFromDictionary}) => {
+      semantic: async ({gp, context, api, callId, e, debug, toArray, fragments, resolveEvaluate, getWordFromDictionary}) => {
         // TODO is there some way to make lookup up and setting the value into the same operation?
         if (context.query) {
           const propertyId = context.propertyValue.markedProperty
@@ -199,6 +199,7 @@ const config = {
           }
           for (const object of toArray(context.object)) {
             const instance = await fragments("the property of object is value", { property: propertyType, object, value: context.propertyValue })
+            const text = await gp(instance)
             instance.query = context.query
             await e(instance, where())
           }
@@ -373,7 +374,6 @@ const config = {
           mapping[key] = context[context.objectPropertyValueStyle.mapping[key]]
         }
         const fragment = await fragments(context.objectPropertyValueStyle.template, mapping)
-        debugger
         return await gp(fragment)
       }
     },
@@ -388,9 +388,10 @@ const config = {
       match: ({context}) => context.marker == 'propertyRelation' && context.isResponse,
       apply: async ({context, gp, fragments}) => {
         const instance = await fragments("the property of object", {
-          property: { ...context.property, interpolate: undefined },
+          // property: { ...context.property, interpolate: undefined },
+          property: context.property,
           object: context.object
-        })
+        }, ['interpolate'])
         return await gp(instance)
       }
     },
@@ -677,6 +678,17 @@ const config = {
           value,
         }
         const relations = await api.relation_unify(pattern, ['object', 'property', 'value'])
+
+        relations.forEach((r) => {
+          r.objectPropertyValueStyle = {
+            template: "the property of object",
+            mapping: {
+              object: 'object',
+              property: 'property',
+            }
+          }
+        })
+
         resolveEvaluate(context, relations)
       }
     },
@@ -687,24 +699,40 @@ const config = {
         return context.marker == 'unify' && context.terms[0].whose && context.terms[1].markedProperty == context.terms[0].value
       },
       apply: async (args) => {
-        const {context, km, callId, api, resolveEvaluate} = args
+        const {context, km, callId, api, fragments, resolveEvaluate} = args
         let value, property, object
         if (context.terms[0].query) {
-          property = context.terms[0]
+          property = { ...context.terms[0] },
           object = { marker: 'who', value: 'who' }
           value = context.terms[1]
         } else {
-          property = context.terms[1]
+          property = { ...context.terms[1] }
           object = { marker: 'who', value: 'who' }
           value = context.terms[0]
         }
+        property = await fragments("the property", { property }, ['interpolate'])
+        
         const pattern = {
           marker: 'propertyRelation',
           object,
           property,
           value,
         }
+
         const relations = await api.relation_unify(pattern, ['object', 'property', 'value'])
+        relations.forEach((r) => {
+          r.objectPropertyValueStyle = {
+            template: "object's property",
+            mapping: {
+              object: 'object',
+              property: 'property',
+              value: 'value',
+            }
+          }
+          r.property = { ...r.property, determiner: null }
+        })
+       
+        const text = await args.gp(relations[0]) // 'the age is 23 years old'
         resolveEvaluate(context, relations)
       }
     },
@@ -716,7 +744,6 @@ const config = {
         context.evalue = {
           marker: 'list',
           listable: true,
-          // value: unflatten(api.relation_get(context, before.concat(after).map( (arg) => arg.tag ) ))
           value: unflatten(api.relation_get(context, context.relationArgs.map( (arg) => arg.tag ) ))
         }
         context.evalue.isResponse = true
@@ -1161,13 +1188,6 @@ function initializer({objects, config, isModule}) {
 }
 
 const template = {
-  fragments: [
-    "the property1 of object1 is value1",
-    "the property of object is value",
-    "the property of object",
-    "the property is value",
-    "object is isPropertyValue", // bob is 23 years old
-  ],
   configs: [
     "property is a concept",
     { query: "concept is a property", isFragment: true },
@@ -1185,6 +1205,14 @@ const template = {
         },
       ],
     },
+    { query: "the property1 of object1 is value1", isFragment: true },
+    { query: "the property of object is value", isFragment: true },
+    { query: "the property of object", isFragment: true, preserve: ['interpolate'] },
+    { query: "the property is value", isFragment: true },
+    { query: "object's property", isFragment: true, preserve: ['interpolate'] },
+    { query: "object's property is value", isFragment: true, preserve: ['one.interpolate'] },
+    { query: "object is isPropertyValue", isFragment: true }, // bob is 23 years old
+    { query: "the property", isFragment: true },
   ],
 }
 

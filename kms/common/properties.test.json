@@ -94696,7 +94696,15 @@
           "bridge": "{ ...after[0], query: ['what'], how: operator, operator: after[0], interpolate: [ { property: 'how' }, { property: 'operator' } ] }",
           "id": "howPropertyMarker",
           "level": 0,
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:149"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:151"
+        },
+        {
+          "id": "isPropertyValue",
+          "initial": {
+            "isPropertyValue": true
+          },
+          "level": 0,
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:156"
         },
         {
           "bridge": "{ ...operator, object: before[0], flatten: true, operator: operator, propertyValue: after[0], interpolate: [{ property: 'object' }, { property: 'operator' }, { property: 'propertyValue' }] }",
@@ -94709,12 +94717,12 @@
           "preferOver": [
             "is"
           ],
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:154"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:161"
         },
         {
           "id": "propertyRelation",
           "level": 0,
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:178",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:210",
           "words": [
             {
               "number": "one",
@@ -94729,7 +94737,7 @@
         {
           "id": "propertyMarker",
           "level": 0,
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:189"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:221"
         },
         {
           "id": "xfx",
@@ -94737,7 +94745,7 @@
             "queryable"
           ],
           "level": 0,
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:193"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:225"
         },
         {
           "bridge": "{ ...next(operator), arguments: after[0] }",
@@ -94747,13 +94755,13 @@
             "preposition"
           ],
           "level": 0,
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:198"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:230"
         },
         {
           "bridge": "{ ...before[0], arguments: operator.arguments }",
           "id": "between",
           "level": 1,
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:205"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:237"
         },
         {
           "id": "hierarchyAble",
@@ -95059,19 +95067,19 @@
           "enhanced_associations": false,
           "id": "makeObject",
           "level": 0,
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:113"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:114"
         },
         {
           "bridge": "{ ...next(operator), suffix: after[0] }",
           "enhanced_associations": false,
           "id": "setIdSuffix",
           "level": 0,
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:123"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:124"
         },
         {
           "id": "resetIdSuffix",
           "level": 0,
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:133"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:134"
         },
         {
           "bridge": "{ ...next(operator), object: after[0] }",
@@ -95090,8 +95098,22 @@
         {
           "bridge": "{ ...after, query: ['what'], modifiers: ['what'], what: operator, isVariable: true }",
           "id": "what",
+          "isA": [
+            "queryable"
+          ],
           "level": 0,
           "optional": "{ ...next(operator), query: ['what'], determined: true, isVariable: true }"
+        },
+        {
+          "id": "who",
+          "initial": {
+            "isVariable": true,
+            "query": true
+          },
+          "isA": [
+            "queryable"
+          ],
+          "level": 0
         },
         {
           "id": "whatAble",
@@ -95104,7 +95126,7 @@
             "preposition"
           ],
           "level": 0,
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:155"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dialogues.js:162"
         },
         {
           "id": "toAble",
@@ -95753,6 +95775,14 @@
           ]
         },
         {
+          "id": "plural",
+          "level": 0
+        },
+        {
+          "id": "singular",
+          "level": 0
+        },
+        {
           "bridge": "{\n            ...next(operator),\n            tag: after[0]\n          }",
           "id": "setdebugbreak",
           "level": 0,
@@ -95886,6 +95916,9 @@
           "pattern": "(([xfx]) <([between] (words))>)"
         },
         {
+          "pattern": "([isPropertyValue])"
+        },
+        {
           "pattern": "((@<= object || @<=unknown) [hasPropertyValue|is,are] (context.isPropertyValue == true))"
         },
         {
@@ -95969,6 +96002,9 @@
         },
         {
           "pattern": "([what:optional])"
+        },
+        {
+          "pattern": "([who])"
         },
         {
           "pattern": "([be] ([briefOrWordy|]))"
@@ -96110,6 +96146,12 @@
         },
         {
           "pattern": "([doubleQuote|] (!doubleQuote/*)* (doubleQuote/*))"
+        },
+        {
+          "pattern": "([plural])"
+        },
+        {
+          "pattern": "([singular])"
         },
         {
           "pattern": "([setdebugbreak] (*))"
@@ -96760,12 +96802,6 @@
               "initial": "{ modifiers: [] }"
             }
           ],
-          "who": [
-            {
-              "id": "what",
-              "initial": "{ modifiers: [], query: true }"
-            }
-          ],
           "wordy": [
             {
               "id": "briefOrWordy",
@@ -96886,7 +96922,7 @@
         },
         "text": "the property",
         "theable": {
-          "context_id": 220,
+          "context_id": 221,
           "dead": true,
           "level": 0,
           "marker": "property",
@@ -96913,6 +96949,7 @@
         "word": "property"
       }
     ],
+    "developerTest": false,
     "generatedParenthesized": [
       ""
     ],
@@ -97087,10 +97124,11 @@
               "doubleQuote",
               "theAble",
               "it",
-              "what",
               "whatAble",
               "negatable",
               "this",
+              "what",
+              "who",
               "reason",
               "distributable",
               "thisitthat",
@@ -97137,13 +97175,14 @@
             "article",
             "the",
             "theAble",
-            "what",
             "whatAble",
             "negatable",
             "is",
             "canBeQuestion",
             "toAble",
             "listable",
+            "what",
+            "who",
             "to",
             "preposition",
             "verb",
@@ -97315,6 +97354,9 @@
             ],
             "whatAble": [
               "queryable"
+            ],
+            "who": [
+              "queryable"
             ]
           },
           "properties": {
@@ -97424,6 +97466,8 @@
               "what": {
               },
               "whatAble": {
+              },
+              "who": {
               }
             }
           },
@@ -97452,6 +97496,13 @@
         },
         "words2": {
           "km": "words2",
+          "plural": {
+            "celcius": "celcius",
+            "fahrenheit": "fahrenheit",
+            "who": "who"
+          },
+          "singular": {
+          },
           "words": [
           ]
         }
@@ -97510,7 +97561,7 @@
             },
             "text": "the property",
             "theable": {
-              "context_id": 220,
+              "context_id": 221,
               "dead": true,
               "level": 0,
               "marker": "property",

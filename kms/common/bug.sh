@@ -1090,6 +1090,9 @@ DONE 2031  node askfor -q "bob is 23 years old\nwhat are the properties of bob" 
 DONE node time -q 'bob is 23 years old\nbob is 25 years old\nwhat is the age of bob' -g -d
 DONE node time -q 'bob is 23 years old\nwhose age is 23 years old' -g -d
 DONE node time -q 'bob is 23 years old\nthe age of who is 23 years old' -g -d
+DONE node time -q 'bob is 23 years old\nwho is 23 years old' -g -d
+WORKING node time -q 'alice and bob are 23 years old\nthe age of who is 23 years old' -g -d
+WORKING node time -qn 27 -g -d
 
  1999  node inspect time -q 'whose property means the property of who\nwhose age' -g -d
  2000  node inspect time -q 'whose property means the property of who\nwhose property' -g -d
@@ -1099,10 +1102,11 @@ node askfor -q 'joe and alice are clients\nask for the gender and birth date of 
 alices is female in the middle
 node askfor -q "ask for the gender and birth date of bob and alice\nmale\nalice is female\nmar 31 1945\nwhat is the information" -g -d
 
-node time -q 'alice and bob are 23 years old\nthe age of who is 23 years old' -g -d
 
 node time -q "bob is 23 years old\nwhat is known about bob" -g -d
 
-node time -q 'bob is 23 years old\nwho is 23 years old' -g -d
 node time -q 'bob is 23 years old\nis bob 23 years old' -g -d
+are 24 to 30 years old
+under 20 years old is a youth ...
+
 
