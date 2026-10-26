@@ -102,6 +102,10 @@ function isMany(context) {
     }
   }
 
+  if (context.isPropertyValue) {
+    return false
+  }
+
   let number = context.number
   if (context.quantity) {
     if (context.quantity.number) {

@@ -497,6 +497,9 @@ const config = {
         if (focus == 'one' && isA(context[focus], 'thisitthat')) {
           focus = other
         }
+        if (focus == 'two' && context[other].isPropertyValue) {
+          focus = other
+        }
         // greg101
         if (focus == 'one') {
           let number = 'one'
