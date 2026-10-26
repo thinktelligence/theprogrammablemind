@@ -115,7 +115,7 @@ const config = {
   semantics: [
     {
       match: ({context}) => context.toVoice == 'passive',
-      apply: async ({g, context, fragmentMapper}) => {
+      apply: async ({g, context}) => {
         for (const element of propertyToArray(context)) {
           if (!element.voice) {
             continue
@@ -140,7 +140,7 @@ const config = {
     },
     {
       match: ({context}) => context.toVoice == 'active',
-      apply: async ({g, context, fragmentMapper}) => {
+      apply: async ({g, context}) => {
         // From 
         //    [{"property":"canSubject"},{"property":"operator","number":"canSubject"},{"property":"canObject"}]
         for (const element of propertyToArray(context)) {
