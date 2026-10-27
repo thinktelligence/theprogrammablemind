@@ -963,7 +963,7 @@
           ],
           "generatorp": "async ({context, gp}) => `change ${await gp(context.from)} to ${await gp(context.to)}`",
           "bridge": "{ ...next(operator), from: after[0], to: after[1].toObject }",
-          "semantic": "async ({context, api, e, toFinalValue}) => {\n            const state = api.state\n            const eFrom = toFinalValue(await e(context.from, where()))\n            const from = state.getIdCombo(eFrom.fromSTM ? eFrom : context.from)\n            const to = state.getIdCombo(context.to)\n            for (const item of api.items()) {\n              if (item.id == from.id) {\n                api.modify(item, { id: to.id, food: context.to })\n              }\n            }\n          }"
+          "semantic": "async ({callId, context, api, e, toEValue}) => {\n            const state = api.state\n            const eFrom = toEValue(await e(context.from, where()))\n            const from = state.getIdCombo(eFrom.fromSTM ? eFrom : context.from)\n            const to = state.getIdCombo(context.to)\n            for (const item of api.items()) {\n              if (item.id == from.id) {\n                api.modify(item, { id: to.id, food: context.to })\n              }\n            }\n          }"
         }
       ],
       "priorities": [

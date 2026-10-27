@@ -392,9 +392,9 @@ const template = {
           localHierarchy: [ ['thisitthat', 'meal'], ['thisitthat', 'drink'] ],
           generatorp: async ({context, gp}) => `change ${await gp(context.from)} to ${await gp(context.to)}`,
           bridge: "{ ...next(operator), from: after[0], to: after[1].toObject }",
-          semantic: async ({context, api, e, toFinalValue}) => {
+          semantic: async ({callId, context, api, e, toEValue}) => {
             const state = api.state
-            const eFrom = toFinalValue(await e(context.from, where()))
+            const eFrom = toEValue(await e(context.from, where()))
             const from = state.getIdCombo(eFrom.fromSTM ? eFrom : context.from)
             const to = state.getIdCombo(context.to)
             for (const item of api.items()) {
@@ -1005,6 +1005,8 @@ knowledgeModule( {
             checks: {
               objects: [
                 'show', 
+                { path: ['items'] },
+                /*
                 { 
                   property: 'items', 
                   check: [
@@ -1018,6 +1020,7 @@ knowledgeModule( {
                       'needsDrink'
                   ],
                 },
+                */
                 'changes', 
                 'response', 
                 { property: 'notAvailable', check: [ 'marker', 'value', 'text' ] }, 
@@ -1027,6 +1030,12 @@ knowledgeModule( {
               ],
               context: [
                 defaultContextCheck({ extra: ['comboNumber'] }),
+                defaultContextCheck({ marker: 'combo', exported: true, extra: ['comboNumber'] }),
+                {
+                  match: ({context}) => context.combo,
+                  apply: () => ['food', 'needsDrink'],
+                },
+
               ],
             },
           },
