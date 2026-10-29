@@ -44,14 +44,46 @@
           ],
           "convolution": true,
           "bridge": "{ number: before[0].number, ...next(operator), what: before[0], equality: after[0], variable: after[1] }",
+          "check": [
+            "marker",
+            "text",
+            "verbatim",
+            "value",
+            "evalue",
+            "isResponse",
+            {
+              "properties": "modifiers"
+            },
+            {
+              "properties": "postModifiers"
+            },
+            "equality",
+            "variable"
+          ],
           "generatorp": "async ({context, g}) => `${await g(context.what)} ${await g(context.equality)} ${await g(context.variable)}`",
           "semantic": "({context, api, objects, verbatim}) => {\n        const formulas = api.gets(context.variable).map((f) => { return { ...f.equality, paraphrase: true } })\n        if (formulas.length > 0) {\n          context.evalue = { marker: 'list', value: formulas }\n        } else {\n          context.evalue = { marker: 'undefined' }\n        }\n      }"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/formulas.js:100",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/formulas.js:101",
           "id": "solve",
           "enhanced_associations": false,
           "bridge": "{ ...next(operator), equality: after[0], variable: after[2] }",
+          "check": [
+            "marker",
+            "text",
+            "verbatim",
+            "value",
+            "evalue",
+            "isResponse",
+            {
+              "properties": "modifiers"
+            },
+            {
+              "properties": "postModifiers"
+            },
+            "equality",
+            "variable"
+          ],
           "generatorp": "async ({context, gp}) => `${context.word} ${await gp(context.equality)} for ${await gp(context.variable)}`",
           "semantic": "async ({api, context, fragments}) => {\n        try {\n          context.evalue = await api.solveFor(context.equality, context.variable)\n          context.isResponse = true\n          context.value = null\n        } catch( e ) {\n        }\n        if (!context.evalue) {\n          // TODO some KM for talking to the user wrt brief+avatar\n          context.verbatim = `Solving failed`\n        }\n      }"
         },
@@ -75,12 +107,27 @@
           ]
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/formulas.js:131",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/formulas.js:133",
           "id": "calculate",
           "isA": [
             "verb"
           ],
           "bridge": "{ ...next(operator), expression: after[0] }",
+          "check": [
+            "marker",
+            "text",
+            "verbatim",
+            "value",
+            "evalue",
+            "isResponse",
+            {
+              "properties": "modifiers"
+            },
+            {
+              "properties": "postModifiers"
+            },
+            "expression"
+          ],
           "generatorp": "async ({context, g}) => `${context.word} ${await g(context.expression)}`",
           "localHierarchy": [
             [
@@ -91,9 +138,25 @@
           "semantic": "async ({context, e}) => {\n        context.evalue = await e(context.expression, where())\n        context.isResponse = true\n      }"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/formulas.js:143",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/formulas.js:146",
           "id": "equals",
           "bridge": "{ ...next(operator), left: before[0], right: after[0] }",
+          "check": [
+            "marker",
+            "text",
+            "verbatim",
+            "value",
+            "evalue",
+            "isResponse",
+            {
+              "properties": "modifiers"
+            },
+            {
+              "properties": "postModifiers"
+            },
+            "left",
+            "right"
+          ],
           "words": [
             "="
           ],
@@ -440,13 +503,45 @@
             "queryable"
           ],
           "convolution": true,
-          "bridge": "{ number: before[0].number, ...next(operator), what: before[0], equality: after[0], variable: after[1] }"
+          "bridge": "{ number: before[0].number, ...next(operator), what: before[0], equality: after[0], variable: after[1] }",
+          "check": [
+            "marker",
+            "text",
+            "verbatim",
+            "value",
+            "evalue",
+            "isResponse",
+            {
+              "properties": "modifiers"
+            },
+            {
+              "properties": "postModifiers"
+            },
+            "equality",
+            "variable"
+          ]
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/formulas.js:100",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/formulas.js:101",
           "id": "solve",
           "enhanced_associations": false,
-          "bridge": "{ ...next(operator), equality: after[0], variable: after[2] }"
+          "bridge": "{ ...next(operator), equality: after[0], variable: after[2] }",
+          "check": [
+            "marker",
+            "text",
+            "verbatim",
+            "value",
+            "evalue",
+            "isResponse",
+            {
+              "properties": "modifiers"
+            },
+            {
+              "properties": "postModifiers"
+            },
+            "equality",
+            "variable"
+          ]
         },
         {
           "id": "forVariable",
@@ -468,12 +563,27 @@
           ]
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/formulas.js:131",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/formulas.js:133",
           "id": "calculate",
           "isA": [
             "verb"
           ],
           "bridge": "{ ...next(operator), expression: after[0] }",
+          "check": [
+            "marker",
+            "text",
+            "verbatim",
+            "value",
+            "evalue",
+            "isResponse",
+            {
+              "properties": "modifiers"
+            },
+            {
+              "properties": "postModifiers"
+            },
+            "expression"
+          ],
           "localHierarchy": [
             [
               "unknown",
@@ -482,9 +592,25 @@
           ]
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/formulas.js:143",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/formulas.js:146",
           "id": "equals",
           "bridge": "{ ...next(operator), left: before[0], right: after[0] }",
+          "check": [
+            "marker",
+            "text",
+            "verbatim",
+            "value",
+            "evalue",
+            "isResponse",
+            {
+              "properties": "modifiers"
+            },
+            {
+              "properties": "postModifiers"
+            },
+            "left",
+            "right"
+          ],
           "words": [
             "="
           ],

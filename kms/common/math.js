@@ -1,5 +1,5 @@
 const { knowledgeModule, where } = require('./runtime').theprogrammablemind
-const { defaultContextCheck } = require('./helpers')
+const { defaultContextCheck, defaultContextCheckProperties } = require('./helpers')
 const dialogues = require('./dialogues')
 const numbers = require('./numbers')
 const punctuation = require('./punctuation')
@@ -47,6 +47,7 @@ function mathematicalOperator(name, words, apply, before = []) {
         bridge: "{ ...next(operator) }",
         isA: ['mathematicalExpression'],
         // generatorp: async ({gp, context}) => `${await gp(context.x)} ${context.word} ${await gp(context.y)}`,
+        check: defaultContextCheckProperties(['x', 'y']),
         semantic: async ({e, context}) => {
           const x = toValue(await e(context.x, where())) 
           const y = toValue(await e(context.y, where()))
@@ -139,7 +140,9 @@ knowledgeModule( {
     name: './math.test.json',
     contents: tests,
     checks: {
-      context: [defaultContextCheck()],
+      context: [
+        defaultContextCheck()
+      ],
     }
   },
 })

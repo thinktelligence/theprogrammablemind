@@ -140,7 +140,8 @@ const template = {
           id: "atTime", 
           words: ['@'],
           isA: ['preposition'],
-          bridge: "{ ...next(operator), time: after[0], operator: operator,  interpolate: '${operator} ${time}' }" 
+          bridge: "{ ...next(operator), time: after[0], operator: operator,  interpolate: '${operator} ${time}' }",
+          check: defaultContextCheckProperties(['time']),
         },
         { 
           id: "ampm", 

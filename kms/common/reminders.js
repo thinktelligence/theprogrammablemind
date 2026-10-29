@@ -415,22 +415,22 @@ knowledgeModule( {
     name: './reminders.test.json',
     contents: reminders_tests,
     checks: {
-      context: [defaultContextCheck({ extra: ['who', 'reminder'] })],
+      context: [
+        {
+          match: ({ path, pathEquals }) => pathEquals(path, ['reminders', '*']),
+          apply: () => ['dateTimeSelector', 'text', 'nextISODate', 'who', 'reminder'],
+        },
+      ],
       objects: [
         { 
           property: 'reminders',
-          check: [ 
-            'text', 
-            'dateTimeSelectorText', 
-            'nextISODate', 
-            'who', 
-            'stm',
-            {
-              property: 'dateTimeSelector', 
-              check: ['marker', 'text', 'value'],
-            },
-          ],
-        }
+          check: [
+            { 
+              property: (key) => typeof key == 'number',
+              check: ['text', 'who', 'dateTimeSelector', 'dateTimeSelectorText', 'nextISODate', 'id'],
+            }
+          ]
+        },
       ],
     },
   },

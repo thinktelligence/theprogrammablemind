@@ -92,23 +92,53 @@
             "verb"
           ],
           "bridge": "{ ...next(operator), quantity: after[0], operator: operator, interpolate: [{ property: 'operator' }, { property: 'quantity' }] }",
+          "check": [
+            "marker",
+            "text",
+            "verbatim",
+            "value",
+            "evalue",
+            "isResponse",
+            {
+              "properties": "modifiers"
+            },
+            {
+              "properties": "postModifiers"
+            },
+            "quantity"
+          ],
           "semantic": "async ({context, e, api, toArray, resolveEvaluate}) => {\n        const preferredUnits = await api.getPreferredUnits(context.quantity)\n        if (!preferredUnits) {\n          return\n        }\n        const from = context.quantity;\n        const value = await e({ marker: 'convertToUnits', from, to: preferredUnits }, where())\n        resolveEvaluate(context, value.evalue)\n      }"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:216",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:217",
           "id": "useUnits",
           "isA": [
             "verb"
           ],
           "bridge": "{ ...next(operator), units: after[0], operator: operator, interpolate: [{ property: 'operator' }, { property: 'units' }] }",
+          "check": [
+            "marker",
+            "text",
+            "verbatim",
+            "value",
+            "evalue",
+            "isResponse",
+            {
+              "properties": "modifiers"
+            },
+            {
+              "properties": "postModifiers"
+            },
+            "units"
+          ],
           "semantic": "({context, api}) => {\n        api.setPreferredUnits(context.units)\n      }"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:225",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:227",
           "id": "dimension"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:229",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:231",
           "id": "quantity",
           "isA": [
             "noun"
@@ -150,12 +180,44 @@
           "after": [
             "mathematical_operator"
           ],
-          "bridge": "{ \n        marker: next(operator('quantity')), \n        dead: true, \n        instance: true,\n        unit: after[0], \n        amount: before[0], \n        interpolate: [ { property: 'amount' }, { property: 'unit' } ] \n      }"
+          "bridge": "{ \n        marker: next(operator('quantity')), \n        dead: true, \n        instance: true,\n        unit: after[0], \n        amount: before[0], \n        interpolate: [ { property: 'amount' }, { property: 'unit' } ] \n      }",
+          "check": [
+            "marker",
+            "text",
+            "verbatim",
+            "value",
+            "evalue",
+            "isResponse",
+            {
+              "properties": "modifiers"
+            },
+            {
+              "properties": "postModifiers"
+            },
+            "unit",
+            "amount"
+          ]
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:267",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:270",
           "id": "convertToUnits",
           "bridge": "{ ...next(operator), from: before[0], to: after[0] }",
+          "check": [
+            "marker",
+            "text",
+            "verbatim",
+            "value",
+            "evalue",
+            "isResponse",
+            {
+              "properties": "modifiers"
+            },
+            {
+              "properties": "postModifiers"
+            },
+            "from",
+            "to"
+          ],
           "isA": [
             "expression",
             "queryable"
@@ -197,7 +259,7 @@
       "bridges": [
         {
           "id": "useMeasurementSystem",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:324",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:328",
           "isA": [
             "verb"
           ],
@@ -4932,22 +4994,52 @@
           "isA": [
             "verb"
           ],
-          "bridge": "{ ...next(operator), quantity: after[0], operator: operator, interpolate: [{ property: 'operator' }, { property: 'quantity' }] }"
+          "bridge": "{ ...next(operator), quantity: after[0], operator: operator, interpolate: [{ property: 'operator' }, { property: 'quantity' }] }",
+          "check": [
+            "marker",
+            "text",
+            "verbatim",
+            "value",
+            "evalue",
+            "isResponse",
+            {
+              "properties": "modifiers"
+            },
+            {
+              "properties": "postModifiers"
+            },
+            "quantity"
+          ]
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:216",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:217",
           "id": "useUnits",
           "isA": [
             "verb"
           ],
-          "bridge": "{ ...next(operator), units: after[0], operator: operator, interpolate: [{ property: 'operator' }, { property: 'units' }] }"
+          "bridge": "{ ...next(operator), units: after[0], operator: operator, interpolate: [{ property: 'operator' }, { property: 'units' }] }",
+          "check": [
+            "marker",
+            "text",
+            "verbatim",
+            "value",
+            "evalue",
+            "isResponse",
+            {
+              "properties": "modifiers"
+            },
+            {
+              "properties": "postModifiers"
+            },
+            "units"
+          ]
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:225",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:227",
           "id": "dimension"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:229",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:231",
           "id": "quantity",
           "isA": [
             "noun"
@@ -4993,12 +5085,44 @@
           "after": [
             "mathematical_operator"
           ],
-          "bridge": "{ \n        marker: next(operator('quantity')), \n        dead: true, \n        instance: true,\n        unit: after[0], \n        amount: before[0], \n        interpolate: [ { property: 'amount' }, { property: 'unit' } ] \n      }"
+          "bridge": "{ \n        marker: next(operator('quantity')), \n        dead: true, \n        instance: true,\n        unit: after[0], \n        amount: before[0], \n        interpolate: [ { property: 'amount' }, { property: 'unit' } ] \n      }",
+          "check": [
+            "marker",
+            "text",
+            "verbatim",
+            "value",
+            "evalue",
+            "isResponse",
+            {
+              "properties": "modifiers"
+            },
+            {
+              "properties": "postModifiers"
+            },
+            "unit",
+            "amount"
+          ]
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:267",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:270",
           "id": "convertToUnits",
           "bridge": "{ ...next(operator), from: before[0], to: after[0] }",
+          "check": [
+            "marker",
+            "text",
+            "verbatim",
+            "value",
+            "evalue",
+            "isResponse",
+            {
+              "properties": "modifiers"
+            },
+            {
+              "properties": "postModifiers"
+            },
+            "from",
+            "to"
+          ],
           "isA": [
             "expression",
             "queryable"
@@ -5039,7 +5163,7 @@
       "bridges": [
         {
           "id": "useMeasurementSystem",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:324",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:328",
           "isA": [
             "verb"
           ],

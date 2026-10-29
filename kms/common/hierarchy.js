@@ -343,7 +343,10 @@ knowledgeModule( {
     contents: hierarchy_tests,
     // TODO doesnt this need the KM
     checks: {
-      objects: ['children', 'concept', 'parents', 'properties'],
+      objects: [
+        'children', 'concept', 'parents', 'properties',
+        { km: 'properties' },
+      ],
       context: [
         defaultContextCheck(),
       ],

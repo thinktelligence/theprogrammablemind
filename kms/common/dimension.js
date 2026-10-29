@@ -202,6 +202,7 @@ const config = {
       id: "preferredUnits",
       isA: ['verb'],
       bridge: "{ ...next(operator), quantity: after[0], operator: operator, interpolate: [{ property: 'operator' }, { property: 'quantity' }] }",
+      check: defaultContextCheckProperties(['quantity']),
       semantic: async ({context, e, api, toArray, resolveEvaluate}) => {
         const preferredUnits = await api.getPreferredUnits(context.quantity)
         if (!preferredUnits) {
@@ -217,6 +218,7 @@ const config = {
       id: "useUnits",
       isA: ['verb'],
       bridge: "{ ...next(operator), units: after[0], operator: operator, interpolate: [{ property: 'operator' }, { property: 'units' }] }",
+      check: defaultContextCheckProperties(['units']),
       semantic: ({context, api}) => {
         api.setPreferredUnits(context.units)
       }
@@ -261,12 +263,14 @@ const config = {
         unit: after[0], 
         amount: before[0], 
         interpolate: [ { property: 'amount' }, { property: 'unit' } ] 
-      }` 
+      }`,
+      check: defaultContextCheckProperties(['unit', 'amount']),
     },
     { 
       where: where(),
       id: "convertToUnits", 
       bridge: "{ ...next(operator), from: before[0], to: after[0] }",
+      check: defaultContextCheckProperties(['from', 'to']),
       isA: ['expression', 'queryable'],
       localHierarchy: [['unknown', 'dimension']],
       after: [['possession', 0], ['possession', 1]],

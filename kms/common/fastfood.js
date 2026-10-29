@@ -1005,11 +1005,11 @@ knowledgeModule( {
             checks: {
               objects: [
                 'show', 
-                { path: ['items'] },
-                /*
                 { 
                   property: 'items', 
-                  check: [
+                  check: [{
+                    property: (key) => typeof key == 'number',
+                    check: [
                       'combo', 
                       'pieces', 
                       'size', 
@@ -1017,10 +1017,10 @@ knowledgeModule( {
                       'id', 
                       { property: 'food', check: [ 'marker', 'value', 'text' ] }, 
                       { property: 'modifications', check: [ 'id', 'item_id', 'food' ] }, 
-                      'needsDrink'
-                  ],
+                      'needsDrink',
+                    ]
+                  }],
                 },
-                */
                 'changes', 
                 'response', 
                 { property: 'notAvailable', check: [ 'marker', 'value', 'text' ] }, 

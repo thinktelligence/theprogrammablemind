@@ -593,11 +593,11 @@ knowledgeModule( {
       ],
       objects: [
         { km: 'stm' },
-        { path: ['isCalibrated'] }, 
-        { path: ['calibration'] }, 
-        { path: ['history'] },
-        { path: ['current'] },
-        { path: ['runCommand'] },
+        'isCalibrated',
+        { property: 'calibration', all: true }, 
+        { property: 'current', all: true },
+        { property: 'history', all: true },
+        'runCommand',
       ],
     }
   },

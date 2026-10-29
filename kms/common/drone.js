@@ -1063,24 +1063,6 @@ const template = {
             objects.runCommand = true
           }
         },
-        /*
-        {
-          id: 'do',
-          where: where(),
-          isA: ['verb'],
-          bridge: `{
-            ...next(operator), operator: operator, path: after[0], interpolate: [{ property: 'operator'}, { property: 'path' }]
-          }`,
-          semantic: async ({context, e, toEValue, objects}) => {
-            const evaluated = await(e(context.path))
-            const path = toEValue(evaluated)
-            for (const point of path.points) {
-              objects.current.path.push(point)
-            }
-            objects.runCommand = true
-          }
-        },
-        */
         {
           id: 'lift',
           where: where(),

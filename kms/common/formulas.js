@@ -1,5 +1,5 @@
 const { knowledgeModule, where, Digraph, debug } = require('./runtime').theprogrammablemind
-const { defaultContextCheck } = require('./helpers')
+const { defaultContextCheck, defaultContextCheckProperties } = require('./helpers')
 const dialogues = require('./dialogues.js')
 const pos = require('./pos.js')
 const math = require('./math.js')
@@ -86,6 +86,7 @@ const config = {
       isA: ['preposition', 'queryable'],
       convolution: true,
       bridge: "{ number: before[0].number, ...next(operator), what: before[0], equality: after[0], variable: after[1] }",
+      check: defaultContextCheckProperties(['equality', 'variable']),
       generatorp: async ({context, g}) => `${await g(context.what)} ${await g(context.equality)} ${await g(context.variable)}`,
       semantic: ({context, api, objects, verbatim}) => {
         const formulas = api.gets(context.variable).map((f) => { return { ...f.equality, paraphrase: true } })
@@ -101,6 +102,7 @@ const config = {
       id: 'solve', 
       enhanced_associations: false,
       bridge: "{ ...next(operator), equality: after[0], variable: after[2] }",
+      check: defaultContextCheckProperties(['equality', 'variable']),
       generatorp: async ({context, gp}) => `${context.word} ${await gp(context.equality)} for ${await gp(context.variable)}`,
       semantic: async ({api, context, fragments}) => {
         try {
@@ -132,6 +134,7 @@ const config = {
       id: 'calculate',
       isA: ['verb'],
       bridge: "{ ...next(operator), expression: after[0] }",
+      check: defaultContextCheckProperties(['expression']),
       generatorp: async ({context, g}) => `${context.word} ${await g(context.expression)}`,
       localHierarchy: [ ['unknown', 'expression'] ],
       semantic: async ({context, e}) => {
@@ -143,6 +146,7 @@ const config = {
       where: where(),
       id: 'equals',
       bridge: "{ ...next(operator), left: before[0], right: after[0] }",
+      check: defaultContextCheckProperties(['left', 'right']),
       words: ['='],
       after: ['mathematical_operator'],
       // TODO have this be per argument then 'is' can map to equals where this only applied to before[0] and not after[0]
@@ -195,7 +199,12 @@ knowledgeModule({
     contents: tests,
     checks: {
       objects: [
-        'formulas',
+        { 
+          property: 'formulas',
+          check: [
+            { property: () => true, check: ['name', 'formula', 'equality'] },
+          ],
+        },
       ],
       context: [
         defaultContextCheck(),

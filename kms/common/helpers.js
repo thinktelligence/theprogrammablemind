@@ -283,7 +283,6 @@ function defaultContextCheck({marker, extra = [], exported = false} = {}) {
   if (marker) {
     match = ({context}) => context.marker == marker
   } else {
-    match = () => true
   }
   return {
     marker,

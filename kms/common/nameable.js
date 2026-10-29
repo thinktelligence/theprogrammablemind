@@ -190,7 +190,9 @@ knowledgeModule( {
             context: [
               defaultContextCheck({ extra: ['pullFromContext'] }),
             ],
-            objects: ['mentioned', { km: 'stm' }],
+            objects: [
+              { km: 'stm' }
+            ],
           },
     include: {
       words: [ "peter james chunkington", "banana" ],
