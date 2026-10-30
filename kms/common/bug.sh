@@ -1110,4 +1110,4 @@ node time -q 'bob is 23 years old\nis bob 23 years old' -g -d
 are 24 to 30 years old
 under 20 years old is a youth ...
 
-
+node reminders -q 'remind me to go to regina\nremind me to go to saskatoon\nmonday at 10 am\ntuesday at 9 am' -g -d
