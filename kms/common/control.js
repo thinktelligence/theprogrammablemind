@@ -4,6 +4,9 @@ const tests = require('./control.test.json')
 function initializer({config}) {
   config.addArgs((args) => ({
     callOnce: async (args, tag, condition) => {
+      if (args.context.control?.seen[tag]) {
+        return false
+      }
       if (await condition(args)) {
         const { context } = args
 
@@ -11,9 +14,6 @@ function initializer({config}) {
           context.control = {
             seen: {},
           }
-        }
-        if (context.control.seen[tag]) {
-          return false
         }
         context.control.seen[tag] = true
 

@@ -142,7 +142,10 @@ function getAsk(config) {
 
         const semanticsr = ask.semanticsr || []
         if (semanticsr.length == 0) {
-          semanticsr.push({ match: ask.matchr, apply: ask.applyr })
+          semanticsr.push({ 
+            match: (args) => args.callOnce(args, 'asking.matchr', ask.matchr),
+            apply: ask.applyr 
+          })
         }
         
         for (const semantic of semanticsr) {

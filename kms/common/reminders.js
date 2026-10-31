@@ -80,6 +80,7 @@ function query(missing, reminder_id) {
         await api.update({ id: item.id, text })
       } else {
         const item = api.missing(missing, reminder_id)
+        context.topLevel = false
         await api.update({ id: item.id, dateTimeSelector: context, dateTimeSelectorText: await gp(context) })
       }
     }
