@@ -17,7 +17,7 @@ knowledgeModule({
   includes: [dimension],
 
   module,
-  description: 'Compass dimension',
+  description: 'Compass directions',
   test: {
     name: './compass.test.json',
     contents: compass_tests,
