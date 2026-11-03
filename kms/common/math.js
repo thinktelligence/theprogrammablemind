@@ -91,8 +91,6 @@ const config = {
   bridges: [
     { 
       id: "mathematicalExpression",
-      // isA: ['queryable', 'theAble'],
-      //isA: ['concept', 'number'],
       isA: ['concept'],
     },
     { 
