@@ -255,7 +255,7 @@ function roundTo(num, decimals = 2) {
 }
 
 async function handleDistance(args, distance) {
-  const {objects, fragments, e, say, gp} = args
+  const {objects, fragments, e, say, gp, toEValue} = args
   if (!distance) {
     distance = args.context
   }
@@ -263,7 +263,7 @@ async function handleDistance(args, distance) {
   try {
     const result = await e(instantiation, where())
     objects.runCommand = true
-    objects.current.distance = result.evalue.amount.evalue.evalue
+    objects.current.distance = toEValue(result.evalue.amount)
   } catch (e) {
     say(`Don't know how to interpret ${await gp(distance)} in meters`)
   }
@@ -794,11 +794,11 @@ function expectDistanceForMove(args) {
   // TODO save id for recalibration
   args.config.addSemantic({
     match: ({context, isA}) => isA(context.marker, 'quantity') && !isA(context.unit.marker, 'unitPerUnit'),
-    apply: async ({context, objects, fragments, e}) => {
+    apply: async ({context, objects, fragments, e, toEValue}) => {
       const instantiation = await fragments("quantity in meters", { quantity: context })
       const result = await e(instantiation, where())
       objects.runCommand = true
-      objects.current.distance = result.evalue.amount.evalue.evalue
+      objects.current.distance = toEValue(result.evalue.amount)
     }
   })
 }
@@ -858,11 +858,11 @@ const template = {
 
       args.config.addSemantic({
         match: ({context, isA}) => isA(context.marker, 'quantity') && isA(context.unit?.marker, 'unitPerUnit'),
-        apply: async ({context, objects, api, gr, fragments, e, say}) => {
+        apply: async ({context, objects, api, gr, toEValue, fragments, e, say}) => {
           // send a command to the drone
           const instantiation = await fragments("quantity in meters per second", { quantity: context })
           const result = await e(instantiation, where())
-          const desired_speed = result.evalue.amount.evalue.evalue
+          const desired_speed = toEValue(result.evalue.amount)
           objects.runCommand = true
           objects.current.speed = desired_speed
           objects.current.speedUnitsOfUser = context.unit

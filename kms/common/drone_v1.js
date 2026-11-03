@@ -373,10 +373,10 @@ function expectDistanceForCalibration(args) {
   args.config.addSemantic({
     oneShot: true,
     match: ({context, isA, objects}) => isA(context.marker, 'quantity') && !isA(context.unit.marker, 'unitPerUnit') && objects.calibration.startTime,
-    apply: async ({context, objects, fragments, e}) => {
+    apply: async ({context, objects, fragments, toEValue, e}) => {
       const instantiation = await fragments("quantity in meters", { quantity: context })
       const result = await e(instantiation, where())
-      objects.calibration.distance = result.evalue.amount.evalue.evalue
+      objects.calibration.distance = toEValue(result.evalue.amount)
     }
   })
 }
@@ -385,11 +385,11 @@ function expectDistanceForMove(args) {
   // TODO save id for recalibration
   args.config.addSemantic({
     match: ({context, isA}) => isA(context.marker, 'quantity') && !isA(context.unit.marker, 'unitPerUnit'),
-    apply: async ({context, objects, fragments, e}) => {
+    apply: async ({context, objects, toEValue, fragments, e}) => {
       const instantiation = await fragments("quantity in meters", { quantity: context })
       const result = await e(instantiation, where())
       objects.runCommand = true
-      objects.current.distance = result.evalue.amount.evalue.evalue
+      objects.current.distance = toEValue(result.evalue.amount)
     }
   })
 }
@@ -435,11 +435,11 @@ const template = {
 
       args.config.addSemantic({
         match: ({context, isA}) => isA(context.marker, 'quantity') && isA(context.unit.marker, 'unitPerUnit'),
-        apply: async ({context, objects, api, fragments, e}) => {
+        apply: async ({context, objects, toEValue, api, fragments, e}) => {
           // send a command to the drone
           const instantiation = await fragments("quantity in meters per second", { quantity: context })
           const result = await e(instantiation, where())
-          const desired_speed = result.evalue.amount.evalue.evalue
+          const desired_speed = toEValue(result.evalue.amount)
           const desired_power = objects.current.power * (desired_speed / objects.calibration.speed)
           objects.runCommand = true
           objects.current.power = desired_power 

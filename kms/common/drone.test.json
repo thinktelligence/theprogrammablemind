@@ -1323665,10 +1323665,52 @@
             "default": true,
             "evalue": {
               "amount": {
-                "evalue": {
+                "dead": true,
+                "evaluate": true,
+                "evalue": 33.9993,
+                "interpolate": [
+                  {
+                    "property": "x"
+                  },
+                  {
+                    "property": "operator"
+                  },
+                  {
+                    "property": "y"
+                  }
+                ],
+                "isResponse": true,
+                "level": 1,
+                "marker": "divideByExpression",
+                "number": "one",
+                "operator": {
+                  "level": 0,
+                  "marker": "divideByOperator",
+                  "range": {
+                    "end": 24,
+                    "start": 24
+                  },
+                  "text": "/",
+                  "value": "divideByOperator",
+                  "word": "/"
+                },
+                "range": {
+                  "end": 27,
+                  "start": 10
+                },
+                "text": "radians * 180 / pi",
+                "touchedBy": [
+                  "drone#call5",
+                  "drone#call4"
+                ],
+                "types": [
+                  "divideByExpression"
+                ],
+                "value": null,
+                "word": "/",
+                "x": {
                   "dead": true,
                   "evaluate": true,
-                  "evalue": 33.9993,
                   "interpolate": [
                     {
                       "property": "x"
@@ -1323682,125 +1323724,81 @@
                   ],
                   "isResponse": true,
                   "level": 1,
-                  "marker": "divideByExpression",
+                  "marker": "timesExpression",
                   "number": "one",
                   "operator": {
                     "level": 0,
-                    "marker": "divideByOperator",
+                    "marker": "timesOperator",
                     "range": {
-                      "end": 24,
-                      "start": 24
+                      "end": 18,
+                      "start": 18
                     },
-                    "text": "/",
-                    "value": "divideByOperator",
-                    "word": "/"
+                    "text": "*",
+                    "value": "timesOperator",
+                    "word": "*"
                   },
                   "range": {
-                    "end": 27,
+                    "end": 22,
                     "start": 10
                   },
-                  "text": "radians * 180 / pi",
-                  "touchedBy": [
-                    "drone#call5",
-                    "drone#call4"
-                  ],
+                  "text": "radians * 180",
                   "types": [
-                    "divideByExpression"
+                    "expression",
+                    "listable",
+                    "queryable",
+                    "theAble",
+                    "timesExpression"
                   ],
                   "value": null,
-                  "word": "/",
+                  "word": "*",
                   "x": {
                     "dead": true,
-                    "evaluate": true,
-                    "interpolate": [
-                      {
-                        "property": "x"
-                      },
-                      {
-                        "property": "operator"
-                      },
-                      {
-                        "property": "y"
-                      }
-                    ],
-                    "isResponse": true,
-                    "level": 1,
-                    "marker": "timesExpression",
-                    "number": "one",
-                    "operator": {
-                      "level": 0,
-                      "marker": "timesOperator",
-                      "range": {
-                        "end": 18,
-                        "start": 18
-                      },
-                      "text": "*",
-                      "value": "timesOperator",
-                      "word": "*"
-                    },
+                    "dimension": "angle",
+                    "level": 0,
+                    "marker": "radian",
+                    "number": "many",
                     "range": {
-                      "end": 22,
+                      "end": 16,
                       "start": 10
                     },
-                    "text": "radians * 180",
+                    "text": "radians",
                     "types": [
-                      "expression",
-                      "listable",
-                      "queryable",
-                      "theAble",
-                      "timesExpression"
+                      "radian"
                     ],
-                    "value": null,
-                    "word": "*",
-                    "x": {
-                      "dead": true,
-                      "dimension": "angle",
-                      "level": 0,
-                      "marker": "radian",
-                      "number": "many",
-                      "range": {
-                        "end": 16,
-                        "start": 10
-                      },
-                      "text": "radians",
-                      "types": [
-                        "radian"
-                      ],
-                      "value": "radian",
-                      "word": "radians"
-                    },
-                    "y": {
-                      "isInstance": true,
-                      "level": 0,
-                      "marker": "integer",
-                      "range": {
-                        "end": 22,
-                        "start": 20
-                      },
-                      "text": "180",
-                      "types": [
-                        "integer"
-                      ],
-                      "value": 180,
-                      "word": "180"
-                    }
+                    "value": "radian",
+                    "word": "radians"
                   },
                   "y": {
-                    "integer": "many",
                     "isInstance": true,
                     "level": 0,
                     "marker": "integer",
                     "range": {
-                      "end": 27,
-                      "start": 26
+                      "end": 22,
+                      "start": 20
                     },
-                    "text": "pi",
+                    "text": "180",
                     "types": [
                       "integer"
                     ],
-                    "value": 3.1415926,
-                    "word": "pi"
+                    "value": 180,
+                    "word": "180"
                   }
+                },
+                "y": {
+                  "integer": "many",
+                  "isInstance": true,
+                  "level": 0,
+                  "marker": "integer",
+                  "range": {
+                    "end": 27,
+                    "start": 26
+                  },
+                  "text": "pi",
+                  "types": [
+                    "integer"
+                  ],
+                  "value": 3.1415926,
+                  "word": "pi"
                 }
               },
               "level": 1,
@@ -1324055,8 +1324053,9 @@
         "word": "is"
       }
     ],
+    "developerTest": false,
     "generatedParenthesized": [
-      "(((((0.5934) (radians)) in (degrees)) is ((((33.9993)) (degrees)))))"
+      "(((((0.5934) (radians)) in (degrees)) is (((33.9993) (degrees)))))"
     ],
     "metadata": {
       "opChoices": [
@@ -1324372,7 +1324371,7 @@
             "centimeter": [
               {
                 "equality": {
-                  "context_id": 10197,
+                  "context_id": 1210,
                   "context_index": 1,
                   "dead": true,
                   "left": {
@@ -1324400,7 +1324399,7 @@
                     "start": 0
                   },
                   "right": {
-                    "context_id": 10190,
+                    "context_id": 1203,
                     "context_index": 1,
                     "dead": true,
                     "default": true,
@@ -1324487,7 +1324486,7 @@
                   "word": "="
                 },
                 "formula": {
-                  "context_id": 10190,
+                  "context_id": 1203,
                   "context_index": 1,
                   "dead": true,
                   "default": true,
@@ -1325007,7 +1325006,7 @@
               },
               {
                 "equality": {
-                  "context_id": 10209,
+                  "context_id": 1222,
                   "context_index": 1,
                   "dead": true,
                   "left": {
@@ -1325035,7 +1325034,7 @@
                     "start": 0
                   },
                   "right": {
-                    "context_id": 10202,
+                    "context_id": 1215,
                     "context_index": 1,
                     "dead": true,
                     "default": true,
@@ -1325122,7 +1325121,7 @@
                   "word": "="
                 },
                 "formula": {
-                  "context_id": 10202,
+                  "context_id": 1215,
                   "context_index": 1,
                   "dead": true,
                   "default": true,
@@ -1325433,7 +1325432,7 @@
               },
               {
                 "equality": {
-                  "context_id": 10241,
+                  "context_id": 1254,
                   "context_index": 1,
                   "dead": true,
                   "left": {
@@ -1325461,7 +1325460,7 @@
                     "start": 0
                   },
                   "right": {
-                    "context_id": 10238,
+                    "context_id": 1251,
                     "context_index": 1,
                     "dead": true,
                     "default": true,
@@ -1325548,7 +1325547,7 @@
                   "word": "="
                 },
                 "formula": {
-                  "context_id": 10238,
+                  "context_id": 1251,
                   "context_index": 1,
                   "dead": true,
                   "default": true,
@@ -1325862,7 +1325861,7 @@
               },
               {
                 "equality": {
-                  "context_id": 10193,
+                  "context_id": 1206,
                   "context_index": 1,
                   "dead": true,
                   "left": {
@@ -1325890,7 +1325889,7 @@
                     "start": 0
                   },
                   "right": {
-                    "context_id": 10178,
+                    "context_id": 1191,
                     "context_index": 1,
                     "dead": true,
                     "default": true,
@@ -1325977,7 +1325976,7 @@
                   "word": "="
                 },
                 "formula": {
-                  "context_id": 10178,
+                  "context_id": 1191,
                   "context_index": 1,
                   "dead": true,
                   "default": true,
@@ -1326612,7 +1326611,7 @@
               },
               {
                 "equality": {
-                  "context_id": 10225,
+                  "context_id": 1238,
                   "context_index": 1,
                   "dead": true,
                   "left": {
@@ -1326640,7 +1326639,7 @@
                     "start": 0
                   },
                   "right": {
-                    "context_id": 10214,
+                    "context_id": 1227,
                     "context_index": 1,
                     "dead": true,
                     "default": true,
@@ -1326727,7 +1326726,7 @@
                   "word": "="
                 },
                 "formula": {
-                  "context_id": 10214,
+                  "context_id": 1227,
                   "context_index": 1,
                   "dead": true,
                   "default": true,
@@ -1326829,7 +1326828,7 @@
               },
               {
                 "equality": {
-                  "context_id": 10229,
+                  "context_id": 1242,
                   "context_index": 1,
                   "dead": true,
                   "left": {
@@ -1326857,7 +1326856,7 @@
                     "start": 0
                   },
                   "right": {
-                    "context_id": 10222,
+                    "context_id": 1235,
                     "context_index": 1,
                     "dead": true,
                     "default": true,
@@ -1326944,7 +1326943,7 @@
                   "word": "="
                 },
                 "formula": {
-                  "context_id": 10222,
+                  "context_id": 1235,
                   "context_index": 1,
                   "dead": true,
                   "default": true,
@@ -1327046,7 +1327045,7 @@
               },
               {
                 "equality": {
-                  "context_id": 10233,
+                  "context_id": 1246,
                   "context_index": 1,
                   "dead": true,
                   "left": {
@@ -1327074,7 +1327073,7 @@
                     "start": 0
                   },
                   "right": {
-                    "context_id": 10230,
+                    "context_id": 1243,
                     "context_index": 1,
                     "dead": true,
                     "default": true,
@@ -1327161,7 +1327160,7 @@
                   "word": "="
                 },
                 "formula": {
-                  "context_id": 10230,
+                  "context_id": 1243,
                   "context_index": 1,
                   "dead": true,
                   "default": true,
@@ -1328102,7 +1328101,7 @@
               },
               {
                 "equality": {
-                  "context_id": 10153,
+                  "context_id": 1166,
                   "context_index": 1,
                   "dead": true,
                   "left": {
@@ -1328130,7 +1328129,7 @@
                     "start": 0
                   },
                   "right": {
-                    "context_id": 10129,
+                    "context_id": 1143,
                     "context_index": 1,
                     "dead": true,
                     "default": true,
@@ -1328217,7 +1328216,7 @@
                   "word": "="
                 },
                 "formula": {
-                  "context_id": 10129,
+                  "context_id": 1143,
                   "context_index": 1,
                   "dead": true,
                   "default": true,
@@ -1328529,7 +1328528,7 @@
               },
               {
                 "equality": {
-                  "context_id": 10165,
+                  "context_id": 1178,
                   "context_index": 1,
                   "dead": true,
                   "left": {
@@ -1328557,7 +1328556,7 @@
                     "start": 0
                   },
                   "right": {
-                    "context_id": 10158,
+                    "context_id": 1171,
                     "context_index": 1,
                     "dead": true,
                     "default": true,
@@ -1328644,7 +1328643,7 @@
                   "word": "="
                 },
                 "formula": {
-                  "context_id": 10158,
+                  "context_id": 1171,
                   "context_index": 1,
                   "dead": true,
                   "default": true,
@@ -1328746,7 +1328745,7 @@
               },
               {
                 "equality": {
-                  "context_id": 10189,
+                  "context_id": 1202,
                   "context_index": 1,
                   "dead": true,
                   "left": {
@@ -1328774,7 +1328773,7 @@
                     "start": 0
                   },
                   "right": {
-                    "context_id": 10186,
+                    "context_id": 1199,
                     "context_index": 1,
                     "dead": true,
                     "default": true,
@@ -1328861,7 +1328860,7 @@
                   "word": "="
                 },
                 "formula": {
-                  "context_id": 10186,
+                  "context_id": 1199,
                   "context_index": 1,
                   "dead": true,
                   "default": true,
@@ -1329175,7 +1329174,7 @@
             "inch": [
               {
                 "equality": {
-                  "context_id": 10221,
+                  "context_id": 1234,
                   "context_index": 1,
                   "dead": true,
                   "left": {
@@ -1329203,7 +1329202,7 @@
                     "start": 0
                   },
                   "right": {
-                    "context_id": 10218,
+                    "context_id": 1231,
                     "context_index": 1,
                     "dead": true,
                     "default": true,
@@ -1329290,7 +1329289,7 @@
                   "word": "="
                 },
                 "formula": {
-                  "context_id": 10218,
+                  "context_id": 1231,
                   "context_index": 1,
                   "dead": true,
                   "default": true,
@@ -1330767,7 +1330766,7 @@
               },
               {
                 "equality": {
-                  "context_id": 10285,
+                  "context_id": 1298,
                   "context_index": 1,
                   "dead": true,
                   "left": {
@@ -1330795,7 +1330794,7 @@
                     "start": 0
                   },
                   "right": {
-                    "context_id": 10274,
+                    "context_id": 1287,
                     "context_index": 1,
                     "dead": true,
                     "default": true,
@@ -1330882,7 +1330881,7 @@
                   "word": "="
                 },
                 "formula": {
-                  "context_id": 10274,
+                  "context_id": 1287,
                   "context_index": 1,
                   "dead": true,
                   "default": true,
@@ -1331195,7 +1331194,7 @@
               },
               {
                 "equality": {
-                  "context_id": 10201,
+                  "context_id": 1214,
                   "context_index": 1,
                   "dead": true,
                   "left": {
@@ -1331223,7 +1331222,7 @@
                     "start": 0
                   },
                   "right": {
-                    "context_id": 10194,
+                    "context_id": 1207,
                     "context_index": 1,
                     "dead": true,
                     "default": true,
@@ -1331310,7 +1331309,7 @@
                   "word": "="
                 },
                 "formula": {
-                  "context_id": 10194,
+                  "context_id": 1207,
                   "context_index": 1,
                   "dead": true,
                   "default": true,
@@ -1331412,7 +1331411,7 @@
               },
               {
                 "equality": {
-                  "context_id": 10213,
+                  "context_id": 1226,
                   "context_index": 1,
                   "dead": true,
                   "left": {
@@ -1331440,7 +1331439,7 @@
                     "start": 0
                   },
                   "right": {
-                    "context_id": 10210,
+                    "context_id": 1223,
                     "context_index": 1,
                     "dead": true,
                     "default": true,
@@ -1331527,7 +1331526,7 @@
                   "word": "="
                 },
                 "formula": {
-                  "context_id": 10210,
+                  "context_id": 1223,
                   "context_index": 1,
                   "dead": true,
                   "default": true,
@@ -1332047,7 +1332046,7 @@
               },
               {
                 "equality": {
-                  "context_id": 10237,
+                  "context_id": 1250,
                   "context_index": 1,
                   "dead": true,
                   "left": {
@@ -1332075,7 +1332074,7 @@
                     "start": 0
                   },
                   "right": {
-                    "context_id": 10226,
+                    "context_id": 1239,
                     "context_index": 1,
                     "dead": true,
                     "default": true,
@@ -1332162,7 +1332161,7 @@
                   "word": "="
                 },
                 "formula": {
-                  "context_id": 10226,
+                  "context_id": 1239,
                   "context_index": 1,
                   "dead": true,
                   "default": true,
@@ -1332583,7 +1332582,7 @@
               },
               {
                 "equality": {
-                  "context_id": 10269,
+                  "context_id": 1282,
                   "context_index": 1,
                   "dead": true,
                   "left": {
@@ -1332611,7 +1332610,7 @@
                     "start": 0
                   },
                   "right": {
-                    "context_id": 10266,
+                    "context_id": 1279,
                     "context_index": 1,
                     "dead": true,
                     "default": true,
@@ -1332698,7 +1332697,7 @@
                   "word": "="
                 },
                 "formula": {
-                  "context_id": 10266,
+                  "context_id": 1279,
                   "context_index": 1,
                   "dead": true,
                   "default": true,
@@ -1333009,7 +1333008,7 @@
               },
               {
                 "equality": {
-                  "context_id": 10281,
+                  "context_id": 1294,
                   "context_index": 1,
                   "dead": true,
                   "left": {
@@ -1333037,7 +1333036,7 @@
                     "start": 0
                   },
                   "right": {
-                    "context_id": 10278,
+                    "context_id": 1291,
                     "context_index": 1,
                     "dead": true,
                     "default": true,
@@ -1333124,7 +1333123,7 @@
                   "word": "="
                 },
                 "formula": {
-                  "context_id": 10278,
+                  "context_id": 1291,
                   "context_index": 1,
                   "dead": true,
                   "default": true,
@@ -1334174,7 +1334173,7 @@
               },
               {
                 "equality": {
-                  "context_id": 10273,
+                  "context_id": 1286,
                   "context_index": 1,
                   "dead": true,
                   "left": {
@@ -1334202,7 +1334201,7 @@
                     "start": 0
                   },
                   "right": {
-                    "context_id": 10262,
+                    "context_id": 1275,
                     "context_index": 1,
                     "dead": true,
                     "default": true,
@@ -1334289,7 +1334288,7 @@
                   "word": "="
                 },
                 "formula": {
-                  "context_id": 10262,
+                  "context_id": 1275,
                   "context_index": 1,
                   "dead": true,
                   "default": true,
@@ -1334391,7 +1334390,7 @@
               },
               {
                 "equality": {
-                  "context_id": 10277,
+                  "context_id": 1290,
                   "context_index": 1,
                   "dead": true,
                   "left": {
@@ -1334419,7 +1334418,7 @@
                     "start": 0
                   },
                   "right": {
-                    "context_id": 10270,
+                    "context_id": 1283,
                     "context_index": 1,
                     "dead": true,
                     "default": true,
@@ -1334506,7 +1334505,7 @@
                   "word": "="
                 },
                 "formula": {
-                  "context_id": 10270,
+                  "context_id": 1283,
                   "context_index": 1,
                   "dead": true,
                   "default": true,
@@ -1334610,7 +1334609,7 @@
             "millimeter": [
               {
                 "equality": {
-                  "context_id": 10205,
+                  "context_id": 1218,
                   "context_index": 1,
                   "dead": true,
                   "left": {
@@ -1334638,7 +1334637,7 @@
                     "start": 0
                   },
                   "right": {
-                    "context_id": 10198,
+                    "context_id": 1211,
                     "context_index": 1,
                     "dead": true,
                     "default": true,
@@ -1334725,7 +1334724,7 @@
                   "word": "="
                 },
                 "formula": {
-                  "context_id": 10198,
+                  "context_id": 1211,
                   "context_index": 1,
                   "dead": true,
                   "default": true,
@@ -1335245,7 +1335244,7 @@
               },
               {
                 "equality": {
-                  "context_id": 10217,
+                  "context_id": 1230,
                   "context_index": 1,
                   "dead": true,
                   "left": {
@@ -1335273,7 +1335272,7 @@
                     "start": 0
                   },
                   "right": {
-                    "context_id": 10206,
+                    "context_id": 1219,
                     "context_index": 1,
                     "dead": true,
                     "default": true,
@@ -1335360,7 +1335359,7 @@
                   "word": "="
                 },
                 "formula": {
-                  "context_id": 10206,
+                  "context_id": 1219,
                   "context_index": 1,
                   "dead": true,
                   "default": true,
@@ -1335994,7 +1335993,7 @@
               },
               {
                 "equality": {
-                  "context_id": 10181,
+                  "context_id": 1194,
                   "context_index": 1,
                   "dead": true,
                   "left": {
@@ -1336022,7 +1336021,7 @@
                     "start": 0
                   },
                   "right": {
-                    "context_id": 10174,
+                    "context_id": 1187,
                     "context_index": 1,
                     "dead": true,
                     "default": true,
@@ -1336109,7 +1336108,7 @@
                   "word": "="
                 },
                 "formula": {
-                  "context_id": 10174,
+                  "context_id": 1187,
                   "context_index": 1,
                   "dead": true,
                   "default": true,
@@ -1336213,7 +1336212,7 @@
             "minute": [
               {
                 "equality": {
-                  "context_id": 10149,
+                  "context_id": 1162,
                   "context_index": 1,
                   "dead": true,
                   "left": {
@@ -1336241,7 +1336240,7 @@
                     "start": 0
                   },
                   "right": {
-                    "context_id": 10146,
+                    "context_id": 1159,
                     "context_index": 1,
                     "dead": true,
                     "default": true,
@@ -1336328,7 +1336327,7 @@
                   "word": "="
                 },
                 "formula": {
-                  "context_id": 10146,
+                  "context_id": 1159,
                   "context_index": 1,
                   "dead": true,
                   "default": true,
@@ -1336640,7 +1336639,7 @@
               },
               {
                 "equality": {
-                  "context_id": 10157,
+                  "context_id": 1170,
                   "context_index": 1,
                   "dead": true,
                   "left": {
@@ -1336668,7 +1336667,7 @@
                     "start": 0
                   },
                   "right": {
-                    "context_id": 10154,
+                    "context_id": 1167,
                     "context_index": 1,
                     "dead": true,
                     "default": true,
@@ -1336755,7 +1336754,7 @@
                   "word": "="
                 },
                 "formula": {
-                  "context_id": 10154,
+                  "context_id": 1167,
                   "context_index": 1,
                   "dead": true,
                   "default": true,
@@ -1337389,7 +1337388,7 @@
             "month": [
               {
                 "equality": {
-                  "context_id": 10145,
+                  "context_id": 1158,
                   "context_index": 1,
                   "dead": true,
                   "left": {
@@ -1337417,7 +1337416,7 @@
                     "start": 0
                   },
                   "right": {
-                    "context_id": 10140,
+                    "context_id": 1154,
                     "context_index": 1,
                     "dead": true,
                     "default": true,
@@ -1337504,7 +1337503,7 @@
                   "word": "="
                 },
                 "formula": {
-                  "context_id": 10140,
+                  "context_id": 1154,
                   "context_index": 1,
                   "dead": true,
                   "default": true,
@@ -1338140,7 +1338139,7 @@
               },
               {
                 "equality": {
-                  "context_id": 10161,
+                  "context_id": 1174,
                   "context_index": 1,
                   "dead": true,
                   "left": {
@@ -1338168,7 +1338167,7 @@
                     "start": 0
                   },
                   "right": {
-                    "context_id": 10150,
+                    "context_id": 1163,
                     "context_index": 1,
                     "dead": true,
                     "default": true,
@@ -1338255,7 +1338254,7 @@
                   "word": "="
                 },
                 "formula": {
-                  "context_id": 10150,
+                  "context_id": 1163,
                   "context_index": 1,
                   "dead": true,
                   "default": true,
@@ -1338567,7 +1338566,7 @@
               },
               {
                 "equality": {
-                  "context_id": 10177,
+                  "context_id": 1190,
                   "context_index": 1,
                   "dead": true,
                   "left": {
@@ -1338595,7 +1338594,7 @@
                     "start": 0
                   },
                   "right": {
-                    "context_id": 10170,
+                    "context_id": 1183,
                     "context_index": 1,
                     "dead": true,
                     "default": true,
@@ -1338682,7 +1338681,7 @@
                   "word": "="
                 },
                 "formula": {
-                  "context_id": 10170,
+                  "context_id": 1183,
                   "context_index": 1,
                   "dead": true,
                   "default": true,
@@ -1338994,7 +1338993,7 @@
               },
               {
                 "equality": {
-                  "context_id": 10185,
+                  "context_id": 1198,
                   "context_index": 1,
                   "dead": true,
                   "left": {
@@ -1339022,7 +1339021,7 @@
                     "start": 0
                   },
                   "right": {
-                    "context_id": 10182,
+                    "context_id": 1195,
                     "context_index": 1,
                     "dead": true,
                     "default": true,
@@ -1339109,7 +1339108,7 @@
                   "word": "="
                 },
                 "formula": {
-                  "context_id": 10182,
+                  "context_id": 1195,
                   "context_index": 1,
                   "dead": true,
                   "default": true,
@@ -1342934,10 +1342933,52 @@
                 "default": true,
                 "evalue": {
                   "amount": {
-                    "evalue": {
+                    "dead": true,
+                    "evaluate": true,
+                    "evalue": 33.9993,
+                    "interpolate": [
+                      {
+                        "property": "x"
+                      },
+                      {
+                        "property": "operator"
+                      },
+                      {
+                        "property": "y"
+                      }
+                    ],
+                    "isResponse": true,
+                    "level": 1,
+                    "marker": "divideByExpression",
+                    "number": "one",
+                    "operator": {
+                      "level": 0,
+                      "marker": "divideByOperator",
+                      "range": {
+                        "end": 24,
+                        "start": 24
+                      },
+                      "text": "/",
+                      "value": "divideByOperator",
+                      "word": "/"
+                    },
+                    "range": {
+                      "end": 27,
+                      "start": 10
+                    },
+                    "text": "radians * 180 / pi",
+                    "touchedBy": [
+                      "drone#call5",
+                      "drone#call4"
+                    ],
+                    "types": [
+                      "divideByExpression"
+                    ],
+                    "value": null,
+                    "word": "/",
+                    "x": {
                       "dead": true,
                       "evaluate": true,
-                      "evalue": 33.9993,
                       "interpolate": [
                         {
                           "property": "x"
@@ -1342951,125 +1342992,81 @@
                       ],
                       "isResponse": true,
                       "level": 1,
-                      "marker": "divideByExpression",
+                      "marker": "timesExpression",
                       "number": "one",
                       "operator": {
                         "level": 0,
-                        "marker": "divideByOperator",
+                        "marker": "timesOperator",
                         "range": {
-                          "end": 24,
-                          "start": 24
+                          "end": 18,
+                          "start": 18
                         },
-                        "text": "/",
-                        "value": "divideByOperator",
-                        "word": "/"
+                        "text": "*",
+                        "value": "timesOperator",
+                        "word": "*"
                       },
                       "range": {
-                        "end": 27,
+                        "end": 22,
                         "start": 10
                       },
-                      "text": "radians * 180 / pi",
-                      "touchedBy": [
-                        "drone#call5",
-                        "drone#call4"
-                      ],
+                      "text": "radians * 180",
                       "types": [
-                        "divideByExpression"
+                        "expression",
+                        "listable",
+                        "queryable",
+                        "theAble",
+                        "timesExpression"
                       ],
                       "value": null,
-                      "word": "/",
+                      "word": "*",
                       "x": {
                         "dead": true,
-                        "evaluate": true,
-                        "interpolate": [
-                          {
-                            "property": "x"
-                          },
-                          {
-                            "property": "operator"
-                          },
-                          {
-                            "property": "y"
-                          }
-                        ],
-                        "isResponse": true,
-                        "level": 1,
-                        "marker": "timesExpression",
-                        "number": "one",
-                        "operator": {
-                          "level": 0,
-                          "marker": "timesOperator",
-                          "range": {
-                            "end": 18,
-                            "start": 18
-                          },
-                          "text": "*",
-                          "value": "timesOperator",
-                          "word": "*"
-                        },
+                        "dimension": "angle",
+                        "level": 0,
+                        "marker": "radian",
+                        "number": "many",
                         "range": {
-                          "end": 22,
+                          "end": 16,
                           "start": 10
                         },
-                        "text": "radians * 180",
+                        "text": "radians",
                         "types": [
-                          "expression",
-                          "listable",
-                          "queryable",
-                          "theAble",
-                          "timesExpression"
+                          "radian"
                         ],
-                        "value": null,
-                        "word": "*",
-                        "x": {
-                          "dead": true,
-                          "dimension": "angle",
-                          "level": 0,
-                          "marker": "radian",
-                          "number": "many",
-                          "range": {
-                            "end": 16,
-                            "start": 10
-                          },
-                          "text": "radians",
-                          "types": [
-                            "radian"
-                          ],
-                          "value": "radian",
-                          "word": "radians"
-                        },
-                        "y": {
-                          "isInstance": true,
-                          "level": 0,
-                          "marker": "integer",
-                          "range": {
-                            "end": 22,
-                            "start": 20
-                          },
-                          "text": "180",
-                          "types": [
-                            "integer"
-                          ],
-                          "value": 180,
-                          "word": "180"
-                        }
+                        "value": "radian",
+                        "word": "radians"
                       },
                       "y": {
-                        "integer": "many",
                         "isInstance": true,
                         "level": 0,
                         "marker": "integer",
                         "range": {
-                          "end": 27,
-                          "start": 26
+                          "end": 22,
+                          "start": 20
                         },
-                        "text": "pi",
+                        "text": "180",
                         "types": [
                           "integer"
                         ],
-                        "value": 3.1415926,
-                        "word": "pi"
+                        "value": 180,
+                        "word": "180"
                       }
+                    },
+                    "y": {
+                      "integer": "many",
+                      "isInstance": true,
+                      "level": 0,
+                      "marker": "integer",
+                      "range": {
+                        "end": 27,
+                        "start": 26
+                      },
+                      "text": "pi",
+                      "types": [
+                        "integer"
+                      ],
+                      "value": 3.1415926,
+                      "word": "pi"
                     }
                   },
                   "level": 1,

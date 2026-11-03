@@ -148,7 +148,8 @@ class API {
         marker: 'quantity',
         level: 1,
         unit: evalue.to,
-        amount: { evalue: evalue.value, paraphrase: undefined }
+        // amount: { evalue: evalue.value, paraphrase: undefined }
+        amount: evalue.value,
       }
     })
     if (evalues.length > 1) {
