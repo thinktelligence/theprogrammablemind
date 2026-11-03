@@ -652,6 +652,19 @@ const config = {
   ],
   semantics: [
     {
+      notes: 'unify for propertiesMarkers -> 23 years old is 22 to 50 years old',
+      where: where(),
+      match: ({context, isA, debug}) => {
+        // debug.breakAt('time#call32')
+        return context.marker == 'unify' && 
+          isA(context.terms[0].marker, 'propertyMarker') &&
+          context.terms?.every((term) => term.marker == context.terms[0].marker)
+      },
+      apply: async ({ context, resolveEvaluate, unify }) => {
+        resolveEvaluate(context, await unify(...context.terms.map((term) => term.quantity)))
+      }
+    },
+    {
       notes: 'unify for properties -> the age of who',
       where: where(),
       match: ({context, isA}) => 

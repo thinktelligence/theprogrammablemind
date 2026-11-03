@@ -906,6 +906,10 @@
       ],
       "semantics": [
         {
+          "match": "({context, isA, debug}) => {\n        // debug.breakAt('time#call32')\n        return context.marker == 'unify' && \n          isA(context.terms[0].marker, 'propertyMarker') &&\n          context.terms?.every((term) => term.marker == context.terms[0].marker)\n      }",
+          "apply": "async ({ context, resolveEvaluate, unify }) => {\n        resolveEvaluate(context, await unify(...context.terms.map((term) => term.quantity)))\n      }"
+        },
+        {
           "match": "({context, isA}) => \n        context.marker == 'unify' && \n        context.terms?.some((term) => {\n          return term.objects && isA(term.objects[0], 'property') && term.query\n        })",
           "apply": "async (args) => {\n        const {context, km, callId, api, resolveEvaluate} = args\n        let value, property, object\n        if (context.terms[0].query) {\n          property = context.terms[0].objects[0]\n          object = context.terms[0].objects[1]\n          value = context.terms[1]\n        } else {\n          property = context.terms[1].objects[0]\n          object = context.terms[1].objects[1]\n          value = context.terms[0]\n        }\n        const pattern = {\n          marker: 'propertyRelation',\n          object,\n          property,\n          value,\n        }\n        const relations = await api.relation_unify(pattern, ['object', 'property', 'value'])\n\n        relations.forEach((r) => {\n          r.objectPropertyValueStyle = {\n            template: \"the property of object\",\n            mapping: {\n              object: 'object',\n              property: 'property',\n            }\n          }\n        })\n\n        resolveEvaluate(context, relations)\n      }"
         },
@@ -2565,12 +2569,16 @@
       ],
       "semantics": [
         {
-          "notes": "unify for properties -> the age of who",
+          "notes": "unify for propertiesMarkers -> 23 years old is 22 to 50 years old",
           "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:656"
         },
         {
+          "notes": "unify for properties -> the age of who",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:669"
+        },
+        {
           "notes": "unify for properties -> whose age",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:697"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:710"
         },
         {
           "notes": "getter for relation based verbs"
@@ -2588,41 +2596,41 @@
           "notes": "semantic for setting value with constraint"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:880",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:893",
           "notes": "how deep is the pool",
           "priority": -1
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:907"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:920"
         },
         {
           "notes": "wants is xfx between wanter and wantee",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:918",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:931",
           "priority": -1
         },
         {
           "notes": "marking something as readonly",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:933"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:946"
         },
         {
           "notes": "crew members. evaluate a concepts to get instances",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:957"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:970"
         },
         {
           "notes": "greg has eyes",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:982"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:995"
         },
         {
           "notes": "greg has eyes?",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:1002"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:1015"
         },
         {
           "notes": "set the property of an object",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:1029"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:1042"
         },
         {
           "notes": "get/evaluate a property",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:1080"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/properties.js:1093"
         }
       ]
     },

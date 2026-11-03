@@ -114,6 +114,13 @@ const config = {
   ],
 
   semantics: [
+    {
+      where: where(),
+      match: ({context, debug, isA}) => context.marker == 'unify' && context.terms.every((term) => term.isInstance && isA(term, 'number')),
+      apply: ({context, resolveEvaluate}) => {
+        resolveEvaluate(context, context.terms[0].value == context.terms[1].value)
+      }
+    },
   ],
 };
 
