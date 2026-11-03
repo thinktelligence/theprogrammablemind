@@ -339,12 +339,13 @@ const template = {
     {
       semantics: [
         {
+          where: where(),
           match: ({context, isA, debug}) => {
             return context.marker == 'unify' && 
               context.terms.every((term) => isA(term, 'quantity')) &&
               context.terms.every((term) => term.instance)
           },
-          apply: async ({context, e, unify, toEValue}) => {
+          apply: async ({context, e, unify, resolveEvaluate, toEValue}) => {
             const t1 = context.terms[0]
             const t2 = context.terms[1]
             if (t1.propertyType !== t2.propertyType) {
@@ -352,11 +353,7 @@ const template = {
             }
             const convert = await e({ marker: 'convertToUnits', from: t2, to: t1.unit }, where())
             const t2InT1Units = await toEValue(convert)
-            // debug.coxunter('greg29')
-            if (!await unify(t1.amount, await t2InT1Units.amount)) {
-              // debugger
-            }
-            // debugger
+            resolveEvaluate(context, await unify(t1.amount, await t2InT1Units.amount))
           }
         },
       ],
