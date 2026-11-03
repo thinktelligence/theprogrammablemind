@@ -350,9 +350,6 @@ const template = {
             if (t1.propertyType !== t2.propertyType) {
               return
             }
-            if (t1[t1.propertyType].marker !== t2[t2.propertyType].marker) {
-              return
-            }
             const convert = await e({ marker: 'convertToUnits', from: t2, to: t1.unit }, where())
             const t2InT1Units = await toEValue(convert)
             // debug.coxunter('greg29')
