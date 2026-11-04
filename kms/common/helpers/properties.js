@@ -497,8 +497,12 @@ class API {
 
     for (const arg of args) {
       const u = await this.args.unify(template[arg], value[arg])
-      if (u) {
-        continue
+      if (u !== undefined) {
+        if (u) {
+          continue
+        } else {
+          return false
+        }
       }
       if (!matches(template[arg], value[arg])) {
         return null

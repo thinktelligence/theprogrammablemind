@@ -178,16 +178,29 @@ const config = {
           }
 
           const relations = await api.relation_unify(pattern, ['object', 'property', 'value'])
-
-          relations.forEach((r) => {
-            r.objectPropertyValueStyle = {
-              template: "object is isPropertyValue",
-              mapping: {
-                object: 'object',
-                isPropertyValue: 'value',
-              }
+        
+          if (relations.length == 0) {
+            const r = {
+              objectPropertyValueStyle: {
+                template: "nobody is isPropertyValue",
+                mapping: {
+                  isPropertyValue: 'value',
+                }
+              },
+              value,
             }
-          })
+            relations.push(r)
+          } else {
+            relations.forEach((r) => {
+              r.objectPropertyValueStyle = {
+                template: "object is isPropertyValue",
+                mapping: {
+                  object: 'object',
+                  isPropertyValue: 'value',
+                }
+              }
+            })
+          }
 
           resolveEvaluate(context, relations)
         } else {
@@ -1225,6 +1238,7 @@ const template = {
     { query: "object's property", isFragment: true, preserve: ['interpolate'] },
     { query: "object's property is value", isFragment: true, preserve: ['one.interpolate'] },
     { query: "object is isPropertyValue", isFragment: true }, // bob is 23 years old
+    { query: "nobody is isPropertyValue", isFragment: true }, // bob is 23 years old
     { query: "the property", isFragment: true },
   ],
 }

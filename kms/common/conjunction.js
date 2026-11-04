@@ -37,7 +37,7 @@ const config = {
           match: "same", 
           left: [ { pattern: '($type && context.isInstance == variables.isInstance && context.dead == variables.dead && contexts[0] !@<= contexts[-1].notConjunctableWith)' } ], 
           passthrough: true
-     }, 
+      }, 
       bridge: "{ ...operator, value: append(before, operator.value) }",
       where: where(),
       semantic: {

@@ -1094,7 +1094,12 @@ DONE node time -q 'bob is 23 years old\nwho is 23 years old' -g -d
 DONE node time -qn 27 -g -d
 DONE node time -q 'alice and bob are 23 years old\nthe age of who is 23 years old' -g -d
 DONE node time -q 'be brief\nalice and bob are 23 years old\nthe age of who is 23 years old' -g -d
+DONE node reminders -q 'remind me to go to regina\nremind me to go to saskatoon\nmonday at 10 am\ntuesday at 9 am' -g -d
 
+       
+WORKING node time -q 'bob is 24 years old\nwho is 23 years old' -g -d
+
+FUTURE
  1999  node inspect time -q 'whose property means the property of who\nwhose age' -g -d
  2000  node inspect time -q 'whose property means the property of who\nwhose property' -g -d
 node askfor -q 'ask for the gender of bob and alice\nmale and female\nwhat is the information' -g -d
