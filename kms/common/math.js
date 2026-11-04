@@ -81,6 +81,7 @@ const config = {
     "((number/* || mathematicalExpression/*) [minusOperator] (number/* || mathematicalExpression/*))",
     "((number/* || mathematicalExpression/*) [timesOperator] (number/* || mathematicalExpression/*))",
     "((number/* || mathematicalExpression/*) [divideByOperator|] (number/* || mathematicalExpression/*))",
+    "((number/*) [numberRange|to] (number/*))", 
     "([plusExpression|])", 
     "([minusExpression|])", 
     "([timesExpression|])", 
@@ -89,6 +90,18 @@ const config = {
     { pattern: "([y])", scope: "testing" },
   ],
   bridges: [
+    { 
+      id: "numberRange",
+      before: ['preposition'],
+      isA: ['number'],
+      bridge: `{
+        ...next(operator),
+        operator: operator,
+        from: before[0],
+        to: after[0],
+        interpolate: [{ property: 'from' }, { property: 'operator' }, { property: 'to' }]
+      }`,
+    },
     { 
       id: "mathematicalExpression",
       isA: ['concept'],

@@ -1146,6 +1146,7 @@ const template = {
             ...conjugateVerb('go'),
           ],
           check: defaultContextCheckProperties(['direction', 'distance', 'to', 'points']),
+
           bridge: `{ 
             ...next(operator), 
             distance: distance?, 
@@ -1308,6 +1309,13 @@ const template = {
           }
         },
       ],
+
+      associations: {
+        positive: [
+          { context: [['go', 0], ['toPoint', 0]], choose: 0 },
+        ]
+      },
+
       generators: [
         {
           match: ({context}) => context.marker == 'help' && !context.paraphrase && context.isResponse,

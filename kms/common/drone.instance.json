@@ -590,7 +590,7 @@
         },
         {
           "id": "turn",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/drone.js:1195",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/drone.js:1196",
           "isA": [
             "verb",
             "action",
@@ -630,7 +630,7 @@
         },
         {
           "id": "pause",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/drone.js:1254",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/drone.js:1255",
           "isA": [
             "verb"
           ],
@@ -811,7 +811,7 @@
         },
         {
           "id": "stop",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/drone.js:1299",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/drone.js:1300",
           "isA": [
             "verb"
           ],
@@ -822,6 +822,23 @@
           "semantic": "async ({context, objects, api, say}) => {\n            await api.stop()\n            await api.markCurrentPoint()\n          }"
         }
       ],
+      "associations": {
+        "positive": [
+          {
+            "context": [
+              [
+                "go",
+                0
+              ],
+              [
+                "toPoint",
+                0
+              ]
+            ],
+            "choose": 0
+          }
+        ]
+      },
       "generators": [
         {
           "match": "({context}) => context.marker == 'help' && !context.paraphrase && context.isResponse",
@@ -10558,7 +10575,7 @@
         },
         {
           "id": "turn",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/drone.js:1195",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/drone.js:1196",
           "isA": [
             "verb",
             "action",
@@ -10597,7 +10614,7 @@
         },
         {
           "id": "pause",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/drone.js:1254",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/drone.js:1255",
           "isA": [
             "verb"
           ],
@@ -10777,7 +10794,7 @@
         },
         {
           "id": "stop",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/drone.js:1299",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/drone.js:1300",
           "isA": [
             "verb"
           ],
@@ -10787,35 +10804,52 @@
           "bridge": "{ ...next(operator), object: after[0], interpolate: [{ context: operator }, { property: 'object' }] }"
         }
       ],
+      "associations": {
+        "positive": [
+          {
+            "context": [
+              [
+                "go",
+                0
+              ],
+              [
+                "toPoint",
+                0
+              ]
+            ],
+            "choose": 0
+          }
+        ]
+      },
       "generators": [
         {},
         {}
       ],
       "semantics": [
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/drone.js:1323"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/drone.js:1331"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/drone.js:1332"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/drone.js:1340"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/drone.js:1359"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/drone.js:1367"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/drone.js:1394"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/drone.js:1402"
         },
         {},
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/drone.js:1431"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/drone.js:1439"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/drone.js:1465"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/drone.js:1473"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/drone.js:1491"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/drone.js:1499"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/drone.js:1498"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/drone.js:1506"
         }
       ]
     }
