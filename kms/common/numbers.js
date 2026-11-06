@@ -4,6 +4,7 @@ const numbers_tests = require('./numbers.test.json')
 const instance = require('./numbers.instance.json')
 const gdefaults = require('./gdefaults')
 const sdefaults = require('./sdefaults')
+const linear_orderings = require('./linear_orderings')
 
 /*
   TODO 
@@ -28,7 +29,8 @@ const config = {
     */
     { 
       id: "number", 
-      bridge: "{ isInstance: false, ...next(operator) }" 
+      bridge: "{ isInstance: false, ...next(operator) }",
+      isA: ['linearlyOrdered'],
     },
     { 
       id: "integer", 
@@ -132,7 +134,7 @@ const template = {
 
 knowledgeModule( { 
   config,
-  includes: [gdefaults, sdefaults],
+  includes: [linear_orderings, gdefaults, sdefaults],
 
   instance,
   template,

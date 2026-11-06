@@ -10,7 +10,6 @@
         "((number/* || mathematicalExpression/*) [minusOperator] (number/* || mathematicalExpression/*))",
         "((number/* || mathematicalExpression/*) [timesOperator] (number/* || mathematicalExpression/*))",
         "((number/* || mathematicalExpression/*) [divideByOperator|] (number/* || mathematicalExpression/*))",
-        "((number/*) [numberRange|to] (number/*))",
         "([plusExpression|])",
         "([minusExpression|])",
         "([timesExpression|])",
@@ -25,16 +24,6 @@
         }
       ],
       "bridges": [
-        {
-          "id": "numberRange",
-          "before": [
-            "preposition"
-          ],
-          "isA": [
-            "number"
-          ],
-          "bridge": "{\n        ...next(operator),\n        operator: operator,\n        from: before[0],\n        to: after[0],\n        interpolate: [{ property: 'from' }, { property: 'operator' }, { property: 'to' }]\n      }"
-        },
         {
           "id": "mathematicalExpression",
           "isA": [
@@ -547,7 +536,6 @@
         "((number/* || mathematicalExpression/*) [minusOperator] (number/* || mathematicalExpression/*))",
         "((number/* || mathematicalExpression/*) [timesOperator] (number/* || mathematicalExpression/*))",
         "((number/* || mathematicalExpression/*) [divideByOperator|] (number/* || mathematicalExpression/*))",
-        "((number/*) [numberRange|to] (number/*))",
         "([plusExpression|])",
         "([minusExpression|])",
         "([timesExpression|])",
@@ -562,16 +550,6 @@
         }
       ],
       "bridges": [
-        {
-          "id": "numberRange",
-          "before": [
-            "preposition"
-          ],
-          "isA": [
-            "number"
-          ],
-          "bridge": "{\n        ...next(operator),\n        operator: operator,\n        from: before[0],\n        to: after[0],\n        interpolate: [{ property: 'from' }, { property: 'operator' }, { property: 'to' }]\n      }"
-        },
         {
           "id": "mathematicalExpression",
           "isA": [
