@@ -21,12 +21,6 @@ const config = {
     "([integer])",
   ],
   bridges: [
-    /*
-    { 
-      id: "testNumber", 
-      scope: 'testing',
-    },
-    */
     { 
       id: "number", 
       bridge: "{ isInstance: false, ...next(operator) }",
@@ -35,48 +29,49 @@ const config = {
     { 
       id: "integer", 
       isA: ['number'],
+      initial: { rangeableWith: ['number'] },
       bridge: "{ isInstance: false, ...next(operator) }"
    },
   ],
   words: {
     "literals": {
-      "one": [{"id": "integer", "initial": "{ value: 1, isInstance: true }" }],
-      "ones": [{"id": "integer", "initial": "{ value: 1, integer: 'many', isInstance: true }" }],
-      "two": [{"id": "integer", "initial": "{ value: 2 , isInstance: true}" }],
-      "twos": [{"id": "integer", "initial": "{ value: 2 , integer: 'many', isInstance: true}" }],
-      "three": [{"id": "integer", "initial": "{ value: 3, isInstance: true }" }],
-      "threes": [{"id": "integer", "initial": "{ value: 3, integer: 'many', isInstance: true }" }],
-      "four": [{"id": "integer", "initial": "{ value: 4, isInstance: true }" }],
-      "fours": [{"id": "integer", "initial": "{ value: 4, integer: 'many', isInstance: true }" }],
-      "five": [{"id": "integer", "initial": "{ value: 5, isInstance: true }" }],
-      "fives": [{"id": "integer", "initial": "{ value: 5, integer: 'many', isInstance: true }" }],
-      "six": [{"id": "integer", "initial": "{ value: 6, isInstance: true }" }],
-      "sixes": [{"id": "integer", "initial": "{ value: 6, integer: 'many', isInstance: true }" }],
-      "seven": [{"id": "integer", "initial": "{ value: 7, isInstance: true }" }],
-      "sevens": [{"id": "integer", "initial": "{ value: 7, integer: 'many', isInstance: true }" }],
-      "eight": [{"id": "integer", "initial": "{ value: 8, isInstance: true }" }],
-      "eights": [{"id": "integer", "initial": "{ value: 8, integer: 'many', isInstance: true }" }],
-      "nine": [{"id": "integer", "initial": "{ value: 9, isInstance: true }" }],
-      "nines": [{"id": "integer", "initial": "{ value: 9, integer: 'many', isInstance: true }" }],
-      "ten": [{"id": "integer", "initial": "{ value: 10, isInstance: true }" }],
-      "tens": [{"id": "integer", "initial": "{ value: 10, integer: 'many', isInstance: true }" }],
-      "pi": [{"id": "integer", "initial": { value: 3.1415926, integer: 'many', isInstance: true } }],
+      "one": [{"id": "integer", "initial": "{ value: 1, isInstance: true, rangeableWith: ['number'] }" }],
+      "ones": [{"id": "integer", "initial": "{ value: 1, integer: 'many', isInstance: true, rangeableWith: ['number'] }" }],
+      "two": [{"id": "integer", "initial": "{ value: 2 , isInstance: true, rangeableWith: ['number'] }" }],
+      "twos": [{"id": "integer", "initial": "{ value: 2 , integer: 'many', isInstance: true, rangeableWith: ['number'] }" }],
+      "three": [{"id": "integer", "initial": "{ value: 3, isInstance: true, rangeableWith: ['number'] }" }],
+      "threes": [{"id": "integer", "initial": "{ value: 3, integer: 'many', isInstance: true, rangeableWith: ['number'] }" }],
+      "four": [{"id": "integer", "initial": "{ value: 4, isInstance: true, rangeableWith: ['number'] }" }],
+      "fours": [{"id": "integer", "initial": "{ value: 4, integer: 'many', isInstance: true, rangeableWith: ['number'] }" }],
+      "five": [{"id": "integer", "initial": "{ value: 5, isInstance: true, rangeableWith: ['number'] }" }],
+      "fives": [{"id": "integer", "initial": "{ value: 5, integer: 'many', isInstance: true, rangeableWith: ['number'] }" }],
+      "six": [{"id": "integer", "initial": "{ value: 6, isInstance: true, rangeableWith: ['number'] }" }],
+      "sixes": [{"id": "integer", "initial": "{ value: 6, integer: 'many', isInstance: true, rangeableWith: ['number'] }" }],
+      "seven": [{"id": "integer", "initial": "{ value: 7, isInstance: true, rangeableWith: ['number'] }" }],
+      "sevens": [{"id": "integer", "initial": "{ value: 7, integer: 'many', isInstance: true, rangeableWith: ['number'] }" }],
+      "eight": [{"id": "integer", "initial": "{ value: 8, isInstance: true, rangeableWith: ['number'] }" }],
+      "eights": [{"id": "integer", "initial": "{ value: 8, integer: 'many', isInstance: true, rangeableWith: ['number'] }" }],
+      "nine": [{"id": "integer", "initial": "{ value: 9, isInstance: true, rangeableWith: ['number'] }" }],
+      "nines": [{"id": "integer", "initial": "{ value: 9, integer: 'many', isInstance: true, rangeableWith: ['number'] }" }],
+      "ten": [{"id": "integer", "initial": "{ value: 10, isInstance: true, rangeableWith: ['number'] }" }],
+      "tens": [{"id": "integer", "initial": "{ value: 10, integer: 'many', isInstance: true, rangeableWith: ['number'] }" }],
+      "pi": [{"id": "integer", "initial": { value: 3.1415926, integer: 'many', isInstance: true, rangeableWith: ['number'] } }],
     },
     patterns: [
       { 
         pattern: [{ type: 'digit' }, { repeat: true }], 
         allow_partial_matches: false, 
-        defs: [{id: "integer", uuid: '1', initial: "{ value: int(text), isInstance: true }" }]
+        defs: [{id: "integer", uuid: '1', initial: "{ value: int(text), isInstance: true, rangeableWith: ['number'] }" }]
       },
       { 
         pattern: [{ type: 'digit' }, { repeat: true }, '.', { type: 'digit' }, { repeat: true }], 
         allow_partial_matches: false, 
-        defs: [{id: "number", uuid: '1', initial: "{ value: float(text), isInstance: true }" }]
+        defs: [{id: "number", uuid: '1', initial: "{ value: float(text), isInstance: true, rangeableWith: ['number'] }" }]
       },
       { 
         pattern: ['.', { type: 'digit' }, { repeat: true }], 
         allow_partial_matches: false, 
-        defs: [{id: "number", uuid: '1', initial: "{ value: float(text), isInstance: true }" }]
+        defs: [{id: "number", uuid: '1', initial: "{ value: float(text), isInstance: true, rangeableWith: ['number'] }" }]
       },
     ],
   },
@@ -116,6 +111,23 @@ const config = {
   ],
 
   semantics: [
+    {
+      where: where(),
+      match: ({context, debug, isA}) => {
+        return context.marker == 'unify' && 
+               context.terms[0].marker == 'linearOrderedRange' && isA(context.terms[0].from, 'number') && isA(context.terms[0].to, 'number')
+      },
+      apply: ({context, resolveEvaluate}) => {
+        // resolveEvaluate(context, context.terms[0].value == context.terms[1].value)
+        const { from, to } = context.terms[0]
+        const number = context.terms[1]
+        if (from.value <= number.value && number.value <= to.value) {
+          resolveEvaluate(context, number)
+        } else {
+          resolveEvaluate(context, false)
+        }
+      }
+    },
     {
       where: where(),
       match: ({context, debug, isA}) => context.marker == 'unify' && context.terms.every((term) => term.isInstance && isA(term, 'number')),

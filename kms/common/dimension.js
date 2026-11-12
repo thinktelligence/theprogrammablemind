@@ -231,7 +231,7 @@ const config = {
     { 
       where: where(),
       id: "quantity", 
-      isA: ['noun'],
+      isA: ['noun', 'linearlyOrdered'],
       check: defaultContextCheckProperties(['amount', 'unit']),
       // bridge: "{ ...next(operator) }",
       generatorp: {
@@ -256,11 +256,12 @@ const config = {
       convolution: true, 
       before: ['preposition', 'propertyMarker'],
       after: ['mathematical_operator'],
-      // bridge: "{ marker: next(operator('quantity')), dead: true, unit: after[0], value: before[0].value, amount: before[0] }" 
+      localHierarchy: [['linearOrderedRange', 'number']],
       bridge: `{ 
         marker: next(operator('quantity')), 
         dead: true, 
         instance: true,
+        rangeableWith: ['quantity'],
         unit: after[0], 
         amount: before[0], 
         interpolate: [ { property: 'amount' }, { property: 'unit' } ] 

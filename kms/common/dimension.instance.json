@@ -141,7 +141,8 @@
           "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:232",
           "id": "quantity",
           "isA": [
-            "noun"
+            "noun",
+            "linearlyOrdered"
           ],
           "check": [
             "marker",
@@ -180,7 +181,13 @@
           "after": [
             "mathematical_operator"
           ],
-          "bridge": "{ \n        marker: next(operator('quantity')), \n        dead: true, \n        instance: true,\n        unit: after[0], \n        amount: before[0], \n        interpolate: [ { property: 'amount' }, { property: 'unit' } ] \n      }",
+          "localHierarchy": [
+            [
+              "linearOrderedRange",
+              "number"
+            ]
+          ],
+          "bridge": "{ \n        marker: next(operator('quantity')), \n        dead: true, \n        instance: true,\n        rangeableWith: ['quantity'],\n        unit: after[0], \n        amount: before[0], \n        interpolate: [ { property: 'amount' }, { property: 'unit' } ] \n      }",
           "check": [
             "marker",
             "text",
@@ -199,7 +206,7 @@
           ]
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:271",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:272",
           "id": "convertToUnits",
           "bridge": "{ ...next(operator), from: before[0], to: after[0] }",
           "check": [
@@ -259,7 +266,7 @@
       "bridges": [
         {
           "id": "useMeasurementSystem",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:329",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:330",
           "isA": [
             "verb"
           ],
@@ -5042,7 +5049,8 @@
           "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:232",
           "id": "quantity",
           "isA": [
-            "noun"
+            "noun",
+            "linearlyOrdered"
           ],
           "check": [
             "marker",
@@ -5085,7 +5093,13 @@
           "after": [
             "mathematical_operator"
           ],
-          "bridge": "{ \n        marker: next(operator('quantity')), \n        dead: true, \n        instance: true,\n        unit: after[0], \n        amount: before[0], \n        interpolate: [ { property: 'amount' }, { property: 'unit' } ] \n      }",
+          "localHierarchy": [
+            [
+              "linearOrderedRange",
+              "number"
+            ]
+          ],
+          "bridge": "{ \n        marker: next(operator('quantity')), \n        dead: true, \n        instance: true,\n        rangeableWith: ['quantity'],\n        unit: after[0], \n        amount: before[0], \n        interpolate: [ { property: 'amount' }, { property: 'unit' } ] \n      }",
           "check": [
             "marker",
             "text",
@@ -5104,7 +5118,7 @@
           ]
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:271",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:272",
           "id": "convertToUnits",
           "bridge": "{ ...next(operator), from: before[0], to: after[0] }",
           "check": [
@@ -5163,7 +5177,7 @@
       "bridges": [
         {
           "id": "useMeasurementSystem",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:329",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:330",
           "isA": [
             "verb"
           ],
@@ -5190,7 +5204,7 @@
       "extraConfig": true,
       "semantics": [
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:342"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:343"
         }
       ]
     }

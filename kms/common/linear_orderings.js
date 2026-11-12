@@ -10,15 +10,20 @@ const config = {
   name: 'linear_orderings',
   operators: [
     "([linearlyOrdered])",
-    "((linearlyOrdered/*) [linearOrderedRange|to] (linearlyOrdered/*))",
+    "((@<= linearlyOrdered && @<=contexts[1].rangeableWith) [linearOrderedRange|to] (@<= linearlyOrdered && @<=contexts[-1].rangeableWith))",
+    // "([fromLO|from] (linearlyOrdered/*) (to/*) (linearlyOrdered/*))",
+    // "at least (linearlyOrdered/*)",
+    // "at most (linearlyOrdered/*)",
   ],
   bridges: [
     {
       id: "linearlyOrdered",
+      initial: { rangeableWith: ['linearlyOrdered'] },
     }, 
+    /*
     {
-      id: "linearOrderedRange",
-      before: ['preposition'],
+      id: "fromLO",
+      isA: ['preposition'],
       bridge: `{
         ...next(operator),
         types: [before[0].marker.id],
@@ -26,8 +31,31 @@ const config = {
         from: before[0],
         to: after[0],
         interpolate: [{ property: 'from' }, { property: 'operator' }, { property: 'to' }]
+      }`
+    }, 
+    */
+    {
+      id: "linearOrderedRange",
+      // isA: ['number'],
+      before: ['preposition'],
+      initial: { retries: 3 },
+      bridge: `{
+        ...next(operator),
+        localHierarchy: [before[0].marker.id],
+        operator: operator,
+        from: before[0],
+        to: after[0],
+        interpolate: [{ property: 'from' }, { property: 'operator' }, { property: 'to' }]
       }`,
       check: defaultContextCheckProperties(['to', 'from', 'types'])
+    },
+  ],
+  semantics: [
+    {
+      match: ({context, debug}) => context.marker == 'unify' && context.terms[0].marker == 'linearOrderedRange',
+      apply: ({context, callId}) => {
+        // debugger
+      },
     },
   ],
 };
