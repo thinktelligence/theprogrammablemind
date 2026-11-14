@@ -39,6 +39,7 @@ const config = {
       // isA: ['number'],
       before: ['preposition'],
       initial: { retries: 3 },
+      enhanced_associations: false,
       bridge: `{
         ...next(operator),
         localHierarchy: [before[0].marker.id],
@@ -52,9 +53,18 @@ const config = {
   ],
   semantics: [
     {
+      where: where(),
       match: ({context, debug}) => context.marker == 'unify' && context.terms[0].marker == 'linearOrderedRange',
       apply: ({context, callId}) => {
-        // debugger
+        /*
+        const { from, to } = context.terms[0]
+        const number = context.terms[1]
+        if (from.value <= number.value && number.value <= to.value) {
+          resolveEvaluate(context, number)
+        } else {
+          resolveEvaluate(context, false)
+        }
+        */
       },
     },
   ],

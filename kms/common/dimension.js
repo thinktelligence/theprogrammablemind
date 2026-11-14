@@ -342,11 +342,16 @@ const template = {
         {
           where: where(),
           match: ({context, isA, debug}) => {
-            return context.marker == 'unify' && 
-              context.terms.every((term) => isA(term, 'quantity')) &&
-              context.terms.every((term) => term.instance)
+            if (context.marker !== 'unify') {
+              return
+            }
+            if (context.terms[0].marker == 'linearOrderedRange') {
+            } else {
+              return context.terms.every((term) => isA(term, 'quantity')) && context.terms.every((term) => term.instance)
+            }
           },
-          apply: async ({context, e, unify, resolveEvaluate, toEValue}) => {
+          apply: async ({context, e, debug, unify, resolveEvaluate, toEValue}) => {
+            debug.breakAt('time#call33')
             const t1 = context.terms[0]
             const t2 = context.terms[1]
             if (t1.propertyType !== t2.propertyType) {

@@ -14,6 +14,7 @@ const template = {
         { 
           id: 'setdebugbreak',
           where: where(),
+          enhanced_associations: false,
           bridge: `{
             ...next(operator),
             tag: after[0]
@@ -25,6 +26,7 @@ const template = {
         {
           id: 'debugger',
           where: where(),
+          enhanced_associations: false,
           semantic: (args) => {
             debugger // eslint-disable-line no-debugger
             debugger // eslint-disable-line no-debugger

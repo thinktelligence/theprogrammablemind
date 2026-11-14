@@ -88,7 +88,9 @@ function addPropertyMarker(args) {
     const instance = await fragments("concept is a property", { concept: { marker: property, level: 0, value: property, word: property } })
     await e(instance, where())
     const propertyMarker = `${property}Marker`
-    config.addOperator(`((@<= 'quantity' && context.unit.dimension == ${dimension}) [${propertyMarker}|])`)
+    // config.addOperator(`((@<= 'quantity' && (context.unit.dimension == ${dimension} || context.from.unit.dimension == ${dimension})) [${propertyMarker}|])`)
+    // config.addOperator(`((@<= 'quantity' && context.unit.dimension == ${dimension}) || (context.from @<= 'quantity' && context.from.unit.dimension == ${dimension})) [${propertyMarker}|])`)
+    config.addOperator(`(((@<= quantity  && context.unit.dimension == ${dimension}) || (context.from @<= quantity && context.from.unit.dimension == ${dimension})) [${propertyMarker}|])`)
     config.addBridge({
       id: propertyMarker,
       words: markerWords,

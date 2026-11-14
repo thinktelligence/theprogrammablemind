@@ -117,11 +117,12 @@ const config = {
         return context.marker == 'unify' && 
                context.terms[0].marker == 'linearOrderedRange' && isA(context.terms[0].from, 'number') && isA(context.terms[0].to, 'number')
       },
-      apply: ({context, resolveEvaluate}) => {
+      apply: ({context, debug, toEValue, resolveEvaluate}) => {
+        debug.breakAt('time#call39')
         // resolveEvaluate(context, context.terms[0].value == context.terms[1].value)
         const { from, to } = context.terms[0]
         const number = context.terms[1]
-        if (from.value <= number.value && number.value <= to.value) {
+        if (from.value <= toEValue(number) && toEValue(number) <= to.value) {
           resolveEvaluate(context, number)
         } else {
           resolveEvaluate(context, false)
