@@ -148,7 +148,6 @@ class API {
         marker: 'quantity',
         level: 1,
         unit: evalue.to,
-        // amount: { evalue: evalue.value, paraphrase: undefined }
         amount: evalue.value,
       }
     })
@@ -341,6 +340,21 @@ const template = {
       semantics: [
         {
           where: where(),
+          match: ({context, isA}) => context.marker == 'linearlyOrderedCompare' && [context.left, context.right].every((term) => isA(term, 'quantity')) && context.terms.every((term) => term.instance),
+          apply: async ({context, toFinalValue, resolveEvaluate}) => {
+            debugger
+            const { left, right } = context
+            if (left.propertyType !== right.propertyType) {
+              return
+            }
+            const convert = await e({ marker: 'convertToUnits', from: right, to: left.unit }, where())
+            const rightInLeftUnits = await toEValue(convert)
+            resolveEvaluate(context, await compare(left.amount, await rightInLeftUnits.amount))
+          }
+        },
+
+        {
+          where: where(),
           match: ({context, isA, debug}) => {
             if (context.marker !== 'unify') {
               return
@@ -351,7 +365,6 @@ const template = {
             }
           },
           apply: async ({context, e, debug, unify, resolveEvaluate, toEValue}) => {
-            debug.breakAt('time#call33')
             const t1 = context.terms[0]
             const t2 = context.terms[1]
             if (t1.propertyType !== t2.propertyType) {

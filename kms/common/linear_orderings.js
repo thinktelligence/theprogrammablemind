@@ -20,20 +20,6 @@ const config = {
       id: "linearlyOrdered",
       initial: { rangeableWith: ['linearlyOrdered'] },
     }, 
-    /*
-    {
-      id: "fromLO",
-      isA: ['preposition'],
-      bridge: `{
-        ...next(operator),
-        types: [before[0].marker.id],
-        operator: operator,
-        from: before[0],
-        to: after[0],
-        interpolate: [{ property: 'from' }, { property: 'operator' }, { property: 'to' }]
-      }`
-    }, 
-    */
     {
       id: "linearOrderedRange",
       // isA: ['number'],
@@ -55,27 +41,38 @@ const config = {
     {
       where: where(),
       match: ({context, debug}) => context.marker == 'unify' && context.terms[0].marker == 'linearOrderedRange',
-      apply: ({context, callId}) => {
-        /*
+      apply: async ({context, resolveEvaluate, compare, callId}) => {
         const { from, to } = context.terms[0]
-        const number = context.terms[1]
-        if (from.value <= number.value && number.value <= to.value) {
-          resolveEvaluate(context, number)
+        const value = context.terms[1]
+        debugger
+        const f = await compare(from, value)
+        const t = await compare(value, to)
+        if (f && t && f !== '>' && t !== '>') {
+          resolveEvaluate(context, value)
         } else {
           resolveEvaluate(context, false)
         }
-        */
-      },
+      }
     },
   ],
 };
 
+function initializer({objects, config, isModule}) {
+  config.addArgs(
+    ({e, toEValue}) => ({
+      compare: async (left, right) => {
+        const v = await e({ marker: 'linearlyOrderedCompare', left, right })
+        return v.evalue
+      }
+    })
+  )
+}
+
 knowledgeModule( { 
   config,
   includes: [pos, gdefaults, sdefaults],
-
+  initializer,
   instance,
-
   module,
   description: 'talking about linear orderings',
   test: {

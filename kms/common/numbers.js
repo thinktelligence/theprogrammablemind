@@ -113,19 +113,24 @@ const config = {
   semantics: [
     {
       where: where(),
-      match: ({context, debug, isA}) => {
-        return context.marker == 'unify' && 
-               context.terms[0].marker == 'linearOrderedRange' && isA(context.terms[0].from, 'number') && isA(context.terms[0].to, 'number')
+      match: ({context, callId, isA, toFinalValue}) => {
+        if (context.marker == 'linearlyOrderedCompare' && callId == 'time#call40') {
+          debugger
+        }
+        const left = toFinalValue(context.left)
+        const right = toFinalValue(context.right)
+        return context.marker == 'linearlyOrderedCompare' && isA(context.left, ['number', 'mathematicalExpression']) && isA(context.right, ['number', 'mathematicalExpression'])
       },
-      apply: ({context, debug, toEValue, resolveEvaluate}) => {
-        debug.breakAt('time#call39')
-        // resolveEvaluate(context, context.terms[0].value == context.terms[1].value)
-        const { from, to } = context.terms[0]
-        const number = context.terms[1]
-        if (from.value <= toEValue(number) && toEValue(number) <= to.value) {
-          resolveEvaluate(context, number)
-        } else {
-          resolveEvaluate(context, false)
+      apply: ({context, callId, toFinalValue, resolveEvaluate}) => {
+        const { left, right } = context
+        const l = toFinalValue(left)
+        const r = toFinalValue(right)
+        if (l == r) {
+          resolveEvaluate(context, '==')
+        } else if (l < r) {
+          resolveEvaluate(context, '<')
+        } else if (r > l) {
+          resolveEvaluate(context, '>')
         }
       }
     },

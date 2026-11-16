@@ -86,7 +86,7 @@
           ]
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:202",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:201",
           "id": "preferredUnits",
           "isA": [
             "verb"
@@ -110,7 +110,7 @@
           "semantic": "async ({context, e, api, toArray, resolveEvaluate}) => {\n        const preferredUnits = await api.getPreferredUnits(context.quantity)\n        if (!preferredUnits) {\n          return\n        }\n        const from = context.quantity;\n        const value = await e({ marker: 'convertToUnits', from, to: preferredUnits }, where())\n        resolveEvaluate(context, value.evalue)\n      }"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:218",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:217",
           "id": "useUnits",
           "isA": [
             "verb"
@@ -134,11 +134,11 @@
           "semantic": "({context, api}) => {\n        api.setPreferredUnits(context.units)\n      }"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:228",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:227",
           "id": "dimension"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:232",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:231",
           "id": "quantity",
           "isA": [
             "noun",
@@ -206,7 +206,7 @@
           ]
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:272",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:271",
           "id": "convertToUnits",
           "bridge": "{ ...next(operator), from: before[0], to: after[0] }",
           "check": [
@@ -266,7 +266,7 @@
       "bridges": [
         {
           "id": "useMeasurementSystem",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:330",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:329",
           "isA": [
             "verb"
           ],
@@ -293,8 +293,12 @@
     {
       "semantics": [
         {
+          "match": "({context, isA}) => context.marker == 'linearlyOrderedCompare' && [context.left, context.right].every((term) => isA(term, 'quantity')) && context.terms.every((term) => term.instance)",
+          "apply": "async ({context, toFinalValue, resolveEvaluate}) => {\n            debugger\n            const { left, right } = context\n            if (left.propertyType !== right.propertyType) {\n              return\n            }\n            const convert = await e({ marker: 'convertToUnits', from: right, to: left.unit }, where())\n            const rightInLeftUnits = await toEValue(convert)\n            resolveEvaluate(context, await compare(left.amount, await rightInLeftUnits.amount))\n          }"
+        },
+        {
           "match": "({context, isA, debug}) => {\n            if (context.marker !== 'unify') {\n              return\n            }\n            if (context.terms[0].marker == 'linearOrderedRange') {\n            } else {\n              return context.terms.every((term) => isA(term, 'quantity')) && context.terms.every((term) => term.instance)\n            }\n          }",
-          "apply": "async ({context, e, debug, unify, resolveEvaluate, toEValue}) => {\n            debug.breakAt('time#call33')\n            const t1 = context.terms[0]\n            const t2 = context.terms[1]\n            if (t1.propertyType !== t2.propertyType) {\n              return\n            }\n            const convert = await e({ marker: 'convertToUnits', from: t2, to: t1.unit }, where())\n            const t2InT1Units = await toEValue(convert)\n            resolveEvaluate(context, await unify(t1.amount, await t2InT1Units.amount))\n          }"
+          "apply": "async ({context, e, debug, unify, resolveEvaluate, toEValue}) => {\n            const t1 = context.terms[0]\n            const t2 = context.terms[1]\n            if (t1.propertyType !== t2.propertyType) {\n              return\n            }\n            const convert = await e({ marker: 'convertToUnits', from: t2, to: t1.unit }, where())\n            const t2InT1Units = await toEValue(convert)\n            resolveEvaluate(context, await unify(t1.amount, await t2InT1Units.amount))\n          }"
         }
       ]
     }
@@ -4968,7 +4972,7 @@
       ],
       "generators": [
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:188"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:187"
         }
       ],
       "bridges": [
@@ -4996,7 +5000,7 @@
           ]
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:202",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:201",
           "id": "preferredUnits",
           "isA": [
             "verb"
@@ -5019,7 +5023,7 @@
           ]
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:218",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:217",
           "id": "useUnits",
           "isA": [
             "verb"
@@ -5042,11 +5046,11 @@
           ]
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:228",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:227",
           "id": "dimension"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:232",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:231",
           "id": "quantity",
           "isA": [
             "noun",
@@ -5118,7 +5122,7 @@
           ]
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:272",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:271",
           "id": "convertToUnits",
           "bridge": "{ ...next(operator), from: before[0], to: after[0] }",
           "check": [
@@ -5177,7 +5181,7 @@
       "bridges": [
         {
           "id": "useMeasurementSystem",
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:330",
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:329",
           "isA": [
             "verb"
           ],
@@ -5204,7 +5208,10 @@
       "extraConfig": true,
       "semantics": [
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:343"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:342"
+        },
+        {
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:357"
         }
       ]
     }
