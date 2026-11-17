@@ -10,7 +10,7 @@ const config = {
   name: 'linear_orderings',
   operators: [
     "([linearlyOrdered])",
-    "((@<= linearlyOrdered && @<=contexts[1].rangeableWith) [linearOrderedRange|to] (@<= linearlyOrdered && @<=contexts[-1].rangeableWith))",
+    "(value [linearOrderedRange|to] value)",
     // "([fromLO|from] (linearlyOrdered/*) (to/*) (linearlyOrdered/*))",
     // "at least (linearlyOrdered/*)",
     // "at most (linearlyOrdered/*)",
@@ -24,7 +24,12 @@ const config = {
       id: "linearOrderedRange",
       // isA: ['number'],
       before: ['preposition'],
-      initial: { retries: 3 },
+      selector: {
+        match: "applicable",
+        left: [ { pattern: '(@<= linearlyOrdered && @<=contexts[1].rangeableWith)' } ],
+        right: [ { pattern: '(@<= linearlyOrdered && @<=contexts[-1].rangeableWith)' } ],
+        passthrough: true
+      },
       enhanced_associations: false,
       bridge: `{
         ...next(operator),
