@@ -85,7 +85,7 @@ const config = {
       id: "list",
       level: 0,
       selector: {
-          match: "same",
+          match: "applicable",
           left: [ { pattern: '($type && context.isInstance == variables.isInstance)' } ],
           right: [ { pattern: '($type && context.isInstance == variables.isInstance)' } ],
           passthrough: true
@@ -96,7 +96,7 @@ const config = {
       id: "list",
       level: 1,
       selector: {
-          match: "same",
+          match: "applicable",
           left: [ { pattern: '($type && context.isInstance == variables.isInstance)' } ],
           passthrough: true
       },

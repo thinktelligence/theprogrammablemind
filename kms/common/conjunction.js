@@ -15,7 +15,7 @@ const config = {
       level: 0, 
       enhanced_associations: false,
       selector: {
-          match: "same", 
+          match: "applicable", 
           left: [ { pattern: '($type && context.isInstance == variables.isInstance && context.dead == variables.dead && !@<=$contexts[1].notConjunctableWith)' } ], 
           right: [ { pattern: '($type && context.isInstance == variables.isInstance && context.dead == variables.dead && !@<=$contexts[-1].notConjunctableWith)' } ], 
           passthrough: true
@@ -34,7 +34,7 @@ const config = {
       level: 1, 
       enhanced_associations: false,
       selector: {
-          match: "same", 
+          match: "applicable", 
           left: [ { pattern: '($type && context.isInstance == variables.isInstance && context.dead == variables.dead && contexts[0] !@<= contexts[-1].notConjunctableWith)' } ], 
           passthrough: true
       }, 

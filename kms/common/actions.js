@@ -70,7 +70,7 @@ const config = {
       isA: ['action'],
       before: ['doAction'],
       selector: {
-          match: "same",
+          match: "applicable",
           left: [ { pattern: '(@<= action || (@<=doAction && context.marker.level == 1))' } ],
           right: [ { pattern: '(@<= action || (@<=doAction && context.marker.level == 1))' } ],
           passthrough: true
