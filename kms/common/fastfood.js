@@ -150,7 +150,6 @@ const template = {
         "((number/0,1 && context.isInstance == false) [numberNumberCombo] (number/0,1 && isInstance == true))",
         "((combo/*) [([withModification|with] ([modification]))])",
       ],
-      floaters: ['isInstance'],
       priorities: [
        // { "context": [['counting', 0], ['strawberry_smoothie', 0], ], "choose": [0] },
        { "context": [['counting', 0], ['strawberry_smoothie', 0], ], "choose": [1] },
@@ -967,7 +966,6 @@ const config = {
       }
     },
   ],
-  floaters: ['quantity'],
   bridges: [
     { 
       id: 'orderNoun',
