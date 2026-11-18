@@ -380,6 +380,7 @@ const config = {
     */
   //  ['report', 'product'],
   ],
+  floaters: ["api", "isQuery"],
   debug: true,
   "version": '3',
   "words": {

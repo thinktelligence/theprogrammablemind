@@ -257,6 +257,7 @@ const config = {
     }
   },
 
+  floaters: ['query', 'associations'],
 
   priorities: [
     { "context": [['is', 0], ['means', 0], ], "choose": [0] },
