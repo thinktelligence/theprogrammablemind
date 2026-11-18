@@ -35,6 +35,7 @@ const config = {
         ...next(operator),
         localHierarchy: [before[0].marker.id],
         operator: operator,
+        ...project(before[0], default(before[0].floaters, [])),
         from: before[0],
         to: after[0],
         interpolate: [{ property: 'from' }, { property: 'operator' }, { property: 'to' }]

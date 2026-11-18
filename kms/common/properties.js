@@ -88,8 +88,6 @@ function addPropertyMarker(args) {
     const instance = await fragments("concept is a property", { concept: { marker: property, level: 0, value: property, word: property } })
     await e(instance, where())
     const propertyMarker = `${property}Marker`
-    // config.addOperator(`((@<= 'quantity' && (context.unit.dimension == ${dimension} || context.from.unit.dimension == ${dimension})) [${propertyMarker}|])`)
-    // config.addOperator(`((@<= 'quantity' && context.unit.dimension == ${dimension}) || (context.from @<= 'quantity' && context.from.unit.dimension == ${dimension})) [${propertyMarker}|])`)
     config.addOperator(`(((@<= quantity  && context.unit.dimension == ${dimension}) || (context.from @<= quantity && context.from.unit.dimension == ${dimension})) [${propertyMarker}|])`)
     config.addBridge({
       id: propertyMarker,
@@ -165,61 +163,64 @@ const config = {
       isA: ['verb'],
       preferOver: ['is'],
       enhanced_associations: true,
-      bridge: "{ ...operator, object: before[0], flatten: true, operator: operator, propertyValue: after[0], interpolate: [{ property: 'object' }, { property: 'operator' }, { property: 'propertyValue' }] }",
-      semantic: async ({gp, context, api, callId, e, debug, toArray, fragments, resolveEvaluate, getWordFromDictionary}) => {
-        // TODO is there some way to make lookup up and setting the value into the same operation?
-        if (context.query) {
-          const propertyId = context.propertyValue.markedProperty
-          const object = context.object
-          const value = context.propertyValue
-          const pattern = {
-            marker: 'propertyRelation',
-            object,
-            property: { marker: propertyId, value: propertyId },
-            value,
-          }
-
-          const relations = await api.relation_unify(pattern, ['object', 'property', 'value'])
-        
-          if (relations.length == 0) {
-            const r = {
-              objectPropertyValueStyle: {
-                template: "nobody is isPropertyValue",
-                mapping: {
-                  isPropertyValue: 'value',
-                }
-              },
+      bridge: "{ ...next(operator), object: before[0], flatten: true, operator: operator, propertyValue: after[0], interpolate: [{ property: 'object' }, { property: 'operator' }, { property: 'propertyValue' }] }",
+      semantic: {
+        match: ({context}) => context.level > 0,
+        apply: async ({gp, context, api, callId, e, debug, toArray, fragments, resolveEvaluate, getWordFromDictionary}) => {
+          // TODO is there some way to make lookup up and setting the value into the same operation?
+          if (context.query) {
+            const propertyId = context.propertyValue.markedProperty
+            const object = context.object
+            const value = context.propertyValue
+            const pattern = {
+              marker: 'propertyRelation',
+              object,
+              property: { marker: propertyId, value: propertyId },
               value,
             }
-            relations.push(r)
-          } else {
-            relations.forEach((r) => {
-              r.objectPropertyValueStyle = {
-                template: "object is isPropertyValue",
-                mapping: {
-                  object: 'object',
-                  isPropertyValue: 'value',
-                }
-              }
-            })
-          }
 
-          resolveEvaluate(context, relations)
-        } else {
-          const propertyType = {
-            marker: context.propertyValue.propertyType,
-            level: 0,
-            word: context.propertyValue.propertyType,
-            value: context.propertyValue.propertyType,
-          }
-          for (const object of toArray(context.object)) {
-            const instance = await fragments("the property of object is value", { property: propertyType, object, value: context.propertyValue })
-            const text = await gp(instance)
-            instance.query = context.query
-            await e(instance, where())
+            const relations = await api.relation_unify(pattern, ['object', 'property', 'value'])
+          
+            if (relations.length == 0) {
+              const r = {
+                objectPropertyValueStyle: {
+                  template: "nobody is isPropertyValue",
+                  mapping: {
+                    isPropertyValue: 'value',
+                  }
+                },
+                value,
+              }
+              relations.push(r)
+            } else {
+              relations.forEach((r) => {
+                r.objectPropertyValueStyle = {
+                  template: "object is isPropertyValue",
+                  mapping: {
+                    object: 'object',
+                    isPropertyValue: 'value',
+                  }
+                }
+              })
+            }
+
+            resolveEvaluate(context, relations)
+          } else {
+            const propertyType = {
+              marker: context.propertyValue.propertyType,
+              level: 0,
+              word: context.propertyValue.propertyType,
+              value: context.propertyValue.propertyType,
+            }
+            for (const object of toArray(context.object)) {
+              const instance = await fragments("the property of object is value", { property: propertyType, object, value: context.propertyValue })
+              const text = await gp(instance)
+              instance.query = context.query
+              await e(instance, where())
+            }
           }
         }
-      }
+      },
     },
 
     { 
@@ -672,7 +673,8 @@ const config = {
       match: ({context, isA, debug}) => {
         // debug.breakAt('time#call32')
         return context.marker == 'unify' && 
-          isA(context.terms[0].marker, 'propertyMarker') &&
+          // isA(context.terms[0].marker, 'propertyMarker') &&
+          context.terms[0].isPropertyValue &&
           context.terms?.every((term) => term.marker == context.terms[0].marker)
       },
       apply: async ({ context, resolveEvaluate, unify }) => {
