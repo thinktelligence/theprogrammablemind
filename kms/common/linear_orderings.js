@@ -68,7 +68,9 @@ function initializer({objects, config, isModule}) {
     ({e, toEValue}) => ({
       compare: async (left, right) => {
         const v = await e({ marker: 'linearlyOrderedCompare', left, right })
-        return v.evalue
+        if (v.evalue?.marker !== 'undefined') {
+          return v.evalue
+        }
       }
     })
   )
