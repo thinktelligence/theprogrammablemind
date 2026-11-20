@@ -294,7 +294,7 @@
       "semantics": [
         {
           "match": "({context, isA}) => {\n            if (context.marker == 'linearlyOrderedCompare') {\n              const terms = [context.left, context.right]\n              return terms.every((term) => isA(term, 'quantity')) && terms.every((term) => term.instance)\n            }\n          }",
-          "apply": "async ({context, toFinalValue, toEValue, compare, resolveEvaluate, e}) => {\n            debugger\n            const { left, right } = context\n            if (left.propertyType !== right.propertyType) {\n              return\n            }\n            const convert = await e({ marker: 'convertToUnits', from: right, to: left.unit }, where())\n            const rightInLeftUnits = await toEValue(convert)\n            resolveEvaluate(context, await compare(left.amount, await rightInLeftUnits.amount))\n          }"
+          "apply": "async ({context, toFinalValue, toEValue, compare, resolveEvaluate, e}) => {\n            const { left, right } = context\n            if (left.propertyType !== right.propertyType) {\n              return\n            }\n            const convert = await e({ marker: 'convertToUnits', from: right, to: left.unit }, where())\n            const rightInLeftUnits = await toEValue(convert)\n            resolveEvaluate(context, await compare(left.amount, await rightInLeftUnits.amount))\n          }"
         },
         {
           "match": "({context, isA, debug}) => {\n            if (context.marker !== 'unify') {\n              return\n            }\n            if (context.terms[0].marker == 'linearOrderedRange') {\n            } else {\n              return context.terms.every((term) => isA(term, 'quantity')) && context.terms.every((term) => term.instance)\n            }\n          }",
@@ -5211,7 +5211,7 @@
           "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:342"
         },
         {
-          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:362"
+          "where": "/home/dev/code/theprogrammablemind/kms/common/dimension.js:361"
         }
       ]
     }
