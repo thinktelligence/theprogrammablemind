@@ -39,6 +39,7 @@ const kirk = require('./common/kirk')
 const latin = require('./common/latin')
 const latin_helpers = require('./common/latin_helpers')
 const length = require('./common/length')
+const linear_orderings = require('./common/linear_orderings')
 const logging = require('./common/logging')
 const math = require('./common/math')
 const menus = require('./common/menus')
@@ -120,6 +121,7 @@ module.exports = {
   latin,
   latin_helpers,
   length,
+  linear_orderings,
   logging,
   math,
   menus,
