@@ -1114,6 +1114,8 @@ DONE node time -q 'bob is 24 years old\nwhose age is 24 years old' -g -d
 who is older than bob
           5 years old
           5 years
+who is the oldest
+  who is the oldest man
 
 TODO node time -q 'bob is 4 years old\nwho is 12 months to 5 years old' -g -d
 from 22 to 28
