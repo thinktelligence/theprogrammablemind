@@ -340,9 +340,13 @@ const template = {
       semantics: [
         {
           where: where(),
-          match: ({context, isA}) => context.marker == 'linearlyOrderedCompare' && [context.left, context.right].every((term) => isA(term, 'quantity')) && context.terms.every((term) => term.instance),
-          apply: async ({context, toFinalValue, resolveEvaluate}) => {
-            debugger
+          match: ({context, isA}) => {
+            if (context.marker == 'linearlyOrderedCompare') {
+              const terms = [context.left, context.right]
+              return terms.every((term) => isA(term, 'quantity')) && terms.every((term) => term.instance)
+            }
+          },
+          apply: async ({context, toFinalValue, toEValue, compare, resolveEvaluate, e}) => {
             const { left, right } = context
             if (left.propertyType !== right.propertyType) {
               return

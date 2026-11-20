@@ -1106,13 +1106,14 @@ DONE node time -q '5 years to 26 years old' -g -d >out.txt
 DONE node time -q '12 months to 5 years old' -g -d
 DONE node time -q 'bob is 3 years old\nwho is 3 to 40 months old' -g -d
 DONE node time -q 'bob is 3 years old\nwho is 12 months old' -g -d
+DONE node time -q 'bob is 6 years old\nwho is 12 months old to 5 years old' -g -d
+DONE node time -q 'bob is 4 years old\nwho is 12 months to 5 years old' -g -d
+DONE    node time -q 'bob is 11 months old\nwho is 12 months to 5 years old' -g -d
+DONE node time -q 'bob is 24 years old\nwhose age is 24 years old' -g -d
 
-WORKING node time -q 'bob is 6 years old\nwho is 12 months old to 5 years old' -g -d
-NEXT node time -q 'bob is 4 years old\nwho is 12 months to 5 years old' -g -d
-NEXT    node time -q 'bob is 11 months old\nwho is 12 months to 5 years old' -g -d
-
-
-NEXT node time -q 'bob is 24 years old\nwhose age is 24 years old' -g -d
+who is older than bob
+          5 years old
+          5 years
 
 TODO node time -q 'bob is 4 years old\nwho is 12 months to 5 years old' -g -d
 from 22 to 28

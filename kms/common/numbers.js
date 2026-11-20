@@ -114,9 +114,6 @@ const config = {
     {
       where: where(),
       match: ({context, callId, isA, toFinalValue}) => {
-        if (context.marker == 'linearlyOrderedCompare' && callId == 'time#call40') {
-          debugger
-        }
         const left = toFinalValue(context.left)
         const right = toFinalValue(context.right)
         return context.marker == 'linearlyOrderedCompare' && isA(context.left, ['number', 'mathematicalExpression']) && isA(context.right, ['number', 'mathematicalExpression'])

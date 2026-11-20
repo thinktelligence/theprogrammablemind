@@ -36,6 +36,7 @@ const config = {
         localHierarchy: [before[0].marker.id],
         operator: operator,
         ...project(before[0], default(before[0].floaters, [])),
+        instance: or(before[0].instance, after[0].instance),
         from: before[0],
         to: after[0],
         interpolate: [{ property: 'from' }, { property: 'operator' }, { property: 'to' }]
@@ -50,7 +51,6 @@ const config = {
       apply: async ({context, resolveEvaluate, compare, callId}) => {
         const { from, to } = context.terms[0]
         const value = context.terms[1]
-        debugger
         const f = await compare(from, value)
         const t = await compare(value, to)
         if (f && t && f !== '>' && t !== '>') {

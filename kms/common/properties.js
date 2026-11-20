@@ -92,7 +92,7 @@ function addPropertyMarker(args) {
     config.addBridge({
       id: propertyMarker,
       words: markerWords,
-      isA: ['adjective', 'propertyMarker', 'queryable'],
+      isA: ['adjective', 'propertyMarker', 'queryable', 'linearlyOrdered'],
       enhanced_associations: true,
       initial: { markedProperty: property },
       check: defaultContextCheckProperties(['markedProperty', 'quantity']),
@@ -101,6 +101,8 @@ function addPropertyMarker(args) {
         quantity: before[0],
         notConjunctableWith: ['quantity'],
         checks: append(before.checks, ['repeats']), 
+        floaters: ['isPropertyValue'],
+        rangeableWith: ['${propertyMarker}'],
         propertyType: '${property}', 
         isPropertyValue: true, 
         ${property}: operator, 
@@ -166,17 +168,32 @@ const config = {
       bridge: "{ ...next(operator), object: before[0], flatten: true, operator: operator, propertyValue: after[0], interpolate: [{ property: 'object' }, { property: 'operator' }, { property: 'propertyValue' }] }",
       semantic: {
         match: ({context}) => context.level > 0,
-        apply: async ({gp, context, api, callId, e, debug, toArray, fragments, resolveEvaluate, getWordFromDictionary}) => {
+        apply: async ({gp, context, api, callId, e, debug, toArray, fragments, resolveEvaluate, getWordFromDictionary, isA}) => {
           // TODO is there some way to make lookup up and setting the value into the same operation?
           if (context.query) {
-            const propertyId = context.propertyValue.markedProperty
             const object = context.object
-            const value = context.propertyValue
-            const pattern = {
-              marker: 'propertyRelation',
-              object,
-              property: { marker: propertyId, value: propertyId },
-              value,
+            let pattern, value
+            if (isA(context.propertyValue, 'linearOrderedRange') && context.propertyValue.isPropertyValue) {
+              const lor = { ...context.propertyValue }
+              lor.from = lor.from.quantity
+              lor.to = lor.to.quantity
+              value = lor
+              const propertyId = context.propertyValue.from[context.propertyValue.from.propertyType].markedProperty
+              pattern = {
+                marker: 'propertyRelation',
+                object,
+                property: { marker: propertyId, value: propertyId },
+                value,
+              }
+            } else {
+              value = context.propertyValue
+              const propertyId = context.propertyValue.markedProperty
+              pattern = {
+                marker: 'propertyRelation',
+                object,
+                property: { marker: propertyId, value: propertyId },
+                value,
+              }
             }
 
             const relations = await api.relation_unify(pattern, ['object', 'property', 'value'])
@@ -671,9 +688,7 @@ const config = {
       notes: 'unify for propertiesMarkers -> 23 years old is 22 to 50 years old',
       where: where(),
       match: ({context, isA, debug}) => {
-        // debug.breakAt('time#call32')
         return context.marker == 'unify' && 
-          // isA(context.terms[0].marker, 'propertyMarker') &&
           context.terms[0].isPropertyValue &&
           context.terms?.every((term) => term.marker == context.terms[0].marker)
       },
@@ -764,6 +779,21 @@ const config = {
        
         const text = await args.gp(relations[0]) // 'the age is 23 years old'
         resolveEvaluate(context, relations)
+      }
+    },
+    {
+      notes: 'unify for propertiesMarker + property values',
+      where: where(),
+      match: ({context, isA, debug}) => context.marker == 'unify' && context.terms?.some((term) => term.isPropertyValue && term.quantity),
+      apply: async ({ context, resolveEvaluate, unify, callId }) => {
+        const toQuantity = (term) => {
+          // linearlyOrderedRanges dont have a quantity but can be for property values
+          if (term.isPropertyValue && term.quantity) {
+            return term.quantity
+          }
+          return term
+        }
+        resolveEvaluate(context, await unify(...context.terms.map(toQuantity)))
       }
     },
     {

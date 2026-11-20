@@ -496,7 +496,7 @@ class API {
     }
 
     for (const arg of args) {
-      let u = await this.args.unify(template[arg], value[arg])
+      const u = await this.args.unify(template[arg], value[arg])
       if (u?.marker == 'undefined') {
         return false
       }
